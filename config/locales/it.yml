@@ -1,0 +1,127 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+it:
+  date:
+    order: [:day, :month, :year ]
+    formats:
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
+    day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
+    abbr_day_names: [L, M, M, G, V, S, D]
+    month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
+    abbr_month_names: [~, Gen, Vas, Kov, Bal, Geg, Bir, Lie, Rugs, Rugp, Spa, Lap, Gruo]
+  time:
+    formats:
+     default: "%d/%m/%Y %H:%M"
+     long: "%A %d %B %Y %H:%M"
+     long_date: "%A %d %B %Y"
+    am: "am"
+    pm: "pm"
+
+  hello: "Ciao mondo"
+  error_not_logged_in: "Accesso riservato agli utenti registrati."
+  error_admin_required: "Devi essere amministratore per visualizzare la pagina"
+  error_proposal_not_your: "Non puoi modificare proposte che non sono state presentate da te."
+  error_proposal_loading: "Errore nel caricamento della proposta."
+  error_blog_not_your: ""
+  error_blog_post_not_your: ""
+  error_comment_not_your: "Non disponi dei diritti per cancellare il commento."
+  error_proposal_already_ranked: "Hai già valutato questa proposta una volta. Non sono state apportate modifiche dalla tua ultima valutazione."
+  error_proposal_not_valutating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione."
+  error_proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione."
+  error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
+  error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
+  
+  proposal_inserted: "La proposta è stata inserita correttamente."
+  proposal_updated:  "La proposta è stata aggiornata correttamente."
+  proposal_deleted:  "La proposta è stata eliminata correttamente."
+  proposal_date_selected:  "La proposta verrà votata nel periodo scelto."
+  proposal_rank_registered: "La tua valutazione è stata registrata."
+  proposal_comment_rank_registered: "La tua valutazione è stata registrata."
+  
+  user_updated:  "Informazioni aggiornate correttamente."
+  
+  insert_comment: "Inserisci un commento"
+  login_to_post_comment: "Fai login per inserire un commento."
+  
+  pl:
+    comments:
+      zero: nessun commento
+      one: un commento
+      other: %{count} commenti  
+      
+  activerecord:
+  
+    attributes:
+      blog_comment:
+         body: "Commento"
+         created_at: "AntiSpam"
+  
+    errors:
+      template:
+        header:
+          one: "un errore non ha consentito questo {{model}} dall'essere salvato"
+          other: "{{count}} errori non hanno consentito questo {{model}} di essere salvato"
+          # The variable :count is also available
+        body: "Ci sono stati problemi con i seguenti campi:"
+        
+      # The values :model, :attribute and :value are always available for interpolation
+      # The value :count is available when applicable. Can be used for pluralization.
+      messages:
+        inclusion: "non è incluso nella lista"
+        exclusion: "è riservato"
+        invalid: "non è valido"
+        confirmation: "non coincide con la conferma"
+        accepted: "deve essere accettato"
+        empty: "non può essere vuoto"
+        blank: "deve essere valorizzato"
+        too_long: "è troppo lungo (il massimo è {{count}} caratteri)"
+        too_short: "è troppo corto (il minimo è {{count}} caratteri)"
+        wrong_length: "non è della lunghezza corretta (deve essere di {{count}} caratteri)"
+        taken: "è già stato preso"
+        not_a_number: "non è un numero"
+        greater_than: "deve essere maggiore di {{count}}"
+        greater_than_or_equal_to: "deve essere maggiore o uguale di {{count}}"
+        equal_to: "deve essere uguale a {{count}}"
+        less_than: "deve essere inferiore di {{count}}"
+        less_than_or_equal_to: "deve essere inferiore o uguale di {{count}}"
+        odd: "deve essere pari"
+        even: "deve essere dispari"
+        record_invalid: "Validazione fallita: {{errors}}"
+        # Append your own errors here or at the model/attributes scope.
+
+      full_messages:
+        format: "{{attribute}} {{message}}"
+        
+        
+        
+
+      # You can define own errors for models or model attributes.
+      # The values :model, :attribute and :value are always available for interpolation.
+      #
+      # For example,
+      #   models:
+      #     user:
+      #       blank: "This is a custom blank message for {{model}}: {{attribute}}"
+      #       attributes:
+      #         login:
+      #           blank: "This is a custom blank message for User login"
+      # Will define custom blank validation message for User model and 
+      # custom blank validation message for login attribute of User model.
+      #models:
+        
+    # Translate model names. Used in Model.human_name().
+    #models:
+      # For example,
+      #   user: "Dude"
+      # will translate User model name to "Dude"
+    
+    # Translate model attribute names. Used in Model.human_attribute_name(attribute).
+    #attributes:
+      # For example,
+      #   user:
+      #     login: "Handle"
+      # will translate User attribute "login" as "Handle"
+    

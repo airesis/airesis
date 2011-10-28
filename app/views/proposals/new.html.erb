@@ -1,0 +1,13 @@
+<h1>Nuova proposta</h1>
+
+<% if @proposal.errors.any? %>
+  <ul>
+    <% @proposal.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render :partial => @proposal, :locals => { :button_name => "Crea" } %>
+
+<%= link_to 'Indietro', proposals_path %>

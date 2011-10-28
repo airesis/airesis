@@ -1,0 +1,46 @@
+<%proposalsnumber = proposals.count
+if proposalsnumber > 0 %>
+<% proposals.each do |proposal| %>
+<div id="proposal<%= proposal.id %>" class="blogComment" >
+    <div class="proposal_list" style="float:left; width:92%;">
+        <table style="padding:5px">
+            <body>
+                <tr>
+                    <td>
+                        <div class="blogUserImage">
+                            <%= proposal.user_image_tag 50 %>
+                        </div>
+                        <td>
+                            <div id="proposalcc">
+                                <div class="baloon_header">
+                                    <div class="blogCommentPostedAt">
+                                        <h3><%= link_to proposal.title, proposal %></h3>
+                                        Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+                                        da <span class="blogPoster"><%= proposal.user.link_to_page %></span>
+                                        <%if proposal.updated_at != nil %>
+                                        (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top; width:62px;">
+                        <%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>
+                    </td>
+                    <td>
+                    <div class="baloon-content">
+                        <%=h proposal.short_content %>						<%= link_to 'continua a leggere la proposta', proposal %>
+                    </div>
+          
+          	      </td>
+                </tr>
+            </body>
+        </table>
+    </div>
+<div style="float:left">		<div>		<%= link_to_remote '',{:url => {:action => "vote", :controller => "votations", :proposal_id => proposal.id, :vote_type => 1}}, {:id => "votered"+proposal.id.to_s, :class => "votered", :onclick => "if (!pulsate("+proposal.id.to_s + ",'red',6)) return false;" } %> 	</div>	<div>		<%= link_to_remote '',{:url => {:action => "vote", :controller => "votations", :proposal_id => proposal.id, :vote_type => 2}}, {:id => "voteyellow"+proposal.id.to_s, :class => "voteyellow", :onclick => "if (!pulsate("+proposal.id.to_s + ",'yellow',6)) return false;" } %> 	</div>	<div>		<%= link_to_remote '',{:url => {:action => "vote", :controller => "votations", :proposal_id => proposal.id, :vote_type => 3}}, {:id => "votegreen"+proposal.id.to_s, :class => "votegreen", :onclick => "if (!pulsate("+proposal.id.to_s + ",'green',6)) return false;" } %> 	</div>                             
+</div><div style="clear:both;"></div>
+</div>
+<% end %>
+<%end %><script type="text/javascript">	var list_states = {};		function donothing() {		return false;	}		function pulsate(proposal_id, color, times){		var me =  $("#vote"+ color + proposal_id);		var red = $("#votered" + proposal_id);		var green = $("#votegreen" + proposal_id);		var yellow = $("#voteyellow" + proposal_id);		if (list_states[proposal_id] == "pulsed")			return true;							list_states[proposal_id] = "pulsating";		if (times == 0) {			setTimeout(function(){				$('#proposal' + proposal_id).hide(1200, function() {					list_states[proposal_id] = "pulsed";					me.click();				});			}, 400);			return false;		}		setTimeout(function(){			if (times % 2 == 1) 				me.css('backgroundImage', 'url(images/'+color+'.png)');			else 				me.css('backgroundImage', 'url(images/'+color+'-2.png)');			pulsate(proposal_id,color, times-1);		}, 400);				if (color == "red") {			disable(green);			disable(yellow);					}		else if (color == "yellow") {			disable(green);			disable(red);				}		else if (color == "green") {			disable(red);			disable(yellow);		}		return false;	}			function disable(el) {		el.removeAttr('onclick');		el.click(donothing);		el.fadeOut(2400);	}		</script>

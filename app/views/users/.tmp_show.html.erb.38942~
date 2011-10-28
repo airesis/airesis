@@ -1,0 +1,21 @@
+<script type="text/javascript" src="/javascripts/simplemodal.js"></script>
+<p>
+  <h3>Profilo di <%=h @user.login %></h3>
+  
+  <div class="user_profile">
+	  <div id="nome" class="profile_element">
+	  	Nome: <%=h @user.name%>
+	  </div>
+	  <div id="cognome" class="profile_element">
+	  	Cognome: <%=h @user.surname%>
+	  </div>
+  </div>
+  
+  <div id="edit_nome">
+  	Modifica il nome
+  </div>
+  
+  <div>
+	
+  </div>
+</p>

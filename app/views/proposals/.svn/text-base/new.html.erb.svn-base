@@ -1,0 +1,7 @@
+<h1>Nuova proposta</h1>
+
+<%= error_messages_for :proposal %>
+
+<%= render :partial => @proposal, :locals => { :button_name => "Crea" } %>
+
+<%= link_to 'Indietro', proposals_path %>

@@ -1,0 +1,84 @@
+
+<h2><%= link_to 'Fai una proposta', (new_proposal_path if logged_in?), :id => 'nuova_proposta' %></h2>
+<script>
+	$('#nuova_proposta').button();
+</script>
+<% if (@category)%>
+	<h1><%=@category.description%></h1>
+<%else%>
+	<h1>Tutte le categorie</h1>
+<%end%>
+		
+		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+			Ultime inserite
+		<%else%>
+			<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
+		<%end%> | 		
+		<% if (params[:view] == ORDER_BY_RANK)%>
+			Più popolari
+		<%else%>	
+			<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
+		<%end%> | 
+		<% if (params[:view] == ORDER_BY_VOTES)%>
+			Più votate
+		<%else%>	 
+			<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
+		<%end%>
+		
+		     
+			<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+
+	 	<script>
+	
+	 </script>
+	 
+<%content_for :left_panel do %>
+<h4>Categorie</h4>
+<%if (params[:category])%>
+	<a href="<%=proposals_path%>">Tutte le categorie (<%=Proposal.count%>)</a>
+<%else%>
+	Tutte le categorie (<%=Proposal.count%>)
+<%end%>
+
+<% @proposalcategories.each do |category|%>
+	<div>
+		<%if (params[:category] == category.id.to_s)%>
+			<%=category.description%> (<%=category.proposals.count%>)
+		<%else%>
+			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals.count%>)</a>
+		<%end%>
+	</div>
+<%end%>
+<br/>
+<br/>
+<h4>Utenti più attivi</h4>
+	<%@users = User.find(:all, :order => "rank desc", :limit => 5)
+	  @users.each do |user|
+%>
+ <div class="pcontainer">
+	        <div class="Mo">
+	            <%= user.user_image_tag(24) %>
+	        </div>
+	        <div class="Mo">
+	            <%=user.full_link_to_page %> (<%=user.rank%>)
+	        </div>
+	    </div>
+<%end%>
+
+<%end%>	 
+
+
+	 
+<%content_for :right_panel do %>
+<h4>Prossimi eventi</h4>
+<%@events = Event.find(:all, :order => "starttime asc", :limit => 5)
+	@events.each do |event|%>
+	<a href="/events/<%=event.id%>">
+	<div  class="eventcontainer">
+	<%=event.starttime.strftime("%d/%m/%Y %H:%M")%>
+	<br/>
+	<%= event.title%>
+	</div>
+	</a>
+<%end%>
+<%end%>

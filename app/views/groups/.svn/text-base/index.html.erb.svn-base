@@ -1,0 +1,28 @@
+<%= stylesheet_link_tag 'blog_kit' %>
+<h1>Tutti i gruppi</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+	<th>Descrizione</th>
+	<th>Portavoce</th>
+  </tr>
+
+<% @groups.each do |group| %>
+  <tr>
+    <td><%=h group.name %></td>
+	<td><%=h group.description %></td>
+	<td><%if (group.portavoce)%>
+	<%=group.portavoce.link_to_page%>
+	<%else%>
+	Nessun portavoce
+	<%end%>
+    </td>
+	<td><%= link_to 'Vai alla pagina', group %></td>
+    <td><%= link_to 'Modifica', edit_group_path(group) if (is_admin?)%></td>
+    <td><%= link_to 'Cancella', group, :confirm => 'Sei sicuro di voler eliminare questo gruppo?', :method => :delete if (is_admin?)%></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Nuovo gruppo', new_group_path if is_admin? %>

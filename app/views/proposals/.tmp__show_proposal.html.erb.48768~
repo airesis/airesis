@@ -1,0 +1,75 @@
+<script>
+	function hideRankPanel(rank_p) {
+		query = '#' + rank_p + ' > #voteup'
+		$(query).hide();
+		
+		query = '#' + rank_p + ' > #votedown'
+		$(query).hide();
+		
+		query = '#' + rank_p + ' > #loadingup'
+		$(query).show();
+	
+		query = '#' + rank_p + ' > #loadingdown'
+		$(query).show();
+				
+	}	
+	
+	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
+	
+		
+</script>	
+    <div class="blogUserImage">
+        <%= proposal.user_image_tag %>
+    </div>
+<h1 class="proposalTitle"><%=h proposal.title %></h1>
+<div class="blogCommentPostedAt">
+    Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+    da <span class="blogPoster"><%= proposal.user.link_to_page %></span>
+    <%if proposal.updated_at != nil %>
+    (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>
+    <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
+</div>
+<div id="proposal<%= proposal.id %>" class="blogComment">
+    <div class="proposal_main">
+        <table>
+            <body>
+                <tr>
+                    <td>
+                        <div id="proposalcc" style="width:720px; float:left">
+                            <div class="baloon_header">
+                            </div>
+                            <div class="baloon-content">
+                                <%=h proposal.content %>
+                            </div>
+                            <div class="baloon-footer">
+								<%if (is_proprietary? proposal ) %>
+									<%if (proposal.proposal_state_id == 1)%>
+                                		<%= link_to 'Modifica', edit_proposal_path(proposal)  %>
+									<%elsif (proposal.proposal_state_id == 2)%>
+										<% remote_form_for proposal, :url => { :controller => "proposals", :id => proposal.id, :action => "set_votation_date"} do |f| %> 
+										   <p>
+										    <b>Scegli un periodo per la votazione</b><br />
+												<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
+											   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!' %>
+										  </p> 
+										<%end%>
+									<%elsif (proposal.proposal_state_id == 3)%>
+										<p>
+									    <b>Questa proposta verrà votata il </b>
+											<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %>
+											</p> 
+									<%end%>
+								<%end%>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="rankingpanelcontainer" style="width:40px; float:left;">
+                            <%= render :partial => 'proposals/ranking_panel' %>
+                        </div>
+                    </td>
+                </tr>
+            </body>
+        </table>
+    </div>
+</div>

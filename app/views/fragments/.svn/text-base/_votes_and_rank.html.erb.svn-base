@@ -1,0 +1,6 @@
+<p class="points">
+    <%=object.votes %>
+</p>
+<p class="ranking">
+    <%=object.rank %>%
+</p>

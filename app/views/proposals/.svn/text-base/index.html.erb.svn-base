@@ -1,0 +1,37 @@
+<h1>Elenco proposte</h1>
+
+
+<% @proposalcategories.each do |proposalcategory| 
+   proposals = proposalcategory.proposals
+   proposalsnumber = proposals.length
+%>
+<h2><%=h proposalcategory.description %></h2> contiene <%=h proposalsnumber %> proposte.</h2>
+ 	<%if proposalsnumber > 0%>
+	<table style="text-align:center">
+  <tr>
+    <th>Titolo</th>
+    <th>Autori</th>
+	<th>Azioni</th>      
+  </tr>
+  
+    <% proposals.each do |proposal| %>
+ <tr>
+    <td><%=link_to h(proposal.title), proposal %></td>
+    <td>
+    	<%= proposal.users.map(&:link_to_page).join(',')%>
+		
+	</td>
+    <td>
+    <%= link_to 'Modifica', edit_proposal_path(proposal) if (is_proprietary? proposal or is_admin?)%>
+    <%= link_to 'Cancella', proposal , :confirm => 'Sei sicuro?', :method => :delete if (is_proprietary? proposal or is_admin?) %></td>
+  </tr>
+<% end %>
+ 
+</table>
+<%end%>
+<% end %>  
+
+
+<br />
+
+<%= link_to 'Nuova proposta', new_proposal_path if logged_in? %>

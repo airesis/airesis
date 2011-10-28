@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/40/trunk/app/views/blog_comments
+END
+_new_blog_comment.html.erb
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/40/trunk/app/views/blog_comments/_new_blog_comment.html.erb
+END

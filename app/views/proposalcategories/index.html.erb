@@ -1,0 +1,17 @@
+<h1>Elenco categorie</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Descrizione</th>   
+  </tr>
+
+<% @proposalcategories.each do |proposalcategory| %>
+  <tr>
+    <td><%=h proposalcategory.id %></td>
+    <td><%=h proposalcategory.description %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

@@ -1,0 +1,43 @@
+<%form_for @event, {:action => :create}, :remote => true, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
+<p>
+  <%=f.label :title, 'Titolo dell''evento' %>
+  <br/>
+  <%=f.text_field :title %>
+</p>
+<p>
+  <%=f.label :description, 'Descrizione' %>
+  <br/>
+  <%=f.text_area :description, :rows => 4, :cols => 30 %>
+</p>
+<p>
+	<%=f.label 'Tipo di evento'%>
+<br/>
+	<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] } %>
+</p>
+<p>
+  <%=f.label :starttime, 'Data di inizio' %>
+  <br/>
+  <%=f.datetime_select :starttime %>
+</p>
+<p>
+  <%=f.label :endtime, 'Data di fine' %>
+  <br/>
+  <%=f.datetime_select :endtime %>
+</p>
+<p>
+  <%=f.label :all_day, 'Tutto il giorno' %>
+  <%=f.check_box :all_day %>
+</p>
+<p>
+  <%=f.label :period, "Ripeti" %>
+  <%=f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);" %>
+</p>
+<p id = "frequency" style = "display:none;">
+  <%=f.label :frequency, "Ripeti ogni" %>
+  <%=f.select :frequency, (1..30).to_a %> <span id = "period"></span>
+</p>
+<%=f.hidden_field :id, :value => @event.id %>
+<p>
+  <%=f.submit 'Crea!' %> <span id = "creating_events" style = "display:none;">Creazione dell'evento, attendi...</span>
+</p>
+<%end %>

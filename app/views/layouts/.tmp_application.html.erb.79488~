@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+    <head>
+        <title><%= @page_title || 'Tests' %></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <%= stylesheet_link_tag 'style','blog_kit','token-input', 'redmond/custom', 'jquery.contextmenu', 'ImageOverlay.css' %>
+        <%= javascript_include_tag :defaults, 'jquery.tokeninput', 'jquery.contextMenu', 'jquery.ImageOverlay' %>
+		 <%= yield :head %>
+    </head>
+    <body>
+        <!-- ##### Header ##### -->
+        <div id="header">
+            <div class="superHeader">
+                <% if logged_in? %>
+                <span>Benvenuto </span>
+                <%= current_user.login %>
+                <% else %>
+                <span>Non hai eseguito il login</span>
+                <% end %>
+            </div>
+            <div class="midHeader">
+                <h1 class="headerTitle" lang="la">Democracy Online</h1>
+            </div>
+            <div class="subHeader">
+                <span class="doNotDisplay">Navigation:</span>
+                <%= link_to 'Le proposte', proposals_path %>
+                | <%= link_to 'I blog', blogs_path %>
+                | <%= link_to 'Le liste', groups_path %>
+                <% if logged_in? %>
+	                | <%= link_to 'La mia pagina', user_url(current_user.id) %>
+	                | <%= link_to 'Logout', logout_url %>
+	                <% if current_user.blog %>
+	                | <%= link_to 'Il mio blog', current_user.blog %>
+	                <% else %>
+	                | <%= link_to 'Crea un tuo blog', new_blog_path %>
+	                <% end %>
+					<% if is_admin?%>
+						| <%= link_to 'Pannello amministrazione', '/admin/panel'%>
+					<%end%>
+                <% else %>
+	                | <%= link_to "Registrati", signup_url %>
+	                | <%= link_to 'Login', login_url %>
+                <% end %>
+                | <%= link_to 'Notifiche', 'alerts' %>
+            </div>
+			
+        </div>
+        <!-- ##### Main Copy ##### -->
+        <div id="main-copy">
+            <div id="leftpanel">
+                <%= yield :left_panel%>
+            </div>
+            <div id="centerpanel">
+                <div id="flash_messages" style="height:20px">
+                    <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+                </div>
+                <%= yield :layout %>
+            </div>		
+        <div style="clear: both; height: 0; overflow: hidden;"> </div>
+
+        </div>
+		
+		<script type="text/javascript">
+			$('input:submit,input:button, .subHeader a').button();
+			
+		</script>
+    </body>
+</html>

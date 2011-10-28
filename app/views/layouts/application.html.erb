@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+    <head>
+        <title><%= @page_title || 'Tests' %></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <%= stylesheet_link_tag 'style','blog_kit','token-input', 'redmond/custom', 'jquery.contextmenu', 'ImageOverlay.css' %>
+         <%= javascript_include_tag :defaults %>
+        <%= javascript_include_tag 'jquery-ui', 'jquery.tokeninput', 'jquery.contextMenu', 'jquery.ImageOverlay' %>
+        <%= csrf_meta_tag %>
+		 <%= yield :head %>
+    </head>
+    <body>
+        <!-- ##### Header ##### -->
+        <div id="header">
+            <div id="fixed">
+            <div class="midHeader">
+                <h2 class="headerTitle" lang="la">Democracy Online</h2>
+            </div>
+            <div class="subHeader">
+                <span class="doNotDisplay">Navigation:</span>
+                <%= link_to 'Le proposte', proposals_path %>
+                | <%= link_to 'I blog', blogs_path %>
+                | <%= link_to 'Le liste', groups_path %>
+               
+                | <%= link_to 'Notifiche', '/alerts' %>
+				| <%= link_to 'Calendario', '/events'%>
+            </div>
+			<div class="superHeader">
+                <% if logged_in? %>
+                <span>Benvenuto </span>
+                <%= current_user.login %>
+				<div class="user-panel" id="user-panel-2">	
+				</div>
+				<div class="user-panel" id="user-panel">
+					 <% if logged_in? %>	              
+						<p><%=current_user.login%></p>
+						<ul>
+							
+							<li>
+								<% if current_user.blog %>
+				                	<%= link_to 'Il mio blog', current_user.blog %>
+				                <% else %>
+				                	<%= link_to 'Crea un tuo blog', new_blog_path %>
+				                <% end %>
+							<li>								
+							  <%= link_to 'La mia pagina', user_url(current_user.id) %>
+							</li>
+				                
+								<% if is_admin?%>
+								<li>									
+									<%= link_to 'Pannello amministrazione', '/admin/panel'%>								
+								</li>
+								<%end%>
+								
+							</li>
+							<li>
+								<%= link_to 'Logout', logout_url %>							
+							</li>
+						</ul>		
+                	<% end %>
+				</div>
+                <% else %>
+                <span><%= link_to 'Esegui il login o registrati',login_path(:redirect => current_url) %></span>
+                <% end %>
+            </div>
+			<div style="clear: both; height: 0; overflow: hidden;"> </div>
+			</div>
+        </div>
+        <!-- ##### Main Copy ##### -->
+        <div id="main-copy">
+            <div id="leftpanel">
+                <%= yield :left_panel%>
+            </div>
+            <div id="centerpanel">
+                <div id="flash_messages" style="height:20px">
+                    <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+                </div>
+                <%= yield :layout %>
+            </div>		
+			<div id="rightpanel">
+				<%= render :partial => 'events/next_events_panel' %>
+
+                <%= yield :right_panel%>
+            </div>
+        <div style="clear: both; height: 0; overflow: hidden;"> </div>
+
+        </div>
+		
+		<script type="text/javascript">
+			$('input:submit,input:button, .subHeader a').button();
+			$('.user-panel').hide();
+			shown = false;
+			 $('html').click(function() {
+			 	if (shown) {
+					$('.user-panel').hide();
+					shown = false;
+				}
+			 });
+			$('.superHeader').click(function(event) {
+				if (shown) {
+					$('.user-panel').hide();
+					shown = false;
+				}
+				else {
+					$('.user-panel').show();
+					shown = true;				
+				}		
+				event.stopPropagation();			
+			});
+			
+			
+			 $('#user-panel').click(function(event){
+			     event.stopPropagation();
+			 });
+
+		</script>
+    </body>
+</html>

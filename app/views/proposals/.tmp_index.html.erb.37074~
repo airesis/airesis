@@ -1,0 +1,60 @@
+
+<h3><%= link_to 'Fai una proposta', new_proposal_path, :id => 'nuova_proposta' %></h3>
+<script>
+	$('#nuova_proposta').button();
+</script>
+<% if (@category)%>
+	<h1><%=@category.description%></h1>
+<%else%>
+	<h1>Tutte le categorie</h1>
+<%end%>
+		
+		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+			Ultime inserite
+		<%else%>
+			<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
+		<%end%> | 		
+		<% if (params[:view] == ORDER_BY_RANK)%>
+			Più popolari
+		<%else%>	
+			<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
+		<%end%> | 
+		<% if (params[:view] == ORDER_BY_VOTES)%>
+			Più votate
+		<%else%>	 
+			<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
+		<%end%>
+		
+		     
+			<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+
+	 	<script>
+	
+	 </script>
+	 
+<%content_for :left_panel do %>
+<h4>Categorie</h4>
+<%if (params[:category])%>
+	<a href="<%=proposals_path%>">Tutte le categorie (<%=Proposal.count%>)</a>
+<%else%>
+	Tutte le categorie (<%=Proposal.count%>)
+<%end%>
+
+<% @proposalcategories.each do |category|%>
+	<div>
+		<%if (params[:category] == category.id.to_s)%>
+			<%=category.description%> (<%=category.proposals.count%>)
+		<%else%>
+			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals.count%>)</a>
+		<%end%>
+	</div>
+<%end%>
+<br/>
+<br/>
+	<%= render :partial => 'users/most_active_users_panel' %>
+
+<%end%>	 
+
+	 
+<%content_for :right_panel do %>
+<%end%>

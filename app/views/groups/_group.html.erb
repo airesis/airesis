@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+	
+  
+<script type="text/javascript">
+	$(function() {
+		input = $('#group_partecipant_tokens')
+		input.tokenInput("/users.json", {
+			crossDomain: false,
+			prePopulate: $('#group_partecipant_tokens').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare tra gli utenti",
+			noResultsText: "Nessun utente trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true
+		});
+	});
+
+</script>  		
+			
+<% form_for([@group]) do |f| %>
+   
+   
+  <p>
+    <b>Nome</b><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <b>Descrizione</b><br />
+    <%= f.text_area :description %>
+  </p>
+  
+  <p>
+    <b>Richieste di partecipazione</b><br />
+    <%= f.radio_button :accept_requests , 'p' %>Portavoce<br/>
+	<%= f.radio_button :accept_requests , 'v' %>Votazione<br/>
+	<%= f.radio_button :accept_requests , 'b' %>Entrambi<br/>
+  </p>
+
+<p>
+	<% partecipants = @group.partecipants %>
+
+	<%if partecipants.length == 0 %>
+		<b>Nessun utente partecipa ancora a questo gruppo</b>	
+	<%end%>
+</p>
+<p>	
+	<%if is_admin? %>
+		<b>Aggiungi utenti al gruppo</b>
+		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json %>
+	<%end%> 
+</p>
+	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => '==Nessun portavoce=='})%>
+
+  <p>
+    <%= f.submit button_name %>
+  </p>
+  
+
+<% end %>

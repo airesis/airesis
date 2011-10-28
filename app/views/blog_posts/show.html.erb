@@ -1,0 +1,8 @@
+<% self.respond_to?(:title) && title(@blog_post.title) %>
+<% @show_title = false -%>
+
+<%= stylesheet_link_tag 'syntax/' + (BlogKit.instance.settings['theme'] || 'mac_classic') %>
+
+<%= render :object => @blog_post, :partial => 'blog_posts/blog_post', :locals => {:show_comments => true} %>
+
+<%= render :partial => 'blog_posts/admin_links' %>

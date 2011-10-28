@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<div id="proposalNewComment" class="blogNewComment">
+    <script>
+        function sblank(){
+            var el = document.getElementById('blog_comment_body')
+        //    el.value = '';
+        }
+        
+        function hide(){
+            $('#insert_comment').hide();
+            $('#loading').show();
+        }
+        
+    </script>
+    <% if !logged_in? %>
+    <h2><%=t(:login_to_post_comment) %></h2>
+    <% else %>
+    <h2><%=t(:insert_comment) %></h2>
+    <% if current_user %>
+    <p>
+        Stai scrivendo come <span class="blogPoster"><%= current_user.name %></span>
+    </p>
+    <% end %>
+    <% remote_form_for([@proposal,proposal_comment]) do |f| %>
+    <%= error_messages_for :proposal_comment, :header_message => nil, :message => "Impossibile inserire il commento" %>
+    <p>
+        <%= f.label :content %>
+        <br/>
+        <%= f.text_area :content, :class => 'proposal_comment_area', :rows => 10, :cols => 50 %>
+    </p>
+    <p>
+        <%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hide();" %>
+        <%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loading' %>
+    </p>
+    <% end %>
+    <% end %>
+</div>

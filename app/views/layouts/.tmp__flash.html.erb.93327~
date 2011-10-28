@@ -1,0 +1,11 @@
+<% flash.each do |key,value| %>
+<div id="flash" class="flash_<%= key %>">
+    <span class="message"><%= value %></span>
+</div>
+<%end %>
+
+<script>
+$(document).ready(function () {
+    $('[class^=flash_]').delay(5000).hide(2000);
+});
+</script>

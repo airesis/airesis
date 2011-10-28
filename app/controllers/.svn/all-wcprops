@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/58/trunk/app/controllers
+END
+blog_posts_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/58/trunk/app/controllers/blog_posts_controller.rb
+END
+groups_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/58/trunk/app/controllers/groups_controller.rb
+END
+users_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/58/trunk/app/controllers/users_controller.rb
+END
+proposals_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/58/trunk/app/controllers/proposals_controller.rb
+END
+application_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/55/trunk/app/controllers/application_controller.rb
+END
+proposal_comments_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/52/trunk/app/controllers/proposal_comments_controller.rb
+END
+proposalcategories_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/11/trunk/app/controllers/proposalcategories_controller.rb
+END
+sessions_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/app/controllers/sessions_controller.rb
+END
+blogs_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/52/trunk/app/controllers/blogs_controller.rb
+END
+blog_comments_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/52/trunk/app/controllers/blog_comments_controller.rb
+END
+request_votes_controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/58/trunk/app/controllers/request_votes_controller.rb
+END

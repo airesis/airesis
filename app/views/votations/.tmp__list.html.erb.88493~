@@ -1,0 +1,46 @@
+<%proposalsnumber = proposals.count
+if proposalsnumber > 0 %>
+<% proposals.each do |proposal| %>
+<div id="proposal<%= proposal.id %>" class="blogComment" >
+    <div class="proposal_list" style="float:left; width:92%;">
+        <table style="padding:5px">
+            <body>
+                <tr>
+                    <td>
+                        <div class="blogUserImage">
+                            <%= proposal.user_image_tag 50 %>
+                        </div>
+                        <td>
+                            <div id="proposalcc">
+                                <div class="baloon_header">
+                                    <div class="blogCommentPostedAt">
+                                        <h3><%= link_to proposal.title, proposal %></h3>
+                                        Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+                                        da <span class="blogPoster"><%= proposal.user.link_to_page %></span>
+                                        <%if proposal.updated_at != nil %>
+                                        (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top">
+                        <%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>
+                    </td>
+                    <td>
+                    <div class="baloon-content">
+                        <%=h proposal.short_content %>						<%= link_to 'continua a leggere la proposta', proposal %>
+                    </div>
+          
+          	      </td>
+                </tr>
+            </body>
+        </table>
+    </div>
+<div style="float:left">	<%= link_to_remote (image_tag("/images/red.png", :size => "32x32", :border => 0)), {:url => {:action => "vote", :controller => "votations", :proposal_id => proposal.id},                                    {:id => "delete#{comment.id}", :href => url_for(:action => "adestroy", :controller => "proposal_comments", :proposal_id => @proposal.id, :id => comment.id)} %>	<div>	<img width="32px" height="32px" src="/images/red.png"/>	</div>	<div>	<img width="32px" height="32px" src="/images/yellow.png"/>	</div>	<div>	<img width="32px" height="32px" src="/images/green.png"/>	</div>
+</div><div style="clear:both;"></div>
+</div>
+<% end %>
+<%end %>

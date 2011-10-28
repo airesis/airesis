@@ -1,0 +1,88 @@
+<%if current_user == @user %>
+<script type="text/javascript" src="/javascripts/simplemodal.js">
+</script>
+<script>
+    function doModal(el){
+        el.modal({
+            opacity: 60,
+            overlayCss: {
+                backgroundColor: "#dddddd"
+            },
+            minWidth: '400px',
+            minHeight: '200px',
+            transient: 'true',
+            persist: 'true',
+            
+            onShow: function(dialog){
+                dialog.data.prepend('<div id="error_updating"></div>');
+            },
+            
+            onClose: function(dialog){
+                $('#error_updating').remove();
+                $.modal.close();
+            }
+        });
+    }
+</script>
+<%end %>
+<p>
+    <h3>Profilo di <%=h @user.login %><%if @user.blog %> - <%=link_to 'Vai al blog', blog_path(@user.blog) %><%end %></h3>
+    <table style="width:100%">
+        <tr>
+            <td>
+                <div id="user_profile_container">
+                    <%= render :partial => 'user_profile' %>
+                </div>
+            </td>
+            <td>
+           <div style="position:relative">
+                    	<%= @user.user_image_tag 120 %>
+                        <div class="caption">
+                            <a style="color:white">Modifica l'immagine</a>
+                        </div>
+               </div>
+
+            </div>
+        </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+    	
+		/*$(document).ready(function() {
+		  $('#myGallery').ImageOverlay();
+		});*/
+        /*    $(function(){  
+         
+         $('.blogUserImage').hover(function(){
+         $(this).children('.edit_img').stop().css("top", "0px");}
+         
+         , function(){
+         $(this).children('.edit_img').stop().animate({"top": '400px'}, 600);});
+         
+         });  */
+    </script>
+    <%if current_user == @user %>
+    <div id="name_modal" class="edit_modal">
+        <%remote_form_for(@user) do |f| %>
+        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Nome</h2>
+        <div style="padding-left:135px">
+            <%=f.text_field :name %>
+            <div style="margin-top:8px">
+                <%=f.submit 'Salva' %>
+                <input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+        </div><%end %>
+    </div>
+    <div id="surname_modal" class="edit_modal">
+        <%remote_form_for(@user) do |f| %>
+        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Cognome</h2>
+        <div style="padding-left:135px">
+            <%=f.text_field :surname %>
+            <div style="margin-top:8px">
+                <%=f.submit 'Salva' %>
+                <input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+        </div><%end %>
+    </div><%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
+    <%end %>
+</p>

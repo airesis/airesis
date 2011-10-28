@@ -1,0 +1,19 @@
+<% self.respond_to?(:title) && title('Drafts') %>
+<% @show_title = false -%>
+<%= stylesheet_link_tag 'blog_kit' %>
+<%= stylesheet_link_tag 'syntax/' + (BlogKit.instance.settings['theme'] || 'mac_classic') %>
+
+<%= render :partial => 'admin_links' %>
+
+<% if @blog_posts.size == 0 && !params[:page] %>
+	<div class="blogPost">
+		<h1>Nessun Post</h1>
+		<p>Non ci sono post da pubblicare al momento.</p>
+	</div>
+<% else %>
+	<%= render :collection => @blog_posts, :partial => 'blog_post' %>
+<% end %>
+
+<div class="blogPages">
+	<%= will_paginate @blog_posts %>
+</div>

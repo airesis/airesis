@@ -1,0 +1,84 @@
+
+<h3><%= link_to 'Fai una proposta', new_proposal_path, :id => 'nuova_proposta' %></h3>
+<script>
+	$('#nuova_proposta').button();
+</script>
+<% if (@category)%>
+	<h1>Proposte della categoria <%=@category.description%>
+<%else%>	
+	<h1>Proposte di tutte le categorie
+<%end%>
+<% if (@state)%>
+	in stato <%=@state.description%></h1>
+<% else%>
+	in qualsiasi stato</h1>
+<% end%>
+		
+		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+			Ultime inserite
+		<%else%>
+			<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
+		<%end%> | 		
+		<% if (params[:view] == ORDER_BY_RANK)%>
+			Più popolari
+		<%else%>	
+			<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
+		<%end%> | 
+		<% if (params[:view] == ORDER_BY_VOTES)%>
+			Più votate
+		<%else%>	 
+			<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
+		<%end%>
+		
+		     
+			<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+
+	 	<script>
+	    </script>
+	 
+<%content_for :left_panel do %>
+<div id="categories">
+<%if (params[:category])%>
+	<h4 class="filterSelected">Categorie</h4>
+	<a href="<%=current_url(:category => nil)%>">Tutte le categorie</a>
+<%else%>
+	<h4>Categorie</h4>
+	Tutte le categorie
+<%end%>
+
+<% ProposalCategory.all.each do |category|%>
+	<div>
+		<%if (params[:category] == category.id.to_s)%>
+			<%=category.description%> (<%=category.proposals.count%>)
+		<%else%>
+			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals.count%>)</a>
+		<%end%>
+	</div>
+<%end%>
+</div>
+<br/>
+<%if (params[:state])%>
+	<h4 class="filterSelected" >Stato</h4>
+	<a href="<%=proposals_path%>">Qualsiasi stato</a>
+<%else%>
+	<h4>Stato</h4>
+	Qualsiasi stato
+<%end%>
+<% ProposalState.all.each do |state|%>
+	<div>
+		<%if (params[:state] == state.id.to_s)%>
+			<%=state.description%> (<%=state.proposals.count%>)
+		<%else%>
+			<a href="<%=current_url(:state => state.id)%>"><%=state.description%> (<%=state.proposals.count%>)</a>
+		<%end%>
+	</div>
+<%end%>
+<br/>
+<br/>
+	<%= render :partial => 'users/most_active_users_panel' %>
+
+<%end%>	 
+
+	 
+<%content_for :right_panel do %>
+<%end%>

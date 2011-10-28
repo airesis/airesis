@@ -1,0 +1,6 @@
+<%if is_admin? %>
+	<%= link_to 'Ricalcola ranking utenti', url_for(:action => "calculate_ranking", :controller => "admin"), :id => 'recalculate' %>	
+	<script type="text/javascript">
+		$('#recalculate').button();
+	</script>
+<%end %>

@@ -1,0 +1,3 @@
+class ProposalVote < ActiveRecord::Base
+  belongs_to :proposals, :class_name => 'Proposal', :foreign_key => :proposal_id
+end

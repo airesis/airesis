@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+  <fieldset>
+      <legend>DemocracyOnline</legend>
+      
+      <p>
+        An EMail has been sent to <%= @user.email %> with instructions to activate 
+        your account.
+        <li>
+          If your email is not valid, you must <%= link_to "signup", signup_path %> 
+          again and provide a valid email address.
+        </li>
+        <li>
+          If you don't recieve an email, check your bulk or trash folder, as your spam 
+          filter may have inadvertantly caught the registration email.
+        </li>
+      </p>
+    </fieldset>
+  

@@ -1,0 +1,6 @@
+<% self.respond_to?(:title) && title('New Post') %>
+<% @show_title = false -%>
+<%= stylesheet_link_tag 'blog_kit' %>
+<h1>Nuovo Post</h1>
+
+<%= render :partial => 'form' %>

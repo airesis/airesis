@@ -1,0 +1,15 @@
+<h1>Vuoi creare un tuo blog personale?</h1>
+
+<% form_for(@blog) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label 'Titolo del tuo blog' %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.submit 'Crea' %>
+  </p>
+<% end %>
+
+<%= link_to 'No, grazie!', proposals_path %>

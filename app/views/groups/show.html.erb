@@ -1,0 +1,83 @@
+<p>
+    <h3><%=h @group.name %></h3>
+</p>
+<p>
+    <%=h @group.description %>
+</p>
+
+<%posts = @group.posts.all(:order => 'published_at DESC') %>
+<% if posts.size == 0 %>
+<div class="blogPost">
+    <h1>Nessun Post</h1>
+    <p>
+        Non vi sono ancora Post in questo Gruppo, torna presto.
+    </p>
+</div>
+<% else %>
+<%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
+<% end %>
+<%= link_to 'Modifica', edit_group_path(@group) if (is_admin?) %>
+<%= link_to 'Indietro', groups_path %>
+
+<% content_for :left_panel do %>
+	<%= render :partial => 'partecipants_panel' %>
+<br/>
+<br/>	
+	
+<% requests = @group.partecipation_requests.pending
+if requests.size > 0 %>
+<p>
+    <h4>Elenco delle richieste di partecipazione in attesa di risposta</h4>
+	</p>
+	<%requests.each do |request| %>
+	<p>
+	     <div class="pcontainer">
+	        <div class="Mo">
+	            <%= request.user_image_tag(24) %>
+	        </div>
+	        <div class="Mo">
+	            <%=raw request.user.full_link_to_page %>
+	        </div>
+	    </div>
+	    <% if ((current_user && (@group.portavoce == current_user)) || is_admin?) %>
+	   		 <%if @group.request_by_vote? %>
+	  		  <%=link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
+	  		  <%elsif @group.request_by_portavoce? %>
+	   			 <%=link_to 'Accetta', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id),:class => 'confirmRequest' %>
+	 		 <% end %>
+	    <%end %>
+	</p>
+	<% end %>
+<%end%>
+
+<% voting = @group.partecipation_requests.voting
+ if voting.size > 0 %>
+ 	<p>
+		<h4>Elenco delle richieste di partecipazione in corso di votazione</h4>
+	</p>
+	<%voting.each do |request| %>
+	<p>
+	    <%=request.user.full_link_to_page %>
+	    <a>Vota SI</a>
+	    - <a>Vota NO</a>
+	</p>
+	<%end%>
+<% end %>
+
+<br/>
+<br/>
+
+ <h4>Al momento seguono il gruppo <%=@group.followers.count%> persone</h4>
+ <%if (current_user)
+	follow = current_user.group_follows.find_by_group_id(@group.id)
+   end
+   if (!follow)%>
+		<%= link_to 'Segui', url_for(:action => "ask_for_follow", :controller => "groups", :id => @group.id), :id => 'group_follow' %>
+	<%end%>
+
+<script type="text/javascript">
+			$('#group_partecipa, #group_follow, .confirmRequest').button();
+			
+		</script>
+
+<%end %>

@@ -1,0 +1,46 @@
+<% partecipants = @group.partecipants %>
+<p>
+    <h4>Portavoce del gruppo</h4>
+    <%if (@group.portavoce) %>
+    <div class="pcontainer">
+        <div class="Mo">
+            <%= @group.portavoce.user_image_tag(24) %>
+        </div>
+        <div class="Mo">
+            <%=raw @group.portavoce.full_link_to_page %>
+        </div>
+    </div>
+    <%else %>
+    Ancora nessun portavoce.<%end %>
+</p>
+<br/>
+<br/>
+<%if partecipants.length > 0 %>
+<p>
+    <h4>Elenco partecipanti al gruppo</h4>
+    <% if logged_in? %>
+    <p>
+        <% partecipation_request = current_user.has_asked_for_partecipation?(@group.id)
+        if !partecipation_request %>
+        <%= link_to 'Partecipa', url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa' %>
+        <%else %>
+        <!--<b>Hai già fatto richiesta di partecipazione a questo gruppo. Stato della richiesta: <%=partecipation_request.status.description %>
+        </b>--><%end %>
+    </p>
+    <%end %>
+    <%partecipants.each do |partecipant| %>
+    <div class="pcontainer">
+        <div class="Mo">
+            <%= partecipant.user_image_tag(24) %>
+        </div>
+        <div class="Mo">
+            <%=raw partecipant.full_link_to_page %>
+        </div>
+    </div>
+    <%end %>
+</p>
+<%else %>
+<p>
+    <b>Nessun utente partecipa ancora a questo gruppo.</b>
+</p>
+<%end %>

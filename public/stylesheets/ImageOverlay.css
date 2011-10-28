@@ -1,0 +1,52 @@
+.image-overlay { list-style: none; text-align: left; }
+.image-overlay li { display: inline; }
+.image-overlay a:link, .image-overlay a:visited, .image-overlay a:hover, .image-overlay a:active { text-decoration: none; }
+.image-overlay a:link img, .image-overlay a:visited img, .image-overlay a:hover img, .image-overlay a:active img { border: none; }
+
+.image-overlay a
+{
+    margin: 9px;
+    float: left;
+    background: #fff;
+    border: solid 2px;
+    overflow: hidden;
+    position: relative;
+}
+.image-overlay img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+}
+.image-overlay .caption
+{
+    float: left;
+    position: absolute;
+    background-color: #000;
+    width: 100%;
+	cursor: pointer;
+	/* The way to change overlay opacity is the follow properties. Opacity is a tricky issue due to
+		longtime IE abuse of it, so opacity is not offically supported - use at your own risk. 
+		To play it safe, disable overlay opacity in IE. */
+    /* For Firefox/Opera/Safari/Chrome */
+	opacity: .8;
+    /* For IE 5-7 */
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    /* For IE 8 */
+    -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+.image-overlay .caption h1, .image-overlay .caption h2, .image-overlay .caption h3,
+.image-overlay .caption h4, .image-overlay .caption h5, .image-overlay .caption h6
+{
+	margin: 10px 0 10px 2px;
+    font-size: 20px;
+    font-weight: bold;
+	padding: 0 0 0 5px;
+}
+.image-overlay p
+{
+	text-indent: 0;
+	margin: 10px;
+	font-size: 1em;
+}

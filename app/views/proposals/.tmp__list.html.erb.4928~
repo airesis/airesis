@@ -1,0 +1,51 @@
+<%proposalsnumber = proposals.count
+if proposalsnumber > 0 %>
+<% proposals.each do |proposal| %>
+<div id="proposal<%= proposal.id %>" class="blogComment">
+    <div class="proposal_list">
+        <table style="padding:5px">
+            <body>
+                <tr>
+                    <td>
+                        <div class="blogUserImage">
+                            <%= proposal.user_image_tag 50 %>
+                        </div>
+                        <td>
+                            <div id="proposalcc" style="width:660px; float:left">
+                                <div class="baloon_header">
+                                    <div class="blogCommentPostedAt">
+                                        <h3><%= link_to proposal.title, proposal %></h3>
+                                        Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+                                        da <span class="blogPoster"><%= proposal.user.link_to_page %></span>
+                                        <%if proposal.updated_at != nil %>
+                                        (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>
+                                        <a class="spch-bub-inside" href="/proposals/<%=proposal.id%>#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top">
+                        <%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>
+                    </td>
+                    <td>
+                    <div class="baloon-content">
+                        <%=h proposal.short_content %>						<%= link_to 'continua a leggere la proposta', proposal %>
+                    </div>
+                    <div class="baloon-footer">
+                        <%= link_to 'Modifica', edit_proposal_path(proposal) if (is_proprietary? proposal) %>
+                    </div>
+                    </div>
+                </td>
+                </tr>
+            </body>
+        </table>
+    </div>
+</div>
+<div>
+</div>
+<% end %>
+</table>
+<%end %>
