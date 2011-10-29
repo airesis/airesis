@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProposalcategoriesController < ApplicationController
  
  # before_filter :login_required, :only => [ :edit, :update, :destroy, :new, :create ]

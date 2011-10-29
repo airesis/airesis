@@ -1,3 +1,4 @@
+#encoding: utf-8
 class RequestVotesController < ApplicationController
    
   before_filter :load_group, :only => [:show,:edit,:update,:destroy,:ask_for_partecipation, :partecipation_request_confirm]
