@@ -208,8 +208,4 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
-  
-  config.omniauth :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57", 
-                      #{:client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
-                      {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 end

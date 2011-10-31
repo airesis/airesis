@@ -75,3 +75,12 @@ DemocracyOnline3::Application.configure do
    #limita il numero di commenti
   LIMIT_COMMENTS=true
 end
+
+
+
+# Use this hook to configure devise mailer, warden hooks and so forth. The first
+# four configuration values can also be set straight in your models.
+Devise.setup do |config|
+  config.omniauth :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57",                   
+                      {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+end
