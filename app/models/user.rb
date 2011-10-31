@@ -215,6 +215,8 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   else # Create a user with a stub password. 
     user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
     if data["verified"]
+      user.user_type_id = 3
+      user.sign_in_count = 0
       user.account_type = 'facebook'
       user.confirm!
       user.save! false
