@@ -5,3 +5,4 @@ tmp/
 *.class
 *.pyc
 *.pyo
+Gemfile.lock
