@@ -31,9 +31,9 @@
   
   <p>
     <b>Richieste di partecipazione</b><br />
-    <%= f.radio_button :accept_requests , 'p' %>Portavoce<br/>
-	<%= f.radio_button :accept_requests , 'v' %>Votazione<br/>
-	<%= f.radio_button :accept_requests , 'b' %>Entrambi<br/>
+    <%= f.radio_button :accept_requests , 'p' %>Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta cche il portavoce avrà accettato la richeista, l'utente sarà a tutti gli effetti un partecipante del gruppo.<br/>
+	<%= f.radio_button :accept_requests , 'v' %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
+	<%= f.radio_button :accept_requests , 'b' %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
   </p>
 
 <p>

@@ -3,7 +3,7 @@ if @event
     page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
     page<<"$('#create_event_dialog').dialog('destroy')"
   else
-    page.alert @event.errors.full_messages(',').join("\n")
+    page.alert @event.errors.full_messages.join(";")
   end
 end
 

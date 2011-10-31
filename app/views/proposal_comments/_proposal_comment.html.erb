@@ -16,20 +16,20 @@
 		});
         
     </script>
-    <% if !logged_in? %>
+    <% if !user_signed_in? %>
     <h2><%=t(:login_to_post_comment) %>
 	</h2>
     <% else %>
-	    <h3><%=t(:insert_comment) %></h3>
-	    <% if current_user %>
+	    <% form_for [@proposal,proposal_comment], :remote => true do |f| %>
+	    <% if @proposal_comment.errors.any? %>
+		  <ul>
+		    <% @proposal_comment.errors.full_messages.each do |msg| %>
+		      <li><%= msg %></li>
+		    <% end %>
+		  </ul>
+		<% end %>
 	    <p>
-	        Stai scrivendo come <span class="blogPoster"><%= current_user.name %></span>
-	    </p>
-	    <% end %>
-	    <% remote_form_for([@proposal,proposal_comment]) do |f| %>
-	    <%= error_messages_for :proposal_comment, :header_message => nil, :message => "Impossibile inserire il commento" %>
-	    <p>
-	        <%= f.label :content, 'Commento:' %>
+	        <%= f.label :content, t(:insert_comment) %>
 	        <br/>
 	        <%= f.text_area :content, :class => 'proposal_comment_area', :rows => 10, :cols => 50 %>
 	    </p>

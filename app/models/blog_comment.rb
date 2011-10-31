@@ -28,7 +28,7 @@ class BlogComment < ActiveRecord::Base
 	end
 
 	def formatted_created_at
-		self.created_at.strftime(BlogKit.instance.settings['post_date_format'] || '%m/%d/%Y at %I:%M%p')
+		self.created_at.strftime('%m/%d/%Y alle %I:%M%p')
 	end
 	
 	def parsed_body

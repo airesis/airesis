@@ -51,4 +51,19 @@ function ajaxifyPagination() {
         return false;
     });
 }
+
+
+$(function() {
+		$('.voteup').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('voteup','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+		
+		$('.votedown').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('votedown','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+	});
 </script>

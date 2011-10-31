@@ -20,7 +20,7 @@
         <div class="aplicationContent">
             <div class="appRightContent">
                 <p>
-                    <%=link_to 'Crea un evento', {:action => :new},:remote => true, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>
+                    <%=link_to 'Crea un evento', {:action => :new},:remote => true, :before => "$('#loading').show()", :complete => "$('#loading').hide()" if is_admin? %>
                 </p>
                 <script>
                     
@@ -29,6 +29,11 @@
                         // page is now ready, initialize the calendar...
                         $('#calendar').fullCalendar({
                             editable: true,
+                            <%if !is_admin? %>
+                            	disableDragging: true,
+                            	disableResizing: true,
+                        	<%end%>
+                            
                             header: {
                                 left: 'prev,next today',
                                 center: 'title',
@@ -65,12 +70,16 @@
                                 //                  revertFunc();
                                 //              }
                             },
-                            
+
                             eventClick: function(event, jsEvent, view){
                                 showEventDetails(event);
                             },
                         
-                        
+                         eventRender: function(event, element) {
+					        if (event.editable) {
+					           element.css('cursor', 'pointer');
+					        }
+					    },
                         
                         
                         });

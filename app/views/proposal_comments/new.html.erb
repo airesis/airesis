@@ -1,5 +1,12 @@
 <h1>New reply</h1>
-<%= error_messages_for :reply %>
+
+<% if @reply.errors.any? %>
+  <ul>
+    <%@reply.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <%= render :partial => @reply, :locals => { :button_name => "Reply" } %>
 
 <%= link_to 'Back', replies_path %>

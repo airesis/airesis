@@ -1,15 +1,22 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
   
-  
+  #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:group]
-  before_filter :login_required, :except => [:index,:show]
-  before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
+  
+  ###SICUREZZA###
+  
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :except => [:index,:show]
+  
+  
+  #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
+  
+  #l'utente deve essere amministratore
   before_filter :admin_required, :only => [:new, :create, :destroy]
   
-  
-  
-  
+   #l'utente deve essere portavoce o amministratore
+  before_filter :portavoce_required, :only => [:partecipation_request_confirm]
   
   def index
     @groups = Group.all
@@ -188,9 +195,8 @@ class GroupsController < ApplicationController
   end
   
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
-  # è prevista o accettandola altrimenti.
+  # è previsto o accettandola altrimenti.
   def partecipation_request_confirm
-    if ((current_user && (@group.portavoce == current_user)) || is_admin?)
       request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
       if (!request)
         flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
@@ -217,11 +223,6 @@ class GroupsController < ApplicationController
           redirect_to group_url(@group)
         end
       end
-    else
-      flash[:error] = 'Non hai i diritti per far procedere la richiesta di partecipazione. Solo il portavoce del gruppo o un amministratore di sistema possono procedere con l''operazione.'
-      redirect_to group_url(@group)
-    end
-    
   end
   
   
@@ -232,12 +233,10 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
   
-  #TODO
-  def check_author
-    #@group = Group.find(params[:id])
-    #if ! current_user.is_my_blog? @group.id
-    #  flash[:notice] = 'Non puoi modificare un gruppo che non ti appartiene.'
-    #  redirect_to :back
-    #end
+  def portavoce_required
+     if !((current_user && (@group.portavoce = current_user)) || is_admin?)
+      flash[:error] = 'Solo il portavoce del gruppo o un amministratore di sistema possono procedere con l''operazione.'
+      redirect_to group_url(@group)
+     end
   end
 end

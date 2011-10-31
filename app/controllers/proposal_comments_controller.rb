@@ -1,18 +1,22 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
  
-  
+  #carica la proposta
   before_filter :load_proposal
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :destroy, :adestroy, :rankup, :rankdown]
+  #carica il commento
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :adestroy, :rankup, :rankdown]
   
-  before_filter :login_required, :only => [ :edit, :update, :destroy, :new, :create ]
-  before_filter :check_author, :only => [:edit, :update, :destroy]
+###SICUREZZA###
+
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :only => [ :edit, :update, :delete, :new, :create ]
+  before_filter :check_author, :only => [:edit, :update, :delete]
   before_filter :already_ranked, :only => [:rankup, :rankdown]
   
   #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
    def check_author
     @proposal_comment = ProposalComment.find(params[:id])
-    if ! current_user.is_my_proposal_comment? @proposal_comment.id
+    if ! current_user.is_mine? @proposal_comment
       flash[:notice] = 'Non puoi modificare commenti che non siano i tuoi.'
       redirect_to :back
     end
@@ -69,7 +73,6 @@ class ProposalCommentsController < ApplicationController
         @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
         @saved.collapsed = true
-        format.html { redirect_to @proposal }        
         format.js   { render :update do |page|
                          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                         page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
@@ -77,13 +80,13 @@ class ProposalCommentsController < ApplicationController
                       end
                     }
         format.xml  { render :xml => @proposal_comment, :status => :created, :location => @proposal_comment }
+        format.html { redirect_to @proposal }        
       else
-        format.html 
         format.js   { render :update do |page|
                         page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
                       end
                     }
-        format.xml  { render :xml => @blog_comment.errors, :status => :unprocessable_entity }
+        format.html 
         format.xml  { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
       end
     end
@@ -111,11 +114,12 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-  def destroy
+  def delete
     @proposal_comment.destroy
 
     respond_to do |format|
       flash[:notice] = 'Commento eliminato.'
+      format.js
       format.html { redirect_to @proposal }
       format.xml  { head :ok }
     end
@@ -128,12 +132,12 @@ class ProposalCommentsController < ApplicationController
     
     respond_to do |format|      
         flash[:notice] = 'Il commento è stato cancellato'
-        format.html { redirect_to @proposal }
         format.js   { render :update do |page|
                         page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
                         page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"                                          
                       end
                     }
+        format.html { redirect_to @proposal }
     end
   end
   
@@ -164,19 +168,19 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       if @ranking.save
         flash[:notice] = t(:proposal_comment_rank_registered)
-        format.html { redirect_to @proposal }
         format.js { render :update do |page|                    
                     page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
                     page.replace_html "rankingpanelcontainer#{params[:id]}", :partial => 'proposal_comments/ranking_panel', :locals => {:comment => @proposal_comment}
                     end
                   }
+        format.html { redirect_to @proposal }
       else        
         flash[:notice] = t(:error_on_proposal_comment_rank)
-        format.html { redirect_to @proposal }
         format.js { render :update do |page|
                     page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
                     end
                   }       
+        format.html { redirect_to @proposal }
       end
     end
   end
@@ -190,13 +194,13 @@ class ProposalCommentsController < ApplicationController
     if my_rank && my_ranking.updated_at > @proposal_comment.updated_at
       flash[:notice] = t(:error_proposal_comment_already_ranked)
       respond_to do |format|     
-      format.html {
-        redirect_to proposal_path(params[:proposal_id])
-       }
       format.js { render :update do |page|
                      page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
                   end                  
                   }
+      format.html {
+        redirect_to proposal_path(params[:proposal_id])
+       }
       end
     else
       return true

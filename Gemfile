@@ -8,6 +8,12 @@ gem 'rails', '3.0.9'
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
+#per gmail
+gem 'tlsmail'
+
+#gem "omniauth"
+gem "oa-oauth"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -32,6 +38,7 @@ gem 'bluecloth'
 
 gem 'ultraviolet1x'
 
+gem 'devise'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'

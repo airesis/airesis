@@ -1,6 +1,13 @@
 <h1>Modifica il gruppo</h1>
 
-<%= error_messages_for :group %>
+
+<% if @group.errors.any? %>
+  <ul>
+    <% @group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= render :partial => @group, :locals => { :button_name => "Aggiorna" } %>
 

@@ -1,7 +1,7 @@
 #encoding: utf-8
 class AdminController < ApplicationController
   
-  before_filter :admin_required, :only => [:new, :create, :destroy]
+  before_filter :admin_required#, :only => [:new, :create, :destroy]
 
   def index
    
@@ -11,6 +11,7 @@ class AdminController < ApplicationController
    
   end
   
+  #calcola il ranking degli utenti
   def calculate_ranking
     
     @users = User.find(:all)

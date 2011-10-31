@@ -8,29 +8,29 @@
 			<% if my_rank == 1 %>
 				<div class="votedup"></div>
 			 <%elsif can_rank_again%>
-				 <%= link_to_remote '', {:before => "hideRankPanel('rankingpanelcontainer#{comment.id}')", :url => {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}},
-									{:id => "voteup", :class=>"voteup", :href => url_for(:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id)} %>
-				 <%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loadingup' %>
+				 <%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
+									:id => "voteup#{comment.id}", :class=>"voteup"%>
+				 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
 			<%end%>
 				<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 			<% if my_rank == 3 %>
 				<div class="voteddown"/>
 			<% elsif can_rank_again%>
-				<%= link_to_remote '', {:before => "hideRankPanel('rankingpanelcontainer#{comment.id}')", :url => {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}},
-									{:id => "votedown",:class=>"votedown", :href => url_for(:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id)} %>
-				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loadingdown' %>					
+				<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
+									:id => "votedown#{comment.id}", :class=>"votedown" %>
+				<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>					
 			<%end%>		
 	<%else%>
 		<%if can_rank_again%>
-			<%= link_to_remote '', {:before => "hideRankPanel('rankingpanelcontainer#{comment.id}')", :url => {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}},
-									{:id => "voteup", :class=>"voteup", :href => url_for(:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id)} %>
-			<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loadingup' %>
+		 	<%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
+									:id => "voteup#{comment.id}", :class=>"voteup"%>
+			 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
 		<%end%>
 		<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 		<%if can_rank_again%>
-			<%= link_to_remote '', {:before => "hideRankPanel('rankingpanelcontainer#{comment.id}')", :url => {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}},
-									{:id => "votedown",:class=>"votedown", :href => url_for(:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id)} %>
-			<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loadingdown' %>
+			<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
+									:id => "votedown#{comment.id}", :class=>"votedown" %>
+			<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>
 		<%end%>	
 	<%end %>
 <%else%>

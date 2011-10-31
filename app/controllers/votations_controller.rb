@@ -1,56 +1,57 @@
 #encoding: utf-8
 class VotationsController < ApplicationController
-  include AuthenticatedSystem
-  
-  before_filter :login_required, :only => [ :show, :vote ]
+
   before_filter :load_proposals, :only => [ :show]
+
+  before_filter :authenticate_user!, :only => [ :show, :vote ]
   
-  def show    
-    
+  def show
+
   end
-  
-  
+
   def vote
-    proposal = Proposal.find_by_id(params[:proposal_id])
-    proposal.user_votes.build(:user_id => current_user.id)
-    if (params[:vote_type] == 1)
-      proposal.vote.positive = proposal.vote.positive+1
-    elsif (params[:vote_type] == 2)
-      proposal.vote.neutral = proposal.vote.neutral+1
-    else
-      proposal.vote.negative = proposal.vote.negative+1
-    end
-    proposal.vote.save!
-    proposal.save!
-    
-    
-    load_proposals
-    respond_to do |format|      
+
+    Proposal.transaction do
+      proposal = Proposal.find_by_id(params[:proposal_id])
+      proposal.user_votes.build(:user_id => current_user.id)
+      if (params[:vote_type] == 1)
+        proposal.vote.positive = proposal.vote.positive+1
+      elsif (params[:vote_type] == 2)
+        proposal.vote.neutral = proposal.vote.neutral+1
+      else
+       proposal.vote.negative = proposal.vote.negative+1
+      end
+      proposal.vote.save!
+      proposal.save!
+
+      load_proposals
+      respond_to do |format|
         flash[:notice] = 'Voto registrato'
-        format.html { redirect_to votation_path }
         format.js   { render :update do |page|
-                        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                        #page.replace_html "proposals_list", :partial => "votations/list", :locals =>  {:proposals => @proposals}
-                      end
-                    }
-    end
-    
-    rescue ActiveRecord::ActiveRecordError => e
-      if proposal.errors[:user_votes]
-        respond_to do |format|      
-          flash[:error] = 'Hai già votato per questa proposta'
-          format.html { redirect_to votation_path }
-          format.js   { render :update do |page|
-                          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                          page.replace_html "proposals_list", :partial => "votations/list", :locals =>  {:proposals => @proposals}
-                        end
-                      }
-        end
-                
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          #page.replace_html "proposals_list", :partial => "votations/list", :locals =>  {:proposals => @proposals}
+          end
+        }
+        format.html { redirect_to votation_path }
       end
   end
-  
+  rescue ActiveRecord::ActiveRecordError => e
+    if proposal.errors[:user_votes]
+      respond_to do |format|
+        load_proposals
+        flash[:error] = 'Hai già votato per questa proposta'
+        format.js   { render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "proposals_list", :partial => "votations/list", :locals =>  {:proposals => @proposals}
+          end
+        }
+        format.html { redirect_to votation_path }
+      end
+    end
+  end
+
   protected
+
   #carica le proposte per le quali può votare l'utente connesso
   def load_proposals
     #la proposta deve essere in stato 'in votazione'

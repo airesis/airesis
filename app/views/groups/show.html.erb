@@ -4,6 +4,29 @@
 <p>
     <%=h @group.description %>
 </p>
+<div id="accordion" style="width:80%">
+    <h3><a href="#">Regolamento del gruppo</a></h3>
+    <div style="line-height:1;">Elenco delle regole:
+    	<ul>
+    		<li>Partecipazione:</li>
+    			<%if @group.request_by_vote?%>
+    				Quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.
+    			<%elsif @group.request_by_portavoce?%>
+    				quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta cche il portavoce avrà accettato la richeista, l'utente sarà a tutti gli effetti un partecipante del gruppo.
+    			<%end%>    			
+    	</ul>
+    </div>    
+</div>
+
+<script type="text/javascript">
+	$('#accordion').accordion({
+			collapsible: true,
+			autoHeight: false, 
+    		active: false 
+		});
+	
+</script>
+
 
 <%posts = @group.posts.all(:order => 'published_at DESC') %>
 <% if posts.size == 0 %>
@@ -35,17 +58,17 @@ if requests.size > 0 %>
 	        <div class="Mo">
 	            <%= request.user_image_tag(24) %>
 	        </div>
-	        <div class="Mo">
+	        <div class="Mo2">
 	            <%=raw request.user.full_link_to_page %>
 	        </div>
-	    </div>
 	    <% if ((current_user && (@group.portavoce == current_user)) || is_admin?) %>
 	   		 <%if @group.request_by_vote? %>
 	  		  <%=link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
 	  		  <%elsif @group.request_by_portavoce? %>
-	   			 <%=link_to 'Accetta', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id),:class => 'confirmRequest' %>
+	   			 <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest' %>
 	 		 <% end %>
 	    <%end %>
+	    </div>
 	</p>
 	<% end %>
 <%end%>
@@ -72,10 +95,10 @@ if requests.size > 0 %>
 	follow = current_user.group_follows.find_by_group_id(@group.id)
    end
    if (!follow)%>
-		<%= link_to 'Segui', url_for(:action => "ask_for_follow", :controller => "groups", :id => @group.id), :id => 'group_follow' %>
+		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow' %>
 	<%end%>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 			$('#group_partecipa, #group_follow, .confirmRequest').button();
 			
 		</script>

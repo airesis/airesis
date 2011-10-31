@@ -13,15 +13,14 @@
 		
 	</script>
 	
-	<% if !logged_in? %>
+	<% if !user_signed_in? %>
 		<h2><%=t(:login_to_post_comment)%></h2>
 	<% else %>
 		<h2><%=t(:insert_comment)%></h2>
 		<% if current_user %>
 			<p>Stai scrivendo come <span class="blogPoster"><%= current_user.name %></span></p>
 		<% end %>
-		<% remote_form_for([@blog, @blog_post, blog_comment], 					
-			:after => "sblank()") do |f| %>
+		<% form_for [@blog, @blog_post, blog_comment],:remote => true do |f| %>
 			<%= error_messages_for :blog_comment, :header_message => nil, :message => "Impossibile inserire il commento", :class => "ui-state-error ui-corner-all" %>
 						
 			<p>

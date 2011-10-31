@@ -15,6 +15,7 @@
 #
 
 class Event < ActiveRecord::Base
+  
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor
   
   validates_presence_of :title, :description

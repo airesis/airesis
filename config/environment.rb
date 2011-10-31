@@ -5,3 +5,5 @@ require File.expand_path('../application', __FILE__)
 DemocracyOnline3::Application.initialize!
 
 require 'will_paginate'
+
+#OmniAuth.config.test_mode = true

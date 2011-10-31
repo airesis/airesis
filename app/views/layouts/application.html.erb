@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <%= stylesheet_link_tag 'style','blog_kit','token-input', 'redmond/custom', 'jquery.contextmenu', 'ImageOverlay.css' %>
          <%= javascript_include_tag :defaults %>
-        <%= javascript_include_tag 'jquery-ui', 'jquery.tokeninput', 'jquery.contextMenu', 'jquery.ImageOverlay' %>
+        <%= javascript_include_tag 'jquery-ui', 'jquery.tokeninput', 'jquery.contextMenu', 'jquery.ImageOverlay', 'jrails' %>
         <%= csrf_meta_tag %>
 		 <%= yield :head %>
     </head>
@@ -26,13 +26,13 @@
 				| <%= link_to 'Calendario', '/events'%>
             </div>
 			<div class="superHeader">
-                <% if logged_in? %>
+                <% if user_signed_in? %>
                 <span>Benvenuto </span>
                 <%= current_user.login %>
 				<div class="user-panel" id="user-panel-2">	
 				</div>
 				<div class="user-panel" id="user-panel">
-					 <% if logged_in? %>	              
+					 <% if user_signed_in? %>	              
 						<p><%=current_user.login%></p>
 						<ul>
 							
@@ -48,19 +48,19 @@
 				                
 								<% if is_admin?%>
 								<li>									
-									<%= link_to 'Pannello amministrazione', '/admin/panel'%>								
+									<%= link_to 'Pannello amministrazione', admin_panel_path%>								
 								</li>
 								<%end%>
 								
 							</li>
 							<li>
-								<%= link_to 'Logout', logout_url %>							
+								<%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>							
 							</li>
 						</ul>		
                 	<% end %>
 				</div>
                 <% else %>
-                <span><%= link_to 'Esegui il login o registrati',login_path(:redirect => current_url) %></span>
+                <span><%= link_to 'Esegui il login o registrati',new_user_session_path(:redirect => current_url) %></span>
                 <% end %>
             </div>
 			<div style="clear: both; height: 0; overflow: hidden;"> </div>

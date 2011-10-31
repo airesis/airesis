@@ -1,4 +1,4 @@
-<% if logged_in? -%>
+<% if user_signed_in? -%>
   <div id="user-bar-greeting">Logged in as <%= link_to_current_user :content_method => :login %></div>
   <div id="user-bar-action"  >(<%= link_to "Log out", logout_path, { :title => "Log out" }    %>)</div>
 <% else -%>

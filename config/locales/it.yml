@@ -2,6 +2,25 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 it:
+  
+  devise:
+    omniauth_callbacks:
+      success: 'Hai eseguito l''autenticazione. Benvenuto!'
+    registrations:
+      user:
+        inactive_signed_up: 'Per completare la registrazione clicca nel link della mail che hai ricevuto.'
+    confirmations:
+      user:
+        confirmed: 'Registrazione completata con successo!'             
+    sessions:
+      user:
+        signed_out: 'Hai eseguito logout. Ciao!'
+        signed_in: 'Hai eseguito l''autenticazione. Benvenuto!'
+        signed_up: 'Hai eseguito correttamente la registrazione. Benvenuto!'
+    passwords:
+      user:
+        updated: 'Password aggiornata correttamente.'
+  
   date:
     order: [:day, :month, :year ]
     formats:

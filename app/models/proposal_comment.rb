@@ -7,21 +7,25 @@ class ProposalComment < ActiveRecord::Base
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   
-   validates_length_of :content, :maximum => 4000
+  validates_length_of :content, :minimum => 10, :maximum => 4000
 
   
   attr_accessor :collapsed
   
-  def after_initialize     
+  after_initialize :set_collapsed
+  
+  validate :check_last_comment
+  
+  def set_collapsed     
      @collapsed = false     
- end
+  end
  
-  def validate
+  def check_last_comment
     comments =  self.proposal.comments.find_all_by_user_id(self.user_id, :order => "created_at DESC")
     comment = comments.first
- #   if comment and (((Time.now - comment.created_at)/60) < 5)
- #       self.errors.add(:created_at,"Devono passare almeno cinque minuti tra un commento e l'altro.")
- #   end
+    if LIMIT_COMMENTS and comment and (((Time.now - comment.created_at)/60) < 5)
+       self.errors.add(:created_at,"Devono passare almeno cinque minuti tra un commento e l'altro.")
+    end
   end
  
  

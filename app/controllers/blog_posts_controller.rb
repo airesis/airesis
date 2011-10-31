@@ -18,7 +18,7 @@ class BlogPostsController < ApplicationController
   
   def index
     @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
-    @index_title = BlogKit.instance.settings['blog_name'] || 'Blog'
+    @index_title = 'Blog'
     
     respond_to do |format|
       format.html # index.html.erb    
@@ -56,7 +56,11 @@ class BlogPostsController < ApplicationController
   def show
     @blog_post = @blog.posts.find(params[:id])
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')    
+    @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+     respond_to do |format|
+      format.js
+      format.html
+    end    
   end
   
   def new
@@ -64,7 +68,7 @@ class BlogPostsController < ApplicationController
     @groups = current_user.groups
     
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @blog_post }
     end
   end
@@ -135,11 +139,7 @@ class BlogPostsController < ApplicationController
   end
   
   def choose_layout
-    if ['new', 'edit', 'create', 'update'].include?(params[:action])
-      BlogKit.instance.settings['admin_layout'] || 'application'
-    else
-      BlogKit.instance.settings['layout'] || 'application'
-    end
+    'application'
   end
   
   def setup_image_template

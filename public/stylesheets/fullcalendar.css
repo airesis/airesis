@@ -262,7 +262,7 @@ html .fc,
 	border-style: solid;
 	border-width: 0;
 	font-size: .85em;
-	cursor: default;
+	cursor: pointer;
 	}
 	
 a.fc-event,

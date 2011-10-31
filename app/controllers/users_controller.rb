@@ -1,19 +1,21 @@
 #encoding: utf-8
 class UsersController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  # include AuthenticatedSystem
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :edit]
   
+  def blank
+    render :text => "Not Found", :status => 404
+  end
+  
   def index
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
-      format.html # index.html.erb
       format.xml  { render :xml => @users }
       format.json  { render :json => @users.to_json(:only => [:id, :name]) }
+      format.html # index.html.erb
     end
   end
   
@@ -59,25 +61,25 @@ class UsersController < ApplicationController
         
         
         flash[:notice] = t(:user_updated)
-        format.html { redirect_to  @user }
         format.js do
           render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
             page.replace_html "user_profile_container", :partial => "user_profile"          
           end
         end
+        format.html { redirect_to  @user }
         format.xml  { render :xml => @proposal }      
       else
         @user.errors.each do |attr,msg|
           flash[:error] = msg
         end
-        format.html { render :action => "show" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.js do
           render :update do |page|            
             page.replace_html "error_updating", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
+        format.html { render :action => "show" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end

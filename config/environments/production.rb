@@ -47,7 +47,9 @@ DemocracyOnline3::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  
+  config.action_mailer.default_url_options = { :host => 'http://democracyonline.heroku.com' }
+  config.assets.initialize_on_precompile = false
+
   #indirizzo del sito
   SITE="http://democracyonline.heroku.com"
   #numero massimo di commenti per pagina
@@ -69,4 +71,7 @@ DemocracyOnline3::Application.configure do
   ORDER_BY_DATE="2"
   ORDER_BY_RANK="3"
   ORDER_BY_VOTES="4"
+  
+   #limita il numero di commenti
+  LIMIT_COMMENTS=true
 end

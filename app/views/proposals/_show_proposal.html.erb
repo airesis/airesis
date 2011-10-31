@@ -1,24 +1,25 @@
 <script>
 	//style="background-color: rgb(185, 255, 116);"
 	function hideRankPanel(rank_p) {
-		query = '#' + rank_p + ' > #voteup'
+		query = '#' + rank_p + ' > .voteup'
 		$(query).hide();
 		
-		query = '#' + rank_p + ' > #votedown'
+		query = '#' + rank_p + ' > .votedown'
 		$(query).hide();
 		
-		query = '#' + rank_p + ' > #loadingup'
+		query = '#' + rank_p + ' > .loadingup'
 		$(query).show();
 	
-		query = '#' + rank_p + ' > #loadingdown'
+		query = '#' + rank_p + ' > .loadingdown'
 		$(query).show();
 				
 	}	
 	
 	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
 	
-		
+	
 </script>	
+
     <div class="blogUserImage">
         <%= proposal.user_image_tag %>
     </div>
@@ -50,7 +51,7 @@
 									<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
                                 		<%= link_to 'Modifica', edit_proposal_path(proposal)  %>
 									<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
-										<% remote_form_for proposal, :url => { :controller => "proposals", :id => proposal.id, :action => "set_votation_date"} do |f| %> 
+										<% form_for proposal, :url => { :controller => "proposals", :id => proposal.id, :action => "set_votation_date"}, :remote => true do |f| %> 
 										   <p>
 										    <b>Scegli un periodo per la votazione</b><br />
 												<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>

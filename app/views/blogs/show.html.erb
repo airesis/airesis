@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'blog_kit' %>
-<%= stylesheet_link_tag 'syntax/' + (BlogKit.instance.settings['theme'] || 'mac_classic') %>
-<%= auto_discovery_link_tag :atom, blog_posts_path(:format => :atom) %>
+<%= stylesheet_link_tag 'syntax/' + ('mac_classic') %>
+
 
 <%= render :partial => 'blog_posts/admin_links' %>
 

@@ -42,15 +42,15 @@
 .blogCommentPostedAt {
 }
 
-.confirmRequest {
-    font-size: 1.1em;
-    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+.confirmRequest .ui-button-text{
+    font-size: 10px;
 }
 
 .headerButton {
     float: left;
     margin: 0 5px;
 }
+
 
 h4 {
     color: #808080;
@@ -605,6 +605,12 @@ a.spch-bub-inside:hover .point {
 .Mo {
     cursor: pointer;
     float: left;
+}
+
+.Mo2 {
+    cursor: pointer;
+    float: left;
+    margin: 5px;
 }
 
 .img_rec {

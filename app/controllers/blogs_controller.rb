@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.xml
   
-  before_filter :login_required, :only => [ :edit, :update, :destroy, :new, :create ]
+  before_filter :authenticate_user!, :only => [ :edit, :update, :destroy, :new, :create ]
   before_filter :check_author, :only => [:edit, :update, :destroy]
   
   

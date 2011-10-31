@@ -1,12 +1,14 @@
 #encoding: utf-8
 class EventsController < ApplicationController
   
-  before_filter :load_event, :only => [:show, :destroy]
+  before_filter :admin_required, :only => [:new,:create,:move,:resize,:edit,:update,:destroy] 
+  
+  before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
   
   def show
     respond_to do |format|
-      format.html
       format.js
+      format.html
     end
   end
   
@@ -49,7 +51,6 @@ class EventsController < ApplicationController
   
   
   def move
-    @event = Event.find_by_id params[:id]
     if @event
       @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
@@ -60,7 +61,6 @@ class EventsController < ApplicationController
   
   
   def resize
-    @event = Event.find_by_id params[:id]
     if @event
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
       @event.save
@@ -68,7 +68,6 @@ class EventsController < ApplicationController
   end
   
   def edit
-    @event = Event.find_by_id(params[:id])
   end
   
   def update

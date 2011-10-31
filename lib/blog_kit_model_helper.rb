@@ -62,7 +62,7 @@ end
 		if user && !user.image_url.blank?
 			# Load image from model
 			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onError=\"$(this).attr('src','/images/anonimo.jpg')\"/>"      
-		elsif BlogKit.instance.settings['gravatar']
+		else
 			# Gravatar
 			require 'digest/md5'
 			if !user.email.blank?
@@ -73,9 +73,6 @@ end
 			
 			hash = Digest::MD5.hexdigest(email.downcase)
 			ret = "<img  src=\"http://www.gravatar.com/avatar/#{hash}?s=#{size}\"/>"
-		else
-			# No Image
-			return ''
 		end
 		
 		return ret.html_safe if ret.respond_to?(:html_safe)

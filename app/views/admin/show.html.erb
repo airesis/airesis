@@ -2,8 +2,8 @@
 <br/>
 <br/>
 <br/>
-	<%= link_to 'Ricalcola ranking utenti', url_for(:action => "calculate_ranking", :controller => "admin"), :class => 'recalculate' %>	
-	<%= link_to 'Ricalcola stato proposte', url_for(:action => "change_proposals_state", :controller => "admin"), :class => 'recalculate' %>
+	<%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking" }, :class => 'recalculate' %>	
+	<%= link_to 'Ricalcola stato proposte', {:action => "change_proposals_state", :controller => "admin"}, :class => 'recalculate' %>
 	<script type="text/javascript">
 		$('.recalculate').button();
 	</script>

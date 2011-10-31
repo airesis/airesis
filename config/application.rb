@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module DemocracyOnline3
   class Application < Rails::Application
-    config.active_record.observers = :user_observer
+    #config.active_record.observers = :user_observer
     config.encoding = "UTF-8"
     config.coding = "UTF-8"
 

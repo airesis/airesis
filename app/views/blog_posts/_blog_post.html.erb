@@ -37,7 +37,7 @@
 	<% unless blog_post.tags.blank? %>
 		<p class="blogPostTags">
 			<b>Tags: </b>
-			<%= blog_post.tags_with_links %>
+			<%=raw blog_post.tags_with_links %>
 		</p>
 	<% end %>
 	
@@ -50,7 +50,7 @@
 					<li><%= link_to('Torna al blog', blog_path(@blog)) %></li>
 				<% end %>
 			<% end %>
-			<% if (logged_in? and current_user.is_my_blog_post? blog_post.id)%>
+			<% if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
 				<li><%= link_to('Modifica', edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
 				<li><%= link_to('Cancella', blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
 			<%end%>

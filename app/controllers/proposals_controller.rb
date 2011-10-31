@@ -1,12 +1,21 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include AuthenticatedSystem
   
+  #carica la proposta
   before_filter :load_proposal, :except => [:index, :new, :create, :index_by_category]
-  before_filter :login_required, :only => [ :edit, :update, :destroy, :new, :create ]
-  before_filter :check_author, :only => [:edit, :update, :destroy]
-  before_filter :can_valutate, :only => [:rankup,:rankdown]
+  
+###SICUREZZA###
+  
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :except => [:index, :show]
+  
+  #l'utente deve essere autore della proposta
+  before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
+  
+  #la proposta deve essere in stato 'IN VALUTAZIONE'
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy]
+  #l'utente deve poter valutare la proposta
+  before_filter :can_valutate, :only => [:rankup,:rankdown]
   
   
   
@@ -45,12 +54,12 @@ class ProposalsController < ApplicationController
     @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     
     respond_to do |format|
-      format.html # show.html.erb
       format.js do
         render :update do |page|
           page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
-        end
+        end        
       end
+      format.html # show.html.erb
       format.xml  { render :xml => @proposal }
     end
     
@@ -124,12 +133,12 @@ class ProposalsController < ApplicationController
      if @proposal.proposal_state_id != PROP_WAIT_DATE
       flash[:error] = t(:error_proposal_not_waiting_date)
       respond_to do |format|
-        format.html {
-          redirect_to proposal_path(params[:id])
-        }
         format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end                  
+        }
+        format.html {
+          redirect_to proposal_path(params[:id])
         }
       end
     else    
@@ -203,19 +212,19 @@ class ProposalsController < ApplicationController
         if saved
           load_my_vote
           flash[:notice] = t(:proposal_rank_registered)
-          format.html 
           format.js { render :update do |page|                    
               page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
               page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}                     
             end                     
           }
+          format.html 
         else        
           flash[:notice] = t(:error_on_proposal_rank)
-          format.html 
           format.js { render :update do |page|
               page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
             end
           }       
+          format.html 
         end
       end
       
@@ -223,13 +232,13 @@ class ProposalsController < ApplicationController
   rescue Exception => e
     flash[:notice] = t(:error_on_proposal_rank)
     respond_to do |format|
-      format.html 
       format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}                     
           
         end
       }       
+      format.html 
     end
   end
   
@@ -271,13 +280,13 @@ class ProposalsController < ApplicationController
      if @proposal.proposal_state_id != PROP_VALUT
       flash[:error] = t(:error_proposal_not_valutating)
       respond_to do |format|
-        format.html {
-          redirect_to :back
-        }
         format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
             page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
           end                  
+        }
+        format.html {
+          redirect_to :back
         }
       end
     end
@@ -293,13 +302,13 @@ class ProposalsController < ApplicationController
     if @my_vote && @my_ranking.updated_at > @proposal.updated_at
       flash[:error] = t(:error_proposal_already_ranked)
       respond_to do |format|
-        format.html {
-          redirect_to proposal_path(params[:id])
-        }
         format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
             page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
           end                  
+        }
+        format.html {
+          redirect_to proposal_path(params[:id])
         }
       end
     else

@@ -1,12 +1,13 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable
+
   include BlogKitModelHelper
-  include Authentication
-  include Authentication::ByPassword
-  include Authentication::ByCookieToken
   
-  include Authorization::StatefulRoles
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -20,12 +21,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
-  
-  
-  # HACK HACK HACK -- how to do attr_accessible from here?
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url
+  attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me
   
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
@@ -53,6 +49,14 @@ class User < ActiveRecord::Base
 
   attr_accessor :image_url
 
+
+ def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
+        user.email = data["email"]
+      end
+    end
+  end
   
   def last_blog_comment
     self.blog_comments
@@ -70,51 +74,12 @@ class User < ActiveRecord::Base
   end
   
   
-  
-  # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-  #
-  # uff.  this is really an authorization, not authentication routine.  
-  # We really need a Dispatch Chain here or something.
-  # This will also let us return a human error message.
-  #
-  def self.authenticate(login, password)
-    return nil if login.blank? || password.blank?
-    u = find_in_state :first, :active, :conditions => {:login => login.downcase} # need to get the salt
-    u && u.authenticated?(password) ? u : nil
-  end
-  
   def login=(value)
     write_attribute :login, (value ? value.downcase : nil)
   end
   
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
-  end
-  
-  
-  def forgot_password
-    @forgotten_password = true
-    self.make_password_reset_code
-  end
-  
-  def reset_password
-    # First update the password_reset_code before setting the 
-    # reset_password flag to avoid duplicate email notifications.
-    update_attributes(:password_reset_code => nil)
-    @reset_password = true
-  end  
-  
-  #used in user_observer
-  def recently_forgot_password?
-    @forgotten_password
-  end
-  
-  def recently_reset_password?
-    @reset_password
-  end
-  
-  def recently_activated?
-    @recent_active
   end
   
   #determina se un oggetto appartiene all'utente verificando che 
@@ -237,26 +202,46 @@ class User < ActiveRecord::Base
   
   def full_link_to_page(skip_link=false)
     if !skip_link
-      return "<a class='full_link' href=\"/users/#{self.id}\">#{CGI.escapeHTML(self.name)} #{CGI.escapeHTML(self.surname)}</a>"
+      return "<a class='full_link' href=\"/users/#{self.id}\">#{CGI.escapeHTML(self.name)} #{CGI.escapeHTML(self.surname) if self.surname}</a>"
     else
       return self.name
     end
   end
 
-  
-  protected
-  def make_activation_code
-    
-    self.deleted_at = nil
-    
-    self.activation_code = self.class.make_token
+def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+  data = access_token['extra']['user_hash']
+  if user = User.find_by_email_and_account_type(data["email"],'facebook')
+    return user
+  else # Create a user with a stub password. 
+    user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
+    if data["verified"]
+      user.account_type = 'facebook'
+      user.confirm!
+      user.save! false
+    end 
+    return user
   end
-  
-  def make_password_reset_code
-    self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+end
+
+def apply_omniauth(omniauth)
+  case omniauth['provider']
+  when 'facebook'
+    self.apply_facebook(omniauth)
   end
-  
-  
-  
-  
+  authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :token =>(omniauth['credentials']['token'] rescue nil))
+end
+
+def facebook
+  @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider('facebook').token)
+end
+
+
+protected
+
+def apply_facebook(omniauth)
+  if (extra = omniauth['extra']['user_hash'] rescue false)
+    self.email = (extra['email'] rescue '')
+  end
+end
+
 end

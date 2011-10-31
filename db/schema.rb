@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110710220127) do
+ActiveRecord::Schema.define(:version => 20111030163622) do
 
   create_table "_pgmdd_backup_blog_comments_2011-11-07_00:11", :id => false, :force => true do |t|
     t.integer "id",                     :limit => 8
@@ -1339,20 +1339,26 @@ ActiveRecord::Schema.define(:version => 20110710220127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "login",                     :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.string   "password_salt",                             :default => "",    :null => false
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
-    t.datetime "activated_at"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
     t.datetime "deleted_at"
     t.string   "state",                     :limit => nil
-    t.string   "password_reset_code",       :limit => 40
-    t.string   "crypted_password",          :limit => 100,                     :null => false
+    t.string   "reset_password_token",      :limit => 40
+    t.string   "encrypted_password",        :limit => 128,  :default => "",    :null => false
     t.boolean  "activist",                                  :default => false, :null => false
     t.boolean  "elected",                                   :default => false, :null => false
     t.string   "blog_image_url",            :limit => 1000
     t.integer  "image_id"
     t.integer  "rank"
+    t.integer  "fb_user_id"
+    t.string   "email_hash"
+    t.datetime "confirmation_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

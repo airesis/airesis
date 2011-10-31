@@ -24,10 +24,10 @@
                             <div class="baloon-footer">
                                 <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
                                 <p>
-                                    <%= link_to_remote 'Cancella', {:url => {:action => "adestroy", :controller => "proposal_comments", :proposal_id => @proposal.id, :id => comment.id}},
-                                    {:id => "delete#{comment.id}", :href => url_for(:action => "adestroy", :controller => "proposal_comments", :proposal_id => @proposal.id, :id => comment.id)} %>
+                                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},:remote => true,
+                                    :id => "delete#{comment.id}"%>
                                 </p>
-                                <% end %>
+                                <%end%>                               
                             </div>
                         </div>
                     </td>
@@ -39,22 +39,11 @@
                 </tr>
             </body>
         </table>
-        <script>	
-            		var onClick<%=comment.id%> = new Function($('#delete<%= comment.id%>').attr('onClick'));		
-            		function nuova() {			
-            			if (confirm('Sei sicuro di voler cancellare questo commento?')) {			
-            				$('#comment<%= comment.id%>').hide(600,onClick<%=comment.id%>);
-            			}
-            			return false;		
-            		}									
-            		$('#delete<%= comment.id%>').removeAttr('onclick').click(nuova);
-            		
-            		<%if (comment.collapsed) %>
-            			$('#comment<%= comment.id%>').show(600);
-            	    <%end%>
-            		
-            		
-            	
-        </script>
+     
+     <script>     		
+	     	<%if (comment.collapsed) %>
+				$('#comment<%= comment.id%>').show(600);
+		    <%end%>
+     </script>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <% self.respond_to?(:title) && title(@index_title) -%>
 <% @show_title = false -%>
 <%= stylesheet_link_tag 'blog_kit' %>
-<%= stylesheet_link_tag 'syntax/' + (BlogKit.instance.settings['theme'] || 'mac_classic') %>
+<%= stylesheet_link_tag 'syntax/mac_classic' %>
 <%= auto_discovery_link_tag :atom, blog_posts_path(:format => :atom) %>
 
 
