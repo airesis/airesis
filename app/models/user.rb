@@ -11,15 +11,15 @@ class User < ActiveRecord::Base
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
+  validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message
   
-  validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
+  validates_format_of       :name,     :with => AuthenticationModule.name_regex,  :message => AuthenticationModule.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
   
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+  validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
   
   attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me
   
@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
   belongs_to :places, :class_name => 'Place', :foreign_key => :residenza_id
   belongs_to :places, :class_name => 'Place', :foreign_key => :nascita_id
   belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
+  has_many :authentications, :class_name => 'Authentication'
+
   
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
@@ -217,7 +219,8 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     if data["verified"]
       user.user_type_id = 3
       user.sign_in_count = 0
-      user.account_type = 'facebook'
+      user.account_type = 'facebook'     
+      user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
       user.confirm!
       user.save! false
     end 
@@ -225,25 +228,9 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   end
 end
 
-def apply_omniauth(omniauth)
-  case omniauth['provider']
-  when 'facebook'
-    self.apply_facebook(omniauth)
-  end
-  authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :token =>(omniauth['credentials']['token'] rescue nil))
-end
-
 def facebook
-  @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider('facebook').token)
-end
-
-
-protected
-
-def apply_facebook(omniauth)
-  if (extra = omniauth['extra']['user_hash'] rescue false)
-    self.email = (extra['email'] rescue '')
-  end
+  
+  @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider('facebook').token).fetch rescue nil
 end
 
 end

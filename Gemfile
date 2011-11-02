@@ -39,6 +39,8 @@ gem 'bluecloth'
 gem 'ultraviolet1x'
 
 gem 'devise'
+
+gem 'fb_graph'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'

@@ -33,6 +33,9 @@
 	<br/>	
 	Categoria: <%= link_to proposal.category.description, proposals_path(:category => proposal.category.id)%>
 	- Stato: <%= link_to proposal.state.description%>
+	- <%=raw facebook_like %>
+
+
 </div>
 <div id="proposal<%= proposal.id %>" class="blogComment">
     <div class="proposal_main">

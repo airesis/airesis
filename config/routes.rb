@@ -10,12 +10,25 @@ DemocracyOnline3::Application.routes.draw do
   
 
   root :to => 'proposals#index'
+  
+  #match ':controller/:action/:id'
+  
   resources :users                                      
   
-  resources :proposal_comments
+  #resources :proposal_comments
   
   resources :proposals do
-    resources :proposal_comments
+    resources :proposal_comments do
+      member do
+        get :rankup
+        get :rankdown
+        get :set_votation_date
+      end
+    end
+    member do
+      get  :rankup
+      get :rankdown
+    end
   end
   
   resources :proposalcategories
@@ -32,9 +45,18 @@ DemocracyOnline3::Application.routes.draw do
   
    resources :events 
   
-  match '/groups/partecipation_request_confirm', :to => 'groups#partecipation_request_confirm'
-  match '/groups/ask_for_follow', :to => 'groups#ask_for_follow'
-  resources :groups
+  #match '/groups/partecipation_request_confirm', :to => 'groups#partecipation_request_confirm'
+  
+  resources :groups do
+    member do
+      get :ask_for_partecipation
+      get :ask_for_follow
+      get :partecipation_request_confirm
+    end
+
+    collection do
+    end
+  end
 
   
   match ':controller/:action/'
@@ -47,6 +69,8 @@ DemocracyOnline3::Application.routes.draw do
   resources :votations
 
   match ':controller/:action/:id'
+  
+ 
   
   match ':controller/:action/:id.:format'
   

@@ -1,9 +1,10 @@
 #encoding: utf-8
 class VotationsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   before_filter :load_proposals, :only => [ :show]
 
-  before_filter :authenticate_user!, :only => [ :show, :vote ]
   
   def show
 

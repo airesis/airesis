@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030163622) do
+ActiveRecord::Schema.define(:version => 20111031140140) do
 
   create_table "_pgmdd_backup_blog_comments_2011-11-07_00:11", :id => false, :force => true do |t|
     t.integer "id",                     :limit => 8
@@ -991,6 +991,12 @@ ActiveRecord::Schema.define(:version => 20111030163622) do
     t.integer  "rank"
   end
 
+  create_table "associations", :force => true do |t|
+    t.integer "user_id"
+    t.string  "provider"
+    t.string  "token"
+  end
+
   create_table "blog_comments", :force => true do |t|
     t.integer  "parent_blog_comment_id"
     t.integer  "blog_post_id"
@@ -1329,7 +1335,7 @@ ActiveRecord::Schema.define(:version => 20111030163622) do
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
 
   create_table "users", :force => true do |t|
-    t.integer  "user_type_id"
+    t.integer  "user_type_id",                              :default => 3,     :null => false
     t.integer  "residenza_id"
     t.integer  "nascita_id"
     t.string   "name",                      :limit => 100
@@ -1352,13 +1358,17 @@ ActiveRecord::Schema.define(:version => 20111030163622) do
     t.boolean  "elected",                                   :default => false, :null => false
     t.string   "blog_image_url",            :limit => 1000
     t.integer  "image_id"
-    t.integer  "rank"
+    t.integer  "rank",                                      :default => 0,     :null => false
     t.integer  "fb_user_id"
     t.string   "email_hash"
     t.datetime "confirmation_sent_at"
     t.datetime "remember_created_at"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.integer  "sign_in_count",                             :default => 0,     :null => false
+    t.string   "account_type"
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
