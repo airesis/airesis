@@ -13,7 +13,7 @@ gem 'tlsmail'
 
 gem 'silent-postgres'
 
-#gem "omniauth"
+gem "omniauth"
 gem "oa-oauth"
 
 # Use unicorn as the web server
