@@ -40,7 +40,7 @@ gem 'bluecloth'
 
 gem 'ultraviolet1x'
 
-gem 'devise'
+gem 'devise', '1.4.9'
 
 gem 'fb_graph'
 # Bundle the extra gems:
