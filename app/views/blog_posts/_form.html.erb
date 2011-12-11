@@ -25,7 +25,8 @@ function insertImage(image_id) {
 </script>
 
 <% form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
-	<% if BlogKit.instance.settings['use_markdown'] == false && BlogKit.instance.settings['html_editor'] == true %>
+	<% #if BlogKit.instance.settings['use_markdown'] == false && BlogKit.instance.settings['html_editor'] == true
+		if false %>
 		<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 		<script type="text/javascript">
 		bkLib.onDomLoaded(function() {
@@ -34,9 +35,16 @@ function insertImage(image_id) {
 		});
 		</script>
 	<% end %>
+	
+	<%= javascript_include_tag 'markdown', 'jquery.markitup' %>
+	<%= stylesheet_link_tag 'markitup/style','markdown' %>
+		<script type="text/javascript">
+			$(function() {
+				$('#blog_post_body').markItUp(mySettings);				
+			});
+		</script>
 
 	<div class="editBlogPost">
-		<div class="blogEditLeftPanel">
 			<% if @blog_post.errors.size > 0 %>
 				<div id="errorExplanation" class="ui-state-error ui-corner-all">
 					<h2>Il post non può essere inserito:</h2>
@@ -49,11 +57,11 @@ function insertImage(image_id) {
 			<% end %>
 			<p>
 				<%= f.label "Titolo" %><br />
-				<%= f.text_field :title %>
+				<%= f.text_field :title, :style => 'width:80%' %>
 			</p>
 			<p>
 				<%= f.label "Testo" %><br />
-				<%= f.text_area :body %>
+				<%= f.text_area :body%>
 			</p>
 			<p>
 				<%= f.label :tags, 'Tags (seperati da virgola)' %><br />
@@ -71,16 +79,15 @@ function insertImage(image_id) {
 				<% @groups.each do |group|%>
 				  
 				 <%= check_box_tag "blog_post[group_ids][]", group.id, true %>
-				 <%= f.label group.description%>
+				 <%= f.label group.name%>
 				 				 
 				<%end%> 
 			</p>
 			<p>
 				<%= f.submit 'Salva' %> o <%= link_to 'Torna indietro', blog_path(@blog) %>
 			</p>
-		</div>
 		<div class="blogEditRightPanel">
-			<% if BlogKit.instance.paperclip_support? && false %>
+			<% if false %>
 				<h2>Immagini</h2>
 			
 				<p>
@@ -117,7 +124,7 @@ function insertImage(image_id) {
 				</p>
 			<% end %>
 
-			<% if BlogKit.instance.settings['use_markdown'] != false %>
+			<% if true %>
 				<div class="blogMarkdownHelp">
 					<h2>Piccola guida</h2>
 					<ul>

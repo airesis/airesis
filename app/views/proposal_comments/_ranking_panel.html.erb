@@ -6,32 +6,32 @@
 		can_rank_again = current_user.can_rank_again_comment?(comment)
 		if my_rank%>
 			<% if my_rank == 1 %>
-				<div class="votedup"></div>
+				<div class="votedup-mini"></div>
 			 <%elsif can_rank_again%>
 				 <%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
-									:id => "voteup#{comment.id}", :class=>"voteup"%>
+									:id => "voteup-mini#{comment.id}", :class=>"voteup-mini"%>
 				 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
 			<%end%>
-				<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 			<% if my_rank == 3 %>
-				<div class="voteddown"/>
+				<div class="voteddown-mini"></div>
 			<% elsif can_rank_again%>
 				<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
-									:id => "votedown#{comment.id}", :class=>"votedown" %>
+									:id => "votedown-mini#{comment.id}", :class=>"votedown-mini" %>
 				<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>					
 			<%end%>		
+			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 	<%else%>
 		<%if can_rank_again%>
 		 	<%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
-									:id => "voteup#{comment.id}", :class=>"voteup"%>
+									:id => "voteup-mini#{comment.id}", :class=>"voteup-mini"%>
 			 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
 		<%end%>
-		<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 		<%if can_rank_again%>
 			<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
-									:id => "votedown#{comment.id}", :class=>"votedown" %>
+									:id => "votedown-mini#{comment.id}", :class=>"votedown-mini" %>
 			<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>
 		<%end%>	
+		<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 	<%end %>
 <%else%>
 	<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>

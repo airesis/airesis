@@ -73,13 +73,7 @@ class ProposalCommentsController < ApplicationController
         @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
         @saved.collapsed = true
-        format.js   { render :update do |page|
-                         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                        page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
-                        page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal.comments.new}
-                      end
-                    }
-        format.xml  { render :xml => @proposal_comment, :status => :created, :location => @proposal_comment }
+        format.js  
         format.html { redirect_to @proposal }        
       else
         format.js   { render :update do |page|
@@ -87,7 +81,6 @@ class ProposalCommentsController < ApplicationController
                       end
                     }
         format.html 
-        format.xml  { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
       end
     end
     

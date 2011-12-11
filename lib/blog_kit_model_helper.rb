@@ -13,6 +13,7 @@ rescue Exception => e
 end
 
 module BlogKitModelHelper
+  
 	def code_highlight_and_markdown(text, markdown_options = {})
     text_pieces = text.split(/(<code>|<code lang="[A-Za-z0-9_-]+">|
       <code lang='[A-Za-z0-9_-]+'>|<\/code>)/)
@@ -36,7 +37,8 @@ module BlogKitModelHelper
 				end
       else
 				if defined?(BlueCloth)
-	        BlueCloth.new(piece, markdown_options).to_html
+				 
+	        BlueCloth.new( ERB::Util.html_escape(piece), markdown_options).to_html
 				else
 					ERB::Util.html_escape(piece)
 				end

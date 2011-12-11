@@ -1,10 +1,10 @@
 <%= stylesheet_link_tag 'blog_kit' %>
 <h1>Tutti i blog</h1>
 
-<table>
+<table class="stiled">
   <tr>
-    <th>Titolo</th>
-	<th>Autore</th>
+    <th class="ui-state-default">Titolo</th>
+	<th class="ui-state-default">Autore</th>
   </tr>
 
 <% @blogs.each do |blog| %>
@@ -18,5 +18,13 @@
   </tr>
 <% end %>
 </table>
+
+<script type="text/javascript">
+	$(function() {
+		$('tr:odd').addClass("odd gradeA");
+		$('tr:even').addClass("even gradeA");
+	});
+
+</script>
 
 <br />

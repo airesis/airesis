@@ -10,8 +10,15 @@
 }
 
 .blogNewCommentField {
+	border:none;
 	width: 100%;
 	height: 130px;
+	resize: none;
+	background: none;
+}
+
+.new_blog_comment {
+	
 }
 
 .blogPoster {
@@ -53,7 +60,6 @@ ul.blogList li.blogListFirst {
 }
 .blogEditLeftPanel {
 	float: left;
-	width: 350px;
 }
 #blogImages {
 	width: 100%;

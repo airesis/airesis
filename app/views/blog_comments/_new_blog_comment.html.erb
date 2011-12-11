@@ -6,9 +6,9 @@
 		//	el.value = '';
 		}
 		
-		function hide() {
+		function hideinsertcomment() {
 			$('#insert_comment').hide();			
-			$('#loading').show();
+			$('#insert_comment_loading').show();
 		}
 		
 	</script>
@@ -16,25 +16,37 @@
 	<% if !user_signed_in? %>
 		<h2><%=t(:login_to_post_comment)%></h2>
 	<% else %>
-		<h2><%=t(:insert_comment)%></h2>
-		<% if current_user %>
-			<p>Stai scrivendo come <span class="blogPoster"><%= current_user.name %></span></p>
-		<% end %>
+		<label><%=t(:insert_comment)%></label>
 		<% form_for [@blog, @blog_post, blog_comment],:remote => true do |f| %>
-			<%= error_messages_for :blog_comment, :header_message => nil, :message => "Impossibile inserire il commento", :class => "ui-state-error ui-corner-all" %>
-						
-			<p>
-				<%= f.label :body, 'Commento' %><br />
+			<% if blog_comment.errors.any? %>
+			  <ul>
+			    <% blog_comment.errors.full_messages.each do |msg| %>
+			      <li><%= msg %></li>
+			    <% end %>
+			  </ul>
+			<% end %>			
+		
+				<div id="comment-form-comment">
 				<%= f.text_area :body, :class => 'blogNewCommentField' %>
-			</p>
+				</div>
+			
 			<p>
-				<%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hide();"	 %>
-				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'loading' %>
+				<%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hideinsertcomment();return true;"	 %>
+				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 			</p>
 		<% end %>
 	<% end %>
 </div>
 <script type="text/javascript">
-			$('input:submit').button();
+			$(function() {
+				$('.blogNewCommentField').focus(function() {
+					$('#comment-form-comment').toggleClass("active");	
+				}).focusout(function() {
+					$('#comment-form-comment').toggleClass("active");
+				});
+				$('input:submit').button();
+				
+			});
 			
+		
 		</script>

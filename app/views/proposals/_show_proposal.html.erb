@@ -12,7 +12,18 @@
 	
 		query = '#' + rank_p + ' > .loadingdown'
 		$(query).show();
-				
+						
+		query = '#' + rank_p + ' > .voteup-mini'
+		$(query).hide();
+		
+		query = '#' + rank_p + ' > .votedown-mini'
+		$(query).hide();
+		
+		query = '#' + rank_p + ' > .loadingup-mini'
+		$(query).show();
+	
+		query = '#' + rank_p + ' > .loadingdown-mini'
+		$(query).show();
 	}	
 	
 	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 

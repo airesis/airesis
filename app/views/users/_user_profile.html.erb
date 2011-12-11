@@ -71,7 +71,11 @@
         });
         
         $('#email_profile').click(function(){
+        <%if current_user.account_type != 'facebook'%>
             doModal($("#email_modal"));
+        <%else%>
+        	alert('Il tuo account è collegato ad un account facebook. Non puoi modificare l\'indirizzo email');
+        <%end%>
         });
         
         $('.image_container img, .caption').mouseover(function(){

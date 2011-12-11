@@ -56,7 +56,7 @@ class BlogPostsController < ApplicationController
   def show
     @blog_post = @blog.posts.find(params[:id])
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @blog_comments = @blog_post.blog_comments.includes(:user).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
      respond_to do |format|
       format.js
       format.html

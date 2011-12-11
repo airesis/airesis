@@ -1,6 +1,4 @@
 <% self.respond_to?(:title) && title('Edit Post') %>
 <% @show_title = false -%>
-<%= stylesheet_link_tag 'blog_kit' %>
-<h1>Edit Blog Post</h1>
-
+<h2>Modifica il post</h2>
 <%= render :partial => 'form' %>

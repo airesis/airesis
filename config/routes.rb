@@ -1,7 +1,6 @@
 DemocracyOnline3::Application.routes.draw do
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"} do
-    
     get '/users/sign_in' , :to => 'devise/sessions#new'  
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -13,11 +12,18 @@ DemocracyOnline3::Application.routes.draw do
   
   #match ':controller/:action/:id'
   
-  resources :users                                      
+  resources :users do
+    collection do
+      get :confirm_credentials
+    end
+  end                                      
   
   #resources :proposal_comments
   
   resources :proposals do
+    collection do
+      get :index_accepted
+    end
     resources :proposal_comments do
       member do
         get :rankup
@@ -28,6 +34,7 @@ DemocracyOnline3::Application.routes.draw do
     member do
       get  :rankup
       get :rankdown
+      get :statistics
     end
   end
   
@@ -77,7 +84,7 @@ DemocracyOnline3::Application.routes.draw do
 #  map.resources :blogs,
   
    match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
-  
+  # match 'index_accepted', :to => 'proposals#index_accepted', :as => '/proposals/index_accepted'
   # match 'activate', :to  => 'users#activate', :as => '/activate/:activation_code'
    
   #  map.signup '/signup', :controller => 'users', :action => 'new'

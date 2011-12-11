@@ -16,7 +16,7 @@
 	<h1 class="blogPostTitle">
 		<%= link_to(h(blog_post.title), [blog_post.blog,blog_post]) %>
 		<% if !blog_post.published? %>	
-			[Draft]
+			[Bozza]
 		<% end %>
 	</h1>
 
@@ -65,7 +65,7 @@
 		<%= render :partial => 'blog_posts/comments' %>
 	  </div>
 	  <div id="loading_results">
-	  	<span>Carico i post precedenti...</span>
+	  	<span>Commenti precedenti...</span>
 	  </div>
 	<% end %>
 	

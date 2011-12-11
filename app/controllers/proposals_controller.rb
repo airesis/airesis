@@ -2,12 +2,12 @@
 class ProposalsController < ApplicationController
   
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :new, :create, :index_by_category]
+  before_filter :load_proposal, :except => [:index, :index_accepted, :new, :create, :index_by_category]
   
 ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index,:index_accepted, :show]
   
   #l'utente deve essere autore della proposta
   before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
@@ -23,9 +23,9 @@ class ProposalsController < ApplicationController
     #se è stata scelta una categoria, filtra per essa
     if (params[:category])
         @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
+        @proposals = Proposal.current.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
     else #altrimenti ordina per data di creazione
-        @proposals = Proposal.find(:all,:order => "created_at desc")
+        @proposals = Proposal.current.includes(:users).find(:all, :order => "created_at desc")
     end
     
     if (params[:view] == ORDER_BY_RANK)
@@ -33,7 +33,28 @@ class ProposalsController < ApplicationController
     elsif (params[:view] == ORDER_BY_VOTES)
       @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
     end  
+ 
+    respond_to do |format|     
+      format.html # index.html.erb
+      
+    end
+  end
+  
+  def index_accepted
+    #se è stata scelta una categoria, filtra per essa
+    if (params[:category])
+        @category = ProposalCategory.find_by_id(params[:category])
+        @proposals = Proposal.accepted.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
+    else #altrimenti ordina per data di creazione
+        @proposals = Proposal.accepted.includes(:users).find(:all, :order => "created_at desc")
+    end
     
+    if (params[:view] == ORDER_BY_RANK)
+      @proposals.sort! { |a,b| b.rank <=> a.rank }
+    elsif (params[:view] == ORDER_BY_VOTES)
+      @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
+    end  
+ 
     respond_to do |format|     
       format.html # index.html.erb
       
@@ -45,22 +66,19 @@ class ProposalsController < ApplicationController
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
     @author_name = User.find(author_id).name
     
-    if (@proposal.proposal_state_id == PROP_WAIT_DATE)
-      flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-    elsif (@proposal.proposal_state_id == PROP_VOTING)
-      flash.now[:notice] = "Questa proposta è in fase di votazione."
-    end
-    
     @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     
     respond_to do |format|
-      format.js do
-        render :update do |page|
-          page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
-        end        
-      end
-      format.html # show.html.erb
-      format.xml  { render :xml => @proposal }
+      format.js
+      
+      format.html {
+        if (@proposal.proposal_state_id == PROP_WAIT_DATE)
+          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+        elsif (@proposal.proposal_state_id == PROP_VOTING)
+          flash.now[:notice] = "Questa proposta è in fase di votazione."
+        end                
+      } # show.html.erb
+     # format.xml  { render :xml => @proposal }
     end
     
   rescue Exception => boom
@@ -180,6 +198,18 @@ class ProposalsController < ApplicationController
   end
   
   
+  def statistics
+     respond_to do |format|
+      format.html 
+      format.js do
+          render :update do |page|
+              page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
+          end
+      end
+    end
+  end
+  
+  
   protected
   
   #valuta una proposta
@@ -207,7 +237,7 @@ class ProposalsController < ApplicationController
         end        
       end
       @proposal.save
-      
+      @proposal.reload
       respond_to do |format|
         if saved
           load_my_vote

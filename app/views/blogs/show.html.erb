@@ -1,20 +1,15 @@
-<%= stylesheet_link_tag 'blog_kit' %>
 <%= stylesheet_link_tag 'syntax/' + ('mac_classic') %>
-
-
+  <h2><%=h @blog.title %></h2>
 <%= render :partial => 'blog_posts/admin_links' %>
-
-  <h3><%=h @blog.title %></h3>
-  
   
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">
-		<h1>Nessun Post</h1>
+		<h3>Nessun Post</h3>
 		<p>Non vi sono ancora Post in questo Blog, torna presto.</p>
 	</div>
 <% else %>
 	<% if @tag %>
-		<h1>Tag: <%= @tag %></h1>
+		<h3>Tag: <%= @tag %></h3>
 	<% end %>
 	
 	<div class="blogPages">

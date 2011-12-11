@@ -1,0 +1,6 @@
+page.insert_html :bottom, 'proposalCommentsContainer', :partial => 'proposals/comments'
+if @proposal_comments.total_pages > @proposal_comments.current_page
+  page.call 'checkScroll'
+else
+    page.hide 'loading_results'
+end

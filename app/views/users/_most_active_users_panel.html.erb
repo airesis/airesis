@@ -1,5 +1,5 @@
 <h4>Utenti più attivi</h4>
-	<%@users = User.find(:all, :order => "rank desc", :limit => 5)
+	<%@users = User.find(:all,:include => :image, :order => "rank desc", :limit => 5)
 	  @users.each do |user|
 %>
  <div class="pcontainer">

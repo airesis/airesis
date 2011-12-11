@@ -5,31 +5,17 @@ class BlogCommentsController < ApplicationController
   helper :blog
   
   layout('application')
+    
+  before_filter :authenticate_user!, :only => [:create, :delete]
   
-  #before_filter :require_user, :only => [:destroy]
-  #before_filter :require_admin, :only => [:destroy]
-  before_filter :require_blog_post #carica @blog e @blog_post
-  before_filter :require_blog_comment, :only => [:destroy,:ajaxdestroy] #carica @blog_comment
-  
-  before_filter :authenticate_user!, :only => [:create, :destroy,:ajaxdestroy]
-  before_filter :check_author, :only => [:destroy,:ajaxdestroy]
-  
+  before_filter :load_blog_post #carica @blog e @blog_post
+  before_filter :load_blog_comment, :only => [:delete] #carica @blog_comment
+  before_filter :check_author, :only => [:delete]
   
   def index
-    
-    
+  
   end
   
-  def check_author
-    if (current_user.id != @blog_comment.user_id and
-        current_user.id != @blog_post.user_id)    
-      flash[:notice] = t(:error_comment_not_your)
-      redirect_to :back
-    end
-    
-  end
-  
-
   def create
     @blog_comment = @blog_post.blog_comments.new(params[:blog_comment])
     @blog_comment.user_id = current_user.id if current_user
@@ -46,7 +32,6 @@ class BlogCommentsController < ApplicationController
                         page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_post.blog_comments.new}
                         
                       end
-                      #render :partial => "blog_posts/comments", :layout => false
                     }
         format.html 
         
@@ -62,17 +47,15 @@ class BlogCommentsController < ApplicationController
     end
   end
   
-  
-  def destroy
-          
-    @blog_comment.destroy
-    
-    flash[:notice] = 'The comment has been deleted'
-    
+  def delete       
+    @blog_comment.destroy  
+    flash[:notice] = 'The comment has been deleted'  
     respond_to do |format|
       format.js {
-        @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')        
-        render :partial => "blog_posts/comments", :layout => false
+        render :update do |page|
+          @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')        
+          page.replace_html "blogPostCommentsContainer", :partial => "blog_posts/comments"
+        end
       }
       format.html { redirect_to(blog_blog_post_url(@blog,@blog_post)) }
     end
@@ -80,7 +63,7 @@ class BlogCommentsController < ApplicationController
   
  
   private
-  def require_blog_post
+  def load_blog_post
     @blog_post = BlogPost.find(params[:blog_post_id])
     @blog = @blog_post.blog
     
@@ -93,9 +76,18 @@ class BlogCommentsController < ApplicationController
     return true
   end
   
-  def require_blog_comment
+  def load_blog_comment
     @blog_comment = BlogComment.find(params[:id])
     true
+  end
+  
+   def check_author
+    if (current_user.id != @blog_comment.user_id and
+        current_user.id != @blog_post.user_id)    
+      flash[:notice] = t(:error_comment_not_your)
+      redirect_to :back
+    end
+    
   end
   
 end

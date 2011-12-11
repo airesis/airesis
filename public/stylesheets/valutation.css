@@ -1,0 +1,138 @@
+.voteup {
+	background: url('/images/like-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.voteup:hover {
+	background: url('/images/like.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedown {
+	background: url('/images/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedown:hover {
+	background: url('/images/dislike.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedup {
+	background: url('/images/like.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.voteddown {
+	background: url('/images/dislike.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.notvotedup {
+	background: url('/images/like-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.notvoteddown {
+	background: url('/images/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.voteup-mini {
+	background: url('/images/like-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	float: left;
+	display: block;
+}
+.voteup-mini:hover {
+	background: url('/images/like-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.votedown-mini {
+	background: url('/images/dislike-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	float: left;
+	display: block;
+	margin-left: 10px;
+}
+.votedown-mini:hover {
+	background: url('/images/dislike-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.votedup-mini {
+	background: url('/images/like-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.voteddown-mini {
+	background: url('/images/dislike-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.notvotedup-mini {
+	background: url('/images/like-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.notvoteddown-mini {
+	background: url('/images/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.votered {
+	background: url('/images/red-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.votered:hover {
+	background: url('/images/red.png') 0 0 no-repeat;
+}
+.voteyellow {
+	background: url('/images/yellow-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.voteyellow:hover {
+	background: url('/images/yellow.png') 0 0 no-repeat;
+}
+.votegreen {
+	background: url('/images/green-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.votegreen:hover {
+	background: url('/images/green.png') 0 0 no-repeat;
+}
+.points {
+	margin: 5px 0px 0px 0px;
+}
+.ranking {
+	margin: 0px 0px 5px 0px;
+}

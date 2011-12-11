@@ -11,6 +11,8 @@ gem 'pg'
 #per gmail
 gem 'tlsmail'
 
+gem 'silent-postgres'
+
 #gem "omniauth"
 gem "oa-oauth"
 
