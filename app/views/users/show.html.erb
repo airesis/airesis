@@ -1,6 +1,5 @@
 <%if current_user == @user %>
-<script type="text/javascript" src="/javascripts/simplemodal.js">
-</script>
+<%= javascript_include_tag 'simplemodal' %>
 <script>
     function doModal(el){
         el.modal({
@@ -13,14 +12,14 @@
             transient: 'true',
             persist: 'true',
             
-            onShow: function(dialog){
-                dialog.data.prepend('<div id="error_updating"></div>');
-            },
-            
-            onClose: function(dialog){
-                $('#error_updating').remove();
-                $.modal.close();
-            }
+            // onShow: function(dialog){
+                // dialog.data.prepend('<div id="error_updating"></div>');
+            // },
+//             
+            // onClose: function(dialog){
+                // $('#error_updating').remove();
+                // $.modal.close();
+            // }
         });
     }
 </script>
@@ -33,8 +32,8 @@
     </div>
    
     <%if current_user == @user %>
-    <div id="name_modal" class="edit_modal">
-        <%form_for @user, :remote => true do |f| %>
+    <div id="name_modal" class="edit_modal  shadow-box">    	
+        <%=form_for @user, :remote => true do |f| %>
         <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Nome</h2>
         <div style="padding-left:135px">
             <%=f.text_field :name %>
@@ -44,8 +43,8 @@
             </div>
         </div><%end %>
     </div>
-    <div id="surname_modal" class="edit_modal">
-        <%form_for @user, :remote => true do |f| %>
+    <div id="surname_modal" class="edit_modal shadow-box">
+        <%=form_for @user, :remote => true do |f| %>
         <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Cognome</h2>
         <div style="padding-left:135px">
             <%=f.text_field :surname %>
@@ -54,6 +53,33 @@
                 <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
         </div><%end %>
-    </div><%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
+    </div>
+    
+    <%if current_user.account_type != 'facebook'%>
+    <%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
+    <%end%>
     <%end %>
 </p>
+
+<%content_for :left_panel do %>
+	<%if current_user == @user%>
+		<div id="setting_menu">
+			<h4>Impostazioni e preferenze</h4>
+			<div class="menu_voice">
+				<span class="Mo ui-icon ui-icon-gear"></span>
+				<a class="Mo" href="<%=current_url%>">Informazioni generali</a>
+				<div style="clear:both"></div>
+			</div>
+			<div class="menu_voice">
+				<span class="Mo ui-icon ui-icon-alert"></span>
+				<a class="Mo" href="<%=current_url%>">Allarmi e notifiche</a>
+				<div style="clear:both"></div>
+			</div>
+			<div class="menu_voice">
+				<span class="Mo ui-icon ui-icon-scissors"></span>
+				<a class="Mo" href="<%=current_url%>">Preferenze e confini</a>
+				<div style="clear:both"></div>
+			</div>
+		</div>
+	<%end%>
+<%end%>

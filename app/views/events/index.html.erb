@@ -1,5 +1,8 @@
 <%=javascript_include_tag 'fullcalendar', 'gcal', 'events' %>
 <%=stylesheet_link_tag "style", 'fullcalendar', 'redmond/custom', 'dialog' %>
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
+      </script>
 <div class="wrapper">
     <div class="subPageContent">
         <% if flash[:notice] -%>
@@ -12,11 +15,7 @@
             <%= flash[:error] %>
         </div>
         <%end -%>
-        <span>
-            <div id = 'loading'>
-                Caricamento...
-            </div>
-        </span>
+        
         <div class="aplicationContent">
             <div class="appRightContent">
                 <p>
@@ -50,7 +49,7 @@
                                 else 
                                     $('#loading').hide();
                             },
-                            events: "/events/get_events/1",
+                            events: "/events/1/get_events",
                             timeFormat: 'h:mm t{ - h:mm t} ',
                             dragOpacity: "0.5",
                             eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){

@@ -9,11 +9,43 @@ class UsersController < ApplicationController
     render :text => "Not Found", :status => 404
   end
   
+  def confirm_credentials
+    @user = User.new_with_session(nil,session)
+    @orig = User.find_by_email(@user.email)
+  end
+  
+  #unisce due account
+  def join_accounts
+    data = session["devise.facebook_data"] #prendi i dati di facebook dalla sessione
+    if (params[:user][:email] && (data["user_info"]["email"] != params[:user][:email])) #se per caso viene passato un indirizzo email differente
+      flash[:error] = 'Dai va là!'
+      redirect_to confirm_credentials_users_url
+    else
+      auth = User.find_by_email_and_login(data["user_info"]["email"],params[:user][:login]) #trova l'utente del portale con username e password indicati
+      if ( auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
+        #imposta l'account come 'facebook'
+        User.transaction do
+          auth.account_type = 'facebook'
+          auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token =>(data['credentials']['token'] rescue nil))
+          auth.save
+        end       
+        #fine dell'unione
+        flash[:info] = 'Unione!'
+        sign_in_and_redirect auth, :event => :authentication
+      else
+        flash[:error] = 'Username, Email o password errati o inesistenti'
+        redirect_to confirm_credentials_users_url        
+      end
+    end
+  rescue ActiveRecord::ActiveRecordError => e
+    flash[:error] = 'Errore durante l''unione dei due account. L''operazione non è possibile al momento.'
+    redirect_to users_sign_in_url
+  end
+  
   def index
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
-      format.xml  { render :xml => @users }
       format.json  { render :json => @users.to_json(:only => [:id, :name]) }
       format.html # index.html.erb
     end
@@ -57,9 +89,7 @@ class UsersController < ApplicationController
         @user.image_id = image.id
       end
       
-      if @user.update_attributes(params[:user])      
-        
-        
+      if @user.update_attributes(params[:user])                     
         flash[:notice] = t(:user_updated)
         format.js do
           render :update do |page|

@@ -1,6 +1,20 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.0'
+
+gem 'therubyracer'
+
+group :assets do
+  gem 'sass-rails', "~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+group :development do
+  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
+  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+  gem 'ruby-debug-ide'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,6 +24,8 @@ gem 'pg'
 
 #per gmail
 gem 'tlsmail'
+
+gem 'silent-postgres'
 
 #gem "omniauth"
 gem "oa-oauth"
@@ -28,17 +44,19 @@ gem 'paperclip'
 
 gem 'jquery-rails'
 
-gem 'jrails'
+gem 'jquery-rjs', :git => 'git://github.com/aaronchi/jquery-rjs.git'
+
+#gem 'jrails'
 
 gem 'will_paginate'
 
-gem 'bluecloth'
+gem 'bluecloth', '2.0.7'
 
 #gem 'oniguruma'
 
 gem 'ultraviolet1x'
 
-gem 'devise'
+gem 'devise', '1.4.9'
 
 gem 'fb_graph'
 # Bundle the extra gems:

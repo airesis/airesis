@@ -1,0 +1,75 @@
+.blogComment {
+	padding: 10px;
+/*	border-top: 1px solid #ccc;*/
+	clear: both;
+}
+
+.blogNewComment {
+	margin-top: 5px;
+	clear: both;
+}
+
+.blogNewCommentField {
+	width: 100%;
+	height: 130px;
+}
+
+.blogPoster {
+	font-style: italic;
+}
+
+.blogCommentAdmin {
+	background-color: #EBE0BF;
+}
+
+.blogFooter a {
+	margin-right: 5px;
+}
+
+.blogUserImage {
+	float: left;
+	margin: 0px 5px 5px 0px;
+}
+
+ul.blogList {
+	list-style: none;
+	padding: 5px 10px;
+	margin: 0;
+}
+ul.blogList li {
+	display: inline;
+	padding: 0px 10px;
+	border-left: 1px solid #777;
+	margin: 0px 0px;
+}
+ul.blogList li.blogListFirst {
+	border-left: none;
+}
+
+.blogEditRightPanel {
+	float: left;
+	margin-left: 20px;
+	width: 450px;
+}
+.blogEditLeftPanel {
+	float: left;
+	width: 350px;
+}
+#blogImages {
+	width: 100%;
+}
+.blogImageHeader td {
+	font-weight: bold;
+}
+.imageFileName {
+	width: 120px;
+	overflow-x: hidden;
+}
+
+.blogMarkdownHelp {
+	margin-top: 20px;
+}
+
+.blogKitCode pre {
+	overflow-x: auto;
+}

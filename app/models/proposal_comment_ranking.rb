@@ -4,7 +4,7 @@ class ProposalCommentRanking < ActiveRecord::Base
   belongs_to :proposal_comment, :class_name => 'ProposalComment', :foreign_key => :proposal_comment_id
   
   
-  named_scope :positives, { :conditions => {:ranking_type_id => 1 }}
-  named_scope :negatives, { :conditions => {:ranking_type_id => 3 }}
+  scope :positives, { :conditions => {:ranking_type_id => 1 }}
+  scope :negatives, { :conditions => {:ranking_type_id => 3 }}
   
 end

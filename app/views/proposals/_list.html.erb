@@ -1,44 +1,19 @@
-<%proposalsnumber = proposals.count
+<%content_for :head do%><%= stylesheet_link_tag 'valutation' %><%end%><style>	.proposal_list td {		vertical-align: top; 		padding-top: 10px;	}</style><%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
-<% proposals.each do |proposal| %>
+<% proposals.each do |proposal|    user = proposal.user%>
 <div id="proposal<%= proposal.id %>" class="blogComment">
     <div class="proposal_list">
         <table style="padding:5px">
             <body>
-                <tr>
+                <tr>    	
                     <td>
                         <div class="blogUserImage">
-                            <%= proposal.user_image_tag 50 %>
+                            <%= user.user_image_tag 50 %>
                         </div>
-                        <td>
-                            <div id="proposalcc">
-                                <div class="baloon_header">
-                                    <div class="blogCommentPostedAt">
-                                        <h3><%= link_to proposal.title, proposal %></h3>
-                                        Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-                                        da <span class="blogPoster"><%= raw(proposal.user.link_to_page) %></span>
-                                        <%if proposal.updated_at != nil %>
-                                        (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>
-                                        <a class="spch-bub-inside" href="/proposals/<%=proposal.id%>#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </td>					<td>						<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png")%>					</td>
-                </tr>
-                <tr>
-                    <td style="vertical-align:top; width:62px;">
-                        <%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>
-                    </td>
-                    <td>
-                    <div class="baloon-content">
-                        <%=h proposal.short_content %>						<%= link_to 'continua a leggere la proposta', proposal %>
-                    </div>
-                    <div class="baloon-footer">
-                        <%= link_to 'Modifica', edit_proposal_path(proposal) if (is_proprietary? proposal) %>
-                    </div>
-                    </div>
-                </td>
+	                     <div>	      	                     	                   	               			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>							<%= link_to 'Statistiche', {:action => :statistics, :id => proposal.id},:remote => true, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %>		                  
+                        </div>
+                	</td>				
+                    <td>                  	 	<div id="proposalcc">                                <div class="proposalCommentPostedAt">                                    <h3><%= link_to proposal.title, proposal %></h3>                                    Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>                                    di <span class="blogPoster"><%= raw(user.link_to_page) %></span>                                </div>                        </div>                         <div class="baloon-content">	                        <%= h proposal.short_content %>							<%= link_to 'continua a leggere la proposta', proposal %>	                     </div>                   	</td>                   		<td>							<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png")%>						</td>                </td>
                 </tr>
             </body>
         </table>
@@ -49,3 +24,4 @@ if proposalsnumber > 0 %>
 <% end %>
 </table>
 <%end %>
+<div id="statistics_panel"></div>

@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
   has_many :proposals, :through => :proposal_presentations, :class_name => 'Proposal'
+  has_many :notifications, :through => :user_alerts, :class_name => 'Notification'
   has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_many :meetings_partecipations, :class_name => 'MeetingsPartecipation'
   has_one  :blog, :class_name => 'Blog'
@@ -66,7 +67,7 @@ class User < ActiveRecord::Base
   
   
   def image_url
-    if (self.image)
+    if (self.image_id)
       return self.image.image.url
     elsif (self.blog_image_url != nil)
       return self.blog_image_url
@@ -81,7 +82,9 @@ class User < ActiveRecord::Base
   end
   
   def email=(value)
-    write_attribute :email, (value ? value.downcase : nil)
+    if (self.account_type != 'facebook')
+      write_attribute :email, (value ? value.downcase : nil)
+    end
   end
   
   #determina se un oggetto appartiene all'utente verificando che 
@@ -210,19 +213,25 @@ class User < ActiveRecord::Base
     end
   end
 
+#gestisce l'azione di login tramite facebook
 def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-  data = access_token['extra']['user_hash']
+  data = access_token['extra']['user_hash'] ##dati di facebook
+  #se è presente un account facebook per l'utente usa quello
   if user = User.find_by_email_and_account_type(data["email"],'facebook')
     return user
-  else # Create a user with a stub password. 
-    user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
+  elsif user = User.find_by_email(data["email"])  #se è presente un account sul portale richiedine le credenziali per effettuarne il merge
+      return nil      
+  else  #crea un nuovo account facebook
     if data["verified"]
+      user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.account_type = 'facebook'     
       user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
       user.confirm!
       user.save! false
+    else
+      return nil #TODO
     end 
     return user
   end

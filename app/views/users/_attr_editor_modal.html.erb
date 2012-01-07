@@ -1,5 +1,5 @@
-<div id="<%=modal_id%>" class="edit_modal">
-  	<%form_for @user, :remote => true do |f| %>
+<div id="<%=modal_id%>" class="edit_modal shadow-box">
+  	<%=form_for @user, :remote => true do |f| %>
 	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%=attr_label%></h2>
 	<div style="padding-left:135px">
 	<%=f.text_field attr_name %>

@@ -1,0 +1,18 @@
+#encoding: utf-8
+class ComunesController < ApplicationController
+
+  before_filter :authenticate_user!
+
+  def index
+   
+    @comunes = Comune.find(:all,:conditions => "upper(description) like upper('#{params[:term]}%')", :limit => 10)
+   
+    comuni = @comunes.collect { |p| {:id => p.id.to_s, :label => p.description} }
+    map = comuni
+    respond_to do |format|
+      format.xml  { render :xml => map[0,10] }
+      format.json  { render :json =>  map[0,10]}
+      format.html # index.html.erb
+    end
+  end
+end  

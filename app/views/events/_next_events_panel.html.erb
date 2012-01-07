@@ -1,14 +1,14 @@
 <h4>Prossimi eventi</h4>
 <%@events = Event.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)
 	@events.each do |event|%>
-	<a class="buttonStyle" href="/events/<%=event.id%>">
+	<a	 href="/events/<%=event.id%>">
 	<div  class="eventcontainer" data-id = "<%=event.id%>">
 		<%=event.starttime.strftime("%d/%m/%Y %H:%M")%>
 		<br/>
 		<%= event.title%>
 	</div>
 	</a>
-	<div class="event-overview" id="event-overview-<%=event.id%>">	
+	<div class="event-overview shadow-box" id="event-overview-<%=event.id%>">	
 		<p> <%=event.title%></p>
 	</div>
 <%end%>

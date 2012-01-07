@@ -11,8 +11,8 @@ class Image < ActiveRecord::Base
                         :thumb=> "100x100#",
                         :small  => "150x150>"
   },
-                      :url  => "/images/:id/:style/:basename.:extension",
-                      :path => ":rails_root/public/images/:id/:style/:basename.:extension")
+                      :url  => "/images/users/:id/:style/:basename.:extension",
+                      :path => ":rails_root/public/images/users/:id/:style/:basename.:extension")
   
   validates_attachment_presence :image
   validates_attachment_size :image, :less_than => 5.megabytes

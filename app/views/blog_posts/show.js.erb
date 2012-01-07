@@ -1,0 +1,6 @@
+$('#blogPostCommentsContainer').append("<%= escape_javascript(render(:partial => 'blog_posts/comments'))%>");
+<%if @blog_comments.total_pages > @blog_comments.current_page%>
+  checkScroll();
+<%else%>
+  $('#loading_results').hide();
+<%end%>

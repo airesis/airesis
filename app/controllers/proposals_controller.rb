@@ -2,12 +2,12 @@
 class ProposalsController < ApplicationController
   
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :new, :create, :index_by_category]
+  before_filter :load_proposal, :except => [:index, :index_accepted, :new, :create, :index_by_category]
   
 ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index,:index_accepted, :show]
   
   #l'utente deve essere autore della proposta
   before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
@@ -23,9 +23,9 @@ class ProposalsController < ApplicationController
     #se è stata scelta una categoria, filtra per essa
     if (params[:category])
         @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
+        @proposals = Proposal.current.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
     else #altrimenti ordina per data di creazione
-        @proposals = Proposal.find(:all,:order => "created_at desc")
+        @proposals = Proposal.current.includes(:users).find(:all, :order => "created_at desc")
     end
     
     if (params[:view] == ORDER_BY_RANK)
@@ -33,7 +33,28 @@ class ProposalsController < ApplicationController
     elsif (params[:view] == ORDER_BY_VOTES)
       @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
     end  
+ 
+    respond_to do |format|     
+      format.html # index.html.erb
+      
+    end
+  end
+  
+  def index_accepted
+    #se è stata scelta una categoria, filtra per essa
+    if (params[:category])
+        @category = ProposalCategory.find_by_id(params[:category])
+        @proposals = Proposal.accepted.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
+    else #altrimenti ordina per data di creazione
+        @proposals = Proposal.accepted.includes(:users).find(:all, :order => "created_at desc")
+    end
     
+    if (params[:view] == ORDER_BY_RANK)
+      @proposals.sort! { |a,b| b.rank <=> a.rank }
+    elsif (params[:view] == ORDER_BY_VOTES)
+      @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
+    end  
+ 
     respond_to do |format|     
       format.html # index.html.erb
       
@@ -45,22 +66,18 @@ class ProposalsController < ApplicationController
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
     @author_name = User.find(author_id).name
     
-    if (@proposal.proposal_state_id == PROP_WAIT_DATE)
-      flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-    elsif (@proposal.proposal_state_id == PROP_VOTING)
-      flash.now[:notice] = "Questa proposta è in fase di votazione."
-    end
-    
     @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     
     respond_to do |format|
-      format.js do
-        render :update do |page|
-          page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
-        end        
-      end
-      format.html # show.html.erb
-      format.xml  { render :xml => @proposal }
+      format.js
+      format.html {
+        if (@proposal.proposal_state_id == PROP_WAIT_DATE)
+          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+        elsif (@proposal.proposal_state_id == PROP_VOTING)
+          flash.now[:notice] = "Questa proposta è in fase di votazione."
+        end                
+      } # show.html.erb
+     # format.xml  { render :xml => @proposal }
     end
     
   rescue Exception => boom
@@ -100,8 +117,7 @@ class ProposalsController < ApplicationController
       
       respond_to do |format|
         flash[:notice] = t(:proposal_inserted)
-        format.html { redirect_to(proposals_url) }
-        format.xml  { render :xml => @proposal, :status => :created, :location => @proposal }        
+        format.html { redirect_to(proposals_url) }              
       end
       
     rescue ActiveRecord::ActiveRecordError => e
@@ -111,20 +127,32 @@ class ProposalsController < ApplicationController
       end
       respond_to do |format|
         format.html { render :action => "new" }
-        format.xml  { render :xml => @proposal.errors, :status => :unprocessable_entity }
       end
     end
   end
   
   def update
-    respond_to do |format|
-      if @proposal.update_attributes(params[:proposal])
+    begin
+      Proposal.transaction do
+        prparams = params[:proposal]
+        borders = prparams[:interest_borders_tkn]
+        #cancella i vecchi confini di interesse
+        @proposal.proposal_borders.each do |border|
+          border.destroy
+        end
+      
+        update_borders(borders)
+        @proposal.update_attributes(params[:proposal])
+      end
+      
+      respond_to do |format|
         flash[:notice] = t(:proposal_updated)
         format.html { redirect_to  @proposal }
-        format.xml  { head :ok }
-      else
+      end
+      
+    rescue ActiveRecord::ActiveRecordError => e
+      respond_to do |format|
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @proposal.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -180,7 +208,45 @@ class ProposalsController < ApplicationController
   end
   
   
+  def statistics
+     respond_to do |format|
+      format.html 
+      format.js do
+          render :update do |page|
+              page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
+          end
+      end
+    end
+  end
+  
+  
   protected
+  
+  def update_borders(borders)
+     #confini di interesse, scorrili
+    borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
+      ftype = border[0,1] #tipologia (primo carattere)
+      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      found = false
+      
+      case ftype
+        when 'C' #comune
+          comune = Comune.find_by_id(fid)
+          found = comune
+        when 'P' #provincia
+          provincia = Provincia.find_by_id(fid)
+          found = provincia
+        when 'R' #regione
+          regione = Regione.find_by_id(fid)
+          found = regione
+      end
+      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+        puts "New Record!" if (interest_b.new_record?)
+        i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
+      end
+    end
+  end
   
   #valuta una proposta
   def rank(rank_type)
@@ -196,7 +262,7 @@ class ProposalsController < ApplicationController
     ProposalRanking.transaction do
       
       saved = @ranking.save
-      
+      @proposal.reload
       valutations = @proposal.valutations
       rank = @proposal.rank
       if (valutations > PROP_VOTES_TO_PROMOTE)        #se ho raggiunto il numero di voti sufficiente a cambiare lo stato verifica il ranking
@@ -205,8 +271,9 @@ class ProposalsController < ApplicationController
         elsif (rank <= PROP_RANKING_TO_DEGRADE) 
           @proposal.proposal_state_id = PROP_RESP
         end        
+        @proposal.save
+        @proposal.reload
       end
-      @proposal.save
       
       respond_to do |format|
         if saved

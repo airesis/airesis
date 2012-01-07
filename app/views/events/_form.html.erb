@@ -1,43 +1,100 @@
-<%form_for @event, {:action => :create}, :remote => true, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
+
+
+<script type="text/javascript">
+	
+	function codeAddress() {
+		var basename = "event_meeting_attributes_place_attributes_";
+		var comune = document.getElementById("comune").value;
+		var address = comune + ", " + document.getElementById(basename+"address").value;
+		geocoder.geocode({
+			'address' : address
+		}, function(results, status) {
+			if(status == google.maps.GeocoderStatus.OK) {
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map : map,
+					position : results[0].geometry.location,
+					draggable : true
+				});
+				google.maps.event.addListener(marker, 'dragend', function() {
+			  		var location = marker.getPosition();
+			  		$('#'+basename+"latitude_original").val(location.lat());
+			  		$('#'+basename+"longitude_original").val(location.lng());		
+				}); 
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
+	}
+	
+</script>
+<%=form_for @event, :action => :create, :remote => true, :before => "$('#creating_events').show();", :complete => "$('#creating_events').hide();" do |f| %>
+<div>
+	<table>
+		<tr>
+			<td width="60%">
 <p>
-  <%=f.label :title, 'Titolo dell''evento' %>
-  <br/>
-  <%=f.text_field :title %>
+	<%= f.label :title, 'Titolo dell''evento' %>
+	<br/>
+	<%= f.text_field :title %>
 </p>
 <p>
-  <%=f.label :description, 'Descrizione' %>
-  <br/>
-  <%=f.text_area :description, :rows => 4, :cols => 30 %>
+	<%= f.label :description, 'Descrizione' %>
+	<br/>
+	<%= f.text_area :description, :rows => 4, :cols => 30 %>
 </p>
 <p>
-	<%=f.label 'Tipo di evento'%>
-<br/>
-	<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] } %>
+	<%= f.label 'Tipo di evento'%>
+	<br/>
+	<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+</p>
+
+<p>
+	<%= f.label :starttime, 'Data di inizio' %>
+	<br/>
+	<%= f.datetime_select :starttime %>
 </p>
 <p>
-  <%=f.label :starttime, 'Data di inizio' %>
-  <br/>
-  <%=f.datetime_select :starttime %>
+	<%= f.label :endtime, 'Data di fine' %>
+	<br/>
+	<%= f.datetime_select :endtime %>
 </p>
 <p>
-  <%=f.label :endtime, 'Data di fine' %>
-  <br/>
-  <%=f.datetime_select :endtime %>
+	<%= f.label :all_day, 'Tutto il giorno' %>
+	<%= f.check_box :all_day %>
 </p>
 <p>
-  <%=f.label :all_day, 'Tutto il giorno' %>
-  <%=f.check_box :all_day %>
-</p>
-<p>
-  <%=f.label :period, "Ripeti" %>
-  <%=f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);" %>
+	<%= f.label :period, "Ripeti" %>
+	<%= f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);" %>
 </p>
 <p id = "frequency" style = "display:none;">
-  <%=f.label :frequency, "Ripeti ogni" %>
-  <%=f.select :frequency, (1..30).to_a %> <span id = "period"></span>
+	<%= f.label :frequency, "Ripeti ogni" %>
+	<%= f.select :frequency, (1..30).to_a %> <span id = "period"></span>
 </p>
-<%=f.hidden_field :id, :value => @event.id %>
+<%= f.hidden_field :id, :value => @event.id %>
 <p>
-  <%=f.submit 'Crea!' %> <span id = "creating_events" style = "display:none;">Creazione dell'evento, attendi...</span>
+	<%= f.submit 'Crea!' %> <span id = "creating_events" style = "display:none;">Creazione dell'evento, attendi...</span>
 </p>
+</td>
+<td width="40%">
+	<%=f.fields_for :meeting, @meeting do |m|%>
+<%=m.fields_for :place, @place do |p|%>
+<p id = "luogo">
+	<%= p.label "Comune" %>
+	<input id="comune" type="text" size="30"/>
+	<%= p.hidden_field :comune_id%>
+	<%= p.label :address, "Indirizzo" %>
+	<%= p.text_field :address %>
+	<%= p.text_field :latitude_original %>
+	<%= p.text_field :longitude_original %>
+	<input type="button" value="Encode" onclick="codeAddress()">
+	<div id="map_canvas" style="width: 320px; height: 320px;"></div>
+</p>
+<%end%>
+<%end%>
+</td>
+</tr>
+
+</table>
+</div>
 <%end %>

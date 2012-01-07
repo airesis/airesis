@@ -13,6 +13,7 @@ rescue Exception => e
 end
 
 module BlogKitModelHelper
+  
 	def code_highlight_and_markdown(text, markdown_options = {})
     text_pieces = text.split(/(<code>|<code lang="[A-Za-z0-9_-]+">|
       <code lang='[A-Za-z0-9_-]+'>|<\/code>)/)
@@ -36,7 +37,8 @@ module BlogKitModelHelper
 				end
       else
 				if defined?(BlueCloth)
-	        BlueCloth.new(piece, markdown_options).to_html
+				 
+	        BlueCloth.new( ERB::Util.html_escape(piece), markdown_options).to_html
 				else
 					ERB::Util.html_escape(piece)
 				end
@@ -61,7 +63,7 @@ end
     
 		if user && !user.image_url.blank?
 			# Load image from model
-			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onError=\"$(this).attr('src','/images/anonimo.jpg')\"/>"
+			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
 	  elsif user.facebook	    	    
 	     if (size <= 50)
 	       fsize = 'small'
@@ -70,7 +72,7 @@ end
 	     else
 	       fsize = 'large'
 	     end
-	     ret = "<img src=\"#{user.facebook.picture fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onError=\"$(this).attr('src','/images/anonimo.jpg')\"/>"
+	     ret = "<img src=\"#{user.facebook.picture fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
 		else
 			# Gravatar
 			require 'digest/md5'

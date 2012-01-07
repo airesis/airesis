@@ -1,0 +1,138 @@
+.voteup {
+	background: url('/assets/like-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.voteup:hover {
+	background: url('/assets/like.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedown {
+	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedown:hover {
+	background: url('/assets/dislike.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.votedup {
+	background: url('/assets/like.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.voteddown {
+	background: url('/assets/dislike.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.notvotedup {
+	background: url('/assets/like-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block
+}
+.notvoteddown {
+	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.voteup-mini {
+	background: url('/assets/like-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	float: left;
+	display: block;
+}
+.voteup-mini:hover {
+	background: url('/assets/like-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.votedown-mini {
+	background: url('/assets/dislike-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	float: left;
+	display: block;
+	margin-left: 10px;
+}
+.votedown-mini:hover {
+	background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.votedup-mini {
+	background: url('/assets/like-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.voteddown-mini {
+	background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.notvotedup-mini {
+	background: url('/assets/like-blank-mini.gif') 0 0 no-repeat;
+	width: 17px;
+	height: 17px;
+	display: block;
+}
+.notvoteddown-mini {
+	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
+	width: 25px;
+	height: 25px;
+	display: block;
+}
+.votered {
+	background: url('/assets/red-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.votered:hover {
+	background: url('/assets/red.png') 0 0 no-repeat;
+}
+.voteyellow {
+	background: url('/assets/yellow-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.voteyellow:hover {
+	background: url('/assets/yellow.png') 0 0 no-repeat;
+}
+.votegreen {
+	background: url('/assets/green-2.png') 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+	margin-left: 7px;
+	margin-top: 5px;
+}
+.votegreen:hover {
+	background: url('/assets/green.png') 0 0 no-repeat;
+}
+.points {
+	margin: 5px 0px 0px 0px;
+}
+.ranking {
+	margin: 0px 0px 5px 0px;
+}

@@ -1,11 +1,76 @@
-<%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
-<%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %>
 
-<div id="flash_messages_comments" style="height:20px">
-</div>
+<%content_for :head do%>
+<%= stylesheet_link_tag 'valutation' %>
+<%end%>
+
+<% javascript 'endless_page' %>
+<%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
+<%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
 <div id="proposalCommentsContainer">
-<%= render :partial => 'proposals/comments' %>
+	<%= render :partial => 'proposals/comments' %>
 </div>
+<div id="loading_results">
+	<span>Commenti precedenti...</span>
+</div>
+
+
+<script>
+
+$(function() {
+	//nascondi i pulsanti di valutazione quando vengono cliccati
+		$('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('voteup-mini','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+		
+		$('.votedown-mini').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('votedown-mini','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+		
+		$('.voteup').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('voteup','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+		
+		$('.votedown').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('votedown','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+	});
+</script>
+
+
+<script type="text/javascript">
+	var retval = false;
+	var clicked;
+	
+	//funzione per la cancellazione di un commento dalla lista
+	function hiding(event,id) {
+		if (!retval) {
+			clicked = $(this);
+			if (confirm('Sei sicuro di voler cancellare questo commento?')) {			
+				$('#comment'+id).hide(600,function() {
+					retval = true;
+					clicked.click();
+				});
+				event.stopPropagation();
+				return false;
+			}
+			event.stopPropagation();
+			return false;
+		}
+		else {
+			retval = false;
+			return true;
+		}
+		
+	}
+</script>
 
 <%content_for :left_panel do%>
 <%= link_to 'Indietro', proposals_path %>

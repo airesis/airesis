@@ -8,7 +8,7 @@ class BlogComment < ActiveRecord::Base
 	
 	validates_presence_of :body
 
-	before_save :check_for_spam
+	#before_save :check_for_spam
   
   attr_accessor :collapsed
 

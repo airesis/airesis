@@ -24,8 +24,11 @@
                             <div class="baloon-footer">
                                 <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
                                 <p>
-                                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},:remote => true,
-                                    :id => "delete#{comment.id}"%>
+                                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
+										:remote => "true",
+										:onclick => "return false;",
+										:class => "deleteCommentLink",					
+										:id => "delete#{comment.id}"%>
                                 </p>
                                 <%end%>                               
                             </div>
@@ -44,6 +47,10 @@
 	     	<%if (comment.collapsed) %>
 				$('#comment<%= comment.id%>').show(600);
 		    <%end%>
+		    
+		     $('#delete<%= comment.id%>').click(function(event) {
+	    	hiding(event,<%= comment.id%>);	    	
+	    });
      </script>
     </div>
 </div>

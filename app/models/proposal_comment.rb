@@ -4,11 +4,10 @@ class ProposalComment < ActiveRecord::Base
 
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
   belongs_to :proposal_comments, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
-  belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id
+  belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   
   validates_length_of :content, :minimum => 10, :maximum => 4000
-
   
   attr_accessor :collapsed
   

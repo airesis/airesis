@@ -2,6 +2,8 @@
 class VotationsController < ApplicationController
 
   before_filter :authenticate_user!
+  
+  before_filter :certified_user
 
   before_filter :load_proposals, :only => [ :show]
 
@@ -53,6 +55,20 @@ class VotationsController < ApplicationController
 
   protected
 
+  def certified_user
+    if current_user.user_type_id != 3
+      flash[:error] = "E' necessario certificare il proprio account"
+      respond_to do |format|
+        format.js { render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}                      
+          end                  
+        }
+        format.html {
+          redirect_to :back
+        }
+      end
+    end
+  end
   #carica le proposte per le quali può votare l'utente connesso
   def load_proposals
     #la proposta deve essere in stato 'in votazione'

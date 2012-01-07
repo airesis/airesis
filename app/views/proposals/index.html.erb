@@ -1,18 +1,32 @@
-
+<%= stylesheet_link_tag 'proposal' %>
+<div style="float:left">
 <h3><%= link_to 'Fai una proposta', new_proposal_path, :id => 'nuova_proposta' %></h3>
+</div>
+<div style="float:right">
+<h3><%= link_to 'Proposte accettate', index_accepted_proposals_path , :id => 'proposte_accettate' %></h3>
+</div>
+<div style="clear:both"></div>
 <script>
-	$('#nuova_proposta').button();
+	$('#nuova_proposta').button({
+		icons: {
+                primary: "ui-icon-lightbulb"
+            },
+            text: true
+	});
+	$('#proposte_accettate').button({
+            icons: {
+                primary: "ui-icon-star"
+            },
+            text: true
+        });
 </script>
 <% if (@category)%>
 	<h1>Proposte della categoria <%=@category.description%>
 <%else%>	
 	<h1>Proposte di tutte le categorie
 <%end%>
-<% if (@state)%>
-	in stato <%=@state.description%></h1>
-<% else%>
-	in qualsiasi stato</h1>
-<% end%>
+</h1>
+
 		
 		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
 			Ultime inserite
@@ -46,34 +60,23 @@
 	Tutte le categorie
 <%end%>
 
-<% ProposalCategory.all.each do |category|%>
+<% 
+ 	categories = ProposalCategory.find(:all,
+     :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
+     :joins => "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4)",
+     :group => "proposal_categories.id, proposal_categories.description"
+    )
+	#categories = ProposalCategory.all
+   categories.each do |category|%>
 	<div>
 		<%if (params[:category] == category.id.to_s)%>
-			<%=category.description%> (<%=category.proposals.count%>)
+			<%=category.description%> (<%=category.proposals_count%>)
 		<%else%>
-			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals.count%>)</a>
+			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals_count%>)</a>
 		<%end%>
 	</div>
 <%end%>
 </div>
-<br/>
-<%if (params[:state])%>
-	<h4 class="filterSelected" >Stato</h4>
-	<a href="<%=proposals_path%>">Qualsiasi stato</a>
-<%else%>
-	<h4>Stato</h4>
-	Qualsiasi stato
-<%end%>
-<% ProposalState.all.each do |state|%>
-	<div>
-		<%if (params[:state] == state.id.to_s)%>
-			<%=state.description%> (<%=state.proposals.count%>)
-		<%else%>
-			<a href="<%=current_url(:state => state.id)%>"><%=state.description%> (<%=state.proposals.count%>)</a>
-		<%end%>
-	</div>
-<%end%>
-<br/>
 <br/>
 	<%= render :partial => 'users/most_active_users_panel' %>
 
