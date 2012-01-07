@@ -3,6 +3,10 @@
  */
 var currentPage = 1;
 
+function resetCounter () {
+	currentPage = 1;
+}
+
 function checkScroll() {
   if (nearBottomOfPage()) {
     currentPage++;

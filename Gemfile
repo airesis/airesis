@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
-gem 'therubyracer'
-
 group :assets do
   gem 'sass-rails', "~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
@@ -12,8 +10,6 @@ end
 
 group :development do
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
-  gem 'ruby-debug-ide'
 end
 
 # Bundle edge Rails instead:

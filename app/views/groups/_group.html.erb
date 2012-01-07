@@ -16,7 +16,8 @@
 
 </script>  		
 			
-<%= form_for([@group]) do |f| %>
+<% form_for([@group]) do |f| %>
+   
    
   <p>
     <b>Nome</b><br />
@@ -45,7 +46,7 @@
 <p>	
 	<%if is_admin? %>
 		<b>Aggiungi utenti al gruppo</b>
-		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json(:only => [:id, :name]) %>
+		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json %>
 	<%end%> 
 </p>
 	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => '==Nessun portavoce=='})%>

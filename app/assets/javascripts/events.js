@@ -4,6 +4,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 function moveEvent(event, dayDelta, minuteDelta, allDay){
+	alert('moving');
     jQuery.ajax({
         data: 'title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay,
         dataType: 'script',
@@ -87,18 +88,5 @@ function showPeriodAndFrequency(value){
             
         default:
             $('#frequency').hide();
-    }
-}
-
-function showPlace(value){
-
-    switch (value) {
-        case '2':
-	        $('#luogo').hide();
-	        $('#map_canvas').hide();
-            break;        
-        default:
-            $('#luogo').show();
-            $('#map_canvas').show();
     }
 }

@@ -51,9 +51,7 @@ DemocracyOnline3::Application.routes.draw do
   
   resources :blog_posts
   
-  resources :interest_borders
-  resources :comunes
-  
+ 
   resources :events 
   
   #match '/groups/partecipation_request_confirm', :to => 'groups#partecipation_request_confirm'

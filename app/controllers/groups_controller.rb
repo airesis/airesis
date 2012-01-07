@@ -2,7 +2,7 @@
 class GroupsController < ApplicationController
   
   #carica il gruppo
-  before_filter :load_group, :except => [:index,:new,:create]
+  before_filter :load_group, :except => [:index,:new,:group]
   
   ###SICUREZZA###
   
@@ -63,12 +63,18 @@ class GroupsController < ApplicationController
         @group.partecipant_ids.each do |id|
             @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3})
         end  
-        @group.save!
+        saved @group.save!
       end
       
       respond_to do |format|
+        if saved
           flash[:notice] = 'Hai creato il gruppo.'
-          format.html { redirect_to(@group) }         
+          format.html { redirect_to(@group) }
+          format.xml  { render :xml => @group, :status => :created, :location => @group }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        end
       end #respond_to
     
     rescue ActiveRecord::ActiveRecordError => e

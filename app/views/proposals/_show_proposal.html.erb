@@ -61,7 +61,7 @@
                                 <%=h proposal.content %>
                             </div>
                             <div class="baloon-footer">
-								<%if ((is_proprietary? proposal) || is_admin? ) #se sono autorizzato a modificare la proposta%>
+								<%if (is_proprietary? proposal ) #se sono autorizzato a modificare la proposta%>
 									<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
                                 		<%= link_to 'Modifica', edit_proposal_path(proposal)  %>
 									<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>

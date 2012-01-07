@@ -7,7 +7,6 @@ class Proposal < ActiveRecord::Base
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
   has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC'
-  has_many :proposal_borders, :class_name => 'ProposalBorder'
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote'
   has_many :user_votes, :class_name => 'UserVote'
@@ -15,15 +14,13 @@ class Proposal < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 
-  has_many :users, :through => :proposal_presentations, :class_name => 'User'
-  #confini di interesse
-  has_many :interest_borders,:through => :proposal_borders, :class_name => 'InterestBorder'  
+  has_many :users, :through => :proposal_presentations, :class_name => 'User' 
   
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn
+  attr_accessible :proposal_category_id, :content, :title
   
   scope :current, { :conditions => {:proposal_state_id => [1,2,3,4] }}
   scope :accepted, { :conditions => {:proposal_state_id => 6 }}
@@ -45,13 +42,5 @@ class Proposal < ActiveRecord::Base
     
   def short_content
     return truncate_words(self.content,50)
-  end
-  
-  def interest_borders_tkn
-    
-  end
-  
-  def interest_borders_tkn=(list)
-    
   end
 end

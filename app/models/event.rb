@@ -23,10 +23,8 @@ class Event < ActiveRecord::Base
   belongs_to :event_series
   belongs_to :event_type
   has_many :proposals, :class_name => 'Proposal', :foreign_key => 'vote_period_id'
-  has_one :meeting, :class_name => 'Meeting', :dependent => :destroy
-  has_one :place, :through => :meeting, :class_name => 'Place'
-  
-  accepts_nested_attributes_for :place, :meeting
+  has_many :meetings, :class_name => 'Meeting'
+  has_one :place, :through => :meetings, :class_name => 'Place'
   
   scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today]}
   
