@@ -21,6 +21,12 @@
                         <%=h @user.email %>
                     </div>
                 </div>
+                 <div id="password_profile" class="profile_element">
+                    <h2 class="label_profile">Password: </h2>
+                    <div class="info_profile">
+                        *****
+                    </div>
+                </div>
             </div>
         </td>
         <td>
@@ -76,6 +82,10 @@
         <%else%>
         	alert('Il tuo account è collegato ad un account facebook. Non puoi modificare l\'indirizzo email');
         <%end%>
+        });
+        
+        $('#password_profile').click(function(){
+            doModal($("#password_modal"));
         });
         
         $('.image_container img, .caption').mouseover(function(){

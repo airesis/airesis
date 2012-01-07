@@ -55,6 +55,20 @@
         </div><%end %>
     </div>
     
+    <div id="password_modal" class="edit_modal shadow-box">
+  	<%=form_for @user, :remote => true do |f| %>
+	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Password</h2>
+	<div style="padding-left:135px">
+	<%=f.text_field :password, :type => :password %>
+	<%=f.text_field :password_confirmation, :type => :password %>
+	<div style="margin-top:8px">
+		<%=f.submit 'Salva'%>
+		<input type="button" value="Annulla" onclick="$.modal.close();"/>
+	</div>
+	</div>
+	<%end%>
+  </div>
+        
     <%if current_user.account_type != 'facebook'%>
     <%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
     <%end%>
