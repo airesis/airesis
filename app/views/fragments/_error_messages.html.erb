@@ -1,0 +1,9 @@
+<% if resource.errors.any? %>
+<div>
+	<ul>
+  		<% resource.errors.each do |attr,msg| %>
+  			<%=raw "<li> #{resource.class.human_attribute_name(attr)} #{msg} </li>" if resource.errors[attr].first == msg %>
+  		<% end %>
+  	</ul>
+</div>
+<%end%>

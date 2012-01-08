@@ -20,6 +20,8 @@ end
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
+gem 'rufus-scheduler'
+
 #per gmail
 gem 'tlsmail'
 

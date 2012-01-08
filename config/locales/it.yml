@@ -20,7 +20,9 @@ it:
     passwords:
       user:
         updated: 'Password aggiornata correttamente.'
-  
+        send_instructions: 'Istruzioni inviate all''indirizzo indicato.'        
+    failure:
+        already_authenticated: "Sei già autenticato."
   date:
     order: [:day, :month, :year ]
     formats:
@@ -77,12 +79,16 @@ it:
       blog_comment:
          body: "Commento"
          created_at: "AntiSpam"
+      user:
+        name: "Nome"
+        email: "Indirizzo Email"
+        surname: "Cognome"
   
     errors:
       template:
         header:
-          one: "un errore non ha consentito questo {{model}} dall'essere salvato"
-          other: "{{count}} errori non hanno consentito questo {{model}} di essere salvato"
+          one: "un errore non ha consentito questo %{model} dall'essere salvato"
+          other: "%{count} errori non hanno consentito questo %{model} di essere salvato"
           # The variable :count is also available
         body: "Ci sono stati problemi con i seguenti campi:"
         
@@ -96,23 +102,24 @@ it:
         accepted: "deve essere accettato"
         empty: "non può essere vuoto"
         blank: "deve essere valorizzato"
-        too_long: "è troppo lungo (il massimo è {{count}} caratteri)"
-        too_short: "è troppo corto (il minimo è {{count}} caratteri)"
-        wrong_length: "non è della lunghezza corretta (deve essere di {{count}} caratteri)"
+        too_long: "è troppo lungo"
+        too_short: "è troppo corto "
+        wrong_length: "non è della lunghezza corretta (deve essere di %{count} caratteri)"
         taken: "è già stato preso"
         not_a_number: "non è un numero"
-        greater_than: "deve essere maggiore di {{count}}"
-        greater_than_or_equal_to: "deve essere maggiore o uguale di {{count}}"
-        equal_to: "deve essere uguale a {{count}}"
-        less_than: "deve essere inferiore di {{count}}"
-        less_than_or_equal_to: "deve essere inferiore o uguale di {{count}}"
+        greater_than: "deve essere maggiore di %{count}"
+        greater_than_or_equal_to: "deve essere maggiore o uguale di %{count}"
+        equal_to: "deve essere uguale a %{count}"
+        less_than: "deve essere inferiore di %{count}"
+        less_than_or_equal_to: "deve essere inferiore o uguale di %{count}"
         odd: "deve essere pari"
         even: "deve essere dispari"
-        record_invalid: "Validazione fallita: {{errors}}"
+        record_invalid: "Validazione fallita: %{errors}"
+        not_found: " non trovato."
         # Append your own errors here or at the model/attributes scope.
 
       full_messages:
-        format: "{{attribute}} {{message}}"
+        format: "%{attribute} %{message}"
         
         
         
@@ -123,7 +130,7 @@ it:
       # For example,
       #   models:
       #     user:
-      #       blank: "This is a custom blank message for {{model}}: {{attribute}}"
+      #       blank: "This is a custom blank message for %{model}: %{attribute}"
       #       attributes:
       #         login:
       #           blank: "This is a custom blank message for User login"

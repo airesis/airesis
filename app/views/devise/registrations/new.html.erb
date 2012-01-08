@@ -1,8 +1,7 @@
 <h2>Registrazione</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
+<%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
   
 <p><%= f.label :login %><br/>
 <%= f.text_field :login %></p>
@@ -16,8 +15,11 @@
 <p><%= f.label :password_confirmation, 'Conferma Password' %><br/>
 <%= f.password_field :password_confirmation %></p>
 
-<p><%= label_tag 'Nome' %><br/>
+<p><%= label_tag :name %><br/>
 <%= f.text_field :name %></p>
+
+<p><%= label_tag :surname %><br/>
+<%= f.text_field :surname %></p>
 
   <div><%= f.submit "Registrati" %></div>
 <% end %>
