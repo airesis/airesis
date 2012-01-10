@@ -19,7 +19,7 @@ DemocracyOnline3::Application.routes.draw do
   end                                      
   
   #resources :proposal_comments
-  match ':controller/:id/:action'
+  #match ':controller/:id/:action'
   resources :proposals do
     collection do
       get :index_accepted
