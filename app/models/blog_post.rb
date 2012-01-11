@@ -108,7 +108,7 @@ class BlogPost < ActiveRecord::Base
 			end
 		end
 		
-		return code_highlight_and_markdown(image_parsed_body)
+		return code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
 	end
 	
 	def formatted_updated_at

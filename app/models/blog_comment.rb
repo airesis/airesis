@@ -34,7 +34,6 @@ class BlogComment < ActiveRecord::Base
 	def parsed_body
 		# # Going to add markdown/html support later for comments
 		# self.code_highlight_and_markdown(self.body, {:escape_html => true})
-		
 		self.body
 	end
 	
