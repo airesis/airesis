@@ -14,7 +14,7 @@ class AdminController < ApplicationController
   #calcola il ranking degli utenti
   def calculate_ranking
     
-    AdminHelper.new.calculate_ranking
+    AdminHelper.calculate_ranking
     
     
     respond_to do |format|
@@ -27,7 +27,7 @@ class AdminController < ApplicationController
   
   #cambia lo stato delle proposte
   def change_proposals_state
-   AdminHelper.new.change_proposals_state
+   AdminHelper.change_proposals_state
     
     respond_to do |format|
       format.html {        
