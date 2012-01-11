@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="baloon-content">
-			<%= h(comment.parsed_body) %>
+			<%= comment.parsed_body %>
 		</div>
 		<div class="baloon-footer">
 			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id) %>
