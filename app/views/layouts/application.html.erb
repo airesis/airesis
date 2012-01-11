@@ -1,7 +1,8 @@
+# encoding: utf-8
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 	<head>
-		<title><%= @page_title || 'Tests' %></title>
+		<title><%= @page_title || 'Democracy Online - Alpha Test' %></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<%= stylesheet_link_tag 'style','blog_kit','token-input', 'redmond/custom', 'jquery.contextmenu', 'ImageOverlay.css' %>
 		<%= javascript_include_tag :defaults %>
@@ -109,7 +110,7 @@
 			</div>
 			<div id="rightpanel">
 				<%= render :partial => 'events/next_events_panel' %>
-
+				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-show-faces="true" data-stream="true" data-header="true"></div>
 				<%= yield :right_panel%>
 			</div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
