@@ -1,4 +1,22 @@
 <%= stylesheet_link_tag 'proposal' %>
+
+<div id="accordion" style="width:90%">
+    <h3><a href="#">Progetto in Alpha-Test. Leggi con attenzione.</a></h3>
+    <div style="line-height:1;">
+    	<p>Il progetto si basa su quanto scritto in questo documento: <a href="goo.gl/G4CIo">goo.gl/G4CIo</a>.</p>
+    	<p>Per inviare feedback all'amministratore mandate una mail a <a href="mailto:coorasse+feedback@gmail.com">coorasse+feedback@gmail.com</a>.</p>
+    </div>    
+</div>
+<script type="text/javascript">
+	$('#accordion').accordion({
+			collapsible: true,
+			autoHeight: false, 
+    		active: false 
+		});
+	
+</script>
+<br/>
+
 <div style="float:left">
 <h3><%= link_to 'Fai una proposta', new_proposal_path, :id => 'nuova_proposta' %></h3>
 </div>
@@ -23,7 +41,7 @@
 <% if (@category)%>
 	<h1>Proposte della categoria <%=@category.description%>
 <%else%>	
-	<h1>Proposte di tutte le categorie
+	<h1>Proposte di tutte le categorie		
 <%end%>
 </h1>
 
