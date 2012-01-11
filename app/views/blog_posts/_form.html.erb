@@ -24,7 +24,7 @@ function insertImage(image_id) {
 }
 </script>
 
-<% form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
+<%= form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
 	<% #if BlogKit.instance.settings['use_markdown'] == false && BlogKit.instance.settings['html_editor'] == true
 		if false %>
 		<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>

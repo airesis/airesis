@@ -1,5 +1,5 @@
 <h1>Vuoi creare un tuo blog personale?</h1>
-<% form_for(@blog) do |f| %>
+<%= form_for(@blog) do |f| %>
 <% if @blog.errors.any? %>
 <ul>
 	<% @blog.errors.full_messages.each do |msg| %>
