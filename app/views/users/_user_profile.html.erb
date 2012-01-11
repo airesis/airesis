@@ -1,4 +1,10 @@
-<h3>Profilo di <%=h @user.login %><%if @user.blog %>- <%=link_to 'Vai al blog', blog_path(@user.blog) %><%end %></h3>
+<h3>Profilo di
+	<%if @user.name%>
+		<%= @user.name %>
+	<%else%>
+		<%= @user.login %>
+	<%end%> 
+	<%if @user.blog %>- <%=link_to 'Vai al blog', blog_path(@user.blog) %><%end %></h3>
 <table style="width:100%">
     <tr>
         <td>
