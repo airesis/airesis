@@ -17,7 +17,7 @@
 </script>  		
 			
 <%= form_for([@group]) do |f| %>
-   
+   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
    
   <p>
     <b>Nome</b><br />
