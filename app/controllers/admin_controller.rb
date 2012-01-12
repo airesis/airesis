@@ -19,7 +19,7 @@ class AdminController < ApplicationController
     
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Ranking ricalcolato per '+ @users.count.to_s+' utenti'
+        flash[:notice] = 'Ranking ricalcolato'
         redirect_to admin_panel_path
       }
     end
@@ -31,7 +31,7 @@ class AdminController < ApplicationController
     
     respond_to do |format|
       format.html {        
-        flash[:notice] = denied.to_s + ' proposte sono state RESPINTE, ' + accepted.to_s + ' proposte sono state ACCETTATE, ' + counter.to_s + ' proposte sono passate in VOTAZIONE'
+        flash[:notice] = 'Stato proposte aggiornato'
         redirect_to admin_panel_path
       }
     end
