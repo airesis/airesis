@@ -1,1 +1,19 @@
-In construzione
+Nuove notifiche non lette
+<ul>
+<% @new_user_alerts.each do |user_alert|%>
+	<li>
+  	<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
+</li>
+<%end%>
+</ul>
+
+
+Vecchie notifiche già lette
+<ul>
+<% @old_user_alerts.each do |user_alert|%>
+	<li>
+  	<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
+</li>
+<%end%>
+</ul>
+
