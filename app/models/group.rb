@@ -31,14 +31,16 @@ class Group < ActiveRecord::Base
   end
   
   def porta_id=(id)
-    partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-    if (partecipation)
-      partecipation.partecipation_role_id = 1
-    partecipation.save
+    if !id.blank?
+      partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
+      if (partecipation)
+        partecipation.partecipation_role_id = 1
+      partecipation.save
+      end
+      partecipation = self.group_partecipations.first(:conditions => {:user_id => id})
+      partecipation.partecipation_role_id = 2
+      partecipation.save
     end
-    partecipation = self.group_partecipations.first(:conditions => {:user_id => id})
-    partecipation.partecipation_role_id = 2
-    partecipation.save
   end
   
   
