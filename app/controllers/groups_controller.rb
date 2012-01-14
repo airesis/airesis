@@ -2,7 +2,7 @@
 class GroupsController < ApplicationController
   
   #carica il gruppo
-  before_filter :load_group, :except => [:index,:new,:group]
+  before_filter :load_group, :except => [:index,:new,:create]
   
   ###SICUREZZA###
   
