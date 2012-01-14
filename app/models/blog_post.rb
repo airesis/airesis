@@ -11,7 +11,7 @@ class BlogPost < ActiveRecord::Base
 	has_many :blog_post_tags, :dependent => :destroy
   has_many :blog_post_images
 	has_many :blog_images, :through => :blog_post_images, :source => :image, :dependent => :destroy
-	has_many :publishings, :class_name => "PostPublishing"
+	has_many :publishings, :class_name => "PostPublishing", :dependent => :destroy
   has_many :groups, :through => :publishings,:class_name => "Group"
 	accepts_nested_attributes_for :blog_images, :allow_destroy => true
 	
