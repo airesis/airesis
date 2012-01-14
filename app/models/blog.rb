@@ -1,6 +1,6 @@
 class Blog < ActiveRecord::Base
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
-  has_many :posts, :class_name => 'BlogPost'
+  has_many :posts, :class_name => 'BlogPost', :dependent => :destroy
 #  has_many :blog_tags, :dependent => :destroy
   
 #  before_save :save_tags, :if => :not_resaving?
