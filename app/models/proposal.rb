@@ -14,8 +14,8 @@ class Proposal < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 
-  has_many :users, :through => :proposal_presentations, :class_name => 'User' 
-  
+  has_many :users, :through => :proposal_presentations, :class_name => 'User'
+   
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
@@ -42,5 +42,10 @@ class Proposal < ActiveRecord::Base
     
   def short_content
     return truncate_words(self.content,50)
+  end
+  
+  
+  def partecipants
+    return User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
   end
 end
