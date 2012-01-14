@@ -1,30 +1,40 @@
-<%= stylesheet_link_tag 'blog_kit' %>
-<h1>Tutti i blog</h1>
+<%= stylesheet_link_tag 'blog_kit' %> <h1>Tutti i blog</h1>
 
-<table class="stiled">
-  <tr>
-    <th class="ui-state-default">Titolo</th>
-	<th class="ui-state-default">Autore</th>
-  </tr>
-
+<style>
+	.blogListContainer {
+		border: 1px solid #CCCCCC;
+		clear: both;
+		box-shadow: 0 1px 5px #CCCCCC;
+		margin-left: 0;
+		position: relative;
+		height: 60px;
+		margin-bottom:10px;
+	}
+	
+	.littleText.ui-button .ui-button-text {
+		line-height: 0.6;
+	}
+</style>
 <% @blogs.each do |blog| %>
-  <tr>
-    <td><%=h blog.title %></td>
-	<td><%=h blog.user.name %></td>
-    
-	<td><%= link_to 'Mostra', blog %></td>
-    <td><%= link_to 'Modifica', edit_blog_path(blog) if (user_signed_in? and current_user.is_my_blog? blog.id)%></td>
-    <td><%= link_to 'Cancella', blog, :confirm => 'Sei sicuro di voler eliminare questo blog?', :method => :delete if (user_signed_in? and current_user.is_my_blog? blog.id)%></td>
-  </tr>
-<% end %>
-</table>
+<div class="blogListContainer">
+	<div class="blogUserImage">
+		<%= blog.user.user_image_tag 50 %>
+	</div>
+	<div class="blogTitle">
+		<h3><%= link_to blog.title, blog %></h3>
+	</div>
+	<div class="blogAuthor">
+		Autore: <%= raw blog.user.full_link_to_page %>
+	</div>
+	<div class="blogFooter">
+		<%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
+		<%= link_to 'Cancella', blog, :confirm => 'Sei sicuro di voler eliminare questo blog?', :method => :delete, :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
+	</div>
+</div>
+<%end%> 
 
 <script type="text/javascript">
 	$(function() {
-		$('tr:odd').addClass("odd gradeA");
-		$('tr:even').addClass("even gradeA");
+	disegnaBottoni();
 	});
-
 </script>
-
-<br />

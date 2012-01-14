@@ -6,14 +6,17 @@
 </p>
 <div id="accordion" style="width:80%">
     <h3><a href="#">Regolamento del gruppo</a></h3>
-    <div style="line-height:1;">Elenco delle regole:
+    <div style="line-height:1;">Le regole sono selezionabili alla creazione di un gruppo. 
+    	Al momento nessuno può creare gruppi solo perchè manca un sistema di identificazione dei gruppi non attivi.
+    	Quando partecipate ad un gruppo i post dei vostri blog vengono mostrati in questa pagina.
+    	I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i partecipanti secondo ruoli e permessi.
     	<ul>
     		<li>Partecipazione:</li>
     			<%if @group.request_by_vote?%>
     				Quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.
     			<%elsif @group.request_by_portavoce?%>
-    				quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta cche il portavoce avrà accettato la richeista, l'utente sarà a tutti gli effetti un partecipante del gruppo.
-    			<%end%>    			
+    				Quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo.
+    			<%end%>   
     	</ul>
     </div>    
 </div>
@@ -96,7 +99,8 @@ if requests.size > 0 %>
    end
    if (!follow)%>
 		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow' %>
-	<%end%>
+		<br/>(notifiche non ancora attive, spiacente)
+ <%end%>
 
 	<script type="text/javascript">
 			$('#group_partecipa, #group_follow, .confirmRequest').button();

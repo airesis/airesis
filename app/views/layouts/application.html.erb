@@ -40,7 +40,7 @@
 					<span class="doNotDisplay">Navigation:</span>
 					<%= link_to 'Le proposte', proposals_path, :class => 'buttonStyle' %>
 					| <%= link_to 'I blog', blogs_path %>
-					| <%= link_to 'Le liste', groups_path %>
+					| <%= link_to 'I gruppi', groups_path %>
 
 					| <%= link_to 'Notifiche', '/alerts' %>
 					| <%= link_to 'Calendario', '/events'%>
@@ -110,7 +110,7 @@
 			</div>
 			<div id="rightpanel">
 				<%= render :partial => 'events/next_events_panel' %>
-				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-show-faces="true" data-stream="true" data-header="true"></div>
+				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
 				<%= yield :right_panel%>
 			</div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>

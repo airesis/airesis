@@ -1,42 +1,47 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <div id="proposalNewComment" class="blogNewComment">
-    <script>
-        function sblank(){
-            var el = document.getElementById('blog_comment_content');
-        //    el.value = '';
-        }
-        
-        function hide(){
-            $('#insert_comment').hide();
-            $('#insert_comment_loading').show();
-        }
-		
+	<script>
+		function sblank() {
+			var el = document.getElementById('blog_comment_content');
+			//    el.value = '';
+		}
+
+		function hide() {
+			$('#insert_comment').hide();
+			$('#insert_comment_loading').show();
+		}
+
 		$(function() {
 			$('#insert_comment').button();
 		});
-        
-    </script>
-    <% if !user_signed_in? %>
-    <h2><%=t(:login_to_post_comment) %>
-	</h2>
-    <% else %>
-	    <%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
-	    <% if @proposal_comment.errors.any? %>
-		  <ul>
-		    <% @proposal_comment.errors.full_messages.each do |msg| %>
-		      <li><%= msg %></li>
-		    <% end %>
-		  </ul>
-		<% end %>
-	    <p>
-	        <%= f.label :content, t(:insert_comment) %>
-	        <br/>
-	        <%= f.text_area :content, :class => 'proposal_comment_area', :rows => 10, :cols => 50 %>
-	    </p>
-	    <p>
-	        <%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hide();" %>
-	        <%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
-	    </p>
-   		<% end %>
-    <% end %>
+
+	</script>
+	<% if !user_signed_in? %> <h2><%= t(:login_to_post_comment) %> </h2>
+	<% else %>
+	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
+	
+	<%= render :partial => 'fragments/error_messages', :locals => {:resource =>proposal_comment} %>
+	
+	<p>
+		<%= f.label :content, t(:insert_comment) %>
+		<br/>
+		<div id="comment-form-comment">
+		<%= f.text_area :content, :class => 'blogNewCommentField', :rows => 10, :cols => 50 %>
+		</div>
+	</p>
+	<p>
+		<%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hide();" %>
+		<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
+	</p>
+	<% end %>
+	<% end %>
+	<script type="text/javascript">
+		$(function() {
+			$('.blogNewCommentField').focus(function() {
+				$('#comment-form-comment').toggleClass("active");
+			}).focusout(function() {
+				$('#comment-form-comment').toggleClass("active");
+			});
+		});
+	</script>
 </div>
