@@ -87,7 +87,7 @@ class BlogPostsController < ApplicationController
       
       respond_to do |format|
         if saved
-          flash[:notice] = 'Il tuo post #{blog_post.id} è stato creato correttamente.'
+          flash[:notice] = 'Il tuo post è stato creato correttamente.'
           format.html { redirect_to([@blog,@blog_post]) }
           format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
