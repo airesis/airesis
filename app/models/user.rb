@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_one  :blog, :class_name => 'Blog'
   has_many :blog_comments, :class_name => 'BlogComment'
   has_many :blog_posts, :class_name => 'BlogPost'
+  has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
   has_many :group_follows, :class_name => 'GroupFollow'
@@ -47,6 +48,8 @@ class User < ActiveRecord::Base
   has_many :authentications, :class_name => 'Authentication'
 
   
+  has_many :user_alerts, :class_name => 'UserAlert', :order => 'created_at DESC'
+  has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType'
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
 
@@ -220,7 +223,7 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   if user = User.find_by_email_and_account_type(data["email"],'facebook')
     return user
   elsif user = User.find_by_email(data["email"])  #se è presente un account sul portale richiedine le credenziali per effettuarne il merge
-      return nil      
+      return user      
   else  #crea un nuovo account facebook
     if data["verified"]
       user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
@@ -231,7 +234,7 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
       user.confirm!
       user.save! false
     else
-      return nil #TODO
+      return nil
     end 
     return user
   end
