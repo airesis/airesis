@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
+  include NotificationHelper
   
   #carica la proposta
   before_filter :load_proposal, :except => [:index, :index_accepted, :new, :create, :index_by_category]
@@ -215,6 +216,7 @@ class ProposalsController < ApplicationController
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
+      user_valutate_proposal(@ranking)
     end
     @ranking.ranking_type_id = rank_type  #setta il tipo di valutazione
     
