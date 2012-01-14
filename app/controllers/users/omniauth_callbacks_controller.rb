@@ -3,11 +3,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model
     @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
     if (@user)
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-      sign_in_and_redirect @user, :event => :authentication
+      if (@user.account_type == 'facebook')
+        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
+        sign_in_and_redirect @user, :event => :authentication
+      else
+        session["devise.facebook_data"] = env["omniauth.auth"]
+        redirect_to confirm_credentials_users_url
+      end
     else
-      session["devise.facebook_data"] = env["omniauth.auth"]
-      redirect_to confirm_credentials_users_url
+      flash[:error] = "Account facebook non verificato."
+      redirect_to proposals_path
     end
   end
 
