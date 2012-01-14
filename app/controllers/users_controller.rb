@@ -30,7 +30,7 @@ class UsersController < ApplicationController
           auth.save
         end       
         #fine dell'unione
-        flash[:info] = 'Unione!'
+        flash[:info] = 'Account uniti correttamente!'
         sign_in_and_redirect auth, :event => :authentication
       else
         flash[:error] = 'Username, Email o password errati o inesistenti'
