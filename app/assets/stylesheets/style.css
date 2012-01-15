@@ -119,39 +119,7 @@ body {
 	box-shadow: -3px 4px 0 0 #CCCCCC;	
 }
 
-#user-panel {
-	background-color: white;
-	border-bottom: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
-	border-right: 1px solid #CCCCCC;
-	color: #294145;
-	display: block;
-	margin-bottom: 5px;
-	margin-left: 758px;
-	margin-top: 42px;
-	padding: 10px;
-	position: absolute;
-	text-align: left;
-	width: 235px;
-	height:82px;
-	z-index: 3;
-}
 
-ul.menu-list {
-	float: left;
-    list-style-type: none;
-    margin-left: 8px;
-    margin-top: 2px;
-    padding: 0 0 0;
-}
-
-ul.menu-list li {
-	padding-top:2px;
-	padding-bottom:2px;
-}
-ul.menu-list li:hover {
-	opacity: 0.5;	
-}
 
 .superHeader span {
 	background-color: transparent;

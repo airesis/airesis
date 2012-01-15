@@ -59,6 +59,9 @@ gem 'ultraviolet1x'
 gem 'devise', '1.4.9'
 
 gem 'fb_graph'
+
+#gem 'juggernaut'
+
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'

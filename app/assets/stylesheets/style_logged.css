@@ -1,0 +1,87 @@
+#user-panel {
+	background-color: white;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	color: #294145;
+	display: block;
+	margin-bottom: 5px;
+	margin-left: 758px;
+	margin-top: 42px;
+	padding: 10px;
+	position: absolute;
+	text-align: left;
+	width: 235px;
+	height:82px;
+	z-index: 3;
+}
+
+#user-panel ul.menu-list {
+	float: left;
+    list-style-type: none;
+    margin-left: 8px;
+    margin-top: 2px;
+    padding: 0 0 0;
+}
+
+#user-panel ul.menu-list li {
+	padding-top:2px;
+	padding-bottom:2px;
+}
+#user-panel ul.menu-list li:hover {
+	opacity: 0.5;	
+}
+
+
+#notification-panel {
+	background-color: white;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	color: #294145;
+	display: block;
+	margin-bottom: 5px;
+	margin-left: 363px;
+	margin-top: 36px;
+	padding: 10px;
+	position: absolute;
+	text-align: left;
+	width: 235px;
+	min-height:40px;
+	z-index: 3;
+}
+
+
+#notification-panel ul.menu-list {
+	float: left;
+    list-style-type: none;
+    margin-left: 8px;
+    margin-top: 2px;
+    padding: 0 0 0;
+}
+
+#notification-panel ul.menu-list li.new {
+	padding-top:2px;
+	padding-bottom:2px;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #FBEC88;
+}
+
+#notification-panel ul.menu-list li.old {
+	padding-top:2px;
+	padding-bottom:2px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+#notification-panel ul.menu-list li:hover {
+	
+	opacity: 0.5;	
+}
+
+#notification-panel .menu-footer {
+	background-color: #DFEFFC;
+    font-weight: bold;
+    height: 26px;
+    text-align: center;
+    padding-top: 7px;
+}
