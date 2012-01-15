@@ -6,3 +6,7 @@ $(function(){
 function disegnaBottoni() {
 	$('.buttonStyle').button();
 }
+
+
+var geocoder;
+var map;
