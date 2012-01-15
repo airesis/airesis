@@ -20,13 +20,18 @@
    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
    
   <p>
-    <b>Nome</b><br />
+    <%= f.label :name%><br />
     <%= f.text_field :name %>
   </p>
   
   <p>
-    <b>Descrizione</b><br />
+    <%=f.label :description%><br/>
     <%= f.text_area :description %>
+  </p>
+  
+  <p>
+    <%= f.label :facebook_page_url%><br/>
+    <%= f.text_field :facebook_page_url %>
   </p>
   
   <p>
@@ -46,7 +51,7 @@
 <p>	
 	<%if is_admin? %>
 		<b>Aggiungi utenti al gruppo</b>
-		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json %>
+		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json(:only => [:id, :name]) %>
 	<%end%> 
 </p>
 	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => '==Nessun portavoce=='})%>

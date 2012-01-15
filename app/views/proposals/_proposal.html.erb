@@ -1,4 +1,21 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+  
+<script type="text/javascript">
+	$(function() {
+		input = $('#proposal_interest_borders_tkn')
+		input.tokenInput("/interest_borders.json", {
+			crossDomain: false,
+			prePopulate: $('#proposal_interest_borders_tkn').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare un luogo",
+			noResultsText: "Nessun luogo trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true
+		});
+	});
+
+</script>  		
+
 <%= form_for([@proposal]) do |f| %>
    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
    
@@ -17,6 +34,9 @@
     <b>Testo</b><br />
     <%= f.text_area :content %>
   </p>
+  
+  <b>Definisci dei confini di interesse</b>
+	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.collect{ |b| {:id => b.ftype + '-' + b.foreign_id.to_s, :name => b.description}}.to_json %>
 
   <p>
     <%= f.submit button_name %>

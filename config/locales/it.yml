@@ -23,6 +23,7 @@ it:
         send_instructions: 'Istruzioni inviate all''indirizzo indicato.'        
     failure:
         already_authenticated: "Sei già autenticato."
+        unauthenticated: "Esegui il login per visualizzare pagina."
   date:
     order: [:day, :month, :year ]
     formats:
@@ -83,6 +84,10 @@ it:
         name: "Nome"
         email: "Indirizzo Email"
         surname: "Cognome"
+      group:
+        facebook_page_url: "Indirizzo pagina Facebook"
+        name: "Nome"
+        description: "Descrizione"
   
     errors:
       template:

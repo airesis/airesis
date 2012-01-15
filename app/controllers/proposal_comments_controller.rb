@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
- 
+ include NotificationHelper
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
@@ -69,6 +69,7 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       if @proposal_comment.save
+        user_comment_proposal(@proposal_comment)
         flash[:notice] = 'Commento inserito.'
         @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
@@ -86,6 +87,7 @@ class ProposalCommentsController < ApplicationController
     
   rescue Exception => e
      respond_to do |format|
+       puts e
        flash[:error] = 'Errore durante l''inserimento.'
        format.js   { render :update do |page|
                            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

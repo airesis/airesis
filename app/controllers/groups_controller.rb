@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:new, :create, :destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:partecipation_request_confirm]
+  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update]
   
   def index
     @groups = Group.all
@@ -88,6 +88,17 @@ class GroupsController < ApplicationController
         #@group.partecipation_requests.each do |r|
         #  r.destroy
         #end
+        partecipation = @group.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
+        if (partecipation)
+          partecipation.partecipation_role_id = 1
+          partecipation.save
+        end
+        partecipation = @group.group_partecipations.first(:conditions => {:user_id => params[:group][:porta_id]})
+        if (partecipation)
+          partecipation.partecipation_role_id = 2
+          partecipation.save
+        end
+        
         @group.attributes = params[:group]
         partecipant_ids = @group.partecipant_ids
         partecipant_ids.each do |id|

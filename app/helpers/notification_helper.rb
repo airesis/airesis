@@ -13,12 +13,13 @@ module NotificationHelper
      end
   end
   
+  
   #invia le notifiche quando un utente valuta la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def user_valutate_proposal(proposal_ranking)
     proposal = proposal_ranking.proposal
-    msg = "La tua proposta <a href='" + proposal_path(proposal) + "'>"+proposal.title+"</a> ha ricevuto una nuova valutazione!";
-      notification_a = Notification.new(:notification_type_id => 20,:message => msg)
+    msg = "La tua proposta <b>"+proposal.title+"</b> ha ricevuto una nuova valutazione!";
+      notification_a = Notification.new(:notification_type_id => 20,:message => msg, :url => proposal_path(proposal))
       notification_a.save
     proposal.users.each do |user|
       if (user != proposal_ranking.user)
@@ -26,10 +27,35 @@ module NotificationHelper
         alert.save
       end
     end
-    msg = "La proposta <a href='" + proposal_path(proposal) + "'>"+proposal.title+"</a> ha ricevuto una nuova valutazione!";
-    notification_b = Notification.create(:notification_type_id => 21,:message => msg)
+    msg = "La proposta <b>"+proposal.title+"</b> ha ricevuto una nuova valutazione!";
+    notification_b = Notification.create(:notification_type_id => 21,:message => msg,:url => proposal_path(proposal))
     proposal.partecipants.each do |user|
       if ((user != proposal_ranking.user) && (!proposal.users.include?user))
+        UserAlert.create(:user_id => user.id, :notification_id => notification_b.id, :checked => false);
+      end
+    end
+    
+  end
+
+  #invia le notifiche quando un utente inserisce un commento alla proposta
+  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
+  def user_comment_proposal(comment)
+    proposal = comment.proposal
+    comment_user = comment.user
+    msg = "<b>"+ comment_user.name + " " + comment_user.surname + "</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
+      notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s)
+      notification_a.save
+    proposal.users.each do |user|
+      if (user != comment_user)
+        alert = UserAlert.new(:user_id => user.id, :notification_id => notification_a.id, :checked => false);
+        alert.save
+      end
+    end
+    
+    msg = "<b>"+ comment_user.name + " " + comment_user.surname + "</b> ha inserito un commento alla proposta <b>"+proposal.title+"</b>!";
+    notification_b = Notification.create(:notification_type_id => 1,:message => msg,:url => proposal_path(proposal) +"#comment"+comment.id.to_s)
+    proposal.partecipants.each do |user|
+      if ((user != comment_user) && (!proposal.users.include?user))
         UserAlert.create(:user_id => user.id, :notification_id => notification_b.id, :checked => false);
       end
     end

@@ -13,8 +13,10 @@ class EventsController < ApplicationController
   end
   
   
-  def new
+   def new 
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
+    @meeting = @event.build_meeting
+    @place = @meeting.build_place(:address => "Bologna")
   end
   
   def create

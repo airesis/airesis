@@ -5,7 +5,7 @@ class Group < ActiveRecord::Base
   REQ_BY_BOTH = 'b'
   
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
@@ -17,7 +17,8 @@ class Group < ActiveRecord::Base
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   
   
-  attr_reader :partecipant_tokens, :porta_id
+  attr_reader :partecipant_tokens
+  attr_accessor :portavoce, :porta_id
   
   def partecipant_tokens=(ids)
     self.partecipant_ids = ids.split(",")
@@ -29,22 +30,7 @@ class Group < ActiveRecord::Base
       return partecipation.user_id
     end
   end
-  
-  def porta_id=(id)
-    if !id.blank?
-      partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-      if (partecipation)
-        partecipation.partecipation_role_id = 1
-      partecipation.save
-      end
-      partecipation = self.group_partecipations.first(:conditions => {:user_id => id})
-      partecipation.partecipation_role_id = 2
-      partecipation.save
-    end
-  end
-  
-  
-  attr_accessor :portavoce
+    
   
   def portavoce
     partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})

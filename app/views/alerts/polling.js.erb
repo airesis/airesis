@@ -1,0 +1,4 @@
+<%if !@new_user_alerts.empty?%>
+	$('#notifications_place span').html('Notifiche (<%=@new_user_alerts.size%>)');
+<%end%>
+$('#notification-panel').html("<%= escape_javascript(render(:partial => 'alerts/polling'))%>");

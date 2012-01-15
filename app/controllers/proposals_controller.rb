@@ -106,6 +106,7 @@ class ProposalsController < ApplicationController
       Proposal.transaction do
         @proposal = Proposal.new(params[:proposal])
         @proposal.proposal_state_id = PROP_VALUT
+        @proposal.rank = 0
         psaved = @proposal.save!
         proposalparams = {
               :proposal_id => @proposal.id,
@@ -133,11 +134,26 @@ class ProposalsController < ApplicationController
   end
   
   def update
-    respond_to do |format|
-      if @proposal.update_attributes(params[:proposal])
+    begin
+      Proposal.transaction do
+        prparams = params[:proposal]
+        borders = prparams[:interest_borders_tkn]
+        #cancella i vecchi confini di interesse
+        @proposal.proposal_borders.each do |border|
+          border.destroy
+        end
+      
+        update_borders(borders)
+        @proposal.update_attributes(params[:proposal])
+      end
+      
+      respond_to do |format|
         flash[:notice] = t(:proposal_updated)
         format.html { redirect_to  @proposal }
-      else
+      end
+      
+    rescue ActiveRecord::ActiveRecordError => e
+      respond_to do |format|
         format.html { render :action => "edit" }
       end
     end
@@ -207,6 +223,32 @@ class ProposalsController < ApplicationController
   
   
   protected
+  
+  def update_borders(borders)
+     #confini di interesse, scorrili
+    borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
+      ftype = border[0,1] #tipologia (primo carattere)
+      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      found = false
+      
+      case ftype
+        when 'C' #comune
+          comune = Comune.find_by_id(fid)
+          found = comune
+        when 'P' #provincia
+          provincia = Provincia.find_by_id(fid)
+          found = provincia
+        when 'R' #regione
+          regione = Regione.find_by_id(fid)
+          found = regione
+      end
+      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+        puts "New Record!" if (interest_b.new_record?)
+        i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
+      end
+    end
+  end
   
   #valuta una proposta
   def rank(rank_type)

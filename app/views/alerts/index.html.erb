@@ -17,3 +17,12 @@ Vecchie notifiche già lette
 <%end%>
 </ul>
 
+<script>
+	 $.ajax({
+        data: '',
+        dataType: 'script',
+        type: 'get',
+        url: "/alerts/read_alerts"
+    });
+</script>
+

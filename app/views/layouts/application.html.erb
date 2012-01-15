@@ -5,6 +5,7 @@
 		<title><%= @page_title || 'Democracy Online - Alpha Test' %></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<%= stylesheet_link_tag 'style','blog_kit','token-input', 'redmond/custom', 'jquery.contextmenu', 'ImageOverlay.css' %>
+		<%= stylesheet_link_tag 'style_logged' if user_signed_in? %>
 		<%= javascript_include_tag :defaults %>
 		<%= javascript_include_tag 'jquery', 'jquery-ui', 'jquery.tokeninput', 'jquery.contextMenu', 'jquery.ImageOverlay', 'jquery_ujs','flot/jquery.flot','democracy' %>
 		<%= csrf_meta_tag %>
@@ -42,7 +43,7 @@
 					| <%= link_to 'I blog', blogs_path %>
 					| <%= link_to 'I gruppi', groups_path %>
 
-					| <%= link_to 'Notifiche', '/alerts' %>
+					| <%= link_to 'Notifiche', '#', :id => 'notifications_place' %>
 					| <%= link_to 'Calendario', '/events'%>
 				</div>
 				<div class="superHeader">
@@ -59,7 +60,6 @@
 				</div>
 				<% if user_signed_in? %> 
 					<div class="user-panel shadow-box" id="user-panel">
-							<% if user_signed_in? %>
 							<div style="float:left">
 								<%= current_user.user_image_tag%>
 							</div>
@@ -87,9 +87,19 @@
 									<%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
 								</li>
 							</ul>
-							<% end %>
+						</div>
+						
+						
+						
+						<div class="notification-panel shadow-box" id="notification-panel">
+							<ul class="menu-list">
+								<li>
+								Nessuna notifica
+								</li>
+							</ul>
 						</div>
 				<% end %>
+				
 				<div style="clear: both; height: 0; overflow: hidden;"></div>
 			</div>
 			<span>
@@ -110,7 +120,11 @@
 			</div>
 			<div id="rightpanel">
 				<%= render :partial => 'events/next_events_panel' %>
+				<%if (!@group.facebook_page_url.empty? rescue false)%>
+				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
+				<%else%>
 				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
+				<%end%>
 				<%= yield :right_panel%>
 			</div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
@@ -120,31 +134,73 @@
 			
 			
 			<%if user_signed_in?%>
-			$('.user-panel').hide();
-			shown = false;
-			$('html').click(function() {
-				if(shown) {
-					$('.user-panel').hide();
-					$('.superHeader').removeClass('active');
-					shown = false;
+				$('.user-panel').hide();
+				user_panel_shown = false;
+				$('html').click(function() {
+					if(user_panel_shown) {
+						$('.user-panel').hide();
+						$('.superHeader').removeClass('active');
+						user_panel_shown = false;
+					}
+				});
+				$('.superHeader').click(function(event) {
+					if(user_panel_shown) {
+						$('.user-panel').hide();
+						$('.superHeader').removeClass('active');
+						user_panel_shown = false;
+					} else {
+						$('.user-panel').show('drop',{ direction: "up" })
+						$('.superHeader').addClass('active');
+						user_panel_shown = true;
+					}
+					event.stopPropagation();
+				});
+	
+				$('#user-panel').click(function(event) {
+					event.stopPropagation();
+				});
+				
+				
+				function fetchNotifications(){
+				    jQuery.ajax({
+				        data: '',
+				        dataType: 'script',
+				        type: 'get',
+				        url: "/alerts/polling"
+				    });
 				}
-			});
-			$('.superHeader').click(function(event) {
-				if(shown) {
-					$('.user-panel').hide();
-					$('.superHeader').removeClass('active');
-					shown = false;
-				} else {
-					$('.user-panel').show('drop',{ direction: "up" })
-					$('.superHeader').addClass('active');
-					shown = true;
-				}
-				event.stopPropagation();
-			});
-
-			$('#user-panel').click(function(event) {
-				event.stopPropagation();
-			});
+				
+				function poll(){
+				    $.getScript("/alerts/polling/")
+				    setTimeout(poll,15000);
+				};
+				
+				poll();
+				
+				$('#notification-panel').hide();
+				notification_panel_shown = false;
+				$('html').click(function() {
+					if(notification_panel_shown) {
+						$('#notification-panel').hide();						
+						notification_panel_shown = false;
+					}
+				});
+				$('#notifications_place').click(function(event) {
+					if(notification_panel_shown) {
+						$('#notification-panel').hide();						
+						notification_panel_shown = false;
+					} else {
+						$('#notification-panel').show('drop',{ direction: "up" })
+						notification_panel_shown = true;
+					}
+					event.stopPropagation();
+				});
+	
+				$('#notification-panel').click(function(event) {
+					event.stopPropagation();
+				});
+				
+				
 			<%end%>
 			$('#loading').hide();
 

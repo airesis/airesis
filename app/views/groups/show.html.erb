@@ -1,5 +1,8 @@
+
+<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (is_admin? || current_user == @group.portavoce) %>
+
 <p>
-    <h3><%=h @group.name %></h3>
+    <h1><%=h @group.name %></h1>
 </p>
 <p>
     <%=h @group.description %>
@@ -22,12 +25,15 @@
 </div>
 
 <script type="text/javascript">
-	$('#accordion').accordion({
+	
+	$(function() {
+		$('#accordion').accordion({
 			collapsible: true,
 			autoHeight: false, 
     		active: false 
 		});
-	
+		$('#editButton').button();
+	});
 </script>
 
 
@@ -42,8 +48,6 @@
 <% else %>
 <%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
 <% end %>
-<%= link_to 'Modifica', edit_group_path(@group) if (is_admin?) %>
-<%= link_to 'Indietro', groups_path %>
 
 <% content_for :left_panel do %>
 	<%= render :partial => 'partecipants_panel' %>

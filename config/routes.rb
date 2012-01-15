@@ -50,7 +50,21 @@ DemocracyOnline3::Application.routes.draw do
   
   resources :blog_posts
   
-  resources :alerts
+  resources :alerts do
+    member do
+      get :check_alert
+    end
+    
+    collection do
+      get :polling
+      get :read_alerts
+    end
+  end
+
+resources :interest_borders
+resources :comunes
+  
+
   resources :events do
     collection do
       get :get_events
