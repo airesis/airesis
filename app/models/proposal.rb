@@ -54,4 +54,8 @@ class Proposal < ActiveRecord::Base
   def interest_borders_tkn=(list)
     
   end
+
+  def partecipants
+    return User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
+  end
 end
