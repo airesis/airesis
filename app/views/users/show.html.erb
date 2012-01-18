@@ -77,23 +77,6 @@
 
 <%content_for :left_panel do %>
 	<%if current_user == @user%>
-		<div id="setting_menu">
-			<h4>Impostazioni e preferenze</h4>
-			<div class="menu_voice">
-				<span class="Mo ui-icon ui-icon-gear"></span>
-				<a class="Mo" href="<%=current_url%>">Informazioni generali</a>
-				<div style="clear:both"></div>
-			</div>
-			<div class="menu_voice">
-				<span class="Mo ui-icon ui-icon-alert"></span>
-				<a class="Mo" href="<%=current_url%>">Allarmi e notifiche</a>
-				<div style="clear:both"></div>
-			</div>
-			<div class="menu_voice">
-				<span class="Mo ui-icon ui-icon-scissors"></span>
-				<a class="Mo" href="<%=current_url%>">Preferenze e confini</a>
-				<div style="clear:both"></div>
-			</div>
-		</div>
+		<%= render :partial => 'users/preferences_panel' %>
 	<%end%>
 <%end%>

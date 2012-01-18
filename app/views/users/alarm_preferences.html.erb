@@ -1,0 +1,66 @@
+<%if current_user %>
+<%= javascript_include_tag 'simplemodal' %>
+<script>
+    function change_notification_block(el){
+    	if (el.checked) {
+    		$.ajax({
+	        	data: "id="+el.value+"&block=false",
+	        	url: "/notifications/change_notification_block",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+    	}
+    	else {
+	        $.ajax({
+	        	data: "id="+el.value+"&block=true",
+	        	url: "/notifications/change_notification_block",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+	       }
+    }
+</script>
+<%end %>
+
+
+<%blocked = @current_user.blocked_notifications.find(:all)
+  readonly = [1,5,20,21]%>
+<p>
+   <h3><%=	t('pages.user.notifications')%></h3>
+   	<table>
+   <% NotificationCategory.all.each do |category|%>
+   		<tr><td>
+   		<h4><%=category.description%></h4>
+   		</td>
+   		<td>
+   			Ricevi notifica
+   		</td>
+   		</tr>
+   		<% category.notification_types.all.each do |type|%>
+   		<tr>
+   			<td>
+ 				<%=type.description%>
+ 			</td>
+ 			<td style="text-align: center">
+ 				<input type="checkbox" value="<%=type.id%>" 
+ 				<%if (!(blocked.include? type))%> 
+ 					checked="true" 
+ 				<%end%>
+ 				<%if (!(readonly.include? type.id))%> 
+ 					readonly="true" 
+ 					title="Non disponibile"
+ 				<%end%> 
+ 				onclick="return change_notification_block(this);"/>
+ 			</td>
+ 		</tr>
+ 		<%end%>
+   <% end%>
+ 	</table>
+</p>
+
+<%content_for :left_panel do %>
+	<%if current_user %>
+	<%= render :partial => 'users/preferences_panel' %>
+
+	<%end%>
+<%end%>

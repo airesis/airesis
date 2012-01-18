@@ -1,5 +1,5 @@
 <% flash.each do |key,value| %>
-<% if key == :notice
+<% if ((key == :notice) || (key == :info))
 	classeFlash = 'ui-state-highlight'
    else
  	classeFlash = 'ui-state-error'
@@ -12,6 +12,6 @@
 
 <script>
 $(document).ready(function () {
-    //$('[class^=flash_]').delay(5000).hide(2000);
+    $('.ui-state-highlight').delay(7000).hide(2000);
 });
 </script>

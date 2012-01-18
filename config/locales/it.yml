@@ -55,7 +55,11 @@ it:
   error_proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione."
   error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
-  
+  error:
+   setting_preferences: "Errore durante l'impostazione delle preferenze"
+  info:
+    setting_preferences: "Impostazioni cambiate correttamente" 
+   
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
   proposal_deleted:  "La proposta è stata eliminata correttamente."
@@ -67,7 +71,10 @@ it:
   
   insert_comment: "Lascia un Commento"
   login_to_post_comment: "Fai login per inserire un commento."
-  
+  pages:
+    user:
+      notifications: "Allarmi e notifiche"
+      
   pl:
     comments:
       zero: nessun commento

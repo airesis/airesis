@@ -47,9 +47,13 @@ class User < ActiveRecord::Base
   belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
   has_many :authentications, :class_name => 'Authentication'
 
+  has_many :user_borders, :class_name => 'UserBorder'
+  
+  #confini di interesse
+  has_many :interest_borders,:through => :user_borders, :class_name => 'InterestBorder'  
   
   has_many :user_alerts, :class_name => 'UserAlert', :order => 'created_at DESC'
-  has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType'
+  has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
 

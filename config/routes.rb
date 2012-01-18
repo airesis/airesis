@@ -15,9 +15,17 @@ DemocracyOnline3::Application.routes.draw do
   resources :users do
     collection do
       get :confirm_credentials
+      get :alarm_preferences #preferenze allarmi utente
+      get :border_preferences #preferenze confini di interesse utente
+      post :set_interest_borders #cambia i confini di interesse
     end
   end                                      
   
+  resources :notifications do
+    collection do  
+      get :change_notification_block
+    end
+  end
  
   resources :proposals do
     collection do
@@ -63,6 +71,7 @@ DemocracyOnline3::Application.routes.draw do
 
 resources :interest_borders
 resources :comunes
+
   
 
   resources :events do

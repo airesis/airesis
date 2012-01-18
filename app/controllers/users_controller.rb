@@ -1,6 +1,7 @@
 #encoding: utf-8
 class UsersController < ApplicationController
   
+  before_filter :authenticate_user!, :except => [:index, :show]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :edit]
@@ -56,32 +57,30 @@ class UsersController < ApplicationController
     respond_to do |format|      
       flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
       format.html # show.html.erb
-      format.xml  { render :xml => @user }
+      #format.xml  { render :xml => @user }
     end
   end
   
-  # render new.rhtml
-  def new
-    @user = User.new
-  end
   
-  def create
-    logout_keeping_session!
-    puts params[:user][:name]
-    @user = User.new(params[:user])
-    
-    @user.register! if @user && @user.valid?
-    success = @user && @user.valid?
-    
-    if success && @user.errors.empty?
-      #   redirect_back_or_default('/')
-      flash[:notice] = "Grazie per esserti registrato! Riceverai a breve una mail con il codice per attivare il tuo account."
-    else
-      flash.now[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => 'new'
+  def alarm_preferences
+    respond_to do |format|      
+      flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
+      format.html # show.html.erb
+      #format.xml  { render :xml => @user }
     end
   end
- 
+  
+  #aggiorni i confini di interesse dell'utente
+  def set_interest_borders
+    borders = params[:token][:interest_borders]
+    #cancella i vecchi confini di interesse
+    current_user.user_borders.each do |border|
+      border.destroy
+    end
+    update_borders(borders)    
+  end
+  
+  
   def update
     respond_to do |format|
       if (params[:image]) 
@@ -115,44 +114,6 @@ class UsersController < ApplicationController
     end
   end
   
-  
-  def activate
-    logout_keeping_session!
-    user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
-    case
-      when (!params[:activation_code].blank?) && user && !user.active?
-      user.activate!
-      flash[:notice] = "Signup complete! Please sign in to continue."
-      redirect_to '/login'
-      when params[:activation_code].blank?
-      flash[:error] = "The activation code was missing.  Please follow the URL from your email."
-      redirect_back_or_default('/')
-    else 
-      flash[:error]  = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
-      redirect_back_or_default('/')
-    end
-  end
-  
-  def suspend
-    @user.suspend! 
-    redirect_to users_path
-  end
-  
-  def unsuspend
-    @user.unsuspend! 
-    redirect_to users_path
-  end
-  
-  def destroy
-    @user.delete!
-    redirect_to users_path
-  end
-  
-  def purge
-    @user.destroy
-    redirect_to users_path
-  end
-  
   # There's no page here to update or destroy a user.  If you add those, be
   # smart -- make sure you check that the visitor is authorized to do so, that they
   # supply their old password along with a new one to update it, etc.
@@ -160,6 +121,36 @@ class UsersController < ApplicationController
   protected
   def find_user
     @user = User.find(params[:id])
+  end
+  
+  
+  
+  
+   def update_borders(borders)
+     #confini di interesse, scorrili
+    borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
+      ftype = border[0,1] #tipologia (primo carattere)
+      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      found = false
+      
+      case ftype
+        when 'C' #comune
+          comune = Comune.find_by_id(fid)
+          found = comune
+        when 'P' #provincia
+          provincia = Provincia.find_by_id(fid)
+          found = provincia
+        when 'R' #regione
+          regione = Regione.find_by_id(fid)
+          found = regione
+      end
+      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+        puts "New Record!" if (interest_b.new_record?)
+        i = current_user.user_borders.build({:interest_border_id => interest_b.id})
+        i.save
+      end
+    end
   end
   
 end
