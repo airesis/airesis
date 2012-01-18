@@ -1,0 +1,32 @@
+<%if current_user %>
+<%= javascript_include_tag 'simplemodal' %>
+<%end %>
+
+<%= form_for 'token' do |f| %>
+	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.collect{ |b| {:id => b.ftype + '-' + b.foreign_id.to_s, :name => b.description}}.to_json %>
+
+ <%= f.submit "Salva" %>
+<%end%>
+
+<script type="text/javascript">
+	$(function() {
+		input = $('#token_interest_borders')
+		input.tokenInput("/interest_borders.json", {
+			crossDomain: false,
+			prePopulate: $('#token_interest_borders').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare un luogo",
+			noResultsText: "Nessun luogo trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true
+		});
+	});
+
+</script>  		
+  
+
+<%content_for :left_panel do %>
+	<%if current_user %>
+	<%= render :partial => 'users/preferences_panel' %>
+
+	<%end%>
+<%end%>
