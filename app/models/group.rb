@@ -5,7 +5,7 @@ class Group < ActiveRecord::Base
   REQ_BY_BOTH = 'b'
   
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
@@ -15,7 +15,7 @@ class Group < ActiveRecord::Base
   has_many :posts,:through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
-  
+  belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   
   attr_reader :partecipant_tokens
   attr_accessor :portavoce, :porta_id
@@ -37,6 +37,12 @@ class Group < ActiveRecord::Base
     if (partecipation)
       return partecipation.user
     end
+  end
+  
+   def interest_border_tkn
+  end
+  
+  def interest_border_tkn=(tkn)
   end
   
   def request_by_vote?

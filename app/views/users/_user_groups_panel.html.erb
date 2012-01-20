@@ -1,0 +1,15 @@
+<%if user_signed_in? %> 
+	<h4>I miei gruppi</h4>
+		<%@groups = current_user.groups
+			@groups.each do |group|%>
+			<div class="groupcontainer">
+				<div class="groupImg24">
+					<%= group.portavoce.user_image_tag(24) rescue nil %>
+				</div>
+				<div class="group">
+					<%= link_to group.name, group %>
+				</div>
+			</div>
+		<%end%>
+
+<%end%> 

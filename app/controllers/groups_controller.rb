@@ -104,6 +104,19 @@ class GroupsController < ApplicationController
         partecipant_ids.each do |id|
           r = GroupPartecipationRequest.new({:group_id => @group.id,:user_id => id, :group_partecipation_request_status_id => 3}) 
           r.save
+          
+          border = params[:group][:interest_border_tkn]
+        ftype = border[0,1] #tipologia (primo carattere)
+        fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
+        found = InterestBorder.table_element(border)
+       
+       if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+        puts "New Record!" if (interest_b.new_record?)
+        @group.interest_border_id = interest_b.id
+        
+      end  
+          
       end
       
 #        

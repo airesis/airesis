@@ -12,6 +12,17 @@
 			searchingText: "Sto cercando...",
 			preventDuplicates: true
 		});
+		
+		input = $('#group_interest_border_tkn')
+		input.tokenInput("/interest_borders.json", {
+			crossDomain: false,
+			prePopulate: $('#group_interest_border_tkn').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare un luogo",
+			noResultsText: "Nessun luogo trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true,
+			tokenLimit: 1
+		});
 	});
 
 </script>  		
@@ -52,6 +63,13 @@
 	<%if is_admin? %>
 		<b>Aggiungi utenti al gruppo</b>
 		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json(:only => [:id, :name]) %>
+		
+		<b>Definisci il confine di interesse</b>
+		<%= f.text_field 'interest_border_tkn', "data-pre" => [@group.interest_border].to_json %>
+
+  <p>
+		
+		
 	<%end%> 
 </p>
 	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => '==Nessun portavoce=='})%>

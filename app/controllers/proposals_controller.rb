@@ -228,20 +228,10 @@ class ProposalsController < ApplicationController
      #confini di interesse, scorrili
     borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
       ftype = border[0,1] #tipologia (primo carattere)
-      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
-      found = false
+      fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
+      found = InterestBorder.table_element(border)
       
-      case ftype
-        when 'C' #comune
-          comune = Comune.find_by_id(fid)
-          found = comune
-        when 'P' #provincia
-          provincia = Provincia.find_by_id(fid)
-          found = provincia
-        when 'R' #regione
-          regione = Regione.find_by_id(fid)
-          found = regione
-      end
+   
       if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
         puts "New Record!" if (interest_b.new_record?)
