@@ -1,4 +1,4 @@
-<%content_for :head do%><%= stylesheet_link_tag 'valutation' %><%end%><style>	.proposal_list td {		vertical-align: top; 		padding-top: 10px;	}</style><%proposalsnumber = proposals.count
+<style>	.proposal_list td {		vertical-align: top; 		padding-top: 10px;	}</style><%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
 <% proposals.each do |proposal|    user = proposal.user%>
 <div id="proposal<%= proposal.id %>" class="blogComment">

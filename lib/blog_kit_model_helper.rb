@@ -64,7 +64,7 @@ end
     
 		if user && !user.image_url.blank?
 			# Load image from model
-			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
+			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onerror=\"deleteMe(this);\" />"
 	  elsif user.account_type == 'facebook'	    	    
 	     if (size <= 50)
 	       fsize = 'small'

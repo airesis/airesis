@@ -1,9 +1,3 @@
-
-<%content_for :head do%>
-<%= stylesheet_link_tag 'valutation' %>
-<%= stylesheet_link_tag 'proposal' %>
-<%end%>
-
 <% javascript 'endless_page' %>
 <%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
 <%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>

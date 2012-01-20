@@ -1,8 +1,7 @@
 <br />
 <%- if devise_mapping.omniauthable? %>
 <%= link_to "Accedi tramite Facebook Connect", user_omniauth_authorize_path('facebook'), :class=>"fb-login-button" %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-  <% end -%>
+ 
 <% end -%>
 <br />
 <%- if controller_name != 'sessions' %>

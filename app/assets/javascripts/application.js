@@ -6,3 +6,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery.tokeninput
+//= require jquery.contextMenu
+//= require jquery.ImageOverlay
+//= require flot/jquery.flot
+//= require democracy
+//= require markdown
+//= require jquery.markitup
+//= require fullcalendar
+//= require gcal
+//= require events

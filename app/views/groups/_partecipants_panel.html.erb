@@ -3,7 +3,7 @@
     <h4>Portavoce del gruppo</h4>
     <%if (@group.portavoce) %>
     <div class="pcontainer">
-        <div class="Mo">
+        <div class="MoImg24">
             <%= @group.portavoce.user_image_tag(24) %>
         </div>
         <div class="Mo">
@@ -30,7 +30,7 @@
     <%end %>
     <%partecipants.each do |partecipant| %>
     <div class="pcontainer">
-        <div class="Mo">
+        <div class="MoImg24">
             <%= partecipant.user_image_tag(24) %>
         </div>
         <div class="Mo">

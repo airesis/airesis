@@ -32,8 +32,6 @@
 
 <%= form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
 		
-	<%= javascript_include_tag 'markdown', 'jquery.markitup' %>
-	<%= stylesheet_link_tag 'markitup/style','markdown' %>
 		<script type="text/javascript">
 			$(function() {
 				$('#blog_post_body').markItUp(mySettings);				

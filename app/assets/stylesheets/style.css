@@ -61,7 +61,7 @@ a:hover {
 body {
 	color: black;
 	/*font-family: verdana, helvetica, arial, sans-serif;*/
-	font: 13px arial, sans-serif;
+	font: 13px "lucida grande",tahoma,verdana,arial,sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333333;
@@ -422,10 +422,7 @@ a.spch-bub-inside:hover .point {
 	border-radius: 5px;
 	box-shadow: 0 1px 5px #CCCCCC;
 }
-.Mo {
-	cursor: pointer;
-	float: left;
-}
+
 .Mo2 {
 	cursor: pointer;
 	float: left;
@@ -548,4 +545,23 @@ table.stiled tr.even.gradeA {
 }
 .votegreen:hover {
 	background: url('/assets/green.png') 0 0 no-repeat;
+}
+
+
+#registration-panel {
+    background-color: white;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    color: #294145;
+    display: block;
+    height: 230px;
+    margin-bottom: 5px;
+    margin-left: 693px;
+    margin-top: 42px;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    width: 300px;
+    z-index: 3;
 }
