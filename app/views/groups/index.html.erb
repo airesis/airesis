@@ -1,38 +1,36 @@
-
-<%= stylesheet_link_tag 'blog_kit' %>
 <h1>Tutti i gruppi</h1>
 
-<table class="stiled">
-  <thead>
-    <th class="ui-state-default" >Nome</th>
-	<th class="ui-state-default">Descrizione</th>
-	<th class="ui-state-default">Portavoce</th>
-  </thead>
-
 <% @groups.each do |group| %>
-  <tr>
-    <td><%=h group.name %></td>
-	<td><%=h group.description %></td>
-	<td><%if (group.portavoce)%>
-	<%=raw group.portavoce.link_to_page%>
-	<%else%>
-	Nessun portavoce
-	<%end%>
-    </td>
-	<td><%= link_to 'Vai alla pagina', group %></td>
-    <td><%= link_to 'Modifica', edit_group_path(group) if (is_admin?)%></td>
-    <td><%= link_to 'Cancella', group, :confirm => 'Sei sicuro di voler eliminare questo gruppo?', :method => :delete if (is_admin?)%></td>
-  </tr>
-<% end %>
-</table>
+<div class="groupListContainer">
+	<div class="groupUserImage">
+		<img src="http://www.gravatar.com/avatar/2cce45bcf6c3272c1940a020cd037977?s=50">		
+	</div>
+	<div class="groupName">
+		<h3><%= link_to group.name, group %></h3>
+	</div>
+	<div class="groupDescription">
+		
+	</div>
+	<div class="groupFooter">
+		<%= link_to 'Modifica', edit_group_path(group), :class => 'editButton littleText' if (is_admin?)%>
+		<%= link_to 'Cancella', group, :confirm => 'Sei sicuro di voler eliminare questo gruppo?', :method => :delete, :class => 'deleteButton littleText' if (is_admin?)%>	
+	</div>
+	<div style="clear: both"></div>
+</div>
+<%end%> 
 
 <script type="text/javascript">
 	$(function() {
-		$('tr:odd').addClass("odd gradeA");
-		$('tr:even').addClass("even gradeA");
+		disegnaBottoni();
+		
 	});
 
 </script>
-	
 
 <%= link_to 'Nuovo gruppo', new_group_path if is_admin? %>
+
+<%=content_for :left_panel do%>
+	<%= render :partial => 'users/user_groups_panel' %>
+
+
+<%end%>
