@@ -14,5 +14,17 @@ module ApplicationHelper
     "<div class=\"fb-like\" data-href=\"#{CGI::escape(request.url)}\" data-send=\"false\" data-layout=\"button_count\" data-width=\"200\" data-show-faces=\"false\"></div>"
   end
 
+
+ def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
   
 end
