@@ -15,9 +15,12 @@ class User < ActiveRecord::Base
   
   validates_presence_of     :name
   validates_format_of       :name,     :with => AuthenticationModule.name_regex, :allow_nil => true
-  validates_length_of       :name,     :maximum => 100
+  validates_length_of       :name,     :maximum => 50
   
-  validates_length_of       :email,    :within => 6..100 #r@a.wk
+  validates_format_of       :surname,     :with => AuthenticationModule.name_regex, :allow_nil => true
+  validates_length_of       :surname,     :maximum => 50
+  
+  validates_length_of       :email,    :within => 6..50 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
   

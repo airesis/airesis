@@ -44,7 +44,6 @@ it:
 
   hello: "Ciao mondo"
   error_not_logged_in: "Accesso riservato agli utenti registrati."
-  error_admin_required: "Devi essere amministratore per visualizzare la pagina"
   error_proposal_not_your: "Non puoi modificare proposte che non sono state presentate da te."
   error_proposal_loading: "Errore nel caricamento della proposta."
   error_blog_not_your: ""
@@ -56,9 +55,12 @@ it:
   error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
   error:
-   setting_preferences: "Errore durante l'impostazione delle preferenze"
+   setting_preferences: "Errore durante l\'impostazione delle preferenze"
+   admin_required: "Devi essere amministratore per visualizzare la pagina"
+   permissions_required: "Devi essere amministratore per visualizzare la pagina"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
+  
    
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
@@ -71,9 +73,25 @@ it:
   
   insert_comment: "Lascia un Commento"
   login_to_post_comment: "Fai login per inserire un commento."
+  
+  groups:
+   errors:
+     update: "Errore nell'aggiornamento del gruppo."
+   confirm:
+     update: "Gruppo aggiornato correttamente."
+  
   pages:
+    top_panel:
+      login: "Accedi o registrati"
     user:
       notifications: "Allarmi e notifiche"
+    groups:
+      administration_panel:
+        title: "Pannello di amministrazione del gruppo"
+        info: "Informazioni di base"
+        events: "Gestione eventi e incontri"
+      edit_events:
+        title: "Gestisci gli eventi del gruppo"
       
   pl:
     comments:
@@ -95,6 +113,7 @@ it:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
         description: "Descrizione"
+        accept_requests: "Richieste di partecipazione"
   
     errors:
       template:

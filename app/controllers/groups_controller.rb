@@ -1,6 +1,7 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
-  
+  layout "application", :except => [:edit, :edit_events]
+  #layout "settings", :only => [:edit,:edit_events]
   #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:create]
   
@@ -16,7 +17,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:new, :create, :destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update]
+  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_events, :create_event]
   
   def index
     @groups = Group.all
@@ -49,6 +50,35 @@ class GroupsController < ApplicationController
   end
   
   def edit
+  end
+  
+  
+  def get_events
+    @events = @group.events
+    events = [] 
+    @events.each do |event|
+      events << {:id => event.id, 
+                 :title => event.title, 
+                 :description => event.description || "Some cool description here...", 
+                 :start => "#{event.starttime.iso8601}", 
+                 :end => "#{event.endtime.iso8601}", 
+                 :allDay => event.all_day, 
+                 :recurring => (event.event_series_id)? true: false, 
+                 :backgroundColor => event.backgroundColor,
+                 :textColor => event.textColor}
+    end
+    render :text => events.to_json
+  end
+  
+  
+  def edit_events
+    
+  end
+  
+  def new_event 
+    @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere", :organizer_id => @group.id)
+    @meeting = @event.build_meeting
+    @place = @meeting.build_place(:address => "Bologna")
   end
   
   def create    
@@ -105,17 +135,17 @@ class GroupsController < ApplicationController
           r = GroupPartecipationRequest.new({:group_id => @group.id,:user_id => id, :group_partecipation_request_status_id => 3}) 
           r.save
           
-          border = params[:group][:interest_border_tkn]
-        ftype = border[0,1] #tipologia (primo carattere)
-        fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
-        found = InterestBorder.table_element(border)
+       #   border = params[:group][:interest_border_tkn]
+      #  ftype = border[0,1] #tipologia (primo carattere)
+      #  fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
+      #  found = InterestBorder.table_element(border)
        
-       if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
-        puts "New Record!" if (interest_b.new_record?)
-        @group.interest_border_id = interest_b.id
+     #  if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+      #  interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+      #  puts "New Record!" if (interest_b.new_record?)
+      #  @group.interest_border_id = interest_b.id
         
-      end  
+     # end  
           
       end
       
@@ -125,20 +155,25 @@ class GroupsController < ApplicationController
       
       respond_to do |format|
         if @group.save
-          flash[:notice] = 'Gruppo aggiornato correttamente.'
+          flash[:notice] = t('groups.confirm.update')
           format.html { redirect_to(@group) }
-          format.xml  { head :ok }
+         # format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+          #format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
         end
       end
       
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nell''aggiornamento del gruppo.'
-        format.html { redirect_to edit_group_path(@group) }                  
-      end         
+        flash[:error] = t('groups.errors.update')
+        format.html { render :action => "edit" }              
+      end  
+    rescue Exception => e       
+       respond_to do |format|
+        flash[:error] = t('groups.errors.update')
+        format.html { render :action => "edit" }          
+      end    
     end
   end
   
@@ -147,7 +182,7 @@ class GroupsController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to(groups_url) }
-      format.xml  { head :ok }
+      #format.xml  { head :ok }
     end
   end
   

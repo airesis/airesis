@@ -13,6 +13,10 @@ module ApplicationHelper
   def facebook_like
     "<div class=\"fb-like\" data-href=\"#{CGI::escape(request.url)}\" data-send=\"false\" data-layout=\"button_count\" data-width=\"200\" data-show-faces=\"false\"></div>"
   end
+  
+  def calendar(*args)
+    "<div id='calendar'></div>"
+  end
 
 
  def resource_name

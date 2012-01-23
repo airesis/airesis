@@ -17,3 +17,4 @@
 //= require fullcalendar
 //= require gcal
 //= require events
+//= require timepicker

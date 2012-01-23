@@ -12,14 +12,13 @@
             transient: 'true',
             persist: 'true',
             
-            // onShow: function(dialog){
-                // dialog.data.prepend('<div id="error_updating"></div>');
-            // },
-//             
-            // onClose: function(dialog){
-                // $('#error_updating').remove();
-                // $.modal.close();
-            // }
+             onShow: function(dialog){
+                 dialog.data.prepend('<div id="error_updating"></div>');
+            },           
+             onClose: function(dialog){
+                 $('#error_updating').remove();
+                 $.modal.close();
+             }
         });
     }
 </script>
@@ -34,14 +33,13 @@
     <%if current_user == @user %>
     <div id="name_modal" class="edit_modal  shadow-box">    	
         <%=form_for @user, :remote => true do |f| %>
-        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Nome</h2>
-        <div style="padding-left:135px">
+        	<%=f.label :name%><br/>
             <%=f.text_field :name %>
             <div style="margin-top:8px">
                 <%=f.submit 'Salva' %>
                 <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-        </div><%end %>
+        <%end %>
     </div>
     <div id="surname_modal" class="edit_modal shadow-box">
         <%=form_for @user, :remote => true do |f| %>

@@ -1,43 +1,30 @@
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
       </script>
-<div class="wrapper">
-    <div class="subPageContent">
-        <% if flash[:notice] -%>
-        <div id = 'flash_notice'>
-            <%= flash[:notice] %>
-        </div>
-        <% end -%>
-        <% if flash[:error] -%>
-        <div id = 'flash_error'>
-            <%= flash[:error] %>
-        </div>
-        <%end -%>
+<h1><%=t('pages.groups.edit_events.title')%></h1>
+
         
-        <div class="aplicationContent">
-            <div class="appRightContent">
-                <p>
-                    <%=link_to 'Crea un evento', {:action => :new},:remote => true, :before => "$('#loading').show()", :complete => "$('#loading').hide()" if is_admin? %>
-                </p>
+     
+<p>
+    <%=link_to 'Crea un evento', new_event_group_path(@group),:remote => true, :class=>"newButton" %>
+</p>
                 <script>
-                    
-                    
-                    $(document).ready(function(){
+                                       
+                    $(function(){
                         // page is now ready, initialize the calendar...
                         $('#calendar').fullCalendar({
                             editable: true,
-                            <%if !is_admin? %>
+                            <%if (!is_admin? && current_user != (@group.portavoce rescue nil)) %>
                             	disableDragging: true,
                             	disableResizing: true,
                         	<%end%>
                             
                             header: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay'
+                                right: 'prev,today,next ',
+                                left: 'title',                                
                             },
                             defaultView: 'month',
-                            height: 600,
+                            height: 300,
                             aspectRatio: 1,
                             slotMinutes: 15,
                             firstDay: 1,
@@ -47,7 +34,7 @@
                                 else 
                                     $('#loading').hide();
                             },
-                            events: "/events/get_events",
+                            events: '<%=get_events_group_url%>',
                             timeFormat: 'h:mm t{ - h:mm t} ',
                             dragOpacity: "0.5",
                             eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
@@ -83,7 +70,7 @@
                     });
                 </script>
                 <div>
-                    <div id='calendar' >
+                    <div id='calendar' style="width:500px">
                     </div>
                 </div>
                 <div id = "desc_dialog" style ="display:none;">
@@ -104,3 +91,9 @@
         </div>
     </div>
 </div>
+
+
+<%=content_for :left_panel do%>
+	<%= render :partial => 'groups/administration_panel' %>
+
+<%end%>

@@ -1,5 +1,5 @@
 
-<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (is_admin? || current_user == @group.portavoce) %>
+<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
 
 <p>
     <h1><%=h @group.name %></h1>

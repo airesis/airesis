@@ -45,6 +45,6 @@ class InterestBorder < ActiveRecord::Base
   
   
   def as_json(options={})
-   { :id => ftype, :name => description }
+   { :id => ftype + "-" + foreign_id.to_s, :name => description }
   end
 end

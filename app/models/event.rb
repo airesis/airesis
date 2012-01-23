@@ -16,7 +16,7 @@
 
 class Event < ActiveRecord::Base
   
-  attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor
+  attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :organizer_id
   
   validates_presence_of :title, :description
   
@@ -25,8 +25,10 @@ class Event < ActiveRecord::Base
   has_many :proposals, :class_name => 'Proposal', :foreign_key => 'vote_period_id'
   has_one :meeting, :class_name => 'Meeting', :dependent => :destroy
   has_one :place, :through => :meeting, :class_name => 'Place'
+  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'event_id'
+  has_many :organizers, :through => :meetings_organizations, :class_name => 'Group', :source => :group
   
-  accepts_nested_attributes_for :place, :meeting
+  accepts_nested_attributes_for :meeting
   
   scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today]}
   
@@ -35,6 +37,18 @@ class Event < ActiveRecord::Base
              "Ogni settimana",
              "Ogni mese",
              "Ogni anno"]
+  
+  
+  
+  def organizer_id=(id)
+    self.meetings_organizations.build(:group_id => id)
+  end
+  
+  def organizer_id
+    self.meetings_organizations.first.group_id
+  end
+  
+  
   
   
   def backgroundColor
@@ -77,6 +91,8 @@ class Event < ActiveRecord::Base
     event_series.attributes = event
     event_series.save
   end
+  
+  
   
   
   

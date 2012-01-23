@@ -1,9 +1,10 @@
 #encoding: utf-8
 class EventsController < ApplicationController
   
-  before_filter :admin_required, :only => [:new,:create,:move,:resize,:edit,:update,:destroy] 
+  before_filter :check_events_permissions, :only => [:new, :create]
   
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
+  before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit]
   
   def show
     respond_to do |format|
@@ -20,12 +21,25 @@ class EventsController < ApplicationController
   end
   
   def create
+    if params[:event][:organizer_id]
+      group = Group.find_by_id(params[:event][:organizer_id])
+      portavoce = group.portavoce
+      if (!is_admin? && current_user != portavoce)
+        render :update do |page|
+          page<<"alert('permission error')"       
+        end
+        return
+      end
+    end
     if params[:event][:period] == "Non ripetere"
       @event = Event.new(params[:event])
     else
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
       @event_series = EventSeries.new(params[:event])
     end
+    
+    rescue Exception => e
+      puts e
   end
   
   def index
@@ -109,11 +123,10 @@ class EventsController < ApplicationController
     
   end
   
-  
-  
   protected
   
   def load_event 
     @event = Event.find_by_id(params[:id])
   end
+     
 end

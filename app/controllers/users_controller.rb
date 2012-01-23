@@ -100,7 +100,7 @@ class UsersController < ApplicationController
         format.html { redirect_to  @user }
         format.xml  { render :xml => @proposal }      
       else
-        @user.errors.each do |attr,msg|
+        @user.errors.full_messages.each do |msg|
           flash[:error] = msg
         end
         format.js do

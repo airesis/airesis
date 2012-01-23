@@ -111,29 +111,10 @@
 						    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %></div>
 						  <% end -%>
 						
-						  <div><%= f.submit "Login" %>
-						  	   <%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle" %><br />
-							
-						  	
-						  </div>
+						  <div><%= f.submit "Login" %></div>
 						<% end %>
 						
-						<br />
-					<div>	
-					<%- if devise_mapping.omniauthable? %>
-					<%= link_to "Accedi tramite Facebook Connect", user_omniauth_authorize_path('facebook'), :class=>"fb-login-button" %>
-					<% end -%>
-					</div>
-					<p>
-					<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-					  <%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %><br />
-					<% end -%>
-					</p>
-					<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-					  <%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %><br />
-					<% end -%>
-					
-					
+						<%= render :partial => "devise/shared/links" %>
 						</div>
 				
 				<% end %>
@@ -150,21 +131,12 @@
 			<div id="leftpanel">
 				<%= yield :left_panel%>
 			</div>
-			<div id="centerpanel">
+			<div id="centerpanelextended">
 				<div id="flash_messages" style="height:20px">
 					<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
 				</div>
 				<%= yield :layout %>
-			</div>
-			<div id="rightpanel">
-				<%= render :partial => 'events/next_events_panel' %>
-				<%if (!@group.facebook_page_url.empty? rescue false)%>
-				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
-				<%else%>
-				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
-				<%end%>
-				<%= yield :right_panel%>
-			</div>
+			</div>			
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 		</div>
 		<script type="text/javascript">
@@ -193,15 +165,6 @@
 					}
 					event.stopPropagation();
 				});
-				
-				$(".superHeader").mouseover(function(){
-			    	$(this).addClass("active");
-			    }).mouseout(function(){
-			    	if (user_panel_shown == true) {
-		    			$(this).removeClass("active");
-		    		}		
-			    			
-			    });
 	
 				$('#user-panel').click(function(event) {
 					event.stopPropagation();
@@ -256,21 +219,6 @@
 						user_panel_shown = false;
 					}
 				});
-				
-				$(".superHeader").mouseover(function(){
-			    	$(this).addClass("active");
-			    }).mouseout(function(){
-			    	if (!user_panel_shown) {
-			    		$(this).removeClass("active");
-			    		}		
-			    });
-			    
-			    $(".superHeader").focusin(function(){
-			    	$(this).addClass("active");
-			    }).focusout(function(){
-			    	$(this).removeClass("active");		
-			    });
-			    
 				$('.superHeader').click(function(event) {
 					if(user_panel_shown) {
 						$('#registration-panel').hide();

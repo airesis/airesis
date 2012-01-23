@@ -75,6 +75,10 @@ resources :comunes
   
 
   resources :events do
+    member do
+      post :move
+      post :resize
+    end
     collection do
       get :get_events
     end
@@ -85,10 +89,15 @@ resources :comunes
       get :ask_for_partecipation
       get :ask_for_follow
       get :partecipation_request_confirm
+      get :edit_events
+      get :new_event
+      post :create_event
+      get :get_events
     end
 
     collection do
     end
+   
   end
 
   

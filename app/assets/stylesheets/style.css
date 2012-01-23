@@ -49,8 +49,23 @@ h3 {
 }
 h4 {
 	color: #808080;
-	word-wrap: break-word;
+    margin-top: 0;
+    padding-top: 10px;
+    word-wrap: break-word;
 }
+
+.fb-login-button {
+        background-color: #3b5998;
+        border-color: #d8dfea rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234);
+        border-style: solid;
+        border-width: 1px;
+        color: #fff;
+        font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+        font-size: 11px;
+        margin: 0 2px;
+        padding: 2px 18px;
+}
+
 a {
 	color: #3B5998;
 	text-decoration: none;
@@ -61,7 +76,7 @@ a:hover {
 body {
 	color: black;
 	/*font-family: verdana, helvetica, arial, sans-serif;*/
-	font: 13px "lucida grande",tahoma,verdana,arial,sans-serif;
+	font: 12px "lucida grande",tahoma,verdana,arial,sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333333;
@@ -129,10 +144,11 @@ body {
 	color: inherit;
 	background: #dfeffc;
 	width: 100%;
+	border-bottom: 1px solid #D8D2C3;
 }
 #fixed {
 	margin: auto;
-	width: 1024px;
+	width: 981px;
 }
 .headerTitle {
 	margin: 0;
@@ -150,15 +166,15 @@ body {
 	text-decoration: none;
 }
 .subHeader {
-	border-left: 1px solid #D8D2C3;
+	/*border-left: 1px solid #D8D2C3;
 	border-right: 1px solid #D8D2C3;
-	border-top: 1px solid #D8D2C3;
+	border-top: 1px solid #D8D2C3;*/	
 	float: left;
 	font-size: 11px;
-	margin: 0 0 0 1px;
+	margin: 0 0 0 10px;
 	padding: 6px 0;
-	text-align: center;
-	width: 630px;
+	/*text-align: center;*/
+	width: 550px;
 }
 .midHeader {
 	padding: 10px 10px 0 0;
@@ -167,6 +183,7 @@ body {
 .headerTitle {
 	margin: 0;
 	padding: 0;
+	font-size: 15px;
 }
 .headerSubTitle {
 	font-size: 151%;
@@ -179,16 +196,16 @@ body {
 	color: black;
 	text-align: justify;
 	margin: auto;
-	width: 1024px;
+	width: 981px;
 }
 #rightpanel {
 	float: left;
 	margin: 0 10px;
-	width: 180px;
+	width: 165px;
 }
 #leftpanel {
 	float: left;
-	width: 182px;
+	width: 164px;
 	min-height: 100px;
 	/*padding: 0 10px 0 0;*/
 }
@@ -200,6 +217,16 @@ body {
 	float: left;
 	padding: 0 15px;
 	width: 600px;
+	margin: 0 auto;
+}
+
+#centerpanelextended {
+	border-left: 1px solid rgb(216, 210, 195);
+	border-right: 1px solid rgb(216, 210, 195);
+	border-bottom: 1px solid rgb(216, 210, 195);
+	float: left;
+	padding: 0 15px;
+	width: 765px;
 	margin: 0 auto;
 }
 
@@ -506,7 +533,7 @@ table.stiled tr.even.gradeA {
 #categories {
 	position: relative;
 	left: 1px;
-	border-top: 1px solid #D8D2C3;
+	/*border-top: 1px solid #D8D2C3;*/
 	border-left: 1px solid #D8D2C3;
 	border-right: 1px solid #ffffff;
 	border-bottom: 1px solid #D8D2C3;
@@ -557,7 +584,7 @@ table.stiled tr.even.gradeA {
     display: block;
     height: 230px;
     margin-bottom: 5px;
-    margin-left: 693px;
+    margin-left: 650px;
     margin-top: 42px;
     padding: 10px;
     position: absolute;
