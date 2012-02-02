@@ -42,16 +42,17 @@
   
   <p>
     <%= f.label :facebook_page_url%><br/>
-    <%= f.text_field :facebook_page_url %>
+    <%= f.text_field :facebook_page_url, :title=>"Inserisci l'indirizzo del tuo gruppo su Facebook" %>
   </p>
   
   <p>
     <%= f.label :accept_requests%><br/>
-    <%= f.radio_button :accept_requests , 'p' %>Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta cche il portavoce avrà accettato la richeista, l'utente sarà a tutti gli effetti un partecipante del gruppo.<br/>
-	<%= f.radio_button :accept_requests , 'v' %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-	<%= f.radio_button :accept_requests , 'b' %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
+    <%= f.radio_button :accept_requests , 'p' %>Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo.<br/>
+	<%= f.radio_button :accept_requests , 'v', :disabled=>"disabled", :title=>"Opzione non ancora disponibile" %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
+	<%= f.radio_button :accept_requests , 'b', :disabled=>"disabled", :title=>"Opzione non ancora disponibile" %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
   </p>
 
+	<%if is_admin? %>
 <p>
 	<% partecipants = @group.partecipants %>
 
@@ -60,23 +61,18 @@
 	<%end%>
 </p>
 <p>	
-	<%if is_admin? %>
 		<b>Aggiungi utenti al gruppo</b>
 		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json(:only => [:id, :name]) %>
-		
-		<b>Definisci il confine di interesse</b>
-		<%= f.text_field 'interest_border_tkn', "data-pre" => ([@group.interest_border].to_json ) %>
-
-  <p>
-		
-		
+</p>		
 	<%end%> 
+	
+  <p>
+	<%= f.label :interest_border_tkn%>
+	<%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json ) %>
 </p>
-	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => '==Nessun portavoce=='})%>
-
+	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => 'Scegli un portavoce'})%>
+	
   <p>
     <%= f.submit button_name %>
   </p>
-  
-
 <% end %>
