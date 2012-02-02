@@ -9,6 +9,8 @@
 		<%= stylesheet_link_tag 'redmond/custom'%> 
 		<%= csrf_meta_tag %>
 		<%= yield :head %>
+		
+		<link rel="shortcut icon" href="/favicon.ico" />
 	</head>
 	<body>
 		<!-- ### facebook ###-->
@@ -30,6 +32,17 @@
 			}(document, 'script', 'facebook-jssdk'));
 
 		</script>
+		
+		<link href="https://plus.google.com/109056260698393169005" rel="publisher" /><script type="text/javascript">
+		window.___gcfg = {lang: 'it'};
+		(function() 
+		{var po = document.createElement("script");
+		po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(po, s);
+		})();</script>
+		
+		
 		<!-- ##### Header ##### -->
 		<div id="header">
 			<div id="fixed">
@@ -158,6 +171,8 @@
 			</div>
 			<div id="rightpanel">
 				<%= render :partial => 'events/next_events_panel' %>
+				<g:plusone></g:plusone>
+
 				<%if (!@group.facebook_page_url.empty? rescue false)%>
 				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
 				<%else%>
@@ -197,7 +212,8 @@
 				$(".superHeader").mouseover(function(){
 			    	$(this).addClass("active");
 			    }).mouseout(function(){
-			    	if (user_panel_shown == true) {
+			    	
+			    	if (user_panel_shown == false) {
 		    			$(this).removeClass("active");
 		    		}		
 			    			
