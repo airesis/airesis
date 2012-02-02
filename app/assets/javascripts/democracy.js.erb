@@ -9,11 +9,13 @@ function disegnaBottoni() {
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
 }
 
+$.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
+
 function disegnaDatePicker() {
 	$(".datePicker").datepicker({
         dateFormat : "dd/mm/yy",
         buttonImageOnly : true,
-        buttonImage : "<%= asset_path('iconDatePicker.gif') %>",
+        buttonImage : "<%= asset_path('iconCalendar.png') %>",
         showOn : "both",
         changeMonth : true,
         changeYear : true,
@@ -21,16 +23,14 @@ function disegnaDatePicker() {
         duration: "",  
         showTime: true,  
         constrainInput: false,
-        stepMinutes: 5,  
+        stepMinutes: 15,  
         stepHours: 1,  
         altTimeField: "alt",  
         time24h: true
-   });
+   });   
  }
 
 function deleteMe(el) {
 	$(el).remove();
 }
 
-var geocoder;
-var map;
