@@ -12,6 +12,8 @@
 .groupUserImage {
 	float: left;
 	margin: 0px 5px 5px 0px;
+	height: 50px;
+	width: 50px;
 }
 .littleText.ui-button .ui-button-text {
 	line-height: 0.6;
@@ -33,5 +35,5 @@
 .groupcontainer .group {
 	cursor: pointer;
     float: left;
-    width:150px;
+    width:140px;
 }
