@@ -1,4 +1,4 @@
-<h2>Registrazione</h2>
+<h2><%= t('pages.registration.title') %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
@@ -21,7 +21,24 @@
 <p><%= f.label :surname %><br/>
 <%= f.text_field :surname %></p>
 
+<p>
+	 <%= f.check_box :accept_conditions %>
+	 <%= f.label :accept_conditions, raw("Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>")%>
+</p>
+
   <div><%= f.submit "Registrati" %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<div id="eula_modal" title="Condizioni d'uso" style="width:600px;height:300px;display:none" >
+<p>
+	<%= render :partial => 'devise/registrations/eula'%>
+</p>
+</div>
+
+<script type="text/javascript">	
+	
+	function openModal() {
+		$( "#eula_modal" ).dialog({ height: 250, width: 450 });		
+		return false;
+	}
+</script>
