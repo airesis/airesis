@@ -1,5 +1,7 @@
 <h1>Tutti i gruppi</h1>
-
+<%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "buttonStyle" if current_user %>
+<br />
+<br />
 <% @groups.each do |group| %>
 <div class="groupListContainer">
 	<div class="groupUserImage">
@@ -27,7 +29,7 @@
 
 </script>
 
-<%= link_to 'Nuovo gruppo', new_group_path if is_admin? %>
+
 
 <%=content_for :left_panel do%>
 	<%= render :partial => 'users/user_groups_panel' %>
