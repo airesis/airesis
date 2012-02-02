@@ -1,20 +1,19 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
-  layout "application", :except => [:edit, :edit_events]
-  #layout "settings", :only => [:edit,:edit_events]
+  layout :choose_layout
   #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:create]
   
   ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:show]
+  before_filter :authenticate_user!, :except => [:index,:show,:new, :create]
   
   
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
   
   #l'utente deve essere amministratore
-  before_filter :admin_required, :only => [:new, :create, :destroy]
+  before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_events, :create_event]
@@ -76,24 +75,35 @@ class GroupsController < ApplicationController
   end
   
   def new_event 
-    @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere", :organizer_id => @group.id)
+    @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
+    if (params[:date])
+      @event.starttime = Date.parse(params[:date]) + 1.hour
+      @event.endtime = @event.starttime + 1.day
+    end
     @meeting = @event.build_meeting
-    @place = @meeting.build_place(:address => "Bologna")
+    @place = @meeting.build_place
   end
   
+  #crea un nuovo gruppo
   def create    
     begin
       Group.transaction do
-        @group = Group.new(params[:group])
-
-        #@group.group_partecipations.build({:user_id => current_user.id})
-        #@group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
         
+        #l'utente che crea il gruppo è automaticamente partecipante e portavoce
+        params[:group][:partecipant_ids] -= current_user.id rescue
+                        
+        @group = Group.new(params[:group]) #crea il gruppo
 
-        @group.partecipant_ids.each do |id|
-            @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3})
-        end  
-         @group.save!
+        #se ci sono già dei partecipanti al gruppo, inserisci a sistema una richiesta di partecipazione accettata per ognuno        
+        @group.partecipant_ids.each do |id|            
+            @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3}) if (id != current_user.id)
+        end
+                 
+        #fai si che chi crea il gruppo ne sia anche portavoce
+        @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3}) 
+        @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+        @group.save!
+                
       end
       
       respond_to do |format|
@@ -114,43 +124,36 @@ class GroupsController < ApplicationController
     
     begin
       Group.transaction do
-
-        #@group.partecipation_requests.each do |r|
-        #  r.destroy
-        #end
-        partecipation = @group.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-        if (partecipation)
-          partecipation.partecipation_role_id = 1
-          partecipation.save
+        
+        #controlla che sia definito il portavoce
+        if (params[:group][:porta_id].blank?)
+          @group.errors.add(:porta_id, t("errors.models.group.portavoce.required"))
+          raise t("errors.models.group.portavoce.required")
         end
-        partecipation = @group.group_partecipations.first(:conditions => {:user_id => params[:group][:porta_id]})
-        if (partecipation)
-          partecipation.partecipation_role_id = 2
-          partecipation.save
+           
+                  
+        if (@group.porta_id != params[:group][:porta_id])
+          puts "Aggiorno il portavoce"          
+          #cancella il vecchio portavoce
+          partecipation = @group.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
+          if (partecipation)
+            partecipation.partecipation_role_id = 1
+            partecipation.save
+          end
+          #assegna il nuovo portavoce
+          partecipation = @group.group_partecipations.first(:conditions => {:user_id => params[:group][:porta_id]})
+          if (partecipation)
+            partecipation.partecipation_role_id = 2
+            partecipation.save
+          end
         end
         
         @group.attributes = params[:group]
         partecipant_ids = @group.partecipant_ids
         partecipant_ids.each do |id|
           r = GroupPartecipationRequest.new({:group_id => @group.id,:user_id => id, :group_partecipation_request_status_id => 3}) 
-          r.save
-          
-       #   border = params[:group][:interest_border_tkn]
-      #  ftype = border[0,1] #tipologia (primo carattere)
-      #  fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
-      #  found = InterestBorder.table_element(border)
-       
-     #  if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-      #  interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
-      #  puts "New Record!" if (interest_b.new_record?)
-      #  @group.interest_border_id = interest_b.id
-        
-     # end  
-          
-      end
-      
-#        
-#        
+          r.save  
+        end      
       end
       
       respond_to do |format|
@@ -165,11 +168,13 @@ class GroupsController < ApplicationController
       end
       
     rescue ActiveRecord::ActiveRecordError => e
+      puts e
       respond_to do |format|
         flash[:error] = t('groups.errors.update')
         format.html { render :action => "edit" }              
       end  
-    rescue Exception => e       
+    rescue Exception => e
+       puts e       
        respond_to do |format|
         flash[:error] = t('groups.errors.update')
         format.html { render :action => "edit" }          
@@ -288,9 +293,21 @@ class GroupsController < ApplicationController
   end
   
   def portavoce_required
-     if !((current_user && (@group.portavoce = current_user)) || is_admin?)
-      flash[:error] = 'Solo il portavoce del gruppo o un amministratore di sistema possono procedere con l''operazione.'
+     if !((current_user && (@group.portavoce == current_user)) || is_admin?)
+      flash[:error] = t('error.portavoce_required')
       redirect_to group_url(@group)
      end
   end
+  
+  private
+
+  def choose_layout    
+    if [ 'edit', 'edit_events' ].include? action_name
+      'settings'
+    else
+      'application'
+    end
+  end
+  
+  
 end
