@@ -47,8 +47,8 @@
  					checked="true" 
  				<%end%>
  				<%if (!(readonly.include? type.id))%> 
- 					readonly="true" 
- 					title="Non disponibile"
+ 					disabled="disabled"
+ 					title="Tipo di notifica non disponibile"
  				<%end%> 
  				onclick="return change_notification_block(this);"/>
  			</td>
