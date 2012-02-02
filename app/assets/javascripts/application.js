@@ -18,3 +18,4 @@
 //= require gcal
 //= require events
 //= require timepicker
+//= require coda
