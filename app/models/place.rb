@@ -6,4 +6,6 @@ class Place < ActiveRecord::Base
   
 #  belongs_to :event, :class_name => 'Event'
 
+  validates_presence_of :comune_id, :address, :latitude_original, :longitude_original
+
 end

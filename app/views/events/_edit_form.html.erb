@@ -1,64 +1,77 @@
-<%=form_for @event, :action => :update,:remote => true, :before => "$('#updating_events').show();", :complete => "$('#updating_events').hide();" do |f| %>
-<p>
-  <%=f.label :title, 'Titolo dell''evento' %>
-  <br/>
-  <%=f.text_field :title %>
-</p>
-<p>
-  <%=f.label :description, 'Descrizione' %>
-  <br/>
-  <%=f.text_area :description, :rows => 4, :cols => 30 %>
-</p>
-<p>
-	<%=f.label 'Tipo di evento'%>
-<br/>
-	<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
-</p>
-<%=f.fields_for :meeting, @meeting do |m|%>
-<%=m.fields_for :place, @place do |p|%>
-<p id = "luogo">
-  <%=p.label :address, "Indirizzo" %>
-  <%=p.text_field :address %>
-</p>  
+<%
+if @group
+controller= "events"
+action ="update"%> <h3>Evento del gruppo: <%= @group.name%></h3>
+<%else
+controller = "events"
+action = "update"%>
+admin event
 <%end%>
-<%end%>
-<p>
-  <%=f.label :starttime, 'Data di inizio' %>
-  <br/>
-  <%=f.datetime_select :starttime %>
-</p>
-<p>
-  <%=f.label :endtime, 'End Time' %>
-  <br/>
-  <%=f.datetime_select :endtime %>
-</p>
-<p>
-  <%=f.label :all_day, 'Tutto il giorno' %>
-  <%=f.check_box :all_day %>
-</p>
-<%if false%>
-<%period = (@event.event_series)?@event.event_series.period : nil -%>
-<p>
-  <%=f.label :period, "Ripeti" %>
-  <%=f.select :period, Event::REPEATS,{:selected => period}, :onchange => "showPeriodAndFrequency(this.value);" %>
-</p>
-<%frequency = (@event.event_series)?@event.event_series.frequency : nil -%>
-<p id = "frequency" style = "display:<%(period)? '' : 'none'%>;">
-  <%=f.label :frequency, "Ripeti ogni" %>
-  <%=f.select :frequency, (1..30).to_a, {:selected => frequency} %> <span id = "period"></span>
-</p>
-<%end%>
-<%=f.hidden_field :id, :value => @event.id%>
-<%=f.hidden_field :commit_button, :value => ""%>
-<p>
-  <%if @event.event_series -%>
-  <%=f.submit 'Aggiorna solo questa occorrenza', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
-  <%=f.submit 'Aggiorna tutte le occorrenze', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
-  <%=f.submit 'Aggiorna tutte le occorrenze successive', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
-  <%else-%>
-  <%=f.submit 'Aggiorna', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
-  <%end-%>
-  
-  <span id = "updating_events" style = "display:none;">In aggiornamento, attendi...</span>
-</p>
+<%=form_for @event, :url => {:controller => controller, :action => action}, :remote => true do |f| %>
+
+<%= f.hidden_field :organizer_id%>
+<div>
+	<table>
+		<tr>
+			<td width="60%">
+			<p>
+			  <%=f.label :title %>
+			  <br/>
+			  <%=f.text_field :title %>
+			</p>
+			<p>
+				<%= f.label :description %>
+				<br/>
+				<%= f.text_area :description, :rows => 4, :cols => 30 %>
+			</p>
+			<p>
+				<%= f.label :event_type_id%>
+				<br/>
+				<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+			</p>
+			<p>
+				<%= f.label :starttime %>
+				<br/>
+				<%= f.text_field :starttime, :class=>"datePicker" %>
+			</p>
+			<p>
+				<%= f.label :endtime %>
+				<br/>
+				<%= f.text_field :endtime, :class=>"datePicker" %>
+			</p>
+			<p>
+				<%= f.label :all_day %>
+				<%= f.check_box :all_day %>
+			</p>
+
+			<%=f.hidden_field :id, :value => @event.id%>
+			<%=f.hidden_field :commit_button, :value => ""%>
+			<p>
+			  <%if @event.event_series -%>
+				  <%=f.submit 'Aggiorna solo questa occorrenza', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
+				  <%=f.submit 'Aggiorna tutte le occorrenze', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
+				  <%=f.submit 'Aggiorna tutte le occorrenze successive', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
+			  <%else-%>
+			  	<%=f.submit 'Aggiorna', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
+			  <%end-%>			  			 
+			</p></td>
+			<td width="40%"> <%=f.fields_for :meeting, @meeting do |m|%>
+			<%=m.fields_for :place, @place do |p|%>
+			<p  id="edit_luogo">
+				<%= p.label :comune_id %><br />
+				<%= p.text_field :comune_id, :onchange => "codeAddress('edit_luogo');", "data-pre" => [{:id => @event.place.comune.id, :name => @event.place.comune.description}].to_json%>
+				<%= p.label :address %><br />
+				<%= p.text_field :address, :onchange => "codeAddress('edit_luogo');" %>
+				<%= p.hidden_field :latitude_original %>
+				<%= p.hidden_field :longitude_original %>
+				<%= p.hidden_field :latitude_center %>
+				<%= p.hidden_field :longitude_center %>
+				<%= p.hidden_field :zoom %>				
+				<div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
+				<!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+			</p> <%end%>
+			<%end%> </td>
+		</tr>
+	</table>
+</div>
 <%end %>

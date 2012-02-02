@@ -3,6 +3,15 @@
 
 
 <p>
+	<div class="event_calendar">
+		<div class="number">
+			<%=I18n.localize(@event.starttime, :format => :weekday)%>
+		</div>
+		<div class="day">
+			<%=@event.starttime.mday%>
+		</div>
+		
+	</div>
 	<%= I18n.localize(@event.starttime, :format => :long_date)%>
 </p>
 

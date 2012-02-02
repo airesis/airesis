@@ -3,7 +3,11 @@ if @event
     page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
     page<<"$('#create_event_dialog').dialog('destroy')"
   else
-    page.alert @event.errors.full_messages.join(";")
+    messaggio = "";
+    @event.errors.each do |attr,msg|
+      messaggio += Event.human_attribute_name(attr) + " " + msg + ";" if @event.errors[attr].first == msg
+    end
+    page.alert messaggio
   end
 end
 

@@ -18,14 +18,17 @@ class Event < ActiveRecord::Base
   
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :organizer_id
   
-  validates_presence_of :title, :description
+  validates_presence_of :title, :description, :starttime, :endtime
+  validate :validate_start_time_before_end_time
+
+
   
   belongs_to :event_series
   belongs_to :event_type
   has_many :proposals, :class_name => 'Proposal', :foreign_key => 'vote_period_id'
   has_one :meeting, :class_name => 'Meeting', :dependent => :destroy
   has_one :place, :through => :meeting, :class_name => 'Place'
-  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'event_id'
+  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'event_id', :dependent => :destroy
   has_many :organizers, :through => :meetings_organizations, :class_name => 'Group', :source => :group
   
   accepts_nested_attributes_for :meeting
@@ -39,13 +42,20 @@ class Event < ActiveRecord::Base
              "Ogni anno"]
   
   
+  def validate_start_time_before_end_time
+    if starttime && endtime
+      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime < starttime
+    end
+  end
   
   def organizer_id=(id)
-    self.meetings_organizations.build(:group_id => id)
+    if (self.meetings_organizations.empty?)
+      self.meetings_organizations.build(:group_id => id)
+    end
   end
   
   def organizer_id
-    self.meetings_organizations.first.group_id
+    self.meetings_organizations.first.group_id rescue nil
   end
   
   

@@ -58,6 +58,14 @@
                             eventClick: function(event, jsEvent, view){
                                 showEventDetails(event);
                             },
+                            dayClick: function(date, allDay, jsEvent, view) {
+                            	 jQuery.ajax({
+								        data: 'date=' + date,
+								        dataType: 'script',
+								        type: 'get',
+								        url: '<%=new_event_group_url(@group)%>'
+								    });
+                            },
                         
                          eventRender: function(event, element) {
 					        if (event.editable) {

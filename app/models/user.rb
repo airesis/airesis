@@ -23,8 +23,10 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..50 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
+  validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
-  attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me
+  #colonne assegnabili massivamente
+  attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions
   
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
@@ -60,7 +62,14 @@ class User < ActiveRecord::Base
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
 
-  attr_accessor :image_url
+  #fake columns
+  attr_accessor :image_url, :accept_conditions
+
+  before_create :init
+
+    def init
+      self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
+    end
 
 
  def self.new_with_session(params, session)

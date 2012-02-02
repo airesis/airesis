@@ -17,20 +17,15 @@ class EventsController < ApplicationController
    def new 
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
     @meeting = @event.build_meeting
-    @place = @meeting.build_place(:address => "Bologna")
+    @place = @meeting.build_place(:comune_id => "1330")
   end
   
   def create
-    if params[:event][:organizer_id]
-      group = Group.find_by_id(params[:event][:organizer_id])
-      portavoce = group.portavoce
-      if (!is_admin? && current_user != portavoce)
-        render :update do |page|
-          page<<"alert('permission error')"       
-        end
-        return
-      end
+    #se è una votazione ignora tutto ciò che riguarda il luogo
+    if (params[:event][:event_type_id] == "2")
+      params[:event].delete(:meeting_attributes)
     end
+    
     if params[:event][:period] == "Non ripetere"
       @event = Event.new(params[:event])
     else
@@ -127,6 +122,7 @@ class EventsController < ApplicationController
   
   def load_event 
     @event = Event.find_by_id(params[:id])
+    @group = @event.meetings_organizations.first.group rescue nil
   end
      
 end

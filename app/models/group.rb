@@ -4,6 +4,13 @@ class Group < ActiveRecord::Base
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
   
+  validates_presence_of     :name
+  validates_length_of       :name,    :within => 3..100
+  validates_uniqueness_of   :name
+  
+  validates_presence_of     :description
+  validates_presence_of     :interest_border_id
+  
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
   attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn
   
@@ -23,7 +30,7 @@ class Group < ActiveRecord::Base
   
   attr_reader :partecipant_tokens, :image_url
   attr_accessor :portavoce, :porta_id
-  
+    
   def partecipant_tokens=(ids)
     self.partecipant_ids = ids.split(",")
   end

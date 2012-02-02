@@ -1,3 +1,24 @@
 .eventtitle {
 	color: #333333;
 }
+
+.fc-widget-content {
+	cursor: pointer;
+}
+
+
+.fc-widget-content:hover {
+	background-color: #f5f8f9;
+}
+
+.fc-widget-content:active {
+	background-color: #fbec88;
+}
+
+
+
+.event_calendar {
+	background: url("/assets/calendar.png") no-repeat;
+	width: 64px;
+	height: 64px;
+}
