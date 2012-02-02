@@ -34,8 +34,7 @@ DemocracyOnline3::Application.routes.draw do
     resources :proposal_comments do
       member do
         get :rankup
-        get :rankdown
-        get :set_votation_date
+        get :rankdown        
       end
     end
     member do
@@ -73,7 +72,6 @@ resources :interest_borders
 resources :comunes
 
   
-
   resources :events do
     member do
       post :move
