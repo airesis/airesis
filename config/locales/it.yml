@@ -29,7 +29,6 @@ it:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-      long: "%B %d, %Y"
     day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
     abbr_day_names: [L, M, M, G, V, S, D]
     month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
@@ -39,6 +38,7 @@ it:
      default: "%d/%m/%Y %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
+     weekday: "%A"
     am: "am"
     pm: "pm"
 
@@ -56,11 +56,11 @@ it:
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
   error:
    setting_preferences: "Errore durante l\'impostazione delle preferenze"
-   admin_required: "Devi essere amministratore per visualizzare la pagina"
-   permissions_required: "Devi essere amministratore per visualizzare la pagina"
+   admin_required: "Devi essere amministratore per visualizzare la pagina."
+   permissions_required: "Non disponi dei permessi per visualizzare la pagina."
+   portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
-  
    
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
@@ -92,6 +92,10 @@ it:
         events: "Gestione eventi e incontri"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
+    login:
+      title: "Esegui l'autenticazione"
+    registration:
+      title: "Registrati al portale"
       
   pl:
     comments:
@@ -100,6 +104,9 @@ it:
       other: %{count} commenti  
       
   activerecord:
+    models:
+      meeting: "Incontro"
+      places: "Luogo"
   
     attributes:
       blog_comment:
@@ -109,11 +116,28 @@ it:
         name: "Nome"
         email: "Indirizzo Email"
         surname: "Cognome"
+        login: "Username"
+        password: "Password"
+        accept_conditions: "Condizioni d'uso"
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
         description: "Descrizione"
         accept_requests: "Richieste di partecipazione"
+        porta_id: "Portavoce"
+        interest_border_tkn: "Confine di interesse"
+        interest_border_id: "Confine di interesse"
+      event:
+         title: "Titolo dell'evento"
+         description: "Descrizione"
+         event_type_id: "Tipo di evento"
+         starttime: "Data di inizio"
+         endtime: "Data di fine"
+         all_day: "Tutto il giorno"
+         period: "Ripeti"
+         frequency: "Ripeti ogni"
+      place:
+         address: "Indirizzo"
   
     errors:
       template:
@@ -151,24 +175,14 @@ it:
 
       full_messages:
         format: "%{attribute} %{message}"
-        
-        
-        
-
-      # You can define own errors for models or model attributes.
-      # The values :model, :attribute and :value are always available for interpolation.
-      #
-      # For example,
-      #   models:
-      #     user:
-      #       blank: "This is a custom blank message for %{model}: %{attribute}"
-      #       attributes:
-      #         login:
-      #           blank: "This is a custom blank message for User login"
-      # Will define custom blank validation message for User model and 
-      # custom blank validation message for login attribute of User model.
-      #models:
-        
+      models:
+        user:
+          attributes:
+            email:
+              already_confirmed: "Questo indirizzo email è già registrato correttamente."
+        group:
+          portavoce:
+            required: "Devi scegliere un portavoce."
     # Translate model names. Used in Model.human_name().
     #models:
       # For example,
