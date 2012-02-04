@@ -12,22 +12,57 @@ function disegnaBottoni() {
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
 
 function disegnaDatePicker() {
-	$(".datePicker").datepicker({
+	$("#event_endtime").datetimepicker({
         dateFormat : "dd/mm/yy",
         buttonImageOnly : true,
         buttonImage : "<%= asset_path('iconCalendar.png') %>",
         showOn : "both",
-        changeMonth : true,
-        changeYear : true,
+        changeMonth : false,
+        changeYear : false,
         yearRange : "c-1:c+10",
         duration: "",  
         showTime: true,  
         constrainInput: false,
-        stepMinutes: 15,  
-        stepHours: 1,  
+        stepMinute: 15,  
+        stepHour: 1,  
         altTimeField: "alt",  
-        time24h: true
-   });   
+        time24h: true,
+        onClose: function(date) {
+        	startTime = $("#event_starttime").datetimepicker("getDate");
+        	endTime = $("#event_endtime").datetimepicker("getDate");
+        	startDate = new Date(startTime);
+        	endDate = new Date(endTime);
+	        if (!(endDate.getTime() > startDate.getTime())) { 				
+	 			$("#event_starttime").datetimepicker("setDate",endTime);
+ 			} 			
+        }
+ 	  });   
+		
+	$('#event_starttime').datetimepicker({
+        dateFormat : "dd/mm/yy",
+        buttonImageOnly : true,
+        buttonImage : "<%= asset_path('iconCalendar.png') %>",
+        showOn : "both",
+        changeMonth : false,
+        changeYear : false,
+        yearRange : "c-1:c+10",
+        duration: "",  
+        showTime: true,  
+        constrainInput: false,
+        stepMinute: 15,  
+        stepHour: 1,  
+        altTimeField: "alt",  
+        time24h: true,
+        onClose: function(date) {
+        	startTime = $("#event_starttime").datetimepicker("getDate");
+        	endTime = $("#event_endtime").datetimepicker("getDate");
+        	startDate = new Date(startTime);
+        	endDate = new Date(endTime);
+	        if (!(endDate.getTime() > startDate.getTime())) { 				
+	 			$("#event_endtime").datetimepicker("setDate",startTime);
+ 			} 			
+        }
+     });
  }
 
 function deleteMe(el) {
