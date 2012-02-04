@@ -21,6 +21,10 @@ function resizeEvent(event, dayDelta, minuteDelta){
     });
 }
 
+function goEventPage(event){
+	window.location = "/events/" + event.id;
+}
+
 function showEventDetails(event){
     $('#event_desc').html(event.description);
     $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ")' class='buttonStyle'>Modifica</a>");
@@ -98,11 +102,11 @@ function showPlace(value){
     switch (value) {
         case '2':
 	        $('#luogo').hide();
-	        $('#map_canvas').hide();
+	        $('#create_map_canvas').hide();
             break;        
         default:
             $('#luogo').show();
-            $('#map_canvas').show();
+            $('#create_map_canvas').show();
     }
 }
 
@@ -141,7 +145,11 @@ function putMarker(address) {
 		if(status == google.maps.GeocoderStatus.OK) {
 			posizionaMappa(results[0].geometry.location,results[0].geometry.viewport);          
 			listenMarkerPosition();					
-		} else {
+		}
+		else if (status == google.maps.GeocoderStatus.ZERO_RESULTS){
+			alert('Spiacente ma non riesco a trovare l\'indirizzo. Prova a cambiarlo...');
+		}
+		else {
 			alert("Impossibile utilizzare il geocoder di Google: " + status);
 		}
 	});
