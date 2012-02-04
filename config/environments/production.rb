@@ -74,6 +74,8 @@ DemocracyOnline3::Application.configure do
   SITE="http://democracyonline.heroku.com"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
+  #numero massimo di proposte per pagina
+  PROPOSALS_PER_PAGE=10
   #percentuale da raggiungere perchè la proposta sia promossa
   PROP_RANKING_TO_PROMOTE=70
   #percentuale sotto la quale la proposta viene abolita
@@ -118,5 +120,5 @@ ActionMailer::Base.smtp_settings = {
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   config.omniauth :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57",                   
-                      {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+                      {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 end
