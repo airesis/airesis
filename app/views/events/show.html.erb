@@ -1,34 +1,77 @@
-
+<script type="text/javascript"
+  src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
+</script>
+  
+  
 <h1 class="eventtitle"><%= @event.title%></h1>
 
 
-<p>
+<div class="event_when">
 	<div class="event_calendar">
-		<div class="number">
+		<div class="day">
 			<%=I18n.localize(@event.starttime, :format => :weekday)%>
 		</div>
-		<div class="day">
+		<div class="number">
 			<%=@event.starttime.mday%>
 		</div>
 		
 	</div>
+	<h2>
 	<%= I18n.localize(@event.starttime, :format => :long_date)%>
-</p>
+	</h2>
+		<div style="clear: both"></div>
+</div>
+<hr/>
 
+<%if (@event.event_type_id != 2)%>
+<div class"event_where">
+	<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
+		<%if @event.place%>
+	<div style="float:left">
+		    <h2><%=@event.place.comune.description%><br/> <%=@event.place.address%></h2>
+	</div>
+		    <%end%>
+	<div style="clear: both"></div>
+</div>
 
-<p>
-	<%if (@event.event_type_id != 2) #se non si tratta di una votazione%>
-		<% place = @event.place
-		   if (place)%>
-		    place.address
-		<% end%>	
-	<%else%>
-			Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
-	<%end%>
-</p>
+<hr/>
+<div class="event_description"> 
+		<%=@event.description%>
+	</div>
+		<%if @event.place%>
 
+<script type="text/javascript">
+	if (!geocoder)
+		geocoder = new google.maps.Geocoder();
+	
+	var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
+	var center = new google.maps.LatLng(<%=@event.place.latitude_center%>,<%=@event.place.longitude_center%>);
+	var zoom = <%=@event.place.zoom%>;		
+	
+	
+	var myOptions = {
+		zoom : zoom,
+		center: center,
+		mapTypeId : google.maps.MapTypeId.ROADMAP,
+		panControl : false,
+		streetViewControl : false,
+		mapTypeControl : true,
+		draggable: false,
+	};
+
+	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
+	
+	marker = new google.maps.Marker({
+		map : map,
+		position: latlng,
+		draggable : false
+	});
+</script>
+<%end%>
+<%end%>
 <p>
 	<%if (@event.event_type_id == 2)%>
+	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
 		<h3>In queste giornate si voteranno le seguenti proposte</h3>
 		
 		<table>
@@ -45,3 +88,4 @@
 		</table>
 	<%end%>
 </p>
+<br />

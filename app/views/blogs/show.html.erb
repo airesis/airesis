@@ -1,5 +1,6 @@
-  <h1><%=h @blog.title %></h1>
+<%=render :layout => "layouts/page_title", :locals => {:title => @blog.title} do%>
 <%= render :partial => 'blog_posts/admin_links' %>
+<%end%>
   
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">

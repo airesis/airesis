@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
   has_many :group_follows, :class_name => 'GroupFollow'
-  has_many :following,:through => :group_follows, :class_name => 'Group'
+  has_many :followed_groups,:through => :group_follows, :class_name => 'Group'
   has_many :user_votes, :class_name => 'UserVote'
   has_many :proposal_comments, :class_name => 'ProposalComment'
   has_many :proposal_comment_rankings, :class_name => 'ProposalCommentRanking'
@@ -62,6 +62,16 @@ class User < ActiveRecord::Base
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
 
+  #record di tutti coloro che mi seguono
+  has_many :followers_user_follow, :class_name => "UserFollow", :foreign_key => :followed_id  
+  #tutti coloro che mi seguono
+  has_many :followers,:through => :followers_user_follow, :class_name => "User", :source => :followed
+  
+  #record di tutti coloro che seguo
+  has_many :followed_user_follow, :class_name => "UserFollow", :foreign_key => :follower_id  
+  #tutti coloro che seguo
+  has_many :followed,:through => :followed_user_follow, :class_name => "User", :source => :follower
+  
   #fake columns
   attr_accessor :image_url, :accept_conditions
 
@@ -248,7 +258,7 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
       user.account_type = 'facebook'     
       user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
       user.confirm!
-      user.save! false
+      user.save(:validate => false)
     else
       return nil
     end 

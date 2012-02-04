@@ -1,7 +1,7 @@
-<h1>Tutti i gruppi</h1>
-<%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "buttonStyle" if current_user %>
-<br />
-<br />
+<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.index.title')} do%>
+	<%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "newButton" if current_user %>
+<%end%>
+<br /><br />
 <% @groups.each do |group| %>
 <div class="groupListContainer">
 	<div class="groupUserImage">

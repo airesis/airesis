@@ -1,6 +1,8 @@
 #encoding: utf-8
 class BlogPostsController < ApplicationController
+  include NotificationHelper
   unloadable
+  
   
   helper :blog
   
@@ -12,12 +14,15 @@ class BlogPostsController < ApplicationController
   before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
   
   def load_blog
-    @blog = Blog.find(params[:blog_id])
+    @blog = Blog.find(params[:blog_id]) if params[:blog_id]
+    @group = Group.find(params[:group_id]) if params[:group_id]
     @groups = current_user.groups if current_user
   end
   
-  def index
-    @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+  def index    
+    @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @blog
+    @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @group
+    
     @index_title = 'Blog'
     
     respond_to do |format|
@@ -85,8 +90,10 @@ class BlogPostsController < ApplicationController
       
       saved = @blog_post.save
       
+      
       respond_to do |format|
         if saved
+          user_insert_blog_post(@blog_post) if @blog_post.published
           flash[:notice] = 'Il tuo post è stato creato correttamente.'
           format.html { redirect_to([@blog,@blog_post]) }
           format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }

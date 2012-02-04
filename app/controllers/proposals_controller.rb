@@ -21,21 +21,25 @@ class ProposalsController < ApplicationController
   
   
   def index
+    order = ""
+    if (params[:view] == ORDER_BY_RANK)
+      order << " rank desc, created_at desc"
+    elsif (params[:view] == ORDER_BY_VOTES)
+      order << " valutations desc, created_at desc"
+    else
+      order << "created_at desc"  
+    end
+    
     #se è stata scelta una categoria, filtra per essa
     if (params[:category])
         @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.current.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
+        @proposals = Proposal.current.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => ["proposal_category_id = ?",params[:category]],:order => order)
     else #altrimenti ordina per data di creazione
-        @proposals = Proposal.current.includes(:users).find(:all, :order => "created_at desc")
+        @proposals = Proposal.current.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :order => order)
     end
-    
-    if (params[:view] == ORDER_BY_RANK)
-      @proposals.sort! { |a,b| b.rank <=> a.rank }
-    elsif (params[:view] == ORDER_BY_VOTES)
-      @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
-    end  
- 
+     
     respond_to do |format|     
+      format.js 
       format.html # index.html.erb
       
     end
@@ -145,6 +149,7 @@ class ProposalsController < ApplicationController
       
         update_borders(borders)
         @proposal.update_attributes(params[:proposal])
+        proposal_has_been_updated(@proposal)
       end
       
       respond_to do |format|

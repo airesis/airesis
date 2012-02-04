@@ -1,3 +1,22 @@
+#proposalsListContainer {
+	
+}
+
+#loading_proposals {
+	background-color: #FAFAFA;
+	border-top: 1px solid #E3E3E3;
+	display: block;
+	padding: 10px 0;
+	text-align: center;
+	color: #3366CC;
+	font-weight: bold;
+}
+#loading_proposals:hover {
+	background-color: #F4F4F4;
+	text-decoration: none;
+}
+
+
 .proposalComment {
 	padding: 20px 0 0;
 /*	border-top: 1px solid #ccc;*/

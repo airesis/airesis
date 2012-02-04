@@ -1,3 +1,4 @@
+<% javascript 'proposal_endless_page' %>
 
 <div id="accordion" style="width:90%">
     <h3><a href="#">Progetto in Alpha-Test. Leggi con attenzione.</a></h3>
@@ -62,7 +63,12 @@
 		<%end%>
 		
 		     
+			<div id="proposalsListContainer">
 			<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+			</div>
+	  		<div id="loading_proposals">
+	  			<span>Altre proposte...</span>
+	  		</div>
 
 	 	<script>
 	    </script>

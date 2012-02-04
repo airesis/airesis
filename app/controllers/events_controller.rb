@@ -26,7 +26,7 @@ class EventsController < ApplicationController
       params[:event].delete(:meeting_attributes)
     end
     
-    if params[:event][:period] == "Non ripetere"
+    if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
       @event = Event.new(params[:event])
     else
       #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])

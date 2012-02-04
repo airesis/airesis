@@ -79,6 +79,9 @@ class GroupsController < ApplicationController
     if (params[:date])
       @event.starttime = Date.parse(params[:date]) + 1.hour
       @event.endtime = @event.starttime + 1.day
+    else
+      @event.starttime = Date.today + 1.hour
+      @event.endtime = @event.starttime + 1.day
     end
     @meeting = @event.build_meeting
     @place = @meeting.build_place

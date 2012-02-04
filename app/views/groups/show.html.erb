@@ -1,17 +1,14 @@
-
-<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
-
-<p>
-    <h1><%=h @group.name %></h1>
-</p>
+<%=render :layout => "layouts/page_title", :locals => {:title => @group.name} do%>
+	<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
+<%end%>
 <p>
     <%=h @group.description %>
 </p>
 <div id="accordion" style="width:80%">
     <h3><a href="#">Regolamento del gruppo</a></h3>
     <div style="line-height:1;">Le regole sono selezionabili alla creazione di un gruppo. 
-    	Al momento nessuno può creare gruppi solo perchè manca un sistema di identificazione dei gruppi non attivi.
-    	Quando partecipate ad un gruppo i post dei vostri blog vengono mostrati in questa pagina.
+    	Al momento tutti gli utenti possono creare un gruppo.
+    	Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati in questa pagina.
     	I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i partecipanti secondo ruoli e permessi.
     	<ul>
     		<li>Partecipazione:</li>

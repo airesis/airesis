@@ -27,7 +27,9 @@ admin event
 			<p>
 				<%= f.label :event_type_id%>
 				<br/>
-				<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+				<%= @event.event_type.description%>
+				<%= f.hidden_field :event_type_id%>				
+				
 			</p>
 			<p>
 				<%= f.label :starttime %>

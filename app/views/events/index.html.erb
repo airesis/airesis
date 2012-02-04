@@ -69,7 +69,11 @@
                             },
 
                             eventClick: function(event, jsEvent, view){
-                                showEventDetails(event);
+                            	<%if is_admin? %>
+                                	showEventDetails(event);
+                                <%else%>
+                                	goEventPage(event);
+                                <%end%>
                             },
                         
                          eventRender: function(event, element) {

@@ -1,0 +1,6 @@
+$('#proposalsListContainer').append("<%= escape_javascript(render :partial => 'proposals/list', :locals => {:proposals => @proposals})%>");
+<%if @proposals.total_pages > @proposals.current_page%>
+  checkScroll();
+<%else%>
+  $('#loading_proposals').hide();
+<%end%>

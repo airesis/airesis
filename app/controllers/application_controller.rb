@@ -63,12 +63,15 @@ class ApplicationController < ActionController::Base
   end
   
   def check_event_edit_permission
+    return true if is_admin?
     @event = Event.find_by_id(params[:id])
     org = @event.organizers.first
-    p = org.portavoce
-    if (!is_admin? && current_user != (p))
+    if !org
       permissions_denied
+      return
     end
+    p = org.portavoce
+    permissions_denied if (!current_user || current_user != p)
   end
   
   def admin_required

@@ -15,10 +15,30 @@
 	background-color: #fbec88;
 }
 
+.event_description {
+	float: left;
+}
+
 
 
 .event_calendar {
 	background: url("/assets/calendar.png") no-repeat;
 	width: 64px;
 	height: 64px;
+	cursor: default;
+	float:left;
+}
+
+.event_calendar .day {
+	font-size: 11px;
+    margin: auto;
+    padding-top: 16px;
+    text-align: center;
+}
+
+.event_calendar .number {
+	font-size: 25px;
+    font-weight: bold;
+    margin-top: -5px;
+    text-align: center;
 }
