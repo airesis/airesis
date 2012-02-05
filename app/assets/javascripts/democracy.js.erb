@@ -4,6 +4,7 @@ $(function() {
 });
 function disegnaBottoni() {
 	$('.buttonStyle').button();
+	$('.fullEditButton').button({icons : {primary : "ui-icon-pencil"}});
 	$('.editButton').button({icons : {primary : "ui-icon-pencil"},text : false});
 	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"},text : false});
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});

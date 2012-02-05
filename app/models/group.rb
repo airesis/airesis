@@ -5,14 +5,18 @@ class Group < ActiveRecord::Base
   REQ_BY_BOTH = 'b'
   
   validates_presence_of     :name
-  validates_length_of       :name,    :within => 3..100
+  validates_length_of       :name,    :within => 3..30
   validates_uniqueness_of   :name
   
   validates_presence_of     :description
+  validates_length_of       :name,    :within => 10..2000
+ 
+  validates_length_of       :facebook_page_url,    :within => 10..255, :allow_blank => true
+  validates_length_of       :title_bar,    :within => 1..255
   validates_presence_of     :interest_border_id
   
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy

@@ -42,3 +42,27 @@
     margin-top: -5px;
     text-align: center;
 }
+
+
+.event_calendar_mini {
+	background: url("/assets/calendar-32.png") no-repeat;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	float:left;
+	margin-top:-18px;
+}
+
+.event_calendar_mini .day {
+	font-size: 10px;
+    margin: auto;
+    padding-top: 14px;
+    text-align: center;
+}
+
+.event_calendar_mini .number {
+	font-size: 20px;
+    font-weight: bold;
+    margin-top: -5px;
+    text-align: center;
+}

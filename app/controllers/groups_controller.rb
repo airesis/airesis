@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:show,:new, :create]
+  before_filter :authenticate_user!, :except => [:index,:show]
   
   
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
@@ -96,7 +96,7 @@ class GroupsController < ApplicationController
         params[:group][:partecipant_ids] -= current_user.id rescue
                         
         @group = Group.new(params[:group]) #crea il gruppo
-
+  
         #se ci sono già dei partecipanti al gruppo, inserisci a sistema una richiesta di partecipazione accettata per ognuno        
         @group.partecipant_ids.each do |id|            
             @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3}) if (id != current_user.id)

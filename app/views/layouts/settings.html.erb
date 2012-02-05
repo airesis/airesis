@@ -168,6 +168,16 @@
 					}
 					event.stopPropagation();
 				});
+				
+				$(".superHeader").mouseover(function(){
+			    	$(this).addClass("active");
+			    }).mouseout(function(){
+			    	
+			    	if (user_panel_shown == false) {
+		    			$(this).removeClass("active");
+		    		}		
+			    			
+			    });
 	
 				$('#user-panel').click(function(event) {
 					event.stopPropagation();

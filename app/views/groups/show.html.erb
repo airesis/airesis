@@ -1,5 +1,5 @@
 <%=render :layout => "layouts/page_title", :locals => {:title => @group.name} do%>
-	<%= link_to 'Modifica', edit_group_path(@group), :id => 'editButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
+	<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
 <%end%>
 <p>
     <%=h @group.description %>

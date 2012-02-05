@@ -2,7 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 it:
-  
+  test: "Test"
   devise:
     omniauth_callbacks:
       success: 'Hai eseguito l''autenticazione. Benvenuto!'
@@ -39,6 +39,8 @@ it:
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
      weekday: "%A"
+     month: "%B"
+     dayandmonth: "%d/%m"
     am: "am"
     pm: "pm"
 
@@ -107,7 +109,7 @@ it:
       
   activerecord:
     models:
-      meeting: "Incontro"
+      meeting: "Incontro"      
       places: "Luogo"
   
     attributes:
@@ -126,6 +128,7 @@ it:
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
+        title_bar: "Barra del titolo"
         description: "Descrizione"
         accept_requests: "Richieste di partecipazione"
         porta_id: "Portavoce"

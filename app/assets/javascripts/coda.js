@@ -2,7 +2,7 @@ $(function() {
 	$('.bubbleInfo').each(function() {
 		var distance = 10;
 		var time = 250;
-		var hideDelay = 500;
+		var hideDelay = 200;
 
 		var hideDelayTimer = null;
 
@@ -11,7 +11,7 @@ $(function() {
 		var trigger = $('.trigger', this);
 		var info = $('.popup', this).css('opacity', 0);
 
-		$([trigger.get(0), info.get(0)]).mouseover(function() {
+		$([trigger.get(0), info.get(0)]).focusin(function() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			if(beingShown || shown) {
@@ -22,11 +22,11 @@ $(function() {
 				beingShown = true;
 
 				info.css({
-					top : -90,
-					left : -33,
+					/*top : -20,*/
+					/*left : -33,*/
 					display : 'block'
 				}).animate({
-					top : '-=' + distance + 'px',
+					top : '+=' + distance + 'px',
 					opacity : 1
 				}, time, 'swing', function() {
 					beingShown = false;
@@ -35,7 +35,7 @@ $(function() {
 			}
 
 			return false;
-		}).mouseout(function() {
+		}).focusout(function() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			hideDelayTimer = setTimeout(function() {
