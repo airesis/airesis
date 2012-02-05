@@ -1,0 +1,67 @@
+.bubbleInfo {
+	position: relative;
+}
+/* Bubble pop-up */
+
+.popup {
+	position: absolute;
+	display: none;
+	position: absolute;
+	z-index: 50;
+	border-collapse: collapse;
+	margin: 0px;
+    padding: 0px;    
+}
+
+.popup td {
+	margin: 0px;
+	padding: 0px;
+}
+
+.popup td.corner {
+	height: 15px;
+	width: 19px;
+}
+.popup td#topleft {
+	background-image: url(<%= asset_path("bubble-1.png")%>);
+}
+.popup td.top {
+	background-image: url(<%= asset_path("bubble-2.png")%>);
+}
+.popup td#topright {
+	background-image: url(<%= asset_path("bubble-3.png")%>);
+}
+.popup td.left {
+	background-image: url(<%= asset_path("bubble-4.png")%>);
+}
+.popup td.right {
+	background-image: url(<%= asset_path("bubble-5.png")%>);
+}
+.popup td#bottomleft {
+	background-image: url(<%= asset_path("bubble-6.png")%>);
+}
+.popup td.bottom {
+	background-image: url(<%= asset_path("bubble-7.png")%>);
+	text-align: center;
+}
+.popup td.bottom img {
+	display: block;
+	margin: 0 auto;
+}
+.popup td#bottomright {
+	background-image: url(<%= asset_path("bubble-8.png")%>);
+}
+.popup table.popup-contents {
+	font-size: 12px;
+	line-height: 1.2em;
+	background-color: #fff;
+	/*color: #666;*/
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+table.popup-contents th {
+	/*text-align: right;
+	text-transform: lowercase;*/
+}
+table.popup-contents td {
+	text-align: left;
+}

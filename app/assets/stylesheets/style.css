@@ -3,6 +3,11 @@
 	border-bottom: 1px solid #D8D2C3;
 }
 
+textarea {
+	/*resize:none;*/
+	outline:none;
+}
+
 h3 {
 	margin: 0;
 }
@@ -114,7 +119,7 @@ body {
 .superHeader {	
     cursor: pointer;
     float: right;
-    margin-right: 9px;
+    margin-right: 20px;
     margin-top: 5px;
     padding: 10px 15px;
     text-align: left;
