@@ -4,14 +4,16 @@
 <script type="text/javascript">
 	$(function() {
 		input = $('#group_partecipant_tokens')
-		input.tokenInput("/users.json", {
-			crossDomain: false,
-			prePopulate: $('#group_partecipant_tokens').data("pre"),
-			hintText: "Digita alcuni caratteri per cercare tra gli utenti",
-			noResultsText: "Nessun utente trovato",
-			searchingText: "Sto cercando...",
-			preventDuplicates: true
-		});
+		if (input != null) {
+			input.tokenInput("/users.json", {
+				crossDomain: false,
+				prePopulate: $('#group_partecipant_tokens').data("pre"),
+				hintText: "Digita alcuni caratteri per cercare tra gli utenti",
+				noResultsText: "Nessun utente trovato",
+				searchingText: "Sto cercando...",
+				preventDuplicates: true
+			});
+		}
 		
 		input = $('#group_interest_border_tkn')
 		input.tokenInput("/interest_borders.json", {
@@ -27,12 +29,15 @@
 
 </script>  		
 			
-<%= form_for([@group]) do |f| %>
+<%= form_for @group, :builder => InfoTagBuilder do |f| %>
    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
    
   <p>
-    <%= f.label :name%><br />
-    <%= f.text_field :name %>
+	  	<%= f.info_tag :name, :help => "Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova." %>   	
+  </p>
+  
+  <p>
+  		<%= f.info_tag :title_bar, :help => "Il titolo che apparirà in testa alla pagina del gruppo." %>   	  	    
   </p>
   
   <p>
@@ -41,8 +46,7 @@
   </p>
   
   <p>
-    <%= f.label :facebook_page_url%><br/>
-    <%= f.text_field :facebook_page_url, :title=>"Inserisci l'indirizzo del tuo gruppo su Facebook" %>
+  	<%= f.info_tag :facebook_page_url, :help => "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo." %>   
   </p>
   
   <p>
@@ -68,9 +72,12 @@
 	
   <p>
 	<%= f.label :interest_border_tkn%>
-	<%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json ) %>
+	<%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json if @group.interest_border ) %>
 </p>
-	   <%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] }, {:include_blank => 'Scegli un portavoce'})%>
+	<% if (controller.action_name != "new") && (controller.action_name != "create") %>
+		<%= f.label :porta_id%><br/>
+	   	<%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] })%>
+	<%end%>
 	
   <p>
     <%= f.submit button_name %>

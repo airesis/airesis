@@ -10,8 +10,22 @@
 	<div class="groupName">
 		<h3><%= link_to group.name, group %></h3>
 	</div>
-	<div class="groupDescription">
-		
+	<div style="clear: both"></div>
+	<div class="groupDescription" style="float:left">
+		<b><%=group.partecipants.count%></b> partecipanti
+	</div>
+	<div class="groupEvent" style="float:right">
+		<%event = group.events.first
+		if event%>
+		<a href="<%= event_url(event)%>">
+		<div class="event_calendar_mini">
+			<div class="day">
+				<%=I18n.localize(event.starttime, :format => :dayandmonth)%>
+			</div>
+			
+		</div>
+		</a>
+		<%end%>
 	</div>
 	<div class="groupFooter">
 		<%= link_to 'Modifica', edit_group_path(group), :class => 'editButton littleText' if (is_admin?)%>

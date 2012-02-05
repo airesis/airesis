@@ -9,7 +9,7 @@
 <div class="event_when">
 	<div class="event_calendar">
 		<div class="day">
-			<%=I18n.localize(@event.starttime, :format => :weekday)%>
+			<%=I18n.localize(@event.starttime, :format => :month)%>
 		</div>
 		<div class="number">
 			<%=@event.starttime.mday%>
