@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  
+  include ImageHelper 
   REQ_BY_PORTAVOCE = 'p'
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates_presence_of     :interest_border_id
   
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
@@ -31,8 +31,9 @@ class Group < ActiveRecord::Base
   has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'group_id'
   
   has_many :events,:through => :meetings_organizations, :class_name => 'Event', :source => :event
+  belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
   
-  attr_reader :partecipant_tokens, :image_url
+  attr_reader :partecipant_tokens
   attr_accessor :portavoce, :porta_id
     
   def partecipant_tokens=(ids)
@@ -48,7 +49,9 @@ class Group < ActiveRecord::Base
   
    def image_url
     if (self.image_id)
-      return self.image.image.url    
+      return self.image.image.url
+    elsif (read_attribute(:image_url) != nil)
+      return read_attribute(:image_url)
     else
       return ""      
     end
@@ -90,5 +93,8 @@ class Group < ActiveRecord::Base
     return true if self.accept_requests == REQ_BY_BOTH
     return false
   end
+  
+  
+  
   
 end

@@ -24,6 +24,7 @@ it:
     failure:
         already_authenticated: "Sei già autenticato."
         unauthenticated: "Esegui il login per visualizzare pagina."
+        unconfirmed: "L'account non è ancora stato confermato."
   date:
     order: [:day, :month, :year ]
     formats:
@@ -61,6 +62,7 @@ it:
    admin_required: "Devi essere amministratore per visualizzare la pagina."
    permissions_required: "Non disponi dei permessi per visualizzare la pagina."
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
+   blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
    
@@ -134,6 +136,7 @@ it:
         porta_id: "Portavoce"
         interest_border_tkn: "Confine di interesse"
         interest_border_id: "Confine di interesse"
+        image_url: "Indirizzo immagine"
       event:
          title: "Titolo dell'evento"
          description: "Descrizione"

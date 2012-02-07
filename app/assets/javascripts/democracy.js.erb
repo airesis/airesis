@@ -20,10 +20,12 @@ function disegnaDatePicker() {
         showOn : "both",
         changeMonth : false,
         changeYear : false,
-        yearRange : "c-1:c+10",
+        yearRange : "c:c+10",
+        minDate : -2,
+        maxDate: "+10Y",
         duration: "",  
         showTime: true,  
-        constrainInput: false,
+        constrainInput: true,
         stepMinute: 15,  
         stepHour: 1,  
         altTimeField: "alt",  
@@ -35,7 +37,9 @@ function disegnaDatePicker() {
         	endDate = new Date(endTime);
 	        if (!(endDate.getTime() > startDate.getTime())) { 				
 	 			$("#event_starttime").datetimepicker("setDate",endTime);
- 			} 			
+ 			}
+ 			var diff =  Math.floor(( endDate - new Date()) / 86400000);
+ 			$("#event_starttime").datetimepicker("option","maxDate",diff+1); 			
         }
  	  });   
 		
@@ -46,10 +50,12 @@ function disegnaDatePicker() {
         showOn : "both",
         changeMonth : false,
         changeYear : false,
-        yearRange : "c-1:c+10",
+        yearRange : "c:c+10",
+        minDate : -2,
+        maxDate: "+10Y",
         duration: "",  
         showTime: true,  
-        constrainInput: false,
+        constrainInput: true,
         stepMinute: 15,  
         stepHour: 1,  
         altTimeField: "alt",  
@@ -62,6 +68,8 @@ function disegnaDatePicker() {
 	        if (!(endDate.getTime() > startDate.getTime())) { 				
 	 			$("#event_endtime").datetimepicker("setDate",startTime);
  			} 			
+ 			var diff =  Math.floor(( startDate - new Date()) / 86400000);
+ 			$("#event_endtime").datetimepicker("option","minDate",diff+1);
         }
      });
  }

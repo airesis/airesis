@@ -1,5 +1,7 @@
 <%=render :layout => "layouts/page_title", :locals => {:title => @group.name} do%>
-	<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
+	<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton littleText' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %><br />
+	<%= link_to 'Inserisci post', new_group_blog_post_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (user_signed_in? && (is_admin? || (@group.partecipants.include? current_user))) %><br />
+	<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
 <%end%>
 <p>
     <%=h @group.description %>
@@ -46,7 +48,14 @@
 <%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
 <% end %>
 
+
+
 <% content_for :left_panel do %>
+
+	<div class="image_container">
+    	<%= @group.group_image_tag 120 %>
+     </div>
+
 	<%= render :partial => 'partecipants_panel' %>
 <br/>
 <br/>	

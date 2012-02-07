@@ -8,16 +8,16 @@ class BlogPostsController < ApplicationController
   
   layout :choose_layout
   
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :except => [:index,:tag, :show]
+
+  
   #before_filter :require_user, :except => [:index, :show, :tag]
   before_filter :load_blog, :except => [:tag]
   #before_filter :require_admin, :except => [:index, :show, :tag]
   before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
   
-  def load_blog
-    @blog = Blog.find(params[:blog_id]) if params[:blog_id]
-    @group = Group.find(params[:group_id]) if params[:group_id]
-    @groups = current_user.groups if current_user
-  end
+  
   
   def index    
     @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @blog
@@ -152,5 +152,39 @@ class BlogPostsController < ApplicationController
   def setup_image_template
     @empty_blog_post = BlogPost.new
     @empty_blog_post.blog_images.build
+  end
+  
+  
+  protected
+  
+  def load_blog
+    if params[:blog_id]
+      @blog = Blog.find(params[:blog_id])
+    else
+      @blog = current_user.blog
+    end     
+    @group = Group.find(params[:group_id]) if params[:group_id]
+    @groups = current_user.groups if current_user
+    
+    if !@blog
+      blog_required
+    end
+  end
+  
+  #risposta nel caso non sia presente il blog dell'utente
+  def blog_required
+    respond_to do |format|
+      format.js do        #se era una chiamata ajax, mostra il messaggio
+        flash.now[:notice] = t('error.blog_required')
+        render :update do |page|
+           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end  
+      end
+      format.html do   #vai alla pagina di ceazione blog
+        session[:blog_return_to] = request.url
+        flash[:notice] = t('error.blog_required')
+        redirect_to new_blog_path        
+      end
+    end
   end
 end

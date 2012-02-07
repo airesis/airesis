@@ -28,9 +28,11 @@
 	<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
 		<%if @event.place%>
 	<div style="float:left">
-		    <h2><%=@event.place.comune.description%><br/> <%=@event.place.address%></h2>
+		<h2>
+		    <%=@event.place.comune.description if @event.place.comune%>
+		    <br/> <%=@event.place.address%></h2>
 	</div>
-		    <%end%>
+		    
 	<div style="clear: both"></div>
 </div>
 

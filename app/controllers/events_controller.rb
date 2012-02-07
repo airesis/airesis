@@ -18,6 +18,12 @@ class EventsController < ApplicationController
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
     @meeting = @event.build_meeting
     @place = @meeting.build_place(:comune_id => "1330")
+    if (params[:group_id])
+      respond_to do |format|     
+        format.js
+        format.html { redirect_to :controller => 'groups', :action => 'edit_events', :id => params[:group_id], :new_event => 'true' }
+      end
+    end
   end
   
   def create

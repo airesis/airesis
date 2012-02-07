@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120121143405) do
+ActiveRecord::Schema.define(:version => 20120207200604) do
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id",                 :null => false
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20120121143405) do
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
+    t.string  "image_url"
   end
 
   create_table "comunali_groups", :id => false, :force => true do |t|
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20120121143405) do
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
+    t.string  "image_url"
   end
 
   create_table "comunes", :force => true do |t|
@@ -173,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20120121143405) do
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
+    t.string  "image_url"
   end
 
   create_table "images", :force => true do |t|
@@ -371,6 +374,7 @@ ActiveRecord::Schema.define(:version => 20120121143405) do
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
+    t.string  "image_url"
   end
 
   create_table "provincias", :force => true do |t|
@@ -393,6 +397,7 @@ ActiveRecord::Schema.define(:version => 20120121143405) do
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
+    t.string  "image_url"
   end
 
   create_table "regiones", :force => true do |t|

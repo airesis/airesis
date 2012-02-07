@@ -1,20 +1,22 @@
-Nuove notifiche non lette
+<h4>Nuove notifiche non lette</h4>
 <ul>
+<b><%= "Nessuna nuova notifica" if @new_user_alerts.empty?%></b>
 <% @new_user_alerts.each do |user_alert|%>
 	<li>
   	<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
 </li>
-<%end%>
+<%end unless @new_user_alerts.empty?%>
 </ul>
 
-
-Vecchie notifiche già lette
+<br />
+<h4>Vecchie notifiche già lette</h4>
 <ul>
+<b><%= "Nessuna notifica" if @old_user_alerts.empty?%></b>	
 <% @old_user_alerts.each do |user_alert|%>
 	<li>
   	<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
 </li>
-<%end%>
+<%end unless @old_user_alerts.empty?%>
 </ul>
 
 <script>

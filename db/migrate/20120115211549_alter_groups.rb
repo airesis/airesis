@@ -4,6 +4,6 @@ class AlterGroups < ActiveRecord::Migration
   end
 
   def down
-     remove_column :groups, :facebook_page_url, :string
+     remove_column :groups, :facebook_page_url
   end
 end

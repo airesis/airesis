@@ -31,7 +31,7 @@
 			
 <%= form_for @group, :builder => InfoTagBuilder do |f| %>
    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
-   
+  
   <p>
 	  	<%= f.info_tag :name, :help => "Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova." %>   	
   </p>
@@ -44,7 +44,10 @@
     <%=f.label :description%><br/>
     <%= f.text_area :description, :style=>'width:90%; height:150px;' %>
   </p>
-  
+  <p>
+  	<%=f.label :image_url%><br />
+  	<%= f.text_field :image_url%>
+  </p>
   <p>
   	<%= f.info_tag :facebook_page_url, :help => "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo." %>   
   </p>

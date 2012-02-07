@@ -95,6 +95,9 @@ resources :comunes
 
     collection do
     end
+    
+    resources :events
+    resources :blog_posts
    
   end
 

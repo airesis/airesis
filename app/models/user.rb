@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   validates_length_of       :surname,     :maximum => 50
   
   validates_length_of       :email,    :within => 6..50 #r@a.wk
-  validates_uniqueness_of   :email
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
+
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
   #colonne assegnabili massivamente

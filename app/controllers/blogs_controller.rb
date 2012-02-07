@@ -62,11 +62,17 @@ class BlogsController < ApplicationController
     respond_to do |format|
       if @blog.save
         flash[:notice] = 'Hai creato il tuo blog!.'
-        format.html { redirect_to(@blog) }
-        format.xml  { render :xml => @blog, :status => :created, :location => @blog }
+        format.html {
+          if session[:blog_return_to]
+            redirect_to session[:blog_return_to]
+          else
+            redirect_to(@blog) 
+          end
+        }
+        #format.xml  { render :xml => @blog, :status => :created, :location => @blog }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @blog.errors, :status => :unprocessable_entity }
+        #format.xml  { render :xml => @blog.errors, :status => :unprocessable_entity }
       end
     end
   end

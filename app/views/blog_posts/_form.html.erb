@@ -72,7 +72,7 @@
 				<br/>
 				<% @groups.each do |group|%>
 				  
-				 <%= check_box_tag "blog_post[group_ids][]", group.id, true %>
+				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) %>
 				 <%= f.label group.name%><br />
 				 				 
 				<%end%> 
