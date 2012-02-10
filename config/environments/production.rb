@@ -96,6 +96,13 @@ DemocracyOnline3::Application.configure do
   
    #limita il numero di commenti
   LIMIT_COMMENTS=true
+  
+  
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Exception] ",
+    :sender_address => %{"Exception Notifier" <coorasse+notifier@gmail.com>},
+    :exception_recipients => %w{coorasse+exceptions@gmail.com}
+
 end
 
 

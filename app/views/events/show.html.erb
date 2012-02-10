@@ -7,7 +7,7 @@
 
 
 <div class="event_when">
-	<div class="event_calendar">
+	<div class="event_calendar", style="margin-right:10px;">
 		<div class="day">
 			<%=I18n.localize(@event.starttime, :format => :month)%>
 		</div>
@@ -24,70 +24,86 @@
 <hr/>
 
 <%if (@event.event_type_id != 2)%>
-<div class"event_where">
-	<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
-		<%if @event.place%>
-	<div style="float:left">
-		<h2>
-		    <%=@event.place.comune.description if @event.place.comune%>
-		    <br/> <%=@event.place.address%></h2>
+	<%if @event.place%>
+	<div class"event_where">
+		<div style="float:left; margin-right:10px;">
+			<a href="#" onclick="return openModal();" title="Visualizza su mappa">
+				<%=image_tag('maps.png', :alt => "Mappa", :size=>"64x64")%>
+			</a>
+		</div>
+		
+		<div style="float:left">
+			<h2>
+			    <%=@event.place.comune.description if @event.place.comune%>
+			    <br/> <%=@event.place.address%></h2>
+		</div>
+	    
+		<div style="clear: both"></div>
 	</div>
-		    
-	<div style="clear: both"></div>
-</div>
-
-<hr/>
-<div class="event_description"> 
+	
+	<div id="map_modal" title="Luogo dell'evento" style="width:400px;height:400px;display:none" >
+		<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
+	</div>
+	<%end%>
+	
+	<hr/>
+	<div class="event_description"> 
 		<%=@event.description%>
 	</div>
-		<%if @event.place%>
+	<%if @event.place%>
+		<script type="text/javascript">
+	
+			function openModal() {
+				$( "#map_modal" ).dialog({ height: 400, width: 400 });		
+				google.maps.event.trigger(map, 'resize');
+				return false;
+			}
 
-<script type="text/javascript">
-	if (!geocoder)
-		geocoder = new google.maps.Geocoder();
-	
-	var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
-	var center = new google.maps.LatLng(<%=@event.place.latitude_center%>,<%=@event.place.longitude_center%>);
-	var zoom = <%=@event.place.zoom%>;		
-	
-	
-	var myOptions = {
-		zoom : zoom,
-		center: center,
-		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		panControl : false,
-		streetViewControl : false,
-		mapTypeControl : true,
-		draggable: false,
-	};
-
-	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
-	
-	marker = new google.maps.Marker({
-		map : map,
-		position: latlng,
-		draggable : false
-	});
-</script>
-<%end%>
-<%end%>
-<p>
-	<%if (@event.event_type_id == 2)%>
-	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
-		<h3>In queste giornate si voteranno le seguenti proposte</h3>
-		
-		<table>
-			<tbody>
-				<% @event.proposals.each do |proposal|%>
-					<tr>
-						<td>
-							<%= link_to proposal.title, proposal%>
-						</td>
-					</tr>
-				<%end%>
-			</tbody>
+			if (!geocoder) {
+				geocoder = new google.maps.Geocoder();
+			}
 			
-		</table>
+			var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
+			var center = new google.maps.LatLng(<%=@event.place.latitude_center%>,<%=@event.place.longitude_center%>);
+			var zoom = <%=@event.place.zoom%>;		
+			
+			
+			var myOptions = {
+				zoom : zoom,
+				center: center,
+				mapTypeId : google.maps.MapTypeId.ROADMAP,
+				panControl : false,
+				streetViewControl : false,
+				mapTypeControl : true,
+				draggable: false,
+			};
+		
+			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
+			
+			marker = new google.maps.Marker({
+				map : map,
+				position: latlng,
+				draggable : false
+			});
+		</script>
 	<%end%>
+<%end%>
+
+<%if (@event.event_type_id == 2)%>
+<p>
+	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
+	<h3>In queste giornate si voteranno le seguenti proposte</h3>
+	
+	<table>
+		<tbody>
+			<% @event.proposals.each do |proposal|%>
+				<tr>
+					<td>
+						<%= link_to proposal.title, proposal%>
+					</td>
+				</tr>
+			<%end%>
+		</tbody>
+	</table>
 </p>
-<br />
+<%end%>
