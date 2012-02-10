@@ -37,4 +37,16 @@ class AdminController < ApplicationController
     end
   end
   
+  def validate_groups
+    AdminHelper.validate_groups
+    
+    
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Inviato elenco gruppi non validi'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+  
 end

@@ -11,9 +11,17 @@ class BlogPostsController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:tag, :show]
 
+  #l'utente deve aver creato un blog personale, oppure viene rimandato alla pagina per la creazione
+  before_filter :require_blog, :except => [:index, :show, :tag]
   
   #before_filter :require_user, :except => [:index, :show, :tag]
   before_filter :load_blog, :except => [:tag]
+
+  #il blog caricato deve essere dell'utente.
+  #l'azione può essere eseguita solo sul proprio blog, altrimenti viene dato errore e redirezionato alla pagina precedente.
+  before_filter :must_be_my_blog, :only => [:new, :edit, :update, :create, :destroy]
+  
+  
   #before_filter :require_admin, :except => [:index, :show, :tag]
   before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
   
@@ -94,13 +102,16 @@ class BlogPostsController < ApplicationController
       respond_to do |format|
         if saved
           user_insert_blog_post(@blog_post) if @blog_post.published
-          flash[:notice] = 'Il tuo post è stato creato correttamente.'
-          format.html { redirect_to([@blog,@blog_post]) }
-          format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
+          flash[:notice] = t('info.blog_created')
+          format.html {
+            redirect_to group_path(params[:group_id]) if (params[:group_id])               
+            redirect_to([@blog,@blog_post]) if (!params[:group_id]) 
+           }
+          #format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
           
           format.html { render :action => "new" }
-          format.xml  { render :xml => @blog_post.errors, :status => :unprocessable_entity }
+          #format.xml  { render :xml => @blog_post.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -157,33 +168,53 @@ class BlogPostsController < ApplicationController
   
   protected
   
-  def load_blog
-    if params[:blog_id]
-      @blog = Blog.find(params[:blog_id])
-    else
-      @blog = current_user.blog
-    end     
+  def load_blog   
+    @blog = Blog.find(params[:blog_id])  if params[:blog_id]
+         
     @group = Group.find(params[:group_id]) if params[:group_id]
     @groups = current_user.groups if current_user
     
-    if !@blog
-      blog_required
-    end
+    #if !@blog
+    #  blog_required
+    #end
   end
   
   #risposta nel caso non sia presente il blog dell'utente
-  def blog_required
-    respond_to do |format|
-      format.js do        #se era una chiamata ajax, mostra il messaggio
-        flash.now[:notice] = t('error.blog_required')
-        render :update do |page|
-           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        end  
+  def require_blog
+    if (!current_user.blog)
+      respond_to do |format|
+        format.js do        #se era una chiamata ajax, mostra il messaggio
+          flash.now[:notice] = t('error.blog_required')
+          render :update do |page|
+             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end  
+        end
+        format.html do   #vai alla pagina di ceazione blog
+          session[:blog_return_to] = request.url
+          flash[:notice] = t('error.blog_required')
+          redirect_to new_blog_path        
+        end
       end
-      format.html do   #vai alla pagina di ceazione blog
-        session[:blog_return_to] = request.url
-        flash[:notice] = t('error.blog_required')
-        redirect_to new_blog_path        
+    end
+  end
+  
+  def must_be_my_blog
+    if (@blog != current_user.blog)
+      respond_to do |format|
+        format.js do        #se era una chiamata ajax, mostra il messaggio
+          flash.now[:error] = t('error.not_your_blog')
+          render :update do |page|
+             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end  
+        end
+        format.html do   #vai alla pagina di ceazione blog          
+          flash[:error] = t('error.not_your_blog')
+          if request.env["HTTP_REFERER"]
+            redirect_to :back
+          else
+            redirect_to proposals_path
+          end          
+        end
       end
     end
   end

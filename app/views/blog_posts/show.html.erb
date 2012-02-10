@@ -1,6 +1,63 @@
-<% self.respond_to?(:title) && title(@blog_post.title) %>
-<% @show_title = false -%>
+<% javascript 'endless_page' 
+@title = @blog_post.title
+if !@blog_post.published?	
+	@title += "[Bozza]"
+end
+%>
 
-<%= render :object => @blog_post, :partial => 'blog_posts/blog_post', :locals => {:show_comments => true} %>
+<%=render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do%>
+	<%= link_to 'Modifica', edit_blog_blog_post_path(@blog), :class => 'fullEditButton littleText' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %><br />
+	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?" if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
+<%end%>
 
 
+<div class="blogPost">
+
+<script>
+	
+	var pageURL = "<%= blog_blog_post_path(@blog) %>";
+	 
+</script>
+
+	
+	
+
+	<div class="blogPostBody">
+		<%= @blog_post.parsed_body %>
+	</div>
+
+	<hr class="blogPostBreak" />
+	<% unless @blog_post.tags.blank? %>
+		<p class="blogPostTags">
+			<b>Tags: </b>
+			<%=raw @blog_post.tags_with_links %>
+		</p>
+	<% end %>
+	
+		
+	<%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
+		
+		<div id="blogPostCommentsContainer">
+		<%= render :partial => 'blog_posts/comments' %>
+	  </div>
+	  <div id="loading_results">
+	  	<span>Commenti precedenti...</span>
+	  </div>
+	
+	<br style="clear: both;" />
+</div>
+
+
+<%content_for :left_panel do%>
+	<div class="leftUserImage">
+		<%= @blog_post.user_image_tag 120%>
+	</div>
+	<p class="blogPostPostedAt">
+		Inserito
+		<% if @blog_post.show_user? %>
+			da <span class="blogPoster"><%=raw @blog_post.user_name %></span>
+		<% end %>
+		il
+		<span class="blogPostDate"><%= @blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
+	</p>
+<%end%>

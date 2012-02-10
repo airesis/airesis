@@ -1,5 +1,18 @@
 module AdminHelper
   
+  #valida tutti i gruppi presenti a sistema ed invia all'amministratore un elenco di quelli non validi da modificare
+  def self.validate_groups  
+    msg = "Verifica gruppi\n"
+    groups = Group.find(:all)
+    groups.each do |group|
+      if !group.valid?
+        msg += group.id.to_s + ": " + group.name + "\n"
+        msg += "   " + group.errors.full_messages.join(";") + "\n";
+      end
+    end
+    CronMailer.daily_email(msg).deliver
+  end
+  
   #calcola il ranking degli utenti
   def self.calculate_ranking  
     msg = "Ricalcolo ranking\n"

@@ -597,3 +597,10 @@ table.stiled tr.even.gradeA {
     width: 300px;
     z-index: 3;
 }
+
+
+.leftUserImage {
+	width:100%;
+	margin:auto;
+	text-align: center;
+}

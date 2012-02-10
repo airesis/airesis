@@ -1,6 +1,6 @@
 <%=render :layout => "layouts/page_title", :locals => {:title => @group.name} do%>
 	<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton littleText' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %><br />
-	<%= link_to 'Inserisci post', new_group_blog_post_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (user_signed_in? && (is_admin? || (@group.partecipants.include? current_user))) %><br />
+	<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" if (user_signed_in? && (is_admin? || (@group.partecipants.include? current_user))) %><br />
 	<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %>
 <%end%>
 <p>

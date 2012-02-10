@@ -44,12 +44,7 @@
 	<%if (current_user)%>
 	<p class="blogFooter">
 		<ul class="blogList">
-			<% if params[:action] == 'show' and params[:controller] == 'blog_posts'  %>
-			<li class="blogListFirst"><%= link_to(pluralize(blog_post.blog_comments.count, 'commento','commenti'), blog_blog_post_path(@blog,blog_post), :class => 'blogCommentCount') %></li>
-				<% if params[:controller] != 'blogs' %>
-					<li><%= link_to('Torna al blog', blog_path(@blog)) %></li>
-				<% end %>
-			<% end %>
+			
 			<% if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
 				<li><%= link_to('Modifica', edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
 				<li><%= link_to('Cancella', blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>

@@ -78,7 +78,9 @@
 				<%end%> 
 			</p>
 			<p>
-				<%= f.submit 'Salva' %> o <%= link_to 'Torna indietro', blog_path(@blog) %>
+				<input  type="hidden" name="group_id" value="<%=params[:group_id]%>"/>
+				<%= f.submit 'Salva' %><br/>
+				<%= link_to 'Torna indietro', :back, :class=>'buttonStyle' %>
 			</p>
 		<div class="blogEditRightPanel">
 			
@@ -89,12 +91,3 @@
 	</div>
 <% end %>
 	
-
-<!-- used to create new images -->
-<table id="newImage" style="display: none;">
-	<% fields_for(@empty_blog_post) do |h| %>
-		<% h.fields_for(:blog_images, :child_index => 'replace_with_rand') do |g| %>
-			<%= render :partial => 'image', :locals => {:g => g} %>
-		<% end %>
-	<% end %>
-</table>

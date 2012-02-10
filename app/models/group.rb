@@ -5,14 +5,14 @@ class Group < ActiveRecord::Base
   REQ_BY_BOTH = 'b'
   
   validates_presence_of     :name
-  validates_length_of       :name,    :within => 3..30
+  validates_length_of       :name,    :within => 3..60
   validates_uniqueness_of   :name
   
   validates_presence_of     :description
   validates_length_of       :name,    :within => 10..2000
  
   validates_length_of       :facebook_page_url,    :within => 10..255, :allow_blank => true
-  validates_length_of       :title_bar,    :within => 1..255
+  validates_length_of       :title_bar,    :within => 1..255, :allow_blank => true
   validates_presence_of     :interest_border_id
   
   #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   
-  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'group_id'
+  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'group_id', :dependent => :destroy
   
   has_many :events,:through => :meetings_organizations, :class_name => 'Event', :source => :event
   belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
