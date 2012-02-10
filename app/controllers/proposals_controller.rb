@@ -108,7 +108,8 @@ class ProposalsController < ApplicationController
     
     begin
       Proposal.transaction do
-        @proposal = Proposal.new(params[:proposal])
+        prparams = params[:proposal]
+        @proposal = Proposal.new(prparams)
         @proposal.proposal_state_id = PROP_VALUT
         @proposal.rank = 0
         psaved = @proposal.save!
@@ -119,6 +120,9 @@ class ProposalsController < ApplicationController
         
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
+        
+        borders = prparams[:interest_borders_tkn]
+        update_borders(borders)
       end
       
       respond_to do |format|
@@ -321,7 +325,7 @@ class ProposalsController < ApplicationController
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
         if ranking.updated_at < @proposal.updated_at
-          flash.now[:notice] = "La proposta è stata aggiornata da quando l'hai votata. Puoi cambiare il tuo voto se vuoi!"
+          flash.now[:notice] = t('info.proposal.can_change_valutation')
           @can_vote_again = 1
         else
           @can_vote_again = 0

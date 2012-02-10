@@ -16,15 +16,6 @@
 </div>
 
 
-<script type="text/javascript">
-	$('#accordion').accordion({
-			collapsible: true,
-			autoHeight: false, 
-    		active: false 
-		});
-	
-</script>
-
 <% if @proposal.errors.any? %>
   <ul>
     <% @proposal.errors.full_messages.each do |msg| %>
@@ -35,4 +26,13 @@
 
 <%= render :partial => @proposal, :locals => { :button_name => "Crea" } %>
 
-<%= link_to 'Indietro', proposals_path %>
+<%= link_to 'Indietro', :back, :class=>'buttonStyle' %>
+
+<script type="text/javascript">
+		$('#accordion').accordion({
+				collapsible: true,
+				autoHeight: false, 
+	    		active: false 
+			});
+		disegnaBottoni();
+</script>
