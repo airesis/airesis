@@ -12,10 +12,28 @@ class ApplicationController < ActionController::Base
   
   helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth
   
-  def render_404
+   def log_error(exception)
+    if notifier = Rails.application.config.middleware.detect { |x| x.klass == ExceptionNotifier }
+      env = request.env
+      env['exception_notifier.options'] = notifier.args.first || {}                   
+      ExceptionNotifier::Notifier.exception_notification(env, exception).deliver
+      env['exception_notifier.delivered'] = true
+    end
+    message = "\n#{exception.class} (#{exception.message}):\n"
+    Rails.logger.warn(message)
+  end
+  
+  
+  def render_error(exception)
+    log_error(exception)
+    render :template => "/errors/500.html.erb", :status => 500
+  end
+  
+  def render_404(exception)
+    log_error(exception)
     respond_to do |format|
-      format.html { render "errors/404", :status => 404, :layout => false }
-      format.xml  { render :nothing => true, :status => '404 Not Found' }
+      format.html { render "errors/404", :status => 404, :layout => true }
+      #format.xml  { render :nothing => true, :status => '404 Not Found' }
     end
     true
   end
@@ -137,11 +155,20 @@ class ApplicationController < ActionController::Base
       return ret
   end
   
+ 
+
   protected
   def discard_flash_if_xhr
     flash.discard if request.xhr?
   end
   
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, :with => :render_error
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+    rescue_from ActionController::RoutingError, :with => :render_404
+    rescue_from ActionController::UnknownController, :with => :render_404
+    rescue_from ActionController::UnknownAction, :with => :render_404
+  end 
   
   
 end

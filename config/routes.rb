@@ -97,8 +97,7 @@ resources :comunes
     end
     
     resources :events
-    resources :blog_posts
-   
+       
   end
 
   

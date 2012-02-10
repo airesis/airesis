@@ -63,8 +63,12 @@ it:
    permissions_required: "Non disponi dei permessi per visualizzare la pagina."
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
    blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
+   not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
+    blog_created: "Il tuo post è stato creato correttamente."
+    proposal:
+      can_change_valutation: "La proposta è stata aggiornata da quando l'hai valutata. Puoi cambiare la tua valutazione se vuoi!"
    
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
@@ -115,6 +119,11 @@ it:
       places: "Luogo"
   
     attributes:
+      proposal:
+        proposal_category_id: "Categoria"
+        title: "Titolo"
+        content: "Testo"
+        interest_borders_tkn: "Confini geografici di interesse"
       proposal_comment:
          content: "Contenuto"
       blog_comment:
