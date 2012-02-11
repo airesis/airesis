@@ -1,0 +1,89 @@
+<% content_for :left_panel do %>
+
+	<div class="leftBlogImage">
+    	<%= @group.group_image_tag 120 %>
+    </div>
+    
+    <div class="autoMargin">
+    	<a href="#" onclick="openRulesModal();" class="buttonStyle littleText">Regolamento</a>
+    	<div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify" >
+    		<div style="line-height:1;">Le regole sono selezionabili alla creazione di un gruppo. 
+		    	Al momento tutti gli utenti possono creare un gruppo.
+		    	Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati in questa pagina.
+		    	I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i partecipanti secondo ruoli e permessi.
+		    	<ul>
+		    		<li>Partecipazione:</li>
+		    			<%if @group.request_by_vote?%>
+		    				Quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.
+		    			<%elsif @group.request_by_portavoce?%>
+		    				Quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo.
+		    			<%end%>   
+		    	</ul>
+		    </div>    
+		</div>
+	</div>
+	<%= render :partial => 'partecipants_panel' %>
+<br/>
+<br/>	
+	
+<% requests = @group.partecipation_requests.pending
+if requests.size > 0 %>
+<p>
+    <h4>Elenco delle richieste di partecipazione in attesa di risposta</h4>
+	</p>
+	<%requests.each do |request| %>
+	<p>
+	     <div class="pcontainer">
+	        <div class="MoImg24">
+	            <%= request.user_image_tag(24) %>
+	        </div>
+	        <div class="Mo2">
+	            <%=raw request.user.full_link_to_page %>
+	        </div>
+	    <% if ((current_user && (@group.portavoce == current_user)) || is_admin?) %>
+	   		 <%if @group.request_by_vote? %>
+	  		  <%=link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
+	  		  <%elsif @group.request_by_portavoce? %>
+	   			 <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest' %>
+	 		 <% end %>
+	    <%end %>
+	    </div>
+	</p>
+	<% end %>
+<%end%>
+
+<% voting = @group.partecipation_requests.voting
+ if voting.size > 0 %>
+ 	<p>
+		<h4>Elenco delle richieste di partecipazione in corso di votazione</h4>
+	</p>
+	<%voting.each do |request| %>
+	<p>
+	    <%=request.user.full_link_to_page %>
+	    <a>Vota SI</a>
+	    - <a>Vota NO</a>
+	</p>
+	<%end%>
+<% end %>
+
+<br />
+
+ <h4>Al momento seguono il gruppo <%=@group.followers.count%> persone</h4>
+ <%if (current_user)
+	follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
+   end
+   if (!follow)%>
+		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow' %>
+		<br/>(notifiche non ancora attive, spiacente)
+ <%end%>
+
+	<script type="text/javascript">
+			$('#group_partecipa, #group_follow, .confirmRequest #editButton').button();
+			
+			function openRulesModal() {
+				$( "#rules_modal" ).dialog({ height: 400, width: 400 });		
+				return false;
+			}
+	</script>
+
+<%end %>

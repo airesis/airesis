@@ -1,7 +1,9 @@
 <%if user_signed_in? %> 
 	<h4>I miei gruppi</h4>
-		<%@groups = current_user.groups
-			@groups.each do |group|%>
+		<%@groups = current_user.groups %>
+		<%= "Non partecipi a nessun gruppo ancora" if @groups.empty?%>
+	
+		<%@groups.each do |group|%>
 			<div class="groupcontainer">
 				<div class="groupImg24">
 					<%= group.portavoce.user_image_tag(24) rescue nil %>
@@ -10,6 +12,6 @@
 					<%= link_to group.name, group %>
 				</div>
 			</div>
-		<%end%>
+		<%end unless @groups.empty?%>
 
 <%end%> 
