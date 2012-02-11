@@ -223,6 +223,7 @@ body {
 	padding: 0 15px;
 	width: 600px;
 	margin: 0 auto;
+	
 }
 
 #centerpanelextended {
@@ -238,6 +239,13 @@ body {
 #centerpanel img {
 	max-width: 600px;
 }
+
+#bottompanel {	
+	padding: 0 15px;
+	width: 600px;
+	margin: 0 auto;
+}
+
 .ui-tabs li a {
 	color: #FFFF00;
 }
