@@ -143,8 +143,8 @@ it:
         description: "Descrizione"
         accept_requests: "Richieste di partecipazione"
         porta_id: "Portavoce"
-        interest_border_tkn: "Confine di interesse"
-        interest_border_id: "Confine di interesse"
+        interest_border_tkn: "Confine geografico di interesse"
+        interest_border_id: "Confine geografico di interesse"
         image_url: "Indirizzo immagine"
       event:
          title: "Titolo dell'evento"

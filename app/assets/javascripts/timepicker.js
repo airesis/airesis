@@ -30,20 +30,27 @@ $.extend($.ui, { timepicker: { version: "0.9.8" } });
 function Timepicker() {
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[''] = { // Default regional settings
-		currentText: 'Now',
-		closeText: 'Done',
+		currentText: 'Oggi',
+		closeText: 'Fatto',
 		ampm: false,
 		amNames: ['AM', 'A'],
 		pmNames: ['PM', 'P'],
 		timeFormat: 'hh:mm tt',
 		timeSuffix: '',
 		timeOnlyTitle: 'Choose Time',
-		timeText: 'Time',
-		hourText: 'Hour',
-		minuteText: 'Minute',
-		secondText: 'Second',
-		millisecText: 'Millisecond',
-		timezoneText: 'Time Zone'
+		timeText: 'Orario',
+		hourText: 'Ore',
+		minuteText: 'Minuti',
+		secondText: 'Secondi',
+		millisecText: 'Millisecondi',
+		timezoneText: 'Fuso orario',
+		monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+			'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+		monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu',
+			'Lug','Ago','Set','Ott','Nov','Dic'],
+		dayNames: ['Domenica','Luned&#236','Marted&#236','Mercoled&#236','Gioved&#236','Venerd&#236','Sabato'],
+		dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+		dayNamesMin: ['Do','Lu','Ma','Me','Gi','Ve','Sa'],
 	};
 	this._defaults = { // Global defaults for all the datetime picker instances
 		showButtonPanel: true,

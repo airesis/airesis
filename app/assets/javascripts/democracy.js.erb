@@ -69,7 +69,7 @@ function disegnaDatePicker() {
 	 			$("#event_endtime").datetimepicker("setDate",startTime);
  			} 			
  			var diff =  Math.floor(( startDate - new Date()) / 86400000);
- 			$("#event_endtime").datetimepicker("option","minDate",diff+1);
+ 			$("#event_endtime").datetimepicker("option","minDate",diff);
         }
      });
  }

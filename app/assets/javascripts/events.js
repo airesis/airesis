@@ -129,6 +129,7 @@ var basename = "event_meeting_attributes_place_attributes_";
  */
 function codeAddress(id) {
 	var comune = $('#' + id + ' .token-input-list .token-input-token p').html();
+	console.log(comune);
 	if (comune != null) {
 		var address = comune + ", " + document.getElementById(basename + "address").value;
 		putMarker(address);

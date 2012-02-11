@@ -45,7 +45,7 @@ admin event
 			</p>
 			<p>
 				<%= f.label :period %>
-				<%= f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true %>
+				<%= f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true, :title=> "Opzione non ancora disponibile" %>
 			</p>
 			<p id = "frequency" style = "display:none;">
 				<%= f.label :frequency %>
@@ -68,7 +68,8 @@ admin event
 				<%= p.hidden_field :zoom %>				
 				<div id="create_map_canvas" style="width: 320px; height: 320px;"></div>
 				<!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-			</p> <%end%>
+			</p>
+			<%end%>
 			<%end%> </td>
 		</tr>
 	</table>

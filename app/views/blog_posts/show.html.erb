@@ -20,7 +20,14 @@ end
 </script>
 
 	
-	
+	<p class="blogPostPostedAt">
+		Inserito
+		<% if @blog_post.show_user? %>
+			da <span class="blogPoster"><%=raw @blog_post.user_name %></span>
+		<% end %>
+		il
+		<span class="blogPostDate"><%= @blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
+	</p>
 
 	<div class="blogPostBody">
 		<%= @blog_post.parsed_body %>
@@ -52,12 +59,5 @@ end
 	<div class="leftUserImage">
 		<%= @blog_post.user_image_tag 120%>
 	</div>
-	<p class="blogPostPostedAt">
-		Inserito
-		<% if @blog_post.show_user? %>
-			da <span class="blogPoster"><%=raw @blog_post.user_name %></span>
-		<% end %>
-		il
-		<span class="blogPostDate"><%= @blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
-	</p>
+	
 <%end%>

@@ -101,7 +101,7 @@ class BlogPostsController < ApplicationController
       
       respond_to do |format|
         if saved
-          user_insert_blog_post(@blog_post) if @blog_post.published
+          notify_user_insert_blog_post(@blog_post) if @blog_post.published
           flash[:notice] = t('info.blog_created')
           format.html {
             redirect_to group_path(params[:group_id]) if (params[:group_id])               
@@ -171,7 +171,7 @@ class BlogPostsController < ApplicationController
   def load_blog   
     @blog = Blog.find(params[:blog_id])  if params[:blog_id]
          
-    @group = Group.find(params[:group_id]) if params[:group_id]
+    @group = Group.find(params[:group_id]) unless params[:group_id].blank?
     @groups = current_user.groups if current_user
     
     #if !@blog

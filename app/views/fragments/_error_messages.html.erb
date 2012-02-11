@@ -1,7 +1,9 @@
 <% if resource.errors.any? %>
 <div id="errorExplanation" class="ui-state-error ui-corner-all">
-	<%if title%>
-	<h2><%=title%></h2>
+	<%
+	title ||= nil
+	if title%>
+	<h3><%=title%></h3>
 	<%end%>
 	<ul>
   		<% resource.errors.each do |attr,msg| %>

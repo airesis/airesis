@@ -153,7 +153,7 @@ class ProposalsController < ApplicationController
       
         update_borders(borders)
         @proposal.update_attributes(params[:proposal])
-        proposal_has_been_updated(@proposal)
+        notify_proposal_has_been_updated(@proposal)
       end
       
       respond_to do |format|
@@ -257,7 +257,7 @@ class ProposalsController < ApplicationController
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
-      user_valutate_proposal(@ranking)
+      notify_user_valutate_proposal(@ranking)
     end
     @ranking.ranking_type_id = rank_type  #setta il tipo di valutazione
     

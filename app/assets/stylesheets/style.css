@@ -598,9 +598,20 @@ table.stiled tr.even.gradeA {
     z-index: 3;
 }
 
+.autoMargin {
+	margin: auto;
+}
 
 .leftUserImage {
 	width:100%;
 	margin:auto;
 	text-align: center;
 }
+
+
+.leftBlogImage {
+	width:100%;
+	margin:auto;
+	text-align: center;
+}
+

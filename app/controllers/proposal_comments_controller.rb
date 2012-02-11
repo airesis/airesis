@@ -69,7 +69,7 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       if @proposal_comment.save
-        user_comment_proposal(@proposal_comment)
+        notify_user_comment_proposal(@proposal_comment)
         flash[:notice] = 'Commento inserito.'
         @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }

@@ -19,7 +19,7 @@ module NotificationHelper
   
   #invia le notifiche quando un utente valuta la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def user_valutate_proposal(proposal_ranking)
+  def notify_user_valutate_proposal(proposal_ranking)
     proposal = proposal_ranking.proposal
     msg = "La tua proposta <b>"+proposal.title+"</b> ha ricevuto una nuova valutazione!";
       notification_a = Notification.new(:notification_type_id => 20,:message => msg, :url => proposal_path(proposal))
@@ -41,7 +41,7 @@ module NotificationHelper
 
   #invia le notifiche quando un utente inserisce un commento alla proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def user_comment_proposal(comment)
+  def notify_user_comment_proposal(comment)
     proposal = comment.proposal
     comment_user = comment.user
     msg = "<b>"+ comment_user.name + " " + comment_user.surname + "</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
@@ -66,7 +66,7 @@ module NotificationHelper
   
   #invia le notifiche quando un una proposta viene modificata
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def proposal_has_been_updated(proposal)
+  def notify_proposal_has_been_updated(proposal)
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
     notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal))
     notification_a.save
@@ -80,7 +80,7 @@ module NotificationHelper
   #invia le notifiche quando un utente inserisce un post sul proprio blog
   #le notifiche vengono inviate agli utenti che seguono il blog dell'autore,
   #agli utenti che seguono o partecipano ai gruppi in cui il post è stato inserito
-  def user_insert_blog_post(blog_post)
+  def notify_user_insert_blog_post(blog_post)
     post_user = blog_post.user
     user_followers = post_user.followers  #utenti che seguono il blog
     sent_users = []
