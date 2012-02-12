@@ -104,8 +104,8 @@ class BlogPostsController < ApplicationController
           notify_user_insert_blog_post(@blog_post) if @blog_post.published
           flash[:notice] = t('info.blog_created')
           format.html {
-            redirect_to group_path(params[:group_id]) if (params[:group_id])               
-            redirect_to([@blog,@blog_post]) if (!params[:group_id]) 
+            redirect_to group_path(params[:group_id]) if (params[:group_id] && !params[:group_id].empty?)               
+            redirect_to([@blog,@blog_post]) if (!params[:group_id] || params[:group_id].empty?) 
            }
           #format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
