@@ -42,6 +42,19 @@
 		s.parentNode.insertBefore(po, s);
 		})();</script>
 		
+		<script>
+			! function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if(!d.getElementById(id)) {
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}
+			}(document, "script", "twitter-wjs");
+
+		</script>
+		
 		
 		<!-- ##### Header ##### -->
 		<div id="header">
@@ -171,10 +184,12 @@
 			</div>
 			<div id="rightpanel">
 				<%= render :partial => 'events/next_events_panel' %>
-				<g:plusone></g:plusone>
+				<g:plusone href="http://www.airesis.it"></g:plusone>
+				
+				<a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @democracyo</a>
 
 				<%if (!@group.facebook_page_url.empty? rescue false)%>
-				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
+				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="false" data-stream="false" data-header="true"></div>
 				<%else%>
 				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
 				<%end%>

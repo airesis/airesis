@@ -78,3 +78,8 @@ function deleteMe(el) {
 	$(el).remove();
 }
 
+function getURLParameter(name) {
+    return decodeURIComponent(
+        (location.search.match(RegExp("[?|&]"+name+'=(.+?)(&|$)'))||[,null])[1]
+    );  
+}

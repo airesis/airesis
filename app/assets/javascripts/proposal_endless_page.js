@@ -10,7 +10,14 @@ function resetCounter () {
 function checkScroll() {
   if (nearBottomOfPage()) {
     currentPage++;
-	$.ajax({ url: '?page=' + currentPage, type:'get'});
+    url = window.location
+  	console.log('url: ' + url);
+  	cat = getURLParameter('category');
+    console.log(cat);
+    if (cat != null && cat != 'null')
+    	$.ajax({ url: '/proposals/endless_index?category='+cat+'&page=' + currentPage, type:'get'});
+  	else
+		$.ajax({ url: '/proposals/endless_index?page=' + currentPage, type:'get'});
   } else {
     setTimeout("checkScroll()", 250);
   }

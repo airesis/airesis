@@ -30,6 +30,7 @@ DemocracyOnline3::Application.routes.draw do
   resources :proposals do
     collection do
       get :index_accepted
+      get :endless_index 
     end
     resources :proposal_comments do
       member do

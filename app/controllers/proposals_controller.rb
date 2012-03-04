@@ -3,12 +3,12 @@ class ProposalsController < ApplicationController
   include NotificationHelper
   
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :index_accepted, :new, :create, :index_by_category]
+  before_filter :load_proposal, :except => [:index, :index_accepted, :endless_index, :new, :create, :index_by_category]
   
 ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:index_accepted, :show]
+  before_filter :authenticate_user!, :except => [:index,:index_accepted, :endless_index, :show]
   
   #l'utente deve essere autore della proposta
   before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
@@ -17,34 +17,22 @@ class ProposalsController < ApplicationController
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy]
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
-  
-  
-  
-  def index
-    order = ""
-    if (params[:view] == ORDER_BY_RANK)
-      order << " rank desc, created_at desc"
-    elsif (params[:view] == ORDER_BY_VOTES)
-      order << " valutations desc, created_at desc"
-    else
-      order << "created_at desc"  
-    end
     
-    #se è stata scelta una categoria, filtra per essa
-    if (params[:category])
-        @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.current.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => ["proposal_category_id = ?",params[:category]],:order => order)
-    else #altrimenti ordina per data di creazione
-        @proposals = Proposal.current.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :order => order)
-    end
-     
+  def index
+    query_index     
     respond_to do |format|     
-      format.js 
-      format.html # index.html.erb
-      
+      #format.js 
+      format.html # index.html.erb      
     end
   end
   
+  def endless_index
+    query_index
+    respond_to do |format|     
+      format.js             
+    end
+  end
+    
   def index_accepted
     #se è stata scelta una categoria, filtra per essa
     if (params[:category])
@@ -232,6 +220,28 @@ class ProposalsController < ApplicationController
   
   
   protected
+  
+  #utilizzato sia da index che da index_endless
+  #dividendo i due metodi evito il problema di integrazione con
+  #facebook quando si inserisce un link al sito.
+  def query_index
+    order = ""
+    if (params[:view] == ORDER_BY_RANK)
+      order << " rank desc, created_at desc"
+    elsif (params[:view] == ORDER_BY_VOTES)
+      order << " valutations desc, created_at desc"
+    else
+      order << "created_at desc"  
+    end
+    
+    #se è stata scelta una categoria, filtra per essa
+    if (params[:category])
+        @category = ProposalCategory.find_by_id(params[:category])
+        @proposals = Proposal.current.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => ["proposal_category_id = ?",params[:category]],:order => order)
+    else #altrimenti ordina per data di creazione
+        @proposals = Proposal.current.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :order => order)
+    end
+  end
   
   def update_borders(borders)
      #confini di interesse, scorrili
