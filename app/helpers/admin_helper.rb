@@ -10,7 +10,7 @@ module AdminHelper
         msg += "   " + group.errors.full_messages.join(";") + "\n";
       end
     end
-    CronMailer.daily_email(msg).deliver
+    ResqueMailer.admin_message(msg).deliver
   end
   
   #calcola il ranking degli utenti
@@ -30,7 +30,7 @@ module AdminHelper
     msg  += "  user rank: " + user.rank.to_s + "\n----\n"
     user.save(:validate => false)
     end
-    CronMailer.daily_email(msg).deliver
+    ResqueMailer.admin_message(msg).deliver
   end
   
   #cambia lo stato delle proposte
@@ -82,6 +82,6 @@ module AdminHelper
     
     msg = denied.to_s + ' proposte sono state RESPINTE, ' + accepted.to_s + ' proposte sono state ACCETTATE, ' + counter.to_s + ' proposte sono passate in VOTAZIONE'
     puts msg
-    CronMailer.daily_email(msg).deliver
+    ResqueMailer.admin_message(msg).deliver
   end
 end

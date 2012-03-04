@@ -140,7 +140,8 @@ class ApplicationController < ActionController::Base
   
   #salva l'url
   def store_location
-     unless ((params[:controller].starts_with? "devise/") ||
+     unless (request.xhr? ||
+             (params[:controller].starts_with? "devise/") ||
              (params[:controller] == "users/omniauth_callbacks") || 
              (params[:controller] == "alerts" && params[:action] == "polling"))
       session[:user_return_to] = request.url

@@ -309,6 +309,7 @@ class ProposalsController < ApplicationController
       
     end #transaction
   rescue Exception => e
+#    log_error(e)
     flash[:notice] = t(:error_on_proposal_rank)
     respond_to do |format|
       format.js { render :update do |page|

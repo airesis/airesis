@@ -102,10 +102,7 @@ resources :comunes
   end
 
   
-  match ':controller/:action/'
-    
-  resources :admin
-  match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
+ 
 
   match '/votation/', :to => 'votations#show'
   match '/votation/vote', :to => 'votations#vote'
@@ -116,19 +113,25 @@ resources :comunes
  
   
   match ':controller/:action/:id.:format'
+    
+  match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
   
-#  map.resources :blogs,
   
-   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
-  # match 'index_accepted', :to => 'proposals#index_accepted', :as => '/proposals/index_accepted'
-  # match 'activate', :to  => 'users#activate', :as => '/activate/:activation_code'
-   
-  #  map.signup '/signup', :controller => 'users', :action => 'new'
-#    map.login  '/login', :controller => 'sessions', :action => 'new'
- #   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-#   match 'forgot_password', :to => 'users#forgot_password', :as => '/forgot_password'
-  #  map.reset_password '/reset_password/:id', :controller => 'users', 
-    #                                          :action => 'reset_password'       
-                                              
- #   map.new_session '/login', :controller => 'sessions', :action => 'new'                 
+  admin_required = lambda do |request|
+    request.env['warden'].authenticate? and request.env['warden'].user.admin?
+  end
+
+  constraints admin_required do
+    mount Resque::Server, :at => "/resque_admin/"
+    
+    match ':controller/:action/'
+    resources :admin
+    match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
+  end
+
+  
+  #authenticate :admin do
+  #  mount Resque::Server, :at => "/resque_admin"
+  #end
+                     
 end

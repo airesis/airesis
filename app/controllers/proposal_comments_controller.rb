@@ -86,9 +86,10 @@ class ProposalCommentsController < ApplicationController
     end
     
   rescue Exception => e
+     log_error(e)
      respond_to do |format|
        puts e
-       flash[:error] = 'Errore durante l''inserimento.'
+       flash[:error] = 'Errore durante l\'inserimento.'
        format.js   { render :update do |page|
                            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                       end}

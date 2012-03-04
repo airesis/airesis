@@ -5,6 +5,7 @@
 	<%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking" }, :class => 'recalculate' %>	
 	<%= link_to 'Ricalcola stato proposte', {:action => "change_proposals_state", :controller => "admin"}, :class => 'recalculate' %>
 	<%= link_to 'Verifica validità Gruppi', {:action => "validate_groups", :controller => "admin"}, :class => 'recalculate' %>
+	<%= link_to 'Pannello Resque', '/resque_admin', :class => 'recalculate' %>
 	<script type="text/javascript">
 		$('.recalculate').button();
 	</script>

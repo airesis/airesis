@@ -11,13 +11,14 @@ function checkScroll() {
   if (nearBottomOfPage()) {
     currentPage++;
     url = window.location
-  	console.log('url: ' + url);
   	cat = getURLParameter('category');
-    console.log(cat);
+  	view = getURLParameter('view');
+  	nurl = '/proposals/endless_index?scroll=true'
     if (cat != null && cat != 'null')
-    	$.ajax({ url: '/proposals/endless_index?category='+cat+'&page=' + currentPage, type:'get'});
-  	else
-		$.ajax({ url: '/proposals/endless_index?page=' + currentPage, type:'get'});
+    	nurl += '&category='+cat
+    if (view != null && view != 'null')
+    	nurl += '&view='+view
+		$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
   } else {
     setTimeout("checkScroll()", 250);
   }
