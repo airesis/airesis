@@ -1,5 +1,0 @@
-class Meeting < ActiveRecord::Base
-  belongs_to :places, :class_name => 'Place', :foreign_key => :place_id
-  has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
-  has_many :meetings_partecipations, :class_name => 'MeetingsPartecipation'
-end
