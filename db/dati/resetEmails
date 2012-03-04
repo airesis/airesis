@@ -1,0 +1,2 @@
+﻿update users
+set email = 'coorasse+' || id || '-' || name || surname || '@gmail.com';
