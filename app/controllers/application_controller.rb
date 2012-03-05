@@ -171,5 +171,9 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownAction, :with => :render_404
   end 
   
+  rescue_from CanCan::AccessDenied do |exception|
+    permissions_denied
+  end
+  
   
 end

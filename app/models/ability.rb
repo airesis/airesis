@@ -6,13 +6,15 @@ class Ability
     #
     #user ||= User.new # guest user (not logged in)
     if !user
-       can :read, Proposal
+       #can [:index,:show,:read, [Proposal, BlogPost, Blog, Group]
        #can :edit, Proposal, :user_id => user.id
     elsif user.admin?
-       can :manage, :all
+       #can :manage, :all
     else
-       can :read, Proposal
-       
+       #can :read, Proposal
+       #can :update, Proposal do |proposal|
+       #  proposal.users.include? user
+       #end
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

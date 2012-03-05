@@ -98,8 +98,11 @@ it:
         title: "Pannello di amministrazione del gruppo"
         info: "Informazioni di base"
         events: "Eventi e incontri"
+        permissions: "Ruoli e permessi"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
+      edit_permissions:
+        title: "Gestisci i ruoli e i permessi all'interno del gruppo"
       index:
         title: "Tutti i gruppi"
     login:
@@ -157,6 +160,9 @@ it:
          frequency: "Ripeti ogni"
       place:
          address: "Indirizzo"
+      partecipation_role:
+         name: "Nome"
+         description: "Breve descrizione"
   
     errors:
       template:

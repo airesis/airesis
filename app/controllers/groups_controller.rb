@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_events, :create_event]
+  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_events, :create_event, :edit_permissions]
   
   def index
     @groups = Group.all
@@ -71,6 +71,10 @@ class GroupsController < ApplicationController
   
   
   def edit_events
+    
+  end
+  
+  def edit_permissions
     
   end
   

@@ -1,0 +1,77 @@
+     
+<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_permissions.title')} do%>
+	<a href="#" class="newButton" id="addRole">Aggiungi un nuovo ruolo</a>
+<%end%>
+
+<table style="text-align: left">
+	<thead>
+		
+		<th>Ruolo</th>
+		<th>Descrizione</th>
+		<th>Inserire post nello stream</th>
+		<th>Creare eventi</th>
+		<th>Sostenere proposte</th>
+	</thead>
+	<tbody>
+<%PartecipationRole.common.each do |role|%>
+	<tr>
+			<td>
+				<b><%=role.name%>:</b>
+				</td>
+				<td> <%=role.description%>	
+					</td>
+					<td><input type="checkbox" /></td>
+					<td><input type="checkbox" /></td>
+					<td><input type="checkbox" /></td>
+		</tr>
+<%end%>
+	<%@group.partecipation_roles.each do |role|%>
+		<tr>
+			<td>
+				<b><%=role.name%>:</b>
+				</td>
+				<td> <%=role.description%>	
+					</td>
+					<td><input type="checkbox" /></td>
+					<td><input type="checkbox" /></td>
+					<td><input type="checkbox" /></td>
+					<td><a href="#" title="Cancella">X</a></td>
+		</tr>
+	<%end%>
+	</tbody>
+</table>
+
+<div id="new_role" title="Nuovo ruolo" style="display: none">
+	<%
+	part = PartecipationRole.new(:group_id => @group.id)%>
+	<%=form_for part, :remote => true do |f|%>
+		<%=f.hidden_field :group_id%>	
+		<p>
+		<%=f.label :name%>	<br />
+		<%=f.text_field :name%>
+		</p>
+		<p>
+		<%=f.label :description%>	<br />
+		<%=f.text_field :description%>
+		</p>
+		<%=f.submit 'Crea'%>
+	<%end%>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$('#addRole').click(function() {
+			$('#new_role').dialog({
+				modal : true,
+				close : function(event, ui) {
+					$('#new_role').dialog('destroy');			
+				}
+			});
+		});
+	});
+	
+</script>
+                
+<%=content_for :left_panel do%>
+	<%= render :partial => 'groups/administration_panel' %>
+
+<%end%>

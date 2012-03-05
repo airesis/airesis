@@ -2,6 +2,7 @@
 class ProposalsController < ApplicationController
   include NotificationHelper
   
+  #load_and_authorize_resource
   #carica la proposta
   before_filter :load_proposal, :except => [:index, :index_accepted, :endless_index, :new, :create, :index_by_category]
   
@@ -73,10 +74,10 @@ class ProposalsController < ApplicationController
      # format.xml  { render :xml => @proposal }
     end
     
-  rescue Exception => boom
-    puts boom
-    flash[:notice] = t(:error_proposal_loading)
-    redirect_to proposals_path
+ # rescue Exception => boom
+ #   puts boom
+ #   flash[:notice] = t(:error_proposal_loading)
+ #   redirect_to proposals_path
   end
   
   def new

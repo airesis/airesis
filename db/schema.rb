@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120207200604) do
+ActiveRecord::Schema.define(:version => 20120304224932) do
+
+  create_table "action_abilitations", :force => true do |t|
+    t.integer  "group_action_id"
+    t.integer  "partecipation_role_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer "user_id",                 :null => false
@@ -141,6 +149,13 @@ ActiveRecord::Schema.define(:version => 20120207200604) do
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
+
+  create_table "group_actions", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "group_follows", :force => true do |t|
     t.integer "user_id",  :null => false

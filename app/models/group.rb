@@ -25,6 +25,7 @@ class Group < ActiveRecord::Base
   has_many :followers,:through => :group_follows, :source => :user, :class_name => 'User'
   has_many :posts,:through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
+  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   

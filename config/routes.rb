@@ -92,6 +92,7 @@ resources :comunes
       get :new_event
       post :create_event
       get :get_events
+      get :edit_permissions
     end
 
     collection do
@@ -101,7 +102,7 @@ resources :comunes
        
   end
 
-  
+  resources :partecipation_roles
  
 
   match '/votation/', :to => 'votations#show'
