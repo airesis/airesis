@@ -1,6 +1,6 @@
 <br />
 <%- if devise_mapping.omniauthable? %>
-<%= link_to "Accedi tramite Facebook Connect", user_omniauth_authorize_path('facebook'), :class=>"fb-login-button" %>
+<%= link_to "Accedi tramite Facebook Connect", "/users/auth/facebook", :class=>"fb-login-button" %>
  
 <% end -%>
 <br />
