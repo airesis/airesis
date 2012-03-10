@@ -57,3 +57,7 @@ gem 'resque', :require => 'resque/server'
 gem 'resque_mailer'
 
 gem 'cancan'
+
+#gem 'ar_fixtures'
+
+#gem 'sitemap_generator'

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 	<head>
-		<title><%= @page_title || 'Democracy Online - '+ VERSION.to_s + ' Beta'%></title>
+		<title><%= @page_title || 'Democracy Online (Airesis) - '+ VERSION.to_s + ' Beta'%></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		
 		<%= stylesheet_link_tag 'application' %>
@@ -60,7 +60,7 @@
 		<div id="header">
 			<div id="fixed">
 				<div class="midHeader">
-					<h2 class="headerTitle" lang="la">Democracy Online</h2>
+					<h2 class="headerTitle" lang="la"><%=link_to "Airesis", root_path%></h2>
 				</div>
 				<div class="subHeader">
 					<span class="doNotDisplay">Navigation:</span>

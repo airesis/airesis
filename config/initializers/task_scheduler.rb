@@ -11,4 +11,10 @@ scheduler.every '10m' do
    require "uri"
    url = 'http://democracyonline.heroku.com'
    Net::HTTP.get_response(URI.parse(url))
+   
+scheduler.cron '0 1 * * *' do
+   puts "Cancello le vecchie notifiche"
+   AdminHelper.delete_old_notifications
+end    
+   
 end

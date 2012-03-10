@@ -8,34 +8,55 @@
 		
 		<th>Ruolo</th>
 		<th>Descrizione</th>
-		<th>Inserire post nello stream</th>
-		<th>Creare eventi</th>
-		<th>Sostenere proposte</th>
+		
+		<% GroupAction.all.each do |action|%>
+		<th><%=action.description%></th>
+		<%end%>
+		
 	</thead>
 	<tbody>
-<%PartecipationRole.common.each do |role|%>
+<%
+
+
+PartecipationRole.common.each do |role|
+abilitations = role.action_abilitations.by_group(@group).all%>
 	<tr>
 			<td>
 				<b><%=role.name%>:</b>
 				</td>
 				<td> <%=role.description%>	
 					</td>
-					<td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
+				<% GroupAction.all.each do |action|%>
+					<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
+						<%if (abilitations.find{|a| a.group_action_id == action.id} || (role.id == 2))%> 
+						checked="true"
+						<%end%>
+						disabled="disabled"
+						title="Non puoi modificare questi permessi"
+						/></td>
+				<%end%>	
+					
 		</tr>
 <%end%>
-	<%@group.partecipation_roles.each do |role|%>
+	<%@group.partecipation_roles.each do |role|
+	abilitations = role.action_abilitations.by_group(@group).all%>
 		<tr>
 			<td>
 				<b><%=role.name%>:</b>
 				</td>
 				<td> <%=role.description%>	
 					</td>
-					<td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
-					<td><input type="checkbox" /></td>
-					<td><a href="#" title="Cancella">X</a></td>
+					<% GroupAction.all.each do |action|%>
+						<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
+							<%if (abilitations.find{|a| a.group_action_id == action.id})%> 
+						checked="true"
+						<%end%>
+							 /></td>
+					<%end%>	
+					
+					<td>
+						<%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+					</td>
 		</tr>
 	<%end%>
 	</tbody>
@@ -43,8 +64,8 @@
 
 <div id="new_role" title="Nuovo ruolo" style="display: none">
 	<%
-	part = PartecipationRole.new(:group_id => @group.id)%>
-	<%=form_for part, :remote => true do |f|%>
+	role = PartecipationRole.new(:group_id => @group.id)%>
+	<%=form_for role, :remote => true do |f|%>
 		<%=f.hidden_field :group_id%>	
 		<p>
 		<%=f.label :name%>	<br />
@@ -57,6 +78,9 @@
 		<%=f.submit 'Crea'%>
 	<%end%>
 </div>
+<p>
+	<b>Attenzione! I permessi ed i ruoli personalizzati non sono ancora disponibili.</b>
+</p>
 <script type="text/javascript">
 	$(function() {
 		$('#addRole').click(function() {
@@ -68,6 +92,26 @@
 			});
 		});
 	});
+	
+	function change_permission_block(el,role_id,action_id){
+    	if (el.checked) {
+    		$.ajax({
+	        	data: "action_id="+action_id+"&role_id="+role_id+"&group_id=<%=@group.id%>&block=false",
+	        	url: "/partecipation_roles/change_group_permission",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+    	}
+    	else {
+	        $.ajax({
+	        	data: "action_id="+action_id+"&role_id="+role_id+"&group_id=<%=@group.id%>&block=true",
+	        	url: "/partecipation_roles/change_group_permission",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+	       }
+    }
+	
 	
 </script>
                 

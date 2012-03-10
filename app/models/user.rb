@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
+  has_many :partecipation_roles,:through => :group_partecipations, :class_name => 'PartecipationRole'  
   has_many :group_follows, :class_name => 'GroupFollow'
   has_many :followed_groups,:through => :group_follows, :class_name => 'Group'
   has_many :user_votes, :class_name => 'UserVote'

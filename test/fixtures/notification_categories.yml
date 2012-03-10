@@ -1,11 +1,16 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+notification_categories_001: 
+  id: "1"
+  description: Proposte
+notification_categories_002: 
+  id: "2"
+  description: Sondaggi
+notification_categories_003: 
+  id: "3"
+  description: Gruppi
+notification_categories_004: 
+  id: "4"
+  description: Eventi
+notification_categories_005: 
+  id: "5"
+  description: Utenti

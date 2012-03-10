@@ -159,13 +159,14 @@ body {
 	margin: 0;
 	padding: 0.25em 4mm 0.25em 4mm;
 }
+
 .headerTitle a {
 	color: black;
 	background-color: transparent;
 	text-decoration: none;
 	font-size: 110%;
 	font-weight: bold;
-	font-style: italic;
+	font-style: normal;
 }
 .full_link {
 	text-decoration: none;
@@ -176,7 +177,7 @@ body {
 	border-top: 1px solid #D8D2C3;*/	
 	float: left;
 	font-size: 11px;
-	margin: 0 0 0 10px;
+	margin: 0 0 0 123px;
 	padding: 6px 0;
 	/*text-align: center;*/
 	width: 550px;
@@ -215,6 +216,14 @@ body {
 	/*padding: 0 10px 0 0;*/
 }
 
+html, body, #main-copy {
+	height: 100%
+}
+
+#centerpanel{
+	min-height: 100%;
+}
+
 #centerpanel {
 	border-left: 1px solid rgb(216, 210, 195);
 	border-right: 1px solid rgb(216, 210, 195);
@@ -223,6 +232,7 @@ body {
 	padding: 0 15px;
 	width: 600px;
 	margin: 0 auto;
+	/*height: 100%;*/
 	
 }
 

@@ -8,7 +8,7 @@ DemocracyOnline3::Application.routes.draw do
  
   
 
-  root :to => 'proposals#index'
+  root :to => 'home#index'
   
   #match ':controller/:action/:id'
   
@@ -102,7 +102,11 @@ resources :comunes
        
   end
 
-  resources :partecipation_roles
+  resources :partecipation_roles do
+    collection do
+      post :change_group_permission
+    end
+  end
  
 
   match '/votation/', :to => 'votations#show'

@@ -64,6 +64,7 @@ it:
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
    blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
    not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
+   role_permission_change: "Non è possibile modificare questo parametro"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
     blog_created: "Il tuo post è stato creato correttamente."
