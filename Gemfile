@@ -28,6 +28,8 @@ gem "omniauth"
 
 gem 'omniauth-facebook'
 
+gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

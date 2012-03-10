@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
 
  def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"]
       end
     end
@@ -245,7 +245,7 @@ class User < ActiveRecord::Base
 
 #gestisce l'azione di login tramite facebook
 def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-  data = access_token['extra']['user_hash'] ##dati di facebook
+  data = access_token['extra']['raw_info'] ##dati di facebook
   #se è presente un account facebook per l'utente usa quello
   if user = User.find_by_email_and_account_type(data["email"],'facebook')
     return user
