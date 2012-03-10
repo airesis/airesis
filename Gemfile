@@ -24,7 +24,9 @@ gem 'tlsmail'
 
 gem 'silent-postgres'
 
-gem "oa-oauth"
+gem "omniauth"
+
+gem 'omniauth-facebook'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -46,7 +48,7 @@ gem 'bluecloth', '2.0.7'
 
 gem 'ultraviolet1x'
 
-gem 'devise', '1.4.9'
+gem 'devise'#, '1.4.9'
 
 gem 'fb_graph'
 
