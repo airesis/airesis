@@ -24,7 +24,7 @@ gem 'tlsmail'
 
 gem 'silent-postgres'
 
-gem "omniauth"
+gem "omniauth"  
 
 gem 'omniauth-facebook'
 
