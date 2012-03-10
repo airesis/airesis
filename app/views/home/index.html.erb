@@ -89,7 +89,7 @@
 			<div class="title">Accedi al portale</div>
 			<div class="content">
 				<p>Puoi <a href="/proposals">accedere come ospite</a>.</p>
-				<p>Se non hai un account, <a href="/users/sign_up">registrati</a> o <%= link_to "accedi tramite il tuo account Facebook", user_omniauth_authorize_path('facebook')%>.</p>
+				<p>Se non hai un account, <a href="/users/sign_up">registrati</a> o <%= link_to "accedi tramite il tuo account Facebook", "/users/auth/facebook"%>.</p>
 				
 			<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
 			  <div><%= f.label :login %><br />
