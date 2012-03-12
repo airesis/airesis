@@ -58,7 +58,9 @@ class Event < ActiveRecord::Base
     self.meetings_organizations.first.group_id rescue nil
   end
   
-  
+  def is_past?
+    return Time.now > self.endtime
+  end
   
   
   def backgroundColor
@@ -102,7 +104,7 @@ class Event < ActiveRecord::Base
     event_series.save
   end
   
-  
+ 
   
   
   

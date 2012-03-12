@@ -1,7 +1,7 @@
-<style>	.proposal_list td {		vertical-align: top; 		padding-top: 10px;	}</style><%proposalsnumber = proposals.count
+<style>	.proposal_list td {		vertical-align: top; 		padding-top: 10px;	}</style><script>	$(window).scroll(function() {   /*if($(window).scrollTop() + $(window).height() == $(document).height()) {       alert("bottom!");   }*/});	</script><%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
 <% proposals.each do |proposal|    user = proposal.user%>
-<div id="proposal<%= proposal.id %>" class="blogComment">
+<div id="proposal<%= proposal.id %>" class="proposalComment">
     <div class="proposal_list">
         <table style="padding:5px">
             <body>

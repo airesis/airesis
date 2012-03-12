@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310121722) do
+ActiveRecord::Schema.define(:version => 20120311162819) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -207,6 +207,14 @@ ActiveRecord::Schema.define(:version => 20120310121722) do
     t.string  "ftype",      :limit => 1, :null => false
   end
 
+  create_table "meeting_partecipations", :force => true do |t|
+    t.integer "user_id"
+    t.integer "meeting_id"
+    t.string  "comment"
+    t.integer "guests"
+    t.string  "response",   :limit => 1
+  end
+
   create_table "meetings", :force => true do |t|
     t.integer "place_id"
     t.integer "event_id"
@@ -215,11 +223,6 @@ ActiveRecord::Schema.define(:version => 20120310121722) do
   create_table "meetings_organizations", :force => true do |t|
     t.integer "group_id"
     t.integer "event_id"
-  end
-
-  create_table "meetings_partecipations", :force => true do |t|
-    t.integer "user_id"
-    t.integer "meeting_id"
   end
 
   create_table "notification_categories", :force => true do |t|

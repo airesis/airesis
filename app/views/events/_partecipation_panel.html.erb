@@ -1,0 +1,90 @@
+<style type="text/css">
+	/* Character Count styles */
+
+	label {
+		display: block;
+		font-size: 14px;
+	}
+	textarea {
+		width: 490px;
+		height: 60px;
+		padding: 3px;
+		color: #333;
+	}
+	form div {
+		position: relative;
+		margin: 1em 0;
+	}
+	form .counter {
+
+		font-size: 10px;
+		font-weight: bold;
+		color: #333333;
+	}
+	form .warning {
+		color: #600;
+	}
+	form .exceeded {
+		color: #e00;
+	}
+</style>
+<%if user_signed_in?%>
+	<% partecipation = @event.meeting.meeting_partecipations.find_by_user_id(current_user.id)%>
+	<div class="leftcontainer shadow-box">
+	<%if !partecipation%>
+		<%if !@event.is_past?%>
+			<h1>Parteciperai all'evento?</h1>
+			<%=form_for [@event,MeetingPartecipation.new], :remote => true do |f|%>
+			<div style="float: left">
+				<div style="height:14px; position: relative;">
+					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked">
+					SI</input> <span id="guests_number">con <%= f.text_field :guests, :style => "width: 35px;"%> ospiti</span>
+					<br />
+				</div>
+				<div style="height:14px;">
+					<input type="radio" name="meeting_partecipation[response]" value="N">
+					NO</input>
+				</div>
+			</div>
+			<%= f.text_area :comment, :rows => 4, :cols => 10%>
+			<%= f.submit "Rispondi!", :style => "margin-bottom: 15px;margin-top: 10px;"%>
+			<%end%>
+		<script type="text/javascript">
+			$(function() {
+				$('#meeting_partecipation_comment').charCount({
+					allowed : 255,
+					warning : 10,
+					counterText : 'Caratteri disponibili: '
+				});
+		
+				$("input[name='meeting_partecipation\[response\]']").change(function() {
+					selected_radio = $("input[name='meeting_partecipation\[response\]']:checked").val();
+					if(selected_radio == 'Y') {
+						$('#guests_number').fadeIn();
+					} else {
+						$('#guests_number').fadeOut();
+					}
+				});
+			});
+		
+		</script>
+		<%else%> <!-- è passato e non hai risposto -->
+			<h1>Non hai risposto all'invito</h1>
+		<%end%>
+	<%else%>	<!--hai risposto all'evento -->
+		<%if @event.is_past?%>
+			<%if partecipation.response == 'Y'%>
+			<h1>Hai partecipato all'evento</h1>
+			<%else%>
+			<h1>Non hai partecipato all'evento</h1>
+			<%end%>
+		<%else%>
+			<%if partecipation.response == 'Y'%>
+			<h1>Parteciperai all'evento</h1>
+			<%else%>
+			<h1>Non parteciperai all'evento</h1>
+			<%end%>
+		<%end%>
+	<%end%>
+	</div>
+<%end%>

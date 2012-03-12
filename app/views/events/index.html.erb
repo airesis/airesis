@@ -1,6 +1,23 @@
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
       </script>
+      
+<%if is_admin?%>
+<style type="text/css">
+	.fc-widget-content {
+		cursor: pointer;
+	}
+	
+	
+	.fc-widget-content:hover {
+		background-color: #f5f8f9;
+	}
+	
+	.fc-widget-content:active {
+		background-color: #fbec88;
+	}
+</style>      
+<%end%>
 <div class="wrapper">
     <div class="subPageContent">
         <% if flash[:notice] -%>

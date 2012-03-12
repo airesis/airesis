@@ -65,6 +65,9 @@ it:
    blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
    not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
    role_permission_change: "Non è possibile modificare questo parametro"
+   event_answer: "Errore durante l'invio della risposta"
+   event_already_answered: "Hai già risposto a questo evento"
+   event_past: "L'evento è finito"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
     blog_created: "Il tuo post è stato creato correttamente."

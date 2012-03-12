@@ -74,9 +74,10 @@ resources :comunes
 
   
   resources :events do
+    resources :meeting_partecipations
     member do
       post :move
-      post :resize
+      post :resize      
     end
     collection do
       get :get_events

@@ -61,11 +61,6 @@ DemocracyOnline3::Application.configure do
   #limita il numero di commenti
   LIMIT_COMMENTS=false
   
-  
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Exception Test] ",
-    :sender_address => %{"Exception Notifier Test" <coorasse+notifier@gmail.com>},
-    :exception_recipients => %w{coorasse+exceptions@gmail.com}
 end
 
 
@@ -94,11 +89,3 @@ Devise.setup do |config|
   config.omniauth :facebook, "221145254619152", "79039dd7230f1f1c4d2d0544eca98597", 
                       {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}                   
 end
-
-Rails.application.config.middleware.use OmniAuth::Builder do  
-  require "omniauth-facebook"
-  provider :facebook, "221145254619152", "79039dd7230f1f1c4d2d0544eca98597", 
-                      {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}} 
-end
-
-

@@ -35,6 +35,7 @@ h3 {
 	-moz-border-radius: 15px;
 	border-radius: 15px;
 	box-shadow: 0 1px 5px #CCCCCC;
+	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
 	margin-left: 0px;
 }
 .proposalTitle {
@@ -57,6 +58,7 @@ h4 {
     margin-top: 0;
     padding-top: 10px;
     word-wrap: break-word;
+    text-align: left;
 }
 
 .fb-login-button {
@@ -216,7 +218,7 @@ body {
 	/*padding: 0 10px 0 0;*/
 }
 
-html, body, #main-copy {
+body, #main-copy {
 	height: 100%
 }
 
@@ -633,3 +635,28 @@ table.stiled tr.even.gradeA {
 	text-align: center;
 }
 
+.leftcontainer {	
+	background: -moz-linear-gradient(center top , #DDDDDD 0pt, #FFFFFF 100%) repeat scroll 0 0 transparent;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #EEEEEE;
+	border-right: 1px solid #EEEEEE;
+	/*box-shadow: 2px 3px 2px 0px rgba(0, 0, 0, 0.1);*/
+	border-radius: 4px 4px 4px 4px;
+	/*width: 426px;
+	height: 290px;
+	float: left;*/
+	margin: 5px;
+}
+
+.leftcontainer h1 {
+	font-size: 16px;
+}
+
+.leftcontainer textarea {
+	width: 140px;
+}
+
+
+h1, h2 {
+	color: #333333;
+}

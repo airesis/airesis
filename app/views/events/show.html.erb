@@ -4,8 +4,11 @@
   
   
 <h1 class="eventtitle"><%= @event.title%></h1>
+<div class="event_description"> 
+		<%=@event.description%>
+	</div>
 
-
+<h1>Quando <%='è stato' if @event.is_past?%>?</h1>
 <div class="event_when">
 	<div class="event_calendar", style="margin-right:10px;">
 		<div class="day">
@@ -25,6 +28,7 @@
 
 <%if (@event.event_type_id != 2)%>
 	<%if @event.place%>
+	<h1>Dove <%='è stato' if @event.is_past?%>?</h1>
 	<div class"event_where">
 		<div style="float:left; margin-right:10px;">
 			<a href="#" onclick="return openModal();" title="Visualizza su mappa">
@@ -44,12 +48,9 @@
 	<div id="map_modal" title="Luogo dell'evento" style="width:400px;height:400px;display:none" >
 		<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
 	</div>
+	<hr />
 	<%end%>
-	
-	<hr/>
-	<div class="event_description"> 
-		<%=@event.description%>
-	</div>
+		
 	<%if @event.place%>
 		<script type="text/javascript">
 	
@@ -87,6 +88,34 @@
 			});
 		</script>
 	<%end%>
+	<%if @event.is_past?%>
+	<h1>Chi ha partecipato?</h1>
+	<%else%>
+	<h1>Chi parteciperà?</h1>
+	<%end%>		
+	<div id="partecipants_container">
+	<%= render :partial => 'partecipants' %>
+	</div>
+	
+<!--	<div class="user_tag last_tag shadow-box">
+		
+		<div class="content">
+			Mostra altri...
+		</div>
+</div> -->
+	<% content_for :left_panel do %>
+			
+	
+			<%@event.organizers.each do |group|%>
+				<div class="leftBlogImage">
+			    	<%= group.group_image_tag 120 %>
+			    </div>
+			<%end%>
+			<div id="partecipation_panel_container">
+			<%= render :partial => 'partecipation_panel' %>
+			</div>
+	<%end%>
+	
 <%end%>
 
 <%if (@event.event_type_id == 2)%>

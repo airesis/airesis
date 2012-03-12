@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_many :proposals, :through => :proposal_presentations, :class_name => 'Proposal'
   has_many :notifications, :through => :user_alerts, :class_name => 'Notification'
   has_many :proposal_watches, :class_name => 'ProposalWatch'
-  has_many :meetings_partecipations, :class_name => 'MeetingsPartecipation'
+  has_many :meeting_partecipations, :class_name => 'MeetingPartecipation'
   has_one  :blog, :class_name => 'Blog'
   has_many :blog_comments, :class_name => 'BlogComment'
   has_many :blog_posts, :class_name => 'BlogPost'

@@ -1,7 +1,20 @@
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
       </script>
-      
+<style type="text/css">
+	.fc-widget-content {
+		cursor: pointer;
+	}
+	
+	
+	.fc-widget-content:hover {
+		background-color: #f5f8f9;
+	}
+	
+	.fc-widget-content:active {
+		background-color: #fbec88;
+	}
+</style>        
       
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_events.title')} do%>
 	<%=link_to 'Crea un nuovo evento', new_event_group_path(@group),:remote => true, :class=>"newButton" %>

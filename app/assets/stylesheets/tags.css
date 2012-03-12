@@ -1,0 +1,21 @@
+.user_tag {
+	width: 128px;
+	height: 48px;
+	padding: 4px;
+	
+	background-color: #F4F4F4;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);
+    border: 1px solid #DDDDDD;
+    border-radius: 2px 2px 2px 2px;
+    margin-bottom: 10px;
+}
+
+.user_tag img {
+	width: 48px;
+	height: 48px;
+	float:left;
+}
+
+.user_tag .content {
+	
+}

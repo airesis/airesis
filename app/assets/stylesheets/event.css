@@ -2,24 +2,13 @@
 	color: #333333;
 }
 
-.fc-widget-content {
+.event_description {
+	/*float: left;*/
+}
+
+.fc-event {
 	cursor: pointer;
 }
-
-
-.fc-widget-content:hover {
-	background-color: #f5f8f9;
-}
-
-.fc-widget-content:active {
-	background-color: #fbec88;
-}
-
-.event_description {
-	float: left;
-}
-
-
 
 .event_calendar {
 	background: url("/assets/calendar.png") no-repeat;

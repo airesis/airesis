@@ -9,9 +9,11 @@ $(function() {
 		var beingShown = false;
 		var shown = false;
 		var trigger = $('.trigger', this);
+		var clicktrigger = $('.clicktrigger', this);
+		var hovertrigger = $('.hovertrigger', this);
 		var info = $('.popup', this).css('opacity', 0);
-
-		$([trigger.get(0), info.get(0)]).focusin(function() {
+		
+		function show() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			if(beingShown || shown) {
@@ -35,7 +37,9 @@ $(function() {
 			}
 
 			return false;
-		}).focusout(function() {
+		}
+		
+		function hide() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			hideDelayTimer = setTimeout(function() {
@@ -49,7 +53,18 @@ $(function() {
 				});
 			}, hideDelay);
 			return false;
-		});
+		}
+		
+		function showandhide(time) {
+			if (!time) time = 3000;
+			if (!shown) {
+				show();
+				setTimeout(hide,3000);
+			}
+		}
+
+		$([trigger.get(0), info.get(0)]).focusin(show).focusout(hide);
+		$([clicktrigger.get(0), info.get(0)]).click(showandhide);
 	});
 	
 });

@@ -1,6 +1,11 @@
+<%if @group%>
+<h4>Prossimi eventi del gruppo</h4>
+<%@events = @group.events.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
+<%else%>
 <h4>Prossimi eventi</h4>
-<%@events = Event.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)
-	@events.each do |event|%>
+<%@events = Event.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
+<%end%>
+<%	@events.each do |event|%>
 	<a	 href="/events/<%=event.id%>">
 	<div  class="eventcontainer" data-id = "<%=event.id%>">
 		<%=event.starttime.strftime("%d/%m/%Y %H:%M")%>
@@ -12,7 +17,12 @@
 		<p> <%=event.title%></p>
 	</div>
 <%end%>
+<%if @events.empty?%>
+Nessun evento in programma
 
+<%end%>
+<br />
+<br />
 <script>
 	var keepitplz = false;
 	$(function(){

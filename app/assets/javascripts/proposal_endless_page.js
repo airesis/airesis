@@ -8,6 +8,7 @@ function resetCounter () {
 }
 
 function checkScroll() {
+console.log('check scroll');
   if (nearBottomOfPage()) {
     currentPage++;
     url = window.location
@@ -25,16 +26,26 @@ function checkScroll() {
 }
 
 function nearBottomOfPage() {
-  return scrollDistanceFromBottom() < 150;
-}
-
-function scrollDistanceFromBottom(argument) {
-  return pageHeight() - (window.pageYOffset + self.innerHeight);
+	distance = scrollDistanceFromBottom()
+	//console.log('distance: ' + distance)
+  return distance < 150;
 }
 
 function pageHeight() {
-  return Math.max(document.body.scrollHeight, document.body.offsetHeight);
+	//console.log('document.body.scrollHeight: ' + document.body.scrollHeight)
+	//console.log('document.body.offsetHeight: ' +document.body.offsetHeight)
+	pageH = Math.max(document.body.scrollHeight, document.body.offsetHeight)
+	//console.log('pageHeight: ' + pageHeight)
+  return pageH;
 }
+
+function scrollDistanceFromBottom(argument) {
+	//console.log('window.pageYOffset: ' + window.pageYOffset)
+	//console.log('self.innerHeight: ' + self.innerHeight)
+  return pageHeight() - (window.pageYOffset + self.innerHeight);
+}
+
+
 
 $(function() {
   checkScroll();

@@ -19,3 +19,4 @@
 //= require events
 //= require timepicker
 //= require coda
+//= require charCount

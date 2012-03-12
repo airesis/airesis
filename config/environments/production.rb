@@ -131,10 +131,3 @@ Devise.setup do |config|
   config.omniauth :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57",                   
                       {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 end
-
-
-Rails.application.config.middleware.use OmniAuth::Builder do  
-  require "omniauth-facebook"
-  provider :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57",                   
-                      {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-end

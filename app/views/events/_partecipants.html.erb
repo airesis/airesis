@@ -1,0 +1,49 @@
+<%@event.meeting.yes_partecipations.each do |partecipation|%>
+<div class="bubbleInfo">
+<div class="clicktrigger user_tag shadow-box">
+	<%= partecipation.user_image_tag 48%>
+	<div class="content">
+		<%= raw partecipation.user.full_link_to_page%>
+	</div>
+</div>
+<div class='popup' style='top: -90px;  width: 300px;'>
+	<table id='dpop' class='popup'>
+		<tbody>
+			<tr>
+				<td id="topleft" class="corner"></td>
+				<td class="top"></td>
+				<td id="topright" class="corner"></td>
+			</tr>
+			<tr>
+				<td class="left"></td>
+				<td>
+				<table class="popup-contents">
+					<tbody>
+						<tr>
+							<th><b>Commento</b></th>
+						</tr>
+						<tr>
+							<td><%=partecipation.comment%> </td>
+						</tr>
+					</tbody>
+				</table></td>
+				<td class="right"></td>
+			</tr>
+			<tr>
+				<td class="corner" id="bottomleft"></td>
+				<td class="bottom"> <%= image_tag "bubble-tail2.png"%> </td>
+				<td id="bottomright" class="corner"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+<%end%>
+
+<%if @event.meeting.yes_partecipations.empty?%> 
+<%if @event.is_past?%>
+<h4>Non ha partecipato nessuno</h4>
+<%else%>
+<h4>Ancora nessun partecipante</h4>
+<%end%>
+<%end%>
