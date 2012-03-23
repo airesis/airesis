@@ -8,7 +8,7 @@ function resetCounter () {
 }
 
 function checkScroll() {
-console.log('check scroll');
+//console.log('check scroll');
   if (nearBottomOfPage()) {
     currentPage++;
     url = window.location
