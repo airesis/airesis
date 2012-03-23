@@ -28,13 +28,13 @@ $(function() {
 		$('.voteup').bind('ajax:beforeSend',function(n,xhr) {
 			id = $(this).attr('id');
 			num = id.replace('voteup','');
-			hideRankPanel('rankingpanelcontainer'+num);
+			hideRankPanel2($('.handscontainer'));
 		});
 		
 		$('.votedown').bind('ajax:beforeSend',function(n,xhr) {
 			id = $(this).attr('id');
 			num = id.replace('votedown','');
-			hideRankPanel('rankingpanelcontainer'+num);
+			hideRankPanel2($('.handscontainer'));
 		});
 	});
 </script>
@@ -67,6 +67,68 @@ $(function() {
 	}
 </script>
 
+
 <%content_for :left_panel do%>
-<%= link_to 'Indietro', proposals_path %>
+
+
+<div id="rankleftpanel" class="rankleftpanel">
+	<%= render :partial => 'proposals/rank_left_panel' %>	
+</div>
+
+	
+<div style="float:left;">	
+<g:plusone size="small"></g:plusone>
+</div>
+<div style="float:left;">
+<%=raw facebook_like %>
+</div>
+<div style="clear: both;"></div>
+<h4>Autori della proposta</h4>
+ <div class="blogUserImage">
+ 		<%@proposal.users.each do |user| %>
+       <div class="pcontainer">
+	        <div class="MoImg24">
+	            <%= user.user_image_tag(24) %>
+	        </div>
+	        <div class="Mo">
+	            <%=raw(user.full_link_to_page) %> (<%=user.rank%>)
+	        </div>
+	        <div style="clear: both;"></div>
+	    </div>
+        <%end%>
+    </div>
+    <div style="clear: both;"></div>
+    <br />
+<h4>Gruppi in sostegno</h4>
+	<%@proposal.groups.each do |group| %>
+		<div class="pcontainer">
+	        <div class="MoImg24">
+	            <%= group.group_image_tag 24%>
+	        </div>
+	        <div class="Mo">
+	            <%=link_to group.name[0..20], group_path(group) %>
+	        </div>
+	        <div style="clear: both;"></div>
+	    </div>
+        
+        <%end%>
+        <%="Nessun gruppo sostiene la proposta" if @proposal.groups.empty?%>
+        <%if signed_in?%>
+        	<%if !current_user.groups.empty? %>
+        	<%=link_to 'Sostieni la proposta', new_proposal_proposal_support_path(@proposal),:remote => true, :class => 'buttonStyle littleText' %>
+        	<%end%>
+        <%end%>
+<h4>Statistiche</h4>
+<%if signed_in?%>
+<%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'buttonStyle littleText'  %>
+<%else%>
+Esegui il login per visualizzare le statistiche
+<%end%>
+
+<h4>Documenti collegati</h4>
+Nessun documento allegato alla proposta
+<%end%>
+
+<%=content_for :right_panel do%>
+	<h4>Proposte attinenti</h4>
 <%end%>
