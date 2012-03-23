@@ -1,0 +1,2 @@
+<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id}, :remote => true,  :id => "vote"+action, :class=>"vote"+action %>
+<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loading'+action %>

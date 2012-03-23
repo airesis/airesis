@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	function hideRankPanel2(panel) {
+		$('.voteup',panel).hide();
+		$('.votedown',panel).hide();		
+		$('.loadingup',panel).show();
+		$('.loadingdown').show();						
+	}	
+</script>
+<p class="points">
+    <span class="littleText">Score</span> <span class="rightAlign"><%=@proposal.valutations %></span>
+</p>
+<p class="ranking">
+    <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
+</p>
+		
+<%if current_user %>
+	<%if @my_vote%>
+			<% if @my_vote == 1 %>
+				<div class="votedup"></div>
+			 <%elsif @can_vote_again == 1%>
+			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
+			<%end%>
+			<% if @my_vote == 3 %>
+				<div class="voteddown"></div>
+			<% elsif @can_vote_again == 1%>
+				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
+			<%end%>		
+	<%elsif @can_vote_again == 1%>
+		<div class="handscontainer">	
+			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
+			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
+		</div>
+		<div style="clear: both;"></div>
+	<%end %>
+<%end %>
