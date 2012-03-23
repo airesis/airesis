@@ -8,16 +8,28 @@
 #You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
 
 class HomeController < ApplicationController
-  layout nil
- 
+  layout :choose_layout
+  
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :only => [:show]
+  
   def index
     if (current_user)
       redirect_to proposals_path
     end
   end
-  
-  def show        
-   
+    
+  def show
+    @user = current_user
   end
    
+  private
+
+  def choose_layout    
+    if [ 'show'].include? action_name
+      'settings'
+    else
+      nil
+    end
+  end 
 end
