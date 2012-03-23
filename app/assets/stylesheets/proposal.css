@@ -10,6 +10,7 @@
 	text-align: center;
 	color: #3366CC;
 	font-weight: bold;
+	cursor: pointer;
 }
 #loading_proposals:hover {
 	background-color: #F4F4F4;
@@ -17,11 +18,18 @@
 }
 
 
+.proposalMainContainer {
+/*	padding: 20px 0 0;
+	border-top: 1px solid #ccc;*/
+	clear: both;
+	
+}
+
 .proposalComment {
 	padding: 20px 0 0;
-/*	border-top: 1px solid #ccc;*/
 	clear: both;
 }
+
 
 .proposalCommentPostedAt {
 	margin-bottom:16px;
@@ -40,6 +48,52 @@
 	resize: none;
 	background: none;
 }
+
+
+.proposal_title_index {
+	overflow: hidden;
+	border-bottom: 1px solid #D8D2C3;
+}
+
+.proposal_main {
+	position: relative;
+	border: 1px solid #CCCCCC;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
+}
+.proposal_comment {
+	position: relative;
+	border: 1px solid #CCCCCC;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	box-shadow: 0 1px 5px #CCCCCC;
+	margin-left: 48px;
+}
+.proposal_list {
+	position: relative;
+	border: 1px solid #CCCCCC;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/*box-shadow: 0 1px 5px #CCCCCC;*/
+	background: repeat scroll 0 0 #FFF;
+	background: -webkit-gradient(linear, center top, center bottom, color-stop(30%, #FFFFFF), color-stop(70%, #DFEFFC));
+	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+.proposalTitle {
+	border-bottom: 1px solid #D8D2C3;
+	/*border-top: 1px solid #D8D2C3;*/
+	margin-bottom: 8px;
+	margin-top: 0px;
+	padding: 2px
+}
+
+
 
 .new_blog_comment {
 	
@@ -102,4 +156,57 @@ ul.blogList li.blogListFirst {
 
 .blogKitCode pre {
 	overflow-x: auto;
+}
+
+
+
+
+/*pannello history*/
+#proposal_histories .history {
+	float: left;
+}
+#proposal_histories .diffview {
+	float: left;
+	width: 400px;
+}
+
+.proposalMainContainer .baloon-content {
+	 margin: 0 5px;
+    width: 500px;
+    word-wrap: break-word;
+}
+
+.rankleftpanel {
+	/*border: 1px solid #CCC;
+	#border-radius: 2px;*/
+	margin: auto;
+}
+
+.rankleftpanel .littleText {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.rankleftpanel .rightAlign {
+	color: #F17C22;
+	font-size: 21px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.rankleftpanel .voteup {
+	float:  left;
+	margin-right: 10px;
+}
+
+.rankleftpanel .votedown {
+	float:  left;
+}
+
+.rankleftpanel .handscontainer {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	height: 30px;
 }

@@ -1,7 +1,4 @@
-.proposal_title_index {
-	overflow: hidden;
-	border-bottom: 1px solid #D8D2C3;
-}
+
 
 textarea {
 	/*resize:none;*/
@@ -11,40 +8,7 @@ textarea {
 h3 {
 	margin: 0;
 }
-.proposal_main {
-	position: relative;
-	border: 1px solid #CCCCCC;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	box-shadow: 0 1px 5px #CCCCCC;
-}
-.proposal_comment {
-	position: relative;
-	border: 1px solid #CCCCCC;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	box-shadow: 0 1px 5px #CCCCCC;
-	margin-left: 75px;
-}
-.proposal_list {
-	position: relative;
-	border: 1px solid #CCCCCC;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	box-shadow: 0 1px 5px #CCCCCC;
-	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
-	margin-left: 0px;
-}
-.proposalTitle {
-	border-bottom: 1px solid #D8D2C3;
-	border-top: 1px solid #D8D2C3;
-	margin-bottom: 8px;
-	margin-top: 12px;
-	padding: 2px
-}
+
 
 .confirmRequest .ui-button-text {
 	font-size: 10px;
@@ -502,6 +466,7 @@ a.spch-bub-inside:hover .point {
 }
 .pcontainer {
 	clear: both;
+	margin-bottom: 5px;
 }
 .eventcontainer {
 	margin-bottom: 5px;

@@ -1,0 +1,62 @@
+<div title="History della proposta" id="proposal_histories" style="display: none;">
+	<div class="history">
+		<table>
+			<thead>
+				<th>Versione</th>
+				<th>Vecchio</th>
+				<th>Nuovo</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Versione attuale</td>
+					<td><input type="radio" name="old" checked="checked" value="0"/></td>
+					<td><input type="radio" name="new" checked="checked" value="0"/></td>
+					<td><div style="display: none;"><%= @proposal.content%></div></td>
+				</tr>
+					<%@proposal.proposal_histories.each do |h|%>
+					<tr>
+						<td>
+						<%=h.created_at%>
+						</td>
+						<td><input type="radio" name="old" value="<%=h.id%>"/></td>
+						<td><input type="radio" name="new" value="<%=h.id%>"/></td>
+						<td><div style="display: none;"><%= h.content%></div></td>
+					</tr>
+					<%end%>
+				<td></td>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="diffview"></div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("input:radio").change(executeDiff);
+		executeDiff();
+	});
+	
+	function executeDiff() {
+			oldel = $("input[name='old']:checked");
+			newel = $("input[name='new']:checked");
+			oldval = oldel.val();
+			newval = newel.val();
+			oldname = oldel.parent().prev().html();
+			newname = newel.parent().prev().prev().html();
+			oldtext = oldel.parent().next().next().children().first().html();
+			newtext = newel.parent().next().children().first().html();
+			console.log('old' + oldval);
+			console.log('new' + newval);
+			
+			out = diffview({
+				baseTextLines: oldtext,
+				newTextLines: newtext,
+				baseTextName: oldname,
+				newTextName: newname
+			});
+			console.log(out[0]);
+			$('#proposal_histories .diffview').html(out[0]);
+	}
+	
+</script>
