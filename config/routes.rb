@@ -38,6 +38,10 @@ DemocracyOnline3::Application.routes.draw do
         get :rankdown        
       end
     end
+    
+    resources :proposal_histories
+    resources :proposal_supports
+    
     member do
       get  :rankup
       get :rankdown
@@ -122,6 +126,7 @@ resources :comunes
     
   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
   
+  match 'home', :to => 'home#show'
   
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?

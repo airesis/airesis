@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311162819) do
+ActiveRecord::Schema.define(:version => 20120313192309) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -312,6 +312,17 @@ ActiveRecord::Schema.define(:version => 20120311162819) do
     t.string   "content",                    :limit => 2000
   end
 
+  create_table "proposal_histories", :force => true do |t|
+    t.integer  "proposal_id",                  :null => false
+    t.integer  "user_id",                      :null => false
+    t.string   "content",     :limit => 20000, :null => false
+    t.string   "problem",     :limit => 20000
+    t.integer  "valutations",                  :null => false
+    t.integer  "rank",                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "proposal_presentations", :force => true do |t|
     t.integer  "proposal_id", :null => false
     t.integer  "user_id",     :null => false
@@ -370,6 +381,7 @@ ActiveRecord::Schema.define(:version => 20120311162819) do
     t.integer  "vote_period_id"
     t.integer  "proposal_comments_count",                  :default => 0
     t.integer  "rank"
+    t.string   "problem",                 :limit => 20000
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -516,6 +528,7 @@ ActiveRecord::Schema.define(:version => 20120311162819) do
     t.string   "account_type"
     t.datetime "remember_created_at"
     t.datetime "confirmation_sent_at"
+    t.boolean  "banned",                                    :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
