@@ -64,7 +64,7 @@ $(function() {
 		}
 
 		$([trigger.get(0), info.get(0)]).focusin(show).focusout(hide);
-		$([clicktrigger.get(0), info.get(0)]).click(showandhide);
+		//$([clicktrigger.get(0), info.get(0)]).click(showandhide);
 	});
 	
 });
