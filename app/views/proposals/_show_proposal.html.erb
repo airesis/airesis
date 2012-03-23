@@ -1,40 +1,40 @@
+<%= javascript_include_tag "prettydiff/diffview" %>
+<%= stylesheet_link_tag "prettydiff/diffview" %>
+
 <script>
 	//style="background-color: rgb(185, 255, 116);"
-	function hideRankPanel(rank_p) {
-		query = '#' + rank_p + ' > .voteup'
-		$(query).hide();
+		function hideRankPanel(rank_p) {
+			query = '#' + rank_p + ' > .voteup'
+			$(query).hide();
+			
+			query = '#' + rank_p + ' > .votedown'
+			$(query).hide();
+			
+			query = '#' + rank_p + ' > .loadingup'
+			$(query).show();
 		
-		query = '#' + rank_p + ' > .votedown'
-		$(query).hide();
+			query = '#' + rank_p + ' > .loadingdown'
+			$(query).show();
+							
+			query = '#' + rank_p + ' > .voteup-mini'
+			$(query).hide();
+			
+			query = '#' + rank_p + ' > .votedown-mini'
+			$(query).hide();
+			
+			query = '#' + rank_p + ' > .loadingup-mini'
+			$(query).show();
 		
-		query = '#' + rank_p + ' > .loadingup'
-		$(query).show();
-	
-		query = '#' + rank_p + ' > .loadingdown'
-		$(query).show();
-						
-		query = '#' + rank_p + ' > .voteup-mini'
-		$(query).hide();
-		
-		query = '#' + rank_p + ' > .votedown-mini'
-		$(query).hide();
-		
-		query = '#' + rank_p + ' > .loadingup-mini'
-		$(query).show();
-	
-		query = '#' + rank_p + ' > .loadingdown-mini'
-		$(query).show();
-	}	
-	
+			query = '#' + rank_p + ' > .loadingdown-mini'
+			$(query).show();
+		}	
 	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
 	
 	
 </script>	
 
-    <div class="blogUserImage">
-        <%= proposal.user_image_tag %>
-    </div>
 <h1 class="proposalTitle"><%=h proposal.title %></h1>
+
 <div class="blogCommentPostedAt">
     Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
     da <span class="blogPoster"><%=raw proposal.user.link_to_page %></span>
@@ -44,12 +44,11 @@
 	<br/>	
 	Categoria: <%= link_to proposal.category.description, proposals_path(:category => proposal.category.id)%>
 	- Stato: <%= link_to proposal.state.description%>
-	- <%=raw facebook_like %>
 
 
 </div>
-<div id="proposal<%= proposal.id %>" class="blogComment">
-    <div class="proposal_main">
+<div id="proposal<%= proposal.id %>" class="proposalMainContainer">
+    <div class="proposal_main shadow-box">
         <table>
             <body>
                 <tr>
@@ -58,22 +57,10 @@
                             <div class="baloon_header">
                             </div>
                             <div class="baloon-content">
-                                <%=h proposal.content %>
+                                <%=simple_format(proposal.content) %>
                             </div>
                             <div class="baloon-footer">
-								<%if ((is_proprietary? proposal) || is_admin? ) #se sono autorizzato a modificare la proposta%>
-									<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
-                                		<%= link_to 'Modifica', edit_proposal_path(proposal)  %>
-									<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
-										<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"}, :remote => true do |f| %> 
-										   <p>
-										    <b>Scegli un periodo per la votazione</b><br />
-												<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
-											   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!' %>
-										  </p> 
-										<%end%>
-									<%end%>
-								<%end%>
+								
 								<%if (proposal.proposal_state_id == 3) #in attesa di essere votata%>
 									<p>
 								    <b>Questa proposta verrà votata il </b>
@@ -87,16 +74,32 @@
 									
 										
 								<%end%>
+								
                             </div>
                         </div>
                     </td>
-                    <td>
-                        <div id="rankingpanelcontainer" class="rankingpanelcontainer">
-                            <%= render :partial => 'proposals/ranking_panel' %>
-                        </div>
-                    </td>
+                   
                 </tr>
             </body>
         </table>
     </div>
 </div>
+
+<div id="proposal_histories_container">
+</div>
+<%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
+<div style="float:right;">
+	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
+		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'buttonStyle littleText'  %>
+	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
+		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"}, :remote => true do |f| %> 
+		   <p>
+		    <b>Scegli un periodo per la votazione</b><br />
+				<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
+			   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle littleText' %>
+		  </p> 
+		<%end%>
+	<%end%>
+</div>
+<div style="clear: both;"></div>
+<%end%>

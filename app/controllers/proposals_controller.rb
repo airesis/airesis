@@ -141,6 +141,7 @@ class ProposalsController < ApplicationController
         end
       
         update_borders(borders)
+        @proposal.update_user_id = current_user.id
         @proposal.update_attributes(params[:proposal])
         notify_proposal_has_been_updated(@proposal)
       end
@@ -294,7 +295,7 @@ class ProposalsController < ApplicationController
           flash[:notice] = t(:proposal_rank_registered)
           format.js { render :update do |page|                    
               page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-              page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}                     
+              page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'                     
             end                     
           }
           format.html 

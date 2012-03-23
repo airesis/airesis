@@ -183,6 +183,7 @@
 				
 			</div>
 			<div id="rightpanel">
+				<%= yield :right_panel%>
 				<%= render :partial => 'events/next_events_panel' %>
 				<g:plusone href="http://www.airesis.it"></g:plusone>
 				
@@ -193,7 +194,7 @@
 				<%else%>
 				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
 				<%end%>
-				<%= yield :right_panel%>
+			
 			</div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 			<!--<div id="bottompanel">

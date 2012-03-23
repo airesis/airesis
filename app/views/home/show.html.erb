@@ -1,0 +1,93 @@
+<!--Scrivania dell'utente -->
+<%= javascript_include_tag 'simplemodal' %>
+<script>
+    function doModal(el){
+        el.modal({
+            opacity: 60,
+            overlayCss: {
+                backgroundColor: "#dddddd"
+            },
+            minWidth: '400px',
+            minHeight: '200px',
+            transient: 'true',
+            persist: 'true',
+            
+             onShow: function(dialog){
+                 dialog.data.prepend('<div id="error_updating"></div>');
+            },           
+             onClose: function(dialog){
+                 $('#error_updating').remove();
+                 $.modal.close();
+             }
+        });
+    }
+</script>
+
+<div class="tutorial_panel shadow-box">
+	Benvenuto su Airesis <%=current_user.name%>.<br />
+	Questo tutorial ti aiuterà nelle prime scelte all'interno del sistema.<br />
+	Delimitare subito i tuoi confini geografici di interesse e trovare i gruppi nel tuo territorio è
+	il modo per iniziare subito a partecipare.<br />
+</div>
+<br />
+
+<div class="tutorial_panel shadow-box">
+	Scegli un'immagine per il tuo profilo.
+</div>
+
+<br />
+<br />
+<%=content_for :left_panel do%>
+
+	<div class="image_container">
+            <%= @user.user_image_tag 120 %>
+            <div class="caption">
+                <a style="color:white">Modifica l'immagine</a>
+            </div>
+        </div>
+        
+        
+        
+        <div id="img_modal" class="edit_modal">
+    <form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
+        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
+        <div style="padding-left:150px">
+            <input name="user[blog_image_url]" value="<%=@user.blog_image_url%>"/>
+            <br/>
+        </div>
+		oppure
+        <div style="float:left">
+            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
+            <div style="padding-left:150px">
+                <input type="file" name="image" />
+                <br/>
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
+                <div style="margin-top:8px">
+                    <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    
+    $(function(){
+        $.modal.close();
+        
+        $('.image_container img, .caption').mouseover(function(){
+            $('.caption').show();
+        });
+        
+        $('.image_container img').mouseout(function(){
+            $('.caption').hide();
+        });
+        
+        $('.image_container div a').click(function(){
+            doModal($("#img_modal"));
+        });
+    });
+</script>
+
+<%end%>

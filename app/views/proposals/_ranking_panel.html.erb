@@ -5,30 +5,19 @@
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
 			 <%elsif @can_vote_again == 1%>
-				 <%= link_to '', {:action => "rankup", :controller => "proposals", :id => @proposal.id}, :remote => true,
-								  :id => "voteup", :class=>"voteup" %>
-				 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
+			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
 			<%end%>
 				<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>
 			<% if @my_vote == 3 %>
 				<div class="voteddown"/>
 			<% elsif @can_vote_again == 1%>
-				<%= link_to '', {:action => "rankdown", :controller => "proposals", :id => @proposal.id}, :remote => true,
-								:id => "votedown",:class=>"votedown" %>
-				<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>					
+				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
 			<%end%>		
 	<%else%>
-	<% if @can_vote_again == 1%>
-		<%= link_to '', {:action => "rankup", :controller => "proposals", :id => @proposal.id}, :remote => true,
-								  :id => "voteup", :class=>"voteup" %>
-		<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
-	<%end%>
-		<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>
-	<% if @can_vote_again == 1%>	
-		<%= link_to '', {:action => "rankdown", :controller => "proposals", :id => @proposal.id}, :remote => true,
-								:id => "votedown",:class=>"votedown" %>
-		<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>
-	<%end%>
+		
+			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} if @can_vote_again == 1%>	
+			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>	
+			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} if @can_vote_again == 1%>
 	<%end %>
 <%else%>
 	<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>

@@ -97,10 +97,10 @@ class User < ActiveRecord::Base
   
   
   def image_url
-    if (self.image_id)
-      return self.image.image.url
-    elsif (self.blog_image_url != nil)
+    if (self.blog_image_url != nil)
       return self.blog_image_url
+    elsif (self.image_id)
+      return self.image.image.url
     else
       return ""      
     end
