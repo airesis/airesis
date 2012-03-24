@@ -71,6 +71,8 @@ GEM
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.4)
       tzinfo
+    foreigner (1.1.5)
+      activerecord (>= 3.0.0)
     hashie (1.2.0)
     hike (1.2.1)
     httpclient (2.2.4)
@@ -213,6 +215,7 @@ DEPENDENCIES
   devise
   exception_notification
   fb_graph
+  foreigner
   jquery-rails
   jquery-rjs!
   oa-oauth (>= 0.3.2)

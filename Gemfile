@@ -62,6 +62,8 @@ gem 'resque_mailer'
 
 gem 'cancan'
 
+gem 'foreigner'
+
 #gem 'ar_fixtures'
 
 #gem 'sitemap_generator'
