@@ -32,6 +32,9 @@ class Group < ActiveRecord::Base
   has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'group_id', :dependent => :destroy
   
   has_many :events,:through => :meetings_organizations, :class_name => 'Event', :source => :event
+  
+  has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
+  has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'
   belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
   
   attr_reader :partecipant_tokens

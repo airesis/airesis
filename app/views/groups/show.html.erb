@@ -8,22 +8,29 @@
 	<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (is_admin? || (current_user == @group.portavoce)) %>
 <%end%>
 <p>
-    <%=h @group.description %>
+    <h2><%=h @group.description %></h2>
 </p>
 
 
 <%posts = @group.posts.published(:order => 'published_at DESC') %>
 <% if posts.size == 0 %>
 <div class="blogPost">
-    <h1>Nessun Post</h1>
+    
     <p>
-        Non vi sono ancora Post in questo Gruppo, torna presto.
+    <b>    Non vi sono ancora Post in questo Gruppo, torna presto.</b>
     </p>
 </div>
 <% else %>
 <%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
 <% end %>
-
 <%= render :partial => 'left_panel' %>
 
+
+<%=content_for :right_panel do%>
+	<h4>Proposte sostenute dal gruppo</h4>
+	<%@group.proposals.each do |proposal|%>
+			<%=link_to proposal.title, proposal_path(proposal)%>
+	<%end%>
+	<%= "Al momento non ci sono proposte" if @group.proposals.empty?%>
+<%end%>
 

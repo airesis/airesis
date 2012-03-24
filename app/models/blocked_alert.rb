@@ -1,3 +1,4 @@
+#encoding: utf-8
 class BlockedAlert < ActiveRecord::Base
   
   validates_uniqueness_of  :user_id, :scope => :notification_type_id, :message => 'Notifica gia bloccata'

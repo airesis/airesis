@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'BlogPost'
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
+  
   has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
+  
   has_many :partecipation_roles,:through => :group_partecipations, :class_name => 'PartecipationRole'  
   has_many :group_follows, :class_name => 'GroupFollow'
   has_many :followed_groups,:through => :group_follows, :class_name => 'Group'
@@ -82,6 +84,16 @@ class User < ActiveRecord::Base
       self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
     end
 
+
+ #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
+ #all'interno dei quali possiede un determinato permesso
+ def scoped_group_partecipations(abilitation)
+   return self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
+                                   " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
+                                   " and action_abilitations.group_id = group_partecipations.group_id")
+                                   .find(:all, 
+                                         :conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+ end
 
  def self.new_with_session(params, session)
     super.tap do |user|

@@ -6,6 +6,7 @@ class ProposalSupportsController < ApplicationController
   before_filter :load_proposal
   
 ###SICUREZZA###
+  authorize_resource :only => [:new]
   
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
@@ -23,9 +24,21 @@ class ProposalSupportsController < ApplicationController
     end
   end
    
-  def create    
-    puts "create"
-    @proposal.group_ids = params[:proposal][:group_ids]
+  def create
+    #devo avere i permessi su ciascun gruppo al quale voglio far supportare la proposta
+    #i gruppi ai quali l'utente vuol far supportare la proposta
+    groups = params[:proposal][:group_ids].collect{|i| i.to_i}
+    #i gruppi per i quali possiede i permessi
+    user_groups = current_user.scoped_group_partecipations(GroupAction::PROPOSAL).collect{|p| p.group_id}
+    #tutti i gruppi nella richiesta devono essere tra quelli dell'utente
+    diff = groups - user_groups      
+    if !diff.empty? #la differenza deve essere un insieme vuoto, altrimenti lancio l'eccezione
+      raise ActiveRecord::ActiveRecordError.new 
+    end
+    
+    
+    @proposal.group_ids += groups
+    
     @proposal.save
     flash[:notice] = "Sostegno alla proposta salvato correttamente"
     respond_to do |format|     

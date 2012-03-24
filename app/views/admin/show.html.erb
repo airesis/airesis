@@ -17,4 +17,15 @@
 	<p>
 		Encoding.default_internal: <%=Encoding.default_internal.name%>
 	</p>
+	
+	
+	<p>
+		<%current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |group_partecipation|
+		 group = group_partecipation.group
+		 role = group_partecipation.partecipation_role		 
+		%>
+		
+		<%=group.name%> - <%=role.name%><br/>
+		<%end%>	
+	</p>
 <%end %>

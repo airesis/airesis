@@ -7,10 +7,10 @@
     <div class="autoMargin">
     	<a href="#" onclick="openRulesModal();" class="buttonStyle littleText">Regolamento</a>
     	<div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify" >
-    		<div style="line-height:1;">Le regole sono selezionabili alla creazione di un gruppo. 
-		    	Al momento tutti gli utenti possono creare un gruppo.
-		    	Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati in questa pagina.
-		    	I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i partecipanti secondo ruoli e permessi.
+    		<div>Le regole sono selezionabili alla creazione di un gruppo. <br/>
+		    	<p>Al momento tutti gli utenti possono creare un gruppo.</p>
+		    	<p>Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati in questa pagina.</p>
+		    	<p>I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i partecipanti secondo ruoli e permessi.</p>
 		    	<ul>
 		    		<li>Partecipazione:</li>
 		    			<%if @group.request_by_vote?%>
@@ -73,7 +73,7 @@ if requests.size > 0 %>
 	follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
    end
    if (!follow)%>
-		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow' %>
+		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class=>"buttonStyle littleText" %>
 		<br/>(notifiche non ancora attive, spiacente)
  <%end%>
 

@@ -20,3 +20,4 @@
 //= require timepicker
 //= require coda
 //= require charCount
+//= require jquery.progressbar
