@@ -74,7 +74,7 @@
 }
 .proposal_list {
 	position: relative;
-	border: 1px solid #CCCCCC;
+	border: 1px solid #808080;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -84,7 +84,36 @@
 	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
 	margin-left: 0px;
 	margin-bottom: 10px;
+	padding: 6px;
 }
+
+.proposal_list .maintitle {
+	line-height: 1.2em;	
+	font-size: large;
+	font-weight: bold;
+}
+
+.proposal_list .datetime {
+	margin: 5px 0px;
+}
+
+.proposal_list .proposal_content {
+}
+
+.proposal_list .authors {
+}
+
+.proposal_list .authors .title{
+	font-weight: bold;
+	margin-right:5px;
+	float:left;
+	color: #808080;
+}
+
+.proposal_list .rankcontainer{	
+	float:left;
+}
+
 .proposalTitle {
 	border-bottom: 1px solid #D8D2C3;
 	/*border-top: 1px solid #D8D2C3;*/

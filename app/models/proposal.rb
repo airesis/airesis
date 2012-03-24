@@ -81,4 +81,5 @@ class Proposal < ActiveRecord::Base
   def partecipants
     return User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
   end
+  
 end

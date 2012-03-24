@@ -76,13 +76,13 @@ $(function() {
 </div>
 
 	
-<div style="float:left;">	
+<div style="height:20px;">	
 <g:plusone size="small"></g:plusone>
 </div>
-<div style="float:left;">
+<div style="height:20px;width:100px;">
 <%=raw facebook_like %>
 </div>
-<div style="clear: both;"></div>
+
 <h4>Autori della proposta</h4>
  <div class="blogUserImage">
  		<%@proposal.users.each do |user| %>
@@ -131,4 +131,5 @@ Nessun documento allegato alla proposta
 
 <%=content_for :right_panel do%>
 	<h4>Proposte attinenti</h4>
+	Pannello ancora non disponibile
 <%end%>

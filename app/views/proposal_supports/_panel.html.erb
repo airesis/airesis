@@ -1,10 +1,10 @@
 <div title="Conferma sostegno alla proposta" id="proposal_support" style="display: none;">
 	<%=form_for [@proposal,@proposal_support], :remote => true do |f|%>
-		<% current_user.groups.each do |group|%>
-			<%= check_box_tag "proposal[group_ids][]", group.id %>
-			<%= f.label group.name%><br />
+		<% current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |partecipation|%>
+			<%= check_box_tag "proposal[group_ids][]", partecipation.group.id %>
+			<%= f.label partecipation.group.name%><br />
 			
-			<%=f.submit 'Conferma', :class => 'buttonStyle'%>
 		<%end%> 
+		<%=f.submit 'Conferma', :class => 'buttonStyle'%>
 	<%end%>
 </div>

@@ -1,0 +1,16 @@
+<script type="text/javascript">
+	$(function() {
+	$("#pb<%=proposal.id%>").progressBar({
+		barImage		: 
+			<%if proposal.rank <= PROP_RANKING_TO_DEGRADE %>
+			'<%=asset_path "progressbg_red.gif"%>'
+			<%elsif proposal.rank >= PROP_RANKING_TO_PROMOTE %>
+			'<%=asset_path "progressbg_green.gif"%>'
+			<%else%>
+			'<%=asset_path "progressbg_orange.gif"%>'
+			<%end%>
+			,
+	});
+	});
+</script>
+<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		

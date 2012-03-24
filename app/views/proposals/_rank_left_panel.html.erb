@@ -5,6 +5,28 @@
 		$('.loadingup',panel).show();
 		$('.loadingdown').show();						
 	}	
+	$(function() {
+	$(".progressBar").progressBar({
+		steps			: 200,
+		stepDuration	: 20,
+		max				: <%=PROP_VOTES_TO_PROMOTE%>*10,
+		showText		: false,
+		textFormat		: 'percentage',
+		width			: 120,
+		height			: 12,
+		callback		: null,
+		boxImage		: '<%=asset_path "progressbar.gif"%>',
+		barImage		: 
+			<%if @proposal.rank <= PROP_RANKING_TO_DEGRADE %>
+			'<%=asset_path "progressbg_red.gif"%>'
+			<%elsif @proposal.rank >= PROP_RANKING_TO_PROMOTE %>
+			'<%=asset_path "progressbg_green.gif"%>'
+			<%else%>
+			'<%=asset_path "progressbg_orange.gif"%>'
+			<%end%>
+			,
+	});
+	});
 </script>
 <p class="points">
     <span class="littleText">Score</span> <span class="rightAlign"><%=@proposal.valutations %></span>
@@ -12,7 +34,8 @@
 <p class="ranking">
     <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
 </p>
-		
+
+<span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[@proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
 <%if current_user %>
 	<%if @my_vote%>
 			<% if @my_vote == 1 %>

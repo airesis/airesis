@@ -1,23 +1,7 @@
 <%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
 <% proposals.each do |proposal|    user = proposal.user%>
-<div id="proposal<%= proposal.id %>" class="proposalComment">
-    <div class="proposal_list shadow-box">
-        <table style="padding:5px">
-            <body>
-                <tr>    	
-                    <td>
-                        <div class="blogUserImage">
-                            <%= user.user_image_tag 50 %>
-                        </div>
-	                     <div>	                         	               			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>						<!--	<%= link_to 'Statistiche', {:action => :statistics, :id => proposal.id},:remote => true, :before => "$('#loading').show()", :complete => "$('#loading').hide()" %> -->		                  
-                        </div>
-                	</td>				
-                    <td>                  	 	<div id="proposalcc">                                <div class="proposalCommentPostedAt">                                    <h3><%= link_to proposal.title, proposal %></h3>                                    Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>                                    di <span class="blogPoster"><%= raw(user.link_to_page) %></span>                                </div>                        </div>                         <div class="baloon-content">	                        <%= h proposal.short_content %>							<%= link_to 'continua a leggere la proposta', proposal %>	                     </div>                   	</td>                   		<td>							<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>						</td>                </td>
-                </tr>
-            </body>
-        </table>
-    </div>
+<div id="proposal<%= proposal.id %>" class="proposal_list shadow-box">	       <div style="float:right">					<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>				</div>	        <div class="maintitle">	            <%= link_to proposal.title, proposal %>	        </div>	       	<div class="datetime">	            Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>	            di <span class="blogPoster"><%= raw(user.link_to_page) %></span>	            <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>	        </div>	        <div class="authors">	            <div class="title">Autori</div>	            <%proposal.users.each do |user|%>	                <div class="blogUserImage" title="<%=user.name%> <%=user.surname%>">                    		                    <%= user.user_image_tag 20 %>	                </div>	            <%end%>	            <div style="clear:both;"></div>	        </div>	        <div class="groups">	        		        </div>	                   	      		 <div class="proposal_content">	    <%= h proposal.short_content %>		<%= link_to 'continua a leggere la proposta', proposal %>	 </div>                <div style="clear: both;"></div>
 </div>
 <% end else%>	Nessuna proposta al momento<%end %>
 <div id="statistics_panel"></div>
