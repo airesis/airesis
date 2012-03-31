@@ -18,13 +18,6 @@
 }
 
 
-.proposalMainContainer {
-/*	padding: 20px 0 0;
-	border-top: 1px solid #ccc;*/
-	clear: both;
-	
-}
-
 .proposalComment {
 	padding: 20px 0 0;
 	clear: both;
@@ -199,10 +192,14 @@ ul.blogList li.blogListFirst {
 	width: 400px;
 }
 
-.proposalMainContainer .baloon-content {
-	 margin: 0 5px;
-    width: 500px;
-    word-wrap: break-word;
+.proposalMainContainer {
+	clear: both;
+}
+
+.proposalMainContainer .proposal_content {
+	word-wrap: break-word;
+	margin: 0 10px;
+	text-align: justify;
 }
 
 .rankleftpanel {
