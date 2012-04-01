@@ -28,6 +28,7 @@ module UsersHelper
   # * :content_method => :user_instance_method_to_call_for_content_text
   # * :title_method => :user_instance_method_to_call_for_title_attribute
   # * as well as link_to()'s standard options
+  # * :full_name => true show the User Name and Surname
   #
   # Examples:
   #   link_to_user @user
@@ -45,12 +46,27 @@ module UsersHelper
   #
   def link_to_user(user, options={})
     raise "Invalid user" unless user
-    options.reverse_merge! :content_method => :login, :title_method => :login, :class => :nickname
-    content_text      = options.delete(:content_text)
+    options.reverse_merge! :content_method => :name, :title_method => :login, :class => :nickname
+    if options[:full_name]
+      content_text = "#{user.name} #{user.surname}"
+      options[:title] ||= content_text
+    end 
+    content_text    ||= options.delete(:content_text)
     content_text    ||= user.send(options.delete(:content_method))
     options[:title] ||= user.send(options.delete(:title_method))
     link_to h(content_text), user_path(user), options
   end
+  
+  def user_valutation_image(user,proposal,option={})
+    val = user.proposal_rankings.find_by_proposal_id(proposal.id).ranking_type_id rescue nil
+    if (val == 1)
+      return "<div class=\"votedup-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
+    elsif (val == 3)
+      return "<div class=\"voteddown-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
+    end
+  end
+  
+  
 
   #
   # Link to login page using remote ip address as link content

@@ -1,0 +1,14 @@
+<b>Benvenuto su Airesis, <%= current_user.name%>
+<br />
+</b>
+Questo breve tutorial ti aiuterà nelle prime scelte all'interno del sistema.
+<br />
+Questa che vedi è la tua scrivania: ogni volta che ti autenticherai sul sistema ti verrà mostrata questa schermata.<br/
+Qui trovarai tutte le informazioni che ti servono per restare sempre in contatto con il tuo territorio.<br/>
+Da qui potrai gestire le tue proposte ed i gruppi ai quali partecipi, visualizzare gli eventi organizzati vicino a te ed entrare in contatto
+con gli altri cittadini.<br />
+Ricorda che Airesis è ancora in fase di Beta Testing e pertanto potresti riscontrare errori o incongruenze all'interno del sistema.<br />
+Contribuisci a migliorare Airesis segnalandoci le anomalie a <a href="mailto:coorasse+feedback@gmail.com">coorasse+feedback@gmail.com</a>.<br />
+Buon proseguimento!<br />
+<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
+<br /> 

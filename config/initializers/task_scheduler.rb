@@ -1,7 +1,10 @@
 scheduler = Rufus::Scheduler.start_new
 
-scheduler.every("1440m") do
-   puts "Running scheduled task"
+
+
+
+scheduler.cron '0 1 * * *' do
+   puts "Aggiorno lo stato delle proposte"
    AdminHelper.change_proposals_state
 end 
 

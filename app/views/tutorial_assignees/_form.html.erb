@@ -1,0 +1,33 @@
+<%= form_for [@tutorial,@tutorial_assignee] do |f| %>
+  <% if @tutorial_assignee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutorial_assignee.errors.count, "error") %> prohibited this tutorial_assignee from being saved:</h2>
+
+      <ul>
+      <% @tutorial_assignee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :tutorial_id %><br />
+    <%= f.number_field :tutorial_id %>
+  </div>
+  <div class="field">
+    <%= f.label :completed %><br />
+    <%= f.check_box :completed %>
+  </div>
+  <div class="field">
+    <%= f.label :index %><br />
+    <%= f.number_field :index %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

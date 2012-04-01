@@ -37,51 +37,31 @@
 
 <div class="blogCommentPostedAt">
     Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-    da <span class="blogPoster"><%=raw proposal.user.link_to_page %></span>
+    da <span class="blogPoster"><%=link_to_user proposal.user %></span>
     <%if proposal.updated_at != nil %>
     (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>
     <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
 	<br/>	
-	Categoria: <%= link_to proposal.category.description, proposals_path(:category => proposal.category.id)%>
-	- Stato: <%= link_to proposal.state.description%>
-
+	
 
 </div>
 <div id="proposal<%= proposal.id %>" class="proposalMainContainer">
-    <div class="proposal_main shadow-box">
-        <table>
-            <body>
-                <tr>
-                    <td style="width:100%;">
-                        <div id="proposalcc">
-                            <div class="baloon_header">
-                            </div>
-                            <div class="baloon-content">
-                                <%=simple_format(proposal.content) %>
-                            </div>
-                            <div class="baloon-footer">
-								
-								<%if (proposal.proposal_state_id == 3) #in attesa di essere votata%>
-									<p>
-								    <b>Questa proposta verrà votata il </b>
-										<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %>
-									</p>
-								<%elsif (proposal.proposal_state_id == 4) #in votazione%>
-								<p>
-									
-									<%= link_to 'Vai alla pagina di votazione.', votation_path %>
-								</p>
-									
-										
-								<%end%>
-								
-                            </div>
-                        </div>
-                    </td>
-                   
-                </tr>
-            </body>
-        </table>
+    <div class="proposal_main shadow-box">        
+        <div class="proposal_content">
+            <%=simple_format(proposal.content, :sanitize => true) %>
+        </div>
+        <div class="baloon-footer">			
+			<%if (proposal.proposal_state_id == 3) #in attesa di essere votata%>
+				<p>
+			    <b>Questa proposta verrà votata il </b>
+					<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %>
+				</p>
+			<%elsif (proposal.proposal_state_id == 4) #in votazione%>
+			<p>				
+				<%= link_to 'Vai alla pagina di votazione.', votation_path %>
+			</p>
+			<%end%>
+        </div>
     </div>
 </div>
 
@@ -92,9 +72,9 @@
 	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
 		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'buttonStyle littleText'  %>
 	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
-		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"}, :remote => true do |f| %> 
+		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
 		   <p>
-		    <b>Scegli un periodo per la votazione</b><br />
+		    <b>Scegli un periodo per la votazione</b>
 				<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
 			   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle littleText' %>
 		  </p> 

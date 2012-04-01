@@ -7,7 +7,7 @@
             <%= @group.portavoce.user_image_tag(24) %>
         </div>
         <div class="Mo">
-            <%=raw @group.portavoce.full_link_to_page %>
+            <%=link_to_user @group.portavoce, :full_name => true %>
         </div>
     </div>
     <%else %>
@@ -34,7 +34,7 @@
             <%= partecipant.user_image_tag(24) %>
         </div>
         <div class="Mo">
-            <%=raw partecipant.full_link_to_page %>
+            <%=link_to_user partecipant, :full_name => true %>
         </div>
     </div>
     <%end %>

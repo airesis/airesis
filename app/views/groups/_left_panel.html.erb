@@ -38,7 +38,7 @@ if requests.size > 0 %>
 	            <%= request.user_image_tag(24) %>
 	        </div>
 	        <div class="Mo2">
-	            <%=raw request.user.full_link_to_page %>
+	            <%=link_to_user request.user, :full_name => true %>
 	        </div>
 	    <% if ((current_user && (@group.portavoce == current_user)) || is_admin?) %>
 	   		 <%if @group.request_by_vote? %>
@@ -59,7 +59,7 @@ if requests.size > 0 %>
 	</p>
 	<%voting.each do |request| %>
 	<p>
-	    <%=request.user.full_link_to_page %>
+	    <%=link_to_user request.user, :full_name => true %>
 	    <a>Vota SI</a>
 	    - <a>Vota NO</a>
 	</p>

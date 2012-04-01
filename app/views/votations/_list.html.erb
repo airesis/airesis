@@ -16,7 +16,7 @@ if proposalsnumber > 0 %>
                                     <div class="blogCommentPostedAt">
                                         <h3><%= link_to proposal.title, proposal %></h3>
                                         Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-                                        da <span class="blogPoster"><%=raw proposal.user.link_to_page %></span>
+                                        da <span class="blogPoster"><%=link_to_user proposal.user %></span>
                                         <%if proposal.updated_at != nil %>
                                         (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>                                        
                                     </div>

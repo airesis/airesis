@@ -3,7 +3,9 @@
 <b><%= "Nessuna nuova notifica" if @new_user_alerts.empty?%></b>
 <% @new_user_alerts.each do |user_alert|%>
 	<li>
-  	<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
+  		<%=link_to user_alert.notification.url do%> 
+  			<%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
+  		<%end%>
 </li>
 <%end unless @new_user_alerts.empty?%>
 </ul>

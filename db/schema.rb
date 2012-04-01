@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324151520) do
+ActiveRecord::Schema.define(:version => 20120401205249) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -157,6 +157,15 @@ ActiveRecord::Schema.define(:version => 20120324151520) do
     t.datetime "updated_at"
   end
 
+  create_table "group_affinities", :force => true do |t|
+    t.integer  "group_id",                       :null => false
+    t.integer  "user_id",                        :null => false
+    t.integer  "value"
+    t.boolean  "recalculate", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "group_follows", :force => true do |t|
     t.integer "user_id",  :null => false
     t.integer "group_id", :null => false
@@ -203,8 +212,8 @@ ActiveRecord::Schema.define(:version => 20120324151520) do
   end
 
   create_table "interest_borders", :force => true do |t|
-    t.integer "foreign_id",              :null => false
-    t.string  "ftype",      :limit => 1, :null => false
+    t.integer "territory_id",   :null => false
+    t.string  "territory_type", :null => false
   end
 
   create_table "meeting_partecipations", :force => true do |t|
@@ -445,10 +454,47 @@ ActiveRecord::Schema.define(:version => 20120324151520) do
     t.string  "comment",                        :limit => 200
   end
 
+  create_table "steps", :force => true do |t|
+    t.integer  "tutorial_id",                    :null => false
+    t.integer  "index",       :default => 0,     :null => false
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "required",    :default => false
+    t.text     "fragment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "testi_vari", :id => false, :force => true do |t|
     t.integer "id",                      :null => false
     t.string  "testo_a", :limit => 4000
     t.string  "testo_b", :limit => 4000
+  end
+
+  create_table "tutorial_assignees", :force => true do |t|
+    t.integer  "user_id",                        :null => false
+    t.integer  "tutorial_id",                    :null => false
+    t.boolean  "completed",   :default => false, :null => false
+    t.integer  "index",       :default => 0,     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tutorial_progresses", :force => true do |t|
+    t.integer  "user_id",                     :null => false
+    t.integer  "step_id",                     :null => false
+    t.string   "status",     :default => "N", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tutorials", :force => true do |t|
+    t.string   "action"
+    t.string   "controller",  :null => false
+    t.string   "name"
+    t.text     "description", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_alerts", :force => true do |t|
@@ -569,6 +615,9 @@ ActiveRecord::Schema.define(:version => 20120324151520) do
   add_foreign_key "events", "event_series", :name => "Ref_events_to_event_series"
   add_foreign_key "events", "event_types", :name => "Ref_events_to_event_types"
 
+  add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
+  add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
+
   add_foreign_key "group_follows", "groups", :name => "Ref_group_follows_to_groups"
   add_foreign_key "group_follows", "users", :name => "Ref_group_follows_to_users"
 
@@ -641,6 +690,14 @@ ActiveRecord::Schema.define(:version => 20120324151520) do
   add_foreign_key "request_votes", "group_partecipation_requests", :name => "Ref_request_votes_to_group_partecipation_requests"
   add_foreign_key "request_votes", "request_vote_types", :name => "Ref_request_votes_to_request_vote_types"
   add_foreign_key "request_votes", "users", :name => "Ref_request_votes_to_users"
+
+  add_foreign_key "steps", "tutorials", :name => "steps_tutorial_id_fk"
+
+  add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
+  add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"
+
+  add_foreign_key "tutorial_progresses", "steps", :name => "tutorial_progresses_step_id_fk"
+  add_foreign_key "tutorial_progresses", "users", :name => "tutorial_progresses_user_id_fk"
 
   add_foreign_key "user_alerts", "notifications", :name => "Ref_user_alerts_to_notifications"
   add_foreign_key "user_alerts", "users", :name => "Ref_user_alerts_to_users"

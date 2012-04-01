@@ -1,0 +1,29 @@
+<b>Inizia a partecipare<br /></b>
+	Definisci i tuoi confini geografici di interesse.<br /> 
+	Se sappiamo quali sono i territori ai quali sei interessato possiamo 
+	consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio.<br />
+	
+	
+<%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
+	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.collect{ |b| {:id => b.ftype + '-' + b.foreign_id.to_s, :name => b.description}}.to_json %>
+
+ <%= f.submit "Salva" %>
+<%end%>
+
+<script type="text/javascript">
+	$(function() {
+		input = $('#token_interest_borders')
+		input.tokenInput("/interest_borders.json", {
+			crossDomain: false,
+			prePopulate: $('#token_interest_borders').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare un luogo",
+			noResultsText: "Nessun luogo trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true
+		});
+	});
+
+</script>  		
+
+<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
+<br /> 

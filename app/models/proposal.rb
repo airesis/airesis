@@ -67,7 +67,7 @@ class Proposal < ActiveRecord::Base
   end
     
   def short_content
-    return truncate_words(self.content,50)
+    return truncate_words(self.content,60)
   end
   
   def interest_borders_tkn

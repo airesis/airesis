@@ -1,0 +1,18 @@
+<h4>Gruppi in sostegno</h4>
+<%@proposal.groups.each do |group| %>
+	<div class="pcontainer">
+        <div class="MoImg24">
+            <%= group.group_image_tag 24%>
+        </div>
+        <div class="Mo">
+            <%=link_to group.name[0..20], group_path(group) %>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+<%end%>
+<%="Nessun gruppo sostiene la proposta" if @proposal.groups.empty?%>
+<%if signed_in?%>
+	<%if !current_user.groups.empty? %>
+	<%=link_to 'Sostieni la proposta', new_proposal_proposal_support_path(@proposal),:remote => true, :class => 'buttonStyle littleText' %>
+	<%end%>
+<%end%>

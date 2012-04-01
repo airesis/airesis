@@ -20,7 +20,7 @@
 		<h3><%= link_to blog.title, blog %></h3>
 	</div>
 	<div class="blogAuthor">
-		Autore: <%= raw blog.user.full_link_to_page %>
+		Autore: <%=link_to_user blog.user, :full_name => true %>
 	</div>
 	<div class="blogFooter">
 		<%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>

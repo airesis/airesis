@@ -3,29 +3,42 @@
 		$('.voteup',panel).hide();
 		$('.votedown',panel).hide();		
 		$('.loadingup',panel).show();
-		$('.loadingdown').show();						
+		$('.loadingdown',panel).show();						
 	}	
 	$(function() {
-	$(".progressBar").progressBar({
-		steps			: 200,
-		stepDuration	: 20,
-		max				: <%=PROP_VOTES_TO_PROMOTE%>*10,
-		showText		: false,
-		textFormat		: 'percentage',
-		width			: 120,
-		height			: 12,
-		callback		: null,
-		boxImage		: '<%=asset_path "progressbar.gif"%>',
-		barImage		: 
-			<%if @proposal.rank <= PROP_RANKING_TO_DEGRADE %>
-			'<%=asset_path "progressbg_red.gif"%>'
-			<%elsif @proposal.rank >= PROP_RANKING_TO_PROMOTE %>
-			'<%=asset_path "progressbg_green.gif"%>'
-			<%else%>
-			'<%=asset_path "progressbg_orange.gif"%>'
-			<%end%>
-			,
-	});
+		$('.voteup').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('voteup','');
+			hideRankPanel2($('.handscontainer'));
+		});
+		
+		$('.votedown').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('votedown','');
+			hideRankPanel2($('.handscontainer'));
+		});
+		
+		$(".progressBar").progressBar({
+			steps			: 200,
+			stepDuration	: 20,
+			max				: <%=PROP_VOTES_TO_PROMOTE%>*10,
+			showText		: false,
+			textFormat		: 'percentage',
+			width			: 120,
+			height			: 12,
+			callback		: null,
+			boxImage		: '<%=asset_path "progressbar.gif"%>',
+			barImage		: 
+				<%if @proposal.rank <= PROP_RANKING_TO_DEGRADE %>
+				'<%=asset_path "progressbg_red.gif"%>'
+				<%elsif @proposal.rank >= PROP_RANKING_TO_PROMOTE %>
+				'<%=asset_path "progressbg_green.gif"%>'
+				<%else%>
+				'<%=asset_path "progressbg_orange.gif"%>'
+				<%end%>
+				,
+		});
+		
 	});
 </script>
 <p class="points">
@@ -44,7 +57,7 @@
 			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
 			<%end%>
 			<% if @my_vote == 3 %>
-				<div class="voteddown"></div>
+				<div class="voteddown"></div>@
 			<% elsif @can_vote_again == 1%>
 				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
 			<%end%>		
@@ -56,3 +69,6 @@
 		<div style="clear: both;"></div>
 	<%end %>
 <%end %>
+
+Categoria: <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
+Stato: <%= link_to @proposal.state.description%>

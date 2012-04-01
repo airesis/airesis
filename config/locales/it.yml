@@ -25,6 +25,8 @@ it:
         already_authenticated: "Sei già autenticato."
         unauthenticated: "Esegui il login per visualizzare pagina."
         unconfirmed: "L'account non è ancora stato confermato."
+        user:
+          invalid: "Nome utente o password non validi"
   date:
     order: [:day, :month, :year ]
     formats:

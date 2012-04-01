@@ -49,6 +49,17 @@ class AdminController < ApplicationController
     end
   end
   
+   def calculate_user_group_affinity
+    AffinityHelper.calculate_user_group_affinity
+       
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Affinità calcolate'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+  
   
   def delete_old_notifications
     deleted = AdminHelper.delete_old_notifications

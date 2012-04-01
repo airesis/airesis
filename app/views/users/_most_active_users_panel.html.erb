@@ -7,7 +7,7 @@
 	            <%= user.user_image_tag(24) %>
 	        </div>
 	        <div class="Mo">
-	            <%=raw(user.full_link_to_page) %> (<%=user.rank%>)
+	            <%=link_to_user user, :full_name => true %> (<%=user.rank%>)
 	        </div>
 	        <div style="clear: both;"></div>
 	    </div>

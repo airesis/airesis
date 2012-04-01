@@ -46,9 +46,10 @@
 					<%= link_to 'Le proposte', proposals_path, :class => 'buttonStyle' %>
 					| <%= link_to 'I blog', blogs_path %>
 					| <%= link_to 'I gruppi', groups_path %>
-
+					| <%= link_to 'Calendario', events_path %>
+					<% if user_signed_in? %>
 					| <%= link_to 'Notifiche', '#', :id => 'notifications_place' %>
-					| <%= link_to 'Calendario', '/events'%>
+					<%end%>
 				</div>
 				<div class="superHeader">
 					<% if user_signed_in? %> <span>Benvenuto </span>

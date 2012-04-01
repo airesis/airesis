@@ -1,5 +1,18 @@
 DemocracyOnline3::Application.routes.draw do
   
+
+
+  resources :tutorial_progresses
+
+  resources :tutorials do
+    resources :steps  do
+      member do
+        get :complete
+      end
+    end
+    resources :tutorial_assignees
+  end
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"} do
     get '/users/sign_in' , :to => 'devise/sessions#new'  
     get '/users/sign_out', :to => 'devise/sessions#destroy'
@@ -31,7 +44,7 @@ DemocracyOnline3::Application.routes.draw do
     collection do
       get :index_accepted
       get :endless_index 
-    end
+    end    
     resources :proposal_comments do
       member do
         get :rankup
@@ -46,7 +59,7 @@ DemocracyOnline3::Application.routes.draw do
       get  :rankup
       get :rankdown
       get :statistics
-      post :set_votation_date
+      put :set_votation_date
     end
   end
   

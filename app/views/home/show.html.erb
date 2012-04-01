@@ -23,23 +23,12 @@
     }
 </script>
 
-<div class="tutorial_panel shadow-box">
-	Benvenuto su Airesis <%=current_user.name%>.<br />
-	Questo tutorial ti aiuterà nelle prime scelte all'interno del sistema.<br />
-	Delimitare subito i tuoi confini geografici di interesse e trovare i gruppi nel tuo territorio è
-	il modo per iniziare subito a partecipare.<br />
-</div>
-<br />
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
-<div class="tutorial_panel shadow-box">
-	Scegli un'immagine per il tuo profilo.
-</div>
-
-<br />
 <br />
 <%=content_for :left_panel do%>
 
-	<div class="image_container">
+	<div class="leftUserImage image_container">
             <%= @user.user_image_tag 120 %>
             <div class="caption">
                 <a style="color:white">Modifica l'immagine</a>

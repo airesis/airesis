@@ -70,16 +70,19 @@ class Group < ActiveRecord::Base
   end
   
    def interest_border_tkn
-     return self.interest_border.ftype + "-" + self.interest_border.foreign_id.to_s if self.interest_border
+     return self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
   end
   
   def interest_border_tkn=(tkn)
     if !tkn.blank?
       ftype = tkn[0,1] #tipologia (primo carattere)
       fid = tkn[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
-      interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
-      puts "New Record!" if (interest_b.new_record?)
-      self.interest_border = interest_b
+      found = InterestBorder.table_element(tkn)      
+      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
+        puts "New Record!" if (interest_b.new_record?)
+        self.interest_border = interest_b
+      end
     end
   end
   

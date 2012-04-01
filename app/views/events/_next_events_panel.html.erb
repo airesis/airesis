@@ -6,13 +6,13 @@
 <%@events = Event.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
 <%end%>
 <%	@events.each do |event|%>
-	<a	 href="/events/<%=event.id%>">
+	<%=link_to event_path(event) do%>
 	<div  class="eventcontainer" data-id = "<%=event.id%>">
 		<%=event.starttime.strftime("%d/%m/%Y %H:%M")%>
 		<br/>
 		<%= event.title%>
 	</div>
-	</a>
+	<%end%>
 	<div class="event-overview shadow-box" id="event-overview-<%=event.id%>">	
 		<p> <%=event.title%></p>
 	</div>

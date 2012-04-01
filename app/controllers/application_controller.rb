@@ -8,9 +8,22 @@ class ApplicationController < ActionController::Base
   after_filter :discard_flash_if_xhr
 
   before_filter :store_location #salvo l'indirizzo dal quale provengo
+  before_filter :set_locale
+    
+  before_filter :prepare_for_mobile
 
+ 
+  def set_locale
+    I18n.locale = params[:l] || I18n.default_locale
+  end
   
-  helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth
+  def default_url_options(options={}) 
+    logger.debug "default_url_options is passed options: #{options.inspect}\n" 
+    { :l => I18n.locale } 
+  end
+  
+  helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?
+
   
    def log_error(exception)
     if notifier = Rails.application.config.middleware.detect { |x| x.klass == ExceptionNotifier }
@@ -107,7 +120,7 @@ class ApplicationController < ActionController::Base
       end
       format.html do   #ritorna indietro oppure all'HomePage
         store_location
-        flash[:notice] = t('error.admin_required')
+        flash[:error] = t('error.admin_required')
         if request.env["HTTP_REFERER"]
           redirect_to :back
         else
@@ -156,6 +169,11 @@ class ApplicationController < ActionController::Base
       return ret
   end
   
+  
+
+
+
+  
  
 
   protected
@@ -174,6 +192,23 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     permissions_denied
   end
+  
+  
+  private
+  
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+    request.format = :mobile if false#mobile_device?
+  end
+  
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS/
+    end
+  end
+
   
   
 end

@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
   
   accepts_nested_attributes_for :meeting
   
-  scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today]}
+  scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today], :order => "starttime asc"}
   
   REPEATS = ["Non ripetere",
              "Ogni giorno",

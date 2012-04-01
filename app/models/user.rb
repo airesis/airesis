@@ -3,10 +3,11 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable, :omniauthable,
+  devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   include BlogKitModelHelper
+  #include Rails.application.routes.url_helpers
   
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
   #colonne assegnabili massivamente
-  attr_accessible :login, :email, :name,:surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions
+  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions
   
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
@@ -75,14 +76,39 @@ class User < ActiveRecord::Base
   #tutti coloro che seguo
   has_many :followed,:through => :followed_user_follow, :class_name => "User", :source => :follower
   
+  has_many :tutorial_assignees, :class_name => 'TutorialAssignee'
+  has_many :tutorial_progresses, :class_name => 'TutorialProgress'
+  has_many :todo_tutorial_assignees, :class_name => 'TutorialAssignee', :conditions => 'tutorial_assignees.completed = false'
+  #tutorial assegnati all'utente
+  has_many :tutorials, :through => :tutorial_assignees, :class_name => 'Tutorial', :source => :user
+  has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
+  
+  
+  #affinità con i gruppi
+  has_many :group_affinities, :class_name => 'GroupAffinity'
+  
+  has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
+  
+  
+  
   #fake columns
   attr_accessor :image_url, :accept_conditions
 
   before_create :init
+  
+  after_create :assign_tutorials
+  
+  #dopo aver creato un nuovo utente glia ssegno il primo tutorial
+  def assign_tutorials
+      tutorial = Tutorial.find(1)
+      if (tutorial)
+        TutorialAssignee.create(:user => self, :tutorial => tutorial)
+      end
+  end
 
-    def init
-      self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
-    end
+  def init
+    self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
+  end
 
 
  #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
@@ -239,21 +265,6 @@ class User < ActiveRecord::Base
    return request
  end
  
-  def link_to_page(skip_link=false)
-    if !skip_link
-      return "<a href=\"/users/#{self.id}\">#{CGI.escapeHTML(self.name)}</a>"
-    else
-      return self.name
-    end
-  end
-  
-  def full_link_to_page(skip_link=false)
-    if !skip_link
-      return "<a class='full_link' href=\"/users/#{self.id}\">#{CGI.escapeHTML(self.name)} #{CGI.escapeHTML(self.surname) if self.surname}</a>"
-    else
-      return self.name
-    end
-  end
 
 #gestisce l'azione di login tramite facebook
 def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

@@ -7,9 +7,9 @@ class InterestBordersController < ApplicationController
     @regiones = Regione.find(:all,:conditions => "upper(description) like upper('#{params[:q]}%')", :limit => 10)
     @province = Provincia.find(:all,:conditions => "upper(description) like upper('#{params[:q]}%')", :limit => 10)
     @comunes = Comune.find(:all,:conditions => "upper(description) like upper('#{params[:q]}%')", :limit => 10)
-    regioni = @regiones.collect { |r| {:id => 'R-'+r.id.to_s, :name => r.description + ' (Regione)'} }
-    province = @province.collect { |p| {:id => 'P-'+p.id.to_s, :name => p.description + ' (Provincia)'} }
-    comuni = @comunes.collect { |p| {:id => 'C-'+p.id.to_s, :name => p.description + ' (Comune)'} }
+    regioni = @regiones.collect { |r| {:id => InterestBorder::SHORT_REGIONE+'-'+r.id.to_s, :name => r.description + ' (Regione)'} }
+    province = @province.collect { |p| {:id => InterestBorder::SHORT_PROVINCIA+'-'+p.id.to_s, :name => p.description + ' (Provincia)'} }
+    comuni = @comunes.collect { |p| {:id => InterestBorder::SHORT_COMUNE+'-'+p.id.to_s, :name => p.description + ' (Comune)'} }
     map = regioni + province + comuni
     respond_to do |format|
       

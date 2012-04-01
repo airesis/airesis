@@ -3,7 +3,7 @@
 <div class="clicktrigger user_tag shadow-box">
 	<%= partecipation.user_image_tag 48%>
 	<div class="content">
-		<%= raw partecipation.user.full_link_to_page%>
+		<%=link_to_user partecipation.user, :full_name => true%>
 	</div>
 </div>
 <div class='popup' style='top: -90px;  width: 300px;'>

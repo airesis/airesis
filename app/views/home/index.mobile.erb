@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+	<head>
+		<title>'Democracy Online - Beta'%></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<%= javascript_include_tag "jquery" %>
+		<%= javascript_include_tag "jquery-ui" %>
+		<%= stylesheet_link_tag "redmond/custom" %>
+		<style type="text/css">
+		 	body {
+		 		font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+		 		background-color: #12B2B2;
+		 	}
+		
+			.home_container {
+				background: repeat scroll 0 0 #DDDDDD;
+				background: -webkit-gradient(linear, center top, center bottom, from(#FFFFFF), color-stop(100%, #DDDDDD));
+				background: -moz-linear-gradient(center top , #FFFFFF 0pt, #DDDDDD 100%) repeat scroll 0 0 #FFFFFF;
+    			border-bottom: 1px solid #CCCCCC;
+    			border-left: 1px solid #EEEEEE;
+    			border-right: 1px solid #EEEEEE;
+    			box-shadow: 2px 3px 2px 0px rgba(0, 0, 0, 0.1);
+				border-radius: 4px 4px 4px 4px;
+				
+				/*height: 290px;*/
+				/*float: left;*/
+				margin-left: 10px;
+				margin-right: 10px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+	
+			
+			
+			.title {
+				font-size: 1.2em;
+				font-weight: bold;
+				padding: 5px;
+				border-bottom: 1px solid #CCCCCC;
+			}	
+			
+			.content {
+				padding: 5px;
+			}		
+			
+			.content p {
+				margin-top: 2px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<script>
+			( function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if(d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement(s);
+				js.id = id;				
+				js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=221145254619152";				
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			! function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if(!d.getElementById(id)) {
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}
+			}(document, "script", "twitter-wjs");
+		</script>
+		
+		<div id="container">
+		<div class="home_container">
+			<div class="title">Cos'è Airesis</div>
+			<div class="content">
+				<p>E' un portale per la democrazia partecipata.</p>
+				<p>E' un'applicazione OpenSource a disposizione dei cittadini.</p>
+				<p>Tramite Airesis potrai trovare i gruppi attivi nella tua zona e partecipare alle discussioni.</p>
+				<!--Vedi la presentazione.--></div>
+		</div>
+		<div class="home_container">
+			<div class="title">Accedi al portale</div>
+			<div class="content">
+				<p>Puoi <a href="/proposals">accedere come ospite</a>.</p>
+				<p>Se non hai un account, <a href="/users/sign_up">registrati</a> o <%= link_to "accedi tramite il tuo account Facebook", user_omniauth_authorize_path('facebook')%>.</p>
+				
+			<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+			  <div><%= f.label :login %><br />
+			  <%= f.text_field :login %></div>
+			  
+			  <div><%= f.label :password %><br />
+			  <%= f.password_field :password %></div>
+			
+			  <% if devise_mapping.rememberable? -%>
+			    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %></div>
+			  <% end -%>
+			
+			  	<div><%= f.submit "Accedi" %></div>
+			  	
+						</div>
+					</div>
+			<% end %>	
+			
+		<div class="home_container">
+			<div class="title">Partecipa alla costruzione</div>
+			<div class="content">
+				<p>Airesis si appoggia su un motore totalmente gratuito ed OpenSource</p>
+				<p>Partecipa allo sviluppo segnalando i bug e scegliendo le prossime funzioni che
+					saranno disponibili.</p>
+				<p><a href="https://www.facebook.com/groups/airesis/" target="_blank">Gruppo di sviluppo su Facebook</a></p>
+				<p><a href="https://github.com/coorasse/DemocracyOnline" target="_blank">Codice sorgente</a></p>
+			</div>
+		</div>
+		<div class="home_container">
+			<div class="title">Rimani aggiornato</div>
+			<a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">Segui @democracyo su Twitter</a>
+
+			<div class="fb-like-box" data-href="http://www.facebook.com/democracyonline"  
+				data-height="220" data-show-faces="false" data-stream="true" data-header="false" data-border-color="white">
+			</div>
+		</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	$(function() {
+		//$('input:submit').button();
+	});
+	</script>
+	
+</html>

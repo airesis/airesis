@@ -90,11 +90,6 @@ class BlogPost < ActiveRecord::Base
 	def show_user?
 		self.user
 	end
-	
-	
-	def user_name(skip_link=false)
-		return self.user.link_to_page(skip_link)
-	end
 
 	def parsed_body
 		image_parsed_body = self.body.gsub(/[{]blog_image[:]([0-9]+)[:]([a-zA-Z]+)[}]/) do |str|

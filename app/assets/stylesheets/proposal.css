@@ -50,7 +50,7 @@
 
 .proposal_main {
 	position: relative;
-	border: 1px solid #CCCCCC;
+	border: 2px solid #808080;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -67,7 +67,7 @@
 }
 .proposal_list {
 	position: relative;
-	border: 1px solid #808080;
+	border: 2px solid #808080;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -102,6 +102,30 @@
 	float:left;
 	color: #808080;
 }
+
+.proposal_list .groups .title{
+	font-weight: bold;
+	margin-right:5px;
+	float:left;
+	color: #808080;
+}
+
+
+.proposal_list .borders .title{
+	font-weight: bold;
+	margin-right:5px;
+	float:left;
+	color: #808080;
+}
+
+
+.proposal_list .borders .border {
+	width: auto;
+	float:left;
+	margin-left: 5px;
+	padding: 0 5px;
+}
+
 
 .proposal_list .rankcontainer{	
 	float:left;

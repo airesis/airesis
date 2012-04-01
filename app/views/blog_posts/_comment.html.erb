@@ -9,7 +9,7 @@
         <div class="baloon_header">
 			<div class="blogCommentPostedAt">
 				Inserito il <span class="blogPostDate"><%= comment.formatted_created_at%></span>
-				da <span class="blogPoster"><%=raw comment.user.link_to_page %></span>		 		
+				da <span class="blogPoster"><%=link_to_user usercomment.user %></span>		 		
 			</div>
 		</div>
 		<div class="baloon-content">

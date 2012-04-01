@@ -9,3 +9,18 @@
 	width: 24px;
 	height: 24px;
 }
+
+
+
+.leftUserImage .caption {
+    background: none repeat scroll 0 0 #4A4D4A;
+    color: white;
+    display: none;
+    letter-spacing: -1px;
+    margin-left: 28px;
+    margin-top: 5px;
+    opacity: 0.6;
+    padding: 4px;
+    position: absolute;
+    top: 0;
+}

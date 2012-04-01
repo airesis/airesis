@@ -13,4 +13,4 @@
 	});
 	});
 </script>
-<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
+<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.rank.to_s + "%  " + proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		

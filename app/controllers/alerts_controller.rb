@@ -3,8 +3,6 @@ class AlertsController < ApplicationController
 
   before_filter :authenticate_user!
   
-  before_filter :load_alert, :only => [:check_alert]
-
   #mostra gli alert dell'utente corrente
   def index
     @new_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = false')
@@ -18,21 +16,19 @@ class AlertsController < ApplicationController
     end
   end
   
+  #restituisce le nuove notifiche per l'utente
   def read_alerts
     @new_user_alerts = current_user.user_alerts.update_all("checked = true", "checked = false")
   end
   
+  #marca come 'letta' una notifica e redirige verso l'url indicato
   def check_alert
-    @user_alert.update_attribute
-  end
-  
-  
-  protected
-  
-  def load_alert
     @user_alert = UserAlert.find_by_id(params[:id])
     @user_alert.checked = true
     @user_alert.save
     redirect_to @user_alert.notification.url
   end
+  
+  protected
+  
 end

@@ -5,13 +5,13 @@
  	classeFlash = 'ui-state-error'
    end
 %>
-<div id="flash" class="<%= classeFlash %>">
+<div class="flashMessage <%= classeFlash %>">
     <span class="message"><%= value %></span>
 </div>
 <%end %>
 
 <script>
 $(document).ready(function () {
-    $('.ui-state-highlight').delay(7000).hide(2000);
+    $('.flashMessage').delay(7000).hide(2000);
 });
 </script>

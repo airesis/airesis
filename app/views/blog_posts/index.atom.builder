@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title(BlogKit.instance.settings['blog_name'])
+  feed.title(@blog.name)
   feed.update(@blog_posts.first.created_at) if @blog_posts.first
   
   @blog_posts.each do |post|

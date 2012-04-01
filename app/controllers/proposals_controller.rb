@@ -101,6 +101,8 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
         @proposal.proposal_state_id = PROP_VALUT
         @proposal.rank = 0
+        borders = prparams[:interest_borders_tkn]
+        update_borders(borders)
         psaved = @proposal.save!
         proposalparams = {
               :proposal_id => @proposal.id,
@@ -110,8 +112,6 @@ class ProposalsController < ApplicationController
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
         
-        borders = prparams[:interest_borders_tkn]
-        update_borders(borders)
       end
       
       respond_to do |format|
@@ -163,8 +163,8 @@ class ProposalsController < ApplicationController
       flash[:error] = t(:error_proposal_not_waiting_date)
       respond_to do |format|
         format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        end                  
+                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                    end                  
         }
         format.html {
           redirect_to proposal_path(params[:id])
@@ -181,6 +181,7 @@ class ProposalsController < ApplicationController
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
+        format.html { redirect_to proposal_path(params[:id]) }
       end
     end
   end
@@ -254,7 +255,7 @@ class ProposalsController < ApplicationController
       
    
       if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_ftype_and_foreign_id(ftype,fid)
+        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
         puts "New Record!" if (interest_b.new_record?)
         i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
       end

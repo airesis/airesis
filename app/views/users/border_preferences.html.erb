@@ -1,13 +1,13 @@
 <%if current_user %>
 <%= javascript_include_tag 'simplemodal' %>
 <%end %>
-
-<%= form_for 'token' do |f| %>
-	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.collect{ |b| {:id => b.ftype + '-' + b.foreign_id.to_s, :name => b.description}}.to_json %>
+	
+<%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
+	<%= f.label "I tuoi confini geografici di interesse"%>
+	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
 
  <%= f.submit "Salva" %>
 <%end%>
-
 <script type="text/javascript">
 	$(function() {
 		input = $('#token_interest_borders')
