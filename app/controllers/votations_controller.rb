@@ -13,7 +13,8 @@ class VotationsController < ApplicationController
   def vote
 
     Proposal.transaction do
-      proposal = Proposal.find_by_id(params[:proposal_id])
+      @proposal = Proposal.find_by_id(params[:proposal_id])
+      proposal = @proposal
       proposal.user_votes.build(:user_id => current_user.id)
       if (params[:vote_type] == 1)
         proposal.vote.positive = proposal.vote.positive+1
@@ -37,7 +38,7 @@ class VotationsController < ApplicationController
       end
   end
   rescue ActiveRecord::ActiveRecordError => e
-    if proposal.errors[:user_votes]
+    if @proposal.errors[:user_votes]
       respond_to do |format|
         load_proposals
         flash[:error] = 'Hai già votato per questa proposta'

@@ -1,0 +1,52 @@
+<div id="proposal<%= proposal.id %>" class="proposal_list shadow-box">
+	       <div style="float:right">
+					<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
+				</div>
+	        <div class="maintitle">
+	            <%= link_to proposal.title, proposal %>
+	        </div>
+	       	<div class="datetime">
+	            Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>	            
+	            <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user,proposal)%>
+	        </div>
+	        <% unless proposal.interest_borders.empty?%>
+	        <div class="borders">
+	            <div class="title">Confini di interesse</div>
+	            <%proposal.interest_borders[0..5].each do |ib|%>
+	                <div class="border ui-state-highlight" title="<%=ib.territory_type%>">                    	
+	                    <%= ib.territory.description %>
+	                </div>
+	            <%end%>
+	            <div style="clear:both;"></div>
+	        </div>
+	        <%end%>
+	        
+	        <div class="authors">
+	            <div class="title">Autori</div>
+	            <%proposal.users.each do |user|%>
+	                <div class="blogUserImage" title="<%=user.name%> <%=user.surname%>">                    	
+	                    <%= user.user_image_tag 20 %>
+	                </div>
+	            <%end%>
+	            <div style="clear:both;"></div>
+	        </div>
+	        <% unless proposal.groups.empty?%>
+	        <div class="groups">
+	        	<div class="title">Gruppi in sostegno</div>
+	            <%proposal.groups[0..10].each do |group|%>
+	                <div class="blogUserImage" title="<%=group.name%>">                    	
+	                    <%= group.group_image_tag 20 %>
+	                </div>
+	            <%end%>
+	            <div style="clear:both;"></div>
+	        	
+	        </div>
+	        <%end%>
+	                   
+	      	
+	 <div class="proposal_content">
+	    <%= h proposal.short_content %>
+		<%= link_to 'continua a leggere la proposta', proposal %>
+	 </div>
+                <div style="clear: both;"></div>
+</div>

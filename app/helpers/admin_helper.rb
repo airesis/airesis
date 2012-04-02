@@ -17,7 +17,7 @@ module AdminHelper
     msg +="Cancello " + read.count.to_s + " notifiche già lette più vecchie di 1 mese"                                          
     puts  read.count
     count  += read.count     
-    ResqueMailer.admin_message(msg).deliver                                    
+    ResqueMailer.admin_message(msg).deliver
     return count
   end
   

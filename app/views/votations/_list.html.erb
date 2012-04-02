@@ -1,45 +1,6 @@
 <%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
-<% proposals.each do |proposal| %>
-<div id="proposal<%= proposal.id %>" class="blogComment" >
-    <div class="proposal_list" style="float:left; width:92%;">
-        <table style="padding:5px">
-            <body>
-                <tr>
-                    <td>
-                        <div class="blogUserImage">
-                            <%= proposal.user_image_tag 50 %>
-                        </div>
-                        <td>
-                            <div id="proposalcc">
-                                <div class="baloon_header">
-                                    <div class="blogCommentPostedAt">
-                                        <h3><%= link_to proposal.title, proposal %></h3>
-                                        Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-                                        da <span class="blogPoster"><%=link_to_user proposal.user %></span>
-                                        <%if proposal.updated_at != nil %>
-                                        (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="vertical-align:top; width:62px;">
-                        <%= render :partial => 'fragments/votes_and_rank', :locals => {:object => proposal} %>
-                    </td>
-                    <td>
-                    <div class="baloon-content">
-                        <%=h proposal.short_content %>						<%= link_to 'continua a leggere la proposta', proposal %>
-                    </div>
-          
-          	      </td>
-                </tr>
-            </body>
-        </table>
-    </div>
-<div style="float:left">		<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 1},:remote => true, :id => "votered"+proposal.id.to_s, :class => "votered"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 2},:remote => true, :id => "voteyellow"+proposal.id.to_s, :class => "voteyellow", :onclick => "if (!pulsate("+proposal.id.to_s + ",'yellow',6)) return false;"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 3},:remote => true, :id => "votegreen"+proposal.id.to_s, :class => "votegreen", :onclick => "if (!pulsate("+proposal.id.to_s + ",'green',6)) return false;"  %> 	</div>                             
+<% proposals.each do |proposal| %><%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal}%><div style="float:left">		<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 1},:remote => true, :id => "votered"+proposal.id.to_s, :class => "votered"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 2},:remote => true, :id => "voteyellow"+proposal.id.to_s, :class => "voteyellow", :onclick => "if (!pulsate("+proposal.id.to_s + ",'yellow',6)) return false;"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 3},:remote => true, :id => "votegreen"+proposal.id.to_s, :class => "votegreen", :onclick => "if (!pulsate("+proposal.id.to_s + ",'green',6)) return false;"  %> 	</div>                             
 </div><div style="clear:both;"></div>
 </div>
 <% end %>
