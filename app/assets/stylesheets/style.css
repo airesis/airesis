@@ -1,8 +1,23 @@
 
 
 textarea {
-	/*resize:none;*/
-	outline:none;
+	/*resize:none;
+	outline:none;*/
+	border: 1px solid #BDC7D8;
+}
+
+input {
+	border: 1px solid #BDC7D8;
+}
+
+#main-copy .token-input-list {
+	border: 1px solid #BDC7D8	;
+}
+
+body div.token-input-dropdown {
+	border-bottom: 1px solid #BDC7D8;
+	border-right: 1px solid #BDC7D8;
+	border-left: 1px solid #BDC7D8;
 }
 
 h3 {

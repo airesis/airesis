@@ -19,3 +19,30 @@
 .user_tag .content {
 	
 }
+
+
+.group_tag {
+	width: 128px;
+	height: 48px;
+	padding: 4px;	
+	background-color: #F4F4F4;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);
+    border: 1px solid #DDDDDD;
+    border-radius: 2px 2px 2px 2px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+}
+
+.group_tag img {
+	width: 48px;
+	height: 48px;
+	float:left;
+}
+
+.group_tag .content {
+    font-size: 12px;
+    line-height: normal;
+	
+}

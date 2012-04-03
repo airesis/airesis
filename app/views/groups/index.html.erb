@@ -3,9 +3,9 @@
 <%end%>
 <br /><br />
 <% @groups.each do |group| %>
-<div class="groupListContainer">
+<div class="groupListContainer shadow-box">
 	<div class="groupUserImage">
-		<img src="http://www.gravatar.com/avatar/2cce45bcf6c3272c1940a020cd037977?s=50">		
+		<%= group.group_image_tag 50%>				
 	</div>
 	<div class="groupName">
 		<h3><%= link_to group.name, group %></h3>

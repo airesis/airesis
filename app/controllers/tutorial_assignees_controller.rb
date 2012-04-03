@@ -45,19 +45,11 @@ class TutorialAssigneesController < ApplicationController
   # POST /tutorial_assignees
   # POST /tutorial_assignees.json
   def create
-    @tutorial_assignee = @tutorial.assignees.build(params[:tutorial_assignee])
-    @tutorial.steps.each do |step|
-      TutorialProgress.create(:user_id => @tutorial_assignee.user_id,:step_id => step.id)
-    end
-    respond_to do |format|
-      if @tutorial_assignee.save
-        format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully created.' }
-     #   format.json { render json: @tutorial_assignee, status: :created, location: @tutorial_assignee }
-      else
-        format.html { render action: "new" }
-    #    format.json { render json: @tutorial_assignee.errors, status: :unprocessable_entity }
-      end
-    end
+    user = User.find_by_id(params[:tutorial_assignee][:user_id])
+    assign_tutorial(user,@tutorial)
+    
+    format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully created.' }
+    
   end
 
   # PUT /tutorial_assignees/1

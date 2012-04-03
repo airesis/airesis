@@ -1,6 +1,9 @@
 #encoding: utf-8
 module AffinityHelper
   
+  @msg = ""
+  @affinities = {}
+  
   #questo algoritmo viene eseguito ogni notte per determinare le affinità tra utenti e gruppi
   def self.calculate_user_group_affinity
     @msg = "Calcolo affinità utenti-gruppi:<br/>\n"
@@ -8,8 +11,15 @@ module AffinityHelper
     #seleziono i gruppi che hanno cambiato i propri confini di interesse nelle ultime 26 ore
     users = User.all
     groups = Group.all
-    affinities = {}
     users.each do |user|
+      calculate_group_affinity(user,groups)
+    
+    end
+    ResqueMailer.admin_message(@msg).deliver
+    #puts @msg
+  end
+  
+  def self.calculate_group_affinity(user,groups)
       @msg += "<b>#{user.login}</b><br/>\n"
       unless user.interest_borders.empty?
         @msg += user.interest_borders.collect{|ib| ib.description}.join(" , ")
@@ -17,14 +27,14 @@ module AffinityHelper
         groups.each do |group|
           key =user.interest_borders.map{ |ib| ib.territory_type + "-" + ib.territory_id.to_s}.join("") + "--" + group.interest_border.description
           affinity = user.group_affinities.find_or_create_by_group_id(group.id)
-          if affinities[key]
-            affinity.value = affinities[key]
+          if @affinities[key]
+            affinity.value = @affinities[key]
             @msg += "<li><b>#{group.name}</b> - #{group.interest_border.description} - cached affinity: #{affinity.value}\n"
           else
             affinity.value = user_group_aff(user,group)
             @msg += "<li><b>#{group.name}</b> - #{group.interest_border.description} - affinity: #{affinity.value}\n"
             @msg += "add key-value affinity pair: #{key}:#{affinity.value}\n"
-            affinities[key] = affinity.value
+            @affinities[key] = affinity.value
           end          
           affinity.save
           @msg += "</li>\n"
@@ -34,9 +44,6 @@ module AffinityHelper
         @msg += user.suggested_groups.collect{|g| g.name}.join(",") + "<br/>\n"
       end
       @msg += "-------<br/>\n"
-    end
-    ResqueMailer.admin_message(@msg).deliver
-    #puts @msg
   end
   
   PERFECT_HIT = 100

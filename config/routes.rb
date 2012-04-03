@@ -114,6 +114,7 @@ resources :comunes
     end
 
     collection do
+      post :ask_for_multiple_follow
     end
     
     resources :events

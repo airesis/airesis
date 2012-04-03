@@ -1,4 +1,4 @@
-<b>Benvenuto su Airesis, <%= current_user.name%>
+<div class="text"><b>Benvenuto su Airesis, <%= current_user.name%>
 <br />
 </b>
 Questo breve tutorial ti aiuterà nelle prime scelte all'interno del sistema.
@@ -9,6 +9,8 @@ Da qui potrai gestire le tue proposte ed i gruppi ai quali partecipi, visualizza
 con gli altri cittadini.<br />
 Ricorda che Airesis è ancora in fase di Beta Testing e pertanto potresti riscontrare errori o incongruenze all'interno del sistema.<br />
 Contribuisci a migliorare Airesis segnalandoci le anomalie a <a href="mailto:coorasse+feedback@gmail.com">coorasse+feedback@gmail.com</a>.<br />
-Buon proseguimento!<br />
+Buon proseguimento!
+<div style="clear: both"></div>
 <%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
-<br /> 
+<div style="clear: both"></div>
+</div>

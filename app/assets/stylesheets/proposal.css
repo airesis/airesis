@@ -54,6 +54,8 @@
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
+	background: repeat scroll 0 0 #FFF;
+	background: -webkit-gradient(linear, center top, center bottom, color-stop(30%, #FFFFFF), color-stop(70%, #DFEFFC));
 	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
 }
 .proposal_comment {
@@ -71,7 +73,6 @@
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-	/*box-shadow: 0 1px 5px #CCCCCC;*/
 	background: repeat scroll 0 0 #FFF;
 	background: -webkit-gradient(linear, center top, center bottom, color-stop(30%, #FFFFFF), color-stop(70%, #DFEFFC));
 	background: -moz-linear-gradient(center top , #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;

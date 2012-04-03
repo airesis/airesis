@@ -1,8 +1,49 @@
+<div class="text">
 <b>Inizia a partecipare<br /></b>
 	Ecco le persone ed i gruppi più attivi nei territori compresi nei tuoi confini di interesse. <br />
-	Scegli le persone che vuoi segure ed i gruppi ai quali vorresti partecipare. <br />
+	Scegli le persone ed i gruppi che vuoi seguire, in questo modo potrai entrare in contatto con loro e iniziare a partecipare agli eventi e votare le proposte. <br />
 	Un clic per selezionare, uno per deselezionare.		<br />
+</div>
+	<%current_user.suggested_groups.each do |group|%>
 	
+	<div class="groupListContainer shadow-box">
+		
+		<input type="hidden" class="groupId" value="<%=group.id%>" />
+		
+	<div class="groupUserImage">
+		<%= group.group_image_tag 45%>		
+	</div>
+	<div class="groupName">
+		<h3><%=group.name%></h3>
+	</div>
 	
+	<div style="clear: both"></div>
+	<div class="groupDescription" style="float:left">
+		<div class="" ><%=group.interest_border.description%></div>
+		<b><%=group.partecipants.count%></b> partecipanti
+		
+	</div>
+	<div style="clear: both"></div>
+</div>
 	
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %> 
+	<%end%>
+	<div style="clear: both;"></div>		
+	<%=form_for 'groups', :url => {:controller => 'groups', :action => 'ask_for_multiple_follow'} do |f|%>
+	<%=f.hidden_field 'group_ids'%>	
+		<%=f.submit 'Ho scelto!', :class => 'buttonStyle', :style => "float:right;" %>
+		
+	<%end%>
+	<div style="clear: both;"></div>	
+ 
+<br />
+
+<script type="text/javascript">
+	$(function() {
+		$('.groupListContainer').click(function() {
+			$(this).toggleClass('highlighted');
+			text = $('.groupListContainer.highlighted .groupId').map(function() {return $(this).val()}).get().join(';');
+			console.log(text);
+			$('#groups_group_ids').val(text);
+		})
+	});
+</script>

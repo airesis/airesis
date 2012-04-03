@@ -1,12 +1,11 @@
+<div class="text">
 <b>Il tuo primo contributo<br /></b>
-	<%if @user.proposals.empty?%>
-	E' ora di dire la tua! <br />
-	Inserisci una proposta, un'idea o una segnalazione dal territorio. <br /> 
-	Contribuisci alla discussione e fatti conoscere dagli altri utenti per aumentare il tuo ranking.
-	<div style="margin:auto">
-		<%=link_to 'Inserisci una proposta', new_proposal_path, :class => 'buttonStyle'%>
-	</div>
-	<%else%>	
-	Complimenti! Vedo che hai già contribuito con una proposta.
-	<%end%>		
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %> 
+E' ora di dire la tua! <br />
+Inserisci una proposta, un'idea o una segnalazione dal territorio. <br /> 
+Contribuisci alla discussione e fatti conoscere dagli altri utenti per aumentare il tuo ranking.
+<div style="margin:auto">
+	<%=link_to 'Inserisci una proposta', new_proposal_path, :class => 'buttonStyle'%>
+</div>		
+<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
+<div style="clear: both"></div>
+</div> 

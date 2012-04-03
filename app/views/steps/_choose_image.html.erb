@@ -1,4 +1,4 @@
-<b>Immagine del profilo
+<div class="text"><b>Immagine del profilo
 <br />
 </b>
 <%if @user.account_type == 'facebook'%>
@@ -6,12 +6,12 @@ L'immagine che vedi è stata presa dal tuo account Facebook.
 <br />
 Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis.
 <br />
-<%elsif @user.blog_image_url%>
-Hai già impostato la tua immagine personalizzata.
-<br />
 <%else%>
 L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato.
 <br />
 <%end%>
-Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su 'Modifica'.
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %> 
+Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su <b>Modifica l'immagine</b>.
+<div style="clear: both"></div>
+<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
+<div style="clear: both"></div>
+</div> 

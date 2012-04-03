@@ -22,6 +22,8 @@ module StepHelper
       if (!check_step_condition(step,user))
         next_step = step
         break
+      else
+        
       end
     end #each step
     tutorial_assignee.update_attribute(:completed,true) unless next_step #completo se non ci sono step da fare
@@ -34,8 +36,12 @@ module StepHelper
     progress = TutorialProgress.find_by_step_id_and_user_id(step.id,user.id)
     return true unless progress.status == TutorialProgress::TODO
     case step.tutorial_id.to_i 
-    when Tutorial::WELCOME
-        return welcome_steps(step,user)
+      when Tutorial::WELCOME
+        status = welcome_steps(step,user)
+        if status
+          progress.update_attribute(:status,TutorialProgress::DONE)
+        end 
+        return status
       else
         logger.error "Impossibile trovare tutorial_id: " + step.tutorial_id.to_s
         return false
@@ -50,11 +56,11 @@ module StepHelper
       when 1
         return (user.interest_borders.count > 0)
       when 2
-        return false
+        return (user.group_partecipations.count > 0 || user.group_follows.count > 0)
       when 3
-        return false
+        return (user.proposals.count > 0)
       when 4
-        return false
+        return (user.blog_image_url != nil)
       else
         logger.error "Impossibile trovare tutorial_id: " + step.tutotial_id.to_s + ", step_index: " + step.index.to_s 
         return false

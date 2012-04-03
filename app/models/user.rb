@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  include BlogKitModelHelper
+  include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
   
   validates_presence_of     :login
@@ -100,10 +100,8 @@ class User < ActiveRecord::Base
   
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
   def assign_tutorials
-      tutorial = Tutorial.find(1)
-      if (tutorial)
-        TutorialAssignee.create(:user => self, :tutorial => tutorial)
-      end
+    tutorial = Tutorial.find(Tutorial::WELCOME)
+    assign_tutorial(self,tutorial)      
   end
 
   def init

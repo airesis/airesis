@@ -79,6 +79,7 @@ class UsersController < ApplicationController
     end
     update_borders(borders)    
     flash[:notice] = "Confini di interesse aggiornati correttamente"
+    AffinityHelper.calculate_group_affinity(current_user,Group.all)
     redirect_to :back
   end
   

@@ -1,7 +1,35 @@
 .tutorial_panel {
 	background: none repeat scroll 0 0 #FFE6E6;
-    border: 1px solid #FFE6E6;
-    font-size: 1.3em;
-    line-height: 1.6em;
+/*    border: 1px solid #FFE6E6;*/
     padding: 7px;
 }
+
+
+.tutorial_panel .text {
+    line-height: 1.6em;
+    font-size: 1.3em;    
+}
+
+.tutorial_panel .groupListContainer.highlighted {
+    background: repeat scroll 0 0 #FBEC88;
+	background: -webkit-gradient(linear, center top, center bottom, from(#FBEC88), to(#FBEC88));
+	background: -moz-linear-gradient(center top , #FBEC88, #FBEC88) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(center top , #FBEC88, #FBEC88);   
+}
+
+
+.tutorial_panel .groupListContainer {
+    width: 232px;
+    cursor: pointer;
+}
+
+.tutorial_panel .groupUserImage {	
+	height: 45px;
+	width: 45px;
+}
+
+.tutorial_panel .groupName {
+	color: #3B5998;
+    text-decoration: none;	
+}
+

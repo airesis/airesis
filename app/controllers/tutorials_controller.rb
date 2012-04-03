@@ -82,7 +82,6 @@ class TutorialsController < ApplicationController
       format.html { redirect_to tutorials_url }
       format.json { head :ok }
     end
-  end
-  
+  end  
     
 end

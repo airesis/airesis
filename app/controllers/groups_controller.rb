@@ -2,7 +2,7 @@
 class GroupsController < ApplicationController
   layout :choose_layout
   #carica il gruppo
-  before_filter :load_group, :except => [:index,:new,:create]
+  before_filter :load_group, :except => [:index,:new,:create,:ask_for_multiple_follow]
   
   ###SICUREZZA###
   
@@ -236,9 +236,7 @@ class GroupsController < ApplicationController
     end
     redirect_to group_url(@group)
   end
-  
-  
-  
+   
   #fa partire una richiesta per seguire il gruppo
   def ask_for_follow
     #verifica se l'utente stà già seguendo questo gruppo
@@ -259,6 +257,22 @@ class GroupsController < ApplicationController
     end
     redirect_to group_url(@group)
   end
+  
+  #fa seguire ad un utente più gruppi
+  def ask_for_multiple_follow
+    groups = params[:groups][:group_ids].split(';')
+    
+    number = 0
+    groups.each do |group_id|
+      follow = current_user.group_follows.find_or_create_by_group_id(group_id)
+      if (follow.new_record?) #se non lo segue              
+          number += 1
+      end
+    end
+    flash[:notice] = "Ora segui #{number} nuovi gruppi"
+    redirect_to home_path
+  end
+  
   
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
   # è previsto o accettandola altrimenti.
