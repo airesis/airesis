@@ -28,8 +28,8 @@ class Event < ActiveRecord::Base
   has_many :proposals, :class_name => 'Proposal', :foreign_key => 'vote_period_id'
   has_one :meeting, :class_name => 'Meeting', :dependent => :destroy
   has_one :place, :through => :meeting, :class_name => 'Place'
-  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'event_id', :dependent => :destroy
-  has_many :organizers, :through => :meetings_organizations, :class_name => 'Group', :source => :group
+  has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'event_id', :dependent => :destroy
+  has_many :organizers, :through => :meeting_organizations, :class_name => 'Group', :source => :group
   
   accepts_nested_attributes_for :meeting
   
@@ -49,13 +49,13 @@ class Event < ActiveRecord::Base
   end
   
   def organizer_id=(id)
-    if (self.meetings_organizations.empty?)
-      self.meetings_organizations.build(:group_id => id)
+    if (self.meeting_organizations.empty?)
+      self.meeting_organizations.build(:group_id => id)
     end
   end
   
   def organizer_id
-    self.meetings_organizations.first.group_id rescue nil
+    self.meeting_organizations.first.group_id rescue nil
   end
   
   def is_past?

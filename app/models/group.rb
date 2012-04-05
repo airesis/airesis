@@ -15,7 +15,7 @@ class Group < ActiveRecord::Base
   validates_length_of       :title_bar,    :within => 1..255, :allow_blank => true
   validates_presence_of     :interest_border_id
   
-  #has_many :meetings_organizations, :class_name => 'MeetingsOrganization'
+  #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
   attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
@@ -29,9 +29,9 @@ class Group < ActiveRecord::Base
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   
-  has_many :meetings_organizations, :class_name => 'MeetingsOrganization', :foreign_key => 'group_id', :dependent => :destroy
+  has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'group_id', :dependent => :destroy
   
-  has_many :events,:through => :meetings_organizations, :class_name => 'Event', :source => :event
+  has_many :events,:through => :meeting_organizations, :class_name => 'Event', :source => :event
   
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
   has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'

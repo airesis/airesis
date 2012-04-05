@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
   def assign_tutorials
-    tutorial = Tutorial.find(Tutorial::WELCOME)
+    tutorial = Tutorial::WELCOME
     assign_tutorial(self,tutorial)      
   end
 
