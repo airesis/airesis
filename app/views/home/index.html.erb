@@ -77,7 +77,9 @@
 				}
 			}(document, "script", "twitter-wjs");
 		</script>
-		
+		<div id="flash_messages">
+			<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+		</div>
 		<div id="container">
 		<div class="home_container">
 			<div class="title">Cos'è Airesis</div>

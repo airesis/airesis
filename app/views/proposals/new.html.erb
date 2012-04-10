@@ -1,20 +1,5 @@
-<h1>Nuova proposta</h1>
-
-<div id="accordion" style="width:80%">
-    <h3><a href="#">Guida alla scrittura e alla gestione di una nuova proposta</a></h3>
-    <div style="line-height:1;">
-    	<p>Quando si scrive una nuova proposta è bene ricordare che la sua gestione è totalmente affidata all'autore della stessa.
-    	</p>
-    	<p>Lo scopo dell'utente è quello di ottenere quanti più voti positivi possibile. 
-    	   Quando l'utente ha raggiunto un numero sufficiente di voti, 
-    	   se il ranking della sua proposta è maggiore del 70% allora sarà possibile votare la proposta.</p>
-    	<p>Se al contrario il ranking è inferiore allora la proposta verrà automaticamente respinta.</p>
-    	<p>Una volta che la proposta avrà passato questa prima fase l'utente potrà scegliere un evento 'votazione' all'interno del quale inserirla.</p>
-    	<p>La proposta diventerà quindi 'votabile'</p>
-    	<p></p>
-    </div>    
-</div>
-
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
+<h1>Inserisci una nuova proposta</h1>
 
 <% if @proposal.errors.any? %>
   <ul>

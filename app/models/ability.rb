@@ -17,10 +17,33 @@ class Ability
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
        end
+       
+       can :post_to, Group do |group|
+         can_do_on_group?(user,group,1)    
+       end
+       can :create_event, Group do |group|
+         can_do_on_group?(user,group,2)   
+       end
+       can :support_proposal, Group do |group|
+         can_do_on_group?(user,group,3)         
+       end
+       can :accept_requests, Group do |group|
+         can_do_on_group?(user,group,4)         
+       end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end
        
+       
+     end          
+     
+      def can_do_on_group?(user,group,action)
+       user.groups.where("partecipation_role_id = 2")
+         role = user.group_partecipations.find(:first, :conditions => {:group_id => group.id}).partecipation_role
+         return true if (role.id == PartecipationRole::PORTAVOCE)
+         return false if (role.id == PartecipationRole::MEMBER)
+         roles = group.partecipation_roles.find(:all, :joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
+         return roles.include? role
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

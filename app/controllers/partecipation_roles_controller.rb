@@ -16,12 +16,12 @@ class PartecipationRolesController < ApplicationController
         @role.save!               
       end
       
-    
-    
       respond_to do |format|
           flash[:notice] = 'Hai creato il ruolo.'
           format.js { render :update do |page|
-                     page.redirect_to edit_permissions_group_path(@group)
+                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                     page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
+                     page.call "hideNewRolePanel"
                   end
       }
           format.html { redirect_to edit_permissions_group_path(@group) }          

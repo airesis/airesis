@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper
+  include NotificationHelper, StepHelper
   
   #load_and_authorize_resource
   #carica la proposta
@@ -81,6 +81,7 @@ class ProposalsController < ApplicationController
   end
   
   def new
+    @step = get_next_step(current_user)
     @proposal = Proposal.new
     
     respond_to do |format|

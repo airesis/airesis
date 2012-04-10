@@ -10,13 +10,14 @@ class MeetingPartecipationsController < ApplicationController
   def create
     meeting = params[:meeting_partecipation]
     @meetingPartecipation = MeetingPartecipation.new(:user_id => current_user.id, :meeting_id => @event.meeting.id, :comment => meeting[:comment], :guests => meeting[:guests], :response => meeting[:response])
-    @meetingPartecipation.save
+    @meetingPartecipation.save!
     
     flash[:notice] = "La tua risposta è stata inviata."
     respond_to do |format|
       format.js { render :update do |page|
                       page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                       page.replace "partecipation_panel_container", :partial => 'events/partecipation_panel', :locals => {:event => @event}    
+                      page.replace "partecipants_container", :partial => 'events/partecipants', :locals => {:event => @event}
                   end                  
       }
       format.html {

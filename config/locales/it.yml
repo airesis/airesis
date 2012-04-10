@@ -9,6 +9,7 @@ it:
     registrations:
       user:
         inactive_signed_up: 'Per completare la registrazione clicca nel link della mail che hai ricevuto.'
+        signed_up_but_unconfirmed: 'Clicca sul link che ti è stato inviato all''indirizzo email per completare la registrazione.'
     confirmations:
       user:
         confirmed: 'Registrazione completata con successo!'             

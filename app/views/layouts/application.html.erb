@@ -256,10 +256,11 @@
 				
 				function poll(){
 				    $.getScript("/alerts/polling/")
-				    setTimeout(poll,60000);	//valore temporaneo
+				    setTimeout(poll,600000);	//valore temporaneo
 				};
 				
-				poll();
+				setTimeout(poll,600000);	//valore temporaneo
+				//poll();
 				
 				$('#notification-panel').hide();
 				notification_panel_shown = false;

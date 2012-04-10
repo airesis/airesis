@@ -1,4 +1,8 @@
 class PartecipationRole < ActiveRecord::Base
+  
+  PORTAVOCE=2
+  MEMBER=1
+  
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :users,:through => :group_partecipations, :class_name => 'User'
   has_many :action_abilitations, :class_name => 'ActionAbilitation'    

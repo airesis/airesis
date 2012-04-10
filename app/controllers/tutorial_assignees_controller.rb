@@ -1,5 +1,7 @@
 class TutorialAssigneesController < ApplicationController
-   before_filter :admin_required
+  include TutorialAssigneesHelper
+  
+  before_filter :admin_required
   # GET /steps
   # GET /steps.json
   
@@ -48,8 +50,9 @@ class TutorialAssigneesController < ApplicationController
     user = User.find_by_id(params[:tutorial_assignee][:user_id])
     assign_tutorial(user,@tutorial)
     
-    format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully created.' }
-    
+    respond_to do |format|
+      format.html { redirect_to @tutorial, notice: 'Tutorial assignee was successfully created.' }
+    end
   end
 
   # PUT /tutorial_assignees/1

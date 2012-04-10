@@ -63,8 +63,8 @@
 			</p>
 			<p>
 				<%= f.label :published, 'Stato' %><br />
+				<%= f.radio_button :published, true, :checked=>"checked" %><%= f.label :published_true, 'Pubblicato' %><br />
 				<%= f.radio_button :published, false %><%= f.label :published_false, 'Bozza' %>
-				<%= f.radio_button :published, true %><%= f.label :published_true, 'Pubblicato' %>
 			</p>
 			
 			<p>

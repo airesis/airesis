@@ -3,64 +3,9 @@
 	<a href="#" class="newButton" id="addRole">Aggiungi un nuovo ruolo</a>
 <%end%>
 
-<table style="text-align: left">
-	<thead>
-		
-		<th>Ruolo</th>
-		<th>Descrizione</th>
-		
-		<% GroupAction.all.each do |action|%>
-		<th><%=action.description%></th>
-		<%end%>
-		
-	</thead>
-	<tbody>
-<%
-
-
-PartecipationRole.common.each do |role|
-abilitations = role.action_abilitations.by_group(@group).all%>
-	<tr>
-			<td>
-				<b><%=role.name%>:</b>
-				</td>
-				<td> <%=role.description%>	
-					</td>
-				<% GroupAction.all.each do |action|%>
-					<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-						<%if (abilitations.find{|a| a.group_action_id == action.id} || (role.id == 2))%> 
-						checked="true"
-						<%end%>
-						disabled="disabled"
-						title="Non puoi modificare questi permessi"
-						/></td>
-				<%end%>	
-					
-		</tr>
-<%end%>
-	<%@group.partecipation_roles.each do |role|
-	abilitations = role.action_abilitations.by_group(@group).all%>
-		<tr>
-			<td>
-				<b><%=role.name%>:</b>
-				</td>
-				<td> <%=role.description%>	
-					</td>
-					<% GroupAction.all.each do |action|%>
-						<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-							<%if (abilitations.find{|a| a.group_action_id == action.id})%> 
-						checked="true"
-						<%end%>
-							 /></td>
-					<%end%>	
-					
-					<td>
-						<%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
-					</td>
-		</tr>
-	<%end%>
-	</tbody>
-</table>
+<div id="roles_panel_container">
+<%= render :partial => 'groups/roles_panel' %>
+</div>
 
 <div id="new_role" title="Nuovo ruolo" style="display: none">
 	<%
@@ -110,6 +55,12 @@ abilitations = role.action_abilitations.by_group(@group).all%>
 	        	type: 'post'    
 	        });
 	       }
+    }
+    
+    
+    function hideNewRolePanel() {
+    	console.log('hei');
+    	$('#new_role').dialog('destroy');
     }
 	
 	

@@ -5,7 +5,7 @@ module StepHelper
   #per il controller e l'action corrente restituisce,
   #eventualmente, lo step da mostrare 
   def get_next_step(user=current_user)
-    tutorial_assignee = current_user.todo_tutorial_assignees.find(:first)
+    tutorial_assignee = current_user.todo_tutorial_assignees.find(:first, :joins => :tutorial, :conditions => "tutorials.action = '#{params[:action]}' and tutorials.controller = '#{params[:controller]}'", :readonly => false)
     return check_tutorial_status(tutorial_assignee) if tutorial_assignee
     
   end

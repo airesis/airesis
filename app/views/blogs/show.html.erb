@@ -1,3 +1,5 @@
+<% javascript 'endless_page' %>
+
 <%=render :layout => "layouts/page_title", :locals => {:title => @blog.title} do%>
 <%= render :partial => 'blog_posts/admin_links' %>
 <%end%>
@@ -12,15 +14,14 @@
 		<h3>Tag: <%= @tag %></h3>
 	<% end %>
 	
-	<div class="blogPages">
-	<%= will_paginate @blog_posts %>
-</div>
-	
 	<%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
-<div class="blogPages">
-	<%= will_paginate @blog_posts %>
-</div>  
+		
 <% end %>
+
+
+ <div id="loading_results">
+  	<span>Post precedenti...</span>
+ </div>
 
 <script type="text/javascript">
 			$('input:submit').button();			

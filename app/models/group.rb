@@ -37,6 +37,9 @@ class Group < ActiveRecord::Base
   has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'
   belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
   
+  has_many :action_abilitations, :class_name => 'ActionAbilitation'
+
+  
   attr_reader :partecipant_tokens
   attr_accessor :portavoce, :porta_id
     

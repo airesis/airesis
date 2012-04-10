@@ -1,7 +1,8 @@
 <h1>Listing tutorials</h1>
 
-<table>
-  <tr>
+<table id="table">
+	
+  <thead>
     <th>Action</th>
     <th>Controller</th>
     <th>Name</th>
@@ -9,8 +10,8 @@
     <th></th>
     <th></th>
     <th></th>
-  </tr>
-
+  </thead>
+<tbody>
 <% @tutorials.each do |tutorial| %>
   <tr>
     <td><%= tutorial.action %></td>
@@ -22,8 +23,15 @@
     <td><%= link_to 'Destroy', tutorial, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
+  </tbody>
 </table>
 
 <br />
 
 <%= link_to 'New Tutorial', new_tutorial_path %>
+
+<script type="text/javascript">
+	$(function() {
+		$('#table').dataTable();
+	});
+</script>

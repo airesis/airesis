@@ -1,14 +1,5 @@
-<% javascript 'endless_page' %>
 
 <div class="blogPost">
-
-<% if params[:action] == 'show' and params[:controller] == 'blog_posts' %>
-<script>
-	
-	var pageURL = "<%= blog_blog_post_path(@blog) %>";
-	 
-</script>
-<% end%>
 
 	<div class="blogUserImage">
 		<%= blog_post.user_image_tag %>
@@ -41,28 +32,15 @@
 		</p>
 	<% end %>
 	
-	<%if (current_user)%>
+	<%if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
 	<p class="blogFooter">
 		<ul class="blogList">
-			
-			<% if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
-				<li><%= link_to('Modifica', edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
-				<li><%= link_to('Cancella', blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
-			<%end%>
+			<li><%= link_to('Modifica', edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
+			<li><%= link_to('Cancella', blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
 		</ul>
 	</p>
 	<%end%>
 	
-	<% if defined?(show_comments) %>
-		<%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
-		
-		<div id="blogPostCommentsContainer">
-		<%= render :partial => 'blog_posts/comments' %>
-	  </div>
-	  <div id="loading_results">
-	  	<span>Commenti precedenti...</span>
-	  </div>
-	<% end %>
 	
-	<br style="clear: both;" />
+	<div style="clear: both;" ></div>
 </div>

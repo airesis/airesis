@@ -169,6 +169,10 @@ class ApplicationController < ActionController::Base
       return ret
   end
   
+  #redirect all pagina delle proposte
+  def after_sign_up_path_for(resource)
+    return proposals_path
+  end
   
 
 

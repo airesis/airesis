@@ -78,7 +78,10 @@ class BlogPostsController < ApplicationController
   
   def new
     @blog_post = @blog.posts.build
-    @groups = current_user.groups
+    @groups = current_user.groups.find(:all, :joins => :action_abilitations, 
+    :conditions => "action_abilitations.group_id = groups.id " + 
+    " AND group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
+    " AND action_abilitations.group_action_id = 1")
     
     respond_to do |format|
       format.html
@@ -91,7 +94,8 @@ class BlogPostsController < ApplicationController
   end
   
   def create
-    
+    group_ids = params[:blog_post][:group_ids]
+    group_ids.select!{|id| can? :post_to, Group.find_by_id(id) }
     BlogPost.transaction do
       @blog_post = @blog.posts.build(params[:blog_post])
       @blog_post.user_id = current_user.id

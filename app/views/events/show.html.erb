@@ -88,14 +88,16 @@
 			});
 		</script>
 	<%end%>
-	<%if @event.is_past?%>
-	<h1>Chi ha partecipato?</h1>
-	<%else%>
-	<h1>Chi parteciperà?</h1>
-	<%end%>		
-	<div id="partecipants_container">
-	<%= render :partial => 'partecipants' %>
-	</div>
+	<%if @event.meeting%>
+		<%if @event.is_past?%>
+			<h1>Chi ha partecipato?</h1>
+		<%else%>
+			<h1>Chi parteciperà?</h1>
+		<%end%>		
+		<div id="partecipants_container">
+			<%= render :partial => 'partecipants' %>
+		</div>
+	<%end%>	
 	
 <!--	<div class="user_tag last_tag shadow-box">
 		
@@ -111,9 +113,11 @@
 			    	<%= group.group_image_tag 120 %>
 			    </div>
 			<%end%>
+			<%if @event.meeting%>
 			<div id="partecipation_panel_container">
 			<%= render :partial => 'partecipation_panel' %>
 			</div>
+			<%end%>
 	<%end%>
 	
 <%end%>
