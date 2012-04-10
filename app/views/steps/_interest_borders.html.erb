@@ -2,15 +2,20 @@
 	Definisci i tuoi confini geografici di interesse.<br /> 
 	Se sappiamo quali sono i territori ai quali sei interessato possiamo 
 	consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio.<br />
+</div>
 	
 	
 <%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
-	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.collect{ |b| {:id => b.ftype + '-' + b.foreign_id.to_s, :name => b.description}}.to_json %>
-
-<%= f.submit 'Prosegui', :class => 'buttonStyle littleText', :style => "float:right;" %>
+<div id="border_fields">
+	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+</div>
+<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+	<%= image_tag 'ajax-loader.gif'%><br />
+	<b>Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti.</b>
+</div>
+<%= f.submit 'Prosegui', :class => 'buttonStyle littleText', :style => "float:right;", :id => "submit_borders" %>
 <%end%>
 <div style="clear: both;"></div>
-</div>
 <script type="text/javascript">
 	$(function() {
 		input = $('#token_interest_borders')
@@ -21,6 +26,13 @@
 			noResultsText: "Nessun luogo trovato",
 			searchingText: "Sto cercando...",
 			preventDuplicates: true
+		});
+		
+		$('#submit_borders').click(function() {
+			$(this).hide();
+			$('#border_fields').hide();	
+			$('#loading_borders').fadeIn();	
+			return true;				
 		});
 	});
 
