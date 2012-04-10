@@ -21,3 +21,4 @@
 //= require coda
 //= require charCount
 //= require jquery.progressbar
+//= require jquery.dataTables.min

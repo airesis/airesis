@@ -22,4 +22,6 @@
  *= require timepicker
  *= require tags
  *= require tutorial
+ *= require portlet
+ *= require jquery.dataTables
 */
