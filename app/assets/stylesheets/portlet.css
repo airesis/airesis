@@ -1,0 +1,22 @@
+.portlet_panel {
+	background: repeat scroll 0 0 #C5EAF8;
+	background: -webkit-gradient(linear, center top, center bottom, from(#FFFFFF), color-stop(100%, #C5EAF8));
+	background: -moz-linear-gradient(center top , #FFFFFF 0pt, #C5EAF8 100%) repeat scroll 0 0 #FFFFFF;
+	border: 2px solid #C5EAF8;
+	
+	border-radius: 4px 4px 4px 4px;
+	width: 358px;
+	height: 290px;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+			
+.portlet_panel .title {
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 5px;
+	border-bottom: 1px solid #CCCCCC;
+}	

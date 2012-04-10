@@ -3,10 +3,15 @@
 <%end %>
 	
 <%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
-	<%= f.label "I tuoi confini geografici di interesse"%>
-	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
-
- <%= f.submit "Salva" %>
+	<div id="border_fields">
+		<%= f.label "I tuoi confini geografici di interesse"%>
+		<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
+	</div>
+	<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+	<%= image_tag 'ajax-loader.gif'%><br />
+	<b>Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti.</b>
+	</div>
+ <%= f.submit "Salva", :id => "submit_borders" %>
 <%end%>
 <script type="text/javascript">
 	$(function() {
@@ -19,6 +24,13 @@
 			searchingText: "Sto cercando...",
 			preventDuplicates: true
 		});
+		
+		$('#submit_borders').click(function() {
+			$(this).hide();
+			$('#border_fields').hide();	
+			$('#loading_borders').fadeIn();	
+			return true;
+		}).css('margin-top','10px');
 	});
 
 </script>  		
