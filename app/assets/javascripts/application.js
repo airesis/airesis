@@ -22,3 +22,4 @@
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min
+//= require rails.validations
