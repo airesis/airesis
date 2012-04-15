@@ -1,6 +1,4 @@
 DemocracyOnline3::Application.routes.draw do
-  
-
 
   resources :tutorial_progresses
 
@@ -31,6 +29,7 @@ DemocracyOnline3::Application.routes.draw do
       get :alarm_preferences #preferenze allarmi utente
       get :border_preferences #preferenze confini di interesse utente
       post :set_interest_borders #cambia i confini di interesse
+      post :join_accounts
     end
   end                                      
   

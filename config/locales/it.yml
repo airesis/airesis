@@ -13,6 +13,7 @@ it:
     confirmations:
       user:
         confirmed: 'Registrazione completata con successo!'             
+        send_instructions:  'Istruzioni inviate all''indirizzo indicato.'
     sessions:
       user:
         signed_out: 'Hai eseguito logout. Ciao!'
