@@ -24,11 +24,11 @@ gem 'tlsmail'
 
 gem 'silent-postgres'
 
-gem "omniauth"  
+#gem "omniauth", '1.0.3'
 
 gem 'omniauth-facebook'
 
-gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
+#gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -64,6 +64,7 @@ gem 'cancan'
 
 gem 'foreigner'
 
+gem 'client_side_validations'
 #gem 'ar_fixtures'
 
 #gem 'sitemap_generator'
