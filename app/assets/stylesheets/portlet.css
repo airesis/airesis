@@ -20,3 +20,8 @@
 	padding: 5px;
 	border-bottom: 1px solid #CCCCCC;
 }	
+
+#notification-portlet {
+	overflow: auto;
+	height: 260px;
+}

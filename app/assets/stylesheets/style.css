@@ -75,10 +75,7 @@ body {
 .rightAlign {
 	text-align: right;
 }
-.rankingpanelcontainer {
-	width: 62px;
-	float: right;
-}
+
 .doNotDisplay {
 	display: none !important;
 }
@@ -285,24 +282,7 @@ dd {
 	border: 1px solid #BBDD77;
 	color: #333333;
 }
-.baloon {
-	float: left;
-	border: 1px solid #CCCCCC;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	background-color: #EBE0BF;
-}
-.baloon_header {
-	margin: 0px 5px;
-}
-.baloon-content {
-	width:441px;
-	word-wrap: break-word;
-	margin: 0px 5px;
-}
-.baloon-footer {
-	margin: 0px 5px;
-}
+
 /*link ai commenti*/
 .spch-bub-inside {
 	position: relative;
@@ -639,4 +619,13 @@ table.stiled tr.even.gradeA {
 
 h1, h2 {
 	color: #333333;
+}
+
+.field_with_errors {
+	display:inline-block;
+}
+
+.field_with_errors .message{
+	color: #FF0000;
+	font-size: 0.8em;
 }

@@ -46,57 +46,60 @@
 	height: 25px;
 	display: block;
 }
+
 .voteup-mini {
 	background: url('/assets/like-blank-mini.gif') 0 0 no-repeat;
 	width: 17px;
 	height: 17px;
-	float: left;
-	display: block;
+	float: right;
+	display: inline-block;
 }
 .voteup-mini:hover {
 	background: url('/assets/like-mini.gif') 0 0 no-repeat;
-	width: 17px;
-	height: 17px;
-	display: block;
+	
 }
 .votedown-mini {
 	background: url('/assets/dislike-blank-mini.gif') 0 0 no-repeat;
 	width: 17px;
 	height: 17px;
-	float: left;
-	display: block;
-	margin-left: 10px;
+	float: right;
+	display: inline-block;
+	margin: 0 5px;
 }
 .votedown-mini:hover {
 	background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
-	width: 17px;
-	height: 17px;
-	display: block;
 }
+
 .votedup-mini {
 	background: url('/assets/like-mini.gif') 0 0 no-repeat;
 	width: 17px;
 	height: 17px;
-	display: block;
+	display: inline-block;
+	float: right;
 }
 .voteddown-mini {
 	background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
 	width: 17px;
 	height: 17px;
-	display: block;
+	display: inline-block;
+	float: right;
 }
+
 .notvotedup-mini {
 	background: url('/assets/like-blank-mini.gif') 0 0 no-repeat;
 	width: 17px;
 	height: 17px;
-	display: block;
+	display: inline-block;
+	float: right;
 }
 .notvoteddown-mini {
 	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
 	width: 25px;
 	height: 25px;
-	display: block;
+	display: inline-block;
+	float: right;
 }
+
 .votered {
 	background: url('/assets/red-2.png') 0 0 no-repeat;
 	width: 32px;

@@ -25,7 +25,7 @@
 
 
 .proposalCommentPostedAt {
-	margin-bottom:16px;
+	/*margin-bottom:16px;*/
 }
 
 
@@ -61,11 +61,11 @@
 .proposal_comment {
 	position: relative;
 	border: 1px solid #CCCCCC;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	box-shadow: 0 1px 5px #CCCCCC;
-	margin-left: 48px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+	margin-left: 50px;
+	color: #333333;
 }
 .proposal_list {
 	position: relative;
@@ -140,6 +140,9 @@
 	padding: 2px
 }
 
+.rankingpanelcontainer {
+	display: inline-block;
+}
 
 
 .new_blog_comment {
@@ -260,4 +263,37 @@ ul.blogList li.blogListFirst {
 	margin-right: auto;
 	margin-bottom: 5px;
 	height: 30px;
+}
+
+
+
+.baloon {
+	float: left;
+	border: 1px solid #CCCCCC;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	background-color: #EBE0BF;
+}
+.baloon_header {
+	margin: 0px 5px;
+}
+.baloon-content {
+	word-wrap: break-word;
+	margin: 0px 5px;
+	text-align: justify;
+}
+.baloon-footer {
+	/*margin: 0px 5px;*/
+	font-size: 0.9em;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.baloon-triangle {
+	background: url('<%= asset_path('baloon-triangle.png') %>') no-repeat top left;
+	width: 10px;
+	height: 21px;
+	position: absolute;
+	left: -10px;
+	top: 7px;
 }

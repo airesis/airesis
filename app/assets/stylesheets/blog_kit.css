@@ -1,7 +1,8 @@
 .blogComment {
 	padding: 20px 0 0;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 1px dashed #CCC;
 	clear: both;
+	color: #333333;
 }
 
 .blogCommentPostedAt {
@@ -83,4 +84,14 @@ ul.blogList li.blogListFirst {
 
 .blogKitCode pre {
 	overflow-x: auto;
+}
+
+.blog-comment-content {
+	word-wrap: break-word;
+	margin: 5px 0px;
+}
+
+
+.blog-comment-footer {
+	font-size: 0.9em;
 }

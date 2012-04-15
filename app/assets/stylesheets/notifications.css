@@ -1,0 +1,61 @@
+#notification-panel {
+	background-color: white;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	color: #294145;
+	display: block;
+	margin-bottom: 5px;
+	margin-left: 382px;
+	margin-top: 36px;
+	padding: 10px;
+	position: absolute;
+	text-align: left;
+	width: 235px;
+	min-height:40px;
+	z-index: 3;
+}
+
+
+#notification-panel ul.menu-list,
+#notification-portlet ul.menu-list {
+	float: left;
+    list-style-type: none;
+    margin-left: 8px;
+    margin-top: 2px;
+    padding: 0 0 0;
+}
+
+#notification-panel ul.menu-list li.new,
+#notification-portlet ul.menu-list li.new {
+	padding-top:2px;
+	padding-bottom:2px;
+	border-bottom: 1px solid #CCCCCC;
+	background-color: #FBEC88;
+}
+
+#notification-panel ul.menu-list li.old,
+#notification-portlet ul.menu-list li.old {
+	padding-top:2px;
+	padding-bottom:2px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+#notification-panel ul.menu-list li:hover,
+#notification-portlet ul.menu-list li:hover {
+	opacity: 0.5;	
+}
+
+#notification-panel .menu-footer,
+#notification-portlet .menu-footer {
+	background-color: #DFEFFC;
+    font-weight: bold;
+    height: 26px;
+    text-align: center;
+    padding-top: 7px;
+}
+
+#notification-panel ul.menu-list a:hover,
+#notification-portlet ul.menu-list a:hover {
+	text-decoration: none;
+}
