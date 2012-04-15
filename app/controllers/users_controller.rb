@@ -1,7 +1,7 @@
 #encoding: utf-8
 class UsersController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :edit]
@@ -18,11 +18,11 @@ class UsersController < ApplicationController
   #unisce due account
   def join_accounts
     data = session["devise.facebook_data"] #prendi i dati di facebook dalla sessione
-    if (params[:user][:email] && (data["user_info"]["email"] != params[:user][:email])) #se per caso viene passato un indirizzo email differente
+    if (params[:user][:email] && (data["extra"]["raw_info"]["email"] != params[:user][:email])) #se per caso viene passato un indirizzo email differente
       flash[:error] = 'Dai va là!'
       redirect_to confirm_credentials_users_url
     else
-      auth = User.find_by_email_and_login(data["user_info"]["email"],params[:user][:login]) #trova l'utente del portale con username e password indicati
+      auth = User.find_by_email_and_login(data["extra"]["raw_info"]["email"],params[:user][:login]) #trova l'utente del portale con username e password indicati
       if ( auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
         #imposta l'account come 'facebook'
         User.transaction do
@@ -38,9 +38,9 @@ class UsersController < ApplicationController
         redirect_to confirm_credentials_users_url        
       end
     end
-  rescue ActiveRecord::ActiveRecordError => e
+  rescue Exception => e
     flash[:error] = 'Errore durante l''unione dei due account. L''operazione non è possibile al momento.'
-    redirect_to users_sign_in_url
+    redirect_to confirm_credentials_users_url
   end
   
   def index
@@ -100,7 +100,13 @@ class UsersController < ApplicationController
             page.replace_html "user_profile_container", :partial => "user_profile"          
           end
         end
-        format.html { redirect_to  @user }
+        format.html { 
+          if params[:back] == "home"
+            redirect_to home_url
+          else
+            redirect_to @user 
+          end  
+        }
         format.xml  { render :xml => @proposal }      
       else
         @user.errors.full_messages.each do |msg|
@@ -111,7 +117,13 @@ class UsersController < ApplicationController
             page.replace_html "error_updating", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
-        format.html { render :action => "show" }
+        format.html { 
+          if params[:back] == "home"
+            redirect_to home_url
+          else
+           render :action => "show"
+          end 
+        }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end

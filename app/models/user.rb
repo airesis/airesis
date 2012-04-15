@@ -23,7 +23,9 @@ class User < ActiveRecord::Base
   
   validates_length_of       :email,    :within => 6..50 #r@a.wk
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
-
+  validates_uniqueness_of   :email
+  
+  
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
   #colonne assegnabili massivamente
@@ -45,7 +47,7 @@ class User < ActiveRecord::Base
   
   has_many :partecipation_roles,:through => :group_partecipations, :class_name => 'PartecipationRole'  
   has_many :group_follows, :class_name => 'GroupFollow'
-  has_many :followed_groups,:through => :group_follows, :class_name => 'Group'
+  has_many :followed_groups,:through => :group_follows, :class_name => 'Group', :source => :group
   has_many :user_votes, :class_name => 'UserVote'
   has_many :proposal_comments, :class_name => 'ProposalComment'
   has_many :proposal_comment_rankings, :class_name => 'ProposalCommentRanking'
@@ -97,11 +99,16 @@ class User < ActiveRecord::Base
   before_create :init
   
   after_create :assign_tutorials
-  
+
+
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
   def assign_tutorials
-    tutorial = Tutorial::WELCOME
+    tutorial = Tutorial.find_by_name("Welcome Tutorial")
     assign_tutorial(self,tutorial)      
+    tutorial = Tutorial.find_by_name("First Proposal")
+    assign_tutorial(self,tutorial)
+    tutorial = Tutorial.find_by_name("Rank Bar")
+    assign_tutorial(self,tutorial)
   end
 
   def init
@@ -121,7 +128,8 @@ class User < ActiveRecord::Base
 
  def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+      fdata = session["devise.facebook_data"]
+      if fdata && data = fdata["extra"]["raw_info"]
         user.email = data["email"]
       end
     end
@@ -148,7 +156,8 @@ class User < ActiveRecord::Base
   end
   
   def email=(value)
-    if (self.account_type != 'facebook')
+    if (self.account_type != 'facebook' && !self.email)
+   # if (false) #al momento non è consentito cambiare l'email
       write_attribute :email, (value ? value.downcase : nil)
     end
   end
@@ -292,5 +301,8 @@ def facebook
   
   @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider('facebook').token).fetch rescue nil
 end
+
+
+    validates_confirmation_of :password
 
 end
