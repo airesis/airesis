@@ -1,8 +1,7 @@
 #encoding: utf-8
 class Proposal < ActiveRecord::Base
   include BlogKitModelHelper
-  
-  
+    
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
@@ -26,6 +25,8 @@ class Proposal < ActiveRecord::Base
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
+  
+  validates_presence_of :content
   
   attr_accessor :update_user_id
   
