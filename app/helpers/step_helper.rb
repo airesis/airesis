@@ -36,7 +36,7 @@ module StepHelper
     progress = TutorialProgress.find_by_step_id_and_user_id(step.id,user.id)
     return true unless progress.status == TutorialProgress::TODO
     case step.tutorial_id.to_i 
-     when Tutorial::WELCOME.id
+     when Tutorial.find_by_name("Welcome Tutorial").id
         status = welcome_steps(step,user)
         if status
           progress.update_attribute(:status,TutorialProgress::DONE)

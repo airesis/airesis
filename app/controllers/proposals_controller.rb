@@ -117,7 +117,13 @@ class ProposalsController < ApplicationController
       
       respond_to do |format|
         flash[:notice] = t(:proposal_inserted)
-        format.html { redirect_to(proposals_url) }              
+        format.html { 
+         if request.env['HTTP_REFERER']["back=home"]
+          redirect_to home_url
+         else 
+          redirect_to(proposals_url)
+         end 
+        }              
       end
       
     rescue ActiveRecord::ActiveRecordError => e

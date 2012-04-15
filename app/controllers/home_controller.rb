@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   
   def index
     if (current_user)
-      redirect_to proposals_path
+      redirect_to home_url
     end
   end
     
