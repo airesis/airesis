@@ -4,44 +4,35 @@
         <%= comment.user_image_tag(40) %>
     </div>
     <div class="proposal_comment">
-        <table style="width:100%">
-            <body>
-                <tr>
-                    <td>
-                        <div id="commentcc" >
-                            <div class="baloon_header">
-								<div id="flash_messages_comment_<%= comment.id %>" style="height:20px">
-									
-								</div>
-                                <div class="proposalCommentPostedAt">
-                                    Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-                                    da <span class="blogPoster"><%=link_to_user comment.user %></span>
-                                </div>
-                            </div>
-                            <div class="baloon-content">
-                                <%= h(comment.content) %>
-                            </div>
-                            <div class="baloon-footer">
-                                <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
-                                <p>
-                                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
-										:remote => "true",
-										:onclick => "return false;",
-										:class => "deleteCommentLink",					
-										:id => "delete#{comment.id}"%>
-                                </p>
-                                <%end%>                               
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
-                            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
-                        </div>
-                    </td>
-                </tr>
-            </body>
-        </table>
+    	<div class="baloon-triangle">
+    	</div>
+        <div id="commentcc" >
+	        <div class="baloon_header">
+	            <div class="proposalCommentPostedAt">
+	                <span class="blogPoster"><%=link_to_user comment.user %></span> dice...
+	            </div>
+				<div id="flash_messages_comment_<%= comment.id %>" style="height:20px">
+					
+				</div>
+	        </div>
+            <div class="baloon-content">
+                <%= h(comment.content) %>
+            </div>
+            <div class="baloon-footer">
+            	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
+    	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
+        	    </div>
+                <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
+                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
+						:remote => "true",
+						:onclick => "return false;",
+						:class => "deleteCommentLink",					
+						:id => "delete#{comment.id}"%>
+                <%end%>                               
+
+            </div>
+        </div>
      
      <script>     		
 	     	<%if (comment.collapsed) %>

@@ -16,7 +16,7 @@
 
 </script>  		
 
-<%= form_for @proposal, :builder => InfoTagBuilder do |f| %>
+<%= form_for @proposal, :validate => true do |f| %>
    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
    
    <p>
@@ -26,8 +26,9 @@
    
    
   <p>
-    
-    <%= f.info_tag :title, :help => "Inserisci un titolo dal quale si capisca l'argomento della proposta e a chi è rivolta." %> 
+  	 <%=f.label :title%><br />
+    <%= f.text_field :title %>
+     
   </p>
   
   <p>
