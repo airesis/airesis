@@ -2,4 +2,4 @@
 	$('#notifications_place').addClass('ui-state-highlight');
 	$('#notifications_place span').html('Notifiche (<%=@new_user_alerts.size%>)');
 <%end%>
-$('#notification-panel').html("<%= escape_javascript(render(:partial => 'alerts/polling'))%>");
+$('#notification-panel, #notification-portlet').html("<%= escape_javascript(render(:partial => 'alerts/polling'))%>");
