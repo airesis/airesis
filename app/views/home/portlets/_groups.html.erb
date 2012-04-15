@@ -1,4 +1,27 @@
 <div class="title">
 	I gruppi
 </div>
-Elenco dei gruppi a cui partecipi e che segui
+<%@groups = current_user.groups %>
+<%@groups.each do |group|%>
+	<div class="groupcontainer">
+		<div class="groupImg24">
+			<%= group.group_image_tag 25%>		
+		</div>
+		<div class="group">
+			<%= link_to group.name, group %>
+		</div>
+	</div>
+<%end unless @groups.empty?%> 
+<%@following = current_user.followed_groups %>
+<%@following.each do |group|%>
+	<div class="groupcontainer">
+		<div class="groupImg24">
+			<%= group.group_image_tag 25%>		
+		</div>
+		<div class="group">
+			<%= link_to group.name, group %>
+		</div>
+	</div>
+<%end unless @following.empty?%> 
+
+<%= "Non partecipi a nessun gruppo ancora" if @groups.empty? && @following.empty?%>
