@@ -1,0 +1,6 @@
+$('#blogPostContainer').append("<%= escape_javascript(render(:partial => 'blog_posts/blog_post', :collection => @blog_posts))%>");
+<%if @blog_posts.total_pages > @blog_posts.current_page%>
+  checkScroll();
+<%else%>
+  $('#loading_results').hide();
+<%end%>

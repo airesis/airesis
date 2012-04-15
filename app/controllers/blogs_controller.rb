@@ -31,8 +31,9 @@ class BlogsController < ApplicationController
     @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
 
     respond_to do |format|
+      format.js
       format.html # show.html.erb
-      format.xml  { render :xml => @blog }
+      #format.xml  { render :xml => @blog }
     end
   end
 

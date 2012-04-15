@@ -13,8 +13,9 @@
 	<% if @tag %>
 		<h3>Tag: <%= @tag %></h3>
 	<% end %>
-	
+	<div id="blogPostContainer">
 	<%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+	</div>
 		
 <% end %>
 

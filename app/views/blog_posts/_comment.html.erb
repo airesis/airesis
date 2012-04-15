@@ -1,31 +1,24 @@
 
 <div id="comment<%= comment.id %>" class="blogComment"<%if (comment.collapsed) %>style="display:none"<%end%>>	 
-	<div class="blogUserImage">
-		<%= comment.user_image_tag(60) %>
+	<div class="blog-comment-image">
+		<%= comment.user_image_tag(20) %>
+		<span class="blogPoster"><%=link_to_user comment.user %></span> dice...		 		
 	</div>	
-	 <div class="triangle-right left">
-        
-        
-        <div class="baloon_header">
-			<div class="blogCommentPostedAt">
-				Inserito il <span class="blogPostDate"><%= comment.formatted_created_at%></span>
-				da <span class="blogPoster"><%=link_to_user usercomment.user %></span>		 		
-			</div>
-		</div>
-		<div class="baloon-content">
+	<div class="blog-comment-content">
 			<%= comment.parsed_body %>
-		</div>
-		<div class="baloon-footer">
-			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id) %>
+	</div>
+	<div class="blog-comment-footer">
 			<p>
+			Inserito il <span class="blogPostDate"><%= comment.formatted_created_at%></span>
+			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id) %>
 					<%= link_to 'Cancella', {:controller => "blog_comments", :action => "delete",  :blog_post_id => @blog_post.id, :id => comment.id},
 					:remote => "true",
 					:onclick => "return false;",
 					:class => "deleteCommentLink",					
 					:id => "delete#{comment.id}"%>
-			</p>										   
 			<% end %>	
-		</div>
+			</p>										   
+	</div>
 	<script>	
 	    
 		<%if (comment.collapsed) %>
@@ -39,6 +32,5 @@
 		
 		
 	</script>
-	</div>
 	<div style="clear:both;"></div>
 </div>
