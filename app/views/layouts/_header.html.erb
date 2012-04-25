@@ -97,7 +97,9 @@ js.id = id;<%if (Rails.env == "production")%>
 					</li>
 				</ul>
 			</div>
-			<% else %> <span><%= t('pages.top_panel.login') %></span>
+			<% else %>
+			<span><%= t('pages.top_panel.login') %></span>
+			
 			<div class="shadow-box" id="registration-panel">
 				<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
 				<div>
@@ -134,11 +136,11 @@ js.id = id;<%if (Rails.env == "production")%>
 			</div>
 			<% end %>
 		</div>
+			<% if user_signed_in? %>
 		<div class="alerts_link">
 			<div class="number">
 				0
 			</div>
-			<% if user_signed_in? %>
 			<div class="notification-panel shadow-box" id="notification-panel">
 				<ul class="menu-list">
 					<li>
@@ -146,8 +148,8 @@ js.id = id;<%if (Rails.env == "production")%>
 					</li>
 				</ul>
 			</div>
-			<%end%>
 		</div>
+		<%end%>
 		<div style="clear: both; height: 0; overflow: hidden;"></div>
 	</div>
 	<span>
@@ -238,7 +240,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			$('.alerts_link').removeClass('active');
 			notification_panel_shown = false;
 		} else {
-			$('#notification-panel').show()
+			$('#notification-panel').show();
 			$('.alerts_link').addClass('active');
 			notification_panel_shown = true;
 
@@ -293,8 +295,10 @@ js.id = id;<%if (Rails.env == "production")%>
 			$('.superHeader').removeClass('active');
 			user_panel_shown = false;
 		} else {
-			$('#registration-panel').show('drop', {
-				direction : "up"
+			$('#registration-panel').show().position({				
+    			my:        "right top",
+    			at:        "right bottom",
+    			of:        $('.superHeader'),    			
 			})
 			$('.superHeader').addClass('active');
 			user_panel_shown = true;
