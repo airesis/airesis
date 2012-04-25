@@ -5,9 +5,9 @@
 	border-right: 1px solid #CCCCCC;
 	color: #294145;
 	display: block;
-	margin-bottom: 5px;
-	margin-left: 382px;
-	margin-top: 36px;
+	
+	margin-left: -224px;
+	margin-top: 11px;
 	padding: 10px;
 	position: absolute;
 	text-align: left;
@@ -19,9 +19,7 @@
 
 #notification-panel ul.menu-list,
 #notification-portlet ul.menu-list {
-	float: left;
-    list-style-type: none;
-    margin-left: 8px;
+    list-style-type: none;   
     margin-top: 2px;
     padding: 0 0 0;
 }
@@ -50,12 +48,73 @@
 #notification-portlet .menu-footer {
 	background-color: #DFEFFC;
     font-weight: bold;
-    height: 26px;
+   
     text-align: center;
-    padding-top: 7px;
+    padding: 7px 0px;
 }
 
 #notification-panel ul.menu-list a:hover,
 #notification-portlet ul.menu-list a:hover {
 	text-decoration: none;
+}
+
+#notification-portlet .notification_list {
+	height:99%;
+	position:relative;
+}
+
+#notification-portlet .notification_list .menu-footer{	
+	position:absolute;
+	bottom:0px;
+	width: 100%;
+}
+
+
+.alerts_link {
+	float:right;
+    margin: 8px 0 0;
+    padding: 0px;
+    width: 32px;
+    height: 33px;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    cursor: pointer;    
+    text-align: center;
+	position: relative;
+	background: url(<%=asset_path "chat_speak.png"%>);
+}
+
+.alerts_link.active {    
+    border-top: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    background: url(<%=asset_path "chat_speak_white.png"%>);
+}
+
+
+.alerts_link.to_read {	
+	background: url(<%=asset_path "chat_speak_yellow.png"%>);
+}
+
+.alerts_link.active.to_read {    
+    background: url(<%=asset_path "chat_speak_white_yellow.png"%>);
+}
+
+
+.alerts_link .number {
+	margin-top: 6px;
+	color: white;
+}
+
+.alerts_link.to_read .number {
+	margin-top: 6px;
+	color: #333;
+}
+
+
+.alerts_link img {
+	position: absolute;
+	width:30px;
+	height:30px;
 }

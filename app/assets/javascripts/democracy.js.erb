@@ -1,6 +1,12 @@
 $(function() {
 	disegnaBottoni();
 	
+	if (window.location.hash) {
+		setTimeout(function() {
+			$(window.location.hash + " #commentcc").effect('highlight',{mode:'show'},3000)
+		},500);
+	}
+	
 });
 function disegnaBottoni() {
 	$('.buttonStyle').button();
@@ -8,6 +14,21 @@ function disegnaBottoni() {
 	$('.editButton').button({icons : {primary : "ui-icon-pencil"},text : false});
 	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"},text : false});
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
+	$(".disableButton")
+	    .bind("ajax:beforeSend", function() {
+			$(this).hide();
+			var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
+			toAdd.width($(this).outerWidth(true));
+			toAdd.height($(this).outerHeight(true));
+			$(this).after(toAdd);
+	    })
+	    .bind("ajax:complete", function() {
+	    	$(this).show();
+	    	$('.waitDiv').hide();
+	    })
+    /*
+	$('.disableButton').click(function() {
+	});*/
 }
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );

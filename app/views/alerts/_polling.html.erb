@@ -1,10 +1,11 @@
+<div class="notification_list">
 <ul class="menu-list">
 	<% @new_user_alerts[0..4].each do |user_alert|%>
 	<li class="new">
   	<a href="<%=check_alert_alert_path(user_alert)%>">
   		<div><%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
   		</div>
-  		</a>
+  	</a>
 	</li>
 	<%end if !@new_user_alerts.empty?%>
 	
@@ -16,7 +17,8 @@
   		</a>
 	</li>
 	<%end if @old_user_alerts%>
-	<div class="menu-footer">
-	<%=link_to 'Mostra tutte le notifiche', alerts_path %>
-	</div>
 </ul>
+<div class="menu-footer">
+<%=link_to 'Mostra tutte le notifiche', alerts_path %>
+</div>
+</div>

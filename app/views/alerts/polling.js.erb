@@ -1,5 +1,5 @@
 <%if !@new_user_alerts.empty?%>
-	$('#notifications_place').addClass('ui-state-highlight');
-	$('#notifications_place span').html('Notifiche (<%=@new_user_alerts.size%>)');
+	$('.alerts_link').addClass('to_read');
+	$('.alerts_link .number').html('<%=@new_user_alerts.size%>');
 <%end%>
 $('#notification-panel, #notification-portlet').html("<%= escape_javascript(render(:partial => 'alerts/polling'))%>");
