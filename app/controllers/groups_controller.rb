@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_events, :create_event, :edit_permissions]
+  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_permissions]
   
   def index
     @groups = Group.all
@@ -78,7 +78,8 @@ class GroupsController < ApplicationController
     
   end
   
-  def new_event 
+  def new_event
+     
     @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
     if (params[:date])
       @event.starttime = Date.parse(params[:date]) + 1.hour

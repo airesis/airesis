@@ -10,26 +10,26 @@
 			 <%elsif can_rank_again%>
 				 <%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
 									:id => "voteup-mini#{comment.id}", :class=>"voteup-mini"%>
-				 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
+				 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loadingup' %>
 			<%end%>
 			<% if my_rank == 3 %>
 				<div class="voteddown-mini"></div>
 			<% elsif can_rank_again%>
 				<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
 									:id => "votedown-mini#{comment.id}", :class=>"votedown-mini" %>
-				<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>					
+				<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loadingdown' %>					
 			<%end%>		
 			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 	<%else%>
 		<%if can_rank_again%>
 		 	<%= link_to  '',  {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
 									:id => "voteup-mini#{comment.id}", :class=>"voteup-mini"%>
-			 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingup' %>
+			 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loadingup' %>
 		<%end%>
 		<%if can_rank_again%>
 			<%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id}, :remote => true,
 									:id => "votedown-mini#{comment.id}", :class=>"votedown-mini" %>
-			<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loadingdown' %>
+			<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loadingdown' %>
 		<%end%>	
 		<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => comment} %>
 	<%end %>

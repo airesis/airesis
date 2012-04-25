@@ -1,6 +1,7 @@
 <div class="title">
 	I gruppi
 </div>
+<div id="group_portlet">
 <%@groups = current_user.groups %>
 <%@groups.each do |group|%>
 	<div class="groupcontainer">
@@ -23,5 +24,5 @@
 		</div>
 	</div>
 <%end unless @following.empty?%> 
-
+</div>
 <%= "Non partecipi a nessun gruppo ancora" if @groups.empty? && @following.empty?%>

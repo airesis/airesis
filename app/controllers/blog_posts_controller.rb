@@ -78,6 +78,7 @@ class BlogPostsController < ApplicationController
   
   def new
     @blog_post = @blog.posts.build
+    #posso postare nei gruppi per i quali ho il permesso (numero 1)
     @groups = current_user.groups.find(:all, :joins => :action_abilitations, 
     :conditions => "action_abilitations.group_id = groups.id " + 
     " AND group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +

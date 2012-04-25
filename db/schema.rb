@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410204049) do
+ActiveRecord::Schema.define(:version => 20120425144433) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -120,6 +120,9 @@ ActiveRecord::Schema.define(:version => 20120410204049) do
     t.string  "description",  :limit => 100, :null => false
     t.integer "provincia_id",                :null => false
     t.integer "regione_id",                  :null => false
+    t.integer "population"
+    t.string  "codistat",     :limit => 4
+    t.string  "cap",          :limit => 5
   end
 
   create_table "event_series", :force => true do |t|

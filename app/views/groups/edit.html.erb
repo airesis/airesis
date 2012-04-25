@@ -2,9 +2,6 @@
 
 <%= render :partial => @group, :locals => { :button_name => "Aggiorna" } %>
 
-<%= link_to 'Torna alla pagina del gruppo', group_path(@group), :class=>"buttonStyle" %>
-
-
 <%=content_for :left_panel do%>
 	<%= render :partial => 'groups/administration_panel' %>
 

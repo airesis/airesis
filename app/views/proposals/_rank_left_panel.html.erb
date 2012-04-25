@@ -2,6 +2,8 @@
 	function hideRankPanel2(panel) {
 		$('.voteup',panel).hide();
 		$('.votedown',panel).hide();		
+		$('.votedup',panel).hide();
+		$('.voteddown',panel).hide();		
 		$('.loadingup',panel).show();
 		$('.loadingdown',panel).show();						
 	}	
@@ -50,6 +52,7 @@
 
 <span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[@proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
 <%if current_user %>
+		<div class="handscontainer">	
 	<%if @my_vote%>
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
@@ -57,17 +60,16 @@
 			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
 			<%end%>
 			<% if @my_vote == 3 %>
-				<div class="voteddown"></div>@
+				<div class="voteddown"></div>
 			<% elsif @can_vote_again == 1%>
 				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
 			<%end%>		
 	<%elsif @can_vote_again == 1%>
-		<div class="handscontainer">	
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
+	<%end %>
 		</div>
 		<div style="clear: both;"></div>
-	<%end %>
 <%end %>
 
 Categoria: <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>

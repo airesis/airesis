@@ -17,7 +17,7 @@
 </style>        
       
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_events.title')} do%>
-	<%=link_to 'Crea un nuovo evento', new_event_group_path(@group),:remote => true, :class=>"newButton" %>
+	<%=link_to 'Crea un nuovo evento', new_event_group_path(@group),:remote => true, :class=>"newButton disableButton" %>
 <%end%>
                 <div>
                     <div id='calendar' style="width:500px">
