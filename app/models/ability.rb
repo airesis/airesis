@@ -39,7 +39,9 @@ class Ability
      
       def can_do_on_group?(user,group,action)
        user.groups.where("partecipation_role_id = 2")
-         role = user.group_partecipations.find(:first, :conditions => {:group_id => group.id}).partecipation_role
+         partecipation = user.group_partecipations.find(:first, :conditions => {:group_id => group.id})
+         return false unless partecipation
+         role = partecipation.partecipation_role
          return true if (role.id == PartecipationRole::PORTAVOCE)
          return false if (role.id == PartecipationRole::MEMBER)
          roles = group.partecipation_roles.find(:all, :joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")

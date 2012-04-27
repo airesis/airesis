@@ -79,10 +79,10 @@ class BlogPostsController < ApplicationController
   def new
     @blog_post = @blog.posts.build
     #posso postare nei gruppi per i quali ho il permesso (numero 1)
-    @groups = current_user.groups.find(:all, :joins => :action_abilitations, 
+    @groups = current_user.groups.find(:all,:select => 'distinct groups.*', :joins => :action_abilitations, 
     :conditions => "action_abilitations.group_id = groups.id " + 
-    " AND group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
-    " AND action_abilitations.group_action_id = 1")
+    " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
+    " AND action_abilitations.group_action_id = 1) or group_partecipations.partecipation_role_id = 2)")
     
     respond_to do |format|
       format.html
