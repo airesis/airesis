@@ -59,6 +59,8 @@ GEM
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
       warden (~> 1.1.1)
+    email_preview (1.4.2)
+      rails (>= 3.0)
     erubis (2.7.0)
     exception_notification (2.6.0)
       actionmailer (>= 3.0.4)
@@ -208,6 +210,7 @@ DEPENDENCIES
   client_side_validations
   coffee-rails (~> 3.1.0)
   devise
+  email_preview
   exception_notification
   fb_graph
   foreigner

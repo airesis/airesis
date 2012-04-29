@@ -19,14 +19,23 @@
 	        });
 	       }
     }
+    
 </script>
 <%end %>
 
 
+<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.user.notifications')} do%>
+<%end%>  
+<p>
+   
+	<%=form_for current_user, :remote => true do |f| %>
+		<%=f.check_box :email_alerts, :onclick => "$(this).next().next().click();" %>
+		<b>Ricevi notifiche su <%=current_user.email%></b>
+		<%=f.submit 'Salva', :style=>'display:none;'%>
+	
+	<%end%>
 <%blocked = @current_user.blocked_notifications.find(:all)
   readonly = [1,5,20,21,15,8,9]%>
-<p>
-   <h3><%=	t('pages.user.notifications')%></h3>
    	<table>
    <% NotificationCategory.all.each do |category|%>
    		<tr><td>

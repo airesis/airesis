@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425144433) do
+ActiveRecord::Schema.define(:version => 20120429114957) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -578,6 +578,7 @@ ActiveRecord::Schema.define(:version => 20120425144433) do
     t.datetime "remember_created_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "banned",                                    :default => false, :null => false
+    t.boolean  "email_alerts",                              :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

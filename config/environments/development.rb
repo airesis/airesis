@@ -35,7 +35,7 @@ DemocracyOnline3::Application.configure do
   
   
     #indirizzo del sito
-  SITE="http://localhost:3002"
+  SITE="http://localhost:3000"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina

@@ -147,6 +147,7 @@ it:
         login: "Username"
         password: "Password"
         accept_conditions: "Condizioni d'uso"
+        email_alerts: "Notifiche tramite email"
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"

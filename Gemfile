@@ -70,3 +70,5 @@ gem 'client_side_validations'
 #gem 'sitemap_generator'
 
 #gem 'georuby'
+
+#gem 'email_preview'

@@ -40,6 +40,6 @@
 	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
 
   <p>
-    <%= f.submit button_name %>
+    <%= f.submit button_name, :class => 'buttonStyle' %>
   </p>
 <% end %>
