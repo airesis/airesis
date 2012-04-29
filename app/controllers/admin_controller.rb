@@ -72,6 +72,18 @@ class AdminController < ApplicationController
     end
   end
   
+  #invia una mail di prova tramite resque e redis
+  def test_redis
+    #TestMailer.test.deliver
+    Resque.enqueue(TestSender)
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Test avviato' 
+        redirect_to admin_panel_path
+      }
+    end
+  end
+  
   def write_sitemap
     SitemapGenerator::Sitemap.default_host = 'http://www.airesis.it'
     SitemapGenerator::Sitemap.create do

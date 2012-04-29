@@ -1,8 +1,5 @@
 scheduler = Rufus::Scheduler.start_new
 
-
-
-
 scheduler.cron '0 1 * * *' do
    puts "Aggiorno lo stato delle proposte"
    AdminHelper.change_proposals_state
