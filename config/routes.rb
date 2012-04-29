@@ -131,11 +131,11 @@ resources :comunes
   match '/votation/vote', :to => 'votations#vote'
   resources :votations
 
-  #match ':controller/:action/:id'
+  match ':controller/:action/:id'
   
  
   
-  #match ':controller/:action/:id.:format'
+  match ':controller/:action/:id.:format'
     
   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
   
@@ -148,7 +148,7 @@ resources :comunes
   constraints admin_required do
     mount Resque::Server, :at => "/resque_admin/"
     
-   # match ':controller/:action/'
+    match ':controller/:action/'
     resources :admin
     match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
   end
