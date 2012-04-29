@@ -74,8 +74,8 @@ class AdminController < ApplicationController
   
   #invia una mail di prova tramite resque e redis
   def test_redis
-    #TestMailer.test.deliver
-    Resque.enqueue(TestSender)
+    TestMailer.test.deliver
+    #Resque.enqueue(TestSender)
     respond_to do |format|
       format.html {
         flash[:notice] = 'Test avviato' 
