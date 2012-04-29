@@ -71,4 +71,4 @@ gem 'client_side_validations'
 
 #gem 'georuby'
 
-#gem 'email_preview'
+gem 'email_preview'
