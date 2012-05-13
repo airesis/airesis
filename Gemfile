@@ -72,3 +72,5 @@ gem 'client_side_validations'
 #gem 'georuby'
 
 gem 'email_preview'
+
+gem 'seed_dump'
