@@ -121,13 +121,13 @@ ActionMailer::Base.smtp_settings = {
   :domain             => 'gmail.com', #you can also use google.com
   :authentication     => :plain,
   :user_name          => 'coorasse@gmail.com',
-  :password           => 'dakslqtqaydueqim'
+  :password           => 'neqhzymucskrdanu'
 }
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   require "omniauth-facebook"
-  config.omniauth :facebook, "242345195791486", "effb2e9b6fb07ce738452c8b3c1a0f57",                   
+  config.omniauth :facebook, "242345195791486", "d09aa4968952b1f26a194baa8464febc",                   
                       {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 end
