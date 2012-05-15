@@ -303,6 +303,11 @@ def facebook
 end
 
 
+def fullname
+  return "#{self.name} #{self.surname}"
+end
+
+
     validates_confirmation_of :password
 
 end

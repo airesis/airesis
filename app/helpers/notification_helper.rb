@@ -85,7 +85,7 @@ module NotificationHelper
     post_user = blog_post.user
     user_followers = post_user.followers  #utenti che seguono il blog
     sent_users = []
-    msg = "<b>"+ post_user.name + " " + post_user.surname + "</b> ha inserito un nuovo post nel proprio blog <b>"+blog_post.title+"</b>!";
+    msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nel proprio blog <b>"+blog_post.title+"</b>!";
     notification_a = Notification.new(:notification_type_id => 15,:message => msg, :url => blog_blog_post_path(blog_post.blog, blog_post))
     notification_a.save
     user_followers.each do |user|
@@ -97,7 +97,7 @@ module NotificationHelper
     end
     
     blog_post.groups.each do |group|
-      msg = "<b>"+ post_user.name + " " + post_user.surname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
+      msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
       #notifica a chi segue il gruppo
       notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => blog_blog_post_path(blog_post.blog, blog_post))
       group.followers.each do |user|
