@@ -79,10 +79,12 @@ class BlogPostsController < ApplicationController
   def new
     @blog_post = @blog.posts.build
     #posso postare nei gruppi per i quali ho il permesso (numero 1)
-    @groups = current_user.groups.find(:all,:select => 'distinct groups.*', :joins => :action_abilitations, 
-    :conditions => "action_abilitations.group_id = groups.id " + 
-    " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
-    " AND action_abilitations.group_action_id = 1) or group_partecipations.partecipation_role_id = 2)")
+    @groups = current_user.groups.find(:all,
+    :select => 'distinct groups.*', 
+    :joins => "LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id", 
+    :conditions => "(action_abilitations.group_id = groups.id " + 
+                   " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
+                   " AND action_abilitations.group_action_id = 1)) or group_partecipations.partecipation_role_id = 2)")
     
     respond_to do |format|
       format.html
@@ -96,7 +98,7 @@ class BlogPostsController < ApplicationController
   
   def create
     group_ids = params[:blog_post][:group_ids]
-    group_ids.select!{|id| can? :post_to, Group.find_by_id(id) }
+    group_ids.select!{|id| can? :post_to, Group.find_by_id(id) } if group_ids
     BlogPost.transaction do
       @blog_post = @blog.posts.build(params[:blog_post])
       @blog_post.user_id = current_user.id
