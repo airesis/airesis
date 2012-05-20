@@ -1,0 +1,21 @@
+<h1>Lista delle candidature del gruppo</h1>
+
+<ul>
+<%@group.candidates.each do |candidate|%>
+	<li>
+		<b><%=candidate.user.fullname%></b> candidato a <b><%=candidate.election.name%></b>	
+	</li>
+
+<%end%>
+</ul>	
+		
+
+<%= link_to 'Indietro', @group, :class=>"buttonStyle" %>
+
+
+<script type="text/javascript">
+	$(function() {
+		//electionDatePicker();
+	});
+	
+</script>

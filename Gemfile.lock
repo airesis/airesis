@@ -6,6 +6,12 @@ GIT
       jquery-rails
       rails (~> 3.1)
 
+GIT
+  remote: git@github.com:coorasse/vote-schulze.git
+  revision: 55c4c6de0f98005d00f7af4e1fcf9ccb70db4404
+  specs:
+    vote-schulze (0.2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -228,4 +234,5 @@ DEPENDENCIES
   tlsmail
   uglifier
   ultraviolet1x
+  vote-schulze!
   will_paginate

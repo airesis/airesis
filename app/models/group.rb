@@ -39,6 +39,15 @@ class Group < ActiveRecord::Base
   
   has_many :action_abilitations, :class_name => 'ActionAbilitation'
 
+
+  has_many :group_elections, :class_name => 'GroupElection'
+  #elezioni a cui partecipa
+  has_many :elections, :through => :group_elections, :class_name => 'Election'
+  
+  has_many :supporters, :class_name => 'Supporter'
+  #candidati che sostiene alle elezioni
+  has_many :candidates, :through => :supporters, :class_name => 'Candidate'
+
   
   attr_reader :partecipant_tokens
   attr_accessor :portavoce, :porta_id

@@ -30,6 +30,14 @@ class Ability
        can :accept_requests, Group do |group|
          can_do_on_group?(user,group,4)         
        end
+       can :create_election, Group do |group|
+         #can_do_on_group?(user,group,4)
+          true          
+       end
+        can :send_candidate, Group do |group|
+         #can_do_on_group?(user,group,4)
+          true          
+       end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end

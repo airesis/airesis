@@ -1,0 +1,30 @@
+<h1>Nuova candidatura</h1>
+
+		
+<%= form_for [@group,@candidate]  do |f| %>
+  <%= render :partial => 'fragments/error_messages', :locals => {:resource => @candidate} %>
+  
+  <p>
+  <%= f.label :user%><br/>
+  <%=f.select :user_id, @group.partecipants.collect{|p| [p.fullname, p.id]}%>
+  
+  </p>
+  
+  <p>
+  <%= f.label :election%><br/>
+  <%=f.select :election_id, @group.elections.collect{|e| [e.name, e.id]}%>
+  </p>
+  
+  <p>
+    <%= f.submit "Invia la candidatura", :class => 'buttonStyle' %>
+  </p>
+<%end%>
+<%= link_to 'Indietro', groups_path, :class=>"buttonStyle" %>
+
+
+<script type="text/javascript">
+	$(function() {
+		//electionDatePicker();
+	});
+	
+</script>

@@ -117,6 +117,14 @@ resources :comunes
     end
     
     resources :events
+    
+    resources :elections do
+      member do
+        get :vote_page
+      end
+    end
+    
+    resources :candidates
        
   end
 

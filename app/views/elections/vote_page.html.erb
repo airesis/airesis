@@ -1,0 +1,36 @@
+<h1><%=@election.name%></h1>
+
+<h2>Elenco dei candidati all'elezione</h1>
+
+<ul>
+<%@election.candidates.each do |candidate|%>
+
+	<li>
+		<b><%=candidate.user.fullname%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>	
+		<select class="slideNumber">
+			<%@election.candidates.count.times do |c|%>
+				<option><%=c+1%></option>
+			<%end%>
+		</select>
+	</li>
+
+<%end%>
+</ul>	
+
+<script type="text/javascript">
+	$(function() {
+		var select = $( ".slideNumber" );
+		var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+			min: 1,
+			max: 6,
+			range: "min",
+			value: select[ 0 ].selectedIndex + 1,
+			slide: function( event, ui ) {
+				select[ 0 ].selectedIndex = ui.value - 1;
+			}
+		});
+		$( ".slideNumber" ).change(function() {
+			slider.slider( "value", this.selectedIndex + 1 );
+		});
+	});
+</script>

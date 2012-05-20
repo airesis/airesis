@@ -92,6 +92,9 @@ class User < ActiveRecord::Base
   has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
   
   
+  #candidature
+  has_many :candidates, :class_name => 'Candidate'
+  
   
   #fake columns
   attr_accessor :image_url, :accept_conditions

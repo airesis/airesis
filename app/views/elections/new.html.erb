@@ -1,0 +1,40 @@
+<h1>Nuova elezione</h1>
+
+		
+<%= form_for [@group,@election]  do |f| %>
+  <%= render :partial => 'fragments/error_messages', :locals => {:resource => @election} %>
+  
+  <p>
+  <%= f.label :name%><br/>
+  <%=f.text_field :name%>
+  </p>
+  
+  <p>
+  <%= f.label :description%><br/>
+  <%=f.text_area :description%>
+  </p>
+  <p>
+  <%= f.label :groups_end_time %><br/>
+  <%= f.text_field :groups_end_time, :class=>"datePicker", :id => "groups_end_time" %>
+  </p>
+  <p>
+  <%= f.label :candidates_end_time %><br/>
+  <%= f.text_field :candidates_end_time, :class=>"datePicker", :id => "candidates_end_time" %>
+  </p>
+  <p>
+  <%= f.label :event%><br/>
+  <%= f.select(:event_id, @events.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] })%>
+  </p>	
+  <p>
+    <%= f.submit "Crea l'elezione", :class => 'buttonStyle' %>
+  </p>
+<%end%>
+<%= link_to 'Indietro', groups_path, :class=>"buttonStyle" %>
+
+
+<script type="text/javascript">
+	$(function() {
+		electionDatePicker();
+	});
+	
+</script>

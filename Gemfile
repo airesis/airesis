@@ -74,3 +74,5 @@ gem 'client_side_validations'
 gem 'email_preview'
 
 gem 'seed_dump'
+
+gem 'vote-schulze', :git => 'git@github.com:coorasse/vote-schulze.git'

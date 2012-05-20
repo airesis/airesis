@@ -9,6 +9,7 @@
 	<%= link_to 'Cancella vecchie notifiche', {:action => "delete_old_notifications", :controller => "admin"}, :class => 'recalculate' %>
 	<%= link_to 'Pannello Resque', '/resque_admin', :class => 'recalculate' %>
 	<%= link_to 'Redis Test', {:action => "test_redis", :controller => "admin"}, :class => 'recalculate' %>
+	<%= link_to 'Test Schulze', {:action => "test_schulze", :controller => "elections"}, :class => 'recalculate' %>
 	<%= link_to 'Tutorials', '/tutorials', :class => 'recalculate' %>
 	<%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'recalculate' %>
 		

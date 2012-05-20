@@ -1,0 +1,12 @@
+<h1><%=@election.name%></h1>
+
+<h2>Elenco dei candidati all'elezione</h1>
+
+<ul>
+<%@election.candidates.each do |candidate|%>
+	<li>
+		<b><%=candidate.user.fullname%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>	
+	</li>
+
+<%end%>
+</ul>	

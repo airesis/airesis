@@ -26,7 +26,7 @@ DemocracyOnline3::Application.configure do
   config.assets.debug = true
   
   #config.assets.logger = nil
-  
+  config.force_ssl = false
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
@@ -78,7 +78,7 @@ ActionMailer::Base.smtp_settings = {
   :domain             => 'gmail.com', #you can also use google.com
   :authentication     => :plain,
   :user_name          => 'coorasse@gmail.com',
-  :password           => 'neqhzymucskrdanu'
+  :password           => ENV['airesis_dev_smtp_password']
 }
 
 
@@ -86,6 +86,6 @@ ActionMailer::Base.smtp_settings = {
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   require "omniauth-facebook"
-  config.omniauth :facebook, "221145254619152", "3ec1ba0b8c1f300e478ec98438abfccb", 
+  config.omniauth :facebook, "221145254619152", ENV['airesis_dev_facebook_key'], 
                       {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}                   
 end

@@ -94,6 +94,70 @@ function disegnaDatePicker() {
         }
      });
  }
+ 
+ 
+ 
+function electionDatePicker() {
+	$("#candidates_end_time").datetimepicker({
+        dateFormat : "dd/mm/yy",
+        buttonImageOnly : true,
+        buttonImage : "<%= asset_path('iconCalendar.png') %>",
+        showOn : "both",
+        changeMonth : false,
+        changeYear : false,
+        yearRange : "c:c+10",
+        minDate : -2,
+        maxDate: "+10Y",
+        duration: "",  
+        showTime: true,  
+        constrainInput: true,
+        stepMinute: 15,  
+        stepHour: 1,  
+        altTimeField: "alt",  
+        time24h: true,
+        onClose: function(date) {
+        	startTime = $("#groups_end_time").datetimepicker("getDate");
+        	endTime = $("#candidates_end_time").datetimepicker("getDate");
+        	startDate = new Date(startTime);
+        	endDate = new Date(endTime);
+	        if (!(endDate.getTime() > startDate.getTime())) { 				
+	 			$("#groups_end_time").datetimepicker("setDate",endTime);
+ 			}
+ 			var diff =  Math.floor(( endDate - new Date()) / 86400000);
+ 			$("#groups_end_time").datetimepicker("option","maxDate",diff+1);			
+        }
+ 	  });   
+		
+	$('#groups_end_time').datetimepicker({
+        dateFormat : "dd/mm/yy",
+        buttonImageOnly : true,
+        buttonImage : "<%= asset_path('iconCalendar.png') %>",
+        showOn : "both",
+        changeMonth : false,
+        changeYear : false,
+        yearRange : "c:c+10",
+        minDate : -2,
+        maxDate: "+10Y",
+        duration: "",  
+        showTime: true,  
+        constrainInput: true,
+        stepMinute: 15,  
+        stepHour: 1,  
+        altTimeField: "alt",  
+        time24h: true,
+        onClose: function(date) {
+        	startTime = $("#groups_end_time").datetimepicker("getDate");
+        	endTime = $("#candidates_end_time").datetimepicker("getDate");
+        	startDate = new Date(startTime);
+        	endDate = new Date(endTime);
+	        if (!(endDate.getTime() > startDate.getTime())) { 				
+	 			$("#candidates_end_time").datetimepicker("setDate",startTime);
+ 			} 			
+ 			var diff =  Math.floor(( startDate - new Date()) / 86400000);
+ 			$("#candidates_end_time").datetimepicker("option","minDate",diff);
+        }
+   });
+ }
 
 function deleteMe(el) {
 	$(el).remove();

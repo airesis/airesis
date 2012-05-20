@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429114957) do
+ActiveRecord::Schema.define(:version => 20120520150000) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
     t.string  "title"
   end
 
+  create_table "candidates", :force => true do |t|
+    t.integer  "user_id",     :null => false
+    t.integer  "election_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "candidates", ["user_id", "election_id"], :name => "index_candidates_on_user_id_and_election_id", :unique => true
+
   create_table "circoscriziones", :force => true do |t|
     t.integer "comune_id"
     t.string  "description", :limit => 100
@@ -123,6 +132,17 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
     t.integer "population"
     t.string  "codistat",     :limit => 4
     t.string  "cap",          :limit => 5
+  end
+
+  create_table "elections", :force => true do |t|
+    t.string   "name",                                 :null => false
+    t.string   "description",                          :null => false
+    t.integer  "event_id",                             :null => false
+    t.datetime "groups_end_time",                      :null => false
+    t.datetime "candidates_end_time",                  :null => false
+    t.string   "status",              :default => "1", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "event_series", :force => true do |t|
@@ -168,6 +188,15 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "group_elections", :force => true do |t|
+    t.integer  "group_id",    :null => false
+    t.integer  "election_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_elections", ["group_id", "election_id"], :name => "index_group_elections_on_group_id_and_election_id", :unique => true
 
   create_table "group_follows", :force => true do |t|
     t.integer "user_id",  :null => false
@@ -468,6 +497,15 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
     t.datetime "updated_at"
   end
 
+  create_table "supporters", :force => true do |t|
+    t.integer  "candidate_id", :null => false
+    t.integer  "group_id",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "supporters", ["candidate_id", "group_id"], :name => "index_supporters_on_candidate_id_and_group_id", :unique => true
+
   create_table "testi_vari", :id => false, :force => true do |t|
     t.integer "id",                      :null => false
     t.string  "testo_a", :limit => 4000
@@ -610,17 +648,25 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
 
   add_foreign_key "blogs", "users", :name => "Ref_blogs_to_users"
 
+  add_foreign_key "candidates", "elections", :name => "candidates_election_id_fk"
+  add_foreign_key "candidates", "users", :name => "candidates_user_id_fk"
+
   add_foreign_key "circoscriziones", "comunes", :name => "Ref_circoscriziones_to_comunes"
 
   add_foreign_key "circoscrizioni_groups", "circoscriziones", :name => "Ref_circoscrizioni_groups_to_circoscriziones"
 
   add_foreign_key "comunali_groups", "comunes", :name => "Ref_comunali_groups_to_comunes"
 
+  add_foreign_key "elections", "events", :name => "elections_event_id_fk"
+
   add_foreign_key "events", "event_series", :name => "Ref_events_to_event_series"
   add_foreign_key "events", "event_types", :name => "Ref_events_to_event_types"
 
   add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
   add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
+
+  add_foreign_key "group_elections", "elections", :name => "group_elections_election_id_fk"
+  add_foreign_key "group_elections", "groups", :name => "group_elections_group_id_fk"
 
   add_foreign_key "group_follows", "groups", :name => "Ref_group_follows_to_groups"
   add_foreign_key "group_follows", "users", :name => "Ref_group_follows_to_users"
@@ -696,6 +742,9 @@ ActiveRecord::Schema.define(:version => 20120429114957) do
   add_foreign_key "request_votes", "users", :name => "Ref_request_votes_to_users"
 
   add_foreign_key "steps", "tutorials", :name => "steps_tutorial_id_fk"
+
+  add_foreign_key "supporters", "candidates", :name => "supporters_candidate_id_fk"
+  add_foreign_key "supporters", "groups", :name => "supporters_group_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"
