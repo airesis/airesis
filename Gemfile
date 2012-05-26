@@ -76,3 +76,14 @@ gem 'email_preview'
 gem 'seed_dump'
 
 gem 'vote-schulze', :git => 'git@github.com:coorasse/vote-schulze.git'
+
+#gem 'rgl', :git => 'git@github.com:coorasse/rgl.git'
+#gem 'rgl'#,  "~> 0.4.0", :git => 'git://github.com/javanthropus/rgl.git'
+
+gem 'quiet_assets', :group => :development
+
+#gem 'airesis_metis', :path => '~/airesis_metis/', :group => :development
+
+#gem 'ruby-metis', :git => 'git@github.com:coorasse/ruby-metis.git'
+
+gem 'igraph', :git => 'https://github.com/honschi/igraph.git'
