@@ -34,6 +34,8 @@ DemocracyOnline3::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
   
+  config.quiet_assets = true
+  
     #indirizzo del sito
   SITE="http://localhost:3000"
   #numero massimo di commenti per pagina

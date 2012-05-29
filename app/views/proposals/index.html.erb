@@ -18,8 +18,14 @@
 <br/>
 -->
 <div style="float:left">
-<h3><%= link_to 'Fai una proposta', new_proposal_path, :id => 'nuova_proposta' %></h3>
+<h3><%= link_to 'Crea una discussione', new_proposal_path, :remote => true, :id => 'nuova_proposta' %></h3>
 </div>
+
+<div id = "create_proposal_dialog" style ="display:none;">
+    <div id = "create_proposal">
+    </div>
+</div>
+
 <div style="float:right">
 <h3><%= link_to 'Proposte accettate', index_accepted_proposals_path , :id => 'proposte_accettate' %></h3>
 </div>

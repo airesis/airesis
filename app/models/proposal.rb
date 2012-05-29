@@ -30,7 +30,7 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems
   
   scope :current, { :conditions => {:proposal_state_id => [1,2,3,4] }}
   scope :accepted, { :conditions => {:proposal_state_id => 6 }}

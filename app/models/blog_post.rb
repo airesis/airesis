@@ -9,6 +9,8 @@ class BlogPost < ActiveRecord::Base
 	
 	has_many :blog_comments, :dependent => :destroy
 	has_many :blog_post_tags, :dependent => :destroy
+	has_many :tags, :through => :blog_post_tags, :class_name => 'Tag'
+	
   has_many :blog_post_images
 	has_many :blog_images, :through => :blog_post_images, :source => :image, :dependent => :destroy
 	has_many :publishings, :class_name => "PostPublishing", :dependent => :destroy
@@ -26,27 +28,32 @@ class BlogPost < ActiveRecord::Base
 	before_save :save_tags, :if => :not_resaving?
 	after_save :replace_blog_image_tags, :if => :not_resaving?
 
-	def tags
-		@tags ||= self.blog_post_tags.map(&:tag).join(', ')
+	def tags_list
+		@tags_list ||= self.tags.map(&:text).join(', ')
 	end
 	
-	def tags=(tags)
-		@tags = tags
+	def tags_list_json
+    @tags_list ||= self.tags.map(&:text).join(', ')
+  end
+	
+	def tags_list=(tags_list)
+		@tags_list = tags_list
 	end
 
 	def tags_with_links
-		html = self.tags.split(/,/).collect {|t| "<a href=\"/blog_posts/tag/#{t.strip}\">#{t.strip}</a>" }.join(', ')
+		html = self.tags.collect {|t| "<a href=\"/blog_posts/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
 		return html
 	end
 	
 	def save_tags
-		if @tags
+		if @tags_list
 			# Remove old tags
 			self.blog_post_tags.delete_all
 		
 			# Save new tags
-			@tags.split(/,/).each do |tag|
-				self.blog_post_tags.build(:tag => tag.strip.downcase)
+			@tags_list.split(/,/).each do |tag|
+			  t = Tag.find_or_create_by_text(tag.strip.downcase)
+				self.blog_post_tags.build(:tag_id => t.id)
 			end
 		end
 	end

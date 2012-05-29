@@ -1,6 +1,31 @@
 <% javascript 'endless_page' %>
 <%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
 <%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
+
+
+
+
+<script type="text/javascript">
+$(function() {
+	$('#svgintro').svg({onLoad: drawIntro});
+})	
+	
+function drawIntro(svg) { 
+    svg.polygon([[10,10],[400,10],[200,200]],  
+    {fill: 'none', stroke: 'blue', strokeWidth: 2}); 
+    
+    <%@proposal.comments.each do |c| %>$
+    	svg.circle(200,100,2)
+    <%end%>
+    
+    
+}
+	
+</script>
+
+<div id="svgintro" style="height:600px;width:600px;">
+</div>
+
 <div id="proposalCommentsContainer">
 	<%= render :partial => 'proposals/comments' %>
 </div>

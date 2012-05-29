@@ -3,12 +3,13 @@
 	<head>
 		<title><%= @page_title || 'Democracy Online (Airesis) - '+ VERSION.to_s + ' Beta'%></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		
 		<%= stylesheet_link_tag 'application' %>
 		<%= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag 'redmond/custom'%> 
 		<%= csrf_meta_tag %>
 		<%= yield :head %>
+		<style type="text/css">@import "/assets/jquery.svg.css";</style> 
+		<script type="text/javascript" src="/assets/jquery.svg.js"></script>
 		
 		<link rel="shortcut icon" href="/favicon.ico" />
 	</head>

@@ -87,7 +87,7 @@ it:
   
   user_updated:  "Informazioni aggiornate correttamente."
   
-  insert_comment: "Lascia un Commento"
+  insert_comment: "Di la tua! Contribuisci alla proposta"
   login_to_post_comment: "Fai login per inserire un commento."
   
   groups:
@@ -133,6 +133,9 @@ it:
       proposal:
         proposal_category_id: "Categoria"
         title: "Titolo"
+        subtitle: "Sottotitolo"
+        problems: "Problemi"
+        objectives: "Obiettivi"
         content: "Testo"
         interest_borders_tkn: "Confini geografici di interesse"
       proposal_comment:

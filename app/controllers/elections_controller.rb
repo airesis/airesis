@@ -2,7 +2,10 @@
 class ElectionsController < ApplicationController
   require 'vote-schulze'
   
-  before_filter :check_group, :only => [:new, :create]
+  #l'utente deve aver fatto login
+  before_filter :authenticate_user!, :except => [:index,:show]
+  
+  before_filter :check_group, :only => [:new, :create, :edit, :update]
   
   before_filter :load_election, :except => [:index,:new,:create]
   #load_and_authorize_resource 
@@ -11,9 +14,66 @@ class ElectionsController < ApplicationController
     
   end
   
+  def edit
+    
+  end
     
   def vote_page
        
+  end
+  
+  #un utente invia il voto per l'elezione
+  def vote
+    begin
+      votes = (JSON.parse params[:data][:votes])
+      votes = votes['candidates']
+      votestring = ""
+  
+      votes.sort! {|a,b| b[1] <=> a[1] }    
+      
+      votes.each_with_index do |vote,index|
+        if (index != 0)  
+          if (vote[1].to_i == votes[index-1][1].to_i)
+            votestring += ","
+           else
+             votestring += ";"
+          end
+        end
+        votestring += vote[0]
+     end
+     
+   ElectionVote.transaction do
+     votes.each do |vote|
+        raise Exception unless @election.candidates.include? Candidate.find_by_id(vote[0])    
+     end
+   
+     schulz = @election.schulze_votes.find_or_create_by_preferences(votestring)
+     schulz.count += 1
+
+    @election.voters << current_user
+    @election.save!    
+   end
+   respond_to do |format|
+      flash[:notice] = "Voto inviato correttamente!"
+      format.html { render :action => "show" }              
+      format.js {
+        render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end 
+      }  
+    end    
+   
+   rescue Exception => e
+      respond_to do |format|
+        flash[:error] = "Errore durante l'inserimento del tuo voto. Spiacenti."
+        format.html { render :action => "vote_page" }               
+        format.js {
+          render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end 
+        }   
+      end        
+   end   
   end
      
   def new
@@ -45,12 +105,47 @@ class ElectionsController < ApplicationController
       end        
     end  
   end
+  
+  
+  def calculate_results
+    
+    votesstring = "";
+    
+    @election.schulze_votes.each do |vote|
+      if (vote.count > 1)
+        votesstring += "#{vote.count}=#{vote.preferences}\n"
+      else
+        votesstring += "#{vote.preferences}\n"
+      end
+    end
+    
+    vs = SchulzeBasic.do votesstring, @election.candidates.count
+    candidates_sorted = @election.candidates.sort{|a,b| a.id <=> b.id}
+    message  =""
+    candidates_sorted.each_with_index do |c,i|
+      message += "#{c.user.fullname} (#{c.id}) ha ottenuto un punteggio di #{vs.ranks[i]} \n "
+    end
+    respond_to do |format|
+        flash[:warn] = message
+        format.html { render :action => "show" }                
+        format.js {
+          render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end 
+        }   
+     end  
+    #puts vs.ranks
+    #puts vs.ranks_abc
+    
+  end
+  
+  
     
   def test_schulze
     puts "Hello everybody. I'm running"
-    vs = SchulzeBasic.do File.open("test/votes/vote4.list")
-    puts vs.ranks
-    puts vs.ranks_abc
+    #vs = SchulzeBasic.do File.open("test/votes/vote4.list")
+    #puts vs.ranks
+    #puts vs.ranks_abc
     
     
     @test_string = "3=a;c;d;b\n9=b;a;c;d\n8=c;d;a;b\n5=d;a;b;c\n5=d;b;c;a"  
@@ -58,6 +153,23 @@ class ElectionsController < ApplicationController
     vs = SchulzeBasic.do @test_string, 4
     puts vs.ranks
     puts vs.ranks_abc
+    
+    puts "and with numbers?"
+    
+    @test_string2 = "3=1;3;4;2\n9=2;1;3;4\n8=3;4;1;2\n5=4;1;2;3\n5=4;2;3;1"  
+    
+    vs = SchulzeBasic.do @test_string, 4
+    puts vs.ranks
+    puts vs.ranks_abc
+    
+    puts "and with random numbers?"
+    
+    @test_string2 = "3=10;3;4;7\n9=7;10;3;4\n8=3;4;10;7\n5=4;10;7;3\n5=4;7;3;10"  
+    
+    vs = SchulzeBasic.do @test_string, 4
+    puts vs.ranks
+    puts vs.ranks_abc
+    
   end
   
   
@@ -66,6 +178,20 @@ class ElectionsController < ApplicationController
   
   def check_group
     @group = Group.find_by_id(params[:group_id])
+    if !@group
+      flash[:error] = "Solo i gruppi possono eseguire questa azione"
+      respond_to do |format|
+        #format.js { render :update do |page|
+        #    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        #    page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
+        #  end                  
+        #}
+        format.html {
+          redirect_to groups_path
+        }
+      end 
+    end
+    
     if !(can? :create_election, @group)
       flash[:error] = "Non puoi creare elezioni per questo gruppo"
       respond_to do |format|

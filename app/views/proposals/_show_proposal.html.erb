@@ -36,10 +36,12 @@
 <h1 class="proposalTitle"><%=h proposal.title %></h1>
 
 <div class="blogCommentPostedAt">
-    Inserita il <span class="blogPostDate"><%= proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-    da <span class="blogPoster"><%=link_to_user proposal.user %></span>
-    <%if proposal.updated_at != nil %>
-    (Ultima modifica del <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)<%end %>
+    
+    
+Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+<%if @proposal.updated_at != nil%>
+(Ultima modifica del <%= @proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)
+<%end%>
     <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
 	<br/>	
 	

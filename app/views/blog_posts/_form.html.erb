@@ -58,8 +58,8 @@
 				<%= f.text_area :body%>
 			</p>
 			<p>
-				<%= f.label :tags, 'Tags (seperati da virgola)' %><br />
-				<%= f.text_field :tags %>
+				<%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
+				<%= f.text_field :tags_list %>
 			</p>
 			<p>
 				<%= f.label :published, 'Stato' %><br />
@@ -90,4 +90,26 @@
 		<br style="clear: both;" />
 	</div>
 <% end %>
+
+<% data = "["
+   @blog_post.tags_list.split(',').each do |l|
+   	data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   	end 
+   data += "]"	
+   %>
+
+<script type="text/javascript">
+	$(function() {
+		input = $('#blog_post_tags_list')
+		if (input != null) {
+			input.tokenInput([], {
+				crossDomain: false,
+				allowCustomEntry: true,
+				prePopulate: <%=raw data%>,
+				hintText: "Digita i tag che vuoi inserire",
+				preventDuplicates: true
+			})
+		}
+	});
+</script>  		
 	

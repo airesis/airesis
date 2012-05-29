@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520150000) do
+ActiveRecord::Schema.define(:version => 20120526190026) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -61,8 +61,10 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
 
   create_table "blog_post_tags", :force => true do |t|
     t.integer "blog_post_id"
-    t.string  "tag"
+    t.integer "tag_id",       :null => false
   end
+
+  add_index "blog_post_tags", ["blog_post_id", "tag_id"], :name => "index_blog_post_tags_on_blog_post_id_and_tag_id", :unique => true
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -77,8 +79,10 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
 
   create_table "blog_tags", :force => true do |t|
     t.integer "blog_id"
-    t.string  "tag"
+    t.integer "tag_id",  :null => false
   end
+
+  add_index "blog_tags", ["blog_id", "tag_id"], :name => "index_blog_tags_on_blog_id_and_tag_id", :unique => true
 
   create_table "blogs", :force => true do |t|
     t.integer "user_id"
@@ -133,6 +137,15 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
     t.string  "codistat",     :limit => 4
     t.string  "cap",          :limit => 5
   end
+
+  create_table "election_votes", :force => true do |t|
+    t.integer  "user_id",     :null => false
+    t.integer  "election_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "election_votes", ["user_id", "election_id"], :name => "index_election_votes_on_user_id_and_election_id", :unique => true
 
   create_table "elections", :force => true do |t|
     t.string   "name",                                 :null => false
@@ -395,6 +408,15 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
     t.datetime "updated_at"
   end
 
+  create_table "proposal_tags", :force => true do |t|
+    t.integer  "proposal_id", :null => false
+    t.integer  "tag_id",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
+
   create_table "proposal_votes", :force => true do |t|
     t.integer  "proposal_id", :limit => 8
     t.integer  "positive"
@@ -413,16 +435,20 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
 
   create_table "proposals", :force => true do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                     :default => 5, :null => false
-    t.string   "title",                   :limit => 200,                  :null => false
+    t.integer  "proposal_category_id",                     :default => 5,    :null => false
+    t.string   "title",                   :limit => 200,                     :null => false
     t.string   "content",                 :limit => 20000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "valutations",                              :default => 0
     t.integer  "vote_period_id"
     t.integer  "proposal_comments_count",                  :default => 0
-    t.integer  "rank",                                     :default => 0, :null => false
+    t.integer  "rank",                                     :default => 0,    :null => false
     t.string   "problem",                 :limit => 20000
+    t.string   "subtitle",                                 :default => "",   :null => false
+    t.string   "problems",                :limit => 18000, :default => "",   :null => false
+    t.string   "objectives",              :limit => 18000, :default => "",   :null => false
+    t.boolean  "show_comment_authors",                     :default => true, :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -486,6 +512,25 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
     t.string  "comment",                        :limit => 200
   end
 
+  create_table "schulze_votes", :force => true do |t|
+    t.integer  "election_id",                :null => false
+    t.string   "preferences",                :null => false
+    t.integer  "count",       :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "schulze_votes", ["election_id", "preferences"], :name => "index_schulze_votes_on_election_id_and_preferences", :unique => true
+
+  create_table "simple_votes", :force => true do |t|
+    t.integer  "candidate_id",                :null => false
+    t.integer  "count",        :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simple_votes", ["candidate_id"], :name => "index_simple_votes_on_candidate_id", :unique => true
+
   create_table "steps", :force => true do |t|
     t.integer  "tutorial_id",                    :null => false
     t.integer  "index",       :default => 0,     :null => false
@@ -505,6 +550,17 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
   end
 
   add_index "supporters", ["candidate_id", "group_id"], :name => "index_supporters_on_candidate_id_and_group_id", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string   "text",                            :null => false
+    t.integer  "proposals_count",  :default => 0, :null => false
+    t.integer  "blog_posts_count", :default => 0, :null => false
+    t.integer  "blogs_count",      :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
 
   create_table "testi_vari", :id => false, :force => true do |t|
     t.integer "id",                      :null => false
@@ -640,11 +696,13 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
   add_foreign_key "blog_post_images", "images", :name => "Ref_blog_post_images_to_images"
 
   add_foreign_key "blog_post_tags", "blog_posts", :name => "Ref_blog_tags_to_blog_posts"
+  add_foreign_key "blog_post_tags", "tags", :name => "blog_post_tags_tag_id_fk"
 
   add_foreign_key "blog_posts", "blogs", :name => "Ref_blog_entries_to_blogs"
   add_foreign_key "blog_posts", "users", :name => "Ref_blog_posts_to_users"
 
   add_foreign_key "blog_tags", "blogs", :name => "Ref_blog_tags_to_blogs"
+  add_foreign_key "blog_tags", "tags", :name => "blog_tags_tag_id_fk"
 
   add_foreign_key "blogs", "users", :name => "Ref_blogs_to_users"
 
@@ -656,6 +714,9 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
   add_foreign_key "circoscrizioni_groups", "circoscriziones", :name => "Ref_circoscrizioni_groups_to_circoscriziones"
 
   add_foreign_key "comunali_groups", "comunes", :name => "Ref_comunali_groups_to_comunes"
+
+  add_foreign_key "election_votes", "elections", :name => "election_votes_election_id_fk"
+  add_foreign_key "election_votes", "users", :name => "election_votes_user_id_fk"
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
@@ -724,6 +785,9 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
   add_foreign_key "proposal_supports", "groups", :name => "Ref_proposal_supports_to_groups"
   add_foreign_key "proposal_supports", "proposals", :name => "Ref_proposal_supports_to_proposals"
 
+  add_foreign_key "proposal_tags", "proposals", :name => "proposal_tags_proposal_id_fk"
+  add_foreign_key "proposal_tags", "tags", :name => "proposal_tags_tag_id_fk"
+
   add_foreign_key "proposal_votes", "proposals", :name => "Ref_proposal_votes_to_proposals"
 
   add_foreign_key "proposal_watches", "proposals", :name => "Ref_proposal_watches_to_proposals"
@@ -740,6 +804,10 @@ ActiveRecord::Schema.define(:version => 20120520150000) do
   add_foreign_key "request_votes", "group_partecipation_requests", :name => "Ref_request_votes_to_group_partecipation_requests"
   add_foreign_key "request_votes", "request_vote_types", :name => "Ref_request_votes_to_request_vote_types"
   add_foreign_key "request_votes", "users", :name => "Ref_request_votes_to_users"
+
+  add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
+
+  add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
 
   add_foreign_key "steps", "tutorials", :name => "steps_tutorial_id_fk"
 

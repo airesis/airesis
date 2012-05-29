@@ -42,7 +42,7 @@ class BlogPostsController < ApplicationController
   
   def tag
     @tag = params[:id]
-    @blog_post_tags = BlogPostTag.find_all_by_tag(params[:id])
+    @blog_post_tags = BlogPostTag.find(:all, :joins => :tag , :conditions => {'tags.text' => params[:id]})
     
     if @blog_post_tags.size > 0
       @blog_posts =  BlogPost.published.paginate(:page => params[:page], :conditions => ['id IN (?)', @blog_post_tags.map(&:blog_post_id)], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')

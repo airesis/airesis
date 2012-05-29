@@ -1,6 +1,8 @@
 #encoding: utf-8
+
+require 'airesis_metis'
+
 class AdminController < ApplicationController
-  
   before_filter :admin_required#, :only => [:new, :create, :destroy]
 
   def index
@@ -9,6 +11,20 @@ class AdminController < ApplicationController
   
   def show        
    
+  end
+  
+  #fa un test della gemma
+  def test_gem
+    
+    AiresisMetis.hi
+    
+    
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'OK'
+        redirect_to admin_panel_path
+      }
+    end
   end
   
   #calcola il ranking degli utenti

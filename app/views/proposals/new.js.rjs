@@ -1,0 +1,11 @@
+page.replace_html 'create_proposal', :partial => @proposal, :locals => { :button_name => "Procedi" }
+page<< "$('#create_proposal_dialog').dialog({
+        title: 'Nuova Discussione',
+        modal: true,
+        width: 700,
+        close: function(event, ui) { $('#create_proposal_dialog').dialog('destroy') }
+
+    });
+"
+
+page.call "disegnaBottoni"

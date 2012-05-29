@@ -23,3 +23,7 @@
 //= require jquery.progressbar
 //= require jquery.dataTables.min
 //= require rails.validations
+//= require bbq
+//= require jquery.form
+//= require jquery.form.wizard
+//= require jquery.quick-wizard

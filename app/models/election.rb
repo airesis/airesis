@@ -6,5 +6,11 @@ class Election < ActiveRecord::Base
   has_many :groups, :through => :group_elections, :class_name => 'Group'
   #candidati all'elezione
   has_many :candidates, :class_name => 'Candidate'  
+  
+  has_many :election_votes, :class_name => 'ElectionVote'
+  
+  has_many :voters, :through => :election_votes, :class_name => 'User', :source => 'user'
+  
+  has_many :schulze_votes, :class_name => 'SchulzeVote'
     
 end

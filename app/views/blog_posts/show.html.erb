@@ -34,7 +34,7 @@ end
 	</div>
 
 	<hr class="blogPostBreak" />
-	<% unless @blog_post.tags.blank? %>
+	<% unless @blog_post.tags.empty? %>
 		<p class="blogPostTags">
 			<b>Tags: </b>
 			<%=raw @blog_post.tags_with_links %>

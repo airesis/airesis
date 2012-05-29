@@ -29,6 +29,7 @@ var DEFAULT_SETTINGS = {
 
 	// Tokenization settings
     tokenLimit: null,
+    allowCustomEntry: false,
     tokenDelimiter: ",",
     preventDuplicates: false,
 
@@ -229,17 +230,57 @@ $.TokenList = function (input, url_or_data, settings) {
                         }
                     } else {
                         var dropdown_item = null;
+                        
+                        
+                        
+                           if(settings.allowCustomEntry == true) {
 
-                        if(event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
-                            dropdown_item = $(selected_dropdown_item).next();
+                            if(event.keyCode === KEY.DOWN) {
+                                if($(selected_dropdown_item).length) {
+                                    if($(selected_dropdown_item).next().length) {
+                                        dropdown_item = $(selected_dropdown_item).next();
+                                    } else {
+                                        deselect_dropdown_item($(selected_dropdown_item));
+                                    }
+                                } else {
+                                    dropdown_item = $(dropdown).find('li:first-child');
+                                }
+                            } else if(event.keyCode === KEY.UP) {
+                                if($(selected_dropdown_item).length) {
+                                    if($(selected_dropdown_item).prev().length) {
+                                        dropdown_item = $(selected_dropdown_item).prev();
+                                    } else {
+                                        deselect_dropdown_item($(selected_dropdown_item));
+                                    }
+                                } else {
+                                    dropdown_item = $(dropdown).find('li:last-child');
+                                }
+                            }
+                            
+                            if(dropdown_item != null) {
+                                select_dropdown_item(dropdown_item);
+                            }
+                            
                         } else {
-                            dropdown_item = $(selected_dropdown_item).prev();
+                        
+                            if(event.keyCode === KEY.DOWN) {
+                                dropdown_item = $(selected_dropdown_item).next();
+                            } else if(event.keyCode === KEY.UP) {
+                                dropdown_item = $(selected_dropdown_item).prev();
+                            }
+                            
+                            if(dropdown_item && dropdown_item.length) {
+                                select_dropdown_item(dropdown_item);
+                            }
+                        
                         }
-
-                        if(dropdown_item.length) {
-                            select_dropdown_item(dropdown_item);
+                        
+                        if(event.keyCode === KEY.LEFT || event.keyCode === KEY.RIGHT) {
+                            // we need to allow caret moving here
+                            return true;
+                        } else {
+                            return false;
                         }
-                        return false;
                     }
                     break;
 
@@ -267,12 +308,25 @@ $.TokenList = function (input, url_or_data, settings) {
                 case KEY.ENTER:
                 case KEY.NUMPAD_ENTER:
                 case KEY.COMMA:
-                  if(selected_dropdown_item) {
-                    add_token($(selected_dropdown_item).data("tokeninput"));
-                    hidden_input.change();
+                  if(event.keyCode == KEY.TAB && !$(input_box).val().length) {
+                        hide_dropdown();
+                        // let the browser handle the tab key properly if user is trying to tab through or out
+                        return true;
+                    }
+                
+                    if(selected_dropdown_item) {
+                        add_token($(selected_dropdown_item).data("tokeninput"));
+                    }
+                    
+                    if(settings.allowCustomEntry == true && $.trim($(input_box).val()) != '') {
+                    	item = {}
+                    	item[settings.propertyToSearch] = $(input_box).val() 
+                    	item[settings.tokenValue] = $(input_box).val() 
+                        add_token(item);
+                    }
+                    
                     return false;
-                  }
-                  break;
+                    break;
 
                 case KEY.ESCAPE:
                   hide_dropdown();
@@ -690,8 +744,10 @@ $.TokenList = function (input, url_or_data, settings) {
                     this_li.addClass(settings.classes.dropdownItem2);
                 }
 
-                if(index === 0) {
-                    select_dropdown_item(this_li);
+				if(settings.allowCustomEntry == false) {
+	                if(index === 0) {
+	                    select_dropdown_item(this_li);
+	                }
                 }
 
                 $.data(this_li.get(0), "tokeninput", value);
@@ -705,7 +761,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 dropdown_ul.show();
             }
         } else {
-            if(settings.noResultsText) {
+            if(settings.noResultsText && !settings.allowCustomEntry) {
                 dropdown.html("<p>"+settings.noResultsText+"</p>");
                 show_dropdown();
             }

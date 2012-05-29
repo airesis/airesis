@@ -17,29 +17,61 @@
 </script>  		
 
 <%= form_for @proposal, :validate => true do |f| %>
-   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-   
+  
+   <div class="step">
+   	<div class="legend">Informazioni iniziali</div>
    <p>
     <%= f.label :proposal_category_id%><br />
   	<%= select("proposal", "proposal_category_id", ProposalCategory.all.collect {|p| [ p.description, p.id ] }) %> 
   </p> 
    
-   
   <p>
   	 <%=f.label :title%><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :style=>"width:300px" %>     
+  </p>
+  
+   <p>
+  	 <%=f.label :subtitle%><br />
+    <%= f.text_field :subtitle, :style=>"width:600px;" %>     
+  </p>
+  <p>
+	<%=f.label :interest_borders_tkn%><br/>
+	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+  </p>
+  </div>
+  <div class="step">
+  	<div class="legend">Problemi ed obiettivi</div>
+   <p>
+  	 <%=f.label :problems%><br />
+    <%= f.text_area :problems, :rows=>5,:style=>"width:600px" %>
      
   </p>
   
+   <p>
+  	 <%=f.label :objectives%><br />
+    <%= f.text_area :objectives, :rows=>5,:style=>"width:600px" %>
+     
+  </p>
+  </div>
+  <div class="step">
   <p>
     <%=f.label :content%><br />
-    <%= f.text_area :content, :rows=>10, :style => "width:400px;" %>
+    <%= f.text_area :content, :rows=>5, :style => "width:600px;" %>
   </p>
-  
-  <%=f.label :interest_borders_tkn%><br/>
-	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+  </div>
 
   <p>
+  	 <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
     <%= f.submit button_name, :class => 'buttonStyle' %>
   </p>
 <% end %>
+
+
+<script>
+	$('.legend').hide();
+	$(function(){
+		$("#new_proposal").validate().quickWizard({
+		});
+	}); 
+	
+</script>

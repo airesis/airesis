@@ -85,6 +85,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new
     
     respond_to do |format|
+      format.js
       format.html # new.html.erb
       format.xml  { render :xml => @proposal }
     end
@@ -287,7 +288,7 @@ class ProposalsController < ApplicationController
       @proposal.reload
       valutations = @proposal.valutations
       rank = @proposal.rank
-      if (valutations > PROP_VOTES_TO_PROMOTE)        #se ho raggiunto il numero di voti sufficiente a cambiare lo stato verifica il ranking
+      if (valutations >= PROP_VOTES_TO_PROMOTE)        #se ho raggiunto il numero di voti sufficiente a cambiare lo stato verifica il ranking
         if (rank >= PROP_RANKING_TO_PROMOTE)
           @proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
         elsif (rank <= PROP_RANKING_TO_DEGRADE) 

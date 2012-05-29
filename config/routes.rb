@@ -118,15 +118,19 @@ resources :comunes
     
     resources :events
     
-    resources :elections do
-      member do
-        get :vote_page
-      end
-    end
+    resources :elections
     
     resources :candidates
        
   end
+  
+  resources :elections do
+      member do
+        get :vote_page
+        post :vote
+        get :calculate_results
+      end
+    end
 
   resources :partecipation_roles do
     collection do
