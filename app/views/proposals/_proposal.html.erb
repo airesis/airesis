@@ -1,25 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%= form_for @proposal, :validate => true, :remote => @remote do |f| %>
+   <div class="legend">Informazioni iniziali</div>
+    <div class="legend">Proposte simili</div>
+      <div class="legend">Problemi ed obiettivi</div>
+  <div class="legend">Proposta iniziale</div>
 
-  
-<script type="text/javascript">
-	$(function() {
-		input = $('#proposal_interest_borders_tkn')
-		input.tokenInput("/interest_borders.json", {
-			crossDomain: false,
-			prePopulate: $('#proposal_interest_borders_tkn').data("pre"),
-			hintText: "Digita alcuni caratteri per cercare un luogo",
-			noResultsText: "Nessun luogo trovato",
-			searchingText: "Sto cercando...",
-			preventDuplicates: true
-		});
-	});
-
-</script>  		
-
-<%= form_for @proposal, :validate => true do |f| %>
-  
    <div class="step">
-   	<div class="legend">Informazioni iniziali</div>
    <p>
     <%= f.label :proposal_category_id%><br />
   	<%= select("proposal", "proposal_category_id", ProposalCategory.all.collect {|p| [ p.description, p.id ] }) %> 
@@ -34,13 +20,24 @@
   	 <%=f.label :subtitle%><br />
     <%= f.text_field :subtitle, :style=>"width:600px;" %>     
   </p>
+  
   <p>
 	<%=f.label :interest_borders_tkn%><br/>
 	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
   </p>
+  
+  <p>
+	<%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
+	<%= f.text_field :tags_list %>
+  </p>
+  
   </div>
+  
+
+  <div class="step" id="suggestions">
+  </div>
+  
   <div class="step">
-  	<div class="legend">Problemi ed obiettivi</div>
    <p>
   	 <%=f.label :problems%><br />
     <%= f.text_area :problems, :rows=>5,:style=>"width:600px" %>
@@ -53,6 +50,7 @@
      
   </p>
   </div>
+  
   <div class="step">
   <p>
     <%=f.label :content%><br />
@@ -66,12 +64,70 @@
   </p>
 <% end %>
 
-
+	
+	
+<% data = "["
+   @proposal.tags_list.split(',').each do |l|
+   	data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   	end 
+   data += "]"	
+%>
 <script>
 	$('.legend').hide();
+	
+	
 	$(function(){
 		$("#new_proposal").validate().quickWizard({
+			nextCallback: showSimilarProposal,
+			prevCallback: skipIfNecessary
 		});
+		
+		
+		input = $('#proposal_interest_borders_tkn')
+		input.tokenInput("/interest_borders.json", {
+			crossDomain: false,
+			prePopulate: $('#proposal_interest_borders_tkn').data("pre"),
+			hintText: "Digita alcuni caratteri per cercare un luogo",
+			noResultsText: "Nessun luogo trovato",
+			searchingText: "Sto cercando...",
+			preventDuplicates: true
+		});
+		
+
+		input = $('#proposal_tags_list')
+		if (input != null) {
+			input.tokenInput([], {
+				theme: "facebook",
+				crossDomain: false,
+				allowCustomEntry: true,
+				prePopulate: <%=raw data%>,
+				hintText: "Digita i tag che vuoi inserire",
+				searchingText: "Digita i tag che vuoi inserire",
+				preventDuplicates: true
+			})
+		}
 	}); 
+	
+	
+	function skipIfNecessary(activeDiv) {
+		if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
+			$('#form-wizard-prev').click();
+		}
+	}
+	
+	
+	function showSimilarProposal(activeDiv) {
+		if (activeDiv.attr('id') == 'suggestions') {
+				$.ajax({
+					url: '<%=similar_proposals_path%>',
+					data: 'tags=' + $('#proposal_tags_list').val()
+				})
+		}
+	}
+	
+</script>  		
+	
+	
+	
 	
 </script>

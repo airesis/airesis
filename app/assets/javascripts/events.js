@@ -103,10 +103,17 @@ function showPlace(value){
         case '2':
 	        $('#luogo').hide();
 	        $('#create_map_canvas').hide();
+	        $('#elezione').hide();
             break;        
+        case '4':
+        	$('#luogo').hide();
+	        $('#create_map_canvas').hide();	        
+	        $('#elezione').show();	        	        
+            break;
         default:
             $('#luogo').show();
             $('#create_map_canvas').show();
+            $('#elezione').hide();
     }
 }
 

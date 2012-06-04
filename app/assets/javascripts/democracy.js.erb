@@ -1,3 +1,6 @@
+
+
+
 $(function() {
 	disegnaBottoni();
 	
@@ -6,8 +9,12 @@ $(function() {
 			$(window.location.hash + " #commentcc").effect('highlight',{mode:'show'},3000)
 		},500);
 	}
-	
+
 });
+
+
+
+
 function disegnaBottoni() {
 	$('.buttonStyle').button();
 	$('.fullEditButton').button({icons : {primary : "ui-icon-pencil"}});
@@ -33,130 +40,147 @@ function disegnaBottoni() {
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
 
+
+
+var et = {};
+
+
+function calculate_event_times() {
+	et.est = $("#event_starttime")
+	et.eet = $("#event_endtime")
+	et.eventStartTime = et.est.datetimepicker("getDate");
+    et.eventEndTime = et.eet.datetimepicker("getDate");
+    et.eventStartDate = new Date(et.eventStartTime);
+    et.eventEndDate = new Date(et.eventEndTime);
+    
+    et.get = $("#groups_end_time")
+    et.cet = $("#candidates_end_time")
+    et.groupTime = et.get.datetimepicker("getDate");
+    et.candidatesTime = et.cet.datetimepicker("getDate");
+    et.groupDate = new Date(et.groupTime);
+    et.candidatesDate = new Date(et.candidatesTime);
+}
+
+
+function startTimeChanged() {
+	
+	//se la data inizio supera la data fine
+	if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) {
+		//reimposto la data fine avanti			
+		et.eet.datetimepicker("setDate",et.eventStartTime);
+	}
+	
+	//se la data inizio supera la data fine gruppi
+	if (!(et.groupDate.getTime() > et.eventStartDate.getTime())) {
+		//reimposto la data gruppi avanti 				
+		et.get.datetimepicker("setDate",et.eventStartTime);
+	}
+	
+	//se la data inizio supera la data fine candidati
+	if (!(et.candidatesDate.getTime() > et.eventStartDate.getTime())) {
+		//reimposto la data candidati avanti 				
+		et.cet.datetimepicker("setDate",et.eventStartTime);
+	}
+			
+	//imposta come data minima quella di inizio dell'evento
+	var diff =  Math.floor(( et.eventStartDate - new Date()) / 86400000);
+	et.eet.datetimepicker("option","minDate",diff);
+}
+
+function endTimeChanged() {
+	//se la data inizio supera la data fine
+	if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) { 	
+		//reimposta la data inizio indietro			
+		et.est.datetimepicker("setDate",et.eventEndTime);
+	}
+}
+
+function groupsTimeChanged() {
+	
+	//se supera la data fine candidati
+	if (!(et.candidatesDate.getTime() > et.groupDate.getTime())) {
+		//sposto la data fine candidati 				
+		$("#candidates_end_time").datetimepicker("setDate",et.groupTime);
+	}
+	
+	//se supera la data fine evento
+	if (!(et.eventEndDate.getTime() > et.groupDate.getTime())) {
+		// sposto la data fine evento in avanti 				
+		et.eet.datetimepicker("setDate",et.groupTime);
+	}	
+	
+	//imposta un limite inferiore alla data fine dei candidati
+	var diff =  Math.floor(( et.groupDate - new Date()) / 86400000);
+	$("#candidates_end_time").datetimepicker("option","minDate",diff);
+}
+
+function candidatesTimeChanged() {
+	//se è inferiore alla data fine gruppi
+	if (!(et.candidatesDate.getTime() > et.groupDate.getTime())) {
+		//sposto indietro la data fine gruppi 				
+		$("#groups_end_time").datetimepicker("setDate",et.candidatesTime);
+	}
+	
+	//se supera la data fine evento
+	if (!(et.eventEndDate.getTime() > et.candidatesDate.getTime())) {
+		// sposto la data fine evento in avanti 				
+		et.eet.datetimepicker("setDate",et.candidatesTime);
+	}
+}
+
+var datePickerOptions = {
+	dateFormat : "dd/mm/yy",
+	buttonImageOnly : true,
+	buttonImage : "<%= asset_path('iconCalendar.png') %>",
+    showOn : "both",
+    changeMonth : false,
+    changeYear : false,
+    yearRange : "c:c+10",
+    minDate : -2,
+    maxDate: "+10Y",
+    duration: "",  
+    showTime: true,  
+    constrainInput: true,
+    stepMinute: 15,  
+    stepHour: 1,  
+    altTimeField: "alt",  
+    time24h: true
+}
+
+
 function disegnaDatePicker() {
-	$("#event_endtime").datetimepicker({
-        dateFormat : "dd/mm/yy",
-        buttonImageOnly : true,
-        buttonImage : "<%= asset_path('iconCalendar.png') %>",
-        showOn : "both",
-        changeMonth : false,
-        changeYear : false,
-        yearRange : "c:c+10",
-        minDate : -2,
-        maxDate: "+10Y",
-        duration: "",  
-        showTime: true,  
-        constrainInput: true,
-        stepMinute: 15,  
-        stepHour: 1,  
-        altTimeField: "alt",  
-        time24h: true,
+	//data inizio evento	
+	$('#event_starttime').datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
-        	startTime = $("#event_starttime").datetimepicker("getDate");
-        	endTime = $("#event_endtime").datetimepicker("getDate");
-        	startDate = new Date(startTime);
-        	endDate = new Date(endTime);
-	        if (!(endDate.getTime() > startDate.getTime())) { 				
-	 			$("#event_starttime").datetimepicker("setDate",endTime);
- 			}
- 			var diff =  Math.floor(( endDate - new Date()) / 86400000);
- 			$("#event_starttime").datetimepicker("option","maxDate",diff+1); 			
+        	calculate_event_times();   	
+        	startTimeChanged();		
         }
- 	  });   
+     }));
+	
+	//data termine evento
+	$("#event_endtime").datetimepicker($.extend({},datePickerOptions,{
+        onClose: function(date) {
+        	calculate_event_times(); 	
+        	endTimeChanged();	
+        }
+ 	}));   
 		
-	$('#event_starttime').datetimepicker({
-        dateFormat : "dd/mm/yy",
-        buttonImageOnly : true,
-        buttonImage : "<%= asset_path('iconCalendar.png') %>",
-        showOn : "both",
-        changeMonth : false,
-        changeYear : false,
-        yearRange : "c:c+10",
-        minDate : -2,
-        maxDate: "+10Y",
-        duration: "",  
-        showTime: true,  
-        constrainInput: true,
-        stepMinute: 15,  
-        stepHour: 1,  
-        altTimeField: "alt",  
-        time24h: true,
+	$("#candidates_end_time").datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
-        	startTime = $("#event_starttime").datetimepicker("getDate");
-        	endTime = $("#event_endtime").datetimepicker("getDate");
-        	startDate = new Date(startTime);
-        	endDate = new Date(endTime);
-	        if (!(endDate.getTime() > startDate.getTime())) { 				
-	 			$("#event_endtime").datetimepicker("setDate",startTime);
- 			} 			
- 			var diff =  Math.floor(( startDate - new Date()) / 86400000);
- 			$("#event_endtime").datetimepicker("option","minDate",diff);
+        	calculate_event_times();
+        	
+	        candidatesTimeChanged();
+ 			
         }
-     });
- }
- 
- 
- 
-function electionDatePicker() {
-	$("#candidates_end_time").datetimepicker({
-        dateFormat : "dd/mm/yy",
-        buttonImageOnly : true,
-        buttonImage : "<%= asset_path('iconCalendar.png') %>",
-        showOn : "both",
-        changeMonth : false,
-        changeYear : false,
-        yearRange : "c:c+10",
-        minDate : -2,
-        maxDate: "+10Y",
-        duration: "",  
-        showTime: true,  
-        constrainInput: true,
-        stepMinute: 15,  
-        stepHour: 1,  
-        altTimeField: "alt",  
-        time24h: true,
-        onClose: function(date) {
-        	startTime = $("#groups_end_time").datetimepicker("getDate");
-        	endTime = $("#candidates_end_time").datetimepicker("getDate");
-        	startDate = new Date(startTime);
-        	endDate = new Date(endTime);
-	        if (!(endDate.getTime() > startDate.getTime())) { 				
-	 			$("#groups_end_time").datetimepicker("setDate",endTime);
- 			}
- 			var diff =  Math.floor(( endDate - new Date()) / 86400000);
- 			$("#groups_end_time").datetimepicker("option","maxDate",diff+1);			
-        }
- 	  });   
+ 	}));   
 		
-	$('#groups_end_time').datetimepicker({
-        dateFormat : "dd/mm/yy",
-        buttonImageOnly : true,
-        buttonImage : "<%= asset_path('iconCalendar.png') %>",
-        showOn : "both",
-        changeMonth : false,
-        changeYear : false,
-        yearRange : "c:c+10",
-        minDate : -2,
-        maxDate: "+10Y",
-        duration: "",  
-        showTime: true,  
-        constrainInput: true,
-        stepMinute: 15,  
-        stepHour: 1,  
-        altTimeField: "alt",  
-        time24h: true,
+	$('#groups_end_time').datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
-        	startTime = $("#groups_end_time").datetimepicker("getDate");
-        	endTime = $("#candidates_end_time").datetimepicker("getDate");
-        	startDate = new Date(startTime);
-        	endDate = new Date(endTime);
-	        if (!(endDate.getTime() > startDate.getTime())) { 				
-	 			$("#candidates_end_time").datetimepicker("setDate",startTime);
- 			} 			
- 			var diff =  Math.floor(( startDate - new Date()) / 86400000);
- 			$("#candidates_end_time").datetimepicker("option","minDate",diff);
+        	calculate_event_times();
+        	
+	        groupsTimeChanged();
         }
-   });
+   }));
  }
 
 function deleteMe(el) {

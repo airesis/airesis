@@ -63,15 +63,6 @@ DemocracyOnline3::Application.configure do
   PROP_DAY_STALLED=2
   #numero di voti necessari affinchè la proposta possa essere promossa
   PROP_VOTES_TO_PROMOTE=3
-  PROP_VALUT=1
-  PROP_WAIT_DATE=2
-  PROP_WAIT=3
-  PROP_VOTING=4
-  PROP_RESP=5
-  PROP_ACCEPT=6
-  ORDER_BY_DATE="2"
-  ORDER_BY_RANK="3"
-  ORDER_BY_VOTES="4"
   
   #limita il numero di commenti
   LIMIT_COMMENTS=false

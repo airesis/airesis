@@ -30,55 +30,61 @@
 <h3><%= link_to 'Proposte accettate', index_accepted_proposals_path , :id => 'proposte_accettate' %></h3>
 </div>
 <div style="clear:both"></div>
-<script>
-	$('#nuova_proposta').button({
-		icons: {
-                primary: "ui-icon-lightbulb"
-            },
-            text: true
-	});
-	$('#proposte_accettate').button({
-            icons: {
-                primary: "ui-icon-star"
-            },
-            text: true
-        });
-</script>
+
 <% if (@category)%>
-	<h1>Proposte della categoria <%=@category.description%>
+	<h1>Proposte della categoria <%=@category.description%></h1>
 <%else%>	
-	<h1>Proposte di tutte le categorie		
+	<h1>Proposte di tutte le categorie</h1>		
 <%end%>
-</h1>
 
-		
-		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
-			Ultime inserite
-		<%else%>
-			<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
-		<%end%> | 		
-		<% if (params[:view] == ORDER_BY_RANK)%>
-			Più popolari
-		<%else%>	
-			<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
-		<%end%> | 
-		<% if (params[:view] == ORDER_BY_VOTES)%>
-			Più votate
-		<%else%>	 
-			<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
-		<%end%>
-		
-		     
-			<div id="proposalsListContainer">
-			<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
-			</div>
-	  		<div id="loading_proposals">
-	  			<span>Mostra altre proposte...</span>
-	  		</div>
+<div id="tabs">
+	<ul>
+		<li>
+			<a href="#dibattito">In dibattito</a>
+			<div class="tabs-triangle"/>
+		</li>
+		<li>
+			<a href="#votazione">In votazione</a>
+			<div class="tabs-triangle"/>
+		</li>
+		<li>
+			<a href="#revisione">Revisione e feedback</a>
+			<div class="tabs-triangle"/>
+		</li>
+	</ul>
 
-	 	<script>
-	    </script>
-	 
+
+	<div id="dibattito">
+			<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+				Ultime inserite
+			<%else%>
+				<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
+			<%end%> | 		
+			<% if (params[:view] == ORDER_BY_RANK)%>
+				Più popolari
+			<%else%>	
+				<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
+			<%end%> | 
+			<% if (params[:view] == ORDER_BY_VOTES)%>
+				Più votate
+			<%else%>	 
+				<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
+			<%end%>
+			
+			     
+				<div id="proposalsListContainer">
+				<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+				</div>
+		  		<div id="loading_proposals">
+		  			<span>Mostra altre proposte...</span>
+		  		</div>
+	</div>
+	<div id="votazione">
+		</div>
+	<div id="revisione">
+	</div>
+	
+</div>
 <%content_for :left_panel do %>
 <div id="categories">
 <%if (params[:category])%>
@@ -111,6 +117,29 @@
 
 <%end%>	 
 
+<script>
+	$('#nuova_proposta').button({
+		icons: {
+                primary: "ui-icon-lightbulb"
+            },
+            text: true
+	}).bind("ajax:error", function(event, data, status, xhr) {
+    	if (data.status == 401) {
+    		window.location = "/users/sign_in?l=it"
+    	}
+  	});
+;
+	$('#proposte_accettate').button({
+            icons: {
+                primary: "ui-icon-star"
+            },
+            text: true
+        });
+    
+    $('#tabs').tabs();   
+        
+        
+</script>
 	 
 <%content_for :right_panel do %>
 <%end%>

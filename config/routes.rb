@@ -43,11 +43,13 @@ DemocracyOnline3::Application.routes.draw do
     collection do
       get :index_accepted
       get :endless_index 
+      get :similar   
     end    
+    
     resources :proposal_comments do
       member do
         get :rankup
-        get :rankdown        
+        get :rankdown    
       end
     end
     
@@ -55,7 +57,7 @@ DemocracyOnline3::Application.routes.draw do
     resources :proposal_supports
     
     member do
-      get  :rankup
+      get :rankup
       get :rankdown
       get :statistics
       put :set_votation_date
@@ -66,11 +68,12 @@ DemocracyOnline3::Application.routes.draw do
   
   resources :blogs do 
     resources :blog_posts do
-      match :tag, :on => :member
+      #match :tag, :on => :member
       match :drafts, :on => :collection 
       resources :blog_comments
     end
   end
+  
   
   resources :blog_posts
   
@@ -85,8 +88,8 @@ DemocracyOnline3::Application.routes.draw do
     end
   end
 
-resources :interest_borders
-resources :comunes
+ resources :interest_borders
+ resources :comunes
 
   
   resources :events do
@@ -138,12 +141,15 @@ resources :comunes
     end
   end
  
+  match '/tags/:text', :to => 'tags#show', :as => 'tag'
 
   match '/votation/', :to => 'votations#show'
   match '/votation/vote', :to => 'votations#vote'
   resources :votations
 
   match ':controller/:action/:id'
+  
+  
   
  
   

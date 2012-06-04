@@ -18,6 +18,7 @@ class EventsController < ApplicationController
     @group = Group.find_by_id(params[:group_id])
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
     @meeting = @event.build_meeting
+    @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
     if (params[:group_id])
       respond_to do |format|     
@@ -28,9 +29,18 @@ class EventsController < ApplicationController
   end
   
   def create
-    #se è una votazione ignora tutto ciò che riguarda il luogo
+    #se è una votazione ignora tutto ciò che riguarda il luogo e le elezioni
     if (params[:event][:event_type_id] == "2")
       params[:event].delete(:meeting_attributes)
+      params[:event].delete(:election_attributes)
+    #se è un'elezione ignora tutto ciò che riguarda il luogo
+    elsif (params[:event][:event_type_id] == "4")
+      params[:event].delete(:meeting_attributes)
+      params[:event][:election_attributes][:name] = params[:event][:title]
+      params[:event][:election_attributes][:description] = params[:event][:description]
+    #altrimenti elimina tutto ciò che riguarda l'elezione
+    else
+      params[:event].delete(:election_attributes)
     end
     
     if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")

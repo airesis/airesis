@@ -4,7 +4,7 @@ class ProposalsController < ApplicationController
   
   #load_and_authorize_resource
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :index_accepted, :endless_index, :new, :create, :index_by_category]
+  before_filter :load_proposal, :except => [:index, :index_accepted, :endless_index, :new, :create, :index_by_category, :similar]
   
 ###SICUREZZA###
   
@@ -96,8 +96,9 @@ class ProposalsController < ApplicationController
   end
   
   def create
-    
+  
     begin
+      @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
         @proposal = Proposal.new(prparams)
@@ -115,9 +116,11 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         
       end
+      @saved = true
       
       respond_to do |format|
         flash[:notice] = t(:proposal_inserted)
+        format.js
         format.html { 
          if request.env['HTTP_REFERER']["back=home"]
           redirect_to home_url
@@ -133,6 +136,7 @@ class ProposalsController < ApplicationController
         #@proposal.errors[:title] = "Esiste già un'altra proposta cono questo titolo. <a href=\"#\">Guardala</a>!"          
       end
       respond_to do |format|
+        format.js
         format.html { render :action => "new" }
       end
     end
@@ -226,6 +230,26 @@ class ProposalsController < ApplicationController
               page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
           end
       end
+    end
+  end
+  
+  #restituisce una lista di tutte le proposte simili a quella
+  #passata come parametro
+  def similar
+    tags = params[:tags].split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
+    @similars  = Proposal.find_by_sql("SELECT p.*, COUNT(*) AS closeness
+                                      FROM proposal_tags pt join proposals p on pt.proposal_id = p.id 
+                                      WHERE pt.tag_id IN (SELECT pti.id
+                                              FROM tags pti 
+                                              WHERE pti.text in (#{tags}))
+                                      GROUP BY p.id
+                                      ORDER BY closeness DESC",)
+
+    
+    
+    respond_to do |format|
+      format.js 
+      format.html 
     end
   end
   

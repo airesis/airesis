@@ -22,6 +22,11 @@ class Proposal < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders,:through => :proposal_borders, :class_name => 'InterestBorder'  
   
+  has_many :proposal_tags, :class_name => 'ProposalTag'
+  has_many :tags, :through => :proposal_tags, :class_name => 'Tag'
+  
+  
+  
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
@@ -30,19 +35,45 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list
   
   scope :current, { :conditions => {:proposal_state_id => [1,2,3,4] }}
   scope :accepted, { :conditions => {:proposal_state_id => 6 }}
   
-  #default_scope :include => [:positive_rankings]
+  before_save :save_tags
+  after_update :save_proposal_history
+ 
+ 
+  def tags_list
+    @tags_list ||= self.tags.map(&:text).join(', ')
+  end
   
-#  after_save :reset_cache
+  def tags_list_json
+    @tags_list ||= self.tags.map(&:text).join(', ')
+  end
   
- # def reset_cache
- # @user = nil
- #end
- after_update :save_proposal_history
+  def tags_list=(tags_list)
+    @tags_list = tags_list
+  end
+
+  def tags_with_links
+    html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+    return html
+  end
+  
+  def save_tags
+    if @tags_list
+      # Remove old tags
+      self.proposal_tags.destroy_all
+    
+      # Save new tags
+      @tags_list.split(/,/).each do |tag|
+        t = Tag.find_or_create_by_text(tag.strip.downcase)
+        self.proposal_tags.build(:tag_id => t.id)
+      end
+    end
+  end 
+  
  
  #prima di aggiornare la proposta salvane la 
  #storia nella tabella dedicata (se è cambiato il testo)
@@ -83,4 +114,16 @@ class Proposal < ActiveRecord::Base
     return User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
   end
   
+  #restituisce la lista delle 10 proposte più vicine a questa
+  def closest
+    return Proposal.find_by_sql(" 
+      SELECT p.*, COUNT(*) AS closeness
+    FROM proposal_tags pt join proposals p on pt.proposal_id = p.id  
+    WHERE pt.tag_id IN (SELECT pti.tag_id
+            FROM proposal_tags pti 
+            WHERE pti.proposal_id = #{self.id})
+    AND pt.proposal_id != #{self.id}
+    GROUP BY p.id
+    ORDER BY closeness DESC")    
+  end 
 end

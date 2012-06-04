@@ -137,7 +137,7 @@ it:
         problems: "Problemi"
         objectives: "Obiettivi"
         content: "Testo"
-        interest_borders_tkn: "Confini geografici di interesse"
+        interest_borders_tkn: "Confini geografici di interesse"        
       proposal_comment:
          content: "Contenuto"
       blog_comment:
@@ -175,6 +175,9 @@ it:
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
+      election:
+        groups_end_time: "Data termine iscrizione gruppi"
+        candidates_end_time: "Data termine iscrizione candidati"
   
     errors:
       template:

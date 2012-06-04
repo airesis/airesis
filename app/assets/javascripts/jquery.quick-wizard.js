@@ -3,8 +3,8 @@
     $.fn.quickWizard = function (options, callback) {
         
         var settings = {
-            'prevButton': '<button id="form-wizard-prev" type="button">Previous</button>',
-            'nextButton': '<button id="form-wizard-next" type="button">Next</button>',
+            'prevButton': '<button id="form-wizard-prev" type="button" class="buttonStyle littleText">Torna al passo precedente</button>',
+            'nextButton': '<button id="form-wizard-next" type="button" class="buttonStyle littleText">Procedi</button>',
             'activeClass': 'form-wizard-active',
             'element': 'div.step',
             'submit': '[type = "submit"]',
@@ -16,9 +16,9 @@
             'breadCrumb': true,
             'breadCrumbElement': 'div.legend',
             'breadCrumbListOpen': '<ol class="bread-crumb">',
-            'breadCrumbListClose': '</ol>',
-            'breadCrumbListElementOpen': '<li>',
-            'breadCrumbListElementClose': '</li>',
+            'breadCrumbListClose': '</ol><br/>',
+            'breadCrumbListElementOpen': '<li><div>',
+            'breadCrumbListElementClose': '</div></li>',
             'breadCrumbActiveClass': 'bread-crumb-active',
             'breadCrumbCompletedClass': 'bread-crumb-completed',
             'breadCrumbPosition': 'before'
@@ -64,7 +64,7 @@
             if (settings.breadCrumb) {
                 breadCrumbList = settings.breadCrumbListOpen
 
-                children.find(settings.breadCrumbElement).each(function (index) {
+                container.find(settings.breadCrumbElement).each(function (index) {
                     breadCrumbList += settings.breadCrumbListElementOpen + $(this).text() + settings.breadCrumbListElementClose;
                 });
 
@@ -149,6 +149,8 @@
                         $(next).hide();
                         submitButton.show();
                     }
+                    
+                    settings.nextCallback(nextSet);
                 }
             });
 
@@ -176,6 +178,8 @@
                 if (beforePrevSet.length <= 0) {
                     disablePrev(prev);
                 }
+                
+                settings.prevCallback(prevSet);
             });
 
             callback.call(this);

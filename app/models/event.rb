@@ -20,8 +20,6 @@ class Event < ActiveRecord::Base
   
   validates_presence_of :title, :description, :starttime, :endtime
   validate :validate_start_time_before_end_time
-
-
   
   belongs_to :event_series
   belongs_to :event_type
@@ -31,7 +29,8 @@ class Event < ActiveRecord::Base
   has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'event_id', :dependent => :destroy
   has_many :organizers, :through => :meeting_organizations, :class_name => 'Group', :source => :group
   
-  accepts_nested_attributes_for :meeting
+  has_one :election, :class_name => 'Election', :dependent => :destroy
+  accepts_nested_attributes_for :meeting, :election
   
   scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today], :order => "starttime asc"}
   
@@ -45,6 +44,17 @@ class Event < ActiveRecord::Base
   def validate_start_time_before_end_time
     if starttime && endtime
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime < starttime
+    end
+    
+    if (event_type_id.to_s == "4")
+      if (election.groups_end_time && election.candidates_end_time)
+        if (election.groups_end_time < starttime ||
+            election.groups_end_time > endtime ||
+            election.candidates_end_time < starttime ||
+            election.candidates_end_time > endtime)
+        errors.add(:starttime, "Le date di termine iscrizioni devono essere comprese tra la data inizio e la data fine dell'evento")
+        end 
+      end
     end
   end
   
