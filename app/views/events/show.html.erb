@@ -130,4 +130,12 @@
 	<%= render :partial => 'proposals/proposal_list_element', :collection => @event.proposals, :as => 'proposal' %>
 	
 </p>
+
+
+<%elsif (@event.event_type_id == 4)%>
+<p>
+	<%=link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election)%>
+	
+	
+</p>
 <%end%>

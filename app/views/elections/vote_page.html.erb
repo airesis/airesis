@@ -69,7 +69,6 @@ candidates_num = @election.candidates.count
 	<%=f.hidden_field 'string'%>
 	
 	<%=f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle'%>
-	<a href="<%=calculate_results_election_path(@election)%>", class="buttonStyle">Calcola risultato</a>
 <%end%>
 
 <script type="text/javascript">

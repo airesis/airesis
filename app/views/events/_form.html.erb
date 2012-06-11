@@ -133,7 +133,9 @@ admin event
 		
 		map = new google.maps.Map(document.getElementById('create_map_canvas'), myOptions);
 		
-		
+		 <%if params[:type] == 'election' %>
+    		showPlace('4');
+    	<%end%>
 	
 		var panoramaOptions = {
 			position : latlng,

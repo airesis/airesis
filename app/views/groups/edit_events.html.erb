@@ -17,7 +17,7 @@
 </style>        
       
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_events.title')} do%>
-	<%=link_to 'Crea un nuovo evento', new_event_group_path(@group),:remote => true, :class=>"newButton disableButton" %>
+	<%=link_to 'Crea un nuovo evento', new_event_group_path(@group, :type => params[:type]),:remote => true, :class=>"newButton disableButton" %>
 <%end%>
                 <div>
                     <div id='calendar' style="width:500px">
@@ -49,6 +49,10 @@
     	<%if params[:new_event] == 'true' %>
     		$('.newButton').click();
     	<%end%>
+    	
+    	
+    	
+    	
         // page is now ready, initialize the calendar...
         $('#calendar').fullCalendar({
             editable: true,
@@ -113,8 +117,6 @@
         
         
         });
-        
-      
         
     });
 </script>

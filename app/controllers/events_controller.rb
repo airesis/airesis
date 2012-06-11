@@ -23,7 +23,7 @@ class EventsController < ApplicationController
     if (params[:group_id])
       respond_to do |format|     
         format.js
-        format.html { redirect_to :controller => 'groups', :action => 'edit_events', :id => params[:group_id], :new_event => 'true' }
+        format.html { redirect_to :controller => 'groups', :action => 'edit_events', :id => params[:group_id], :new_event => 'true', :type => params[:type] }
       end
     end
   end
@@ -43,17 +43,36 @@ class EventsController < ApplicationController
       params[:event].delete(:election_attributes)
     end
     
-    if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
-      @event = Event.new(params[:event])
-    else
-      #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
-      @event_series = EventSeries.new(params[:event])
+    Event.transaction do
+      if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
+        @event = Event.new(params[:event])
+        @event.save!
+        if (params[:event][:event_type_id] == "4")
+          @group.elections << @event.election
+          @group.save
+           
+        end
+      else
+        #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
+        @event_series = EventSeries.new(params[:event])
+        @event_series.save!
+      end
     end
     
-    rescue Exception => e
-      puts e
+    rescue ActiveRecord::ActiveRecordError => e
+      respond_to do |format|
+        format.js {
+          render :update do |page|             
+            if @event
+              page.alert @event.errors.full_messages.join(";")
+            elsif @event_series
+              page.alert @event_series.errors.full_messages.join(";")
+            end
+          end
+        }
+      end
   end
-  
+   
   def index
     
   end

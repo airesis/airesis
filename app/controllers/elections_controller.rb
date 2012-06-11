@@ -2,12 +2,17 @@
 class ElectionsController < ApplicationController
   require 'vote-schulze'
   
+  rescue_from Exception, :with => :exception_occurred
+  
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:show]
   
   before_filter :check_group, :only => [:new, :create, :edit, :update]
   
+  
   before_filter :load_election, :except => [:index,:new,:create]
+  before_filter :check_vote, :only => [:vote_page]
+  
   #load_and_authorize_resource 
   
   def show
@@ -19,7 +24,7 @@ class ElectionsController < ApplicationController
   end
     
   def vote_page
-       
+    
   end
   
   #un utente invia il voto per l'elezione
@@ -44,12 +49,14 @@ class ElectionsController < ApplicationController
      
    ElectionVote.transaction do
      votes.each do |vote|
+        #controlla che gli id di tutti i candidati indicati siano effettivamente partecipanti all'elezione
         raise Exception unless @election.candidates.include? Candidate.find_by_id(vote[0])    
      end
-   
+     #salva la votazione dell'utente
      schulz = @election.schulze_votes.find_or_create_by_preferences(votestring)
      schulz.count += 1
 
+    #memorizza che l'utente ha effettuato la votazione
     @election.voters << current_user
     @election.save!    
    end
@@ -65,6 +72,7 @@ class ElectionsController < ApplicationController
    
    rescue Exception => e
       respond_to do |format|
+        #magari ha provato a votare due volte!
         flash[:error] = "Errore durante l'inserimento del tuo voto. Spiacenti."
         format.html { render :action => "vote_page" }               
         format.js {
@@ -81,7 +89,6 @@ class ElectionsController < ApplicationController
      @events = Event.all
      respond_to do |format|
        format.html # new.html.erb
-      #format.xml  { render :xml => @group }
       end
   end
   
@@ -93,25 +100,24 @@ class ElectionsController < ApplicationController
       end
       
       respond_to do |format|
-          flash[:notice] = 'Hai creato il l''elezione'
+          flash[:notice] = "Hai creato il l'elezione"
           format.html { redirect_to(@group) }
-          #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end 
       
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione dell''elezione.'
+        flash[:error] = "Errore nella creazione dell'elezione."
         format.html { render :action => "new" }                
       end        
     end  
   end
   
-  
+  #calcola il risultato dell'elezione
   def calculate_results
-    
-    votesstring = "";
-    
+    raise Exception if @election.candidates.count == 0
+    votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
     @election.schulze_votes.each do |vote|
+      #in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
       if (vote.count > 1)
         votesstring += "#{vote.count}=#{vote.preferences}\n"
       else
@@ -119,9 +125,11 @@ class ElectionsController < ApplicationController
       end
     end
     
+    #calcolo il risultato
     vs = SchulzeBasic.do votesstring, @election.candidates.count
+    #ordino i candidati secondo l'id crescente (così come vengono restituiti dalla libreria)
     candidates_sorted = @election.candidates.sort{|a,b| a.id <=> b.id}
-    message  =""
+    message  ="" #messaggio da mostrare
     candidates_sorted.each_with_index do |c,i|
       message += "#{c.user.fullname} (#{c.id}) ha ottenuto un punteggio di #{vs.ranks[i]} \n "
     end
@@ -140,7 +148,7 @@ class ElectionsController < ApplicationController
   end
   
   
-    
+  #un semplice test  
   def test_schulze
     puts "Hello everybody. I'm running"
     #vs = SchulzeBasic.do File.open("test/votes/vote4.list")
@@ -210,5 +218,28 @@ class ElectionsController < ApplicationController
   def load_election
     @election = Election.find(params[:id])
   end
-     
+  
+  def check_vote
+    @has_voted = (@election.voters.include? current_user)
+    flash[:error] = "Hai già votato a questa elezione."
+    respond_to do |format|
+      format.html {
+        redirect_to @election
+      }
+    end 
+  end
+  
+  def exception_occurred
+     flash[:error] = "Errore"
+     respond_to do |format|
+       format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end                  
+                  }
+       format.html {
+         redirect_to @election
+       }
+     end 
+  end  
+  
 end

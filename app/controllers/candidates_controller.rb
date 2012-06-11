@@ -30,14 +30,14 @@ class CandidatesController < ApplicationController
       end
       
       respond_to do |format|
-          flash[:notice] = 'Hai candidato l''utente'
-          format.html { redirect_to(@group) }
+          flash[:notice] = "Hai candidato l'utente"
+          format.html { redirect_to( group_candidates_path @group) }
           #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end 
       
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione dell''elezione.'
+        flash[:error] = "Errore nella creazione dell'elezione."
         format.html { render :action => "new" }                
       end        
     end  
