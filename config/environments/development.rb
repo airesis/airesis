@@ -76,7 +76,7 @@ ActionMailer::Base.smtp_settings = {
   :tls                  => true,
   :domain             => 'gmail.com', #you can also use google.com
   :authentication     => :plain,
-  :user_name          => ENV['airesis_dev_smtp_username'],
+  :user_name          => ENV['airesis_dev_smtp_user_name'],
   :password           => ENV['airesis_dev_smtp_password']
 }
 
