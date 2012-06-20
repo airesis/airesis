@@ -4,6 +4,8 @@ gem 'rails', '3.1.0'
 
 gem 'therubyracer'
 
+gem 'bson_ext'
+
 group :assets do
   gem 'sass-rails', "~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
@@ -57,6 +59,7 @@ gem 'fb_graph'
 gem 'exception_notification'
 
 gem 'resque', :require => 'resque/server'
+gem 'resque-mongo', :require => 'resque'#, :require => 'resque/server'
 
 gem 'resque_mailer'
 

@@ -40,22 +40,6 @@ class BlogPostsController < ApplicationController
     end
   end
   
-  def tag
-    @tag = params[:id]
-    @blog_post_tags = BlogPostTag.find(:all, :joins => :tag , :conditions => {'tags.text' => params[:id]})
-    
-    if @blog_post_tags.size > 0
-      @blog_posts =  BlogPost.published.paginate(:page => params[:page], :conditions => ['id IN (?)', @blog_post_tags.map(&:blog_post_id)], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
-    else
-      @blog_posts = []
-    end
-    
-    @index_title = 'Tag: ' + @tag
-    respond_to do |format|
-      format.html { render :action => 'index' }
-      format.xml  { render :xml => @blog_posts }
-    end		
-  end
   
   def drafts
     @blog_posts =  @blog.posts.drafts.paginate(:page => params[:page], :order => 'updated_at DESC')

@@ -56,6 +56,10 @@ DemocracyOnline3::Application.configure do
   #limita il numero di commenti
   LIMIT_COMMENTS=false
   
+  
+  #config.gem 'resque-mongo', :lib => 'resque'
+
+  
 end
 
 
@@ -72,7 +76,7 @@ ActionMailer::Base.smtp_settings = {
   :tls                  => true,
   :domain             => 'gmail.com', #you can also use google.com
   :authentication     => :plain,
-  :user_name          => 'coorasse@gmail.com',
+  :user_name          => ENV['airesis_dev_smtp_username'],
   :password           => ENV['airesis_dev_smtp_password']
 }
 

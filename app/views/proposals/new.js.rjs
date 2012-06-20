@@ -1,4 +1,4 @@
-page.replace_html 'create_proposal', :partial => @proposal, :locals => { :button_name => "Procedi" }
+page.replace_html 'create_proposal', :partial => @proposal, :locals => { :button_name => "Procedi", :remote => true }
 page<< "$('#create_proposal_dialog').dialog({
         title: 'Nuova Discussione',
         modal: true,

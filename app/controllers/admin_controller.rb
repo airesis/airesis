@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-require 'airesis_metis'
+#require 'airesis_metis'
 
 class AdminController < ApplicationController
   before_filter :admin_required#, :only => [:new, :create, :destroy]

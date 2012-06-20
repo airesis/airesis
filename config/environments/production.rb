@@ -29,7 +29,7 @@ DemocracyOnline3::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'democracyonline.heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'coorasse.alwaysdata.net' }
   
   
 
@@ -72,7 +72,7 @@ DemocracyOnline3::Application.configure do
   config.active_support.deprecation = :notify
 
   #indirizzo del sito
-  SITE="http://democracyonline.heroku.com"
+  SITE="http://coorasse.alwaysdata.net"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
@@ -111,7 +111,7 @@ ActionMailer::Base.smtp_settings = {
   :tls                  => true,
   :domain             => 'gmail.com', #you can also use google.com
   :authentication     => :plain,
-  :user_name          => 'coorasse@gmail.com',
+  :user_name          => ENV['airesis_prod_smtp_user_name'],
   :password           => ENV['airesis_prod_smtp_password']
 }
 

@@ -37,7 +37,7 @@
 	<h1>Proposte di tutte le categorie</h1>		
 <%end%>
 
-<div id="tabs">
+<!--<div id="tabs">
 	<ul>
 		<li>
 			<a href="#dibattito">In dibattito</a>
@@ -52,7 +52,7 @@
 			<div class="tabs-triangle"/>
 		</li>
 	</ul>
-
+-->
 
 	<div id="dibattito">
 			<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
@@ -84,7 +84,7 @@
 	<div id="revisione">
 	</div>
 	
-</div>
+<!-- </div>-->
 <%content_for :left_panel do %>
 <div id="categories">
 <%if (params[:category])%>

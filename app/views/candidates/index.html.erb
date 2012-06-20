@@ -11,8 +11,8 @@
 		
 
 <%= link_to 'Indietro', @group, :class=>"buttonStyle" %>
-
-
+<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle"%>
+<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"buttonStyle"%>
 <script type="text/javascript">
 	$(function() {
 		//electionDatePicker();

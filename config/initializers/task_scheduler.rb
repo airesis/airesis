@@ -5,11 +5,11 @@ scheduler.cron '0 1 * * *' do
    AdminHelper.change_proposals_state
 end 
 
-scheduler.every '10m' do
+scheduler.every '5m' do
    puts "Keep up heroku ;)"
    require "net/http"
    require "uri"
-   url = 'http://democracyonline.heroku.com'
+   url = 'http://coorasse.alwaysdata.net'
    Net::HTTP.get_response(URI.parse(url))
    
 scheduler.cron '0 1 * * *' do
