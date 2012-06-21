@@ -1,6 +1,6 @@
 page.replace_html 'create_proposal', :partial => @proposal, :locals => { :button_name => "Procedi", :remote => true }
 page<< "$('#create_proposal_dialog').dialog({
-        title: 'Nuova Discussione',
+        title: 'Nuovo Dibattito',
         modal: true,
         width: 700,
         close: function(event, ui) { $('#create_proposal_dialog').dialog('destroy') }

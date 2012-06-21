@@ -1,7 +1,6 @@
 <h1>Elenco proposte con tag: '<%= @tag %>'</h1>
 <% if @proposals.size == 0 %>
 	<div class="Proposal">
-		<h1>Nessuna proposta</h1>
 		<p>Non vi sono ancora proposte con questo tag.</p>
 	</div>
 <% else %>
@@ -16,5 +15,5 @@
 		<p>Non vi sono ancora Post con questo tag.</p>
 	</div>
 <% else %>
-	<%= render :collection => @blog_posts, :partial => 'blog_post' %>
+	<%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
 <% end %>

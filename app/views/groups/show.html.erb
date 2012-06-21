@@ -5,7 +5,7 @@
 	<%if user_signed_in? && current_user.blog%>
 		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :post_to, @group) %><br />
 	<%else%>
-		<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%>
+		<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
 	<%end%>
 		<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :create_event, @group) %>
 <%end%>

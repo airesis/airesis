@@ -117,13 +117,17 @@ class Proposal < ActiveRecord::Base
   #restituisce la lista delle 10 proposte più vicine a questa
   def closest
     return Proposal.find_by_sql(" 
-      SELECT p.*, COUNT(*) AS closeness
-    FROM proposal_tags pt join proposals p on pt.proposal_id = p.id  
-    WHERE pt.tag_id IN (SELECT pti.tag_id
-            FROM proposal_tags pti 
-            WHERE pti.proposal_id = #{self.id})
-    AND pt.proposal_id != #{self.id}
-    GROUP BY p.id
-    ORDER BY closeness DESC")    
+    SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
+p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
+                    FROM proposal_tags pt join proposals p on pt.proposal_id = p.id  
+                    WHERE pt.tag_id IN (SELECT pti.tag_id
+                            FROM proposal_tags pti 
+                            WHERE pti.proposal_id = #{self.id})
+                    AND pt.proposal_id != #{self.id}
+                    GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
+p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
+                    ORDER BY closeness DESC")    
   end 
 end
