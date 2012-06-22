@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   
   
   def image_url
-    if (self.blog_image_url != nil)
+    if (self.blog_image_url && !self.blog_image_url.blank?)
       return self.blog_image_url
     elsif (self.image_id)
       return self.image.image.url
