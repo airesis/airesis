@@ -237,12 +237,20 @@ class ProposalsController < ApplicationController
   #passata come parametro
   def similar
     tags = params[:tags].split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
-    @similars  = Proposal.find_by_sql("SELECT p.*, COUNT(*) AS closeness
+    if tags.empty? 
+      tags = "''"
+    end  
+    
+    @similars  = Proposal.find_by_sql("SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
+p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
                                       FROM proposal_tags pt join proposals p on pt.proposal_id = p.id 
                                       WHERE pt.tag_id IN (SELECT pti.id
                                               FROM tags pti 
                                               WHERE pti.text in (#{tags}))
-                                      GROUP BY p.id
+                                      GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
+p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
                                       ORDER BY closeness DESC",)
 
     
