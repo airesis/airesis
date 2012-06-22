@@ -12,7 +12,7 @@
   </p> 
    
   <p>
-  	 <%=f.label :title%><br />
+  	 <%=f.label :title%> *<br />
     <%= f.text_field :title, :style=>"width:300px" %>     
   </p>
   
@@ -38,20 +38,22 @@
   </div>
   
   <div class="step">
+  	<h4>Descrivi im maniera completa le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta</h4>
    <p>
-  	 <%=f.label :problems%><br />
+  	 <%=f.label :problems%> *<br />
     <%= f.text_area :problems, :rows=>5,:style=>"width:600px" %>
      
   </p>
   
    <p>
-  	 <%=f.label :objectives%><br />
+  	 <%=f.label :objectives%> *<br />
     <%= f.text_area :objectives, :rows=>5,:style=>"width:600px" %>
      
   </p>
   </div>
   
   <div class="step">
+  	<h4>Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti</h4>
   <p>
     <%=f.label :content%><br />
     <%= f.text_area :content, :rows=>5, :style => "width:600px;" %>
