@@ -156,7 +156,8 @@ class ApplicationController < ActionController::Base
      unless (request.xhr? ||
              (params[:controller].starts_with? "devise/") ||
              (params[:controller] == "users/omniauth_callbacks") || 
-             (params[:controller] == "alerts" && params[:action] == "polling"))
+             (params[:controller] == "alerts" && params[:action] == "polling") ||
+             (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
       session[:user_return_to] = request.url
       end
       # If devise model is not User, then replace :user_return_to with :{your devise model}_return_to
