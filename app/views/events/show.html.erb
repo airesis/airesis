@@ -53,10 +53,15 @@
 		
 	<%if @event.place%>
 		<script type="text/javascript">
+			var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
 	
 			function openModal() {
-				$( "#map_modal" ).dialog({ height: 400, width: 400 });		
-				google.maps.event.trigger(map, 'resize');
+				$( "#map_modal" ).dialog({ height: 400,
+					 					   width: 400, 
+					 					   open: function() {
+												google.maps.event.trigger(map, 'resize');
+												map.setCenter(latlng);					 					   	
+					 					   } });						
 				return false;
 			}
 
@@ -64,19 +69,18 @@
 				geocoder = new google.maps.Geocoder();
 			}
 			
-			var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
-			var center = new google.maps.LatLng(<%=@event.place.latitude_center%>,<%=@event.place.longitude_center%>);
+			var center = latlng;
 			var zoom = <%=@event.place.zoom%>;		
 			
 			
 			var myOptions = {
 				zoom : zoom,
-				center: center,
+				center: latlng,
 				mapTypeId : google.maps.MapTypeId.ROADMAP,
 				panControl : false,
 				streetViewControl : false,
 				mapTypeControl : true,
-				draggable: false,
+				draggable: true,
 			};
 		
 			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
