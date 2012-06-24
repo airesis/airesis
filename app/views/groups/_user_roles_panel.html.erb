@@ -1,0 +1,19 @@
+<table id="roles_table">
+	<thead>
+		<th>Utente</th>
+		<th>Ruolo</th>
+	</thead>
+	<tbody>
+		<%@group.group_partecipations.each do |gp| %>
+		<%if gp.user != current_user%>
+		<tr>	
+			<td><%=gp.user.fullname%>
+			</td>
+			<td>
+				<%=select_tag "user_role", options_from_collection_for_select(PartecipationRole.common + @group.partecipation_roles,:id,:name,gp.partecipation_role.id), "data-user_id" => gp.user.id, :class => "user_role_changer" %>
+			</td>
+		</tr>
+		<%end%>
+		<%end%>
+	</tbody>
+</table>

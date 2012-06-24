@@ -6,7 +6,7 @@
 		<%@groups.each do |group|%>
 			<div class="groupcontainer">
 				<div class="groupImg24">
-					<%= group.portavoce.user_image_tag(24) rescue nil %>
+					<%= group.group_image_tag(24) rescue nil %>
 				</div>
 				<div class="group">
 					<%= link_to group.name, group %>
