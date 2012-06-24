@@ -4,10 +4,10 @@ class PartecipationRolesController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
   
-  before_filter :load_group, :except => [:destroy,:change_group_permission]
+  before_filter :load_group, :except => [:destroy,:change_group_permission,:change_user_permission]
   before_filter :load_partecipation_role, :only => :destroy
-  before_filter :check_permissions, :only => [:change_group_permission]
-  
+  before_filter :check_group_permissions, :only => [:change_group_permission]
+  before_filter :check_user_permissions, :only => [:change_user_permission]
   def create    
     begin
       PartecipationRole.transaction do
@@ -21,7 +21,9 @@ class PartecipationRolesController < ApplicationController
           format.js { render :update do |page|
                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                      page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
+                     page.replace_html "roles_table_container", :partial => 'groups/user_roles_panel'
                      page.call "hideNewRolePanel"
+                     page.call "generateTable"
                   end
       }
           format.html { redirect_to edit_permissions_group_path(@group) }          
@@ -51,9 +53,8 @@ class PartecipationRolesController < ApplicationController
     end
   end
   
-  
-  def change_group_permission
-   
+  #modifica i permessi di un ruolo all'interno di un gruppo
+  def change_group_permission   
     ActionAbilitation.transaction do
       if(params[:block] == "true") #devo togliere i permessi
         abilitation = @role.action_abilitations.find_by_group_action_id_and_partecipation_role_id(params[:action_id],params[:role_id])
@@ -74,13 +75,51 @@ class PartecipationRolesController < ApplicationController
       }
     end
   end
+  
+  #modifica il ruolo di un utente all'interno di un gruppo
+  def change_user_permission
+    gp = @group.group_partecipations.find_by_user_id(@user.id)
+    gp.partecipation_role_id = @role.id
+    gp.save!
+    flash[:notice] ="Ruolo modificato."    
+    respond_to do |format|
+      format.js { render :update do |page|
+                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end
+  end
    
   protected
   
-  def check_permissions
+  #verifica che l'utente sia autenticato al sistema
+  #e sia l'amministratore o portavoce del gruppo
+  #e che il ruolo appartenga al gruppo indicato
+  def check_group_permissions
     @group = Group.find(params[:group_id])
     @role = PartecipationRole.find(params[:role_id])
-    if !((current_user && (@group.portavoce == current_user)) || is_admin?) || (@group != @role.group)
+    if !((current_user && (@group.portavoce.include?current_user)) || is_admin?) || (@group != @role.group)
+      flash[:error] = t('error.role_permission_change')
+      respond_to do |format|
+      format.js { render :update do |page|
+                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+      end
+      return false
+    end
+  end
+  
+  
+  #verifica che l'utente sia autenticato al sistema
+  #e sia l'amministratore o portavoce del gruppo
+  #e che il ruolo appartenga al gruppo indicato o sia generico,
+  #e l'utente a cui si modifica il ruolo appartenga al gruppo
+  def check_user_permissions
+    @group = Group.find(params[:group_id])
+    @role = PartecipationRole.find(params[:role_id])
+    @user = User.find(params[:user_id])
+    if !((current_user && (@group.portavoce.include?current_user)) || is_admin?) || (@role.group && (@role.group != @group)) || (!@group.partecipants.include?@user)
       flash[:error] = t('error.role_permission_change')
       respond_to do |format|
       format.js { render :update do |page|

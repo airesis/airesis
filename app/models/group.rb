@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates_presence_of     :interest_border_id
   
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :portavoce, :porta_id, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
@@ -47,21 +47,19 @@ class Group < ActiveRecord::Base
   has_many :supporters, :class_name => 'Supporter'
   #candidati che sostiene alle elezioni
   has_many :candidates, :through => :supporters, :class_name => 'Candidate'
-
+  
   
   attr_reader :partecipant_tokens
-  attr_accessor :portavoce, :porta_id
+  
+  #restituisce la lista dei portavoce del gruppo
+  def portavoce
+    return self.partecipants.find(:all, :conditions => {"group_partecipations.partecipation_role_id" => 2})
+  end
     
   def partecipant_tokens=(ids)
     self.partecipant_ids = ids.split(",")
   end
-  
-   def porta_id
-    partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-    if (partecipation)
-      return partecipation.user_id
-    end
-  end
+
   
    def image_url
     if (self.image_id)
@@ -73,13 +71,6 @@ class Group < ActiveRecord::Base
     end
   end
     
-  
-  def portavoce
-    partecipation = self.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-    if (partecipation)
-      return partecipation.user
-    end
-  end
   
    def interest_border_tkn
      return self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border

@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
       permissions_denied if !group_id
       @group = Group.find_by_id(group_id)
       permissions_denied if !@group
-      ok = ((current_user == @group.portavoce) rescue nil)
+      ok = ((@group.portavoce.include?current_user) rescue nil)
       permissions_denied if !ok
     end
   end
@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
       return
     end
     p = org.portavoce
-    permissions_denied if (!current_user || current_user != p)
+    permissions_denied if (!current_user || !(p.include?current_user))
   end
   
   def admin_required

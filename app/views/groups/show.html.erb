@@ -1,7 +1,7 @@
 <% javascript 'endless_page' %>
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @group.name} do%>
-		<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton littleText' if (user_signed_in? && (is_admin? || (current_user == @group.portavoce))) %><br />
+		<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton littleText' if (user_signed_in? && (is_admin? || (@group.portavoce.include?current_user))) %><br />
 	<%if user_signed_in? && current_user.blog%>
 		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :post_to, @group) %><br />
 	<%else%>

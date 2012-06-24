@@ -49,7 +49,7 @@ DemocracyOnline3::Application.configure do
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
   #numero di voti necessari affinchè la proposta possa essere promossa
-  PROP_VOTES_TO_PROMOTE=3
+  PROP_VOTES_TO_PROMOTE=6
   
   
   

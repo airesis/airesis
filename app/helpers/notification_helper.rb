@@ -45,7 +45,7 @@ module NotificationHelper
   def notify_user_comment_proposal(comment)
     proposal = comment.proposal
     comment_user = comment.user
-    msg = "<b>"+ comment_user.name + " " + comment_user.surname + "</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
+    msg = "<b>#{comment_user.fullname}</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
       notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s)
       notification_a.save
     proposal.users.each do |user|
@@ -54,7 +54,7 @@ module NotificationHelper
       end
     end
     
-    msg = "<b>"+ comment_user.name + " " + comment_user.surname + "</b> ha inserito un commento alla proposta <b>"+proposal.title+"</b>!";
+    msg = "<b>#{comment_user.fullname}</b> ha inserito un commento alla proposta <b>"+proposal.title+"</b>!";
     notification_b = Notification.create(:notification_type_id => 1,:message => msg,:url => proposal_path(proposal) +"#comment"+comment.id.to_s)
     proposal.partecipants.each do |user|
       if ((user != comment_user) && (!proposal.users.include?user))
@@ -72,6 +72,57 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.partecipants.each do |user|
+      if (user != current_user)
+        send_notification_to_user(notification_a,user)
+      end
+    end    
+  end
+  
+   #invia le notifiche quando viene scelta una data di votazione per la proposta
+  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
+  def notify_proposal_waiting_for_date(proposal)
+    msg = "#{current_user.fullname} ha scelto la data di votazione per la proposta <b>" + proposal.title + "</b>!"
+    notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    proposal.partecipants.each do |user|
+      if (user != current_user)
+        send_notification_to_user(notification_a,user)
+      end
+    end    
+  end
+  
+    #invia le notifiche quando la proposta è pronta per essere messa in votazione
+   #le notifiche vengono inviate ai creatori  della proposta
+  def notify_proposal_ready_for_vote(proposal)
+    msg = "La proposta <b>" + proposal.title + "</b> ha passato la fase di valutazione ed è ora in attesa che tu scelga quando votarla."
+    notification_a = Notification.new(:notification_type_id => 6,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    proposal.users.each do |user|
+      if (user != current_user)
+        send_notification_to_user(notification_a,user)
+      end
+    end    
+  end
+  
+     #invia le notifiche quando la proposta è stata rigettata
+   #le notifiche vengono inviate ai partecipanti
+  def notify_proposal_rejected(proposal)
+    msg = "La proposta <b>" + proposal.title + "</b> è stata rigettata dagli utenti, spiacente."
+    notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    proposal.users.each do |user|
+      if (user != current_user)
+        send_notification_to_user(notification_a,user)
+      end
+    end    
+  end
+  
+  #invia una notifica ai portavoce del gruppo che l'utente corrente ha effettuato una richiesta di partecipazione
+  def notify_user_asked_for_partecipation(group)
+    msg = "L'utente <b>#{current_user.fullname}</b> ha richiesto di partecipare al gruppo <b>#{group.name}</b>."
+    notification_a = Notification.new(:notification_type_id => 12,:message => msg, :url => group_path(group))
+    notification_a.save
+    group.portavoce.each do |user|
       if (user != current_user)
         send_notification_to_user(notification_a,user)
       end

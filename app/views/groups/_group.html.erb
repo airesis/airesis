@@ -59,30 +59,12 @@
 	<%= f.radio_button :accept_requests , 'b', :disabled=>"disabled", :title=>"Opzione non ancora disponibile" %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
   </p>
 
-	<%if is_admin? %>
-<p>
-	<% partecipants = @group.partecipants %>
-
-	<%if partecipants.length == 0 %>
-		<b>Nessun utente partecipa ancora a questo gruppo</b>	
-	<%end%>
-</p>
-<p>	
-		<b>Aggiungi utenti al gruppo</b>
-		<%= f.text_field :partecipant_tokens, "data-pre" => @group.partecipants.to_json(:only => [:id, :name]) %>
-</p>		
-	<%end%> 
-	
   <p>
   	
 	<%= f.label :interest_border_tkn%>
 	<%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json if @group.interest_border ) %>
 </p>
-	<% if (controller.action_name != "new") && (controller.action_name != "create") %>
-		<%= f.label :porta_id%><br/>
-	   	<%= f.select(:porta_id, @group.partecipants.collect {|p| [ p.name, p.id ] })%>
-	<%end%>
-	
+
   <p>
     <%= f.submit button_name, :class => 'buttonStyle' %>
   </p>

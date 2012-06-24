@@ -150,7 +150,7 @@ class RequestVotesController < ApplicationController
  
  #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE
  def partecipation_request_confirm
-   if ((current_user && (@group.portavoce == current_user)) || is_admin?)
+   if ((current_user && (@group.portavoce.include?current_user)) || is_admin?)
      request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
      if (!request)
        flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'

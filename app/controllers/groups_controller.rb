@@ -1,5 +1,7 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
+  include NotificationHelper
+  
   layout :choose_layout
   #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:create,:ask_for_multiple_follow]
@@ -135,30 +137,7 @@ class GroupsController < ApplicationController
     
     begin
       Group.transaction do
-        
-        #controlla che sia definito il portavoce
-        if (params[:group][:porta_id].blank?)
-          @group.errors.add(:porta_id, t("errors.models.group.portavoce.required"))
-          raise t("errors.models.group.portavoce.required")
-        end
-           
-                  
-        if (@group.porta_id != params[:group][:porta_id])
-          puts "Aggiorno il portavoce"          
-          #cancella il vecchio portavoce
-          partecipation = @group.group_partecipations.first(:conditions => {:partecipation_role_id => 2})
-          if (partecipation)
-            partecipation.partecipation_role_id = 1
-            partecipation.save
-          end
-          #assegna il nuovo portavoce
-          partecipation = @group.group_partecipations.first(:conditions => {:user_id => params[:group][:porta_id]})
-          if (partecipation)
-            partecipation.partecipation_role_id = 2
-            partecipation.save
-          end
-        end
-        
+       
         @group.attributes = params[:group]
         partecipant_ids = @group.partecipant_ids
         partecipant_ids.each do |id|
@@ -232,6 +211,7 @@ class GroupsController < ApplicationController
           flash[:error] = 'Errore nella richiesta di partecipazione.'
         else
           flash[:notice] = 'Richiesta di partecipazione inviata correttamente.'
+          notify_user_asked_for_partecipation(@group) #invia notifica ai portavoce
         end
       end
     else
@@ -318,7 +298,7 @@ class GroupsController < ApplicationController
   end
   
   def portavoce_required
-     if !((current_user && (@group.portavoce == current_user)) || is_admin?)
+     if !((current_user && (@group.portavoce.include?current_user)) || is_admin?)
       flash[:error] = t('error.portavoce_required')
       redirect_to group_url(@group)
      end

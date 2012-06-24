@@ -1,20 +1,21 @@
-<% partecipants = @group.partecipants %>
 <p>
     <h4>Portavoce del gruppo</h4>
-    <%if (@group.portavoce) %>
+    
+    <%@group.portavoce.each do |user| %>
     <div class="pcontainer">
         <div class="MoImg24">
-            <%= @group.portavoce.user_image_tag(24) %>
+            <%= user.user_image_tag(24) %>
         </div>
         <div class="Mo">
-            <%=link_to_user @group.portavoce, :full_name => true %>
+            <%=link_to_user user, :full_name => true %>
         </div>
     </div>
-    <%else %>
-    Ancora nessun portavoce.<%end %>
+    <%end %>
+    
 </p>
 <br/>
 <br/>
+<% partecipants = @group.group_partecipations %>
 <%if partecipants.length > 0 %>
 <p>
     <h4>Elenco partecipanti al gruppo</h4>
@@ -29,14 +30,16 @@
     </p>
     <%end %>
     <%partecipants.each do |partecipant| %>
-    <div class="pcontainer">
-        <div class="MoImg24">
-            <%= partecipant.user_image_tag(24) %>
-        </div>
-        <div class="Mo">
-            <%=link_to_user partecipant, :full_name => true %>
-        </div>
-    </div>
+	    <%if !@group.portavoce.include? partecipant.user%>
+			    <div class="pcontainer">
+			        <div class="MoImg24">
+			            <%= partecipant.user_image_tag(24) %>
+			        </div>
+			        <div class="Mo">
+			            <%=link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
+			        </div>
+			    </div>
+	    <%end%>
     <%end %>
 </p>
 <%else %>

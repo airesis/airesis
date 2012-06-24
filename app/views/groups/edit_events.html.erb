@@ -56,7 +56,7 @@
         // page is now ready, initialize the calendar...
         $('#calendar').fullCalendar({
             editable: true,
-            <%if (!is_admin? && current_user != (@group.portavoce rescue nil)) %>
+            <%if (!is_admin? && !(@group.portavoce.include?current_user)) %>
             	disableDragging: true,
             	disableResizing: true,
         	<%end%>

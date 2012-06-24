@@ -186,6 +186,7 @@ class ProposalsController < ApplicationController
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save
+      notify_proposal_waiting_for_date(@proposal)
       flash[:notice] = t(:proposal_date_selected)
       respond_to do |format|
         format.js do
@@ -310,7 +311,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
-      notify_user_valutate_proposal(@ranking)
+      notify_user_valutate_proposal(@ranking) #invia notifica per indicare la nuova valutazione
     end
     @ranking.ranking_type_id = rank_type  #setta il tipo di valutazione
     
@@ -323,8 +324,10 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       if (valutations >= PROP_VOTES_TO_PROMOTE)        #se ho raggiunto il numero di voti sufficiente a cambiare lo stato verifica il ranking
         if (rank >= PROP_RANKING_TO_PROMOTE)
           @proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
+          notify_proposal_ready_for_vote(@proposal)
         elsif (rank <= PROP_RANKING_TO_DEGRADE) 
           @proposal.proposal_state_id = PROP_RESP
+          notify_proposal_rejected(@proposal)
         end        
         @proposal.save
         @proposal.reload
