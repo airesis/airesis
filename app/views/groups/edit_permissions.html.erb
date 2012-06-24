@@ -20,12 +20,16 @@
 		<%=f.label :description%>	<br />
 		<%=f.text_field :description%>
 		</p>
-		<%=f.submit 'Crea'%>
+		<%=f.submit 'Crea', :class => 'buttonStyle'%>
 	<%end%>
 </div>
-<p>
-	<b>Attenzione! I permessi ed i ruoli personalizzati non sono ancora disponibili.</b>
-</p>
+
+<hr />
+
+<div id="roles_table_container">
+<%= render :partial => 'groups/user_roles_panel' %>
+</div>
+
 <script type="text/javascript">
 	$(function() {
 		$('#addRole').click(function() {
@@ -36,7 +40,69 @@
 				}
 			});
 		});
+		
+		
+		
+		
+		
+		generateTable();
 	});
+	
+	function generateTable() {
+		//gestisce il cambio del ruolo di un utente
+		$('.user_role_changer').each(function(i,el) {
+			var select = $(el);
+			var username  = select.parent().prev().text();				
+			var user_id = select.data("user_id");
+			//memorizzo il ruolo di ciascun utente
+			var previousValue = select.val();
+			var previousLabel = $('option:selected',select).text();
+			//quando viene cambiato il ruolo, chiedo conferma all'utente
+			select.bind("change",function() {
+				
+				var currentValue = select.val();
+				var currentLabel = $('option:selected',select).text();
+				if (confirm("Il ruolo dell'utente " + username + " passerà da " + previousLabel + " a " + currentLabel +". Confermi?")) {
+					previousValue = currentValue;
+					previousLabel = currentLabel;
+					select.disabled = true;
+					//se l'utente conferma invio la richiesta al server
+					$.ajax({
+			        	data: "user_id="+user_id+"&role_id="+currentValue+"&group_id=<%=@group.id%>",
+			        	url: "/partecipation_roles/change_user_permission",     
+			            dataType: 'script',
+			        	type: 'post'    
+			        });
+					return true;
+				}
+				else {
+					//altrimenti cambio il ruolo dell'utente e gli assegno nuovamente quello che aveva in precedenza.
+					select.val(previousValue);
+					return false;
+				}					
+			})
+		});
+		
+		
+		
+		$('#roles_table').dataTable( {
+	        "oLanguage": {
+	            "sLengthMenu": "Mostra _MENU_ utenti per pagina",
+	             "sSearch": "Cerca:",
+	            "sZeroRecords": "Nessun utente, spiacente..",
+	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
+	            "sInfoEmpty": "Sto mostrando 0 utenti",
+	            "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
+	            "oPaginate": {
+			        "sPrevious": "Pagina precedente",
+			        "sNext": "Pagina successiva"
+			      },
+			      "aoColumns": [null,{ "bSearchable": false }]  
+	        }
+	    });
+	    
+	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");
+	}
 	
 	function change_permission_block(el,role_id,action_id){
     	if (el.checked) {

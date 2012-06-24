@@ -1,9 +1,9 @@
 <h1>Lista delle candidature del gruppo</h1>
-
+<h4>In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.</h4>
 <ul>
 <%@group.candidates.each do |candidate|%>
 	<li>
-		<b><%=candidate.user.fullname%></b> candidato a <b><%=candidate.election.name%></b>	
+		<b><%=candidate.user.fullname%></b> candidato a <b><%=link_to candidate.election.name, candidate.election%></b>	
 	</li>
 
 <%end%>

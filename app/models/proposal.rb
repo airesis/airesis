@@ -68,7 +68,7 @@ class Proposal < ActiveRecord::Base
     
       # Save new tags
       @tags_list.split(/,/).each do |tag|
-        t = Tag.find_or_create_by_text(tag.strip.downcase)
+        t = Tag.find_or_create_by_text(tag.strip.downcase.gsub!('.',''))
         self.proposal_tags.build(:tag_id => t.id)
       end
     end

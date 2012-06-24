@@ -170,6 +170,9 @@ it:
          all_day: "Tutto il giorno"
          period: "Ripeti"
          frequency: "Ripeti ogni"
+      candidate:
+         user: "Candidato"
+         election: "Elezione"
       place:
          address: "Indirizzo"
       partecipation_role:
