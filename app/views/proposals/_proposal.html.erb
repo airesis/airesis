@@ -38,7 +38,7 @@
   </div>
   
   <div class="step">
-  	<h4>Descrivi im maniera completa le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta</h4>
+  	<h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta</h4>
    <p>
   	 <%=f.label :problems%> *<br />
     <%= f.text_area :problems, :rows=>5,:style=>"width:600px" %>
@@ -53,7 +53,11 @@
   </div>
   
   <div class="step">
+    <%if params[:action] == "new"%>
   	<h4>Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti</h4>
+  	<%else%>
+  	<h4>Modifica e aggiorna il testo della proposta!</h4>
+  	<%end%>
   <p>
     <%=f.label :content%><br />
     <%= f.text_area :content, :rows=>5, :style => "width:600px;" %>

@@ -1,6 +1,6 @@
 class ProposalTag < ActiveRecord::Base
-	unloadable
+	#unloadable
 
-	belongs_to :proposal
-	belongs_to :tag
+	belongs_to :proposal, :class_name => 'Proposal'
+	belongs_to :tag, :class_name => 'Tag'
 end

@@ -67,10 +67,16 @@ class Proposal < ActiveRecord::Base
       self.proposal_tags.destroy_all
     
       # Save new tags
+      tids = []
       @tags_list.split(/,/).each do |tag|
-        t = Tag.find_or_create_by_text(tag.strip.downcase.gsub!('.',''))
-        self.proposal_tags.build(:tag_id => t.id)
+        stripped = tag.strip.downcase.gsub('.','')
+        t = Tag.find_or_create_by_text(stripped)
+        tids << t.id
+        #if (!self.tags.include? t)
+        #  self.tags << t
+        #end
       end
+      self.tag_ids = tids
     end
   end 
   
