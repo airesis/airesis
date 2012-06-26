@@ -138,6 +138,7 @@ DemocracyOnline3::Application.routes.draw do
   resources :partecipation_roles do
     collection do
       post :change_group_permission
+      post :change_user_permission
     end
   end
  
