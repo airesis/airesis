@@ -37,11 +37,23 @@
 <h2 class="proposalSubtitle"><%=h proposal.subtitle %></h1>
 <div class="blogCommentPostedAt">
     
+<%if (proposal.proposal_state_id == PROP_WAIT) #in attesa di essere votata%>
+	<p>
+    <b>Questa proposta sarà in votazione dal 
+		<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
+	</p>
+<%elsif (proposal.proposal_state_id == PROP_VOTING) #in votazione%>
+<p>				
+	<%= link_to 'Vai alla pagina di votazione.', votation_path %>
+</p>
+<%end%>
     
 Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
 <%if @proposal.updated_at != nil%>
 (Ultima modifica del <%= @proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)
 <%end%>
+
+
     <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
 	<br/>	
 	
@@ -66,16 +78,7 @@ Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/
             <%=simple_format(proposal.content, :sanitize => true) %>
         </div>
         <div class="baloon-footer">			
-			<%if (proposal.proposal_state_id == 3) #in attesa di essere votata%>
-				<p>
-			    <b>Questa proposta verrà votata il </b>
-					<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %>
-				</p>
-			<%elsif (proposal.proposal_state_id == 4) #in votazione%>
-			<p>				
-				<%= link_to 'Vai alla pagina di votazione.', votation_path %>
-			</p>
-			<%end%>
+			
         </div>
 </div>
 

@@ -16,7 +16,7 @@
 				</div>
 	        </div>
             <div class="baloon-content">
-                <%= h(comment.content) %>
+                <%=raw (h(comment.content)).gsub(/\n/, '<br/>') %>
             </div>
             <div class="baloon-footer">
             	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span>
