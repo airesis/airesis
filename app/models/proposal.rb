@@ -64,7 +64,7 @@ class Proposal < ActiveRecord::Base
   def save_tags
     if @tags_list
       # Remove old tags
-      self.proposal_tags.destroy_all
+      #self.proposal_tags.destroy_all
     
       # Save new tags
       tids = []

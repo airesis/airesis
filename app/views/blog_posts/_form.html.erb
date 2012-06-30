@@ -103,10 +103,12 @@
 		input = $('#blog_post_tags_list')
 		if (input != null) {
 			input.tokenInput([], {
+				theme: "facebook",
 				crossDomain: false,
 				allowCustomEntry: true,
 				prePopulate: <%=raw data%>,
 				hintText: "Digita i tag che vuoi inserire",
+				searchingText: "Digita i tag che vuoi inserire",
 				preventDuplicates: true
 			})
 		}
