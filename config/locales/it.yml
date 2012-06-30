@@ -55,6 +55,7 @@ it:
   error_proposal_loading: "Errore nel caricamento della proposta."
   error_blog_not_your: ""
   error_blog_post_not_your: ""
+  error_updating: "Errore durante l'aggiornamento"
   error_comment_not_your: "Non disponi dei diritti per cancellare il commento."
   error_proposal_already_ranked: "Hai già valutato questa proposta una volta. Non sono state apportate modifiche dalla tua ultima valutazione."
   error_proposal_not_valutating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione."
@@ -87,7 +88,8 @@ it:
   
   user_updated:  "Informazioni aggiornate correttamente."
   
-  insert_comment: "Di la tua! Contribuisci alla proposta"
+  insert_comment: "Inserisci un commento"
+  insert_contribute: "Di la tua! Contribuisci alla proposta"
   login_to_post_comment: "Fai login per inserire un commento."
   
   groups:

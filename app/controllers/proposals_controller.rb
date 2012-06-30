@@ -185,7 +185,7 @@ class ProposalsController < ApplicationController
     else    
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
-      @proposal.save
+      @proposal.save!
       notify_proposal_waiting_for_date(@proposal)
       flash[:notice] = t(:proposal_date_selected)
       respond_to do |format|
@@ -197,6 +197,10 @@ class ProposalsController < ApplicationController
         format.html { redirect_to proposal_path(params[:id]) }
       end
     end
+    
+    rescue Exception => boom
+      flash[:error] = t(:error_updating)
+      redirect_to :back
   end
   
   

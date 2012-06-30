@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622215522) do
+ActiveRecord::Schema.define(:version => 20120630182455) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
