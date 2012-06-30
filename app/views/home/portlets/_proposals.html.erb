@@ -1,5 +1,60 @@
 <div class="title">
 Le proposte
 </div>
-Pannello di monitoraggio delle proposte ancora non disponibile.
-<%=link_to 'Vai all\'elenco delle proposte', proposals_path, :class=>'buttonStyle'%>
+
+<%unless current_user.proposals.empty?%>
+	<table id="proposals_table">
+		<thead>
+			<th>Titolo della proposta</th>
+			<th>Autori</th>
+			<th>Rank</th>
+			<th>Ultima modifica</th>
+		</thead>
+		<tbody>
+			<%current_user.proposals.current.each do |proposal|%>
+			<tr>
+				<td><%=link_to proposal.title, proposal%></td>
+				<td>
+					<%proposal.users.each do |user|%>
+	                <div class="blogUserImage" title="<%=user.name%> <%=user.surname%>">                    	
+	                    <%= user.user_image_tag 20 %>
+	                </div>
+	            	<%end%>
+	            </td>
+				<td>
+					<%=proposal.rank%>% <%= user_valutation_image(current_user,proposal)%>
+				</td>
+				<td>
+					<%=proposal.updated_at.strftime("%d/%m/%Y %H:%M")%>
+	            </td>
+					
+			</tr>
+			<%end%>
+		</tbody>
+		
+	</table>
+<%end%>
+            
+     <script type="text/javascript">
+     		$('#proposals_table').dataTable( {
+	        "oLanguage": {
+	            "sLengthMenu": "Mostra _MENU_ proposte per pagina",
+	             "sSearch": "Cerca:",
+	            "sZeroRecords": "Nessuna proposta, spiacente..",
+	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
+	            "sInfoEmpty": "Sto mostrando 0 proposte",
+	            "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",
+	            "oPaginate": {
+			        "sPrevious": "",
+			        "sNext": ""
+			      },
+	        },
+	        "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },null],
+	        "aaSorting": [[ 3, "asc" ]],  
+	        "bInfo": false,
+	        "bLengthChange": false,
+	    });
+	    
+	    $('#proposals_table_wrapper label').css("font-weight","normal").css("font-size","12px");
+     	
+     </script>           
