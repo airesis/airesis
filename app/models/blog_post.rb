@@ -41,20 +41,23 @@ class BlogPost < ActiveRecord::Base
 	end
 
 	def tags_with_links
-		html = self.tags.collect {|t| "<a href=\"/blog_posts/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+		html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
 		return html
 	end
 	
 	def save_tags
 		if @tags_list
 			# Remove old tags
-			self.blog_post_tags.delete_all
+			#self.blog_post_tags.destroy_all
 		
 			# Save new tags
+			tids = []
 			@tags_list.split(/,/).each do |tag|
-			  t = Tag.find_or_create_by_text(tag.strip.downcase)
-				self.blog_post_tags.build(:tag_id => t.id)
+			  stripped = tag.strip.downcase.gsub('.','')
+			  t = Tag.find_or_create_by_text(stripped)
+			  tids << t.id
 			end
+			self.tag_ids = tids
 		end
 	end
 	
