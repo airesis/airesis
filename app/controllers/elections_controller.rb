@@ -5,18 +5,42 @@ class ElectionsController < ApplicationController
   rescue_from Exception, :with => :exception_occurred
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:show]
+  before_filter :authenticate_user!, :except => [:index]
   
   before_filter :check_group, :only => [:new, :create, :edit, :update]
-  
-  
+    
   before_filter :load_election, :except => [:index,:new,:create]
-  before_filter :check_vote, :only => [:vote_page]
+  before_filter :check_vote, :only => [:vote_page, :show]
   
   #load_and_authorize_resource 
   
   def show
-    
+    #se l'elezione è terminata e non ho ancora calcolato i risultati, fallo ora.
+    if (@election.event.is_past? && (@election.score_calculated == false))
+      Election.transaction do
+        if (@election.candidates.count > 0)
+          votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
+          @election.schulze_votes.each do |vote|
+            #in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
+            if (vote.count > 1)
+              votesstring += "#{vote.count}=#{vote.preferences}\n"
+            else
+              votesstring += "#{vote.preferences}\n"
+            end
+          end #fine ciclo voti
+          #calcolo il risultato
+          vs = SchulzeBasic.do votesstring, @election.candidates.count
+          #ordino i candidati secondo l'id crescente (così come vengono restituiti dalla libreria)
+          candidates_sorted = @election.candidates.sort{|a,b| a.id <=> b.id}          
+          candidates_sorted.each_with_index do |c,i|
+            c.score = vs.ranks[i].to_i
+            c.save!
+          end
+        end
+        @election.score_calculated = true
+        @election.save!
+      end #fine transazione    
+    end         
   end
   
   def edit
@@ -24,7 +48,12 @@ class ElectionsController < ApplicationController
   end
     
   def vote_page
-    
+    respond_to do |format|
+      flash[:error] = "Hai già votato a questa elezione."
+      format.html {
+        redirect_to @election
+      }
+    end if (@has_voted)
   end
   
   #un utente invia il voto per l'elezione
@@ -216,20 +245,14 @@ class ElectionsController < ApplicationController
   end
   
   def load_election
-    @election = Election.find(params[:id])
+    @election = Election.find_by_id(params[:id], :include => :event)
   end
   
   def check_vote
-    @has_voted = (@election.voters.include? current_user)
-    flash[:error] = "Hai già votato a questa elezione."
-    respond_to do |format|
-      format.html {
-        redirect_to @election
-      }
-    end 
+    @has_voted = (@election.voters.include? current_user)        
   end
   
-  def exception_occurred
+  def exception_occurred(exception)
      flash[:error] = "Errore"
      respond_to do |format|
        format.js { render :update do |page|
@@ -241,5 +264,4 @@ class ElectionsController < ApplicationController
        }
      end 
   end  
-  
 end
