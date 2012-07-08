@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Candidate < ActiveRecord::Base
   include BlogKitModelHelper
   
@@ -9,4 +10,5 @@ class Candidate < ActiveRecord::Base
   #gruppi di supporto
   has_many :groups, :through => :supporters, :class_name => 'Group'
   
+  validates_uniqueness_of :user_id, :scope => :election_id, :message => "Utente già candidato per l'elezione" 
 end

@@ -1,7 +1,9 @@
-<h1>Nuova candidatura</h1>
-<h4>Scegli uno dei partecipanti al gruppo e inseriscilo come candidato ad una delle elezioni disponibili.</h4>
+<%=render :layout => "layouts/page_title", :locals => {:title => @group.name + ": Nuova candidatura"} do%>
+<%end%>
+
+<h4>Scegli uno dei partecipanti al gruppo ed invialo come candidato ad una delle elezioni disponibili.</h4>
 		
-<%= form_for [@group,@candidate]  do |f| %>
+<%= form_for [@group,@candidate], :validate => false do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @candidate} %>
   
   <p>
@@ -12,14 +14,14 @@
   
   <p>
   <%= f.label :election%><br/>
-  <%=f.select :election_id, @group.elections.collect{|e| [e.name, e.id]}%>
+  <%=f.select :election_id, @group.elections.candidates_phase.collect{|e| [e.name, e.id]}%>
   </p>
   
   <p>
     <%= f.submit "Invia la candidatura", :class => 'buttonStyle' %>
   </p>
 <%end%>
-<%= link_to 'Indietro', groups_path, :class=>"buttonStyle" %>
+<%= link_to 'Indietro', :back, :class=>"buttonStyle" %>
 
 
 <script type="text/javascript">

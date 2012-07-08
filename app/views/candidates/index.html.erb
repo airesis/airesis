@@ -1,21 +1,76 @@
-<h1>Lista delle candidature del gruppo</h1>
-<h4>In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.</h4>
-<ul>
-<%@group.candidates.each do |candidate|%>
-	<li>
-		<b><%=candidate.user.fullname%></b> candidato a <b><%=link_to candidate.election.name, candidate.election%></b>	
-	</li>
-
+<%=render :layout => "layouts/page_title", :locals => {:title => @group.name + ": Area candidature"} do%>
+	<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle" if (@group.elections.candidates_phase.count != 0)%><br />
+	<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"buttonStyle" if (can? :create_event, @group)%>		
 <%end%>
-</ul>	
-		
 
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
+
+<h4>In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.</h4>
+<table id="candidates">
+	<thead>
+		<th>Utente</th>
+		<th>Elezione</th>
+		<th>Stato</th>
+	</thead>
+	<tbody>
+		<%@group.candidates.find(:all, :include => [:user,{:election => :event}]).each do |candidate|%>
+			<tr>
+				<td><%=candidate.user.fullname%></td>
+				<td><%=link_to candidate.election.name, candidate.election%></td>
+				<td>
+					<%if candidate.election.is_candidates_phase?%>
+						candidature utenti
+					<%elsif candidate.election.is_voting_phase?%>
+						in votazione
+					<%elsif candidate.election.event.is_past?%>
+						terminato
+					<%end%>
+				</td>
+			</tr>			
+		<%end%>				
+	</tbody>
+</table>
+<br />		
 <%= link_to 'Indietro', @group, :class=>"buttonStyle" %>
-<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle"%>
-<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"buttonStyle"%>
+
 <script type="text/javascript">
 	$(function() {
-		//electionDatePicker();
+		$('#candidates').dataTable( {
+	        "oLanguage": {
+	            "sLengthMenu": "Mostra _MENU_ candidature per pagina",
+	             "sSearch": "Cerca:",
+	            "sZeroRecords": "Nessuna candidatura, spiacente..",
+	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ candidature",
+	            "sInfoEmpty": "Sto mostrando 0 candidature",
+	            "sInfoFiltered": "(filtrate da un totale di _MAX_ candidature)",
+	            "oPaginate": {
+			        "sPrevious": "Precedenti",
+			        "sNext": "Successive"
+			      },
+	        },	        
+	        "aaSorting": [[ 2, "asc" ]],  
+	        "bInfo": true,
+	        "bFilter": true,
+	        "bLengthChange": true,
+	    }).columnFilter({
+			sPlaceHolder: "head:after",
+			aoColumns: [ {type:  "select"},
+			             {type:  "select"},
+			             {type:  "select"}
+			           ]
+
+		});
+	    
+	    $('#candidates_wrapper label').css("font-weight","normal").css("font-size","12px");
+	    
 	});
 	
 </script>
+
+
+<% content_for :left_panel do %>
+
+	<div class="leftBlogImage">
+    	<%= @group.group_image_tag 120 %>
+    </div>
+<%end%>

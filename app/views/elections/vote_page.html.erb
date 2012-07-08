@@ -64,12 +64,33 @@ candidates_num = @election.candidates.count
 	</div>
 <%end%>
 
+
 <%=form_for 'data', :url => {:action => "vote", :controller => "elections"} do |f|%>
 	<%=f.hidden_field 'votes'%>
 	<%=f.hidden_field 'string'%>
 	
+	
 	<%=f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle'%>
 <%end%>
+<br />
+<a href="#" onclick="openSchulzeModal();" class="buttonStyle littleText">Sai come funziona?</a>
+<div id="schulze_modal" title="Votazione di Schulze" style="width:400px;height:400px;display:none;text-align: justify" >
+	<div>		
+		In questa elezione viene utilizzato il <b>metodo di Schulze</b>.<br />
+		Esso permette di esprimere la propria preferenza in maniera più precisa rispetto ad una votazione tradizionale!<br />
+		Accanto ad ogni candidato puoi assegnare una valutazione in base alla tua preferenza: più è alto il valore che assegni al candidato e maggiore sarà <b>la sua valutazione rispetto agli altri candidati</b>.<br />
+		Il valore assoluto, infatti, non conta: quello che viene considerato è l'ordine di preferenza con il quale hai disposto i diversi candidati.<br />
+		Qualche esempio:
+		<ul>
+			<li>se non assegni nessun voto ai candidati questo equivale a dire che non hai preferenze tra di essi;</li>
+			<li>se assegni a tutti i candidati la stessa valutazione, ancora una volta questo significa che non hai preferenze tra di essi;</li>
+			<li>se valuti un solo candidato, qualsiasi punteggio tu inserisca, questo significa che preferisci lui rispetto a tutti gli altri (come in una votazione semplice);</li>
+			<li>se fornisci diverse valutazioni per i singoli candidati imposterai il tuo ordine di preferenze; questo vuole dire che puoi indicare il tuo preferito, ma anche quello che viene subito dopo e che magari ritieni comunque migliore dei restanti.</li>
+		</ul>
+		
+    </div>    
+</div>
+
 
 <script type="text/javascript">
 	var vote = [];
@@ -115,13 +136,15 @@ candidates_num = @election.candidates.count
 				$(this).prev()[0].selectedIndex = ui.value - 1;
 			}
 		});
-		/*$(".slider").each(function(sli) {
-			sli.slider("value",2);		
-		});*/ 
-		
+				
 		$( ".slideNumber" ).change(function() {
 			console.log('change');
 			$(this).next().slider( "value", this.selectedIndex + 1 );
 		});
 	});
+			
+	function openSchulzeModal() {
+		$( "#schulze_modal" ).dialog({ height: 400, width: 450 });		
+		return false;
+	}
 </script>

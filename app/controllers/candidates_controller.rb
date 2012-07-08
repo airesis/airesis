@@ -1,5 +1,6 @@
 #encoding: utf-8
 class CandidatesController < ApplicationController
+  include StepHelper
     
   before_filter :check_group, :only => [:new, :create]
   before_filter :check_election, :only => [:create,:update]
@@ -8,6 +9,7 @@ class CandidatesController < ApplicationController
   #load_and_authorize_resource 
   
   def index
+    @step = get_next_step(current_user)
     @group = Group.find_by_id(params[:group_id]) 
   end
   

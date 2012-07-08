@@ -1,16 +1,83 @@
 <h1><%=@election.name%></h1>
 
-<h2>Elenco dei candidati all'elezione</h1>
+<%if @election.event.is_not_started?%>
+	<h2>L'elezione deve ancora cominciare!</h2>
+<%elsif @election.is_groups_phase?%>
+	<h2>I gruppi stanno aderendo all'elezione! (non disponibile)</h2>
+<%elsif @election.is_candidates_phase?%>
+	<h2>I gruppi stanno scegliendo i candidati da inviare all'elezione!</h2>
+<%elsif @election.is_voting_phase?%>
+	<h2>L'elezione è attualmente in fase di voto!</h2>
+	<%if @has_voted%>
+		<b>Hai già espresso il tuo voto per questa elezione. Torna su questa pagina al termine dell'evento per vedere i risultati</b>
+	<%else%>
+	<%=link_to 'Vai alla pagina di voto', vote_page_election_path(@election), :class => 'buttonStyle'%>
+	<%end%>
+<%end%>
+
+
+<h2>Date</h2>
+
+<div class="event_calendar", style="margin-right:10px;">
+	<div class="day">
+		<%=I18n.localize(@election.event.starttime, :format => :month)%>
+	</div>
+	<div class="number">
+		<%=@election.event.starttime.mday%>
+	</div>	
+</div>
+<h3>L'elezione ha inizio il <%= @election.event.starttime.strftime("%d/%m/%Y alle %H:%M") %> con l'iscrizione dei gruppi.</h3>
+<div style="clear:both"></div>
+
+<div class="event_calendar", style="margin-right:10px;">
+	<div class="day">
+		<%=I18n.localize(@election.groups_end_time, :format => :month)%>
+	</div>
+	<div class="number">
+		<%=@election.groups_end_time.mday%>
+	</div>	
+</div>
+<h3>Il <%= @election.groups_end_time.strftime("%d/%m/%Y alle %H:%M") %> terminano le iscrizioni dei gruppi ed inizia l'iscrizione dei candidati.</h3>
+<div style="clear:both"></div>
+
+<div class="event_calendar", style="margin-right:10px;">
+	<div class="day">
+		<%=I18n.localize(@election.candidates_end_time, :format => :month)%>
+	</div>
+	<div class="number">
+		<%=@election.candidates_end_time.mday%>
+	</div>	
+</div>
+<h3>Il <%= @election.candidates_end_time.strftime("%d/%m/%Y alle %H:%M") %> terminano le iscrizioni dei candidati ed iniziano le votazioni.</h3>
+<div style="clear:both"></div>
+
+<div class="event_calendar", style="margin-right:10px;">
+	<div class="day">
+		<%=I18n.localize(@election.event.endtime, :format => :month)%>
+	</div>
+	<div class="number">
+		<%=@election.event.endtime.mday%>
+	</div>	
+</div>
+<h3>L'elezione termina il <%= @election.event.endtime.strftime("%d/%m/%Y alle %H:%M") %>, vengono chiuse le votazioni e dichiarati i risultati.</h3>
+<div style="clear:both"></div>
+
+<h2>Elenco dei candidati all'elezione</h2>
 
 <ul>
 <%@election.candidates.each do |candidate|%>
 	<li>
-		<b><%=candidate.user.fullname%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>	
+		<b><%=link_to_user candidate.user, :full_name => true%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>	
 	</li>
 
 <%end%>
 </ul>	
 
-
-<%=link_to 'Vai alla pagina di voto', vote_page_election_path(@election), :class => 'buttonStyle'%>
-<a href="<%=calculate_results_election_path(@election)%>", class="buttonStyle">Calcola risultato</a>
+<%if @election.event.is_past?%>
+<h2>Risultati dell'elezione</h2>
+<ul>
+	<%@election.candidates.sort{|b,a| a.score <=> b.score}.each do |c|%>
+	<li><b><%=link_to_user c.user, :full_name => true%></b> ha ottenuto: <b><%=c.score%></b></li>
+	<%end%>
+</ul>
+<%end%>

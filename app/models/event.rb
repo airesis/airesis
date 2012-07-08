@@ -72,6 +72,14 @@ class Event < ActiveRecord::Base
     return Time.now > self.endtime
   end
   
+  def is_now?
+    return self.starttime < Time.now && self.endtime > Time.now
+  end
+  
+   def is_not_started?
+    return Time.now < self.starttime
+  end
+  
   
   def backgroundColor
     return "#DFEFFC"
