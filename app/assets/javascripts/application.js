@@ -22,6 +22,7 @@
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min
+//= require jquery.dataTables.columnFilter
 //= require rails.validations
 //= require bbq
 //= require jquery.form
