@@ -1,4 +1,4 @@
-<%proposalsnumber = proposals.count
+<%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
  <%= render :partial => 'proposals/proposal_list_element', :collection => proposals, :as => 'proposal' %><%else%>	Nessuna proposta al momento<%end %>
 <div id="statistics_panel"></div>

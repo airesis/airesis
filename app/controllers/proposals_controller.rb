@@ -4,12 +4,12 @@ class ProposalsController < ApplicationController
   
   #load_and_authorize_resource
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :index_accepted, :endless_index, :new, :create, :index_by_category, :similar]
+  before_filter :load_proposal, :except => [:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar]
   
-###SICUREZZA###
+  ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:index_accepted, :endless_index, :show]
+  before_filter :authenticate_user!, :except => [:index,:index_accepted, :tab_list, :endless_index, :show]
   
   #l'utente deve essere autore della proposta
   before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
@@ -20,10 +20,40 @@ class ProposalsController < ApplicationController
   before_filter :can_valutate, :only => [:rankup,:rankdown]
     
   def index
-    query_index     
+    
+    if (params[:category])
+      @category = ProposalCategory.find_by_id(params[:category])
+      @count_base = @category.proposals
+    else
+      @count_base = Proposal
+    end
+    @in_valutation_count = @count_base.in_valutation.count      
+    @in_votation_count = @count_base.in_votation.count
+    @accepted_count = @count_base.accepted.count
+    @revision_count = @count_base.revision.count
+    
     respond_to do |format|     
       #format.js 
       format.html # index.html.erb      
+    end
+  end
+  
+    
+  def tab_list
+    query_index             
+    respond_to do |format|     
+      format.html {
+        if (params[:replace])
+          render :update do |page|
+            #TODO far dipendere l'id della tab dallo stato della proposta non è buona cosa ma mi permette di non sbattermi per trovare una soluzione
+            #accrocchio
+            #render :partial => 'replace_tab_list', :locals => {:proposals => @proposals} 
+            page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
+          end
+        else          
+          render :partial => 'tab_list', :locals => {:proposals => @proposals}
+        end
+      }# index.html.erb      
     end
   end
   
@@ -268,10 +298,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   
   
   protected
-  
-  #utilizzato sia da index che da index_endless
-  #dividendo i due metodi evito il problema di integrazione con
-  #facebook quando si inserisce un link al sito.
+   
   def query_index
     order = ""
     if (params[:view] == ORDER_BY_RANK)
@@ -282,13 +309,29 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       order << "created_at desc"  
     end
     
+    conditions = "1 = 1"
+    
+    if (params[:state] == VOTATION_STATE)
+      startlist = Proposal.in_votation   
+      @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
+    elsif (params[:state] == ACCEPTED_STATE)
+      startlist = Proposal.accepted
+      @replace_id = t("pages.proposals.index.accepted").gsub(' ','_')
+    elsif (params[:state] == REVISION_STATE)
+      startlist = Proposal.revision
+      @replace_id = t("pages.proposals.index.revision").gsub(' ','_')
+    else
+     startlist = Proposal.in_valutation
+     @replace_id = t("pages.proposals.index.debate").gsub(' ','_')
+    end
+    
     #se è stata scelta una categoria, filtra per essa
     if (params[:category])
-        @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.current.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => ["proposal_category_id = ?",params[:category]],:order => order)
-    else #altrimenti ordina per data di creazione
-        @proposals = Proposal.current.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :order => order)
+      @category = ProposalCategory.find_by_id(params[:category])
+      conditions += " and proposal_category_id = #{params[:category]}"
     end
+    
+    @proposals = startlist.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
   
   def update_borders(borders)

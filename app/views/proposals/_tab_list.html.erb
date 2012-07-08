@@ -1,0 +1,49 @@
+<%unless @proposals.empty?%>
+	<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+		Ultime inserite
+	<%else%>
+		<%=link_to 'Ultime inserite', current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
+	<%end%> | 		
+	<% if (params[:view] == ORDER_BY_RANK)%>
+		Più popolari
+	<%else%>
+		<%=link_to 'Più popolari', current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>	
+	<%end%> | 
+	<% if (params[:view] == ORDER_BY_VOTES)%>
+		Più votate
+	<%else%>	 
+		<%=link_to 'Più votate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
+	<%end%>
+<%end%>
+
+<div id="proposalsListContainer<%=params[:state]%>">
+<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+</div>
+<%if @proposals.total_pages > @proposals.current_page%>
+<div id="loading_proposals<%=params[:state]%>" class="loading_proposals">
+	<span>Mostra altre proposte...</span>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		var currentPage = 1;
+		$('#loading_proposals<%=params[:state]%>').click(function() {
+			$(this).hide();
+			currentPage++;
+		    url = window.location;
+		  	cat = <%=params[:category] || 'null'%>;
+		  	view = <%=params[:view] || 'null'%>;
+		  	state = <%=params[:state] || 'null'%>;
+		  	nurl = '/proposals/endless_index?scroll=true'
+		    if (cat != null && cat != 'null')
+		    	nurl += '&category='+cat
+		    if (view != null && view != 'null')
+		    	nurl += '&view='+view
+		    if (state != null && state != 'null')
+		    	nurl += '&state='+state
+				$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
+		})		
+	})
+</script>
+<%end%>
+

@@ -1,90 +1,40 @@
-<% javascript 'proposal_endless_page' %>
-<!--
-<div id="accordion" style="width:90%">
-    <h3><a href="#">Progetto in Alpha-Test. Leggi con attenzione.</a></h3>
-    <div style="line-height:1;">
-    	<p>Il progetto si basa su quanto scritto in questo documento: <a href="http://goo.gl/G4CIo">goo.gl/G4CIo</a>.</p>
-    	<p>Per inviare feedback all'amministratore mandate una mail a <a href="mailto:coorasse+feedback@gmail.com">coorasse+feedback@gmail.com</a>.</p>
-    </div>    
-</div>
-<script type="text/javascript">
-	$('#accordion').accordion({
-			collapsible: true,
-			autoHeight: false, 
-    		active: false 
-		});
-	
-</script>
-<br/>
--->
-<div style="float:left">
-<h3><%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %></h3>
-</div>
+<% if (@category)
+	@page_title = "Proposte della categoria "+@category.description
+   else	
+	@page_title = "Proposte di tutte le categorie"		
+end%>
+<%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
+	<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>	
+<%end%>
 
 <div id = "create_proposal_dialog" style ="display:none;">
     <div id = "create_proposal">
     </div>
 </div>
 
-<div style="float:right">
-<h3><%= link_to 'Proposte accettate', index_accepted_proposals_path , :id => 'proposte_accettate' %></h3>
-</div>
 <div style="clear:both"></div>
 
-<% if (@category)%>
-	<h1>Proposte della categoria <%=@category.description%></h1>
-<%else%>	
-	<h1>Proposte di tutte le categorie</h1>		
-<%end%>
 
-<!--<div id="tabs">
+<div id="tabs">
 	<ul>
 		<li>
-			<a href="#dibattito">In dibattito</a>
+			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category]), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>			
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<a href="#votazione">In votazione</a>
+			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category]), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>			
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<a href="#revisione">Revisione e feedback</a>
+			<%=link_to 'Accettate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
+			<div class="tabs-triangle"/>
+		</li>
+		<li>
+			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category]), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>			
 			<div class="tabs-triangle"/>
 		</li>
 	</ul>
--->
-
-	<div id="dibattito">
-			<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
-				Ultime inserite
-			<%else%>
-				<a href="<%= current_url(:view=>ORDER_BY_DATE) %>">Ultime inserite</a>
-			<%end%> | 		
-			<% if (params[:view] == ORDER_BY_RANK)%>
-				Più popolari
-			<%else%>	
-				<a href="<%= current_url(:view=>ORDER_BY_RANK) %>">Più popolari</a> 
-			<%end%> | 
-			<% if (params[:view] == ORDER_BY_VOTES)%>
-				Più votate
-			<%else%>	 
-				<a href="<%= current_url(:view=>ORDER_BY_VOTES) %>">Più votate</a>
-			<%end%>
-			
-			     
-				<div id="proposalsListContainer">
-				<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
-				</div>
-		  		<div id="loading_proposals">
-		  			<span>Mostra altre proposte...</span>
-		  		</div>
-	</div>
-	<div id="votazione">
-		</div>
-	<div id="revisione">
-	</div>
-	
-<!-- </div>-->
+</div>
 <%content_for :left_panel do %>
 <div id="categories">
 <%if (params[:category])%>
@@ -136,7 +86,11 @@
             text: true
         });
     
-    $('#tabs').tabs();   
+    $('#tabs').tabs({
+    	show : function(event,ui) {
+			$(ui.panel).html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
+		}
+    });   
         
         
 </script>

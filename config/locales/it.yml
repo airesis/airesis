@@ -119,6 +119,12 @@ it:
       title: "Esegui l'autenticazione"
     registration:
       title: "Registrati al portale"
+    proposals:
+      index:
+        debate: "Tutte le proposte da costruire che sono in fase di dibattito"
+        voting: 'Tutte le proposte in attesa di votazione o attualmente in votazione'
+        accepted: 'Lista delle proposte condivise e accettate dagli utenti del portale'
+        revision: 'Tutte le proposte che sono state attuate e per le quali si stanno raccogliendo i feedback'
       
   pl:
     comments:

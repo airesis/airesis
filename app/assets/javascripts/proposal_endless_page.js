@@ -48,5 +48,5 @@ function scrollDistanceFromBottom(argument) {
 
 
 $(function() {
-  checkScroll();
+  //checkScroll();
 });

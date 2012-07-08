@@ -43,7 +43,8 @@ DemocracyOnline3::Application.routes.draw do
     collection do
       get :index_accepted
       get :endless_index 
-      get :similar   
+      get :similar
+      get :tab_list      
     end    
     
     resources :proposal_comments do

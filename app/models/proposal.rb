@@ -37,8 +37,20 @@ class Proposal < ActiveRecord::Base
   
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list
   
-  scope :current, { :conditions => {:proposal_state_id => [1,2,3,4] }}
-  scope :accepted, { :conditions => {:proposal_state_id => 6 }}
+  #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
+  scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
+  #tutte le proposte in valutazione
+  scope :in_valutation, { :conditions => {:proposal_state_id => PROP_VALUT }}
+  #tutte le proposte in attesa di votazione o attualmente in votazione
+  scope :in_votation, { :conditions => {:proposal_state_id => PROP_VOTING }}
+  #tutte le proposte accettate
+  scope :accepted, { :conditions => {:proposal_state_id => PROP_ACCEPT }}
+  #tutte le proposte respinte
+  scope :rejected, { :conditions => {:proposal_state_id => PROP_RESP }}
+  
+  #tutte le proposte entrate in fase di revisione e feedback
+  scope :revision, { :conditions => {:proposal_state_id => PROP_REVISION }}
+  
   
   before_save :save_tags
   after_update :save_proposal_history
