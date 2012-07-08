@@ -22,6 +22,7 @@ function disegnaBottoni() {
 	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"},text : false});
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
 	$(".disableButton")
+	    .unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
 			$(this).hide();
 			var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
@@ -29,9 +30,10 @@ function disegnaBottoni() {
 			toAdd.height($(this).outerHeight(true));
 			$(this).after(toAdd);
 	    })
+	    .unbind("ajax:complete")
 	    .bind("ajax:complete", function() {
 	    	$(this).show();
-	    	$('.waitDiv').hide();
+	    	$('.waitDiv').remove();
 	    })
     /*
 	$('.disableButton').click(function() {
