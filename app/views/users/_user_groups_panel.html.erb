@@ -1,5 +1,5 @@
 <%if user_signed_in? %> 
-	<h4>I miei gruppi</h4>
+	<h4>Partecipi ai seguenti gruppi</h4>
 		<%@groups = current_user.groups %>
 		<%= "Non partecipi a nessun gruppo ancora" if @groups.empty?%>
 	
@@ -13,5 +13,29 @@
 				</div>
 			</div>
 		<%end unless @groups.empty?%>
-
+	<div style="clear: both;"></div>	
+<!--<%if @groups.size > 5%>
+	<a href="#">Mostra tutti...</a>
+<%end%>-->
+	
+	<h4>Stai seguendo questi gruppi</h4>
+		<%@groups = current_user.groups %>
+		<%= "Non partecipi a nessun gruppo ancora" if @groups.empty?%>
+	
+		<%@following = current_user.followed_groups - current_user.groups %>
+		<%@following.each do |group|%>
+			<div class="groupcontainer">
+				<div class="groupImg24">
+					<%= group.group_image_tag 24%>		
+				</div>
+				<div class="group">
+					<%= link_to group.name, group %>
+				</div>
+			</div>
+		<%end unless @following.empty?%> 
+<div style="clear: both;"></div>
+<!--<%if @following.size > 5%>
+	<a href="#">Mostra tutti...</a>
+<%end%>-->
+			
 <%end%> 
