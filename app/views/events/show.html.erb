@@ -109,9 +109,7 @@
 			Mostra altri...
 		</div>
 </div> -->
-	<% content_for :left_panel do %>
-			
-	
+	<% content_for :left_panel do %>		
 			<%@event.organizers.each do |group|%>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>

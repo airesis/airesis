@@ -3,6 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include NotificationHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   after_filter :discard_flash_if_xhr
@@ -153,6 +154,10 @@ class ApplicationController < ActionController::Base
   
   #salva l'url
   def store_location
+    #if (params[:controller] == "proposal_comments" && params[:action] == "create")
+    #  session[:user_return_to] = request.url
+    #  return
+    #end
      unless (request.xhr? ||
              (params[:controller].starts_with? "devise/") ||
              (params[:controller] == "users/omniauth_callbacks") || 
@@ -163,11 +168,34 @@ class ApplicationController < ActionController::Base
       # If devise model is not User, then replace :user_return_to with :{your devise model}_return_to
   end
   
-  #redirect all'ultima pagina
+  
+  def post_contribute
+    ProposalComment.transaction do
+      @proposal_comment =  @proposal.comments.build(params[:proposal_comment])
+      @proposal_comment.user_id = current_user.id
+      @proposal_comment.request = request
+      @proposal_comment.save!
+      notify_user_comment_proposal(@proposal_comment)
+      flash[:notice] = 'Commento inserito.'
+    end
+  end
+  
+  
+  #redirect all'ultima pagina in cui ero
   def after_sign_in_path_for(resource)
-     env = request.env
-     ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
-      return ret
+    #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
+    if (session[:proposal_comment])
+      @proposal = Proposal.find_by_id(session[:proposal_id])
+      params[:proposal_comment] = session[:proposal_comment]
+      session[:proposal_id] = nil
+      session[:proposal_comment] = nil
+      post_contribute rescue nil
+      return proposal_path(@proposal)
+    end
+    env = request.env
+    ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
+    return ret
+    
   end
   
   #redirect alla pagina delle proposte

@@ -7,7 +7,7 @@ class ProposalComment < ActiveRecord::Base
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   
-  validates_length_of :content, :minimum => 10, :maximum => 4000
+  validates_length_of :content, :minimum => 10, :maximum => CONTRIBUTE_MAX_LENGTH
   
   attr_accessor :collapsed
   

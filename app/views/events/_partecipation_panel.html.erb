@@ -15,18 +15,8 @@
 		position: relative;
 		margin: 1em 0;
 	}
-	form .counter {
-
-		font-size: 10px;
-		font-weight: bold;
-		color: #333333;
-	}
-	form .warning {
-		color: #600;
-	}
-	form .exceeded {
-		color: #e00;
-	}
+	
+	
 </style>
 <%if user_signed_in?%>
 	<% partecipation = @event.meeting.meeting_partecipations.find_by_user_id(current_user.id)%>

@@ -91,7 +91,7 @@ it:
   insert_comment: "Inserisci un commento"
   insert_contribute: "Di la tua! Contribuisci alla proposta"
   login_to_post_comment: "Fai login per inserire un commento."
-  
+  login_to_post_contribute: "Esegui login per inserire il tuo contributo."
   groups:
    errors:
      update: "Errore nell'aggiornamento del gruppo."

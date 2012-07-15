@@ -16,8 +16,7 @@
 		});
 
 	</script>
-	<% if !user_signed_in? %> <h2><%= t(:login_to_post_comment) %> </h2>
-	<% else %>
+	
 	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
 	
 	<%= render :partial => 'fragments/error_messages', :locals => {:resource =>proposal_comment} %>
@@ -34,7 +33,7 @@
 		<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 	</p>
 	<% end %>
-	<% end %>
+	
 	<script type="text/javascript">
 		$(function() {
 			$('.blogNewCommentField').focus(function() {
@@ -42,6 +41,21 @@
 			}).focusout(function() {
 				$('#comment-form-comment').toggleClass("active");
 			});
+			
+			
+			$('#proposal_comment_content').charCount({
+				allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
+				warning : 100,
+				counterText : 'Caratteri disponibili: '
+			});
 		});
+		
+  		$(document).ajaxError(function(e, XHR, options){
+    		if (XHR.status == 401){
+      			window.location.replace("<%= new_user_session_path %>");
+    		}
+  		});
+
+		
 	</script>
 </div>

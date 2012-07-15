@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
- include NotificationHelper
+ 
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
@@ -9,7 +9,8 @@ class ProposalCommentsController < ApplicationController
 ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :only => [ :edit, :update, :delete, :new, :create ]
+  before_filter :authenticate_user!, :only => [ :edit, :update, :delete, :new]
+  before_filter :save_post_and_authenticate_user, :only => [:create]
   before_filter :check_author, :only => [:edit, :update, :delete]
   before_filter :already_ranked, :only => [:rankup, :rankdown]
   
@@ -63,37 +64,26 @@ class ProposalCommentsController < ApplicationController
 
  
   def create
-    @proposal_comment =  @proposal.comments.build(params[:proposal_comment])
-    @proposal_comment.user_id = current_user.id
-    @proposal_comment.request = request
-
+    post_contribute
     respond_to do |format|
-      if @proposal_comment.save
-        notify_user_comment_proposal(@proposal_comment)
-        flash[:notice] = 'Commento inserito.'
-        @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
-        @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
-        @saved.collapsed = true
-        format.js  
-        format.html { redirect_to @proposal }        
-      else
+      @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
+      @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
+      @saved.collapsed = true
+      format.js  
+      format.html { redirect_to @proposal }        
+    end
+    
+    rescue Exception => e
+      log_error(e)
+      respond_to do |format|
+        puts e
+        flash[:error] = 'Errore durante l\'inserimento.'
         format.js   { render :update do |page|
+                        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                         page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
                       end
                     }
-        format.html 
       end
-    end
-    
-  rescue Exception => e
-     log_error(e)
-     respond_to do |format|
-       puts e
-       flash[:error] = 'Errore durante l\'inserimento.'
-       format.js   { render :update do |page|
-                           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                      end}
-     end
   end
 
 
@@ -148,6 +138,20 @@ class ProposalCommentsController < ApplicationController
   
   
   protected
+  
+  def save_post_and_authenticate_user
+    if (!current_user)
+      session[:proposal_comment] = params[:proposal_comment]
+      session[:proposal_id] = params[:proposal_id]
+      flash[:info] = t('login_to_post_contribute')
+      respond_to do |format|
+        format.js { render :update do |page|
+                      page.redirect_to new_user_session_path
+                    end
+        }
+      end
+    end
+  end
   
   
   def rank(rank_type)
