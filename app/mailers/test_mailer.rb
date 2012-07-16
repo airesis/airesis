@@ -4,7 +4,7 @@ class TestMailer < ActionMailer::Base
   
   
   def test    
-    mail(:to => "coorasse@gmail.com", :subject => "Test Redis TO Go")
+    mail(:to => "coorasse@gmail.com", :subject => "Test Redis To Go")
   end
   
 end
