@@ -91,10 +91,10 @@
 				<!--Vedi la presentazione.--></div>
 		</div>
 		<div class="home_container">
-			<div class="title">Accedi al portale</div>
+			<div class="title">Accesso al portale</div>
 			<div class="content">
 				<p>Puoi <a href="/proposals">accedere come ospite</a>.</p>
-				<p>Se non hai un account, <a href="/users/sign_up">registrati</a> o <%= link_to "accedi tramite il tuo account Facebook", user_omniauth_authorize_path('facebook')%>.</p>
+				<p>Se non hai un account, <a href="/users/sign_up">registrati</a>.</p>
 				
 			<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
 			  <div><%= f.label :login %><br />
@@ -107,10 +107,12 @@
 			    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %></div>
 			  <% end -%>
 			
-			  	<div><%= f.submit "Accedi", :class=>'buttonStyle' %></div>
-			  	
-						</div>
-					</div>
+			  	<div>
+			  		<%= f.submit "Accedi", :class=>'buttonStyle' %>
+			  		 o <%= link_to "accedi tramite account Facebook", user_omniauth_authorize_path('facebook')%>.			  		
+			  	</div>			  	
+			</div>
+			</div>
 			<% end %>	
 			
 		<div class="home_container">
@@ -137,6 +139,7 @@
 	<script type="text/javascript">
 	$(function() {
 		//$('input:submit').button();
+		disegnaBottoni();
 	});
 	</script>
 	

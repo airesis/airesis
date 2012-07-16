@@ -5,19 +5,19 @@
 
 <script type="text/javascript">
 $(function() {
-	$('#svgintro').svg({onLoad: drawIntro});
+	//$('#svgintro').svg({onLoad: drawIntro});
 })	
-	
+/*	
 function drawIntro(svg) { 
     svg.polygon([[10,10],[400,10],[200,200]],  
     {fill: 'none', stroke: 'blue', strokeWidth: 2}); 
     
     <%@proposal.comments.each do |c| %>$
-    	svg.circle(200,100,2)
+    	/*svg.circle(200,100,2)*/
     <%end%>
     
     
-}
+/*}*/
 	
 </script>
 <!-- 
@@ -46,11 +46,7 @@ $(function() {
 			id = $(this).attr('id');
 			num = id.replace('votedown-mini','');
 			hideRankPanel('rankingpanelcontainer'+num);
-		});
-		
-		
-		
-		
+		});	
 	});
 </script>
 
