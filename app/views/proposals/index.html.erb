@@ -1,9 +1,9 @@
 <% if (@category)
-	@page_title = "Proposte della categoria "+@category.description
+	@page_head = "Proposte della categoria "+@category.description
    else	
-	@page_title = "Proposte di tutte le categorie"		
+	@page_head = "Proposte di tutte le categorie"		
 end%>
-<%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
+<%=render :layout => "layouts/page_title", :locals => {:title => @page_head} do%>
 	<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>	
 <%end%>
 
@@ -48,7 +48,7 @@ end%>
 <% 
  	categories = ProposalCategory.find(:all,
      :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
-     :joins => "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4)",
+     :joins => "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)",
      :group => "proposal_categories.id, proposal_categories.description"
     )
 	#categories = ProposalCategory.all
