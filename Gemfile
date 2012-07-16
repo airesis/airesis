@@ -90,3 +90,5 @@ gem 'quiet_assets', :group => :development
 #gem 'ruby-metis', :git => 'git@github.com:coorasse/ruby-metis.git'
 
 gem 'igraph', :git => 'https://github.com/honschi/igraph.git', :group => :development
+
+gem 'rails_autolink'
