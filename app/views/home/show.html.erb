@@ -27,42 +27,45 @@
 
 <%= render :partial => "home/portlets/proposals", :layout => "layouts/portlet"%>
 <%= render :partial => "home/portlets/notifications", :layout => "layouts/portlet"%>
-<%= render :partial => "home/portlets/blogs", :layout => "layouts/portlet"%>
-<%= render :partial => "home/portlets/groups", :layout => "layouts/portlet"%>
+<!--<%= render :partial => "home/portlets/blogs", :layout => "layouts/portlet"%>-->
+<!--<%= render :partial => "home/portlets/groups", :layout => "layouts/portlet"%>-->
+<%= render :partial => "home/portlets/territory", :layout => "layouts/portlet"%>
 
 <br />
 <%=content_for :left_panel do%>
 	<div class="leftUserImage image_container">
-            <%= @user.user_image_tag 120 %>
-            <div class="caption">
-                <a style="color:white">Modifica l'immagine</a>
-            </div>
+        <%= @user.user_image_tag 120 %>
+        <div class="caption">
+            <a style="color:white">Modifica l'immagine</a>
         </div>
+    </div>
         
         
         
-        <div id="img_modal" class="edit_modal">
-    <form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
-        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
-        <div style="padding-left:150px">
-            <input name="user[blog_image_url]" value="<%=@user.blog_image_url%>"/>
-            <input type="hidden" name="back" value="home"/>
-            <br/>
-        </div>
-		oppure
-        <div style="float:left">
-            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
-            <div style="padding-left:150px">
-                <input type="file" name="image" />
-                <br/>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
-                <div style="margin-top:8px">
-                    <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
+    <div id="img_modal" class="edit_modal">
+    	<form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
+       		<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
+	        <div style="padding-left:150px">
+	            <input name="user[blog_image_url]" value="<%=@user.blog_image_url%>"/>
+	            <input type="hidden" name="back" value="home"/>
+	            <br/>
+	        </div>
+			oppure
+	        <div style="float:left">
+	            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
+	            <div style="padding-left:150px">
+	                <input type="file" name="image" />
+	                <br/>
+	                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
+	                <div style="margin-top:8px">
+	                    <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+	                </div>
+	            </div>
+	        </div>
+    	</form>
+	</div>
+	
+	<%=render :partial => 'users/user_groups_panel'%>
 
 
 <script>

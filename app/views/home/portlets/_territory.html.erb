@@ -1,5 +1,5 @@
 <div class="title">
-Il tuo territorio
+Il tuo territorio (test)
 </div>
 <div id="territory_map" style="width:350px;height:250px;margin:5px auto;">
 </div>
@@ -12,7 +12,9 @@ $(function() {
 	
 	<%
 		@ib = current_user.interest_borders.find(:first)
-		if (@ib.territory_type == 'Comune')
+		if (!@ib)
+			@place_string = "Italia"
+		elsif (@ib.territory_type == 'Comune')
 			@place_string = @ib.territory.description + ", " + @ib.territory.provincia.description + ", Italia"
 		elsif (@ib.territory_type == 'Provincia')
 			@place_string = @ib.territory.description + ", Italia"
@@ -44,6 +46,7 @@ $(function() {
 	geocoder.geocode( { 'address': interestBorderPlace}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
+        map.fitBounds(results[0].geometry.bounds);
         /*var marker = new google.maps.Marker({
             map: map,
             position: results[0].geometry.location
