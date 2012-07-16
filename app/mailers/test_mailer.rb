@@ -1,6 +1,6 @@
 class TestMailer < ActionMailer::Base
   include Resque::Mailer
-  default from: "coorasse+airesis@gmail.com"
+  default from: "info@airesis.it"
   
   
   def test    
