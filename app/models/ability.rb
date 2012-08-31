@@ -34,9 +34,21 @@ class Ability
          #controllo se può creare eventi in generale
          can_do_on_group?(user,group,2)       
        end
-        can :send_candidate, Group do |group|
+       can :send_candidate, Group do |group|
          #can_do_on_group?(user,group,4)
          can_do_on_group?(user,group,5)                 
+       end
+       can :view_proposal, Group do |group|
+         #can_do_on_group?(user,group,4)
+         can_do_on_group?(user,group,6)                 
+       end
+       can :partecipate_proposal, Group do |group|
+         #can_do_on_group?(user,group,4)
+         can_do_on_group?(user,group,7)                 
+       end
+       can :insert_proposal, Group do |group|
+         #can_do_on_group?(user,group,4)
+         can_do_on_group?(user,group,8)                 
        end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user

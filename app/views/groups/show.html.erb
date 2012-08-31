@@ -7,7 +7,14 @@
 	<%else%>
 		<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
 	<%end%>
-		<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :create_event, @group) %>
+		<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :create_event, @group) %><br />
+		<%if (can? :insert_proposal, @group)%>
+			<%= link_to 'Inserisci una proposta interna', new_proposal_url(:group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;", :remote => true %>
+			<div id = "create_proposal_dialog" style ="display:none;">
+			    <div id = "create_proposal"></div>
+			</div>
+		<%end%>
+
 <%end%>
 <p>
     <h2><%=h @group.description %></h2>

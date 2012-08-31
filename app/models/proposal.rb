@@ -25,8 +25,11 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_tags, :class_name => 'ProposalTag'
   has_many :tags, :through => :proposal_tags, :class_name => 'Tag'
   
+  has_many :proposal_nicknames, :class_name => 'ProposalNickname', :dependent => :destroy
   
-  
+  has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
+  has_many :groups, :through => :group_proposals, :class_name => 'Group'
+    
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
@@ -35,7 +38,7 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :group_ids
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -55,6 +58,9 @@ class Proposal < ActiveRecord::Base
   before_save :save_tags
   after_update :save_proposal_history
  
+  def is_current?
+    return [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id 
+  end
  
   def tags_list
     @tags_list ||= self.tags.map(&:text).join(', ')

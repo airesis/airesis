@@ -175,8 +175,23 @@ class ApplicationController < ActionController::Base
       @proposal_comment.user_id = current_user.id
       @proposal_comment.request = request
       @proposal_comment.save!
+      
+      generate_nickname(current_user,@proposal)
+            
       notify_user_comment_proposal(@proposal_comment)
       flash[:notice] = 'Commento inserito.'
+    end
+  end
+  
+  def generate_nickname(user,proposal)
+    nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id,proposal.id)
+    if (!nickname)
+      loop = true
+      while (loop) do
+        nickname = NicknameGeneratorHelper.give_me_a_nickname
+        loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id,nickname)
+      end
+      ProposalNickname.create(:user_id => user.id, :proposal_id => proposal.id, :nickname => nickname)
     end
   end
   

@@ -90,7 +90,7 @@ class ProposalsController < ApplicationController
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
     @author_name = User.find(author_id).name
     
-    @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @proposal_comments = @proposal.comments.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     
     respond_to do |format|
       format.js
@@ -113,6 +113,13 @@ class ProposalsController < ApplicationController
   def new
     @step = get_next_step(current_user)
     @proposal = Proposal.new
+    
+    if (params[:group_id])
+      @group = Group.find_by_id(params[:group_id])
+      @proposal.interest_borders << @group.interest_border
+      @proposal.private = true
+      @proposal.groups << @group
+    end
     
     respond_to do |format|
       format.js
@@ -144,7 +151,7 @@ class ProposalsController < ApplicationController
         
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
-        
+        generate_nickname(current_user,@proposal) 
       end
       @saved = true
       
@@ -270,26 +277,33 @@ class ProposalsController < ApplicationController
   
   #restituisce una lista di tutte le proposte simili a quella
   #passata come parametro
+  #se è indicato un group_id cerca solo tra quelle interne a quel gruppo
   def similar
     tags = params[:tags].split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
     if tags.empty? 
       tags = "''"
     end  
-    
-    @similars  = Proposal.find_by_sql("SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
-                                      FROM proposal_tags pt join proposals p on pt.proposal_id = p.id 
-                                      WHERE pt.tag_id IN (SELECT pti.id
+                                      FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
+    if params[:group_id]
+      sql_q += " join group_proposals gp on gp.proposal_id = p.id "
+    end                                   
+    sql_q +=                              " WHERE pt.tag_id IN (SELECT pti.id
                                               FROM tags pti 
-                                              WHERE pti.text in (#{tags}))
-                                      GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+                                              WHERE pti.text in (#{tags}))"
+    if params[:group_id]
+      sql_q += " AND p.private = true AND gp.group_id = #{params[:group_id]} "
+    else
+      sql_q += " AND p.private = false "
+    end                                          
+    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-                                      ORDER BY closeness DESC",)
-
-    
-    
+                                      ORDER BY closeness DESC"                                           
+    @similars  = Proposal.find_by_sql(sql_q)
+                                                  
     respond_to do |format|
       format.js 
       format.html 

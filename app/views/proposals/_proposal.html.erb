@@ -31,6 +31,10 @@
 	<%= f.text_field :tags_list %>
   </p>
   
+  <p>
+	<%= f.text_field :group_ids %>
+  </p>
+  
   </div>
   
 
@@ -114,18 +118,22 @@
 		}
 	}); 
 	
-	
+	/**
+	 * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
+	 */
 	function skipIfNecessary(activeDiv) {
 		if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
 			$('#form-wizard-prev').click();
 		}
 	}
 	
-	
+	/**
+	 * Mostra proposte simili se ve ne sono
+	 */
 	function showSimilarProposal(activeDiv) {
 		if (activeDiv.attr('id') == 'suggestions') {
 				$.ajax({
-					url: '<%=similar_proposals_path%>',
+					url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
 					data: 'tags=' + $('#proposal_tags_list').val()
 				})
 		}

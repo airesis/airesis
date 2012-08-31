@@ -118,7 +118,7 @@ js.id = id;<%if (Rails.env == "production")%>
 				</div>
 				<% end -%>
 				<div>
-					<%= f.submit "Login" %>
+					<%= f.submit "Login", :class=>"buttonStyle" %>
 					<%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle" %>
 					<br />
 				</div>

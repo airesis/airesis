@@ -95,7 +95,8 @@ class User < ActiveRecord::Base
   #candidature
   has_many :candidates, :class_name => 'Candidate'
   
-  
+  has_many :proposal_nicknames, :class_name => 'ProposalNickname'
+    
   #fake columns
   attr_accessor :image_url, :accept_conditions
 

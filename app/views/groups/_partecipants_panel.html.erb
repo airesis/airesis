@@ -2,14 +2,7 @@
     <h4>Portavoce del gruppo</h4>
     
     <%@group.portavoce.each do |user| %>
-    <div class="pcontainer">
-        <div class="MoImg24">
-            <%= user.user_image_tag(24) %>
-        </div>
-        <div class="Mo">
-            <%=link_to_user user, :full_name => true %>
-        </div>
-    </div>
+    	<%=user_tag(user, nil,true,false)%>
     <%end %>
     
 </p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120630182455) do
+ActiveRecord::Schema.define(:version => 20120820173458) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
     t.integer  "election_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "score"
   end
 
   add_index "candidates", ["user_id", "election_id"], :name => "index_candidates_on_user_id_and_election_id", :unique => true
@@ -148,14 +149,15 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
   add_index "election_votes", ["user_id", "election_id"], :name => "index_election_votes_on_user_id_and_election_id", :unique => true
 
   create_table "elections", :force => true do |t|
-    t.string   "name",                                 :null => false
-    t.string   "description",                          :null => false
-    t.integer  "event_id",                             :null => false
-    t.datetime "groups_end_time",                      :null => false
-    t.datetime "candidates_end_time",                  :null => false
-    t.string   "status",              :default => "1", :null => false
+    t.string   "name",                                   :null => false
+    t.string   "description",                            :null => false
+    t.integer  "event_id",                               :null => false
+    t.datetime "groups_end_time",                        :null => false
+    t.datetime "candidates_end_time",                    :null => false
+    t.string   "status",              :default => "1",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "score_calculated",    :default => false
   end
 
   create_table "event_series", :force => true do |t|
@@ -235,6 +237,15 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
   end
 
   add_index "group_partecipations", ["user_id", "group_id"], :name => "only_once_per_group", :unique => true
+
+  create_table "group_proposals", :force => true do |t|
+    t.integer  "proposal_id", :null => false
+    t.integer  "group_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "group_proposals", ["proposal_id", "group_id"], :name => "index_group_proposals_on_proposal_id_and_group_id", :unique => true
 
   create_table "groups", :force => true do |t|
     t.string  "name",               :limit => 200
@@ -377,6 +388,18 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
     t.datetime "updated_at"
   end
 
+  create_table "proposal_nicknames", :force => true do |t|
+    t.integer  "proposal_id", :null => false
+    t.integer  "user_id",     :null => false
+    t.string   "nickname",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "proposal_nicknames", ["nickname"], :name => "index_proposal_nicknames_on_nickname"
+  add_index "proposal_nicknames", ["proposal_id", "nickname"], :name => "index_proposal_nicknames_on_proposal_id_and_nickname", :unique => true
+  add_index "proposal_nicknames", ["proposal_id", "user_id"], :name => "index_proposal_nicknames_on_proposal_id_and_user_id", :unique => true
+
   create_table "proposal_presentations", :force => true do |t|
     t.integer  "proposal_id", :null => false
     t.integer  "user_id",     :null => false
@@ -435,20 +458,21 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
 
   create_table "proposals", :force => true do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                     :default => 5,    :null => false
-    t.string   "title",                   :limit => 200,                     :null => false
+    t.integer  "proposal_category_id",                     :default => 5,     :null => false
+    t.string   "title",                   :limit => 200,                      :null => false
     t.string   "content",                 :limit => 20000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "valutations",                              :default => 0
     t.integer  "vote_period_id"
     t.integer  "proposal_comments_count",                  :default => 0
-    t.integer  "rank",                                     :default => 0,    :null => false
+    t.integer  "rank",                                     :default => 0,     :null => false
     t.string   "problem",                 :limit => 20000
-    t.string   "subtitle",                                 :default => "",   :null => false
-    t.string   "problems",                :limit => 18000, :default => "",   :null => false
-    t.string   "objectives",              :limit => 18000, :default => "",   :null => false
-    t.boolean  "show_comment_authors",                     :default => true, :null => false
+    t.string   "subtitle",                                 :default => "",    :null => false
+    t.string   "problems",                :limit => 18000, :default => "",    :null => false
+    t.string   "objectives",              :limit => 18000, :default => "",    :null => false
+    t.boolean  "show_comment_authors",                     :default => true,  :null => false
+    t.boolean  "private",                                  :default => false, :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -741,6 +765,9 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
   add_foreign_key "group_partecipations", "partecipation_roles", :name => "Ref_groups_partecipations_to_partecipation_roles"
   add_foreign_key "group_partecipations", "users", :name => "Ref_groups_partecipations_to_users"
 
+  add_foreign_key "group_proposals", "groups", :name => "group_proposals_group_id_fk"
+  add_foreign_key "group_proposals", "proposals", :name => "group_proposals_proposal_id_fk"
+
   add_foreign_key "groups", "interest_borders", :name => "Ref_groups_to_interest_borders"
 
   add_foreign_key "meeting_organizations", "events", :name => "Ref_meetings_organizations_to_events"
@@ -775,6 +802,9 @@ ActiveRecord::Schema.define(:version => 20120630182455) do
   add_foreign_key "proposal_comments", "proposals", :name => "Ref_proposal_comments_to_proposals"
   add_foreign_key "proposal_comments", "users", :name => "Ref_proposal_comments_to_users"
   add_foreign_key "proposal_comments", "users", :name => "Ref_proposal_comments_to_users0", :column => "deleted_user_id"
+
+  add_foreign_key "proposal_nicknames", "proposals", :name => "proposal_nicknames_proposal_id_fk"
+  add_foreign_key "proposal_nicknames", "users", :name => "proposal_nicknames_user_id_fk"
 
   add_foreign_key "proposal_presentations", "proposals", :name => "Ref_proposals_presentations_to_proposals"
   add_foreign_key "proposal_presentations", "users", :name => "Ref_proposals_presentations_to_users"

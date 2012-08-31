@@ -8,8 +8,7 @@ end%>
 <%end%>
 
 <div id = "create_proposal_dialog" style ="display:none;">
-    <div id = "create_proposal">
-    </div>
+    <div id = "create_proposal"></div>
 </div>
 
 <div style="clear:both"></div>
@@ -91,8 +90,6 @@ end%>
 			$(ui.panel).html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
 		}
     });   
-        
-        
 </script>
 	 
 <%content_for :right_panel do %>

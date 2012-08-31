@@ -24,9 +24,7 @@
 	        <div class="authors">
 	            <div class="title">Autori</div>
 	            <%proposal.users.each do |user|%>
-	                <div class="blogUserImage" title="<%=user.name%> <%=user.surname%>">                    	
-	                    <%= user.user_image_tag 20 %>
-	                </div>
+	                <%=user_tag_mini(user,proposal)%>
 	            <%end%>
 	            <div style="clear:both;"></div>
 	        </div>

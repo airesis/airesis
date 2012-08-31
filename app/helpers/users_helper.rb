@@ -57,6 +57,66 @@ module UsersHelper
     link_to h(content_text), user_path(user), options
   end
   
+  #show a small tag with the user image followed by the nickname
+  #if fullname is true the user name and surname is written instead of the nickname
+  #if a proposal is passed as argument are checked few things,
+  #if the proposal is_current? and the user has a nickname associated to it
+  #then the user real name and image are hidden and replaced by the proposal nickname ones.  
+  def user_tag(user,proposal=nil,full_name=true,show_rank=true)
+    raise "Invalid User" unless user
+    if (proposal && proposal.is_current?)
+      u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
+    end 
+    ret = "<div class=\"pcontainer\">
+          <div class=\"MoImg24\">"
+    if (u_nick)
+     ret += "<img src=\"http://www.gravatar.com/avatar/"
+     ret += Digest::MD5.hexdigest(u_nick.nickname)
+     ret += "?s=24&d=identicon&r=PG\"/>"                         
+    else
+     ret += user.user_image_tag(24)
+    end
+     ret +="</div>"
+     ret += "<div class=\"Mo\">"
+     if (u_nick)
+       ret += u_nick.nickname
+     else
+       ret += link_to_user(user, :full_name => full_name)        
+       ret += " (#{user.rank})" if show_rank 
+     end
+     ret += "</div>
+          <div style=\"clear: both;\"></div>
+      </div>"
+      return ret.html_safe
+  end
+  
+  def user_tag_mini(user,proposal=nil,full_name=true)
+    raise "Invalid User" unless user
+    if (proposal && proposal.is_current?)
+      u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
+    end 
+    ret = "<div class=\"blogUserImage\" title=\""
+    if u_nick
+      ret += u_nick.nickname
+    else
+      if (full_name)
+        ret += "#{user.name} #{user.surname}"
+      else
+        ret += "#{user.login}"
+      end
+    end
+    ret += "\">"
+    if u_nick                    
+      ret += "<img src=\"http://www.gravatar.com/avatar/"
+      ret += Digest::MD5.hexdigest(u_nick.nickname)
+      ret += "?s=24&d=identicon&r=PG\"/>"   
+    else
+      ret += user.user_image_tag(20)
+    end
+    ret += "</div>"
+    return ret.html_safe
+  end
+  
   def user_valutation_image(user,proposal,option={})
     val = user.proposal_rankings.find_by_proposal_id(proposal.id).ranking_type_id rescue nil
     if (val == 1)

@@ -1,7 +1,12 @@
+<%proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)%>
 
 <div id="comment<%= comment.id %>" class="proposalComment"<%if (comment.collapsed) %>style="display:none"<%end %>>
     <div class="blogUserImage">
-        <%= comment.user_image_tag(40) %>
+    	<%if (proposal_nickname && @proposal.is_current?)%>
+			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(proposal_nickname.nickname)%>?s=40&d=identicon&r=PG"/>               	
+		<%else%>
+	        <%= comment.user_image_tag(40) %>
+		<%end%>
     </div>
     <div class="proposal_comment">
     	<div class="baloon-triangle">
@@ -9,7 +14,13 @@
         <div id="commentcc" >
 	        <div class="baloon_header">
 	            <div class="proposalCommentPostedAt">
-	                <span class="blogPoster"><%=link_to_user comment.user %></span> dice...
+	                <span class="blogPoster">
+	                	<%if (proposal_nickname && @proposal.is_current?)%>
+							<%=proposal_nickname.nickname%>	                	
+	                	<%else%>
+	                		<%=link_to_user comment.user %>
+	                	<%end%>
+	                </span> dice...
 	            </div>
 				<div id="flash_messages_comment_<%= comment.id %>" style="height:20px">
 					
@@ -32,7 +43,7 @@
 						:class => "deleteCommentLink",					
 						:id => "delete#{comment.id}"%>
                 <%end%>                               
-
+				<a href="#" onclick="openAnswer(this); return false;">Rispondi al contributo</a>
             </div>
         </div>
      
@@ -44,6 +55,19 @@
 		     $('#delete<%= comment.id%>').click(function(event) {
 	    		hiding(event,<%= comment.id%>);	    	
 	   		});
+	   		
+	   		function openAnswer(el) {
+	   			if (!$(el).opened) {
+	   				console.log("not open");
+	   				$(el).opened = true;
+	   				answerPanel = $(el).answerPanel = $("<div>").append("<textarea>").addClass("proposal_comment");
+	   				$(el).parent().parent().parent().parent().append(answerPanel);
+	   			}
+	   			else {
+	   				$(el).opened = false;
+	   			}
+	   			
+	   		}
      </script>
     </div>
 </div>

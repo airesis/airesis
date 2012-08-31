@@ -31,10 +31,10 @@ function drawIntro(svg) {
 	<span>Commenti precedenti...</span>
 </div>
 
-
 <script>
 
 $(function() {
+	
 	//nascondi i pulsanti di valutazione quando vengono cliccati
 		$('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
 			id = $(this).attr('id');
@@ -97,15 +97,7 @@ $(function() {
 <h4>Autori della proposta</h4>
  <div class="blogUserImage">
  		<%@proposal.users.each do |user| %>
-       <div class="pcontainer">
-	        <div class="MoImg24">
-	            <%= user.user_image_tag(24) %>
-	        </div>
-	        <div class="Mo">
-	            <%=link_to_user user, :full_name => true %> (<%=user.rank%>)
-	        </div>
-	        <div style="clear: both;"></div>
-	    </div>
+ 			<%=user_tag(user, @proposal)%> 		
         <%end%>
     </div>
     <div style="clear: both;"></div>
@@ -122,8 +114,21 @@ $(function() {
 Esegui il login per visualizzare le statistiche
 <%end%>
 
+    
 <h4>Documenti collegati</h4>
 Nessun documento allegato alla proposta
+
+<%if signed_in? %>
+	<%my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)%>
+	<%if my_nickname%>
+		<h4>Il tuo nickname è</h4>
+		<div class="blogUserImage">
+			<%=user_tag(current_user,@proposal)%>			
+	    </div>
+	<%end%>
+<%end%>
+<div style="clear: both;"></div>
+<br />
 <%end%>
 
 <%=content_for :right_panel do%>

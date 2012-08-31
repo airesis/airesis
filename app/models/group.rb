@@ -47,7 +47,9 @@ class Group < ActiveRecord::Base
   has_many :supporters, :class_name => 'Supporter'
   #candidati che sostiene alle elezioni
   has_many :candidates, :through => :supporters, :class_name => 'Candidate'
-  
+
+  has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
+  has_many :proposals, :through => :group_proposals, :class_name => 'Proposal'  
   
   attr_reader :partecipant_tokens
   

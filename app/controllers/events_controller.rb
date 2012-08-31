@@ -49,8 +49,7 @@ class EventsController < ApplicationController
         @event.save!
         if (params[:event][:event_type_id] == "4")
           @group.elections << @event.election
-          @group.save
-           
+          @group.save           
         end
       else
         #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
