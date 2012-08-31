@@ -9,7 +9,7 @@
 	<%end%>
 		<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" if (can? :create_event, @group) %><br />
 		<%if (can? :insert_proposal, @group)%>
-			<%= link_to 'Inserisci una proposta interna', new_proposal_url(:group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;", :remote => true %>
+			<%= link_to 'Inserisci una proposta interna', new_proposal_url(:group_id => @group.id), :class => 'newButton littleText disableButton', :style=>"margin-top:4px;", :remote => true %>
 			<div id = "create_proposal_dialog" style ="display:none;">
 			    <div id = "create_proposal"></div>
 			</div>
@@ -36,9 +36,18 @@
 
 
 <%=content_for :right_panel do%>
+	<%if (can? :view_proposal, @group)%>
+		<h4>Proposte interne al gruppo</h4>
+			<%@group.internal_proposals.each do |proposal|%>
+				<%=link_to proposal.title, proposal_path(proposal)%><br/><br/>
+			<%end%>
+		<%= "Al momento non ci sono proposte" if @group.internal_proposals.empty?%>
+	<%end%>
+
+
 	<h4>Proposte sostenute dal gruppo</h4>
 	<%@group.proposals.each do |proposal|%>
-			<%=link_to proposal.title, proposal_path(proposal)%>
+			<%=link_to proposal.title, proposal_path(proposal)%><br/><br/>
 	<%end%>
 	<%= "Al momento non ci sono proposte" if @group.proposals.empty?%>
 <%end%>

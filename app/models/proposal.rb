@@ -28,7 +28,7 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_nicknames, :class_name => 'ProposalNickname', :dependent => :destroy
   
   has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
-  has_many :groups, :through => :group_proposals, :class_name => 'Group'
+  has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
     
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
@@ -38,7 +38,7 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :group_ids
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -53,6 +53,8 @@ class Proposal < ActiveRecord::Base
   
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, { :conditions => {:proposal_state_id => PROP_REVISION }}
+  
+  scope :public, { :conditions => {:private => false }}
   
   
   before_save :save_tags

@@ -307,7 +307,7 @@ class GroupsController < ApplicationController
   private
 
   def choose_layout    
-    if [ 'edit', 'edit_events' ].include? action_name
+    if [ 'edit', 'edit_events', 'edit_permissions' ].include? action_name
       'settings'
     else
       'application'

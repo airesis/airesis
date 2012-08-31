@@ -18,14 +18,16 @@ class ProposalsController < ApplicationController
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy]
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
+  
+  #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
     
   def index
     
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
-      @count_base = @category.proposals
+      @count_base = @category.proposals.public
     else
-      @count_base = Proposal
+      @count_base = Proposal.public
     end
     @in_valutation_count = @count_base.in_valutation.count      
     @in_votation_count = @count_base.in_votation.count
@@ -118,7 +120,7 @@ class ProposalsController < ApplicationController
       @group = Group.find_by_id(params[:group_id])
       @proposal.interest_borders << @group.interest_border
       @proposal.private = true
-      @proposal.groups << @group
+      @proposal.presentation_groups << @group
     end
     
     respond_to do |format|
@@ -162,7 +164,7 @@ class ProposalsController < ApplicationController
          if request.env['HTTP_REFERER']["back=home"]
           redirect_to home_url
          else 
-          redirect_to(proposals_url)
+          redirect_to :back
          end 
         }              
       end
@@ -345,7 +347,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       conditions += " and proposal_category_id = #{params[:category]}"
     end
     
-    @proposals = startlist.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    @proposals = startlist.public.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
   
   def update_borders(borders)
