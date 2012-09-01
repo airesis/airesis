@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
   
   def index
     @groups = Group.all
-    
+    @page_title = t("pages.groups.index.title")
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
@@ -113,8 +113,10 @@ class GroupsController < ApplicationController
         end
                  
         #fai si che chi crea il gruppo ne sia anche portavoce
-        @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3}) 
+        @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
+         
         @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+                
         @group.save!
                 
       end

@@ -9,7 +9,6 @@ class Group < ActiveRecord::Base
   validates_uniqueness_of   :name
   
   validates_presence_of     :description
-  validates_length_of       :name,    :within => 10..2000
   validates_length_of       :image_url,    :within => 1..255, :allow_blank => true
   validates_length_of       :facebook_page_url,    :within => 10..255, :allow_blank => true
   validates_length_of       :title_bar,    :within => 1..255, :allow_blank => true

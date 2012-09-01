@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
-      format.xml  { render :xml => @users }
+      #format.xml  { render :xml => @users }
       format.json  { render :json => @users.to_json(:only => [:id, :name]) }
       format.html # index.html.erb
     end
