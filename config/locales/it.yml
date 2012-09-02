@@ -48,6 +48,8 @@ it:
      dayandmonth: "%d/%m"
     am: "am"
     pm: "pm"
+  
+  open_space: "Spazio comune"
 
   hello: "Ciao mondo"
   error_not_logged_in: "Accesso riservato agli utenti registrati."
@@ -105,26 +107,37 @@ it:
       notifications: "Allarmi e notifiche"
     groups:
       administration_panel:
-        title: "Pannello di amministrazione del gruppo"
+        title: "Pannello di amministrazione"
         info: "Informazioni di base"
         events: "Eventi e incontri"
         permissions: "Ruoli e permessi"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
-        title: "Gestisci i ruoli e i permessi all'interno del gruppo"
+        title: "Gestisci i ruoli e i permessi"
       index:
         title: "Tutti i gruppi"
+      new:
+        title: "Crea un nuovo gruppo"
+      edit:
+        title: "Modifica impostazioni gruppo"
     login:
       title: "Esegui l'autenticazione"
     registration:
       title: "Registrati al portale"
     proposals:
       index:
+        title: "Elenco proposte"
         debate: "Tutte le proposte da costruire che sono in fase di dibattito"
         voting: 'Tutte le proposte in attesa di votazione o attualmente in votazione'
         accepted: 'Lista delle proposte condivise e accettate dagli utenti del portale'
         revision: 'Tutte le proposte che sono state attuate e per le quali si stanno raccogliendo i feedback'
+    events:
+      index:
+        title: "Calendario"
+    blog_posts:
+      new:
+        title: "Inserisci un nuovo post"
       
   pl:
     comments:
@@ -234,16 +247,3 @@ it:
         group:
           portavoce:
             required: "Devi scegliere un portavoce."
-    # Translate model names. Used in Model.human_name().
-    #models:
-      # For example,
-      #   user: "Dude"
-      # will translate User model name to "Dude"
-    
-    # Translate model attribute names. Used in Model.human_attribute_name(attribute).
-    #attributes:
-      # For example,
-      #   user:
-      #     login: "Handle"
-      # will translate User attribute "login" as "Handle"
-    
