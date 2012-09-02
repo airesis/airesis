@@ -1,10 +1,9 @@
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
-<%=render :layout => "layouts/page_title", :locals => {:title => @group.name + ": Area candidature"} do%>
-	<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle" if (@group.elections.candidates_phase.count != 0)%><br />
-	<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"buttonStyle" if (can? :create_event, @group)%>		
+<%=render :layout => "layouts/page_title", :locals => {:title => "Area candidature"} do%>
+			
 <%end%>
 
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
 <h4>In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.<br />
 	Prima di poter effettuare una candidatura il gruppo deve indire un'elezione.
@@ -72,8 +71,6 @@
 
 
 <% content_for :left_panel do %>
-
-	<div class="leftBlogImage">
-    	<%= @group.group_image_tag 120 %>
-    </div>
+	<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle littleText" if (@group.elections.candidates_phase.count != 0)%><br />
+	<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"buttonStyle littleText" if (can? :create_event, @group)%>
 <%end%>

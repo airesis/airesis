@@ -1,5 +1,5 @@
 <p>
-    <h4>Portavoce del gruppo</h4>
+    <h4>Portavoce</h4>
     
     <%@group.portavoce.each do |user| %>
     	<%=user_tag(user, nil,true,false)%>
@@ -11,7 +11,7 @@
 <% partecipants = @group.group_partecipations %>
 <%if partecipants.length > 0 %>
 <p>
-    <h4>Elenco partecipanti al gruppo</h4>
+    <h4>Elenco partecipanti</h4>
     <% if user_signed_in? %>
     <p>
         <% partecipation_request = current_user.has_asked_for_partecipation?(@group.id)

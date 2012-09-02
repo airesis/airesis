@@ -33,6 +33,23 @@
 	
 </script>	
 
+<%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
+<div style="float:right;">
+	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
+		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'fullEditButton'  %>
+	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
+		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
+		   <p>
+		    <b>Scegli un periodo per la votazione</b>
+				<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
+			   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle' %>
+		  </p> 
+		<%end%>
+	<%end%>
+</div>
+<div style="clear: both;"></div>
+<%end%>
+
 <h1 class="proposalTitle"><%=h proposal.title %></h1>
 <h2 class="proposalSubtitle"><%=h proposal.subtitle %></h1>
 <div class="blogCommentPostedAt">
@@ -84,19 +101,4 @@ Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/
 
 <div id="proposal_histories_container">
 </div>
-<%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
-<div style="float:right;">
-	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
-		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'buttonStyle littleText'  %>
-	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
-		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
-		   <p>
-		    <b>Scegli un periodo per la votazione</b>
-				<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
-			   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle littleText' %>
-		  </p> 
-		<%end%>
-	<%end%>
-</div>
-<div style="clear: both;"></div>
-<%end%>
+

@@ -1,6 +1,8 @@
 #encoding: utf-8
 class CandidatesController < ApplicationController
   include StepHelper
+  
+  layout "groups"
     
   before_filter :check_group, :only => [:new, :create]
   before_filter :check_election, :only => [:create,:update]

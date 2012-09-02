@@ -4,7 +4,7 @@
 	@page_head = "Proposte di tutte le categorie"		
 end%>
 <%=render :layout => "layouts/page_title", :locals => {:title => @page_head} do%>
-	<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>	
+	
 <%end%>
 
 <div id = "create_proposal_dialog" style ="display:none;">
@@ -35,6 +35,10 @@ end%>
 	</ul>
 </div>
 <%content_for :left_panel do %>
+
+<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>	
+
+
 <div id="categories">
 <%if (params[:category])%>
 	<h4 class="filterSelected">Categorie</h4>

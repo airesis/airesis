@@ -32,8 +32,8 @@
   </p>
   
   <p>
-	<input type="textbox" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
-	<%=f.text_field :private%>
+	<input type="hidden" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
+	<%=f.hidden_field :private%>
   </p>
   
   </div>

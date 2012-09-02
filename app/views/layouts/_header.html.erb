@@ -136,7 +136,8 @@ js.id = id;<%if (Rails.env == "production")%>
 			</div>
 			<% end %>
 		</div>
-			<% if user_signed_in? %>
+		
+		<% if user_signed_in? %>
 		<div class="alerts_link">
 			<div class="number">
 				0
@@ -150,6 +151,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			</div>
 		</div>
 		<%end%>
+		
 		<div style="clear: both; height: 0; overflow: hidden;"></div>
 	</div>
 	<span>

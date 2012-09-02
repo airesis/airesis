@@ -15,10 +15,24 @@
 	<body>
 		
 	<%=render :partial => "layouts/header" %>		
+	<div id="subheader">
+		<div class="body_maxwidth">
+			<div class="header_image">
+		    	<%= @group.group_image_tag 120 %>
+		    </div>
+		    <div class="group_title">
+			<h1><%= @group.name%></h1>
+			<%= link_to 'Home Page', @group, :class => 'buttonStyle' %>
+			<%= link_to 'Le proposte', group_proposals_path(@group), :class => 'buttonStyle'%>			
+			<%= link_to 'Calendario', group_events_path(@group), :class => 'buttonStyle' %>
+			</div>
+		</div>
+			
+	</div>
 		
 		<!-- ##### Main Copy ##### -->
 		<div id="main-copy">
-			<div id="leftpanel">
+			<div id="groups_leftpanel">
 				<%= yield :left_panel%>
 			</div>
 			<div id="centerpanelextended">

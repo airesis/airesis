@@ -1,9 +1,5 @@
 <% content_for :left_panel do %>
 
-	<div class="leftBlogImage">
-    	<%= @group.group_image_tag 120 %>
-    </div>
-    
     <div class="autoMargin">
     	<a href="#" onclick="openRulesModal();" class="buttonStyle littleText">Regolamento</a>
     	<div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify" >
@@ -46,7 +42,7 @@ if requests.size > 0 %>
 	   		 <%if @group.request_by_vote? %>
 	  		  <%=link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
 	  		  <%elsif @group.request_by_portavoce? %>
-	   			 <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest' %>
+	   			 <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest buttonStyle' %>
 	 		 <% end %>
 	    <%end %>
 	    </div>

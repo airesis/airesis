@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 	<head>
-		<title><%= @page_title + ' - Airesis' || 'Airesis'%></title>
+		<title><%= (@page_title || t('open_space')) + ' - Airesis'%></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		
 		<%= stylesheet_link_tag 'application' %>
@@ -15,10 +15,24 @@
 	<body>
 		
 	<%=render :partial => "layouts/header" %>		
+	<div id="subheader">
+		<div class="body_maxwidth">
+				<div class="header_image leftUserImage image_container">
+			        <%= @user.user_image_tag 120 %>
+			        <div class="caption">
+			            <a style="color:white">Modifica l'immagine</a>
+			        </div>
+			    </div>
+		    <div class="group_title">
+				<h1><%=@user.fullname%></h1>
+			</div>
+		</div>
+			
+	</div>
 		
 		<!-- ##### Main Copy ##### -->
 		<div id="main-copy">
-			<div id="leftpanel">
+			<div id="groups_leftpanel">
 				<%= yield :left_panel%>
 			</div>
 			<div id="centerpanelextended">

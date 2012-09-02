@@ -1,19 +1,21 @@
 <%unless @proposals.empty?%>
-	<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
-		Ultime inserite
-	<%else%>
-		<%=link_to 'Ultime inserite', current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
-	<%end%> | 		
-	<% if (params[:view] == ORDER_BY_RANK)%>
-		Più popolari
-	<%else%>
-		<%=link_to 'Più popolari', current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>	
-	<%end%> | 
-	<% if (params[:view] == ORDER_BY_VOTES)%>
-		Più votate
-	<%else%>	 
-		<%=link_to 'Più votate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
-	<%end%>
+	<div class="order_options">
+		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+			Ultime inserite
+		<%else%>
+			<%=link_to 'Ultime inserite', current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
+		<%end%> | 		
+		<% if (params[:view] == ORDER_BY_RANK)%>
+			Più popolari
+		<%else%>
+			<%=link_to 'Più popolari', current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>	
+		<%end%> | 
+		<% if (params[:view] == ORDER_BY_VOTES)%>
+			Più votate
+		<%else%>	 
+			<%=link_to 'Più votate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
+		<%end%>
+	</div>
 <%end%>
 
 <div id="proposalsListContainer<%=params[:state]%>">

@@ -1,8 +1,11 @@
 #encoding: utf-8
 class EventsController < ApplicationController
   
+  layout "groups"
+  
   before_filter :check_events_permissions, :only => [:new, :create]
   
+  before_filter :load_group, :only => [:index]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
   before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit]
   
@@ -73,7 +76,7 @@ class EventsController < ApplicationController
   end
    
   def index
-    
+    @page_title = t('pages.events.index.title')
   end
   
   
@@ -154,6 +157,10 @@ class EventsController < ApplicationController
   end
   
   protected
+  
+  def load_group
+    @group = Group.find_by_id(params[:group_id])
+  end
   
   def load_event 
     @event = Event.find_by_id(params[:id])

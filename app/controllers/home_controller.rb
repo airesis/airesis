@@ -23,13 +23,14 @@ class HomeController < ApplicationController
   def show
     @step = get_next_step(current_user)
     @user = current_user
+    @page_title = @user.fullname
   end
    
   private
 
   def choose_layout    
     if [ 'show'].include? action_name
-      'settings'
+      'users'
     else
       nil
     end

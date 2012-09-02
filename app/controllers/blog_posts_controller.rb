@@ -61,6 +61,7 @@ class BlogPostsController < ApplicationController
   end
   
   def new
+    @page_title = t('pages.blog_posts.new.title')
     @blog_post = @blog.posts.build
     #posso postare nei gruppi per i quali ho il permesso (numero 1)
     @groups = current_user.groups.find(:all,

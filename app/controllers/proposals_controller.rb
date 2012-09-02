@@ -3,6 +3,12 @@ class ProposalsController < ApplicationController
   include NotificationHelper, StepHelper
   
   #load_and_authorize_resource
+  
+  
+  #carica il gruppo
+  before_filter :load_group
+  
+  layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :except => [:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar]
   
@@ -21,8 +27,8 @@ class ProposalsController < ApplicationController
   
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
     
-  def index
-    
+  def index    
+    @page_title = t('pages.proposals.index.title')
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
       @count_base = @category.proposals.public
@@ -89,6 +95,7 @@ class ProposalsController < ApplicationController
   
   
   def show    
+    @page_title = @proposal.title
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
     @author_name = User.find(author_id).name
     
@@ -314,6 +321,10 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   
   
   protected
+  
+  def choose_layout
+    @group ? "groups" : "open_space"
+  end 
    
   def query_index
     order = ""
@@ -429,6 +440,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       }       
       format.html 
     end
+  end
+  
+  #carica il gruppo di riferimento della proposta
+  def load_group
+    @group = Group.find_by_id(params[:group_id])
   end
   
   

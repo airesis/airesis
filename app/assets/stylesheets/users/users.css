@@ -11,6 +11,11 @@
 }
 
 
+.leftUserImage {
+	/*width:100%;
+	margin:auto;
+	text-align: center;*/
+}
 
 .leftUserImage .caption {
     background: none repeat scroll 0 0 #4A4D4A;
@@ -23,4 +28,22 @@
     padding: 4px;
     position: absolute;
     top: 0;
+}
+
+.caption {
+	top: 0px;
+	position: absolute;
+	display: none;
+	background: none repeat scroll 0 0 #4A4D4A;
+	color: white;
+	letter-spacing: -1px;
+	opacity: 0.6;
+	padding: 4px;
+	margin: 5px;
+}
+.caption a {
+	cursor: pointer;
+}
+.image_container {
+/*	position: relative;*/
 }

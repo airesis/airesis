@@ -21,8 +21,8 @@ class GroupsController < ApplicationController
   before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_permissions]
   
   def index
-    @groups = Group.all
     @page_title = t("pages.groups.index.title")
+    @groups = Group.all
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
@@ -31,6 +31,7 @@ class GroupsController < ApplicationController
   
   
   def show
+    @page_title = @group.name
     @partecipants = @group.partecipants
     @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
     
@@ -42,6 +43,7 @@ class GroupsController < ApplicationController
   
   
   def new
+    @page_title = t("pages.groups.new.title")
     @group = Group.new(:accept_requests => 'p')
     
     respond_to do |format|
@@ -51,6 +53,7 @@ class GroupsController < ApplicationController
   end
   
   def edit
+    @page_title = t("pages.groups.edit.title")
   end
   
   
@@ -73,11 +76,11 @@ class GroupsController < ApplicationController
   
   
   def edit_events
-    
+    @page_title = t("pages.groups.edit_events.title")
   end
   
   def edit_permissions
-    
+    @page_title = t("pages.groups.edit_permissions.title")    
   end
   
   def new_event
@@ -309,10 +312,10 @@ class GroupsController < ApplicationController
   private
 
   def choose_layout    
-    if [ 'edit', 'edit_events', 'edit_permissions' ].include? action_name
+    if [ 'new','index'].include? action_name
       'settings'
     else
-      'application'
+      'groups'
     end
   end
   
