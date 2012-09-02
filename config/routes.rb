@@ -125,6 +125,8 @@ DemocracyOnline3::Application.routes.draw do
     resources :elections
     
     resources :candidates
+    
+    resources :proposals
        
   end
   
