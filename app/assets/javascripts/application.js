@@ -28,3 +28,4 @@
 //= require jquery.form
 //= require jquery.form.wizard
 //= require jquery.quick-wizard
+//= require simplemodal
