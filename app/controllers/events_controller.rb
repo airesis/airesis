@@ -1,7 +1,7 @@
 #encoding: utf-8
 class EventsController < ApplicationController
   
-  layout "groups"
+  layout :choose_layout
   
   before_filter :check_events_permissions, :only => [:new, :create]
   
@@ -157,7 +157,12 @@ class EventsController < ApplicationController
   end
   
   protected
-  
+
+  def choose_layout
+    @group ? "groups" : "open_space"
+  end  
+
+
   def load_group
     @group = Group.find_by_id(params[:group_id])
   end

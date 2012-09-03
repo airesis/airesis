@@ -46,18 +46,18 @@ js.id = id;<%if (Rails.env == "production")%>
 </script>
 <!-- ##### Header ##### -->
 <div id="header">
-	<div id="fixed">
+	<div class="body_maxwidth">
 		<div class="midHeader">
-			<h2 class="headerTitle" lang="la"><%= link_to "Airesis", root_path%></h2>
+		<h2 class="headerTitle" lang="la"><%= link_to "Airesis", root_path%></h2>
 		</div>
-		<div class="subHeader">
+		<!--<div class="subHeader">
 			<span class="doNotDisplay">Navigation:</span>
 			<%= link_to 'Le proposte', proposals_path%>
 			<%= link_to 'I blog', blogs_path %>
 			<%= link_to 'I gruppi', groups_path %>
 			<%= link_to 'Calendario', events_path %>
-		</div>
-		<div class="superHeader">
+		</div>-->
+		<div class="superHeader menu_element">
 			<% if user_signed_in? %> <span>Benvenuto </span>
 			<%if current_user.name%>
 			<%= current_user.name %>
@@ -152,12 +152,17 @@ js.id = id;<%if (Rails.env == "production")%>
 		</div>
 		<%end%>
 		
+		<div class="menu_element">
+			<%= link_to t("open_space"), proposals_path %>
+		</div>
+		<div class="menu_element">
+			<%= link_to "Cerca gruppi", groups_path %>
+		</div>
+
+		
 		<div style="clear: both; height: 0; overflow: hidden;"></div>
 	</div>
 	<span>
-		<div id = 'loading'>
-			Caricamento...
-		</div> </span>
 </div>
 <script type="text/javascript">
 	$('.subHeader a').button();
