@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit]
   
   def show
+    @page_title = @event.title
     respond_to do |format|
       format.js
       format.html
