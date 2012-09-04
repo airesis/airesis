@@ -3,3 +3,7 @@
 <%= render :partial => @group, :locals => { :button_name => "Crea" } %>
 
 <%= link_to 'Indietro', groups_path, :class=>"buttonStyle" %>
+
+<%=content_for :left_panel do%>	
+	<%= render :partial => 'users/user_groups_panel' %>
+<%end%>
