@@ -42,7 +42,7 @@ gem 'paperclip'
 
 gem 'jquery-rails'
 
-gem 'jquery-rjs', :git => 'git://github.com/aaronchi/jquery-rjs.git'
+gem 'jquery-rjs', :git => 'https://github.com/aaronchi/jquery-rjs.git'
 
 gem 'will_paginate'
 
@@ -78,7 +78,7 @@ gem 'email_preview'
 
 gem 'seed_dump'
 
-gem 'vote-schulze', :git => 'git://github.com/coorasse/vote-schulze.git'
+gem 'vote-schulze', :git => 'https://github.com/coorasse/vote-schulze.git'
 
 #gem 'rgl', :git => 'git@github.com:coorasse/rgl.git'
 #gem 'rgl'#,  "~> 0.4.0", :git => 'git://github.com/javanthropus/rgl.git'

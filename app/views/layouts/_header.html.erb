@@ -64,7 +64,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			<%else%>
 			<%= current_user.login %>
 			<%end%>
-			<div class="user-panel shadow-box" id="user-panel">
+			<div class="user-panel shadow-box hidden_panel" id="user-panel">
 				<div style="float:left">
 					<%= current_user.user_image_tag%>
 				</div>
@@ -82,7 +82,7 @@ js.id = id;<%if (Rails.env == "production")%>
 						<% end %>
 					<li>
 						<span class="Mo ui-icon ui-icon-contact"></span>
-						<%= link_to 'Impostazioni', user_url(current_user.id) %>
+						<%= link_to 'Preferenze', user_url(current_user.id) %>
 					</li>
 					<% if is_admin?%>
 					<li>
@@ -100,7 +100,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			<% else %>
 			<span><%= t('pages.top_panel.login') %></span>
 			
-			<div class="shadow-box" id="registration-panel">
+			<div class="shadow-box hidden_panel" id="registration-panel">
 				<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
 				<div>
 					<%= f.label :login %>
@@ -138,11 +138,11 @@ js.id = id;<%if (Rails.env == "production")%>
 		</div>
 		
 		<% if user_signed_in? %>
-		<div class="alerts_link">
+		<div class="alerts_link menu_element">
 			<div class="number">
 				0
 			</div>
-			<div class="notification-panel shadow-box" id="notification-panel">
+			<div class="notification-panel shadow-box hidden_panel" id="notification-panel">
 				<ul class="menu-list">
 					<li>
 						Nessuna notifica
@@ -155,9 +155,32 @@ js.id = id;<%if (Rails.env == "production")%>
 		<div class="menu_element">
 			<%= link_to t("open_space"), proposals_path %>
 		</div>
+		
+		<%if user_signed_in?%>
+			<div class="menu_element">
+				I miei gruppi
+				<div class="groups_panel shadow-box hidden_panel" id="groups_panel">
+					<ul class="menu-list">
+						<%@groups = current_user.groups %>
+						<%= "Non partecipi a nessun gruppo ancora" if @groups.empty?%>				
+						<%@groups.each do |group|%>
+							<div class="groupcontainer">
+								<div class="groupImg24">
+									<%= group.group_image_tag(24) rescue nil %>
+								</div>
+								<div class="group">
+									<%= link_to group.name, group %>
+								</div>
+							</div>
+						<%end unless @groups.empty?%>
+					</ul>
+				</div>
+			</div>
+		<%else%>
 		<div class="menu_element">
 			<%= link_to "Cerca gruppi", groups_path %>
 		</div>
+		<%end%>
 
 		
 		<div style="clear: both; height: 0; overflow: hidden;"></div>
@@ -168,58 +191,50 @@ js.id = id;<%if (Rails.env == "production")%>
 	$('.subHeader a').button();
 
 <%if user_signed_in?%>
-	$('#user-panel').hide();
+	$('.hidden_panel').hide();
+	$('.menu_element').data('show',false);
 	user_panel_shown = false;
-
-	$('#notification-panel').hide();
 	notification_panel_shown = false;
+	groups_panel_shown = false;
 
 	$('html').click(function() {
-		if(user_panel_shown) {
-			$('#user-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
-		}
-		if(notification_panel_shown) {
-			$('#notification-panel').hide();
-			$('.alerts_link').removeClass('active');
-			notification_panel_shown = false;
-		}
+		$('.menu_element').removeClass('active').data('show',false);
+		$('.hidden_panel').hide();
+		
 	});
-	$('.superHeader').click(function(event) {
-		if(user_panel_shown) {
-			$('#user-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
+	
+	$('.menu_element').click(function(event) {
+		sval = $(this).data('show');
+		$('.hidden_panel').hide();
+		$('.menu_element').removeClass('active').data('show',false);
+		$(this).data('show',sval);
+		if($(this).data('show')) {
+			$('.hidden_panel',this).hide();
+			$(this).removeClass('active');			
+			$(this).data('show',false);
 		} else {
-			$('#user-panel').show().position({				
+			console.log($('.hidden_panel',this));
+			$('.hidden_panel',this).show().position({				
     			my:        "right top",
     			at:        "right bottom",
-    			of:        $('.superHeader'),    			
+    			of:        $(this),    			
 			})
-			$('.superHeader').addClass('active');
-			user_panel_shown = true;
-
-			if(notification_panel_shown) {
-				$('#notification-panel').hide();
-				$('.alerts_link').removeClass('active');
-				notification_panel_shown = false;
-			}
+			$(this).addClass('active');			
+			$(this).data('show',true);
 		}
 		event.stopPropagation();
 	});
 
-	$(".superHeader").mouseover(function() {
+	$(".menu_element").mouseover(function() {
 		$(this).addClass("active");
 	}).mouseout(function() {
-
-		if(user_panel_shown == false) {
+		if($(this).data('show') == false) {
 			$(this).removeClass("active");
 		}
 
 	});
 
-	$('#user-panel').click(function(event) {
+	$('.hidden_panel').click(function(event) {
 		event.stopPropagation();
 	});
 	function fetchNotifications() {
@@ -240,37 +255,6 @@ js.id = id;<%if (Rails.env == "production")%>
 	//setTimeout(poll, 600000);
 	//valore temporaneo
 	poll();
-
-	$('.alerts_link').click(function(event) {
-		if(notification_panel_shown) {
-			$('#notification-panel').hide();
-			$('.alerts_link').removeClass('active');
-			notification_panel_shown = false;
-		} else {
-			$('#notification-panel').show();
-			$('.alerts_link').addClass('active');
-			notification_panel_shown = true;
-
-			if(user_panel_shown) {
-				$('#user-panel').hide();
-				$('.superHeader').removeClass('active');
-				user_panel_shown = false;
-			}
-		}
-
-		event.stopPropagation();
-	});
-
-	$(".alerts_link").mouseover(function() {
-		$(this).addClass("active");
-	}).mouseout(function() {
-
-		if(!notification_panel_shown) {
-			$(this).removeClass("active");
-		}
-
-	});
-
 <%else%>
 	$('#registration-panel').hide();
 	user_panel_shown = false;

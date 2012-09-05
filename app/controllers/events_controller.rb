@@ -76,8 +76,9 @@ class EventsController < ApplicationController
       end
   end
    
-  def index
-    @page_title = t('pages.events.index.title')
+  def index    
+    @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title') 
+    @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
   end
   
   

@@ -25,6 +25,9 @@
 			    </div>
 		    <div class="group_title">
 				<h1><%=@user.fullname%></h1>
+				<%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
+				<%= link_to 'Blog', current_user.blog, :class => 'commentButton buttonStyle'%>			
+				<%= link_to 'Preferenze', current_user, :class => 'settingsButton buttonStyle' %>
 			</div>
 		</div>
 			

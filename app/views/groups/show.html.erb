@@ -1,30 +1,6 @@
 <% javascript 'endless_page' %>
-	<div  style="float:right;text-align:right;">
-		<%if (user_signed_in? && (is_admin? || (@group.portavoce.include?current_user)))%>
-			<%= link_to 'Modifica', edit_group_path(@group), :class => 'fullEditButton littleText'  %><br />
-		<%end%>
-		<%if user_signed_in? && current_user.blog%>
-			<%if (can? :post_to, @group)%>
-			<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" %><br />
-			<%end%>
-		<%else%>
-			<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
-		<%end%>
-		<%if (can? :create_event, @group)%>
-			<%= link_to 'Crea un evento', new_group_event_url(@group), :class => 'newButton littleText', :style=>"margin-top:4px;" %><br />
-		<%end%>
-		<%if (can? :insert_proposal, @group)%>
-			<%= link_to 'Inserisci una proposta interna', new_proposal_url(:group_id => @group.id), :class => 'newButton littleText disableButton', :style=>"margin-top:4px;", :remote => true %>
-			<div id = "create_proposal_dialog" style ="display:none;">
-			    <div id = "create_proposal"></div>
-			</div>
-		<%end%>
-	</div>
-	<div style="clear: both;"></div>
 
-    <h2><%=h @group.description %></h2>
-
-
+<h2><%=h @group.description %></h2>
 
 <%posts = @group.posts.published(:order => 'published_at DESC') %>
 <% if posts.size == 0 %>

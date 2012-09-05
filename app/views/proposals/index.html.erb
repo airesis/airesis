@@ -7,9 +7,6 @@ end%>
 	
 <%end%>
 
-<div id = "create_proposal_dialog" style ="display:none;">
-    <div id = "create_proposal"></div>
-</div>
 
 <div style="clear:both"></div>
 
@@ -36,7 +33,15 @@ end%>
 </div>
 <%content_for :left_panel do %>
 
-<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>	
+<%if @group%>
+<%= link_to 'Crea una proposta', new_proposal_path(:group_id => @group.id), :remote => true, :id => 'nuova_proposta' if (can? :insert_proposal, @group)%>
+<%else%>
+<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>
+<%end%>	
+
+<div id = "create_proposal_dialog" style ="display:none;">
+    <div id = "create_proposal"></div>
+</div>
 
 
 <div id="categories">

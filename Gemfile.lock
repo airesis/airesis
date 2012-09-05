@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/aaronchi/jquery-rjs.git
+  remote: https://github.com/aaronchi/jquery-rjs.git
   revision: d4dfdba6ede29e2092af3f4cb9065b2e3520891e
   specs:
     jquery-rjs (0.1.1)
@@ -7,7 +7,7 @@ GIT
       rails (~> 3.1)
 
 GIT
-  remote: git://github.com/coorasse/vote-schulze.git
+  remote: https://github.com/coorasse/vote-schulze.git
   revision: 55c4c6de0f98005d00f7af4e1fcf9ccb70db4404
   specs:
     vote-schulze (0.2.0)

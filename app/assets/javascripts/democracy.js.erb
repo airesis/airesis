@@ -13,21 +13,25 @@ $(function() {
 });
 
 
-
-
 function disegnaBottoni() {
 	$('.buttonStyle').button();
-	$('.fullEditButton').button({icons : {primary : "ui-icon-pencil"}});
-	$('.editButton').button({icons : {primary : "ui-icon-pencil"},text : false});
+	$('.editButton').button({icons : {primary : "ui-icon-pencil"}});
+	$('.personButton').button({icons : {primary : "ui-icon-person"}});
+	$('.homeButton').button({icons : {primary : "ui-icon-home"}});
+	$('.calendarButton').button({icons : {primary : "ui-icon-calendar"}});
+	$('.commentButton').button({icons : {primary : "ui-icon-comment"}});
+	$('.ideaButton').button({icons : {primary : "ui-icon-lightbulb"}});
 	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"},text : false});
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
+	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
+	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
 	$(".disableButton")
 	    .unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
 			$(this).hide();
 			var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
 			toAdd.width($(this).outerWidth(true));
-			toAdd.height($(this).outerHeight(true));
+			toAdd.height($(this).outerHeight(true)); 
 			$(this).after(toAdd);
 	    })
 	    .unbind("ajax:complete")

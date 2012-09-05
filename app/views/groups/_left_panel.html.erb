@@ -1,5 +1,6 @@
 <% content_for :left_panel do %>
 
+
     <div class="autoMargin">
     	<a href="#" onclick="openRulesModal();" class="buttonStyle littleText">Regolamento</a>
     	<div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify" >
@@ -18,8 +19,17 @@
 		    </div>    
 		</div>
 		
-		<%=link_to 'Area candidati',group_candidates_path(@group),  :class => 'buttonStyle littleText' if current_user%>
+		
 	</div>
+	
+	<%if user_signed_in? && current_user.blog%>
+		<%if (can? :post_to, @group)%>
+		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" %><br />
+		<%end%>
+	<%else%>
+		<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
+	<%end%>
+	
 	<%= render :partial => 'partecipants_panel' %>
 <br/>
 <br/>	

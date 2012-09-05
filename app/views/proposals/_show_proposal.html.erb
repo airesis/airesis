@@ -36,7 +36,7 @@
 <%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
 <div style="float:right;">
 	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
-		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'fullEditButton'  %>
+		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
 	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
 		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
 		   <p>

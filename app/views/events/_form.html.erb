@@ -1,7 +1,7 @@
 <%
 if @group
 controller= "events"
-action ="create"%> <h3>Evento del gruppo: <%= @group.name%></h3>
+action ="create"%> 
 <%else
 controller = "events"
 action = "create"%>
@@ -99,7 +99,7 @@ admin event
 <script type="text/javascript">
 	
 		$('#create_event_dialog').dialog({
-			title : 'Nuovo Evento',
+			title : '<%= @group.name%>: Nuovo Evento',
 			modal : true,
 			width : 700,
 			close : function(event, ui) {
