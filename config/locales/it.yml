@@ -105,6 +105,9 @@ it:
       login: "Accedi o registrati"
     user:
       notifications: "Allarmi e notifiche"
+    users:
+      index:
+        title: "Elenco utenti"
     groups:
       administration_panel:
         title: "Pannello di amministrazione"

@@ -160,20 +160,22 @@ js.id = id;<%if (Rails.env == "production")%>
 			<div class="menu_element">
 				I miei gruppi
 				<div class="groups_panel shadow-box hidden_panel" id="groups_panel">
-					<ul class="menu-list">
 						<%@groups = current_user.groups %>
-						<%= "Non partecipi a nessun gruppo ancora" if @groups.empty?%>				
-						<%@groups.each do |group|%>
-							<div class="groupcontainer">
-								<div class="groupImg24">
-									<%= group.group_image_tag(24) rescue nil %>
+						<%if @groups.empty? %>
+							<%= "Non partecipi a nessun gruppo ancora"%><br/>
+						<%else%>
+							<%@groups.each do |group|%>
+								<div class="groupcontainer">
+									<div class="groupImg24">
+										<%= group.group_image_tag(24) rescue nil %>
+									</div>
+									<div class="group">
+										<%= link_to group.name, group %>
+									</div>
 								</div>
-								<div class="group">
-									<%= link_to group.name, group %>
-								</div>
-							</div>
-						<%end unless @groups.empty?%>
-					</ul>
+							<%end%>
+						<%end%>
+						<%= link_to "Cerca gruppi", groups_path %>
 				</div>
 			</div>
 		<%else%>

@@ -1,6 +1,9 @@
 #encoding: utf-8
 class UsersController < ApplicationController
-  
+ 
+
+  layout :choose_layout
+ 
   before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
@@ -44,6 +47,7 @@ class UsersController < ApplicationController
   end
   
   def index
+    @page_title = t('pages.users.index.title')
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
@@ -54,6 +58,7 @@ class UsersController < ApplicationController
   end
   
   def show        
+    @page_title = @user.fullname
     respond_to do |format|      
       flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
       format.html # show.html.erb
@@ -134,6 +139,11 @@ class UsersController < ApplicationController
   # supply their old password along with a new one to update it, etc.
   
   protected
+
+  def choose_layout
+    (['index'].include? action_name) ? 'settings' : 'users'
+  end
+
   def find_user
     @user = User.find(params[:id])
   end
