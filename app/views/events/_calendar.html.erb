@@ -70,9 +70,9 @@
                                     $('#loading').hide();
                             },
                             <%if @group %>
-                            events: "/events/get_events",
+                            events: '<%=list_events_url(@group)%>',
                             <%else%>
-                            events: '<%=get_events_group_url%>',
+                            events: '<%=list_events_url%>',
                             <%end%>
                             timeFormat: 'h:mm t{ - h:mm t} ',
                             dragOpacity: "0.5",

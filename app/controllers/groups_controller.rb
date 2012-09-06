@@ -56,25 +56,7 @@ class GroupsController < ApplicationController
     @page_title = t("pages.groups.edit.title")
   end
   
-  
-  def get_events
-    @events = @group.events
-    events = [] 
-    @events.each do |event|
-      events << {:id => event.id, 
-                 :title => event.title, 
-                 :description => event.description || "Some cool description here...", 
-                 :start => "#{event.starttime.iso8601}", 
-                 :end => "#{event.endtime.iso8601}", 
-                 :allDay => event.all_day, 
-                 :recurring => (event.event_series_id)? true: false, 
-                 :backgroundColor => event.backgroundColor,
-                 :textColor => event.textColor}
-    end
-    render :text => events.to_json
-  end
-  
-  
+    
   def edit_events
     @page_title = t("pages.groups.edit_events.title")
   end

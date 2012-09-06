@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   
   before_filter :check_events_permissions, :only => [:new, :create]
   
-  before_filter :load_group, :only => [:index]
+  before_filter :load_group, :only => [:index, :list]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
   before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit]
   
@@ -82,8 +82,12 @@ class EventsController < ApplicationController
   end
   
   
-  def get_events
+  def list
+    if @group
+    @events = @group.events.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    else
     @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    end
     events = [] 
     @events.each do |event|
       events << {:id => event.id, 

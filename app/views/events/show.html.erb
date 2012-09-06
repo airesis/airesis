@@ -110,11 +110,11 @@
 		</div>
 </div> -->
 	<% content_for :left_panel do %>		
-			<%@event.organizers.each do |group|%>
+			<!--<%@event.organizers.each do |group|%>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>
 			    </div>
-			<%end%>
+			<%end%>-->
 			<%if @event.meeting%>
 			<div id="partecipation_panel_container">
 			<%= render :partial => 'partecipation_panel' %>
@@ -137,7 +137,5 @@
 <%elsif (@event.event_type_id == 4)%>
 <p>
 	<%=link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election)%>
-	
-	
 </p>
 <%end%>

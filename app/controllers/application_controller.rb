@@ -84,6 +84,7 @@ class ApplicationController < ActionController::Base
   end
   
    def check_events_permissions
+    return if is_admin?
     group_id = params[:group_id] || params[:event][:organizer_id] 
     permissions_denied if !group_id
     @group = Group.find_by_id(group_id)

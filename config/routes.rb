@@ -100,7 +100,7 @@ DemocracyOnline3::Application.routes.draw do
       post :resize      
     end
     collection do
-      get :get_events
+      get :list
     end
   end
   
@@ -112,7 +112,6 @@ DemocracyOnline3::Application.routes.draw do
       get :edit_events
       get :new_event
       post :create_event
-      get :get_events
       get :edit_permissions
     end
 
@@ -120,7 +119,16 @@ DemocracyOnline3::Application.routes.draw do
       post :ask_for_multiple_follow
     end
     
-    resources :events
+    resources :events do
+      resources :meeting_partecipations
+      member do
+        post :move
+        post :resize      
+      end
+      collection do
+        get :list
+      end
+    end
     
     resources :elections
     

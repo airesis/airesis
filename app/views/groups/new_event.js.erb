@@ -1,7 +1,0 @@
-<%if can? :create_event, @group%>
-$('#create_event').html("<%= escape_javascript(render(:partial => '/events/form'))%>");
-<%else%>
-alert('Non disponi dei permessi sufficienti');
-<%end%>
-
-
