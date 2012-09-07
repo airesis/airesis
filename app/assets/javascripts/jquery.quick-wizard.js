@@ -11,7 +11,7 @@
             'root': null,
             'prevArgs': [0],
             'nextArgs': [0],
-            'disabledClass': 'form-wizard-disabled',
+            'disabledClass': 'ui-state-disabled',
             'containerClass' : 'form-wizard-container',
             'breadCrumb': true,
             'breadCrumbElement': 'div.legend',
@@ -33,9 +33,8 @@
         function disablePrev(prevObj){
             if ($(prevObj).is(":button")) {
                 $(prevObj).attr('disabled', 'disabled');
-            } else {
-                $(prevObj).addClass(settings.disabledClass);
             }
+            $(prevObj).addClass(settings.disabledClass);
         }
 
         return this.each(function () {
@@ -99,7 +98,7 @@
             submitButton.hide();
             
             /* If the root element is first disable the previous button */            
-            if(root.is(':first-child')){
+            if(root.hasClass('root')){
                 disablePrev(prev);
             }
 
@@ -138,10 +137,9 @@
                         /* If the previous button is a button enable it */
                         if ($(prev).is(":button")) {
                             $(prev).removeAttr('disabled');
-                        } else {
-                            /* If it's anything else, remove the disabled class */
-                            $(prev).removeClass(settings.disabledClass);
                         }
+                        /* If it's anything else, remove the disabled class */
+                        $(prev).removeClass(settings.disabledClass);
                     }
 
                     /* If there are no more sections, hide the next button and show the submit button */

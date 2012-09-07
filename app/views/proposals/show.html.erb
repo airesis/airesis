@@ -94,6 +94,17 @@ $(function() {
 <%=raw facebook_like %>
 </div>
 
+<%if signed_in? %>
+	<%my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)%>
+	<%if my_nickname%>
+		<h4>Il tuo nickname è</h4>
+		<div class="blogUserImage">
+			<%=user_tag(current_user,@proposal)%>			
+		</div>
+		<div style="clear: both;"></div>
+	<%end%>
+<%end%>
+
 <h4>Autori della proposta</h4>
  <div class="blogUserImage">
  		<%@proposal.users.each do |user| %>
@@ -107,27 +118,10 @@ $(function() {
 <%= render :partial => 'proposals/support_left_panel' %>
 </div>	
 
-<h4>Statistiche</h4>
-<%if signed_in?%>
-<%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'buttonStyle littleText'  %>
-<%else%>
-Esegui il login per visualizzare le statistiche
-<%end%>
-
     
 <h4>Documenti collegati</h4>
 Nessun documento allegato alla proposta
 
-<%if signed_in? %>
-	<%my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)%>
-	<%if my_nickname%>
-		<h4>Il tuo nickname è</h4>
-		<div class="blogUserImage">
-			<%=user_tag(current_user,@proposal)%>			
-	    </div>
-	<%end%>
-<%end%>
-<div style="clear: both;"></div>
 <br />
 <%end%>
 

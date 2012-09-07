@@ -33,8 +33,12 @@
 	
 </script>	
 
-<%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
+
 <div style="float:right;">
+<%if signed_in?%>
+<%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton buttonStyle'  %><br/>
+<%end%>
+<%if ((is_proprietary? proposal) || is_admin? ) %><!--se sono autorizzato a modificare la proposta-->
 	<%if (proposal.proposal_state_id == 1) #se è ancor modificabile mostra il pulsante%>
 		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
 	<%elsif (proposal.proposal_state_id == 2) #se bisogna scegliere una data mostra la combobox%>
@@ -46,9 +50,9 @@
 		  </p> 
 		<%end%>
 	<%end%>
+<%end%>
 </div>
 <div style="clear: both;"></div>
-<%end%>
 
 <h1 class="proposalTitle"><%=h proposal.title %></h1>
 <h2 class="proposalSubtitle"><%=h proposal.subtitle %></h1>
