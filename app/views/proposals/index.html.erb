@@ -14,19 +14,19 @@ end%>
 <div id="tabs">
 	<ul>
 		<li>
-			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category]), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>			
+			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>			
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category]), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>			
+			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>			
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'Accettate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
+			<%=link_to 'Accettate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category]), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>			
+			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>			
 			<div class="tabs-triangle"/>
 		</li>
 	</ul>

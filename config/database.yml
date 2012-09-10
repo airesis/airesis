@@ -3,7 +3,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: DemocracyOnlineDevelopment
+  database: DemocracyOnlineDevelopment2
   pool: 20
   username: postgres
   password: postgres  

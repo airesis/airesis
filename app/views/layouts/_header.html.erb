@@ -152,7 +152,7 @@ js.id = id;<%if (Rails.env == "production")%>
 		</div>
 		<%end%>
 		
-		<div class="menu_element">
+		<div class="nolink_menu_element">
 			<%= link_to t("open_space"), proposals_path %>
 		</div>
 		
@@ -175,6 +175,7 @@ js.id = id;<%if (Rails.env == "production")%>
 								</div>
 							<%end%>
 						<%end%>
+						<div style="clear:both;"></div>
 						<%= link_to "Cerca gruppi", groups_path %>
 				</div>
 			</div>

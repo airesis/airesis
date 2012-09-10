@@ -55,6 +55,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, { :conditions => {:proposal_state_id => PROP_REVISION }}
   
   scope :public, { :conditions => {:private => false }}
+  scope :private, { :conditions => {:private => true }}
   
   
   before_save :save_tags

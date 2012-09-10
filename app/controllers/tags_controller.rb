@@ -1,10 +1,13 @@
 #encoding: utf-8
 class TagsController < ApplicationController
   
+  layout "settings"
+
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:show]
   
   def show
+    @page_title = "Elenco elementi con tag '" + params[:text] + "'"
     @tag = params[:text]
     @blog_posts = BlogPost.published.find(:all, :joins => :tags , :conditions => {'tags.text' => @tag})
     @proposals = Proposal.find(:all, :joins => :tags , :conditions => {'tags.text' => @tag})

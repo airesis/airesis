@@ -29,13 +29,23 @@ class ProposalsController < ApplicationController
     
   def index    
     @page_title = t('pages.proposals.index.title')
+
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
-      @count_base = @category.proposals.public
+      @count_base = @category.proposals
     else
-      @count_base = Proposal.public
+      @count_base = Proposal
     end
-    @in_valutation_count = @count_base.in_valutation.count      
+
+    if (params[:group_id])
+	@count_base = @count_base.includes([:proposal_supports,:group_proposals])
+.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id]) 
+   else
+      @count_base = @count_base.public
+    end
+   
+
+    @in_valutation_count = @count_base.in_valutation.count
     @in_votation_count = @count_base.in_votation.count
     @accepted_count = @count_base.accepted.count
     @revision_count = @count_base.revision.count
@@ -329,15 +339,17 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def query_index
     order = ""
     if (params[:view] == ORDER_BY_RANK)
-      order << " rank desc, created_at desc"
+      order << " proposals.rank desc, proposals.created_at desc"
     elsif (params[:view] == ORDER_BY_VOTES)
-      order << " valutations desc, created_at desc"
+      order << " proposals.valutations desc, proposals.created_at desc"
     else
-      order << "created_at desc"  
+      order << "proposals.created_at desc"  
     end
     
     conditions = "1 = 1"
     
+    
+
     if (params[:state] == VOTATION_STATE)
       startlist = Proposal.in_votation   
       @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
@@ -357,8 +369,17 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @category = ProposalCategory.find_by_id(params[:category])
       conditions += " and proposal_category_id = #{params[:category]}"
     end
+
+    #applica il filtro per il gruppo
+    if (params[:group_id])
+      #@group = Group.find_by_id(params[:group_id])
+      conditions += " and ((proposal_supports.group_id = " + params[:group_id] + " and proposals.private = 'f') or (group_proposals.group_id = " + params[:group_id] + " and proposals.private = 't'))"
+      #startlist = startlist.private
+    else
+      startlist = startlist.public
+    end
     
-    @proposals = startlist.public.includes(:users).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    @proposals = startlist.includes([:proposal_supports,:group_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
   
   def update_borders(borders)

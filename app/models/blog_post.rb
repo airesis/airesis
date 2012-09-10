@@ -41,7 +41,7 @@ class BlogPost < ActiveRecord::Base
 	end
 
 	def tags_with_links
-		html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+		html = self.tags.collect {|t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
 		return html
 	end
 	
