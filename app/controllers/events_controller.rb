@@ -25,6 +25,7 @@ class EventsController < ApplicationController
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
     if (params[:group_id])
+      @event.organizer_id = params[:group_id]
       respond_to do |format|     
         format.js
         format.html { redirect_to :controller => 'groups', :action => 'edit_events', :id => params[:group_id], :new_event => 'true', :type => params[:type] }

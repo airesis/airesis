@@ -1,14 +1,14 @@
 <h3>Profilo di
-	<%if @user.name%>
-		<%= @user.name %>
-	<%else%>
-		<%= @user.login %>
-	<%end%> 
-	<%if @user.blog %>- <%=link_to 'Vai al blog', blog_path(@user.blog) %><%end %></h3>
+<%if @user.name%>
+	<%= @user.name %>
+<%else%>
+	<%= @user.login %>
+<%end%> 
+</h3>
 <table style="width:100%">
     <tr>
         <td>
-            <div class="user_profile">
+            <div class="user_profile shadow-box">
                 <div id="name_profile" class="profile_element">
                     <h2 class="label_profile">Nome: </h2>
                     <div class="info_profile">
@@ -38,12 +38,6 @@
             </div>
         </td>
         <td>
-        <div class="image_container">
-            <%= @user.user_image_tag 120 %>
-            <div class="caption">
-                <a style="color:white">Modifica l'immagine</a>
-            </div>
-        </div>
         </div>
     </td>
     </tr>

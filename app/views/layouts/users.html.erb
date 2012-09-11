@@ -25,12 +25,19 @@
 			    </div>
 		    <div class="group_title">
 				<h1><%=@user.fullname%></h1>
+				<%if current_user && (@user == current_user)%>
 				<%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
-				<%= link_to 'Blog', current_user.blog, :class => 'commentButton buttonStyle'%>			
-				<%= link_to 'Preferenze', current_user, :class => 'settingsButton buttonStyle' %>
+				<%end%>
+				<%if current_user && (@user == current_user)%>
+				<%= link_to 'Preferenze', @user, :class => 'settingsButton buttonStyle' %>
+				<%else%>
+				<%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
+				<%end%>
+				<%if @user.blog %>
+				<%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle'%>
+				<%end%>
 			</div>
-		</div>
-			
+		</div>			
 	</div>
 		
 		<!-- ##### Main Copy ##### -->

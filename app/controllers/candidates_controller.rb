@@ -22,6 +22,7 @@ class CandidatesController < ApplicationController
   
      
   def new
+     @page_title = "Invia una nuova candidatura"
      @group = Group.find_by_id(params[:group_id])
      @candidate = Candidate.new
   end

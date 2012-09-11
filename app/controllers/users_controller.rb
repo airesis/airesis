@@ -68,11 +68,16 @@ class UsersController < ApplicationController
   
   
   def alarm_preferences
+    @user = current_user
     respond_to do |format|      
       flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
       format.html # show.html.erb
       #format.xml  { render :xml => @user }
     end
+  end
+  
+  def border_preferences
+    @user = current_user
   end
   
   #aggiorni i confini di interesse dell'utente

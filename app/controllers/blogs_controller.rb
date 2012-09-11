@@ -2,6 +2,7 @@
 class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.xml
+  layout "users"
   
   before_filter :authenticate_user!, :only => [ :edit, :update, :destroy, :new, :create ]
   before_filter :check_author, :only => [:edit, :update, :destroy]
@@ -28,6 +29,8 @@ class BlogsController < ApplicationController
   # GET /blogs/1.xml
   def show
     @blog = Blog.find(params[:id])
+    @user = @blog.user
+    @page_title = @blog.title
     @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
 
     respond_to do |format|

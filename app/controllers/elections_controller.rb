@@ -2,7 +2,9 @@
 class ElectionsController < ApplicationController
   require 'vote-schulze'
   
-  rescue_from Exception, :with => :exception_occurred
+  layout "groups"
+  
+  #rescue_from Exception, :with => :exception_occurred
   
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index]
@@ -12,9 +14,13 @@ class ElectionsController < ApplicationController
   before_filter :load_election, :except => [:index,:new,:create]
   before_filter :check_vote, :only => [:vote_page, :show]
   
+  before_filter :load_group
+  
   #load_and_authorize_resource 
   
   def show
+    @group = @election.groups.first
+    @page_title = "Elezione"
     #se l'elezione è terminata e non ho ancora calcolato i risultati, fallo ora.
     if (@election.event.is_past? && (@election.score_calculated == false))
       Election.transaction do
@@ -244,6 +250,10 @@ class ElectionsController < ApplicationController
     end
   end
   
+  def load_group
+    @group = Group.find_by_id(params[:group_id])
+  end
+  
   def load_election
     @election = Election.find_by_id(params[:id], :include => :event)
   end
@@ -260,7 +270,7 @@ class ElectionsController < ApplicationController
                   end                  
                   }
        format.html {
-         redirect_to @election
+         redirect_to :back
        }
      end 
   end  

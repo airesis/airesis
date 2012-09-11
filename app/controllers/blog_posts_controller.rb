@@ -52,9 +52,10 @@ class BlogPostsController < ApplicationController
   
   def show
     @blog_post = @blog.posts.find(params[:id])
+    @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
     @blog_comments = @blog_post.blog_comments.includes(:user).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-     respond_to do |format|
+    respond_to do |format|
       format.js
       format.html
     end    
@@ -149,7 +150,7 @@ class BlogPostsController < ApplicationController
   end
   
   def choose_layout
-    'application'
+    'groups'
   end
   
   def setup_image_template

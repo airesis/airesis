@@ -26,6 +26,8 @@ function disegnaBottoni() {
 	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
 	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
 	$('.historyButton').button({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
+	$('.notesButton').button({icons : {primary : "ui-icon-note"}});
+	
 	$(".disableButton")
 	    .unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
