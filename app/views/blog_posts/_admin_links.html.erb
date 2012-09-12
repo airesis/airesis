@@ -1,6 +1,6 @@
 <% if (user_signed_in? and @blog and current_user.is_my_blog? @blog.id) %>
 <div class="blogAdminLinks">
-	<%= link_to 'Inserisci un nuovo post', new_blog_blog_post_path(@blog), :class => 'newButton' %>
+	<%= link_to 'Inserisci un nuovo post', new_blog_blog_post_path(@blog), :class => 'newButton' %><br />
 	<%= link_to 'Post non pubblicati', drafts_blog_blog_posts_path(@blog), :class => 'buttonStyle' %>
 </div>
 <% end %>

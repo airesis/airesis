@@ -7,7 +7,7 @@ end
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do%>
 	<%= link_to 'Modifica', edit_blog_blog_post_path(@blog), :class => 'editButton littleText' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %><br />
-	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?" if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
+	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?", :class => 'deleteButton littleText' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
 <%end%>
 
 
@@ -56,8 +56,4 @@ end
 
 
 <%content_for :left_panel do%>
-	<div class="leftUserImage">
-		<%= @blog_post.user_image_tag 120%>
-	</div>
-	
 <%end%>

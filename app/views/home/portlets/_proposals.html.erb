@@ -16,9 +16,7 @@ Le tue proposte
 				<td><%=link_to proposal.title, proposal%></td>
 				<td>
 					<%proposal.users.each do |user|%>
-	                <div class="blogUserImage" title="<%=user.name%> <%=user.surname%>">                    	
-	                    <%= user.user_image_tag 20 %>
-	                </div>
+						<%=user_tag_mini(user,proposal)%>
 	            	<%end%>
 	            </td>
 				<td>

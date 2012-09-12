@@ -63,12 +63,33 @@
 .proposal_comment {
 	position: relative;
 	border: 1px solid #CCCCCC;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	-moz-border-radius: 3px 3px 0px 0px;
+	border-radius:  3px 3px 0px 0px;
 	margin-left: 50px;
 	color: #333333;
 }
+
+.proposal_comment_reply {
+	position: relative;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	-webkit-border-radius:  0px 0px 3px 3px;
+	-moz-border-radius: 0px 0px 3px 3px;
+	border-radius: 0px 0px 3px 3px;
+	margin-left: 50px;
+	color: #333333;
+}
+
+.proposal_comment_reply textarea {
+	border: 1px solid #BDC7D8;
+    margin: 5px;
+    resize: none;
+    width: 80%;
+}
+
 .proposal_list {
 	position: relative;
 	border: 1px solid #ccc;

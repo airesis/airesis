@@ -1,7 +1,8 @@
-<% self.respond_to?(:title) && title('Drafts') %>
-<% @show_title = false -%>
 
-<%= render :partial => 'admin_links' %>
+<%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
+	<%= render :partial => 'admin_links' %>	
+<%end%>
+
 
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">

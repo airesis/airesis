@@ -46,6 +46,7 @@
 				<a href="#" onclick="openAnswer(this); return false;">Rispondi al contributo</a>
             </div>
         </div>
+        
      
      <script>     		
 	     	<%if (comment.collapsed) %>
@@ -56,18 +57,26 @@
 	    		hiding(event,<%= comment.id%>);	    	
 	   		});
 	   		
+	   		function createAnswerBox() {
+	   			return $("<div>").append("<textarea>").addClass("proposal_comment");
+	   		}
+	   		
 	   		function openAnswer(el) {
-	   			if (!$(el).opened) {
+	   			if (!$(el).data('opened')) {
 	   				console.log("not open");
-	   				$(el).opened = true;
-	   				answerPanel = $(el).answerPanel = $("<div>").append("<textarea>").addClass("proposal_comment");
-	   				$(el).parent().parent().parent().parent().append(answerPanel);
+	   				$(el).data('opened',true);
+	   				$(el).answerPanel = createAnswerBox(); 
+	   				$(el).parent().parent().parent().parent().append($(el).answerPanel);
 	   			}
 	   			else {
-	   				$(el).opened = false;
+	   				$(el).data('opened',false);
+	   				$(el).answerPanel.hide();
 	   			}
 	   			
 	   		}
      </script>
     </div>
+    <div class="proposal_comment_reply">
+        	<textarea></textarea>
+        </div>
 </div>

@@ -13,8 +13,6 @@
     	margin-bottom: 10px;
 	}
 	
-	
-	
 	.candidate_panel img {
 		width: 48px;
 		height: 48px;
@@ -95,12 +93,13 @@ candidates_num = @election.candidates.count
 <script type="text/javascript">
 	var vote = [];
 	var votestring = "";
+	
 	function elaboraVoto() {
 		votestring = "";
 		vote = [];
 		$('.candidate_panel').each(function(panel) {
 			var val = $('.slideNumber',this).val();
-			if (!val || val == '') val = 0;
+			if (!val || val == '') val = "0";
 			vote.push([$('.candidate_id',this).val(),val])
 		})
 		vote.sort(function(a,b) {
@@ -121,7 +120,8 @@ candidates_num = @election.candidates.count
 		
 		$('#data_votes').val(array2dToJson(vote,'candidates',' '));
 		$('#data_string').val(votestring);
-		
+		console.log('data_string: ' + votestring);
+		console.log('data_votes: ' + array2dToJson(vote,'candidates',' '));
 		return true;
 	}
 

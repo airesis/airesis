@@ -20,7 +20,7 @@ class ElectionsController < ApplicationController
   
   def show
     @group = @election.groups.first
-    @page_title = "Elezione"
+    @page_title = @election.event.title
     #se l'elezione è terminata e non ho ancora calcolato i risultati, fallo ora.
     if (@election.event.is_past? && (@election.score_calculated == false))
       Election.transaction do
@@ -54,6 +54,8 @@ class ElectionsController < ApplicationController
   end
     
   def vote_page
+    @group = @election.groups.first
+    @page_title = @election.event.title + " - Pagina di voto"
     respond_to do |format|
       flash[:error] = "Hai già votato a questa elezione."
       format.html {
@@ -109,7 +111,7 @@ class ElectionsController < ApplicationController
       respond_to do |format|
         #magari ha provato a votare due volte!
         flash[:error] = "Errore durante l'inserimento del tuo voto. Spiacenti."
-        format.html { render :action => "vote_page" }               
+        format.html { redirect_to vote_page_election_url(@election) }               
         format.js {
           render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

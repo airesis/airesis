@@ -43,6 +43,7 @@ class BlogsController < ApplicationController
   # GET /blogs/new
   # GET /blogs/new.xml
   def new
+    @user = current_user
     @blog = Blog.new
 
     respond_to do |format|
