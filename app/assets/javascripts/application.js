@@ -29,3 +29,5 @@
 //= require jquery.form.wizard
 //= require jquery.quick-wizard
 //= require simplemodal
+//= require jquery.watermark.min
+//= require jquery.elastic
