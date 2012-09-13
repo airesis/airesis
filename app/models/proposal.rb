@@ -12,6 +12,7 @@ class Proposal < ActiveRecord::Base
   has_one :vote, :class_name => 'ProposalVote'
   has_many :user_votes, :class_name => 'UserVote'
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
+  has_many :contributes, :class_name => 'ProposalComment', :dependent => :destroy, :conditions => ['parent_proposal_comment_id is null']
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 

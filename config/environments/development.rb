@@ -52,7 +52,7 @@ DemocracyOnline3::Application.configure do
   PROP_VOTES_TO_PROMOTE=6
   
   #limita il numero di commenti
-  LIMIT_COMMENTS=true
+  LIMIT_COMMENTS=false
   
   #config.gem 'resque-mongo', :lib => 'resque'
 

@@ -65,10 +65,14 @@ class ProposalCommentsController < ApplicationController
  
   def create
     post_contribute
+    is_reply = @proposal_comment.parent_proposal_comment_id != nil
     respond_to do |format|
-      @proposal_comments = @proposal.comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
-      @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
-      @saved.collapsed = true
+      @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
+      @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
+      unless (is_reply)
+        @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
+        @saved.collapsed = true
+      end
       format.js  
       format.html { redirect_to @proposal }        
     end
@@ -79,8 +83,12 @@ class ProposalCommentsController < ApplicationController
         puts e
         flash[:error] = 'Errore durante l\'inserimento.'
         format.js   { render :update do |page|
-                        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                        page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
+                        if (is_reply)
+                          
+                        else
+                          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                          page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
+                        end
                       end
                     }
       end

@@ -94,15 +94,12 @@ $(function() {
 <%=raw facebook_like %>
 </div>
 
-<%if signed_in? %>
-	<%my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)%>
-	<%if my_nickname%>
-		<h4>Il tuo nickname è</h4>
-		<div class="blogUserImage">
-			<%=user_tag(current_user,@proposal)%>			
-		</div>
-		<div style="clear: both;"></div>
-	<%end%>
+<%if signed_in? && @my_nickname &&  @proposal.is_current?%>
+	<h4>Il tuo nickname è</h4>
+	<div class="blogUserImage">
+		<%=user_tag(current_user,@proposal)%>			
+	</div>
+	<div style="clear: both;"></div>
 <%end%>
 
 <h4>Autori della proposta</h4>

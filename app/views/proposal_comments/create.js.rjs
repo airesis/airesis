@@ -2,5 +2,6 @@ page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:fl
 page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
 page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal.comments.new}
 
+page.call 'disegnaBottoni'
 page.call 'resetCounter'
 page.call 'checkScroll'

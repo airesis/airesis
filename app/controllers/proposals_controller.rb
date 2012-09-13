@@ -109,8 +109,8 @@ class ProposalsController < ApplicationController
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
     @author_name = User.find(author_id).name
     
-    @proposal_comments = @proposal.comments.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-    
+    @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     respond_to do |format|
       format.js
       format.html {
@@ -152,7 +152,6 @@ class ProposalsController < ApplicationController
   end
   
   def create
-  
     begin
       @saved = false
       Proposal.transaction do

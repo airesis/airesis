@@ -29,4 +29,26 @@
 		}
 		
 	}
+	
+	function createAnswerBox() {
+		return $("<div>").append("<textarea>").addClass("proposal_comment");
+	}
+	
+	function openAnswer(el) {
+		if (!$(el).data('opened')) {
+			console.log("not open");
+			$(el).data('opened',true);
+			$(el).answerPanel = createAnswerBox(); 
+			$(el).parent().parent().parent().parent().append($(el).answerPanel);
+		}
+		else {
+			$(el).data('opened',false);
+			$(el).answerPanel.hide();
+		}
+		
+	}
+	
+	$(function() {
+		$('.reply_textarea').watermark('Inserisci un commento').elastic();
+	})
 </script>

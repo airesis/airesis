@@ -178,9 +178,10 @@ class ApplicationController < ActionController::Base
       @proposal_comment.save!
       
       generate_nickname(current_user,@proposal)
-            
-      notify_user_comment_proposal(@proposal_comment)
-      flash[:notice] = 'Commento inserito.'
+      
+      #notifica solo se si tratta di un nuovo contributo      
+      notify_user_comment_proposal(@proposal_comment) unless @proposal_comment.parent_proposal_comment_id
+      flash[:notice] = 'Contributo inserito correttamente.'
     end
   end
   
