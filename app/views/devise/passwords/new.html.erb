@@ -1,4 +1,5 @@
-<h2>Hai dimenticato la tua password?</h2>
+<%@page_title = t("pages.password.title")%>
+<h2><%=@page_title %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
@@ -6,7 +7,7 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 <br/>
-  <div><%= f.submit "Inviami le istruzioni per resettare la password", :class=>'buttonStyle'  %></div>
+  <div><%= f.submit t("pages.confirmation.submit") , :class=>'buttonStyle'  %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
