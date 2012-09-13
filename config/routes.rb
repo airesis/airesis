@@ -51,6 +51,7 @@ DemocracyOnline3::Application.routes.draw do
       member do
         get :rankup
         get :rankdown    
+        get :show_all_replies
       end
     end
     

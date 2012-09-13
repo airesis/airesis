@@ -48,6 +48,12 @@ class ProposalCommentsController < ApplicationController
       format.xml  { render :xml => @proposal_comment }
     end
   end
+  
+  #mostra tutti i suggerimenti dati ad un contributo
+  def show_all_replies
+    @proposal_comment = ProposalComment.find_by_id(params[:id]) 
+    @replies = @proposal_comment.replies(:order => 'created_at ASC')[0..-6]
+  end
 
   def new
     @proposal_comment =  @proposal.comments.build
@@ -64,8 +70,11 @@ class ProposalCommentsController < ApplicationController
 
  
   def create
+    parent_id = params[:proposal_comment][:parent_proposal_comment_id] 
+    is_reply = parent_id != nil
     post_contribute
-    is_reply = @proposal_comment.parent_proposal_comment_id != nil
+    
+    
     respond_to do |format|
       @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
@@ -84,7 +93,8 @@ class ProposalCommentsController < ApplicationController
         flash[:error] = 'Errore durante l\'inserimento.'
         format.js   { render :update do |page|
                         if (is_reply)
-                          
+                          flash[:error] = @proposal_comment.errors.full_messages.join(",")
+                          page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
                         else
                           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                           page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}

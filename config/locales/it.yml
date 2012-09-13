@@ -126,6 +126,12 @@ it:
         title: "Modifica impostazioni gruppo"
     login:
       title: "Esegui l'autenticazione"
+    confirmation:
+      title: "Re-invio Istruzioni di Conferma"
+      submit: "Inviami le istruzioni"  
+    password:
+      title: "Hai dimenticato la tua password?"
+      submit: "Inviami le istruzioni per resettare la password"  
     registration:
       title: "Registrati al portale"
     proposals:

@@ -81,29 +81,7 @@ class ProposalsController < ApplicationController
       format.js             
     end
   end
-    
-  def index_accepted
-    #se è stata scelta una categoria, filtra per essa
-    if (params[:category])
-        @category = ProposalCategory.find_by_id(params[:category])
-        @proposals = Proposal.accepted.find(:all,:conditions => ["proposal_category_id = ?",params[:category]],:order => "created_at desc")
-    else #altrimenti ordina per data di creazione
-        @proposals = Proposal.accepted.includes(:users).find(:all, :order => "created_at desc")
-    end
-    
-    if (params[:view] == ORDER_BY_RANK)
-      @proposals.sort! { |a,b| b.rank <=> a.rank }
-    elsif (params[:view] == ORDER_BY_VOTES)
-      @proposals.sort!{ |a,b| b.valutations <=> a.valutations }  
-    end  
- 
-    respond_to do |format|     
-      format.html # index.html.erb
-      
-    end
-  end
-  
-  
+   
   def show    
     @page_title = @proposal.title
     author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id

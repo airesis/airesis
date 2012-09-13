@@ -59,23 +59,19 @@
 	   		
      </script>
     </div>
-    <%comment.replies.each do |reply|%>
-     <div class="proposal_comment_reply">
-     	<%comment_nickname = @proposal.proposal_nicknames.find_by_user_id(reply.user.id)%>
-			<div class="reply_img">
-    		<%if (comment_nickname && @proposal.is_current?)%>
-				<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment_nickname.nickname)%>?s=32&d=identicon&r=PG"/>               	
-			<%else%>
-	        	<%= reply.user_image_tag(32) %>
-			<%end%>
-    		</div>
-    		<div class="reply_content">
-       		<%=reply.content%>
-       		</div>
-       		<div style="clear: both;"></div>
-     </div>
+    <%countreplies = comment.replies.count%>
+    <%@lastreplies = comment.replies.paginate(:page => 1,:per_page => 5, :order => 'created_at DESC').reverse!%>
+    <%if countreplies > 5%>
+    <div id="<%=comment.id%>_show" class="show_all_comments">
+    	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' suggerimenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true%>
+    </div>
     <%end%>
-    <div class="proposal_comment_reply">
+    <div id="<%=comment.id%>_replies" style="display:none;">
+    </div>
+    <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+    <%if signed_in?%>
+    <div  class="proposal_comment_reply">
+    	<div id="<%=comment.id%>_reply_area_msg"></div>
     	<%= form_for [@proposal,ProposalComment.new], :remote => true do |f| %>
     	<div class="reply_img">
     	<%if (@my_nickname && @proposal.is_current?)%>
@@ -94,4 +90,5 @@
         <div style="clear: both;"></div>
         <%end%>
     </div>
+    <%end%>
 </div>
