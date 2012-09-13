@@ -70,7 +70,7 @@ gem 'foreigner'
 gem 'client_side_validations'
 #gem 'ar_fixtures'
 
-#gem 'sitemap_generator'
+gem 'sitemap_generator'
 
 #gem 'georuby'
 
