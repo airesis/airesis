@@ -9,12 +9,12 @@
 		});
 	});
 </script>
-
+<!--
 <p>
 	<label for="search_group">Cerca un gruppo di tuo interesse</label>
 	<input type="text" id="search_group" />
 </p>
-
+-->
 <% @groups.each do |group| %>
 <%=render :partial => "group_tag", :locals => {:group => group}%>
 <%end%> 

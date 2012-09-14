@@ -2,7 +2,7 @@
 class BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.xml
-  layout "users"
+  layout :choose_layout
   
   before_filter :authenticate_user!, :only => [ :edit, :update, :destroy, :new, :create ]
   before_filter :check_author, :only => [:edit, :update, :destroy]
@@ -17,6 +17,7 @@ class BlogsController < ApplicationController
    end
   
   def index
+    @page_title = "Elenco blog"
     @blogs = Blog.all
 
     respond_to do |format|
@@ -110,4 +111,12 @@ class BlogsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  protected
+  
+  def choose_layout
+    params[:action] == 'index' ? 'settings' : 'users'
+  end
+  
+  
 end

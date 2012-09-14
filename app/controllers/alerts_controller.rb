@@ -5,6 +5,7 @@ class AlertsController < ApplicationController
   
   #mostra gli alert dell'utente corrente
   def index
+    @page_title = "Tutte le notifiche"
     @new_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = false')
     @old_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = true')
   end

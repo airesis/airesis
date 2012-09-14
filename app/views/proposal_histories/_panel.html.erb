@@ -13,7 +13,7 @@
 					<td><input type="radio" name="new" checked="checked" value="0"/></td>
 					<td><div style="display: none;"><%= @proposal.content%></div></td>
 				</tr>
-					<%@proposal.proposal_histories.each do |h|%>
+					<%@proposal.proposal_histories.order("created_at DESC").each do |h|%>
 					<tr>
 						<td>
 						<%=h.created_at%>

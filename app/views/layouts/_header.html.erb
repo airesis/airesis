@@ -176,7 +176,9 @@ js.id = id;<%if (Rails.env == "production")%>
 							<%end%>
 						<%end%>
 						<div style="clear:both;"></div>
+						<div class="menu-footer">
 						<%= link_to "Cerca gruppi", groups_path %>
+						</div>
 				</div>
 			</div>
 		<%else%>
@@ -207,23 +209,24 @@ js.id = id;<%if (Rails.env == "production")%>
 	});
 	
 	$('.menu_element').click(function(event) {
-		sval = $(this).data('show');
+		_this = $(this);
+		sval = _this.data('show');
 		$('.hidden_panel').hide();
 		$('.menu_element').removeClass('active').data('show',false);
-		$(this).data('show',sval);
-		if($(this).data('show')) {
+		_this.data('show',sval);
+		if(_this.data('show')) {
 			$('.hidden_panel',this).hide();
-			$(this).removeClass('active');			
-			$(this).data('show',false);
+			_this.removeClass('active');			
+			_this.data('show',false);
 		} else {
 			console.log($('.hidden_panel',this));
 			$('.hidden_panel',this).show().position({				
     			my:        "right top",
     			at:        "right bottom",
-    			of:        $(this),    			
+    			of:        _this,    			
 			})
-			$(this).addClass('active');			
-			$(this).data('show',true);
+			_this.addClass('active');			
+			_this.data('show',true);
 		}
 		event.stopPropagation();
 	});
