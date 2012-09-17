@@ -7,23 +7,23 @@ SitemapGenerator::Sitemap.create do
   add '/proposals', :changefreq => 'weekly'
   
   Blog.find_each do |blog|
-     add blog_path(blog)#, :lastmod => blog.updated_at
+     add blog_path(blog), :changefreq => 'daily'#, :lastmod => blog.updated_at
+    blog.posts.find_each do |post|
+      add blog_blog_post_path(blog,post), :lastmod => post.updated_at
+    end
   end
   
   Proposal.public.find_each do |proposal|
-    add proposal_path(proposal), :lastmod => proposal.updated_at
+    add proposal_path(proposal), :lastmod => proposal.updated_at, :changefreq => 'daily'
   end
   
   Event.find_each do |event|
     add event_path(event), :lastmod => event.updated_at
   end
   
-  BlogPost.find_each do |post|
-    add blog_post_path(post), :lastmod => post.updated_at
-  end
   
   Group.find_each do |group|
-    add group_path(group)#, :lastmod => group.updated_at
+    add group_path(group), :changefreq => 'daily'#, :lastmod => group.updated_at
     group.internal_proposals.find_each do |proposal|
       add group_proposal_path(group,proposal)
     end

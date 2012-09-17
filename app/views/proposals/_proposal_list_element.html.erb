@@ -3,7 +3,11 @@
 					<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
 				</div>
 	        <div class="maintitle">
+	        	<%if @group %>
+	        	<%= link_to proposal.title, [@group,proposal] %>
+	        	<%else%>
 	            <%= link_to proposal.title, proposal %>
+	            <%end%>
 	        </div>
 	       	<div class="datetime">
 	            Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>	            
