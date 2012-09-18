@@ -126,7 +126,7 @@ class ProposalsController < ApplicationController
   end
   
   def edit    
-    
+    @page_title = @proposal.title
   end
   
   def create
@@ -193,7 +193,14 @@ class ProposalsController < ApplicationController
       
       respond_to do |format|
         flash[:notice] = t(:proposal_updated)
-        format.html { redirect_to  @proposal }
+        format.html {
+          if params[:from_group]
+            @group = Group.find_by_id(params[:from_group])
+            redirect_to [@group,@proposal]
+          else
+            redirect_to @proposal
+          end 
+        }
       end
       
     rescue ActiveRecord::ActiveRecordError => e
