@@ -32,7 +32,9 @@
   </p>
   
   <p>
+	<%if @group%>
   	<input type="hidden" name="from_group" value="<%=@group.id%>"/>
+	<%end%>
 	<input type="hidden" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
 	<%=f.hidden_field :private%>
   </p>
