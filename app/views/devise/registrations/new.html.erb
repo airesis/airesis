@@ -37,7 +37,19 @@
 </p>
 </div>
 
+
+<div id="privacy_modal" title="Normativa sulla Privacy" style="width:600px;height:300px;display:none" >
+<p>
+	<%= render :partial => 'devise/registrations/privacy'%>
+</p>
+</div>
+
 <script type="text/javascript">	
+
+	function openPrivacyModal() {
+		$( "#privacy_modal" ).dialog({ height: 250, width: 450 });		
+		return false;
+	}
 	
 	function openModal() {
 		$( "#eula_modal" ).dialog({ height: 250, width: 450 });		
