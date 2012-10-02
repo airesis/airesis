@@ -282,7 +282,7 @@ class ProposalsController < ApplicationController
   #passata come parametro
   #se è indicato un group_id cerca solo tra quelle interne a quel gruppo
   def similar
-    tags = params[:tags].split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
+    tags = params[:tags].downcase.gsub('.','').gsub("'","").split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
     if tags.empty? 
       tags = "''"
     end  

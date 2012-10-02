@@ -1,7 +1,4 @@
 <% javascript 'endless_page' %>
-<%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
-<%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
-
 
 <script type="text/javascript">
 $(function() {
@@ -24,13 +21,38 @@ function drawIntro(svg) {
 <div id="svgintro" style="height:600px;width:600px;">
 </div>
 -->
+<div style="float:left; width:600px;">
+<%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
+<%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
 <div id="proposalCommentsContainer">
 	<%= render :partial => 'proposals/comments' %>
 </div>
 <div id="loading_results">
 	<span>Commenti precedenti...</span>
 </div>
+</div>
+<div style="float:left;width:140px;margin-left:15px;">
+	<%unless @proposal.interest_borders.empty?%>
+		<h4>Confini geografici di interesse</h4>		
+		<%@proposal.interest_borders.each do |ib|%>
+			<div style="margin:5px;" class="ui-state-highlight"><%=ib.description%></div>
+		<%end%>
+	<%end%>
+	
+	<%unless @proposal.tags.empty?%>
+		<h4>Tags Folksonomy</h4>		
+		<%@proposal.tags.each do |tag|%>
+			<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
+		<%end%>
+	<%end%>
 
+	<% unless @proposal.closest.empty?%>
+		<h4>Proposte attinenti</h4>
+		<%@proposal.closest.each do |p|%>
+			<%=link_to p.title, p%><br />
+		<%end%>
+	<%end%>
+</div>
 <script>
 
 $(function() {
@@ -83,9 +105,8 @@ $(function() {
 </script>
 
 
+
 <%content_for :left_panel do%>
-
-
 <div id="rankleftpanel" class="rankleftpanel">
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
@@ -132,28 +153,4 @@ $(function() {
 Nessun documento allegato alla proposta
 
 <br />
-<%end%>
-
-<%=content_for :right_panel do%>
-
-	<%unless @proposal.interest_borders.empty?%>
-		<h4>Confini geografici di interesse</h4>		
-		<%@proposal.interest_borders.each do |ib|%>
-			<div style="margin:5px;" class="ui-state-highlight"><%=ib.description%></div>
-		<%end%>
-	<%end%>
-	
-	<%unless @proposal.tags.empty?%>
-		<h4>Tags Folksonomy</h4>		
-		<%@proposal.tags.each do |tag|%>
-			<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
-		<%end%>
-	<%end%>
-
-	<% unless @proposal.closest.empty?%>
-		<h4>Proposte attinenti</h4>
-		<%@proposal.closest.each do |p|%>
-			<%=link_to p.title, p%><br />
-		<%end%>
-	<%end%>
 <%end%>
