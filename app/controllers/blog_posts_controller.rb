@@ -6,8 +6,6 @@ class BlogPostsController < ApplicationController
   
   helper :blog
   
-  
-  
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:tag, :show]
 
@@ -65,15 +63,9 @@ class BlogPostsController < ApplicationController
   end
   
   def new
-    @page_title = t('pages.blog_posts.new.title')
     @blog_post = @blog.posts.build
-    #posso postare nei gruppi per i quali ho il permesso (numero 1)
-    @groups = current_user.groups.find(:all,
-    :select => 'distinct groups.*', 
-    :joins => "LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id", 
-    :conditions => "(action_abilitations.group_id = groups.id " + 
-                   " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
-                   " AND action_abilitations.group_action_id = 1)) or group_partecipations.partecipation_role_id = 2)")
+    
+    load_post_groups
     
     respond_to do |format|
       format.html
@@ -83,6 +75,9 @@ class BlogPostsController < ApplicationController
   
   def edit
     @blog_post = @blog.posts.find(params[:id])
+    @user = @blog.user
+    
+    load_post_groups
   end
   
   def create
@@ -105,7 +100,8 @@ class BlogPostsController < ApplicationController
            }
           #format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
-          
+          @user = @blog.user
+          load_post_groups
           format.html { render :action => "new" }
           #format.xml  { render :xml => @blog_post.errors, :status => :unprocessable_entity }
         end
@@ -163,13 +159,23 @@ class BlogPostsController < ApplicationController
   
   
   protected
+
+  def load_post_groups
+    #posso postare nei gruppi per i quali ho il permesso (numero 1)
+    @groups = current_user.groups.find(:all,
+    :select => 'distinct groups.*', 
+    :joins => "LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id", 
+    :conditions => "(action_abilitations.group_id = groups.id " + 
+                   " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
+                   " AND action_abilitations.group_action_id = 1)) or group_partecipations.partecipation_role_id = 2)")
+  end
   
   def load_blog   
     @blog = Blog.find(params[:blog_id])  if params[:blog_id]
+    @user = @blog.user
          
     @group = Group.find(params[:group_id]) unless params[:group_id].blank?
     @groups = current_user.groups if current_user
-    
     #if !@blog
     #  blog_required
     #end
