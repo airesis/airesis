@@ -21,7 +21,8 @@ function drawIntro(svg) {
 <div id="svgintro" style="height:600px;width:600px;">
 </div>
 -->
-<div style="float:left; width:600px;">
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
+
 <%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
 <%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
 <div id="proposalCommentsContainer">
@@ -30,29 +31,7 @@ function drawIntro(svg) {
 <div id="loading_results">
 	<span>Commenti precedenti...</span>
 </div>
-</div>
-<div style="float:left;width:140px;margin-left:15px;">
-	<%unless @proposal.interest_borders.empty?%>
-		<h4>Confini geografici di interesse</h4>		
-		<%@proposal.interest_borders.each do |ib|%>
-			<div style="margin:5px;" class="ui-state-highlight"><%=ib.description%></div>
-		<%end%>
-	<%end%>
-	
-	<%unless @proposal.tags.empty?%>
-		<h4>Tags Folksonomy</h4>		
-		<%@proposal.tags.each do |tag|%>
-			<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
-		<%end%>
-	<%end%>
 
-	<% unless @proposal.closest.empty?%>
-		<h4>Proposte attinenti</h4>
-		<%@proposal.closest.each do |p|%>
-			<%=link_to p.title, p%><br />
-		<%end%>
-	<%end%>
-</div>
 <script>
 
 $(function() {
@@ -130,7 +109,7 @@ $(function() {
 		In Airesis le discussioni avvengono in modo anonimo.<br />
 		In ciascuna discussione a cui partecipi non è possibile, per gli altri utenti, sapere chi sei e, allo stesso
 		tempo, non è possibile a te sapere chi sono gli altri.<br />
-		Lavorando e discutendo in maniera si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br />
+		Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br />
 		Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!
 	</div>
 <%end%>
@@ -151,6 +130,27 @@ $(function() {
     
 <h4>Documenti collegati</h4>
 Nessun documento allegato alla proposta
+
+<%unless @proposal.interest_borders.empty?%>
+	<h4>Confini geografici di interesse</h4>		
+	<%@proposal.interest_borders.each do |ib|%>
+		<div style="margin:5px;" class="ui-state-highlight"><%=ib.description%></div>
+	<%end%>
+<%end%>
+
+<%unless @proposal.tags.empty?%>
+	<h4>Tags Folksonomy</h4>		
+	<%@proposal.tags.each do |tag|%>
+		<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
+	<%end%>
+<%end%>
+
+<% unless @proposal.closest.empty?%>
+	<h4>Proposte attinenti</h4>
+	<%@proposal.closest.each do |p|%>
+		<%=link_to p.title, p%><br />
+	<%end%>
+<%end%>
 
 <br />
 <%end%>

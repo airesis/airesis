@@ -161,11 +161,7 @@ DemocracyOnline3::Application.routes.draw do
   resources :votations
 
   match ':controller/:action/:id'
-  
-  
-  
- 
-  
+    
   match ':controller/:action/:id.:format'
     
   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
