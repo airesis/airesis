@@ -42,11 +42,26 @@ module StepHelper
           progress.update_attribute(:status,TutorialProgress::DONE)
         end 
         return status
+     when Tutorial.find_by_action_and_controller("show","proposals").id
+        status = show_proposal_steps(step,user)
+        if status
+          progress.update_attribute(:status,TutorialProgress::DONE)
+        end 
+        return status
       else
         logger.error "Impossibile trovare tutorial_id: " + step.tutorial_id.to_s
         return false
     end
     
+  end
+  
+  def show_proposal_steps(step,user)
+     case step.index 
+      when 0
+        return false            
+      when 1
+        return false
+      end
   end
   
   def welcome_steps(step,user)
