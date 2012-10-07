@@ -51,7 +51,7 @@
 </p>
 
 <span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[@proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
-<%if current_user %>
+<%if (!current_user || (can? :partecipate, @proposal)) %>
 		<div class="handscontainer">	
 	<%if @my_vote%>
 			<% if @my_vote == 1 %>

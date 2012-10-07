@@ -1,8 +1,9 @@
-<%proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)%>
+<%proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)
+%>
 
 <div id="comment<%= comment.id %>" class="proposalComment"<%if (comment.collapsed) %>style="display:none"<%end %>>
     <div class="blogUserImage">
-    	<%if (proposal_nickname && @proposal.is_current?)%>
+    	<%if (proposal_nickname && @proposal.is_current? && !(comment.user == current_user))%>
 			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(proposal_nickname.nickname)%>?s=40&d=identicon&r=PG"/>               	
 		<%else%>
 	        <%= comment.user_image_tag(40) %>
@@ -15,10 +16,10 @@
 	        <div class="baloon_header">
 	            <div class="proposalCommentPostedAt">
 	                <span class="blogPoster">
-	                	<%if (proposal_nickname && @proposal.is_current?)%>
+	                	<%if (proposal_nickname && @proposal.is_current?  && !(comment.user == current_user))%>
 							<%=proposal_nickname.nickname%>	                	
 	                	<%else%>
-	                		<%=link_to_user comment.user %>
+	                		<%=link_to_user comment.user, :content_text => comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
 	                	<%end%>
 	                </span> propone...
 	            </div>
@@ -69,16 +70,12 @@
     <div id="<%=comment.id%>_replies" style="display:none;">
     </div>
     <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
-    <%if signed_in?%>
+    <%if signed_in? && (can? :partecipate, @proposal) %>
     <div  class="proposal_comment_reply">
     	<div id="<%=comment.id%>_reply_area_msg"></div>
     	<%= form_for [@proposal,ProposalComment.new], :remote => true do |f| %>
-    	<div class="reply_img">
-    	<%if (@my_nickname && @proposal.is_current?)%>
-			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(@my_nickname.nickname)%>?s=32&d=identicon&r=PG"/>               	
-		<%else%>
-	        <%= current_user.user_image_tag(32) %>
-		<%end%>
+    	<div class="reply_img">    	
+	        <%= current_user.user_image_tag(32) %>		
 	    </div>    
 		<div class="reply_area">
 			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
