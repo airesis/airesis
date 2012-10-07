@@ -19,6 +19,8 @@
             'breadCrumbListClose': '</ol><br/>',
             'breadCrumbListElementOpen': '<li><div>',
             'breadCrumbListElementClose': '</div></li>',
+            'breadCrumbListElementOpenFirst': '<li><div class=\'first\'>',
+            'breadCrumbListElementOpenLast': '<li><div class=\'last\'>',
             'breadCrumbActiveClass': 'bread-crumb-active',
             'breadCrumbCompletedClass': 'bread-crumb-completed',
             'breadCrumbPosition': 'before'
@@ -63,8 +65,17 @@
             if (settings.breadCrumb) {
                 breadCrumbList = settings.breadCrumbListOpen
 
-                container.find(settings.breadCrumbElement).each(function (index) {
-                    breadCrumbList += settings.breadCrumbListElementOpen + $(this).text() + settings.breadCrumbListElementClose;
+				breadCrumbElements = container.find(settings.breadCrumbElement);
+                breadCrumbElements.each(function (index) {
+                	if (index == 0) {
+                		breadCrumbList += settings.breadCrumbListElementOpenFirst + $(this).text() + settings.breadCrumbListElementClose;
+                    }
+                    else if (index == (breadCrumbElements.size()-1)) {
+                    	breadCrumbList += settings.breadCrumbListElementOpenLast + $(this).text() + settings.breadCrumbListElementClose;
+                    }
+                    else {
+                    	breadCrumbList += settings.breadCrumbListElementOpen + $(this).text() + settings.breadCrumbListElementClose;                    	
+                    }
                 });
 
                 breadCrumbList += settings.breadCrumbListClose;
