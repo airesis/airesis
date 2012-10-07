@@ -24,16 +24,16 @@
                 <p>
                 	<%=content_for :left_panel do%>
 	                	<%if @group%>
-		                	<%=link_to 'Crea un evento', {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle' if can_edit_events %>
+		                	<%=link_to 'Crea un evento', {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle newButton' if can_edit_events %>
 	                	<%else%>
-	                    <%=link_to 'Crea un evento', {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle' if can_edit_events %>
+	                    <%=link_to 'Crea un evento', {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle newButton' if can_edit_events %>
 	                    <%end%>
                 	<%end%>
                 </p>
                 <script>
                     
                     
-                    $(document).ready(function(){
+                    $(function(){
                         // page is now ready, initialize the calendar...
                         $('#calendar').fullCalendar({
                             editable: true,
@@ -99,6 +99,11 @@
                         
                         
                         });
+                        
+					    <%if params[:new_event] == 'true' %>
+					    	$('.newButton').click();
+					    <%end%>
+
                     });
                 </script>
                 <div>

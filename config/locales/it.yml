@@ -200,6 +200,7 @@ it:
          all_day: "Tutto il giorno"
          period: "Ripeti"
          frequency: "Ripeti ogni"
+         private: "Privato"
       candidate:
          user: "Candidato"
          election: "Elezione"

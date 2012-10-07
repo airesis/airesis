@@ -16,10 +16,20 @@
 				<%= f.text_area :description, :rows => 4, :cols => 30 %>
 			</p>
 			<p>
+				<div style="float:left;width:50%;">
 				<%= f.label :event_type_id%>
 				<br/>
 				<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+				</div>
+				
+				<div style="float:left;width:50%;">
+				<%= f.label :private%>
+				<br/>
+				<%= f.check_box :private, :title => "Solo i membri del gruppo possono partecipare all'evento" %>
+				</div>
+				<div style="clear: both;" />
 			</p>
+			
 			<p>
 				<%= f.label :starttime %>
 				<br/>
