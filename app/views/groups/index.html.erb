@@ -1,3 +1,4 @@
+<%@page_title = t('pages.groups.index.title') %>
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.index.title')} do%>
 	<%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "newButton" if current_user %>
 <%end%>

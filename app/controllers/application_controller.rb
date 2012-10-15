@@ -89,10 +89,7 @@ class ApplicationController < ActionController::Base
     permissions_denied if !group_id
     @group = Group.find_by_id(group_id)
     permissions_denied if !@group
-    if !is_admin?  
-      ok = ((@group.portavoce.include?current_user) rescue nil)
-      permissions_denied if !ok
-    end
+    permission_denied if (cannot? :create_event, @group)
   end
   
   def check_event_edit_permission
@@ -159,7 +156,8 @@ class ApplicationController < ActionController::Base
     #  session[:user_return_to] = request.url
     #  return
     #end
-     unless (request.xhr? ||
+     unless (request.xhr? || 
+             (!params[:controller]) ||
              (params[:controller].starts_with? "devise/") ||
              (params[:controller] == "users/omniauth_callbacks") || 
              (params[:controller] == "alerts" && params[:action] == "polling") ||

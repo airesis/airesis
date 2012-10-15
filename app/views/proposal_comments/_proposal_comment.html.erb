@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%if (!current_user || (current_user && (!@proposal.private || (can? :partecipate_proposal, @group))))%>	
 <div id="proposalNewComment" class="blogNewComment">
 	<script>
 		function sblank() {
@@ -16,7 +17,7 @@
 		});
 
 	</script>
-	
+
 	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
 	
 	<%= render :partial => 'fragments/error_messages', :locals => {:resource =>proposal_comment} %>
@@ -59,3 +60,4 @@
 		
 	</script>
 </div>
+<%end%>

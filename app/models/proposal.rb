@@ -91,9 +91,11 @@ class Proposal < ActiveRecord::Base
       # Save new tags
       tids = []
       @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.','')
-        t = Tag.find_or_create_by_text(stripped)
-        tids << t.id
+        stripped = tag.strip.downcase.gsub('.','').gsub("'","")
+        unless stripped.blank?
+          t = Tag.find_or_create_by_text(stripped)
+          tids << t.id
+        end
         #if (!self.tags.include? t)
         #  self.tags << t
         #end

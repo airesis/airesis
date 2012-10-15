@@ -13,6 +13,9 @@ class Ability
        can :manage, :all
     else
        can :read, Proposal
+       can :partecipate, Proposal do |proposal|
+         can_partecipate_proposal?(user,proposal)                 
+       end
        can :new, ProposalSupport
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
@@ -66,6 +69,20 @@ class Ability
          return false if (role.id == PartecipationRole::MEMBER)
          roles = group.partecipation_roles.find(:all, :joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
          return roles.include? role
+     end
+     
+     #un utente può partecipare ad una proposta se è pubblica
+     #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
+     #è stata creata
+     def can_partecipate_proposal?(user,proposal)
+       if proposal.private
+         proposal.presentation_groups.each do |group|
+            return true if can_do_on_group?(user,group,7)
+         end
+         return false
+       else
+         return true
+       end
      end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

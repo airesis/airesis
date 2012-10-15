@@ -26,9 +26,10 @@ class EventsController < ApplicationController
     @place = @meeting.build_place(:comune_id => "1330")
     if (params[:group_id])
       @event.organizer_id = params[:group_id]
+      @event.private = true
       respond_to do |format|     
         format.js
-        format.html { redirect_to :controller => 'groups', :action => 'edit_events', :id => params[:group_id], :new_event => 'true', :type => params[:type] }
+        format.html { redirect_to :controller => 'events', :action => 'index', :group_id => params[:group_id], :new_event => 'true', :type => params[:type] }
       end
     end
   end
@@ -87,7 +88,7 @@ class EventsController < ApplicationController
     if @group
     @events = @group.events.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
     else
-    @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}' and private = false"] )
     end
     events = [] 
     @events.each do |event|

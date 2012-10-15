@@ -1,11 +1,11 @@
 <br />
 <%- if devise_mapping.omniauthable? %>
-<%= link_to "Accedi tramite Facebook Connect", "/users/auth/facebook", :class=>"fb-login-button" %>
+<%= link_to image_tag('accedi_facebook.jpg'),  user_omniauth_authorize_path('facebook') %>
  
 <% end -%>
 <br />
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Login", {:action=>"new", :controller=>"devise/sessions", :format=>:user} %><br />
+  <%= link_to "Login", new_session_path(resource_name) %><br />
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

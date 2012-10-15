@@ -20,8 +20,7 @@ class GroupsController < ApplicationController
    #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_permissions]
   
-  def index
-    @page_title = t("pages.groups.index.title")
+  def index    
     @groups = Group.all
     respond_to do |format|
       format.html # index.html.erb
@@ -42,8 +41,7 @@ class GroupsController < ApplicationController
   end
   
   
-  def new
-    @page_title = t("pages.groups.new.title")
+  def new    
     @group = Group.new(:accept_requests => 'p')
     
     respond_to do |format|
@@ -294,7 +292,7 @@ class GroupsController < ApplicationController
   private
 
   def choose_layout    
-    if [ 'new','index'].include? action_name
+    if [ 'new','index','create'].include? action_name
       'settings'
     else
       'groups'

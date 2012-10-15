@@ -1,1 +1,6 @@
+<%if @group%>
+<h2>Calendario degli eventi</h2>
+<%else%>
+<h2>Eventi pubblici</h2>
+<%end%>
 <%=render :partial => "calendar", :locals => {:can_edit_events => @can_edit_events, :group => @group} %>

@@ -1,2 +1,6 @@
-<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id}, :remote => true,  :id => "vote"+action, :class=>"vote"+action %>
+<%if @group%>
+<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id, :group_id => @group.id}, :remote => true,  :id => "vote"+action, :class=>"vote"+action %>
+<%else%>
+<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id}, :remote => true, :id => "vote"+action, :class=>"vote"+action %>
+<%end%>
 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loading'+action %>

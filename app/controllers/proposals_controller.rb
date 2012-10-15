@@ -39,7 +39,11 @@ class ProposalsController < ApplicationController
 
     if (params[:group_id])
 	@count_base = @count_base.includes([:proposal_supports,:group_proposals])
-.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id]) 
+.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
+    
+      if !(can? :view_proposal, @group)
+        flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
+      end 
    else
       @count_base = @count_base.public
     end
@@ -82,25 +86,37 @@ class ProposalsController < ApplicationController
     end
   end
    
-  def show    
-    @page_title = @proposal.title
-    author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
-    @author_name = User.find(author_id).name
-    
-    @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-    @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-    respond_to do |format|
-      format.js
-      format.html {
-        if (@proposal.proposal_state_id == PROP_WAIT_DATE)
-          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-        elsif (@proposal.proposal_state_id == PROP_VOTING)
-          flash.now[:notice] = "Questa proposta è in fase di votazione."
-        end                
-      } # show.html.erb
-     # format.xml  { render :xml => @proposal }
+  def show
+    @step = get_next_step(current_user) if current_user
+    if (@proposal.private && @group && !(can? :view_proposal, @group)) 
+      respond_to do |format|
+        flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"        
+        format.html { 
+          redirect_to group_proposals_path(@group)
+        }              
+      end
+    else        
+      if (@proposal.private && @group && !(can? :partecipate_proposal, @group))       
+        flash[:error] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+      end
+      @page_title = @proposal.title
+      author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
+      @author_name = User.find(author_id).name
+      
+      @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+      @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
+      respond_to do |format|
+        format.js
+        format.html {
+          if (@proposal.proposal_state_id == PROP_WAIT_DATE)
+            flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+          elsif (@proposal.proposal_state_id == PROP_VOTING)
+            flash.now[:notice] = "Questa proposta è in fase di votazione."
+          end                
+        } # show.html.erb
+       # format.xml  { render :xml => @proposal }
+      end    
     end
-    
  # rescue Exception => boom
  #   puts boom
  #   flash[:notice] = t(:error_proposal_loading)
@@ -282,7 +298,7 @@ class ProposalsController < ApplicationController
   #passata come parametro
   #se è indicato un group_id cerca solo tra quelle interne a quel gruppo
   def similar
-    tags = params[:tags].split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
+    tags = params[:tags].downcase.gsub('.','').gsub("'","").split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
     if tags.empty? 
       tags = "''"
     end  
@@ -356,8 +372,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
     #applica il filtro per il gruppo
     if (params[:group_id])
-      #@group = Group.find_by_id(params[:group_id])
-      conditions += " and ((proposal_supports.group_id = " + params[:group_id] + " and proposals.private = 'f') or (group_proposals.group_id = " + params[:group_id] + " and proposals.private = 't'))"
+      #se l'utente è connesso e dispone dei permessi per visualizzare le proposte interne mostragliele, altrimenti mostragli un emssaggio che lo avverte
+      #che non dispone dei permessi per visualizzare quelle interne
+      conditions += " and ((proposal_supports.group_id = " + params[:group_id] + " and proposals.private = 'f')"
+      if (can? :view_proposal, @group)
+        conditions += " or (group_proposals.group_id = " + params[:group_id] + " and proposals.private = 't')"      
+      end
+      conditions += ")"
       #startlist = startlist.private
     else
       startlist = startlist.public
@@ -506,10 +527,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #se un utente ha già valutato la proposta ed essa non è più stata modifica successivamente
   #allora l'operazione viene annullata e viene mostrato un messagio di errore.
   #la stessa cosa avviene se la proposta non è in fase di valutazione
+  #la stessa cosa avviene se l'utente non dispone dei permessi per partecipare ad una proposta privata del gruppo
   def can_valutate   
     @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id,params[:id])
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
-    if @my_vote && @my_ranking.updated_at > @proposal.updated_at
+    if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
+        (@proposal.private && @group && !(can? :partecipate_proposal, @group)))
       flash[:error] = t(:error_proposal_already_ranked)
       respond_to do |format|
         format.js { render :update do |page|
