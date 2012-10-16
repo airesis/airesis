@@ -19,6 +19,9 @@ class HomeController < ApplicationController
       redirect_to home_url
     end
   end
+
+  def engage
+  end
     
   def show
     @step = get_next_step(current_user)
@@ -32,7 +35,11 @@ class HomeController < ApplicationController
     if [ 'show'].include? action_name
       'users'
     else
-      nil
+      if [ 'engage'].include? action_name
+        'landing'
+      else
+        nil
+      end
     end
   end 
 end
