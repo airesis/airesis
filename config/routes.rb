@@ -168,6 +168,8 @@ DemocracyOnline3::Application.routes.draw do
   
   match 'home', :to => 'home#show'
   
+  match '/partecipa' => 'home#engage'
+
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?
   end
