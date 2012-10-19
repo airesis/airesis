@@ -44,13 +44,13 @@
 <div class="container">
 <div class="row"><!-- Menù navigatore-->
 <ul class="navbar" style="float: left; margin-left: 20px;">
-  <li><a href="/partecipa" Title="">PARTECIPA AL PROGETTO</a></li>
+  <li><%= link_to 'PARTECIPA AL PROGETTO', partecipa_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">DI COSA SI TRATTA?</a></li>
+  <li><%= link_to 'DI COSA SI TRATTA?', democraziadiretta_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">CHI SIAMO</a></li>
+  <li><%= link_to 'CHI SIAMO', chisiamo_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">♥ SOSTIENICI</a></li>
+  <li><%= link_to '♥ SOSTIENICI', sostienici_path %></li>
 </ul>
 <!-- Login -->
 <div id="sigin_popup" class="popBlock"></div>

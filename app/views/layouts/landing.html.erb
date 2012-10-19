@@ -3,8 +3,8 @@
 	<head>
 		<title><%= (@page_title || t('open_space')) + ' - Airesis'%></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<%= stylesheet_link_tag 'interne' %>
 		<%= stylesheet_link_tag 'redmond/custom'%> 
+		<%= stylesheet_link_tag 'application' %>
 		<%= javascript_include_tag 'application' %>
 		<meta name="description" content="<%= (@page_descr)%>">
 		<link rel="shortcut icon" href="/favicon.ico" />
@@ -21,7 +21,11 @@
 		    </div>
 	      <div class="group_title">
 			<h1><%=@page_title%></h1>
-			<%= link_to 'Partecipa allo sviluppo', "/partecipa", :class => 'buttonStyle' %>
+			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'buttonStyle' %>
+			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'buttonStyle' %>
+			<%= link_to 'Roadmap', roadmap_path, :class => 'buttonStyle' %>
+			<%= link_to 'Chi siamo', chisiamo_path, :class => 'buttonStyle' %>
+			<%= link_to 'Sostienici', sostienici_path, :class => 'buttonStyle' %>
 			
 			</div>
 		</div>
@@ -34,7 +38,9 @@
 		   <%= yield :left_panel%>
 		  </div>
 			<div id="centerpanelextended"><%= yield :layout %></div>
-<%=render :partial => "layouts/footer_landing" %>	</div>			
+	<br><%=render :partial => "layouts/footer_landing" %>
+	</div>
+				
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 	</div>
 	<div>

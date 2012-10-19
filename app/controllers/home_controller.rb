@@ -23,6 +23,18 @@ class HomeController < ApplicationController
   def engage
   end
     
+  def whatis
+  end
+    
+  def roadmap
+  end
+    
+  def whowe
+  end
+    
+  def helpus
+  end
+    
   def show
     @step = get_next_step(current_user)
     @user = current_user
@@ -35,7 +47,7 @@ class HomeController < ApplicationController
     if [ 'show'].include? action_name
       'users'
     else
-      if [ 'engage'].include? action_name
+      if [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus'].include? action_name
         'landing'
       else
         nil

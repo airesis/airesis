@@ -169,6 +169,10 @@ DemocracyOnline3::Application.routes.draw do
   match 'home', :to => 'home#show'
   
   match '/partecipa' => 'home#engage'
+  match '/chisiamo' => 'home#whowe'
+  match '/roadmap' => 'home#roadmap'
+  match '/democraziadiretta' => 'home#whatis'
+  match '/sostienici' => 'home#helpus'
 
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?

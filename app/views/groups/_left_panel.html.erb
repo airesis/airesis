@@ -27,7 +27,7 @@
 		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" %><br />
 		<%end%>
 	<%else%>
-		<%= link_to 'Crea il mio blog per inziare a scrivere', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
+		<%= link_to 'Crea il mio blog', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px; font-size:15px; "%><br />
 	<%end%>
 	
 	<%= render :partial => 'partecipants_panel' %>
