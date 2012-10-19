@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+	<head>
+		<title><%= (@page_title || t('open_space')) + ' - Airesis'%></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<%= stylesheet_link_tag 'redmond/custom'%> 
+		<%= stylesheet_link_tag 'application' %>
+		<%= javascript_include_tag 'application' %>
+		<meta name="description" content="<%= (@page_descr)%>">
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link href='http://fonts.googleapis.com/css?family=Arimo|Ubuntu' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		
+<%=render :partial => "layouts/header" %>
+		
+	<div id="subheader">
+		<div class="body_maxwidth">
+			<div class="header_image">
+		    	<%=image_tag('logo120.jpg', :style=> "width:120px;height:120px;", :alt=>"Airesis scegli di partecipare") %>
+		    </div>
+	      <div class="group_title">
+			<h1><%=@page_title%></h1>
+			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'buttonStyle' %>
+			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'buttonStyle' %>
+			<%= link_to 'Roadmap', roadmap_path, :class => 'buttonStyle' %>
+			<%= link_to 'Chi siamo', chisiamo_path, :class => 'buttonStyle' %>
+			<%= link_to 'Sostienici', sostienici_path, :class => 'buttonStyle' %>
+			
+			</div>
+		</div>
+			
+	</div>
+		
+		<!-- ##### Main Copy ##### -->
+		<div id="main-copy">
+		  <div id="groups_leftpanel">
+		   <%= yield :left_panel%>
+		  </div>
+			<div id="centerpanelextended"><%= yield :layout %></div>
+	<br><%=render :partial => "layouts/footer_landing" %>
+	</div>
+				
+			<div style="clear: both; height: 0; overflow: hidden;"></div>
+	</div>
+	<div>
+</div>
+
+
+	</body>
+</html>

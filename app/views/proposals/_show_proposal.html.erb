@@ -59,7 +59,7 @@
 <div style="clear: both;"></div>
 
 <h2 class="proposalTitle"><%=h proposal.title %></h2>
-<h3 class="proposalSubtitle"><%=h proposal.subtitle %></h3>
+<h4 class="proposalSubtitle"><%=h proposal.subtitle %></h4>
 <div class="blogCommentPostedAt">
     
 <%if (proposal.proposal_state_id == PROP_WAIT) #in attesa di essere votata%>
@@ -85,21 +85,21 @@ Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/
 
 </div>
 
-<h3>Problematica</h3>
+
 <div class="proposalMainContainer proposal_main shadow-box">
-        <div class="proposal_content">
+<h3>Problematica</h3>        <div class="proposal_content">
             <%=simple_format(proposal.problems, :sanitize => true) %>
         </div>
 </div>
-<h3>Obiettivi</h3>
+
 <div class="proposalMainContainer proposal_main shadow-box">
-        <div class="proposal_content">
+<h3>Obiettivi</h3>        <div class="proposal_content">
             <%=simple_format(proposal.objectives, :sanitize => true) %>
         </div>
 </div>
-<h3>Testo della proposta</h3>
+
 <div id="proposal<%= proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
-        <div class="proposal_content">
+<h3>Testo della proposta</h3>        <div class="proposal_content">
             <%=simple_format(proposal.content, :sanitize => true) %>
         </div>
         <div class="baloon-footer">			
