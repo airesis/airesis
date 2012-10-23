@@ -120,12 +120,12 @@ js.id = id;<%if (Rails.env == "production")%>
 				<div>
 					<%= f.label :login %>
 					<br />
-					<%= f.text_field :login %>
+					<%= f.text_field :login, :style=>"width:80%" %>
 				</div>
 				<div>
 					<%= f.label :password %>
 					<br />
-					<%= f.password_field :password %>
+					<%= f.password_field :password, :style=>"width:80%" %>
 				</div>
 				<% if devise_mapping.rememberable? -%>
 				<div>

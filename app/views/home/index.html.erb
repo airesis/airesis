@@ -44,13 +44,13 @@
 <div class="container">
 <div class="row"><!-- Menù navigatore-->
 <ul class="navbar" style="float: left; margin-left: 20px;">
-  <li><a href="#" Title="">PARTECIPA AL PROGETTO</a></li>
+  <li><%= link_to 'PARTECIPA AL PROGETTO', partecipa_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">DI COSA SI TRATTA?</a></li>
+  <li><%= link_to 'DI COSA SI TRATTA?', democraziadiretta_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">CHI SIAMO</a></li>
+  <li><%= link_to 'CHI SIAMO', chisiamo_path %></li>
   <li class="vertical-divider"></li>
-  <li><a href="#">♥ SOSTIENICI</a></li>
+  <li><%= link_to '♥ SOSTIENICI', sostienici_path %></li>
 </ul>
 <!-- Login -->
 <div id="sigin_popup" class="popBlock"></div>
@@ -162,64 +162,7 @@ nel tuo interesse</h3>
 </dl>
 </div>
 -->
-<hr>
-
-
-<div id="eula_modal" title="Condizioni d'uso" style="width:600px;height:300px;display:none" >
-<p>
-	<%= render :partial => 'devise/registrations/eula'%>
-</p>
-</div>
-
-
-<div id="privacy_modal" title="Normativa sulla Privacy" style="width:600px;height:300px;display:none" >
-<p>
-	<%= render :partial => 'devise/registrations/privacy'%>
-</p>
-</div>
-
-<div style="float:left;">
-&copy; Airesis 2012
-</div>
-<div class="pull-right" style="float:right;">
-	<a href="#" onclick="return openModal();">Condizioni d'uso </a>
-	<a href="#" onclick="return openPrivacyModal();">Privacy policy</a>
-	<a href="#">Torna sopra</a>
-</div>
-<p>
-<!-- <a id="lang-selector" href="#">Italiano
-(IT) <img src="/images/arrowdwn.gif"></a>-->
-</p>
-</div>
-<p></p>
-<div>
-</div>
-</div>
-<!-- /container -->
-<script type="text/javascript">
-
-	function openModal() {
-		$( "#eula_modal" ).dialog({ height: 250, width: 450 });		
-		return false;
-	}
-	
-	function openPrivacyModal() {
-		$( "#privacy_modal" ).dialog({ height: 250, width: 450 });		
-		return false;
-	}
-
-	
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34897773-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+<%=render :partial => "layouts/footer" %>	
 <!-- Triangolo feedback-->
 
 </body>
