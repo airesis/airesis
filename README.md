@@ -1,11 +1,6 @@
 Airesis - E-Democracy Web Application
 ===========================================
 
-<<<<<<< HEAD
-autore: Rodi Alessandro
-
-test
-=======
 Overview
 --------
 Questo innovativo strumento per la democrazia partecipata pone come principale attore al centro il cittadino e gli permette finalmente di essere attivo nelle decisioni del proprio territorio.
@@ -33,7 +28,6 @@ Infine un'implementazione del metodo di schulze permetterà sempre di indire ele
 
 Un'interfaccia assolutamente semplice ed intuitiva permetterà a tutti, in poco tempo, di trovare tutte le informazioni che desiderano.
 
-
 Main author
 -----------
 Zanella Martina
@@ -41,8 +35,8 @@ Zanella Martina
 Other contributors
 ------------------
 Rodi Alessandro
+Tilatti Marino
 
 Website
 -------
 http://www.airesis.it
->>>>>>> upstream/master
