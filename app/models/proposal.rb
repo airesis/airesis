@@ -104,6 +104,9 @@ class Proposal < ActiveRecord::Base
     end
   end 
   
+  def to_param
+    "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
  
  #prima di aggiornare la proposta salvane la 
  #storia nella tabella dedicata (se è cambiato il testo)
