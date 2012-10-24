@@ -1,0 +1,25 @@
+<%
+pv = params[:view] ? params[:view].to_i : nil
+if (!pv || (pv == 1))%>
+	Random stack
+<%else%>	
+	<%=link_to 'Random stack', proposal_proposal_comments_url(@proposal, :view=>1, :reset => true), :remote => true, :onclick => "hideContributes();" %>
+<%end%> | 		
+<% if (pv == 2)%>
+	Più recenti
+<%else%>
+	<%=link_to 'Più recenti', proposal_proposal_comments_url(@proposal, :view=>2, :reset => true), :remote => true, :onclick => "hideContributes();" %>	
+<%end%> |
+<% if (pv == 3)%>
+	Più valutati
+<%else%>	 
+	<%=link_to 'Più valutati', proposal_proposal_comments_url(@proposal, :view=>3, :reset => true), :remote => true, :onclick => "hideContributes();" %>
+<%end%>
+
+<script type="text/javascript">
+	function hideContributes() {
+		currentPage = 0;
+		$('#loading_contributes').show();
+		$('#proposalCommentsContainer').html("");
+	}
+</script>
