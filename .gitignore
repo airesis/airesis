@@ -52,3 +52,4 @@ log
 app/assets/images/users
 config/environments/production.rb
 tmp
+.git

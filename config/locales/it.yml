@@ -81,6 +81,7 @@ it:
     proposal:
       can_change_valutation: "La proposta è stata aggiornata da quando l'hai valutata. Puoi cambiare la tua valutazione se vuoi!"
    
+  #proposal_url: "proposte"
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
   proposal_deleted:  "La proposta è stata eliminata correttamente."
