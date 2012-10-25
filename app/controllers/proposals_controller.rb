@@ -33,6 +33,7 @@ class ProposalsController < ApplicationController
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
       @count_base = @category.proposals
+      @page_title += ' - ' + @category.description
     else
       @count_base = Proposal
     end

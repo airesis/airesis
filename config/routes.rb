@@ -168,6 +168,11 @@ DemocracyOnline3::Application.routes.draw do
   
   match 'home', :to => 'home#show'
   
+  #url friendly 'proposte'
+  #match ':proposal_url/:id', :to => 'proposals#show'
+  #match ':proposal_url', :to => 'proposals#index'
+  #match ':proposal_url/cat/:category/', :to => 'proposals#index'
+  
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
