@@ -63,51 +63,33 @@
 <div class="container">
 <div id="f_main" class="row" style="height: 450px;"><!-- Popup nuvola community, da non utlizzare in fase sperimentale-->
 <!-- Logo principale-->
-<%=image_tag 'logo_main.png', :style => 'position: absolute; margin-top: 0px; right: 58%;', :alt => "Airesis - Scegli di partecipare"%>
-<div 
- style="position: absolute;  left: 50%;">
-	 <div style=" width:420px;font-family:Arial; text-align:center;">
-		<div style="margin:5px; line-height:23px">
-		   <a href="http://it.wikipedia.org/wiki/Social_network" target="_blank" style="font-size:37px;text-decoration:none; color: #87A800;">DISCUTI</a>  
-		   <a href="http://www.facebook.it" target="_blank" style="font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;">COMMENTA</a>  
-		   <a href="http://it.wikipedia.org/wiki/Social_network" target="_blank" style="font-size:37px;text-decoration:none; color: #039FAF;">COLLABORA</a>  
-		   <a href="http://www.doodle.com/" target="_blank" style="font-size:37px;text-decoration:none; color: #DE2159;">DECIDI</a>  
-		   <a href="http://www.blogger.com" target="_blank" style="font-size:34px;text-decoration:none;  color: #87A800;padding-top:15px;">PROPONI</a>  
-		   <a href="http://www.decorourbano.org/" target="_blank" style="font-size:29px;text-decoration:none; color: #FF7600;">SEGNALA</a>  
-		   <a href="http://www.meetup.com/" target="_blank" style="font-size:40px;text-decoration:none; color: #DE2159;">PARTECIPA</a>  
-		   <a href="http://it.wikipedia.org/wiki/Votazione_elettronica" target="_blank" style="font-size:40px;text-decoration:none; color: #039FAF;">VOTA</a>  
-		   <a href="http://it.wikipedia.org/wiki/Forum_(Internet)" target="_blank" style="font-size:23px;text-decoration:none; color: #87A800;">DIBATTI</a>  
-		</div>
-	</div>
-</div>
+<%=image_tag 'logo_main.png', :style => 'position: absolute; margin-top: 0px; right: 60%;'%>
+
 <!--Slogan-->
 <div id="slogan" style="position:absolute;margin-top:330px;">
-
 <div style="float:left;">
-
-<div  style="float:left; margin:5px; padding:0px; margin-left: 25px; font-weight:bold; ">
-  <%=link_to raw('Provalo'),proposals_path,  :class=>"btn btn-success btn-large", 
- :style=>"font-size: 42px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
-</div>
-<%= link_to image_tag('accedi_fb.png', :align=>"left", :style=>'margin-left: 40px'), user_omniauth_authorize_path('facebook')%> 
-<div style="float:left;margin:5px; padding:0px; margin-left: 40px; font-weight:bold">
-	<a id="signup" style="font-size: 42px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;"
+<div style="float:left;margin-right: 10px;margin-top:10px;">
+	<a id="signup" style="font-size: 16px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"
 	 class="btn btn-success btn-large" href="/users/sign_up">Iscriviti</a>
+<br />
 </div>	
-
-	
+<div  style="float:left;margin-right: 10px;margin-top:10px;margin-bottom: 15px;">
+  <%=link_to raw('Provalo'),proposals_path,  :class=>"btn btn-success btn-large",
+ :style=>"font-size: 16px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;" %>
+</div><br />
+<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook')%>  		
 </div>  
-<div  style="float:right; width: 320px;">
+<div  style="float:right; width: 400px;">
 <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-  <div style="float:left; font-size:14px">
-  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :login %></div>
-  <%= f.text_field :login, :style => "width:140px;" %> <br />
-  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :password %></div>
-  	<%= f.password_field :password, :style => "width:140px;" %>  <br />
-  <%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:14px' %> <%= f.label :remember_me, "Ricordami su questo computer", :style=>'font-size:14px' %>
+  <div style="float:left">
+  <div style="float:left; width:90px; margin-top: 3px;"><%= f.label :login %></div>
+  <%= f.text_field :login, :style => "width:200px;" %> <br />
+  <div style="float:left; width:90px; margin-top: 3px;"><%= f.label :password %></div>
+  	<%= f.password_field :password, :style => "width:200px;" %>  <br />
+  <%= f.check_box :remember_me, :style=>'margin-left:0px;' %> <%= f.label :remember_me, "Ricordami su questo computer" %>
   </div>
   <div>	
-	<%= f.submit "Accedi", :style=>"margin-left: 10px;cursor:pointer; font-size: 20px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
+	<%= f.submit "Accedi", :style=>"margin-left: 10px;cursor:pointer; font-size: 16px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
   </div>				  	
 <% end %>	
 </div>
@@ -180,7 +162,7 @@ nel tuo interesse</h3>
 </dl>
 </div>
 -->
-<%=render :partial => "layouts/footer_landing" %>	
+<%=render :partial => "layouts/footer" %>	
 <!-- Triangolo feedback-->
 
 </body>

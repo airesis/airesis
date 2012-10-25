@@ -1,41 +1,61 @@
 <h2 id="linkback">Pubblica il nostro banner o un link</h2>
-<p>Airesis.it permette agli amici delle associazioni e degli enti che condividono il nostro progetto di pubblicare un banner o un link testuale per aiutarci a farlo conoscere a tutti</p>
-                    <p>Per poter visualizzare il banner o il link sul proprio sito, copia il codice che trovi qui sotto e inseriscilo all'interno del codice della pagina del tuo sito dove vuoi che venga visualizzato:</p>
-                    <h3>Banners</h3>
-                    <table width="100%"  border="0" cellspacing="10" cellpadding="0">
-                      <tr>
-                        <td><div  style="border:1px dotted grey; padding:10px "><table width="100%"  border="0" cellspacing="0" cellpadding="0" >
-                          <tr>
-                            <td><a href="http://www.airesis.it" target="_blank"><img src="/assets/banner_160x600.gif" width="120" height="600" border="1"></a></td>
-                            <td valign="top"><h3>160x600 - Wide skyscraper<br>
-                                <textarea name="textarea2"  style="width:100%; height:400px " onClick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave;"><img src="http://www.airesis.it/assets/banner_160x600.gif" width="160" height="600" border="0" alt="Airesis: Scegli di partecipare"></a></textarea>
-                            </h3></td>
-                          </tr>
-                        </table></div></td>
-                        <td valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td><div  style="border:1px dotted grey; padding:10px "><a href="http://www.airesis.it" target="_blank"><img src="/assets/banner_468x60.gif" width="468" height="60" border="0"></a>
-                              <h3>468x60 - Full Banner </h3>
-                                <textarea name="textarea4"  style="width:100%; height:100px " onClick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; "><img src="http://www.airesis.it/assets/banner_468x60.gif" width="468" height="60" border="0" alt="Airesis: Scegli di partecipare"></a></textarea>
-                              </div></td>
-                          </tr>
-                          <tr>
-                            <td height="10"></td>
-                          </tr>
-                          <tr>
-                            <td><div  style="border:1px dotted grey; padding:10px "><a href="http://www.airesis.it" target="_blank"><img src="/assets/banner_160x160.gif" width="160" height="160" border="0"></a>
-							<h3>160x160 - Square </h3>
-                              <textarea name="textarea3"  style="width:100%; height:100px " onClick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; "><img src="http://www.airesis.it/assets/banner_160x160.gif" width="160" height="160" border="0" alt="Airesis: Scegli di partecipare"></a></textarea>
-                            </div></td>
-                          </tr>
-                        </table></td>
-                      </tr>
-                    </table>
-                    
-                    <h3>Link testuale</h3>
+<p>
+	Airesis.it permette agli amici delle associazioni e degli enti che condividono il nostro progetto di pubblicare un banner o un link testuale per aiutarci a farlo conoscere a tutti
+</p>
+<p>
+	Per poter visualizzare il banner o il link sul proprio sito, copia il codice che trovi qui sotto e inseriscilo all'interno del codice della pagina del tuo sito dove vuoi che venga visualizzato:
+</p>
+<h3>Banners</h3>
 
-                      <ul>
-                        <li>                            <a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; ">Airesis: Scegli di partecipare </a><br>
-                          <textarea name="textarea"  style="width:100%; height:100px " onclick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; ">Airesis: Scegli di partecipare</a></textarea>                         </li>
-					  </ul>
-					  <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>
+<table width="100%"  border="0" cellspacing="10" cellpadding="0">
+	<tr>
+		<td>
+		<div  style="border:1px dotted grey; padding:10px ">
+			<table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+				<tr>
+					<td> <%= link_to image_tag("helpus_2.gif"), root_path, :target => "_blank" %> </td>
+					<td valign="top"><h3>160x600 - Wide skyscraper
+					<br>
+					<textarea name="textarea2"  style="width:100%; height:400px " onClick="javascript:this.select();">
+						<a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave;"><img src="http://www.airesis.it/assets/banner_160x600.gif" width="160" height="600" border="0" alt="Airesis: Scegli di partecipare"></a>
+					</textarea></h3></td>
+				</tr>
+			</table>
+		</div></td>
+		<td valign="top">
+		<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+				<div  style="border:1px dotted grey; padding:10px ">
+					<%= link_to image_tag("helpus_3.gif"), root_path, :target => "_blank" %>					
+					<h3>468x60 - Full Banner </h3>
+					<textarea name="textarea4"  style="width:100%; height:100px " onClick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; "><img src="http://www.airesis.it/assets/banner_468x60.gif" width="468" height="60" border="0" alt="Airesis: Scegli di partecipare"></a></textarea>
+				</div></td>
+			</tr>
+			<tr>
+				<td height="10"></td>
+			</tr>
+			<tr>
+				<td>
+				<div  style="border:1px dotted grey; padding:10px ">
+					<%= link_to image_tag("helpus_1.gif"), root_path, :target => "_blank" %>
+					<h3>160x160 - Square </h3>
+					<textarea name="textarea3"  style="width:100%; height:100px " onClick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; "><img src="http://www.airesis.it/assets/banner_160x160.gif" width="160" height="160" border="0" alt="Airesis: Scegli di partecipare"></a></textarea>
+				</div></td>
+			</tr>
+		</table></td>
+	</tr>
+</table>
+
+<h3>Link testuale</h3>
+
+<ul>
+	<li>
+		<a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; ">Airesis: Scegli di partecipare </a>
+		<br>
+		<textarea name="textarea"  style="width:100%; height:100px " onclick="javascript:this.select();"><a href="http://www.airesis.it/" target="_blank" title="Airesis: scelta di partecipazione, trasparenza, dialogo ed equit&agrave; ">Airesis: Scegli di partecipare</a></textarea>
+	</li>
+</ul>
+<p>
+	Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.
+</p>

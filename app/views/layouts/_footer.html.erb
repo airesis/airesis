@@ -1,25 +1,54 @@
-<!-- ### facebook ###-->
-<div id="fb-root"></div>
-<script>
+<!--<div id="triangle-topleft2"></div>
+<div id="triangle-topleft"><a href="mailto:hicsuntleones@gmail.com&cc=nicolagiulietti@hotmail.it&subject=Segnalazione da <%=request.fullpath%>&body=Nel testo della segnalazione ti preghiamo di inserire se hai avuto accesso alla tua area riservata e eventualmente quale azione stavi compiendo inserendone l'eventuale testo o il messaggio di errore. ">Segnala un bug<br>VERSIONE NON DEFINITIVA</a></div>
+-->
 
-//facebook
-	( function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if(d.getElementById(id)) {
-return;
-}
-js = d.createElement(s);
-js.id = id;<%if (Rails.env == "production")%>
-	js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=242345195791486";
 
-<%else%>
-	js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=221145254619152";
+<div id="eula_modal" title="Condizioni d'uso" style="width:600px;height:300px;display:none" >
+<p>
+	<%= render :partial => 'devise/registrations/eula'%>
+</p>
+</div>
 
-<%end%>
-	fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
 
-//google analytics
+<div id="privacy_modal" title="Normativa sulla Privacy" style="width:600px;height:300px;display:none" >
+<p>
+	<%= render :partial => 'devise/registrations/privacy'%>
+</p>
+</div>
+<div style="float:left; width:100%">
+<hr >
+<div style="float:left;">
+&copy; Airesis 2012
+</div>
+<div class="pull-right" style="float:right;">
+	<a href="#" onclick="return openModal();">Condizioni d'uso </a> - 
+	<a href="#" onclick="return openPrivacyModal();">Privacy policy</a> - 
+	<a href="#">Torna sopra</a>
+</div>
+<div>
+<p>
+<!-- <a id="lang-selector" href="#">Italiano
+(IT) <img src="/images/arrowdwn.gif"></a>-->
+</p>
+</div>
+<p></p>
+<div>
+</div>
+</div>
+<!-- /container -->
+<script type="text/javascript">
+
+	function openModal() {
+		$( "#eula_modal" ).dialog({ height: 250, width: 450 });		
+		return false;
+	}
+	
+	function openPrivacyModal() {
+		$( "#privacy_modal" ).dialog({ height: 250, width: 450 });		
+		return false;
+	}
+
+	
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-34897773-1']);
   _gaq.push(['_trackPageview']);
@@ -30,299 +59,5 @@ js.id = id;<%if (Rails.env == "production")%>
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-
-
 </script>
-<link href="https://plus.google.com/109056260698393169005" rel="publisher" />
-<script type="text/javascript">
-	window.___gcfg = {
-		lang : 'it'
-	}; (function() {
-		var po = document.createElement("script");
-		po.type = "text/javascript";
-		po.async = true;
-		po.src = "https://apis.google.com/js/plusone.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(po, s);
-	})();
-
-</script>
-<script>
-	! function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if(!d.getElementById(id)) {
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//platform.twitter.com/widgets.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}
-	}(document, "script", "twitter-wjs");
-
-</script>
-<!-- ##### Header ##### -->
-<div id="header">
-	<div class="body_maxwidth">
-		<div class="midHeader">
-		<h2 class="headerTitle" lang="la"><%= link_to "Airesis", root_path%></h2>
-		</div>
-		<!--<div class="subHeader">
-			<span class="doNotDisplay">Navigation:</span>
-			<%= link_to 'Le proposte', proposals_path%>
-			<%= link_to 'I blog', blogs_path %>
-			<%= link_to 'I gruppi', groups_path %>
-			<%= link_to 'Calendario', events_path %>
-		</div>-->
-		<div class="superHeader menu_element">
-			<% if user_signed_in? %> <span>Benvenuto </span>
-			<%if current_user.name%>
-			<%= current_user.name %>
-			<%else%>
-			<%= current_user.login %>
-			<%end%>
-			<div class="user-panel shadow-box hidden_panel" id="user-panel">
-				<div style="float:left">
-					<%= current_user.user_image_tag%>
-				</div>
-				<ul class="menu-list">
-					<li>
-						<span class="Mo ui-icon ui-icon-contact"></span>
-						<%= link_to 'La mia pagina', root_url %>
-					</li>
-					<li>
-						<span class="Mo ui-icon ui-icon-comment"></span>
-						<% if current_user.blog %>
-						<%= link_to 'Il mio blog', current_user.blog %>
-						<% else %>
-						<%= link_to 'Crea un tuo blog', new_blog_path %>
-						<% end %>
-					<li>
-						<span class="Mo ui-icon ui-icon-contact"></span>
-						<%= link_to 'Preferenze', user_url(current_user.id) %>
-					</li>
-					<% if is_admin?%>
-					<li>
-						<span class="Mo ui-icon ui-icon-key"></span>
-						<%= link_to 'Amministrazione', admin_panel_path%>
-					</li>
-					<%end%>
-					</li>
-					<li>
-						<span class="Mo ui-icon ui-icon-power"></span>
-						<%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
-					</li>
-				</ul>
-			</div>
-			<% else %>
-			<span><%= t('pages.top_panel.login') %></span>
-			
-			<div class="shadow-box hidden_panel" id="registration-panel">
-				<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-				<div>
-					<%= f.label :login %>
-					<br />
-					<%= f.text_field :login %>
-				</div>
-				<div>
-					<%= f.label :password %>
-					<br />
-					<%= f.password_field :password %>
-				</div>
-				<% if devise_mapping.rememberable? -%>
-				<div>
-					<%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
-				</div>
-				<% end -%>
-				<div>
-					<%= f.submit "Login", :class=>"buttonStyle" %>
-					<%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle" %>
-					<br />
-				</div>
-				<% end %>
-				<br />
-				<div>
-					<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook') %>
-				</div>
-				<p>
-					<%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %>
-					<br />
-				</p>
-				<%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %>
-				<br />
-			</div>
-			<% end %>
-		</div>
-		
-		<% if user_signed_in? %>
-		<div class="alerts_link menu_element">
-			<div class="number">
-				0
-			</div>
-			<div class="notification-panel shadow-box hidden_panel" id="notification-panel">
-				<ul class="menu-list">
-					<li>
-						Nessuna notifica
-					</li>
-				</ul>
-			</div>
-		</div>
-		<%end%>
-		
-		<div class="nolink_menu_element">
-			<%= link_to t("open_space"), proposals_path %>
-		</div>
-		
-		<%if user_signed_in?%>
-			<div class="menu_element">
-				I miei gruppi
-				<div class="groups_panel shadow-box hidden_panel" id="groups_panel">
-						<%@groups = current_user.groups %>
-						<%if @groups.empty? %>
-							<%= "Non partecipi a nessun gruppo ancora"%><br/>
-						<%else%>
-							<%@groups.each do |group|%>
-								<div class="groupcontainer">
-									<div class="groupImg24">
-										<%= group.group_image_tag(24) rescue nil %>
-									</div>
-									<div class="group">
-										<%= link_to group.name, group %>
-									</div>
-								</div>
-							<%end%>
-						<%end%>
-						<div style="clear:both;"></div>
-						<div class="menu-footer">
-						<%= link_to "Cerca gruppi", groups_path %>
-						</div>
-				</div>
-			</div>
-		<%else%>
-		<div class="menu_element">
-			<%= link_to "Cerca gruppi", groups_path %>
-		</div>
-		<%end%>
-
-		
-		<div style="clear: both; height: 0; overflow: hidden;"></div>
-	</div>
-	<span>
 </div>
-<script type="text/javascript">
-	$('.subHeader a').button();
-
-<%if user_signed_in?%>
-	$('.hidden_panel').hide();
-	$('.menu_element').data('show',false);
-	user_panel_shown = false;
-	notification_panel_shown = false;
-	groups_panel_shown = false;
-
-	$('html').click(function() {
-		$('.menu_element').removeClass('active').data('show',false);
-		$('.hidden_panel').hide();
-		
-	});
-	
-	$('.menu_element').click(function(event) {
-		_this = $(this);
-		sval = _this.data('show');
-		$('.hidden_panel').hide();
-		$('.menu_element').removeClass('active').data('show',false);
-		_this.data('show',sval);
-		if(_this.data('show')) {
-			$('.hidden_panel',this).hide();
-			_this.removeClass('active');			
-			_this.data('show',false);
-		} else {
-			console.log($('.hidden_panel',this));
-			$('.hidden_panel',this).show().position({				
-    			my:        "right top",
-    			at:        "right bottom",
-    			of:        _this,    			
-			})
-			_this.addClass('active');			
-			_this.data('show',true);
-		}
-		event.stopPropagation();
-	});
-
-	$(".menu_element").mouseover(function() {
-		$(this).addClass("active");
-	}).mouseout(function() {
-		if($(this).data('show') == false) {
-			$(this).removeClass("active");
-		}
-
-	});
-
-	$('.hidden_panel').click(function(event) {
-		event.stopPropagation();
-	});
-	function fetchNotifications() {
-		jQuery.ajax({
-			data : '',
-			dataType : 'script',
-			type : 'get',
-			url : "/alerts/polling"
-		});
-	}
-
-	function poll() {
-		$.getScript("/alerts/polling/")
-		setTimeout(poll, 60000);
-		//valore temporaneo
-	};
-
-	//setTimeout(poll, 600000);
-	//valore temporaneo
-	poll();
-<%else%>
-	$('#registration-panel').hide();
-	user_panel_shown = false;
-	$('html').click(function() {
-		if(user_panel_shown) {
-			$('#registration-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
-		}
-	});
-
-	$(".superHeader").mouseover(function() {
-		$(this).addClass("active");
-	}).mouseout(function() {
-		if(!user_panel_shown) {
-			$(this).removeClass("active");
-		}
-	});
-
-	$(".superHeader").focusin(function() {
-		$(this).addClass("active");
-	}).focusout(function() {
-		$(this).removeClass("active");
-	});
-
-	$('.superHeader').click(function(event) {
-		if(user_panel_shown) {
-			$('#registration-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
-		} else {
-			$('#registration-panel').show().position({				
-    			my:        "right top",
-    			at:        "right bottom",
-    			of:        $('.superHeader'),    			
-			})
-			$('.superHeader').addClass('active');
-			user_panel_shown = true;
-		}
-		event.stopPropagation();
-	});
-
-	$('#registration-panel').click(function(event) {
-		event.stopPropagation();
-	});
-
-<%end%>
-	$('#loading').hide();
-
-</script>

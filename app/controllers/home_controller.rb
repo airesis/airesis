@@ -46,12 +46,10 @@ class HomeController < ApplicationController
   def choose_layout    
     if [ 'show'].include? action_name
       'users'
-    else
-      if [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus'].include? action_name
+    elsif [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus'].include? action_name
         'landing'
-      else
-        nil
-      end
+    else
+        nil    
     end
   end 
 end

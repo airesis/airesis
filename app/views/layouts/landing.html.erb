@@ -17,7 +17,7 @@
 	<div id="subheader">
 		<div class="body_maxwidth">
 			<div class="header_image">
-		    	<%=image_tag('logo120.jpg', :style=> "width:120px;height:120px;", :alt=>"Airesis scegli di partecipare") %>
+		    	    	<%= image_tag 'airesis.jpg', :width => 120, :alt =>"Airesis" %>
 		    </div>
 	      <div class="group_title">
 			<h1><%=@page_title%></h1>
@@ -38,14 +38,10 @@
 		   <%= yield :left_panel%>
 		  </div>
 			<div id="centerpanelextended"><%= yield :layout %></div>
-	<br><%=render :partial => "layouts/footer_landing" %>
-	</div>
-				
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
-	</div>
-	<div>
-</div>
-
-
+			<div class="footer">
+				<%=render :partial => "layouts/footer" %>
+			</div>	
+		</div>			
 	</body>
 </html>
