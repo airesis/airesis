@@ -1,4 +1,5 @@
 <%if params[:reset]%>
+	contributes = [];
 	$('#order_bar').html("<%= escape_javascript(render(:partial => 'order_bar'))%>");
 	$('#proposalCommentsContainer').html("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
 	$('#loading_contributes').hide();
@@ -6,9 +7,13 @@
 	$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
 <%end%>
 
-<%if @proposal_comments.total_pages > @proposal_comments.current_page%>
+contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
+console.log(contributes);
+
+<%if @total_pages > @current_page%>
   $('#loading_results').show();
   checkScroll();
+  checkActive = true;
 <%else%>
   $('#loading_results').hide();
 <%end%>

@@ -53,6 +53,9 @@ DemocracyOnline3::Application.routes.draw do
         get :rankdown    
         get :show_all_replies
       end
+      collection do
+        post :list
+      end
     end
     
     resources :proposal_histories

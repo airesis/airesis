@@ -140,18 +140,26 @@ function drawIntro(svg) {
 	}
 </script>
 
-<script>	
+<script type="text/javascript">	
 var currentPage = 0;
+var currentView = 1;
+var contributes = [];
+var checkActive = false;
 
 function resetCounter () {
 	currentPage = 0;
 }
 
 function checkScroll() {
-  if (nearBottomOfPage()) {
+  if (nearBottomOfPage() && checkActive) {
     console.log("near bottom");
     currentPage++;
-	$.ajax({ url: '<%=proposal_proposal_comments_url(@proposal) %>&page=' + currentPage, type:'get'});
+	$.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
+			 data: {page: currentPage,
+			 		view: currentView,
+			 		contributes: contributes
+			 },
+			 type:'post'});
   } else {
     setTimeout("checkScroll()", 250);
   }
@@ -171,13 +179,16 @@ function pageHeight() {
 
 $(function() {
   currentPage++;
-  $.ajax({ url: '<%=proposal_proposal_comments_url(@proposal) %>&page=' + currentPage, 
-  		   type:'get',
+  $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>', 
+   		   data: {page: currentPage,
+			 	  view: currentView,
+			 	  contributes: contributes
+		   },
+  		   type:'post',
   		   complete: function() {
 		  		   		$("#loading_contributes").hide();
 		  		     } 
   });	
-  //checkScroll();
 });
 	
 	
