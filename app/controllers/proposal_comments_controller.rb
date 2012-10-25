@@ -32,13 +32,21 @@ class ProposalCommentsController < ApplicationController
   end  
   
   
-  
+  #restituisce l'elenco dei contributi
   def index
-    @proposal_comments = ProposalComment.all
+    order = ""
+    if (params[:view] == ORDER_BY_RANK)
+      order << " proposal_comments.rank desc, proposal_comments.created_at desc"
+    else
+      order << "proposal_comments.created_at desc"  
+    end
+
+    @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
 
     respond_to do |format|
+      format.js
       format.html # index.html.erb
-      format.xml  { render :xml => @proposal_comments }
+      #format.xml  { render :xml => @proposal_comments }
     end
   end
 

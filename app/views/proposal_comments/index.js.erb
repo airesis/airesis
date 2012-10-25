@@ -1,0 +1,14 @@
+<%if params[:reset]%>
+	$('#order_bar').html("<%= escape_javascript(render(:partial => 'order_bar'))%>");
+	$('#proposalCommentsContainer').html("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+	$('#loading_contributes').hide();
+<%else%>
+	$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+<%end%>
+
+<%if @proposal_comments.total_pages > @proposal_comments.current_page%>
+  $('#loading_results').show();
+  checkScroll();
+<%else%>
+  $('#loading_results').hide();
+<%end%>

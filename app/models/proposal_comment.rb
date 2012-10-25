@@ -35,24 +35,6 @@ class ProposalComment < ActiveRecord::Base
     self.user_ip    = request.remote_ip
     self.user_agent = request.env['HTTP_USER_AGENT']
     self.referrer   = request.env['HTTP_REFERER']
-  end
- 
- 
- #restituisce il numero di valutazioni che sono state fatte per questo commento
-  def valutations
-     return self.rankings.count    
-  end
-  
-  #restituisce la valutazione del commento. 0 se non ci sono state valutazioni
-  def rank   
-    nvalutations = self.valutations
-    num_pos = self.rankings.positives.count
-    ranking = 0
-    res = num_pos.to_f / nvalutations.to_f
-    ranking = res*100 if nvalutations > 0
-    ranking
-    return ranking.round
-  end
-  
+  end  
  
 end
