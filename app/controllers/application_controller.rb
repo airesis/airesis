@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     { :l => I18n.locale } 
   end
   
-  helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?
+  helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
 
   
    def log_error(exception)
@@ -74,6 +74,19 @@ class ApplicationController < ActionController::Base
       return false
     end      
   end
+
+  def age(birthdate)
+    today = Date.today
+    puts 'today: ' + today.to_s
+    # Difference in years, less one if you have not had a birthday this year.
+    a = today.year - birthdate.year
+    a = a - 1 if (
+         birthdate.month >  today.month or 
+        (birthdate.month >= today.month and birthdate.day > today.day)
+    )
+    a
+  end
+
   
   def link_to_auth (text, link)
       return "<a>login</a>"
@@ -162,6 +175,8 @@ class ApplicationController < ActionController::Base
              (params[:controller] == "users/omniauth_callbacks") || 
              (params[:controller] == "alerts" && params[:action] == "polling") ||
              (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
+      session[:proposal_id] = nil
+      session[:proposal_comment] = nil
       session[:user_return_to] = request.url
       end
       # If devise model is not User, then replace :user_return_to with :{your devise model}_return_to
@@ -199,12 +214,14 @@ class ApplicationController < ActionController::Base
   #redirect all'ultima pagina in cui ero
   def after_sign_in_path_for(resource)
     #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
-    if (session[:proposal_comment])
-      @proposal = Proposal.find_by_id(session[:proposal_id])
+    if (session[:proposal_comment] && session[:proposal_id])
+      puts 'session data: ' + session.to_s
+      @proposal = Proposal.find(session[:proposal_id])
       params[:proposal_comment] = session[:proposal_comment]
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       post_contribute rescue nil
+      puts '\n\nproposal: ' + @proposal
       return proposal_path(@proposal)
     end
     env = request.env
