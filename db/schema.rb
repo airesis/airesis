@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830211320) do
+ActiveRecord::Schema.define(:version => 20121024100133) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
     t.text     "description"
     t.integer  "event_series_id"
     t.integer  "event_type_id"
+    t.boolean  "private",         :default => false, :null => false
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
@@ -248,14 +249,15 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
   add_index "group_proposals", ["proposal_id", "group_id"], :name => "index_group_proposals_on_proposal_id_and_group_id", :unique => true
 
   create_table "groups", :force => true do |t|
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
+    t.string  "name",                  :limit => 200
+    t.string  "description",           :limit => 2000
+    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
+    t.integer "partecipation_role_id",                 :default => 1
   end
 
   create_table "images", :force => true do |t|
@@ -375,6 +377,8 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
     t.integer  "deleted_user_id"
     t.datetime "deleted_at"
     t.string   "content",                    :limit => 2000
+    t.integer  "rank",                                       :default => 0,     :null => false
+    t.integer  "valutations",                                :default => 0,     :null => false
   end
 
   create_table "proposal_histories", :force => true do |t|
@@ -646,7 +650,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
-    t.string "short_name",  :limit => nil
+    t.string "short_name"
   end
 
   add_index "user_types", ["short_name"], :name => "srt_name_unq", :unique => true
@@ -677,7 +681,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "deleted_at"
-    t.string   "state",                     :limit => nil
+    t.string   "state"
     t.string   "reset_password_token"
     t.string   "encrypted_password",        :limit => 128,                     :null => false
     t.boolean  "activist",                                  :default => false, :null => false
@@ -702,5 +706,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
+
+  add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
 
 end
