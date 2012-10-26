@@ -33,13 +33,14 @@ class ProposalsController < ApplicationController
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
       @count_base = @category.proposals
+      @page_title += ' - ' + @category.description
     else
       @count_base = Proposal
     end
 
     if (params[:group_id])
-	@count_base = @count_base.includes([:proposal_supports,:group_proposals])
-.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
+    	@count_base = @count_base.includes([:proposal_supports,:group_proposals])
+      .where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
     
       if !(can? :view_proposal, @group)
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    

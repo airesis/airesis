@@ -32,14 +32,37 @@ class ProposalCommentsController < ApplicationController
   end  
   
   
-  
+  #restituisce l'elenco dei contributi
   def index
-    @proposal_comments = ProposalComment.all
+    order = ""
+    conditions = " 1 = 1 "
+    if (params[:view] == ORDER_RANDOM)
+      order << " random()"
+      conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
+      @proposal_comments = @proposal.contributes.find(:all, :conditions => conditions, :order => order, :limit => 5)
+      @total_pages = (@proposal.contributes.count / 5).ceil
+      @current_page = params[:page].to_i
+    else
+      if (params[:view] == ORDER_BY_RANK)
+        order << " proposal_comments.rank desc, proposal_comments.valutations desc"
+      else
+        order << "proposal_comments.created_at desc"
+      end  
+      @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
+      @total_pages = @proposal_comments.total_pages
+      @current_page = @proposal_comments.current_page
+    end
+
 
     respond_to do |format|
+      format.js 
       format.html # index.html.erb
-      format.xml  { render :xml => @proposal_comments }
+      #format.xml  { render :xml => @proposal_comments }
     end
+  end
+  
+  def list
+    index
   end
 
   def show

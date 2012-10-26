@@ -1,0 +1,19 @@
+<%if params[:reset]%>
+	contributes = [];
+	$('#order_bar').html("<%= escape_javascript(render(:partial => 'order_bar'))%>");
+	$('#proposalCommentsContainer').html("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+	$('#loading_contributes').hide();
+<%else%>
+	$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+<%end%>
+
+contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
+console.log(contributes);
+
+<%if @total_pages > @current_page%>
+  $('#loading_results').show();
+  checkScroll();
+  checkActive = true;
+<%else%>
+  $('#loading_results').hide();
+<%end%>

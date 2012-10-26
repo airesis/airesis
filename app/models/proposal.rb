@@ -11,7 +11,9 @@ class Proposal < ActiveRecord::Base
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote'
   has_many :user_votes, :class_name => 'UserVote'
+  # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
+  # only the main contributes related to the proposal
   has_many :contributes, :class_name => 'ProposalComment', :dependent => :destroy, :conditions => ['parent_proposal_comment_id is null']
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
@@ -104,6 +106,9 @@ class Proposal < ActiveRecord::Base
     end
   end 
   
+  def to_param
+    "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
  
  #prima di aggiornare la proposta salvane la 
  #storia nella tabella dedicata (se è cambiato il testo)

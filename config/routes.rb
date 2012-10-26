@@ -53,6 +53,9 @@ DemocracyOnline3::Application.routes.draw do
         get :rankdown    
         get :show_all_replies
       end
+      collection do
+        post :list
+      end
     end
     
     resources :proposal_histories
@@ -167,6 +170,11 @@ DemocracyOnline3::Application.routes.draw do
   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
   
   match 'home', :to => 'home#show'
+  
+  #url friendly 'proposte'
+  #match ':proposal_url/:id', :to => 'proposals#show'
+  #match ':proposal_url', :to => 'proposals#index'
+  #match ':proposal_url/cat/:category/', :to => 'proposals#index'
   
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
