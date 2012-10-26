@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830211320) do
+ActiveRecord::Schema.define(:version => 20121007211618) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
     t.text     "description"
     t.integer  "event_series_id"
     t.integer  "event_type_id"
+    t.boolean  "private",         :default => false, :null => false
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
@@ -646,7 +647,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
-    t.string "short_name",  :limit => nil
+    t.string "short_name"
   end
 
   add_index "user_types", ["short_name"], :name => "srt_name_unq", :unique => true
@@ -677,7 +678,7 @@ ActiveRecord::Schema.define(:version => 20120830211320) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "deleted_at"
-    t.string   "state",                     :limit => nil
+    t.string   "state"
     t.string   "reset_password_token"
     t.string   "encrypted_password",        :limit => 128,                     :null => false
     t.boolean  "activist",                                  :default => false, :null => false
