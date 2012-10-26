@@ -707,4 +707,6 @@ ActiveRecord::Schema.define(:version => 20121024100133) do
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
 
+  add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
+
 end
