@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121007211618) do
+ActiveRecord::Schema.define(:version => 20121024100133) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -249,14 +249,15 @@ ActiveRecord::Schema.define(:version => 20121007211618) do
   add_index "group_proposals", ["proposal_id", "group_id"], :name => "index_group_proposals_on_proposal_id_and_group_id", :unique => true
 
   create_table "groups", :force => true do |t|
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
+    t.string  "name",                  :limit => 200
+    t.string  "description",           :limit => 2000
+    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
+    t.integer "partecipation_role_id",                 :default => 1
   end
 
   create_table "images", :force => true do |t|
@@ -376,6 +377,8 @@ ActiveRecord::Schema.define(:version => 20121007211618) do
     t.integer  "deleted_user_id"
     t.datetime "deleted_at"
     t.string   "content",                    :limit => 2000
+    t.integer  "rank",                                       :default => 0,     :null => false
+    t.integer  "valutations",                                :default => 0,     :null => false
   end
 
   create_table "proposal_histories", :force => true do |t|

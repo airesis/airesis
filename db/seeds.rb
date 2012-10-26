@@ -8201,7 +8201,7 @@ EventType.create([
 
 
 Group.create([
-  { :name => nil, :description => nil, :accept_requests => "v", :interest_border_id => nil, :facebook_page_url => nil, :image_id => nil, :title_bar => nil, :image_url => nil }
+  { :name => nil, :description => nil, :accept_requests => "v", :interest_border_id => nil, :facebook_page_url => nil, :image_id => nil, :title_bar => nil, :image_url => nil, :partecipation_role_id => 1 }
 ], :without_protection => true )
 
 
@@ -8375,7 +8375,7 @@ ProposalCategory.create([
 
 
 ProposalComment.create([
-  { :parent_proposal_comment_id => nil, :user_id => nil, :proposal_id => nil, :created_at => nil, :updated_at => nil, :user_ip => nil, :user_agent => nil, :referrer => nil, :deleted => false, :deleted_user_id => nil, :deleted_at => nil, :content => nil }
+  { :parent_proposal_comment_id => nil, :user_id => nil, :proposal_id => nil, :created_at => nil, :updated_at => nil, :user_ip => nil, :user_agent => nil, :referrer => nil, :deleted => false, :deleted_user_id => nil, :deleted_at => nil, :content => nil, :rank => 0, :valutations => 0 }
 ], :without_protection => true )
 
 
