@@ -123,6 +123,16 @@
 	       }
     }
     
+	function change_default_role(role_id){
+    		$.ajax({
+	        	data: "role_id="+role_id,
+	        	url: "change_default_role",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+	        alert('invio');
+    }
+    
     
     function hideNewRolePanel() {
     	console.log('hei');

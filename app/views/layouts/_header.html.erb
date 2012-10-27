@@ -63,7 +63,7 @@ js.id = id;<%if (Rails.env == "production")%>
 <div id="header">
 	<div class="body_maxwidth">
 		<div class="midHeader">
-		<h2 class="headerTitle" lang="la"><%= link_to "Airesis", root_path%></h2>
+		<h2 class="headerTitle" lang="la"><%= link_to "Airesis - Scegli di partecipare", root_path%></h2>
 		</div>
 		<!--<div class="subHeader">
 			<span class="doNotDisplay">Navigation:</span>
@@ -126,9 +126,9 @@ js.id = id;<%if (Rails.env == "production")%>
 					<%= f.label :password %>
 					<br />
 					<%= f.password_field :password, :style=>"width:80%" %>
-				</div>
+				</div >
 				<% if devise_mapping.rememberable? -%>
-				<div>
+				<div class="littleText">
 					<%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
 				</div>
 				<% end -%>
