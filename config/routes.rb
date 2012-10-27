@@ -114,6 +114,7 @@ DemocracyOnline3::Application.routes.draw do
       get :new_event
       post :create_event
       get :edit_permissions
+      post :change_default_role
     end
 
     collection do
