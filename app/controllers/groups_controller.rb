@@ -157,6 +157,12 @@ class GroupsController < ApplicationController
     end
   end
   
+  def change_default_role
+    @group.partecipation_role_id=params[:role_id]
+    @group.save
+    flash[:notice] ="Ruolo predefinito aggiornato." 
+  end
+  
   def destroy
     @group.destroy
     
