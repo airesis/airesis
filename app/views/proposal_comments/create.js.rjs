@@ -1,7 +1,11 @@
 page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
-page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal.comments.new}
-
+if @is_reply
+  page.insert_html :bottom, "#{@proposal_comment.contribute.id}_replies", :partial => "proposals/reply", :locals => {:reply => @proposal_comment}
+  page << "$('##{@proposal_comment.contribute.id}_reply_text_area').val('')"
+else
+  page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
+  page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal.comments.new}
+end
 page.call 'disegnaBottoni'
 page.call 'resetCounter'
 page.call 'checkScroll'

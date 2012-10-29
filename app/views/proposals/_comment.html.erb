@@ -37,7 +37,7 @@
 	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
     	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
         	    </div>
-                <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
+                <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
                     <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
 						:remote => "true",
 						:onclick => "return false;",
@@ -67,9 +67,10 @@
     	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' suggerimenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true%>
     </div>
     <%end%>
-    <div id="<%=comment.id%>_replies" style="display:none;">
-    </div>
     <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+    <div id="<%=comment.id%>_replies">
+    </div>
+    
     <%if signed_in? && (can? :partecipate, @proposal) %>
     <div  class="proposal_comment_reply">
     	<div id="<%=comment.id%>_reply_area_msg"></div>
@@ -79,7 +80,7 @@
 	    </div>    
 		<div class="reply_area">
 			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
-			<%= f.text_area :content, :class => 'reply_textarea'%>
+			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area"%>
         </div>
         <div class="reply_button">
         	<%=f.submit 'Rispondi', :class=>'buttonStyle littleText replyButton disableButton' %>

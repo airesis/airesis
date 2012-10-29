@@ -42,12 +42,17 @@ function drawIntro(svg) {
 
 <script>
 
-	$(function() {
-	
+	function hide_vote_controls() {
 	//nascondi i pulsanti di valutazione quando vengono cliccati
 		$('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
 			id = $(this).attr('id');
 			num = id.replace('voteup-mini','');
+			hideRankPanel('rankingpanelcontainer'+num);
+		});
+		
+		$('.votenil-mini').bind('ajax:beforeSend',function(n,xhr) {
+			id = $(this).attr('id');
+			num = id.replace('votenil-mini','');
 			hideRankPanel('rankingpanelcontainer'+num);
 		});
 		
@@ -57,7 +62,7 @@ function drawIntro(svg) {
 			hideRankPanel('rankingpanelcontainer'+num);
 		});
 				
-	});
+	};
 </script>
 
 <script type="text/javascript">
