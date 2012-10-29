@@ -4,7 +4,7 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :adestroy, :rankup, :rankdown]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :adestroy, :rankup, :rankdown, :ranknil]
   
 ###SICUREZZA###
 
@@ -12,7 +12,7 @@ class ProposalCommentsController < ApplicationController
   before_filter :authenticate_user!, :only => [ :edit, :update, :delete, :new]
   before_filter :save_post_and_authenticate_user, :only => [:create]
   before_filter :check_author, :only => [:edit, :update, :delete]
-  before_filter :already_ranked, :only => [:rankup, :rankdown]
+  before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
   
   #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
    def check_author
@@ -94,14 +94,14 @@ class ProposalCommentsController < ApplicationController
  
   def create
     parent_id = params[:proposal_comment][:parent_proposal_comment_id] 
-    is_reply = parent_id != nil
+    @is_reply = parent_id != nil
     post_contribute
     
     
     respond_to do |format|
       @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
-      unless (is_reply)
+      unless (@is_reply)
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
         @saved.collapsed = true
       end
@@ -115,7 +115,7 @@ class ProposalCommentsController < ApplicationController
         puts e
         flash[:error] = 'Errore durante l\'inserimento.'
         format.js   { render :update do |page|
-                        if (is_reply)
+                        if (@is_reply)
                           flash[:error] = @proposal_comment.errors.full_messages.join(",")
                           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
                         else
@@ -169,8 +169,12 @@ class ProposalCommentsController < ApplicationController
   end
   
   
-   def rankup 
+  def rankup 
     rank 1
+  end
+  
+   def ranknil 
+    rank 2
   end
   
   def rankdown
