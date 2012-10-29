@@ -2,7 +2,7 @@
 
 
     <div class="autoMargin">
-    	<a href="#" onclick="openRulesModal();" class="notesButton littleText">Regolamento</a>
+    	<a href="#" onclick="openRulesModal();" class="notesButton">Regolamento</a>
     	<div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify" >
     		<div>Le regole sono selezionabili alla creazione di un gruppo. <br/>
 		    	<p>Al momento tutti gli utenti possono creare un gruppo.</p>
@@ -24,10 +24,10 @@
 	
 	<%if user_signed_in? && current_user.blog%>
 		<%if (can? :post_to, @group)%>
-		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style=>"margin-top:4px;" %><br />
+		<%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton', :style=>"margin-top:4px;" %><br />
 		<%end%>
 	<%else%>
-		<%= link_to 'Crea il mio blog', new_blog_path, :class => 'newButton littleText', :style=>"margin-top:4px;"%><br />
+		<%= link_to 'Crea il mio blog', new_blog_path, :class => 'newButton', :style=>"margin-top:4px;"%><br />
 	<%end%>
 	
 	<%= render :partial => 'partecipants_panel' %>
@@ -81,7 +81,7 @@ if requests.size > 0 %>
 	follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
    end
    if (!follow)%>
-		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class=>"buttonStyle littleText" %>
+		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class=>"buttonStyle" %>
 		<br/>(notifiche non ancora attive, spiacente)
  <%end%>
 
