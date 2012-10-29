@@ -4,9 +4,10 @@ class PartecipationRolesController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
   
-  before_filter :load_group, :except => [:destroy,:change_group_permission,:change_user_permission]
+  before_filter :load_group, :except => [:destroy,:change_group_permission,:change_user_permission,:change_default_role]
   before_filter :load_partecipation_role, :only => :destroy
   before_filter :check_group_permissions, :only => [:change_group_permission]
+  before_filter :check_role_permissions, :only => [:change_default_role]
   before_filter :check_user_permissions, :only => [:change_user_permission]
   def create    
     begin
@@ -89,8 +90,41 @@ class PartecipationRolesController < ApplicationController
       }
     end
   end
+  
+  #modifica il ruolo predefinito per il gruppo
+  #il ruolo predefinito è il ruolo assegnato ad ogni membro del gruppo all'atto dell'iscrizione
+  def change_default_role
+    @group.partecipation_role_id=params[:role_id]
+    @group.save
+    flash[:notice] ="Ruolo predefinito aggiornato." 
+    respond_to do |format|
+      format.js { render :update do |page|
+                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end
+  end
+  
    
   protected
+    
+  #verifica che l'utente sia autenticato al sistema
+  #e sia l'amministratore o portavoce del gruppo
+  #e che il ruolo appartenga al gruppo indicato o sia member
+  def check_role_permissions
+    @group = Group.find(params[:group_id])
+    @role = PartecipationRole.find(params[:role_id])
+    if !((current_user && (@group.portavoce.include?current_user)) || is_admin?) || (@group != @role.group && @role.id != 1)
+      flash[:error] = t('error.role_permission_change')
+      respond_to do |format|
+      format.js { render :update do |page|
+                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+      end
+      return false
+    end
+  end
   
   #verifica che l'utente sia autenticato al sistema
   #e sia l'amministratore o portavoce del gruppo

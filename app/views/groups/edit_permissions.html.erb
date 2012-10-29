@@ -125,12 +125,11 @@
     
 	function change_default_role(role_id){
     		$.ajax({
-	        	data: "role_id="+role_id,
-	        	url: "change_default_role",     
+	        	data: "role_id="+role_id+"&group_id=<%=@group.id%>",
+	        	url: "/partecipation_roles/change_default_role",     
 	            dataType: 'script',
 	        	type: 'post'    
-	        });
-	        alert('invio');
+	        });	        
     }
     
     

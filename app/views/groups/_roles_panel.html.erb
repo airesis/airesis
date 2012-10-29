@@ -1,7 +1,7 @@
 
 <table style="text-align: left">
 	<thead>
-		<th>Predef.</th>
+		<th>Default</th>
 		<th>Ruolo</th>
 		<th>Descrizione</th>
 		
@@ -16,7 +16,10 @@ PartecipationRole.common.each do |role|
 abilitations = role.action_abilitations.by_group(@group).all
 %>
 	<tr>
-			<td><input name="predef" type="radio" value="<%=role.id%>" onclick="return change_default_role(<%=role.id%>);" <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>> </td>
+			<td>
+				<%if (role.id != 2)%>
+				<input name="predef" type="radio" value="<%=role.id%>" onclick="return change_default_role(<%=role.id%>);" <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>> </td>
+				<%end%>
 			<td>
 				<b><%=role.name%>:</b>
 				</td>
@@ -37,7 +40,7 @@ abilitations = role.action_abilitations.by_group(@group).all
 	<%@group.partecipation_roles.each do |role|
 	abilitations = role.action_abilitations.by_group(@group).all%>
 		<tr>
-			<td><input name="predef" type="radio" value="<%=role.id%>" <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>></td>
+			<td><input name="predef" type="radio" value="<%=role.id%>" onclick="return change_default_role(<%=role.id%>);"  <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>></td>
 			<td>
 				<b><%=role.name%>:</b>
 				</td>

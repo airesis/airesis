@@ -157,12 +157,7 @@ class GroupsController < ApplicationController
     end
   end
   
-  def change_default_role
-    @group.partecipation_role_id=params[:role_id]
-    @group.save
-    flash[:notice] ="Ruolo predefinito aggiornato." 
-  end
-  
+
   def destroy
     @group.destroy
     
@@ -260,7 +255,8 @@ class GroupsController < ApplicationController
         if @group.request_by_portavoce?
           part = GroupPartecipation.new
           part.user_id = request.user_id
-          part.group_id = @group.id        
+          part.group_id = @group.id
+          part.partecipation_role_id = @group.partecipation_role_id        
           part.save!
           request.group_partecipation_request_status_id = 3
         else
