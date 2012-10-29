@@ -49,8 +49,9 @@ DemocracyOnline3::Application.routes.draw do
     
     resources :proposal_comments do
       member do
-        get :rankup
-        get :rankdown    
+        put :rankup
+        put :ranknil
+        put :rankdown    
         get :show_all_replies
       end
       collection do
@@ -117,7 +118,7 @@ DemocracyOnline3::Application.routes.draw do
       get :new_event
       post :create_event
       get :edit_permissions
-      post :change_default_role
+
     end
 
     collection do
@@ -155,6 +156,7 @@ DemocracyOnline3::Application.routes.draw do
     collection do
       post :change_group_permission
       post :change_user_permission
+      post :change_default_role
     end
   end
  
