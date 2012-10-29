@@ -83,36 +83,36 @@
 <!--Slogan-->
 <div id="slogan" style="position:absolute;margin-top:330px;">
 
-<div style="float:left;">
-<%= link_to image_tag('pulsante_accedi_fb.gif', :align=>"left"), user_omniauth_authorize_path('facebook')%> 
-<div  style="float:left; margin:5px; padding:0px; margin-left: 40px; font-weight:bold; ">
-  <%=link_to raw('Provalo'),proposals_path,  :class=>"btn btn-success btn-large", 
- :style=>"font-size: 42px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
-</div>
-
-<div style="float:left;margin:5px; padding:0px; margin-left: 40px; font-weight:bold">
-	<a id="signup" style="font-size: 42px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;"
-	 class="btn btn-success btn-large" href="/users/sign_up">Iscriviti</a>
-</div>	
-
+	<div style="float:left;">
+	<!--<%= link_to image_tag('pulsante_accedi_fb.gif', :align=>"left"), user_omniauth_authorize_path('facebook')%> -->
+	<div  style="float:left; margin:5px; padding:0px; margin-left: 40px; font-weight:bold; ">
+	  <%=link_to raw('Provalo'),proposals_path,  :class=>"btn btn-success btn-large", 
+	 :style=>"font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
+	</div>
 	
-</div>  
-<div  style="float:right; width: 320px;">
-<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-  <div style="float:left; font-size:14px">
-  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :login %></div>
-  <%= f.text_field :login, :style => "width:140px;" %> <br />
-  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :password %></div>
-  	<%= f.password_field :password, :style => "width:140px;" %>  <br />
-  <%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:14px' %> <%= f.label :remember_me, "Ricordami su questo computer", :style=>'font-size:14px' %>
-  </div>
-  <div>	
-	<%= f.submit "Accedi", :style=>"margin-left: 10px;cursor:pointer; font-size: 20px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
-  </div>				  	
-<% end %>	
+	<div style="float:left;margin:5px; padding:0px; margin-left: 40px; font-weight:bold">
+		<a id="signup" style="font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;"
+		 class="btn btn-success btn-large" href="/users/sign_up">Iscriviti</a>
+	</div>	
+		
+	</div>  
+	<div  style="float:right; width: 420px;">
+	<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+	  <div style="float:left; font-size:14px">
+	  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :login %></div>
+	  <%= f.text_field :login, :style => "width:140px;" %> <br />
+	  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :password %></div>
+	  	<%= f.password_field :password, :style => "width:140px;" %>  <br />
+	  <%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:14px' %> <%= f.label :remember_me, "Ricordami su questo computer", :style=>'font-size:14px' %>
+	  </div>
+	  <div>	
+		<%= f.submit "Accedi", :style=>"width:185px;margin-left: 10px;margin-bottom:5px;cursor:pointer; font-size: 20px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
+		<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook'), :style=>"margin-left: 10px;"%>		  	
+	  </div>			
+	<% end %>	
+	</div> 
 </div>
-	  
-</div>
+
 </div>
 <!--Sottoblocchi informativi-->
 <div class="row">
