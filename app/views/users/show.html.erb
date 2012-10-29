@@ -6,19 +6,20 @@
     <%if current_user == @user %>
     <div id="name_modal" class="edit_modal  shadow-box">    	
         <%=form_for @user, :remote => true do |f| %>
-        	<%=f.label :name%><br/>
-            <%=f.text_field :name %>
+         <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Nome</h2>
+        <div style="padding-left:135px">
+            <%=f.text_field :name, :size => 20 %>
             <div style="margin-top:8px">
                 <%=f.submit 'Salva' %>
                 <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-        <%end %>
+        </div><%end %>
     </div>
     <div id="surname_modal" class="edit_modal shadow-box">
         <%=form_for @user, :remote => true do |f| %>
         <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Cognome</h2>
         <div style="padding-left:135px">
-            <%=f.text_field :surname %>
+            <%=f.text_field :surname, :size => 20 %>
             <div style="margin-top:8px">
                 <%=f.submit 'Salva' %>
                 <input type="button" value="Annulla" onclick="$.modal.close();"/>
@@ -30,8 +31,8 @@
   	<%=form_for @user, :remote => true do |f| %>
 	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Password</h2>
 	<div style="padding-left:135px">
-	<%=f.text_field :password, :type => :password %>
-	<%=f.text_field :password_confirmation, :type => :password %>
+	<%=f.text_field :password, :type => :password, :size => 20, :style=>"margin-bottom:5px;"%>
+	<%=f.text_field :password_confirmation, :type => :password, :size => 20 %>
 	<div style="margin-top:8px">
 		<%=f.submit 'Salva'%>
 		<input type="button" value="Annulla" onclick="$.modal.close();"/>
@@ -45,6 +46,11 @@
     <%end%>
     <%end %>
 </p>
+
+<script type="text/javascript" ">
+	$('#user_password').watermark('Nuova password');
+	$('#user_password_confirmation').watermark('Conferma nuova password');
+</script>
 
 <%content_for :left_panel do %>
 	<%if current_user == @user%>

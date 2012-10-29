@@ -34,7 +34,7 @@ module StepHelper
   #ritorna true se lo step è già stato fatto dall'utente e può essere saltato 
   def check_step_condition(step,user)
     progress = TutorialProgress.find_by_step_id_and_user_id(step.id,user.id)
-    return true unless progress.status == TutorialProgress::TODO
+    return true unless (progress.status == TutorialProgress::TODO rescue false)
     case step.tutorial_id.to_i 
      when Tutorial.find_by_name("Welcome Tutorial").id
         status = welcome_steps(step,user)

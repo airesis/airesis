@@ -241,8 +241,8 @@ class User < ActiveRecord::Base
     end
   end
   
-  #restituisce true se l'utente ha valutato un commento
-  #ma il commento è stato successivamente modificato e può quindi valutarlo di nuovo 
+  #restituisce true se l'utente ha valutato un contributo
+  #ma il contributo è stato successivamente modificato e può quindi valutarlo di nuovo 
   def can_rank_again_comment?(comment)
     if (comment.proposal.proposal_state_id != PROP_VALUT)
       return false
