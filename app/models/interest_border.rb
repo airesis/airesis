@@ -9,11 +9,15 @@ class InterestBorder < ActiveRecord::Base
   COMUNE = 'Comune'
   PROVINCIA = 'Provincia'
   REGIONE = 'Regione'
+  STATO = 'Stato'
+  CONTINENTE = 'Continente'
   SHORT_COMUNE = 'C'
   SHORT_PROVINCIA = 'P'
   SHORT_REGIONE = 'R'
-  TYPE_MAP = { COMUNE => SHORT_COMUNE, REGIONE => SHORT_REGIONE, PROVINCIA => SHORT_PROVINCIA}
-  I_TYPE_MAP = { SHORT_COMUNE => COMUNE, SHORT_REGIONE => REGIONE, SHORT_PROVINCIA => PROVINCIA}
+  SHORT_STATO = 'S'
+  SHORT_CONTINENTE = 'K'
+  TYPE_MAP = { COMUNE => SHORT_COMUNE, REGIONE => SHORT_REGIONE, PROVINCIA => SHORT_PROVINCIA, STATO => SHORT_STATO, CONTINENTE => SHORT_CONTINENTE}
+  I_TYPE_MAP = { SHORT_COMUNE => COMUNE, SHORT_REGIONE => REGIONE, SHORT_PROVINCIA => PROVINCIA, SHORT_STATO => STATO, SHORT_CONTINENTE => CONTINENTE}
 
   
   def description
@@ -36,12 +40,17 @@ class InterestBorder < ActiveRecord::Base
       when SHORT_REGIONE #regione
           regione = Regione.find_by_id(fid)
           found = regione
+      when SHORT_STATO
+          stato = Stato.find_by_id(fid)
+          found = stato
+      when SHORT_CONTINENTE
+	  continente = Continente.find_by_id(fid)
+          found = continente
       end
       return found
   end
   
   def as_json(options={})
-    
    { :id => TYPE_MAP[self.territory_type] + "-" + self.territory_id.to_s, :name => self.description }
   end
   
