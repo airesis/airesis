@@ -1,13 +1,13 @@
 .tutorial_panel {
-	background: none repeat scroll 0 0 #FFE6E6;
+	background: none repeat scroll 0 0 #F5F3C6;
 /*    border: 1px solid #FFE6E6;*/
     padding: 7px;
 }
 
 
 .tutorial_panel .text {
-    line-height: 1.6em;
-    font-size: 1.3em;    
+    line-height: 1.4em;
+    font-size: 1em;    
 }
 
 .tutorial_panel .groupListContainer.highlighted {
