@@ -7,7 +7,12 @@ end
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do%>
 	<%= link_to 'Modifica', edit_blog_blog_post_path(@blog), :class => 'editButton littleText' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %><br />
-	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?", :class => 'deleteButton littleText' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
+	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?", :class => 'deleteButton littleText' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %><br />
+	<g:plus action="share" annotation="bubble"></g:plus>
+	<a href="https://twitter.com/share" 
+	   class="twitter-share-button" 
+	   data-lang="en"
+	   data-text="Ho inserito un nuovo post su Airesis: <%= blog_blog_post_url(@blog) %>">Tweet</a>
 <%end%>
 
 
@@ -29,7 +34,7 @@ end
 		<span class="blogPostDate"><%= @blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
 	</p>
 
-	<div class="blogPostBody">
+	<div class="blogPostBody" itemprop="description">
 		<%= @blog_post.parsed_body %>
 	</div>
 
