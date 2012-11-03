@@ -87,23 +87,20 @@ Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/
 
 </div>
 
-
+<h3>Problematica</h3>
 <div class="proposalMainContainer proposal_main shadow-box">
-	<h3>Problematica</h3>
         <div class="proposal_content">
             <%=simple_format(proposal.problems, :sanitize => true) %>
         </div>
 </div>
-
+<h3>Obiettivi</h3>
 <div class="proposalMainContainer proposal_main shadow-box">
-        <h3>Obiettivi</h3>
         <div class="proposal_content">
             <%=simple_format(proposal.objectives, :sanitize => true) %>
         </div>
 </div>
-
+<h3>Testo della proposta</h3>
 <div id="proposal<%= proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
-        <h3>Testo della proposta</h3>
         <div class="proposal_content">
             <%=simple_format(proposal.content, :sanitize => true) %>
         </div>
@@ -114,4 +111,3 @@ Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/
 
 <div id="proposal_histories_container">
 </div>
-

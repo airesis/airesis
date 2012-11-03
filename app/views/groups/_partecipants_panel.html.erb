@@ -16,7 +16,7 @@
     <p>
         <% partecipation_request = current_user.has_asked_for_partecipation?(@group.id)
         if !partecipation_request %>
-        <%= link_to 'Partecipa', url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa', :class=>"buttonStyle" %>
+        <%= link_to 'Partecipa', url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa', :class=>"buttonStyle littleText" %>
         <%else %>
         <!--<b>Hai già fatto richiesta di partecipazione a questo gruppo. Stato della richiesta: <%=partecipation_request.status.description %>
         </b>--><%end %>

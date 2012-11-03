@@ -18,28 +18,29 @@ body div.token-input-dropdown {
 }
 
 h3 {
-	margin: 10px;0px;5px;0px;
-	font-size:20px;
-	font-weight:normal;
-	color: #1F62A8;
+	margin: 0;
 }
 
 
 .confirmRequest .ui-button-text {
-	#font-size: 10px;
+	font-size: 10px;
 }
 .headerButton {
 	float: left;
 	margin: 0 5px;
 }
 h4 {
-	color: #1F62A8;
+	color: #808080;
+    margin: 30px 0 5px;
+    word-wrap: break-word;
+    text-align: left;
+/*	color: #1F62A8;
     margin-top: 0;
     padding-top: 10px;
     margin-bottom: 2px;
     word-wrap: break-word;
     text-align: left;
-    font-size:16px;
+    font-size:16px;*/
 }
 
 .face-login-button {
@@ -62,16 +63,24 @@ a:hover {
 	text-decoration: underline;
 }
 body {	
-	font: 12px 'ubuntu',verdana,arial,"lucida grande",tahoma,sans-serif;
+	font: 14px 'ubuntu',verdana,arial,"lucida grande",tahoma,sans-serif;
+	line-height: 18px;
 	margin: 0;
 	padding: 0;
 	color: #333333;
+	text-align: justify;
 }
-.littleText {
-	font-size: 11px;
+.littleText {	
 	font-weight: bold;
 	text-align: left;
 }
+
+.littleText.ui-button .ui-button-text {
+	line-height: 1;
+	font-size: 12px;
+}
+
+
 .rightAlign {
 	text-align: right;
 }
@@ -95,7 +104,7 @@ body {
 
 
 .nolink_menu_element {
- font-size: 14px;
+ font-size: 12px;
  padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
@@ -105,7 +114,7 @@ body {
 }
 
 .menu_element {
- font-size: 14px;
+ font-size: 12px;
  padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
@@ -153,7 +162,7 @@ body {
 	color: inherit;	
 	width: 100%;
 	border-bottom: 1px solid #D8D2C3;
-	padding-top: 5px;
+	padding-top: 0px;
 }
 
 #subheader {
@@ -181,7 +190,7 @@ body {
 }
 
 .body_maxwidth h1 {
-	margin: 0px 0px 5px 0px;
+	margin: 2px 0px 10px 0px;
 }
 
 .body_maxwidth .group_title {
@@ -189,7 +198,7 @@ body {
 }
 
 .body_maxwidth .buttonStyle {
-	#font-size: 13px;
+	font-size: 11px;
 }
 
 
@@ -198,45 +207,23 @@ body {
 	margin: auto;
 	width: 981px;
 }
-.headerTitle {
-	margin: 0;
-	padding: 0.25em 4mm 0.25em 4mm;
-}
 
 .headerTitle a {
 	color: black;
 	background-color: transparent;
 	text-decoration: none;
-	font-size:18px;
+	font-size:14px;
 	font-weight: normal;
 	font-style: normal;
 }
+
 .full_link {
 	text-decoration: none;
 }
-.subHeader {	
-	float: left;
-	font-size: 11px;
-	margin: 0 0 0 123px;
-	padding: 6px 0;
-}
-
-.subHeader a {
-	
-}
-
 
 .headerTitle {
-	margin: 0;
-	padding: 0;
-	font-size: 15px;
-}
-.headerSubTitle {
-	font-size: 151%;
-	font-weight: normal;
-	font-style: italic;
-	margin: 0 0 1ex 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0.2em 4mm 0.25em 4mm;
 }
 
 #main-copy {
@@ -245,6 +232,9 @@ body {
 	width: 981px;
 }
 
+#footer {
+	font-size: 12px;
+}
 
 #rightpanel {
 	float: left;
@@ -257,7 +247,7 @@ body {
 	width: 164px;
 	min-height: 100px;
 	padding: 90px 0px 0px 0px;
-	font-size:14px;
+	/*font-size:14px;*/
 }
 
 #leftpanel {
@@ -282,9 +272,7 @@ body, #main-copy {
 	float: left;
 	padding: 0 15px;
 	width: 600px;
-	margin: 0 auto;
-	/*height: 100%;*/
-	
+	margin: 0 auto;	
 }
 
 #centerpanelextended {
@@ -295,8 +283,6 @@ body, #main-copy {
 	padding: 0 15px;
 	width: 765px;
 	margin: 0 auto;
-	font-size:16px;
-	line-height: 20px;
 }
 
 #centerpanel img {
@@ -510,7 +496,6 @@ a.spch-bub-inside:hover .point {
 .pcontainer {
 	clear: both;
 	margin-bottom: 5px;
-	font-family: 'ubuntu';
 }
 .eventcontainer {
 	margin-bottom: 5px;
@@ -798,4 +783,44 @@ width:300px;
 }
 #triangle-topleft a:hover{
 	color:#FE8A5D;
+}
+
+
+/*schede volontari*/
+.scheda_ruolo {
+	background-color: #F4F4F4;
+	background-image: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);
+	border: 1px solid #DDDDDD;
+	border-radius: 6px 6px 6px 6px;
+	margin-bottom: 15px;
+        box-shadow: 0 1px 0 #AAAAAA;
+	opacity: 1;
+	position: relative;
+	vertical-align: top;
+	padding: 5px;
+}
+
+.scheda_volontario {
+	background-color: #F4F4F4;
+	background-image: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);
+	border: 1px solid #DDDDDD;
+	border-radius: 6px 6px 6px 6px;
+	margin-bottom: 9px;
+        box-shadow: 0 1px 0 #AAAAAA;
+	opacity: 1;
+	position: relative;
+	vertical-align: top;
+}
+
+.image_volontario {
+	float: left;
+	width: 20%;
+	padding: 4px;
+}
+
+.descrizione_volontario {
+	float: left;
+	width: 77%;
+	padding: 4px;
+	text-align: justify;
 }
