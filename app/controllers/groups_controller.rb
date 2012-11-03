@@ -294,11 +294,9 @@ class GroupsController < ApplicationController
   private
 
   def choose_layout    
-    if [ 'new','index','create'].include? action_name
-      'settings'
-    else
+    
       'groups'
-    end
+   
   end
   
   
