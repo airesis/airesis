@@ -7,7 +7,7 @@ class VotationsController < ApplicationController
 
   
   def show
-
+    @page_title = "Sezione votazioni"
   end
 
   def vote
