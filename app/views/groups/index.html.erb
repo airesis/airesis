@@ -4,16 +4,20 @@
 <%end%>
 <br /><br />
 <script>
-	$(function() {
+/*	$(function() {
 		$('#search_group').change(function() {
 			console.log('searching...');
 		});
-	});
+	});*/
 </script>
 <!--
 <p>
-	<label for="search_group">Cerca un gruppo di tuo interesse</label>
-	<input type="text" id="search_group" />
+	<%= form_for groups_path, :method => 'get', :remote => true do |f| %>
+		<%=f.label "Cerca un gruppo di tuo interesse" %>
+		<%=text_field_tag :search, params[:search] %>
+		<%= submit_tag "Cerca"%>
+	<%end%>
+	
 </p>
 -->
 <% @groups.each do |group| %>

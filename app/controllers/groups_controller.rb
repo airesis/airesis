@@ -21,10 +21,11 @@ class GroupsController < ApplicationController
   before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_permissions]
   
   def index    
-    @groups = Group.all
+    @groups = Group.search(params[:search])
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @groups }
+      format.js 
+      format.html
+      #format.xml  { render :xml => @groups }
     end
   end
   
