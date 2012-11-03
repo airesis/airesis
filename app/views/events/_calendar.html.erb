@@ -101,7 +101,10 @@
                         });
                         
 					    <%if params[:new_event] == 'true' %>
-					    	$('.newButton').click();
+					    	$.ajax({
+					    		url: '<%=new_event_url(:group_id=> params[:group_id], :type => params[:type]) %>'					    		
+					    	});
+					    	/*$('.newButton').click();*/
 					    <%end%>
 
                     });

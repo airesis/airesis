@@ -24,6 +24,9 @@ class EventsController < ApplicationController
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
+    if (params[:type] == 'election')
+      @event.event_type_id = 4
+    end
     if (params[:group_id])
       @event.organizer_id = params[:group_id]
       @event.private = true
