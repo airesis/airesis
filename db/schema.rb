@@ -110,11 +110,11 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
     t.string  "description",           :limit => 2000
     t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
+    t.integer "circoscrizione_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
-    t.integer "circoscrizione_id"
     t.integer "partecipation_role_id",                 :default => 1
   end
 
@@ -124,11 +124,11 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
     t.string  "description",           :limit => 2000
     t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
+    t.integer "comune_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
-    t.integer "comune_id"
     t.integer "partecipation_role_id",                 :default => 1
   end
 
@@ -501,11 +501,11 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
     t.string  "description",           :limit => 2000
     t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
+    t.integer "provincia_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
-    t.integer "provincia_id"
     t.integer "partecipation_role_id",                 :default => 1
   end
 
@@ -525,11 +525,11 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
     t.string  "description",           :limit => 2000
     t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
     t.integer "interest_border_id"
+    t.integer "regione_id"
     t.string  "facebook_page_url"
     t.integer "image_id"
     t.string  "title_bar"
     t.string  "image_url"
-    t.integer "regione_id"
     t.integer "partecipation_role_id",                 :default => 1
   end
 
