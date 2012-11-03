@@ -10,25 +10,30 @@
 		});
 	});*/
 </script>
-<!--
+
 <p>
-	<%= form_for groups_path, :method => 'get', :remote => true do |f| %>
+	<%= form_for groups_path, :html => {:class=>"disableForm"}, :method => 'get', :remote => true do |f| %>
 		<%=f.label "Cerca un gruppo di tuo interesse" %>
-		<%=text_field_tag :search, params[:search] %>
-		<%= submit_tag "Cerca"%>
+		<%=text_field_tag :search, params[:search], :title=>"La ricerca avviene all'interno del nome del gruppo" %>
+		<%= submit_tag "Cerca", :class=> 'buttonStyle disableButton', :id=>"search_button"%>
 	<%end%>
 	
 </p>
--->
+
+<div id="groups_list">
 <% @groups.each do |group| %>
 <%=render :partial => "group_tag", :locals => {:group => group}%>
 <%end%> 
+</div>
 
 <script type="text/javascript">
 	$(function() {
 		disegnaBottoni();
 		
+		
 	});
+	
+	
 
 </script>
 

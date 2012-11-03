@@ -26,8 +26,8 @@ function goEventPage(event){
 }
 
 function showEventDetails(event){
-    $('#event_desc').html(event.description);
-    $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ")' class='buttonStyle'>Modifica</a>");
+    $('#event_desc').html(event.description);    
+    $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ",this)' class='buttonStyle disableButton'>Modifica</a>");
 	$('#edit_event').append("<a href = '/events/"+event.id+"' class='buttonStyle'>Vai alla pagina</a>");
     if (event.recurring) {
         title = event.title + " (Ricorrente)";
@@ -49,21 +49,29 @@ function showEventDetails(event){
         }
         
     });
+    $('#event_actions').show();
     disegnaBottoni();
 }
 
 
-function editEvent(event_id){
-    jQuery.ajax({
+function editEvent(event_id,src){
+	_this = $(src);
+    $.ajax({
         dataType: 'script',
         type: 'get',
-        url: "/events/"+ event_id+"/edit"
+        url: "/events/"+ event_id+"/edit",
+        beforeSend: function(ev) {
+	   		hideDisableButton(_this);
+        },
+	   	complete: function(ev) {
+        	showDisableButton(_this);
+	   	}
     });
 }
 
 function deleteEvent(event_id, delete_all){
 	if (confirm('Sei sicuro di voler cancellare questo evento?')) {
-    jQuery.ajax({
+    $.ajax({
         data: 'delete_all='+delete_all,
         dataType: 'script',
         type: 'DELETE',

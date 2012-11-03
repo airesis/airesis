@@ -143,9 +143,11 @@ class EventsController < ApplicationController
       @event.save
     end
 
+    flash[:notice] = "Aggiornamento avvenuto correttamente"
     render :update do |page|
       page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
       page<<"$('#desc_dialog').dialog('destroy')" 
+      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
     end
     
   end  

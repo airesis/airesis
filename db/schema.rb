@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030150618) do
+ActiveRecord::Schema.define(:version => 20121103152920) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -105,31 +105,35 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
   end
 
   create_table "circoscrizioni_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                     :null => false
-    t.string  "name",                  :limit => 200
-    t.string  "description",           :limit => 2000
-    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "circoscrizione_id"
-    t.string  "facebook_page_url"
-    t.integer "image_id"
-    t.string  "title_bar"
-    t.string  "image_url"
-    t.integer "partecipation_role_id",                 :default => 1
+    t.integer  "id",                                                     :null => false
+    t.string   "name",                  :limit => 200
+    t.string   "description",           :limit => 2000
+    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "interest_border_id"
+    t.integer  "circoscrizione_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                 :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comunali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                     :null => false
-    t.string  "name",                  :limit => 200
-    t.string  "description",           :limit => 2000
-    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "comune_id"
-    t.string  "facebook_page_url"
-    t.integer "image_id"
-    t.string  "title_bar"
-    t.string  "image_url"
-    t.integer "partecipation_role_id",                 :default => 1
+    t.integer  "id",                                                     :null => false
+    t.string   "name",                  :limit => 200
+    t.string   "description",           :limit => 2000
+    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "interest_border_id"
+    t.integer  "comune_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                 :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comunes", :force => true do |t|
@@ -255,15 +259,17 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
   add_index "group_proposals", ["proposal_id", "group_id"], :name => "index_group_proposals_on_proposal_id_and_group_id", :unique => true
 
   create_table "groups", :force => true do |t|
-    t.string  "name",                  :limit => 200
-    t.string  "description",           :limit => 2000
-    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.string  "facebook_page_url"
-    t.integer "image_id"
-    t.string  "title_bar"
-    t.string  "image_url"
-    t.integer "partecipation_role_id",                 :default => 1
+    t.string   "name",                  :limit => 200
+    t.string   "description",           :limit => 2000
+    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "interest_border_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                 :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "images", :force => true do |t|
@@ -496,17 +502,19 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
   end
 
   create_table "provinciali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                     :null => false
-    t.string  "name",                  :limit => 200
-    t.string  "description",           :limit => 2000
-    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "provincia_id"
-    t.string  "facebook_page_url"
-    t.integer "image_id"
-    t.string  "title_bar"
-    t.string  "image_url"
-    t.integer "partecipation_role_id",                 :default => 1
+    t.integer  "id",                                                     :null => false
+    t.string   "name",                  :limit => 200
+    t.string   "description",           :limit => 2000
+    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "interest_border_id"
+    t.integer  "provincia_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                 :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "provincias", :force => true do |t|
@@ -520,17 +528,19 @@ ActiveRecord::Schema.define(:version => 20121030150618) do
   end
 
   create_table "regionali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                     :null => false
-    t.string  "name",                  :limit => 200
-    t.string  "description",           :limit => 2000
-    t.string  "accept_requests",       :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "regione_id"
-    t.string  "facebook_page_url"
-    t.integer "image_id"
-    t.string  "title_bar"
-    t.string  "image_url"
-    t.integer "partecipation_role_id",                 :default => 1
+    t.integer  "id",                                                     :null => false
+    t.string   "name",                  :limit => 200
+    t.string   "description",           :limit => 2000
+    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "interest_border_id"
+    t.integer  "regione_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                 :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "regiones", :force => true do |t|

@@ -24,9 +24,9 @@
                 <p>
                 	<%=content_for :left_panel do%>
 	                	<%if @group%>
-		                	<%=link_to 'Crea un evento', {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle newButton' if can_edit_events %>
+		                	<%=link_to 'Crea un evento', {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
 	                	<%else%>
-	                    <%=link_to 'Crea un evento', {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle newButton' if can_edit_events %>
+	                    <%=link_to 'Crea un evento', {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
 	                    <%end%>
                 	<%end%>
                 </p>

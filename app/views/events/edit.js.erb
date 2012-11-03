@@ -1,5 +1,8 @@
+$('#event_actions').fadeOut();
 
-$('#event_desc').html("<%= escape_javascript(render(:partial => 'edit_form'))%>");
+$('#event_desc').hide().html("<%= escape_javascript(render(:partial => 'edit_form'))%>");
+
+disegnaBottoni();
 
 $("#desc_dialog #event_meeting_attributes_place_attributes_comune_id").tokenInput("/comunes.json", {
 	crossDomain : false,
@@ -64,3 +67,5 @@ google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
 <%end%>
 
 disegnaDatePicker();
+
+$('#event_desc').fadeIn();

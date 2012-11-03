@@ -107,9 +107,9 @@ class Group < ActiveRecord::Base
   
   def self.search(search)
     if search
-    find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+    find(:all, :conditions => ['upper(name) LIKE upper(?)', "%#{search}%"])
     else
-      find(:all)
+      find(:all, :order => 'created_at desc')
     end
   end
   

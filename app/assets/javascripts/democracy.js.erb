@@ -32,20 +32,36 @@ function disegnaBottoni() {
 	$(".disableButton")
 	    .unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
-			$(this).hide();
-			var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
-			toAdd.width($(this).outerWidth(true));
-			toAdd.height($(this).outerHeight(true)); 
-			$(this).after(toAdd);
+	    	hideDisableButton($(this));
 	    })
 	    .unbind("ajax:complete")
 	    .bind("ajax:complete", function() {
-	    	$(this).show();
-	    	$('.waitDiv').remove();
+	    	showDisableButton($(this));
 	    })
-    /*
-	$('.disableButton').click(function() {
-	});*/
+    
+    $(".disableForm")
+    	.unbind("ajax:beforeSend")
+	    .bind("ajax:beforeSend", function() {
+	    	hideDisableButton($('.disableButton',this));
+	    })
+	    .unbind("ajax:complete")
+	    .bind("ajax:complete", function() {
+	    	showDisableButton($('.disableButton',this));
+	    });
+    
+}
+
+function hideDisableButton(button) {
+	button.hide();
+	var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
+	toAdd.width(button.outerWidth(true));
+	toAdd.height(button.outerHeight(true)); 
+	button.after(toAdd);
+}
+
+function showDisableButton(button) {
+	button.show();
+	$('.waitDiv').remove();
 }
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
