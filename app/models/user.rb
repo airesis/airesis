@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
   
-  validates_presence_of     :login
-  validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message
+  validates_presence_of     :login, :unless => :from_identity_provider?
+  validates_length_of       :login,    :within => 3..40, :unless => :from_identity_provider?
+  validates_uniqueness_of   :login, :unless => :from_identity_provider?
+  validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message, :unless => :from_identity_provider?
   
   validates_presence_of     :name
   validates_format_of       :name,     :with => AuthenticationModule.name_regex, :allow_nil => true
@@ -219,6 +219,10 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+  
+  def from_identity_provider?
+    return self.authentications.count > 0
   end
   
   def has_ranked_proposal? proposal_id
