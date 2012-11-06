@@ -10,7 +10,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
 button{cursor:pointer;-webkit-appearance:button}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
 .input-block-level{display:block;width:100%;min-height:28px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
-body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;line-height:18px;color:#333;background-color:#fff}
+body{margin:0;font-family:'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;font-size:13px;line-height:18px;color:#333;background-color:#fff}
 a{color:#08c;text-decoration:none}
 a:hover{color:#005580;text-decoration:underline}
 
@@ -268,7 +268,7 @@ border-right: 66px solid transparent;
 #triangle-topleft a{
 display:block;
 color:#336699;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial, Tahoma, 'ubuntu', Helvetica, sans-serif;
 font-size:17px;
 font-weight:bold;
 height:15px;
