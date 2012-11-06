@@ -108,7 +108,7 @@
 	  <%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:14px' %> <%= f.label :remember_me, "Ricordami su questo computer", :style=>'font-size:14px' %>
 	  </div>
 	  <div>	
-		<%= f.submit "Accedi", :style=>"width:185px;margin-left: 10px;margin-bottom:5px;cursor:pointer; font-size: 20px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
+		<%= f.submit "Accedi", :style=>"width:185px;margin-left: 10px; padding-top:6px; padding-bottom:6px; margin-bottom:5px;cursor:pointer; font-size: 20px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
 		<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook'), :style=>"margin-left: 10px;"%>		  	
 	  </div>			
 	<% end %>	
