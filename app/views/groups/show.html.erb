@@ -1,6 +1,6 @@
 <% javascript 'endless_page' %>
 
-<h2><%=h @group.description %></h2>
+<div style="font-size: 16px"><b><%=h @group.description.gsub(/\n/, "<br>").html_safe%></b></div>
 
 <%posts = @group.posts.published(:order => 'published_at DESC') %>
 <% if posts.size == 0 %>
