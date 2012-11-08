@@ -20,9 +20,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def videoguide
+  end
+
   def engage
   end
-    
+
   def whatis
   end
     
@@ -46,7 +49,7 @@ class HomeController < ApplicationController
   def choose_layout    
     if [ 'show'].include? action_name
       'users'
-    elsif [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus'].include? action_name
+    elsif [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
         'landing'
     else
         nil    
