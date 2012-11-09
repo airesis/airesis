@@ -182,6 +182,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
+  match '/videoguide' => 'home#videoguide'
   match '/democraziadiretta' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
 
