@@ -183,6 +183,8 @@ it:
         surname: "Cognome"
         login: "Username"
         password: "Password"
+        linkedinpageurl: "Tua pagina su Linkedin"
+        facebookpageurl: "Tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
       group:
