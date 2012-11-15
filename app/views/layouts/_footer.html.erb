@@ -1,6 +1,7 @@
+<%if @notriangle != true%>
 <div id="triangle-topleft2"></div>
 <div id="triangle-topleft"><a href="mailto:feedback@airesis.it?cc=nicolagiulietti@hotmail.it,hicsuntleones@gmail.com&subject=Segnalazione da <%=request.fullpath%>&body=Nel testo della segnalazione ti preghiamo di inserire se hai avuto accesso alla tua area riservata e eventualmente quale azione stavi compiendo inserendone l'eventuale testo o il messaggio di errore. ">Segnala un bug</a></div>
-
+<%end%>
 
 <div id="eula_modal" title="Condizioni d'uso" style="width:600px;height:300px;display:none" >
 <p>
@@ -18,7 +19,7 @@
 <hr >
 <div style="float:left;">
 <%=image_tag 'copyleft.gif', :height => '16px', :alt => "CopyLeft", :title => "Questo progetto e' un'inizativa Open Source - GNU GPL 3", :align => "left", :style => "margin-right:5px;"%>
- Airesis 2012 - Progetto per una democrazia partecipata <%= link_to 'Open Source', partecipa_path %>
+ Airesis 2012 - Progetto per una democrazia diretta, partecipata, <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %>
 </div>
 <!--<div style="float:left;">
 <%=image_tag 'GNU_General_Public_Licence.gif', :height => '40px', :alt => "GNU Gneral Public Licence"%>

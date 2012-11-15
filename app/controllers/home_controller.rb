@@ -17,6 +17,8 @@ class HomeController < ApplicationController
   def index
     if (current_user)
       redirect_to home_url
+    else
+      @notriangle = true
     end
   end
 

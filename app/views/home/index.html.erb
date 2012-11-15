@@ -40,7 +40,7 @@
 	}(document, "script", "twitter-wjs");
 </script>	
 	
-<%=image_tag 'logo_osi.gif', :style => 'position: absolute; margin-top:2px; right: 22%;', :height => '60px', :alt => "Software democrazia diretta open source", :title => "Progetto open source con licenza GNU GPL 3"%>
+<%=link_to image_tag('logo_osi.gif', :style => 'position: absolute; margin-top:2px; right: 22%;', :height => '60px', :alt => "Software democrazia diretta open source", :title => "Progetto open source con licenza GNU GPL 3"), "https://github.com/coorasse/Airesis", :target => "_blank"%>
 <div class="container">
 <div class="row"><!-- Menù navigatore-->
 <ul class="navbar" style="float: left; margin-left: 20px;">
@@ -71,16 +71,16 @@
 <div 
  style="position: absolute;  left: 50%;">
 	 <div style=" width:420px;font-family:Arial; text-align:center;">
-		<div style="margin:5px; line-height:23px">
-		   <a href="http://www.facebook.it" target="_blank" style="font-size:37px;text-decoration:none; color: #87A800;">DISCUTI</a>  
-		   <a href="https://github.com/coorasse/Airesis" target="_blank" style="font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;">OPEN SOURCE</a>  
-		   <a href="http://it.wikipedia.org/wiki/Social_network" target="_blank" style="font-size:37px;text-decoration:none; color: #039FAF;">COLLABORA</a>  
-		   <a href="http://www.doodle.com/" target="_blank" style="font-size:37px;text-decoration:none; color: #DE2159;">DECIDI</a>  
-		   <a href="http://www.blogger.com" target="_blank" style="font-size:34px;text-decoration:none;  color: #87A800;padding-top:15px;">PROPONI</a>  
-		   <a href="http://www.decorourbano.org/" target="_blank" style="font-size:29px;text-decoration:none; color: #FF7600;">SEGNALA</a>  
-		   <a href="http://www.meetup.com/" target="_blank" style="font-size:40px;text-decoration:none; color: #DE2159;">PARTECIPA</a>  
-		   <a href="http://it.wikipedia.org/wiki/Votazione_elettronica" target="_blank" style="font-size:40px;text-decoration:none; color: #039FAF;">VOTA</a>  
-		   <a href="http://it.wikipedia.org/wiki/Forum_(Internet)" target="_blank" style="font-size:23px;text-decoration:none; color: #87A800;">DIBATTI</a>  
+		<div style="margin:5px; line-height:26px">
+          <%=link_to raw('PROPONI'),proposals_path, :style=>"font-size:37px;text-decoration:none; color: #87A800; " %>
+          <%=link_to raw('COLLABORA'),groups_path, :style=>"font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px; " %>
+          <a href="http://it.wikipedia.org/wiki/Democrazia_diretta" target="_blank" style="font-size:32px;text-decoration:none; color: #039FAF;">DEMOCRAZIA DIRETTA</a>
+          <a href="http://www.decorourbano.org/" target="_blank" style="font-size:25px;text-decoration:none; color: #FF7600;">SEGNALA</a>
+		   <a href="http://www.facebook.it" target="_blank" style="font-size:28px;text-decoration:none;  color: #87A800;padding-top:15px;">DISCUTI</a>
+          <a href="http://it.wikipedia.org/wiki/Forum_(Internet)" target="_blank" style="font-size:27px;text-decoration:none; color: #FF7600;">DIBATTI</a>
+		   <a href="http://www.meetup.com/" target="_blank" style="font-size:40px;text-decoration:none; color: #DE2159;">PARTECIPA</a>
+		   <a href="http://it.wikipedia.org/wiki/Votazione_elettronica" target="_blank" style="font-size:40px;text-decoration:none; color: #039FAF;">VOTA</a>
+          <a href="http://www.doodle.com/" target="_blank" style="font-size:23px;text-decoration:none; color: #87A800;">DECIDI</a>
 		</div>
 	</div>
 </div>
@@ -133,7 +133,7 @@ miglioramenti. Realizza le tue idee assieme agli altri.</p>
 <div class="span4">
 <h3><em>Decidi</em>
 democraticamente</h3>
-<p>Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto semplice, che realizza il volere collettivo.</p>
+<p>Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto semplice, che realizza la democrazia diretta e la democrazia liquida.</p>
 <h3><em>Collabora</em>
 nel tuo interesse</h3>
 <p>Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. L'unione fa la forza.</p>
@@ -184,7 +184,7 @@ nel tuo interesse</h3>
 </dl>
 </div>
 -->
-<%=render :partial => "layouts/footer" %>	
+<%=render :partial => "layouts/footer" %>
 <!-- Triangolo feedback-->
 
 </body>
