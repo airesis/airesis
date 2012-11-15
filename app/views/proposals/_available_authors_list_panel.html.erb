@@ -1,0 +1,12 @@
+<h4>Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Fatto!'.<br />
+	Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.</h4>
+<%=form_for 'authors', :url => add_authors_proposal_path(@proposal), :remote => true, :method => :put do |f|%>
+<ul>
+<%@proposal.available_user_authors.each do |user|%>
+	<li>
+		<%=user.fullname%> <input type="checkbox" name="user_ids[]" value="<%=user.id%>">
+	</li>
+<%end%>
+</ul>
+	<%=f.submit 'Fatto!', :class=>'buttonStyle'%>
+<%end%>

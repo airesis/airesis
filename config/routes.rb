@@ -35,7 +35,7 @@ DemocracyOnline3::Application.routes.draw do
   
   resources :notifications do
     collection do  
-      get :change_notification_block
+      post :change_notification_block
     end
   end
  
@@ -67,6 +67,9 @@ DemocracyOnline3::Application.routes.draw do
       get :rankdown
       get :statistics
       put :set_votation_date
+      post :available_author
+      get :available_authors_list
+      put :add_authors
     end
   end
   

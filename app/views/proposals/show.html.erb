@@ -229,13 +229,22 @@ $(function() {
 	</div>
 <%end%>
 
-<h4>Autori della proposta</h4>
- <div class="blogUserImage">
- 		<%@proposal.users.each do |user| %>
- 			<%=user_tag(user, @proposal)%> 		
-        <%end%>
-    </div>
-    <div style="clear: both;"></div>
+<h4>Redigono la sintesi</h4>
+<div id="authors_list">
+ <%= render :partial => 'proposals/authors_list_panel'%>
+</div>   
+<%if signed_in? && @proposal.in_valutation?%>
+	<div id="available_author">    
+		<%= render :partial => 'proposals/available_author'%>
+	</div>	
+	<%if @proposal.users.include?(current_user)%>
+		<%=link_to 'Redattori disponibili', available_authors_list_proposal_path(@proposal), :remote => true, :class=> 'buttonStyle littleText disableButton'%>
+		
+		<div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
+		</div>
+	<%end%>
+<%end%>
+        
     <br />
     
 <div id="support_left_panel_container">   

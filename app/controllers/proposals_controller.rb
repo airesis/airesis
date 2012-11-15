@@ -18,10 +18,11 @@ class ProposalsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index,:index_accepted, :tab_list, :endless_index, :show]
   
   #l'utente deve essere autore della proposta
-  before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date]
+  before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date, :add_authors]
   
   #la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy]
+  before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
+  
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
   
@@ -32,15 +33,15 @@ class ProposalsController < ApplicationController
 
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
-      @count_base = @category.proposals
-      @page_title += ' - ' + @category.description
-    else
-      @count_base = Proposal
+      #@count_base = @category.proposals
+      @page_title += ' - ' + @category.description    
     end
+    @count_base = Proposal.in_category(params[:category])
 
     if (params[:group_id])
-    	@count_base = @count_base.includes([:proposal_supports,:group_proposals])
-      .where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
+      @count_base = @count_base.in_group(params[:group_id])
+    	#@count_base = @count_base.includes([:proposal_supports,:group_proposals])
+      #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
     
       if !(can? :view_proposal, @group)
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
@@ -330,6 +331,61 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
   end
   
+  #questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
+  def available_author
+    @proposal.available_user_authors << current_user
+    @proposal.save
+    flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                    page.replace_html "available_author", :partial => 'proposals/available_author'
+                  end                   
+      }        
+    end
+  end
+  
+  #restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
+  def available_authors_list
+    @available_authors = @proposal.available_user_authors
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  #aggiunge alcuni degli utenti che si sono resi disponibili a redigere la sintesi
+  #agli autori della proposta
+  def add_authors
+    available_ids = params['user_ids']
+    
+    Proposal.transaction do    
+      users = @proposal.available_user_authors.find(:all, :conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
+      @proposal.available_user_authors -= users
+      @proposal.users << users
+      @proposal.save
+    end
+  
+    flash[:notice] = "Nuovi redattori aggiunti correttamente!"
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                    page.replace_html "authors_list", :partial => 'proposals/authors_list_panel'     
+                    page << "$('#available_authors_list_container').dialog('close');"               
+                  end                   
+      }        
+    end
+    
+  rescue Exception => e
+    flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
+    respond_to do |format|
+      format.js { render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page << "$('#available_authors_list_container').dialog('close');"                               
+        end
+      }              
+    end
+  end
+  
   
   protected
   
@@ -337,6 +393,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @group ? "groups" : "open_space"
   end 
    
+   
+  #query per la ricerca delle proposte 
   def query_index
     order = ""
     if (params[:view] == ORDER_BY_RANK)
@@ -366,10 +424,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
     
     #se è stata scelta una categoria, filtra per essa
-    if (params[:category])
-      @category = ProposalCategory.find_by_id(params[:category])
-      conditions += " and proposal_category_id = #{params[:category]}"
-    end
+    #if (params[:category])
+    #  @category = ProposalCategory.find_by_id(params[:category])
+    #  conditions += " and proposal_category_id = #{params[:category]}"
+    #end
+    
+    startlist = Proposal.in_category(params[:category])
 
     #applica il filtro per il gruppo
     if (params[:group_id])

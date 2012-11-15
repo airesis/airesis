@@ -1,0 +1,7 @@
+<%if (!@proposal.users.include?(current_user)) %> 
+	<%if (!@proposal.available_user_authors.include?(current_user))%>
+		<%=link_to 'Voglio redigere la sintesi!', available_author_proposal_path(@proposal), :remote => true, :method => :post, :class=> 'buttonStyle littleText disableButton'%>
+	<%else%>
+		Ti sei offerto per redigere la sintesi della proposta
+	<%end%>
+<%end%>

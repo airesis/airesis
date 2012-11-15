@@ -32,6 +32,9 @@ class Proposal < ActiveRecord::Base
   
   has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
   has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
+  
+  has_many :available_authors, :class_name => 'AvailableAuthor', :dependent => :destroy
+  has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
     
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
@@ -60,10 +63,21 @@ class Proposal < ActiveRecord::Base
   scope :public, { :conditions => {:private => false }}
   scope :private, { :conditions => {:private => true }}
   
+  #condizione di appartenenza ad una categoria
+  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?',category_id]} if (category_id && !category_id.empty?)}
+  
+  #condizione di visualizzazione in un gruppo
+  scope :in_group, lambda { |group_id| {:include => [:proposal_supports,:group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",group_id,group_id]} unless group_id.empty?}
+  
+  
   
   before_save :save_tags
   after_update :save_proposal_history
  
+  def in_valutation?
+    return self.proposal_state_id == PROP_VALUT  
+  end
+  
   def is_current?
     return [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id 
   end
