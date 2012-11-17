@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103152920) do
+ActiveRecord::Schema.define(:version => 20121117101327) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
     t.string  "token"
     t.string  "uid",      :limit => 100
   end
+
+  create_table "available_authors", :force => true do |t|
+    t.integer  "proposal_id", :null => false
+    t.integer  "user_id",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "available_authors", ["proposal_id", "user_id"], :name => "index_available_authors_on_proposal_id_and_user_id", :unique => true
 
   create_table "blocked_alerts", :force => true do |t|
     t.integer "notification_type_id"
@@ -105,35 +114,39 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
   end
 
   create_table "circoscrizioni_groups", :id => false, :force => true do |t|
-    t.integer  "id",                                                     :null => false
-    t.string   "name",                  :limit => 200
-    t.string   "description",           :limit => 2000
-    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "id",                                                        :null => false
+    t.string   "name",                    :limit => 200
+    t.string   "description",             :limit => 2000
+    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
     t.integer  "interest_border_id"
     t.integer  "circoscrizione_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                 :default => 1
+    t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                 :default => true, :null => false
+    t.boolean  "default_anonima",                         :default => true, :null => false
   end
 
   create_table "comunali_groups", :id => false, :force => true do |t|
-    t.integer  "id",                                                     :null => false
-    t.string   "name",                  :limit => 200
-    t.string   "description",           :limit => 2000
-    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "id",                                                        :null => false
+    t.string   "name",                    :limit => 200
+    t.string   "description",             :limit => 2000
+    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
     t.integer  "interest_border_id"
     t.integer  "comune_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                 :default => 1
+    t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                 :default => true, :null => false
+    t.boolean  "default_anonima",                         :default => true, :null => false
   end
 
   create_table "comunes", :force => true do |t|
@@ -258,18 +271,28 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
 
   add_index "group_proposals", ["proposal_id", "group_id"], :name => "index_group_proposals_on_proposal_id_and_group_id", :unique => true
 
+  create_table "group_quorums", :force => true do |t|
+    t.integer "quorum_id", :null => false
+    t.integer "group_id"
+  end
+
+  add_index "group_quorums", ["quorum_id", "group_id"], :name => "index_group_quorums_on_quorum_id_and_group_id", :unique => true
+  add_index "group_quorums", ["quorum_id"], :name => "index_group_quorums_on_quorum_id", :unique => true
+
   create_table "groups", :force => true do |t|
-    t.string   "name",                  :limit => 200
-    t.string   "description",           :limit => 2000
-    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.string   "name",                    :limit => 200
+    t.string   "description",             :limit => 2000
+    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                 :default => 1
+    t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                 :default => true, :null => false
+    t.boolean  "default_anonima",                         :default => true, :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -489,10 +512,13 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
     t.string   "objectives",              :limit => 18000, :default => "",    :null => false
     t.boolean  "show_comment_authors",                     :default => true,  :null => false
     t.boolean  "private",                                  :default => false, :null => false
+    t.integer  "quorum_id",                                                   :null => false
+    t.boolean  "anonima",                                  :default => true,  :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
   add_index "proposals", ["proposal_state_id"], :name => "_idx_proposals_proposal_state_id"
+  add_index "proposals", ["quorum_id"], :name => "index_proposals_on_quorum_id", :unique => true
   add_index "proposals", ["vote_period_id"], :name => "_idx_proposals_vote_period_id"
 
   create_table "provas", :force => true do |t|
@@ -502,19 +528,21 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
   end
 
   create_table "provinciali_groups", :id => false, :force => true do |t|
-    t.integer  "id",                                                     :null => false
-    t.string   "name",                  :limit => 200
-    t.string   "description",           :limit => 2000
-    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "id",                                                        :null => false
+    t.string   "name",                    :limit => 200
+    t.string   "description",             :limit => 2000
+    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
     t.integer  "interest_border_id"
     t.integer  "provincia_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                 :default => 1
+    t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                 :default => true, :null => false
+    t.boolean  "default_anonima",                         :default => true, :null => false
   end
 
   create_table "provincias", :force => true do |t|
@@ -523,24 +551,41 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
     t.string  "sigla",       :limit => 5
   end
 
+  create_table "quorums", :force => true do |t|
+    t.string   "name",        :limit => 100,                     :null => false
+    t.string   "description", :limit => 4000
+    t.integer  "percentage"
+    t.integer  "valutations"
+    t.integer  "minutes"
+    t.string   "condition",   :limit => 5
+    t.integer  "bad_score",                                      :null => false
+    t.integer  "good_score",                                     :null => false
+    t.boolean  "active",                      :default => true,  :null => false
+    t.boolean  "public",                      :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ranking_types", :force => true do |t|
     t.string "description", :limit => 200, :null => false
   end
 
   create_table "regionali_groups", :id => false, :force => true do |t|
-    t.integer  "id",                                                     :null => false
-    t.string   "name",                  :limit => 200
-    t.string   "description",           :limit => 2000
-    t.string   "accept_requests",       :limit => 1,    :default => "v", :null => false
+    t.integer  "id",                                                        :null => false
+    t.string   "name",                    :limit => 200
+    t.string   "description",             :limit => 2000
+    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
     t.integer  "interest_border_id"
     t.integer  "regione_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                 :default => 1
+    t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                 :default => true, :null => false
+    t.boolean  "default_anonima",                         :default => true, :null => false
   end
 
   create_table "regiones", :force => true do |t|
@@ -737,6 +782,9 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
 
   add_foreign_key "authentications", "users", :name => "Ref_authentications_to_users"
 
+  add_foreign_key "available_authors", "proposals", :name => "available_authors_proposal_id_fk"
+  add_foreign_key "available_authors", "users", :name => "available_authors_user_id_fk"
+
   add_foreign_key "blocked_alerts", "notification_types", :name => "Ref_blocked_alerts_to_notification_types"
   add_foreign_key "blocked_alerts", "users", :name => "Ref_blocked_alerts_to_users"
 
@@ -796,6 +844,9 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
 
   add_foreign_key "group_proposals", "groups", :name => "group_proposals_group_id_fk"
   add_foreign_key "group_proposals", "proposals", :name => "group_proposals_proposal_id_fk"
+
+  add_foreign_key "group_quorums", "groups", :name => "group_quorums_group_id_fk"
+  add_foreign_key "group_quorums", "quorums", :name => "group_quorums_quorum_id_fk"
 
   add_foreign_key "groups", "interest_borders", :name => "Ref_groups_to_interest_borders"
   add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
@@ -857,6 +908,7 @@ ActiveRecord::Schema.define(:version => 20121103152920) do
   add_foreign_key "proposals", "events", :name => "Ref_proposals_to_events", :column => "vote_period_id"
   add_foreign_key "proposals", "proposal_categories", :name => "Ref_proposals_to_proposal_categories"
   add_foreign_key "proposals", "proposal_states", :name => "Ref_proposals_to_proposal_states"
+  add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
 
   add_foreign_key "provinciali_groups", "provincias", :name => "Ref_provinciali_groups_to_provincias"
 
