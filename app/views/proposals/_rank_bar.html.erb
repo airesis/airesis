@@ -1,16 +1,21 @@
 <script type="text/javascript">
 	$(function() {
+		
+		
 	$("#pb<%=proposal.id%>").progressBar({
 		barImage		: 
-			<%if proposal.rank <= PROP_RANKING_TO_DEGRADE %>
+			<%if proposal.rank < proposal.quorum.bad_score %>
 			'<%=asset_path "progressbg_red.gif"%>'
-			<%elsif proposal.rank >= PROP_RANKING_TO_PROMOTE %>
+			<%elsif proposal.rank >= proposal.quorum.good_score %>
 			'<%=asset_path "progressbg_green.gif"%>'
 			<%else%>
 			'<%=asset_path "progressbg_orange.gif"%>'
 			<%end%>
 			,
+		max : <%=proposal.quorum.valutations%>*10,
+		boxImage : '<%=asset_path "progressbar.gif"%>',
+
 	});
 	});
 </script>
-<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.rank.to_s + "%  " + proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
+<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.rank.to_s + "%  " + proposal.valutations.to_s  + "/" + proposal.quorum.valutations.to_s%>"><%=[proposal.valutations,proposal.quorum.valutations].min * 10%></span>		

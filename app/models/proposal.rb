@@ -35,6 +35,8 @@ class Proposal < ActiveRecord::Base
   
   has_many :available_authors, :class_name => 'AvailableAuthor', :dependent => :destroy
   has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
+  
+  belongs_to :quorum, :class_name => 'Quorum'
     
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 

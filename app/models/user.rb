@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
   #colonne assegnabili massivamente
-  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :email_alerts
+  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :email_alerts, :facebook_page_url, :linkedin_page_url
   
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'

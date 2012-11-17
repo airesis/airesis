@@ -64,6 +64,10 @@ class GroupsController < ApplicationController
     @page_title = t("pages.groups.edit_permissions.title")    
   end
   
+  def edit_proposals
+    @page_title = t("pages.groups.edit_proposals.title")    
+  end
+  
   def new_event
     @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
     if (params[:date])
@@ -294,12 +298,8 @@ class GroupsController < ApplicationController
   
   private
 
-  def choose_layout    
-    if [ 'new','index','create'].include? action_name
-      'settings'
-    else
-      'groups'
-    end
+  def choose_layout        
+      'groups'   
   end
   
   

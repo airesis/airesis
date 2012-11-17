@@ -121,6 +121,7 @@ DemocracyOnline3::Application.routes.draw do
       get :new_event
       post :create_event
       get :edit_permissions
+      get :edit_proposals
 
     end
 
@@ -144,6 +145,10 @@ DemocracyOnline3::Application.routes.draw do
     resources :candidates
     
     resources :proposals
+    
+    resources :group_quorums do
+      resources :quorums
+    end
        
   end
   
@@ -185,6 +190,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
+  match '/videoguide' => 'home#videoguide'
   match '/democraziadiretta' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
 

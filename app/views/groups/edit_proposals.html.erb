@@ -1,0 +1,63 @@
+     
+<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_proposals.title')} do%>
+	<a href="#" class="newButton" id="addQuorum">Aggiungi un nuovo quorum</a>
+<%end%>
+
+<div id="quorum_panel_container">
+<%= render :partial => 'groups/quorums_panel' %>
+</div>
+
+<div id="new_quorum" title="Nuovo quorum" style="display: none; font-size: 1em;">
+	
+	<%=form_for [@group,GroupQuorum.new], :remote => true do |f|%>
+		
+		<p>
+		<%=f.fields_for :quorum, Quorum.new do |e|%>
+		<%=e.label :name%>	<br />
+		<%=e.text_field :name%>
+		</p>
+		<p>
+		<%=e.label :description%>	<br />
+		<%=e.text_field :description%>
+		</p>
+		<%end%>
+		<%=f.submit 'Crea', :class => 'buttonStyle'%>
+	<%end%>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$('#addQuorum').click(function() {
+			$('#new_quorum').dialog({
+				modal : true,
+				close : function(event, ui) {
+					$('#new_quorum').dialog('destroy');			
+				}
+			});
+		});		
+			
+		$('#quorum_table').dataTable( {
+	        "oLanguage": {
+	            "sLengthMenu": "Mostra _MENU_ quorum per pagina",
+	             "sSearch": "Cerca:",
+	            "sZeroRecords": "Nessun quorum, spiacente..",
+	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ quorum",
+	            "sInfoEmpty": "Sto mostrando 0 quorum",
+	            "sInfoFiltered": "(filtrati da un totale di _MAX_ quorum)",
+	            "oPaginate": {
+			        "sPrevious": "Pagina precedente",
+			        "sNext": "Pagina successiva"
+			      },
+	        },
+	        "aoColumns": [null,{ "bSortable": false }]  
+	    });
+	    
+	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");
+	});
+	
+</script>
+                
+<%=content_for :left_panel do%>
+	<%= render :partial => 'groups/administration_panel' %>
+
+<%end%>

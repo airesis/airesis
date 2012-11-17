@@ -35,7 +35,8 @@ class ElectionsController < ApplicationController
             end
           end #fine ciclo voti
           #calcolo il risultato
-          vs = SchulzeBasic.do votesstring, @election.candidates.count
+          num_candidates = @election.candidates.count
+          vs = SchulzeBasic.do votesstring, num_candidates 
           #ordino i candidati secondo l'id crescente (così come vengono restituiti dalla libreria)
           candidates_sorted = @election.candidates.sort{|a,b| a.id <=> b.id}          
           candidates_sorted.each_with_index do |c,i|
@@ -70,7 +71,6 @@ class ElectionsController < ApplicationController
       votes = (JSON.parse params[:data][:votes])
       votes = votes['candidates']
       votestring = ""
-  
       votes.sort! {|a,b| b[1] <=> a[1] }    
       
       votes.each_with_index do |vote,index|
@@ -85,6 +85,7 @@ class ElectionsController < ApplicationController
      end
      
    ElectionVote.transaction do
+     raise Exception if (votes.count != @election.candidates.count)
      votes.each do |vote|
         #controlla che gli id di tutti i candidati indicati siano effettivamente partecipanti all'elezione
         raise Exception unless @election.candidates.include? Candidate.find_by_id(vote[0])    

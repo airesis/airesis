@@ -31,16 +31,15 @@
 			callback		: null,
 			boxImage		: '<%=asset_path "progressbar.gif"%>',
 			barImage		: 
-				<%if @proposal.rank <= PROP_RANKING_TO_DEGRADE %>
+				<%if @proposal.rank <= @proposal.quorum.bad_score %>
 				'<%=asset_path "progressbg_red.gif"%>'
-				<%elsif @proposal.rank >= PROP_RANKING_TO_PROMOTE %>
+				<%elsif @proposal.rank >= @proposal.quorum.good_score %>
 				'<%=asset_path "progressbg_green.gif"%>'
 				<%else%>
 				'<%=asset_path "progressbg_orange.gif"%>'
 				<%end%>
 				,
 		});
-		
 	});
 </script>
 <p class="points">
@@ -50,7 +49,7 @@
     <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
 </p>
 
-<span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + PROP_VOTES_TO_PROMOTE.to_s%>"><%=[@proposal.valutations,PROP_VOTES_TO_PROMOTE].min * 10%></span>		
+<span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + @proposal.quorum.valutations.to_s%>"><%=[@proposal.valutations,@proposal.quorum.valutations].min * 10%></span>		
 <%if (!current_user || (can? :partecipate, @proposal)) %>
 		<div class="handscontainer">	
 	<%if @my_vote%>

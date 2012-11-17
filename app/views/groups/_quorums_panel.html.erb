@@ -1,0 +1,20 @@
+
+<table style="text-align: left; font-size: 12px">
+	<tr style="background-color: #E3E9F9" valign="top">
+		<td ><b>Nome</b></td>		
+		<td ><b>Descrizione</b></td>
+		
+		
+	</tr>
+	<tbody>
+	<% @group.quorums.all.each do |quorum|%>
+		<tr valign="top">
+			<td>
+				<b><%=quorum.name%>:</b>
+			</td>
+			<td> <%=quorum.description%>	
+			</td>
+		</tr>
+	<%end%>
+	</tbody>
+</table>

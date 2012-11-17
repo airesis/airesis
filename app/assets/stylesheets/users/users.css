@@ -48,3 +48,41 @@
 .image_container {
 /*	position: relative;*/
 }
+
+.user_profile {
+	border: 1px solid #808080;
+    border-radius: 3px 3px 3px 3px;
+}
+.profile_element {
+	height: 18px;
+	padding: 10px;
+	margin: 5px auto;
+	width: 95%;	 
+}
+.profile_element:hover {
+	background: url("redmond/images/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC;
+}
+
+.label_profile {
+	color: #888888;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.2em;
+	/*margin-bottom: 0;*/
+	text-align: right;
+	vertical-align: top;
+	width: 100px;
+	margin: 0px;
+	display: inline-block;
+	position: relative;
+}
+.info_profile {
+	line-height: 1.39em;
+	padding: 0 0 0 15px;
+	width: 320px;
+	display: inline-block;
+	position: relative;	
+}
+.edit_user {
+	padding-top: 8px;
+}

@@ -8,7 +8,7 @@
 		<%= javascript_include_tag 'application' %>
 		<meta name="description" content="<%= (@page_descr)%>">
 		<link rel="shortcut icon" href="/favicon.ico" />
-		<link href='http://fonts.googleapis.com/css?family=Arimo|Ubuntu' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
 		
@@ -23,7 +23,7 @@
 			<h1><%=@page_title%></h1>
 			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'buttonStyle' %>
 			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'buttonStyle' %>
-			<%= link_to 'Roadmap', roadmap_path, :class => 'buttonStyle' %>
+			<%= link_to 'Video guide', videoguide_path, :class => 'buttonStyle' %>
 			<%= link_to 'Chi siamo', chisiamo_path, :class => 'buttonStyle' %>
 			<%= link_to 'Sostienici', sostienici_path, :class => 'buttonStyle' %>
 			
@@ -37,7 +37,7 @@
 		  <div id="groups_leftpanel">
 		   <%= yield :left_panel%>
 		  </div>
-			<div id="centerpanelextended"><%= yield :layout %></div>
+			<div id="centerpanelextended" style="font-size: 16px; line-height: 22px;"><%= yield :layout %></div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 			<div class="footer">
 				<%=render :partial => "layouts/footer" %>

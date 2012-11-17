@@ -20,15 +20,11 @@ USAGE:
 			this.defaults = {
 				steps			: 200,						 					// steps taken to reach target
 				stepDuration	: 20,											
-				max				: <%=PROP_VOTES_TO_PROMOTE%>*10,											// Upon 100% i'd assume, but configurable
-				showText		: false,											// show text with percentage in next to the progressbar? - default : true
+				showText		: false,										// show text with percentage in next to the progressbar? - default : true
 				textFormat		: 'percentage',									// Or otherwise, set to 'fraction'
 				width			: 120,											// Width of the progressbar - don't forget to adjust your image too!!!												// Image to use in the progressbar. Can be a single image too: 'images/progressbg_green.gif'
 				height			: 12,											// Height of the progressbar - don't forget to adjust your image too!!!
-				callback		: null,											// Calls back with the config object that has the current percentage, target percentage, current image, etc
-				boxImage		: '<%=asset_path "progressbar.gif"%>',						// boxImage : image around the progress bar
-				
-				// Internal use
+				callback		: null,											// Calls back with the config object that has the current percentage, target percentage, current image, etc								
 				running_value	: 0,
 				value			: 0,
 				image			: null

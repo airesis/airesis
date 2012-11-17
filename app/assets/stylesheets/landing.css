@@ -10,7 +10,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
 button{cursor:pointer;-webkit-appearance:button}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
 .input-block-level{display:block;width:100%;min-height:28px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
-body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;line-height:18px;color:#333;background-color:#fff}
+body{margin:0;font-family:'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;font-size:13px;line-height:18px;color:#333;background-color:#fff}
 a{color:#08c;text-decoration:none}
 a:hover{color:#005580;text-decoration:underline}
 
@@ -236,54 +236,4 @@ margin-top:3px;
 color: #FE8A5D;
 border-top:solid 3px #FE8A5D;
 margin-top:0px;
-}
-/*Triangolo feedback*/
-
-#triangle-topleft {
-	position:fixed;
-	z-index: 1000;
-	left:0%;
-	top:0%;
-width: 0;
-height: 0;
-border-top: 65px solid #e3efef;
-border-bottom: 65px solid transparent;
-border-left: 65px solid #e3efef;
-border-right: 65px solid transparent;
-}
-#triangle-topleft2 {
-	position:fixed;
-	z-index: 999;
-	left:0%;
-	top:0%;
-width: 0;
-height: 0;
-border-top: 66px solid #336699;
-border-bottom: 66px solid transparent;
-border-left: 66px solid #336699;
-border-right: 66px solid transparent;
-}
-
-
-#triangle-topleft a{
-display:block;
-color:#336699;
-font-family:Arial, Helvetica, sans-serif;
-font-size:17px;
-font-weight:bold;
-height:15px;
-margin-top:-18px;
-margin-left:-155px;
-line-height:0px;
-text-align:center;
-text-decoration:none;
-transform: rotate(45deg);
-	-webkit-transform: rotate(-45deg); 
-	-moz-transform: rotate(-45deg); 
-	-o-transform: rotate(-45deg); 
-	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-width:300px;
-}
-#triangle-topleft a:hover{
-	color:#FE8A5D;
 }

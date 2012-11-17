@@ -34,11 +34,22 @@
                         *****
                     </div>
                 </div>
+                  <div id="facebook_profile" class="profile_element">
+                    <h2 class="label_profile">URL Facebook: </h2>
+                    <div class="info_profile">
+                      <%=h @user.facebook_page_url %>
+                    </div>
+                  </div>
+                  <div id="linkedin_profile" class="profile_element">
+                    <h2 class="label_profile">URL Linkedin: </h2>
+                    <div class="info_profile">
+                      <%=h @user.linkedin_page_url %>
+                    </div>
+                  </div>
                 <%end%>
             </div>
         </td>
         <td>
-        </div>
     </td>
     </tr>
 </table>
@@ -85,11 +96,19 @@
         	alert('Il tuo account è collegato ad un account facebook. Non puoi modificare l\'indirizzo email');
         <%end%>
         });
-        
+
         $('#password_profile').click(function(){
             doModal($("#password_modal"));
         });
-        
+
+        $('#facebook_profile').click(function(){
+            doModal($("#facebook_page_url_modal"));
+        });
+
+        $('#linkedin_profile').click(function(){
+            doModal($("#linkedin_page_url_modal"));
+        });
+
         $('.image_container img, .caption').mouseover(function(){
             $('.caption').show();
         });
@@ -101,6 +120,9 @@
         $('.image_container div a').click(function(){
             doModal($("#img_modal"));
         });
+        
+        $('.profile_element').css('cursor','pointer');
+
     });
 </script>
 <%end %>
