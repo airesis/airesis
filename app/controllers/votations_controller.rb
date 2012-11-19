@@ -1,6 +1,8 @@
 #encoding: utf-8
 class VotationsController < ApplicationController
 
+  layout 'open_space'
+
   before_filter :authenticate_user!
 
   before_filter :load_proposals, :only => [ :show]
