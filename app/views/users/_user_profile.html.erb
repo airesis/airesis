@@ -47,6 +47,19 @@
                     </div>
                   </div>
                 <%end%>
+                  <div id="username_profile" class="profile_element">
+                    <h2 class="label_profile">Username: </h2>
+                    <div class="info_profile">
+                      <%=h @user.login %>
+                    </div>
+                  </div>
+                  <div id="confirmed_at_profile" class="profile_element">
+                    <h2 class="label_profile">Registrato dal: </h2>
+                    <div class="info_profile">
+                      <%=h @user.confirmed_at.strftime("%d/%m/%Y") %>
+                    </div>
+                  </div>
+
             </div>
         </td>
         <td>
