@@ -62,7 +62,7 @@ js.id = id;<%if (Rails.env == "production")%>
 <!-- ##### Header ##### -->
 <div id="header">
 	<div class="body_maxwidth">
-		<div class="midHeader">
+		<div class="midHeader"><%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta"), root_path%>
 		<h2 class="headerTitle" lang="la"><%= link_to "Airesis - Scegli di partecipare", root_path%></h2>
 		</div>
 		
@@ -121,25 +121,23 @@ js.id = id;<%if (Rails.env == "production")%>
 					<br />
 					<%= f.password_field :password, :style=>"width:80%" %>
 				</div >
-				<div class="littleText">
-					<%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
+				<div class="littleText" style="font-weight: normal; font-size: 14px; padding-bottom: 5px;">
+					<div style="float: left; "><%= f.check_box :remember_me %></div> Ricordami su questo computer
 				</div>
-				<div>
+				<div style="float: none;">
 					<%= f.submit "Login", :class=>"buttonStyle" %>
-					<%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle" %>
+					<%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle", :style=>"margin-left: 105px" %>
 					<br />
 				</div>
 				<% end %>
-				<br />
-				<div>
+
+				<div style="padding-top: 15px;">
 					<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook') %>
 				</div>
-				<p>
-					<%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %>
-					<br />
-				</p>
-				<%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %>
-				<br />
+                    <ul style="padding-left: 15px;">
+                      <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>
+                      <li><%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %></li>
+				    </ul>
 			</div>
 			<% end %>
 		</div>
@@ -158,12 +156,17 @@ js.id = id;<%if (Rails.env == "production")%>
 			</div>
 		</div>
 		<%end%>
-		
-		<div class="nolink_menu_element">
-			<%= link_to t("open_space"), proposals_path %>
-		</div>
-		
-		<%if user_signed_in?%>
+
+      <div class="nolink_menu_element">
+        <%= link_to t("guide"), videoguide_path, :style => "color:#669900" %>
+      </div>
+
+      <div class="menu_element">
+        <%= link_to t("open_space"), proposals_path %>
+      </div>
+
+
+      <%if user_signed_in?%>
 			<div class="menu_element">
 				I miei gruppi
 				<div class="groups_panel shadow-box hidden_panel" id="groups_panel">
@@ -197,7 +200,7 @@ js.id = id;<%if (Rails.env == "production")%>
 		
 		<div style="clear: both; height: 0; overflow: hidden;"></div>
 	</div>
-	<span>
+
 </div>
 <script type="text/javascript">
 	
@@ -229,7 +232,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			$('.hidden_panel',this).show().position({				
     			my:        "right top",
     			at:        "right bottom",
-    			of:        _this,    			
+    			of:        _this
 			})
 			_this.addClass('active');			
 			_this.data('show',true);
@@ -301,7 +304,7 @@ js.id = id;<%if (Rails.env == "production")%>
 			$('#registration-panel').show().position({				
     			my:        "right top",
     			at:        "right bottom",
-    			of:        $('.superHeader'),    			
+    			of:        $('.superHeader')
 			})
 			$('.superHeader').addClass('active');
 			user_panel_shown = true;

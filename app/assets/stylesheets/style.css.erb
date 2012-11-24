@@ -6,6 +6,10 @@ input {
 	border: 1px solid #BDC7D8;
 }
 
+input.ui-button {
+    padding: 3px 6px;
+}
+
 ul.token-input-list,
 ul.token-input-list-facebook {
 	border: 1px solid #BDC7D8;
@@ -16,14 +20,6 @@ body div.token-input-dropdown {
 	border-right: 1px solid #BDC7D8;
 	border-left: 1px solid #BDC7D8;
 }
-
-h3 {
-	margin: 10px 0px 2px 0px;
-    padding: 0px  ;
-	font-size:20px;
-	font-weight:normal;
-}
-
 
 .confirmRequest .ui-button-text {
 	font-size: 10px;
@@ -50,8 +46,6 @@ h4 {
     font-size:16px;*/
 }
 
-
-
 .face-login-button {
         background-color: #3b5998;
         border-color: #d8dfea rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234);
@@ -72,12 +66,11 @@ a:hover {
 	text-decoration: underline;
 }
 body {	
-	line-height: 18px;
-	font: 14px 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
+	line-height: 1.125em;
+	font: 0.875em 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333333;
-	text-align: justify;
 }
 .littleText {	
 	font-weight: bold;
@@ -85,7 +78,7 @@ body {
 }
 
 .littleText.ui-button .ui-button-text {
-	line-height: 1;
+	line-height: 16px;
 	font-size: 12px;
 }
 
@@ -113,7 +106,7 @@ body {
 
 
 .nolink_menu_element {
- font-size: 12px;
+ font-size: 14px;
  padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
@@ -123,7 +116,7 @@ body {
 }
 
 .menu_element {
- font-size: 12px;
+ font-size: 14px;
  padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
@@ -135,7 +128,7 @@ body {
 
 .midHeader {
  float: left;
- font-size: 12px;
+ font-size: 16px;
  border-top: 1px solid transparent;
  border-left:  1px solid transparent;
  border-right:  1px solid transparent;
@@ -199,17 +192,25 @@ body {
 }
 
 .body_maxwidth h1 {
-	margin: 2px 0px 10px 0px;
+	margin: 2px 0px 5px 0px;
 }
 
 .body_maxwidth .group_title {
-	margin: 0px 150px;
+	margin: 0px 160px;
+    width: 800px;
 }
 
 .body_maxwidth .buttonStyle {
-	font-size: 11px;
+	font-size: 13px;
+    letter-spacing: 1px;
 }
 
+.ui-button-text-only .ui-button-text {
+    padding: 3px 6px;
+}
+.ui-button .ui-button-text {
+    display: block;
+}
 
 
 #fixed {
@@ -218,12 +219,13 @@ body {
 }
 
 .headerTitle a {
-	color: black;
+	color: #2f4f4f;
 	background-color: transparent;
 	text-decoration: none;
-	font-size:14px;
+	font-size:18px;
 	font-weight: normal;
 	font-style: normal;
+    text-shadow: 0px 0px 5px #BAE3F2;
 }
 
 .full_link {
@@ -232,7 +234,8 @@ body {
 
 .headerTitle {
 	margin: 0px;
-	padding: 0.2em 4mm 0.25em 4mm;
+	padding: 0.3em 0mm 0.25em 4mm;
+    width: 280px;
 }
 
 #main-copy {
@@ -611,7 +614,7 @@ table.stiled tr.even.gradeA {
 }
 
 .leftcontainer h1 {
-	font-size: 16px;
+	font-size: 1em;
 }
 
 .leftcontainer textarea {
@@ -624,12 +627,23 @@ h1, h2 {
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 1.125em;
+}
+
+h3 {
+    margin: 10px 0px 2px 0px;
+    padding: 0px  ;
+    font-size:1.125em;
+    font-weight:normal;
 }
 
 h1 {
-	font-size: 24px;
+	font-size: 22px;
 	margin: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: tahoma,arial,'ubuntu','lucida grande',verdana,sans-serif;
 }
 
 .field_with_errors {
