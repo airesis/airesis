@@ -32,6 +32,20 @@
   </p>
   
   <p>
+	<%= f.label :quorum_id, 'Quorum' %><br />
+	<%if @group%>
+		<%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+		<%=link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true%>
+	<%else%>
+		<%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+		<%=link_to 'Non li conosco!', help_quorums_path, :remote => true%>
+	<%end%>
+	<div id="available_quorums_container" title="Elenco quorum disponibili">
+	</div>	
+  </p>
+  
+  
+  <p>
 	<%if @group%>
   	<input type="hidden" name="from_group" value="<%=@group.id%>"/>
 	<%end%>
@@ -49,13 +63,13 @@
   	<h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta</h4>
    <p>
   	 <%=f.label :problems%> *<br />
-    <%= f.text_area :problems, :rows=>5,:style=>"width:600px" %>
+    <%= f.text_area :problems, :rows=>5,:style=>"width:500px" %>
      
   </p>
   
    <p>
   	 <%=f.label :objectives%> *<br />
-    <%= f.text_area :objectives, :rows=>5,:style=>"width:600px" %>
+    <%= f.text_area :objectives, :rows=>5,:style=>"width:500px" %>
      
   </p>
   </div>
