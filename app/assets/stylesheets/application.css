@@ -6,7 +6,6 @@
  *= require users/users
  *= require token-input
  *= require token-input-facebook
- *= require style
  *= require blog_kit
  *= require jquery.contextmenu
  *= require ImageOverlay.css
@@ -25,5 +24,7 @@
  *= require tutorial
  *= require portlet
  *= require jquery.dataTables
+ *= require style
  *= require notifications
+ *= require quorums
 */
