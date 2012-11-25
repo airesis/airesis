@@ -50,6 +50,7 @@ it:
     pm: "pm"
   
   open_space: "Spazio comune"
+  guide: "Guida FAQ"
 
   hello: "Ciao mondo"
   error_not_logged_in: "Accesso riservato agli utenti registrati."

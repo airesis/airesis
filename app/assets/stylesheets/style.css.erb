@@ -21,7 +21,17 @@ h3 {
 	margin: 0px;
 }
 
+.remember_me label{
+	font-weight: normal; 
+	font-size: 14px; 
+}
+.remember_me {
+	padding-bottom: 5px;
+}
 
+.video_faq {
+	color:#669900;
+}
 .confirmRequest .ui-button-text {
 	font-size: 10px;
 }
@@ -46,8 +56,6 @@ h4 {
     text-align: left;
     font-size:16px;*/
 }
-
-
 
 .face-login-button {
         background-color: #3b5998;
@@ -74,7 +82,6 @@ body {
 	margin: 0;
 	padding: 0;
 	color: #333333;
-	text-align: justify;
 }
 .littleText {	
 	font-weight: bold;
@@ -82,7 +89,7 @@ body {
 }
 
 .littleText.ui-button .ui-button-text {
-	line-height: 1;
+	line-height: 16px;
 	font-size: 12px;
 }
 
@@ -110,8 +117,8 @@ body {
 
 
 .nolink_menu_element {
- font-size: 12px;
- padding: 9px 15px;
+ font-size: 14px;
+ padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
  border-left:  1px solid transparent;
@@ -120,8 +127,8 @@ body {
 }
 
 .menu_element {
- font-size: 12px;
- padding: 9px 15px;
+ font-size: 14px;
+ padding: 7px 15px;
  float: right;
  border-top: 1px solid transparent;
  border-left:  1px solid transparent;
@@ -132,7 +139,7 @@ body {
 
 .midHeader {
  float: left;
- font-size: 12px;
+ font-size: 16px;
  border-top: 1px solid transparent;
  border-left:  1px solid transparent;
  border-right:  1px solid transparent;
@@ -196,17 +203,25 @@ body {
 }
 
 .body_maxwidth h1 {
-	margin: 2px 0px 10px 0px;
+	margin: 2px 0px 5px 0px;
 }
 
 .body_maxwidth .group_title {
-	margin: 0px 150px;
+	margin: 0px 160px;
+    width: 800px;
 }
 
 .body_maxwidth .buttonStyle {
-	font-size: 11px;
+	font-size: 13px;
+    letter-spacing: 1px;
 }
 
+.ui-button-text-only .ui-button-text {
+    padding: 3px 6px;
+}
+.ui-button .ui-button-text {
+    display: block;
+}
 
 
 #fixed {
@@ -215,12 +230,13 @@ body {
 }
 
 .headerTitle a {
-	color: black;
+	color: #333;
 	background-color: transparent;
 	text-decoration: none;
-	font-size:14px;
+	font-size:16px;
 	font-weight: normal;
 	font-style: normal;
+    /*text-shadow: 0px 0px 5px #BAE3F2;*/
 }
 
 .full_link {
@@ -228,8 +244,9 @@ body {
 }
 
 .headerTitle {
-	margin: 0;
-    padding: 0.1em 0 0.25em;
+	margin: 0px;
+	padding: 0.3em 0mm 0.25em 4mm;
+    width: 280px;
 }
 
 #main-copy {
@@ -609,7 +626,7 @@ table.stiled tr.even.gradeA {
 }
 
 .leftcontainer h1 {
-	font-size: 16px;
+	font-size: 1em;
 }
 
 .leftcontainer textarea {
@@ -622,13 +639,26 @@ h1, h2 {
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 1.125em;
+}
+
+h3 {
+    margin: 10px 0px 2px 0px;
+    padding: 0px  ;
+    font-size:1.125em;
+    font-weight:normal;
 }
 
 h1 {
-	font-size: 24px;
+	font-size: 22px;
 	margin: 0px;
 }
+
+/*
+h1, h2, h3, h4, h5, h6 {
+    font-family: tahoma,arial,'ubuntu','lucida grande',verdana,sans-serif;
+}
+*/
 
 .field_with_errors {
 	display:inline-block;
@@ -696,7 +726,7 @@ h1 {
 
 
 /*aggiunte*/
-.well{ position:fixed; width:150px; margin-top:0px; min-height:20px;padding:19px;margin-bottom:0px;background-color:#f5f5f5;border:1px solid #eee;border:1px solid rgba(0,0,0,0.05);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}
+.well{ width:150px; margin-top:0px; min-height:20px;padding:19px;margin-bottom:0px;background-color:#f5f5f5;border:1px solid #eee;border:1px solid rgba(0,0,0,0.05);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}
 .nav{margin-bottom:18px;margin-left:5px;margin-right:5px;list-style:none}
 .nav>li>a{display:block;}
 .nav>li>a:hover{text-decoration:none;background-color:#eee}
@@ -810,7 +840,7 @@ width:100px;
 .ui-button-text-only .ui-button-text { padding: .1em 0.8em; }
 .ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em .8em .1em 2.1em; }
 .ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 2.1em .1em 1em; }
-input.ui-button { padding: .1em 1em; }
+input.ui-button {padding: 3px 6px;}
 .ui-tabs .ui-tabs-panel {border-width: 1px;}
 span.ui-spinner.ui-widget {
 	border-radius: 0;
