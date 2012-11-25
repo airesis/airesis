@@ -19,7 +19,7 @@ class ItsTimeForQuorums < ActiveRecord::Migration
      fast = Quorum.create(:name => "fast", :percentage => 20, :minutes => 2880, :condition => 'OR', :good_score => 50, :bad_score => 50, :public => true)
      proceeding = Quorum.create(:name => "standard", :percentage => 30, :minutes => 21600, :condition => 'OR', :good_score => 60, :bad_score => 60, :public => true)
      long = Quorum.create(:name => "long", :percentage => 50, :minutes => 86400, :condition => 'AND',:good_score => 60, :bad_score => 60, :public => true)
-     good_score = Quorum.create(:name => "good_score", :percentage => 30, :minutes => 21600, :condition => 'OR',:good_score => 30, :bad_score => 70, :public => true)
+     good_score = Quorum.create(:name => "good_score", :percentage => 30, :minutes => 21600, :condition => 'OR',:good_score => 70, :bad_score => 30, :public => true)
      
      #quorum a disposizione del gruppo
      create_table :group_quorums do |t|
