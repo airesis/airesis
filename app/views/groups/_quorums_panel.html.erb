@@ -1,20 +1,60 @@
 
 <table style="text-align: left; font-size: 12px">
 	<tr style="background-color: #E3E9F9" valign="top">
+		<td ><b>Attivo</b></td>
 		<td ><b>Nome</b></td>		
-		<td ><b>Descrizione</b></td>
-		
-		
+		<td><b>Partecipanti</b></td>
+		<td><b>Tempo</b></td>
+		<td><b>Quorum</b></td>
+		<td><b>Quorum negativo</b></td>
 	</tr>
 	<tbody>
 	<% @group.quorums.all.each do |quorum|%>
-		<tr valign="top">
+		<tr valign="top" title="<%=quorum.description%>">
+			<td>
+				<input type="checkbox" onclick="return change_quorum_status(this,<%=quorum.id%>);"
+				<%if quorum.active %> 
+					checked="true"
+				<%end%>
+				/>
+			</td>
 			<td>
 				<b><%=quorum.name%>:</b>
+			</td>			
+			<td> <%=quorum.percentage ? quorum.percentage.to_s + '%' : '-' %>	
 			</td>
-			<td> <%=quorum.description%>	
+			<td> <%=quorum.time || '-'%>
+			</td>
+			<td> <%=quorum.good_score%>%
+			</td>
+			<td> <%=(quorum.bad_score != quorum.good_score) ? quorum.bad_score.to_s + '%' : '-'%>
+			</td>
+			<td> 
+				<%=link_to 'Delete', [@group,quorum], :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare il quorum '"+quorum.name+"'?", :title => 'Elimina',  :class=>"ui-icon ui-icon-trash"%>
+				
 			</td>
 		</tr>
 	<%end%>
 	</tbody>
 </table>
+
+<script type="text/javascript">
+	function change_quorum_status(el,quorum_id) {
+    	if (el.checked) {
+    		$.ajax({
+	        	data: "active=true",
+	        	url: "/groups/" + <%=@group.id%>  + "/quorums/" + quorum_id + "/change_status",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+    	}
+    	else {
+	        $.ajax({
+	        	data: "active=false",
+	        	url: "/groups/" + <%=@group.id%>  + "/quorums/" + quorum_id + "/change_status",     
+	            dataType: 'script',
+	        	type: 'post'    
+	        });
+	    }
+    }
+</script>

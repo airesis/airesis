@@ -4,14 +4,16 @@ if @group
   page<< "$('#create_proposal_dialog').dialog({
         title: 'Nuovo Dibattito interno al gruppo: " + @group.name + "',
         modal: true,
-        width: 700,
+        width: 720,
+        height: 'auto',
         close: function(event, ui) { $('#create_proposal_dialog').dialog('destroy') }
     });"
 else  
 page<< "$('#create_proposal_dialog').dialog({
         title: 'Nuovo Dibattito',
         modal: true,
-        width: 700,
+        width: 720,
+        height: 'auto',
         close: function(event, ui) { $('#create_proposal_dialog').dialog('destroy') }
     });"
 end

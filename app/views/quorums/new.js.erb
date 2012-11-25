@@ -1,0 +1,12 @@
+$('#new_quorum_container').html("<%= escape_javascript(render(:partial => 'quorums/form'))%>");
+
+$('#new_quorum').dialog({ 
+	width: 500,
+	height: 'auto',
+	modal : true,
+	resizable: false,
+	close : function(event, ui) {
+		$('#new_quorum').dialog('destroy');			
+	}
+});
+

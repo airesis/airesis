@@ -146,10 +146,20 @@ DemocracyOnline3::Application.routes.draw do
     
     resources :proposals
     
-    resources :group_quorums do
-      resources :quorums
+    resources :quorums do
+      member do
+        post :change_status
+      end
     end
+    #resources :group_quorums do
+    #end
        
+  end
+  
+  resources :quorums do
+    collection do
+      get :help
+    end
   end
   
   resources :elections do
