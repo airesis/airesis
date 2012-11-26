@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Airesis - Scegli di partecipare</title>
+  <title><%=APP_LONG_NAME %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota il tuo futuro">
@@ -106,9 +106,11 @@
 	  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :login %></div>
 	  <%= f.text_field :login, :style => "width:140px;" %> <br />
 	  <div style="float:left; width:70px; margin-top: 3px;"><%= f.label :password %></div>
-	  	<%= f.password_field :password, :style => "width:140px;" %>  <br />
-	  <%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:14px' %> <%= f.label :remember_me, "Ricordami su questo computer", :style=>'font-size:14px' %>
-	  </div>
+	  	<%= f.password_field :password, :style => "width:140px;" %>
+
+        <div class="littleText" style="font-weight: normal; font-size: 12px; padding-bottom: 5px;">
+          <div style="float: left; "><%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:12px' %></div> Ricordami  <div style="float: right;"><%= link_to "Password dimenticata?", new_password_path(resource_name) %></div>
+        </div></div>
 	  <div>	
 		<%= f.submit "Accedi", :style=>"width:185px;margin-left: 10px; padding-top:6px; padding-bottom:6px; margin-bottom:5px;cursor:pointer; font-size: 20px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;", :class=>"btn btn-success btn-large" %>
 		<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook'), :style=>"margin-left: 10px;"%>		  	

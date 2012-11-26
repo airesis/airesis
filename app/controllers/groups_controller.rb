@@ -64,8 +64,9 @@ class GroupsController < ApplicationController
     @page_title = t("pages.groups.edit_permissions.title")    
   end
   
-  def edit_proposals
-    @page_title = t("pages.groups.edit_proposals.title")    
+  def edit_proposals    
+    #conta il numero di partecipanti che possono valutare le proposte
+    
   end
   
   def new_event
@@ -104,8 +105,20 @@ class GroupsController < ApplicationController
         @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
          
         @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+        
                 
         @group.save!
+        
+        
+        Quorum.public.each do |quorum|
+          copy = quorum.dup
+          copy.public = false
+          copy.save!
+          GroupQuorum.create(:quorum_id => copy.id, :group_id => @group.id)         
+        end        
+        
+        
+        
                 
       end
       

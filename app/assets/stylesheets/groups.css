@@ -42,3 +42,12 @@
 	font-size: 16px;
 	font-weight: bold;
 }
+
+input.days, input.hours, input.minutes {
+	width:50px;
+}
+
+.form_float {
+	float:left;
+	padding: 5px 10px 5px 0;	
+}

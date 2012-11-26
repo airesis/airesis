@@ -50,6 +50,7 @@ it:
     pm: "pm"
   
   open_space: "Spazio comune"
+  guide: "Guida FAQ"
 
   hello: "Ciao mondo"
   error_not_logged_in: "Accesso riservato agli utenti registrati."
@@ -114,7 +115,7 @@ it:
         info: "Informazioni di base"
         events: "Eventi e incontri"
         permissions: "Ruoli e permessi"
-        proposals: "Configurazione proposte"
+        proposals: "Quorum e proposte"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -167,42 +168,15 @@ it:
       places: "Luogo"
   
     attributes:
-      proposal:
-        proposal_category_id: "Categoria"
-        title: "Titolo"
-        subtitle: "Sottotitolo"
-        problems: "Problemi"
-        objectives: "Obiettivi"
-        content: "Testo"
-        interest_borders_tkn: "Confini geografici di interesse"        
-      proposal_comment:
-         content: "Contenuto"
       blog_comment:
          body: "Commento"
          created_at: "AntiSpam"
-      user:
-        name: "Nome"
-        email: "Indirizzo Email"
-        surname: "Cognome"
-        login: "Username"
-        password: "Password"
-        linkedinpageurl: "Tua pagina su Linkedin"
-        facebookpageurl: "Tua pagina su Facebook"
-        accept_conditions: "Condizioni d'uso"
-        email_alerts: "Notifiche tramite email"
-      quorum:
-        name: "Nome"
-        description: "Descrizione"
-      group:
-        facebook_page_url: "Indirizzo pagina Facebook"
-        name: "Nome"
-        title_bar: "Barra del titolo"
-        description: "Descrizione"
-        accept_requests: "Richieste di partecipazione"
-        porta_id: "Portavoce"
-        interest_border_tkn: "Confine geografico di interesse"
-        interest_border_id: "Confine geografico di interesse"
-        image_url: "Indirizzo immagine"
+      candidate:
+         user: "Candidato"
+         election: "Elezione"
+      election:
+        groups_end_time: "Data termine iscrizione gruppi"
+        candidates_end_time: "Data termine iscrizione candidati"
       event:
          title: "Titolo dell'evento"
          description: "Descrizione"
@@ -213,18 +187,57 @@ it:
          period: "Ripeti"
          frequency: "Ripeti ogni"
          private: "Privato"
-      candidate:
-         user: "Candidato"
-         election: "Elezione"
-      place:
-         address: "Indirizzo"
+      group:
+        facebook_page_url: "Indirizzo pagina Facebook"
+        name: "Nome"
+        title_bar: "Barra del titolo"
+        description: "Descrizione"
+        accept_requests: "Richieste di partecipazione"
+        porta_id: "Portavoce"
+        interest_border_tkn: "Confine geografico di interesse"
+        interest_border_id: "Confine geografico di interesse"
+        image_url: "Indirizzo immagine"
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
-      election:
-        groups_end_time: "Data termine iscrizione gruppi"
-        candidates_end_time: "Data termine iscrizione candidati"
-  
+      place:
+         address: "Indirizzo"
+      proposal:
+        proposal_category_id: "Categoria"
+        title: "Titolo"
+        subtitle: "Sottotitolo"
+        problems: "Problemi"
+        objectives: "Obiettivi"
+        content: "Testo"
+        interest_borders_tkn: "Confini geografici di interesse"        
+      proposal_comment:
+         content: "Contenuto"
+      quorum:
+        name: "Nome"
+        name_title: "Un nome conciso ed esplicativo"
+        description: "Descrizione"
+        description_title: "Una descrizione più ampia da cui comprendere il funzionamento"
+        days_m: Giorni
+        hours_m: Ore
+        minutes_m: Minuti
+        percentage: Partecipanti (percentuale)
+        percentage_title: "Numero minimo di partecipanti alla discussione in percentuale rispetto al numero di partecipanti al gruppo"
+        good_score: Quorum (percentuale)
+        good_score_title: "Gradimento da raggiungere per portare in votazione la proposta"
+        bad_score: Quorum negativo (percentuale)
+        bad_score_title: "Gradimento al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
+        condition: Condizione
+        condition_title: "Le condizioni di Durata e Partecipanti devono essere superate entrambe o è sufficiente una delle due?" 
+      user:
+        name: "Nome"
+        email: "Indirizzo Email"
+        surname: "Cognome"
+        login: "Username"
+        password: "Password"
+        linkedinpageurl: "Tua pagina su Linkedin"
+        facebookpageurl: "Tua pagina su Facebook"
+        accept_conditions: "Condizioni d'uso"
+        email_alerts: "Notifiche tramite email"
     errors:
       template:
         header:

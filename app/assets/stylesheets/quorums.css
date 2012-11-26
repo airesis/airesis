@@ -1,0 +1,25 @@
+.help .left_panel{
+	float:left; 
+	width:150px;
+	border-right: 1px solid #ccc; 
+	padding-right: 10px;
+}
+
+.help .left_panel ul {
+	margin-top: 0;
+    padding-left: 5px;
+}
+
+.help hr {
+	color: #ccc;
+}
+
+.help .right_panel {
+	float:left; 
+	width:370px;
+	padding-left: 10px;
+}
+
+.help h4 {
+	margin-top: 0px;
+}

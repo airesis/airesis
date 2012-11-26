@@ -1,35 +1,26 @@
-     
+<%@page_title = t("pages.groups.edit_proposals.title")%>     
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_proposals.title')} do%>
-	<a href="#" class="newButton" id="addQuorum">Aggiungi un nuovo quorum</a>
+	<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_path(@group), :remote => true, :class=>"newButton disableButton"%>
 <%end%>
 
 <div id="quorum_panel_container">
 <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<div id="new_quorum" title="Nuovo quorum" style="display: none; font-size: 1em;">
-	
-	<%=form_for [@group,GroupQuorum.new], :remote => true do |f|%>
-		
-		<p>
-		<%=f.fields_for :quorum, Quorum.new do |e|%>
-		<%=e.label :name%>	<br />
-		<%=e.text_field :name%>
-		</p>
-		<p>
-		<%=e.label :description%>	<br />
-		<%=e.text_field :description%>
-		</p>
-		<%end%>
-		<%=f.submit 'Crea', :class => 'buttonStyle'%>
-	<%end%>
+<div id="new_quorum_container">	
 </div>
 
 <script type="text/javascript">
 	$(function() {
+		
+		$(document).tooltip();
+		
 		$('#addQuorum').click(function() {
 			$('#new_quorum').dialog({
+				width: 500,
+				height: 'auto',
 				modal : true,
+				resizable: false,
 				close : function(event, ui) {
 					$('#new_quorum').dialog('destroy');			
 				}
@@ -52,9 +43,13 @@
 	        "aoColumns": [null,{ "bSortable": false }]  
 	    });
 	    
-	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");
+	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");	     
 	});
 	
+	function hideNewQuorumPanel() {
+    	console.log('hei');
+    	$('#new_quorum').dialog('destroy');
+    }
 </script>
                 
 <%=content_for :left_panel do%>

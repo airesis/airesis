@@ -10,7 +10,7 @@ class GroupQuorumsController < ApplicationController
   end
   
   def create
-    puts "Hello"
+    
   end
   
   protected
