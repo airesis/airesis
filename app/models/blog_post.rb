@@ -100,7 +100,7 @@ class BlogPost < ActiveRecord::Base
 	def show_user?
 		self.user
 	end
-
+	
 	def parsed_body
 		image_parsed_body = self.body.gsub(/[{]blog_image[:]([0-9]+)[:]([a-zA-Z]+)[}]/) do |str|
 			puts "IMAGE ID: #{$1.to_i}"
@@ -112,8 +112,10 @@ class BlogPost < ActiveRecord::Base
 				''
 			end
 		end
-		
-		return code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
+		puts 'image parsed body: ' + image_parsed_body
+		ret = code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
+		puts 'ret: ' + ret
+		return ret
 	end
 	
 	def formatted_updated_at
