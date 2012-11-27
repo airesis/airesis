@@ -1,9 +1,42 @@
-<%proposalsnumber = proposals.count
+<%proposalsnumber = proposals.count
 if proposalsnumber > 0 %>
-<% proposals.each do |proposal| %><%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal}%><div style="float:left">		<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 1},:remote => true, :id => "votered"+proposal.id.to_s, :class => "votered"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 2},:remote => true, :id => "voteyellow"+proposal.id.to_s, :class => "voteyellow", :onclick => "if (!pulsate("+proposal.id.to_s + ",'yellow',6)) return false;"  %> 	</div>	<div>		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 3},:remote => true, :id => "votegreen"+proposal.id.to_s, :class => "votegreen", :onclick => "if (!pulsate("+proposal.id.to_s + ",'green',6)) return false;"  %> 	</div>                             
-</div><div style="clear:both;"></div>
-</div>
+<% proposals.each do |proposal| %>
+<div class="vote_proposal">
+	<%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal}%>
+<div style="float:left">
+	<div>
+		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 1},:remote => true, :id => "votered"+proposal.id.to_s, :class => "votered"  %>
+	</div>
+	<div>
+		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 2},:remote => true, :id => "voteyellow"+proposal.id.to_s, :class => "voteyellow", :onclick => "if (!pulsate("+proposal.id.to_s + ",'yellow',6)) return false;"  %> 
+	</div>
+	<div>
+		<%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => 3},:remote => true, :id => "votegreen"+proposal.id.to_s, :class => "votegreen", :onclick => "if (!pulsate("+proposal.id.to_s + ",'green',6)) return false;"  %> 
+	</div>
+</div>
+<div style="clear:both;"></div>
+</div>
 <% end %>
-<%end %><script type="text/javascript">	var list_states = {};		/*	 * Funzione che ritorna semplicemente false, 	 * bloccando l'esecuzione delle istruzioni successive.
-	 */	function donothing() {		return false;	}		/**	 * Fa pulsare un elemento.
-	 */	function pulsate(proposal_id, color, times){		//semafori		var me =  $("#vote"+ color + proposal_id);		var red = $("#votered" + proposal_id);		var green = $("#votegreen" + proposal_id);		var yellow = $("#voteyellow" + proposal_id);				//se il pulsante ha già finito di pulsare, prosegui con la chiamata ajax		if (list_states[proposal_id] == "pulsed")			return true;						//imposta lo stato 'sto pulsando'			list_states[proposal_id] = "pulsating";		if (times == 0) {			setTimeout(function(){				$('#proposal' + proposal_id).hide(1200, function() {					list_states[proposal_id] = "pulsed";					me.click();				});			}, 400);			return false;		}		setTimeout(function(){			if (times % 2 == 1) 				me.css('backgroundImage', 'url(images/'+color+'.png)');			else 				me.css('backgroundImage', 'url(images/'+color+'-2.png)');			pulsate(proposal_id,color, times-1);		}, 400);				//disattiva gli altri pulsanti per evitare che vengano cliccati		if (color == "red") {			disable(green);			disable(yellow);					}		else if (color == "yellow") {			disable(green);			disable(red);				}		else if (color == "green") {			disable(red);			disable(yellow);		}		return false;	}			function disable(el) {		el.removeAttr('onclick');		el.click(donothing);		el.fadeOut(2400);	}			$(function() {		//UJS. sostituisci le funzioni onclick;				$('.votered').click(function(e){			num = $(this).attr('id').replace('votered','');			if (!pulsate(num,'red',6)) {				return false;			}			return true;		});				$('.votegreen').click(function(e){			num = $(this).attr('id').replace('votegreen','');			if (!pulsate(num,'green',6)) {				return false;			}			return true;		});				$('.voteyellow').click(function(e){			num = $(this).attr('id').replace('voteyellow','');			if (!pulsate(num,'yellow',6)) {				return false;			}			return true;		});	});	</script>
+<%end %>
+<script type="text/javascript">
+	var list_states = {};
+	/*
+	 * Funzione che ritorna semplicemente false, 
+	* bloccando l'esecuzione delle istruzioni successive.
+	 */
+	function donothing() {
+		return false;
+	}
+	/**
+	 * Fa pulsare un elemento.
+	 */
+	function pulsate(proposal_id, color, times){
+		//semafori
+		var me =  $("#vote"+ color + proposal_id);
+		var red = $("#votered" + proposal_id);
+		var green = $("#votegreen" + proposal_id);
+		var yellow = $("#voteyellow" + proposal_id);
+		
+		//se il pulsante ha già finito di pulsare, prosegui con la chiamata ajax
+		if (list_states[proposal_id] == "pulsed")
+			return true;						//imposta lo stato 'sto pulsando'			list_states[proposal_id] = "pulsating";		if (times == 0) {			setTimeout(function(){				$('#proposal' + proposal_id).hide(1200, function() {					list_states[proposal_id] = "pulsed";					me.click();				});			}, 400);			return false;		}		setTimeout(function(){			if (times % 2 == 1) 				me.css('backgroundImage', 'url(images/'+color+'.png)');			else 				me.css('backgroundImage', 'url(images/'+color+'-2.png)');			pulsate(proposal_id,color, times-1);		}, 400);				//disattiva gli altri pulsanti per evitare che vengano cliccati		if (color == "red") {			disable(green);			disable(yellow);					}		else if (color == "yellow") {			disable(green);			disable(red);				}		else if (color == "green") {			disable(red);			disable(yellow);		}		return false;	}			function disable(el) {		el.removeAttr('onclick');		el.click(donothing);		el.fadeOut(2400);	}			$(function() {		//UJS. sostituisci le funzioni onclick;				$('.votered').click(function(e){			num = $(this).attr('id').replace('votered','');			if (!pulsate(num,'red',6)) {				return false;			}			return true;		});				$('.votegreen').click(function(e){			num = $(this).attr('id').replace('votegreen','');			if (!pulsate(num,'green',6)) {				return false;			}			return true;		});				$('.voteyellow').click(function(e){			num = $(this).attr('id').replace('voteyellow','');			if (!pulsate(num,'yellow',6)) {				return false;			}			return true;		});	});	</script>
