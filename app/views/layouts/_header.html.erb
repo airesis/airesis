@@ -63,7 +63,10 @@ js.id = id;<%if (Rails.env == "production")%>
 <div id="header">
 	<div class="body_maxwidth">
 		<div class="midHeader">
-		<h2 class="headerTitle" lang="la"><%= link_to "Airesis - Scegli di partecipare", root_path%></h2>
+			<%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style=>"width:24px;padding-top:2px;"), root_path%>
+			<div class="headerTitle" lang="la">
+				<%= link_to "Airesis - Scegli di partecipare", root_path%>
+			</div>
 		</div>
 		
 		<div class="superHeader menu_element">

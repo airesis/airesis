@@ -10,7 +10,31 @@
 <div id="new_quorum_container">	
 </div>
 
+<br />
+<h2>Parametri di configurazione proposte</h2>
+<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%> Anonimato attivo di default?  <br />
+<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> Gli utenti possono modificare le impostazioni avanzate? <br />
+
 <script type="text/javascript">
+	function change_default_anonima(el) {
+		var active = (el.checked) ? "true" : "false";
+		$.ajax({
+        	data: "active="+active,
+        	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",     
+            dataType: 'script',
+        	type: 'post'    
+        });
+	}
+	
+	function change_advanced_options(el) {
+		var active = (el.checked) ? "true" : "false";
+		$.ajax({
+        	data: "active="+active,
+        	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",     
+            dataType: 'script',
+        	type: 'post'    
+        });
+	}
 	$(function() {
 		
 		$(document).tooltip();
