@@ -11,7 +11,7 @@ DemocracyOnline3::Application.routes.draw do
     resources :tutorial_assignees
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"} do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
     get '/users/sign_in' , :to => 'devise/sessions#new'  
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'

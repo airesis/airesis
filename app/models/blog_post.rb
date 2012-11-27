@@ -112,9 +112,7 @@ class BlogPost < ActiveRecord::Base
 				''
 			end
 		end
-		puts 'image parsed body: ' + image_parsed_body
 		ret = code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
-		puts 'ret: ' + ret
 		return ret
 	end
 	
