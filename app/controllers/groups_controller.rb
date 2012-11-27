@@ -66,7 +66,61 @@ class GroupsController < ApplicationController
   
   def edit_proposals    
     #conta il numero di partecipanti che possono valutare le proposte
+  end
+  
+  def  change_advanced_options
+    advanced_options = params[:active]
+    @group.change_advanced_options = advanced_options
+    @group.save
+    if (advanced_options == 'true')
+      flash[:notice] = "Gli utenti potranno modificare le impostazioni avanzate."
+    else
+      flash[:notice] = "Gli utenti non potranno modificare le impostazioni avanzate."
+    end
     
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end 
+    
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = 'Errore nella modifica delle opzioni.'
+        format.js {  render :update do |page|                 
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+      end          
+  end
+  
+
+  def change_default_anonima
+    default_anonima = params[:active]
+    @group.default_anonima = default_anonima
+    @group.save
+    if (default_anonima == 'true')
+      flash[:notice] = "Le proposte del gruppo saranno anonime di default"
+    else
+      flash[:notice] = "Le proposte del gruppo saranno palesi di default"
+    end
+    
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end 
+    
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = 'Errore nella modifica delle opzioni.'
+        format.js {  render :update do |page|                 
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+      end          
   end
   
   def new_event
