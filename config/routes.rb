@@ -122,7 +122,8 @@ DemocracyOnline3::Application.routes.draw do
       post :create_event
       get :edit_permissions
       get :edit_proposals
-
+      post :change_default_anonima
+      post :change_advanced_options
     end
 
     collection do

@@ -1,6 +1,6 @@
 <div id="proposal<%= proposal.id %>" class="proposal_list shadow-box">
 	       <div style="float:right">
-					<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
+		<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
 				</div>
 	        <div class="maintitle">
 	        	<%if @group %>
