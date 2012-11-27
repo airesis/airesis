@@ -6,10 +6,6 @@ input {
 	border: 1px solid #BDC7D8;
 }
 
-input.ui-button {
-    padding: 3px 6px;
-}
-
 ul.token-input-list,
 ul.token-input-list-facebook {
 	border: 1px solid #BDC7D8;
@@ -21,6 +17,21 @@ body div.token-input-dropdown {
 	border-left: 1px solid #BDC7D8;
 }
 
+h3 {
+	margin: 0px;
+}
+
+.remember_me label{
+	font-weight: normal; 
+	font-size: 14px; 
+}
+.remember_me {
+	padding-bottom: 5px;
+}
+
+.video_faq {
+	color:#669900;
+}
 .confirmRequest .ui-button-text {
 	font-size: 10px;
 }
@@ -66,8 +77,8 @@ a:hover {
 	text-decoration: underline;
 }
 body {	
-	line-height: 1.125em;
-	font: 0.875em 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
+	line-height: 18px;
+	font: 14px 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333333;
@@ -219,13 +230,21 @@ body {
 }
 
 .headerTitle a {
-	color: #2f4f4f;
+
+	color: #333;
 	background-color: transparent;
 	text-decoration: none;
-	font-size:18px;
+	font-size:16px;
 	font-weight: normal;
 	font-style: normal;
-    text-shadow: 0px 0px 5px #BAE3F2;
+
+/*	color: #333;
+	background-color: transparent;
+	text-decoration: none;
+	font-size:16px;
+	font-weight: normal;
+	font-style: normal;*/
+    /*text-shadow: 0px 0px 5px #BAE3F2;*/
 }
 
 .full_link {
@@ -234,7 +253,7 @@ body {
 
 .headerTitle {
 	margin: 0px;
-	padding: 0.3em 0mm 0.25em 4mm;
+	padding: 0.4em 0mm 0.25em 4mm;
     width: 280px;
 }
 
@@ -317,9 +336,10 @@ fieldset {
 	background: #FFFFFF;
 	border: 1px solid #e7e8ac;
 }
+
 label {
 	color: #444;
-	font-size: 1.2em;
+	/*font-size: 1.2em;*/
 	font-weight: bold;
 }
 .flash_notice {
@@ -642,9 +662,11 @@ h1 {
 	margin: 0px;
 }
 
+/*
 h1, h2, h3, h4, h5, h6 {
     font-family: tahoma,arial,'ubuntu','lucida grande',verdana,sans-serif;
 }
+*/
 
 .field_with_errors {
 	display:inline-block;
@@ -671,6 +693,7 @@ h1, h2, h3, h4, h5, h6 {
 	list-style: none outside none;
 	padding: 0;
 	width: 100%;
+	margin: 0;
 	height: 26px;
 	/*border: 1px solid #CCC;*/
 }
@@ -693,6 +716,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 5px 30px;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
+	padding: 3px 20px;
 }
 
 .bread-crumb li div.first {
@@ -710,7 +734,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /*aggiunte*/
-.well{ position:fixed; width:150px; margin-top:0px; min-height:20px;padding:19px;margin-bottom:0px;background-color:#f5f5f5;border:1px solid #eee;border:1px solid rgba(0,0,0,0.05);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}
+.well{ width:150px; margin-top:0px; min-height:20px;padding:19px;margin-bottom:0px;background-color:#f5f5f5;border:1px solid #eee;border:1px solid rgba(0,0,0,0.05);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.05);box-shadow:inset 0 1px 1px rgba(0,0,0,0.05)}
 .nav{margin-bottom:18px;margin-left:5px;margin-right:5px;list-style:none}
 .nav>li>a{display:block;}
 .nav>li>a:hover{text-decoration:none;background-color:#eee}
@@ -810,4 +834,23 @@ width:100px;
 	width: 77%;
 	padding: 4px;
 	text-align: justify;
+}
+
+.percentage {
+	width:50px;
+}
+
+/*CUSTOM JQUERY*/
+.ui-widget { font-family: 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;}}
+.ui-button { font: 14px 'ubuntu',arial,verdana,"lucida grande"; display: inline-block; margin-right: 0px; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; }
+.ui-button .ui-button-text { font: 14px 'ubuntu',arial,verdana,"lucida grande"; display: block;  }
+.ui-button-text-only .ui-button-text { padding: .1em 0.8em; }
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em .8em .1em 2.1em; }
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 2.1em .1em 1em; }
+input.ui-button {padding: 3px 6px;}
+.ui-tabs .ui-tabs-panel {border-width: 1px;}
+span.ui-spinner.ui-widget {
+	border-radius: 0;
+	border: 1px solid #BDC7D8;
 }

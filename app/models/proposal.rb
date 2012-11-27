@@ -42,7 +42,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
   
-  validates_presence_of :objectives,:problems
+  validates_presence_of :objectives,:problems, :quorum_id
   
   attr_accessor :update_user_id
   

@@ -22,3 +22,6 @@ ACCEPTED_STATE="3"
 REVISION_STATE="4"
 
 CONTRIBUTE_MAX_LENGTH = 2000
+
+APP_SHORT_NAME = "Airesis"
+APP_LONG_NAME = "Airesis - Scegli di partecipare"

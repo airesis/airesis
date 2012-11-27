@@ -215,13 +215,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
     if (session[:proposal_comment] && session[:proposal_id])
-      puts 'session data: ' + session.to_s
       @proposal = Proposal.find(session[:proposal_id])
       params[:proposal_comment] = session[:proposal_comment]
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       post_contribute rescue nil
-      puts '\n\nproposal: ' + @proposal
       return proposal_path(@proposal)
     end
     env = request.env

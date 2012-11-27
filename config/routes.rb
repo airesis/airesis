@@ -11,13 +11,13 @@ DemocracyOnline3::Application.routes.draw do
     resources :tutorial_assignees
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"} do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
     get '/users/sign_in' , :to => 'devise/sessions#new'  
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
-
-  devise_for :users, :controllers => { :registrations => "registrations" }
+ 
+  
 
   root :to => 'home#index'
   
@@ -147,10 +147,20 @@ DemocracyOnline3::Application.routes.draw do
     
     resources :proposals
     
-    resources :group_quorums do
-      resources :quorums
+    resources :quorums do
+      member do
+        post :change_status
+      end
     end
+    #resources :group_quorums do
+    #end
        
+  end
+  
+  resources :quorums do
+    collection do
+      get :help
+    end
   end
   
   resources :elections do

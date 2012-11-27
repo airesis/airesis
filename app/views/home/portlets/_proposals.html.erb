@@ -3,6 +3,7 @@ Le tue proposte
 </div>
 
 <%unless current_user.proposals.empty?%>
+	<div style="overflow-y:scroll;height: 260px;">
 	<table id="proposals_table">
 		<thead>
 			<th>Titolo della proposta</th>
@@ -31,7 +32,7 @@ Le tue proposte
 		</tbody>
 		
 	</table>
-<%end%>
+	</div>
             
      <script type="text/javascript">
      		$('#proposals_table').dataTable( {
@@ -56,3 +57,4 @@ Le tue proposte
 	    $('#proposals_table_wrapper label').css("font-weight","normal").css("font-size","12px");
      	
      </script>           
+<%end%>

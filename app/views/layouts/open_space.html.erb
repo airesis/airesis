@@ -1,17 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 	<head>
-		<title><%= (@page_title || t('open_space')) + ' - Airesis'%></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
 		
-		<%= stylesheet_link_tag 'application' %>
-		<%= javascript_include_tag 'application' %>
-		<%= stylesheet_link_tag 'redmond/custom'%> 
-		<%= csrf_meta_tag %>
-		<%= yield :head %>
-		
-		<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-		<link rel="shortcut icon" href="/favicon.ico" />
+		<%=render :partial => "layouts/head" %>
 	</head>
 	<body>
 		
@@ -19,7 +11,7 @@
 	<div id="subheader">
 		<div class="body_maxwidth">
 			<div class="header_image">
-		    	<%= image_tag 'logo120.png', :width => 120, :alt => "Airesis - Democrazia Diretta" %>
+		    	<%= image_tag 'logo120.png', :width => 120, :alt => APP_LONG_NAME %>
 		    </div>
 		    <div class="group_title">
 			<h1><%=t('open_space')%></h1>

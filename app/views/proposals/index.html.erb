@@ -34,9 +34,9 @@ end%>
 <%content_for :left_panel do %>
 
 <%if @group%>
-<%= link_to 'Crea una proposta', new_proposal_path(:group_id => @group.id), :remote => true, :id => 'nuova_proposta' if (can? :insert_proposal, @group)%>
+<%= link_to 'Crea una proposta', new_proposal_path(:group_id => @group.id), :remote => true, :id => 'nuova_proposta', :class=>"disableButton" if (can? :insert_proposal, @group)%>
 <%else%>
-<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta' %>
+<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta', :class=>"disableButton" %>
 <%end%>	
 
 <div id = "create_proposal_dialog" style ="display:none;">

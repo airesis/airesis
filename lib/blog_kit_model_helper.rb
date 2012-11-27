@@ -37,8 +37,7 @@ module BlogKitModelHelper
 				end
       else
 				if defined?(BlueCloth)
-				 
-	        BlueCloth.new( ERB::Util.html_escape(piece), markdown_options).to_html
+	        BlueCloth.new( piece, markdown_options).to_html
 				else
 					ERB::Util.html_escape(piece)
 				end

@@ -62,8 +62,11 @@ js.id = id;<%if (Rails.env == "production")%>
 <!-- ##### Header ##### -->
 <div id="header">
 	<div class="body_maxwidth">
-		<div class="midHeader"><%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta"), root_path%>
-		<h2 class="headerTitle" lang="la"><%= link_to "Airesis - Scegli di partecipare", root_path%></h2>
+		<div class="midHeader">
+			<%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style=>"width:24px;padding-top:2px;"), root_path%>
+			<div class="headerTitle" lang="la">
+				<%= link_to "Airesis - Scegli di partecipare", root_path%>
+			</div>
 		</div>
 		
 		<div class="superHeader menu_element">
@@ -121,8 +124,8 @@ js.id = id;<%if (Rails.env == "production")%>
 					<br />
 					<%= f.password_field :password, :style=>"width:80%" %>
 				</div >
-				<div class="littleText" style="font-weight: normal; font-size: 14px; padding-bottom: 5px;">
-					<div style="float: left; "><%= f.check_box :remember_me %></div> Ricordami su questo computer
+				<div class="remember_me">
+					<%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
 				</div>
 				<div style="float: none;">
 					<%= f.submit "Login", :class=>"buttonStyle" %>
@@ -158,10 +161,10 @@ js.id = id;<%if (Rails.env == "production")%>
 		<%end%>
 
       <div class="nolink_menu_element">
-        <%= link_to t("guide"), videoguide_path, :style => "color:#669900" %>
+        <%= link_to t("guide"), videoguide_path, :class => "video_faq" %>
       </div>
 
-      <div class="menu_element">
+      <div class="nolink_menu_element">
         <%= link_to t("open_space"), proposals_path %>
       </div>
 

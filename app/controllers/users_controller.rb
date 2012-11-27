@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   end
   
   def index
-    return redirect_to root_path if user_signed_in?
     @page_title = t('pages.users.index.title')
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     

@@ -64,8 +64,63 @@ class GroupsController < ApplicationController
     @page_title = t("pages.groups.edit_permissions.title")    
   end
   
-  def edit_proposals
-    @page_title = t("pages.groups.edit_proposals.title")    
+  def edit_proposals    
+    #conta il numero di partecipanti che possono valutare le proposte
+  end
+  
+  def  change_advanced_options
+    advanced_options = params[:active]
+    @group.change_advanced_options = advanced_options
+    @group.save
+    if (advanced_options == 'true')
+      flash[:notice] = "Gli utenti potranno modificare le impostazioni avanzate."
+    else
+      flash[:notice] = "Gli utenti non potranno modificare le impostazioni avanzate."
+    end
+    
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end 
+    
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = 'Errore nella modifica delle opzioni.'
+        format.js {  render :update do |page|                 
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+      end          
+  end
+  
+
+  def change_default_anonima
+    default_anonima = params[:active]
+    @group.default_anonima = default_anonima
+    @group.save
+    if (default_anonima == 'true')
+      flash[:notice] = "Le proposte del gruppo saranno anonime di default"
+    else
+      flash[:notice] = "Le proposte del gruppo saranno palesi di default"
+    end
+    
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end 
+    
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = 'Errore nella modifica delle opzioni.'
+        format.js {  render :update do |page|                 
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+      end          
   end
   
   def new_event
@@ -104,8 +159,20 @@ class GroupsController < ApplicationController
         @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
          
         @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+        
                 
         @group.save!
+        
+        
+        Quorum.public.each do |quorum|
+          copy = quorum.dup
+          copy.public = false
+          copy.save!
+          GroupQuorum.create(:quorum_id => copy.id, :group_id => @group.id)         
+        end        
+        
+        
+        
                 
       end
       
@@ -252,63 +319,37 @@ class GroupsController < ApplicationController
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
   # è previsto o accettandola altrimenti.
   def partecipation_request_confirm
-    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if (!request)
-      flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
-      redirect_to group_url(@group)
-    else
-      if @group.request_by_portavoce?
-        part = GroupPartecipation.new
-        part.user_id = request.user_id
-        part.group_id = @group.id
-        part.partecipation_role_id = @group.partecipation_role_id
-        part.save!
-        request.group_partecipation_request_status_id = 3
-      else
-        request.group_partecipation_request_status_id = 2
-      end
-      saved = request.save
-      if (!saved)
-        flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
+      request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+      if (!request)
+        flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
+        redirect_to group_url(@group)
       else
         if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
+          part = GroupPartecipation.new
+          part.user_id = request.user_id
+          part.group_id = @group.id
+          part.partecipation_role_id = @group.partecipation_role_id        
+          part.save!
+          request.group_partecipation_request_status_id = 3
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
-        end
-        redirect_to group_url(@group)
-      end
-    end
-  end
-
-  def partecipation_request_decline
-    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if (!request)
-      flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
-      redirect_to group_url(@group)
-    else
-      if @group.request_by_portavoce?
-        request.group_partecipation_request_status_id = 4
-      else
-        request.group_partecipation_request_status_id = 2
-      end
-      saved = request.save
-      if (!saved)
-        flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
-      else
-        if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: DECLINATA.'
+          request.group_partecipation_request_status_id = 2
+        end    
+        saved = request.save
+        if (!saved)
+          flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+          if @group.request_by_portavoce?
+            flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
+          else
+            flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+          end
+          redirect_to group_url(@group)
         end
-        redirect_to group_url(@group)
       end
-    end
   end
-
-
-
-
+  
+  
+  
   protected
   
   def load_group
