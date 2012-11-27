@@ -16,8 +16,8 @@ DemocracyOnline3::Application.routes.draw do
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
- 
-  
+
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   root :to => 'home#index'
   
