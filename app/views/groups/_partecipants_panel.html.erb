@@ -21,6 +21,7 @@
         <!--<b>Hai già fatto richiesta di partecipazione a questo gruppo. Stato della richiesta: <%=partecipation_request.status.description %>
         </b>--><%end %>
     </p>
+    
     <%end %>
     <%partecipants.each do |partecipant| %>
 	    <%if !@group.portavoce.include? partecipant.user%>

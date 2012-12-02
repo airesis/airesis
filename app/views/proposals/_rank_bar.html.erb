@@ -1,8 +1,7 @@
 <script type="text/javascript">
-	$(function() {
-		
-		
+$(function() {
 	$("#pb<%=proposal.id%>").progressBar({
+		boxImage : '<%=asset_path "progressbar.gif"%>',
 		barImage		: 
 			<%if proposal.rank < proposal.quorum.bad_score %>
 			'<%=asset_path "progressbg_red.gif"%>'
@@ -11,11 +10,35 @@
 			<%else%>
 			'<%=asset_path "progressbg_orange.gif"%>'
 			<%end%>
-			,
-		max : <%=proposal.quorum.valutations%>*10,
-		boxImage : '<%=asset_path "progressbar.gif"%>',
-
 	});
-	});
+});
 </script>
-<span class="progressBar" id="pb<%=proposal.id%>" title="<%=proposal.rank.to_s + "%  " + proposal.valutations.to_s  + "/" + proposal.quorum.valutations.to_s%>"><%=[proposal.valutations,proposal.quorum.valutations].min * 10%></span>		
+<%percentages = []
+titles = []%>
+<%if proposal.quorum.valutations%>
+	<%minimum = [proposal.valutations,proposal.quorum.valutations].min
+	percentagevals = minimum.to_f/proposal.quorum.valutations.to_f
+	percentagevals *= 100
+	percentages << percentagevals
+	titles << "almeno " + proposal.quorum.valutations.to_s + " valutazioni"%>
+<%end%>
+<%if proposal.quorum.minutes%>
+	<%
+	minimum = [Time.now,proposal.quorum.ends_at].min
+	minimum = ((minimum - proposal.quorum.started_at)/60)
+	percentagetime = minimum.to_f/proposal.quorum.minutes.to_f
+	percentagetime *= 100
+	percentages << percentagetime
+	titles << "entro il " + proposal.quorum.ends_at.strftime("%d/%m/%Y %H:%M")%>
+<%end%>
+
+<%if proposal.quorum.or?%>
+	<%percentage=percentages.max%>
+	<%title = titles.join(" o ")%>
+<%else%>
+	<%percentage=percentages.min%>
+	<%title = titles.join(" e ")%>
+<%end%>
+<span class="progressBar" id="pb<%=proposal.id%>" title="<%=title%>">
+	<%=percentage%>
+</span>		

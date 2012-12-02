@@ -1,6 +1,8 @@
 class Quorum < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   
+  STANDARD = 2 
+  
   validates :good_score, :presence => true
   validates :name, :presence => true
   
@@ -16,7 +18,15 @@ class Quorum < ActiveRecord::Base
   attr_accessor :days_m, :hours_m, :minutes_m
   
   before_save :populate
+
+  def or?
+    return self.condition && (self.condition.upcase == 'OR')
+  end
   
+  def and?
+    return self.condition && (self.condition.upcase == 'AND')
+  end
+    
   def minutes_or_percentage
     if (self.days_m.blank? && self.hours_m.blank? && self.minutes_m.blank? && !self.percentage)
       self.errors.add(:minutes, "Devi indicare la durata della proposta o il numero minimo di partecipanti")

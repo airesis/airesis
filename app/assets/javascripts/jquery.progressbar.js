@@ -18,7 +18,7 @@ USAGE:
 		progressBar: new function() {
 
 			this.defaults = {
-				steps			: 200,						 					// steps taken to reach target
+				steps			: 1000,						 					// steps taken to reach target
 				stepDuration	: 20,											
 				showText		: false,										// show text with percentage in next to the progressbar? - default : true
 				textFormat		: 'percentage',									// Or otherwise, set to 'fraction'
@@ -27,6 +27,7 @@ USAGE:
 				callback		: null,											// Calls back with the config object that has the current percentage, target percentage, current image, etc								
 				running_value	: 0,
 				value			: 0,
+				max				: 100,
 				image			: null
 			};
 			

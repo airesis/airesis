@@ -5,8 +5,8 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC'
-  has_many :proposal_borders, :class_name => 'ProposalBorder'
+  has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC', :dependent => :destroy
+  has_many :proposal_borders, :class_name => 'ProposalBorder', :dependent => :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote'
@@ -25,7 +25,7 @@ class Proposal < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders,:through => :proposal_borders, :class_name => 'InterestBorder'  
   
-  has_many :proposal_tags, :class_name => 'ProposalTag'
+  has_many :proposal_tags, :class_name => 'ProposalTag', :dependent => :destroy
   has_many :tags, :through => :proposal_tags, :class_name => 'Tag'
   
   has_many :proposal_nicknames, :class_name => 'ProposalNickname', :dependent => :destroy

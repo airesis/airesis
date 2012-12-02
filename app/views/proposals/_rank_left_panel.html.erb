@@ -19,28 +19,7 @@
 			num = id.replace('votedown','');
 			hideRankPanel2($('.handscontainer'));
 		});
-		
-		$(".progressBar").progressBar({
-			steps			: 200,
-			stepDuration	: 20,
-			max				: <%=PROP_VOTES_TO_PROMOTE%>*10,
-			showText		: false,
-			textFormat		: 'percentage',
-			width			: 120,
-			height			: 12,
-			callback		: null,
-			boxImage		: '<%=asset_path "progressbar.gif"%>',
-			barImage		: 
-				<%if @proposal.rank <= @proposal.quorum.bad_score %>
-				'<%=asset_path "progressbg_red.gif"%>'
-				<%elsif @proposal.rank >= @proposal.quorum.good_score %>
-				'<%=asset_path "progressbg_green.gif"%>'
-				<%else%>
-				'<%=asset_path "progressbg_orange.gif"%>'
-				<%end%>
-				,
-		});
-	});
+	});		
 </script>
 <p class="points">
     <span class="littleText">Score</span> <span class="rightAlign"><%=@proposal.valutations %></span>
@@ -48,8 +27,8 @@
 <p class="ranking">
     <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
 </p>
-
-<span class="progressBar" id="pb1" title="<%=@proposal.valutations.to_s  + "/" + @proposal.quorum.valutations.to_s%>"><%=[@proposal.valutations,@proposal.quorum.valutations].min * 10%></span>		
+<%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
+		
 <%if (!current_user || (can? :partecipate, @proposal)) %>
 		<div class="handscontainer">	
 	<%if @my_vote%>
