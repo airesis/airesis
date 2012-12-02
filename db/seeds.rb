@@ -8267,12 +8267,26 @@ NotificationType.create( :description => "Nuovi eventi inseriti dagli utenti che
 NotificationType.create( :description => "Nuova valutazione ad una mia proposta.", :notification_category_id => 1 ){ |c| c.id = 20 }.save
 NotificationType.create( :description => "Nuova valutazione ad una proposta a cui partecipi.", :notification_category_id => 1 ){ |c| c.id = 21 }.save
 
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Ambiente" ){ |c| c.id = 1 }.save
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Tecnologie" ){ |c| c.id = 2 }.save
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Società" ){ |c| c.id = 3 }.save
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Economia" ){ |c| c.id = 4 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Nessuna categoria" ){ |c| c.id = 5 }.save
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Energia" ){ |c| c.id = 6 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Educazione, Ricerca" ){ |c| c.id = 7 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Salute, Igiene" ){ |c| c.id = 8 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Informazione, Comunicazione" ){ |c| c.id = 9 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Commercio, Finanza, Fisco" ){ |c| c.id = 10 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Lavoro e Auto-realizzazione" ){ |c| c.id = 11 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Sicurezza e Giustizia" ){ |c| c.id = 12 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Mondo, Migrazione" ){ |c| c.id = 13 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Minoranze, Handicap" ){ |c| c.id = 14 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Etica, Solidarietà, Spiritualità" ){ |c| c.id = 15 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Sessualità, Famiglia, Bambini" ){ |c| c.id = 16 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Arte e Cultura" ){ |c| c.id = 17 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Socialità, Sport, Divertimento" ){ |c| c.id = 18 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Organizzazione interna" ){ |c| c.id = 19 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Acqua, Cibo, Agricoltura" ){ |c| c.id = 20 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Territorio, Natura, Animali" ){ |c| c.id = 21 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Urbanistica, Mobilità, Edilizia" ){ |c| c.id = 22 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Energia, Clima" ){ |c| c.id = 23 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Industria, Materiali e Rifiuti" ){ |c| c.id = 24 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Salute, Igiene" ){ |c| c.id = 25 }.save
 
 ProposalState.create( :description => "in valutazione" ){ |c| c.id = 1 }.save
 ProposalState.create( :description => "in attesa di data" ){ |c| c.id = 2 }.save

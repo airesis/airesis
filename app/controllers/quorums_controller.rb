@@ -90,11 +90,8 @@ class QuorumsController < ApplicationController
   end
   
   def new
-    @partecipants_count = @group.group_partecipations.count( 
-    :joins => "group_partecipations join partecipation_roles 
-               on group_partecipations.partecipation_role_id = partecipation_roles.id
-               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-    :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{@group.id}) or (partecipation_roles.id = 2)")
+    
+    @partecipants_count = @group.count_voter_partecipants #_partecipants.count
     respond_to do |format|
       format.js
     end

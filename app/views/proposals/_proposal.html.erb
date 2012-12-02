@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%= form_for @proposal, :validate => true, :remote => @remote do |f| %>
+<%= form_for @group ? [@group,@proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
    <div class="legend first">Informazioni iniziali</div>
    <div class="legend">Proposte simili</div>
    <div class="legend">Problemi ed obiettivi</div>
@@ -44,6 +44,12 @@
 	</div>	
   </p>
   
+  <p>
+  	<%if @change_advanced_options%>
+		<%=f.check_box :anonima %>	
+		<%=f.label :anonima, 'Anonimato temporaneo'%><br />
+	<%end%>
+  </p>
   
   <p>
 	<%if @group%>

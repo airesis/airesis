@@ -55,6 +55,17 @@ class Group < ActiveRecord::Base
 
   attr_reader :partecipant_tokens
   
+  has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2] 
+
+  #utenti che possono votare
+  def count_voter_partecipants
+    return self.partecipants.count( 
+    :joins => "join partecipation_roles 
+               on group_partecipations.partecipation_role_id = partecipation_roles.id
+               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
+    :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+  end
+  
   #restituisce la lista dei portavoce del gruppo
   def portavoce
     return self.partecipants.find(:all, :conditions => {"group_partecipations.partecipation_role_id" => 2})

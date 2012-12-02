@@ -102,9 +102,15 @@ end%>
         });
     
     $('#tabs').tabs({
-    	show : function(event,ui) {
-			$(ui.panel).html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
-		}
+    	load: function (e, ui) {
+		    $(ui.panel).find("#loading_borders").remove();
+		},
+		select: function (e, ui) {
+			var $panel = $(ui.panel);		
+		     if ($panel.is(":empty")) {
+		         $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
+		     }
+		}    	
     });   
 </script>
 	 

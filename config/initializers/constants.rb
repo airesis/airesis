@@ -25,3 +25,6 @@ CONTRIBUTE_MAX_LENGTH = 2000
 
 APP_SHORT_NAME = "Airesis"
 APP_LONG_NAME = "Airesis - Scegli di partecipare"
+
+DEFAULT_CHANGE_ADVANCED_OPTIONS = false
+DEFAULT_ANONIMA = true
