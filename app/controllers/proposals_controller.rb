@@ -134,6 +134,12 @@ class ProposalsController < ApplicationController
       @proposal.interest_borders << @group.interest_border
       @proposal.private = true
       @proposal.presentation_groups << @group
+      @proposal.anonima = @group.default_anonima  
+      @change_advanced_options = @group.change_advanced_options
+    else
+      @proposal.quorum_id = Quorum::STANDARD
+      @proposal.anonima = DEFAULT_ANONIMA
+      @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
     end
     
     respond_to do |format|
@@ -152,12 +158,35 @@ class ProposalsController < ApplicationController
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
+
+        quorum = Quorum.find(prparams[:quorum_id])
+        copy = quorum.dup
+        starttime = Time.now
+        
+        copy.started_at = starttime
+        if (quorum.minutes)
+          endtime = starttime + quorum.minutes.minutes
+          copy.ends_at = endtime
+        end 
+        #se il numero di valutazioni è definito
+        if (quorum.percentage)
+          if @group #calcolo il numero in base ai partecipanti
+            copy.valutations = quorum.percentage * @group.count_voter_partecipants
+          else  #calcolo il numero in base agli utenti del portale
+            copy.valutations = quorum.percentage * User.all.count            
+          end
+        end
+        copy.save!
+
         @proposal = Proposal.new(prparams)
+        @proposal.quorum_id = copy.id
+        
         @proposal.proposal_state_id = PROP_VALUT
         @proposal.rank = 0
         borders = prparams[:interest_borders_tkn]
         update_borders(borders)
-        psaved = @proposal.save!
+        @proposal.save!
+        
         proposalparams = {
               :proposal_id => @proposal.id,
               :user_id => current_user.id
