@@ -319,37 +319,63 @@ class GroupsController < ApplicationController
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
   # è previsto o accettandola altrimenti.
   def partecipation_request_confirm
-      request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-      if (!request)
-        flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
-        redirect_to group_url(@group)
+    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    if (!request)
+      flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
+      redirect_to group_url(@group)
+    else
+      if @group.request_by_portavoce?
+        part = GroupPartecipation.new
+        part.user_id = request.user_id
+        part.group_id = @group.id
+        part.partecipation_role_id = @group.partecipation_role_id
+        part.save!
+        request.group_partecipation_request_status_id = 3
+      else
+        request.group_partecipation_request_status_id = 2
+      end
+      saved = request.save
+      if (!saved)
+        flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
       else
         if @group.request_by_portavoce?
-          part = GroupPartecipation.new
-          part.user_id = request.user_id
-          part.group_id = @group.id
-          part.partecipation_role_id = @group.partecipation_role_id        
-          part.save!
-          request.group_partecipation_request_status_id = 3
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
         else
-          request.group_partecipation_request_status_id = 2
-        end    
-        saved = request.save
-        if (!saved)
-          flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
-        else
-          if @group.request_by_portavoce?
-            flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
-          else
-            flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
-          end
-          redirect_to group_url(@group)
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
         end
+        redirect_to group_url(@group)
       end
+    end
   end
-  
-  
-  
+
+  def partecipation_request_decline
+    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    if (!request)
+      flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
+      redirect_to group_url(@group)
+    else
+      if @group.request_by_portavoce?
+        request.group_partecipation_request_status_id = 4
+      else
+        request.group_partecipation_request_status_id = 2
+      end
+      saved = request.save
+      if (!saved)
+        flash[:error] = 'Errore durante l''operazione. Impossibile procedere.'
+      else
+        if @group.request_by_portavoce?
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: DECLINATA.'
+        else
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+        end
+        redirect_to group_url(@group)
+      end
+    end
+  end
+
+
+
+
   protected
   
   def load_group
