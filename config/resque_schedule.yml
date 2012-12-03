@@ -1,0 +1,6 @@
+#calculate_ranking:
+#  cron: "30 6 * * 1"
+#  class: AdminHelperClearLeaderboards
+#  queue: scoring
+#  args: moderators
+#  description: "This job resets the weekly leaderboard for moderators"

@@ -29,12 +29,9 @@ class ProposalsController < ApplicationController
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
     
   def index    
-    @page_title = t('pages.proposals.index.title')
-
     if (params[:category])
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
-      @page_title += ' - ' + @category.description    
     end
     @count_base = Proposal.in_category(params[:category])
 
@@ -101,7 +98,6 @@ class ProposalsController < ApplicationController
       if (@proposal.private && @group && !(can? :partecipate_proposal, @group))       
         flash[:error] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
       end
-      @page_title = @proposal.title
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
       
@@ -150,7 +146,6 @@ class ProposalsController < ApplicationController
   end
   
   def edit    
-    @page_title = @proposal.title
   end
   
   def create

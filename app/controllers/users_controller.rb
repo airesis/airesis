@@ -48,7 +48,6 @@ class UsersController < ApplicationController
   
   def index
     return redirect_to root_path if user_signed_in?
-    @page_title = t('pages.users.index.title')
     @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
@@ -59,7 +58,6 @@ class UsersController < ApplicationController
   end
   
   def show        
-    @page_title = @user.fullname
     respond_to do |format|      
       flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
       format.html # show.html.erb

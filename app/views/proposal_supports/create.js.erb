@@ -1,4 +1,3 @@
-
 $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
 $('#support_left_panel_container').html('<%= escape_javascript(render(:partial => 'proposals/support_left_panel'))%>');
 $('#proposal_support').dialog('destroy'); 
