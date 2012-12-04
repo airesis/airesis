@@ -19,7 +19,7 @@ end
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
-gem 'rufus-scheduler'
+#gem 'rufus-scheduler'
 
 #per gmail
 gem 'tlsmail'
@@ -56,12 +56,18 @@ gem 'devise'#, '1.4.9'
 
 gem 'fb_graph'
 
-gem 'exception_notification'
+gem 'exception_notification', '2.6.1'
 
 gem 'resque', :require => 'resque/server'
-gem 'resque-mongo', :require => 'resque'#, :require => 'resque/server'
+#gem 'nfo-resque-mongo', :require => 'resque'#, :git => 'https://github.com/coorasse/resque-mongo.git'
+#gem 'mongo-resque', :require => 'resque'
+
 
 gem 'resque_mailer'
+
+gem 'resque-scheduler'
+
+#gem 'resque-mongo-scheduler'#, :git => 'https://github.com/srmelody/resque-mongo-scheduler.git'
 
 gem 'cancan'
 
@@ -70,7 +76,7 @@ gem 'foreigner'
 gem 'client_side_validations'
 #gem 'ar_fixtures'
 
-gem 'sitemap_generator'
+#gem 'sitemap_generator'
 
 #gem 'georuby'
 
