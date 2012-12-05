@@ -8293,7 +8293,7 @@ ProposalState.create( :description => "in attesa di data" ){ |c| c.id = 2 }.save
 ProposalState.create( :description => "in attesa" ){ |c| c.id = 3 }.save
 ProposalState.create( :description => "in votazione" ){ |c| c.id = 4 }.save
 ProposalState.create( :description => "respinta" ){ |c| c.id = 5 }.save
-ProposalState.create( :description => "accettata" ){ |c| c.id = 6 }.save
+ProposalState.create( :description => "approvata" ){ |c| c.id = 6 }.save
 
 RankingType.create( :description => "Positivo" ){ |c| c.id = 1 }.save
 RankingType.create( :description => "Neutro" ){ |c| c.id = 2 }.save
