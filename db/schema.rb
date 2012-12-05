@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117150301) do
+ActiveRecord::Schema.define(:version => 20121202182011) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -564,6 +564,8 @@ ActiveRecord::Schema.define(:version => 20121117150301) do
     t.boolean  "public",                      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "started_at"
+    t.datetime "ends_at"
   end
 
   create_table "ranking_types", :force => true do |t|
