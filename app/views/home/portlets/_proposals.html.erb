@@ -2,29 +2,43 @@
 Le tue proposte
 </div>
 
+
 <%unless current_user.proposals.empty?%>
 	<div style="overflow-y:scroll;height: 260px;">
 	<table id="proposals_table">
 		<thead>
 			<th>Titolo della proposta</th>
-			<th>Autori</th>
-			<th>Rank</th>
 			<th>Ultima modifica</th>
 		</thead>
 		<tbody>
 			<%current_user.proposals.current.each do |proposal|%>
-			<tr>
-				<td><%=link_to proposal.title, proposal%></td>
-				<td>
+            <script type="text/javascript">
+                $(function() {
+                    $("#pb<%=proposal.id%>").progressBar({
+                        boxImage : '<%=asset_path "progressbar.gif"%>',
+                        barImage		:
+                                <%if proposal.rank < proposal.quorum.bad_score %>
+                                '<%=asset_path "progressbg_red.gif"%>'
+                        <%elsif proposal.rank >= proposal.quorum.good_score %>
+                        '<%=asset_path "progressbg_green.gif"%>'
+                                <%else%>
+                                '<%=asset_path "progressbg_orange.gif"%>'
+                        <%end%>
+                    });
+                });
+            </script>
+            <tr>
+				<td><%=link_to proposal.title, proposal%><br>
+                  <div style="float: left; margin-right: 5px;">Autori</div>
 					<%proposal.users.each do |user|%>
 						<%=user_tag_mini(user,proposal)%>
 	            	<%end%>
-	            </td>
-				<td>
-					<%=proposal.rank%>% <%= user_valutation_image(current_user,proposal)%>
+
+					 <%= user_valutation_image(current_user,proposal)%>
 				</td>
-				<td>
-					<%=proposal.updated_at.strftime("%d/%m/%Y %H:%M")%>
+				<td align="center">
+					<%=proposal.updated_at.strftime("%d/%m/%Y %H:%M")%><br>
+                    <span class="progressBar"  id="pb<%=proposal.id%>" ><%=proposal.rank%></span>
 	            </td>
 					
 			</tr>
@@ -48,8 +62,8 @@ Le tue proposte
 			        "sNext": ""
 			      },
 	        },
-	        "aoColumns": [null,{ "bSortable": false },{ "bSortable": false },null],
-	        "aaSorting": [[ 3, "asc" ]],  
+	        "aoColumns": [null,null],
+	        "aaSorting": [[ 3, "asc" ]],
 	        "bInfo": false,
 	        "bLengthChange": false,
 	    });
