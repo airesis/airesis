@@ -190,6 +190,11 @@ class ProposalsController < ApplicationController
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
         generate_nickname(current_user,@proposal) 
+    	
+	#fai partire il timer per far scadere la proposta
+	if (quorum.minutes)
+	  Resque.enqueue_in(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+	end
       end
       @saved = true
       
