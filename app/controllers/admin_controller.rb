@@ -102,7 +102,7 @@ class AdminController < ApplicationController
   
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
-    Resque.enqueue_in(15.seconds.from_now, ProposalsWorker, :proposal_id => 1)
+    Resque.enqueue_at(15.seconds.from_now, ProposalsWorker, :proposal_id => 1)
     respond_to do |format|
       format.html {
         flash[:notice] = 'Test avviato' 
