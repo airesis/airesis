@@ -23,7 +23,7 @@ end%>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'Accettate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
+			<%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
