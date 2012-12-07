@@ -1,15 +1,15 @@
 
-<table style="text-align: left; font-size: 12px">
-	<tr class="table_header">
-		<thead >Default</thead>
-		<thead>Ruolo</thead>
-		<thead>Descrizione</thead>
+<table class="table_list">
+	<thead class="table_header">
+		<th >Default</th>
+		<th>Ruolo</th>
+		<th>Descrizione</th>
 		
 		<% GroupAction.all.each do |action|%>
-		<thead><%=action.description%></thead>
+		<th><%=action.description%></th>
 		<%end%>
 		
-	</tr>
+	</thead>
 	<tbody>
 <%
 PartecipationRole.common.each do |role|
