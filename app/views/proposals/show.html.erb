@@ -23,7 +23,10 @@ function drawIntro(svg) {
 <%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
 <%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
+
+<%if (!current_user || (current_user && (!@proposal.private || (can? :partecipate_proposal, @group))))%>
 <%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
+<%end%>
 
 <div id="order_bar">
 <%= render :partial => 'proposal_comments/order_bar' %>
@@ -214,7 +217,7 @@ $(function() {
 <%=raw facebook_like %>
 </div>
 
-<%if signed_in? && @my_nickname && @proposal.is_current?%>
+<%if signed_in? && @my_nickname && @proposal.is_current? && @proposal.anonima%>
 	<h4>Il tuo nickname è <%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :title => 'Di cosa si tratta?', :style => 'cursor:pointer', :onclick => 'showNicknamePanel();'%></h4> 
 	<div class="blogUserImage">
 		<%=user_tag(current_user,@proposal)%>			
@@ -239,7 +242,7 @@ $(function() {
 		<%= render :partial => 'proposals/available_author'%>
 	</div>	
 	<%if @proposal.users.include?(current_user)%>
-		<%=link_to 'Redattori disponibili', available_authors_list_proposal_path(@proposal), :remote => true, :class=> 'buttonStyle littleText disableButton'%>
+		<%=link_to 'Redattori disponibili', available_authors_list_proposal_path(@proposal), :remote => true, :class=> 'personButton littleText disableButton'%>
 		
 		<div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
 		</div>

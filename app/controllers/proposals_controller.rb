@@ -174,6 +174,12 @@ class ProposalsController < ApplicationController
         copy.save!
 
         @proposal = Proposal.new(prparams)
+        #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
+        if (@group && !@group.change_advanced_options)
+          @proposal.anonima = @group.default_anonima  
+        else
+          @proposal.anonima = DEFAULT_ANONIMA          
+        end
         @proposal.quorum_id = copy.id
         
         @proposal.proposal_state_id = PROP_VALUT

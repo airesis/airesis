@@ -73,7 +73,7 @@ gem 'cancan'
 
 gem 'foreigner'
 
-gem 'client_side_validations'
+gem 'client_side_validations', '3.1.4'
 #gem 'ar_fixtures'
 
 #gem 'sitemap_generator'

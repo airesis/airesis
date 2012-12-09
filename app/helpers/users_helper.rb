@@ -64,7 +64,7 @@ module UsersHelper
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
   def user_tag(user,proposal=nil,full_name=true,show_rank=true)
     raise "Invalid User" unless user
-    if (proposal && proposal.is_current?)
+    if (proposal && proposal.anonima && proposal.is_current?)
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
     end 
     ret = "<div class=\"pcontainer\">
@@ -92,7 +92,7 @@ module UsersHelper
   
   def user_tag_mini(user,proposal=nil,full_name=true)
     raise "Invalid User" unless user
-    if (proposal && proposal.is_current? && (user != current_user))
+    if (proposal && proposal.anonima && proposal.is_current? && (user != current_user))
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
     end 
     ret = "<div class=\"blogUserImage\" title=\""
