@@ -44,19 +44,6 @@ h3 {
     margin: 20px 0 5px;
 }
 
-h4 {
-	color: #808080;
-    word-wrap: break-word;
-    text-align: left;
-/*	color: #1F62A8;
-    margin-top: 0;
-    padding-top: 10px;
-    margin-bottom: 2px;
-    word-wrap: break-word;
-    text-align: left;
-    font-size:16px;*/
-}
-
 .face-login-button {
         background-color: #3b5998;
         border-color: #d8dfea rgb(14, 31, 91) rgb(14, 31, 91) rgb(216, 223, 234);
@@ -76,6 +63,9 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+.ui-widget-content a { color: #3B5998; }
+
 body {	
 	line-height: 18px;
 	font: 14px 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
@@ -83,7 +73,38 @@ body {
 	padding: 0;
 	color: #333333;
 }
-.littleText {	
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #E3E9F9;
+    vertical-align: top;
+}
+
+.table_list td {
+    border: 1px dotted #DDDDDD;
+    padding: 2px;
+    font-size: 12px;
+}
+
+.table_list thead {
+    padding: 2px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.table_list th {
+    padding: 2px;
+}
+
+table.dataTable td .blogUserImage {
+    margin-bottom: 0px;
+    margin-top: 1px;
+}
+
+.littleText {
 	font-weight: bold;
 	text-align: left;
 }
@@ -115,6 +136,9 @@ body {
 	text-decoration: none;
 }
 
+#notification-panel ul.menu-list, #notification-portlet ul.menu-list {
+    margin:5px;
+}
 
 .nolink_menu_element {
  font-size: 14px;
@@ -135,6 +159,7 @@ body {
  border-right:  1px solid transparent;
  text-align: left;
  cursor: pointer;
+ color: #3B5998 ;
 }
 
 .midHeader {
@@ -285,12 +310,23 @@ body {
     width: 130px;
 }
 
+#groups_leftpanel .groupcontainer .group {
+    width: 130px;
+}
+
 #leftpanel {
 	float: left;
 	width: 164px;
 	min-height: 100px;
 	/*padding: 0 10px 0 0;*/
 }
+
+.MoImg24 {
+    margin-right:5px;
+    margin-top:2px;
+}
+
+
 
 body, #main-copy {
 	height: 100%
@@ -645,9 +681,19 @@ table.stiled tr.even.gradeA {
 	width: 140px;
 }
 
+    /*
+    h1, h2, h3, h4, h5, h6 {
+        font-family: tahoma,arial,'ubuntu','lucida grande',verdana,sans-serif;
+    }
+    */
 
 h1, h2 {
 	color: #333333;
+}
+
+h1 {
+    font-size: 22px;
+    margin: 0px;
 }
 
 h2 {
@@ -661,16 +707,18 @@ h3 {
     font-weight:normal;
 }
 
-h1 {
-	font-size: 22px;
-	margin: 0px;
+h4 {
+    color: #808080;
+    word-wrap: break-word;
+    text-align: left;
+    /*	color: #1F62A8;
+    margin-top: 0;
+    padding-top: 10px;
+    margin-bottom: 2px;
+    word-wrap: break-word;
+    text-align: left;
+    font-size:16px;*/
 }
-
-/*
-h1, h2, h3, h4, h5, h6 {
-    font-family: tahoma,arial,'ubuntu','lucida grande',verdana,sans-serif;
-}
-*/
 
 .field_with_errors {
 	display:inline-block;
@@ -750,54 +798,20 @@ h1, h2, h3, h4, h5, h6 {
 .nav-list>li>a{padding:3px 15px; border-top: 1px dotted #D9DFE2}.nav-list>.active>a,.nav-list>.active>a:hover{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.2);background-color:#08c}
 .nav-list [class^="icon-"]{margin-right:2px}
 
-/*Triangolo feedback*/
+/*Togliere il bordo blu dalle immagini linkate su IE e il bordo dalle checbox*/
+a img {border: none; }
+input[type="checkbox"]{
+    border: none;
+}
 
+/*Triangolo feedback*/
 #triangle-topleft {
     position:fixed;
     z-index: 1000;
     left:0px;
     top:0px;
-width: 0px;
-height: 0px;
-border-top: 65px solid #e3efef;
-border-bottom: 65px solid transparent;
-border-left: 65px solid #e3efef;
-border-right: 65px solid transparent;
-}
-#triangle-topleft2 {
-    position:fixed;
-    z-index: 999;
-    left:0px;
-    top:0px;
-width: 0px;
-height: 0px;
-border-top: 66px solid #336699;
-border-bottom: 66px solid transparent;
-border-left: 66px solid #336699;
-border-right: 66px solid transparent;
-}
-
-
-#triangle-topleft a{
-display:block;
-color:#336699;
-font-family:Arial, Tahoma, Helvetica, 'ubuntu', sans-serif;
-font-size:17px;
-font-weight:bold;
-height:35px;
-margin-top:-40px;
-margin-left:-70px;
-line-height:20px;
-text-align:center;
-text-decoration:none;
-transform: rotate(45deg);
--webkit-transform: rotate(-45deg);
--moz-transform: rotate(-45deg);
--o-transform: rotate(-45deg);
-width:100px;
-}
-#triangle-topleft a:hover{
-	color:#FE8A5D;
+    width: 0px;
+    height: 0px;
 }
 
 

@@ -30,12 +30,15 @@
     float: left;
     height: 24px;
     width: 24px;
+    margin-right:5px;
+    margin-top:2px;
+
 }
 
 .groupcontainer .group {
 	cursor: pointer;
     float: left;
-    width:140px;
+    /*width:140px;*/
 }
 
 .group_description {
