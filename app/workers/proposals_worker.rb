@@ -13,6 +13,7 @@ class ProposalsWorker
     end
     TestMailer.test.deliver
     puts "==Done!=="
+    puts "args[0]: " + args[0].to_s
   end
 
   protected
