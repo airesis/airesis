@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper, StepHelper
+  include NotificationHelper, StepHelper, ProposalsModule
   
   #load_and_authorize_resource
   
@@ -166,9 +166,9 @@ class ProposalsController < ApplicationController
         #se il numero di valutazioni è definito
         if (quorum.percentage)
           if @group #calcolo il numero in base ai partecipanti
-            copy.valutations = quorum.percentage * @group.count_voter_partecipants
+            copy.valutations = (quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100
           else  #calcolo il numero in base agli utenti del portale
-            copy.valutations = quorum.percentage * User.all.count            
+            copy.valutations = (quorum.percentage.to_f * User.all.count.to_f) / 100            
           end
         end
         copy.save!
@@ -506,23 +506,10 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @ranking.ranking_type_id = rank_type  #setta il tipo di valutazione
     
     ProposalRanking.transaction do
-      
       saved = @ranking.save
       @proposal.reload
-      valutations = @proposal.valutations
-      rank = @proposal.rank
-      if (valutations >= PROP_VOTES_TO_PROMOTE)        #se ho raggiunto il numero di voti sufficiente a cambiare lo stato verifica il ranking
-        if (rank >= PROP_RANKING_TO_PROMOTE)
-          @proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
-          notify_proposal_ready_for_vote(@proposal)
-        elsif (rank <= PROP_RANKING_TO_DEGRADE) 
-          @proposal.proposal_state_id = PROP_RESP
-          notify_proposal_rejected(@proposal)
-        end        
-        @proposal.save
-        @proposal.reload
-      end
-      
+      check_phase(@proposal)
+           
       respond_to do |format|
         if saved
           load_my_vote

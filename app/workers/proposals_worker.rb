@@ -1,4 +1,5 @@
 class ProposalsWorker
+  include ProposalsModule
   @queue = :proposals
   
   ENDTIME='endtime'
@@ -19,5 +20,6 @@ class ProposalsWorker
   #fa terminare la fase di valutazione di una proposta
   def end_proposal(proposal_id)
    proposal = Proposal.find_by_id(proposal_id)
+   check_phase(proposal)
   end
 end
