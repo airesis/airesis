@@ -1,9 +1,11 @@
 <div id="new_quorum" title="Nuovo quorum" style="display: none; font-size: 14px;">
-	<div id="radio">
-        <input type="radio" id="radio1" name="radio" checked="checked" value="s"/><label for="radio1">Semplice</label>
-        <input type="radio" id="radio2" name="radio" value="a"  /><label for="radio2">Avanzato</label>        
-    </div>
 	<%=form_for [@group,Quorum.new], :validate => true, :remote => true do |e|%>		
+		<div id="radio">
+			<%= e.radio_button :form_type, 's', :checked=>"checked" %><%= e.label :form_type_s, 'Semplice' %>
+			<%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, 'Avanzato' %>
+	        <!--<input type="radio" id="radio1" name="radio" checked="checked" value="s"/><label for="radio1">Semplice</label>
+	        <input type="radio" id="radio2" name="radio" value="a"  /><label for="radio2">Avanzato</label>-->        
+	    </div>
 		
 			<p>
 				<%=e.label :name, t('activerecord.attributes.quorum.name'), :title => t('activerecord.attributes.quorum.name_title')%>	<br />
@@ -29,16 +31,16 @@
 						<%=e.text_field :minutes_m, :class=> "minutes", :readonly => true%>
 					</div>
 					<div style="clear: both;"></div>
-				</div>				
+				</div>
 				<div class="advanced" style="padding: 5px 10px 5px 0;">
 					<%=e.label :condition, t('activerecord.attributes.quorum.condition'), :title => t('activerecord.attributes.quorum.condition_title')%>	<br />
-					<%=e.select :condition, {"e" => "or", "o" => "and"}, :title => t('activerecord.attributes.quorum.condition_title')%>
+					<%=e.select :condition, {"e" => "OR", "o" => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
 				</div>
 				<div class="advanced" style="padding: 5px 10px 5px 0;">			
 					<%=e.label :percentage, t('activerecord.attributes.quorum.percentage'), :title => t('activerecord.attributes.quorum.percentage_title')%> <br />
 					<%=e.text_field :percentage, :class=> "percentage partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true%>
 					<span id="partecipants_number">0</span> su <%=@partecipants_count%> aventi diritto in questo momento
-				</div>				
+				</div>
 				<div class="form_float">
 					<%=e.label :good_score,  t('activerecord.attributes.quorum.good_score'), :title => t('activerecord.attributes.quorum.good_score_title')%><br />
 					<%=e.text_field :good_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true%>
@@ -117,10 +119,9 @@ $(function() {
  
 	$(".elastic").elastic();
  
-	$('input[name=radio]').change(function(event,el) {
+	$('#radio input[name^=quorum]').change(function(event,el) {
  		$("#options").fadeOut('slow',function(){
-	 		val = $('input[name=radio]:checked').val();
-	 		console.log(val);
+	 		val = $('#radio input[name^=quorum]:checked').val();
 	 		if (val == 's') {
 		     	$('.advanced').hide();
 		    }

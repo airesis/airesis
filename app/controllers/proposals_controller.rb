@@ -443,8 +443,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     
     conditions = "1 = 1"
     
-    
-
     if (params[:state] == VOTATION_STATE)
       startlist = Proposal.in_votation   
       @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
@@ -465,7 +463,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     #  conditions += " and proposal_category_id = #{params[:category]}"
     #end
     
-    startlist = Proposal.in_category(params[:category])
+    startlist = startlist.in_category(params[:category])
 
     #applica il filtro per il gruppo
     if (params[:group_id])

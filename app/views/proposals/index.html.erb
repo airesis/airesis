@@ -31,6 +31,13 @@ end%>
 			<div class="tabs-triangle"/>
 		</li>
 	</ul>
+	
+	<div id="Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito">
+		<div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+			<%=image_tag 'ajax-loader.gif', :alt=>"Caricamento"%><br />
+			<b>Sto caricando le proposte...</b>
+		</div>
+	</div>
 </div>
 <%content_for :left_panel do %>
 
@@ -103,6 +110,7 @@ end%>
         });
     
     $('#tabs').tabs({
+    	cache: true,
     	load: function (e, ui) {
 		    $(ui.panel).find("#loading_borders").remove();
 		},

@@ -267,7 +267,7 @@ Nessun documento allegato alla proposta
 <%end%>
 
 <%unless @proposal.tags.empty?%>
-	<h4>Tags Folksonomy</h4>		
+	<h4>Tags</h4>		
 	<%@proposal.tags.each do |tag|%>
 		<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
 	<%end%>

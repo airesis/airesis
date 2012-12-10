@@ -8,7 +8,9 @@
 		<%end%>
 		</div>
 		<div class="reply_content">
-   		<%=reply.content%>
+   		<%=raw auto_link((h(reply.content)).gsub(/\n/, '<br/>'), :html => { :target => '_blank' }, :sanitize => false) do |text|
+		  truncate(text, :length => 15)
+		end%>
    		<div class="baloon-footer">
    		Inserito il <span class="blogPostDate"><%= reply.created_at.strftime("%d/%m/%Y %H:%M") %></span>
    		</div>

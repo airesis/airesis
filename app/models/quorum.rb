@@ -8,6 +8,8 @@ class Quorum < ActiveRecord::Base
   
   validate :minutes_or_percentage
   
+  validate :condition, :inclusion => {:in => ['OR','AND']}
+  
   has_one :group_quorum, :class_name => 'GroupQuorum', :dependent => :destroy
   has_one :group, :through => :group_quorum, :class_name => 'Group'
   has_one :proposal, :class_name => 'Proposal'
@@ -15,7 +17,7 @@ class Quorum < ActiveRecord::Base
   scope :public, { :conditions => ["public = ?",true]}
   scope :active, { :conditions => ["active = ?",true]}
   
-  attr_accessor :days_m, :hours_m, :minutes_m
+  attr_accessor :days_m, :hours_m, :minutes_m, :form_type
   
   before_save :populate
 
@@ -34,10 +36,17 @@ class Quorum < ActiveRecord::Base
   end
   
   #se i minuti non vengono definiti direttamente (come in caso di copia) allora calcolali dai dati di input
-  def populate 
+  def populate
     if (!self.minutes)
       self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
       self.minutes = nil if (self.minutes == 0)
+    end
+
+    #se il form compilato è semplice tolgo tutti i possibili parametri che sono stati
+    #impostati e non servono più
+    if (self.form_type && (self.form_type == 's'))
+      self.bad_score = self.good_score
+      self.percentage = nil
     end
   end
   

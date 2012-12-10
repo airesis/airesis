@@ -35,7 +35,7 @@
 					<%=link_to 'Calendario', group_events_path(@group), :class => 'calendarButton buttonStyle' %>
 					<%=link_to 'Area candidati', group_candidates_path(@group),  :class => 'personButton buttonStyle' if current_user%>
 					<%if (user_signed_in? && (is_admin? || (@group.portavoce.include?current_user)))%>
-						<%= link_to 'Impostazioni', edit_group_path(@group), :class => 'editButton buttonStyle'  %>
+						<%= link_to 'Impostazioni', edit_group_path(@group), :class => 'settingsButton buttonStyle'  %>
 					<%end%>
 				<%end%>
 			<%end%>

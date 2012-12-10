@@ -12,23 +12,9 @@ Le tue proposte
 		</thead>
 		<tbody>
 			<%current_user.proposals.current.each do |proposal|%>
-            <script type="text/javascript">
-                $(function() {
-                    $("#pb<%=proposal.id%>").progressBar({
-                        boxImage : '<%=asset_path "progressbar.gif"%>',
-                        barImage		:
-                                <%if proposal.rank < proposal.quorum.bad_score %>
-                                '<%=asset_path "progressbg_red.gif"%>'
-                        <%elsif proposal.rank >= proposal.quorum.good_score %>
-                        '<%=asset_path "progressbg_green.gif"%>'
-                                <%else%>
-                                '<%=asset_path "progressbg_orange.gif"%>'
-                        <%end%>
-                    });
-                });
-            </script>
+         
             <tr>
-				<td><%=link_to proposal.title, proposal%><br>
+				<td><%=link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0],proposal] : proposal)%><br>
                   <div style="float: left; margin-right: 5px;">Autori</div>
 					<%proposal.users.each do |user|%>
 						<%=user_tag_mini(user,proposal)%>
@@ -38,7 +24,7 @@ Le tue proposte
 				</td>
 				<td align="center">
 					<%=proposal.updated_at.strftime("%d/%m/%Y %H:%M")%><br>
-                    <span class="progressBar"  id="pb<%=proposal.id%>" ><%=proposal.rank%></span>
+					<%=render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
 	            </td>
 					
 			</tr>
