@@ -28,14 +28,17 @@ class Quorum < ActiveRecord::Base
   end
     
   def minutes_or_percentage
-    if (self.days_m.blank? && self.hours_m.blank? && self.minutes_m.blank? && !self.percentage)
+    if (self.days_m.blank? && self.hours_m.blank? && self.minutes_m.blank? && !self.percentage && !self.minutes)
       self.errors.add(:minutes, "Devi indicare la durata della proposta o il numero minimo di partecipanti")
     end
   end
   
-  def populate
-    self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
-    self.minutes = nil if (self.minutes == 0)
+  #se i minuti non vengono definiti direttamente (come in caso di copia) allora calcolali dai dati di input
+  def populate 
+    if (!self.minutes)
+      self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
+      self.minutes = nil if (self.minutes == 0)
+    end
   end
   
   def time

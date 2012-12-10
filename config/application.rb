@@ -27,7 +27,7 @@ module DemocracyOnline3
     config.assets.version = '1.0'
     
     config.autoload_paths << "#{Rails.root}/lib"
-    config.time_zone = 'UTC' 
+    config.time_zone = 'Rome' 
     config.i18n.default_locale = :it
     
     

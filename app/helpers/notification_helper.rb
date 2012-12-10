@@ -102,7 +102,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 6,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.users.each do |user|
-      if (user != current_user)
+      if ((defined? current_user) && (user != current_user))
         send_notification_to_user(notification_a,user)
       end
     end    
@@ -115,7 +115,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.users.each do |user|
-      if (user != current_user)
+      if ((defined? current_user) && (user != current_user))
         send_notification_to_user(notification_a,user)
       end
     end    

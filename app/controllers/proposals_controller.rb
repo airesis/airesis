@@ -199,7 +199,7 @@ class ProposalsController < ApplicationController
     	
 	#fai partire il timer per far scadere la proposta
 	if (quorum.minutes)
-	  Resque.enqueue_in(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+	  Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
 	end
       end
       @saved = true
@@ -217,6 +217,7 @@ class ProposalsController < ApplicationController
       end
       
     rescue ActiveRecord::ActiveRecordError => e
+      log_error(e)
       if @proposal.errors[:title]
         @other = Proposal.find_by_title(params[:proposal][:title])
         #@proposal.errors[:title] = "Esiste già un'altra proposta cono questo titolo. <a href=\"#\">Guardala</a>!"          
