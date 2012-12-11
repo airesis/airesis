@@ -60,7 +60,7 @@ end%>
 	<h4>Categorie</h4>
 	Tutte le categorie
 <%end%>
-
+<table>
 <% 
 	conditions = "1 = 1"
 	joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
@@ -72,18 +72,20 @@ end%>
      :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
      :joins => joins,
      :conditions => conditions, 
-     :group => "proposal_categories.id, proposal_categories.description"
+     :group => "proposal_categories.id, proposal_categories.description",
+     :order => "proposal_categories.id desc"
     )
 	#categories = ProposalCategory.all
    categories.each do |category|%>
-	<div>
+      <tr><td style="vertical-align: middle;" >
 		<%if (params[:category] == category.id.to_s)%>
-			<%=category.description%> (<%=category.proposals_count%>)
+            <%= image_tag("proposal_categories/"+category.id.to_s + ".png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;")%></td><td><%=category.description%><!-- (<%=category.proposals_count%>) -->
 		<%else%>
-			<a href="<%=current_url(:category => category.id)%>"><%=category.description%> (<%=category.proposals_count%>)</a>
+            <%=link_to image_tag("proposal_categories/"+category.id.to_s + ".png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%></td><td><a href="<%=current_url(:category => category.id)%>"> <%=category.description%> <!--(<%=category.proposals_count%>)--></a>
 		<%end%>
-	</div>
+    </td></tr>
 <%end%>
+  </table>
 </div>
 
 	<!--<%= render :partial => 'users/most_active_users_panel' %>-->
