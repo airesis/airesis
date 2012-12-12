@@ -81,7 +81,7 @@ end%>
 		<%if (params[:category] == category.id.to_s)%>
             <%= image_tag("proposal_categories/"+category.id.to_s + ".png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;")%></td><td><%=category.description%><!-- (<%=category.proposals_count%>) -->
 		<%else%>
-            <%=link_to image_tag("proposal_categories/"+category.id.to_s + ".png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%></td><td><a href="<%=current_url(:category => category.id)%>"> <%=category.description%> <!--(<%=category.proposals_count%>)--></a>
+            <%=link_to image_tag("proposal_categories/"+category.id.to_s + ".png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%></td><td><a href="<%=current_url(:category => category.id)%>" title='<%if category.proposals_count.to_i >0%>Nr proposte: <%=category.proposals_count%><%else%>Nessuna proposta in questa categoria<%end%>'  > <%=category.description%> <!--(<%=category.proposals_count%>)--></a>
 		<%end%>
     </td></tr>
 <%end%>
