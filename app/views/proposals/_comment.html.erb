@@ -9,24 +9,23 @@
 	        <%= comment.user_image_tag(40) %>
 		<%end%>
     </div>
+    <div style="margin: 0px 0px 5px 50px;"><span class="blogPoster">
+        <%if (proposal_nickname && @proposal.is_current?  && !(comment.user == current_user))%>
+            <%=proposal_nickname.nickname%>
+        <%else%>
+            <%=link_to_user comment.user, :content_text => comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
+        <%end%>
+    </span> propone... <div id="flash_messages_comment_<%= comment.id %>" style="height:20px; float: right;"></div></div>
     <div class="proposal_comment">
-    	<div class="baloon-triangle">
-    	</div>
+    	<div class="baloon-triangle"></div>
         <div id="commentcc" >
-	        <div class="baloon_header">
-	            <div class="proposalCommentPostedAt">
-	                <span class="blogPoster">
-	                	<%if (proposal_nickname && @proposal.is_current?  && !(comment.user == current_user))%>
-							<%=proposal_nickname.nickname%>	                	
-	                	<%else%>
-	                		<%=link_to_user comment.user, :content_text => comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
-	                	<%end%>
-	                </span> propone...
+          <div class="baloon_header">
+
+                <div class="proposalCommentPostedAt">
+
 	            </div>
-				<div id="flash_messages_comment_<%= comment.id %>" style="height:20px">
-					
-				</div>
-	        </div>
+
+	            </div>
             <div class="baloon-content">
                 <%=raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => { :target => '_blank' }, :sanitize => false) do |text|
 				  truncate(text, :length => 15)
@@ -72,12 +71,12 @@
     </div>
     
     <%if signed_in? && (can? :partecipate, @proposal) %>
-    <div  class="proposal_comment_reply">
+      <div class="reply_img">
+        <%= current_user.user_image_tag(32) %>
+      </div><div  class="proposal_comment_reply"><div class="baloon-triangle"></div>
     	<div id="<%=comment.id%>_reply_area_msg"></div>
     	<%= form_for [@proposal,ProposalComment.new], :remote => true do |f| %>
-    	<div class="reply_img">    	
-	        <%= current_user.user_image_tag(32) %>		
-	    </div>    
+
 		<div class="reply_area">
 			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
 			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area"%>
