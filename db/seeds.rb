@@ -8269,7 +8269,7 @@ NotificationType.create( :description => "Nuova valutazione ad una proposta a cu
 
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Nessuna categoria" ){ |c| c.id = 5 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Educazione, Ricerca" ){ |c| c.id = 7 }.save
-ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Salute, Igiene" ){ |c| c.id = 8 }.save
+ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Democrazia, Istituzioni" ){ |c| c.id = 8 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Informazione, Comunicazione" ){ |c| c.id = 9 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Commercio, Finanza, Fisco" ){ |c| c.id = 10 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Lavoro e Auto-realizzazione" ){ |c| c.id = 11 }.save
