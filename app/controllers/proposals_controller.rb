@@ -171,6 +171,7 @@ class ProposalsController < ApplicationController
             copy.valutations = (quorum.percentage.to_f * User.all.count.to_f) / 100            
           end
         end
+	copy.public = false
         copy.save!
 
         @proposal = Proposal.new(prparams)

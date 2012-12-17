@@ -1,7 +1,7 @@
 <div class="proposal_comment_reply">
  	<%comment_nickname = @proposal.proposal_nicknames.find_by_user_id(reply.user.id)%>
 		<div class="reply_img">
-		<%if (comment_nickname && @proposal.is_current? && !(reply.user == current_user))%>
+		<%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
 			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment_nickname.nickname)%>?s=32&d=identicon&r=PG"/>               	
 		<%else%>
         	<%= reply.user_image_tag(32) %>

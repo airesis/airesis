@@ -83,6 +83,11 @@ class Proposal < ActiveRecord::Base
   def is_current?
     return [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id 
   end
+
+  #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
+  def is_anonima?
+    return is_current? && self.anonima
+  end
  
   def tags_list
     @tags_list ||= self.tags.map(&:text).join(', ')
