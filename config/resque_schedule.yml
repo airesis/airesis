@@ -1,6 +1,17 @@
-#calculate_ranking:
-#  cron: "30 6 * * 1"
-#  class: AdminHelperClearLeaderboards
-#  queue: scoring
-#  args: moderators
-#  description: "This job resets the weekly leaderboard for moderators"
+calculate_ranking:
+  cron: "0 * * * *"
+  class: CalculateRankings
+  queue: cron
+  description: "Aggiorna i ranking degli utenti"
+  
+change_proposal_state:
+  cron: "0 1 * * *"
+  class: ChangeProposalState
+  queue: cron
+  description: "Aggiorna lo stato delle proposte"
+  
+delete_old_notifications:
+  cron: "0 1 * * *"
+  class: DeleteOldNotifications
+  queue: cron
+  description: "Cancella le vecchie notifiche già lette"
