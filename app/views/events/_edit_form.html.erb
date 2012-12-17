@@ -34,12 +34,12 @@ admin event
 			<p>
 				<%= f.label :starttime %>
 				<br/>
-				<%= f.text_field :starttime, :class=>"datePicker" %>
+				<%= f.text_field :starttime, :value => @event.starttime, :class=>"datePicker" %>
 			</p>
 			<p>
 				<%= f.label :endtime %>
 				<br/>
-				<%= f.text_field :endtime, :class=>"datePicker" %>
+				<%= f.text_field :endtime, :value => @event.endtime, :class=>"datePicker" %>
 			</p>
 			<p>
 				<%= f.label :all_day %>
@@ -57,22 +57,25 @@ admin event
 			  	<%=f.submit 'Aggiorna', :onclick => "document.getElementById('event_commit_button').value = this.value", :class=>'buttonStyle'%>
 			  <%end-%>			  			 
 			</p></td>
-			<td width="40%"> <%=f.fields_for :meeting, @meeting do |m|%>
-			<%=m.fields_for :place, @place do |p|%>
-			<p  id="edit_luogo">
-				<%= p.label :comune_id %><br />
-				<%= p.text_field :comune_id, :onchange => "codeAddress('edit_luogo');", "data-pre" => [{:id => @event.place.comune.id, :name => @event.place.comune.description}].to_json%>
-				<%= p.label :address %><br />
-				<%= p.text_field :address, :onchange => "codeAddress('edit_luogo');" %>
-				<%= p.hidden_field :latitude_original %>
-				<%= p.hidden_field :longitude_original %>
-				<%= p.hidden_field :latitude_center %>
-				<%= p.hidden_field :longitude_center %>
-				<%= p.hidden_field :zoom %>				
-				<div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
-				<!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-			</p> <%end%>
-			<%end%> </td>
+			<td width="40%"> 
+				<%=f.fields_for :meeting, @meeting do |m|%>
+					<%=m.fields_for :place, @place do |p|%>
+					<p  id="edit_luogo">
+						<%= p.label :comune_id %><br />
+						<%= p.text_field :comune_id, :onchange => "codeAddress('edit_luogo');", "data-pre" => [{:id => @event.place.comune.id, :name => @event.place.comune.description}].to_json%>
+						<%= p.label :address %><br />
+						<%= p.text_field :address, :onchange => "codeAddress('edit_luogo');" %>
+						<%= p.hidden_field :latitude_original %>
+						<%= p.hidden_field :longitude_original %>
+						<%= p.hidden_field :latitude_center %>
+						<%= p.hidden_field :longitude_center %>
+						<%= p.hidden_field :zoom %>				
+						<div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
+						<!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+					</p> 
+					<%end%>
+				<%end%> 
+			</td>
 		</tr>
 	</table>
 </div>
