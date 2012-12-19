@@ -3,7 +3,7 @@
 
 <div id="comment<%= comment.id %>" class="proposalComment"<%if (comment.collapsed) %>style="display:none"<%end %>>
     <div class="blogUserImage">
-    	<%if (proposal_nickname && @proposal.is_current? && !(comment.user == current_user))%>
+    	<%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>
 			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(proposal_nickname.nickname)%>?s=40&d=identicon&r=PG"/>               	
 		<%else%>
 	        <%= comment.user_image_tag(40) %>
@@ -16,10 +16,10 @@
 	        <div class="baloon_header">
 	            <div class="proposalCommentPostedAt">
 	                <span class="blogPoster">
-	                	<%if (proposal_nickname && @proposal.is_current?  && !(comment.user == current_user))%>
+	                	<%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>
 							<%=proposal_nickname.nickname%>	                	
 	                	<%else%>
-	                		<%=link_to_user comment.user, :content_text => comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
+	                		<%=link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '') %>
 	                	<%end%>
 	                </span> propone...
 	            </div>

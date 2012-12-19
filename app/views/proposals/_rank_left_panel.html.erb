@@ -51,4 +51,5 @@
 <%end %>
 
 Categoria: <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
-Stato: <%= link_to @proposal.state.description%>
+Stato: <%= link_to @proposal.state.description%><br />
+<%= 'Anonimato temporaneo attivo' if @proposal.is_anonima?%>

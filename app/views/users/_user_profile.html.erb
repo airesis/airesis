@@ -22,18 +22,19 @@
                     </div>
                 </div>
                 <%if current_user == @user %>
-                <div id="email_profile" class="profile_element">
-                    <h2 class="label_profile">Email: </h2>
-                    <div class="info_profile">
-                        <%=h @user.email %>
-                    </div>
-                </div>
-                 <div id="password_profile" class="profile_element">
-                    <h2 class="label_profile">Password: </h2>
-                    <div class="info_profile">
-                        *****
-                    </div>
-                </div>
+	                <div id="email_profile" class="profile_element">
+	                    <h2 class="label_profile">Email: </h2>
+	                    <div class="info_profile">
+	                        <%=h @user.email %>
+	                    </div>
+	                </div>
+	                 <div id="password_profile" class="profile_element">
+	                    <h2 class="label_profile">Password: </h2>
+	                    <div class="info_profile">
+	                        *****
+	                    </div>
+	                </div>
+                <%end%>
                   <div id="facebook_profile" class="profile_element">
                     <h2 class="label_profile">URL Facebook: </h2>
                     <div class="info_profile">
@@ -46,7 +47,6 @@
                       <%=h @user.linkedin_page_url %>
                     </div>
                   </div>
-                <%end%>
                   <div id="username_profile" class="profile_element">
                     <h2 class="label_profile">Username: </h2>
                     <div class="info_profile">
