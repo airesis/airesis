@@ -171,13 +171,13 @@ class ProposalsController < ApplicationController
             copy.valutations = (quorum.percentage.to_f * User.all.count.to_f) / 100            
           end
         end
-	copy.public = false
+	      copy.public = false
         copy.save!
 
         @proposal = Proposal.new(prparams)
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
-        if (@group && !@group.change_advanced_options)
-          @proposal.anonima = @group.default_anonima  
+        if (@group)          
+          @proposal.anonima = @group.default_anonima unless (@group.change_advanced_options)  
         else
           @proposal.anonima = DEFAULT_ANONIMA          
         end
