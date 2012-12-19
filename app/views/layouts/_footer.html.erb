@@ -29,7 +29,7 @@
 </div>
 <div class="pull-right" style="float:right;">
     <%= link_to t("guide"), videoguide_path, :class => "video_faq" %> -
-	<a href="#" onclick="return openModal();">Condizioni d'uso </a> - 
+	<a href="#" onclick="return openCondizioniModal();">Condizioni d'uso </a> - 
 	<a href="#" onclick="return openPrivacyModal();">Privacy policy</a> - 
 	<a href="#">Torna sopra</a>
 </div>
@@ -49,7 +49,7 @@
 <!-- /container -->
 <script type="text/javascript">
 
-	function openModal() {
+	function openCondizioniModal() {
 		$( "#eula_modal" ).dialog({ height: 250, width: 450 });		
 		return false;
 	}

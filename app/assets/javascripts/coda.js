@@ -13,7 +13,7 @@ $(function() {
 		var hovertrigger = $('.hovertrigger', this);
 		var info = $('.popup', this).css('opacity', 0);
 		
-		function show() {
+		function mostraBubble() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			if(beingShown || shown) {
@@ -39,7 +39,7 @@ $(function() {
 			return false;
 		}
 		
-		function hide() {
+		function nascondiBubble() {
 			if(hideDelayTimer)
 				clearTimeout(hideDelayTimer);
 			hideDelayTimer = setTimeout(function() {
@@ -58,13 +58,16 @@ $(function() {
 		function showandhide(time) {
 			if (!time) time = 3000;
 			if (!shown) {
-				show();
-				setTimeout(hide,3000);
+				mostraBubble();
+				setTimeout(nascondiBubble,3000);
 			}
 		}
 
-		$([trigger.get(0), info.get(0)]).focusin(show).focusout(hide);
-		//$([clicktrigger.get(0), info.get(0)]).click(showandhide);
+		if (trigger.length > 0) {
+		$([trigger.get(0), info.get(0)]).focusin(mostraBubble).focusout(nascondiBubble);	
+		}
+		
+		$([clicktrigger.get(0), info.get(0)]).click(showandhide);
 	});
 	
 });
