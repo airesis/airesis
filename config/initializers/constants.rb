@@ -1,5 +1,5 @@
 END_TIME = Date.parse("1 Jan, 2016").to_time
-VERSION = '0.8.9'
+VERSION = '1.0'
 
 POSITIVE_VALUTATION = 1
 NEGATIVE_VALUTATION = 3
