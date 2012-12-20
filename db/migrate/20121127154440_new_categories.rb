@@ -6,7 +6,7 @@ class NewCategories < ActiveRecord::Migration
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Urbanistica, Mobilità, Edilizia" ){ |c| c.id = 22 }.save
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Energia, Clima" ){ |c| c.id = 23 }.save
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Industria, Materiali e Rifiuti" ){ |c| c.id = 24 }.save
-    #ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Salute, Igiene" ){ |c| c.id = 25 }.save
+    ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Democrazia, Istituzioni" ){ |c| c.id = 25 }.save
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Educazione, Ricerca" ){ |c| c.id = 7 }.save
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Salute, Igiene" ){ |c| c.id = 8 }.save
     ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Informazione, Comunicazione" ){ |c| c.id = 9 }.save

@@ -51,7 +51,11 @@
 		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
 		   <p>
 		    <b>Scegli un periodo per la votazione</b>
-				<%= select("proposal", "vote_period_id", Event.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }) %>
+		    <%collection = Event.public.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
+		    	<%if @group %>
+			    	<%collection += Event.in_group(@group.id).vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
+				<%end%>
+				<%= select("proposal", "vote_period_id", collection) %>
 			   <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle' %>
 		  </p> 
 		<%end%>
