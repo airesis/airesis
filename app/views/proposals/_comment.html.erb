@@ -72,12 +72,14 @@
     </div>
     
     <%if signed_in? && (can? :partecipate, @proposal) %>
+	<div class="reply_img">
+		<%= current_user.user_image_tag(32) %>
+	</div>
     <div  class="proposal_comment_reply">
+    	<div class="baloon-triangle"></div>
     	<div id="<%=comment.id%>_reply_area_msg"></div>
     	<%= form_for [@proposal,ProposalComment.new], :remote => true do |f| %>
-    	<div class="reply_img">    	
-	        <%= current_user.user_image_tag(32) %>		
-	    </div>    
+    	
 		<div class="reply_area">
 			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
 			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area"%>
