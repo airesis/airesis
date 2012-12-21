@@ -1,58 +1,55 @@
-# Additional translations at http://github.com/plataformatec/devise/wiki/I18n
-
-en:
+it:
   errors:
     messages:
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      already_confirmed: "was already confirmed, please try signing in"
-      not_locked: "was not locked"
+      expired: "è scaduto, si prega di richiederne uno nuovo"
+      not_found: "non trovato"
+      already_confirmed: "è stato già confermato, prova ad effettuare un nuovo accesso"
+      not_locked: "non era bloccato"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "Non posso salvare questo %{resource}: 1 errore"
+        other: "Non posso salvare questo %{resource}: %{count} errori."
 
   devise:
     failure:
-      already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
-      invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
-      inactive: 'Your account was not activated yet.'
+      already_authenticated: "Hai già effettuato l'accesso."
+      unauthenticated: "Devi accedere o registrarti per continuare."
+      unconfirmed: "Devi confermare il tuo account per continuare."
+      locked: "Il tuo account è bloccato."
+      invalid: "Indirizzo email o password non validi."
+      invalid_token: "Codice di autenticazione non valido."
+      timeout: "Sessione scaduta, accedere nuovamente per continuare."
+      inactive: "Il tuo account non è stato ancora attivato."
     sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
+      signed_in: "Accesso effettuato con successo."
+      signed_out: "Sei uscito correttamente."
     passwords:
-      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
-      updated: 'Your password was changed successfully. You are now signed in.'
-      updated_not_active: 'Your password was changed successfully.'
-      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+      send_instructions: "Entro qualche minuto riceverai un messaggio email con le istruzioni per reimpostare la tua password."
+      updated: "La tua password è stata cambiata. Ora sei collegato."
+      updated_not_active: "La tua password è stata cambiata."
+      send_paranoid_instructions: "Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email contentente un link per il ripristino della password"
     confirmations:
-      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
-      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+      send_instructions: "Riceverai un messaggio email con le istruzioni per confermare il tuo account entro qualche minuto."
+      send_paranoid_instructions: "Se la tua e-mail esiste nel nostro database, entro qualche minuto riceverai un messaggio email con le istruzioni per confermare il tuo account."
+      confirmed: "Il tuo account è stato correttamente confermato. Ora sei collegato."
     registrations:
-      signed_up: 'Welcome! You have signed up successfully.'
-      inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
-      updated: 'You updated your account successfully.'
-      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
-      reasons:
-        inactive: 'inactive'
-        unconfirmed: 'unconfirmed'
-        locked: 'locked'
+      signed_up: "Benvenuto! Ti sei registrato correttamente."
+      signed_up_but_unconfirmed: "Ti sei registrato correttamente. Tuttavia non puoi effettuare l'accesso perchè il tuo account è da confermare. Per favore apri il link che hai ricevuto tramite email per attivare il tuo account."
+      signed_up_but_inactive: "Ti sei registrato correttamente. Tuttavia non puoi effettuare l'accesso perchè il tuo account non è stato ancora attivato."
+      signed_up_but_locked: "Ti sei registrato correttamente. Tuttavia non puoi effettuare l'accesso perchè il tuo account è bloccato."
+      updated: "Il tuo account è stato aggiornato."
+      update_needs_confirmation: "Il tuo account è stato aggiornato, tuttavia è necessario verificare il tuo nuovo indirizzo email. Entro qualche minuto riceverai un messaggio email con le istruzioni per confermare il tuo nuovo indirizzo email."
+      destroyed: "Arrivederci! L'account è stato cancellato. Speriamo di rivederci presto."
     unlocks:
-      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-      unlocked: 'Your account was successfully unlocked. You are now signed in.'
-      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+      send_instructions: "Entro qualche minuto Riceverai un messaggio email con le istruzioni per sbloccare il tuo account."
+      unlocked: "Il tuo account è stato correttamente sbloccato. Ora sei collegato."
+      send_paranoid_instructions: "Se la tua email esiste nel nostro database, entro qualche minuto riceverai un messaggio email con le istruzioni per sbloccare il tuo account."
     omniauth_callbacks:
-      success: 'Successfully authorized from %{kind} account.'
-      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+      success: "Autorizzato con successo dall'account %{kind}."
+      failure: 'Non è stato possibile autorizzarti da %{kind} perchè "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Istruzioni per la conferma account'
+        subject: "Istruzioni per la conferma"
       reset_password_instructions:
-        subject: 'Istruzioni per il reset della password'
+        subject: "Istruzioni per reimpostare la password"
       unlock_instructions:
-        subject: 'Unlock Instructions'
+        subject: "Istruzioni per sbloccare l'account"

@@ -17,6 +17,9 @@ DemocracyOnline3::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
+  config.assets.precompile += %w(endless_page.js back_enabled.png)
+
+
   # Generate digests for assets URLs
   config.assets.digest = true
   
@@ -29,7 +32,7 @@ DemocracyOnline3::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'coorasse.alwaysdata.net' }
+  config.action_mailer.default_url_options = { :host => 'http://www.airesis.it' }
   
   
 
@@ -72,20 +75,16 @@ DemocracyOnline3::Application.configure do
   config.active_support.deprecation = :notify
 
   #indirizzo del sito
-  SITE="http://coorasse.alwaysdata.net"
+  SITE="http://www.airesis.it"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
   PROPOSALS_PER_PAGE=10
-  #percentuale da raggiungere perchè la proposta sia promossa
-  PROP_RANKING_TO_PROMOTE=70
-  #percentuale sotto la quale la proposta viene abolita
-  PROP_RANKING_TO_DEGRADE=20
+ 
+  
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
-  #numero di voti necessari affinchè la proposta possa essere promossa
-  PROP_VOTES_TO_PROMOTE=6
-  
+ 
    #limita il numero di commenti
   LIMIT_COMMENTS=true
   
@@ -101,6 +100,7 @@ end
 require 'tlsmail'    
 Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 
+ActionMailer::Base.default :from => "Airesis <info@airesis.it>"
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true

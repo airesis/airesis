@@ -3,8 +3,8 @@
 Quando si scrive una nuova proposta è bene ricordare che la sua gestione è totalmente affidata agli autori.
 <br />
 Una volta inserita la proposta la modificherai per aumentare il numero di valutazioni positive. <br />
-Se il ranking della sua proposta è maggiore del <%=PROP_RANKING_TO_PROMOTE%>% allora sarà possibile votare la proposta.<br />
-Se al contrario il ranking è inferiore al <%=PROP_RANKING_TO_DEGRADE%>% allora la proposta verrà automaticamente respinta.<br />
+Se il ranking della sua proposta è maggiore del quorum scelto allora sarà possibile votare la proposta.<br />
+Se al contrario il ranking è inferiore al quorum allora la proposta verrà automaticamente respinta.<br />
 </div>
 <div style="clear: both"></div>
 <%= link_to 'Ho capito!', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle', :style => "float:right;" %>

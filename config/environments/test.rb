@@ -55,14 +55,10 @@ DemocracyOnline3::Application.configure do
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
   PROPOSALS_PER_PAGE=10
-  #percentuale da raggiungere perchè la proposta sia promossa
-  PROP_RANKING_TO_PROMOTE=70
-  #percentuale sotto la quale la proposta viene abolita
-  PROP_RANKING_TO_DEGRADE=20
+  
+ 
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
-  #numero di voti necessari affinchè la proposta possa essere promossa
-  PROP_VOTES_TO_PROMOTE=3
   
   #limita il numero di commenti
   LIMIT_COMMENTS=false

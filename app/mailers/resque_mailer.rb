@@ -1,11 +1,11 @@
 class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
-  default from: "coorasse+airesis@gmail.com"
+  default from: "info@airesis.it"
   
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
-    mail(:to => @alert.user.email, :subject => "DemocracyOnline (Airesis) - Notifica")
+    mail(:to => @alert.user.email, :subject => "Airesis - Notifica")
 #      from "coorasse+admin@gmail.com"
 #      subject "DemocracyOnline - Notifica"
 #      body alert.notification.message

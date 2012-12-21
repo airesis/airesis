@@ -25,6 +25,7 @@ CONTRIBUTE_MAX_LENGTH = 2000
 
 APP_SHORT_NAME = "Airesis"
 APP_LONG_NAME = "Airesis - Scegli di partecipare"
+APP_EMAIL_ADDRESS = "info@airesis.it"
 
 DEFAULT_CHANGE_ADVANCED_OPTIONS = false
 DEFAULT_ANONIMA = true
