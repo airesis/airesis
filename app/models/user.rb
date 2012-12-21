@@ -291,7 +291,7 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
       return user      
   else  #crea un nuovo account facebook
     if data["verified"]
-      user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => data["gender"][0],  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.account_type = 'facebook'     

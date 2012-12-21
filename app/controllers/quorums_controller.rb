@@ -79,7 +79,8 @@ class QuorumsController < ApplicationController
   
   def help
     if (params[:group_id])
-      @quorums = Group.find(params[:group_id]).quorums.active
+      @group = Group.find(params[:group_id])
+      @quorums = @group.quorums.active
     else
        @quorums = Quorum.public.active.all      
     end

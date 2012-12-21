@@ -20,7 +20,13 @@
 				<hr />
 				<%=quorum.description%>
 				<%if quorum.percentage%>
-					Sono necessari almeno <b><%=(quorum.percentage * 0.01 * User.all.count).to_i%> partecipanti</b>
+					Sono necessari almeno <b>
+					<%if @group%>
+						<%=[(quorum.percentage.to_f * 0.01 * @group.count_voter_partecipants).floor,1].max%>
+					<%else%>
+						<%=[(quorum.percentage * 0.001 * User.all.count).floor,1].max%>
+					<%end%>
+					 partecipanti</b>
 				<%end%>
 				<%if quorum.minutes%>
 					<%if quorum.percentage%>
