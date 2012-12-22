@@ -10,7 +10,7 @@
 
 <h1>Quando <%='è stato' if @event.is_past?%>?</h1>
 <div class="event_when">
-	<div class="event_calendar", style="margin-right:10px;">
+	<div class="event_calendar" style="margin-right:10px;">
 		<div class="day">
 			<%=I18n.localize(@event.starttime, :format => :month)%>
 		</div>
@@ -26,10 +26,10 @@
 </div>
 <hr/>
 
-<%if (@event.event_type_id != 2)%>
+<%if @event.event_type_id != EventType::ELEZIONI%>
 	<%if @event.place%>
 	<h1>Dove <%='è stato' if @event.is_past?%>?</h1>
-	<div class"event_where">
+	<div class="event_where">
 		<div style="float:left; margin-right:10px;">
 			<a href="#" onclick="return openModal();" title="Visualizza su mappa">
 				<%=image_tag('maps.png', :alt => "Mappa", :size=>"64x64")%>
@@ -73,14 +73,15 @@
 			var zoom = <%=@event.place.zoom%>;		
 			
 			
-			var myOptions = {
+			//noinspection JSUnresolvedVariable
+            var myOptions = {
 				zoom : zoom,
 				center: latlng,
 				mapTypeId : google.maps.MapTypeId.ROADMAP,
 				panControl : false,
 				streetViewControl : false,
 				mapTypeControl : true,
-				draggable: true,
+				draggable: true
 			};
 		
 			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
@@ -124,7 +125,7 @@
 	
 <%end%>
 
-<%if (@event.event_type_id == 2)%>
+<%if @event.event_type_id == EventType::VOTAZIONE%>
 <p>
 	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
 	<h3>In queste giornate si voteranno le seguenti proposte</h3>
@@ -134,7 +135,7 @@
 </p>
 
 
-<%elsif (@event.event_type_id == 4)%>
+<%elsif @event.event_type_id == EventType::ELEZIONI%>
 <p>
 	<%=link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election)%>
 </p>

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
-gem 'therubyracer'
+gem 'therubyracer', '0.10.1'
 
 gem 'bson_ext'
 

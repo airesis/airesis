@@ -1,19 +1,19 @@
 <%
 pv = params[:view] ? params[:view].to_i : nil
 if (!pv || (pv == 1))%>
-	Random stack
+	<%=t('pages.proposals.show.random_stack')%>
 <%else%>	
-	<%=link_to 'Random stack', list_proposal_proposal_comments_url(@proposal, :view=>1, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(1);" %>
+	<%=link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, :view=>1, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(1);" %>
 <%end%> | 		
 <% if (pv == 2)%>
-	Più recenti
+	<%=t('pages.proposals.show.most_recent')%>
 <%else%>
-	<%=link_to 'Più recenti', list_proposal_proposal_comments_url(@proposal, :view=>2, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(2);" %>	
+	<%=link_to t('pages.proposals.show.most_recent'), list_proposal_proposal_comments_url(@proposal, :view=>2, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(2);" %>	
 <%end%> |
 <% if (pv == 3)%>
-	Più valutati
+	<%=t('pages.proposals.show.most_ranked')%>
 <%else%>	 
-	<%=link_to 'Più valutati', list_proposal_proposal_comments_url(@proposal, :view=>3, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(3);" %>
+	<%=link_to t('pages.proposals.show.most_ranked'), list_proposal_proposal_comments_url(@proposal, :view=>3, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(3);" %>
 <%end%>
 
 <script type="text/javascript">

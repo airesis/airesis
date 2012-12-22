@@ -1,4 +1,4 @@
-<% @page_title="Registrazione" %>
+<% @page_title=t('pages.login.title') %>
 <h2><%=t('pages.login.title') %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>

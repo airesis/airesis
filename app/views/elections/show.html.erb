@@ -18,7 +18,7 @@
 
 <h2>Date</h2>
 
-<div class="event_calendar", style="margin-right:10px;">
+<div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.event.starttime, :format => :month)%>
 	</div>
@@ -29,7 +29,7 @@
 <h3>L'elezione ha inizio il <%= @election.event.starttime.strftime("%d/%m/%Y alle %H:%M") %> con l'iscrizione dei gruppi.</h3>
 <div style="clear:both"></div>
 
-<div class="event_calendar", style="margin-right:10px;">
+<div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.groups_end_time, :format => :month)%>
 	</div>
@@ -40,7 +40,7 @@
 <h3>Il <%= @election.groups_end_time.strftime("%d/%m/%Y alle %H:%M") %> terminano le iscrizioni dei gruppi ed inizia l'iscrizione dei candidati.</h3>
 <div style="clear:both"></div>
 
-<div class="event_calendar", style="margin-right:10px;">
+<div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.candidates_end_time, :format => :month)%>
 	</div>
@@ -51,7 +51,7 @@
 <h3>Il <%= @election.candidates_end_time.strftime("%d/%m/%Y alle %H:%M") %> terminano le iscrizioni dei candidati ed iniziano le votazioni.</h3>
 <div style="clear:both"></div>
 
-<div class="event_calendar", style="margin-right:10px;">
+<div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.event.endtime, :format => :month)%>
 	</div>

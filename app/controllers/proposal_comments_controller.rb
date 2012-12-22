@@ -36,14 +36,34 @@ class ProposalCommentsController < ApplicationController
   def index
     order = ""
     conditions = " 1 = 1 "
-    if (params[:view] == ORDER_RANDOM)
-      order << " random()"
+    if params[:view] == ORDER_RANDOM
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
-      @proposal_comments = @proposal.contributes.find(:all, :conditions => conditions, :order => order, :limit => 5)
-      @total_pages = (@proposal.contributes.count / 5).ceil
+      left = COMMENTS_PER_PAGE
+      tmp_comments = []
+      #estrai i contributi con notifiche
+      if left > 0
+        #estrai id di quelli già valutati
+        valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
+        valuated_ids = @proposal.contributes.all(:joins => :rankings, :select => 'distinct(proposal_comments.id)', :conditions => valuated_cond).map {|c| c.id}
+
+        #estrai i contributi non valutati
+        non_valuated_cond = conditions
+        non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
+        tmp_comments += @proposal.contributes.all(:conditions => non_valuated_cond, :order => " random()", :limit => left)
+        left -= tmp_comments.size
+
+        if left > 0 && !valuated_ids.empty?
+          #estrai quelli già valutati
+          valuated_cond = conditions
+          valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
+          tmp_comments += @proposal.contributes.all(:conditions => valuated_cond, :order => " random()", :limit => left)
+        end
+      end
+      @proposal_comments = tmp_comments
+      @total_pages = (@proposal.contributes.count / COMMENTS_PER_PAGE).ceil
       @current_page = params[:page].to_i
     else
-      if (params[:view] == ORDER_BY_RANK)
+      if params[:view] == ORDER_BY_RANK
         order << " proposal_comments.rank desc, proposal_comments.valutations desc"
       else
         order << "proposal_comments.created_at desc"
@@ -101,7 +121,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
-      unless (@is_reply)
+      unless @is_reply
         @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
         @saved.collapsed = true
       end
@@ -113,9 +133,9 @@ class ProposalCommentsController < ApplicationController
       log_error(e)
       respond_to do |format|
         puts e
-        flash[:error] = 'Errore durante l\'inserimento.'
+        flash[:error] = "Errore durante l'inserimento."
         format.js   { render :update do |page|
-                        if (@is_reply)
+                        if @is_reply
                           flash[:error] = @proposal_comment.errors.full_messages.join(",")
                           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
                         else
@@ -208,10 +228,10 @@ class ProposalCommentsController < ApplicationController
       @ranking.proposal_comment_id = params[:id]
     end
     @ranking.ranking_type_id = rank_type
-    
-    
+
     respond_to do |format|
       if @ranking.save
+        @proposal_comment.reload
         flash[:notice] = t(:proposal_comment_rank_registered)
         format.js { render :update do |page|                    
                     page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
