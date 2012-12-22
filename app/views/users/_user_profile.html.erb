@@ -102,7 +102,7 @@
         });
         
         $('#email_profile').click(function(){
-        <%if current_user.account_type != 'facebook'%>
+        <%if !current_user.has_provider(Authentication::FACEBOOK)%>
         	alert('Non è ancora possibile modificare l\'indirizzo email');
             //doModal($("#email_modal"));
         <%else%>

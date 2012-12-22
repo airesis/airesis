@@ -48,9 +48,9 @@ module NotificationHelper
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id,proposal.id)
     name = nickname ? nickname.nickname : comment_user.fullname
     msg = "<b>"+name+"</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s}
-      notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
-      notification_a.save
+    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
+    notification_a.save
     proposal.users.each do |user|
       if (user != comment_user)
         send_notification_to_user(notification_a,user)
@@ -58,7 +58,7 @@ module NotificationHelper
     end
     
     msg = "<b>"+name+"</b> ha inserito un commento alla proposta <b>"+proposal.title+"</b>!";
-    notification_b = Notification.create(:notification_type_id => 1,:message => msg,:url => proposal_path(proposal) +"#comment"+comment.id.to_s)
+    notification_b = Notification.create(:notification_type_id => 1,:message => msg,:url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
     proposal.partecipants.each do |user|
       if (user != comment_user) && (!proposal.users.include?user)
         send_notification_to_user(notification_b,user)

@@ -29,6 +29,7 @@ gem 'silent-postgres'
 #gem "omniauth", '1.0.3'
 
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 #gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
 

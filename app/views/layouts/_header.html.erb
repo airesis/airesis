@@ -144,6 +144,10 @@ js.id = id;<%if (Rails.env == "production")%>
 				<div style="padding-top: 15px;">
 					<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path('facebook') %>
 				</div>
+				<div style="padding-top: 15px;">
+					<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+				</div>
+				
                     <ul style="padding-left: 15px;">
                       <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>
                       <li><%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %></li>

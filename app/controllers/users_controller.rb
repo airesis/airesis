@@ -29,7 +29,6 @@ class UsersController < ApplicationController
       if ( auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
         #imposta l'account come 'facebook'
         User.transaction do
-          auth.account_type = 'facebook'
           auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token =>(data['credentials']['token'] rescue nil))
           auth.save
         end       

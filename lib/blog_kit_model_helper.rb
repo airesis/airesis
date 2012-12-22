@@ -55,25 +55,28 @@ end
 	
 	
 	def user_image_tag(size=80)
-    if (self.respond_to?(:user))
+    if self.respond_to?(:user)
       user = self.user
     else
-      user = self;
+      user = self
     end
     
 		if user && !user.image_url.blank?
 			# Load image from model
 			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onerror=\"deleteMe(this);\" />"
-	  elsif user.account_type == 'facebook'	    	    
-	     if (size <= 50)
+	  elsif user.has_provider(Authentication::FACEBOOK)
+	     if size <= 50
 	       fsize = 'small'
-	     elsif (size <= 100)
+	     elsif size <= 100
 	       fsize = 'normal'
 	     else
 	       fsize = 'large'
 	     end
-	     uid = user.authentications.find_by_provider('facebook').uid
+	     uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
 	     ret = "<img src=\"https://graph.facebook.com/#{uid}/picture?type=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
+	  elsif p = user.has_provider(Authentication::GOOGLE)
+	    uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
+	    ret = "<img src=\"https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
 		else
 			# Gravatar
 			require 'digest/md5'

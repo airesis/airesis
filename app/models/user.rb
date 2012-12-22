@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
 
  def self.new_with_session(params, session)
     super.tap do |user|
-      fdata = session["devise.facebook_data"]
+      fdata = session["devise.google_data"] || session["devise.facebook_data"]
       if fdata && data = fdata["extra"]["raw_info"]
         user.email = data["email"]
       end
@@ -160,8 +160,8 @@ class User < ActiveRecord::Base
   end
   
   def email=(value)
-    if (self.account_type != 'facebook' && !self.email)
-   # if (false) #al momento non è consentito cambiare l'email
+    if !self.email
+   # if false #al momento non è consentito cambiare l'email
       write_attribute :email, (value ? value.downcase : nil)
     end
   end
@@ -171,19 +171,11 @@ class User < ActiveRecord::Base
   #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati 
   #e proprietari, in caso affermativo verifica di rientrare tra questi.
   def is_mine? object
-    if (object)
-      if (object.respond_to?('user_id'))
-        if (object.user_id == self.id)
-          return true
-        else
-          return false
-        end
-      elsif (object.respond_to?('users'))
-        if (object.users.find_by_id(self.id))
-          return true
-        else
-          return false
-        end
+    if object
+      if object.respond_to?('user_id')
+        return object.user_id == self.id
+      elsif object.respond_to?('users')
+        return object.users.find_by_id(self.id)
       else
         return false
       end
@@ -220,7 +212,11 @@ class User < ActiveRecord::Base
       false
     end
   end
-  
+
+  def has_provider(provider_name)
+    return self.authentications.where(:provider => provider_name).count > 0
+  end
+
   def from_identity_provider?
     return self.authentications.count > 0
   end
@@ -285,16 +281,14 @@ class User < ActiveRecord::Base
 def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   data = access_token['extra']['raw_info'] ##dati di facebook
   #se è presente un account facebook per l'utente usa quello
-  if user = User.find_by_email_and_account_type(data["email"],'facebook')
+  user = User.find_by_email(data["email"])
+  if user
     return user
-  elsif user = User.find_by_email(data["email"])  #se è presente un account sul portale richiedine le credenziali per effettuarne il merge
-      return user      
   else  #crea un nuovo account facebook
     if data["verified"]
       user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
       user.user_type_id = 3
       user.sign_in_count = 0
-      user.account_type = 'facebook'     
       user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
       user.confirm!
       user.save(:validate => false)
@@ -305,9 +299,28 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   end
 end
 
+#gestisce l'azione di login tramite facebook
+def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] #dati di google
+  #se è presente un account google per l'utente usa quello
+  user = User.find_by_email(data["email"])
+  if user
+    return user
+  else  #crea un nuovo account google
+      user = User.create(:confirmation_token => '', :name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user.user_type_id = 3
+      user.sign_in_count = 0
+      user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+      user.confirm!
+      user.save(:validate => false)
+    return user
+  end
+end
+
+
+
 def facebook
-  
-  @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider('facebook').token).fetch rescue nil
+  @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider(Authentication::FACEBOOK).token).fetch rescue nil
 end
 
 

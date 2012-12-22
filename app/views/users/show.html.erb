@@ -64,13 +64,13 @@
 	<%end%>
   </div>
         
-    <%if current_user.account_type != 'facebook'%>
+    <%if !current_user.has_provider(Authentication::FACEBOOK)%>
     <%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
     <%end%>
     <%end %>
 </p>
 
-<script type="text/javascript" ">
+<script type="text/javascript">
 	$('#user_password').watermark('Nuova password');
 	$('#user_password_confirmation').watermark('Conferma nuova password');
 </script>
