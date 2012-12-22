@@ -15,7 +15,7 @@ DemocracyOnline3::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   config.assets.precompile += %w(endless_page.js back_enabled.png)
 
@@ -30,7 +30,7 @@ DemocracyOnline3::Application.configure do
   
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'http://www.airesis.it' }
   
@@ -102,7 +102,7 @@ Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 
 ActionMailer::Base.default :from => "Airesis <info@airesis.it>"
 ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.perform_deliveries = false
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true,  

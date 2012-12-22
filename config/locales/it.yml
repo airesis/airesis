@@ -149,6 +149,9 @@ it:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"
         votedown: "Non concordo"
+        random_stack: "Ordinamento pseudo-casuale"
+        most_recent: "Più recenti"
+        most_ranked: "Più valutati"
     events:
       index:
         title: "Calendario"

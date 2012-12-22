@@ -114,6 +114,12 @@ class AdminController < ApplicationController
 	puts e.backtrace
   end
   
+  
+  def become
+    sign_in User.find(params[:user_id]), :bypass => true
+    redirect_to root_url # or user_root_url
+  end
+  
   def write_sitemap
     SitemapGenerator::Sitemap.default_host = 'http://www.airesis.it'
     SitemapGenerator::Sitemap.create do

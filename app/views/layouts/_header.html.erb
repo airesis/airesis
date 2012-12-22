@@ -65,7 +65,7 @@ js.id = id;<%if (Rails.env == "production")%>
 		<div class="midHeader">
 			<%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style=>"width:22px;padding-top:2px;"), root_path%>
 			<div class="headerTitle" lang="la">
-				<%= link_to "Airesis - Scegli di partecipare", root_path%>
+				<%= link_to APP_LONG_NAME, root_path%>
 			</div>
 		</div>
 		
@@ -108,6 +108,13 @@ js.id = id;<%if (Rails.env == "production")%>
 						<%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
 					</li>
 				</ul>
+				<% if is_admin?%>
+					<%=form_tag "/admin/become/" do %>
+						<%=label_tag 'Diventa utente' %>
+						<%=text_field_tag 'user_id'%>
+						<%=submit_tag 'Vai!'%>
+					<%end%>
+				<%end%>
 			</div>
 			<% else %>
 			<span><%= t('pages.top_panel.login') %></span>
