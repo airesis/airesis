@@ -8317,3 +8317,11 @@ UserType.create( :description => "Administrator", :short_name => "admin" ){ |c| 
 UserType.create( :description => "Moderator", :short_name => "mod" ){ |c| c.id = 2 }.save
 UserType.create( :description => "User", :short_name => "user" ){ |c| c.id = 4 }.save
 UserType.create( :description => "Authenticated User", :short_name => "authuser" ){ |c| c.id = 3 }.save
+
+Quorum.create(:name => "fast", :percentage => 20, :minutes => 2880, :condition => 'OR', :good_score => 50, :bad_score => 50, :public => true)
+Quorum.create(:name => "standard", :percentage => 30, :minutes => 21600, :condition => 'OR', :good_score => 60, :bad_score => 60, :public => true)
+Quorum.create(:name => "long", :percentage => 50, :minutes => 86400, :condition => 'AND',:good_score => 60, :bad_score => 60, :public => true)
+Quorum.create(:name => "good_score", :percentage => 30, :minutes => 21600, :condition => 'OR',:good_score => 70, :bad_score => 30, :public => true)
+
+PartecipationRole.create(:name => "member", :description => "Membro del gruppo. Senza alcun compito o assegnazione specifica")
+PartecipationRole.create(:name => "portavoce", :description => "Portavoce")
