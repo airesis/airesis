@@ -104,6 +104,9 @@ it:
   pages:
     top_panel:
       login: "Accedi o registrati"
+      facebook_login: "Accedi tramite Facebook"
+      google_login: "Accedi tramite Google"
+      find_groups: "Cerca gruppi"
     user:
       notifications: "Allarmi e notifiche"
     users:

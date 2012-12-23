@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   
   #unisce due account
   def join_accounts
-    data = session["devise.facebook_data"] #prendi i dati di facebook dalla sessione
+    data =  session["devise.google_data"] || session["devise.facebook_data"] #prendi i dati di facebook dalla sessione
     if (params[:user][:email] && (data["extra"]["raw_info"]["email"] != params[:user][:email])) #se per caso viene passato un indirizzo email differente
       flash[:error] = 'Dai va là!'
       redirect_to confirm_credentials_users_url

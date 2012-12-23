@@ -1,9 +1,9 @@
 /*
- * SimpleModal 1.4.1 - jQuery Plugin
- * http://www.ericmmartin.com/projects/simplemodal/
- * Copyright (c) 2010 Eric Martin (http://twitter.com/ericmmartin)
- * Dual licensed under the MIT and GPL licenses
- * Revision: $Id: jquery.simplemodal.js 261 2010-11-05 21:16:20Z emartin24 $
+ * SimpleModal 1.4.3 - jQuery Plugin
+ * http://simplemodal.com/
+ * Copyright (c) 2012 Eric Martin
+ * Licensed under MIT and GPL
+ * Date: Sat, Sep 8 2012 07:52:31 -0700
  */
 
 /**
@@ -47,23 +47,36 @@
  * overlayCss, containerCss, and dataCss options.
  *
  * SimpleModal has been tested in the following browsers:
- * - IE 6, 7, 8, 9
- * - Firefox 2, 3, 4
- * - Opera 9, 10
- * - Safari 3, 4, 5
- * - Chrome 1, 2, 3, 4, 5, 6
+ * - IE 6+
+ * - Firefox 2+
+ * - Opera 9+
+ * - Safari 3+
+ * - Chrome 1+
  *
  * @name SimpleModal
  * @type jQuery
- * @requires jQuery v1.2.4
+ * @requires jQuery v1.3
  * @cat Plugins/Windows and Overlays
  * @author Eric Martin (http://ericmmartin.com)
- * @version 1.4.1
+ * @version 1.4.3
  */
-;(function ($) {
-	var ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
+
+;(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}
+(function ($) {
+	var d = [],
+		doc = $(document),
+		ie6 = $.browser.msie && parseInt($.browser.version) === 6 && typeof window['XMLHttpRequest'] !== 'object',
 		ie7 = $.browser.msie && parseInt($.browser.version) === 7,
 		ieQuirks = null,
+		wndw = $(window),
 		w = [];
 
 	/*
@@ -153,6 +166,8 @@
 	 * closeClass:		(String:'simplemodal-close') The CSS class used to bind to the close event
 	 * escClose:		(Boolean:true) Allow Esc keypress to close the dialog?
 	 * overlayClose:	(Boolean:false) Allow click on overlay to close the dialog?
+	 * fixed:			(Boolean:true) If true, the container will use a fixed position. If false, it will use a
+								absolute position (the dialog will scroll with the page)
 	 * position:		(Array:null) Position of container [top, left]. Can be number of pixels or percentage
 	 * persist:			(Boolean:false) Persist the data across modal calls? Only used for existing
 								DOM elements. If true, the data will be maintained across modal calls, if false,
@@ -186,6 +201,7 @@
 		closeClass: 'simplemodal-close',
 		escClose: true,
 		overlayClose: false,
+		fixed: true,
 		position: null,
 		persist: false,
 		modal: true,
@@ -215,8 +231,8 @@
 				return false;
 			}
 
-			// $.boxModel is undefined if checked earlier
-			ieQuirks = $.browser.msie && !$.boxModel;
+			// $.support.boxModel is undefined if checked earlier
+			ieQuirks = $.browser.msie && !$.support.boxModel;
 
 			// merge defaults and user options
 			s.o = $.extend({}, $.modal.defaults, options);
@@ -230,7 +246,7 @@
 			// determine how to handle the data based on its type
 			if (typeof data === 'object') {
 				// convert DOM object to a jQuery object
-				data = data instanceof jQuery ? data : $(data);
+				data = data instanceof $ ? data : $(data);
 				s.d.placeholder = false;
 
 				// if the object came from the DOM, keep track of its parent
@@ -280,7 +296,7 @@
 			var s = this;
 
 			// get the window properties
-			w = s.getDimensions();
+			s.getDimensions();
 
 			// add an iframe to prevent select options from bleeding through
 			if (s.o.modal && ie6) {
@@ -305,8 +321,8 @@
 				.css($.extend(s.o.overlayCss, {
 					display: 'none',
 					opacity: s.o.opacity / 100,
-					height: s.o.modal ? w[0] : 0,
-					width: s.o.modal ? w[1] : 0,
+					height: s.o.modal ? d[0] : 0,
+					width: s.o.modal ? d[1] : 0,
 					position: 'fixed',
 					left: 0,
 					top: 0,
@@ -318,11 +334,11 @@
 			s.d.container = $('<div></div>')
 				.attr('id', s.o.containerId)
 				.addClass('simplemodal-container')
-				.css($.extend(s.o.containerCss, {
-					display: 'none',
-					position: 'fixed',
-					zIndex: s.o.zIndex + 2
-				}))
+				.css($.extend(
+					{position: s.o.fixed ? 'fixed' : 'absolute'},
+					s.o.containerCss,
+					{display: 'none', zIndex: s.o.zIndex + 2}
+				))
 				.append(s.o.close && s.o.closeHTML
 					? $(s.o.closeHTML).addClass(s.o.closeClass)
 					: '')
@@ -374,7 +390,7 @@
 			}
 
 			// bind keydown events
-			$(document).bind('keydown.simplemodal', function (e) {
+			doc.bind('keydown.simplemodal', function (e) {
 				if (s.o.modal && e.keyCode === 9) { // TAB
 					s.watchTab(e);
 				}
@@ -385,9 +401,9 @@
 			});
 
 			// update window size
-			$(window).bind('resize.simplemodal', function () {
+			wndw.bind('resize.simplemodal orientationchange.simplemodal', function () {
 				// redetermine the window width/height
-				w = s.getDimensions();
+				s.getDimensions();
 
 				// reposition the dialog
 				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
@@ -398,7 +414,7 @@
 				else if (s.o.modal) {
 					// update the iframe & overlay
 					s.d.iframe && s.d.iframe.css({height: w[0], width: w[1]});
-					s.d.overlay.css({height: w[0], width: w[1]});
+					s.d.overlay.css({height: d[0], width: d[1]});
 				}
 			});
 		},
@@ -407,8 +423,8 @@
 		 */
 		unbindEvents: function () {
 			$('.' + this.o.closeClass).unbind('click.simplemodal');
-			$(document).unbind('keydown.simplemodal');
-			$(window).unbind('resize.simplemodal');
+			doc.unbind('keydown.simplemodal');
+			wndw.unbind('.simplemodal');
 			this.d.overlay.unbind('click.simplemodal');
 		},
 		/*
@@ -418,7 +434,7 @@
 			var s = this, p = s.o.position;
 
 			// simulate fixed position - adapted from BlockUI
-			$.each([s.d.iframe || null, !s.o.modal ? null : s.d.overlay, s.d.container], function (i, el) {
+			$.each([s.d.iframe || null, !s.o.modal ? null : s.d.overlay, s.d.container.css('position') === 'fixed' ? s.d.container : null], function (i, el) {
 				if (el) {
 					var bch = 'document.body.clientHeight', bcw = 'document.body.clientWidth',
 						bsh = 'document.body.scrollHeight', bsl = 'document.body.scrollLeft',
@@ -476,14 +492,12 @@
 			}, 10);
 		},
 		getDimensions: function () {
-			var el = $(window);
+			// fix a jQuery bug with determining the window height - use innerHeight if available
+			var s = this,
+				h = typeof window.innerHeight === 'undefined' ? wndw.height() : window.innerHeight;
 
-			// fix a jQuery/Opera bug with determining the window height
-			var h = $.browser.opera && $.browser.version > '9.5' && $.fn.jquery < '1.3'
-						|| $.browser.opera && $.browser.version < '9.5' && $.fn.jquery > '1.2.6'
-				? el[0].innerHeight : el.height();
-
-			return [h, el.width()];
+			d = [doc.height(), doc.width()];
+			w = [h, wndw.width()];
 		},
 		getVal: function (v, d) {
 			return v ? (typeof v === 'number' ? v
@@ -573,13 +587,14 @@
 		setPosition: function () {
 			var s = this, top, left,
 				hc = (w[0]/2) - (s.d.container.outerHeight(true)/2),
-				vc = (w[1]/2) - (s.d.container.outerWidth(true)/2);
+				vc = (w[1]/2) - (s.d.container.outerWidth(true)/2),
+				st = s.d.container.css('position') !== 'fixed' ? wndw.scrollTop() : 0;
 
 			if (s.o.position && Object.prototype.toString.call(s.o.position) === '[object Array]') {
-				top = s.o.position[0] || hc;
+				top = st + (s.o.position[0] || hc);
 				left = s.o.position[1] || vc;
 			} else {
-				top = hc;
+				top = st + hc;
 				left = vc;
 			}
 			s.d.container.css({left: left, top: top});
@@ -609,7 +624,7 @@
 		/*
 		 * Open the modal dialog elements
 		 * - Note: If you use the onOpen callback, you must "show" the
-		 *	        overlay and container elements manually
+		 *         overlay and container elements manually
 		 *         (the iframe will be handled by SimpleModal)
 		 */
 		open: function () {
@@ -685,14 +700,11 @@
 				s.d.container.hide().remove();
 				s.d.overlay.hide();
 				s.d.iframe && s.d.iframe.hide().remove();
-				setTimeout(function(){
-					// opera work-around
-					s.d.overlay.remove();
+				s.d.overlay.remove();
 
-					// reset the dialog object
-					s.d = {};
-				}, 10);
+				// reset the dialog object
+				s.d = {};
 			}
 		}
 	};
-})(jQuery);
+}));
