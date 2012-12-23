@@ -78,5 +78,8 @@ ActionMailer::Base.smtp_settings = {
 Devise.setup do |config|
   require "omniauth-facebook"
   config.omniauth :facebook, "221145254619152", ENV['airesis_dev_facebook_key'], 
-                      {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}                   
+                      {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
+                      
+  require "omniauth-google-oauth2"
+  config.omniauth :google_oauth2, "597462824491.apps.googleusercontent.com", ENV['airesis_dev_google_key'], { access_type: "offline", approval_prompt: "" }                                        
 end

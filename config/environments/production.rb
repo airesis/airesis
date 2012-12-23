@@ -121,4 +121,7 @@ Devise.setup do |config|
   require "omniauth-facebook"
   config.omniauth :facebook, "242345195791486", ENV['airesis_prod_facebook_key'],                   
                       {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  
+  require "omniauth-google-oauth2"
+  config.omniauth :google_oauth2, "597462824491.apps.googleusercontent.com", ENV['airesis_prod_google_key'], { access_type: "offline", approval_prompt: "" }                    
 end
