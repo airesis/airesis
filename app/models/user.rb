@@ -126,8 +126,7 @@ class User < ActiveRecord::Base
    return self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
                                    " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
                                    " and action_abilitations.group_id = group_partecipations.group_id")
-                                   .find(:all, 
-                                         :conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+                                   .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
  end
 
  def self.new_with_session(params, session)

@@ -15,7 +15,7 @@
 		<th>Stato</th>
 	</thead>
 	<tbody>
-		<%@group.candidates.find(:all, :include => [:user,{:election => :event}]).each do |candidate|%>
+		<%@group.candidates.all(:include => [:user,{:election => :event}]).each do |candidate|%>
 			<tr>
 				<td><%=candidate.user.fullname%></td>
 				<td><%=link_to candidate.election.name, candidate.election%></td>

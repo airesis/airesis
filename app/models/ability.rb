@@ -14,63 +14,63 @@ class Ability
     else
        can :read, Proposal
        can :partecipate, Proposal do |proposal|
-         can_partecipate_proposal?(user,proposal)                 
+         can_partecipate_proposal?(user,proposal)
        end
        can :new, ProposalSupport
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
        end
-       
+
        can :post_to, Group do |group|
-         can_do_on_group?(user,group,1)    
+         can_do_on_group?(user,group,1)
        end
        can :create_event, Group do |group|
-         can_do_on_group?(user,group,2)   
+         can_do_on_group?(user,group,2)
        end
        can :support_proposal, Group do |group|
-         can_do_on_group?(user,group,3)         
+         can_do_on_group?(user,group,3)
        end
        can :accept_requests, Group do |group|
-         can_do_on_group?(user,group,4)         
+         can_do_on_group?(user,group,4)
        end
        can :create_election, Group do |group|
          #controllo se può creare eventi in generale
-         can_do_on_group?(user,group,2)       
+         can_do_on_group?(user,group,2)
        end
        can :send_candidate, Group do |group|
          #can_do_on_group?(user,group,4)
-         can_do_on_group?(user,group,5)                 
+         can_do_on_group?(user,group,5)
        end
        can :view_proposal, Group do |group|
          #can_do_on_group?(user,group,4)
-         can_do_on_group?(user,group,6)                 
+         can_do_on_group?(user,group,6)
        end
        can :partecipate_proposal, Group do |group|
          #can_do_on_group?(user,group,4)
-         can_do_on_group?(user,group,7)                 
+         can_do_on_group?(user,group,7)
        end
        can :insert_proposal, Group do |group|
          #can_do_on_group?(user,group,4)
-         can_do_on_group?(user,group,8)                 
+         can_do_on_group?(user,group,8)
        end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end
-       
-       
-     end          
-     
+
+
+     end
+
       def can_do_on_group?(user,group,action)
        user.groups.where("partecipation_role_id = 2")
-         partecipation = user.group_partecipations.find(:first, :conditions => {:group_id => group.id})
+         partecipation = user.group_partecipations.first(:conditions => {:group_id => group.id})
          return false unless partecipation
          role = partecipation.partecipation_role
          return true if (role.id == PartecipationRole::PORTAVOCE)
          return false if (role.id == PartecipationRole::MEMBER)
-         roles = group.partecipation_roles.find(:all, :joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
+         roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
          return roles.include? role
      end
-     
+
      #un utente può partecipare ad una proposta se è pubblica
      #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
      #è stata creata

@@ -2,13 +2,13 @@ class CalculateRankings
   
   def self.perform(*args)
     msg = "Ricalcolo ranking\n"
-    @users = User.find(:all)
+    @users = User.all
     @users.each do |user|
       msg += " " + user.email + "\n"
       #numero di commenti inseriti
       numcommenti = user.proposal_comments.count
       #numero di proposte inserite (tranne quelle bocciate)
-      numproposte = user.proposals.find(:all, :conditions => ["proposal_state_id in (?)",[1,2,3,4]]).count
+      numproposte = user.proposals.all(:conditions => ["proposal_state_id in (?)",[1,2,3,4]]).count
       #numero proposte accettate
       numok = user.proposals.find_all_by_proposal_state_id(6).count
       msg  += "  commenti: " + numcommenti.to_s + "\n"

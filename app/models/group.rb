@@ -68,7 +68,7 @@ class Group < ActiveRecord::Base
   
   #restituisce la lista dei portavoce del gruppo
   def portavoce
-    return self.partecipants.find(:all, :conditions => {"group_partecipations.partecipation_role_id" => 2})
+    return self.partecipants.all(:conditions => {"group_partecipations.partecipation_role_id" => 2})
   end
     
   def partecipant_tokens=(ids)
@@ -121,10 +121,14 @@ class Group < ActiveRecord::Base
   
   def self.search(search)
     if search
-    find(:all, :conditions => ['upper(name) LIKE upper(?)', "%#{search}%"])
+      all(:conditions => ['upper(name) LIKE upper(?)', "%#{search}%"])
     else
-      find(:all, :order => 'created_at desc')
+      all(:order => 'created_at desc')
     end
+  end
+
+  def to_param
+    "#{id}-#{name.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
   
   

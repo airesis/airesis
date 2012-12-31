@@ -66,8 +66,9 @@ $(function() {
 		if (trigger.length > 0) {
 		$([trigger.get(0), info.get(0)]).focusin(mostraBubble).focusout(nascondiBubble);	
 		}
-		
-		$([clicktrigger.get(0), info.get(0)]).click(showandhide);
+
+        if (clicktrigger.length > 0)
+		    $(clicktrigger).click(showandhide);
 	});
 	
 });

@@ -68,7 +68,7 @@ end%>
 		joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
 		conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
     end
- 	categories = ProposalCategory.find(:all,
+ 	categories = ProposalCategory.all(
      :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
      :joins => joins,
      :conditions => conditions, 

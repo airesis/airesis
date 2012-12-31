@@ -162,7 +162,7 @@ class BlogPostsController < ApplicationController
 
   def load_post_groups
     #posso postare nei gruppi per i quali ho il permesso (numero 1)
-    @groups = current_user.groups.find(:all,
+    @groups = current_user.groups.all(
     :select => 'distinct groups.*', 
     :joins => "LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id", 
     :conditions => "(action_abilitations.group_id = groups.id " + 

@@ -34,7 +34,7 @@
 		<%=f.submit 'Salva', :style=>'display:none;'%>
 	
 	<%end%>
-<%blocked = @current_user.blocked_notifications.find(:all)
+<%blocked = @current_user.blocked_notifications.all
   readonly = [1,2,4,5,6,8,9,12,15,20,21]%>
    	<table>
    <% NotificationCategory.all.each do |category|%>

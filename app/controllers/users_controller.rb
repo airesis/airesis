@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   
   def index
     return redirect_to root_path if user_signed_in?
-    @users = User.find(:all,:conditions => "upper(name) like upper('%#{params[:q]}%')")
+    @users = User.all(:conditions => "upper(name) like upper('%#{params[:q]}%')")
     
     respond_to do |format|
       #format.xml  { render :xml => @users }

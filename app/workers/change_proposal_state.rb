@@ -6,7 +6,7 @@ class ChangeProposalState
     denied = 0
     accepted = 0
     #scorri le proposte in votazione che devono essere chiuse
-    voting = Proposal.find(:all, :joins => [:vote_period], :conditions => ['proposal_state_id = 4 and current_timestamp > events.endtime'], :readonly => false)
+    voting = Proposal.all(:joins => [:vote_period], :conditions => ['proposal_state_id = 4 and current_timestamp > events.endtime'], :readonly => false)
     puts "Proposte da chiudere:" + voting.join(",")
     voting.each do |proposal| #per ciascuna proposta da chiudere
       vote_data = proposal.vote 
@@ -31,7 +31,7 @@ class ChangeProposalState
     end if voting
         
     #prendo tutte le proposte che ad oggi devono essere votate e le passo in stato IN VOTAZIONE
-    events = Event.find(:all, :conditions => ['event_type_id = 2 and current_timestamp between starttime and endtime and proposals.proposal_state_id = 3'], :include => [:proposals])
+    events = Event.all(:conditions => ['event_type_id = 2 and current_timestamp between starttime and endtime and proposals.proposal_state_id = 3'], :include => [:proposals])
     
     events.each do |event|
       event.proposals.each do |proposal|

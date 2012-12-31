@@ -6,14 +6,14 @@ class AlertsController < ApplicationController
   #mostra gli alert dell'utente corrente
   def index
     @page_title = "Tutte le notifiche"
-    @new_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = false')
-    @old_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = true')
+    @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
+    @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true')
   end
   
   def polling
-    @new_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = false')
+    @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
     if (@new_user_alerts.size < 5)
-        @old_user_alerts = current_user.user_alerts.find(:all, :include => :notification, :conditions => 'checked = true', :limit => (5 - @new_user_alerts.size))
+        @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true', :limit => (5 - @new_user_alerts.size))
     end
   end
   

@@ -60,6 +60,6 @@ class VotationsController < ApplicationController
   def load_proposals
     #la proposta deve essere in stato 'in votazione'
     #l'utente non deve avere già votato per questa proposta
-    @proposals = Proposal.find(:all,:select => "p.*",:joins=>"p", :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    @proposals = Proposal.all(:select => "p.*",:joins=>"p", :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
   end
 end  

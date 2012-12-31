@@ -12,11 +12,11 @@
 	
 </script>
 <% if (@category)%>
-	<h1>Proposte accettate della categoria <%=@category.description%>
+	<h1>Proposte accettate della categoria <%=@category.description%></h1>
 <%else%>	
-	<h1>Proposte accettate di tutte le categorie
+	<h1>Proposte accettate di tutte le categorie</h1>
 <%end%>
-</h1>
+
 
 		
 		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
@@ -51,7 +51,7 @@
 <%end%>
 
 <% 
- 	categories = ProposalCategory.find(:all,
+ 	categories = ProposalCategory.all(
      :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
      :joins => "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id = 6",
      :group => "proposal_categories.id, proposal_categories.description"

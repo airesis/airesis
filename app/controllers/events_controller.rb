@@ -89,9 +89,9 @@ class EventsController < ApplicationController
   
   def list
     if @group
-    @events = @group.events.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    @events = @group.events.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
     else
-    @events = Event.find(:all, :conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}' and private = false"] )
+    @events = Event.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}' and private = false"] )
     end
     events = [] 
     @events.each do |event|
@@ -133,10 +133,10 @@ class EventsController < ApplicationController
   def update
     @event = Event.find_by_id(params[:event][:id])
     if params[:event][:commit_button] == "Aggiorna tutte le occorrenze"
-      @events = @event.event_series.events #.find(:all, :conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events
       @event.update_events(@events, params[:event])
     elsif params[:event][:commit_button] == "Aggiorna tutte le occorrenze successive"
-      @events = @event.event_series.events.find(:all, :conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events.all(:conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.update_events(@events, params[:event])
     else
       @event.attributes = params[:event]
@@ -156,7 +156,7 @@ class EventsController < ApplicationController
     if params[:delete_all] == 'true'
       @event.event_series.destroy
     elsif params[:delete_all] == 'future'
-      @events = @event.event_series.events.find(:all, :conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events.all(:conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.event_series.events.delete(@events)
     else
       @event.destroy

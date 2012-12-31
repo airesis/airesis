@@ -136,7 +136,7 @@ class ProposalCommentsController < ApplicationController
         flash[:error] = "Errore durante l'inserimento."
         format.js   { render :update do |page|
                         if @is_reply
-                          flash[:error] = @proposal_comment.errors.full_messages.join(",")
+                          flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
                           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
                         else
                           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

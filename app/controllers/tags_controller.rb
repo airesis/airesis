@@ -9,8 +9,8 @@ class TagsController < ApplicationController
   def show
     @page_title = "Elenco elementi con tag '" + params[:text] + "'"
     @tag = params[:text]
-    @blog_posts = BlogPost.published.find(:all, :joins => :tags , :conditions => {'tags.text' => @tag})
-    @proposals = Proposal.find(:all, :joins => :tags , :conditions => {'tags.text' => @tag})
+    @blog_posts = BlogPost.published.all(:joins => :tags , :conditions => {'tags.text' => @tag})
+    @proposals = Proposal.all(:joins => :tags , :conditions => {'tags.text' => @tag})
     
     respond_to do |format|
       format.html

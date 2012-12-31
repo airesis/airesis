@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
       b = current_user.blocked_alerts.build(:notification_type_id => params[:id])
       b.save!
     else
-      b = current_user.blocked_alerts.find(:first, :conditions => {:notification_type_id => params[:id]})
+      b = current_user.blocked_alerts.first(:conditions => {:notification_type_id => params[:id]})
       b.destroy
     end
     flash[:info] = t('info.setting_preferences')
