@@ -400,7 +400,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     available_ids = params['user_ids']
     
     Proposal.transaction do    
-      users = @proposal.available_user_authors.find(:all, :conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
+      users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
       @proposal.save

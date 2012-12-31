@@ -24,7 +24,7 @@ module AdminHelper
   #valida tutti i gruppi presenti a sistema ed invia all'amministratore un elenco di quelli non validi da modificare
   def self.validate_groups  
     msg = "Verifica gruppi\n"
-    groups = Group.find(:all)
+    groups = Group.all
     groups.each do |group|
       if !group.valid?
         msg += group.id.to_s + ": " + group.name + "\n"
@@ -37,13 +37,13 @@ module AdminHelper
   #calcola il ranking degli utenti
   def self.calculate_ranking  
     msg = "Ricalcolo ranking\n"
-    @users = User.find(:all)
+    @users = User.all
     @users.each do |user|
       msg += " " + user.email + "\n"
       #numero di commenti inseriti
       numcommenti = user.proposal_comments.count
       #numero di proposte inserite (tranne quelle bocciate)
-      numproposte = user.proposals.find(:all, :conditions => ["proposal_state_id in (?)",[1,2,3,4]]).count
+      numproposte = user.proposals.all(:conditions => ["proposal_state_id in (?)",[1,2,3,4]]).count
       #numero proposte accettate
       numok = user.proposals.find_all_by_proposal_state_id(6).count
     msg  += "  commenti: " + numcommenti.to_s + "\n"
@@ -64,7 +64,7 @@ module AdminHelper
     denied = 0
     accepted = 0
     #scorri le proposte in votazione che devono essere chiuse
-    voting = Proposal.find(:all, :joins => [:vote_period], :conditions => ['proposal_state_id = 4 and current_timestamp > events.endtime'], :readonly => false)
+    voting = Proposal.all(:joins => [:vote_period], :conditions => ['proposal_state_id = 4 and current_timestamp > events.endtime'], :readonly => false)
     puts "Proposte da chiudere:" + voting.join(",")
     voting.each do |proposal| #per ciascuna proposta da chiudere
       vote_data = proposal.vote 
@@ -89,7 +89,7 @@ module AdminHelper
     end if voting
         
     #prendo tutte le proposte che ad oggi devono essere votate e le passo in stato IN VOTAZIONE
-    events = Event.find(:all, :conditions => ['event_type_id = 2 and current_timestamp between starttime and endtime and proposals.proposal_state_id = 3'], :include => [:proposals])
+    events = Event.all(:conditions => ['event_type_id = 2 and current_timestamp between starttime and endtime and proposals.proposal_state_id = 3'], :include => [:proposals])
     
     events.each do |event|
       event.proposals.each do |proposal|

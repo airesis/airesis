@@ -5,7 +5,7 @@ class ComunesController < ApplicationController
 
   def index
    
-    @comunes = Comune.find(:all,:conditions => "upper(description) like upper('#{params[:q]}%')", :limit => 10)
+    @comunes = Comune.all(:conditions => "upper(description) like upper('#{params[:q]}%')", :limit => 10)
    
     comuni = @comunes.collect { |p| {:id => p.id.to_s, :name => p.description} }
     map = comuni

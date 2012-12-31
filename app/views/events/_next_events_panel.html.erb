@@ -1,9 +1,9 @@
 <%if @group%>
 <h4>Prossimi eventi del gruppo</h4>
-<%@events = @group.events.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
+<%@events = @group.events.all(:order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
 <%else%>
 <h4>Prossimi eventi</h4>
-<%@events = Event.find(:all, :order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
+<%@events = Event.all(:order => "starttime asc",:conditions => "endtime > current_timestamp", :limit => 5)%>
 <%end%>
 <%	@events.each do |event|%>
 	<%=link_to event_path(event) do%>

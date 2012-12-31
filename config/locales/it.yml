@@ -148,6 +148,7 @@ it:
         voting: 'Tutte le proposte in attesa di votazione o attualmente in votazione'
         accepted: 'Lista delle proposte condivise e accettate dagli utenti del portale'
         revision: 'Tutte le proposte che sono state attuate e per le quali si stanno raccogliendo i feedback'
+        continue_reading: 'continua a leggere la proposta'
       show:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"

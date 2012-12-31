@@ -3,11 +3,7 @@
 		<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
 				</div>
 	        <div class="maintitle">
-	        	<%if @group %>
-	        	<%= link_to proposal.title, [@group,proposal] %>
-	        	<%else%>
-	            <%= link_to proposal.title, proposal %>
-	            <%end%>
+	        	<%= link_to proposal.title, @group ? [@group,proposal] : proposal %>
 	        </div>
 	       	<div class="datetime">
 	            Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>	            
@@ -48,7 +44,6 @@
 	      	
 	 <div class="proposal_content">
 	    <%= h proposal.short_content %>
-		<%= link_to 'continua a leggere la proposta', proposal %>
+		<%= link_to t('pages.proposals.index.continue_reading'), @group ? [@group,proposal] : proposal %>
 	 </div>
-                <div style="clear: both;"></div>
 </div>

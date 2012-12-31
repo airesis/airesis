@@ -5,7 +5,7 @@ class PartecipationRole < ActiveRecord::Base
   
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :users,:through => :group_partecipations, :class_name => 'User'
-  has_many :action_abilitations, :class_name => 'ActionAbilitation'    
+  has_many :action_abilitations, :class_name => 'ActionAbilitation', :dependent => :destroy
   belongs_to :partecipation_roles, :class_name => 'PartecipationRole', :foreign_key => :parent_partecipation_role_id
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
   
@@ -14,7 +14,8 @@ class PartecipationRole < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :group_id
   
   validates_presence_of :name, :description
-  
+
+  #prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo
   before_destroy :change_partecipation_roles
   
   def change_partecipation_roles

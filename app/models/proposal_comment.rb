@@ -24,7 +24,7 @@ class ProposalComment < ActiveRecord::Base
     comments =  self.proposal.comments.find_all_by_user_id(self.user_id, :order => "created_at DESC")
     comment = comments.first
     if LIMIT_COMMENTS and comment and ((Time.now - comment.created_at) < 30)
-       self.errors.add(:created_at,"Devono passare almeno trenta secondi tra un commento e l'altro.")
+       self.errors.add(:created_at,"devono passare almeno trenta secondi tra un commento e l'altro.")
     end
   end
  

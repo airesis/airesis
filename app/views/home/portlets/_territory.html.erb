@@ -11,14 +11,14 @@ Il tuo territorio (test)
 $(function() {
 	
 	<%
-		@ib = current_user.interest_borders.find(:first)
-		if (!@ib)
+		@ib = current_user.interest_borders.first
+		if !@ib
 			@place_string = "Italia"
-		elsif (@ib.territory_type == 'Comune')
+		elsif @ib.territory_type == 'Comune'
 			@place_string = @ib.territory.description + ", " + @ib.territory.provincia.description + ", Italia"
-		elsif (@ib.territory_type == 'Provincia')
+		elsif @ib.territory_type == 'Provincia'
 			@place_string = @ib.territory.description + ", Italia"
-		elsif (@ib.territory_type == 'Regione')
+		elsif @ib.territory_type == 'Regione'
 			@place_string = @ib.territory.description + ", Italia"
 		end
 	%>
