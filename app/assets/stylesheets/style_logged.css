@@ -5,12 +5,10 @@
 	border-right: 1px solid #CCCCCC;
 	color: #294145;
 	display: block;
-
 	padding: 10px;
 	position: absolute;
 	text-align: left;
 	width: 235px;
-	height:82px;
 	z-index: 3;
 }
 

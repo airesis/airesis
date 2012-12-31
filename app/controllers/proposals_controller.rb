@@ -104,7 +104,7 @@ class ProposalsController < ApplicationController
       @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
       respond_to do |format|
-        format.js
+        #format.js
         format.html {
           if (@proposal.proposal_state_id == PROP_WAIT_DATE)
             flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
@@ -200,10 +200,12 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user,@proposal) 
     	
-	#fai partire il timer per far scadere la proposta
-	if (quorum.minutes)
-	  Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-	end
+        #fai partire il timer per far scadere la proposta
+        if (quorum.minutes)
+          Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        end
+
+        notify_proposal_has_been_created(@group,@proposal) if @group
       end
       @saved = true
       
@@ -545,7 +547,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     respond_to do |format|
       format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}                     
+          page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
           
         end
       }       

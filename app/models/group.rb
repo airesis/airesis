@@ -65,10 +65,19 @@ class Group < ActiveRecord::Base
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
     :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
   end
+
+  #utenti che possono eseguire un'azione
+  def scoped_partecipants(action_id)
+    return self.partecipants.all(
+        :joins => "join partecipation_roles
+               on group_partecipations.partecipation_role_id = partecipation_roles.id
+               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
+        :conditions => ["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)",action_id,self.id,PartecipationRole::PORTAVOCE])
+  end
   
   #restituisce la lista dei portavoce del gruppo
   def portavoce
-    return self.partecipants.find(:all, :conditions => {"group_partecipations.partecipation_role_id" => 2})
+    return self.partecipants.all(:conditions => {"group_partecipations.partecipation_role_id" => 2})
   end
     
   def partecipant_tokens=(ids)
@@ -77,9 +86,9 @@ class Group < ActiveRecord::Base
 
   
    def image_url
-    if (self.image_id)
+    if self.image_id
       return self.image.image.url
-    elsif (read_attribute(:image_url) != nil)
+    elsif read_attribute(:image_url) != nil
       return read_attribute(:image_url)
     else
       return ""      
@@ -92,11 +101,11 @@ class Group < ActiveRecord::Base
   end
   
   def interest_border_tkn=(tkn)
-    if !tkn.blank?
+    unless tkn.blank?
       ftype = tkn[0,1] #tipologia (primo carattere)
       fid = tkn[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(tkn)      
-      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+      if found  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
         puts "New Record!" if (interest_b.new_record?)
         self.interest_border = interest_b

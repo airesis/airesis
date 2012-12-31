@@ -119,6 +119,16 @@ class AdminController < ApplicationController
     sign_in User.find(params[:user_id]), :bypass => true
     redirect_to root_url # or user_root_url
   end
+
+  def block
+    User.find(params[:user_id]).update_attribute(:blocked,true)
+    redirect_to admin_panel_path
+  end
+
+  def unblock
+    User.find(params[:user_id]).update_attribute(:blocked,false)
+    redirect_to admin_panel_path
+  end
   
   def write_sitemap
     SitemapGenerator::Sitemap.default_host = 'http://www.airesis.it'

@@ -36,4 +36,19 @@
 		<%=group.name%> - <%=role.name%><br/>
 		<%end%>	
 	</p>
+
+
+    <p>
+      <%=form_tag "/admin/block/" do %>
+          <%=label_tag 'Blocca utente' %>
+          <%=text_field_tag 'user_id'%>
+          <%=submit_tag 'Vai!'%>
+      <%end%>
+      <h3>Elenco utenti bloccati</h3>
+        <ul>
+      <%User.blocked.each do |user|%>
+        <li><%= user.fullname + '(' + user.login + ')'%>  <%= link_to 'Sblocca', {:controller => 'admin', :action => 'unblock', :user_id => user.id} %></li>
+      <%end%>
+        </ul>
+    </p>
 <%end %>

@@ -37,7 +37,12 @@ class Proposal < ActiveRecord::Base
   has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
   
   belongs_to :quorum, :class_name => 'Quorum'
-    
+
+  has_many :proposal_sections
+  has_many :sections, :through => :proposal_sections, :order => :seq
+
+  has_many :solutions, :order => :seq
+
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
   validates_uniqueness_of :title 
@@ -73,7 +78,7 @@ class Proposal < ActiveRecord::Base
   
   
   
-  before_save :save_tags
+  before_save :save_tags, :build_sections
   after_update :save_proposal_history
  
   def in_valutation?
@@ -104,6 +109,19 @@ class Proposal < ActiveRecord::Base
   def tags_with_links
     html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
     return html
+  end
+
+
+  def build_sections
+    prob = self.sections.build(:title => 'Problematica', :seq => 1)
+    prob.paragraphs.build(:content => self.problems, :seq => 1)
+
+    obj = self.sections.build(:title => 'Obiettivi', :seq => 2)
+    obj.paragraphs.build(:content => self.objectives, :seq => 1)
+
+    sol = self.solutions.build(:seq => 1)
+    solsec = sol.sections.build(:title => 'Soluzione 1', :seq => 1)
+    solsec.paragraphs.build(:content => self.content, :seq => 1)
   end
   
   def save_tags

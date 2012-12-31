@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :blockable
 
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
@@ -103,6 +103,8 @@ class User < ActiveRecord::Base
   before_create :init
   
   after_create :assign_tutorials
+
+  scope :blocked, { :conditions => {:blocked => true }}
 
 
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial

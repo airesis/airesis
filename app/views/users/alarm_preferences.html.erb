@@ -35,7 +35,7 @@
 	
 	<%end%>
 <%blocked = @current_user.blocked_notifications.find(:all)
-  readonly = [1,2,4,5,6,8,9,12,15,20,21]%>
+  readonly = [1,2,4,5,6,8,9,10,12,15,20,21]%>
    	<table>
    <% NotificationCategory.all.each do |category|%>
    		<tr><td>
@@ -52,10 +52,10 @@
  			</td>
  			<td style="text-align: center">
  				<input type="checkbox" value="<%=type.id%>" 
- 				<%if (!(blocked.include? type))%>
+ 				<%unless blocked.include? type%>
  					checked="true" 
  				<%end%>
- 				<%if (!(readonly.include? type.id))%> 
+ 				<%unless readonly.include? type.id%>
  					disabled="disabled"
  					title="Tipo di notifica non disponibile"
  				<%end%> 

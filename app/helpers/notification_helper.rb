@@ -66,6 +66,20 @@ module NotificationHelper
     end
     
   end
+
+  #invia le notifiche quando un una proposta viene creata all'interno di un gruppo
+  #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
+  def notify_proposal_has_been_created(group,proposal)
+    msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
+    data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
+    notification_a.save
+    group.scoped_partecipants(GroupAction::PROPOSAL_VIEW).each do |user|
+      if user != current_user
+        send_notification_to_user(notification_a,user)
+      end
+    end
+  end
   
   
   #invia le notifiche quando un una proposta viene modificata
