@@ -282,12 +282,17 @@ class User < ActiveRecord::Base
 def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
   data = access_token['extra']['raw_info'] ##dati di facebook
   #se è presente un account facebook per l'utente usa quello
-  user = User.find_by_email(data["email"])
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  else
+    user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
+  end
   if user
     return user
   else  #crea un nuovo account facebook
     if data["verified"]
-      user = User.create(:confirmation_token => '', :name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user = User.create(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
@@ -303,12 +308,17 @@ end
 #gestisce l'azione di login tramite facebook
 def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   data = access_token['extra']['raw_info'] #dati di google
-  #se è presente un account google per l'utente usa quello
-  user = User.find_by_email(data["email"])
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  else
+    user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
+  end
+
   if user
     return user
   else  #crea un nuovo account google
-      user = User.create(:confirmation_token => '', :name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user = User.create(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))

@@ -22,7 +22,7 @@ gem 'pg'
 #gem 'rufus-scheduler'
 
 #per gmail
-gem 'tlsmail'
+#gem 'tlsmail'
 
 #gem 'silent-postgres'
 
@@ -43,7 +43,7 @@ gem 'paperclip'
 
 gem 'jquery-rails'
 
-gem 'jquery-rjs', :git => 'https://github.com/aaronchi/jquery-rjs.git'
+gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
 gem 'will_paginate'
 
