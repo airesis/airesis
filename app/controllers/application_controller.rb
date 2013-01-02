@@ -27,7 +27,8 @@ class ApplicationController < ActionController::Base
 
   
    def log_error(exception)
-    if notifier = Rails.application.config.middleware.detect { |x| x.klass == ExceptionNotifier }
+     notifier = Rails.application.config.middleware.detect { |x| x.klass == ExceptionNotifier }
+    if notifier
       env = request.env
       env['exception_notifier.options'] = notifier.args.first || {}                   
       ExceptionNotifier::Notifier.exception_notification(env, exception).deliver
@@ -67,7 +68,7 @@ class ApplicationController < ActionController::Base
   end
   
   #helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
-  def is_proprietary? object
+  def is_proprietary?(object)
     if (current_user && current_user.is_mine?(object))
       return true
     else

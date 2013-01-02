@@ -74,7 +74,7 @@ end
 	     end
 	     uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
 	     ret = "<img src=\"https://graph.facebook.com/#{uid}/picture?type=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
-	  elsif p = user.has_provider(Authentication::GOOGLE)
+	  elsif user.has_provider(Authentication::GOOGLE)
 	    uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
 	    ret = "<img src=\"https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
 		else

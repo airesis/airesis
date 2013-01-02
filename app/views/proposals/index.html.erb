@@ -1,5 +1,5 @@
 <%@page_title = t('pages.proposals.index.title')%>
-<% if (@category)
+<% if @category
 	@page_head = "Proposte della categoria "+@category.description
    else	
 	@page_head = "Proposte di tutte le categorie"		

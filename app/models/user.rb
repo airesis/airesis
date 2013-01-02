@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
   #l'oggetto abbia un campo user_id corrispondente all'id dell'utente
   #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati 
   #e proprietari, in caso affermativo verifica di rientrare tra questi.
-  def is_mine? object
+  def is_mine?(object)
     if object
       if object.respond_to?('user_id')
         return object.user_id == self.id
@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
   end
 
   #questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
-  def is_my_proposal? proposal_id
+  def is_my_proposal?(proposal_id)
     proposal = self.proposals.find_by_id(proposal_id) #cerca tra le mie proposte quella con id 'proposal_id'
     if (proposal) #se l'ho trovata allora è mia
       true
@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
   end
   
    #questo metodo prende in input l'id di una proposta e verifica che l'utente ne sia l'autore
-  def is_my_blog_post? blog_post_id
+  def is_my_blog_post?(blog_post_id)
     blog_post = self.blog_posts.find_by_id(blog_post_id) #cerca tra le mie proposte quella con id 'proposal_id'
     if (blog_post) #se l'ho trovata allora è mia
       true
@@ -206,7 +206,7 @@ class User < ActiveRecord::Base
   end
   
   #questo metodo prende in input l'id di un blog e verifica che appartenga all'utente
-  def is_my_blog? blog_id    
+  def is_my_blog?(blog_id)
     if (self.blog and self.blog.id == blog_id)
       true
     else
@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
     return self.authentications.count > 0
   end
   
-  def has_ranked_proposal? proposal_id
+  def has_ranked_proposal?(proposal_id)
     ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id,proposal_id)
     if ranking
       return true

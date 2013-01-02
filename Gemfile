@@ -1,15 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.2.0'
 
 gem 'therubyracer', '0.10.1'
 
 gem 'bson_ext'
 
 group :assets do
-  gem 'sass-rails', "~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
+  gem 'sass-rails', "~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', ">= 1.0.3"
 end
 
 
@@ -24,7 +24,7 @@ gem 'pg'
 #per gmail
 gem 'tlsmail'
 
-gem 'silent-postgres'
+#gem 'silent-postgres'
 
 #gem "omniauth", '1.0.3'
 
