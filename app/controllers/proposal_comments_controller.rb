@@ -56,7 +56,7 @@ class ProposalCommentsController < ApplicationController
           #estrai quelli già valutati
           valuated_cond = conditions
           valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
-          tmp_comments += @proposal.contributes.all(:conditions => valuated_cond, :order => " random()", :limit => left)
+          tmp_comments += @proposal.contributes.all(:conditions => valuated_cond, :order => " rank desc", :limit => left)
         end
       end
       @proposal_comments = tmp_comments
