@@ -28,7 +28,7 @@ class EventsController < ApplicationController
       @event.event_type_id = 4
     end
     if (params[:group_id])
-      @event.organizer_id = params[:group_id]
+      @event.organizer_id = @group.id
       @event.private = true
       respond_to do |format|     
         format.js

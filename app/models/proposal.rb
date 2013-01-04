@@ -74,7 +74,7 @@ class Proposal < ActiveRecord::Base
   scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?',category_id]} if (category_id && !category_id.empty?)}
   
   #condizione di visualizzazione in un gruppo
-  scope :in_group, lambda { |group_id| {:include => [:proposal_supports,:group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",group_id,group_id]} unless group_id.empty?}
+  scope :in_group, lambda { |group_id| {:include => [:proposal_supports,:group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",group_id,group_id]} if group_id}
   
   
   

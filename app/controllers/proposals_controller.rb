@@ -36,7 +36,7 @@ class ProposalsController < ApplicationController
     @count_base = Proposal.in_category(params[:category])
 
     if (params[:group_id])
-      @count_base = @count_base.in_group(params[:group_id])
+      @count_base = @count_base.in_group(@group.id)
     	#@count_base = @count_base.includes([:proposal_supports,:group_proposals])
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
     
@@ -355,11 +355,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors,
     sql_q +=                              " WHERE pt.tag_id IN (SELECT pti.id
                                               FROM tags pti 
                                               WHERE pti.text in (#{tags}))"
-    if params[:group_id]
-      sql_q += " AND p.private = true AND gp.group_id = #{params[:group_id]} "
-    else
-      sql_q += " AND p.private = false "
-    end                                          
+    params[:group_id] ?
+        sql_q += " AND p.private = true AND gp.group_id = " + @group.id.to_s :
+        sql_q += " AND p.private = false "
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
@@ -471,12 +469,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     startlist = startlist.in_category(params[:category])
 
     #applica il filtro per il gruppo
-    if (params[:group_id])
+    if params[:group_id]
       #se l'utente è connesso e dispone dei permessi per visualizzare le proposte interne mostragliele, altrimenti mostragli un emssaggio che lo avverte
       #che non dispone dei permessi per visualizzare quelle interne
-      conditions += " and ((proposal_supports.group_id = " + params[:group_id] + " and proposals.private = 'f')"
-      if (can? :view_proposal, @group)
-        conditions += " or (group_proposals.group_id = " + params[:group_id] + " and proposals.private = 't')"      
+      conditions += " and ((proposal_supports.group_id = " + @group.id.to_s + " and proposals.private = 'f')"
+      if can? :view_proposal, @group
+        conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
       end
       conditions += ")"
       #startlist = startlist.private
