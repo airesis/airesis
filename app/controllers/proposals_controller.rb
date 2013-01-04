@@ -552,20 +552,25 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       format.html 
     end
   end
-  
+
+
   #carica il gruppo di riferimento della proposta
   def load_group
-    @group = Group.find_by_id(params[:group_id])
+    @group = Group.find(params[:group_id]) if params[:group_id]
   end
-  
-  
+
+
   def load_proposal
     @proposal = Proposal.find(params[:id])
+    if @proposal.presentation_groups.count > 0 && !params[:group_id]
+      redirect_to group_proposal_path(@proposal.presentation_groups.first,@proposal)
+    end
     load_my_vote
+
   end
   
   def load_my_vote
-    if (@proposal.proposal_state_id != PROP_VALUT)
+    if @proposal.proposal_state_id != PROP_VALUT
       @can_vote_again = 0
     else
       ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id,@proposal.id) if current_user
