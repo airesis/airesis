@@ -38,10 +38,10 @@ class Proposal < ActiveRecord::Base
   
   belongs_to :quorum, :class_name => 'Quorum'
 
-  has_many :proposal_sections
+  has_many :proposal_sections, :dependent => :destroy
   has_many :sections, :through => :proposal_sections, :order => :seq
 
-  has_many :solutions, :order => :seq
+  has_many :solutions, :order => :seq, :dependent => :destroy
 
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio" 
@@ -77,8 +77,9 @@ class Proposal < ActiveRecord::Base
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports,:group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",group_id,group_id]} if group_id}
   
   
-  
-  before_save :save_tags, :build_sections
+  before_create :build_sections
+  before_update :update_sections
+  before_save :save_tags
   after_update :save_proposal_history
  
   def in_valutation?
@@ -122,6 +123,12 @@ class Proposal < ActiveRecord::Base
     sol = self.solutions.build(:seq => 1)
     solsec = sol.sections.build(:title => 'Soluzione 1', :seq => 1)
     solsec.paragraphs.build(:content => self.content, :seq => 1)
+  end
+
+  def update_sections
+    self.sections.find_by_title('Problematica').paragraphs.first.update_attribute(:content,self.problems)
+    self.sections.find_by_title('Obiettivi').paragraphs.first.update_attribute(:content,self.objectives)
+    self.solutions.first.sections.find_by_title('Soluzione 1').paragraphs.first.update_attribute(:content,self.content)
   end
   
   def save_tags

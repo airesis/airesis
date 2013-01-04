@@ -5,61 +5,65 @@
    <div class="legend">Problemi ed obiettivi</div>
    <div class="legend last">Proposta iniziale</div>
 
-   <div class="step root root">
-   <p>
-    <%= f.label :proposal_category_id%><br />
-  	<%= select("proposal", "proposal_category_id", ProposalCategory.all.collect {|p| [ p.description, p.id ] }) %> 
-  </p> 
-   
-  <p>
-  	 <%=f.label :title%> *<br />
-    <%= f.text_field :title, :style=>"width:300px" %>     
-  </p>
-  
-   <p>
-  	 <%=f.label :subtitle%><br />
-    <%= f.text_field :subtitle, :style=>"width:600px;" %>     
-  </p>
-  
-  <p>
-	<%=f.label :interest_borders_tkn%><br/>
-	<%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
-  </p>
-  
-  <p>
-	<%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
-	<%= f.text_field :tags_list %>
-  </p>
-  
-  <p>
-	<%= f.label :quorum_id, 'Quorum' %><br />
-	<%if @group%>
-		<%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-		<%=link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true%>
-	<%else%>
-		<%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-		<%=link_to 'Non li conosco!', help_quorums_path, :remote => true%>
-	<%end%>
-	<div id="available_quorums_container" title="Elenco quorum disponibili">
-	</div>	
-  </p>
-  
-  <p>
-  	<%if @change_advanced_options%>
-		<%=f.check_box :anonima %>	
-		<%=f.label :anonima, 'Anonimato temporaneo'%><br />
-	<%end%>
-  </p>
-  
-  <p>
-	<%if @group%>
-  	<input type="hidden" name="from_group" value="<%=@group.id%>"/>
-	<%end%>
-	<input type="hidden" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
-	<%=f.hidden_field :private%>
-  </p>
-  
-  </div>
+
+    <%if params[:action] == "new"%>
+       <div class="step root root">
+
+       <p>
+        <%= f.label :proposal_category_id%><br />
+        <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect {|p| [ p.description, p.id ] }) %>
+      </p>
+
+      <p>
+         <%=f.label :title%> *<br />
+        <%= f.text_field :title, :style=>"width:300px" %>
+      </p>
+
+       <p>
+         <%=f.label :subtitle%><br />
+        <%= f.text_field :subtitle, :style=>"width:600px;" %>
+      </p>
+
+      <p>
+        <%=f.label :interest_borders_tkn%><br/>
+        <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+      </p>
+
+      <p>
+        <%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
+        <%= f.text_field :tags_list %>
+      </p>
+
+      <p>
+        <%= f.label :quorum_id, 'Quorum' %><br />
+        <%if @group%>
+            <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+            <%=link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true%>
+        <%else%>
+            <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+            <%=link_to 'Non li conosco!', help_quorums_path, :remote => true%>
+        <%end%>
+        <div id="available_quorums_container" title="Elenco quorum disponibili">
+        </div>
+      </p>
+
+      <p>
+        <%if @change_advanced_options%>
+            <%=f.check_box :anonima %>
+            <%=f.label :anonima, 'Anonimato temporaneo'%><br />
+        <%end%>
+      </p>
+
+      <p>
+        <%if @group%>
+        <input type="hidden" name="from_group" value="<%=@group.id%>"/>
+        <%end%>
+        <input type="hidden" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
+        <%=f.hidden_field :private%>
+      </p>
+
+      </div>
+    <%end%>
   
 
   <div class="step" id="suggestions">

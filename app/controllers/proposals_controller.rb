@@ -498,7 +498,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         puts "New Record!" if (interest_b.new_record?)
         i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
       end
-    end
+    end if borders
   end
   
   #valuta una proposta
