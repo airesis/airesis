@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
   
-  validates_presence_of     :login, :unless => :from_identity_provider?
-  validates_length_of       :login,    :within => 3..40, :unless => :from_identity_provider?
-  validates_uniqueness_of   :login, :unless => :from_identity_provider?
-  validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message, :unless => :from_identity_provider?
+  #validates_presence_of     :login, :unless => :from_identity_provider?
+  #validates_length_of       :login,    :within => 3..40, :unless => :from_identity_provider?
+  #validates_uniqueness_of   :login, :unless => :from_identity_provider?
+  #validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message, :unless => :from_identity_provider?
   
   validates_presence_of     :name
   validates_format_of       :name,     :with => AuthenticationModule.name_regex, :allow_nil => true
@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 6..50 #r@a.wk
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
   validates_uniqueness_of   :email
-  
+
+  validates_confirmation_of :password
   
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
@@ -340,6 +341,15 @@ def fullname
 end
 
 
-    validates_confirmation_of :password
+
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(login) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
 
 end
