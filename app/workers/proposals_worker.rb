@@ -6,16 +6,12 @@ class ProposalsWorker
 
   def self.perform(*args)
     params = args[0]
-    puts params.to_s
-    puts 'action: ' + params['action'].to_s
     case params['action']
-	when ENDTIME
-          ProposalsWorker.new.end_proposal(params['proposal_id'])
-	else
-	 puts "==Action not found!=="
+    when ENDTIME
+            ProposalsWorker.new.end_proposal(params['proposal_id'])
+    else
+     puts "==Action not found!=="
     end
-    TestMailer.test.deliver
-    puts "==Done!=="
   end
 
   #fa terminare la fase di valutazione di una proposta

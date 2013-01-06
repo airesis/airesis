@@ -48,7 +48,7 @@
 		<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
 		<%end%>
 	<%elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox%>
-		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date"} do |f| %> 
+		<%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date", :group_id => params[:group_id]} do |f| %>
 		   <p>
 		    <b>Scegli un periodo per la votazione</b>
 		    <%collection = Event.public.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>

@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   
   before_filter :load_group, :only => [:index, :list]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
-  before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit]
+  before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit,:update]
   
   def show
     @page_title = @event.title
@@ -43,7 +43,7 @@ class EventsController < ApplicationController
       params[:event].delete(:meeting_attributes)
       params[:event].delete(:election_attributes)
     #se è un'elezione ignora tutto ciò che riguarda il luogo
-    elsif (params[:event][:event_type_id] == "4")
+    elsif params[:event][:event_type_id] == EventType::ELEZIONI.to_s
       params[:event].delete(:meeting_attributes)
       params[:event][:election_attributes][:name] = params[:event][:title]
       params[:event][:election_attributes][:description] = params[:event][:description]
@@ -56,7 +56,7 @@ class EventsController < ApplicationController
       if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
         @event = Event.new(params[:event])
         @event.save!
-        if (params[:event][:event_type_id] == "4")
+        if params[:event][:event_type_id] == EventType::ELEZIONI.to_s
           @group.elections << @event.election
           @group.save           
         end
@@ -65,6 +65,14 @@ class EventsController < ApplicationController
         @event_series = EventSeries.new(params[:event])
         @event_series.save!
       end
+
+      #fai partire il timer per far scadere la proposta
+      if @event.is_votazione?
+        Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+        Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+      end
+
+
     end
     
     rescue ActiveRecord::ActiveRecordError => e
@@ -103,7 +111,8 @@ class EventsController < ApplicationController
                  :allDay => event.all_day, 
                  :recurring => (event.event_series_id)? true: false, 
                  :backgroundColor => event.backgroundColor,
-                 :textColor => event.textColor}
+                 :textColor => event.textColor,
+                 :editable => !event.is_votazione?}
     end
     render :text => events.to_json
   end
@@ -184,5 +193,33 @@ class EventsController < ApplicationController
     @event = Event.find_by_id(params[:id])
     @group = @event.meeting_organizations.first.group rescue nil
   end
-     
+
+
+  def check_event_edit_permission
+    @event = Event.find_by_id(params[:id])
+    if @event.is_votazione?
+      permissions_denied
+      return
+    end
+    return true if is_admin?
+    org = @event.organizers.first
+    if !org
+      permissions_denied
+      return
+    end
+    p = org.portavoce
+    permissions_denied if (!current_user || !(p.include?current_user))
+  end
+
+
+  def check_events_permissions
+    return if is_admin?
+    group_id = params[:group_id] || params[:event][:organizer_id]
+    permissions_denied if !group_id
+    @group = Group.find_by_id(group_id)
+    permissions_denied if !@group
+    permission_denied if (cannot? :create_event, @group)
+  end
+
+
 end

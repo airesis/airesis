@@ -13,17 +13,16 @@ class VotationsController < ApplicationController
   end
 
   def vote
-
     Proposal.transaction do
       @proposal = Proposal.find_by_id(params[:proposal_id])
       proposal = @proposal
       proposal.user_votes.build(:user_id => current_user.id)
-      if (params[:vote_type] == 1)
-        proposal.vote.positive = proposal.vote.positive+1
-      elsif (params[:vote_type] == 2)
-        proposal.vote.neutral = proposal.vote.neutral+1
-      else
-       proposal.vote.negative = proposal.vote.negative+1
+      if params[:vote_type] == POSITIVE_VOTE.to_s
+        proposal.vote.positive += 1
+      elsif params[:vote_type] == NEUTRAL_VOTE.to_s
+        proposal.vote.neutral += 1
+      elsif params[:vote_type] == NEGATIVE_VOTE.to_s
+       proposal.vote.negative += 1
       end
       proposal.vote.save!
       proposal.save!
@@ -60,6 +59,14 @@ class VotationsController < ApplicationController
   def load_proposals
     #la proposta deve essere in stato 'in votazione'
     #l'utente non deve avere già votato per questa proposta
-    @proposals = Proposal.all(:select => "p.*",:joins=>"p", :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    #la proposta deve essere pubblica
+    #se la proposta è privata deve avere i permessi per votare in quel gruppo
+
+    #estrai tutte le proposte in votazione che non ho ancora votato
+    @proposals_tmp = Proposal.all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    @proposals = []
+    @proposals_tmp.each do |proposal|
+        @proposals << proposal if can? :partecipate, proposal
+    end
   end
 end  

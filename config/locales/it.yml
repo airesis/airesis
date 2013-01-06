@@ -159,6 +159,14 @@ it:
     events:
       index:
         title: "Calendario"
+    votations:
+        show:
+          vote_positive: "Voto positivo"
+          vote_neutral: "Voto neutrale"
+          vote_negative: "Voto negativo"
+          confirm_positive: "Confermi il tuo voto POSITIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
+          confirm_neutral: "Confermi il tuo voto NEUTRALE alla proposta '%{name}'? Non potrai più cambiarlo!"
+          confirm_negative: "Confermi il tuo voto NEGATIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
     blog_posts:
       new:
         title: "Inserisci un nuovo post"

@@ -96,27 +96,8 @@ class ApplicationController < ActionController::Base
   def title(ttl)
     @page_title = ttl
   end
-  
-   def check_events_permissions
-    return if is_admin?
-    group_id = params[:group_id] || params[:event][:organizer_id] 
-    permissions_denied if !group_id
-    @group = Group.find_by_id(group_id)
-    permissions_denied if !@group
-    permission_denied if (cannot? :create_event, @group)
-  end
-  
-  def check_event_edit_permission
-    return true if is_admin?
-    @event = Event.find_by_id(params[:id])
-    org = @event.organizers.first
-    if !org
-      permissions_denied
-      return
-    end
-    p = org.portavoce
-    permissions_denied if (!current_user || !(p.include?current_user))
-  end
+
+
   
   def admin_required
     is_admin? || admin_denied
@@ -233,12 +214,7 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     return proposals_path
   end
-  
 
-
-
-  
- 
 
   protected
   def discard_flash_if_xhr

@@ -128,9 +128,14 @@
 <%if @event.event_type_id == EventType::VOTAZIONE%>
 <p>
 	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
-	<h3>In queste giornate si voteranno le seguenti proposte</h3>
-	<br />
-	<%= render :partial => 'proposals/proposal_list_element', :collection => @event.proposals, :as => 'proposal' %>
+
+    <%if @event.proposals.count > 0 %>
+        <h3>In queste giornate si voteranno le seguenti proposte</h3>
+        <br />
+        <%= render :partial => 'proposals/proposal_list_element', :collection => @event.proposals, :as => 'proposal' %>
+    <%else%>
+        <h3>Ancora nessuna proposta in votazione durante queste giornate</h3>
+    <%end%>
 	
 </p>
 

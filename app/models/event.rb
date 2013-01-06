@@ -1,19 +1,4 @@
-# == Schema Information
-# Schema version: 20100330111833
-#
-# Table name: events
-#
-#  id              :integer(4)      not null, primary key
-#  title           :string(255)
-#  starttime       :datetime
-#  endtime         :datetime
-#  all_day         :boolean(1)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  description     :text
-#  event_series_id :integer(4)
-#
-
+#encoding: utf-8
 class Event < ActiveRecord::Base
   
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :organizer_id
@@ -49,7 +34,7 @@ class Event < ActiveRecord::Base
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime < starttime
     end
     
-    if (event_type_id.to_s == "4")
+    if (event_type_id == EventType::ELEZIONI)
       if (election.groups_end_time && election.candidates_end_time)
         if (election.groups_end_time < starttime ||
             election.groups_end_time > endtime ||
@@ -79,10 +64,17 @@ class Event < ActiveRecord::Base
     return self.starttime < Time.now && self.endtime > Time.now
   end
   
-   def is_not_started?
+  def is_not_started?
     return Time.now < self.starttime
   end
-  
+
+  def is_elezione?
+    return self.event_type_id == EventType::ELEZIONI
+  end
+
+  def is_votazione?
+    return self.event_type_id == EventType::VOTAZIONE
+  end
   
   def backgroundColor
     return "#DFEFFC"

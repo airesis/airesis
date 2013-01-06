@@ -178,7 +178,7 @@ class ProposalsController < ApplicationController
 
         @proposal = Proposal.new(prparams)
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
-        if (@group)          
+        if @group
           @proposal.anonima = @group.default_anonima unless (@group.change_advanced_options)  
         else
           @proposal.anonima = DEFAULT_ANONIMA          
@@ -436,9 +436,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #query per la ricerca delle proposte 
   def query_index
     order = ""
-    if (params[:view] == ORDER_BY_RANK)
+    if params[:view] == ORDER_BY_RANK
       order << " proposals.rank desc, proposals.created_at desc"
-    elsif (params[:view] == ORDER_BY_VOTES)
+    elsif params[:view] == ORDER_BY_VOTES
       order << " proposals.valutations desc, proposals.created_at desc"
     else
       order << "proposals.created_at desc"  
@@ -493,7 +493,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       found = InterestBorder.table_element(border)
       
    
-      if (found)  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+      if found  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
         puts "New Record!" if (interest_b.new_record?)
         i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
