@@ -60,8 +60,8 @@ class ProposalCommentsController < ApplicationController
         end
       end
       @proposal_comments = tmp_comments
-      @total_pages = (@proposal.contributes.count / COMMENTS_PER_PAGE).ceil
-      @current_page = params[:page].to_i
+      @total_pages = (@proposal.contributes.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
+      @current_page = (params[:page] || 1).to_i
     else
       if params[:view] == ORDER_BY_RANK
         order << " proposal_comments.rank desc, proposal_comments.valutations desc"
