@@ -11,7 +11,7 @@
             'root': null,
             'prevArgs': [0],
             'nextArgs': [0],
-            'disabledClass': 'ui-state-disabled',
+            'disabledClass': 'ui-button-disabled ui-state-disabled',
             'containerClass' : 'form-wizard-container',
             'breadCrumb': true,
             'breadCrumbElement': 'div.legend',
@@ -107,6 +107,22 @@
             var prev = $(settings.prevButton).insertBefore(submitButton);
             var next = $(settings.nextButton).insertBefore(submitButton);
             submitButton.hide();
+
+            /*mega pezzotto by Andrea Maresta*/
+            prev.keypress(function(e) {
+                var keyCode = e.keyCode || e.which;
+                if(keyCode == 9) {
+                    if(e.shiftKey) {
+                        $('.form-wizard-container textarea:visible').last().focus()
+                    }
+                    else {
+                        prev.nextAll('.buttonStyle:visible').focus();
+                    }
+                }
+                else if (keyCode == 13) {
+                    prev.click();                                                                                                             ù
+                }
+            });
             
             /* If the root element is first disable the previous button */            
             if(root.hasClass('root')){

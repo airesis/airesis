@@ -159,6 +159,7 @@
 	 * Mostra proposte simili se ve ne sono
 	 */
 	function showSimilarProposal(activeDiv) {
+        $(':input',activeDiv).first().focus();
 		if (activeDiv.attr('id') == 'suggestions') {
 				$.ajax({
 					url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
