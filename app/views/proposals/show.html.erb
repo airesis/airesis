@@ -173,7 +173,7 @@ function resetCounter () {
 
 function checkScroll() {
   if (nearBottomOfPage() && checkActive) {
-    console.log("near bottom");
+    checkActive = false;
     currentPage++;
 	$.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
 			 data: {page: currentPage,

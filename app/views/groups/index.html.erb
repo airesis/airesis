@@ -1,21 +1,24 @@
 <%@page_title = t('pages.groups.index.title') %>
-<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.index.title')} do%>
-	<%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "newButton"  %>
-<%end%>
+
+
+<div style="float:left; margin-top: 16px;">
+  <%= link_to 'Vai allo spazio comune', proposals_path, :class => "forwardButton"  %>
+</div>
+
+<div style="float:right; margin-top: 16px;">
+  <%= link_to 'Crea un nuovo gruppo', new_group_path, :class => "newButton"  %>
+</div>
+
+<div style="clear: both;"></div>
+
 <br /><br />
-<script>
-/*	$(function() {
-		$('#search_group').change(function() {
-			console.log('searching...');
-		});
-	});*/
-</script>
+
 
 <p>
 	<%= form_for groups_path, :html => {:class=>"disableForm"}, :method => 'get', :remote => true do |f| %>
 		<%=f.label "Cerca un gruppo di tuo interesse" %>
 		<%=text_field_tag :search, params[:search], :title=>"La ricerca avviene all'interno del nome del gruppo" %>
-		<%= submit_tag "Cerca", :class=> 'buttonStyle disableButton', :id=>"search_button"%>
+		<%= submit_tag "Cerca", :class=> 'searchButton disableButton', :id=>"search_button"%>
 	<%end%>
 	
 </p>
@@ -25,18 +28,6 @@
 <%=render :partial => "group_tag", :locals => {:group => group}%>
 <%end%> 
 </div>
-
-<script type="text/javascript">
-	$(function() {
-		disegnaBottoni();
-		
-		
-	});
-	
-	
-
-</script>
-
 
 
 <%=content_for :left_panel do%>

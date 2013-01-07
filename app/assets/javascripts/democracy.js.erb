@@ -24,9 +24,11 @@ function disegnaBottoni() {
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
 	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
 	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
+    $('.forwardButton').button({icons : {primary : "ui-icon-arrowthick-1-e"}});
 	$('.historyButton').button({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
 	$('.notesButton').button({icons : {primary : "ui-icon-note"}});
 	$('.supportButton').button({icons : {primary : "ui-icon-heart"}});
+    $('.searchButton').button({icons : {primary : "ui-icon-search"}});
 	$('.disabledButton').button("option", "disabled", true);
 	
 	$(".disableButton")
@@ -37,7 +39,14 @@ function disegnaBottoni() {
 	    .unbind("ajax:complete")
 	    .bind("ajax:complete", function() {
 	    	showDisableButton($(this));
-	    })
+	    });
+
+    $(".disableClickButton")
+    .bind("click", function() {
+        hideDisableButton($(this));
+    });
+
+
     
     $(".disableForm")
     	.unbind("ajax:beforeSend")

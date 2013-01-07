@@ -8,14 +8,21 @@
 <%end%>
 
 contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
-console.log(contributes);
+//console.log('contributi mostrati:' + contributes);
+//console.log('total pages: <%=@total_pages%>');
+//console.log('current page: <%=@current_page%>');
 
+firstCheck = false;
 <%if @total_pages > @current_page%>
   $('#loading_results').show();
-  checkScroll();
+  if (!firstCheck) {
+    checkScroll();
+    firstCheck = true;
+  }
   checkActive = true;
 <%else%>
   $('#loading_results').hide();
 <%end%>
 
 $('.reply_textarea').watermark('Inserisci un suggerimento').elastic();
+disegnaBottoni();

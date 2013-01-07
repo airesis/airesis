@@ -17,7 +17,7 @@
 <!--<%if @groups.size > 5%>
 	<a href="#">Mostra tutti...</a>
 <%end%>-->
-	
+<!--
 	<h4>Gruppi che segui</h4>
         <%@following = current_user.followed_groups - current_user.groups %>
 	    <%if @following.empty?%>Non stai seguendo nessuno dei <%=link_to "gruppi", groups_path%> ancora<%end%>
@@ -31,7 +31,8 @@
 					<%= link_to group.name, group %>
 				</div>
 			</div>
-		<%end unless @following.empty?%> 
+		<%end unless @following.empty?%>
+-->
 <div style="clear: both;"></div>
 <!--<%if @following.size > 5%>
 	<a href="#">Mostra tutti...</a>
