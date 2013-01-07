@@ -216,7 +216,7 @@ class ProposalsController < ApplicationController
          if request.env['HTTP_REFERER']["back=home"]
           redirect_to home_url
          else 
-          redirect_to :back
+          redirect_to @group? [@group,@proposal] : @proposal
          end 
         }              
       end
