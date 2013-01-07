@@ -131,34 +131,7 @@ class AdminController < ApplicationController
   end
   
   def write_sitemap
-    SitemapGenerator::Sitemap.default_host = 'http://www.airesis.it'
-    SitemapGenerator::Sitemap.create do
-      add '/', :changefreq => 'monthly', :priority => 0.9
-      add '/proposals', :changefreq => 'daily'
-      add '/proposals?category=1', :changefreq => 'daily'
-      add '/proposals?category=2', :changefreq => 'daily'
-      add '/proposals?category=3', :changefreq => 'daily'
-      add '/proposals?category=4', :changefreq => 'daily'
-      add '/proposals?category=5', :changefreq => 'daily'
-      add '/proposals?category=6', :changefreq => 'daily'
-      Proposal.find_each do |proposal|
-        add proposal_path(proposal)
-      end
-      
-      Blog.find_each do |blog|
-        add blog_path(blog)
-      end
-      
-      User.find_each do |user|
-        add user_path(user)
-      end
-      
-      Group.find_each do |group|
-        add group_path(group)
-      end
-      
-    end
-    
+    rake "-s sitemap:refresh"
     respond_to do |format|
       format.html {
         flash[:notice] = 'Sitemap aggiornata.'

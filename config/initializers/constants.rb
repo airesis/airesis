@@ -1,3 +1,4 @@
+#quando si creano eventi che si ripetono per sempre li crea fino a questa data
 END_TIME = Date.parse("1 Jan, 2016").to_time
 
 POSITIVE_VALUTATION = 1

@@ -17,16 +17,19 @@ SitemapGenerator::Sitemap.create do
     add proposal_path(proposal), :lastmod => proposal.updated_at, :changefreq => 'daily'
   end
   
-  Event.find_each do |event|
+  Event.public.find_each do |event|
     add event_path(event), :lastmod => event.updated_at
   end
-  
-  
+
   Group.find_each do |group|
     add group_path(group), :changefreq => 'daily'#, :lastmod => group.updated_at
-    group.internal_proposals.find_each do |proposal|
-      add group_proposal_path(group,proposal)
-    end
+    #group.internal_proposals.find_each do |proposal|
+    #  add group_proposal_path(group,proposal)
+    #end
+  end
+
+  User.find_each do |user|
+    add user_path(user), :changefreq => 'monthly', :lastmod => user.updated_at
   end
   
 end
