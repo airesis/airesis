@@ -70,7 +70,9 @@
     <div id="<%=comment.id%>_replies" style="disaply:none;">
     </div>
     <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
-     
+    <div id="<%=comment.id%>_new_replies" style="disaply:none;">
+    </div>
+    
     <%if signed_in? && (can? :partecipate, @proposal) %>
 	<div class="reply_img">
 		<%= current_user.user_image_tag(32) %>
