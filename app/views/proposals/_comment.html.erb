@@ -66,11 +66,11 @@
     <div id="<%=comment.id%>_show" class="show_all_comments">
     	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' suggerimenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true%>
     </div>
-    <%end%>
-    <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
-    <div id="<%=comment.id%>_replies">
+    <%end%> 
+    <div id="<%=comment.id%>_replies" style="disaply:none;">
     </div>
-    
+    <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+     
     <%if signed_in? && (can? :partecipate, @proposal) %>
 	<div class="reply_img">
 		<%= current_user.user_image_tag(32) %>
