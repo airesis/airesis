@@ -75,7 +75,7 @@ class ProposalCommentsController < ApplicationController
   #mostra tutti i suggerimenti dati ad un contributo
   def show_all_replies
     @proposal_comment = ProposalComment.find_by_id(params[:id]) 
-    @replies = @proposal_comment.replies(:order => 'created_at ASC')[0..-6]
+    @replies =  ProposalComment.where('parent_proposal_comment_id=?',params[:id]).order('created_at ASC')[0..-6]
   end
 
   def new
