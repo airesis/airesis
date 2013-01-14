@@ -130,7 +130,7 @@ class ProposalCommentsController < ApplicationController
     end
     
     rescue Exception => e
-      log_error(e)
+      #log_error(e)
       respond_to do |format|
         puts e
         flash[:error] = "Errore durante l'inserimento."

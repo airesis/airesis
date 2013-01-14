@@ -19,6 +19,15 @@ DemocracyOnline3::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+# Log the query plan for queries taking more than this (works
+# with SQLite, MySQL, and PostgreSQL)
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+
   # Do not compress assets
   config.assets.compress = false
 
@@ -48,6 +57,8 @@ DemocracyOnline3::Application.configure do
  
   #limita il numero di commenti
   LIMIT_COMMENTS=false
+
+
   
   #config.gem 'resque-mongo', :lib => 'resque'
 
@@ -55,31 +66,25 @@ DemocracyOnline3::Application.configure do
 end
 
 
-require 'tlsmail'    
-Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
-
 ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.perform_deliveries = false
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.smtp_settings = {
-  :enable_starttls_auto => true,  
-  :address            => 'smtp.gmail.com',
-  :port               => 587,
-  :tls                  => true,
-  :domain             => 'gmail.com', #you can also use google.com
-  :authentication     => :plain,
-  :user_name          => ENV['airesis_dev_smtp_user_name'],
-  :password           => ENV['airesis_dev_smtp_password']
+    :enable_starttls_auto => true,
+    :address            => EMAIL_ADDRESS,
+    :port               => 587,
+    :authentication     => :plain,
+    :user_name          => EMAIL_USERNAME,
+    :password           => EMAIL_PASSWORD
 }
-
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   require "omniauth-facebook"
-  config.omniauth :facebook, "221145254619152", ENV['airesis_dev_facebook_key'], 
+  config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
                       {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
                       
   require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, "597462824491.apps.googleusercontent.com", ENV['airesis_dev_google_key'], { access_type: "offline", approval_prompt: "" }                                        
+  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, { access_type: "offline", approval_prompt: "" }
 end

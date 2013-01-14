@@ -28,7 +28,7 @@ SitemapGenerator::Sitemap.create do
     #end
   end
 
-  User.find_each do |user|
+  User.confirmed.all.each do |user|
     add user_path(user), :changefreq => 'monthly', :lastmod => user.updated_at
   end
   

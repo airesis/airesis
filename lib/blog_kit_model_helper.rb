@@ -63,7 +63,7 @@ end
     
 		if user && !user.image_url.blank?
 			# Load image from model
-			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onerror=\"deleteMe(this);\" />"
+			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
 	  elsif user.has_provider(Authentication::FACEBOOK)
 	     if size <= 50
 	       fsize = 'small'

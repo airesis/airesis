@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
   validates_uniqueness_of   :email
 
+  validates_format_of       :blog_image_url, :with => AuthenticationModule.url_regex, :allow_nil => true
   validates_confirmation_of :password
   
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
@@ -106,6 +107,7 @@ class User < ActiveRecord::Base
   after_create :assign_tutorials
 
   scope :blocked, { :conditions => {:blocked => true }}
+  scope :confirmed, {:conditions => 'confirmed_at is not null'}
 
 
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
