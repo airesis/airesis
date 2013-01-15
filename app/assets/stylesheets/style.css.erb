@@ -64,7 +64,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-.ui-widget-content a { color: #3B5998; }
+.ui-widget-content a { color: #3B5998 !important;}
 
 body {	
 	line-height: 18px;
@@ -328,7 +328,11 @@ table.dataTable td .blogUserImage {
 #groups_leftpanel .groupcontainer .group {
     width: 130px;
 }
-
+#groups_panel .groupcontainer .group {
+    cursor: pointer;
+    float: left;
+    width: 180px;
+}
 #leftpanel {
 	float: left;
 	width: 164px;
@@ -879,16 +883,47 @@ input[type="checkbox"]{
 }
 
 /*CUSTOM JQUERY*/
-.ui-widget { font-family: 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif; }
+.ui-widget { font-family: 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif; !important}
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;}
 .ui-button { font: 14px 'ubuntu',arial,verdana,"lucida grande"; display: inline-block; margin-right: 0px; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; }
 .ui-button .ui-button-text { font: 14px 'ubuntu',arial,verdana,"lucida grande"; display: block;  }
-.ui-button-text-only .ui-button-text { padding: .1em 0.8em; }
-.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em .8em .1em 2.1em; }
-.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .1em 2.1em .1em 1em; }
-input.ui-button {padding: 3px 6px;}
+.ui-button-text-only .ui-button-text { padding: .1em 0.8em !important; }
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .2em .8em .2em 2.1em !important;}
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .2em 2.1em .2em 1em !important;}
+input.ui-button {padding: 3px 6px !important;}
 .ui-tabs .ui-tabs-panel {border-width: 1px;}
 span.ui-spinner.ui-widget {
 	border-radius: 0;
 	border: 1px solid #BDC7D8;
+}
+
+span.tooltip {
+    outline:none;
+    border: 1px dotted #99CC00;
+    margin: 2px;
+    padding: 2px;
+    background-color: #F0F8DB;
+}
+span.tooltip strong {line-height:30px;}
+span.tooltip:hover {text-decoration:none;}
+span.tooltip span {
+    z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:28px;
+    width:240px; line-height:16px;
+}
+span.tooltip:hover span{
+    display:inline; position:absolute; color:#111;
+    border:1px solid #99CC00; background:#E2F0B6;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+
+    /*CSS3 extras*/
+span.tooltip span
+{
+    border-radius:4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+
+    -moz-box-shadow: 5px 5px 8px #CCC;
+    -webkit-box-shadow: 5px 5px 8px #CCC;
+    box-shadow: 5px 5px 8px #CCC;
 }
