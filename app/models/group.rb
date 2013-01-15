@@ -17,7 +17,7 @@ class Group < ActiveRecord::Base
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
   attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
   
-  has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy
+  has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
   has_many :partecipants,:through => :group_partecipations, :source => :user, :class_name => 'User'
