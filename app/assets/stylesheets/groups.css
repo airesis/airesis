@@ -1,9 +1,9 @@
 .groupListContainer {
-	border: 2px solid #808080;        
+	border: 1px dotted #33B5E5;
     background: repeat scroll 0 0 #FFF;
 	background: -webkit-gradient(linear, center top, center bottom, from(#FFFFFF), to(#DFEFFC));
-	background: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4) repeat scroll 0 0 transparent;
-    background: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);   
+	background: -moz-linear-gradient(center top , #FFFFFF, #E9F4FD) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(center top , #FFFFFF, #E9F4FD);
     float: left;
     margin-bottom: 10px;
     margin-left: 5px;
@@ -11,6 +11,10 @@
     padding: 2px;
     position: relative;
     width: 235px;
+}
+.groupListContainer h3 {
+    font-size: 1.1em;
+    margin:0px;
 }
 .groupUserImage {
 	float: left;
