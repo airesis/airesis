@@ -78,13 +78,13 @@
 			</div>
 		</div>
 		
-		<div class="superHeader menu_element">
+		<div class="superHeader menu_element"><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
 			<% if user_signed_in? %> <span>Benvenuto </span>
 			<%if current_user.name%>
 			<%= current_user.name %>
 			<%else%>
 			<%= current_user.login %>
-			<%end%><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
+			<%end%>
 			<div class="user-panel shadow-box hidden_panel" id="user-panel">
 				<div style="float:left">
 					<%= current_user.user_image_tag%>
