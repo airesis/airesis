@@ -1,6 +1,6 @@
 <h4>Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Fatto!'.<br />
 	Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.</h4>
-<%=form_for 'authors', :url => add_authors_proposal_path(@proposal), :remote => true, :method => :put do |f|%>
+<%=form_for 'authors', :url => {:controller => "proposals", :action => "add_authors", :group_id => params[:group_id]}, :remote => true, :method => :put do |f|%>
 <ul>
 <%@proposal.available_user_authors.each do |user|%>
 	<li>

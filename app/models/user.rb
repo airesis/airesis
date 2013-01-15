@@ -343,6 +343,10 @@ def fullname
 end
 
 
+  def to_param
+    "#{id}-#{self.fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
+
 
 
   def self.find_first_by_auth_conditions(warden_conditions)

@@ -18,10 +18,10 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:l] || I18n.default_locale
   end
   
-  def default_url_options(options={}) 
-    logger.debug "default_url_options is passed options: #{options.inspect}\n" 
-    { :l => I18n.locale } 
-  end
+  #def default_url_options(options={})
+    #logger.debug "default_url_options is passed options: #{options.inspect}\n"
+    #{ :l => I18n.locale }
+  #end
   
   helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
 

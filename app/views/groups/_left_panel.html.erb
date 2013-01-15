@@ -62,12 +62,12 @@ if requests.size > 0 %>
 	        <div class="Mo2">
 	            <%=link_to_user request.user, :full_name => true %>
 	        </div>
-	    <% if ((current_user && (@group.portavoce.include?current_user)) || is_admin?) %>
+	    <% if (can? :accept_requests, @group) %>
 	   		 <%if @group.request_by_vote? %>
 	  		  <%=link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
 	  		  <%elsif @group.request_by_portavoce? %>
-                   <%=link_to 'Declina', {:action => "partecipation_request_decline", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest buttonStyle' %>
-                   <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest buttonStyle' %>
+                   <%=link_to 'Declina', {:action => "partecipation_request_decline", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest rejectButton veryLittleText disableClickButton' %>
+                   <%=link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id},:class => 'confirmRequest acceptButton veryLittleText disableClickButton' %>
 	 		 <% end %>
 	    <%end %>
 	    </div>
@@ -92,10 +92,10 @@ if requests.size > 0 %>
 <br />
 <!--
  <h4>Al momento seguono il gruppo <%=@group.followers.count%> persone</h4>
- <%if (current_user)
+ <%if current_user
 	follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
    end
-   if (!follow)%>
+   if !follow%>
 		<%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class=>"buttonStyle littleText disableButton" %>
 		<br/>(notifiche non ancora attive, spiacente)
  <%end%>
