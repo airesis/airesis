@@ -64,12 +64,12 @@ module UsersHelper
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
   def user_tag(user,proposal=nil,full_name=true,show_rank=true)
     raise "Invalid User" unless user
-    if (proposal && proposal.is_anonima?)
+    if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
     end 
     ret = "<div class=\"pcontainer\">
           <div class=\"MoImg24\">"
-    if (u_nick)
+    if u_nick
      ret += "<img src=\"http://www.gravatar.com/avatar/"
      ret += Digest::MD5.hexdigest(u_nick.nickname)
      ret += "?s=24&d=identicon&r=PG\"/>"                         
@@ -78,7 +78,7 @@ module UsersHelper
     end
      ret +="</div>"
      ret += "<div class=\"Mo\">"
-     if (u_nick)
+     if u_nick
        ret += u_nick.nickname
      else
        ret += link_to_user(user, :full_name => full_name)        

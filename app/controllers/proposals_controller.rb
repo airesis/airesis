@@ -87,12 +87,16 @@ class ProposalsController < ApplicationController
    
   def show
     @step = get_next_step(current_user) if current_user
-    if (@proposal.private && @group && !(can? :view_proposal, @group)) 
-      respond_to do |format|
-        flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"        
-        format.html { 
-          redirect_to group_proposals_path(@group)
-        }              
+    if (@proposal.private && @group)
+      if (!current_user)
+        authenticate_user!
+      elsif !(can? :view_proposal, @group)
+        respond_to do |format|
+          flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"
+          format.html {
+            redirect_to group_proposals_path(@group)
+          }
+        end
       end
     else        
       if (@proposal.private && @group && !(can? :partecipate_proposal, @group))       

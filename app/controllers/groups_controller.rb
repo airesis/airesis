@@ -18,8 +18,9 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:partecipation_request_confirm, :edit, :update, :edit_permissions]
-  
+  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
+
+
   def index    
     @groups = Group.search(params[:search])
     respond_to do |format|
@@ -319,6 +320,7 @@ class GroupsController < ApplicationController
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
   # è previsto o accettandola altrimenti.
   def partecipation_request_confirm
+    authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if (!request)
       flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
@@ -349,6 +351,7 @@ class GroupsController < ApplicationController
   end
 
   def partecipation_request_decline
+    authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if (!request)
       flash[:error] = 'Richiesta non trovata. Errore durante l''operazione'
@@ -374,7 +377,9 @@ class GroupsController < ApplicationController
   end
 
 
-
+  def partecipants_list_panel
+    @partecipants = @group.group_partecipations.includes(:user)
+  end
 
   protected
   

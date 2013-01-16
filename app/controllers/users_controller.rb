@@ -94,6 +94,9 @@ class UsersController < ApplicationController
   
   def update
     respond_to do |format|
+      if params[:user][:blog_image_url] && params[:user][:blog_image_url].blank?
+        params[:user][:blog_image_url] = nil
+      end
       if (params[:image]) 
         image = Image.new({:image => params[:image]})
         image.save!

@@ -8,7 +8,7 @@
 </p>
 <br/>
 
-<% partecipants = @group.group_partecipations %>
+<% partecipants = @group.group_partecipations.includes(:user).limit(5) %>
 <%if partecipants.length > 0 %>
 <p>
     <h4>Elenco partecipanti</h4>
@@ -32,9 +32,14 @@
 			        <div class="Mo">
 			            <%=link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
 			        </div>
+                  <div style="clear:both;"></div>
 			    </div>
 	    <%end%>
     <%end %>
+    <%if @group.group_partecipations.count > 5 %>
+        <%=link_to "Mostra tutti #{@group.group_partecipations.count} ...", {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "showAllButton disableButton littleText"%>
+        <div id="partecipants_list_container" title="Elenco completo dei partecipanti al gruppo"></div>
+    <%end%>
 </p>
 <%else %>
 <p>

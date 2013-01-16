@@ -253,6 +253,7 @@ it:
         facebookpageurl: "Tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
+        blog_image_url: "Indirizzo immagine"
     errors:
       template:
         header:

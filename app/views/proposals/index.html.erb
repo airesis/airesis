@@ -4,10 +4,24 @@
    else	
 	@page_head = "Proposte di tutte le categorie"		
 end%>
+
+<%if @group%>
+    <%=content_for :head do%>
+        <meta property="og:title" content="<%=@group.name%>"/>
+        <meta property="og:type" content="airesis:group"/>
+        <meta property="og:image" content="<%= if !@group.image_url.blank?
+                                                 @group.image_url
+                                               else
+                                                 "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
+                                               end%>
+                                          "/>
+        <meta property="og:description" content="<%=@group.description%>"/>
+    <%end%>
+<%end%>
+
 <%=render :layout => "layouts/page_title", :locals => {:title => @page_head} do%>
 	
 <%end%>
-
 
 <div style="clear:both"></div>
 

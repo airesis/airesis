@@ -3,13 +3,11 @@ pv = params[:view] ? params[:view].to_i : nil
 %>
 <% if @proposal.comments.count>1 %>
 <%if current_user%>
-    <span class="tooltip" ><%if !pv || (pv == 1)%>
-        <%=t('pages.proposals.show.random_stack')%>
+    <%if !pv || (pv == 1)%>
+        <span id="random_stack_l"><%=t('pages.proposals.show.random_stack')%></span>
     <%else%>
-        <%=link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, :view=>1, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(1);" %>
-    <%end%><span>
-      <%=image_tag "callout.gif", :class=>"callout"%><strong>Priorità ordinamento</strong><br/>1. contributi nuovi o non valutati<br/>2. contributi valutati in ordine di valutazione.<br/><br/><b>NB</b>: La valutazione dei contributi permette di cambiarne l'ordinamento
-      </span></span> |
+        <%=link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, :view=>1, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(1);", :id => 'random_stack_l' %>
+    <%end%> |
 <%end%>
 <% if pv == 2%>
 	<%=t('pages.proposals.show.most_recent')%>
@@ -31,4 +29,8 @@ pv = params[:view] ? params[:view].to_i : nil
 		$('#loading_contributes').show();
 		$('#proposalCommentsContainer').html("");
 	}
+
+	$(function() {
+	  $('#random_stack_l').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");	
+	});
 </script>

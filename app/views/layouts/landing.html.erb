@@ -17,11 +17,11 @@
 		    </div>
 	      <div class="group_title">
 			<h1><%=@page_title%></h1>
-			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'buttonStyle' %>
-			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'buttonStyle' %>
-			<%= link_to 'Video guide', videoguide_path, :class => 'buttonStyle' %>
-			<%= link_to 'Chi siamo', chisiamo_path, :class => 'buttonStyle' %>
-			<%= link_to 'Sostienici', sostienici_path, :class => 'buttonStyle' %>
+			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'sviluppoButton' %>
+			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'coseButton' %>
+			<%= link_to 'Video guide', videoguide_path, :class => 'videoButton' %>
+			<%= link_to 'Chi siamo', chisiamo_path, :class => 'chisiamoButton' %>
+			<%= link_to 'Sostienici', sostienici_path, :class => 'sostieniButton' %>
 			
 			</div>
 		</div>
@@ -38,6 +38,17 @@
 			<div class="footer">
 				<%=render :partial => "layouts/footer" %>
 			</div>	
-		</div>			
+		</div>
+
+
+        <script type="text/javascript">
+          $(function(){
+              $('.sviluppoButton').button({icons : {primary : "ui-icon-pencil"}});
+              $('.coseButton').button({icons : {primary : "ui-icon-help"}});
+              $('.videoButton').button({icons : {primary : "ui-icon-video"}});
+              $('.chisiamoButton').button({icons : {primary : "ui-icon-person"}});
+              $('.sostieniButton').button({icons : {primary : "ui-icon-heart"}});
+          });
+        </script>
 	</body>
 </html>

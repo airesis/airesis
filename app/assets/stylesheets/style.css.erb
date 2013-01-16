@@ -115,6 +115,10 @@ table.dataTable td .blogUserImage {
 	font-size: 12px;
 }
 
+.veryLittleText.ui-button .ui-button-text {
+    line-height: 10px;
+    font-size: 10px;
+}
 
 .rightAlign {
 	text-align: right;
@@ -229,6 +233,8 @@ table.dataTable td .blogUserImage {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 5px;
     margin-left: 10px;
+    width: 120px;
+    height: 120px;
 }
 
 .body_maxwidth {
@@ -508,7 +514,12 @@ a.spch-bub-inside:hover .point {
 	content: "";
 	top: 5px;
 	left: -10px;
-} 
+}
+
+#img_modal {
+    width: 450px;
+    height: 120px;
+}
 
 .edit_modal {
 	width: 400px;
@@ -886,27 +897,18 @@ span.ui-spinner.ui-widget {
 	border: 1px solid #BDC7D8;
 }
 
-span.tooltip {
-    outline:none;
-    border: 1px dotted #99CC00;
-    margin: 2px;
-    padding: 2px;
-    background-color: #F0F8DB;
-}
-span.tooltip strong {line-height:30px;}
-span.tooltip:hover {text-decoration:none;}
-span.tooltip span {
+span.tooltip span.innerc {
     z-index:10;display:none; padding:14px 20px;
     margin-top:-30px; margin-left:28px;
     width:240px; line-height:16px;
 }
-span.tooltip:hover span{
+span.tooltip:hover span.innerc{
     display:inline; position:absolute; color:#111;
     border:1px solid #99CC00; background:#E2F0B6;}
 .callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
 
     /*CSS3 extras*/
-span.tooltip span
+span.tooltip span.innerc
 {
     border-radius:4px;
     -moz-border-radius: 4px;

@@ -18,7 +18,6 @@
 <%posts = @group.posts.published(:order => 'published_at DESC') %>
 <% if posts.size == 0 %>
 <div class="blogPost">
-    
     <p>
     Non vi sono ancora Post in questo Gruppo, torna presto.
     </p>
@@ -37,7 +36,6 @@
 			<%end%>
 		<%= "Al momento non ci sono proposte" if @group.internal_proposals.empty?%>
 	<%end%>
-
 
 	<h4>Proposte sostenute dal gruppo</h4>
 	<%@group.proposals.each do |proposal|%>
