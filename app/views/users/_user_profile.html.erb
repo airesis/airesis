@@ -1,10 +1,4 @@
-<h3>Profilo di
-<%if @user.name%>
-	<%= @user.name %>
-<%else%>
-	<%= @user.login %>
-<%end%> 
-</h3>
+<h3>Profilo di <%= @user.fullname%> <%='(utente non confermato)' unless @user.confirmed?%></h3>
 <table style="width:100%">
     <tr>
         <td>
@@ -56,7 +50,7 @@
                   <div id="confirmed_at_profile" class="profile_element">
                     <h2 class="label_profile">Registrato dal: </h2>
                     <div class="info_profile">
-                      <%=h @user.confirmed_at.strftime("%d/%m/%Y") %>
+		      <%=h (@user.confirmed? ? @user.confirmed_at : @user.created_at).strftime("%d/%m/%Y") %>
                     </div>
                   </div>
 
