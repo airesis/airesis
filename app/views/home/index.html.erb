@@ -6,7 +6,13 @@
   <title><%=APP_LONG_NAME %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota il tuo futuro">
+  <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro">
+  <meta property="og:title" content="<%=APP_LONG_NAME %>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="<%="#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}"%>"/>
+  <meta property="og:site_name" content="<%=APP_LONG_NAME %>"/>
+  <meta property="og:description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"/>
+  <meta property="fb:app_id" content="<%=FACEBOOK_APP_ID%>"/>
   <meta name="author" content="Rodi Alessandro">
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "jquery-ui" %>

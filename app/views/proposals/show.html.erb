@@ -8,6 +8,7 @@
     <meta property="article:published_time"  content="<%=@proposal.created_at.strftime("%Y/%m/%d")%>">
     <meta property="article:author"          content="<%=@proposal.users.first.fullname%>">
     <meta property="article:section"         content="<%=@proposal.category.description%>">
+    <meta name="description" content="<%=@proposal.subtitle%>">
 <%end%>
 
 <%@page_title = @proposal.title%>
