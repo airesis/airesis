@@ -1,5 +1,5 @@
 <%comment_nickname = @proposal.proposal_nicknames.find_by_user_id(reply.user.id)%>
-<div class="reply_img">
+<div class="reply_img" title="<%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%><%=comment_nickname.nickname%><%end%>">
   <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
       <img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment_nickname.nickname)%>?s=32&d=identicon&r=PG"/>
   <%else%>
@@ -12,7 +12,7 @@
 		  truncate(text, :length => 15)
 		end%>
    		<div class="baloon-footer">
-   		Inserito il <span class="blogPostDate"><%= reply.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+   		Inserito il <span class="blogPostDate"><%= reply.created_at.strftime("%d/%m/%Y %H:%M") %> da <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%><%=comment_nickname.nickname%><%else%><%=current_user.fullname%><%end%></span>
    		</div>
    		</div>
    		<div style="clear: both;"></div>
