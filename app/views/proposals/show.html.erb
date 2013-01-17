@@ -201,7 +201,8 @@ function pageHeight() {
 
 $(function() {
   currentPage++;
-  $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>', 
+  $('#nickname_panel').ctooltip("<strong>Perchè anonimo?</strong><br/>In Airesis le discussioni avvengono in modo anonimo.<br />In ciascuna discussione a cui partecipi non è possibile, per gli altri utenti, sapere chi sei e, allo stesso tempo, non è possibile a te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
+  $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
    		   data: {page: currentPage,
 			 	  view: currentView,
 			 	  contributes: contributes
@@ -238,19 +239,12 @@ $(function() {
 
 
 <%if signed_in? && @my_nickname && @proposal.is_anonima?%>
-	<h4>Il tuo nickname è <%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :title => 'Di cosa si tratta?', :style => 'cursor:pointer', :onclick => 'showNicknamePanel();'%></h4> 
+	<h4 style="display:inline">Il tuo nickname è </h4><span id="nickname_panel"><%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer'%></span>
 	<div class="blogUserImage">
 		<%=user_tag(current_user,@proposal)%>			
 	</div>
 	<div style="clear: both;"></div>
 	
-	<div id="nickname_panel" title="Perchè ho questo nickname?" style="display: none;">
-		In Airesis le discussioni avvengono in modo anonimo.<br />
-		In ciascuna discussione a cui partecipi non è possibile, per gli altri utenti, sapere chi sei e, allo stesso
-		tempo, non è possibile a te sapere chi sono gli altri.<br />
-		Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br />
-		Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!
-	</div>
 <%end%>
 
 <h4>Redigono la sintesi</h4>
