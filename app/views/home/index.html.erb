@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title><%= APP_LONG_NAME %></title>
+  <title><%=APP_LONG_NAME %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro">
@@ -19,174 +19,153 @@
   <%= javascript_include_tag "jquery.watermark.min" %>
   <%= stylesheet_link_tag "landing.css" %>
   <%= stylesheet_link_tag "redmond/custom" %>
-
-  <link rel="shortcut icon" type="image/x-icon" href="">
+  
 </head>
 <body data-spy="scroll" data-target="#t1" class="frontpage">
 
 <script>
-    ( function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=221145254619152";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+	( function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if(d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;				
+		js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=221145254619152";				
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
 
-    !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, "script", "twitter-wjs");
+	! function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if(!d.getElementById(id)) {
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//platform.twitter.com/widgets.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}
+	}(document, "script", "twitter-wjs");
 
 
-    $(function () {
-        $('#user_login').watermark('Username o Email');
-        $('#user_password').watermark('Password');
+    $(function() {
+        $('#user_login').watermark('Username o Email') ;
+        $('#user_password').watermark('Password') ;
     })
-</script>
-
-<!--<%= link_to image_tag('logo_osi.gif', :style => 'position: absolute; margin-top:2px; right: 21%;', :height => '60px', :alt => "Software democrazia diretta open source", :title => "Progetto open source con licenza GNU GPL 3"), "https://github.com/coorasse/Airesis", :target => "_blank" %>-->
+</script>	
+	
+<%=link_to image_tag('logo_osi.gif', :style => 'position: absolute; margin-top:2px; right: 21%;', :height => '60px', :alt => "Software democrazia diretta open source", :title => "Progetto open source con licenza GNU GPL 3"), "https://github.com/coorasse/Airesis", :target => "_blank"%>
 <div class="container">
-  <div class="row"><!-- Menù navigatore-->
-    <ul class="navbar" style="float: left; margin-left: 20px;">
-      <li><%= link_to 'PARTECIPA AL PROGETTO', partecipa_path %></li>
-      <li class="vertical-divider"></li>
-      <li><%= link_to 'DI COSA SI TRATTA?', democraziadiretta_path %></li>
-      <li class="vertical-divider"></li>
-      <li><%= link_to 'VIDEO GUIDE', videoguide_path %></li>
-      <li class="vertical-divider"></li>
-      <li><%= link_to 'CHI SIAMO', chisiamo_path %></li>
-      <li class="vertical-divider"></li>
-      <li><%= link_to '♥ SOSTIENICI', sostienici_path %></li>
-    </ul>
-    <!-- Login -->
-    <div id="sigin_popup" class="popBlock"></div>
-    <ul style="margin-bottom: 0px;"
-        class="nav nav-pills pull-right navbar-uw">
-    </ul>
-  </div>
+    <div class="row"><!-- Menù navigatore-->
+        <ul class="navbar" style="float: left; margin-left: 20px;">
+          <li><%= link_to 'PARTECIPA AL PROGETTO', partecipa_path %></li>
+          <li class="vertical-divider"></li>
+          <li><%= link_to 'DI COSA SI TRATTA?', democraziadiretta_path %></li>
+          <li class="vertical-divider"></li>
+          <li><%= link_to 'VIDEO GUIDE', videoguide_path %></li>
+          <li class="vertical-divider"></li>
+          <li><%= link_to 'CHI SIAMO', chisiamo_path %></li>
+          <li class="vertical-divider"></li>
+          <li><%= link_to '♥ SOSTIENICI', sostienici_path %></li>
+        </ul>
 </div>
 
 <div class="container">
-  <div id="f_main" class="row" style="height: 450px;">
-    <!-- Logo principale-->
-    <%= image_tag 'logo_main.png', :style => 'position: absolute; margin-top: 0px; right: 58%;', :alt => "Airesis - Scegli di partecipare" %>
+    <div id="f_main" class="row" style="height: 450px;">
+        <!-- Logo principale-->
+        <%=image_tag 'logo_main.png', :style => 'position: absolute; margin-top: 0px; right: 58%;', :alt => "Airesis - Scegli di partecipare"%>
 
-    <div
-    style="position: absolute;  left: 50%;">
-      <div style=" width:420px;font-family:Arial; text-align:center;">
-        <div style="margin:5px; line-height:26px">
-          <%= link_to raw('PROPONI'), proposals_path, :style => "font-size:37px;text-decoration:none; color: #87A800; " %>
-          <%= link_to raw('COLLABORA'), groups_path, :style => "font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px; " %>
-          <a href="http://it.wikipedia.org/wiki/Democrazia_diretta" target="_blank" style="font-size:32px;text-decoration:none; color: #039FAF;">DEMOCRAZIA
-            DIRETTA</a>
-          <a href="http://www.decorourbano.org/" target="_blank" style="font-size:25px;text-decoration:none; color: #FF7600;">SEGNALA</a>
-          <a href="http://www.facebook.it" target="_blank" style="font-size:28px;text-decoration:none;  color: #87A800;padding-top:15px;">DISCUTI</a>
-          <a href="http://it.wikipedia.org/wiki/Forum_(Internet)" target="_blank" style="font-size:27px;text-decoration:none; color: #FF7600;">DIBATTI</a>
-          <a href="http://www.meetup.com/" target="_blank" style="font-size:40px;text-decoration:none; color: #DE2159;">PARTECIPA</a>
-          <a href="http://it.wikipedia.org/wiki/Votazione_elettronica" target="_blank" style="font-size:40px;text-decoration:none; color: #039FAF;">VOTA</a>
-          <a href="http://www.doodle.com/" target="_blank" style="font-size:23px;text-decoration:none; color: #87A800;">DECIDI</a>
-        </div>
-      </div>
-    </div>
-    <!--Slogan-->
-    <div id="slogan" style="position:absolute;margin-top:330px;">
-
-      <div style="float:left;">
-
-        <div style="float:left; margin:5px; padding:0px; margin-left: 20px; font-weight:bold; ">
-          <%= link_to raw('Provalo'), groups_path, :class => "btn btn-success btn-large",
-                      :style => "font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
-        </div>
-
-        <div style="float:left;margin:5px; padding:0px; margin-left: 20px; font-weight:bold">
-          <a id="signup" style="font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;"
-             class="btn btn-success btn-large" href="/users/sign_up">Registrati</a>
-        </div>
-
-      </div>
-      <div style="float:right; ">
-        <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-            <div style="float:left; font-size:14px">
-              <%= f.submit "Accedi", :style => "width:120px;margin-left: 10px; padding-top:6px; padding-bottom:6px; margin-bottom:0px;cursor:pointer; font-size: 30px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; float:right", :class => "btn btn-success btn-large" %>
-              <%= f.text_field :login, :style => "width:170px;" %> <br/>
-              <%= f.password_field :password, :style => "width:170px;" %>
-
-              <div class="littleText" style="font-weight: normal; font-size: 12px; ">
-                <div style="float: left; margin-top: 3px; "><%= f.check_box :remember_me, :style => 'margin-left:0px; font-size:12px' %></div>
-                <div style="float: left; margin-top: 3px;">Ricordami</div>
-                <div style="float: right;margin-top: 2px;"><%= link_to "Password dimenticata?", new_password_path(resource_name) %></div>
-              </div>
+        <div
+         style="position: absolute;  left: 50%;">
+             <div style=" width:420px;font-family:Arial; text-align:center;">
+                <div style="margin:5px; line-height:26px">
+                  <%=link_to raw('PROPONI'),proposals_path, :style=>"font-size:37px;text-decoration:none; color: #87A800; " %>
+                  <%=link_to raw('COLLABORA'),groups_path, :style=>"font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px; " %>
+                  <a href="http://it.wikipedia.org/wiki/Democrazia_diretta" target="_blank" style="font-size:32px;text-decoration:none; color: #039FAF;">DEMOCRAZIA DIRETTA</a>
+                  <a href="http://www.decorourbano.org/" target="_blank" style="font-size:25px;text-decoration:none; color: #FF7600;">SEGNALA</a>
+                   <a href="http://www.facebook.it" target="_blank" style="font-size:28px;text-decoration:none;  color: #87A800;padding-top:15px;">DISCUTI</a>
+                  <a href="http://it.wikipedia.org/wiki/Forum_(Internet)" target="_blank" style="font-size:27px;text-decoration:none; color: #FF7600;">DIBATTI</a>
+                  <%=link_to raw('PARTECIPA'),partecipa_path, :style=>"font-size:40px;text-decoration:none; color: #DE2159;"%>
+                   <a href="http://it.wikipedia.org/wiki/Votazione_elettronica" target="_blank" style="font-size:40px;text-decoration:none; color: #039FAF;">VOTA</a>
+                  <a href="http://www.doodle.com/" target="_blank" style="font-size:23px;text-decoration:none; color: #87A800;">DECIDI</a>
+                </div>
             </div>
-            <div style="  width: 180px; float: right; font-size: 14px;  text-align: center; color: #778899; line-height: 0px;">
-              oppure accedi con:
-              <div style="margin-top: 10px;">
-                <%= link_to image_tag('logo_facebook.gif', :height => "45px"), user_omniauth_authorize_path('facebook') %>
-                <%= link_to image_tag('logo_google.gif', :height => "45px"), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                <!--<%= link_to image_tag('logo_twitter.gif', :width => "45px"), user_omniauth_authorize_path('facebook') %>-->
-              </div>
-
-              <!--<div style="float:right; width: 200px;">
-                Accedi con
-              </div>-->
-            </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <!--Sottoblocchi informativi-->
-  <div class="row">
-    <div class="span4">
-      <h3><em>Proponi</em>
-        delle soluzioni</h3>
-
-      <p>Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa.
-        Un potente strumento per valorizzare l’intelligenza collettiva.</p>
-
-      <h3><em>Dibatti</em>
-        delle soluzioni</h3>
-
-      <p>Ogni cittadino pu&ograve;
-        rispondere esponendo le proprie perplessit&agrave;, mozioni e
-        miglioramenti. Realizza le tue idee assieme agli altri.</p>
-    </div>
-    <div class="span4">
-      <h3><em>Decidi</em>
-        democraticamente</h3>
-
-      <p>Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto
-        semplice, che realizza la democrazia diretta e la democrazia liquida.</p>
-
-      <h3><em>Collabora</em>
-        nel tuo interesse</h3>
-
-      <p>Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. L'unione
-        fa la forza.</p>
-    </div>
-    <!-- Blocchi news-->
-    <div id="news_block" class="span4" style="margin-top: -15px;">
-      <div class="well"
-           style="margin-bottom: 2px; background: -moz-linear-gradient(center top , #FFFFFF 0pt, #DDDDDD 100%) repeat scroll 0 0 #FFFFFF">
-        <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">Segui
-          @democracyo su Twitter</a>
-
-        <div class="fb-like-box" data-href="http://www.facebook.com/democracyonline"
-             data-width="300" data-height="220" data-show-faces="false" data-stream="true" data-header="false" data-border-color="white">
         </div>
-      </div>
+        <!--Slogan-->
+        <div id="slogan" style="position:absolute;margin-top:330px;">
 
+            <div style="float:left;">
+                <!--<%= link_to image_tag('pulsante_accedi_fb.gif', :align=>"left"), user_omniauth_authorize_path('facebook')%> -->
+                <div  style="float:left; margin:5px; padding:0px; margin-left: 40px; font-weight:bold; ">
+                  <%=link_to raw('Provalo'),groups_path,  :class=>"btn btn-success btn-large",
+                 :style=>"font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
+                </div>
+
+                <div style="float:left;margin:5px; padding:0px; margin-left: 40px; font-weight:bold">
+                    <a id="signup" style="font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;"
+                     class="btn btn-success btn-large" href="/users/sign_up">Registrati</a>
+                </div>
+
+            </div>
+            <div  style="float:right; width: 450px;">
+            <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+              <div style="float:left; font-size:14px"> <%= f.submit "Accedi", :style=>"width:90px;margin-left: 10px; padding-top:6px; padding-bottom:6px; margin-bottom:5px;cursor:pointer; font-size: 20px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; float:right", :class=>"btn btn-success btn-large" %>
+                  <%= f.text_field :login, :style => "width:150px;" %> <br />
+                  <%= f.password_field :password, :style => "width:150px;" %>
+
+                <div class="littleText" style="font-weight: normal; font-size: 12px; ">
+                  <div style="float: left; margin-top: 3px; "><%= f.check_box :remember_me, :style=>'margin-left:0px; font-size:12px' %></div> <div style="float: left; margin-top: 3px;">Ricordami</div>
+                  <div style="float: right;margin-top: 2px;"><%= link_to "Password dimenticata?", new_password_path(resource_name) %></div>
+                </div></div>
+                  <div style="  width: 180px; float: right; font-size: 14px;  text-align: center; color: #778899; line-height: 0px;">
+                    oppure accedi con:
+                    <div style="margin-top: 10px;">
+                    <%= link_to image_tag('logo_facebook.gif', :width=>"45px"), user_omniauth_authorize_path('facebook')%>
+                    <%= link_to image_tag('logo_google.gif', :width=>"45px"), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                    <%= link_to image_tag('logo_twitter.gif', :width=>"45px"), user_omniauth_authorize_path('facebook')%>
+                    </div>
+
+                <!--<div style="float:right; width: 200px;">
+                  Accedi con
+                </div>-->
+              </div>
+            <% end %>
+            </div>
+        </div>
     </div>
-  </div>
+<!--Sottoblocchi informativi-->
+<div class="row">
+<div class="span4">
+<h3><em>Proponi</em>
+delle soluzioni</h3>
+<p>Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa. Un potente strumento per valorizzare l’intelligenza collettiva.</p>
+<h3><em>Dibatti</em>
+delle soluzioni</h3>
+<p>Ogni cittadino pu&ograve;
+rispondere esponendo le proprie perplessit&agrave;, mozioni e
+miglioramenti. Realizza le tue idee assieme agli altri.</p>
+</div>
+<div class="span4">
+<h3><em>Decidi</em>
+democraticamente</h3>
+<p>Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto semplice, che realizza la democrazia diretta e la democrazia liquida.</p>
+<h3><em>Collabora</em>
+nel tuo interesse</h3>
+<p>Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. L'unione fa la forza.</p>
+</div>
+<!-- Blocchi news-->
+<div id="news_block" class="span4" style="margin-top: -15px;">
+<div class="well"
+ style="margin-bottom: 2px; background: -moz-linear-gradient(center top , #FFFFFF 0pt, #DDDDDD 100%) repeat scroll 0 0 #FFFFFF; text-align: center;">
+<a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">Segui @democracyo su Twitter</a>
 
-  <%= render :partial => "layouts/footer" %>
+<div class="fb-like-box" data-href="http://www.facebook.com/democracyonline"
+	data-width="300" data-height="220" data-show-faces="false" data-stream="true" data-header="false" data-border-color="white" style="border: 0px;">
+</div>
+</div>
+
+</div>
+</div>
+
+<%=render :partial => "layouts/footer" %>
 
 </body>
 </html>
