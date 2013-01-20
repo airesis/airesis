@@ -31,3 +31,4 @@
 //= require simplemodal
 //= require jquery.watermark.min
 //= require jquery.elastic
+//= require jquery.ctooltip
