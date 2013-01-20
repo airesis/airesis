@@ -186,7 +186,7 @@ class EventsController < ApplicationController
 
 
   def load_group
-    @group = Group.find(params[:group_id])
+    @group = Group.find(params[:group_id]) rescue nil
   end
   
   def load_event 

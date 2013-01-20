@@ -271,7 +271,7 @@ it:
         confirmation: "non coincide con la conferma"
         accepted: "deve essere accettato"
         empty: "non può essere vuoto"
-        blank: "deve essere valorizzato"
+        blank: "deve essere compilato"
         too_long: "è troppo lungo"
         too_short: "è troppo corto "
         wrong_length: "non è della lunghezza corretta (deve essere di %{count} caratteri)"

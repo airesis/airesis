@@ -24,9 +24,15 @@
 	
 	<p>
 		<%= f.label :content, t(:insert_contribute) %>
-		<br/>
-		<div id="comment-form-comment">
-		<%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
+        <span id="miglioricontributi">
+          <%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :title => 'Di cosa si tratta?', :style => 'cursor:pointer'%>
+        </span>
+
+      <br/>
+      <div id="comment-form-comment">
+        <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
+
+
 		</div>
 	</p>
 	<p>
@@ -38,9 +44,17 @@
 	<script type="text/javascript">
 		$(function() {
 
-			$('#proposal_comment_content')
-            .elastic()
-            .charCount({
+			$('.blogNewCommentField').focus(function() {
+				$('#comment-form-comment').toggleClass("active");
+			}).focusout(function() {
+				$('#comment-form-comment').toggleClass("active");
+			});
+
+            $('#miglioricontributi').ctooltip("<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!");
+
+            $('#proposal_comment_content')
+                    .elastic()
+                    .charCount({
 				allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
 				warning : 100,
 				counterText : 'Caratteri disponibili: '
@@ -52,8 +66,6 @@
       			window.location.replace("<%= new_user_session_path %>");
     		}
   		});
-
-		
-	</script>
+    </script>
 </div>
 
