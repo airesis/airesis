@@ -1,9 +1,9 @@
-<p>Benvenuto su <%=APP_SHORT_NAME%> <%= @resource.name %> <%= @resource.surname %>!</p>
-<p> Lo username scelto per l'autenticazione è <%= @resource.login%>.</p>
+<p>Benvenuto su <%=APP_SHORT_NAME%> <%= @resource.fullname %>!</p>
 
 <p>Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:</p>
 
 <p><%= link_to 'Conferma account', user_confirmation_url(:confirmation_token => @resource.confirmation_token) %></p>
 
+<p>In seguito puoi accedere a <%=APP_SHORT_NAME%> con l'email indicata in fase di registrazione e la password scelta</p>
 
 <p> Se hai problemi con la procedura contatta un amministratore: <%=APP_EMAIL_ADDRESS%></p>

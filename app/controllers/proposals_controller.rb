@@ -87,8 +87,9 @@ class ProposalsController < ApplicationController
    
   def show
     @step = get_next_step(current_user) if current_user
-    if (@proposal.private && @group)
-      if (!current_user)
+    if @proposal.private && @group
+      if !current_user
+        #flash[:error] = "Devi eseguire l'autenticazione per visualizzare le proposte di questo gruppo"
         authenticate_user!
       elsif !(can? :view_proposal, @group)
         respond_to do |format|
@@ -378,6 +379,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def available_author
     @proposal.available_user_authors << current_user
     @proposal.save
+    generate_nickname(current_user,@proposal)   #geenra un nickname per l'utente per questa proposta
     flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
     respond_to do |format|
       format.js { render :update do |page|

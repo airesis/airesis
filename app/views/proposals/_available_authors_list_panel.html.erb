@@ -1,12 +1,16 @@
+<%if @available_authors.count > 0 %>
 <h4>Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Fatto!'.<br />
 	Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.</h4>
 <%=form_for 'authors', :url => {:controller => "proposals", :action => "add_authors", :group_id => params[:group_id]}, :remote => true, :method => :put do |f|%>
 <ul>
-<%@proposal.available_user_authors.each do |user|%>
+<%@available_authors.each do |user|%>
 	<li>
 		<%=user.fullname%> <input type="checkbox" name="user_ids[]" value="<%=user.id%>">
 	</li>
 <%end%>
 </ul>
 	<%=f.submit 'Fatto!', :class=>'buttonStyle'%>
+<%end%>
+<%else%>
+    <h4>Nessuno si è reso disponibile per redigere la sistesi al momento</h4>
 <%end%>

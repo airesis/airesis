@@ -122,6 +122,18 @@ module NotificationHelper
       end
     end    
   end
+
+  #invia le notifihe per dire che la proposta è in votazione
+  def notify_proposal_in_vote(proposal)
+    msg = "La proposta <b>" + proposal.title + "</b> è in votazione da adesso!"
+    notification_a = Notification.new(:notification_type_id => 6,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    proposal.users.each do |user|
+      if (!(defined? current_user) || (user != current_user))
+        send_notification_to_user(notification_a,user)
+      end
+    end
+  end
   
      #invia le notifiche quando la proposta è stata rigettata
    #le notifiche vengono inviate ai partecipanti

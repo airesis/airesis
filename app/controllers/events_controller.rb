@@ -19,7 +19,7 @@ class EventsController < ApplicationController
   
   
    def new 
-    @group = Group.find_by_id(params[:group_id])
+    @group = Group.find(params[:group_id])
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
@@ -186,12 +186,12 @@ class EventsController < ApplicationController
 
 
   def load_group
-    @group = Group.find_by_id(params[:group_id])
+    @group = Group.find(params[:group_id])
   end
   
   def load_event 
     @event = Event.find_by_id(params[:id])
-    @group = @event.meeting_organizations.first.group rescue nil
+    #@group = @event.meeting_organizations.first.group rescue nil
   end
 
 

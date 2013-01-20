@@ -26,7 +26,7 @@
 		<%= f.label :content, t(:insert_contribute) %>
 		<br/>
 		<div id="comment-form-comment">
-		<%= f.text_area :content, :class => 'blogNewCommentField', :rows => 10, :cols => 50 %>
+		<%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
 		</div>
 	</p>
 	<p>
@@ -37,14 +37,10 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			$('.blogNewCommentField').focus(function() {
-				$('#comment-form-comment').toggleClass("active");
-			}).focusout(function() {
-				$('#comment-form-comment').toggleClass("active");
-			});
-			
-			
-			$('#proposal_comment_content').charCount({
+
+			$('#proposal_comment_content')
+            .elastic()
+            .charCount({
 				allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
 				warning : 100,
 				counterText : 'Caratteri disponibili: '

@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       env['exception_notifier.delivered'] = true
     end
     message = "\n#{exception.class} (#{exception.message}):\n"
-    Rails.logger.warn(message)
+    Rails.logger.error(message)
   end
   
   
@@ -182,9 +182,9 @@ class ApplicationController < ActionController::Base
   
   def generate_nickname(user,proposal)
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id,proposal.id)
-    if (!nickname)
+    if !nickname
       loop = true
-      while (loop) do
+      while loop do
         nickname = NicknameGeneratorHelper.give_me_a_nickname
         loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id,nickname)
       end

@@ -9,11 +9,11 @@ module ProposalsModule
     timepassed = (!quorum.ends_at || Time.now > quorum.ends_at)
     vpassed = (!quorum.valutations || proposal.valutations >= quorum.valutations)
     #se erano definiti entrambi i parametri
-    if (quorum.ends_at && quorum.valutations)
+    if quorum.ends_at && quorum.valutations
       puts "due controlli definiti"
-      if (quorum.or?)
+      if quorum.or?
         passed = (timepassed || vpassed)
-      else (quorum.and?)
+      else quorum.and?
         passed = (timepassed && vpassed)
       end
     else #altrimenti era definito solo uno dei due, una delle due variabili 
@@ -22,12 +22,12 @@ module ProposalsModule
     end
     
     puts "la proposta ha passato?" + passed.to_s
-    if (passed)
-      if (proposal.rank >= quorum.good_score)
+    if passed
+      if proposal.rank >= quorum.good_score
         puts "proposta accettata"
         proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
         notify_proposal_ready_for_vote(proposal)
-      elsif (proposal.rank < quorum.bad_score)
+      elsif proposal.rank < quorum.bad_score
         puts "proposta rifiutata"
         proposal.proposal_state_id = PROP_RESP
         notify_proposal_rejected(proposal)
