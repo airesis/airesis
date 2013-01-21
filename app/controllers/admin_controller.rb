@@ -1,6 +1,7 @@
 #encoding: utf-8
 
 #require 'airesis_metis'
+require 'rake'
 
 class AdminController < ApplicationController
   before_filter :admin_required#, :only => [:new, :create, :destroy]
@@ -131,7 +132,7 @@ class AdminController < ApplicationController
   end
   
   def write_sitemap
-    rake "-s sitemap:refresh"
+    Rake::Task["sitemap:refresh"].invoke
     respond_to do |format|
       format.html {
         flash[:notice] = 'Sitemap aggiornata.'

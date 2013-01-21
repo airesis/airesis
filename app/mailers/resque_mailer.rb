@@ -12,4 +12,9 @@ class ResqueMailer < ActionMailer::Base
     @msg = msg
     mail(:to => 'coorasse+daily@gmail.com', :subject => APP_SHORT_NAME + " - Messaggio di amministrazione")
   end
+
+
+  def info_message(msg)
+    mail(:to => 'coorasse+info@gmail.com', :subject => APP_SHORT_NAME + " - Messaggio di informazione")
+  end
 end

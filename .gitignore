@@ -13,6 +13,7 @@ tmp
 log
 app/assets/images/users
 config/environments/production.rb
+config/environment.rb
 tmp
 test/fixtures
 script/igraph-0.5.4

@@ -147,7 +147,11 @@
     <%if @event.proposals.count > 0 %>
         <h3>In queste giornate si voteranno le seguenti proposte</h3>
         <br />
-        <%= render :partial => 'proposals/proposal_list_element', :collection => @event.proposals, :as => 'proposal' %>
+        <%@event.proposals.each do |proposal|%>
+            <%if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first))%>
+            <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal } %>
+            <%end%>
+        <%end%>
     <%else%>
         <h3>Ancora nessuna proposta in votazione durante queste giornate</h3>
     <%end%>

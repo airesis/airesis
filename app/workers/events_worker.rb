@@ -19,24 +19,34 @@ class EventsWorker
 
   #fa partire la votazione di una proposta
   def start_votation(event_id)
+   msg = "Inizia la votazione con id #{event_id}<br/>"
    counter = 0
-   event = Event.find_by_id(event_id)
-   event.proposals.each do |proposal|
+   event = Event.find(event_id)
+   proposals = event.proposals
+   msg += "All'evento sono legate #{proposals.count} proposte<br/>"
+   proposals.each do |proposal|
+     msg += "La proposta #{proposal.id} passa in votazione<br/>"
      proposal.proposal_state_id = ProposalState::VOTING
      counter+=1
-     proposal.save
+     proposal.save!
      vote_data = proposal.vote
      unless vote_data #se non ha i dati per la votazione creali
        vote_data = ProposalVote.new(:proposal_id => proposal.id, :positive => 0, :negative => 0, :neutral => 0)
-       vote_data.save
+       vote_data.save!
      end
+     notify_proposal_in_vote(proposal)
    end #end each
+   ResqueMailer.admin_message(msg).deliver
   end
 
   #fa terminare la votazione di una proposta
   def end_votation(event_id)
-    event = Event.find_by_id(event_id)
-    event.proposals.each do |proposal|
+    msg = "Termina la votazione con id #{event_id}<br/>"
+    event = Event.find(event_id)
+    proposals = event.proposals
+    msg += "All'evento sono legate #{proposals.count} proposte<br/>"
+    proposals.each do |proposal|
+      msg += "La proposta #{proposal.id} termina la votazione<br/>"
       vote_data = proposal.vote
       unless vote_data #se non ha i dati per la votazione creali
         vote_data = ProposalVote.new(:proposal_id => proposal.id, :positive => 0, :negative => 0, :neutral => 0)
@@ -53,6 +63,8 @@ class EventsWorker
       end
       proposal.save
     end #end each
+    ResqueMailer.admin_message(msg).deliver
   end
+
 
 end
