@@ -123,6 +123,7 @@ DemocracyOnline3::Application.routes.draw do
       get :edit_permissions
       get :edit_proposals
       post :change_default_anonima
+      post :change_default_visible_outside
       post :change_advanced_options
     end
 
