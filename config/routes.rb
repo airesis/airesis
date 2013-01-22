@@ -211,7 +211,7 @@ DemocracyOnline3::Application.routes.draw do
 
   constraints admin_required do
     mount Resque::Server, :at => "/resque_admin/"
-    
+    mount Maktoub::Engine => "/maktoub/"
     match ':controller/:action/'
     resources :admin
     match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
