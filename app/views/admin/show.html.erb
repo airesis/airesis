@@ -15,7 +15,7 @@
 	<%= link_to 'Tutorials', '/tutorials', :class => 'recalculate' %>
 	<%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'recalculate' %>
 	<%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'recalculate' %>
-		
+    <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list" }, :class => 'recalculate' %>
 	<script type="text/javascript">
 		$('.recalculate').button();
 	</script>

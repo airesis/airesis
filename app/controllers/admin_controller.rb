@@ -140,5 +140,10 @@ class AdminController < ApplicationController
       }
     end
   end
+
+
+  def mailing_list
+
+  end
   
 end
