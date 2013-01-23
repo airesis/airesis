@@ -228,10 +228,10 @@ it:
       proposal_comment:
          content: "Contenuto"
       quorum:
-        name: "Nome"
-        name_title: "Un nome conciso ed esplicativo"
-        description: "Descrizione"
-        description_title: "Una descrizione più ampia da cui comprendere il funzionamento"
+        name: "Nome del quorum"
+        name_title: "Inserire un titolo conciso, esplicativo"
+        description: "Descrizione / Breve spiegazione"
+        description_title: "Una descrizione per far comprendere le finalità di questo quorum"
         days_m: Giorni
         hours_m: Ore
         minutes_m: Minuti
