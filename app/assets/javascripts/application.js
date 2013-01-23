@@ -32,3 +32,5 @@
 //= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.ctooltip
+//= require prettydiff/diffview
+//= require simplemodal

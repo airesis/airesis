@@ -1,7 +1,3 @@
-<%if current_user %>
-<%= javascript_include_tag 'simplemodal' %>
-<%end %>
-	
 <%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
 	<div id="border_fields">
 		<%= f.label "I tuoi confini geografici di interesse"%>

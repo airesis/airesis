@@ -28,4 +28,5 @@
  *= require notifications
  *= require quorums
  *= require redmond/custom
+ *= require prettydiff/diffview
 */

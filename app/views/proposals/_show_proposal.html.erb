@@ -1,6 +1,3 @@
-<%= javascript_include_tag "prettydiff/diffview" %>
-<%= stylesheet_link_tag "prettydiff/diffview" %>
-
 <script>
 	//style="background-color: rgb(185, 255, 116);"
 		function hideRankPanel(rank_p) {
@@ -31,10 +28,7 @@
 			
 		}	
 	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
-	
-	
 </script>	
-
 
 <div style="float:right;">
 <%if signed_in?%>
