@@ -6,6 +6,8 @@ gem 'therubyracer', '0.10.1'
 
 gem 'bson_ext'
 
+gem 'maktoub'
+
 group :assets do
   gem 'sass-rails', "~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
