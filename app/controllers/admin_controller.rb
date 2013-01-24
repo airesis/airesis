@@ -148,20 +148,24 @@ class AdminController < ApplicationController
 
 
   def send_newsletter
-    if params['receiver'] == 'all'
+    receiver = params['mail']['receiver']
+    name = params['mail']['name']
+    if receiver == 'all'
       @users = User.all
-    elsif params['receiver'] == 'not_confirmed'
+    elsif receiver == 'not_confirmed'
       @users = User.unconfirmed.all
-    elsif params['receiver'] == 'test'
-      @users = User.all.limit(5)
-    elsif params['receiver'] == 'portavoce'
+    elsif receiver == 'test'
+      @users = User.all(limit: 1)
+    elsif receiver == 'portavoce'
       raise Exception
     end
 
     @users.each do |user|
-
+      NewsletterMailer.publish(name, :name => user.fullname, :email => user.email).deliver
     end
 
+    flash[:notice] = "Newsletter pubblicata correttamente"
+    redirect_to :controller => 'admin', :action => 'mailing_list'
   end
   
 end

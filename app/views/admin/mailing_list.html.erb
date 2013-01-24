@@ -7,7 +7,7 @@ Elenco mailing list disponibili:
           <%=form_for 'mail', :url => {:action => "send_newsletter", :controller => "admin", :name => file} do |f| %>
             <%=f.text_field 'name', value: file.gsub(".html.erb","") %>
             <%=f.select 'receiver', {tutti: 'all', 'account non confermato' => 'not_confirmed', portavoce: 'portavoce', test: 'test'}%>
-          <%= f.submit  'Invia',%>
+          <%= f.submit  'Invia'%>
           <%end%>
           <%= link_to 'Anteprima', "/maktoub/newsletter/" + (file.gsub(".html.erb",""))%>
         </li>
