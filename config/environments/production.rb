@@ -38,7 +38,8 @@ DemocracyOnline3::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'www.airesis.it' }
- 
+  config.action_mailer.logger = nil
+
   config.logger = Logger.new(Rails.root.join("log",Rails.env + ".log"), 50, 100.megabytes)
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
