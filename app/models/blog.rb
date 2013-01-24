@@ -4,6 +4,12 @@ class Blog < ActiveRecord::Base
   
   has_many :blog_tags, :dependent => :destroy
   has_many :tags, :through => :blog_tags, :class_name => 'Tag'
+
+
+
+  def to_param
+    "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
   
 #  before_save :save_tags, :if => :not_resaving?
 #  

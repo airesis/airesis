@@ -28,3 +28,9 @@
 			$('input:submit').button();			
 		</script>
 <br />
+
+
+<% content_for :left_panel do %>
+    <%=link_to 'Modifica blog', edit_blog_path(@blog), :class => 'editButton' %>
+
+<%end%>

@@ -1,4 +1,4 @@
-<h1>Modifica impostazioni blog</h1>
+<h1>Modifica blog</h1>
 
 <%= form_for(@blog) do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @blog} %>
@@ -8,7 +8,7 @@
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.submit 'Aggiorna' %>
+    <%= f.submit 'Aggiorna', :class => 'buttonStyle' %>
   </p>
 <% end %>
 

@@ -10,7 +10,7 @@ class BlogsController < ApplicationController
   
    def check_author
     @blog = Blog.find(params[:id])
-    if ! current_user.is_my_blog? @blog.id
+    if !(current_user.is_my_blog? @blog.id) && !is_admin?
       flash[:notice] = 'Non puoi modificare un blog che non ti appartiene.'
       redirect_to :back
     end
@@ -56,6 +56,7 @@ class BlogsController < ApplicationController
   # GET /blogs/1/edit
   def edit
     @blog = Blog.find(params[:id])
+    @user = @blog.user
   end
 
   # POST /blogs
@@ -90,7 +91,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
-        flash[:notice] = 'Blog was successfully updated.'
+        flash[:notice] = 'Il titolo del Blog è stato aggiornato correttamente'
         format.html { redirect_to(@blog) }
         format.xml  { head :ok }
       else
