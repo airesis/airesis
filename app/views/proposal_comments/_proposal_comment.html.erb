@@ -25,7 +25,7 @@
 	<p>
 		<%= f.label :content, t(:insert_contribute) %>
         <span id="miglioricontributi">
-          <%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :title => 'Di cosa si tratta?', :style => 'cursor:pointer'%>
+          <%=image_tag 'icon_info.gif', :style => 'cursor:pointer'%>
         </span>
 
       <br/>
@@ -50,7 +50,10 @@
 				$('#comment-form-comment').toggleClass("active");
 			});
 
-            $('#miglioricontributi').ctooltip("<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!");
+            $('#miglioricontributi').ctooltip({
+                content : "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!",
+                position : "bottom"
+            });
 
             $('#proposal_comment_content')
                     .elastic()

@@ -878,7 +878,7 @@ input[type="checkbox"]{
 }
 
 .percentage {
-	width:50px;
+	width:25px;
 }
 
 /*CUSTOM JQUERY*/
@@ -899,32 +899,38 @@ span.ui-spinner.ui-widget {
 /*tooltips*/
 span.tooltip span.innerc {
     z-index:10;display:none; padding:14px 20px;
-    margin-top:-30px; margin-left:28px;
-    width:240px; line-height:16px;
+    margin-top:-10px; margin-left:20px; margin-right:5px;
+    min-width:150px; max-width: 250px;line-height:16px;
 }
 span.tooltip:hover span.innerc{
     display:inline; position:absolute; color:#111;
     border:1px solid #99CC00; background:#E2F0B6 url(/assets/css-tooltip-gradient-bg.png) repeat-x 0 0;}
-.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+.callout {z-index:20;position:absolute;top:5px;border:0;left:-12px;}
 
 /*tooltips left, bottom, top*/
-span.tooltip_sx span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:-320px; width:240px; line-height:16px; }
+span.tooltip_sx span.innerc { z-index:10;display:none; padding:14px 20px;
+    margin-top:-30px; margin-left:-320px;
+    width: 240px; line-height:16px;
+}
 .callout_sx {z-index:20;position:absolute;top:26px;border:0;left:280px;}
 
-span.tooltip_bt span { z-index:10;display:none; padding:14px 20px; margin-top:30px; margin-left:-145px; width:240px; line-height:16px; }
-.callout_bt {z-index:20;position:absolute;border:0;top:-12px;left:120px;}
+span.tooltip_bt span.innerc { z-index:10;display:none; padding:14px 20px;
+    margin-top:40px; margin-left:-185px; margin-right:5px;
+    min-width:200px; max-width: 350px; line-height:16px;
+}
+.callout_bt {z-index:20;position:absolute; border:0; top:-12px;left:160px;}
 
-span.tooltip_tp span { z-index:10;display:none; padding:14px 20px; margin-top:-100px; margin-left:-145px; width:240px; line-height:16px; height: 63px; }
+span.tooltip_tp span.innerc { z-index:10;display:none; padding:14px 20px; margin-top:-110px; margin-left:-145px; width:240px; line-height:16px; height: 63px; }
 .callout_tp {z-index:20;position:absolute;border:0;top:90px;left:120px;}
 
 span.tooltip_sx strong, span.tooltip_bt strong, span.tooltip_tp strong {line-height:30px;}
-span.tooltip_sx, span.tooltip_bt, span.tooltip_tp {outline:none; }
+span.tooltip, span.tooltip_sx, span.tooltip_bt, span.tooltip_tp {outline:none; }
 span.tooltip_sx:hover, span.tooltip_bt:hover, span.tooltip_tp:hover {text-decoration:none;}
-span.tooltip_sx:hover span, span.tooltip_bt:hover span, span.tooltip_tp:hover span{ display:inline; position:absolute; color:#111; border:1px solid #99CC00; background:#E2F0B6 url(/assets/css-tooltip-gradient-bg.png) repeat-x 0 0;}
+span.tooltip_sx:hover span.innerc, span.tooltip_bt:hover span.innerc, span.tooltip_tp:hover span.innerc{ display:inline; position:absolute; color:#111; border:1px solid #99CC00; background:#E2F0B6 url(/assets/css-tooltip-gradient-bg.png) repeat-x 0 0;}
 
 
     /*CSS3 extras comuni*/
-span.tooltip span.innerc, span.tooltip_sx span, span.tooltip_bt span, span.tooltip_tp span
+span.tooltip span.innerc, span.tooltip_sx span.innerc, span.tooltip_bt span.innerc, span.tooltip_tp span.innerc
 {
     border-radius:4px;
     -moz-border-radius: 4px;
