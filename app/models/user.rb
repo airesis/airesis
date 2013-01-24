@@ -108,6 +108,7 @@ class User < ActiveRecord::Base
 
   scope :blocked, { :conditions => {:blocked => true }}
   scope :confirmed, {:conditions => 'confirmed_at is not null'}
+  scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 
 
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial

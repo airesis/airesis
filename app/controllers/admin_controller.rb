@@ -145,5 +145,23 @@ class AdminController < ApplicationController
   def mailing_list
 
   end
+
+
+  def send_newsletter
+    if params['receiver'] == 'all'
+      @users = User.all
+    elsif params['receiver'] == 'not_confirmed'
+      @users = User.unconfirmed.all
+    elsif params['receiver'] == 'test'
+      @users = User.all.limit(5)
+    elsif params['receiver'] == 'portavoce'
+      raise Exception
+    end
+
+    @users.each do |user|
+
+    end
+
+  end
   
 end
