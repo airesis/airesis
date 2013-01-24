@@ -1,4 +1,4 @@
-<%=form_for @event, :remote => true do |f| %>
+<%=form_for @event, :html => {:class=>"disableForm"}, :remote => true do |f| %>
 
 <%= f.hidden_field :organizer_id%>
 <div>
@@ -53,7 +53,7 @@
 				<%= f.select :frequency, (1..30).to_a %> <span id = "period"></span>
 			</p> 
 			<p>
-				<%= f.submit 'Crea!', :class => 'buttonStyle'%>
+				<%= f.submit 'Crea!', :class => 'buttonStyle disableButton'%>
 			</p></td>
 			<td width="40%"> 
 				<%=f.fields_for :election, @election do |e|%>

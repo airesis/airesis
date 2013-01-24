@@ -30,5 +30,10 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  def time_in_words(from_time, include_seconds=false)
+    diff = Time.now - from_time
+    diff > 23.hours ? "il " + from_time.strftime("%d/%m/%Y %H:%M") : time_ago_in_words(from_time,include_seconds) + " fa"
+  end
   
 end

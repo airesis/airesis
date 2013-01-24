@@ -13,15 +13,14 @@
   // # Definisco le impostazioni base
   var defaults = {
    content: "Tooltip",
-   image: "<%=asset_path 'callout.gif' %>",
-   position: ""
+   image: "<%=asset_path 'callout.gif' %>"
   };
 	
   options = typeof options == "string" ? {content : options} : options	            
   // # Utilizzo la funzione $.extend per "mergiare" gli oggetti
   options = $.extend( defaults, options );
-  $(this).wrap('<span class="tooltip'+options.position+'" />');
-  $(this).after('<span class="innerc"><img src="'+options.image + '" class="callout'+options.position+'"></img>'+options.content+'</span>');
+  $(this).wrap('<span class="tooltip" />');
+  $(this).after('<span class="innerc"><img src="'+options.image + '" class="callout"></img>'+options.content+'</span>');	
  }  
   
  });

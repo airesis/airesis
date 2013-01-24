@@ -19,7 +19,6 @@ class EventsController < ApplicationController
   
   
    def new 
-    @group = Group.find(params[:group_id])
     @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
@@ -28,6 +27,7 @@ class EventsController < ApplicationController
       @event.event_type_id = 4
     end
     if (params[:group_id])
+      @group = Group.find(params[:group_id])
       @event.organizer_id = @group.id
       @event.private = true
       respond_to do |format|     
@@ -198,8 +198,10 @@ class EventsController < ApplicationController
   def check_event_edit_permission
     @event = Event.find_by_id(params[:id])
     if @event.is_votazione?
-      permissions_denied
-      return
+      if (params[:action] != 'destroy') || (@event.proposals.count > 0)
+        permissions_denied
+        return
+      end
     end
     return true if is_admin?
     org = @event.organizers.first
