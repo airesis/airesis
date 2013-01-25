@@ -44,12 +44,17 @@ class BlogsController < ApplicationController
   # GET /blogs/new
   # GET /blogs/new.xml
   def new
-    @user = current_user
-    @blog = Blog.new
+    if current_user.blog
+      flash[:error] = "Spiacente. Disponi già di un blog."
+      redirect_to root_path
+    else
+      @user = current_user
+      @blog = Blog.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @blog }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :xml => @blog }
+      end
     end
   end
 
