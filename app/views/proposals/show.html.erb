@@ -218,23 +218,28 @@ $(function() {
 
 
 <%content_for :left_panel do%>
-<div id="rankleftpanel" class="rankleftpanel">
+    <h2><%if @proposal.state.id==1%>Dibattito in corso<%else%><%= @proposal.state.description%><%end%></h2>
+    <span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/%Y alle %H:%M") %></span> <br/>
+    <%if @proposal.updated_at != @proposal.created_at%>
+        <span class="title_grey">Ultima modifica del</span><br/><%= @proposal.updated_at.strftime("%d/%m/%Y alle %H:%M") %>
+        <%if signed_in?%>
+            <div style="margin: 5px;"><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
+        <%end%>
+    <%end%>
+    <%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
+        <span class="title_grey">In votazione dal</span><br/>
+            <%= @proposal.vote_period.starttime.strftime("%d/%m/%Y") + '<br/> al ' + @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %>
+    <%elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
+        <span class="title_grey">In votazione ora!</span><br/>
+          <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+
+    <%end%>
+    <div id="rankleftpanel" class="rankleftpanel">
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
 
 	
-<div style="height:20px;">	
-<g:plusone size="small"></g:plusone>
-</div>
-<div style="height:20px;width:100px;">
-<%=raw facebook_like %>
-</div>
-<div style="height:20px;width:100px;margin-top: 5px;">
-  <a href="https://twitter.com/share"
-     class="twitter-share-button"
-     data-lang="en"
-     data-text="Guarda questa proposta su <%=APP_SHORT_NAME%>: <%= @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) %>">Tweet</a>
-</div>
+
 
 
 <%if signed_in? && @my_nickname && @proposal.is_anonima?%>
@@ -299,4 +304,5 @@ Nessun documento allegato alla proposta
 <%end%>
 
 <br />
+    <h4>Categoria</h4> <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
 <%end%>

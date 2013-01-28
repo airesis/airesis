@@ -19,13 +19,17 @@
 			num = id.replace('votedown','');
 			hideRankPanel2($('.handscontainer'));
 		});
-	});		
+        $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura per andare in votazione");
+        $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>nel testo devono essere ancora integrati i suggerimenti degli utenti");
+        $('#valutazioni').ctooltip("numero di valutazioni ricevute");
+        $('#gradimento').ctooltip("percentuale di valutazioni positive");
+	});
 </script>
 <p class="points">
-    <span class="littleText">Score</span> <span class="rightAlign"><%=@proposal.valutations %></span>
+    <span class="littleText" id="valutazioni">Valutazioni </span>  <span class="rightAlign"><%=@proposal.valutations %></span>
 </p>
 <p class="ranking">
-    <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
+    <span class="littleText" id="gradimento">Gradimento</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
 </p>
 <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
 		
@@ -35,12 +39,12 @@
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
 			 <%elsif @can_vote_again == 1%>
-			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
+			 	<span id="voteup"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %></span>
 			<%end%>
 			<% if @my_vote == 3 %>
 				<div class="voteddown"></div>
 			<% elsif @can_vote_again == 1%>
-				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
+				<span id="votedown"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %></span>
 			<%end%>		
 	<%elsif @can_vote_again == 1%>
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
@@ -50,6 +54,5 @@
 		<div style="clear: both;"></div>
 <%end %>
 
-Categoria: <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
-Stato: <%= link_to @proposal.state.description%><br />
+
 <%= 'Anonimato temporaneo attivo' if @proposal.is_anonima?%>

@@ -1,6 +1,5 @@
 <%= javascript_include_tag "prettydiff/diffview" %>
 <%= stylesheet_link_tag "prettydiff/diffview" %>
-
 <script>
 	//style="background-color: rgb(185, 255, 116);"
 		function hideRankPanel(rank_p) {
@@ -29,17 +28,26 @@
 			$(query).hide();
 			
 			
-		}	
-	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
+		}
+	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination
 	
 	
-</script>	
+</script>
 
+<div style="float: right;  height:30px;">
+
+  <a href="https://twitter.com/share"
+     class="twitter-share-button"
+     data-lang="en"
+     data-text="Guarda questa proposta su <%=APP_SHORT_NAME%>: <%= @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) %>">Tweet</a>
+  <g:plusone size="medium"></g:plusone> <%=raw facebook_like %>
+
+
+</div>
+<h2 class="proposalTitle" itemprop="name"><%=h proposal.title %></h2>
 
 <div style="float:right;">
-<%if signed_in?%>
-<%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton buttonStyle'  %><br/>
-<%end%>
+
 <%if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
 	<%if proposal.proposal_state_id == ProposalState::VALUTATION #se è ancor modificabile mostra il pulsante%>
 		<%if @group %>
@@ -62,9 +70,8 @@
 	<%end%>
 <%end%>
 </div>
-<div style="clear: both;"></div>
 
-<h2 class="proposalTitle" itemprop="name"><%=h proposal.title %></h2>
+
 <h3 class="proposalSubtitle"  itemprop="description"><%=h proposal.subtitle %></h3>
 <div class="blogCommentPostedAt">
     
@@ -73,19 +80,24 @@
     <b>Questa proposta sarà in votazione dal 
 		<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
 	</p>
-<%elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
-<p>				
+  <%elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito%>
+      <script>
+          $(function() {
+              $('#suffgrad').ctooltip("La proposta rimarrà in dibattito <%if proposal.quorum.minutes%>fino al <b><%= (proposal.created_at+proposal.quorum.minutes*60).strftime("%d/%m/%Y") %></b> <%= (proposal.created_at+proposal.quorum.minutes*60).strftime(" alle %H:%M") %> <b><%if proposal.quorum.or?%>oppure<%else%>e<%end%></b><%end%> finché non sarà valutata da <b>almeno <%=proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
+          });
+
+
+      </script>
+
+      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>. Per accedere alla votazione dovrà raggiungere un <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
+  <%elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
+<p>
 	<%= link_to 'Vai alla pagina di votazione.', votation_path %>
 </p>
 <%end%>
-    
-Inserita il <span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/%Y %H:%M") %></span>
-<%if @proposal.updated_at != nil%>
-(Ultima modifica del <%= @proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>)
-<%end%>
 
 
-    <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>
+
 	<br/>	
 	
 
