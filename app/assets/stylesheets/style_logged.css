@@ -9,7 +9,7 @@
 	position: absolute;
 	text-align: left;
 	width: 235px;
-	z-index: 3;
+	z-index: 5;
 }
 
 #user-panel ul.menu-list {
