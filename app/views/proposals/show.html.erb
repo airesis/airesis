@@ -263,13 +263,15 @@ $(function() {
 <%if signed_in? && @proposal.in_valutation?%>
 	<div id="available_author">    
 		<%= render :partial => 'proposals/available_author'%>
-	</div>	
-	<%if @proposal.users.include?(current_user)%>
-		<%=link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class=> 'personButton littleText disableButton'%>
-		
-		<div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
-		</div>
-	<%end%>
+	</div>
+    <%if @proposal.users.include?(current_user)%>
+        <%if @proposal.available_authors.count > 0 %>
+            <%=link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class=> 'personButton littleText disableButton'%>
+
+            <div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
+            </div>
+        <%end%>
+    <%end%>
 <%end%>
         
     <br />
