@@ -192,7 +192,10 @@ class Proposal < ActiveRecord::Base
   end
 
   def partecipants
-    return User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
+    a = User.all(:joins => {:proposal_rankings =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
+    b = User.all(:joins => {:proposal_comments =>[:proposal]}, :conditions => ["proposals.id = ?", self.id])
+    c = (a | b)
+    return c
   end
   
   #restituisce la lista delle 10 proposte più vicine a questa

@@ -3,19 +3,18 @@ class NotificationsController < ApplicationController
 
   before_filter :authenticate_user!
   
-  
+  #cambia l'impostazione delle notifiche che si vogliono ricevere
   def change_notification_block
-    if (params[:block] == "true")
+    if params[:block] == "true"
       b = current_user.blocked_alerts.build(:notification_type_id => params[:id])
       b.save!
     else
       b = current_user.blocked_alerts.first(:conditions => {:notification_type_id => params[:id]})
       b.destroy
     end
-    flash[:info] = t('info.setting_preferences')
+    flash[:info] =t('info.setting_preferences')
 
   rescue ActiveRecord::ActiveRecordError => e
-    puts e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js   { render :update do |page|
@@ -24,9 +23,9 @@ class NotificationsController < ApplicationController
     end
   end
 
-
+  #cambia l'impostazione delle notifiche che si vogliono ricevere via email
   def change_email_notification_block
-    if (params[:block] == "true")
+    if params[:block] == "true"
       b = current_user.blocked_emails.build(:notification_type_id => params[:id])
       b.save!
     else
@@ -36,7 +35,6 @@ class NotificationsController < ApplicationController
     flash[:info] = t('info.setting_preferences')
 
   rescue ActiveRecord::ActiveRecordError => e
-    puts e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js   { render :update do |page|
@@ -44,5 +42,4 @@ class NotificationsController < ApplicationController
       end}
     end
   end
-
 end

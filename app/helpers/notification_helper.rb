@@ -8,7 +8,7 @@ module NotificationHelper
      unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
       alert.save #invia la notifica
-      if user.email_alerts && (!user.blocked_email_notifications.include?notification.notification_type)
+      if user.email_alerts && (!user.blocked_emails.include?notification.notification_type)
         ResqueMailer.notification(alert.id).deliver
       end
      end
@@ -62,7 +62,6 @@ module NotificationHelper
         send_notification_to_user(notification_b,user)
       end
     end
-    
   end
 
   #invia le notifiche quando un una proposta viene creata all'interno di un gruppo
@@ -84,11 +83,14 @@ module NotificationHelper
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal)
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
-    notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal))
+    data = {'proposal_id' => proposal.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user
-        send_notification_to_user(notification_a,user)
+        #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
+        another = Notification.first(:joins => [:notification_data, :user_alerts => [:user]],:conditions => ['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false','proposal_id',proposal.id.to_s,2,user.id.to_s])
+        send_notification_to_user(notification_a,user) unless another
       end
     end    
   end
