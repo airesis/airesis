@@ -43,7 +43,7 @@ gem 'omniauth-google-oauth2'
 
 gem 'paperclip'
 
-gem 'jquery-rails'
+gem 'jquery-rails', '2.1.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
@@ -55,7 +55,7 @@ gem 'bluecloth', '2.0.7'
 
 gem 'ultraviolet1x'
 
-gem 'devise'#, '1.4.9'
+gem 'devise', '2.0.4'
 
 gem 'fb_graph'
 

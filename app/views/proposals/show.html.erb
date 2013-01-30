@@ -218,23 +218,12 @@ $(function() {
 
 
 <%content_for :left_panel do%>
-<div id="rankleftpanel" class="rankleftpanel">
+    <div id="rankleftpanel" class="rankleftpanel">
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
 
 	
-<div style="height:20px;">	
-<g:plusone size="small"></g:plusone>
-</div>
-<div style="height:20px;width:100px;">
-<%=raw facebook_like %>
-</div>
-<div style="height:20px;width:100px;margin-top: 5px;">
-  <a href="https://twitter.com/share"
-     class="twitter-share-button"
-     data-lang="en"
-     data-text="Guarda questa proposta su <%=APP_SHORT_NAME%>: <%= @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) %>">Tweet</a>
-</div>
+
 
 
 <%if signed_in? && @my_nickname && @proposal.is_anonima?%>
@@ -258,13 +247,15 @@ $(function() {
 <%if signed_in? && @proposal.in_valutation?%>
 	<div id="available_author">    
 		<%= render :partial => 'proposals/available_author'%>
-	</div>	
-	<%if @proposal.users.include?(current_user)%>
-		<%=link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class=> 'personButton littleText disableButton'%>
-		
-		<div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
-		</div>
-	<%end%>
+	</div>
+    <%if @proposal.users.include?(current_user)%>
+        <%if @proposal.available_authors.count > 0 %>
+            <%=link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class=> 'personButton littleText disableButton'%>
+
+            <div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
+            </div>
+        <%end%>
+    <%end%>
 <%end%>
         
     <br />
@@ -299,4 +290,5 @@ Nessun documento allegato alla proposta
 <%end%>
 
 <br />
+    <h4>Categoria</h4> <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
 <%end%>
