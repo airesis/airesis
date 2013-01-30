@@ -218,12 +218,12 @@ $(function() {
 
 
 <%content_for :left_panel do%>
-    <h2><%if @proposal.state.id==1%>Dibattito in corso<%else%><%= @proposal.state.description%><%end%></h2>
+    <%if @proposal.state.id==1%><span id="indibattitott" ><h2  style="display: inline-block; margin-top: 0px;">Dibattito in corso</h2></span><%else%><h2><%= @proposal.state.description%></h2><%end%>
     <span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%= @proposal.created_at.strftime("%d/%m/%Y alle %H:%M") %></span> <br/>
     <%if @proposal.updated_at != @proposal.created_at%>
         <span class="title_grey">Ultima modifica del</span><br/><%= @proposal.updated_at.strftime("%d/%m/%Y alle %H:%M") %>
         <%if signed_in?%>
-            <div style="margin: 5px;"><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
+            <div style="margin: 5px;"><span id="historytt" ><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></span></div>
         <%end%>
     <%end%>
     <%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
@@ -234,6 +234,12 @@ $(function() {
           <%= link_to 'Vai alla pagina di votazione.', votation_path %>
 
     <%end%>
+<script type="text/javascript">
+    $(function() {
+        $('#historytt').ctooltip("Confronta tra loro le versioni precedenti di questa proposta");
+        $('#indibattitott').ctooltip("Questa proposta è in fase di dibattito: suggerisci delle modifiche, valuta i contributi degli altri e aiuta gli addetti alla sintesi a farla crescere");
+    });
+</script>
     <div id="rankleftpanel" class="rankleftpanel">
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
@@ -248,7 +254,7 @@ $(function() {
 		<%=user_tag(current_user,@proposal)%>
 <script type="text/javascript">
       $(function() {
-      $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei (loro ti vedono come <b><%=@my_nickname.nickname%></b>) e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
+          $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei (loro ti vedono come <b><%=@my_nickname.nickname%></b>) e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
       });
 </script>
 	</div>
