@@ -37,8 +37,10 @@ function drawIntro(svg) {
 
 <%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
 
-<%if (!current_user || (current_user && (!@proposal.private || (can? :partecipate_proposal, @group))))%>
+<%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
 <%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
+<%else%>
+    <div style="height:20px"></div>
 <%end%>
 
 <div id="order_bar">
@@ -289,6 +291,6 @@ Nessun documento allegato alla proposta
 	<%end%>
 <%end%>
 
-<br />
-    <h4>Categoria</h4> <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
+<h4>Categoria</h4>
+<%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
 <%end%>

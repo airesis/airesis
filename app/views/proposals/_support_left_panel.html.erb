@@ -12,7 +12,7 @@
 <%end%>
 <%="Nessun gruppo sostiene la proposta" if @proposal.groups.empty?%>
 <%if signed_in?%>
-	<%if !current_user.scoped_group_partecipations(GroupAction::PROPOSAL).empty? %>
+	<%if !current_user.scoped_group_partecipations(GroupAction::PROPOSAL).empty? && (can? :partecipate, @proposal) %>
 	<%=link_to 'Sostieni la proposta', new_proposal_proposal_support_path(@proposal),:remote => true, :class => 'supportButton littleText disableButton' %>
 	<%end%>
 <%end%>

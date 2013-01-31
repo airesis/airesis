@@ -2,7 +2,9 @@
 	<%if @proposal.available_user_authors.include?(current_user)%>
         Ti sei offerto per redigere la sintesi della proposta
     <%else%>
-        <span id="voglioredigere"><%=link_to 'Voglio redigere la sintesi!',  {:controller => "proposals", :action => "available_author", :group_id => params[:group_id]}, :remote => true, :method => :post, :class=> 'buttonStyle littleText disableButton'%></span>
+        <%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+            <span id="voglioredigere"><%=link_to 'Voglio redigere la sintesi!',  {:controller => "proposals", :action => "available_author", :group_id => params[:group_id]}, :remote => true, :method => :post, :class=> 'buttonStyle littleText disableButton'%></span>
+        <%end%>
 	<%end%>
 <%end%>
 <script>

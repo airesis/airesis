@@ -5,8 +5,8 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery_ujs
 //= require jquery-ui
+//= require jquery_ujs
 //= require jquery.tokeninput
 //= require jquery.contextMenu
 //= require jquery.ImageOverlay
@@ -24,9 +24,6 @@
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
 //= require rails.validations
-//= require bbq
-//= require jquery.form
-//= require jquery.form.wizard
 //= require jquery.quick-wizard
 //= require simplemodal
 //= require jquery.watermark.min

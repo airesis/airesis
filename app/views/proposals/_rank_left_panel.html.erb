@@ -33,8 +33,8 @@
 </p>
 <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
 		
-<%if (!current_user || (can? :partecipate, @proposal)) %>
-		<div class="handscontainer">	
+<%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+	<div class="handscontainer">
 	<%if @my_vote%>
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
@@ -50,8 +50,8 @@
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
 	<%end %>
-		</div>
-		<div style="clear: both;"></div>
+	</div>
+	<div style="clear: both;"></div>
 <%end %>
 
 <h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description%></h2>

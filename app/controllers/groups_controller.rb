@@ -69,7 +69,7 @@ class GroupsController < ApplicationController
     #conta il numero di partecipanti che possono valutare le proposte
   end
   
-  def  change_advanced_options
+  def change_advanced_options
     advanced_options = params[:active]
     @group.change_advanced_options = advanced_options
     @group.save
@@ -124,6 +124,36 @@ class GroupsController < ApplicationController
       end          
   end
   
+  #change the default option in a group for the public proposals
+  def change_default_visible_outside
+    default_visible_outside = params[:active]
+    @group.default_visible_outside = default_visible_outside
+    @group.save
+    if (default_visible_outside == 'true')
+      flash[:notice] = "Le proposte del gruppo saranno visibili pubblicamente di default"
+    else
+      flash[:notice] = "Le proposte del gruppo non saranno visibili pubblicamente di default"
+    end
+    
+    respond_to do |format|
+      format.js { render :update do |page|
+                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                  end
+      }
+    end 
+    
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = 'Errore nella modifica delle opzioni.'
+        format.js {  render :update do |page|                 
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+      end          
+  end
+
+
+
   def new_event
     @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
     if (params[:date])
@@ -160,23 +190,14 @@ class GroupsController < ApplicationController
         @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
          
         @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
-        
-                
         @group.save!
-        
-        
         Quorum.public.each do |quorum|
           copy = quorum.dup
           copy.public = false
           copy.save!
           GroupQuorum.create(:quorum_id => copy.id, :group_id => @group.id)         
         end        
-        
-        
-        
-                
       end
-      
       respond_to do |format|
           flash[:notice] = 'Hai creato il gruppo.'
           format.html { redirect_to(@group) }
