@@ -29,18 +29,18 @@ class ProposalsController < ApplicationController
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
     
   def index    
-    if (params[:category])
+    if params[:category]
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
     end
     @count_base = Proposal.in_category(params[:category])
 
-    if (params[:group_id])
+    if params[:group_id]
       @count_base = @count_base.in_group(@group.id)
     	#@count_base = @count_base.includes([:proposal_supports,:group_proposals])
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
     
-      if !(can? :view_proposal, @group)
+      if !can? :view_proposal, @group
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
       end 
    else
@@ -54,8 +54,8 @@ class ProposalsController < ApplicationController
     @revision_count = @count_base.revision.count
     
     respond_to do |format|     
-      #format.js 
-      format.html # index.html.erb      
+      #format.js
+      format.html #index.html.erb
     end
   end
   
@@ -64,7 +64,7 @@ class ProposalsController < ApplicationController
     query_index             
     respond_to do |format|     
       format.html {
-        if (params[:replace])
+        if params[:replace]
           render :update do |page|
             #TODO far dipendere l'id della tab dallo stato della proposta non è buona cosa ma mi permette di non sbattermi per trovare una soluzione
             #accrocchio
@@ -87,7 +87,7 @@ class ProposalsController < ApplicationController
    
   def show
     @step = get_next_step(current_user) if current_user    
-    if (@proposal.private && @group) #la proposta è interna ad un gruppo
+    if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
 	if !current_user
 	  flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
@@ -117,9 +117,9 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         #format.js
         format.html {
-          if (@proposal.proposal_state_id == PROP_WAIT_DATE)
+          if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
             flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-          elsif (@proposal.proposal_state_id == PROP_VOTING)
+          elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
             flash.now[:notice] = "Questa proposta è in fase di votazione."
           end                
         } # show.html.erb
@@ -461,13 +461,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     
     conditions = "1 = 1"
     
-    if (params[:state] == VOTATION_STATE)
+    if params[:state] == VOTATION_STATE
       startlist = Proposal.in_votation   
       @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
-    elsif (params[:state] == ACCEPTED_STATE)
+    elsif params[:state] == ACCEPTED_STATE
       startlist = Proposal.accepted
       @replace_id = t("pages.proposals.index.accepted").gsub(' ','_')
-    elsif (params[:state] == REVISION_STATE)
+    elsif params[:state] == REVISION_STATE
       startlist = Proposal.revision
       @replace_id = t("pages.proposals.index.revision").gsub(' ','_')
     else

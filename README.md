@@ -47,6 +47,17 @@ Wikipedia
 - 
 [http://it.wikipedia.org/wiki/Airesis](http://it.wikipedia.org/wiki/Airesis)
 
+Licenza d'uso
+-
+Il presente software è rilasciato sotto licenza AGPL. 
+
+Per i termini della licenza si rimanda al file LICENSE disponibile all'interno del progetto.
+
+Chiunque installi e sviluppi l'applicazione è tenuto a rispettare i termini della licenza e ad incorporare nel footer del proprio sito la seguente dicitura:
+
+Powered by <a href="http://www.airesis.it">Airesis - Scegli di partecipare </a>
+
+
 Configurazione e installazione
 - 
 L'applicazione si installa come una qualsiasi applicazione RubyOnRails.

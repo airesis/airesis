@@ -1,4 +1,4 @@
-<%unless @proposals.empty?%>
+<%unless @proposals.empty? || !::Configuration.phases_active%>
 	<div class="order_options">
 		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
 			Ultime inserite
@@ -13,24 +13,29 @@
 		<% if (params[:view] == ORDER_BY_VOTES)%>
 			Più votate
 		<%else%>	 
-			<%=link_to 'Più votate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
+			<%=link_to 'Più valutate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
 		<%end%>
 	</div>
 <%end%>
 
-<div id="proposalsListContainer<%=params[:state]%>">
+<div id="proposalsListContainer<%=params[:state] || params[:view]%>">
 <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
 </div>
 <%if @proposals.total_pages > @proposals.current_page%>
-<div id="loading_proposals<%=params[:state]%>" class="loading_proposals">
+<div id="loading_proposals<%=params[:state] || params[:view]%>" class="loading_proposals">
 	<span>Mostra altre proposte...</span>
+</div>
+<div id="loading_proposals<%=params[:state] || params[:view]%>_2" class="loading_proposals" style="display:none">
+  <div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>
 </div>
 
 <script type="text/javascript">
 	$(function() {
 		var currentPage = 1;
-		$('#loading_proposals<%=params[:state]%>').click(function() {
+		$('#loading_proposals<%=params[:state] || params[:view]%>').click(function() {
 			$(this).hide();
+            $(this).next().show();
+
 			currentPage++;
 		    url = window.location;
 		  	cat = <%=params[:category] || 'null'%>;
@@ -44,7 +49,7 @@
 		    if (state != null && state != 'null')
 		    	nurl += '&state='+state
 				$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
-		})		
+		})
 	})
 </script>
 <%end%>

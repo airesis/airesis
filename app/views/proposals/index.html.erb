@@ -28,25 +28,40 @@ end%>
 
 <div id="tabs">
 	<ul>
-		<li>
-			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>			
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>			
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>			
-			<div class="tabs-triangle"/>
-		</li>
+        <%if ::Configuration.phases_active %>
+            <li>
+                <%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>
+                <div class="tabs-triangle"/>
+            </li>
+            <li>
+                <%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>
+                <div class="tabs-triangle"/>
+            </li>
+            <li>
+                <%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
+                <div class="tabs-triangle"/>
+            </li>
+            <li>
+                <%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>
+                <div class="tabs-triangle"/>
+            </li>
+        <%else%>
+            <li>
+                <%=link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_DATE, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'ultime', :title=>t("pages.proposals.index.last")%>
+                <div class="tabs-triangle"/>
+            </li>
+            <li>
+              <%=link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_RANK, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'popolari', :title=>t("pages.proposals.index.most_popular")%>
+              <div class="tabs-triangle"/>
+            </li>
+          <li>
+            <%=link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_VOTES, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'valutate', :title=>t("pages.proposals.index.most_valutated")%>
+            <div class="tabs-triangle"/>
+          </li>
+        <%end%>
 	</ul>
 	
-	<div id="Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito">
+	<div id="<%=::Configuration.phases_active ? 'Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito' : 'Ultime_inserite'%>">
 		<div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
 			<%=image_tag 'ajax-loader.gif', :alt=>"Caricamento"%><br />
 			<b>Sto caricando le proposte...</b>
