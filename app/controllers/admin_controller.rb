@@ -100,7 +100,18 @@ class AdminController < ApplicationController
       }
     end
   end
-  
+
+  #invia una notifica di prova tramite resque e redis
+  def test_notification
+    ResqueMailer.notification(6200).deliver
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Test avviato'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
     Resque.enqueue_at(15.seconds.from_now, ProposalsWorker, :proposal_id => 1)

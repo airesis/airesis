@@ -5,16 +5,14 @@ module NotificationHelper
   #se l'utente ha bloccato il tipo di notifica allora non viene inviata
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail TODO
   def send_notification_to_user(notification,user)
-     if !user.blocked_notifications.include?notification.notification_type #se il tipo nnon è bloccato
+     unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
       alert.save #invia la notifica
-      if user.email_alerts
+      if user.email_alerts && (!user.blocked_emails.include?notification.notification_type)
         ResqueMailer.notification(alert.id).deliver
       end
-      
-      return true
      end
-     return false
+     true
   end
   
   
@@ -52,7 +50,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
     notification_a.save
     proposal.users.each do |user|
-      if (user != comment_user)
+      if user != comment_user
         send_notification_to_user(notification_a,user)
       end
     end
@@ -64,7 +62,6 @@ module NotificationHelper
         send_notification_to_user(notification_b,user)
       end
     end
-    
   end
 
   #invia le notifiche quando un una proposta viene creata all'interno di un gruppo
@@ -86,11 +83,14 @@ module NotificationHelper
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal)
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
-    notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal))
+    data = {'proposal_id' => proposal.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
-      if (user != current_user)
-        send_notification_to_user(notification_a,user)
+      if user != current_user
+        #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
+        another = Notification.first(:joins => [:notification_data, :user_alerts => [:user]],:conditions => ['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false','proposal_id',proposal.id.to_s,2,user.id.to_s])
+        send_notification_to_user(notification_a,user) unless another
       end
     end    
   end
@@ -104,7 +104,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.partecipants.each do |user|
-      if (user != current_user)
+      if user != current_user
         send_notification_to_user(notification_a,user)
       end
     end    
@@ -117,7 +117,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 6,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.users.each do |user|
-      if (!(defined? current_user) || (user != current_user))
+      if !(defined? current_user) || (user != current_user)
         send_notification_to_user(notification_a,user)
       end
     end    
@@ -129,7 +129,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 6,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.users.each do |user|
-      if (!(defined? current_user) || (user != current_user))
+      if !(defined? current_user) || (user != current_user)
         send_notification_to_user(notification_a,user)
       end
     end
@@ -142,7 +142,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
     notification_a.save
     proposal.users.each do |user|
-      if (!(defined? current_user) || (user != current_user))
+      if !(defined? current_user) || (user != current_user)
         send_notification_to_user(notification_a,user)
       end
     end    
@@ -154,7 +154,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 12,:message => msg, :url => group_path(group))
     notification_a.save
     group.portavoce.each do |user|
-      if (user != current_user)
+      if user != current_user
         send_notification_to_user(notification_a,user)
       end
     end    
@@ -171,7 +171,7 @@ module NotificationHelper
     notification_a = Notification.new(:notification_type_id => 15,:message => msg, :url => blog_blog_post_path(blog_post.blog, blog_post))
     notification_a.save
     user_followers.each do |user|
-      if ((user != post_user) && (!sent_users.include?user))
+      if (user != post_user) && (!sent_users.include?user)
         if send_notification_to_user(notification_a,user)
           sent_users << user
         end
@@ -183,7 +183,7 @@ module NotificationHelper
       #notifica a chi segue il gruppo
       notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => blog_blog_post_path(blog_post.blog, blog_post))
       group.followers.each do |user|
-        if ((user != post_user) && (!sent_users.include?user))
+        if (user != post_user) && (!sent_users.include?user)
           if send_notification_to_user(notification_b,user)
             sent_users << user
           end
@@ -193,7 +193,7 @@ module NotificationHelper
       #notifica a chi partecipa al gruppo
       notification_b = Notification.create(:notification_type_id => 9,:message => msg,:url => blog_blog_post_path(blog_post.blog, blog_post))
       group.partecipants.each do |user|
-        if ((user != post_user) && (!sent_users.include?user))
+        if (user != post_user) && (!sent_users.include?user)
           if send_notification_to_user(notification_b,user)
             sent_users << user
           end

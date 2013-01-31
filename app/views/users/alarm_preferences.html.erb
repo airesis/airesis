@@ -8,6 +8,7 @@
 	            dataType: 'script',
 	        	type: 'post'    
 	        });
+            $('#block_email_'+el.value).removeAttr("disabled").removeAttr("title");
     	}
     	else {
 	        $.ajax({
@@ -16,7 +17,28 @@
 	            dataType: 'script',
 	        	type: 'post'    
 	        });
+
+            $('#block_email_'+el.value).attr("disabled", true).attr("title","Devi attivare la notifica per ricevere l'email");
 	       }
+    }
+
+    function change_email_notification_block(el){
+        if (el.checked) {
+            $.ajax({
+                data: "id="+el.value+"&block=false",
+                url: "/notifications/change_email_notification_block",
+                dataType: 'script',
+                type: 'post'
+            });
+        }
+        else {
+            $.ajax({
+                data: "id="+el.value+"&block=true",
+                url: "/notifications/change_email_notification_block",
+                dataType: 'script',
+                type: 'post'
+            });
+        }
     }
     
 </script>
@@ -29,13 +51,14 @@
    
 	<%=form_for current_user, :remote => true do |f| %>
 		<%=f.check_box :email_alerts, :onclick => "$(this).next().next().click();" %>
-		<b>Ricevi notifiche su <%=current_user.email%></b>
+		<b>Ricevi notifiche e newsletter su <%=current_user.email%></b>
 		<%=f.submit 'Salva', :style=>'display:none;'%>
 	
 	<%end%>
 
 <%blocked = @current_user.blocked_notifications.all
-  readonly = [1,2,4,5,6,8,9,10,12,15,20,21]%>
+  blocked_emails = @current_user.blocked_emails.all
+  active = [1,2,4,5,6,8,9,10,12,15,20,21]%>
 
    	<table>
    <% NotificationCategory.all.each do |category|%>
@@ -43,8 +66,11 @@
    		<h4><%=category.description%></h4>
    		</td>
    		<td>
-   			Ricevi notifica
+   		  Ricevi notifica
    		</td>
+        <td>
+          Ricevi email
+        </td>
    		</tr>
    		<% category.notification_types.all.each do |type|%>
    		<tr>
@@ -52,16 +78,27 @@
  				<%=type.description%>
  			</td>
  			<td style="text-align: center">
- 				<input type="checkbox" value="<%=type.id%>" 
+ 				<input type="checkbox" value="<%=type.id%>" id="block_alert_<%=type.id%>"
  				<%unless blocked.include? type%>
  					checked="true" 
  				<%end%>
- 				<%unless readonly.include? type.id%>
+ 				<%unless active.include? type.id%>
  					disabled="disabled"
  					title="Tipo di notifica non disponibile"
  				<%end%> 
  				onclick="return change_notification_block(this);"/>
  			</td>
+            <td style="text-align: center">
+              <input type="checkbox" value="<%=type.id%>" id="block_email_<%=type.id%>"
+                     <%unless blocked_emails.include? type%>
+                     checked="true"
+                     <%end%>
+                     <%if !(active.include? type.id) || (blocked.include? type)%>
+                     disabled="disabled"
+                     title="<%= (active.include?type.id) ? "Devi attivare la notifica per ricevere l'email" : "Tipo di notifica non disponibile" %>"
+                     <%end%>
+                     onclick="return change_email_notification_block(this);"/>
+            </td>
  		</tr>
  		<%end%>
    <% end%>

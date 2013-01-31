@@ -1,32 +1,4 @@
-<html>
-	<head>
-		<style type="text/css">
-			.littleText {
-				font-size: 10px;
-			}
-			
-			body {	
-				font: 12px "lucida grande",tahoma,verdana,arial,sans-serif;
-				margin: 0;
-				padding: 0;
-				color: #333333;
-			}
-			
-		</style>
-	</head>
-	
-	<body>
-			<%=@alert.created_at.strftime("%d/%m/%Y %H:%M")%> <br/>
-		<a href="<%=SITE + "" + check_alert_alert_path(@alert)%>">
-			<%=raw @alert.notification.message%>
-		</a>
-		
-		
-		
-		<p class="littleText">
-			Ricevi questa email in quanto sei iscritto a <%=APP_SHORT_NAME%>.<br />
-			Per modificare le impostazioni relative all'invio di notifiche via email vai nella tua <%=link_to 'pagina di impostazione allarmi e notifiche',alarm_preferences_users_url, :target => "_blank"%>.
-		</p>
-	</body>
-	
-</html>
+<%=@alert.created_at.strftime("%d/%m/%Y %H:%M")%> <br/>
+<a href="<%=SITE + "" + check_alert_alert_path(@alert)%>">
+    <%=raw @alert.notification.message%>
+</a>

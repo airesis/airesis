@@ -4,13 +4,13 @@ class Notification < ActiveRecord::Base
   has_many :notification_data, :class_name => "NotificationData", :dependent => :destroy, :foreign_key => :notification_id
   
   def data
-    if !@data
+    unless @data
       @data = {}
       self.notification_datas.each do |d|
         @data[d.name] = d.value
       end
     end
-    return @data
+    @data
   end
   
   def data=(data)
