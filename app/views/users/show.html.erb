@@ -64,9 +64,7 @@
 	<%end%>
   </div>
         
-    <%if !current_user.has_provider(Authentication::FACEBOOK)%>
     <%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
-    <%end%>
     <%end %>
 </p>
 

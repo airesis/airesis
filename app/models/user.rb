@@ -164,13 +164,6 @@ class User < ActiveRecord::Base
     write_attribute :login, (value ? value.downcase : nil)
   end
   
-  def email=(value)
-    if !self.email
-   # if false #al momento non è consentito cambiare l'email
-      write_attribute :email, (value ? value.downcase : nil)
-    end
-  end
-  
   #determina se un oggetto appartiene all'utente verificando che 
   #l'oggetto abbia un campo user_id corrispondente all'id dell'utente
   #in caso contrario verifica se l'oggetto ha un elenco di utenti collegati 
