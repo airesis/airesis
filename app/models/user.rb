@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   validates_format_of       :surname,     :with => AuthenticationModule.name_regex, :allow_nil => true
   validates_length_of       :surname,     :maximum => 50
   
-  validates_length_of       :email,    :within => 6..50 #r@a.wk
-  validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
+  validates_length_of       :email,    :within => 6..50, :allow_nil => true #r@a.wk
+  validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message, :allow_nil => true
   validates_uniqueness_of   :email
 
   validates_format_of       :blog_image_url, :with => AuthenticationModule.url_regex, :allow_nil => true
@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
   scope :confirmed, {:conditions => 'confirmed_at is not null'}
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 
+
+  def email_required?
+    super && !(has_provider('twitter') || has_provider('linkedin'))
+  end
 
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
   def assign_tutorials
@@ -326,6 +330,57 @@ def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   end
 end
 
+
+#gestisce l'azione di login tramite twitter
+def self.find_for_twitter(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] #dati di twitter
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  end
+
+  if user
+    return user
+  else  #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ',2)
+    name = splitted[0]
+    surname = splitted[1]
+    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:profile_image_url])
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+    user.confirm!
+    user.save(:validate => false)
+    return user
+  end
+end
+
+
+#gestisce l'azione di login tramite meetup
+def self.find_for_meetup(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] #dati di twitter
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'].to_s)
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  end
+
+  if user
+    return user
+  else  #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ',2)
+    name = splitted[0]
+    surname = splitted[1]
+    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:photo][:photo_link])
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+    user.confirm!
+    user.save(:validate => false)
+    return user
+  end
+end
 
 
 def facebook

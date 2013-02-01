@@ -87,4 +87,13 @@ Devise.setup do |config|
                       
   require "omniauth-google-oauth2"
   config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, { access_type: "offline", approval_prompt: "" }
+
+  require "omniauth-twitter"
+  config.omniauth :twitter,TWITTER_APP_ID, TWITTER_APP_SECRET
+
+  require "omniauth-meetup"
+  config.omniauth :meetup,MEETUP_APP_ID, MEETUP_APP_SECRET
+
+  require "omniauth-linkedin"
+  config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
 end

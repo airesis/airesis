@@ -156,6 +156,12 @@
 				<div style="padding-top: 15px;">
 					<%= link_to image_tag('accedi_google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
 				</div>
+                <div style="padding-top: 15px;">
+                    <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                </div>
+                <div style="padding-top: 15px;">
+                    <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                </div>
 				
                     <ul style="padding-left: 15px;">
                       <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>

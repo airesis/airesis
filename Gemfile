@@ -32,6 +32,8 @@ gem 'pg'
 
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+gem 'omniauth-meetup'
 
 #gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
 

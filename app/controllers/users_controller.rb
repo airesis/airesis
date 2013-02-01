@@ -105,9 +105,9 @@ class UsersController < ApplicationController
       
       if @user.update_attributes(params[:user]) 
         flash[:notice] = t(:user_updated)
-	if params[:user][:email] && @user.email != params[:user][:email]
-	  flash[:notice] += " Devi confermare il nuovo indirizzo email."
-	end
+        if params[:user][:email] && @user.email != params[:user][:email]
+          flash[:notice] += " Devi confermare il nuovo indirizzo email."
+        end
         format.js do
           render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

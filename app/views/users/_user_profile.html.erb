@@ -99,6 +99,9 @@
         $('#email_profile').click(function(){
             doModal($("#email_modal"));
         });
+        <%if params[:insert_email]%>
+        $('#email_profile').click();
+        <%end%>
 
         $('#password_profile').click(function(){
             doModal($("#password_modal"));

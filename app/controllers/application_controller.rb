@@ -196,18 +196,18 @@ class ApplicationController < ActionController::Base
   #redirect all'ultima pagina in cui ero
   def after_sign_in_path_for(resource)
     #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
-    if (session[:proposal_comment] && session[:proposal_id])
+    if session[:proposal_comment] && session[:proposal_id]
       @proposal = Proposal.find(session[:proposal_id])
       params[:proposal_comment] = session[:proposal_comment]
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       post_contribute rescue nil
-      return proposal_path(@proposal)
+      proposal_path(@proposal)
+    else
+      env = request.env
+      ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
+      ret
     end
-    env = request.env
-    ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
-    return ret
-    
   end
   
   #redirect alla pagina delle proposte
