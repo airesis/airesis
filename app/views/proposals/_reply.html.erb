@@ -16,7 +16,7 @@
              <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
                  <%=comment_nickname.nickname%>
             <%else%>
-                <%=current_user.fullname  %>
+                <%=current_user.fullname  %> <%if (comment_nickname && @proposal.is_anonima?)%>(<%=comment_nickname.nickname  %>)<%end%>
             <%end%>
    		</div>
    		</div>
