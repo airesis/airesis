@@ -1,5 +1,6 @@
 <h3>Profilo di <%= @user.fullname%> <%='(utente non confermato)' unless @user.confirmed?%></h3>
 <table style="width:100%">
+
     <tr>
         <td>
             <div class="user_profile shadow-box">
@@ -19,7 +20,7 @@
 	                <div id="email_profile" class="profile_element">
 	                    <h2 class="label_profile">Email: </h2>
 	                    <div class="info_profile">
-	                        <%=h @user.email %>
+	                        <%= @user.email %> <%=raw "<span style=\"color:#888\">(#{@user.unconfirmed_email} da confermare)</span>" if @user.unconfirmed_email%>
 	                    </div>
 	                </div>
 	                 <div id="password_profile" class="profile_element">
@@ -96,12 +97,7 @@
         });
         
         $('#email_profile').click(function(){
-        <%if !current_user.has_provider(Authentication::FACEBOOK)%>
-        	alert('Non è ancora possibile modificare l\'indirizzo email');
-            //doModal($("#email_modal"));
-        <%else%>
-        	alert('Il tuo account è collegato ad un account facebook. Non puoi modificare l\'indirizzo email');
-        <%end%>
+            doModal($("#email_modal"));
         });
 
         $('#password_profile').click(function(){

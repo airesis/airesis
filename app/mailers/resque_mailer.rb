@@ -1,11 +1,12 @@
 class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
-  default from: "info@airesis.it"
-  
+  default from: "Airesis <info@airesis.it>"
+
+  layout 'resque_mailer/notification'
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
-    mail(:to => @alert.user.email, :subject => APP_SHORT_NAME + " - Notifica")
+    mail(:to => @alert.user.email, :subject => @alert.notification.notification_type.email_subject)
   end
   
   def admin_message(msg)

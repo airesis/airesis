@@ -29,7 +29,7 @@ titles = []%>
 	percentagetime = minimum.to_f/proposal.quorum.minutes.to_f
 	percentagetime *= 100
 	percentages << percentagetime
-	titles << "entro il " + proposal.quorum.ends_at.strftime("%d/%m/%Y %H:%M")%>
+	titles << "deve rimanere in dibattito fino al " + proposal.quorum.ends_at.strftime("%d/%m/%Y alle %H:%M")%>
 <%end%>
 
 <%if proposal.quorum.or?%>
@@ -39,6 +39,6 @@ titles = []%>
 	<%percentage=percentages.min%>
 	<%title = titles.join(" e ")%>
 <%end%>
-<span class="progressBar" id="pb<%=proposal.id%>" title="<%=title%>">
+<span class="progressBar" id="pb<%=proposal.id%>" >
 	<%=percentage%>
 </span>		

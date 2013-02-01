@@ -1,28 +1,45 @@
 /** CTooltip
-* Version 0.1
-* www.airesis.it
-* Lincensed under GPL 
-* @author Rodi Alessandro
-*/
-(function($) {
-	  
- $.fn.extend({
-		      
- ctooltip: function( options ) {
-	       
-  // # Definisco le impostazioni base
-  var defaults = {
-   content: "Tooltip",
-   image: "<%=asset_path 'callout.gif' %>"
-  };
-	
-  options = typeof options == "string" ? {content : options} : options	            
-  // # Utilizzo la funzione $.extend per "mergiare" gli oggetti
-  options = $.extend( defaults, options );
-  $(this).wrap('<span class="tooltip" />');
-  $(this).after('<span class="innerc"><img src="'+options.image + '" class="callout"></img>'+options.content+'</span>');	
- }  
-  
- });
-		    
-}) ( jQuery );
+ * Version 0.1
+ * www.airesis.it
+ * Lincensed under GPL
+ * @author Rodi Alessandro
+ */
+(function ($) {
+    $.fn.extend({
+        ctooltip:function (options) {
+
+            // # Definisco le impostazioni base
+            var defaults = {
+                content:"Tooltip",
+                image:"<%=asset_path 'callout.gif' %>",
+                position:"right"
+            };
+
+            options = typeof options == "string" ? {content:options} : options
+            // # Utilizzo la funzione $.extend per "mergiare" gli oggetti
+            options = $.extend(defaults, options);
+
+            var css_class;
+            if (options.position == "left") {
+                css_class = "_sx";
+                options.image = "<%=asset_path 'callout_sx.gif' %>";
+            }
+            else if (options.position == "bottom") {
+                css_class = "_bt";
+                options.image = "<%=asset_path 'callout_bt.gif' %>";
+            }
+            else if (options.position == "top") {
+                css_class = "_tp";
+                options.image = "<%=asset_path 'callout_tp.gif' %>";
+            }
+            else {
+                css_class = "";
+            }
+
+            $(this).wrap('<span class="tooltip' + css_class + '" />');
+            $(this).after('<span class="innerc"><img src="' + options.image + '" class="callout' + css_class + '"></img>' + options.content + '</span>');
+        }
+
+    });
+
+})(jQuery);

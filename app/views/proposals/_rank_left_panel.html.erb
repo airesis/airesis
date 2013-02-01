@@ -19,37 +19,55 @@
 			num = id.replace('votedown','');
 			hideRankPanel2($('.handscontainer'));
 		});
-	});		
+        $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)");
+        $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)");
+        $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
+        $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
+	});
 </script>
 <p class="points">
-    <span class="littleText">Score</span> <span class="rightAlign"><%=@proposal.valutations %></span>
+    <span class="littleText" id="valutazioni">Valutazioni </span>  <span class="rightAlign"><%=@proposal.valutations %></span>
 </p>
 <p class="ranking">
-    <span class="littleText">Rank</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
+    <span class="littleText" id="gradimento">Gradimento</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
 </p>
 <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
 		
-<%if (!current_user || (can? :partecipate, @proposal)) %>
-		<div class="handscontainer">	
+<%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+	<div class="handscontainer">
 	<%if @my_vote%>
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
 			 <%elsif @can_vote_again == 1%>
-			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
+			 	<span id="voteup"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %></span>
 			<%end%>
 			<% if @my_vote == 3 %>
 				<div class="voteddown"></div>
 			<% elsif @can_vote_again == 1%>
-				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
+				<span id="votedown"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %></span>
 			<%end%>		
 	<%elsif @can_vote_again == 1%>
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
 			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
 	<%end %>
-		</div>
-		<div style="clear: both;"></div>
+	</div>
+	<div style="clear: both;"></div>
 <%end %>
 
-Categoria: <%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
-Stato: <%= link_to @proposal.state.description%><br />
-<%= 'Anonimato temporaneo attivo' if @proposal.is_anonima?%>
+<h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description%></h2>
+<%= 'Anonimato temporaneo attivo' if @proposal.is_anonima?%><br/>
+<span class="title_grey">Creata il:</span><br/><span class="blogPostDate"><%=l @proposal.created_at, :format => "%d %b %Y alle %H:%M" %></span> <br/>
+<%if @proposal.updated_at != @proposal.created_at%>
+  <span class="title_grey">Ultima modifica del</span><br/><%=l @proposal.updated_at, :format =>"%d %b %Y alle %H:%M" %>
+   <%if signed_in?%>
+     <div style="margin: 5px;"><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
+   <%end%>
+<%end%>
+<%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
+  <span class="title_grey">In votazione</span><br/>
+  <%='dal ' + (l @proposal.vote_period.starttime, :format => "%d %b %Y alle %H:%M") + '<br/> al ' + (l @proposal.vote_period.endtime, :format => "%d %b %Y alle %H:%M") %>
+<%elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
+  <span class="title_grey">In votazione ora!</span><br/>
+  <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+<%end%>
+

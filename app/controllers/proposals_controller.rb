@@ -86,22 +86,28 @@ class ProposalsController < ApplicationController
   end
    
   def show
-    @step = get_next_step(current_user) if current_user
-    if @proposal.private && @group
-      if !current_user
-        #flash[:error] = "Devi eseguire l'autenticazione per visualizzare le proposte di questo gruppo"
-        authenticate_user!
-      elsif !(can? :view_proposal, @group)
-        respond_to do |format|
-          flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"
-          format.html {
-            redirect_to group_proposals_path(@group)
-          }
+    @step = get_next_step(current_user) if current_user    
+    if (@proposal.private && @group) #la proposta è interna ad un gruppo
+      if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
+	if !current_user
+	  flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+	elsif !(can? :partecipate_proposal, @group)    
+          flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
         end
-      end
-    else        
-      if (@proposal.private && @group && !(can? :partecipate_proposal, @group))       
-        flash[:error] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+      else #se è bloccata alla visione di utenti esterni
+        if !current_user #se l'utente non è loggato richiedi l'autenticazione
+          authenticate_user!
+        elsif !(can? :view_proposal, @group) #se è loggato ma non ha i permessi caccialo fuori
+          respond_to do |format|
+            flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"
+            format.html {
+              redirect_to group_proposals_path(@group)
+            }
+          end
+        end
+        unless can? :partecipate_proposal, @group    
+          flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+        end
       end
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
@@ -136,10 +142,12 @@ class ProposalsController < ApplicationController
       @proposal.private = true
       @proposal.presentation_groups << @group
       @proposal.anonima = @group.default_anonima  
+      @proposal.visible_outside = @group.default_visible_outside
       @change_advanced_options = @group.change_advanced_options
     else
       @proposal.quorum_id = Quorum::STANDARD
       @proposal.anonima = DEFAULT_ANONIMA
+      @proposal.visible_outside = true
       @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
     end
     
@@ -185,8 +193,10 @@ class ProposalsController < ApplicationController
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group
           @proposal.anonima = @group.default_anonima unless (@group.change_advanced_options)  
+          @proposal.visible_outside = @group.default_visible_outside unless (@group.change_advanced_options)  
         else
           @proposal.anonima = DEFAULT_ANONIMA          
+          @proposal.visible_outside = true
         end
         @proposal.quorum_id = copy.id
         
@@ -379,7 +389,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def available_author
     @proposal.available_user_authors << current_user
     @proposal.save
-    generate_nickname(current_user,@proposal)   #geenra un nickname per l'utente per questa proposta
     flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
     respond_to do |format|
       format.js { render :update do |page|
@@ -479,6 +488,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       #se l'utente è connesso e dispone dei permessi per visualizzare le proposte interne mostragliele, altrimenti mostragli un emssaggio che lo avverte
       #che non dispone dei permessi per visualizzare quelle interne
       conditions += " and ((proposal_supports.group_id = " + @group.id.to_s + " and proposals.private = 'f')"
+      conditions += "      or (group_proposals.group_id = " + @group.id.to_s + " and proposals.visible_outside = 't')"
       if can? :view_proposal, @group
         conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
       end

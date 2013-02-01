@@ -13,9 +13,9 @@ class HomeController < ApplicationController
   
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :only => [:show]
-  
+
   def index
-    if (current_user)
+    if current_user
       redirect_to home_url
     else
       @notriangle = true

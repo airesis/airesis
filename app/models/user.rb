@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :blog_comments, :class_name => 'BlogComment'
   has_many :blog_posts, :class_name => 'BlogPost'
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
+  has_many :blocked_emails, :class_name => 'BlockedEmail'
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   
   has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
@@ -162,13 +163,6 @@ class User < ActiveRecord::Base
   
   def login=(value)
     write_attribute :login, (value ? value.downcase : nil)
-  end
-  
-  def email=(value)
-    if !self.email
-   # if false #al momento non è consentito cambiare l'email
-      write_attribute :email, (value ? value.downcase : nil)
-    end
   end
   
   #determina se un oggetto appartiene all'utente verificando che 
