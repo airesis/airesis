@@ -7,6 +7,15 @@ GIT
       rails (~> 3.1)
 
 GIT
+  remote: https://github.com/coorasse/maktoub.git
+  revision: e04cb1594b90cf4c2d66d2f1902f626fa4f529fc
+  specs:
+    maktoub (0.2.5)
+      nokogiri
+      premailer
+      rails (>= 3.1.1)
+
+GIT
   remote: https://github.com/coorasse/vote-schulze.git
   revision: 0f47cbbe6c1e0020369fb6071a1a73bf93bbf7f7
   specs:
@@ -42,6 +51,7 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.2)
     arel (3.0.2)
     attr_required (0.0.5)
     bcrypt-ruby (3.0.1)
@@ -60,11 +70,14 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    devise (2.1.2)
+    css_parser (1.2.6)
+      addressable
+      rdoc
+    devise (2.0.4)
       bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
+      orm_adapter (~> 0.0.3)
       railties (~> 3.1)
-      warden (~> 1.2.1)
+      warden (~> 1.1.1)
     email_preview (1.5.2)
       rails (>= 3.0)
     erubis (2.7.0)
@@ -83,6 +96,7 @@ GEM
       activerecord (>= 3.0.0)
     hashie (1.2.0)
     hike (1.2.1)
+    htmlentities (4.3.1)
     httpauth (0.2.0)
     httpclient (2.3.2)
     i18n (0.6.1)
@@ -102,6 +116,7 @@ GEM
     multi_json (1.5.0)
     multipart-post (1.1.5)
     nickname_generator (0.0.1)
+    nokogiri (1.5.6)
     oauth2 (0.8.0)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -119,7 +134,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    orm_adapter (0.4.0)
+    orm_adapter (0.0.7)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -129,6 +144,9 @@ GEM
     pg (0.14.1)
     plist (3.1.0)
     polyglot (0.3.3)
+    premailer (1.7.3)
+      css_parser (>= 1.1.9)
+      htmlentities (>= 4.0.0)
     quiet_assets (1.0.1)
       railties (~> 3.1)
     rack (1.4.3)
@@ -216,7 +234,7 @@ GEM
       textpow1x (>= 0.11.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    warden (1.2.1)
+    warden (1.1.1)
       rack (>= 1.0)
     will_paginate (3.0.3)
 
@@ -229,13 +247,14 @@ DEPENDENCIES
   cancan
   client_side_validations (= 3.1.4)
   coffee-rails (~> 3.2.1)
-  devise
+  devise (= 2.0.4)
   email_preview
   exception_notification (= 2.6.1)
   fb_graph
   foreigner
-  jquery-rails
+  jquery-rails (= 2.1.4)
   jquery-rjs!
+  maktoub!
   nickname_generator
   omniauth-facebook
   omniauth-google-oauth2

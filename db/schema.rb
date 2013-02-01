@@ -11,38 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121222170515) do
-
-  create_table "_pgmdd_backup_blog_posts_2011-17-07_11:50", :id => false, :force => true do |t|
-    t.integer  "id"
-    t.integer  "blog_id"
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "published"
-    t.datetime "published_at"
-  end
-
-  create_table "_pgmdd_backup_blogs_2011-11-07_00:11", :id => false, :force => true do |t|
-    t.integer "id",      :limit => 8
-    t.integer "user_id", :limit => 8
-  end
-
-  create_table "_pgmdd_backup_blogs_2011-17-07_11:26", :id => false, :force => true do |t|
-    t.integer "id"
-    t.integer "user_id"
-  end
-
-  create_table "_pgmdd_backup_circoscriziones_2011-11-07_00:11", :id => false, :force => true do |t|
-    t.integer "id",        :limit => 8
-    t.integer "comune_id", :limit => 8
-  end
-
-  create_table "_pgmdd_backup_comunes_2011-11-07_00:11", :id => false, :force => true do |t|
-    t.integer "id",           :limit => 8
-    t.integer "provincia_id", :limit => 8
-  end
+ActiveRecord::Schema.define(:version => 20130128215545) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -71,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
   create_table "blocked_alerts", :force => true do |t|
     t.integer "notification_type_id"
     t.integer "user_id"
+  end
+
+  create_table "blocked_emails", :force => true do |t|
+    t.integer  "notification_type_id"
+    t.integer  "user_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "blog_comments", :force => true do |t|
@@ -365,6 +341,7 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
   create_table "notification_types", :force => true do |t|
     t.string  "description",              :null => false
     t.integer "notification_category_id", :null => false
+    t.string  "email_subject"
   end
 
   create_table "notifications", :force => true do |t|
@@ -373,6 +350,12 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
     t.integer  "notification_type_id",                 :null => false
     t.string   "message",              :limit => 1000
     t.string   "url"
+  end
+
+  create_table "paragraphs", :force => true do |t|
+    t.integer "section_id",                  :null => false
+    t.string  "content",    :limit => 40000
+    t.integer "seq",                         :null => false
   end
 
   create_table "partecipation_roles", :force => true do |t|
@@ -445,6 +428,7 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
     t.string   "content",                    :limit => 2000
     t.integer  "rank",                                       :default => 0,     :null => false
     t.integer  "valutations",                                :default => 0,     :null => false
+    t.integer  "paragraph_id"
   end
 
   create_table "proposal_histories", :force => true do |t|
@@ -489,6 +473,13 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
   end
 
   add_index "proposal_rankings", ["proposal_id", "user_id"], :name => "proposal_user", :unique => true
+
+  create_table "proposal_sections", :force => true do |t|
+    t.integer "proposal_id", :null => false
+    t.integer "section_id",  :null => false
+  end
+
+  add_index "proposal_sections", ["section_id"], :name => "index_proposal_sections_on_section_id", :unique => true
 
   create_table "proposal_states", :force => true do |t|
     t.string "description", :limit => 200
@@ -629,6 +620,11 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
 
   add_index "schulze_votes", ["election_id", "preferences"], :name => "index_schulze_votes_on_election_id_and_preferences", :unique => true
 
+  create_table "sections", :force => true do |t|
+    t.string  "title", :limit => 100, :null => false
+    t.integer "seq",                  :null => false
+  end
+
   create_table "simple_votes", :force => true do |t|
     t.integer  "candidate_id",                :null => false
     t.integer  "count",        :default => 0, :null => false
@@ -637,6 +633,18 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
   end
 
   add_index "simple_votes", ["candidate_id"], :name => "index_simple_votes_on_candidate_id", :unique => true
+
+  create_table "solution_sections", :force => true do |t|
+    t.integer "solution_id", :null => false
+    t.integer "section_id",  :null => false
+  end
+
+  add_index "solution_sections", ["section_id"], :name => "index_solution_sections_on_section_id", :unique => true
+
+  create_table "solutions", :force => true do |t|
+    t.integer "proposal_id", :null => false
+    t.integer "seq",         :null => false
+  end
 
   create_table "spatial_ref_sys", :id => false, :force => true do |t|
     t.integer "srid",                      :null => false
@@ -791,6 +799,7 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
     t.datetime "reset_password_sent_at"
     t.string   "facebook_page_url"
     t.string   "linkedin_page_url"
+    t.boolean  "blocked",                                   :default => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
@@ -824,8 +833,15 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
 
   add_foreign_key "notification_data", "notifications", :name => "notification_data_notification_id_fk"
 
+  add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
+
+  add_foreign_key "proposal_comments", "paragraphs", :name => "proposal_comments_paragraph_id_fk"
+
   add_foreign_key "proposal_nicknames", "proposals", :name => "proposal_nicknames_proposal_id_fk"
   add_foreign_key "proposal_nicknames", "users", :name => "proposal_nicknames_user_id_fk"
+
+  add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
+  add_foreign_key "proposal_sections", "sections", :name => "proposal_sections_section_id_fk"
 
   add_foreign_key "proposal_tags", "proposals", :name => "proposal_tags_proposal_id_fk"
   add_foreign_key "proposal_tags", "tags", :name => "proposal_tags_tag_id_fk"
@@ -837,6 +853,11 @@ ActiveRecord::Schema.define(:version => 20121222170515) do
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
 
   add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
+
+  add_foreign_key "solution_sections", "sections", :name => "solution_sections_section_id_fk"
+  add_foreign_key "solution_sections", "solutions", :name => "solution_sections_solution_id_fk"
+
+  add_foreign_key "solutions", "proposals", :name => "solutions_proposal_id_fk"
 
   add_foreign_key "statos", "continentes", :name => "statos_continente_id_fk"
 
