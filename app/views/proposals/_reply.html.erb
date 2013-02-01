@@ -12,7 +12,12 @@
 		  truncate(text, :length => 15)
 		end%>
    		<div class="baloon-footer">
-   		Inserito il <span class="blogPostDate"><%= reply.created_at.strftime("%d/%m/%Y %H:%M") %> da <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%><%=comment_nickname.nickname%><%else%><%=current_user.fullname%><%end%></span>
+   		Inserito il <span class="blogPostDate"><%= reply.created_at.strftime("%d/%m/%Y %H:%M") %> da
+             <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
+                 <%=comment_nickname.nickname%>
+            <%else%>
+                <%=current_user.fullname  %>
+            <%end%>
    		</div>
    		</div>
    		<div style="clear: both;"></div>
