@@ -36,6 +36,7 @@ DemocracyOnline3::Application.routes.draw do
   resources :notifications do
     collection do  
       post :change_notification_block
+      post :change_email_notification_block
     end
   end
  
