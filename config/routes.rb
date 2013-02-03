@@ -30,6 +30,9 @@ DemocracyOnline3::Application.routes.draw do
       get :border_preferences #preferenze confini di interesse utente
       post :set_interest_borders #cambia i confini di interesse
       post :join_accounts
+      get :privacy_preferences
+      post :change_show_tooltips
+      post :change_show_urls
     end
   end                                      
   

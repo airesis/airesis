@@ -79,14 +79,6 @@
 		<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
 	</p>
   <%elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito%>
-      <script>
-          $(function() {
-              $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if proposal.quorum.minutes%>fino al <b><%= (proposal.created_at+proposal.quorum.minutes*60).strftime("%d/%m/%Y") %></b> <%= (proposal.created_at+proposal.quorum.minutes*60).strftime(" alle %H:%M") %> <b><%if proposal.quorum.or?%>oppure<%else%>e<%end%></b><%end%> finché non sarà valutata da <b>almeno <%=proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
-          });
-
-
-      </script>
-
       Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>.
 <br/> Per accedere alla votazione dovrà raggiungere un <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
   <%elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione%>

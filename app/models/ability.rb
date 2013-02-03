@@ -56,7 +56,9 @@ class Ability
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end
-
+       can :show_tooltips, User do |fake|
+         user.show_tooltips
+       end
 
      end
 

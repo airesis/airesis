@@ -30,25 +30,36 @@
 	                    </div>
 	                </div>
                 <%end%>
-                  <div id="facebook_profile" class="profile_element">
+
+                <%if @user.show_urls%>
+                  <div id="facebook_profile" class="profile_element_no_click">
                     <h2 class="label_profile">URL Facebook: </h2>
                     <div class="info_profile">
-                      <%=h @user.facebook_page_url %>
+                      <%= @user.facebook_page_url ? (link_to @user.facebook_page_url, @user.facebook_page_url, :target => "_blank") : ''%>
                     </div>
                   </div>
-                  <div id="linkedin_profile" class="profile_element">
+                  <div id="google_profile" class="profile_element_no_click">
+                    <h2 class="label_profile">URL Google+: </h2>
+                    <div class="info_profile">
+                      <%= @user.google_page_url ? (link_to @user.google_page_url, @user.google_page_url, :target => "_blank", :rel => 'author') : ''%>
+                    </div>
+                  </div>
+                  <div id="linkedin_profile" class="profile_element_no_click">
                     <h2 class="label_profile">URL Linkedin: </h2>
                     <div class="info_profile">
-                      <%=h @user.linkedin_page_url %>
+                      <%= @user.linkedin_page_url ? (link_to @user.linkedin_page_url, @user.linkedin_page_url, :target => "_blank") : ''%>
                     </div>
                   </div>
-                  <div id="username_profile" class="profile_element">
-                    <h2 class="label_profile">Username: </h2>
-                    <div class="info_profile">
-                      <%=h @user.login %>
+                <%end%>
+                  <%if @user.login%>
+                    <div id="username_profile" class="profile_element_no_click">
+                      <h2 class="label_profile">Username: </h2>
+                      <div class="info_profile">
+                        <%=h @user.login %>
+                      </div>
                     </div>
-                  </div>
-                  <div id="confirmed_at_profile" class="profile_element">
+                  <%end%>
+                  <div id="confirmed_at_profile" class="profile_element_no_click">
                     <h2 class="label_profile">Registrato dal: </h2>
                     <div class="info_profile">
 		      <%=h (@user.confirmed? ? @user.confirmed_at : @user.created_at).strftime("%d/%m/%Y") %>
@@ -62,73 +73,79 @@
     </tr>
 </table>
 <%if current_user == @user %>
-<div id="img_modal" class="edit_modal">
-    <form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
-        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
-        <div style="padding-left:150px">
-            <input name="user[blog_image_url]" />
-            <br/>
-        </div>
-		oppure
-        <div style="float:left">
-            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
+    <div id="img_modal" class="edit_modal">
+        <form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
+            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
             <div style="padding-left:150px">
-                <input type="file" name="image" />
+                <input name="user[blog_image_url]" />
                 <br/>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
-                <div style="margin-top:8px">
-                    <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+            oppure
+            <div style="float:left">
+                <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
+                <div style="padding-left:150px">
+                    <input type="file" name="image" />
+                    <br/>
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
+                    <div style="margin-top:8px">
+                        <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-<script>
-    
-    $(function(){
-        $.modal.close();
-        
-        $('#name_profile').click(function(){
-            doModal($("#name_modal"));
-        });
-        
-        $('#surname_profile').click(function(){
-            doModal($("#surname_modal"));
-        });
-        
-        $('#email_profile').click(function(){
-            doModal($("#email_modal"));
-        });
-        <%if params[:insert_email]%>
-        $('#email_profile').click();
-        <%end%>
+        </form>
+    </div>
+    <script>
 
-        $('#password_profile').click(function(){
-            doModal($("#password_modal"));
-        });
+        $(function(){
+            $.modal.close();
 
-        $('#facebook_profile').click(function(){
-            doModal($("#facebook_page_url_modal"));
-        });
+            $('#name_profile').click(function(){
+                doModal($("#name_modal"));
+            });
 
-        $('#linkedin_profile').click(function(){
-            doModal($("#linkedin_page_url_modal"));
-        });
+            $('#surname_profile').click(function(){
+                doModal($("#surname_modal"));
+            });
 
-        $('.image_container img, .caption').mouseover(function(){
-            $('.caption').show();
-        });
-        
-        $('.image_container img').mouseout(function(){
-            $('.caption').hide();
-        });
-        
-        $('.image_container div a').click(function(){
-            doModal($("#img_modal"));
-        });
-        
-        $('.profile_element').css('cursor','pointer');
+            $('#email_profile').click(function(){
+                doModal($("#email_modal"));
+            });
+            <%if params[:insert_email]%>
+            $('#email_profile').click();
+            <%end%>
 
-    });
-</script>
+            $('#password_profile').click(function(){
+                doModal($("#password_modal"));
+            });
+
+          /*  $('#facebook_profile').click(function(){
+                doModal($("#facebook_page_url_modal"));
+            });
+
+            $('#google_profile').click(function(){
+                doModal($("#google_page_url_modal"));
+            });
+
+            $('#linkedin_profile').click(function(){
+                doModal($("#linkedin_page_url_modal"));
+            });*/
+
+            $('.image_container img, .caption').mouseover(function(){
+                $('.caption').show();
+            });
+
+            $('.image_container img').mouseout(function(){
+                $('.caption').hide();
+            });
+
+            $('.image_container div a').click(function(){
+                doModal($("#img_modal"));
+            });
+
+            $('.profile_element').css('cursor','pointer');
+
+            $('.profile_element').hover(function(){$(this).toggleClass('profile_element_hover');});
+
+        });
+    </script>
 <%end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128215545) do
+ActiveRecord::Schema.define(:version => 20130203164726) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -281,7 +281,7 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
   create_table "groups", :force => true do |t|
     t.string   "name",                    :limit => 200
     t.string   "description",             :limit => 2000
-    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
+    t.string   "accept_requests",         :limit => 1,    :default => "v",   :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
@@ -290,8 +290,9 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                 :default => true, :null => false
-    t.boolean  "default_anonima",                         :default => true, :null => false
+    t.boolean  "change_advanced_options",                 :default => true,  :null => false
+    t.boolean  "default_anonima",                         :default => true,  :null => false
+    t.boolean  "default_visible_outside",                 :default => false, :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -536,6 +537,7 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.boolean  "private",                                  :default => false, :null => false
     t.integer  "quorum_id",                                                   :null => false
     t.boolean  "anonima",                                  :default => true,  :null => false
+    t.boolean  "visible_outside",                          :default => false, :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -800,6 +802,10 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.string   "facebook_page_url"
     t.string   "linkedin_page_url"
     t.boolean  "blocked",                                   :default => false
+    t.string   "unconfirmed_email",         :limit => 100
+    t.string   "google_page_url"
+    t.boolean  "show_tooltips",                             :default => true
+    t.boolean  "show_urls",                                 :default => true
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

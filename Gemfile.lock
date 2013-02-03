@@ -132,6 +132,8 @@ GEM
     omniauth-google-oauth2 (0.1.13)
       omniauth (~> 1.0)
       omniauth-oauth2
+    omniauth-linkedin (0.0.8)
+      omniauth-oauth (~> 1.0)
     omniauth-meetup (0.0.6)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
@@ -141,6 +143,9 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    omniauth-openid (1.0.1)
+      omniauth (~> 1.0)
+      rack-openid (~> 1.3.1)
     omniauth-twitter (0.0.14)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
@@ -169,6 +174,9 @@ GEM
       i18n
       multi_json (>= 1.3.6)
       rack (>= 1.1)
+    rack-openid (1.3.1)
+      rack (>= 1.1.0)
+      ruby-openid (>= 2.1.8)
     rack-protection (1.3.2)
       rack
     rack-ssl (1.3.2)
@@ -209,6 +217,7 @@ GEM
       rufus-scheduler
     resque_mailer (2.2.1)
       actionmailer (~> 3.0)
+    ruby-openid (2.2.2)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
     sass (3.2.5)
@@ -268,7 +277,9 @@ DEPENDENCIES
   nickname_generator
   omniauth-facebook
   omniauth-google-oauth2
+  omniauth-linkedin
   omniauth-meetup
+  omniauth-openid
   omniauth-twitter
   paperclip
   pg

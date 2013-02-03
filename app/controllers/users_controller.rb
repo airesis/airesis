@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :edit]
-  
+
   def blank
     render :text => "Not Found", :status => 404
   end
@@ -20,14 +20,20 @@ class UsersController < ApplicationController
   
   #unisce due account
   def join_accounts
-    data =  session["devise.google_data"] || session["devise.facebook_data"] #prendi i dati di facebook dalla sessione
-    if (params[:user][:email] && (data["extra"]["raw_info"]["email"] != params[:user][:email])) #se per caso viene passato un indirizzo email differente
+    data =  session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]#prendi i dati di facebook dalla sessione
+    email = ""
+    if data["provider"] == Authentication::LINKEDIN
+      email = data["extra"]["raw_info"]["emailAddress"]
+    else
+      email = data["extra"]["raw_info"]["email"]
+    end
+    if params[:user][:email] && (email != params[:user][:email]) #se per caso viene passato un indirizzo email differente
       flash[:error] = 'Dai va là!'
       redirect_to confirm_credentials_users_url
     else
-      auth = User.find_by_email_and_login(data["extra"]["raw_info"]["email"],params[:user][:login]) #trova l'utente del portale con username e password indicati
-      if ( auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
-        #imposta l'account come 'facebook'
+      auth = User.find_by_email(email) #trova l'utente del portale con email e password indicati
+      if (auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
+        #aggiungi il provider
         User.transaction do
           auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token =>(data['credentials']['token'] rescue nil))
           auth.save
@@ -36,12 +42,12 @@ class UsersController < ApplicationController
         flash[:info] = 'Account uniti correttamente!'
         sign_in_and_redirect auth, :event => :authentication
       else
-        flash[:error] = 'Username, Email o password errati o inesistenti'
+        flash[:error] = 'Password errata'
         redirect_to confirm_credentials_users_url        
       end
     end
   rescue Exception => e
-    flash[:error] = 'Errore durante l''unione dei due account. L''operazione non è possibile al momento.'
+    flash[:error] = "Errore durante lunione dei due account. L'operazione non è possibile al momento."
     redirect_to confirm_credentials_users_url
   end
   
@@ -76,6 +82,63 @@ class UsersController < ApplicationController
   
   def border_preferences
     @user = current_user
+  end
+
+  def privacy_preferences
+    @user = current_user
+  end
+
+
+  def change_show_tooltips
+    current_user.show_tooltips = params[:active]
+    current_user.save
+    if params[:active] == 'true'
+      flash[:notice] = "Tooltip abilitati"
+    else
+      flash[:notice] = "Tooltip disabilitati"
+    end
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+    rescue Exception => e
+    respond_to do |format|
+      flash[:error] = 'Errore nella modifica delle opzioni.'
+      format.js {  render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
+  def change_show_urls
+    current_user.show_urls = params[:active]
+    current_user.save
+    if params[:active] == 'true'
+      flash[:notice] = "URL mostrati"
+    else
+      flash[:notice] = "URL nascosti"
+    end
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = 'Errore nella modifica delle opzioni.'
+      format.js {  render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
   end
   
   #aggiorni i confini di interesse dell'utente
