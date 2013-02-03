@@ -132,7 +132,7 @@ class BlogPostsController < ApplicationController
     flash[:notice] = 'Il tuo post è stato cancellato correttamente.'
     
     respond_to do |format|
-      format.html { redirect_to(blog_url(@blog)) }
+      format.html { redirect_to :back || @blog }
       format.xml  { head :ok }
     end
   end
