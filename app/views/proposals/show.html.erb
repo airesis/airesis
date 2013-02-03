@@ -59,163 +59,127 @@ function drawIntro(svg) {
 	<span>Commenti precedenti...</span>
 </div>
 
-<script>
-
-	function hide_vote_controls() {
-	//nascondi i pulsanti di valutazione quando vengono cliccati
-		$('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
-			id = $(this).attr('id');
-			num = id.replace('voteup-mini','');
-			hideRankPanel('rankingpanelcontainer'+num);
-		});
-		
-		$('.votenil-mini').bind('ajax:beforeSend',function(n,xhr) {
-			id = $(this).attr('id');
-			num = id.replace('votenil-mini','');
-			hideRankPanel('rankingpanelcontainer'+num);
-		});
-		
-		$('.votedown-mini').bind('ajax:beforeSend',function(n,xhr) {
-			id = $(this).attr('id');
-			num = id.replace('votedown-mini','');
-			hideRankPanel('rankingpanelcontainer'+num);
-		});
-				
-	};
-</script>
 
 <script type="text/javascript">
-	var retval = false;
-	var clicked;
-	function hiding(event,id) {
-		if (!retval) {
-			clicked = $('#delete'+id);
-			console.log(clicked);
-			if (confirm('Sei sicuro di voler cancellare questo commento?')) {			
-				$('#comment'+id).hide(600,function() {
-					retval = true;
-					clicked.click();
-				});
-				event.stopPropagation();
-				return false;
-			}
-			event.stopPropagation();
-			return false;
-		}
-		else {
-			retval = false;
-			return true;
-		}
-		
-	}
-	
-	function createAnswerBox() {
-		return $("<div>").append("<textarea>").addClass("proposal_comment");
-	}
-	
-	function openAnswer(el) {
-		if (!$(el).data('opened')) {
-			console.log("not open");
-			$(el).data('opened',true);
-			$(el).answerPanel = createAnswerBox(); 
-			$(el).parent().parent().parent().parent().append($(el).answerPanel);
-		}
-		else {
-			$(el).data('opened',false);
-			$(el).answerPanel.hide();
-		}
-		
-	}
-	
-	$(function() {
-		$('.reply_textarea').watermark('Inserisci un suggerimento').elastic();
-	})
-</script>
+    var retval = false;
+    var clicked;
+
+    function hiding(event,id) {
+        if (!retval) {
+            clicked = $('#delete'+id);
+            console.log(clicked);
+            if (confirm('Sei sicuro di voler cancellare questo contributo?')) {
+                $('#comment'+id).hide(600,function() {
+                    retval = true;
+                    clicked.click();
+                });
+                event.stopPropagation();
+                return false;
+            }
+            event.stopPropagation();
+            return false;
+        }
+        else {
+            retval = false;
+            return true;
+        }
+
+    }
 
 
-<script type="text/javascript">
-	var retval = false;
-	var clicked;
-	
-	//funzione per la cancellazione di un commento dalla lista
-	function hiding(event,id) {
-		if (!retval) {
-			clicked = $(this);
-			if (confirm('Sei sicuro di voler cancellare questo commento?')) {			
-				$('#comment'+id).hide(600,function() {
-					retval = true;
-					clicked.click();
-				});
-				event.stopPropagation();
-				return false;
-			}
-			event.stopPropagation();
-			return false;
-		}
-		else {
-			retval = false;
-			return true;
-		}
-		
-	}
-	
-	function showNicknamePanel() {
-		$('#nickname_panel').dialog();
-	}
-</script>
+    function hideAndDeleteReply(event,id) {
+        if (!retval) {
+            clicked = $('#delete'+id);
+            console.log(clicked);
+            if (confirm('Sei sicuro di voler cancellare questo suggerimento?')) {
+                $('#replys'+id).hide(600,function() {
+                    retval = true;
+                    clicked.click();
+                });
+                event.stopPropagation();
+                return false;
+            }
+            event.stopPropagation();
+            return false;
+        }
+        else {
+            retval = false;
+            return true;
+        }
 
-<script type="text/javascript">	
-var currentPage = 0;
-var currentView = <%=current_user ? 1 : 3 %>;
-var contributes = [];
-var checkActive = false;
+    }
 
-function resetCounter () {
-	currentPage = 0;
-}
+    function hide_vote_controls() {
+        //nascondi i pulsanti di valutazione quando vengono cliccati
+        $('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
+            id = $(this).attr('id');
+            num = id.replace('voteup-mini','');
+            hideRankPanel('rankingpanelcontainer'+num);
+        });
 
-function checkScroll() {
-  if (nearBottomOfPage() && checkActive) {
-    checkActive = false;
-    currentPage++;
-	$.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
-			 data: {page: currentPage,
-			 		view: currentView,
-			 		contributes: contributes
-			 },
-			 type:'post'});
-  } else {
-    setTimeout("checkScroll()", 250);
-  }
-}
+        $('.votenil-mini').bind('ajax:beforeSend',function(n,xhr) {
+            id = $(this).attr('id');
+            num = id.replace('votenil-mini','');
+            hideRankPanel('rankingpanelcontainer'+num);
+        });
 
-function nearBottomOfPage() {
-  return scrollDistanceFromBottom() < 150;
-}
+        $('.votedown-mini').bind('ajax:beforeSend',function(n,xhr) {
+            id = $(this).attr('id');
+            num = id.replace('votedown-mini','');
+            hideRankPanel('rankingpanelcontainer'+num);
+        });
 
-function scrollDistanceFromBottom(argument) {
-  return pageHeight() - (window.pageYOffset + self.innerHeight);
-}
+    };
 
-function pageHeight() {
-  return Math.max(document.body.scrollHeight, document.body.offsetHeight);
-}
+    var currentPage = 0;
+    var currentView = <%=current_user ? 1 : 3 %>;
+    var contributes = [];
+    var checkActive = false;
 
-$(function() {
-  currentPage++;
-  $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
-   		   data: {page: currentPage,
-			 	  view: currentView,
-			 	  contributes: contributes
-		   },
-  		   type:'post',
-  		   complete: function() {
-		  		   		$("#loading_contributes").hide();
-		  		     } 
-  });	
-});
-	
-	
+    function resetCounter () {
+        currentPage = 0;
+    }
+
+    function checkScroll() {
+      if (nearBottomOfPage() && checkActive) {
+        checkActive = false;
+        currentPage++;
+        $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
+                 data: {page: currentPage,
+                        view: currentView,
+                        contributes: contributes
+                 },
+                 type:'post'});
+      } else {
+        setTimeout("checkScroll()", 250);
+      }
+    }
+
+    function nearBottomOfPage() {
+      return scrollDistanceFromBottom() < 150;
+    }
+
+    function scrollDistanceFromBottom(argument) {
+      return pageHeight() - (window.pageYOffset + self.innerHeight);
+    }
+
+    function pageHeight() {
+      return Math.max(document.body.scrollHeight, document.body.offsetHeight);
+    }
+
+    $(function() {
+      currentPage++;
+      $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
+               data: {page: currentPage,
+                      view: currentView,
+                      contributes: contributes
+               },
+               type:'post',
+               complete: function() {
+                            $("#loading_contributes").hide();
+                         }
+      });
+    });
 </script>
 
 

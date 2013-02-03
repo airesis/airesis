@@ -56,12 +56,12 @@
             });
 
             $('#proposal_comment_content')
-                    .elastic()
                     .charCount({
 				allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
 				warning : 100,
 				counterText : 'Caratteri disponibili: '
 			});
+            $('#proposal_comment_content').elastic();
 		});
 		
   		$(document).ajaxError(function(e, XHR, options){

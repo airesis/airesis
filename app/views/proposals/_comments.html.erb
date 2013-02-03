@@ -5,7 +5,22 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
+
+
+    $(function() {
 		hide_vote_controls();
-	})
+
+
+        $('.proposalComment[data-collapsed=true]').show(600);
+
+        $('.deleteCommentLink').unbind('click');
+        $('.deleteCommentLink').bind('click',function(event) {
+            hiding(event,$(this).data('id'));
+        });
+
+        $('.deleteReplyLink').unbind('click');
+        $('.deleteReplyLink').bind('click',function(event) {
+            hideAndDeleteReply(event,$(this).data('id'));
+        });
+	});
 </script>

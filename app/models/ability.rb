@@ -56,7 +56,9 @@ class Ability
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end
-
+       can :destroy, ProposalComment do |comment|
+         (comment.user == user or comment.proposal.users.include? user) and ((Time.now - comment.created_at)/60) < 5
+       end
 
      end
 
