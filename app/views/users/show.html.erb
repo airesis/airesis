@@ -3,6 +3,27 @@
     <div id="user_profile_container">
 		<%= render :partial => 'user_profile' %>
     </div>
+
+
+    <%if @user == current_user && @user.group_partecipations.count > 0%>
+    <h4>Gruppi a cui partecipi</h4>
+    <table id="partecipation_table">
+      <thead>
+        <th>Gruppo</th>
+        <th>Ruolo</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <%@user.group_partecipations.each do |partecipation| %>
+            <tr>
+              <td><%= partecipation.group.name %></td>
+              <td><%= partecipation.partecipation_role.name %></td>
+              <td><%= link_to 'Esci dal gruppo', group_partecipation_path(partecipation), :method => :delete, :confirm => 'Confermi di voler uscire da questo gruppo?' %></td>
+            </tr>
+        <%end%>
+      </tbody>
+    </table>
+    <%end%>
    
     <%if current_user == @user %>
     <div id="name_modal" class="edit_modal  shadow-box">    	
@@ -71,6 +92,15 @@
 <script type="text/javascript">
 	$('#user_password').watermark('Nuova password');
 	$('#user_password_confirmation').watermark('Conferma nuova password');
+
+
+    $('#partecipation_table').dataTable( {
+        "bPaginate": false,
+        "bFilter": false,
+        "bSearchable":false,
+        "bInfo":false
+    });
+
 </script>
 
 <%content_for :left_panel do %>
