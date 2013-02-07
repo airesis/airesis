@@ -32,17 +32,19 @@
 		$('#loading_proposals<%=params[:state]%>').click(function() {
 			$(this).hide();
 			currentPage++;
-		    url = window.location;
-		  	cat = <%=params[:category] || 'null'%>;
-		  	view = <%=params[:view] || 'null'%>;
-		  	state = <%=params[:state] || 'null'%>;
-		  	nurl = '/proposals/endless_index?scroll=true'
+            var cat = <%=params[:category] || 'null'%>;
+            var view = <%=params[:view] || 'null'%>;
+            var state = <%=params[:state] || 'null'%>;
+            var group = <%=params[:group_id] || 'null'%>;
+            var nurl = '/proposals/endless_index?scroll=true'
 		    if (cat != null && cat != 'null')
 		    	nurl += '&category='+cat
 		    if (view != null && view != 'null')
 		    	nurl += '&view='+view
 		    if (state != null && state != 'null')
 		    	nurl += '&state='+state
+            if (group != null && group != 'null')
+                nurl += '&group_id='+group
 				$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
 		})		
 	})
