@@ -12,6 +12,13 @@
 <%if partecipants.length > 0 %>
 <p>
     <h4>Elenco partecipanti</h4>
+
+    <% if (can? :accept_requests, @group) %>
+        <%= link_to 'Invita i tuoi amici!', new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "inviteButton disableButton littleText" %>
+        <div id="new_invitation_container"></div>
+    <%end%>
+
+
     <% if user_signed_in? %>
     <p>
         <% partecipation_request = current_user.has_asked_for_partecipation?(@group.id)
