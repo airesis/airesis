@@ -23,10 +23,16 @@
 	        
 	        <div class="authors">
 	            <div class="title">Autori</div>
-	            <%proposal.users.each do |user|%>
-	                <%=user_tag_mini(user,proposal)%>
-	            <%end%>
-	            <div style="clear:both;"></div>
+                  <%if signed_in? && (proposal.users.include? current_user)%>
+                    <%proposal.users.each do |user| %>
+                      <%=user_tag_mini(user)%>
+                    <%end%>
+                  <%else%>
+                    <%proposal.users.each do |user| %>
+                      <%=user_tag_mini(user,proposal)%>
+                    <%end%>
+                  <%end%>
+	              <div style="clear:both;"></div>
 	        </div>
 	        <% unless proposal.groups.empty?%>
 	        <div class="groups">

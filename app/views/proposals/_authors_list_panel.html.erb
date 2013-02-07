@@ -1,4 +1,10 @@
-<%@proposal.users.each do |user| %>
-	<%=user_tag(user, @proposal)%> 		
+<%if signed_in? && (@proposal.users.include? current_user)%>
+    <%@proposal.users.each do |user| %>
+        <%=user_tag(user) %>
+    <%end%>
+<%else%>
+    <%@proposal.users.each do |user| %>
+        <%=user_tag(user,@proposal) %>
+    <%end%>
 <%end%>
 <div style="clear: both;"></div>

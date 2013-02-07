@@ -461,13 +461,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     
     conditions = "1 = 1"
     
-    if (params[:state] == VOTATION_STATE)
+    if params[:state] == VOTATION_STATE
       startlist = Proposal.in_votation   
       @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
-    elsif (params[:state] == ACCEPTED_STATE)
+    elsif params[:state] == ACCEPTED_STATE
       startlist = Proposal.accepted
       @replace_id = t("pages.proposals.index.accepted").gsub(' ','_')
-    elsif (params[:state] == REVISION_STATE)
+    elsif params[:state] == REVISION_STATE
       startlist = Proposal.revision
       @replace_id = t("pages.proposals.index.revision").gsub(' ','_')
     else
@@ -607,7 +607,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #sia l'autore della proposta il cui id è presente nei parametri
   def check_author
     if !is_proprietary? @proposal and !is_admin?
-      flash[:notice] = t(:error_proposal_not_your)
+      flash[:error] = t(:error_proposal_not_your)
       redirect_to proposals_path
     end
   end
