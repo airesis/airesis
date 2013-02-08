@@ -17,7 +17,7 @@
              <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
                  <%=comment_nickname.nickname%>
              <%else%>
-                 <%=current_user.fullname%>
+                 <%=reply.user.fullname%>
              <%end%></span>
              <% if can? :destroy, reply%>
                  <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => reply.id},

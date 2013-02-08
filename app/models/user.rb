@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   validates_format_of       :surname,     :with => AuthenticationModule.name_regex, :allow_nil => true
   validates_length_of       :surname,     :maximum => 50
   
-  validates_length_of       :email,    :within => 6..50 #r@a.wk
-  validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message
+  validates_length_of       :email,    :within => 6..50, :allow_nil => true #r@a.wk
+  validates_format_of       :email,    :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message, :allow_nil => true
   validates_uniqueness_of   :email
 
   validates_format_of       :blog_image_url, :with => AuthenticationModule.url_regex, :allow_nil => true
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of   :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
   
   #colonne assegnabili massivamente
-  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :email_alerts, :facebook_page_url, :linkedin_page_url
+  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :email_alerts, :facebook_page_url, :linkedin_page_url, :google_page_url
   
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
@@ -112,6 +112,10 @@ class User < ActiveRecord::Base
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 
 
+  def email_required?
+    super && !(has_provider('twitter') || has_provider('linkedin'))
+  end
+
   #dopo aver creato un nuovo utente glia ssegno il primo tutorial
   def assign_tutorials
     tutorial = Tutorial.find_by_name("Welcome Tutorial")
@@ -130,7 +134,7 @@ class User < ActiveRecord::Base
  #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
  #all'interno dei quali possiede un determinato permesso
  def scoped_group_partecipations(abilitation)
-   return self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
+   self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
                                    " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
                                    " and action_abilitations.group_id = group_partecipations.group_id")
                                    .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
@@ -138,9 +142,16 @@ class User < ActiveRecord::Base
 
  def self.new_with_session(params, session)
     super.tap do |user|
-      fdata = session["devise.google_data"] || session["devise.facebook_data"]
-      if fdata && data = fdata["extra"]["raw_info"]
+      fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
+      data = fdata["extra"]["raw_info"] if fdata
+      if data
         user.email = data["email"]
+        if fdata['provider'] == Authentication::LINKEDIN
+          user.linkedin_page_url = data['publicProfileUrl']
+          user.email = data["emailAddress"]
+        elsif fdata['provider'] == Authentication::GOOGLE
+        elsif fdata['provider'] == Authentication::FACEBOOK
+		end
       elsif data = session[:user]
         user.email = session[:user][:email]
         user.login = session[:user][:email]
@@ -299,10 +310,10 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     return user
   else  #crea un nuovo account facebook
     if data["verified"]
-      user = User.create(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user = User.create(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :facebook_page_url => data["link"])
       user.user_type_id = 3
       user.sign_in_count = 0
-      user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+      user.build_authentication_provider(access_token)
       user.confirm!
       user.save(:validate => false)
     else
@@ -311,6 +322,32 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     return user
   end
 end
+
+
+#gestisce l'azione di login tramite linkedin
+def self.find_for_linkedin_oauth(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] ##dati di linkedin
+                                           #se è presente un account linkedin per l'utente usa quello
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  else
+    user = User.find_by_email(data['emailAddress']) #altrimenti cercane uno con l'email uguale
+  end
+  if user
+    return user
+  else  #crea un nuovo account linkedin
+    user = User.create(:name => data["firstName"], :surname => data["lastName"], :email => data["emailAddress"], :password => Devise.friendly_token[0,20], :blog_image_url => data[:pictureUrl], :linkedin_page_url => data[:publicProfileUrl] )
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(:validate => false)
+    return user
+  end
+end
+
+
 
 #gestisce l'azione di login tramite facebook
 def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
@@ -325,10 +362,10 @@ def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   if user
     return user
   else  #crea un nuovo account google
-      user = User.create(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20])
+      user = User.create(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :google_page_url => data["link"])
       user.user_type_id = 3
       user.sign_in_count = 0
-      user.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+      user.build_authentication_provider(access_token)
       user.confirm!
       user.save(:validate => false)
     return user
@@ -336,6 +373,62 @@ def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
 end
 
 
+
+#gestisce l'azione di login tramite twitter
+def self.find_for_twitter(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] #dati di twitter
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  end
+
+  if user
+    return user
+  else  #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ',2)
+    name = splitted[0]
+    surname = splitted[1]
+    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:profile_image_url])
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(:validate => false)
+    return user
+  end
+end
+
+
+#gestisce l'azione di login tramite meetup
+def self.find_for_meetup(access_token, signed_in_resource=nil)
+  data = access_token['extra']['raw_info'] #dati di twitter
+  auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'].to_s)
+  if auth
+    user = auth.user  #se ho trovato l'id dell'utente prendi lui
+  end
+
+  if user
+    return user
+  else  #crea un nuovo account twitter
+    fullname = data["name"]
+    splitted = fullname.split(' ',2)
+    name = splitted[0]
+    surname = splitted[1]
+    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:photo][:photo_link])
+    user.user_type_id = 3
+    user.sign_in_count = 0
+    user.build_authentication_provider(access_token)
+    user.confirm!
+    user.save(:validate => false)
+    return user
+  end
+end
+
+
+def build_authentication_provider(access_token)
+  self.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token =>(access_token['credentials']['token'] rescue nil))
+end
 
 def facebook
   @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider(Authentication::FACEBOOK).token).fetch rescue nil

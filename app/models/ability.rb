@@ -58,6 +58,9 @@ class Ability
        #end
        can :destroy, ProposalComment do |comment|
          (comment.user == user or comment.proposal.users.include? user) and ((Time.now - comment.created_at)/60) < 5
+	   end
+       can :show_tooltips, User do |fake|
+         user.show_tooltips
        end
 
      end

@@ -1,3 +1,14 @@
+<%content_for :html_options do%>
+    itemscope itemtype="http://data-vocabulary.org/Person"
+<%end%>
+
+<%content_for :head do%>
+    <meta itemprop="name" content="<%=@user.fullname%>"/>
+    <meta itemprop="nickname" content="<%=@user.login%>"/>
+    <meta itemprop="url" content="<%="#{request.protocol}#{request.host_with_port}#{request.fullpath}"%>"/>
+<%end%>
+
+
 <%@page_title = @user.fullname%>
 <p>
     <div id="user_profile_container">
@@ -48,11 +59,22 @@
             </div>
         </div><%end %>
     </div>
-    <div id="facebook_page_url_modal" class="edit_modal shadow-box">
+<!--    <div id="facebook_page_url_modal" class="edit_modal shadow-box">
       <%=form_for @user, :remote => true do |f| %>
           <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
           <div style="padding-left:135px">
             <%=f.text_field :facebook_page_url, :size => 20 %>
+            <div style="margin-top:8px">
+              <%=f.submit 'Salva' %>
+              <input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+          </div><%end %>
+    </div>
+    <div id="google_page_url_modal" class="edit_modal shadow-box">
+      <%=form_for @user, :remote => true do |f| %>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
+          <div style="padding-left:135px">
+            <%=f.text_field :google_page_url, :size => 20 %>
             <div style="margin-top:8px">
               <%=f.submit 'Salva' %>
               <input type="button" value="Annulla" onclick="$.modal.close();"/>
@@ -70,7 +92,7 @@
             </div>
           </div><%end %>
     </div>
-
+   -->
     <div id="password_modal" class="edit_modal shadow-box">
   	<%=form_for @user, :remote => true do |f| %>
 	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Password</h2>
@@ -90,17 +112,17 @@
 </p>
 
 <script type="text/javascript">
-	$('#user_password').watermark('Nuova password');
-	$('#user_password_confirmation').watermark('Conferma nuova password');
+    <%if current_user == @user%>
+	    $('#user_password').watermark('Nuova password');
+	    $('#user_password_confirmation').watermark('Conferma nuova password');
 
-
-    $('#partecipation_table').dataTable( {
-        "bPaginate": false,
-        "bFilter": false,
-        "bSearchable":false,
-        "bInfo":false
-    });
-
+		$('#partecipation_table').dataTable( {
+				"bPaginate": false,
+				"bFilter": false,
+				"bSearchable":false,
+				"bInfo":false
+			});
+    <%end%>
 </script>
 
 <%content_for :left_panel do %>

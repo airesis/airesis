@@ -37,7 +37,7 @@ it:
     day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
     abbr_day_names: [L, M, M, G, V, S, D]
     month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
-    abbr_month_names: [~, Gen, Vas, Kov, Bal, Geg, Bir, Lie, Rugs, Rugp, Spa, Lap, Gruo]
+    abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
   time:
     formats:
      default: "%d/%m/%Y %H:%M"
@@ -141,9 +141,14 @@ it:
       login: "Accedi o registrati"
       facebook_login: "Accedi tramite Facebook"
       google_login: "Accedi tramite Google"
+      twitter_login: "Accedi tramite Twitter"
+      meetup_login: "Accedi tramite Meetup"
+      linkedin_login: "Accedi tramite Linkedin"
+      openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
     user:
       notifications: "Allarmi e notifiche"
+      privacy: "Account e privacy"
     users:
       index:
         title: "Elenco utenti"
