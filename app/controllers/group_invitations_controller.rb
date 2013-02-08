@@ -1,9 +1,9 @@
 #encoding: utf-8
 class GroupInvitationsController < ApplicationController
 
-  before_filter :authenticate_user!#, :only => [:new,:create]
+  before_filter :authenticate_user!, :only => [:new,:create]
 
-  #before_filter :authenticate_user_from_invite!, :only => [:accept,:reject,:anymore]
+  before_filter :authenticate_user_from_invite!, :only => [:accept]
 
   before_filter :load_group, :only => [:create]
 
@@ -74,7 +74,7 @@ class GroupInvitationsController < ApplicationController
     GroupInvitation.transaction do
       #consuma il token e salva l'id dell'utente che ha accettato l'invito
       @group_invitation.consumed = true
-      @group_invitation.invited_id = current_user.id
+      #@group_invitation.invited_id = current_user.id
       @group_invitation.save
       @group_invitation_email.accepted = 'N'
       @group_invitation_email.save
@@ -90,7 +90,7 @@ class GroupInvitationsController < ApplicationController
     GroupInvitation.transaction do
       #consuma il token e salva l'id dell'utente che ha accettato l'invito
       @group_invitation.consumed = true
-      @group_invitation.invited_id = current_user.id
+      #@group_invitation.invited_id = current_user.id
       @group_invitation.save
       @group_invitation_email.accepted = 'N'
       @group_invitation_email.save
@@ -153,7 +153,15 @@ class GroupInvitationsController < ApplicationController
   def authenticate_user_from_invite!
     unless user_signed_in?
       session[:user_return_to] = request.url
-      redirect_to new_user_session_path(:invited => true)
+      session[:user] = {}
+      session[:user][:email] = params[:email]
+      session[:invite] = {email: params[:email], token: params[:token], group_id: params[:group_id], return: request.url}
+      if User.where(:email => params[:email]).exists?
+        redirect_to new_user_session_path(:invite => params[:token], :user => {:login => params[:email]})
+      else
+        redirect_to new_user_registration_path(:invite => params[:token])
+      end
+
     end
   end
 

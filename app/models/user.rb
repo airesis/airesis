@@ -141,6 +141,15 @@ class User < ActiveRecord::Base
       fdata = session["devise.google_data"] || session["devise.facebook_data"]
       if fdata && data = fdata["extra"]["raw_info"]
         user.email = data["email"]
+      elsif data = session[:user]
+        user.email = session[:user][:email]
+        user.login = session[:user][:email]
+        if invite = session[:invite]
+          group_invitation = GroupInvitation.find_by_token(invite[:token])
+          if user.email == group_invitation.group_invitation_email.email
+            user.skip_confirmation!
+          end
+        end
       end
     end
   end

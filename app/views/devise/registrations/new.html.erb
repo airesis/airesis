@@ -4,9 +4,13 @@
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
 <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
-
-<p><%= f.label :email %><br/>
-<%= f.email_field :email %></p>
+<p>
+    <%= f.label :email %><br/>
+  <%= f.email_field :email %><br/>
+  <%if resource.email %>
+      Se ti registri con questo indirizzo email non dovrai confermare l'account.<br />
+  <%end%>
+</p>
 
 <p><%= f.label :password, 'Scegli una password', :for => "new_user_password" %><br/>
 <%= f.password_field :password, :id => "new_user_password" %></p>
