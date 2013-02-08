@@ -31,3 +31,4 @@
 //= require jquery.ctooltip
 //= require prettydiff/diffview
 //= require simplemodal
+//= require tinymce-jquery

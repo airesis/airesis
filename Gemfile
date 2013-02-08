@@ -6,6 +6,8 @@ gem 'therubyracer', '0.10.1'
 
 gem 'bson_ext'
 
+gem 'tinymce-rails'
+
 gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
 
 group :assets do
