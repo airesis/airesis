@@ -31,7 +31,10 @@ var DEFAULT_SETTINGS = {
     tokenLimit: null,
     allowCustomEntry: false,
     tokenDelimiter: ",",
+    invalidCharacters: null,
     preventDuplicates: false,
+    tokenValidation: null,
+    invalidTokenText : "Token non valido.",
 
 	// Output settings
     tokenValue: "id",
@@ -333,6 +336,11 @@ $.TokenList = function (input, url_or_data, settings) {
                   return true;
 
                 default:
+                    /*if (settings.invalidCharacters != null) {
+                        if ($.inArray(event.keyCode, settings.invalidCharacters)) {
+                            return false;
+                        }
+                    }*/
                     if(String.fromCharCode(event.which)) {
                         // set a timeout just long enough to let this function finish.
                         setTimeout(function(){do_search();}, 5);
@@ -543,6 +551,16 @@ $.TokenList = function (input, url_or_data, settings) {
     function add_token (item) {
         var callback = settings.onAdd;
 
+
+        var validation = settings.tokenValidation;
+        if($.isFunction(validation)) {
+            var is_valid = validation.call(hidden_input,item);
+            if(!is_valid){
+                show_dropdown_invalid_token();
+                return false;
+            }
+        }
+
         // See if the token already exists and select it if we don't want duplicates
         if(token_count > 0 && settings.preventDuplicates) {
             var found_existing_token = null;
@@ -690,6 +708,13 @@ $.TokenList = function (input, url_or_data, settings) {
                 zindex: 999
             })
             .show();
+    }
+
+    function show_dropdown_invalid_token () {
+        if(settings.tokenValidation) {
+            dropdown.html("<p>"+settings.invalidTokenText+"</p>");
+            show_dropdown();
+        }
     }
 
     function show_dropdown_searching () {

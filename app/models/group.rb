@@ -55,7 +55,9 @@ class Group < ActiveRecord::Base
 
   attr_reader :partecipant_tokens
   
-  has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2] 
+  has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2]
+
+  has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
 
   #utenti che possono votare
   def count_voter_partecipants

@@ -1,0 +1,19 @@
+Ciao!<br/>
+<%=@group_invitation.inviter.fullname %> ti ha invitato a partecipare al gruppo
+<b><%=link_to @group.name, group_url(@group)%></b> su <%= link_to APP_LONG_NAME, Maktoub.home_domain%>,
+uno strumento decisionale per la democrazia partecipata e diretta.<br />
+<%if @group_invitation.testo %>
+Ecco il messaggio che ti ha inviato:<br/>
+    <p style="font-style: italic;">
+      <%=h @group_invitation.testo%>
+    </p>
+<%end%>
+
+Se accetti l'invito clicca su 'Accetto' altrimenti su 'Rifiuta'. <br />
+Se non desideri più ricevere inviti da parte di <%= link_to APP_SHORT_NAME, Maktoub.home_domain%> clicca su 'Non ricevere più inviti'.<br/>
+
+<%= link_to 'Accetta', accept_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %> |
+<%= link_to 'Rifiuta', reject_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %> |
+<%= link_to 'Non ricevere più inviti', anymore_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %>
+<br />
+A presto!

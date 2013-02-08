@@ -250,6 +250,9 @@ it:
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
+      group_invitation:
+        emails_list: "Indirizzi email"
+        testo: "Testo dell'invito"
       place:
          address: "Indirizzo"
       proposal:

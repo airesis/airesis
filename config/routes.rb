@@ -1,5 +1,6 @@
 DemocracyOnline3::Application.routes.draw do
 
+
   resources :tutorial_progresses
 
   resources :tutorials do
@@ -112,7 +113,17 @@ DemocracyOnline3::Application.routes.draw do
       get :list
     end
   end
-  
+
+  resources :group_partecipations
+  resources :group_invitations do
+    collection do
+      get :accept
+      get :reject
+      get :anymore
+    end
+  end
+
+
   resources :groups do
     member do
       get :ask_for_partecipation
