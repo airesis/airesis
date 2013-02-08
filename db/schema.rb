@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128215545) do
+ActiveRecord::Schema.define(:version => 20130207095650) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
   end
 
   add_index "available_authors", ["proposal_id", "user_id"], :name => "index_available_authors_on_proposal_id_and_user_id", :unique => true
+
+  create_table "banned_emails", :force => true do |t|
+    t.string   "email",      :limit => 200, :null => false
+    t.datetime "created_at",                :null => false
+  end
+
+  add_index "banned_emails", ["email"], :name => "index_banned_emails_on_email", :unique => true
 
   create_table "blocked_alerts", :force => true do |t|
     t.integer "notification_type_id"
@@ -241,6 +248,28 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.integer "group_id", :null => false
   end
 
+  create_table "group_invitation_emails", :force => true do |t|
+    t.string   "email",      :limit => 200,                  :null => false
+    t.integer  "group_id",                                   :null => false
+    t.string   "accepted",   :limit => 1,   :default => "W", :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "group_invitation_emails", ["email", "group_id"], :name => "index_group_invitation_emails_on_email_and_group_id", :unique => true
+
+  create_table "group_invitations", :force => true do |t|
+    t.string   "token",                     :limit => 32,                      :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.integer  "inviter_id",                                                   :null => false
+    t.integer  "invited_id"
+    t.boolean  "consumed",                                  :default => false, :null => false
+    t.integer  "group_invitation_email_id",                                    :null => false
+    t.string   "testo",                     :limit => 4000
+  end
+
+  add_index "group_invitations", ["group_invitation_email_id"], :name => "index_group_invitations_on_group_invitation_email_id", :unique => true
+
   create_table "group_partecipation_request_statuses", :force => true do |t|
     t.string "description", :limit => 200, :null => false
   end
@@ -281,7 +310,7 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
   create_table "groups", :force => true do |t|
     t.string   "name",                    :limit => 200
     t.string   "description",             :limit => 2000
-    t.string   "accept_requests",         :limit => 1,    :default => "v",  :null => false
+    t.string   "accept_requests",         :limit => 1,    :default => "v",   :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
@@ -290,8 +319,9 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.integer  "partecipation_role_id",                   :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                 :default => true, :null => false
-    t.boolean  "default_anonima",                         :default => true, :null => false
+    t.boolean  "change_advanced_options",                 :default => true,  :null => false
+    t.boolean  "default_anonima",                         :default => true,  :null => false
+    t.boolean  "default_visible_outside",                 :default => false, :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -536,6 +566,7 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.boolean  "private",                                  :default => false, :null => false
     t.integer  "quorum_id",                                                   :null => false
     t.boolean  "anonima",                                  :default => true,  :null => false
+    t.boolean  "visible_outside",                          :default => false, :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -800,6 +831,10 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
     t.string   "facebook_page_url"
     t.string   "linkedin_page_url"
     t.boolean  "blocked",                                   :default => false
+    t.string   "unconfirmed_email",         :limit => 100
+    t.string   "google_page_url"
+    t.boolean  "show_tooltips",                             :default => true
+    t.boolean  "show_urls",                                 :default => true
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
@@ -822,6 +857,11 @@ ActiveRecord::Schema.define(:version => 20130128215545) do
 
   add_foreign_key "group_elections", "elections", :name => "group_elections_election_id_fk"
   add_foreign_key "group_elections", "groups", :name => "group_elections_group_id_fk"
+
+  add_foreign_key "group_invitation_emails", "groups", :name => "group_invitation_emails_group_id_fk"
+
+  add_foreign_key "group_invitations", "users", :name => "group_invitations_invited_id_fk", :column => "invited_id"
+  add_foreign_key "group_invitations", "users", :name => "group_invitations_inviter_id_fk", :column => "inviter_id"
 
   add_foreign_key "group_proposals", "groups", :name => "group_proposals_group_id_fk"
   add_foreign_key "group_proposals", "proposals", :name => "group_proposals_proposal_id_fk"
