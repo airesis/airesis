@@ -3,6 +3,7 @@
 	<head>
 		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
 		<%=render :partial => "layouts/head" %>
+        <%if @user.google_page_url%><link href="<%=@user.google_page_url%>" rel="author" /><%end%>
 	</head>
 	<body>
 		

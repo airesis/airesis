@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           unless current_user.email
             current_user.email = data['email']
           end
+          current_user.facebook_page_url = data['link']
           current_user.save(:validate => false)
           flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Facebook.'
         else
@@ -46,7 +47,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']
-    if current_user
+    if current_user   #sto agganciando il provider
       data = access_token['extra']['raw_info'] #dati di google
       auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
       if auth #se c'è già un altro account annulla l'operazione!
@@ -56,6 +57,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         unless current_user.email
           current_user.email = data['email']
         end
+        current_user.google_page_url = data['link']
         current_user.save(:validate => false)
         flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Google.'
       end
@@ -179,6 +181,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         unless current_user.email
           current_user.email = data['email']
         end
+        current_user.linkedin_page_url = data[:publicProfileUrl]
         current_user.save(:validate => false)
         flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Linkedin.'
       end
