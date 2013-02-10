@@ -31,7 +31,7 @@ var DEFAULT_SETTINGS = {
     tokenLimit: null,
     allowCustomEntry: false,
     tokenDelimiter: ",",
-    invalidCharacters: null,
+    avoidBlank: false,
     preventDuplicates: false,
     tokenValidation: null,
     invalidTokenText : "Token non valido.",
@@ -336,11 +336,9 @@ $.TokenList = function (input, url_or_data, settings) {
                   return true;
 
                 default:
-                    /*if (settings.invalidCharacters != null) {
-                        if ($.inArray(event.keyCode, settings.invalidCharacters)) {
-                            return false;
-                        }
-                    }*/
+                    if (settings.avoidBlank && (String.fromCharCode(event.which) == ' ')) {
+                      return false;
+                    }
                     if(String.fromCharCode(event.which)) {
                         // set a timeout just long enough to let this function finish.
                         setTimeout(function(){do_search();}, 5);
