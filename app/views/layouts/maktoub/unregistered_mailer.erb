@@ -46,8 +46,7 @@
                                             <td class="headerContent">
 
                                             	<!-- // Begin Module: Standard Header Image \\ -->
-                                            	<% img = image_tag Maktoub.logo, :style => "max-width:80px;float:left;", :id => "headerImage campaign-icon", :alt => Maktoub.app_name %>
-                                            	<%= link_to img, Maktoub.home_url, :target => "_blank" %>
+                                                <img style="max-width:80px;float:left" src="<%=Maktoub.home_url%>/assets/logo120.png" alt="<%=Maktoub.app_name%>">
                                                 <%= link_to ("<h1 style='float:left;margin: 25px 10px 10px;'>"+Maktoub.app_name+"</h1>").html_safe, Maktoub.home_url, :target => "_blank" %>
                                             	<!-- // End Module: Standard Header Image \\ -->
                                               <div style="clear: both;"></div>
@@ -116,31 +115,11 @@
                                                             <div mc:edit="std_footer">
 																<em>Copyright &copy; <%= Time.now.year %> <%= Maktoub.app_name %>.</em>
 																<br />
-																<em>Ricevi questa email in quanto sei registrato al nostro sito <%= link_to Maktoub.home_url, Maktoub.home_url, :target => "_blank" %>.</em>
-																<br />
-																<%- unless @archive %>
-																  <%# we are not including mailing addresses %>
-																  <%#<br /><strong>Our mailing address is:</strong><br /> %>
-																  <%#  %>
-																<%- end %>
                                                             </div>
                                                         </td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2" valign="middle" id="utility">
-                                                            <div>
-                                                                &nbsp;<%= link_to 'modifica preferenze newsletter e notifiche', Maktoub.subscription_preferences_url, :target => "_blank" %>&nbsp;
-                                                                <%- if Maktoub.unsubscribe_method %>
-                                                                	| <%= link_to 'unsubscribe', edit_subscribers_url, :target => "_blank", :rel => "nofollow" %>
-                                                            
-                                                            	<% end %>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 </table>
-                                                <!-- // End Module: Standard Footer \\ -->
-
                                             </td>
                                         </tr>
                                     </table>

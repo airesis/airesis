@@ -29,6 +29,10 @@ module DemocracyOnline3
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome' 
     config.i18n.default_locale = :it
+
+    config.to_prepare do
+      Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
+    end
     
     
   #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|

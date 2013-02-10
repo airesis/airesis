@@ -12,11 +12,8 @@
 
 <br />
 
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Login", new_session_path(resource_name) %><br />
-<% end -%>
 <ul style="padding-left: 15px;">
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <li><%= link_to "Non sei ancora registrato? Registrati!", new_registration_path(resource_name) %></li>
 <% end -%>
 

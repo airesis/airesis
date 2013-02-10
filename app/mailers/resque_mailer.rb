@@ -2,7 +2,7 @@ class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
   default from: "Airesis <info@airesis.it>"
 
-  layout 'resque_mailer/notification'
+  layout 'maktoub/newsletter_mailer'
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
