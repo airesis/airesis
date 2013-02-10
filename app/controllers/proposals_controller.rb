@@ -192,8 +192,8 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group
-          @proposal.anonima = @group.default_anonima unless (@group.change_advanced_options)  
-          @proposal.visible_outside = @group.default_visible_outside unless (@group.change_advanced_options)  
+          @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
+          @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
