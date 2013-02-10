@@ -261,7 +261,7 @@ Nessun documento allegato alla proposta
 	<%end%>
 <%end%>
 
-<% unless @proposal.closest.empty?%>
+<% unless @proposal.closest(@group ? @group.id : nil).empty?%>
 	<h4>Proposte attinenti</h4>
 	<%@proposal.closest.each do |p|%>
 		<%=link_to p.title, p%><br />
@@ -269,5 +269,14 @@ Nessun documento allegato alla proposta
 <%end%>
 
 <h4>Categoria</h4>
-<%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
+<table>
+  <tr>
+    <td style="vertical-align: middle;" >
+      <%=link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style=>"width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
+    </td>
+    <td>
+      <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
+    </td>
+  </tr>
+</table>
 <%end%>

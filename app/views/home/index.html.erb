@@ -23,7 +23,18 @@
 </head>
 <body data-spy="scroll" data-target="#t1" class="frontpage">
 
-<script>
+<script type="text/javascript">
+    window.___gcfg = {
+        lang : 'it'
+    }; (function() {
+        var po = document.createElement("script");
+        po.type = "text/javascript";
+        po.async = true;
+        po.src = "https://apis.google.com/js/plusone.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+
     ( function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
@@ -65,6 +76,7 @@
       <li><%= link_to 'CHI SIAMO', chisiamo_path %></li>
       <li class="vertical-divider"></li>
       <li><%= link_to '♥ SOSTIENICI', sostienici_path %></li>
+      <li style="padding-top:6px;padding-left:10px;"><g:plusone href="http://www.airesis.it"></g:plusone></li>
     </ul>
     <!-- Login -->
     <div id="sigin_popup" class="popBlock"></div>
@@ -97,7 +109,7 @@
       </div>
     </div>
     <!--Slogan-->
-    <div id="slogan" style="position:absolute;margin-top:330px;">
+    <div id="slogan" style="position:absolute;margin-top:325px;">
 
       <div style="float:left;">
 
@@ -120,17 +132,21 @@
               <%= f.password_field :password, :style => "width:170px;" %>
 
               <div class="littleText" style="font-weight: normal; font-size: 12px; ">
-                <div style="float: left; margin-top: 3px; "><%= f.check_box :remember_me, :style => 'margin-left:0px; font-size:12px' %></div>
-                <div style="float: left; margin-top: 3px;">Ricordami</div>
-                <div style="float: right;margin-top: 2px;"><%= link_to "Password dimenticata?", new_password_path(resource_name) %></div>
+                <div style="float: left;margin-top: 4px;"><%= link_to "Password dimenticata?", new_password_path(resource_name) %></div>
+                <div style="float: left; margin-top: 3px; ">
+                  <%= f.check_box :remember_me, :checked => true, :style => 'margin-left:55px; font-size:12px' %>
+                </div>
+                <div style="float: left; margin-top: 3px;">Resta collegato</div>
               </div>
             </div>
             <div style="  width: 180px; float: right; font-size: 14px;  text-align: center; color: #778899; line-height: 0px;">
               oppure accedi con:
               <div style="margin-top: 10px;">
-                <%= link_to image_tag('logo_facebook.gif', :height => "45px"), user_omniauth_authorize_path('facebook') %>
-                <%= link_to image_tag('logo_google.gif', :height => "45px"), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                <!--<%= link_to image_tag('logo_twitter.gif', :width => "45px"), user_omniauth_authorize_path('facebook') %>-->
+                <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+                <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %><br/>
+                <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
               </div>
 
               <!--<div style="float:right; width: 200px;">
@@ -148,7 +164,7 @@
         delle soluzioni</h3>
 
       <p>Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa.
-        Un potente strumento per valorizzare l’intelligenza collettiva.</p>
+        Un potente strumento per valorizzare l'intelligenza collettiva.</p>
 
       <h3><em>Dibatti</em>
         delle soluzioni</h3>

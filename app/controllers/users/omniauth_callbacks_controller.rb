@@ -27,6 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #se all'utente è già collegato un account facebook
         if @user.has_provider(Authentication::FACEBOOK)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
+          @user.remember_me = true
           sign_in_and_redirect @user, :event => :authentication
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account con questo indirizzo email."
@@ -65,6 +66,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #se all'utente è già collegato un account google
         if @user.has_provider(Authentication::GOOGLE)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
+          @user.remember_me = true
           sign_in_and_redirect @user, :event => :authentication
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account con questo indirizzo email."
@@ -106,6 +108,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             request.env["omniauth.origin"] = nil
             session["user_return_to"] = user_path(@user, {:insert_email => true})
           end
+          @user.remember_me = true
           sign_in_and_redirect @user, :event => :authentication
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account registrato a tuo nome."
@@ -146,6 +149,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             request.env["omniauth.origin"] = nil
             session["user_return_to"] = user_path(@user, {:insert_email => true})
           end
+          @user.remember_me = true
           sign_in_and_redirect @user, :event => :authentication
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account registrato a tuo nome."
@@ -185,6 +189,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #se all'utente è già collegato un account linkedin
         if @user.has_provider(Authentication::LINKEDIN)
           flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Linkedin"
+          @user.remember_me = true
           sign_in_and_redirect @user, :event => :authentication
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account con questo indirizzo email."

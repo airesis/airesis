@@ -354,25 +354,22 @@ class ProposalsController < ApplicationController
   
   #restituisce una lista di tutte le proposte simili a quella
   #passata come parametro
-  #se è indicato un group_id cerca solo tra quelle interne a quel gruppo
+  #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     tags = params[:tags].downcase.gsub('.','').gsub("'","").split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
     if tags.empty? 
       tags = "''"
     end  
     sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
-                                      FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
-    if params[:group_id]
-      sql_q += " join group_proposals gp on gp.proposal_id = p.id "
-    end                                   
-    sql_q +=                              " WHERE pt.tag_id IN (SELECT pti.id
-                                              FROM tags pti 
-                                              WHERE pti.text in (#{tags}))"
-    params[:group_id] ?
-        sql_q += " AND p.private = true AND gp.group_id = " + @group.id.to_s :
-        sql_q += " AND p.private = false "
+            p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
+            p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
+            FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
+    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if params[:group_id]
+    sql_q += " WHERE pt.tag_id IN (SELECT pti.id
+               FROM tags pti
+               WHERE pti.text in (#{tags}))"
+    sql_q += " AND (p.private = false OR p.visible_outside = true "
+    sql_q += params[:group_id] ? " OR (p.private = true AND gp.group_id = #{@group.id.to_s}))" : ")"
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors

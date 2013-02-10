@@ -32,6 +32,19 @@
   <div><%= f.submit "Registrati", :class => 'buttonStyle' %></div>
 <% end %>
 
+<br />
+
+<h2>Entra subito tramite il tuo Identity Provider preferito</h2>
+<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+
+<%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+
+<%= link_to image_tag('accedi_google.png', :height => '22px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+
+<%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+
+<%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+<br />
 <div id="eula_modal" title="Condizioni d'uso" style="width:600px;height:300px;display:none" >
 <p>
 	<%= render :partial => 'devise/registrations/eula'%>

@@ -180,7 +180,7 @@ it:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
-      title: "Registrati al portale"
+      title: "Registrati"
     proposals:
       index:
         title: "Elenco proposte"
