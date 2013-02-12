@@ -34,6 +34,26 @@ class NotificationsController < ApplicationController
     end
     flash[:info] = t('info.setting_preferences')
 
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = t('error.setting_preferences')
+      format.js   { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end}
+    end
+  end
+
+  #cambia la ricezione delle email
+  def change_email_block
+    if params[:block] == "true"
+      current_user.email_alerts = false
+      current_user.save!
+    else
+      current_user.email_alerts = true
+      current_user.save!
+    end
+    flash[:info] = t('info.setting_preferences')
+
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')

@@ -63,6 +63,12 @@ class Ability
          user.show_tooltips
        end
 
+       can :destroy, GroupPartecipation do |group_partecipation|
+         (group_partecipation.partecipation_role_id != PartecipationRole::PORTAVOCE ||
+          group_partecipation.group.portavoce.count > 1) &&
+          user == group_partecipation.user
+       end
+
      end
 
       def can_do_on_group?(user,group,action)

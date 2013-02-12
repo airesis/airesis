@@ -195,7 +195,7 @@ function drawIntro(svg) {
 		    $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
 		    $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
 		    $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if @proposal.quorum.minutes%>fino al <b><%= @proposal.quorum.ends_at.strftime("%d/%m/%Y") %></b> <%= (@proposal.quorum.ends_at).strftime(" alle %H:%M") %> <b><%= @proposal.quorum.or? ? 'oppure' : 'e'%></b><%end%> finché non sarà valutata da <b>almeno <%=@proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (@proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
-		    $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%="(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
+		    $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%=raw "(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
 	  <%end%>
     });
 </script>
@@ -206,10 +206,13 @@ function drawIntro(svg) {
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
 
-	
 
 
 
+
+<%if @proposal.is_anonima?%>
+  Anonimato temporaneo attivo<br/>
+<%end%>
 <%if signed_in? && @my_nickname && @proposal.is_anonima?%>
 	<h4 style="display:inline">Il tuo nickname è </h4><span id="nickname_panel"><%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer'%></span>
 	<div class="blogUserImage">

@@ -1,8 +1,8 @@
 <div class="text"><b>Immagine del profilo
 <br />
 </b>
-<%if @user.has_provider(Authentication::FACEBOOK)%>
-L'immagine che vedi è stata presa dal tuo account Facebook.
+<%if @user.from_identity_provider?%>
+L'immagine che vedi è stata presa dal tuo Identity Provider.
 <br />
 Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis.
 <br />

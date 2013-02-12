@@ -13,12 +13,16 @@ class GroupPartecipationsController < ApplicationController
 
     @group_partecipation_request = GroupPartecipationRequest.find_by_user_id_and_group_id(@group_partecipation.user_id,@group_partecipation.group_id)
 
-    GroupPartecipation.transaction do
-      @group_partecipation_request.destroy
-      @group_partecipation.destroy
+    if @group_partecipation.partecipation_role_id == PartecipationRole::PORTAVOCE &&
+       @group_partecipation.group.portavoce.count == 1
+      flash[:error] = "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
+    else
+      GroupPartecipation.transaction do
+        @group_partecipation_request.destroy
+        @group_partecipation.destroy
+      end
+      flash[:notice] = "Sei uscito dal gruppo. Potrai successivamente richiedere di parteciparvi"
     end
-
-    flash[:notice] = "Sei uscito dal gruppo. Potrai successivamente richiedere di parteciparvi"
 
     respond_to do |format|
       format.html { redirect_to :back }

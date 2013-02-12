@@ -29,7 +29,7 @@
             <tr>
               <td><%= partecipation.group.name %></td>
               <td><%= partecipation.partecipation_role.name %></td>
-              <td><%= link_to 'Esci dal gruppo', group_partecipation_path(partecipation), :method => :delete, :confirm => 'Confermi di voler uscire da questo gruppo?' %></td>
+              <td><%= link_to 'Esci dal gruppo', group_partecipation_path(partecipation), :method => :delete, :confirm => 'Confermi di voler uscire da questo gruppo?' if can? :destroy, partecipation%></td>
             </tr>
         <%end%>
       </tbody>

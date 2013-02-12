@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   
   has_many :user_alerts, :class_name => 'UserAlert', :order => 'created_at DESC'
   has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
+  has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
   
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
 
@@ -310,7 +311,7 @@ def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     return user
   else  #crea un nuovo account facebook
     if data["verified"]
-      user = User.create(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :facebook_page_url => data["link"])
+      user = User.new(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :facebook_page_url => data["link"])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -337,7 +338,7 @@ def self.find_for_linkedin_oauth(access_token, signed_in_resource=nil)
   if user
     return user
   else  #crea un nuovo account linkedin
-    user = User.create(:name => data["firstName"], :surname => data["lastName"], :email => data["emailAddress"], :password => Devise.friendly_token[0,20], :blog_image_url => data[:pictureUrl], :linkedin_page_url => data[:publicProfileUrl] )
+    user = User.new(:name => data["firstName"], :surname => data["lastName"], :email => data["emailAddress"], :password => Devise.friendly_token[0,20], :blog_image_url => data[:pictureUrl], :linkedin_page_url => data[:publicProfileUrl] )
     user.user_type_id = 3
     user.sign_in_count = 0
     user.build_authentication_provider(access_token)
@@ -349,7 +350,7 @@ end
 
 
 
-#gestisce l'azione di login tramite facebook
+#gestisce l'azione di login tramite google
 def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   data = access_token['extra']['raw_info'] #dati di google
   auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
@@ -362,7 +363,7 @@ def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   if user
     return user
   else  #crea un nuovo account google
-      user = User.create(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :google_page_url => data["link"])
+      user = User.new(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil),  :email => data["email"], :password => Devise.friendly_token[0,20], :google_page_url => data["link"])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
@@ -389,7 +390,7 @@ def self.find_for_twitter(access_token, signed_in_resource=nil)
     splitted = fullname.split(' ',2)
     name = splitted[0]
     surname = splitted[1]
-    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:profile_image_url])
+    user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:profile_image_url])
     user.user_type_id = 3
     user.sign_in_count = 0
     user.build_authentication_provider(access_token)
@@ -415,7 +416,7 @@ def self.find_for_meetup(access_token, signed_in_resource=nil)
     splitted = fullname.split(' ',2)
     name = splitted[0]
     surname = splitted[1]
-    user = User.create(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:photo][:photo_link])
+    user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:photo][:photo_link])
     user.user_type_id = 3
     user.sign_in_count = 0
     user.build_authentication_provider(access_token)

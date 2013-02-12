@@ -87,11 +87,11 @@ class ProposalsController < ApplicationController
    
   def show
     @step = get_next_step(current_user) if current_user    
-    if (@proposal.private && @group) #la proposta è interna ad un gruppo
+    if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
-	if !current_user
-	  flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
-	elsif !(can? :partecipate_proposal, @group)    
+        if !current_user
+          flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+        elsif !(can? :partecipate_proposal, @group)
           flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
         end
       else #se è bloccata alla visione di utenti esterni
@@ -111,20 +111,19 @@ class ProposalsController < ApplicationController
       end
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
-      
-      @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-      @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-      respond_to do |format|
-        #format.js
-        format.html {
-          if (@proposal.proposal_state_id == PROP_WAIT_DATE)
-            flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-          elsif (@proposal.proposal_state_id == PROP_VOTING)
-            flash.now[:notice] = "Questa proposta è in fase di votazione."
-          end                
-        } # show.html.erb
-       # format.xml  { render :xml => @proposal }
-      end    
+    end
+    #@proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
+    respond_to do |format|
+      #format.js
+      format.html {
+        if @proposal.proposal_state_id == PROP_WAIT_DATE
+          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+        elsif @proposal.proposal_state_id == PROP_VOTING
+          flash.now[:notice] = "Questa proposta è in fase di votazione."
+        end
+      } # show.html.erb
+     # format.xml  { render :xml => @proposal }
     end
  # rescue Exception => boom
  #   puts boom

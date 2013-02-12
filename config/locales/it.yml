@@ -101,7 +101,7 @@ it:
   error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
   error:
-   setting_preferences: "Errore durante l\'impostazione delle preferenze"
+   setting_preferences: "Errore durante l'impostazione delle preferenze"
    admin_required: "Devi essere amministratore per visualizzare la pagina."
    permissions_required: "Non disponi dei permessi per visualizzare la pagina."
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
