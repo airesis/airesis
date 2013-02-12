@@ -4,7 +4,7 @@ class CalculateRankings
     msg = "Ricalcolo ranking\n"
     @users = User.all
     @users.each do |user|
-      msg += " " + user.email + "\n"
+      msg += " " + user.fullname + "\n"
       #numero di commenti inseriti
       numcommenti = user.proposal_comments.count
       #numero di proposte inserite (tranne quelle bocciate)
