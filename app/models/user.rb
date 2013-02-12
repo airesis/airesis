@@ -388,8 +388,8 @@ def self.find_for_twitter(access_token, signed_in_resource=nil)
   else  #crea un nuovo account twitter
     fullname = data["name"]
     splitted = fullname.split(' ',2)
-    name = splitted[0]
-    surname = splitted[1]
+    name = splitted ? splitted[0] : fullname
+    surname = splitted ? splitted[1] : ''
     user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:profile_image_url])
     user.user_type_id = 3
     user.sign_in_count = 0
@@ -414,8 +414,8 @@ def self.find_for_meetup(access_token, signed_in_resource=nil)
   else  #crea un nuovo account twitter
     fullname = data["name"]
     splitted = fullname.split(' ',2)
-    name = splitted[0]
-    surname = splitted[1]
+    name = splitted ? splitted[0] : fullname
+    surname = splitted ? splitted[1] : ''
     user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0,20], :blog_image_url => data[:photo][:photo_link])
     user.user_type_id = 3
     user.sign_in_count = 0
