@@ -8325,3 +8325,7 @@ Quorum.create(:name => "good_score", :percentage => 30, :minutes => 21600, :cond
 
 PartecipationRole.create(:name => "member", :description => "Membro del gruppo. Senza alcun compito o assegnazione specifica")
 PartecipationRole.create(:name => "portavoce", :description => "Portavoce")
+
+VoteType.create( :description => "Positivo"){ |c| c.id = 1 }.save
+VoteType.create( :description => "Neutro"){ |c| c.id = 2 }.save
+VoteType.create( :description => "Negativo"){ |c| c.id = 3 }.save

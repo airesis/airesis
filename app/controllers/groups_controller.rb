@@ -152,6 +152,35 @@ class GroupsController < ApplicationController
       end          
   end
 
+  #change the default option in a group for the secret vote
+  def change_default_secret_vote
+    default_secret_vote = params[:active]
+    @group.default_secret_vote = default_secret_vote
+    @group.save
+    if default_secret_vote == 'true'
+      flash[:notice] = "Le proposte avranno voto segreto di default"
+    else
+      flash[:notice] = "Le proposte avranno voto palese di default"
+    end
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = 'Errore nella modifica delle opzioni.'
+      format.js {  render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
+
 
 
   def new_event

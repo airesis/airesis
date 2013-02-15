@@ -5,7 +5,7 @@ class OutsideVisible < ActiveRecord::Migration
   end
 
   def down
-    remove_column :propoals, :visible_outside
+    remove_column :proposals, :visible_outside
     remove_column :groups, :default_visible_outside
   end
 end

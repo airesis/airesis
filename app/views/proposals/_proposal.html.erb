@@ -49,13 +49,14 @@
           </p>
 
           <p>
-            <% if @change_advanced_options %>
+            <%if @change_advanced_options %>
                 <%= f.check_box :anonima %>
                 <%= f.label :anonima, 'Anonimato temporaneo' %><br/>
                 <%= f.check_box :visible_outside %>
                 <%= f.label :visible_outside, 'Visibile pubblicamente' %><br/>
-
-            <% end %>
+                <%= f.check_box :secret_vote %>
+                <%= f.label :secret_vote, 'Voto segreto' %><br/>
+            <%end%>
           </p>
 
           <p>

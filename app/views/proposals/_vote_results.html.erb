@@ -34,11 +34,17 @@
   <thead>
   <th>Nome e cognome</th>
   <th>Data e ora di voto</th>
+  <%unless @proposal.secret_vote%>
+  <th>Voto</th>
+  <%end%>
   </thead>
   <% @proposal.user_votes.each do |user_vote| %>
       <tr>
         <td><%= user_vote.user.fullname %></td>
         <td><%= l user_vote.created_at, :format => "%d %b %Y alle %H:%M" %></td>
+        <%unless @proposal.secret_vote%>
+            <td><%=user_vote.vote_type.description%></td>
+        <%end%>
       </tr>
   <% end %>
 </table>

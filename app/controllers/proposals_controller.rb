@@ -200,9 +200,11 @@ class ProposalsController < ApplicationController
         if @group
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
+          @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
+          @proposal.secret_vote = true
         end
         @proposal.quorum_id = copy.id
         
@@ -222,7 +224,7 @@ class ProposalsController < ApplicationController
         generate_nickname(current_user,@proposal) 
     	
         #fai partire il timer per far scadere la proposta
-        if (quorum.minutes)
+        if quorum.minutes
           Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 

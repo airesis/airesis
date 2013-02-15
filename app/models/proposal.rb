@@ -51,7 +51,7 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
