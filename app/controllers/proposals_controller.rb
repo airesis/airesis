@@ -25,10 +25,10 @@ class ProposalsController < ApplicationController
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
 
   #la proposta deve essere in stato 'VOTATA'
-  before_filter :voted_state_required, :only => [:add_authors]
+  before_filter :voted_state_required, :only => [:vote_results]
 
   #l'utente deve poter visualizzare la proposta
-  before_filter :can_view, :only => [:add_authors]
+  before_filter :can_view, :only => [:vote_results]
 
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
@@ -422,6 +422,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @proposal.available_user_authors -= users
       @proposal.users << users
       @proposal.save
+      users.each do |user|
+        generate_nickname(user,@proposal)
+      end
     end
   
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"
