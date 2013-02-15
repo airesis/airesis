@@ -1,0 +1,70 @@
+<b>Totale votanti: <%= @proposal.vote.number %> </b>
+<table>
+  <thead>
+  <th>Voto</th>
+  <th>Numero</th>
+  <th>Percentuale</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Positivo</td>
+    <td><%= @proposal.vote.positive %></td>
+    <td><%= @proposal.vote.positive_perc %>%</td>
+  </tr>
+  <tr>
+    <td>Negativo</td>
+    <td><%= @proposal.vote.negative %></td>
+    <td><%= @proposal.vote.negative_perc %>%</td>
+  </tr>
+  <tr>
+    <td>Astenuti</td>
+    <td><%= @proposal.vote.neutral %></td>
+    <td><%= @proposal.vote.neutral_perc %>%</td>
+  </tr>
+  <!--<tr>
+    <td>Non votanti</td>
+    <td>ND</td>
+    <td>ND</td>
+  </tr>-->
+  </tbody>
+</table>
+
+<hr/>
+<table id="votes_table">
+  <thead>
+  <th>Nome e cognome</th>
+  <th>Data e ora di voto</th>
+  </thead>
+  <% @proposal.user_votes.each do |user_vote| %>
+      <tr>
+        <td><%= user_vote.user.fullname %></td>
+        <td><%= l user_vote.created_at, :format => "%d %b %Y alle %H:%M" %></td>
+      </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        generateTable();
+    });
+
+    function generateTable() {
+        $('#votes_table').dataTable({
+            "oLanguage":{
+                "sLengthMenu":"Mostra _MENU_ utenti per pagina",
+                "sSearch":"Cerca:",
+                "sZeroRecords":"Nessun utente, spiacente..",
+                "sInfo":"Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
+                "sInfoEmpty":"Sto mostrando 0 utenti",
+                "sInfoFiltered":"(filtrati da un totale di _MAX_ utenti)",
+                "oPaginate":{
+                    "sPrevious":"Pagina precedente",
+                    "sNext":"Pagina successiva"
+                }
+            }
+            //"aoColumns": [null,{ "bSortable": false }]
+        });
+
+        $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+    }
+</script>

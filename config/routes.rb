@@ -50,24 +50,24 @@ DemocracyOnline3::Application.routes.draw do
       get :index_accepted
       get :endless_index 
       get :similar
-      get :tab_list      
-    end    
-    
+      get :tab_list
+    end
+
     resources :proposal_comments do
       member do
         put :rankup
         put :ranknil
-        put :rankdown    
+        put :rankdown
         post :show_all_replies
       end
       collection do
         post :list
       end
     end
-    
+
     resources :proposal_histories
     resources :proposal_supports
-    
+
     member do
       get :rankup
       get :rankdown
@@ -76,9 +76,10 @@ DemocracyOnline3::Application.routes.draw do
       post :available_author
       get :available_authors_list
       put :add_authors
+      get :vote_results
     end
   end
-  
+
   resources :proposalcategories
   
   resources :blogs do 

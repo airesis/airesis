@@ -58,6 +58,10 @@
   <span class="title_grey">Ultima modifica del</span><br/><%=l @proposal.updated_at, :format =>"%d %b %Y alle %H:%M" %>
    <%if signed_in?%>
      <div style="margin: 5px;"><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
+     <%if @proposal.voted?%>
+        <%= link_to 'Risultati', vote_results_proposal_path(@proposal), :remote => true, :class=>'disableButton buttonStyle'  %>
+        <div id="vote_results_container" title="Risultati della votazione"></div>
+     <%end%>
    <%end%>
 <%end%>
 <%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>

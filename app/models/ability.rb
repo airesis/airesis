@@ -12,7 +12,10 @@ class Ability
     elsif user.admin?
        can :manage, :all
     else
-       can :read, Proposal
+      #TODO correggere quando più gruppi condivideranno le proposte
+       can :read, Proposal do |proposal|
+         !proposal.private || proposal.visible_outside || can_do_on_group?(user,proposal.presentation_groups.first,6)
+       end
        can :partecipate, Proposal do |proposal|
          can_partecipate_proposal?(user,proposal)
        end

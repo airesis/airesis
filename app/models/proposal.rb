@@ -63,6 +63,8 @@ class Proposal < ActiveRecord::Base
   scope :accepted, { :conditions => {:proposal_state_id => PROP_ACCEPT }}
   #tutte le proposte respinte
   scope :rejected, { :conditions => {:proposal_state_id => PROP_RESP }}
+
+  scope :voted, {:conditions => {:proposal_state_id => [ProposalState::ACCEPTED,ProposalState::REJECTED]}}
   
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, { :conditions => {:proposal_state_id => PROP_REVISION }}
@@ -83,16 +85,20 @@ class Proposal < ActiveRecord::Base
   after_update :save_proposal_history
  
   def in_valutation?
-    return self.proposal_state_id == PROP_VALUT  
+    self.proposal_state_id == PROP_VALUT
+  end
+
+  def voted?
+    [ProposalState::ACCEPTED,ProposalState::REJECTED].include? self.proposal_state_id
   end
   
   def is_current?
-    return [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id 
+    [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id
   end
 
   #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
   def is_anonima?
-    return is_current? && self.anonima
+    is_current? && self.anonima
   end
 
   def tags_list
@@ -108,8 +114,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def tags_with_links
-    html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-    return html
+    self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
 

@@ -97,6 +97,7 @@ it:
   error_comment_not_your: "Non disponi dei diritti per cancellare il commento."
   error_proposal_already_ranked: "Hai già valutato questa proposta una volta. Non sono state apportate modifiche dalla tua ultima valutazione."
   error_proposal_not_valutating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione."
+  error_proposal_not_voted: "Questa proposta non ha terminato la votazione, pertanto non puoi più eseguire questa azione."
   error_proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione."
   error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
