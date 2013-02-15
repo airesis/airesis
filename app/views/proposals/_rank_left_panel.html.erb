@@ -53,9 +53,9 @@
 
 <h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description%></h2>
 
-<span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%=l @proposal.created_at, :format => "%d %b %Y alle %H:%M" %></span> <br/>
+<span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%=l @proposal.created_at %></span> <br/>
 <%if @proposal.updated_at != @proposal.created_at%>
-  <span class="title_grey">Ultima modifica del</span><br/><%=l @proposal.updated_at, :format =>"%d %b %Y alle %H:%M" %>
+  <span class="title_grey">Ultima modifica del</span><br/><%=l @proposal.updated_at %>
    <%if signed_in?%>
      <div style="margin: 5px;"><%= link_to 'History', proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
      <%if @proposal.voted?%>
@@ -66,9 +66,8 @@
 <%end%>
 <%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
   <span class="title_grey">In votazione</span><br/>
-  <%='dal ' + (l @proposal.vote_period.starttime, :format => "%d %b %Y alle %H:%M") + '<br/> al ' + (l @proposal.vote_period.endtime, :format => "%d %b %Y alle %H:%M") %>
+  <%='dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
 <%elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
   <span class="title_grey">In votazione ora!</span><br/>
   <%= link_to 'Vai alla pagina di votazione.', votation_path %>
 <%end%>
-

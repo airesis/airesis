@@ -85,7 +85,19 @@ class Proposal < ActiveRecord::Base
   after_update :save_proposal_history
  
   def in_valutation?
-    self.proposal_state_id == PROP_VALUT
+    self.proposal_state_id == ProposalState::VALUTATION
+  end
+
+  def waiting_date?
+    self.proposal_state_id == ProposalState::WAIT_DATE
+  end
+
+  def waiting?
+    self.proposal_state_id == ProposalState::WAIT
+  end
+
+  def voting?
+    self.proposal_state_id == ProposalState::VOTING
   end
 
   def voted?

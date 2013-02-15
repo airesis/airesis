@@ -391,7 +391,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
   def available_author
     @proposal.available_user_authors << current_user
-    @proposal.save
+    @proposal.save!
+
+    #invia le notifiche
+    notify_user_available_authors(@proposal)
+
     flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
     respond_to do |format|
       format.js { render :update do |page|
@@ -419,7 +423,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
-      @proposal.save
+      @proposal.save!
+
+      #invia le notifiche
+      users.each do |u|
+        notify_user_choosed_as_author(u,@proposal)
+      end
     end
   
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"

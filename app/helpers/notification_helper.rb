@@ -201,4 +201,36 @@ module NotificationHelper
       end
     end    
   end
+
+
+  #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
+  def notify_user_available_authors(proposal)
+    msg = "L'utente <b>#{current_user.fullname}</b> si è offerto come redattore della proposta <b>#{proposal.title}</b>."
+    notification_a = Notification.new(:notification_type_id => 22,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    proposal.users.each do |user|
+      if user != current_user
+        send_notification_to_user(notification_a,user)
+      end
+    end
+  end
+
+  #invia una notifica all'utente che è stato accettato come redattore di una proposta
+  def notify_user_choosed_as_author(user,proposal)
+    msg = "Sei stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>.<br/>
+           Ricordati che per essere un buon redattore dovrai recepire i contributi degli altri utenti e migliorare il testo secondo i consigli ricevuti.<br/>
+           Buon lavoro! "
+    notification_a = Notification.new(:notification_type_id => 23,:message => msg, :url => proposal_path(proposal))
+    notification_a.save
+    send_notification_to_user(notification_a,user)
+
+    msg = "L'utente <b>#{user.fullname}</b> è stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>."
+    notification_b = Notification.new(:notification_type_id => 24,:message => msg, :url => proposal_path(proposal))
+    notification_b.save
+    proposal.partecipants.each do |partecipant|
+      unless partecipant == current_user || partecipant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
+        send_notification_to_user(notification_a,partecipant)
+      end
+    end
+  end
 end

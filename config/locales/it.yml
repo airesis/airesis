@@ -32,7 +32,7 @@ it:
   date:
     order: [:day, :month, :year ]
     formats:
-      default: "%d-%m-%Y"
+      default: "%d %b %Y alle %H:%M"
       short: "%b %d"
     day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
     abbr_day_names: [L, M, M, G, V, S, D]
@@ -40,7 +40,7 @@ it:
     abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
   time:
     formats:
-     default: "%d/%m/%Y %H:%M"
+     default: "%d %b %Y alle %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
      weekday: "%A"
