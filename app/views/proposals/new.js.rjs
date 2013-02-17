@@ -2,7 +2,7 @@ page.replace_html 'create_proposal', :partial => @proposal, :locals => { :button
 
 if @group
   page<< "$('#create_proposal_dialog').dialog({
-        title: 'Nuovo Dibattito interno al gruppo: " + @group.name + "',
+        title: 'Nuova Proposta interno al gruppo: " + @group.name + "',
         modal: true,
         width: 720,
         height: 'auto',
@@ -10,7 +10,7 @@ if @group
     });"
 else  
 page<< "$('#create_proposal_dialog').dialog({
-        title: 'Nuovo Dibattito',
+        title: 'Nuova Proposta',
         modal: true,
         width: 720,
         height: 'auto',

@@ -16,9 +16,15 @@ Le tue proposte
             <tr>
 				<td><%=link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0],proposal] : proposal)%><br>
                   <div style="float: left; margin-right: 5px;">Autori</div>
-					<%proposal.users.each do |user|%>
-						<%=user_tag_mini(user,proposal)%>
-	            	<%end%>
+                      <%if signed_in? && (proposal.users.include? current_user)%>
+                          <%proposal.users.each do |user| %>
+                              <%=user_tag_mini(user)%>
+                          <%end%>
+                      <%else%>
+                          <%proposal.users.each do |user| %>
+                              <%=user_tag_mini(user,proposal)%>
+                          <%end%>
+                      <%end%>
 
 					 <%= user_valutation_image(current_user,proposal)%>
 				</td>

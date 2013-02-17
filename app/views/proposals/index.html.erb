@@ -29,19 +29,19 @@ end%>
 <div id="tabs">
 	<ul>
 		<li>
-			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => @group.id), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>
+			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => @group.id), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>
+			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => @group.id), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
+			<%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
 			<div class="tabs-triangle"/>
 		</li>
 		<li>
-			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => @group.id), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>
+			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>
 			<div class="tabs-triangle"/>
 		</li>
 	</ul>
@@ -91,13 +91,22 @@ end%>
     )
 	#categories = ProposalCategory.all
    categories.each do |category|%>
-      <tr><td style="vertical-align: middle;" >
-		<%if (params[:category] == category.id.to_s)%>
-            <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;")%></td><td><%=category.description%><!-- (<%=category.proposals_count%>) -->
+      <tr>
+        <td style="vertical-align: middle;" >
+		<%if params[:category] == category.id.to_s%>
+            <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;")%>
+            </td>
+            <td><%=category.description%>
 		<%else%>
-            <%=link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%></td><td><a href="<%=current_url(:category => category.id)%>" title='<%if category.proposals_count.to_i >0%>Numero proposte: <%=category.proposals_count%><%else%>Nessuna proposta in questa categoria<%end%>'  > <%=category.description%> </a>
+            <%=link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%>
+            </td>
+            <td>
+              <a href="<%=current_url(:category => category.id)%>" title='<%=category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria"%>'>
+                <%=category.description%>
+              </a>
 		<%end%>
-    </td></tr>
+        </td>
+       </tr>
 <%end%>
 </table>
 </div>

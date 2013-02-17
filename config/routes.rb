@@ -1,5 +1,6 @@
 DemocracyOnline3::Application.routes.draw do
 
+
   resources :tutorial_progresses
 
   resources :tutorials do
@@ -30,6 +31,9 @@ DemocracyOnline3::Application.routes.draw do
       get :border_preferences #preferenze confini di interesse utente
       post :set_interest_borders #cambia i confini di interesse
       post :join_accounts
+      get :privacy_preferences
+      post :change_show_tooltips
+      post :change_show_urls
     end
   end                                      
   
@@ -37,6 +41,7 @@ DemocracyOnline3::Application.routes.draw do
     collection do  
       post :change_notification_block
       post :change_email_notification_block
+      post :change_email_block
     end
   end
  
@@ -45,24 +50,24 @@ DemocracyOnline3::Application.routes.draw do
       get :index_accepted
       get :endless_index 
       get :similar
-      get :tab_list      
-    end    
-    
+      get :tab_list
+    end
+
     resources :proposal_comments do
       member do
         put :rankup
         put :ranknil
-        put :rankdown    
+        put :rankdown
         post :show_all_replies
       end
       collection do
         post :list
       end
     end
-    
+
     resources :proposal_histories
     resources :proposal_supports
-    
+
     member do
       get :rankup
       get :rankdown
@@ -71,9 +76,10 @@ DemocracyOnline3::Application.routes.draw do
       post :available_author
       get :available_authors_list
       put :add_authors
+      get :vote_results
     end
   end
-  
+
   resources :proposalcategories
   
   resources :blogs do 
@@ -112,7 +118,17 @@ DemocracyOnline3::Application.routes.draw do
       get :list
     end
   end
-  
+
+  resources :group_partecipations
+  resources :group_invitations do
+    collection do
+      get :accept
+      get :reject
+      get :anymore
+    end
+  end
+
+
   resources :groups do
     member do
       get :ask_for_partecipation

@@ -32,15 +32,15 @@ it:
   date:
     order: [:day, :month, :year ]
     formats:
-      default: "%d-%m-%Y"
+      default: "%d %b %Y alle %H:%M"
       short: "%b %d"
     day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
     abbr_day_names: [L, M, M, G, V, S, D]
     month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
-    abbr_month_names: [~, Gen, Vas, Kov, Bal, Geg, Bir, Lie, Rugs, Rugp, Spa, Lap, Gruo]
+    abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
   time:
     formats:
-     default: "%d/%m/%Y %H:%M"
+     default: "%d %b %Y alle %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
      weekday: "%A"
@@ -97,11 +97,12 @@ it:
   error_comment_not_your: "Non disponi dei diritti per cancellare il commento."
   error_proposal_already_ranked: "Hai già valutato questa proposta una volta. Non sono state apportate modifiche dalla tua ultima valutazione."
   error_proposal_not_valutating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione."
+  error_proposal_not_voted: "Questa proposta non ha terminato la votazione, pertanto non puoi più eseguire questa azione."
   error_proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione."
   error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
   error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
   error:
-   setting_preferences: "Errore durante l\'impostazione delle preferenze"
+   setting_preferences: "Errore durante l'impostazione delle preferenze"
    admin_required: "Devi essere amministratore per visualizzare la pagina."
    permissions_required: "Non disponi dei permessi per visualizzare la pagina."
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
@@ -141,9 +142,14 @@ it:
       login: "Accedi o registrati"
       facebook_login: "Accedi tramite Facebook"
       google_login: "Accedi tramite Google"
+      twitter_login: "Accedi tramite Twitter"
+      meetup_login: "Accedi tramite Meetup"
+      linkedin_login: "Accedi tramite Linkedin"
+      openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
     user:
       notifications: "Allarmi e notifiche"
+      privacy: "Account e privacy"
     users:
       index:
         title: "Elenco utenti"
@@ -175,7 +181,7 @@ it:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
-      title: "Registrati al portale"
+      title: "Registrati"
     proposals:
       index:
         title: "Elenco proposte"
@@ -250,6 +256,9 @@ it:
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
+      group_invitation:
+        emails_list: "Indirizzi email"
+        testo: "Testo dell'invito"
       place:
          address: "Indirizzo"
       proposal:

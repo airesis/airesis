@@ -12,7 +12,10 @@ class Ability
     elsif user.admin?
        can :manage, :all
     else
-       can :read, Proposal
+      #TODO correggere quando più gruppi condivideranno le proposte
+       can :read, Proposal do |proposal|
+         !proposal.private || proposal.visible_outside || can_do_on_group?(user,proposal.presentation_groups.first,6)
+       end
        can :partecipate, Proposal do |proposal|
          can_partecipate_proposal?(user,proposal)
        end
@@ -58,6 +61,15 @@ class Ability
        #end
        can :destroy, ProposalComment do |comment|
          (comment.user == user or comment.proposal.users.include? user) and ((Time.now - comment.created_at)/60) < 5
+	   end
+       can :show_tooltips, User do |fake|
+         user.show_tooltips
+       end
+
+       can :destroy, GroupPartecipation do |group_partecipation|
+         (group_partecipation.partecipation_role_id != PartecipationRole::PORTAVOCE ||
+          group_partecipation.group.portavoce.count > 1) &&
+          user == group_partecipation.user
        end
 
      end

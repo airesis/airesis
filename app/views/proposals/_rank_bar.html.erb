@@ -2,7 +2,7 @@
 $(function() {
 	$("#pb<%=proposal.id%>").progressBar({
 		boxImage : '<%=asset_path "progressbar.gif"%>',
-		barImage		: 
+		barImage :
 			<%if proposal.rank < proposal.quorum.bad_score %>
 			'<%=asset_path "progressbg_red.gif"%>'
 			<%elsif proposal.rank >= proposal.quorum.good_score %>

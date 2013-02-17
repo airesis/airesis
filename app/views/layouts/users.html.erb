@@ -1,8 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US"<%if @item_type%> itemscope itemtype="http://schema.org/<%=@item_type%>"<%end%>>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US" <%= yield :html_options %>>
 	<head>
 		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
 		<%=render :partial => "layouts/head" %>
+        <%if @user.google_page_url%><link href="<%=@user.google_page_url%>" rel="author" /><%end%>
 	</head>
 	<body>
 		
@@ -23,11 +24,13 @@
 				<%if current_user && (@user == current_user)%>
 				<%= link_to 'Preferenze', @user, :class => 'settingsButton buttonStyle' %>
 				<%else%>
-				<%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
-				<%end%>
-				<%if @user.blog %>
-				<%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle'%>
-				<%end%>
+                <%unless @user.new_record? %>
+                    <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
+                    <%end%>
+                    <%if @user.blog %>
+                    <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle'%>
+                    <%end%>
+                <%end%>
 			</div>
 		</div>			
 	</div>

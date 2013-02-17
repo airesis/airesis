@@ -2,7 +2,7 @@ class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
   default from: "Airesis <info@airesis.it>"
 
-  layout 'resque_mailer/notification'
+  layout 'maktoub/newsletter_mailer'
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
@@ -18,4 +18,13 @@ class ResqueMailer < ActionMailer::Base
   def info_message(msg)
     mail(:to => 'coorasse+info@gmail.com', :subject => APP_SHORT_NAME + " - Messaggio di informazione")
   end
+
+  #invia un invito ad iscriversi al gruppo
+  def invite(group_invitation_id)
+    @group_invitation = GroupInvitation.find(group_invitation_id)
+    @group_invitation_email = @group_invitation.group_invitation_email
+    @group = @group_invitation_email.group
+    mail(:to => @group_invitation_email.email, :subject => "Invito ad iscriversi a #{@group.name}")
+  end
+
 end

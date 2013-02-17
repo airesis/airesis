@@ -63,7 +63,7 @@ end
     
 		if user && !user.image_url.blank?
 			# Load image from model
-			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
+			ret = "<img src=\"#{user.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" itemprop=\"photo\" />"
 	  elsif user.has_provider(Authentication::FACEBOOK)
 	     if size <= 50
 	       fsize = 'small'
@@ -73,10 +73,10 @@ end
 	       fsize = 'large'
 	     end
 	     uid = user.authentications.find_by_provider(Authentication::FACEBOOK).uid
-	     ret = "<img src=\"https://graph.facebook.com/#{uid}/picture?type=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
+	     ret = "<img src=\"https://graph.facebook.com/#{uid}/picture?type=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" itemprop=\"photo\" />"
 	  elsif user.has_provider(Authentication::GOOGLE)
 	    uid = user.authentications.find_by_provider(Authentication::GOOGLE).uid
-	    ret = "<img src=\"https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" />"
+	    ret = "<img src=\"https://www.google.com/s2/photos/profile/#{uid}?sz=#{fsize}\" style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" itemprop=\"photo\" />"
 		else
 			# Gravatar
 			require 'digest/md5'
@@ -87,7 +87,7 @@ end
 			end
 			
 			hash = Digest::MD5.hexdigest(email.downcase)
-			ret = "<img  src=\"http://www.gravatar.com/avatar/#{hash}?s=#{size}\"/>"
+			ret = "<img  src=\"http://www.gravatar.com/avatar/#{hash}?s=#{size}\"  itemprop=\"photo\"/>"
 		end
 		
 		return ret.html_safe if ret.respond_to?(:html_safe)

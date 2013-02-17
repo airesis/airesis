@@ -63,6 +63,10 @@ function drawIntro(svg) {
 <script type="text/javascript">
     var retval = false;
     var clicked;
+    var currentPage = 0;
+    var currentView = <%=current_user ? 1 : 3 %>;
+    var contributes = [];
+    var checkActive = false;
 
     function hiding(event,id) {
         if (!retval) {
@@ -131,10 +135,7 @@ function drawIntro(svg) {
 
     };
 
-    var currentPage = 0;
-    var currentView = <%=current_user ? 1 : 3 %>;
-    var contributes = [];
-    var checkActive = false;
+   
 
     function resetCounter () {
         currentPage = 0;
@@ -179,6 +180,23 @@ function drawIntro(svg) {
                             $("#loading_contributes").hide();
                          }
       });
+
+	  <%if can? :show_tooltips, current_user %>
+		    $('#random_stack_l').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
+		    $('#random_stack_2').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente");
+		    $('#random_stack_3').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
+		    $('#miglioricontributi').ctooltip({
+		        content : "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!",
+		        position : "bottom"
+		    });
+		    $('#voglioredigere').ctooltip("Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti.");
+		    $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)");
+		    $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)");
+		    $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
+		    $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
+		    $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if @proposal.quorum.minutes%>fino al <b><%= @proposal.quorum.ends_at.strftime("%d/%m/%Y") %></b> <%= (@proposal.quorum.ends_at).strftime(" alle %H:%M") %> <b><%= @proposal.quorum.or? ? 'oppure' : 'e'%></b><%end%> finché non sarà valutata da <b>almeno <%=@proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (@proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
+		    $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%=raw "(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
+	  <%end%>
     });
 </script>
 
@@ -188,19 +206,17 @@ function drawIntro(svg) {
 	<%= render :partial => 'proposals/rank_left_panel' %>	
 </div>
 
-	
 
 
 
+
+<%if @proposal.is_anonima?%>
+  Anonimato temporaneo attivo<br/>
+<%end%>
 <%if signed_in? && @my_nickname && @proposal.is_anonima?%>
 	<h4 style="display:inline">Il tuo nickname è </h4><span id="nickname_panel"><%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer'%></span>
 	<div class="blogUserImage">
 		<%=user_tag(current_user,@proposal)%>
-<script type="text/javascript">
-      $(function() {
-      $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei (loro ti vedono come <b><%=@my_nickname.nickname%></b>) e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
-      });
-</script>
 	</div>
 	<div style="clear: both;"></div>
 	
@@ -224,7 +240,7 @@ function drawIntro(svg) {
     <%end%>
 <%end%>
         
-    <br />
+<br />
     
 <div id="support_left_panel_container">   
 <%= render :partial => 'proposals/support_left_panel' %>
@@ -248,7 +264,7 @@ Nessun documento allegato alla proposta
 	<%end%>
 <%end%>
 
-<% unless @proposal.closest.empty?%>
+<% unless @proposal.closest(@group ? @group.id : nil).empty?%>
 	<h4>Proposte attinenti</h4>
 	<%@proposal.closest.each do |p|%>
 		<%=link_to p.title, p%><br />
@@ -256,5 +272,14 @@ Nessun documento allegato alla proposta
 <%end%>
 
 <h4>Categoria</h4>
-<%= link_to @proposal.category.description, proposals_path(:category => @proposal.category.id)%><br/>
+<table>
+  <tr>
+    <td style="vertical-align: middle;" >
+      <%=link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style=>"width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
+    </td>
+    <td>
+      <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
+    </td>
+  </tr>
+</table>
 <%end%>

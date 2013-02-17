@@ -10,7 +10,8 @@ class ProposalsController < ApplicationController
   
   layout :choose_layout
   #carica la proposta
-  before_filter :load_proposal, :except => [:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar]
+  before_filter :load_proposal, :only => [:vote_results]
+  before_filter :load_proposal_and_group, :except => [:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
   
   ###SICUREZZA###
   
@@ -22,25 +23,31 @@ class ProposalsController < ApplicationController
   
   #la proposta deve essere in stato 'IN VALUTAZIONE'
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
-  
+
+  #la proposta deve essere in stato 'VOTATA'
+  before_filter :voted_state_required, :only => [:add_authors]
+
+  #l'utente deve poter visualizzare la proposta
+  before_filter :can_view, :only => [:add_authors]
+
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
   
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
     
   def index    
-    if (params[:category])
+    if params[:category]
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
     end
     @count_base = Proposal.in_category(params[:category])
 
-    if (params[:group_id])
+    if params[:group_id]
       @count_base = @count_base.in_group(@group.id)
     	#@count_base = @count_base.includes([:proposal_supports,:group_proposals])
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
     
-      if !(can? :view_proposal, @group)
+      unless can? :view_proposal, @group
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
       end 
    else
@@ -64,7 +71,7 @@ class ProposalsController < ApplicationController
     query_index             
     respond_to do |format|     
       format.html {
-        if (params[:replace])
+        if params[:replace]
           render :update do |page|
             #TODO far dipendere l'id della tab dallo stato della proposta non è buona cosa ma mi permette di non sbattermi per trovare una soluzione
             #accrocchio
@@ -87,11 +94,11 @@ class ProposalsController < ApplicationController
    
   def show
     @step = get_next_step(current_user) if current_user    
-    if (@proposal.private && @group) #la proposta è interna ad un gruppo
+    if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
-	if !current_user
-	  flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
-	elsif !(can? :partecipate_proposal, @group)    
+        if !current_user
+          flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+        elsif !(can? :partecipate_proposal, @group)
           flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
         end
       else #se è bloccata alla visione di utenti esterni
@@ -111,20 +118,19 @@ class ProposalsController < ApplicationController
       end
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
-      
-      @proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-      @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-      respond_to do |format|
-        #format.js
-        format.html {
-          if (@proposal.proposal_state_id == PROP_WAIT_DATE)
-            flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-          elsif (@proposal.proposal_state_id == PROP_VOTING)
-            flash.now[:notice] = "Questa proposta è in fase di votazione."
-          end                
-        } # show.html.erb
-       # format.xml  { render :xml => @proposal }
-      end    
+    end
+    #@proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
+    respond_to do |format|
+      #format.js
+      format.html {
+        if @proposal.proposal_state_id == PROP_WAIT_DATE
+          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+        elsif @proposal.proposal_state_id == PROP_VOTING
+          flash.now[:notice] = "Questa proposta è in fase di votazione."
+        end
+      } # show.html.erb
+     # format.xml  { render :xml => @proposal }
     end
  # rescue Exception => boom
  #   puts boom
@@ -172,12 +178,12 @@ class ProposalsController < ApplicationController
         starttime = Time.now
         
         copy.started_at = starttime
-        if (quorum.minutes)
+        if quorum.minutes
           endtime = starttime + quorum.minutes.minutes
           copy.ends_at = endtime
         end 
         #se il numero di valutazioni è definito
-        if (quorum.percentage)
+        if quorum.percentage
           if @group #calcolo il numero in base ai partecipanti
             copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
           else  #calcolo il numero in base agli utenti del portale (il 10%)
@@ -192,8 +198,8 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group
-          @proposal.anonima = @group.default_anonima unless (@group.change_advanced_options)  
-          @proposal.visible_outside = @group.default_visible_outside unless (@group.change_advanced_options)  
+          @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
+          @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
@@ -354,25 +360,22 @@ class ProposalsController < ApplicationController
   
   #restituisce una lista di tutte le proposte simili a quella
   #passata come parametro
-  #se è indicato un group_id cerca solo tra quelle interne a quel gruppo
+  #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
     tags = params[:tags].downcase.gsub('.','').gsub("'","").split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
     if tags.empty? 
       tags = "''"
     end  
     sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
-                                      FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
-    if params[:group_id]
-      sql_q += " join group_proposals gp on gp.proposal_id = p.id "
-    end                                   
-    sql_q +=                              " WHERE pt.tag_id IN (SELECT pti.id
-                                              FROM tags pti 
-                                              WHERE pti.text in (#{tags}))"
-    params[:group_id] ?
-        sql_q += " AND p.private = true AND gp.group_id = " + @group.id.to_s :
-        sql_q += " AND p.private = false "
+            p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
+            p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
+            FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
+    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if params[:group_id]
+    sql_q += " WHERE pt.tag_id IN (SELECT pti.id
+               FROM tags pti
+               WHERE pti.text in (#{tags}))"
+    sql_q += " AND (p.private = false OR p.visible_outside = true "
+    sql_q += params[:group_id] ? " OR (p.private = true AND gp.group_id = #{@group.id.to_s}))" : ")"
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
@@ -388,7 +391,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
   def available_author
     @proposal.available_user_authors << current_user
-    @proposal.save
+    @proposal.save!
+
+    #invia le notifiche
+    notify_user_available_authors(@proposal)
+
     flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
     respond_to do |format|
       format.js { render :update do |page|
@@ -416,7 +423,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
-      @proposal.save
+      @proposal.save!
+
+      #invia le notifiche
+      users.each do |u|
+        notify_user_choosed_as_author(u,@proposal)
+      end
     end
   
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"
@@ -437,6 +449,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
           page << "$('#available_authors_list_container').dialog('close');"                               
         end
       }              
+    end
+  end
+
+
+  def vote_results
+    respond_to do |format|
+      format.js
     end
   end
   
@@ -576,13 +595,17 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
 
-  def load_proposal
+  def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
     if @proposal.presentation_groups.count > 0 && !params[:group_id]
       redirect_to group_proposal_path(@proposal.presentation_groups.first,@proposal)
     end
     load_my_vote
 
+  end
+
+  def load_proposal
+    @proposal = Proposal.find(params[:id])
   end
   
   def load_my_vote
@@ -611,8 +634,38 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       redirect_to proposals_path
     end
   end
-  
-  
+
+  def can_view
+    unless can? :read, @proposal
+      flash[:error] = t('error.permissions_required')
+      respond_to do |format|
+        format.js { render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+        format.html {
+          redirect_to :back
+        }
+      end
+    end
+  end
+
+
+  def voted_state_required
+    unless @proposal.voted?
+      flash[:error] = t(:error_proposal_not_voted)
+      respond_to do |format|
+        format.js { render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+        format.html {
+          redirect_to :back
+        }
+      end
+    end
+  end
+
   def valutation_state_required
      if @proposal.proposal_state_id != PROP_VALUT
       flash[:error] = t(:error_proposal_not_valutating)

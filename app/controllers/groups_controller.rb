@@ -180,7 +180,7 @@ class GroupsController < ApplicationController
         params[:group][:partecipant_ids] -= current_user.id rescue
                         
         @group = Group.new(params[:group]) #crea il gruppo
-  
+        @group.default_visible_outside = true
         #se ci sono già dei partecipanti al gruppo, inserisci a sistema una richiesta di partecipazione accettata per ognuno        
         @group.partecipant_ids.each do |id|            
             @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3}) if (id != current_user.id)

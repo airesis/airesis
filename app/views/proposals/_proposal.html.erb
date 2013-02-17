@@ -1,177 +1,182 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%= form_for @group ? [@group,@proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
-   <div class="legend first">Informazioni iniziali</div>
-   <div class="legend">Proposte simili</div>
-   <div class="legend">Problemi ed obiettivi</div>
-   <div class="legend last">Proposta iniziale</div>
+<%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+    <div class="legend first">Informazioni iniziali</div>
+    <div class="legend">Proposte simili</div>
+    <div class="legend">Problemi ed obiettivi</div>
+    <div class="legend last">Proposta iniziale</div>
 
 
-    <%if params[:action] == "new"%>
-       <div class="step root root">
 
-       <p>
-        <%= f.label :proposal_category_id%><br />
-        <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect {|p| [ p.description, p.id ] }) %>
+    <div class="step root root">
+
+      <p>
+        <%= f.label :proposal_category_id %><br/>
+        <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
+      </p>
+      <% if params[:action] == "new" %>
+          <p>
+            <%= f.label :title %> *<br/>
+            <%= f.text_field :title, :style => "width:300px" %>
+          </p>
+
+          <p>
+            <%= f.label :subtitle %><br/>
+            <%= f.text_field :subtitle, :style => "width:600px;" %>
+          </p>
+
+          <p>
+            <%= f.label :interest_borders_tkn %><br/>
+            <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+          </p>
+
+          <p>
+            <%= f.label :tags_list, 'Tags (seperati da virgola)' %><br/>
+            <%= f.text_field :tags_list %>
+          </p>
+
+          <p>
+            <%= f.label :quorum_id, 'Quorum' %><br/>
+            <% if @group %>
+                <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+                <%= link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true %>
+            <% else %>
+                <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+                <%= link_to 'Non li conosco!', help_quorums_path, :remote => true %>
+            <% end %>
+
+          <div id="available_quorums_container" title="Elenco quorum disponibili">
+          </div>
+          </p>
+
+          <p>
+            <% if @change_advanced_options %>
+                <%= f.check_box :anonima %>
+                <%= f.label :anonima, 'Anonimato temporaneo' %><br/>
+                <%= f.check_box :visible_outside %>
+                <%= f.label :visible_outside, 'Visibile pubblicamente' %><br/>
+
+            <% end %>
+          </p>
+
+          <p>
+            <% if @group %>
+                <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+            <% end %>
+            <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
+            <%= f.hidden_field :private %>
+          </p>
+
+      <% end %>
+    </div>
+
+
+    <div class="step" id="suggestions">
+    </div>
+
+    <div class="step">
+      <h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole
+        raggiungere la proposta</h4>
+
+      <p>
+        <%= f.label :problems %> *<br/>
+        <%= f.text_area :problems, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+
       </p>
 
       <p>
-         <%=f.label :title%> *<br />
-        <%= f.text_field :title, :style=>"width:300px" %>
-      </p>
+        <%= f.label :objectives %> *<br/>
+        <%= f.text_area :objectives, :rows => 5, :style => "width:500px" %>
 
-       <p>
-         <%=f.label :subtitle%><br />
-        <%= f.text_field :subtitle, :style=>"width:600px;" %>
       </p>
+    </div>
 
+    <div class="step">
+      <% if params[:action] == "new" %>
+          <h4>Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi
+            ricevuti</h4>
+      <% else %>
+          <h4>Modifica e aggiorna il testo della proposta!</h4>
+      <% end %>
       <p>
-        <%=f.label :interest_borders_tkn%><br/>
-        <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+        <%= f.label :content %><br/>
+        <%= f.text_area :content, :rows => 5, :style => "width:600px;" %>
       </p>
+    </div>
 
-      <p>
-        <%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
-        <%= f.text_field :tags_list %>
-      </p>
-
-      <p>
-        <%= f.label :quorum_id, 'Quorum' %><br />
-        <%if @group%>
-            <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-            <%=link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true%>
-        <%else%>
-            <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-            <%=link_to 'Non li conosco!', help_quorums_path, :remote => true%>
-        <%end%>
-        <div id="available_quorums_container" title="Elenco quorum disponibili">
-        </div>
-      </p>
-
-      <p>
-        <%if @change_advanced_options%>
-            <%=f.check_box :anonima %>
-            <%=f.label :anonima, 'Anonimato temporaneo'%><br />
-	    <%=f.check_box :visible_outside %>
-            <%=f.label :visible_outside, 'Visibile pubblicamente'%><br />
-
-        <%end%>
-      </p>
-
-      <p>
-        <%if @group%>
-        <input type="hidden" name="from_group" value="<%=@group.id%>"/>
-        <%end%>
-        <input type="hidden" name="proposal[presentation_group_ids][]" value="<%=@proposal.presentation_group_ids.join(",")%>"/>
-        <%=f.hidden_field :private%>
-      </p>
-
-      </div>
-    <%end%>
-  
-
-  <div class="step" id="suggestions">
-  </div>
-  
-  <div class="step">
-  	<h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta</h4>
-   <p>
-  	 <%=f.label :problems%> *<br />
-    <%= f.text_area :problems, :rows=>5,:style=>"width:500px", :class => "tinymce" %>
-     
-  </p>
-  
-   <p>
-  	 <%=f.label :objectives%> *<br />
-    <%= f.text_area :objectives, :rows=>5,:style=>"width:500px" %>
-     
-  </p>
-  </div>
-  
-  <div class="step">
-    <%if params[:action] == "new"%>
-  	<h4>Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti</h4>
-  	<%else%>
-  	<h4>Modifica e aggiorna il testo della proposta!</h4>
-  	<%end%>
-  <p>
-    <%=f.label :content%><br />
-    <%= f.text_area :content, :rows=>5, :style => "width:600px;" %>
-  </p>
-  </div>
-
-  <p>
-  	 <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-    <%= f.submit button_name, :class => 'buttonStyle' %>
-  </p>
+    <p>
+      <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+      <%= f.submit button_name, :class => 'buttonStyle' %>
+    </p>
 <% end %>
 
-	
-	
+
+
 <% data = "["
    @proposal.tags_list.split(',').each do |l|
-   	data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   	end 
-   data += "]"	
+     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   end
+   data += "]"
 %>
 <script>
-	$('.legend').hide();
-	
-	
-	$(function(){
-		$("#new_proposal").validate().quickWizard({
-			nextCallback: showSimilarProposal,
-			prevCallback: skipIfNecessary
-		});
-		
-		
-		input = $('#proposal_interest_borders_tkn')
-		input.tokenInput("/interest_borders.json", {
-			crossDomain: false,
-			prePopulate: $('#proposal_interest_borders_tkn').data("pre"),
-			hintText: "Digita alcuni caratteri per cercare un luogo",
-			noResultsText: "Nessun luogo trovato",
-			searchingText: "Sto cercando...",
-			preventDuplicates: true
-		});
-		
+    $('.legend').hide();
 
-		input = $('#proposal_tags_list')
-		if (input != null) {
-			input.tokenInput([], {
-				theme: "facebook",
-				crossDomain: false,
-				allowCustomEntry: true,
-				prePopulate: <%=raw data%>,
-				hintText: "Digita i tag che vuoi inserire",
-				searchingText: "Digita i tag che vuoi inserire",
-				preventDuplicates: true
-			})
-		}
-	}); 
-	
-	/**
-	 * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
-	 */
-	function skipIfNecessary(activeDiv) {
-		if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
-			$('#form-wizard-prev').click();
-		}
-	}
-	
-	/**
-	 * Mostra proposte simili se ve ne sono
-	 */
-	function showSimilarProposal(activeDiv) {
-        $(':input',activeDiv).first().focus();
-		if (activeDiv.attr('id') == 'suggestions') {
-				$.ajax({
-					url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
-					data: 'tags=' + $('#proposal_tags_list').val()
-				})
-		}
-	}
-	
+
+    $(function () {
+        $("#new_proposal").validate().quickWizard({
+            nextCallback:showSimilarProposal,
+            prevCallback:skipIfNecessary
+        });
+
+
+        input = $('#proposal_interest_borders_tkn')
+        input.tokenInput("/interest_borders.json", {
+            crossDomain:false,
+            prePopulate:$('#proposal_interest_borders_tkn').data("pre"),
+            hintText:"Digita alcuni caratteri per cercare un luogo",
+            noResultsText:"Nessun luogo trovato",
+            searchingText:"Sto cercando...",
+            preventDuplicates:true
+        });
+
+
+        input = $('#proposal_tags_list')
+        if (input != null) {
+            input.tokenInput([], {
+                theme:"facebook",
+                crossDomain:false,
+                allowCustomEntry:true,
+                prePopulate: <%=raw data%>,
+                hintText:"Digita i tag che vuoi inserire",
+                searchingText:"Digita i tag che vuoi inserire",
+                preventDuplicates:true
+            })
+        }
+    });
+
+    /**
+     * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
+     */
+    function skipIfNecessary(activeDiv) {
+        if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
+            $('#form-wizard-prev').click();
+        }
+    }
+
+    /**
+     * Mostra proposte simili se ve ne sono
+     */
+    function showSimilarProposal(activeDiv) {
+        $(':input', activeDiv).first().focus();
+        if (activeDiv.attr('id') == 'suggestions') {
+            $.ajax({
+                url:'<%=similar_proposals_path :group_id => params[:group_id]%>',
+                data:'tags=' + $('#proposal_tags_list').val()
+            })
+        }
+    }
+
 </script>
+
 
 <!--<%= tinymce %>-->
 

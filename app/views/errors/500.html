@@ -1,6 +1,6 @@
 <style type="text/css">
 		div.error_dialog {
-			width: 25em;
+			width: 450px;
 			padding: 0 4em;
 			margin: 0px auto 20px;
 			border: 1px solid #ccc;			
@@ -9,7 +9,15 @@
 	</style>
 
   <div class="error_dialog shadow-box">
-    <h1>Oops...errore mio</h1>
-    <p>Questo è più imbarazzante di quando Firefox va in crash. E' stata inviata una segnalazione e l'errore verrà risolto quanto prima.</p>
-    <%=link_to 'Torna da dove sono venuto, grazie...', :back%>
+    <div style="float:left; text-align: center;width:100%;">
+      <img src="/assets/allbroken128.png" style="margin: auto;display: block;">
+    </div>
+    <div style="float:left; text-align: center;">
+      <h1>Oops...errore nostro</h1>
+      <p>Scusateci ma il programmatore non è un granchè.<br />
+         E' stata inviata una segnalazione e l'errore verrà risolto quanto prima.
+      </p>
+      <%=link_to 'Torna indietro, grazie...', :back%>
+    </div>
+      <div style="clear: both;"></div>
   </div>

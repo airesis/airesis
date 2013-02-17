@@ -51,7 +51,7 @@ class Proposal < ActiveRecord::Base
   
   attr_accessor :update_user_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -63,6 +63,8 @@ class Proposal < ActiveRecord::Base
   scope :accepted, { :conditions => {:proposal_state_id => PROP_ACCEPT }}
   #tutte le proposte respinte
   scope :rejected, { :conditions => {:proposal_state_id => PROP_RESP }}
+
+  scope :voted, {:conditions => {:proposal_state_id => [ProposalState::ACCEPTED,ProposalState::REJECTED]}}
   
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, { :conditions => {:proposal_state_id => PROP_REVISION }}
@@ -83,16 +85,32 @@ class Proposal < ActiveRecord::Base
   after_update :save_proposal_history
  
   def in_valutation?
-    return self.proposal_state_id == PROP_VALUT  
+    self.proposal_state_id == ProposalState::VALUTATION
+  end
+
+  def waiting_date?
+    self.proposal_state_id == ProposalState::WAIT_DATE
+  end
+
+  def waiting?
+    self.proposal_state_id == ProposalState::WAIT
+  end
+
+  def voting?
+    self.proposal_state_id == ProposalState::VOTING
+  end
+
+  def voted?
+    [ProposalState::ACCEPTED,ProposalState::REJECTED].include? self.proposal_state_id
   end
   
   def is_current?
-    return [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id 
+    [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING].include? self.proposal_state_id
   end
 
   #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
   def is_anonima?
-    return is_current? && self.anonima
+    is_current? && self.anonima
   end
 
   def tags_list
@@ -108,8 +126,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def tags_with_links
-    html = self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-    return html
+    self.tags.collect {|t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
 
@@ -199,19 +216,23 @@ class Proposal < ActiveRecord::Base
   end
   
   #restituisce la lista delle 10 proposte più vicine a questa
-  def closest
-    return Proposal.find_by_sql(" 
-    SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
-                    FROM proposal_tags pt join proposals p on pt.proposal_id = p.id  
-                    WHERE pt.tag_id IN (SELECT pti.tag_id
-                            FROM proposal_tags pti 
-                            WHERE pti.proposal_id = #{self.id})
-                    AND pt.proposal_id != #{self.id}
-                    GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-                    ORDER BY closeness DESC")    
+  def closest(group_id=nil)
+    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+              p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
+              p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
+              FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
+
+    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
+    sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
+                                  FROM proposal_tags pti
+                                  WHERE pti.proposal_id = #{self.id})
+              AND pt.proposal_id != #{self.id} "
+    sql_q += " AND (p.private = false OR p.visible_outside = true "
+    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
+    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
+               p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
+               ORDER BY closeness DESC"
+    Proposal.find_by_sql(sql_q)
   end 
 end

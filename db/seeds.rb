@@ -8266,6 +8266,10 @@ NotificationType.create( :description => "Nuovo commento di un utente che seguo"
 NotificationType.create( :description => "Nuovi eventi inseriti dagli utenti che seguo", :notification_category_id => 5 ){ |c| c.id = 19 }.save
 NotificationType.create( :description => "Nuova valutazione ad una mia proposta.", :notification_category_id => 1 ){ |c| c.id = 20 }.save
 NotificationType.create( :description => "Nuova valutazione ad una proposta a cui partecipi.", :notification_category_id => 1 ){ |c| c.id = 21 }.save
+NotificationType.create( :description => "Utente disponibile a redigere la sintesi di una proposta.", :notification_category_id => 1 ){ |c| c.id = 22 }.save
+NotificationType.create( :description => "Accettazione come redattore di una proposta.", :notification_category_id => 1 ){ |c| c.id = 23 }.save
+NotificationType.create( :description => "Nuovi redattori per le proposte.", :notification_category_id => 1 ){ |c| c.id = 24 }.save
+
 
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Nessuna categoria" ){ |c| c.id = 5 }.save
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Educazione, Ricerca" ){ |c| c.id = 7 }.save

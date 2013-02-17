@@ -6,7 +6,17 @@
 	        	<%= link_to proposal.title, proposal.private ? [proposal.presentation_groups.first,proposal] : proposal %>
 	        </div>
 	       	<div class="datetime">
-	            Ultimo aggiornamento del <span class="blogPostDate"><%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %></span>	            
+                <%if proposal.in_valutation?%>
+	              Ultimo aggiornamento del <span class="blogPostDate"><%=l proposal.updated_at %></span>
+                <%elsif proposal.waiting_date?%>
+                  In attesa che venga stabilita la data di votazione
+                <%elsif proposal.waiting?%>
+                  In votazione dal <span class="blogPostDate"><%=l proposal.vote_period.starttime%></span> al <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
+                <%elsif proposal.voting?%>
+                  In votazione adesso fino al <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
+                 <%elsif proposal.voted?%>
+                     La votazione è terminata il <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
+                <%end%>
 	            <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user,proposal)%>
 	        </div>
 	        <% unless proposal.interest_borders.empty?%>
