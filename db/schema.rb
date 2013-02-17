@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130207095650) do
-=======
-ActiveRecord::Schema.define(:version => 20130203164726) do
->>>>>>> omniauth-meetup
+ActiveRecord::Schema.define(:version => 20130217205251) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -326,6 +322,7 @@ ActiveRecord::Schema.define(:version => 20130203164726) do
     t.boolean  "change_advanced_options",                 :default => true,  :null => false
     t.boolean  "default_anonima",                         :default => true,  :null => false
     t.boolean  "default_visible_outside",                 :default => false, :null => false
+    t.boolean  "default_secret_vote",                     :default => true,  :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -571,6 +568,7 @@ ActiveRecord::Schema.define(:version => 20130203164726) do
     t.integer  "quorum_id",                                                   :null => false
     t.boolean  "anonima",                                  :default => true,  :null => false
     t.boolean  "visible_outside",                          :default => false, :null => false
+    t.boolean  "secret_vote",                              :default => true,  :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -790,6 +788,7 @@ ActiveRecord::Schema.define(:version => 20130203164726) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "vote_type_id"
   end
 
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
@@ -843,6 +842,10 @@ ActiveRecord::Schema.define(:version => 20130203164726) do
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
+
+  create_table "vote_types", :force => true do |t|
+    t.string "description", :limit => 200, :null => false
+  end
 
   add_foreign_key "available_authors", "proposals", :name => "available_authors_proposal_id_fk"
   add_foreign_key "available_authors", "users", :name => "available_authors_user_id_fk"
@@ -907,5 +910,7 @@ ActiveRecord::Schema.define(:version => 20130203164726) do
 
   add_foreign_key "supporters", "candidates", :name => "supporters_candidate_id_fk"
   add_foreign_key "supporters", "groups", :name => "supporters_group_id_fk"
+
+  add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"
 
 end

@@ -93,17 +93,17 @@ class PartecipationRolesController < ApplicationController
   
   #modifica il ruolo predefinito per il gruppo
   #il ruolo predefinito è il ruolo assegnato ad ogni membro del gruppo all'atto dell'iscrizione
-  def change_default_role
-    @group.partecipation_role_id=params[:role_id]
-    @group.save
-    flash[:notice] ="Ruolo predefinito aggiornato." 
-    respond_to do |format|
-      format.js { render :update do |page|
-                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                  end
-      }
-    end
-  end
+  #def change_default_role
+  #  @group.partecipation_role_id=params[:role_id]
+  #  @group.save!
+  #  flash[:notice] ="Ruolo predefinito aggiornato."
+  #  respond_to do |format|
+  #    format.js { render :update do |page|
+  #                   page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+  #                end
+  #    }
+  #  end
+  #end
   
    
   protected

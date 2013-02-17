@@ -1,60 +1,36 @@
-
 <table class="table_list">
-	<thead class="table_header">
-		<th >Default</th>
-		<th>Ruolo</th>
-		<th>Descrizione</th>
-		
-		<% GroupAction.all.each do |action|%>
-		<th><%=action.description%></th>
-		<%end%>
-		
-	</thead>
-	<tbody>
-<%
-PartecipationRole.common.each do |role|
-abilitations = role.action_abilitations.by_group(@group).all
-%>
-	<tr valign="top">
-			<td>
-				<%if (role.id != 2)%>
-				<input name="predef" type="radio" value="<%=role.id%>" onclick="return change_default_role(<%=role.id%>);" <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>> </td>
-				<%end%>
-			<td>
-				<%=role.name%>:
-				</td>
-				<td> <%=role.description%></td>
-				<% GroupAction.all.each do |action|%>
-					<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-						<%if (abilitations.find{|a| a.group_action_id == action.id} || (role.id == 2))%> 
-						checked="true"
-						<%end%>
-						disabled="disabled"
-						title="Non puoi modificare questi permessi"
-						/></td>
-				<%end%>	
-					
-		</tr>
-<%end%>
-	<%@group.partecipation_roles.each do |role|
-	abilitations = role.action_abilitations.by_group(@group).all%>
-		<tr valign="top" style="border-bottom: 1px dotted grey">
-			<td><input name="predef" type="radio" value="<%=role.id%>" onclick="return change_default_role(<%=role.id%>);"  <%if (role.id==@group.partecipation_role_id)%> checked="true" <%end%>></td>
-			<td>
-				<%=role.name%>:
-				</td>
-				<td> <%=role.description%>	
-					</td>
-					<% GroupAction.all.each do |action|%>
-						<td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-							<%if (abilitations.find{|a| a.group_action_id == action.id})%> 
-						checked="true"
-						<%end%>
-							 /></td>
-					<%end%>	
-					
-					<td><%if (role.id!=@group.partecipation_role_id)%><%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %><%end%></td>
-		</tr>
-	<%end%>
-	</tbody>
+  <thead class="table_header">
+  <th>Ruolo</th>
+  <th>Descrizione</th>
+
+  <% GroupAction.all.each do |action| %>
+      <th><%= action.description %></th>
+  <% end %>
+
+  </thead>
+  <tbody>
+
+  <% @group.partecipation_roles.each do |role|
+    abilitations = role.action_abilitations.by_group(@group).all %>
+      <tr valign="top" style="border-bottom: 1px dotted grey">
+        <td>
+          <%= role.name %>
+        </td>
+        <td> <%= role.description %>
+        </td>
+        <% GroupAction.all.each do |action| %>
+            <td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
+                       <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
+                       checked="true"
+                       <% end %>
+                       /></td>
+        <% end %>
+
+        <td>
+          <% if (role.id != @group.partecipation_role_id) %>
+              <%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+          <% end %></td>
+      </tr>
+  <% end %>
+  </tbody>
 </table>

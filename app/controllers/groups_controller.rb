@@ -1,7 +1,7 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
   include NotificationHelper
-  
+
   layout :choose_layout
   #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:create,:ask_for_multiple_follow]
@@ -11,7 +11,6 @@ class GroupsController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:show]
   
-  
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
   
   #l'utente deve essere amministratore
@@ -19,7 +18,6 @@ class GroupsController < ApplicationController
   
    #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
-
 
   def index    
     @groups = Group.search(params[:search])
@@ -45,6 +43,7 @@ class GroupsController < ApplicationController
   
   def new    
     @group = Group.new(:accept_requests => 'p')
+    @group.default_role_actions = DEFAULT_GROUP_ACTIONS
     
     respond_to do |format|
       format.html # new.html.erb
@@ -53,6 +52,7 @@ class GroupsController < ApplicationController
   end
   
   def edit
+    authorize! :update, @group
     @page_title = t("pages.groups.edit.title")
   end
   
@@ -176,27 +176,11 @@ class GroupsController < ApplicationController
     begin
       Group.transaction do
         
-        #l'utente che crea il gruppo è automaticamente partecipante e portavoce
-        params[:group][:partecipant_ids] -= current_user.id rescue
+        params[:group][:default_role_actions].reject!(&:empty?)
                         
         @group = Group.new(params[:group]) #crea il gruppo
-        @group.default_visible_outside = true
-        #se ci sono già dei partecipanti al gruppo, inserisci a sistema una richiesta di partecipazione accettata per ognuno        
-        @group.partecipant_ids.each do |id|            
-            @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3}) if (id != current_user.id)
-        end
-                 
-        #fai si che chi crea il gruppo ne sia anche portavoce
-        @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
-         
-        @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+        @group.current_user_id = current_user.id
         @group.save!
-        Quorum.public.each do |quorum|
-          copy = quorum.dup
-          copy.public = false
-          copy.save!
-          GroupQuorum.create(:quorum_id => copy.id, :group_id => @group.id)         
-        end        
       end
       respond_to do |format|
           flash[:notice] = 'Hai creato il gruppo.'
@@ -213,7 +197,7 @@ class GroupsController < ApplicationController
   end #create
   
   def update
-    
+    authorize! :update, @group
     begin
       Group.transaction do
        

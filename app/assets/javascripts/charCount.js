@@ -25,7 +25,7 @@
 			counterElement: 'span',
 			cssWarning: 'warning',
 			cssExceeded: 'exceeded',
-			counterText: ''
+			counterText: 'Caratteri disponibili: '
 		}; 
 			
 		var options = $.extend(defaults, options); 

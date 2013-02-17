@@ -4,5 +4,6 @@ class AnotherNotificationType < ActiveRecord::Migration
   end
 
   def down
+    NotificationType.find(24).destroy
   end
 end

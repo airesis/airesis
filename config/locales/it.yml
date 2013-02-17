@@ -253,6 +253,8 @@ it:
         interest_border_tkn: "Confine geografico di interesse"
         interest_border_id: "Confine geografico di interesse"
         image_url: "Indirizzo immagine"
+        default_role_name: "Come verranno chiamati gli utenti appena iscritti?"
+        default_role_name_placeholder: "Esempio: Iscritti, Membri, Attivisti, Pirati"
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"

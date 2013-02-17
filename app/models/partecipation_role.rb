@@ -8,8 +8,9 @@ class PartecipationRole < ActiveRecord::Base
   has_many :action_abilitations, :class_name => 'ActionAbilitation', :dependent => :destroy
   belongs_to :partecipation_roles, :class_name => 'PartecipationRole', :foreign_key => :parent_partecipation_role_id
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
-  
-  scope :common, { :conditions => {:group_id => nil }}
+
+  #prendi il portavoce, member è deprecato
+  scope :common, { :conditions => {:id => 2 }}
   
   validates_uniqueness_of :name, :scope => :group_id
   

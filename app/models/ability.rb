@@ -23,7 +23,12 @@ class Ability
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
        end
-
+       can :create, Group do |group|
+         true
+       end
+       can :update, Group do |group|
+         group.portavoce.include? user
+       end
        can :post_to, Group do |group|
          can_do_on_group?(user,group,1)
        end
