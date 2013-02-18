@@ -31,4 +31,15 @@
 //= require jquery.ctooltip
 //= require prettydiff/diffview
 //= require simplemodal
+//= require_tree ./rangy-1.2/
+//= require ice/ice
+//= require ice/dom
+//= require ice/icePluginManager
+//= require ice/icePlugin
+//= require ice/selection
+//= require ice/bookmark
+//= require_tree ./ice/IceEmdashPlugin/
+//= require_tree ./ice/IceAddTitlePlugin/
+//= require_tree ./ice/IceCopyPastePlugin/
+//= require_tree ./ice/IceSmartQuotesPlugin/
 //= require tinymce-jquery

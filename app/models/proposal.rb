@@ -49,9 +49,10 @@ class Proposal < ActiveRecord::Base
   
   validates_presence_of :objectives,:problems, :quorum_id
   
-  attr_accessor :update_user_id
+  attr_accessor :update_user_id, :objectives_dirty, :problems_dirty, :content_dirty
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
+                  :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :objectives_dirty, :problems_dirty, :content_dirty
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -176,13 +177,13 @@ class Proposal < ActiveRecord::Base
  #prima di aggiornare la proposta salvane la 
  #storia nella tabella dedicata (se è cambiato il testo)
  def save_proposal_history
-   if self.content_changed? || self.problem_changed?
+   if self.content_changed? || self.problems_changed?
      puts "Updated!"
      history = ProposalHistory.new
      history.proposal_id = self.id
      history.user_id = self.update_user_id
-     history.content = self.content_was
-     history.problem = self.problem_was
+     history.content = self.content_dirty
+     history.problem = self.problems_dirty
      history.valutations = self.valutations_was
      history.rank = self.rank_was
      history.save

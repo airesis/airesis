@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#youtube_dlg.title}</title>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="js/youtube.js"></script>
+</head>
+<body>
+
+<form onsubmit="YoutubeDialog.insert();return false;" action="#">
+	<p><label for="youtubeURL">{#youtube_dlg.url_field}</label>
+    <input id="youtubeURL" name="youtubeURL" type="text" class="text" style="width:100%" /></p>
+
+	<div class="mceActionPanel">
+		<input type="button" id="insert" name="insert" value="{#insert}" onclick="YoutubeDialog.insert();" />
+		<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+	</div>
+</form>
+
+</body>
+</html>

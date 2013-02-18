@@ -164,7 +164,10 @@ class ProposalsController < ApplicationController
     end
   end
   
-  def edit    
+  def edit
+    @proposal.content_dirty = @proposal.content
+    @proposal.objectives_dirty = @proposal.objectives
+    @proposal.problems_dirty = @proposal.problems
   end
   
   def create

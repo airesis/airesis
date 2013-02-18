@@ -27,7 +27,18 @@
 			
 			
 		}	
-	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
+	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination
+
+
+    $(function() {
+        $('img.mceItem').each(function(){
+            var src = $(this).attr('alt');
+            var width = $(this).attr('width') || 640
+            var height = $(this).attr('height') || 390
+            $(this).after($('<iframe src=\"http://www.youtube.com/embed/'+src+'\" width=\"'+width+'\" height=\"'+height+'\" frameborder=\"0\" seamless allowfullscreens/>'));
+            $(this).remove();
+        });
+    });
 </script>	
 
 <div style="float: right;  height:30px;">
@@ -108,7 +119,7 @@
     <h3><%=section.title%></h3>
     <div class="proposalMainContainer proposal_main shadow-box">
       <div class="proposal_content">
-        <%=simple_format(section.paragraphs.first.content, :sanitize => true) %>
+        <%=sanitize(section.paragraphs.first.content) %>
       </div>
     </div>
 <%end%>
@@ -118,7 +129,7 @@
   <%@proposal.solutions.each do |solution|%>
       <%solution.sections.each do |section|%>
         <div class="proposal_content">
-          <%=simple_format(section.paragraphs.first.content, :sanitize => true) %>
+          <%=sanitize(section.paragraphs.first.content) %>
         </div>
       <%end%>
   <%end%>
