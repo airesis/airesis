@@ -25,10 +25,10 @@ class ProposalsController < ApplicationController
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
 
   #la proposta deve essere in stato 'VOTATA'
-  before_filter :voted_state_required, :only => [:add_authors]
+  before_filter :voted_state_required, :only => [:vote_results]
 
   #l'utente deve poter visualizzare la proposta
-  before_filter :can_view, :only => [:add_authors]
+  before_filter :can_view, :only => [:vote_results]
 
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
@@ -200,9 +200,11 @@ class ProposalsController < ApplicationController
         if @group
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
+          @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
+          @proposal.secret_vote = true
         end
         @proposal.quorum_id = copy.id
         
@@ -222,7 +224,7 @@ class ProposalsController < ApplicationController
         generate_nickname(current_user,@proposal) 
     	
         #fai partire il timer per far scadere la proposta
-        if (quorum.minutes)
+        if quorum.minutes
           Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
@@ -428,6 +430,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       #invia le notifiche
       users.each do |u|
         notify_user_choosed_as_author(u,@proposal)
+        generate_nickname(user,@proposal)
       end
     end
   

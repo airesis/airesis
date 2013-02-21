@@ -142,6 +142,7 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_anonima
       post :change_default_visible_outside
       post :change_advanced_options
+      post :change_default_secret_vote
     end
 
     collection do
