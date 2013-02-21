@@ -8227,11 +8227,14 @@ EventType.create( :description => "votazione" ){ |c| c.id = 2 }.save
 EventType.create( :description => "riunione" ){ |c| c.id = 3 }.save
 EventType.create( :description => "elezione" ){ |c| c.id = 4 }.save
 
-GroupAction.create( :name => "STREAM_POST", :description => "Inserire i post nello stream", :created_at => "2012-03-10 12:22:13", :updated_at => "2012-03-10 12:22:13" ){ |c| c.id = 1 }.save
-GroupAction.create( :name => "CREATE_EVENT", :description => "Creare eventi", :created_at => "2012-03-10 12:22:13", :updated_at => "2012-03-10 12:22:13" ){ |c| c.id = 2 }.save
-GroupAction.create( :name => "PROPOSAL", :description => "Sostenere proposte", :created_at => "2012-03-10 12:22:13", :updated_at => "2012-03-10 12:22:13" ){ |c| c.id = 3 }.save
-GroupAction.create( :name => "REQUEST_ACCEPT", :description => "Accettare le richieste di partecipazione", :created_at => "2012-03-10 12:22:13", :updated_at => "2012-03-10 12:22:13" ){ |c| c.id = 4 }.save
-GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Inviare candidati alle elezioni'){ |c| c.id = 5 }.save
+GroupAction.create( :name => "STREAM_POST", :description => 'Pubblicare nella Home Page del gruppo'){ |c| c.id = 1 }.save
+GroupAction.create( :name => "CREATE_EVENT", :description => 'Creare eventi e votazioni'){ |c| c.id = 2 }.save
+GroupAction.create( :name => "PROPOSAL", :description => 'Sostenere proposte a nome del gruppo'){ |c| c.id = 3 }.save
+GroupAction.create( :name => "REQUEST_ACCEPT", :description => 'Aggiungere partecipanti nel gruppo'){ |c| c.id = 4 }.save
+GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
+GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
+GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
+GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
 
 GroupPartecipationRequestStatus.create( :description => "Inoltrata" ){ |c| c.id = 1 }.save
 GroupPartecipationRequestStatus.create( :description => "In votazione" ){ |c| c.id = 2 }.save
