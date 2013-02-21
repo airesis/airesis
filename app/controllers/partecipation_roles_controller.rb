@@ -4,8 +4,8 @@ class PartecipationRolesController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
   
-  before_filter :load_group, :except => [:destroy,:change_group_permission,:change_user_permission,:change_default_role]
-  before_filter :load_partecipation_role, :only => :destroy
+  before_filter :load_group, :except => [:destroy,:change_group_permission,:change_user_permission,:change_default_role,:edit,:update]
+  before_filter :load_partecipation_role, :only => [:destroy,:edit,:update]
   before_filter :check_group_permissions, :only => [:change_group_permission]
   before_filter :check_role_permissions, :only => [:change_default_role]
   before_filter :check_user_permissions, :only => [:change_user_permission]
@@ -39,7 +39,33 @@ class PartecipationRolesController < ApplicationController
         format.html { redirect_to edit_permissions_group_path(@group) }                
       end          
     end 
-  end 
+  end
+
+
+  def edit
+    authorize! :update, @partecipation_role
+  end
+
+  def update
+    authorize! :update, @partecipation_role
+    PartecipationRole.transaction do
+      params[:partecipation_role][:group_id] = @partecipation_role.group_id
+      @partecipation_role.attributes = params[:partecipation_role]
+      @partecipation_role.save!
+    end
+
+    respond_to do |format|
+      flash[:notice] = t('partecipation_role.confirm.update')
+      format.js
+    end
+    rescue Exception => e
+      respond_to do |format|
+        flash[:error] = t('partecipation_role.errors.update')
+        format.js  {  render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end}
+      end
+  end
   
   
   def destroy
@@ -167,6 +193,7 @@ class PartecipationRolesController < ApplicationController
   
   def load_partecipation_role
     @partecipation_role = PartecipationRole.find(params[:id])
+    @group = @partecipation_role.group
   end
   
   def load_group

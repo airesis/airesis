@@ -29,6 +29,9 @@ class Ability
        can :update, Group do |group|
          group.portavoce.include? user
        end
+       can :update, PartecipationRole do |partecipation_role|
+         partecipation_role.group.portavoce.include? user
+       end
        can :post_to, Group do |group|
          can_do_on_group?(user,group,1)
        end

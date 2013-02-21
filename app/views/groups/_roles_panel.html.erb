@@ -12,7 +12,7 @@
 
   <% @group.partecipation_roles.each do |role|
     abilitations = role.action_abilitations.by_group(@group).all %>
-      <tr valign="top" style="border-bottom: 1px dotted grey">
+      <tr valign="top" style="border-bottom: 1px dotted grey; <%='background-color: #EAEBFF' if (role.id == @group.partecipation_role_id)%>">
         <td>
           <%= role.name %>
         </td>
@@ -29,7 +29,9 @@
         <td>
           <% if (role.id != @group.partecipation_role_id) %>
               <%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
-          <% end %></td>
+          <% end %>
+          <%= link_to "Modifica", edit_partecipation_role_path(role), :remote => true %>
+        </td>
       </tr>
   <% end %>
   </tbody>

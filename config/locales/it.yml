@@ -136,7 +136,11 @@ it:
      update: "Errore nell'aggiornamento del gruppo."
    confirm:
      update: "Gruppo aggiornato correttamente."
-  
+  partecipation_role:
+   errors:
+     update: "Errore durante l'aggiornamento del ruolo"
+   confirm:
+     update: "Ruolo aggiornato correttamente"
   pages:
     top_panel:
       login: "Accedi o registrati"

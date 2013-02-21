@@ -100,7 +100,7 @@
                     $(this).dialog("close");
                 },
                 "Default":function () {
-                    $("input[name=group\\[default_role_actions\\]]").attr('checked', false);
+                    $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
                     <%@group.default_role_actions.each do |id|%>
                     $('#group_default_role_actions_<%=id%>').attr('checked', true);
                     <%end%>

@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   has_many :followers,:through => :group_follows, :source => :user, :class_name => 'User'
   has_many :posts,:through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
-  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy
+  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy, :order => 'id DESC'
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   belongs_to :default_role, :class_name => 'PartecipationRole', :foreign_key => :partecipation_role_id
@@ -80,16 +80,20 @@ class Group < ActiveRecord::Base
       copy.save!
       self.group_quorums.build(:quorum_id => copy.id)
     end
+    role = self.partecipation_roles.build({name: self.default_role_name, description: 'Ruolo predefinito del gruppo'})
+    self.default_role_actions.each do |action_id|
+      abilitation = role.action_abilitations.build(group_action_id: action_id)
+      abilitation.save!
+    end
+    role.save!
+    self.partecipation_role_id = role.id
 
   end
 
   def after_populate
-    role = self.partecipation_roles.build({name: self.default_role_name, description: 'Ruolo predefinito del gruppo'})
-    self.default_role_actions.each do |action_id|
-      abilitation = role.action_abilitations.build(group_action_id: action_id, group_id: self.id)
-    end
-    role.save!
-    self.update_attribute(:partecipation_role_id, role.id)
+    self.default_role.update_attribute(:group_id,self.id)
+    ids = self.default_role.action_abilitations.pluck(:id)
+    ActionAbilitation.update_all({:group_id => self.id}, {:id => ids})
   end
 
 
