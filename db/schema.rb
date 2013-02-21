@@ -154,6 +154,11 @@ ActiveRecord::Schema.define(:version => 20130221104018) do
     t.string  "cap",          :limit => 5
   end
 
+  create_table "configurations", :force => true do |t|
+    t.string "name",  :limit => 100, :null => false
+    t.string "value",                :null => false
+  end
+
   create_table "continentes", :force => true do |t|
     t.string "description", :null => false
   end

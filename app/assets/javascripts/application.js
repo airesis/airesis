@@ -31,3 +31,5 @@
 //= require jquery.ctooltip
 //= require prettydiff/diffview
 //= require simplemodal
+//= require jqlplot/jquery.jqplot
+//= require jqlplot/jqplot.pieRenderer

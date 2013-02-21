@@ -9,14 +9,14 @@ class ProposalVote < ActiveRecord::Base
 
 
   def positive_perc
-    (self.positive.to_f / self.number.to_f) * 100
+    ((self.positive.to_f / self.number.to_f) * 100).round(2)
   end
 
   def negative_perc
-    (self.negative.to_f / self.number.to_f) * 100
+    ((self.negative.to_f / self.number.to_f) * 100).round(2)
   end
 
   def neutral_perc
-    (self.neutral.to_f / self.number.to_f) * 100
+    ((self.neutral.to_f / self.number.to_f) * 100).round(2)
   end
 end
