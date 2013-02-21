@@ -18,8 +18,9 @@ class PartecipationRole < ActiveRecord::Base
 
   #prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo
   before_destroy :change_partecipation_roles
-  
+
+  #quando cancello un ruolo assegnato ad alcuni utenti, a tali utenti dagli il ruolo di default del gruppo
   def change_partecipation_roles
-    self.group_partecipations.update_all(:partecipation_role_id => 1)
+    self.group_partecipations.update_all(:partecipation_role_id => self.group.partecipation_role_id)
   end
 end
