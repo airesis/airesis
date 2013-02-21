@@ -124,9 +124,9 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       #format.js
       format.html {
-        if @proposal.proposal_state_id == PROP_WAIT_DATE
+        if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
           flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-        elsif @proposal.proposal_state_id == PROP_VOTING
+        elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
           flash.now[:notice] = "Questa proposta è in fase di votazione."
         end
       } # show.html.erb
