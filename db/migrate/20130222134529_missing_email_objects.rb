@@ -1,3 +1,4 @@
+#encoding: utf-8
 class MissingEmailObjects < ActiveRecord::Migration
   def up
     n = NotificationType.find_by_id(22)
