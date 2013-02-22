@@ -78,10 +78,10 @@
 
 <%blocked = @current_user.blocked_notifications.all
   blocked_emails = @current_user.blocked_email_notifications.all
-  active = [1,2,4,5,6,8,9,10,12,15,20,21]%>
+  active = [1,2,4,5,6,8,9,10,12,15,20,21,22,23,24]%>
 
    	<table>
-   <% NotificationCategory.all.each do |category|%>
+   <% NotificationCategory.includes(:notification_types).order(:id).each do |category|%>
    		<tr><td>
    		<h4><%=category.description%></h4>
    		</td>
@@ -92,7 +92,7 @@
           Ricevi email
         </td>
    		</tr>
-   		<% category.notification_types.all.each do |type|%>
+   		<% category.notification_types.each do |type|%>
    		<tr>
    			<td>
  				<%=type.description%>
