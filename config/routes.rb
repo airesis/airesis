@@ -35,6 +35,11 @@ DemocracyOnline3::Application.routes.draw do
       post :change_show_tooltips
       post :change_show_urls
     end
+
+    member do
+      get :show_message
+      post :send_message
+    end
   end                                      
   
   resources :notifications do
@@ -171,9 +176,7 @@ DemocracyOnline3::Application.routes.draw do
         post :change_status
       end
     end
-    #resources :group_quorums do
-    #end
-       
+
   end
   
   resources :quorums do
@@ -223,6 +226,8 @@ DemocracyOnline3::Application.routes.draw do
   match '/videoguide' => 'home#videoguide'
   match '/democraziadiretta' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
+
+
 
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?

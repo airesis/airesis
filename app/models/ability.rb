@@ -73,6 +73,9 @@ class Ability
        can :show_tooltips, User do |fake|
          user.show_tooltips
        end
+       can :send_message, User do |ut|
+         ut.receive_messages && user != ut && ut.email && user.email
+       end
 
        can :destroy, GroupPartecipation do |group_partecipation|
          (group_partecipation.partecipation_role_id != PartecipationRole::PORTAVOCE ||

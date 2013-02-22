@@ -27,4 +27,10 @@ class ResqueMailer < ActionMailer::Base
     mail(:to => @group_invitation_email.email, :subject => "Invito ad iscriversi a #{@group.name}")
   end
 
+  def user_message(subject,body,from_id,to_id)
+    @body = body
+    @from = User.find(from_id)
+    @to = User.find(to_id)
+    mail(to: @to.email, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, subject: subject)
+  end
 end

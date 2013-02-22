@@ -1,4 +1,5 @@
 <h4>Informazioni di profilo <%='(utente non confermato)' unless @user.confirmed?%></h4>
+<span><%= link_to 'Invia messaggio', show_message_user_path(@user), :remote => true, :class=>'inviteButton disableButton' if can? :send_message, @user%></span>
 <table style="width:100%">
 
     <tr>
@@ -41,7 +42,7 @@
                   <div id="google_profile" class="profile_element_no_click">
                     <h2 class="label_profile">URL Google+: </h2>
                     <div class="info_profile">
-                      <%= @user.google_page_url ? (link_to @user.google_page_url, @user.google_page_url, :target => "_blank") : ''%>
+                      <%= @user.google_page_url ? (link_to @user.google_page_url, @user.google_page_url, :target => "_blank", :rel => 'author') : ''%>
                     </div>
                   </div>
                   <div id="linkedin_profile" class="profile_element_no_click">

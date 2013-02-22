@@ -1,0 +1,3 @@
+$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+$('#new_message_container').dialog('destroy');
+$('#new_message_container').remove();

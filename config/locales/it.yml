@@ -117,6 +117,7 @@ it:
     blog_created: "Il tuo post è stato creato correttamente."
     proposal:
       can_change_valutation: "La proposta è stata aggiornata da quando l'hai valutata. Puoi cambiare la tua valutazione se vuoi!"
+    message_sent: "Messaggio inviato correttamente"
    
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
