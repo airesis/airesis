@@ -40,6 +40,8 @@
 					<%if can? :update, @group%>
 						<%= link_to 'Impostazioni', edit_group_path(@group), :class => 'settingsButton buttonStyle'  %>
 					<%end%>
+
+                    <%= link_to 'Documenti', group_documents_path(@group), :class => 'docsButton buttonStyle'  %>
 				<%end%>
 			<%end%>
 			</div>

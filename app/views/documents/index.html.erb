@@ -1,0 +1,57 @@
+<%@page_title = 'Archivio documenti' %>
+
+
+<%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
+
+<%end%>
+
+<h4>Occupazione Spazio di archiviazione</h4>
+<span class="progressBar">
+	<%= percentage = ((@group.actual_storage_size.to_f / @group.max_storage_size.to_f) * 100).round(2)%>
+</span>    <br />
+Spazio massimo consentito: <b><%= (@group.max_storage_size.to_f / 1024).round(2) %>MB</b> <br />
+Spazio attualmente occupato: <b><%= (@group.actual_storage_size.to_f / 1024).round(2)%>MB</b> <br />
+
+
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+        var elf = $('#elfinder').elfinder({
+            // lang: 'ru',             // language (OPTIONAL)
+            url : '/elfinder?group_id=<%=@group.id%>',  // connector URL (REQUIRED)
+            transport : new elFinderSupportVer1(),
+            commands : [
+                'open', 'up', 'back', 'forward', 'getfile',
+                'download', 'rm', 'duplicate', 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
+                'cut', 'paste', 'edit',/* 'extract', 'archive', 'search',*/ 'info', 'view', 'help',
+                /*'resize',*/ 'sort'
+            ],
+            lang: 'it'
+        }).elfinder('instance');
+
+        $(".progressBar").progressBar({
+            boxImage : '<%=asset_path "progressbar.gif"%>',
+            barImage :
+              <%if percentage > 90 %>
+                '<%=asset_path "progressbg_red.gif"%>'
+              <%elsif percentage < 70 %>
+                '<%=asset_path "progressbg_green.gif"%>'
+              <%else%>
+                '<%=asset_path "progressbg_orange.gif"%>'
+              <%end%>
+        });
+    });
+</script>
+
+<!-- Element where elFinder will be created (REQUIRED) -->
+<div id="elfinder"></div>
+
+
+
+<%=content_for :left_panel do %>
+
+
+<%end%>

@@ -33,3 +33,6 @@
 //= require simplemodal
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer
+//= require elfinder.full
+//= require i18n/elfinder.it
+//= require elFinderSupportVer1

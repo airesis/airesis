@@ -64,6 +64,15 @@ class Ability
          #can_do_on_group?(user,group,4)
          can_do_on_group?(user,group,8)
        end
+       can :view_documents, Group do |group|
+         true
+       end
+       can :download_documents, Group do |group|
+         true
+       end
+       can :upload_documents, Group do |group|
+         true
+       end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end

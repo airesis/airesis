@@ -21,6 +21,12 @@ GIT
   specs:
     vote-schulze (0.2.0)
 
+PATH
+  remote: ~/Aptana Studio 3 Workspace/el_finder
+  specs:
+    el_finder (1.1.6)
+      image_size (>= 1.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -100,6 +106,7 @@ GEM
     httpauth (0.2.0)
     httpclient (2.3.2)
     i18n (0.6.1)
+    image_size (1.1.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -267,6 +274,7 @@ DEPENDENCIES
   client_side_validations (= 3.1.4)
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
+  el_finder!
   email_preview
   exception_notification (= 2.6.1)
   fb_graph

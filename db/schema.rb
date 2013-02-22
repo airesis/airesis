@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221104018) do
+ActiveRecord::Schema.define(:version => 20130221150532) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -328,6 +328,8 @@ ActiveRecord::Schema.define(:version => 20130221104018) do
     t.boolean  "default_anonima",                         :default => true,  :null => false
     t.boolean  "default_visible_outside",                 :default => false, :null => false
     t.boolean  "default_secret_vote",                     :default => true,  :null => false
+    t.integer  "max_storage_size",                        :default => 51200, :null => false
+    t.integer  "actual_storage_size",                     :default => 0,     :null => false
   end
 
   create_table "images", :force => true do |t|
