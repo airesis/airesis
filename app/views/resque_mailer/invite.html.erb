@@ -13,7 +13,7 @@ Se accetti l'invito clicca su 'Accetto' altrimenti su 'Rifiuta'. <br />
 Se non desideri più ricevere inviti da parte di <%= link_to APP_SHORT_NAME, Maktoub.home_domain%> clicca su 'Non ricevere più inviti'.<br/>
 
 <%= link_to 'Accetta', accept_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %> |
-<%= link_to 'Rifiuta', reject_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %> |
-<%= link_to 'Non ricevere più inviti', anymore_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %>
+<%= link_to 'Rifiuta', reject_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email) %> <br />
 <br />
-A presto!
+A presto!<br />
+<%= link_to 'Non ricevere più inviti', anymore_group_invitations_url(:group_id => @group.id, :token => @group_invitation.token, :email => @group_invitation_email.email), :style=> "font-size: 10px;" %>
