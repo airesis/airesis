@@ -2,8 +2,9 @@
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.user.privacy')} do%>
 <%end%>
 
-<%=check_box :user, :show_tooltips, value: current_user.show_tooltips, onclick: "return change_show_tooltips(this);"%> Mostra tooltip di aiuto<br />
-<%=check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);"%> Mostra URL Facebook, Google+ e LinkedIn<br />
+<%=check_box :user, :show_tooltips, value: current_user.show_tooltips, onclick: "return change_show_tooltips(this);"%>Mostra tooltip di aiuto<br />
+<%=check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);"%> Mostra URL Facebook, Google+ e LinkedIn agli altri utenti<br />
+<%=check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);"%> Ricevi messaggi privati dagli altri utenti<br />
 
 
 <h2> Collega un altro account</h2>
@@ -80,6 +81,16 @@ Hai già collegato tutti i provider disponibili.Complimenti!
       $.ajax({
           data: "active="+active,
           url: "/users/change_show_urls",
+          dataType: 'script',
+          type: 'post'
+      });
+  }
+
+  function change_receive_messages(el) {
+      var active = (el.checked) ? "true" : "false";
+      $.ajax({
+          data: "active="+active,
+          url: "/users/change_receive_messages",
           dataType: 'script',
           type: 'post'
       });

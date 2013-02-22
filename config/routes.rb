@@ -34,6 +34,7 @@ DemocracyOnline3::Application.routes.draw do
       get :privacy_preferences
       post :change_show_tooltips
       post :change_show_urls
+      post :change_receive_messages
     end
 
     member do

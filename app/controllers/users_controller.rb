@@ -141,6 +141,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_receive_messages
+    current_user.receive_messages = params[:active]
+    current_user.save
+    if params[:active] == 'true'
+      flash[:notice] = t('info.private_messages_active')
+    else
+      flash[:notice] = t('info.private_messages_inactive')
+    end
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = 'Errore nella modifica delle opzioni.'
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
   #aggiorni i confini di interesse dell'utente
   def set_interest_borders
     borders = params[:token][:interest_borders]
