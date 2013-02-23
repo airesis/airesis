@@ -117,7 +117,8 @@ class User < ActiveRecord::Base
     super && !(has_provider('twitter') || has_provider('linkedin'))
   end
 
-  #dopo aver creato un nuovo utente glia ssegno il primo tutorial
+  #dopo aver creato un nuovo utente gli assegno il primo tutorial e
+  #disattivo le notifiche standard
   def assign_tutorials
     tutorial = Tutorial.find_by_name("Welcome Tutorial")
     assign_tutorial(self,tutorial)      
@@ -125,6 +126,12 @@ class User < ActiveRecord::Base
     assign_tutorial(self,tutorial)
     tutorial = Tutorial.find_by_name("Rank Bar")
     assign_tutorial(self,tutorial)
+    self.blocked_alerts.create(:notification_type_id => 20)
+    self.blocked_alerts.create(:notification_type_id => 21)
+    self.blocked_alerts.create(:notification_type_id => 13)
+    self.blocked_alerts.create(:notification_type_id => 3)
+    self.receive_messages = true
+    self.email_alerts = true
   end
 
   def init

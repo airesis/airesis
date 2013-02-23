@@ -77,11 +77,10 @@
     <b>Ricevi notifiche e newsletter su <%=current_user.email%></b>
 
 <%blocked = @current_user.blocked_notifications.all
-  blocked_emails = @current_user.blocked_email_notifications.all
-  active = [1,2,4,5,6,8,9,10,12,13,14,15,20,21,22,23,24]%>
+  blocked_emails = @current_user.blocked_email_notifications.all%>
 
    	<table>
-   <% NotificationCategory.includes(:notification_types).order(:id).each do |category|%>
+   <% NotificationCategory.includes(:notification_types).where("id not in (2,5)").order(:id).each do |category|%>
    		<tr><td>
    		<h4><%=category.description%></h4>
    		</td>
@@ -102,10 +101,6 @@
  				<%unless blocked.include? type%>
  					checked="true" 
  				<%end%>
- 				<%unless active.include? type.id%>
- 					disabled="disabled"
- 					title="Tipo di notifica non disponibile"
- 				<%end%> 
  				onclick="return change_notification_block(this);"/>
  			</td>
             <td style="text-align: center">
@@ -113,9 +108,9 @@
                      <%unless blocked_emails.include? type%>
                      checked="true"
                      <%end%>
-                     <%if !(active.include? type.id) || (blocked.include? type)%>
+                     <%if blocked.include? type%>
                      disabled="disabled"
-                     title="<%= active.include?type.id ? "Devi attivare la notifica per ricevere l'email" : "Tipo di notifica non disponibile"%>"
+                     title="<%= "Devi attivare la notifica per ricevere l'email"%>"
                      <%end%>
                      onclick="return change_email_notification_block(this);"/>
             </td>

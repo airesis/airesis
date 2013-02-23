@@ -61,7 +61,7 @@ GEM
       bson (~> 1.8.1)
     builder (3.0.4)
     cancan (1.6.8)
-    client_side_validations (3.1.4)
+    client_side_validations (3.2.2)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -264,7 +264,7 @@ DEPENDENCIES
   bluecloth (= 2.0.7)
   bson_ext
   cancan
-  client_side_validations (= 3.1.4)
+  client_side_validations (= 3.2.2)
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
   email_preview

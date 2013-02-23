@@ -43,6 +43,7 @@ it:
      default: "%d %b %Y alle %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
+     long_date_time: "%A %d %B %Y ore %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"

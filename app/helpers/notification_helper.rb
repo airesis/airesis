@@ -65,16 +65,29 @@ module NotificationHelper
     end
   end
 
-  #invia le notifiche quando un una proposta viene creata all'interno di un gruppo
-  #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
-  def notify_proposal_has_been_created(group,proposal)
-    msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
-    data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s}
-    notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
-    notification_a.save
-    group.scoped_partecipants(GroupAction::PROPOSAL_VIEW).each do |user|
-      if user != current_user
-        send_notification_to_user(notification_a,user)
+  #invia le notifiche quando un una proposta viene creata
+
+  def notify_proposal_has_been_created(proposal,group = nil)
+    if group
+      msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
+      data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s}
+      notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
+      notification_a.save
+      #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
+      group.scoped_partecipants(GroupAction::PROPOSAL_VIEW).each do |user|
+        if user != current_user
+          send_notification_to_user(notification_a,user)
+        end
+      end
+    else
+      msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nello spazio comune"
+      data = {'proposal_id' => proposal.id.to_s}
+      notification_a = Notification.new(:notification_type_id => 3,:message => msg, :url => proposal_path(proposal), :data => data)
+      notification_a.save
+      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
+        if user != current_user
+          send_notification_to_user(notification_a,user)
+        end
       end
     end
   end
@@ -255,7 +268,7 @@ module NotificationHelper
       notification_a = Notification.new(:notification_type_id => 13,:message => msg, :url => event_path(event))
       notification_a.save
 
-      User.where(["id not in ?",User.select(:id, :joins => :blocked_alerts, :conditions => {:notification_type_id => 13})]).each do |user|
+      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 13").to_sql})").each do |user|
         unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
           send_notification_to_user(notification_a,user)
         end

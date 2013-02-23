@@ -228,7 +228,7 @@ class ProposalsController < ApplicationController
           Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
-        notify_proposal_has_been_created(@group,@proposal) if @group
+        notify_proposal_has_been_created(@proposal,@group)
       end
       @saved = true
       

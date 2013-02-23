@@ -71,7 +71,7 @@
 <%end%>
 <%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
   <span class="title_grey">In votazione</span><br/>
-  <%='dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
+  <%=raw 'dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
 <%elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
   <span class="title_grey">In votazione ora!</span><br/>
   <%= link_to 'Vai alla pagina di votazione.', votation_path %>

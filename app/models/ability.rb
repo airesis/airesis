@@ -102,11 +102,11 @@ class Ability
      def can_partecipate_proposal?(user,proposal)
        if proposal.private
          proposal.presentation_groups.each do |group|
-            return true if can_do_on_group?(user,group,7)
+            return true if can_do_on_group?(user,group,7) && (proposal.in_valutation? || proposal.voted?)
          end
          return false
        else
-         return true
+         return proposal.in_valutation? || proposal.voted?
        end
      end
     #
