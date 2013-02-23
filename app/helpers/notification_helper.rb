@@ -1,4 +1,5 @@
 #encoding: utf-8
+#TODO questi metodi devono essere eseguiti in background e non vi deve essere attesa lato client perchè siano completati
 module NotificationHelper
   
   #invia una notifica ad un utente.
@@ -148,12 +149,12 @@ module NotificationHelper
     end    
   end
   
-  #invia una notifica ai portavoce del gruppo che l'utente corrente ha effettuato una richiesta di partecipazione
+  #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
   def notify_user_asked_for_partecipation(group)
     msg = "L'utente <b>#{current_user.fullname}</b> ha richiesto di partecipare al gruppo <b>#{group.name}</b>."
     notification_a = Notification.new(:notification_type_id => 12,:message => msg, :url => group_path(group))
     notification_a.save
-    group.portavoce.each do |user|
+    group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
       if user != current_user
         send_notification_to_user(notification_a,user)
       end
@@ -230,6 +231,34 @@ module NotificationHelper
     proposal.partecipants.each do |partecipant|
       unless partecipant == current_user || partecipant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
         send_notification_to_user(notification_a,partecipant)
+      end
+    end
+  end
+
+
+  #invia una notifica agli utenti che è stato creato un nuovo evento
+  def notify_new_event(event)
+    if event.private
+      organizer = event.organizers.first
+      msg = "E' stato creato un nuovo evento nel gruppo #{organizer.name}!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
+      notification_a = Notification.new(:notification_type_id => 14,:message => msg, :url => event_path(event))
+      notification_a.save
+
+      organizer.partecipants.each do |user|
+        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
+          send_notification_to_user(notification_a,user)
+        end
+      end
+    else
+      organizer = event.organizers.first
+      msg = "E' stato creato un nuovo evento pubblico!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
+      notification_a = Notification.new(:notification_type_id => 13,:message => msg, :url => event_path(event))
+      notification_a.save
+
+      User.where(["id not in ?",User.select(:id, :joins => :blocked_alerts, :conditions => {:notification_type_id => 13})]).each do |user|
+        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
+          send_notification_to_user(notification_a,user)
+        end
       end
     end
   end

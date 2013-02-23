@@ -229,23 +229,23 @@ it:
 
       new_button: %Q(Inserisci un nuovo post)
       drafts_button: %Q(Post non pubblicati)
-      drafts: %Q(Bozza)
-      edit_button: %Q(Modifica)
-      delete_button: %Q(Cancella)
+      drafts: "Bozza"
+      edit_button: "Modifica"
+      delete_button: "Cancella"
       comment:
-        delete_button: %Q(Cancella)
-        confirm_delete: %Q(Sei sicuro di voler cancellare questo commento?)
+        delete_button: "Cancella"
+        confirm_delete: "Sei sicuro di voler cancellare questo commento?"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
       index:
-        new_not_read: %Q(Nuove notifiche non lette)
-        no_new: %Q(Nessuna nuova notifica)
-        old_not_read: %Q(Vecchie notifiche già lette)
-        no_old: %Q(Nessuna notifica)
+        new_not_read: "Nuove notifiche non lette"
+        no_new: "Nessuna nuova notifica"
+        old_not_read: "Vecchie notifiche già lette"
+        no_old: "Nessuna notifica"
     blog_comments:
       new:
-        insert_comment: %Q(Inserisci commento)
+        insert_comment: "Inserisci commento"
   pl:
     comments:
       zero: nessun commento

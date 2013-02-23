@@ -1,6 +1,7 @@
 #encoding: utf-8
 class EventsController < ApplicationController
-  
+  include NotificationHelper
+
   layout :choose_layout
   
   before_filter :check_events_permissions, :only => [:new, :create]
@@ -23,10 +24,10 @@ class EventsController < ApplicationController
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
-    if (params[:type] == 'election')
+    if params[:type] == 'election'
       @event.event_type_id = 4
     end
-    if (params[:group_id])
+    if params[:group_id]
       @group = Group.find(params[:group_id])
       @event.organizer_id = @group.id
       @event.private = true
@@ -39,7 +40,7 @@ class EventsController < ApplicationController
   
   def create
     #se è una votazione ignora tutto ciò che riguarda il luogo e le elezioni
-    if (params[:event][:event_type_id] == "2")
+    if params[:event][:event_type_id] == "2"
       params[:event].delete(:meeting_attributes)
       params[:event].delete(:election_attributes)
     #se è un'elezione ignora tutto ciò che riguarda il luogo
@@ -58,7 +59,7 @@ class EventsController < ApplicationController
         @event.save!
         if params[:event][:event_type_id] == EventType::ELEZIONI.to_s
           @group.elections << @event.election
-          @group.save           
+          @group.save!
         end
       else
         #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
@@ -66,15 +67,16 @@ class EventsController < ApplicationController
         @event_series.save!
       end
 
-      #fai partire il timer per far scadere la proposta
+      #fai partire il timer per far scadere la proposta fuori dalla transazione
       if @event.is_votazione?
         Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
         Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
       end
 
-
+      notify_new_event(@event)
     end
-    
+
+
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         format.js {
@@ -109,7 +111,7 @@ class EventsController < ApplicationController
                  :start => "#{event.starttime.iso8601}", 
                  :end => "#{event.endtime.iso8601}", 
                  :allDay => event.all_day, 
-                 :recurring => (event.event_series_id)? true: false, 
+                 :recurring => event.event_series_id ? true: false,
                  :backgroundColor => event.backgroundColor,
                  :textColor => event.textColor,
                  :editable => !event.is_votazione?}

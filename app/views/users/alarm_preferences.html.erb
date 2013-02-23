@@ -78,7 +78,7 @@
 
 <%blocked = @current_user.blocked_notifications.all
   blocked_emails = @current_user.blocked_email_notifications.all
-  active = [1,2,4,5,6,8,9,10,12,15,20,21,22,23,24]%>
+  active = [1,2,4,5,6,8,9,10,12,13,14,15,20,21,22,23,24]%>
 
    	<table>
    <% NotificationCategory.includes(:notification_types).order(:id).each do |category|%>
