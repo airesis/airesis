@@ -46,7 +46,7 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :user_borders, :interest_borders
     add_foreign_key :user_alerts, :notifications
     add_foreign_key :user_alerts, :users
-    add_foreign_key :tutorial_progresses, :users
+    #add_foreign_key :tutorial_progresses, :users
     add_foreign_key :tutorial_progresses, :steps
     add_foreign_key :tutorial_assignees, :users
     add_foreign_key :tutorial_assignees, :tutorials
