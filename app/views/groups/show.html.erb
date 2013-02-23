@@ -15,7 +15,7 @@
 <div class="group_description">
 <%=raw (h @group.description).gsub(/\n/, "<br>")%></div>
 
-<%posts = @group.posts.published(:order => 'published_at DESC') %>
+<%posts = @group.posts.published %>
 <% if posts.size == 0 %>
 <div class="blogPost">
     <p>

@@ -64,6 +64,7 @@ class BlogPostsController < ApplicationController
   
   def new
     @blog_post = @blog.posts.build
+    @blog_post.published = true
     
     load_post_groups
     
