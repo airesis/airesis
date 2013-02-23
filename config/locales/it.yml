@@ -175,6 +175,11 @@ it:
         title: "Gestisci i quorum e le proposte"
       index:
         title: "Tutti i gruppi"
+        open_space_button: "Vai allo spazio comune"
+        create_group_button: "Crea un nuovo gruppo"
+        find_group_label: "Cerca un gruppo di tuo interesse"
+        find_title: "La ricerca avviene all'interno del nome del gruppo"
+        find_button: "Cerca"
       new:
         title: "Crea un nuovo gruppo"
       edit:
@@ -221,7 +226,26 @@ it:
     blog_posts:
       new:
         title: "Inserisci un nuovo post"
-      
+
+      new_button: %Q(Inserisci un nuovo post)
+      drafts_button: %Q(Post non pubblicati)
+      drafts: %Q(Bozza)
+      edit_button: %Q(Modifica)
+      delete_button: %Q(Cancella)
+      comment:
+        delete_button: %Q(Cancella)
+        confirm_delete: %Q(Sei sicuro di voler cancellare questo commento?)
+    alerts:
+      polling:
+        show_all: "Mostra tutte le notifiche"
+      index:
+        new_not_read: %Q(Nuove notifiche non lette)
+        no_new: %Q(Nessuna nuova notifica)
+        old_not_read: %Q(Vecchie notifiche già lette)
+        no_old: %Q(Nessuna notifica)
+    blog_comments:
+      new:
+        insert_comment: %Q(Inserisci commento)
   pl:
     comments:
       zero: nessun commento
