@@ -254,8 +254,8 @@ it:
       new:
         insert_comment: "Inserisci commento"
     header:
-      groups: %Q(Gruppi)
-      no_groups_yet: %Q(Non partecipi a nessun gruppo ancora)
+      groups: "Gruppi"
+      no_groups_yet: "Non partecipi a nessun gruppo ancora"
   pl:
     comments:
       zero: nessun commento
