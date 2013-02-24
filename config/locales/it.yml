@@ -181,8 +181,14 @@ it:
         find_group_label: "Cerca un gruppo di tuo interesse"
         find_title: "La ricerca avviene all'interno del nome del gruppo"
         find_button: "Cerca"
+        groups_list: "Gruppi a cui partecipi"
+        groups_registration: "Registrazione Gruppi"
+        groups_list_2: "Elenco gruppi"
+        no_groups_yet: "Non partecipi a nessun %{name} ancora"
       new:
         title: "Crea un nuovo gruppo"
+        new_group: "Nuovo gruppo"
+        create_button: "Crea il gruppo!"
       edit:
         title: "Modifica impostazioni gruppo"
     login:
@@ -228,8 +234,8 @@ it:
       new:
         title: "Inserisci un nuovo post"
 
-      new_button: %Q(Inserisci un nuovo post)
-      drafts_button: %Q(Post non pubblicati)
+      new_button: "Inserisci un nuovo post"
+      drafts_button: "Post non pubblicati"
       drafts: "Bozza"
       edit_button: "Modifica"
       delete_button: "Cancella"
@@ -247,6 +253,9 @@ it:
     blog_comments:
       new:
         insert_comment: "Inserisci commento"
+    header:
+      groups: %Q(Gruppi)
+      no_groups_yet: %Q(Non partecipi a nessun gruppo ancora)
   pl:
     comments:
       zero: nessun commento

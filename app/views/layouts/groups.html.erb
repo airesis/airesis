@@ -25,10 +25,10 @@
 				<%if @group.id%>
 					<%= @group.name%>
 				<%else%>
-					Registrazione gruppi
+					<%= t('pages.groups.index.groups_registration')%>
 				<%end%>
 			<%else%>
-				Elenco gruppi
+				<%= t('pages.groups.index.groups_list_2') %>
 			<%end%>
 			</h1>
 			<%if @group%>
@@ -36,7 +36,9 @@
 					<%=link_to 'Home Page', @group, :class => 'homeButton buttonStyle' %>
 					<%=link_to 'Le proposte', group_proposals_path(@group), :class => 'ideaButton buttonStyle'%>
 					<%=link_to 'Calendario', group_events_path(@group), :class => 'calendarButton buttonStyle' %>
-                    <%=link_to 'Area candidati', group_candidates_path(@group),  :class => 'personButton buttonStyle' if current_user%>
+					<%if ::Configuration::elections_active %>
+                      <%=link_to 'Area candidati', group_candidates_path(@group),  :class => 'personButton buttonStyle' if current_user%>
+                    <%end%>
 					<%if can? :update, @group%>
 						<%= link_to 'Impostazioni', edit_group_path(@group), :class => 'settingsButton buttonStyle'  %>
 					<%end%>

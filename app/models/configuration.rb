@@ -16,6 +16,6 @@ class Configuration < ActiveRecord::Base
   end
 
   def self.invites_active
-    @elections_active = !self.find_by_name('invites_active').value.to_i.zero?
+    @invites_active = !self.find_by_name('invites_active').value.to_i.zero?
   end
 end

@@ -204,13 +204,13 @@
 
     <% if user_signed_in? %>
         <div class="menu_element">
-          <%= 'Gruppi' %>
+          <%= t('pages.header.groups') %>
           <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
 
           <div class="groups_panel shadow-box hidden_panel" id="groups_panel">
             <% @groups = current_user.groups %>
             <% if @groups.empty? %>
-                <%= "Non partecipi a nessun gruppo ancora" %>
+                <%= t('pages.header.no_groups_yet') %>
                 <br/>
             <% else %>
                 <% @groups.each do |group| %>
