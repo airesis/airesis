@@ -107,7 +107,7 @@ Quorum.create(:name => "standard", :percentage => 30, :minutes => 21600, :condit
 Quorum.create(:name => "long", :percentage => 50, :minutes => 86400, :condition => 'AND',:good_score => 60, :bad_score => 60, :public => true)
 Quorum.create(:name => "good_score", :percentage => 30, :minutes => 21600, :condition => 'OR',:good_score => 70, :bad_score => 30, :public => true)
 
-PartecipationRole.create(:name => "portavoce", :description => "Portavoce")
+PartecipationRole.create(:name => "portavoce", :description => "Portavoce"){ |c| c.id = 2 }.save
 
 VoteType.create( :description => "Favorevole"){ |c| c.id = 1 }.save
 VoteType.create( :description => "Neutrale"){ |c| c.id = 2 }.save
