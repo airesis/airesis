@@ -112,3 +112,13 @@ PartecipationRole.create(:name => "portavoce", :description => "Portavoce")
 VoteType.create( :description => "Favorevole"){ |c| c.id = 1 }.save
 VoteType.create( :description => "Neutrale"){ |c| c.id = 2 }.save
 VoteType.create( :description => "Contrario"){ |c| c.id = 3 }.save
+
+Configuration.create(name: 'democracy', value: 1)
+Configuration.create(name: 'default_user_type', value: 1)
+Configuration.create(name: 'groups_active', value: 1)
+Configuration.create(name: 'open_space_calendar', value: 1)
+Configuration.create(name: 'open_space_proposals', value: 1)
+Configuration.create(name: 'blog', value: 1)
+Configuration.create(name: 'phases_active', value: 1)
+Configuration.create(name: 'socialnetwork_active', value: 1)
+Configuration.create(name: 'elections_active', value: 1)

@@ -1,10 +1,10 @@
 <%@page_title = t('pages.groups.index.title') %>
 
-
+<%if ::Configuration::open_space_proposals %>
 <div style="float:left; margin-top: 16px;">
   <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "forwardButton"  %>
 </div>
-
+<%end%>
 <div style="float:right; margin-top: 16px;">
   <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "newButton"  %>
 </div>

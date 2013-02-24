@@ -1,3 +1,4 @@
+<%if ::Configuration.socialnetwork_active %>
 <br />
 
 <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
@@ -9,7 +10,7 @@
 <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
 
 <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-
+<%end%>
 <br />
 
 <ul style="padding-left: 15px;">

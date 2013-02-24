@@ -91,6 +91,7 @@
 
                                                 <!-- // Begin Module: Standard Footer \\ -->
                                                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                                    <%if ::Configuration.socialnetwork_active %>
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="social">
                                                             <div mc:edit="std_social">
@@ -110,6 +111,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <%end%>
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div mc:edit="std_footer">

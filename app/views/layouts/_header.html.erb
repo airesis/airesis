@@ -1,14 +1,14 @@
 <!-- ### facebook ###-->
 <div id="fb-root"></div>
 <script>
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         // init the FB JS SDK
         FB.init({
-            appId      : '<%=FACEBOOK_APP_ID%>', // App ID from the App Dashboard
+            appId: '<%=FACEBOOK_APP_ID%>', // App ID from the App Dashboard
             //channelUrl : '//localhost:3000/channel.html', // Channel File for x-domain communication
-            status     : true, // check the login status upon init?
-            cookie     : true, // set sessions cookies to allow your server to access the session?
-            xfbml      : true  // parse XFBML tags on this page?
+            status: true, // check the login status upon init?
+            cookie: true, // set sessions cookies to allow your server to access the session?
+            xfbml: true  // parse XFBML tags on this page?
         });
 
         // Additional initialization code such as adding Event Listeners goes here
@@ -19,336 +19,350 @@
     // Note that the debug version is being actively developed and might
     // contain some type checks that are overly strict.
     // Please report such bugs using the bugs tool.
-    (function(d, debug){
+    (function (d, debug) {
         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
         js.src = "//connect.facebook.net/it_IT/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
     }(document, /*debug*/ false));
 
 
-//google analytics
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34897773-1']);
-  _gaq.push(['_trackPageview']);
+    //google analytics
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34897773-1']);
+    _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
 
 
 </script>
-<link href="https://plus.google.com/109056260698393169005" rel="publisher" />
+<link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
 <script type="text/javascript">
-	window.___gcfg = {
-		lang : 'it'
-	}; (function() {
-		var po = document.createElement("script");
-		po.type = "text/javascript";
-		po.async = true;
-		po.src = "https://apis.google.com/js/plusone.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(po, s);
-	})();
+    window.___gcfg = {
+        lang: 'it'
+    };
+    (function () {
+        var po = document.createElement("script");
+        po.type = "text/javascript";
+        po.async = true;
+        po.src = "https://apis.google.com/js/plusone.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(po, s);
+    })();
 
 </script>
 <script>
-	! function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if(!d.getElementById(id)) {
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//platform.twitter.com/widgets.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}
-	}(document, "script", "twitter-wjs");
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, "script", "twitter-wjs");
 
 </script>
 <!-- ##### Header ##### -->
 <div id="header">
-	<div class="body_maxwidth">
-		<div class="midHeader">
-			<%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style=>"width:22px;padding-top:2px;"), root_path%>
-			<div class="headerTitle" lang="la">
-				<%= link_to APP_LONG_NAME, root_path%>
-			</div>
-		</div>
-		
-		<div class="superHeader menu_element"><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
-			<% if user_signed_in? %> <span>Benvenuto </span>
-			<%if current_user.name%>
-			<%= current_user.name %>
-			<%else%>
-			<%= current_user.login %>
-			<%end%>
-			<div class="user-panel shadow-box hidden_panel" id="user-panel">
-				<div style="float:left">
-					<%= current_user.user_image_tag%>
-				</div>
-				<ul class="menu-list">
-					<li>
-						<span class="Mo ui-icon ui-icon-contact"></span>
-						<%= link_to 'La mia pagina', root_url %>
-					</li>
-					<li>
-						<span class="Mo ui-icon ui-icon-comment"></span>
-						<% if current_user.blog %>
-						<%= link_to 'Il mio blog', current_user.blog %>
-						<% else %>
-						<%= link_to 'Crea un tuo blog', new_blog_path %>
-						<% end %>
-					<li>
-						<span class="Mo ui-icon ui-icon-contact"></span>
-						<%= link_to 'Preferenze', user_url(current_user) %>
-					</li>
-					<% if is_admin?%>
-					<li>
-						<span class="Mo ui-icon ui-icon-key"></span>
-						<%= link_to 'Amministrazione', admin_panel_path%>
-					</li>
-					<%end%>
-					</li>
-					<li>
-						<span class="Mo ui-icon ui-icon-power"></span>
-						<%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
-					</li>
-				</ul>
-				<% if is_admin?%>
-					<%=form_tag "/admin/become/" do %>
-						<%=label_tag 'Diventa utente' %>
-						<%=text_field_tag 'user_id'%>
-						<%=submit_tag 'Vai!'%>
-					<%end%>
-				<%end%>
-			</div>
-			<% else %>
-			<span><%= t('pages.top_panel.login') %></span>
-			
-			<div class="shadow-box hidden_panel" id="registration-panel">
-				<%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-				<div>
-					<%= f.label :login %>
-					<br />
-					<%= f.text_field :login, :style=>"width:80%" %>
-				</div>
-				<div>
-					<%= f.label :password %>
-					<br />
-					<%= f.password_field :password, :style=>"width:80%" %>
-				</div >
-				<div class="remember_me">
-					<%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
-				</div>
-				<div style="float: none;">
-					<%= f.submit "Login", :class=>"buttonStyle" %>
-					<%= link_to "Registrati", new_registration_path(resource_name), :class=>"buttonStyle", :style=>"margin-left: 105px" %>
-					<br />
-				</div>
-				<% end %>
-
-				<div style="padding-top: 15px;">
-					<%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-				</div>
-				<div style="padding-top: 15px;">
-					<%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-				</div>
-                <div style="padding-top: 15px;">
-                    <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                    <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                    <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-                </div>
-				
-                    <ul style="padding-left: 15px;">
-                      <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>
-                      <li><%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %></li>
-				    </ul>
-			</div>
-			<% end %>
-		</div>
-		
-		<% if user_signed_in? %>
-		<div class="alerts_link menu_element">
-			<div class="number">
-				0
-			</div>
-			<div class="notification-panel shadow-box hidden_panel" id="notification-panel">
-				<ul class="menu-list">
-					<li>
-						Nessuna notifica
-					</li>
-				</ul>
-			</div>
-		</div>
-		<%end%>
-
-      <div class="nolink_menu_element">
-        <%= link_to t("guide"), videoguide_path, :class => "video_faq" %>
+  <div class="body_maxwidth">
+    <div class="midHeader">
+      <%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style => "width:22px;padding-top:2px;"), root_path %>
+      <div class="headerTitle" lang="la">
+        <%= link_to APP_LONG_NAME, root_path %>
       </div>
+    </div>
+
+    <div class="superHeader menu_element"><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
+      <% if user_signed_in? %> <span>Benvenuto </span>
+          <% if current_user.name %>
+              <%= current_user.name %>
+          <% else %>
+              <%= current_user.login %>
+          <% end %>
+          <div class="user-panel shadow-box hidden_panel" id="user-panel">
+            <div style="float:left">
+              <%= current_user.user_image_tag %>
+            </div>
+            <ul class="menu-list">
+              <li>
+                <span class="Mo ui-icon ui-icon-contact"></span>
+                <%= link_to 'La mia pagina', root_url %>
+              </li>
+              <li>
+                <span class="Mo ui-icon ui-icon-comment"></span>
+                <% if current_user.blog %>
+                    <%= link_to 'Il mio blog', current_user.blog %>
+                <% else %>
+                    <%= link_to 'Crea un tuo blog', new_blog_path %>
+                <% end %>
+              <li>
+                <span class="Mo ui-icon ui-icon-contact"></span>
+                <%= link_to 'Preferenze', user_url(current_user) %>
+              </li>
+              <% if is_admin? %>
+                  <li>
+                    <span class="Mo ui-icon ui-icon-key"></span>
+                    <%= link_to 'Amministrazione', admin_panel_path %>
+                  </li>
+              <% end %>
+              </li>
+              <li>
+                <span class="Mo ui-icon ui-icon-power"></span>
+                <%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
+              </li>
+            </ul>
+            <% if is_admin? %>
+                <%= form_tag "/admin/become/" do %>
+                    <%= label_tag 'Diventa utente' %>
+                    <%= text_field_tag 'user_id' %>
+                    <%= submit_tag 'Vai!' %>
+                <% end %>
+            <% end %>
+          </div>
+      <% else %>
+          <span><%= t('pages.top_panel.login') %></span>
+
+          <div class="shadow-box hidden_panel" id="registration-panel">
+            <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+                <div>
+                  <%= f.label :login %>
+                  <br/>
+                  <%= f.text_field :login, :style => "width:80%" %>
+                </div>
+                <div>
+                  <%= f.label :password %>
+                  <br/>
+                  <%= f.password_field :password, :style => "width:80%" %>
+                </div>
+                <div class="remember_me">
+                  <%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
+                </div>
+                <div style="float: none;">
+                  <%= f.submit "Login", :class => "buttonStyle" %>
+                  <%= link_to "Registrati", new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
+                  <br/>
+                </div>
+            <% end %>
+            <% if ::Configuration.socialnetwork_active %>
+
+                <div style="padding-top: 15px;">
+                  <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+                </div>
+                <div style="padding-top: 15px;">
+                  <%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                </div>
+                <div style="padding-top: 15px;">
+                  <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                </div>
+                <div style="padding-top: 15px;">
+                  <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                </div>
+                <div style="padding-top: 15px;">
+                  <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+                </div>
+            <% end %>
+            <ul style="padding-left: 15px;">
+              <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>
+              <li><%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %></li>
+            </ul>
+          </div>
+      <% end %>
+    </div>
+
+    <% if user_signed_in? %>
+        <div class="alerts_link menu_element">
+          <div class="number">
+            0
+          </div>
+          <div class="notification-panel shadow-box hidden_panel" id="notification-panel">
+            <ul class="menu-list">
+              <li>
+                Nessuna notifica
+              </li>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="nolink_menu_element">
+      <%= link_to t("guide"), videoguide_path, :class => "video_faq" %>
+    </div>
 
 
-      <%if user_signed_in?%>
-			<div class="menu_element">
-              Gruppi<span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
-				<div class="groups_panel shadow-box hidden_panel" id="groups_panel">
-						<%@groups = current_user.groups %>
-						<%if @groups.empty? %>
-							<%= "Non partecipi a nessun gruppo ancora"%><br/>
-						<%else%>
-							<%@groups.each do |group|%>
-								<div class="groupcontainer">
-									<div class="groupImg24" style="margin-right: 5px;">
-										<%= group.group_image_tag(24) rescue nil %>
-									</div>
-									<div class="group">
-										<%= link_to group.name, group %>
-									</div>
-								</div>
-							<%end%>
-						<%end%>
-						<div style="clear:both;"></div>
-						<div class="menu-footer">
-						<%= link_to t('pages.top_panel.find_groups'), groups_path %>
-						</div>
-				</div>
-			</div>
-		<%else%>
-		<div class="menu_element">
-			<%= link_to t('pages.top_panel.find_groups'), groups_path %>
-		</div>
-		<%end%>
+    <% if user_signed_in? %>
+        <div class="menu_element">
+          <%= 'Gruppi' %>
+          <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
 
-      <div class="nolink_menu_element">
-        <%= link_to t("open_space"), proposals_path %>
-      </div>
+          <div class="groups_panel shadow-box hidden_panel" id="groups_panel">
+            <% @groups = current_user.groups %>
+            <% if @groups.empty? %>
+                <%= "Non partecipi a nessun gruppo ancora" %>
+                <br/>
+            <% else %>
+                <% @groups.each do |group| %>
+                    <div class="groupcontainer">
+                      <div class="groupImg24" style="margin-right: 5px;">
+                        <%= group.group_image_tag(24) rescue nil %>
+                      </div>
+                      <div class="group">
+                        <%= link_to group.name, group %>
+                      </div>
+                    </div>
+                <% end %>
+            <% end %>
+            <div style="clear:both;"></div>
+            <div class="menu-footer">
+              <%= link_to t('pages.top_panel.find_groups'), groups_path %>
+            </div>
+          </div>
+        </div>
+    <% else %>
+        <div class="menu_element">
+          <%= link_to t('pages.top_panel.find_groups'), groups_path %>
+        </div>
+    <% end %>
+
+    <% if ::Configuration::open_space_proposals %>
+        <div class="nolink_menu_element">
+          <%= link_to t("open_space"), proposals_path %>
+        </div>
+    <% end %>
 
 
-      <div style="clear: both; height: 0; overflow: hidden;"></div>
-	</div>
+    <div style="clear: both; height: 0; overflow: hidden;"></div>
+  </div>
 
 </div>
 <script type="text/javascript">
-	
-<%if user_signed_in?%>
-	$('.hidden_panel').hide();
-	$('.menu_element').data('show',false);
-	user_panel_shown = false;
-	notification_panel_shown = false;
-	groups_panel_shown = false;
 
-	$('html').click(function() {
-		$('.menu_element').removeClass('active').data('show',false);
-		$('.hidden_panel').hide();
-		
-	});
-	
-	$('.menu_element').click(function(event) {
-		_this = $(this);
-		sval = _this.data('show');
-		$('.hidden_panel').hide();
-		$('.menu_element').removeClass('active').data('show',false);
-		_this.data('show',sval);
-		if(_this.data('show')) {
-			$('.hidden_panel',this).hide();
-			_this.removeClass('active');			
-			_this.data('show',false);
-		} else {
-			console.log($('.hidden_panel',this));
-			$('.hidden_panel',this).show().position({				
-    			my:        "right top",
-    			at:        "right bottom",
-    			of:        _this
-			})
-			_this.addClass('active');			
-			_this.data('show',true);
-		}
-		event.stopPropagation();
-	});
+    <%if user_signed_in?%>
+    $('.hidden_panel').hide();
+    $('.menu_element').data('show', false);
+    user_panel_shown = false;
+    notification_panel_shown = false;
+    groups_panel_shown = false;
 
-	$(".menu_element").mouseover(function() {
-		$(this).addClass("active");
-	}).mouseout(function() {
-		if($(this).data('show') == false) {
-			$(this).removeClass("active");
-		}
+    $('html').click(function () {
+        $('.menu_element').removeClass('active').data('show', false);
+        $('.hidden_panel').hide();
 
-	});
+    });
 
-	$('.hidden_panel').click(function(event) {
-		event.stopPropagation();
-	});
-	function fetchNotifications() {
-		jQuery.ajax({
-			data : '',
-			dataType : 'script',
-			type : 'get',
-			url : "/alerts/polling"
-		});
-	}
+    $('.menu_element').click(function (event) {
+        _this = $(this);
+        sval = _this.data('show');
+        $('.hidden_panel').hide();
+        $('.menu_element').removeClass('active').data('show', false);
+        _this.data('show', sval);
+        if (_this.data('show')) {
+            $('.hidden_panel', this).hide();
+            _this.removeClass('active');
+            _this.data('show', false);
+        } else {
+            console.log($('.hidden_panel', this));
+            $('.hidden_panel', this).show().position({
+                my: "right top",
+                at: "right bottom",
+                of: _this
+            })
+            _this.addClass('active');
+            _this.data('show', true);
+        }
+        event.stopPropagation();
+    });
 
-	function poll() {
-		$.getScript("/alerts/polling/")
-		setTimeout(poll, 60000);
-		//valore temporaneo
-	};
+    $(".menu_element").mouseover(function () {
+        $(this).addClass("active");
+    }).mouseout(function () {
+                if ($(this).data('show') == false) {
+                    $(this).removeClass("active");
+                }
 
-	//setTimeout(poll, 600000);
-	//valore temporaneo
-	poll();
-<%else%>
-	$('#registration-panel').hide();
-	user_panel_shown = false;
-	$('html').click(function() {
-		if(user_panel_shown) {
-			$('#registration-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
-		}
-	});
+            });
 
-	$(".superHeader").mouseover(function() {
-		$(this).addClass("active");
-	}).mouseout(function() {
-		if(!user_panel_shown) {
-			$(this).removeClass("active");
-		}
-	});
+    $('.hidden_panel').click(function (event) {
+        event.stopPropagation();
+    });
+    function fetchNotifications() {
+        jQuery.ajax({
+            data: '',
+            dataType: 'script',
+            type: 'get',
+            url: "/alerts/polling"
+        });
+    }
 
-	$(".superHeader").focusin(function() {
-		$(this).addClass("active");
-	}).focusout(function() {
-		$(this).removeClass("active");
-	});
+    function poll() {
+        $.getScript("/alerts/polling/")
+        setTimeout(poll, 60000);
+        //valore temporaneo
+    }
+    ;
 
-	$('.superHeader').click(function(event) {
-		if(user_panel_shown) {
-			$('#registration-panel').hide();
-			$('.superHeader').removeClass('active');
-			user_panel_shown = false;
-		} else {
-			$('#registration-panel').show().position({				
-    			my:        "right top",
-    			at:        "right bottom",
-    			of:        $('.superHeader')
-			})
-			$('.superHeader').addClass('active');
-			user_panel_shown = true;
-		}
-		event.stopPropagation();
-	});
+    //setTimeout(poll, 600000);
+    //valore temporaneo
+    poll();
+    <%else%>
+    $('#registration-panel').hide();
+    user_panel_shown = false;
+    $('html').click(function () {
+        if (user_panel_shown) {
+            $('#registration-panel').hide();
+            $('.superHeader').removeClass('active');
+            user_panel_shown = false;
+        }
+    });
 
-	$('#registration-panel').click(function(event) {
-		event.stopPropagation();
-	});
+    $(".superHeader").mouseover(function () {
+        $(this).addClass("active");
+    }).mouseout(function () {
+                if (!user_panel_shown) {
+                    $(this).removeClass("active");
+                }
+            });
 
-<%end%>
-	$('#loading').hide();
+    $(".superHeader").focusin(function () {
+        $(this).addClass("active");
+    }).focusout(function () {
+                $(this).removeClass("active");
+            });
+
+    $('.superHeader').click(function (event) {
+        if (user_panel_shown) {
+            $('#registration-panel').hide();
+            $('.superHeader').removeClass('active');
+            user_panel_shown = false;
+        } else {
+            $('#registration-panel').show().position({
+                my: "right top",
+                at: "right bottom",
+                of: $('.superHeader')
+            })
+            $('.superHeader').addClass('active');
+            user_panel_shown = true;
+        }
+        event.stopPropagation();
+    });
+
+    $('#registration-panel').click(function (event) {
+        event.stopPropagation();
+    });
+
+    <%end%>
+    $('#loading').hide();
 
 </script>
