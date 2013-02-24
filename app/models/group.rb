@@ -96,6 +96,10 @@ class Group < ActiveRecord::Base
     ActionAbilitation.update_all({:group_id => self.id}, {:id => ids})
   end
 
+  def destroy
+    self.update_attribute(:partecipation_role_id,nil) && super
+  end
+
 
   #utenti che possono votare
   def count_voter_partecipants
