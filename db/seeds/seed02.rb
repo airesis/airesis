@@ -1,4 +1,4 @@
-
+#encoding: utf-8
 EventType.create( :description => "incontro" ){ |c| c.id = 1 }.save
 EventType.create( :description => "votazione" ){ |c| c.id = 2 }.save
 EventType.create( :description => "riunione" ){ |c| c.id = 3 }.save
