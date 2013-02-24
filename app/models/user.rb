@@ -130,12 +130,12 @@ class User < ActiveRecord::Base
     self.blocked_alerts.create(:notification_type_id => 21)
     self.blocked_alerts.create(:notification_type_id => 13)
     self.blocked_alerts.create(:notification_type_id => 3)
-    self.receive_messages = true
-    self.email_alerts = true
   end
 
   def init
-    self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
+    self.rank  ||= 0 #imposta il rank a zero se non è valorizzato
+    self.receive_messages = true
+    self.email_alerts = true
   end
 
 
