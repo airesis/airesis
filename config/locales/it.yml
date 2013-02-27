@@ -213,6 +213,7 @@ it:
         random_stack: "Ordinamento intelligente"
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
+        history_button: "History"
     events:
       index:
         title: "Calendario"

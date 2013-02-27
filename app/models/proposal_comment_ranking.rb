@@ -13,12 +13,15 @@ class ProposalCommentRanking < ActiveRecord::Base
   def update_counter_cache
     nvalutations = ProposalCommentRanking.count(:conditions => ["proposal_comment_id = ?",self.proposal_comment.id])
     num_pos = ProposalCommentRanking.count(:conditions => ["proposal_comment_id = ? AND ranking_type_id = ?",self.proposal_comment.id,POSITIVE_VALUTATION])
+    num_neg = ProposalCommentRanking.count(:conditions => ["proposal_comment_id = ? AND ranking_type_id = ?",self.proposal_comment.id,NEGATIVE_VALUTATION])
     ranking = 0
     res = num_pos.to_f / nvalutations.to_f
-    ranking = res*100 if nvalutations > 0    
+    ranking = res*100 if nvalutations > 0
+    j = num_pos+num_neg > 0 ? ((num_pos.to_f - num_neg.to_f)**2)/(num_pos+num_neg) : 0
     #TODO sostituire con update_columns quando sarà disponibile
     self.proposal_comment.update_column(:valutations,nvalutations)
     self.proposal_comment.update_column(:rank,ranking.round)
+    self.proposal_comment.update_column(:j_value,j.round(2))
     
   rescue Exception => e
     puts e

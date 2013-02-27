@@ -9,6 +9,13 @@ class AddMissingForeignKey < ActiveRecord::Migration
       end
     end
 
+    MeetingPartecipation.where("meeting_id not in (#{Meeting.select(:id).to_sql})").destroy_all
+    ActionAbilitation.where("partecipation_role_id not in (#{PartecipationRole.select(:id).to_sql})").destroy_all
+    GroupAffinity.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
+    GroupPartecipationRequest.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
+    GroupPartecipation.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
+    ProposalVote.where("proposal_id not in (#{Proposal.select(:id).to_sql})").destroy_all
+
     add_foreign_key :meeting_partecipations, :users
     add_foreign_key :meeting_partecipations, :meetings
     add_foreign_key :meetings, :places
