@@ -159,22 +159,7 @@ class AdminController < ApplicationController
 
 
   def send_newsletter
-    receiver = params['mail']['receiver']
-    name = params['mail']['name']
-    if receiver == 'all'
-      @users = User.all
-    elsif receiver == 'not_confirmed'
-      @users = User.unconfirmed.all
-    elsif receiver == 'test'
-      @users = User.all(limit: 1)
-    elsif receiver == 'portavoce'
-      raise Exception
-    end
-
-    @users.each do |user|
-      NewsletterMailer.publish(name, :name => user.fullname, :email => user.email).deliver
-    end
-
+    ResqueMailer.publish(params['mail']['name'], :subject => params['mail']['subject'], :receiver => params['mail']['receiver'] ).deliver
     flash[:notice] = "Newsletter pubblicata correttamente"
     redirect_to :controller => 'admin', :action => 'mailing_list'
   end
