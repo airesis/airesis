@@ -1,4 +1,4 @@
-
+#encoding: utf-8
 Continente.create([{ :description => "Europa" }], :without_protection => true )
 
 Stato.create([
