@@ -16,6 +16,8 @@ class VotationsController < ApplicationController
     Proposal.transaction do
       @proposal = Proposal.find_by_id(params[:proposal_id])
 
+      authorize! :vote, @proposal
+
       vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
       vote.vote_type_id = params[:vote_type].to_i unless @proposal.secret_vote
       vote.save!
@@ -68,7 +70,7 @@ class VotationsController < ApplicationController
     @proposals_tmp = Proposal.all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
     @proposals = []
     @proposals_tmp.each do |proposal|
-        @proposals << proposal if can? :partecipate, proposal
+        @proposals << proposal if can? :vote, proposal
     end
   end
 end  
