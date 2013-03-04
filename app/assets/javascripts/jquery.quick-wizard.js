@@ -221,7 +221,7 @@ function validElement() {
   // this will cycle through all visible inputs and attempt to validate all of them.
   // if validations fail 'valid' is set to false
   $('[data-validate]:input:visible').each(function() {
-    var settings = window[this.form.id];
+    var settings = window.ClientSideValidations.forms[this.form.id];
     if (!$(this).isValid(settings.validators)) {
       valid = false
     }

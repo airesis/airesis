@@ -1,4 +1,4 @@
-<%= form_for @group do |f| %>
+<%= form_for @group, :validate => true do |f| %>
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
     <p>
