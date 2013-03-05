@@ -4,6 +4,7 @@
 		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
 		
 		<%=render :partial => "layouts/head" %>
+        <%= stylesheet_link_tag 'menu_left' %>
 		<meta name="description" content="<%= (@page_descr)%>">
 	</head>
 	<body>
@@ -17,8 +18,8 @@
 		    </div>
 	      <div class="group_title">
 			<h1><%=@page_title%></h1>
-			<%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'sviluppoButton' %>
-			<%= link_to 'Cos\'è airesis?', democraziadiretta_path, :class => 'coseButton' %>
+			<%= link_to 'Cos\'è Airesis?', democraziadiretta_path, :class => 'coseButton' %>
+            <%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'sviluppoButton' %>
 			<%= link_to 'Video guide', videoguide_path, :class => 'videoButton' %>
 			<%= link_to 'Chi siamo', chisiamo_path, :class => 'chisiamoButton' %>
 			<%= link_to 'Sostienici', sostienici_path, :class => 'sostieniButton' %>
