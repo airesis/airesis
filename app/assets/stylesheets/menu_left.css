@@ -1,0 +1,218 @@
+@charset 'UTF-8';
+/* Starter CSS for Flyout Menu */
+
+#cssmenu {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul ul {
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu ul {
+  position: relative;
+  z-index: 597;
+  float: left;
+}
+#cssmenu ul li {
+  float: left;
+  min-height: 1px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+#cssmenu ul li.hover,
+#cssmenu ul li:hover {
+  position: relative;
+  z-index: 599;
+  cursor: default;
+}
+#cssmenu ul ul {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 598;
+  width: 100%;
+}
+#cssmenu ul ul li {
+  float: none;
+}
+#cssmenu ul ul ul {
+  top: 1px;
+  left: 99%;
+}
+#cssmenu ul li:hover > ul {
+  visibility: visible;
+}
+#cssmenu ul ul {
+  top: 1px;
+  left: 99%;
+}
+#cssmenu ul li {
+  float: none;
+}
+#cssmenu ul {
+  font-weight: bold;
+}
+#cssmenu ul ul {
+  margin-top: 1px;
+}
+#cssmenu ul ul li {
+  font-weight: normal;
+}
+/* Custom CSS Styles */
+
+#cssmenu {
+  border-radius: 5px 0 0 5px;
+  -moz-border-radius: 5px 0 0 5px;
+  -webkit-border-radius: 5px 0 0 5px;
+  background-color: #EAEAEA;
+  background-image: url(/assets/menu_vertgrad.png);
+  background-repeat: repeat-x;
+  width: 150px;
+}
+#cssmenu:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenu a {
+  background-color #EAEAEA;
+  background-image: url(/assets/menu_vertgrad.png);
+  background-repeat: repeat-x;
+  display: block;
+  font-family: Ubuntu, Arial, Verdana, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 120%;
+  padding: 13px 20px;
+  text-decoration: none;
+}
+#cssmenu ul {
+  border-right: 2px solid #C5EAF8;
+  list-style: none;
+  width: 150px;
+}
+#cssmenu > ul {
+  float: left;
+}
+#cssmenu > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #95A1B0;
+  margin-top: -10px;
+}
+#cssmenu > ul > li:first-child >a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenu > ul > li:last-child >a {
+    border-bottom: none ;
+    border-radius: 0 0 0 5px;
+  -moz-border-radius: 0 0 0 5px;
+  -webkit-border-radius: 0 0 0 5px;
+
+}
+#cssmenu > ul > li.active a {
+  box-shadow: inset 0 0 3px #ffffff;
+  -moz-box-shadow: inset 0 0 3px #ffffff;
+  -webkit-box-shadow: inset 0 0 3px #ffffff;
+  background-color: #ffffff;
+  background-image: url(/assets/menu_vertgrad.png);
+  background-repeat: repeat-x;
+}
+#cssmenu > ul > li:hover > a {
+  background-color: #ffffff;
+  background-image: url(/assets/menu_vertgrad.png);
+  background-repeat: repeat-x;
+  box-shadow: inset 0 0 3px #ffffff;
+  -moz-box-shadow: inset 0 0 3px #ffffff;
+  -webkit-box-shadow: inset 0 0 3px #ffffff;
+}
+#cssmenu .has-sub {
+  z-index: 1;
+}
+#cssmenu .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub ul {
+  display: none;
+  position: absolute;
+  width: 150px;
+  top: 5px;
+  left: 100%;
+}
+#cssmenu .has-sub ul li {
+  *margin-bottom: -1px;
+}
+#cssmenu .has-sub ul li a {
+  background: #ECECEC;
+  border-bottom: 1px dotted #95A1B0;
+  filter: none;
+  font-size: 12px;
+  display: block;
+  line-height: 120%;
+  padding: 10px;
+}
+#cssmenu .has-sub ul li:hover a {
+  background: #FFF;
+}
+#cssmenu .has-sub .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub .has-sub ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenu .has-sub .has-sub ul li a {
+  background: #FFF;
+  border-bottom: 1px dotted #95A1B0;
+}
+#cssmenu .has-sub .has-sub ul li a:hover {
+  background: #FFF;
+}
+
+/*Aggiunte h2 e h3 da inserire poi nello style.css*/
+h2 {
+    background-image: url(/assets/sfondo_h2.png);
+    margin-top: 36px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 4px;
+    font-family: "Lucida Grande";
+    font-size: 1.125em;
+}
+
+h3 {
+    margin: 10px 0px 2px 0px;
+    padding: 3px 0px 2px 0px  ;
+    font-size:1.05em;
+    font-family: "Lucida Grande";
+    font-weight:bold;
+}
+#sticky {
+    padding: 0.5ex;
+
+}
+#sticky.stick {
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+
+    border-radius: 0 0 0.5em 0.5em;
+}
