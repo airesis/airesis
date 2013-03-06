@@ -205,11 +205,11 @@ h3 {
     font-family: "Lucida Grande";
     font-weight:bold;
 }
-#sticky {
+.sticky {
     padding: 0.5ex;
 
 }
-#sticky.stick {
+.sticky.stick {
     position: fixed;
     top: 0;
     z-index: 10000;

@@ -10,7 +10,25 @@ $(function() {
 		},500);
 	}
 
+
+    if ($('.sticky-anchor').length > 0) {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
+    }
+
 });
+
+function sticky_relocate() {
+    var window_top = $(window).scrollTop();
+    $('.sticky-anchor').each(function() {
+        var div_top = $(this).offset().top;
+        if (window_top > div_top) {
+            $('.sticky').addClass('stick');
+        } else {
+            $('.sticky').removeClass('stick');
+        }
+    });
+}
 
 function disegnaBottoni() {
 	$('.buttonStyle').button();
