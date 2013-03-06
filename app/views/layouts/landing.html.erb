@@ -6,10 +6,28 @@
 		<%=render :partial => "layouts/head" %>
         <%= stylesheet_link_tag 'menu_left' %>
 		<meta name="description" content="<%= (@page_descr)%>">
-	</head>
-	<body>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script>
+          function sticky_relocate() {
+              var window_top = $(window).scrollTop();
+              var div_top = $('#sticky-anchor').offset().top;
+              if (window_top > div_top) {
+                  $('#sticky').addClass('stick');
+              } else {
+                  $('#sticky').removeClass('stick');
+              }
+          }
+
+          $(function() {
+              $(window).scroll(sticky_relocate);
+              sticky_relocate();
+          });
+        </script>
+    </head>
+    <body>
 		
-<%=render :partial => "layouts/header" %>
+    <%=render :partial => "layouts/header" %>
 		
 	<div id="subheader">
 		<div class="body_maxwidth">
