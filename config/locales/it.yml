@@ -34,8 +34,8 @@ it:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
-    day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
-    abbr_day_names: [L, M, M, G, V, S, D]
+    day_names: [Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]
+    abbr_day_names: [D, L, M, M, G, V, S]
     month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
     abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
   time:
@@ -233,6 +233,7 @@ it:
         random_stack: "Ordinamento intelligente"
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
+        history_button: "History"
     events:
       index:
         title: "Calendario"

@@ -430,7 +430,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       #invia le notifiche
       users.each do |u|
         notify_user_choosed_as_author(u,@proposal)
-        generate_nickname(user,@proposal)
+        generate_nickname(u,@proposal)
       end
     end
   

@@ -123,7 +123,7 @@
 
 
     $(function () {
-        $("#new_proposal").validate().quickWizard({
+        $("#new_proposal").quickWizard({
             nextCallback:showSimilarProposal,
             prevCallback:skipIfNecessary
         });
@@ -174,6 +174,7 @@
                 data:'tags=' + $('#proposal_tags_list').val()
             })
         }
+        $('#new_proposal').enableClientSideValidations();
     }
 
 </script>

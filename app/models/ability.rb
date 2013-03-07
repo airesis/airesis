@@ -19,6 +19,9 @@ class Ability
        can :partecipate, Proposal do |proposal|
          can_partecipate_proposal?(user,proposal)
        end
+       can :vote, Proposal do |proposal|
+         can_vote_proposal?(user,proposal)
+       end
        can :new, ProposalSupport
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
@@ -109,6 +112,20 @@ class Ability
          return proposal.in_valutation? || proposal.voted?
        end
      end
+
+    #un utente può votare una proposta se è pubblica
+    #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
+    #è stata creata
+    def can_vote_proposal?(user,proposal)
+      if proposal.private
+        proposal.presentation_groups.each do |group|
+          return true if can_do_on_group?(user,group,7) && (proposal.voting?)
+        end
+        false
+      else
+        proposal.voting?
+      end
+    end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

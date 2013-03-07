@@ -1,5 +1,5 @@
 <script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
+        src="http://maps.googleapis.com/maps/api/js?key=<%=MAPS_API_KEY%>&sensor=false">
 </script>
 
 
@@ -14,7 +14,7 @@
   <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
   <div style="float:left;margin-top: 10px;">
     <b>
-      Da <%= I18n.localize(@event.starttime, :format => :long_date_time) %>
+      Da <%=l @event.starttime, :format => :long_date_time %>
     </b>
 
     <div style="margin-top:5px;"></div>

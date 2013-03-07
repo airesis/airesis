@@ -19,3 +19,5 @@ page<< "$('#create_proposal_dialog').dialog({
 end
 
 page.call "disegnaBottoni"
+
+page.call "$('#new_proposal').enableClientSideValidations"
