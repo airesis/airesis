@@ -1,6 +1,7 @@
 <% @page_title = "Il primo social network di E-Democracy in Italia"%>
 <% @page_descr = "Uno strumento di democrazia diretta nato per decidere e deliberare collettivamente su proposte e idee nate ovunque per qualsiasi tema. "%>
 <% content_for :left_panel do %>
+
 <div class="sticky-anchor"></div>
 <div class="sticky">
   <div id='cssmenu'>
@@ -18,7 +19,8 @@
           <li ><a href='#strumento_proposte'><span>Strumento proposte e dibattito</span></a></li>
           <li ><a href='#votazione'><span>Votazione con metodo Schultze</span></a></li>
           <li ><a href='#Anonimato_temporaneo'><span>Anonimato temporaneo</span></a></li>
-          <li ><a href='#Elezioni'><span>Elezioni e ruoli</span></a></li>
+          <li ><a href='#Gestione_gruppi'><span>Gestione dei gruppi e ruoli degli utenti</span></a></li>
+          <li ><a href='#Elezioni'><span>Elezioni</span></a></li>
           <li ><a href='#Sistema_Reputazione'><span>Sistema di Reputazione</span></a></li>
         </ul>
       <li class='has-sub'><a href='#descrizione_operativa'><span>Descrizione operativa</span></a>
@@ -58,28 +60,30 @@
 
 
 <h2 id="edemocracy" >Un social network per l'E-Democracy</h2>
-
-Airesis è una piattaforma software libera sviluppata interamente da un team di sviluppo italiano e studiata da numerosi analisti per promuovere comunità/gruppi secondo i principi della democrazia diretta e partecipata. A tal scopo, la piattaforma è stata pensata come un sistema multifunzionale, che integra tutti gli strumenti web che possono servire allo sviluppo di una comunità, in particolare strumenti "social" e strumenti deliberativi.
-Gli strumenti "social" comprendono dei blog e un sistema di promozione di eventi/incontri con calendarizzazione; mentre gli strumenti deliberativi comprendono aree per la raccolta e la delibera di proposte/iniziative e un sistema di votazione di candidati. Tra le caratteristiche salienti di questa piattaforma, c'è la possibilità di creare liberamente gruppi/comunità ristrette a partire dalla comunità complessiva.
+<p>Airesis è una <a href="http://it.wikipedia.org/wiki/Software_libero">piattaforma software libera </a>, sviluppata da un team di sviluppo italiano attraverso un metodo partecipato, per consentire a comunità/gruppi di organizzarsi in modo produttivo secondo i principi della <a href="http://it.wikipedia.org/wiki/Democrazia_diretta">democrazia diretta </a> e partecipata. A tal scopo, la piattaforma è stata pensata come un sistema multifunzionale, che integra tutti gli strumenti web che possono servire allo sviluppo di una comunità, in particolare strumenti "social" e strumenti deliberativi.</p>
+<p>  Gli <strong>strumenti "social"</strong> comprendono dei blog e un sistema di promozione di eventi/incontri con calendarizzazione. Gli <strong>strumenti deliberativi</strong> comprendono aree per la raccolta e la delibera di proposte/iniziative e un sistema di votazione di candidati. Tra le caratteristiche salienti di questa piattaforma, c'è la possibilità di creare liberamente gruppi/comunità ristrette a partire dalla comunità complessiva. <br>
+  Poichè l'obiettivo di Airesis è quello di stimolare la partecipazione, è stata prestata grande attenzione all' <strong>intuitività</strong> . <br>
+  La filosofia di sviluppo è quella del <strong>miglioramento continuo</strong> , basato sui feedback ricevuti dagli utenti. Il gruppo di sviluppo è disponibile ad andare gratuitamente incontro alle esigenze delle comunità che desiderano impiegare il software in linea con lo spirito della democrazia diretta. </p>
 <h3  id="slideshow">Slideshow di presentazione</h3>
 <iframe src="https://docs.google.com/presentation/d/1U2w96q28GhIDCoL0hgwvnigUC_xANbl8FCmfPriq4QI/embed?start=true&loop=false&delayms=5000" frameborder="0" width="770" height="620" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
   <h3 id="principi">Princìpi e valori fondanti</h3>
 
-‘Airesis’ in antica grecia significava ‘scelta consapevole’ e in sintonia con il primo spirito di democrazia diretta vuole essere la via che finalmente faccia emergere la volontà di &nbsp;partecipare per costruire consensualmente una società più giusta e a misura d’uomo.
-
-Airesis è uno strumento decisionale open source, sviluppato interamente da volontari &nbsp;e senza scopo di lucro, nato per rendere più veloci, condivise e partecipate le deliberazioni relative a delle proposte pubblicate online, basato sui seguenti principi:
+<p>Airesis è uno strumento decisionale di e-democracy open source, sviluppato interamente da volontari, senza scopo di lucro, nato per rendere più veloci, informate, condivise e partecipate le decisioni.</p>
+  <p>    Si basa sui seguenti principi: </p>
 <ul>
   <li>
     <b>Partecipazione</b> <br/>
-    Coinvolgere i cittadini significa avere a disposizioni più energie, più punti di vista. Solo attraverso la partecipazione diretta è possibile approfondire i problemi, cambiare idea, comprendere cosa si vuole veramente. La partecipazione è l’essenza di decisioni rappresentative.
+    Coinvolgere i cittadini significa avere a disposizioni più energie, più punti di vista. Solo attraverso la partecipazione diretta è possibile approfondire i problemi, cambiare idea, comprendere cosa si vuole veramente. La partecipazione è l’essenza di decisioni democratiche.
   </li>
 </ul>
 <ul>
   <li>
     <b>Trasparenza e Sicurezza</b><br/>
-    Senza trasparenza le regole possono essere facilmente aggirate e la democrazia degenera in fretta. Trasparenza significa anche apertura, capacità di accogliere: per questo Airesis consente anche agli utenti non registrati di visionare i contenuti del sito.
-  </li>
+    Senza trasparenza le regole possono essere facilmente aggirate e la democrazia degenera in fretta. Trasparenza significa anche apertura, capacità di accogliere: per questo Airesis consente anche agli utenti non registrati di visionare i contenuti del sito. 
+
+ 
+  Trasparente è anche il codice del software open source. </li>
 </ul>
 <ul>
   <li>
@@ -100,136 +104,146 @@ Airesis è uno strumento decisionale open source, sviluppato interamente da volo
   </li>
 </ul>
 
- <h3 id="Obiettivo"><span>Obiettivo: la democrazia diretta e partecipata</span></h3>
-  <span>Strutturato come un social network permette di coinvolgere le persone in base ai propri interessi e di sfruttare le doti di ciascuno per deliberare in modo consensuale su qualsiasi tipo di proposta. L’architettura e i suoi valori fondanti permettono quindi alla piattaforma di perseguire gli obiettivi di aggregazione sociale e dibattito costruttivo su temi che possono coinvolgere il territorio, la promozione sociale, le politiche di settore e di far emergere le migliori idee basandole sul merito. &nbsp;</span>
-<p ><span>Airesis si è sviluppata come piattaforma software multifunzione e si propone di offrire gli strumenti per:</span></p>
+ <h3 id="Obiettivo">Obiettivo: la democrazia diretta e partecipata</h3>
+  <span> Strutturato come un social network permette di coinvolgere le persone in base ai propri interessi e di sfruttare le doti di ciascuno per deliberare in modo consensuale su qualsiasi tipo di proposta. L'architettura e i suoi valori fondanti permettono quindi alla piattaforma di perseguire gli obiettivi di aggregazione sociale e dibattito costruttivo su temi che possono coinvolgere il territorio, la promozione sociale, le politiche di settore e di far emergere le migliori idee.  &nbsp;</span>
+<p >Airesis si è sviluppata come piattaforma software multifunzione e si propone di offrire gli strumenti per:</p>
 <ul  >
-  <li ><span>promuovere le idee e le esperienze dei singoli membri;</span></li>
-  <li ><span>raccogliere le iniziative/proposte dei singoli e presentarle alla comunità;</span></li>
-  <li ><span>dare strumenti per il dibattito sulle varie iniziative;</span></li>
-  <li ><span>promuovere la modifica condivisa delle proposte, in modo che possano essere accettabili dalla maggioranza;</span></li>
-  <li ><span>gestire la votazione delle varie iniziative/proposte;</span></li>
-  <li ><span>promuovere eventi generici o riunioni;</span></li>
-  <li ><span>gestire delle candidature e le relative votazioni;</span></li>
-  <li ><span>gestire dei sotto-gruppi ristretti, dandogli gli stessi strumenti disponibili per la comunità generale.</span></li>
+  <li>promuovere le idee e le esperienze dei singoli membri; </li>
+  <li>raccogliere le iniziative/proposte dei singoli e presentarle alla comunità; </li>
+  <li>dare strumenti per il dibattito sulle varie iniziative; </li>
+  <li>promuovere la modifica condivisa delle proposte, in modo che possano essere accettabili dalla maggioranza; </li>
+  <li>gestire la votazione delle varie iniziative/proposte; </li>
+  <li>promuovere eventi generici o riunioni; </li>
+  <li>gestire delle candidature e le relative votazioni; </li>
+  <li>gestire dei sotto-gruppi ristretti, dandogli gli stessi strumenti disponibili per la comunità generale. </li>
 </ul>
 
-<h2 id="caratteristiche_funzioni"><span>Caratteristiche e funzioni</span></h2>
-<p ><span>Il team di sviluppo di Airesis realizza le funzioni e gli strumenti in base alle esigenze dei gruppi che fruiscono della piattaforma. Lo stesso gruppo di sviluppo è presente su Airesis e decide consensualmente le future implementazioni, le migliorie agli strumenti e le misure da intraprendere per trovare le soluzioni alle problematiche che via via si presentano.</span></p>
-<p ><span>La struttura attuale permette all’utente registrato di appartenere ad uno spazio comune , di iscriversi ad uno dei gruppi &nbsp;già presenti oppure di costituirne uno nuovo. Sia nei gruppi che nello spazio comune è possibile pubblicare iniziative/proposte , valutarle , redigerne una sintesi &nbsp;condivisa e quindi votarle . Sempre negli stessi ambiti è possibile creare degli eventi riguardanti incontri , votazioni &nbsp;ed &nbsp;elezioni .</span></p>
-
-<h3 id="funzioni_base"><span>Funzioni di base</span></h3>
+<h2 id="caratteristiche_funzioni">Caratteristiche e funzioni</h2>
+<p > Il team di sviluppo di Airesis realizza le funzioni e gli strumenti <strong>in base alle esigenze dei gruppi</strong> che fruiscono della piattaforma. Lo stesso gruppo di sviluppo è presente su Airesis e decide <strong>consensualmente</strong> le future implementazioni, le migliorie agli strumenti e le misure da intraprendere per trovare le soluzioni alle problematiche che via via si presentano.</p>
+<p >  La struttura attuale permette all'utente registrato di appartenere ad uno <strong>spazio comune</strong>, di iscriversi ad uno dei <strong>gruppi</strong> già presenti oppure di costituirne uno nuovo. Sia nei gruppi che nello spazio comune è possibile pubblicare iniziative/proposte , <strong>valutarle</strong> , redigerne una <strong>sintesi</strong> condivisa e quindi <strong>votarle</strong>. Sempre negli stessi ambiti è possibile creare degli eventi riguardanti <strong>incontri</strong> , <strong>votazioni</strong> ed <strong>elezioni</strong> .  </p>
+<h3 id="funzioni_base">Funzioni di base</h3>
 <ul >
-  <li ><span >Iscrizione alla piattaforma<br> da qualsiasi pagina o anche a seguito alla scrittura di un commento o di un intervento. E’ possibile accedere con Facebook, Google +, Meetup e altri</span></li>
-  <li ><span >Presenza di uno spazio pubblico e di uno spazio privato dei gruppi  &nbsp;( <a   href="http://youtu.be/n_ZruAcNkVk">http://youtu.be/n_ZruAcNkVk</a> ):<br>La registrazione consente di appartenere ad uno spazio comune, di iscriversi ad uno dei gruppi già presenti oppure di costituirne uno nuovo</span></li>
-  <li ><span >Inserimento proposte e dibattito<br> Sia nei gruppi che nello spazio comune è possibile pubblicare iniziative/proposte e raccogliere dei contributi, commenti e valutazioni al fine di redigere una sintesi condivisa della proposta che possa raccogliere più consenso possibile</span></li>
-  <li ><span >Quorum e votazione proposte <br>Ad ogni proposta è assegnato un quorum al fine di incentivare la partecipazione e portare a maturazione le soluzioni trovate. La successiva votazione avviene per preferenza in base al metodo Schultze.</span></li>
-  <li ><span >Gestione eventi <br>E’ possibile inserire eventi riguardanti le riunioni, le votazioni, gli incontri e le elezioni dei candidati all’interno dei gruppi o nello spazio comune.</span></li>
-  <li ><span >Newsletter &nbsp;su eventi e novità della piattaforma</span></li>
-  <li class="c2 c6"><span >Sondaggi  sia interni che esterni con votazione Schulze</span></li>
-  <li ><span >Apps per mobile</span></li>
+  <li><strong>Iscrizione alla piattaforma</strong> <br>
+  da qualsiasi pagina o anche a seguito alla scrittura di un commento o di un intervento. E' possibile accedere con Facebook, Google +, Meetup, Linkedin... </li>
+  <li><strong>Presenza di uno spazio pubblico e di uno spazio privato dei gruppi</strong> <br>
+    (<a href="http://youtu.be/n_ZruAcNkVk">http://youtu.be/n_ZruAcNkVk </a>): <br>
+  La registrazione consente di appartenere ad uno spazio comune, di iscriversi ad uno dei gruppi già presenti oppure di costituirne uno nuovo. </li>
+  <li><strong>Inserimento proposte e dibattito</strong> <br>
+  Sia nei gruppi che nello spazio comune è possibile pubblicare iniziative/proposte e raccogliere contributi, commenti e valutazioni al fine di redigere una sintesi condivisa della proposta che possa raccogliere il più largo consenso. </li>
+  <li><strong>Quorum e votazione proposte</strong> <br>
+  Ad ogni proposta è assegnato un quorum al fine di incentivare la partecipazione e portare a maturazione le soluzioni trovate. La successiva votazione avviene per preferenza in base al metodo Schultze. </li>
+  <li><strong>Gestione eventi/calendario</strong> <br>
+  E' possibile inserire eventi riguardanti le riunioni, le votazioni, gli incontri e le elezioni dei candidati all'interno dei gruppi o nello spazio comune. </li>
+  <li><strong>Newsletter</strong> su eventi e novità della piattaforma </li>
+  <li><strong>Messaggistica</strong> e servizio di <strong>notifiche</strong> via mail (personalizzabili dall'utente) </li>
+  <li><strong>Upload e gestione di documenti</strong> e allegati alle proposte (funzione attualmente disabilitata su www.airesis.it) </li>
+  <li><strong>Sondaggi</strong> sia interni che esterni con votazione Schulze </li>
+  <li><strong>Apps per mobile </strong></li>
 </ul>
 
 <h3 id="strumento_proposte"></a><span>Strumento proposte e dibattito</span></h3>
-<p ><span>Il cuore del software sta nello strumento deliberativo  che consente di &nbsp;partecipare alla stesura di un a proposta, di fissare un obiettivo comune, di contribuire alla ricerca di soluzioni alternative e di portare in votazione il risultato di questo lavoro in modo che la proposta possa ricevere più consenso possibile e possa emergere la soluzione migliore e più condivisa.</span></p>
-<p ><span>Oggi, l'iter prevede 3 fasi:</span></p>
+Il cuore del software sta nello <strong>strumento deliberativo</strong> che consente di partecipare alla stesura di una proposta, di fissare un obiettivo comune, di contribuire alla ricerca di soluzioni alternative e di portare in votazione il risultato di questo lavoro in modo che la proposta possa ricevere più consenso possibile e possa emergere la soluzione migliore e più condivisa. 
+<p >Oggi, l'iter prevede 3 fasi:</p>
 <ul   >
-  <li ><span>l'autore compone la proposta &nbsp;secondo una procedura guidata (Obbiettivo, Proposta, documenti a sostegno, quorum e modello di proposta); con l'immissione del form compilato, il sistema pubblica nella sezione/stato "in dibattito " la proposta, dove permane in attesa di ricevere sostegno, consigli e critiche. Durante questo periodo la proposta può essere corretta dagli autori in base alle valutazioni dei contributi apportati;</span></li>
-  <li ><span>al raggiungimento del quorum, la proposta passa alla sezione/stato "in votazione " durante questo periodo il testo della proposta non è più modificabile; l'autore sceglie un "evento votazione "(periodo destinato alle votazioni) tra quelli già programmati o può crearne uno dal calendario; tutti i membri della comunità possono votare &nbsp;durante il periodo prescelto;</span></li>
-  <li ><span>al termine del periodo di votazione, il sistema calcola i voti, e colloca la proposta nella sezione/stato "approvate " o in caso di esito negativo, la respinge ; le proposte possono essere successivamente revisionate e reintrodotte nell’iter decisionale dalla fase 1</span></li>
+  <li>l' <strong>autore compone la proposta</strong> secondo una procedura guidata (Obbiettivo, Proposta, documenti a sostegno, quorum e modello di proposta); con l'immissione del form compilato, il sistema pubblica nella sezione/stato " <strong>in dibattito</strong> " la proposta, dove permane in attesa di ricevere sostegno, consigli e critiche. Durante questo periodo la proposta può essere corretta dagli autori in base alle valutazioni dei contributi apportati; </li>
+  <li>al raggiungimento del quorum, la proposta passa alla sezione/stato " <strong>in votazione</strong> " durante questo periodo il testo della proposta non è più modificabile; l'autore sceglie un " <strong>evento votazione</strong> " (periodo destinato alle votazioni) tra quelli già programmati o può crearne uno dal calendario; tutti i membri certificati del gruppo possono <strong>votare</strong> durante il periodo prescelto; </li>
+<li>al termine del periodo di votazione, il sistema calcola i voti, e colloca la proposta nella sezione/stato " <strong>approvate</strong> " o in caso di esito negativo, la <strong>respinge</strong> ; le proposte possono essere successivamente revisionate e reintrodotte nell'iter decisionale dalla fase 1 </li>
 </ul>
-  <p ><span>Particolarmente interessante è l'adozione di un’area di discussione &nbsp;per ogni proposta pubblicata che permette alla proposta stessa di essere modificata dall’autore (come un  <a   href="http://it.wikipedia.org/wiki/Wiki">wiki</a> ) in base al consenso  ottenuto dai singoli contributi. Lo spazio di discussione è indentato a due livelli, il primo destinato a raccogliere  contributi , il secondo le considerazioni personali su questi ultimi. Il primo livello implementa un meccanismo di raccolta di gradimento mediante l’accorpamento nella proposta dei contributi  valutati più positivamente da parte della comunità.</span></p>
-  <p ><span>Il quorum , necessario per far passare una proposta alla fase di votazione, si ottiene al soddisfacimento di tre diversi parametri:</span></p>
+  <p > Particolarmente interessante è l'adozione di un' <strong>area di discussione</strong> per ogni proposta pubblicata che permette alla proposta stessa di essere modificata dall'autore (come un <a href="http://it.wikipedia.org/wiki/Wiki">wiki </a>) in base al <strong>consenso</strong> ottenuto dai singoli contributi. Lo spazio di discussione è indentato a due livelli, il primo destinato a raccogliere contributi, il secondo le considerazioni personali su questi ultimi. Il primo livello implementa un meccanismo di raccolta di gradimento mediante l' <strong>accorpamento nella proposta dei contributi</strong> più condivisi.  </p>
+  <p >Il <strong>quorum</strong> , necessario per far passare una proposta alla fase di votazione, si ottiene al soddisfacimento di tre diversi parametri:</p>
 <ul  >
-  <li ><span >valutazioni , definito come numero di persone che ne hanno dichiarato un gradimento (positivo o negativo);</span></li>
-  <li ><span >tempo di discussione , minimo periodo di discussione (a partire dalla presentazione della proposta);</span></li>
-  <li ><span >gradimento , definito come percentuale di "partecipanti" che dichiarano di gradire la proposta.</span></li>
-  <li ><span >soglia minima  da superare affinchè la proposta non sia respinta</span></li>
+  <li ><strong>valutazioni</strong> , definito come numero di persone che ne hanno dichiarato un gradimento (positivo o negativo);</li>
+  <li ><strong>tempo di discussione</strong> , minimo periodo di discussione (a partire dalla presentazione della proposta);</li>
+  <li ><strong>gradimento</strong> , definito come percentuale di "partecipanti" che dichiarano di gradire la proposta.</li>
+  <li ><strong>soglia minima</strong>  da superare affinchè la proposta non sia respinta</li>
 </ul>
-  <p ><span>La valutazione di "gradimento " (o meno) di una proposta, è un atto formale dei membri della comunità (fatto durante il periodo di "discussione"), con la quale esprimono l’idoneità  del testo e delle soluzioni alla successiva fase di votazione .</span></p>
-<p ><span>Sono ovviamente previsti diversi tipi di quorum : a seconda della "pesantezza" dell'argomento trattato, i parametri (partecipazione, tempo e gradimento) variano di consistenza. Per le "proposte comuni", i quorum sono definiti dall'amministratore di sistema; mentre i quorum delle proposte dei gruppi, sono liberamente definibili degli amministratori dei gruppi .</span></p>
-<p ><span>Le proposte sono organizzate, ordinate  e ricercabili , secondo tre modalità:</span></p>
+  <p >La valutazione di "<strong>gradimento</strong> " (o meno) di una proposta, è un atto formale dei membri della comunità (fatto durante il periodo di "discussione"), con la quale esprimono l’<strong>idoneità</strong>  del testo e delle soluzioni <strong>alla successiva fase di votazione</strong> .</p>
+<p >Sono ovviamente <strong>previsti diversi tipi di quorum</strong> : a seconda della "pesantezza" dell'argomento trattato, i parametri (partecipazione, tempo e gradimento) variano di consistenza. Per le "proposte comuni", i quorum sono definiti dall'amministratore di sistema; mentre <strong>i quorum delle proposte dei gruppi, sono liberamente definibili degli amministratori dei gruppi</strong> .</p>
+<p >Le proposte sono <strong>organizzate</strong>, <strong>ordinate</strong>  e <strong>ricercabili</strong> , secondo tre modalità:</p>
 <ul   >
-  <li ><span>a seconda del loro stato  ("In dibattito","In votazione","Votate",”Abbandonate”);</span></li>
-  <li ><span>a seconda di categorie  predefinite ("Lavoro","Salute","Educazione", ecc...);</span></li>
-  <li ><span>a seconda del modello di proposta: standard, regolamento, preventivo di spesa, comunicato, decisione tecnica, ecc...</span></li>
-  <li ><span>tramite dei tag&nbsp;liberi , che possono essere inseriti nel testo della proposta.</span></li>
+  <li >a seconda del loro <strong>stato</strong>  ("In dibattito","In votazione","Votate",”Abbandonate”);</li>
+  <li >a seconda di <strong>categorie</strong>  predefinite ("Lavoro","Salute","Educazione", ecc...);</li>
+  <li >a seconda del <strong>tipo</strong> di proposta: standard, regolamento, preventivo di spesa, comunicato, decisione tecnica, ecc...</li>
+  <li >tramite dei <strong>tag&nbsp;liberi</strong> , che possono essere inseriti nel testo della proposta.</li>
 </ul>
 
-<h3 id="votazione"><span>Votazione con metodo Schultze e Democrazia Diretta</span></h3>
-<span>Dal momento che un numero sufficiente di persone concordano sulla maturità della proposta, essa può superare  il livello di gradimento e/o il tempo minimo fissato dal quorum  e può passare alla votazione finale  definitiva.</span>
-<p ><span>A questo punto la proposta viene congelata  e il proponenente deve scegliere un periodo  in cui il gruppo potrà votare la proposta. L’evento ‘votazione’ viene registrato sul calendario del gruppo e viene notificato  a tutti gli iscritti al gruppo il periodo della votazione.</span></p>
-<p ><span>Al momento della votazione viene inviata una nuova notifica nella quale viene indicata la proposta da votare e la pagina sulla quale si svolge la votazione. A questo punto ciascun partecipante, dopo aver letto la proposta e l’elenco delle possibili soluzioni, può esprimere la propria preferenza ordinando tali soluzioni dalla più idonea a quella meno e permettendo in tal modo l’elaborazione del  <a   href="http://it.wikipedia.org/wiki/Metodo_Schulze">Metodo Schulze</a> &nbsp; per trovare la soluzione preferita dal gruppo.</span></p>
-<p ><span>Al termine della votazione verrà notificata la soluzione approvata e la proposta si sposta nello stato di ‘votata’ in cui sarà possibile una successiva revisione e reintroduzione della proposta nell’iter decisionale.</span></p>
-
-<h3 id="promozione_proposte"><span>Promozione di proposte condivise e Democrazia Partecipata</span></h3>
+<h3 id="votazione">Votazione con metodo Schultze e Democrazia Diretta</h3>
+<p > Quando un numero sufficiente di persone concordano sulla maturità della proposta e/o il tempo minimo fissato per il dibattito scade, la proposta può passare alla <strong>votazione finale</strong> .</p>
+<p >  A questo punto la proposta viene <strong>congelata</strong> e il proponenente deve <strong>scegliere un periodo</strong> in cui il gruppo potrà votare la proposta. L'evento ‘votazione' viene registrato sul calendario del gruppo e viene <strong>notificato</strong> a tutti gli iscritti al gruppo il periodo della votazione. </p>
+<p >  Al momento della votazione viene inviata una nuova notifica nella quale viene indicata la proposta da votare e la pagina sulla quale si svolge la votazione. A questo punto ciascun partecipante, dopo aver letto la proposta e l'elenco delle possibili soluzioni, può esprimere la propria preferenza ordinando tali soluzioni dalla più idonea a quella meno e permettendo in tal modo l'elaborazione del <a href="http://it.wikipedia.org/wiki/Metodo_Schulze">Metodo Schulze </a> per trovare la soluzione preferita dal gruppo.</p>
+<p >  Al termine della votazione verrà notificata la soluzione approvata e la proposta si sposta nello stato di ‘votata' in cui sarà possibile una successiva revisione e reintroduzione della proposta nell'iter decisionale.  </p>
+<h3 id="promozione_proposte">Promozione di proposte condivise e Democrazia Partecipata</h3>
 <span>Airesis è stato sviluppato per promuovere la condivisione delle idee e delle opinioni all'intero della comunità. Per ottenere questo la piattaforma mette a disposizione vari strumenti:</span>
 <ul  >
-  <li ><span>la proposta è pubblica di default e può essere visualizzata da chiunque su internet e pertanto c’è la possibilità di partecipare al gruppo per l’interesse verso una particolare iniziativa</span></li>
-  <li ><span>la pubblicazione delle proposte sui social network, nello Spazio comune di Airesis o su blog e furum esterni;</span></li>
-  <li ><span>il  blog &nbsp;personale dove i membri della comunità possono presentarsi e pubblicare nelle news dei vari gruppi a cui appartengono informazioni e comunicati, oltre che scambiare idee/opinioni;</span></li>
-  <li ><span>la possibilità di organizzare incontri "fisici" ("riunioni") fra i membri della comunità;</span> </li>
-  <li ><span>la possibilità di segnalare eventi interessanti su un'area comune ("calendario");</span></li>
-  <li ><span>la presenza di un’area di discussione collegata ad ogni proposta, dove contribuire mediante suggerimenti all'autore che li potrà recepire in funzione delle valutazioni ottenute dal contributo;</span></li>
-  <li ><span>Il sistema di reputazione che premia la partecipazione e la costruttività delle proposte e incentiva la risoluzione dei problemi e la chiarezza espositiva</span></li>
-  <li ><span>La possibilità di invitare i propri contatti a prendere parte alla discussione di una proposta</span></li>
-  <li ><span>la possibilità di chiedere di diventare co-autori di una proposta;</span></li>
-  <li ><span>l'ovvia necessità, da parte degli autori delle proposte, di raccogliere il sostegno della comu nità;</span></li>
-  <li ><span>la delibera  delle proposte tramite il voto universale.</span></li>
+  <li>la <strong>proposta è pubblica di default</strong> e può essere visualizzata da chiunque su internet e pertanto c'è la possibilità di partecipare al gruppo per l'interesse verso una particolare iniziativa </li>
+  <li>la pubblicazione delle proposte <strong>sui social network</strong>, nello Spazio comune di Airesis o su blog e furum esterni; </li>
+  <li>il <strong>blog personale</strong> dove i membri della comunità possono presentarsi e pubblicare nelle news dei vari gruppi a cui appartengono informazioni e comunicati, oltre che scambiare idee/opinioni; </li>
+  <li>la possibilità di organizzare <strong>incontri "fisici" ("riunioni")</strong> fra i membri della comunità; </li>
+  <li>la possibilità di <strong>segnalare eventi interessanti</strong> su un'area comune ("calendario"); </li>
+  <li>la presenza di <strong>un'area di discussione</strong> collegata ad ogni proposta, dove contribuire mediante suggerimenti all'autore che li potrà recepire in funzione delle valutazioni ottenute dal contributo; </li>
+  <li>il <strong>sistema di reputazione</strong> che premia la partecipazione e la costruttività delle proposte ed incentiva la risoluzione dei problemi e la chiarezza espositiva; </li>
+  <li>la possibilità di <strong>invitare i propri contatti</strong> a prendere parte alla discussione di una proposta; </li>
+  <li>la possibilità di chiedere di diventare <strong>co-autori di una proposta</strong>; </li>
+  <li>l'ovvia necessità, da parte degli autori delle proposte, di raccogliere il <strong>sostegno della comunità</strong>; </li>
+  <li>la delibera sulle proposte tramite il <strong>voto</strong> dei membri certificati. </li>
 </ul>
 
-<h3 id="Anonimato_temporaneo"><span>Anonimato temporaneo, voto segreto e auditable voting</span></h3>
-<span>Una delle particolarità di Airesis è che gruppi possono scegliere se dibattere le proposte che verranno poi portate in votazione in modo anonimo o meno.</span>
-<p ><span>L'uso dell'anonimato nel dibattito delle proposte: nella relativa area, autori e commentatori appaiono sottoforma di uno pseudomino. Questa particolarità è stata introdotta volutamente perché le persone valutino le proposte, le critiche e i suggerimenti unicamente in base al loro contenuto, senza che il "nome" degli autori abbiano un peso. Questo per favorire l'imparzialità della valutazione. Si potrebbe arrivare al caso limite di votare per una proposta, fatta da un autore considerato "di parte avversa".</span></p>
-<p ><span>In ogni caso al termine del dibattito e dopo la votazione i partecipanti verranno visualizzati con i loro nomi in modo da poter verificare gli interventi.</span></p>
-<p ><span>Questa opzione è possibile applicarla anche alla votazione in modo che il voto espresso risulti palese o segreto. Risultano evidenti i vantaggi derivanti dall'uso dell'anonimato nelle votazioni: con il voto palese, i membri della comunità potrebbero essere messi sotto pressione per le loro opinioni (o peggio, perseguitati). Comunque, gli utenti coperti dall'anonimato voteranno per quello che ritengono personalmente più giusto, indipendentemente dalle convenzioni sociali, morali, o (quando esiste) di "programma" del gruppo di appartenenza. Inoltre il voto segreto si possono evitare i cosiddetti voti di scambio o vendita del voto.</span></p>
-<p ><span>Un approfontimento merita inoltre la possibilità di verificare l’effettiva registrazione del voto e che non si verifichino brogli. Questo è possibile attraverso il sistema di  <a   href="http://en.wikipedia.org/wiki/End-to-end_auditable_voting_systems">auditable voting</a> &nbsp; implentato in Airesis.</span></p>
+<h3 id="Anonimato_temporaneo">Anonimato temporaneo, voto segreto e auditable voting</h3>
+<p > Una delle particolarità di Airesis è che gruppi <strong>possono scegliere se dibattere le proposte in modo anonimo o meno</strong>. </p>
+<p >  Se l'anonimato viene abilitato, autori e commentatori delle proposte sono indicati con uno <strong>pseudomino</strong>. Questa peculiarità consente di valutare le proposte, le critiche e i suggerimenti <strong>unicamente in base al loro contenuto</strong>, in modo imparziale, senza che il "nome" degli autori e le dinamiche di simpatia/antipatia interpersonali influenzino il dibattito. </p>
+<p >  In ogni caso, <strong>al termine del dibattito</strong> e dopo la votazione, i partecipanti verranno <strong>visualizzati con i loro nomi</strong> in modo da poter verificare gli interventi. </p>
+<p >  Questa opzione è <strong>applicabile anche alla votazione</strong>: è dunque possibile scegliere che questa abbia luogo con voto palese oppure segreto. Entrambe le opzioni presentano vantaggi e svantaggi, la cui entità dipende dalla particolare decisione da prendere. Ad esempio, il <strong>voto segreto</strong> evita che i membri della comunità possano essere messi sotto pressione per le loro opinioni (o peggio, perseguitati); il <strong>voto palese</strong> può incentivare una scelta responsabile nei confronti della collettività. Per ogni proposta<strong> è possibile scegliere</strong> il metodo di voto ritenuto più appropriato. </p>
+<p >  Importante, soprattutto in caso di voto segreto, è la possibilità di verificare l'effettiva registrazione del proprio voto e la <strong>non presenza di brogli</strong>. Questo è possibile attraverso il sistema di <a href="http://en.wikipedia.org/wiki/End-to-end_auditable_voting_systems">auditable voting </a> implentato in Airesis.  </p>
+<h3 id="Gestione_gruppi">Gestione dei gruppi e ruoli degli utenti</h3>
 
-<h3 id="Elezioni"><span>Elezioni e ruoli</span></h3>
-Airesis implementa un sistema flessibile per poter gestire i permessi di cui ogni membro può disporre all'interno del gruppo in modo da poter imputare i seguenti ruoli:
+
+<p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
 <ul   >
-    <li >Visualizzare le proposte private</li>
+  <li >Visualizzare le proposte private</li>
   <li >Contribuire alle proposte</li>
   <li >Inserire nuove proposte nel gruppo </li>
-  <li >Pubblicare nella Home Page del gruppo  </li>
-  <li >Creare eventi e votazioni  </li>
+  <li >Pubblicare nella Home Page del gruppo </li>
+  <li >Creare eventi e votazioni </li>
   <li >Sostenere proposte a nome del gruppo </li>
   <li >Aggiungere partecipanti nel gruppo </li>
   <li >Candidare utenti alle elezioni</li>
 </ul>
-<span>Airesis implementa un sistema per indire elezioni tra i membri di un gruppo e pertanto decidere consensualmente i ruoli che ciascun membro può arrogarsi.</span>
-<p ><span>La procedura prevede (ad ora) quattro fasi:</span></p>
+<p>Airesis consente ai gruppi che ne fanno uso di scegliere le <strong>impostazioni che meglio si adattano alle loro esigenze</strong> e ai loro regolamenti interni. Risulta possibile, ad esempio, consentire l’accesso ad alcune funzioni solo agli <strong>utenti attivi e/o certificati</strong>, oppure a coloro che hanno un <strong>particolare ruolo</strong>.  Vi è ampia libertà anche sulla gestione dei requisiti che le proposte devono raggiungere per accedere alla votazione.</p>
+<p>Un’altra importante funzionalità è la <strong>suddivisione in aree/gruppi di lavoro</strong> grazie alla quale è possibile creare delle aree all’interno dei gruppi e poter imputare a ciascuna area dei partecipanti che potranno discutere delle proposte inerenti quella particolare area. A ciascun partecipante potranno essere assegnati <strong>ruoli particolari per ciascuna area</strong> in modo da rendere ancora più flessibile lo strumento. </p>
+<h3 id="Elezioni">Elezioni</h3>
+<span>In Airesis &egrave; possibile indire elezioni tra i membri di un gruppo e pertanto decidere consensualmente i ruoli che ciascun membro può arrogarsi.</span>
+<p >La procedura prevede (ad ora) quattro fasi:</p>
 <ul   >
-  <li ><span>la pubblicazione dell'elezione, con la "calendarizzazione" ;</span></li>
-  <li ><span>un periodo per la presentazione delle candidature;</span></li>
-  <li ><span>un periodo per l'esecuzione della votazione;</span></li>
-  <li ><span>calcolo delle preferenze e presentazione dei risultati.</span></li>
+  <li >la pubblicazione dell'elezione, con la "calendarizzazione" ;</li>
+  <li >un periodo per la presentazione delle candidature;</li>
+  <li >un periodo per l'esecuzione della votazione;</li>
+  <li >calcolo delle preferenze e presentazione dei risultati.</li>
 </ul>
-<p ><span>Una caratteristica della piattaforma è l'implementazione di un sistema di voto preferenziale che si basa sul  <a   href="http://it.wikipedia.org/wiki/Metodo_Schulze">Metodo Schulze</a> : l'elettore esprime un grado di "preferenza" verso i candidati, il sistema calcola e stila una graduatoria che più accontenta la maggioranza degli elettori.</span></p>
-<h3 id="Sistema_Reputazione"></a><span>Sistema di Reputazione</span></h3>
+<p >Una caratteristica della piattaforma è l'implementazione di un sistema di voto preferenziale che si basa sul <a   href="http://it.wikipedia.org/wiki/Metodo_Schulze">Metodo Schulze</a> : l'elettore esprime un grado di "preferenza" verso i candidati, il sistema calcola e stila una graduatoria che più accontenta la maggioranza degli elettori.</p>
+<h3 id="Sistema_Reputazione"><span>Sistema di Reputazione e condivisione delle competenze</span></h3>
 <span>In Airesis è previsto un sistema di reputazione basato su punteggi per ogni azione compiuta che incentiva:</span>
 <ul >
-  <li ><span>la chiarezza espositiva</span></li>
-  <li ><span>la costruttività dei contributi</span></li>
-  <li ><span>la completezza del’informazione</span></li>
-  <li ><span>la partecipazione al dibattito</span></li>
-  <li ><span>la divulgazione della proposta</span></li>
-  <li ><span>la fiducia della community nell’utente</span></li>
+  <li >la chiarezza espositiva</li>
+  <li >la costruttività dei contributi</li>
+  <li >la completezza del’informazione</li>
+  <li >la partecipazione al dibattito</li>
+  <li >la divulgazione della proposta</li>
+  <li >la fiducia della community nell’utente</li>
 </ul>
-<p ><span>Ogni utente può crescere di graduatoria e man mano compiere determinate azioni che normalmente sarebbero permesse ai soli amministratori. Inoltre è possibile ricevere delle ‘medaglie’ e riconoscimenti da parte del gruppo nel caso di comportamenti particolarmente virtuosi.</span></p>
-
+<p > Gli utenti che dimostrano migliori capacità potranno essere chiamati a svolgere attività che le valorizzano, riconoscendo il loro merito. Inoltre è possibile ricevere delle ‘medaglie' (riconoscimenti simbolici) da parte del gruppo nel caso di comportamenti particolarmente virtuosi. </p>
+<p >  Sarà inoltre inserito un sistema che consentirà agli utenti di mettere a disposizione le proprie competenze per l'elaborazione di proposte e per altre attività organizzate nei gruppi a cui partecipano. Gli utenti dovranno ovviamente precisare pubblicamente le modalità di acquisizione di ciascuna competenza. Risulta inoltre possibile inserire nel proprio profilo personale un link all'eventuale curriculum su Linkedin.  </p>
 <h2 id="descrizione_operativa"></a><span>Breve descrizione operativa</span></h2>
-<p ><span>Airesis è stato pensato per poter essere alla portata di tutti e pertanto è stato sempre data particolare importanza all’intuitività dell’interfaccia, all’usabilità, alle informazioni contestuali e ai tutorial per apprendere velocemente le sue funzioni tramite video guide e FAQ.</span></p>
+<p >Airesis è stato pensato per poter essere alla portata di tutti e pertanto è stato sempre data particolare importanza all’intuitività dell’interfaccia, all’usabilità, alle informazioni contestuali e ai tutorial per apprendere velocemente le sue funzioni tramite video guide e FAQ.</p>
 
-<h3 id="Home_page" ><span>Home page</span></h3>
+<h3 id="Home_page" >Home page</h3>
 <span>La prima pagina a cui l'utente accede, è la sua "Home page" privata. Su questa è presente un elenco delle proposte di cui è autore (con evidenziato lo stato), l'elenco delle 'notifiche' di sistema (eventi, nuove proposte, contributi, valutazioni, commenti, ecc..) riguardanti le proposte sostenute o commentate o gli eventi, l'elenco dei 'gruppi' dei quali si è membri e la mappa della sua località.</span>
-<p ><span>In quest'area sono presenti altre due schede:</span></p>
+<p >In quest'area sono presenti altre due schede:</p>
 <ul  >
-  <li ><span >Preferenze , per impostare i dati di account, unire i collegamenti ai social network e modificare le preferenze personali di su notifiche e privacy;</span></li>
-  <li ><span >Blog , la pagina del blog personale (proprio dell'utente), ma di dominio pubblico </span></li>
+  <li ><strong>Preferenze</strong> , per impostare i dati di account, unire i collegamenti ai social network e modificare le preferenze personali di su notifiche e privacy;</li>
+  <li ><strong>Blog</strong> , la pagina del blog personale (proprio dell'utente), ma di dominio pubblico </li>
 </ul>
 
-<h3 id="Gruppi"><span>Gruppi</span></h3>
+<h3 id="Gruppi">Gruppi</h3>
   L’accesso ai "Gruppi" può avvenire o premendo su ‘cerca gruppi’ dalla barra in alto o dalla colonna di sinistra della home page personale.
 
 <p>Cliccando sul nome di un gruppo, si apre la relativa home-page (presentazione + news/blog). Nell’area delle proposte sono visualizzate quelle che il gruppo ha deciso di rendere pubbliche, mentre per visualizzare quelle interne (proposte ed eventi privati), bisogna chiedere all'amministratore locale l'ammissione al gruppo. </p>
@@ -257,6 +271,7 @@ Airesis implementa un sistema flessibile per poter gestire i permessi di cui ogn
 <p>Primavera 2013  - uscita della versione 2.0 di Airesis:</p>
 <ul>
   <li>Rivisitazione grafica completa</li>
+  <li> Inserimento di uno spazio per la discussione libera (forum)  </li>
   <li>Sistema di Reputazione</li>
   <li>Completamento dibattito e ampliamento dei metodi di votazione delle proposte</li>
   <li>Possibilità di invitare alla discussione di una proposta i propri contatti facebook, google mail o su altri social network</li>
@@ -341,7 +356,7 @@ Il sistema di bigtraking di Airesis è attualmente in fase di sperimentazione e 
 <h3 id="Scalabilita"></a>Scalabilità</h3>
 La scalabilità è un fattore molto importante per un'applicazione di democrazia diretta che può potenzialmente raggiungere le centinaia di migliaia di utenti. Per questo motivo il framework scelto è stato RubyOnRails sul quale sono basati molti siti di successo (in termini di numero di utenze) come Groupon e Twitter (recentemente passato a Java).
 <h3 id="Gruppo_sviluppo"></a>Gruppo di sviluppo</h3>
-Il gruppo di sviluppo è formato dai volontari dell'associazione Tecnologie Democratiche e da due programmatori con un contratto di collaborazione per lo sviluppo delle funzionalità più lunghe e complesse. I fondi vengono raccolti tramite donazioni private.
+Il gruppo di sviluppo è formato dai volontari dell'associazione Tecnologie Democratiche e da due programmatori con un contratto di collaborazione per lo sviluppo delle funzionalità più lunghe e complesse. <a href="http://www.airesis.it/sostienici">I fondi vengono raccolti tramite donazioni private</a>.
 
 
 
