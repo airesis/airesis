@@ -191,6 +191,20 @@ it:
         create_button: "Crea il gruppo!"
       edit:
         title: "Modifica impostazioni gruppo"
+      layout:
+        home_button: "Home Page"
+        proposals_button: "Le proposte"
+        calendar: "Calendario"
+      show:
+        rules_button: "Regolamento"
+        post_button: "Inserisci post"
+        blog_button: "Crea il mio blog"
+        spokesman: "Portavoce"
+        partecipants_list: "Elenco partecipanti"
+        invite_button: "Invita i tuoi amici!"
+        show_all_partecipants: "Mostra tutti %{count} ..."
+        partecipants_full_list: "Elenco completo dei partecipanti al gruppo"
+        no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -256,6 +270,28 @@ it:
     header:
       groups: "Gruppi"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
+      menu:
+        my_page: %Q(La mia pagina)
+        my_blog: %Q(Il mio blog)
+        create_blog: %Q(Crea un tuo blog)
+        preferences: %Q(Preferenze)
+        administration: %Q(Amministrazione)
+        logout: %Q(Logout)
+        become_user: %Q(Diventa utente)
+        become_user_button: %Q(Vai!)
+        remember_me: %Q(Ricordami su questo computer)
+        login_button: %Q(Login)
+        registration_button: %Q(Registrati)
+        forgot_password_button: %Q(Hai dimenticato la password?)
+        resend_email_button: %Q(Non hai ricevuto l'email per la conferma?)
+        no_notifications: %Q(Nessuna notifica)
+    blogs:
+      show:
+        no_posts: %Q(Nessun Post)
+        no_posts_long: %Q(Non vi sono ancora Post in questo Blog, torna presto.)
+        tag: %Q(Tag)
+        previous_posts: %Q(Post precedenti...)
+        edit_button: %Q(Modifica blog)
   pl:
     comments:
       zero: nessun commento

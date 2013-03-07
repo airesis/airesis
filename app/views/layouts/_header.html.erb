@@ -79,7 +79,7 @@
 <div id="header">
   <div class="body_maxwidth">
     <div class="midHeader">
-      <%= link_to image_tag("logo_head.png", :align => "left", :alt => "Airesis - Democrazia Diretta", :style => "width:22px;padding-top:2px;"), root_path %>
+      <%= link_to image_tag('logo_head.png', :align => "left", :alt => 'Airesis - Democrazia Diretta', :style => 'width:22px;padding-top:2px;'), root_path %>
       <div class="headerTitle" lang="la">
         <%= link_to APP_LONG_NAME, root_path %>
       </div>
@@ -99,36 +99,36 @@
             <ul class="menu-list">
               <li>
                 <span class="Mo ui-icon ui-icon-contact"></span>
-                <%= link_to 'La mia pagina', root_url %>
+                <%= link_to t('pages.header.menu.my_page'), root_url %>
               </li>
               <li>
                 <span class="Mo ui-icon ui-icon-comment"></span>
                 <% if current_user.blog %>
-                    <%= link_to 'Il mio blog', current_user.blog %>
+                    <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
                 <% else %>
-                    <%= link_to 'Crea un tuo blog', new_blog_path %>
+                    <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
                 <% end %>
               <li>
                 <span class="Mo ui-icon ui-icon-contact"></span>
-                <%= link_to 'Preferenze', user_url(current_user) %>
+                <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
               </li>
               <% if is_admin? %>
                   <li>
                     <span class="Mo ui-icon ui-icon-key"></span>
-                    <%= link_to 'Amministrazione', admin_panel_path %>
+                    <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
                   </li>
               <% end %>
               </li>
               <li>
                 <span class="Mo ui-icon ui-icon-power"></span>
-                <%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %>
+                <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
               </li>
             </ul>
             <% if is_admin? %>
                 <%= form_tag "/admin/become/" do %>
-                    <%= label_tag 'Diventa utente' %>
+                    <%= label_tag t('pages.header.menu.become_user') %>
                     <%= text_field_tag 'user_id' %>
-                    <%= submit_tag 'Vai!' %>
+                    <%= submit_tag t('pages.header.menu.become_user_button') %>
                 <% end %>
             <% end %>
           </div>
@@ -140,19 +140,19 @@
                 <div>
                   <%= f.label :login %>
                   <br/>
-                  <%= f.text_field :login, :style => "width:80%" %>
+                  <%= f.text_field :login, style: 'width:80%' %>
                 </div>
                 <div>
                   <%= f.label :password %>
                   <br/>
-                  <%= f.password_field :password, :style => "width:80%" %>
+                  <%= f.password_field :password, style: 'width:80%' %>
                 </div>
                 <div class="remember_me">
-                  <%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %>
+                  <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
                 </div>
                 <div style="float: none;">
-                  <%= f.submit "Login", :class => "buttonStyle" %>
-                  <%= link_to "Registrati", new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
+                  <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
+                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
                   <br/>
                 </div>
             <% end %>
@@ -175,8 +175,8 @@
                 </div>
             <% end %>
             <ul style="padding-left: 15px;">
-              <li><%= link_to "Hai dimenticato la password?", new_password_path(resource_name) %></li>
-              <li><%= link_to "Non hai ricevuto l'email per la conferma?", new_confirmation_path(resource_name) %></li>
+              <li><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></li>
+              <li><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></li>
             </ul>
           </div>
       <% end %>
@@ -190,7 +190,7 @@
           <div class="notification-panel shadow-box hidden_panel" id="notification-panel">
             <ul class="menu-list">
               <li>
-                Nessuna notifica
+                <%= t('pages.header.menu.no_notifications') %>
               </li>
             </ul>
           </div>
@@ -250,8 +250,10 @@
 <script type="text/javascript">
 
     <%if user_signed_in?%>
-    $('.hidden_panel').hide();
-    $('.menu_element').data('show', false);
+    $('.hidden_panel').hide().click(function (event) {
+        event.stopPropagation();
+    });
+
     user_panel_shown = false;
     notification_panel_shown = false;
     groups_panel_shown = false;
@@ -262,7 +264,9 @@
 
     });
 
-    $('.menu_element').click(function (event) {
+    $('.menu_element')
+    .data('show', false)
+    .click(function (event) {
         _this = $(this);
         sval = _this.data('show');
         $('.hidden_panel').hide();
@@ -278,25 +282,21 @@
                 my: "right top",
                 at: "right bottom",
                 of: _this
-            })
+            });
             _this.addClass('active');
             _this.data('show', true);
         }
         event.stopPropagation();
-    });
-
-    $(".menu_element").mouseover(function () {
+    })
+    .mouseover(function () {
         $(this).addClass("active");
-    }).mouseout(function () {
-                if ($(this).data('show') == false) {
-                    $(this).removeClass("active");
-                }
-
-            });
-
-    $('.hidden_panel').click(function (event) {
-        event.stopPropagation();
+    })
+    .mouseout(function () {
+        if ($(this).data('show') == false) {
+           $(this).removeClass("active");
+        }
     });
+
     function fetchNotifications() {
         jQuery.ajax({
             data: '',
@@ -307,17 +307,21 @@
     }
 
     function poll() {
-        $.getScript("/alerts/polling/")
+        $.getScript("/alerts/polling/");
         setTimeout(poll, 60000);
         //valore temporaneo
     }
-    ;
 
     //setTimeout(poll, 600000);
     //valore temporaneo
     poll();
     <%else%>
-    $('#registration-panel').hide();
+    $('#registration-panel')
+    .hide()
+    .click(function (event) {
+        event.stopPropagation();
+    });
+
     user_panel_shown = false;
     $('html').click(function () {
         if (user_panel_shown) {
@@ -327,21 +331,22 @@
         }
     });
 
-    $(".superHeader").mouseover(function () {
+    $(".superHeader")
+    .mouseover(function () {
         $(this).addClass("active");
-    }).mouseout(function () {
-                if (!user_panel_shown) {
-                    $(this).removeClass("active");
-                }
-            });
-
-    $(".superHeader").focusin(function () {
+    })
+    .mouseout(function () {
+        if (!user_panel_shown) {
+          $(this).removeClass("active");
+        }
+    })
+    .focusin(function () {
         $(this).addClass("active");
-    }).focusout(function () {
-                $(this).removeClass("active");
-            });
-
-    $('.superHeader').click(function (event) {
+    })
+    .focusout(function () {
+        $(this).removeClass("active");
+    })
+    .click(function (event) {
         if (user_panel_shown) {
             $('#registration-panel').hide();
             $('.superHeader').removeClass('active');
@@ -355,10 +360,6 @@
             $('.superHeader').addClass('active');
             user_panel_shown = true;
         }
-        event.stopPropagation();
-    });
-
-    $('#registration-panel').click(function (event) {
         event.stopPropagation();
     });
 

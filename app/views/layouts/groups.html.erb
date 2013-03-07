@@ -33,9 +33,9 @@
 			</h1>
 			<%if @group%>
 				<%if @group.id%>
-					<%=link_to 'Home Page', @group, :class => 'homeButton buttonStyle' %>
-					<%=link_to 'Le proposte', group_proposals_path(@group), :class => 'ideaButton buttonStyle'%>
-					<%=link_to 'Calendario', group_events_path(@group), :class => 'calendarButton buttonStyle' %>
+					<%=link_to t('pages.groups.layout.home_button'), @group, :class => 'homeButton buttonStyle' %>
+					<%=link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), :class => 'ideaButton buttonStyle'%>
+					<%=link_to t('pages.groups.layout.calendar'), group_events_path(@group), :class => 'calendarButton buttonStyle' %>
 					<%if ::Configuration::elections_active %>
                       <%=link_to 'Area candidati', group_candidates_path(@group),  :class => 'personButton buttonStyle' if current_user%>
                     <%end%>

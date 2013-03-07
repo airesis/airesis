@@ -1,5 +1,5 @@
 <p>
-    <h4>Portavoce</h4>
+    <h4><%= t('pages.groups.show.spokesman') %></h4>
     
     <%@group.portavoce.each do |user| %>
     	<%=user_tag(user, nil,true,false)%>
@@ -11,10 +11,10 @@
 <% partecipants = @group.group_partecipations.includes(:user).limit(5) %>
 <%if partecipants.length > 0 %>
 <p>
-    <h4>Elenco partecipanti</h4>
+    <h4><%= t('pages.groups.show.partecipants_list') %></h4>
 
     <% if (can? :accept_requests, @group) %>
-        <%= link_to 'Invita i tuoi amici!', new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "inviteButton disableButton littleText" %>
+        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "inviteButton disableButton littleText" %>
         <div id="new_invitation_container"></div>
     <%end%>
 
@@ -44,12 +44,12 @@
 	    <%end%>
     <%end %>
     <%if @group.group_partecipations.count > 5 %>
-        <%=link_to "Mostra tutti #{@group.group_partecipations.count} ...", {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "showAllButton disableButton littleText"%>
-        <div id="partecipants_list_container" title="Elenco completo dei partecipanti al gruppo"></div>
+        <%=link_to t('pages.groups.show.show_all_partecipants', :count => @group.group_partecipations.count), {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "showAllButton disableButton littleText"%>
+        <div id="partecipants_list_container" title="<%= t('pages.groups.show.partecipants_full_list')%>"></div>
     <%end%>
 </p>
 <%else %>
 <p>
-    <b>Nessun utente partecipa ancora a questo gruppo.</b>
+    <b><%= t('pages.groups.show.no_partecipants') %></b>
 </p>
 <%end %>

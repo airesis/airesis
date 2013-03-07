@@ -16,7 +16,7 @@
     <% end %>
 
     <div class="autoMargin">
-      <a href="#" onclick="openRulesModal();" class="notesButton littleText">Regolamento</a>
+      <a href="#" onclick="openRulesModal();" class="notesButton littleText"><%= t('pages.groups.show.rules_button')%></a>
 
       <div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify">
         <div>Le regole sono selezionabili alla creazione di un gruppo. <br/>
@@ -47,10 +47,10 @@
 
     <% if user_signed_in? && current_user.blog %>
         <% if (can? :post_to, @group) %>
-            <%= link_to 'Inserisci post', new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style => "margin-top:4px;" %><br />
+            <%= link_to t('pages.groups.show.post_button'), new_blog_blog_post_url(current_user.blog, :group_id => @group.id), :class => 'newButton littleText', :style => "margin-top:4px;" %><br />
         <% end %>
     <% else %>
-        <%= link_to 'Crea il mio blog', new_blog_path, :class => 'newButton littleText', :style => "margin-top:4px;" %><br />
+        <%= link_to t('pages.groups.show.blog_button'), new_blog_path, :class => 'newButton littleText', :style => "margin-top:4px;" %><br />
     <% end %>
 
     <%= render :partial => 'partecipants_panel' %>

@@ -6,12 +6,12 @@
   
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">
-		<h3>Nessun Post</h3>
-		<p>Non vi sono ancora Post in questo Blog, torna presto.</p>
+		<h3><%= t('pages.blogs.show.no_posts') %></h3>
+		<p><%= t('pages.blogs.show.no_posts_long') %></p>
 	</div>
 <% else %>
 	<% if @tag %>
-		<h3>Tag: <%= @tag %></h3>
+		<h3><%= t('pages.blogs.show.tag') %>: <%= @tag %></h3>
 	<% end %>
 	<div id="blogPostContainer">
 	<%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
@@ -21,7 +21,7 @@
 
 
  <div id="loading_results">
-  	<span>Post precedenti...</span>
+  	<span><%= t('pages.blogs.show.previous_posts') %></span>
  </div>
 
 <script type="text/javascript">
@@ -31,6 +31,6 @@
 
 
 <% content_for :left_panel do %>
-    <%=link_to 'Modifica blog', edit_blog_path(@blog), :class => 'editButton' %>
+    <%=link_to t('pages.blogs.show.edit_button'), edit_blog_path(@blog), :class => 'editButton' %>
 
 <%end%>
