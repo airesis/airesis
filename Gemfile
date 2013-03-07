@@ -107,3 +107,5 @@ gem 'quiet_assets', :group => :development
 gem 'rails_autolink'
 
 gem 'nickname_generator'
+
+gem 'el_finder', :path => "~/Aptana Studio 3 Workspace/el_finder"

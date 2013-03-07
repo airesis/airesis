@@ -1,0 +1,75 @@
+<% @page_title = 'Archivio documenti' %>
+
+
+<%= render :layout => "layouts/page_title", :locals => {:title => @page_title} do %>
+
+<% end %>
+
+<div id="storage_size_container">
+  <%= render :partial => 'storage_size' %>
+</div>
+
+
+<%if can? :view_documents, @group %>
+<div id="elfinder"></div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        var elf = $('#elfinder').elfinder({
+            // lang: 'ru',             // language (OPTIONAL)
+            url: '/elfinder?group_id=<%=@group.id%>',  // connector URL (REQUIRED)
+            transport: new elFinderSupportVer1(),
+            commands: [
+                'open', 'up', 'back', 'forward', 'getfile',
+                'download', 'rm', /*'duplicate'*/, 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
+                'cut', 'paste', 'edit', /* 'extract', 'archive', 'search',*/ 'info', 'view', 'help',
+                /*'resize',*/ 'sort'
+            ],
+            uiOptions: {
+                 toolbar: [
+                    ['back', 'forward'],
+                    // ['reload'],
+                    // ['home', 'up'],
+                    ['mkdir', /*'mkfile',*/ 'upload'],
+                    ['open', 'download', /*'getfile'*/],
+                    ['info'],
+                    //['quicklook'],
+                    ['copy', 'cut', 'paste'],
+                    ['rm'],
+                    ['duplicate', 'rename', 'edit', 'resize'],
+                    ['extract', 'archive'],
+                    ['search'],
+                    ['view', 'sort'],
+                    ['help']
+                 ]
+            },
+            lang: 'it'
+        }).elfinder('instance');
+
+        elf
+        .bind('upload', function (event) {
+            $.ajax({
+                url: "<%=reload_storage_size_group_path(@group)%>",
+                dataType: 'script',
+                type: 'get'
+            });
+        })
+        .bind('remove', function (event) {
+            $.ajax({
+                url: "<%=reload_storage_size_group_path(@group)%>",
+                dataType: 'script',
+                type: 'get'
+            });
+        });
+    });
+</script>
+    <%else%>
+    <br />
+    <b><%= 'Non disponi dei permessi necessari alla visualizzazione dei documenti. Contatta l\'amministratore del gruppo.' %></b>
+<%end%>
+
+
+<%= content_for :left_panel do %>
+
+
+<% end %>

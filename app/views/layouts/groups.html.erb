@@ -44,6 +44,7 @@
               <% if can? :update, @group %>
                   <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), :class => 'settingsButton buttonStyle' %>
               <% end %>
+			<%= link_to 'Documenti', group_documents_path(@group), :class => 'documentButton buttonStyle'  %>
           <% end %>
       <% end %>
     </div>
