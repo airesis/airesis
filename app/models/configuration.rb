@@ -1,6 +1,6 @@
 class Configuration < ActiveRecord::Base
   def self.phases_active
-      @phases_active = !self.find_by_name('phases_active').value.to_i.zero?
+    @phases_active = !self.find_by_name('phases_active').value.to_i.zero?
   end
 
   def self.open_space_proposals
@@ -17,5 +17,17 @@ class Configuration < ActiveRecord::Base
 
   def self.invites_active
     @invites_active = !self.find_by_name('invites_active').value.to_i.zero?
+  end
+
+  def self.user_messages
+    @user_messages = !self.find_by_name('user_messages').value.to_i.zero?
+  end
+
+  def self.groups_calendar
+    @groups_calendar = !self.find_by_name('groups_calendar').value.to_i.zero?
+  end
+
+  def self.proposal_support
+    @proposal_support = !self.find_by_name('proposal_support').value.to_i.zero?
   end
 end

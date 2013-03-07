@@ -1,127 +1,115 @@
 <script>
-	//style="background-color: rgb(185, 255, 116);"
-		function hideRankPanel(rank_p) {
-			query = '#' + rank_p + ' > .voteup'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votedown'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .loadingup'
-			$(query).show();
-			
-			query = '#' + rank_p + ' > .loading'
-			$(query).show();
-		
-			query = '#' + rank_p + ' > .loadingdown'
-			$(query).show();
-							
-			query = '#' + rank_p + ' > .voteup-mini'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votenil-mini'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votedown-mini'
-			$(query).hide();
-			
-			
-		}	
-	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination 
-</script>	
+    //style="background-color: rgb(185, 255, 116);"
+    function hideRankPanel(rank_p) {
+        query = '#' + rank_p + ' > .voteup'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votedown'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .loadingup'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .loading'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .loadingdown'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .voteup-mini'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votenil-mini'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votedown-mini'
+        $(query).hide();
+
+
+    }
+    var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination
+</script>
 
 <div style="float: right;  height:30px;">
 
-  <a href="https://twitter.com/share"
-     class="twitter-share-button"
-     data-lang="en"
-     data-text="Guarda questa proposta su <%=APP_SHORT_NAME%>: <%= @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) %>">Tweet</a>
-  <g:plusone size="medium"></g:plusone> 
-  <%=raw facebook_like %>
+  <% if ::Configuration.socialnetwork_active %>
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>: <%= @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>">Tweet</a>
+      <g:plusone size="medium"></g:plusone>
+      <%= raw facebook_like %>
+  <% end %>
 
 
 </div>
-<h2 class="proposalTitle" itemprop="name"><%=h proposal.title %></h2>
+<h2 class="proposalTitle" itemprop="name"><%= h proposal.title %></h2>
 
-<h3 class="proposalSubtitle"  itemprop="description"><%=h proposal.subtitle %></h3>
+<h3 class="proposalSubtitle" itemprop="description"><%= h proposal.subtitle %></h3>
 
 
 <div style="float:right;">
 
-<%if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
-	<%if proposal.proposal_state_id == ProposalState::VALUTATION #se è ancor modificabile mostra il pulsante%>
-		<%if @group %>
-			<%= link_to 'Modifica', edit_group_proposal_path(@group,proposal), :class => 'editButton'  %>
-		<%else%>
-			<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
-		<%end%>
-	<%elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox%>
+  <% if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
+      <% if proposal.proposal_state_id == ProposalState::VALUTATION #se è ancor modificabile mostra il pulsante %>
+          <% if @group %>
+              <%= link_to 'Modifica', edit_group_proposal_path(@group, proposal), :class => 'editButton' %>
+          <% else %>
+              <%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton' %>
+          <% end %>
+      <% elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox %>
+          <div id="wait_date_header_container">
+            <%= render :partial => 'proposals/wait_date_header' %>
+          </div>
 
-		    <%collection = Event.public.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
-            <%if @group %>
-                <%collection += Event.in_group(@group.id).vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
-            <%end%>
-          <%if collection.size > 0%>
-              <%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date", :group_id => params[:group_id]} do |f| %>
-                <p>
-                  <b>Scegli un periodo per la votazione</b>
-                    <%= select("proposal", "vote_period_id", collection) %>
-                    <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle' %>
-                </p>
-              <%end%>
-          <%else%>
-              <%if @group %>
-                <%if can? :create_event, @group%>
-                  <p><b>Non vi sono date disponibili per la votazione, si prega di creare un evento di tipo 'votazione' dal <%= link_to 'calendario', group_events_path(@group) %>, quindi ritornare alla proposta e porla in votazione</b></p>
-                <%else%>
-                  <p><b>Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo</b></p>
-                <%end%>
-              <%else%>
-                  <p><b>Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare <a href="mailto:info@airesis.it">info@airesis.it</a> in caso di necessità</b></p>
-              <%end%>
-          <%end%>
-	<%end%>
-<%end%>
+          <div id="create_event_dialog" style="display:none;">
+            <div id="create_event">
+            </div>
+          </div>
+      <% end %>
+  <% end %>
 </div>
 <div style="clear: both;"></div>
 
 
 <div class="blogCommentPostedAt">
-    
-<%if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
-	<p>
-    <b>Questa proposta sarà in votazione dal 
-		<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
-	</p>
-  <%elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito%>
-      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>.
-<br/> Per accedere alla votazione dovrà raggiungere un <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
-  <%elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
-<p>
-	<%= link_to 'Vai alla pagina di votazione.', votation_path %>
-</p>
-<%end%>
-	<br/>		
+
+  <% if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata %>
+      <p>
+        <b>Questa proposta sarà in votazione dal
+          <%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
+      </p>
+  <% elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito %>
+      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi
+      <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= proposal.comments.count %></em></a>.
+      <br/> Per accedere alla votazione dovrà raggiungere un
+      <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
+  <% elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione %>
+      <p>
+        <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+      </p>
+  <% end %>
+  <br/>
 </div>
 
-<%@proposal.sections.each do |section|%>
-    <h3><%=section.title%></h3>
+<% @proposal.sections.each do |section| %>
+    <h3><%= section.title %></h3>
     <div class="proposalMainContainer proposal_main shadow-box">
       <div class="proposal_content">
-        <%=simple_format(section.paragraphs.first.content, :sanitize => true) %>
+        <%= simple_format(section.paragraphs.first.content, :sanitize => true) %>
       </div>
     </div>
-<%end%>
+<% end %>
 
 <h3>Testo della proposta</h3>
 <div id="proposal<%= proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
-  <%@proposal.solutions.each do |solution|%>
-      <%solution.sections.each do |section|%>
-        <div class="proposal_content">
-          <%=simple_format(section.paragraphs.first.content, :sanitize => true) %>
-        </div>
-      <%end%>
-  <%end%>
+  <% @proposal.solutions.each do |solution| %>
+      <% solution.sections.each do |section| %>
+          <div class="proposal_content">
+            <%= simple_format(section.paragraphs.first.content, :sanitize => true) %>
+          </div>
+      <% end %>
+  <% end %>
 </div>
 
 <div id="proposal_histories_container">

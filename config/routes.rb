@@ -87,8 +87,8 @@ DemocracyOnline3::Application.routes.draw do
   end
 
   resources :proposalcategories
-  
-  resources :blogs do 
+
+  resources :blogs do
     resources :blog_posts do
       #match :tag, :on => :member
       match :drafts, :on => :collection 

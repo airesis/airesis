@@ -324,6 +324,8 @@ ActiveRecord::Schema.define(:version => 20130227183216) do
     t.boolean  "default_anonima",                         :default => true,  :null => false
     t.boolean  "default_visible_outside",                 :default => false, :null => false
     t.boolean  "default_secret_vote",                     :default => true,  :null => false
+    t.integer  "max_storage_size",                        :default => 51200, :null => false
+    t.integer  "actual_storage_size",                     :default => 0,     :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -834,7 +836,7 @@ ActiveRecord::Schema.define(:version => 20130227183216) do
     t.string   "google_page_url"
     t.boolean  "show_tooltips",                             :default => true
     t.boolean  "show_urls",                                 :default => true
-    t.boolean  "receive_messages",                          :default => true,  :null => false
+    t.boolean  "receive_messages",                          :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

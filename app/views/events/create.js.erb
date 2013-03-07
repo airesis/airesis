@@ -1,0 +1,8 @@
+$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+<%if @event.proposal_id%>
+  $('#wait_date_header_container').html('<%= escape_javascript(render(:partial => 'proposals/wait_date_header', :locals => {:proposal => @proposal}))%>');
+  disegnaBottoni();
+<%else%>
+$('#calendar').fullCalendar( 'refetchEvents' );
+<%end%>
+$('#create_event_dialog').dialog('destroy');

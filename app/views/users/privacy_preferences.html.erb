@@ -1,105 +1,113 @@
-<%@page_title = t('pages.user.privacy')%>
-<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.user.privacy')} do%>
-<%end%>
+<% @page_title = t('pages.user.privacy') %>
+<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.user.privacy')} do %>
+<% end %>
 
-<%=check_box :user, :show_tooltips, value: current_user.show_tooltips, onclick: "return change_show_tooltips(this);"%>Mostra tooltip di aiuto<br />
-<%=check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);"%> Mostra URL Facebook, Google+ e LinkedIn agli altri utenti<br />
-<%=check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);"%> Ricevi messaggi privati dagli altri utenti<br />
+<%= check_box :user, :show_tooltips, value: current_user.show_tooltips, onclick: "return change_show_tooltips(this);" %>Mostra tooltip di aiuto
+<br/>
+<% if ::Configuration::socialnetwork_active %>
+    <%= check_box :user, :show_urls, value: current_user.show_urls, onclick: "return change_show_urls(this);" %> Mostra URL Facebook, Google+ e LinkedIn agli altri utenti
+    <br/>
+<% end %>
+<% if ::Configuration::user_messages %>
+    <%= check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);" %> Ricevi messaggi privati dagli altri utenti
+    <br/>
+<% end %>
 
+<% if ::Configuration::socialnetwork_active %>
+    <h2> Collega un altro account</h2>
+    <h5> Su Airesis hai la possibilità di collegare tutti i tuoi Social Network ad un'unico account.<br/>
+      Seleziona i provider da collegare e avrai la possibilità di accedere sempre allo stesso account da Facebook,
+      Google, Twitter e molti altri!</h5>
 
-<h2> Collega un altro account</h2>
-<h5> Su Airesis hai la possibilità di collegare tutti i tuoi Social Network ad un'unico account.<br/>
-  Seleziona i provider da collegare e avrai la possibilità di accedere sempre allo stesso account da Facebook, Google, Twitter e molti altri!</h5>
+    <% alreadyproviders = current_user.authentications.pluck(:provider) %>
 
-<% alreadyproviders = current_user.authentications.pluck(:provider)%>
+    <% if alreadyproviders.size == 5 %>
+        Hai già collegato tutti i provider disponibili.Complimenti!
+    <% end %>
+    <% unless alreadyproviders.include? Authentication::FACEBOOK %>
+        <%= link_to 'Collega il tuo account Facebook', user_omniauth_authorize_path(:facebook) %>    <br/>
+    <% end %>
 
-<%if alreadyproviders.size == 5 %>
-Hai già collegato tutti i provider disponibili.Complimenti!
-<%end%>
-<%unless alreadyproviders.include? Authentication::FACEBOOK %>
-    <%= link_to 'Collega il tuo account Facebook',  user_omniauth_authorize_path(:facebook) %>    <br />
-<%end%>
+    <% unless alreadyproviders.include? Authentication::GOOGLE %>
+        <%= link_to 'Collega il tuo account Google', user_omniauth_authorize_path(:google_oauth2) %>      <br/>
+    <% end %>
 
-<%unless alreadyproviders.include? Authentication::GOOGLE %>
-    <%= link_to 'Collega il tuo account Google',  user_omniauth_authorize_path(:google_oauth2) %>      <br />
-<%end%>
+    <% unless alreadyproviders.include? Authentication::TWITTER %>
+        <%= link_to 'Collega il tuo account Twitter', user_omniauth_authorize_path(:twitter) %>        <br/>
+    <% end %>
 
-<%unless alreadyproviders.include? Authentication::TWITTER %>
-    <%= link_to 'Collega il tuo account Twitter',  user_omniauth_authorize_path(:twitter) %>        <br />
-<%end%>
+    <% unless alreadyproviders.include? Authentication::LINKEDIN %>
+        <%= link_to 'Collega il tuo account Linkedin', user_omniauth_authorize_path(:linkedin) %>         <br/>
+    <% end %>
 
-<%unless alreadyproviders.include? Authentication::LINKEDIN %>
-    <%= link_to 'Collega il tuo account Linkedin',  user_omniauth_authorize_path(:linkedin) %>         <br />
-<%end%>
-
-<%unless alreadyproviders.include? Authentication::MEETUP %>
-    <%= link_to 'Collega il tuo account Meetup',  user_omniauth_authorize_path(:meetup) %>         <br />
-<%end%>
-
-
-<%if alreadyproviders.size > 0 %>
-    <h2>Elenco Provider attivati per accedere:</h2>
-    <%if alreadyproviders.include? Authentication::FACEBOOK %>
-        Facebook<br/>
-    <%end%>
-
-    <%if alreadyproviders.include? Authentication::GOOGLE %>
-        Google <br/>
-    <%end%>
+    <% unless alreadyproviders.include? Authentication::MEETUP %>
+        <%= link_to 'Collega il tuo account Meetup', user_omniauth_authorize_path(:meetup) %>         <br/>
+    <% end %>
 
 
-    <%if alreadyproviders.include? Authentication::TWITTER %>
-        Twitter        <br />
-    <%end%>
+    <% if alreadyproviders.size > 0 %>
+        <h2>Elenco Provider attivati per accedere:</h2>
+        <% if alreadyproviders.include? Authentication::FACEBOOK %>
+            Facebook<br/>
+        <% end %>
 
-    <%if alreadyproviders.include? Authentication::LINKEDIN %>
-        Linkedin         <br />
-    <%end%>
+        <% if alreadyproviders.include? Authentication::GOOGLE %>
+            Google <br/>
+        <% end %>
 
-    <%if alreadyproviders.include? Authentication::MEETUP %>
-        Meetup         <br />
-    <%end%>
 
-<%end%>
+        <% if alreadyproviders.include? Authentication::TWITTER %>
+            Twitter        <br/>
+        <% end %>
 
+        <% if alreadyproviders.include? Authentication::LINKEDIN %>
+            Linkedin         <br/>
+        <% end %>
+
+        <% if alreadyproviders.include? Authentication::MEETUP %>
+            Meetup         <br/>
+        <% end %>
+
+    <% end %>
+<% end %>
 
 
 
 <script type="text/javascript">
-  function change_show_tooltips(el) {
-    var active = (el.checked) ? "true" : "false";
-    $.ajax({
-      data: "active="+active,
-      url: "/users/change_show_tooltips",
-      dataType: 'script',
-      type: 'post'
-    });
-  }
+    function change_show_tooltips(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active,
+            url: "/users/change_show_tooltips",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
 
-  function change_show_urls(el) {
-      var active = (el.checked) ? "true" : "false";
-      $.ajax({
-          data: "active="+active,
-          url: "/users/change_show_urls",
-          dataType: 'script',
-          type: 'post'
-      });
-  }
+    function change_show_urls(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active,
+            url: "/users/change_show_urls",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
 
-  function change_receive_messages(el) {
-      var active = (el.checked) ? "true" : "false";
-      $.ajax({
-          data: "active="+active,
-          url: "/users/change_receive_messages",
-          dataType: 'script',
-          type: 'post'
-      });
-  }
+    function change_receive_messages(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active,
+            url: "/users/change_receive_messages",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
 </script>
 
 
-<%content_for :left_panel do %>
-	<%if current_user %>
-	<%= render :partial => 'users/preferences_panel' %>
-	<%end%>
-<%end%>
+<% content_for :left_panel do %>
+    <% if current_user %>
+        <%= render :partial => 'users/preferences_panel' %>
+    <% end %>
+<% end %>

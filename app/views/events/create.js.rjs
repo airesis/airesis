@@ -1,2 +1,0 @@
-page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-page<<"$('#create_event_dialog').dialog('destroy')"

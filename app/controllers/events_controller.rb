@@ -20,16 +20,22 @@ class EventsController < ApplicationController
   
   
    def new 
-    @event = Event.new(:endtime => 1.hour.from_now, :period => "Non ripetere")
+    @event = Event.new(starttime: Time.now, endtime: 1.day.from_now, period: "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
     if params[:type] == 'election'
-      @event.event_type_id = 4
+      @event.event_type_id = EventType::ELEZIONI
+      @change_type = false
+    elsif params[:type] == 'votation'
+      @event.event_type_id = EventType::VOTAZIONE
+      @change_type = false
+    end
+    if params[:proposal_id]
+      @event.proposal_id = params[:proposal_id]
     end
     if params[:group_id]
       @group = Group.find(params[:group_id])
-      @event.organizer_id = @group.id
       @event.private = true
       respond_to do |format|     
         format.js
@@ -52,11 +58,15 @@ class EventsController < ApplicationController
     else
       params[:event].delete(:election_attributes)
     end
-    
+
     Event.transaction do
       if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
         @event = Event.new(params[:event])
         @event.save!
+
+
+        @event.organizers << @group if @group
+
         if params[:event][:event_type_id] == EventType::ELEZIONI.to_s
           @group.elections << @event.election
           @group.save!
@@ -76,8 +86,12 @@ class EventsController < ApplicationController
       notify_new_event(@event)
     end
 
+    if @event.proposal_id
+      @proposal = Proposal.find(@event.proposal_id)
+      @proposal.vote_period_id = @event.id
+    end
 
-    rescue ActiveRecord::ActiveRecordError => e
+  rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         format.js {
           render :update do |page|             
@@ -217,10 +231,10 @@ class EventsController < ApplicationController
 
 
   def check_events_permissions
-    return if is_admin?
-    group_id = params[:group_id] || params[:event][:organizer_id]
-    permissions_denied if !group_id
+    group_id = params[:group_id]
     @group = Group.find_by_id(group_id)
+    return if is_admin?
+    permissions_denied if !group_id
     permissions_denied if !@group
     permission_denied if (cannot? :create_event, @group)
   end

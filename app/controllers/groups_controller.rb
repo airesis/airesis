@@ -180,26 +180,6 @@ class GroupsController < ApplicationController
     end
   end
 
-
-
-
-  def new_event
-    @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
-    if (params[:date])
-      @event.starttime = Date.parse(params[:date]) + 1.hour
-    else
-      @event.starttime = Date.today + 1.hour
-    end
-    
-    @event.event_type_id = 4 if (params[:type] == 'election')
-    @event.endtime = @event.starttime + 7.day
-    @meeting = @event.build_meeting
-    @place = @meeting.build_place
-    @election = @event.build_election
-    @election.groups_end_time = @event.starttime + 2.day
-    @election.candidates_end_time = @event.starttime + 4.day
-  end
-  
   #crea un nuovo gruppo
   def create    
     begin

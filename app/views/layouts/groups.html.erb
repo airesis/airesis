@@ -1,69 +1,71 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#" lang="en-US" >
-	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
-		<title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME%></title>
-		<%=render :partial => "layouts/head" %>
-	</head>
-	<body>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#" lang="en-US">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
+  <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
+  <%= render :partial => "layouts/head" %>
+</head>
+<body>
 
-	<%=render :partial => "layouts/header" %>
-	<div id="subheader" class="ui-widget-header ui-state-default">
-		<div class="body_maxwidth">
-			<div class="header_image leftUserImage image_container">
-		    	<%if @group%>
-		    		<%= @group.group_image_tag 120 %>
-                    <div class="caption">
-                      <a style="color:white">Modifica l'immagine</a>
-                    </div>
-		    	<%else%>
-		    		<%= image_tag 'logo120.png', :width => 120, :alt => APP_LONG_NAME %>
-		    	<%end%>
-		    </div>
-		    <div class="group_title">
-			<h1>
-			<%if @group%>
-				<%if @group.id%>
-					<%= @group.name%>
-				<%else%>
-					<%= t('pages.groups.index.groups_registration')%>
-				<%end%>
-			<%else%>
-				<%= t('pages.groups.index.groups_list_2') %>
-			<%end%>
-			</h1>
-			<%if @group%>
-				<%if @group.id%>
-					<%=link_to t('pages.groups.layout.home_button'), @group, :class => 'homeButton buttonStyle' %>
-					<%=link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), :class => 'ideaButton buttonStyle'%>
-					<%=link_to t('pages.groups.layout.calendar'), group_events_path(@group), :class => 'calendarButton buttonStyle' %>
-					<%if ::Configuration::elections_active %>
-                      <%=link_to 'Area candidati', group_candidates_path(@group),  :class => 'personButton buttonStyle' if current_user%>
-                    <%end%>
-					<%if can? :update, @group%>
-						<%= link_to 'Impostazioni', edit_group_path(@group), :class => 'settingsButton buttonStyle'  %>
-					<%end%>
-				<%end%>
-			<%end%>
-			</div>
-		</div>
-
-	</div>
-
-    <!-- ##### Main Copy ##### -->
-    <div id="main-copy">
-        <div id="groups_leftpanel">
-            <%= yield :left_panel%>
-        </div>
-        <div id="centerpanelextended">
-            <div id="flash_messages" style="height:20px">
-                <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-            </div>
-            <%= yield :layout %>
-        </div>
-        <div style="clear: both; height: 0; overflow: hidden;"></div>
-        <div id="footer"><%=render :partial => "layouts/footer" %>
-        </div>
+<%= render :partial => "layouts/header" %>
+<div id="subheader" class="ui-widget-header ui-state-default">
+  <div class="body_maxwidth">
+    <div class="header_image leftUserImage image_container">
+      <% if @group %>
+          <%= @group.group_image_tag 120 %>
+          <div class="caption">
+            <a style="color:white">Modifica l'immagine</a>
+          </div>
+      <% else %>
+          <%= image_tag 'logo120.png', :width => 120, :alt => APP_LONG_NAME %>
+      <% end %>
     </div>
+    <div class="group_title">
+      <h1>
+        <% if @group %>
+            <% if @group.id %>
+                <%= @group.name %>
+            <% else %>
+                <%= t('pages.groups.index.groups_registration') %>
+            <% end %>
+        <% else %>
+            <%= t('pages.groups.index.groups_list_2') %>
+        <% end %>
+      </h1>
+      <% if @group %>
+          <% if @group.id %>
+              <%= link_to t('pages.groups.layout.home_button'), @group, :class => 'homeButton buttonStyle' %>
+              <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), :class => 'ideaButton buttonStyle' %>
+              <% if ::Configuration::groups_calendar %>
+                  <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group), :class => 'calendarButton buttonStyle' %>
+              <% end %>
+              <% if ::Configuration::elections_active %>
+                  <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), :class => 'personButton buttonStyle' if current_user %>
+              <% end %>
+              <% if can? :update, @group %>
+                  <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), :class => 'settingsButton buttonStyle' %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
 
-    </body>
-    </html>
+</div>
+
+<!-- ##### Main Copy ##### -->
+<div id="main-copy">
+  <div id="groups_leftpanel">
+    <%= yield :left_panel %>
+  </div>
+  <div id="centerpanelextended">
+    <div id="flash_messages" style="height:20px">
+      <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+    </div>
+    <%= yield :layout %>
+  </div>
+  <div style="clear: both; height: 0; overflow: hidden;"></div>
+  <div id="footer"><%= render :partial => "layouts/footer" %>
+  </div>
+</div>
+
+</body>
+</html>

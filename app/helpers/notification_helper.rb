@@ -113,7 +113,7 @@ module NotificationHelper
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_waiting_for_date(proposal)
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(current_user.id,proposal.id)
-    name = nickname ? nickname.nickname : comment_user.fullname
+    name = nickname ? nickname.nickname : current_user.fullname
     msg = name+" ha scelto la data di votazione per la proposta <b>" + proposal.title + "</b>!"
     notification_a = Notification.new(:notification_type_id => 4,:message => msg, :url => proposal_path(proposal))
     notification_a.save

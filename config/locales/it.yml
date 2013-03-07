@@ -205,6 +205,9 @@ it:
         show_all_partecipants: "Mostra tutti %{count} ..."
         partecipants_full_list: "Elenco completo dei partecipanti al gruppo"
         no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
+      header:
+        settings: "Impostazioni"
+        elections: "Area candidati"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -234,6 +237,13 @@ it:
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
         history_button: "History"
+        choose_votation_period: "Scegli un periodo per la votazione"
+        choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
+        choose_votation_period_button: "Ho scelto!"
+        create_votation_period: "Non vi sono date disponibili per la votazione, creane una"
+        no_periods_contact_group: "Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo"
+        no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
+        choose_new_votation_period_button: "Scegli una nuova data per la votazione"
     events:
       index:
         title: "Calendario"
@@ -272,27 +282,27 @@ it:
       groups: "Gruppi"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
-        my_page: %Q(La mia pagina)
-        my_blog: %Q(Il mio blog)
-        create_blog: %Q(Crea un tuo blog)
-        preferences: %Q(Preferenze)
-        administration: %Q(Amministrazione)
-        logout: %Q(Logout)
-        become_user: %Q(Diventa utente)
-        become_user_button: %Q(Vai!)
-        remember_me: %Q(Ricordami su questo computer)
-        login_button: %Q(Login)
-        registration_button: %Q(Registrati)
-        forgot_password_button: %Q(Hai dimenticato la password?)
-        resend_email_button: %Q(Non hai ricevuto l'email per la conferma?)
-        no_notifications: %Q(Nessuna notifica)
+        my_page: "La mia pagina"
+        my_blog: "Il mio blog"
+        create_blog: "Crea un tuo blog"
+        preferences: "Preferenze"
+        administration: "Amministrazione"
+        logout: "Logout"
+        become_user: "Diventa utente"
+        become_user_button: "Vai!"
+        remember_me: "Ricordami su questo computer"
+        login_button: "Login"
+        registration_button: "Registrati"
+        forgot_password_button: "Hai dimenticato la password?"
+        resend_email_button: "Non hai ricevuto l'email per la conferma?"
+        no_notifications: "Nessuna notifica"
     blogs:
       show:
-        no_posts: %Q(Nessun Post)
-        no_posts_long: %Q(Non vi sono ancora Post in questo Blog, torna presto.)
-        tag: %Q(Tag)
-        previous_posts: %Q(Post precedenti...)
-        edit_button: %Q(Modifica blog)
+        no_posts: "Nessun Post"
+        no_posts_long: "Non vi sono ancora Post in questo Blog, torna presto."
+        tag: "Tag"
+        previous_posts: "Post precedenti..."
+        edit_button: "Modifica blog"
   pl:
     comments:
       zero: nessun commento

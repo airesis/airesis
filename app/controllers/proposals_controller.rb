@@ -137,7 +137,7 @@ class ProposalsController < ApplicationController
  #   flash[:notice] = t(:error_proposal_loading)
  #   redirect_to proposals_path
   end
-  
+
   def new
     @step = get_next_step(current_user)
     @proposal = Proposal.new
