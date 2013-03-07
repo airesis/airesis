@@ -143,6 +143,7 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_visible_outside
       post :change_advanced_options
       post :change_default_secret_vote
+      get :reload_storage_size
     end
 
     collection do
@@ -173,9 +174,18 @@ DemocracyOnline3::Application.routes.draw do
     end
     #resources :group_quorums do
     #end
-       
+    resources :documents
   end
-  
+
+  resources :documents do
+    collection do
+      get :view
+      get :download
+    end
+    member do
+    end
+  end
+
   resources :quorums do
     collection do
       get :help
@@ -197,7 +207,10 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_role
     end
   end
- 
+
+
+  match 'elfinder' => 'elfinder#elfinder'
+
   match '/tags/:text', :to => 'tags#show', :as => 'tag'
 
   match '/votation/', :to => 'votations#show'

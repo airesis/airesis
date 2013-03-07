@@ -47,12 +47,13 @@ ElFinder::Connector.class_eval do
         @response[:errorData][target.basename.to_s] = "Access Denied"
       else
         begin
-          @group.actual_storage_size -= (File.size(target.path).to_f / 1024).to_i
+          @group.actual_storage_size -= (File.size(target.fullpath).to_f / 1024).to_i
           target.unlink
           if @options[:thumbs] && (thumbnail = thumbnail_for(target)).file?
             @group.actual_storage_size -= (File.size(thumbnail.path).to_f / 1024).to_i
             thumbnail.unlink
           end
+          @group.actual_storage_size = 0 if @group.actual_storage_size < 0
           @group.save!
         rescue
           @response[:error] ||= 'Some files/directories were unable to be removed'

@@ -15,13 +15,12 @@ class DocumentsController < ApplicationController
     group_id = params[:url][/\/private\/elfinder\/([^\/]*)\/(.*)/,1]
     @group = Group.find(group_id)
 
+    authorize! :view_documents, @group
 
     url = Rails.root.join(params[:url][1..-1])
     if params[:download]
-      authorize! :download_documents, @group
       send_file url
     else
-      authorize! :view_documents, @group
       send_file url, :disposition => 'inline'
     end
 

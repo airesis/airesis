@@ -1,0 +1,19 @@
+<% percentage = ((@group.actual_storage_size.to_f / @group.max_storage_size.to_f) * 100).round(2) %>
+<h4><%= 'Occupazione Spazio di archiviazione' %></h4>
+<span class="progressBar" title="<%= percentage %>%">
+	<%= percentage %>
+</span>    <br/>
+<%= 'Spazio massimo consentito' %>: <b><%= (@group.max_storage_size.to_f / 1024).round(2) %>MB</b> <br/>
+<%= 'Spazio attualmente occupato' %>: <b><%= (@group.actual_storage_size.to_f / 1024).round(2) %>MB</b> <br/>
+<script type="text/javascript">
+    $(".progressBar").progressBar({
+        boxImage: '<%=asset_path "progressbar.gif"%>',
+        barImage: <%if percentage > 90 %>
+                '<%=asset_path "progressbg_red.gif"%>'
+        <%elsif percentage < 70 %>
+        '<%=asset_path "progressbg_green.gif"%>'
+                <%else%>
+                '<%=asset_path "progressbg_orange.gif"%>'
+        <%end%>
+    });
+</script>

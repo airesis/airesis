@@ -411,6 +411,11 @@ class GroupsController < ApplicationController
   end
 
 
+  def reload_storage_size
+
+  end
+
+
   def partecipants_list_panel
     @partecipants = @group.group_partecipations.includes(:user)
   end

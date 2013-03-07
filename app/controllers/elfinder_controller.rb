@@ -13,12 +13,16 @@ class ElfinderController < ApplicationController
   before_filter :load_group
 
   def elfinder
+    @can_manage = can? :manage_documents, @group
+    @can_view = can? :view_documents, @group
     h, r = ElFinder::Connector.new(
         :root => File.join(Rails.root, 'private', 'elfinder',@group.id.to_s),
         :url => "documents/view?url=/private/elfinder/#{@group.id}",
         :perms => {
+
             #/^(Welcome|README)$/ => {:read => true, :write => false, :rm => false},
-            #'.' => {:read => true, :write => true, :rm => false}, # '.' is the proper way to specify the home/root directory.
+            '.' => {:read => @can_view, :write => @can_manage, :rm => false}, # '.' is the proper way to specify the home/root directory.
+            /.*/ => {read: @can_view, write: @can_manage, rm: @can_manage }
             #/^test$/ => {:read => true, :write => true, :rm => false},
             #'logo.png' => {:read => true},
             #/\.png$/ => {:read => false} # This will cause 'logo.png' to be unreadable.
