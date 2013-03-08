@@ -12,7 +12,7 @@ class Image < ActiveRecord::Base
                       :small  => "150x150>"
                     },
                     :url  => "/assets/images/users/:id/:style/:basename.:extension",
-                    :path => ":rails_root/app/assets/images/users/:id/:style/:basename.:extension"
+                    :path => ":rails_root/public/assets/images/users/:id/:style/:basename.:extension"
   
   validates_attachment_presence :image
   validates_attachment_size :image, :less_than => 5.megabytes
