@@ -30,4 +30,8 @@ class Configuration < ActiveRecord::Base
   def self.proposal_support
     @proposal_support = !self.find_by_name('proposal_support').value.to_i.zero?
   end
+
+  def self.documents_active
+    @documents_active = !self.find_by_name('documents_active').value.to_i.zero?
+  end
 end

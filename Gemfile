@@ -4,8 +4,6 @@ gem 'rails', '3.2.1'
 
 gem 'therubyracer', '0.10.1'
 
-gem 'bson_ext'
-
 gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
 
 group :assets do
