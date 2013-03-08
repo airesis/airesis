@@ -56,9 +56,6 @@ GEM
     attr_required (0.0.5)
     bcrypt-ruby (3.0.1)
     bluecloth (2.0.7)
-    bson (1.8.1)
-    bson_ext (1.8.1)
-      bson (~> 1.8.1)
     builder (3.0.4)
     cancan (1.6.8)
     client_side_validations (3.2.2)
@@ -262,7 +259,6 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth (= 2.0.7)
-  bson_ext
   cancan
   client_side_validations (= 3.2.2)
   coffee-rails (~> 3.2.1)

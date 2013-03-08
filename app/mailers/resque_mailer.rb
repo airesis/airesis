@@ -7,7 +7,12 @@ class ResqueMailer < ActionMailer::Base
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
-    mail(:to => @alert.user.email, :subject => @alert.notification.notification_type.email_subject)
+    to_id = @alert.notification.data['to_id']
+    if to_id
+      mail(:to => "discussion+#{to_id}@airesis.it", :bcc => @alert.user.email, :subject => @alert.notification.notification_type.email_subject)
+    else
+      mail(:to => @alert.user.email, :subject => @alert.notification.notification_type.email_subject)
+    end
   end
   
   def admin_message(msg)

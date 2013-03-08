@@ -8,8 +8,8 @@ module NotificationHelper
   def send_notification_to_user(notification,user)
      unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
-      alert.save #invia la notifica
-      if user.email_alerts && (!user.blocked_emails.include?notification.notification_type)
+      alert.save! #invia la notifica
+      if user.email_alerts && (!user.blocked_emails.include?notification.notification_type) && user.email
         ResqueMailer.notification(alert.id).deliver
       end
      end
@@ -47,7 +47,7 @@ module NotificationHelper
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id,proposal.id)
     name = nickname ? nickname.nickname : comment_user.fullname
     msg = "<b>"+name+"</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
-    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s}
+    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}"}
     notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
     notification_a.save
     proposal.users.each do |user|

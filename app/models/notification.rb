@@ -6,7 +6,7 @@ class Notification < ActiveRecord::Base
   def data
     unless @data
       @data = {}
-      self.notification_datas.each do |d|
+      self.notification_data.each do |d|
         @data[d.name] = d.value
       end
     end
