@@ -243,7 +243,7 @@ module NotificationHelper
     notification_b.save
     proposal.partecipants.each do |partecipant|
       unless partecipant == current_user || partecipant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
-        send_notification_to_user(notification_a,partecipant)
+        send_notification_to_user(notification_b,partecipant)
       end
     end
   end
