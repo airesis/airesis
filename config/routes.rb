@@ -181,6 +181,8 @@ DemocracyOnline3::Application.routes.draw do
 
     resources :documents
 
+    resources :group_areas
+
   end
 
   resources :documents do

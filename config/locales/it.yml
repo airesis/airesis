@@ -303,6 +303,9 @@ it:
         tag: "Tag"
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
+    groups_area:
+      edit:
+        title: "Impostazioni area di lavoro"
   pl:
     comments:
       zero: nessun commento
@@ -313,7 +316,9 @@ it:
     models:
       meeting: "Incontro"      
       places: "Luogo"
-  
+
+      group_area:
+        unique_name_message: %Q(Nome area già presente)
     attributes:
       blog_comment:
          body: "Commento"
@@ -435,3 +440,8 @@ it:
         group:
           portavoce:
             required: "Devi scegliere un portavoce."
+  controllers:
+    group_areas:
+      create:
+        ok_message: %Q(Hai creato l\'area di lavoro)
+        ko_message: %Q(Errore nella creazione dell\'area di lavoro)

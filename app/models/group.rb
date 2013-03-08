@@ -62,6 +62,7 @@ class Group < ActiveRecord::Base
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
 
+  has_many :group_areas, dependent: :destroy
 
   before_create :pre_populate
   after_create :after_populate
