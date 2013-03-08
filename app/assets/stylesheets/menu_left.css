@@ -82,7 +82,7 @@
   clear: both;
 }
 #cssmenu a {
-  background-color #EAEAEA;
+  background-color: #EAEAEA;
   background-image: url(/assets/menu_vertgrad.png);
   background-repeat: repeat-x;
   display: block;
