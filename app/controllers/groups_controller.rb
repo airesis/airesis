@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
+  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
   def index    
     @groups = Group.search(params[:search])
@@ -400,6 +400,12 @@ class GroupsController < ApplicationController
     @partecipants = @group.group_partecipations.includes(:user)
   end
 
+
+  def enable_areas
+    @group.update_attribute(:enable_areas,true)
+    redirect_to group_group_areas_path @group
+  end
+
   protected
   
   def load_group
@@ -419,5 +425,12 @@ class GroupsController < ApplicationController
       'groups'   
   end
   
-  
+
 end
+
+
+
+
+
+
+

@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307174210) do
-
+ActiveRecord::Schema.define(:version => 20130310164350) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -20,6 +19,37 @@ ActiveRecord::Schema.define(:version => 20130307174210) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "area_action_abilitations", :force => true do |t|
+    t.integer  "group_action_id", :null => false
+    t.integer  "area_role_id",    :null => false
+    t.integer  "group_area_id",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "area_partecipations", :force => true do |t|
+    t.integer  "user_id",       :null => false
+    t.integer  "group_area_id", :null => false
+    t.integer  "area_role_id",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "area_proposals", :force => true do |t|
+    t.integer  "proposal_id",   :null => false
+    t.integer  "group_area_id", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "area_roles", :force => true do |t|
+    t.integer  "group_area_id"
+    t.string   "name",          :null => false
+    t.string   "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "authentications", :force => true do |t|
@@ -236,6 +266,19 @@ ActiveRecord::Schema.define(:version => 20130307174210) do
     t.datetime "updated_at"
   end
 
+  create_table "group_areas", :force => true do |t|
+    t.integer  "group_id",           :null => false
+    t.string   "name",               :null => false
+    t.string   "description"
+    t.integer  "area_role_id",       :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "group_elections", :force => true do |t|
     t.integer  "group_id",    :null => false
     t.integer  "election_id", :null => false
@@ -327,6 +370,7 @@ ActiveRecord::Schema.define(:version => 20130307174210) do
     t.boolean  "default_secret_vote",                     :default => true,  :null => false
     t.integer  "max_storage_size",                        :default => 51200, :null => false
     t.integer  "actual_storage_size",                     :default => 0,     :null => false
+    t.boolean  "enable_areas",                            :default => false, :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -851,6 +895,19 @@ ActiveRecord::Schema.define(:version => 20130307174210) do
   add_foreign_key "action_abilitations", "groups", :name => "action_abilitations_group_id_fk"
   add_foreign_key "action_abilitations", "partecipation_roles", :name => "action_abilitations_partecipation_role_id_fk"
 
+  add_foreign_key "area_action_abilitations", "area_roles", :name => "area_action_abilitations_area_role_id_fk"
+  add_foreign_key "area_action_abilitations", "group_actions", :name => "area_action_abilitations_group_action_id_fk"
+  add_foreign_key "area_action_abilitations", "group_areas", :name => "area_action_abilitations_group_area_id_fk"
+
+  add_foreign_key "area_partecipations", "area_roles", :name => "area_partecipations_area_role_id_fk"
+  add_foreign_key "area_partecipations", "group_areas", :name => "area_partecipations_group_area_id_fk"
+  add_foreign_key "area_partecipations", "users", :name => "area_partecipations_user_id_fk"
+
+  add_foreign_key "area_proposals", "group_areas", :name => "area_proposals_group_area_id_fk"
+  add_foreign_key "area_proposals", "proposals", :name => "area_proposals_proposal_id_fk"
+
+  add_foreign_key "area_roles", "group_areas", :name => "area_roles_group_area_id_fk"
+
   add_foreign_key "authentications", "users", :name => "authentications_user_id_fk"
 
   add_foreign_key "available_authors", "proposals", :name => "available_authors_proposal_id_fk"
@@ -889,6 +946,9 @@ ActiveRecord::Schema.define(:version => 20130307174210) do
 
   add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
   add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
+
+  add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
+  add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"
 
   add_foreign_key "group_elections", "elections", :name => "group_elections_election_id_fk"
   add_foreign_key "group_elections", "groups", :name => "group_elections_group_id_fk"

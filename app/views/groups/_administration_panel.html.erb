@@ -1,29 +1,37 @@
 <div id="setting_menu">
-	<h4><%=t('pages.groups.administration_panel.title')%></h4>
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-gear"></span>
-		<%= link_to t('pages.groups.administration_panel.info'), edit_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-<!--	<div class="menu_voice">
+  <h4><%= t('pages.groups.administration_panel.title') %></h4>
+
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-gear"></span>
+    <%= link_to t('pages.groups.administration_panel.info'), edit_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+  <!--	<div class="menu_voice">
 		<span class="Mo ui-icon ui-icon-calendar"></span>
 		<%= link_to t('pages.groups.administration_panel.events'), edit_events_group_path(@group), :class => 'Mo' %>
 		<div style="clear:both"></div>
 	</div>
 -->
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-person"></span>
-		<%= link_to t('pages.groups.administration_panel.permissions'), edit_permissions_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-	
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-comment"></span>
-		<%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-	
-	<!--<%=link_to "Torna alla pagina del gruppo", @group, :class=>'buttonStyle littleText'%>-->
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-person"></span>
+    <%= link_to t('pages.groups.administration_panel.permissions'), edit_permissions_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-comment"></span>
+    <%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
+  <% if ::Configuration::group_areas %>
+      <div class="menu_voice">
+        <span class="Mo ui-icon ui-icon-clipboard"></span>
+        <%= link_to t('pages.groups.administration_panel.areas'), group_group_areas_path(@group), :class => 'Mo' %>
+        <div style="clear:both"></div>
+      </div>
+  <% end %>
+
 </div>
 
 <% if can? :update, @group %>

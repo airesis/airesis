@@ -1,0 +1,20 @@
+<h1><%= 'Aree di lavoro non abilitate' %></h1>
+<p>
+<b><%= 'Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo.' %></b>
+</p>
+<p>
+<b><%= 'Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati.' %></b>
+</p>
+<p>
+  <b><%= 'Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti.' %></b>
+</p>
+<p>
+  <b><%=raw "Prima di attivare le aree di lavoro verifica se non puoi gestire gli utenti mediante i #{link_to 'ruoli e permessi', edit_permissions_group_path(@group)}." %></b>
+</p>
+
+<div style="margin:auto; text-align: center;">
+<%= link_to 'Abilita le aree di lavoro!', enable_areas_group_path(@group), method: :put, class: 'bigButton buttonStyle', style: 'margin:auto' %>
+</div>
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

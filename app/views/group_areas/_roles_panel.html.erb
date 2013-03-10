@@ -1,0 +1,38 @@
+<table class="table_list">
+  <thead class="table_header">
+  <th>Ruolo</th>
+  <th>Descrizione</th>
+
+  <% GroupAction.for_group_areas.each do |action| %>
+      <th><%= action.description %></th>
+  <% end %>
+
+  </thead>
+  <tbody>
+
+  <% @group_area.area_roles.each do |role|
+    abilitations = role.area_action_abilitations.by_group_area(@group_area).all %>
+      <tr valign="top" style="border-bottom: 1px dotted grey; <%='background-color: #EAEBFF' if (role.id == @group_area.area_role_id)%>">
+        <td>
+          <%= role.name %>
+        </td>
+        <td> <%= role.description %>
+        </td>
+        <% GroupAction.for_group_areas.each do |action| %>
+            <td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
+                       <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
+                       checked="true"
+                       <% end %>
+                       /></td>
+        <% end %>
+
+        <td>
+          <% if role.id != @group_area.area_role_id %>
+              <%= link_to "X", group_group_area_area_role_path(@group,@group_area,role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+          <% end %>
+          <%= link_to "Modifica", edit_group_group_area_area_role_path(@group,@group_area,role), :remote => true %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

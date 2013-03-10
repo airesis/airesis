@@ -113,6 +113,8 @@ it:
    event_answer: "Errore durante l'invio della risposta"
    event_already_answered: "Hai già risposto a questo evento"
    event_past: "L'evento è finito"
+   configuration_required: "Modulo non abilitato"
+   areas_required: "E' necessario abilitare la gestione delle aree di lavoro"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
     blog_created: "Il tuo post è stato creato correttamente."
@@ -168,6 +170,7 @@ it:
         events: "Eventi e incontri"
         permissions: "Ruoli e permessi"
         proposals: "Quorum e proposte"
+        areas: "Aree di lavoro"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -207,7 +210,7 @@ it:
         no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
       header:
         settings: "Impostazioni"
-        elections: "Area candidati"
+        elections: "Elezioni"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -306,6 +309,13 @@ it:
     groups_area:
       edit:
         title: "Impostazioni area di lavoro"
+    group_areas:
+      index:
+        create_area_button: "Crea un'area di lavoro"
+        title: "Organizza gli utenti all'interno delle aree di lavoro"
+        switch_area_manage_button: "Passa alla gestione delle singole aree"
+      manage:
+        switch_area_index_button: "Passa alla gestione dei partecipanti"
   pl:
     comments:
       zero: nessun commento
@@ -316,9 +326,6 @@ it:
     models:
       meeting: "Incontro"      
       places: "Luogo"
-
-      group_area:
-        unique_name_message: %Q(Nome area già presente)
     attributes:
       blog_comment:
          body: "Commento"
@@ -396,6 +403,9 @@ it:
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
         blog_image_url: "Indirizzo immagine"
+      group_area:
+        name: "Nome"
+        description: "Descrizione"
     errors:
       template:
         header:
@@ -443,5 +453,9 @@ it:
   controllers:
     group_areas:
       create:
-        ok_message: %Q(Hai creato l\'area di lavoro)
-        ko_message: %Q(Errore nella creazione dell\'area di lavoro)
+        ok_message: "Hai creato l'area di lavoro"
+        ko_message: "Errore nella creazione dell'area di lavoro"
+    area_roles:
+      create:
+        ok_message: "Hei creato il nuovo ruolo"
+        ko_message: "Errore nella creazione del ruolo"

@@ -1,0 +1,12 @@
+$('#new_group_area_container').html("<%= escape_javascript(render(:partial => 'group_areas/form'))%>");
+
+$('#new_group_area').dialog({
+	width: 500,
+	height: 'auto',
+	modal : true,
+	resizable: false,
+	close : function(event, ui) {
+		$('#new_group_area').dialog('destroy');
+	}
+});
+

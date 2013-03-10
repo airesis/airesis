@@ -35,6 +35,13 @@ class Ability
        can :update, PartecipationRole do |partecipation_role|
          partecipation_role.group.portavoce.include? user
        end
+       can :update, AreaRole do |area_role|
+         area_role.group_area.group.portavoce.include? user
+       end
+       can :update, GroupArea do |area|
+         area.group.portavoce.include? user
+       end
+
        can :post_to, Group do |group|
          can_do_on_group?(user,group,1)
        end

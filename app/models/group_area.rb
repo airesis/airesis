@@ -1,12 +1,12 @@
+#encoding: utf-8
 class GroupArea < ActiveRecord::Base
 
   validates_presence_of :name
   validates_length_of :name, :within => 3..200
-  validates_uniqueness_of :name, :scope => :group_id, :message => t('activerecord.models.group_area.unique_name_message')
+  validates_uniqueness_of :name, :scope => :group_id, :message => "Nome area già presente"
 
   validates_length_of :description, :within => 1..2000, :allow_nil => true
   validates_presence_of :group_id
-  validates_presence_of :area_role_id
   validates_presence_of :default_role_name, :on => :create
 
   attr_accessible :name, :description, :default_role_name, :default_role_actions
@@ -30,19 +30,17 @@ class GroupArea < ActiveRecord::Base
   def pre_populate
 
     role = self.area_roles.build({name: self.default_role_name, description: 'Ruolo predefinito dell\'area'})
-    self.default_role_actions.each do |action_id|
-      abilitation = role.area_action_abilitations.build(group_action_id: action_id)
-      abilitation.save!
-    end
     role.save!
     self.area_role_id = role.id
 
   end
 
   def after_populate
-    self.default_role.update_attribute(:area_id, self.id)
-    ids = self.default_role.area_action_abilitations.pluck(:id)
-    ActionAbilitation.update_all({:group_area_id => self.id}, {:id => ids})
+    self.default_role.update_attribute(:group_area_id, self.id)
+    DEFAULT_AREA_ACTIONS.each do |action_id|
+      abilitation = self.default_role.area_action_abilitations.build(group_action_id: action_id, group_area_id: self.id)
+      abilitation.save!
+    end
   end
 
   def destroy
