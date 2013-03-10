@@ -7,6 +7,7 @@ class ProposalsController < ApplicationController
   
   #carica il gruppo
   before_filter :load_group
+  before_filter :load_group_area
   
   layout :choose_layout
   #carica la proposta
@@ -40,6 +41,10 @@ class ProposalsController < ApplicationController
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
     end
+    if params[:group_area_id]
+      @group_area = GroupArea.find(params[:group_area_id])
+      #@count_base = @category.proposals
+    end
     @count_base = Proposal.in_category(params[:category])
 
     if params[:group_id]
@@ -49,7 +54,12 @@ class ProposalsController < ApplicationController
     
       unless can? :view_proposal, @group
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
-      end 
+      end
+
+      if params[:group_area_id]
+        @count_base = @count_base.in_group_area(@group_area.id)
+      end
+
    else
       @count_base = @count_base.public
     end
@@ -150,11 +160,20 @@ class ProposalsController < ApplicationController
       @proposal.anonima = @group.default_anonima  
       @proposal.visible_outside = @group.default_visible_outside
       @change_advanced_options = @group.change_advanced_options
+
+      if (params[:group_area_id])
+        @proposal.group_area_id = params[:group_area_id]
+      end
+
     else
       @proposal.quorum_id = Quorum::STANDARD
       @proposal.anonima = DEFAULT_ANONIMA
       @proposal.visible_outside = true
       @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
+    end
+
+    if (params[:category])
+      @proposal.proposal_category_id = params[:category]
     end
     
     respond_to do |format|
@@ -169,6 +188,7 @@ class ProposalsController < ApplicationController
   
   def create
     begin
+      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id]
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
@@ -201,6 +221,9 @@ class ProposalsController < ApplicationController
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
           @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
+          if @group_area
+            @proposal.presentation_areas << @group_area
+          end
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
@@ -221,7 +244,9 @@ class ProposalsController < ApplicationController
         
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
-        generate_nickname(current_user,@proposal) 
+        generate_nickname(current_user,@proposal)
+
+
     	
         #fai partire il timer per far scadere la proposta
         if quorum.minutes
@@ -515,12 +540,18 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
       end
       conditions += ")"
+
+      if params[:group_area_id]
+        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't') "
+      end
+
+
       #startlist = startlist.private
     else
       startlist = startlist.public
     end
     
-    @proposals = startlist.includes([:proposal_supports,:group_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    @proposals = startlist.includes([:proposal_supports,:group_proposals,:area_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
   
   def update_borders(borders)
@@ -595,6 +626,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #carica il gruppo di riferimento della proposta
   def load_group
     @group = Group.find(params[:group_id]) if params[:group_id]
+  end
+
+  #carica l'area di lavoro
+  def load_group_area
+    @group_area = GroupArea.find(params[:group_area_id]) if params[:group_area_id]
   end
 
 
