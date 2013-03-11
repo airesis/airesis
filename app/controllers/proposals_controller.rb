@@ -327,8 +327,7 @@ class ProposalsController < ApplicationController
   
   
   def destroy
-    presentations = ProposalPresentation.find_all_by_proposal_id(@proposal.id)
-    presentations.each { |presentation| presentation.destroy }
+    authorize! :destroy, @proposal
     @proposal.destroy
     
     respond_to do |format|

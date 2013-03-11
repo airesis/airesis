@@ -83,6 +83,12 @@ class Proposal < ActiveRecord::Base
   before_update :update_sections
   before_save :save_tags
   after_update :save_proposal_history
+  after_destroy :remove_scheduled_tasks
+
+
+  def remove_scheduled_tasks
+    Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
+  end
  
   def in_valutation?
     self.proposal_state_id == ProposalState::VALUTATION
