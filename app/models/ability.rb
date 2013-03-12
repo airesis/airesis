@@ -8,7 +8,6 @@ class Ability
     #user ||= User.new # guest user (not logged in)
     if !user
        can [:index,:show,:read], [Proposal, BlogPost, Blog, Group]
-       #can :edit, Proposal, :user_id => user.id
     elsif user.admin?
        can :manage, :all
     else
@@ -22,6 +21,10 @@ class Ability
        can :vote, Proposal do |proposal|
          can_vote_proposal?(user,proposal)
        end
+ 	   can :destroy, Proposal do |proposal|
+        (proposal.users.include? user) &&
+        !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0))
+      end
        can :new, ProposalSupport
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
@@ -45,7 +48,7 @@ class Ability
          can_do_on_group?(user,group,3)
        end
        can :accept_requests, Group do |group|
-         can_do_on_group?(user,group,4) && ::Configuration.invites_active
+         can_do_on_group?(user,group,4)
        end
        can :create_election, Group do |group|
          #controllo se può creare eventi in generale
