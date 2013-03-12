@@ -150,6 +150,7 @@ DemocracyOnline3::Application.routes.draw do
       post :change_advanced_options
       post :change_default_secret_vote
       get :reload_storage_size
+      put :enable_areas
     end
 
     collection do
@@ -180,6 +181,20 @@ DemocracyOnline3::Application.routes.draw do
     end
 
     resources :documents
+
+    resources :group_areas do
+      collection do
+        put :change
+        get :manage
+      end
+
+      resources :area_roles do
+        collection do
+          put :change
+          put :change_permissions
+        end
+      end
+    end
 
   end
 

@@ -32,7 +32,10 @@ class Proposal < ActiveRecord::Base
   
   has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
   has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
-  
+
+  has_many :area_proposals, :class_name => 'AreaProposal', :dependent => :destroy
+  has_many :presentation_areas, :through => :area_proposals, :class_name => 'GroupArea', :source => :group_area
+
   has_many :available_authors, :class_name => 'AvailableAuthor', :dependent => :destroy
   has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
   
@@ -49,9 +52,9 @@ class Proposal < ActiveRecord::Base
   
   validates_presence_of :objectives,:problems, :quorum_id
   
-  attr_accessor :update_user_id
+  attr_accessor :update_user_id, :group_area_id
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -77,6 +80,9 @@ class Proposal < ActiveRecord::Base
   
   #condizione di visualizzazione in un gruppo
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports,:group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",group_id,group_id]} if group_id}
+
+  #condizione di visualizzazione in area di lavoro
+  scope :in_group_area, lambda { |group_area_id| {:include => [:area_proposals], :conditions => ["((area_proposals.group_area_id = ? and proposals.private = 't'))",group_area_id]} if group_area_id}
   
   
   before_create :build_sections

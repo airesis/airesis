@@ -1,0 +1,12 @@
+$('#new_area_role_container').html("<%= escape_javascript(render(:partial => 'area_roles/form', :locals => {button_name: 'Modifica'}))%>");
+
+$('#new_area_role').dialog({
+	width: 500,
+	height: 'auto',
+	modal : true,
+	resizable: false,
+	close : function(event, ui) {
+		$('#new_area_role').dialog('destroy');
+	}
+});
+

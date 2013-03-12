@@ -34,4 +34,8 @@ class Configuration < ActiveRecord::Base
   def self.documents_active
     @documents_active = !self.find_by_name('documents_active').value.to_i.zero?
   end
+
+  def self.group_areas
+    @group_areas = !self.find_by_name('group_areas').value.to_i.zero?
+  end
 end

@@ -44,9 +44,12 @@ class User < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'BlogPost'
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :blocked_emails, :class_name => 'BlockedEmail'
+
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
-  
-  has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
+  has_many :groups,:through => :group_partecipations, :class_name => 'Group'
+
+  has_many :area_partecipations, :class_name => 'AreaPartecipation'
+  has_many :group_areas,:through => :area_partecipations, :class_name => 'GroupArea'
   
   has_many :partecipation_roles,:through => :group_partecipations, :class_name => 'PartecipationRole'  
   has_many :group_follows, :class_name => 'GroupFollow'

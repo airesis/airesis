@@ -1,167 +1,197 @@
-<%@page_title = t('pages.proposals.index.title')%>
+<% @page_title = t('pages.proposals.index.title') %>
 <% if @category
-	@page_head = "Proposte della categoria "+@category.description
-   else	
-	@page_head = "Proposte di tutte le categorie"		
-end%>
+     @page_head = "Proposte della categoria "+@category.description
+   else
+     @page_head = "Proposte di tutte le categorie"
+   end %>
+<%@page_head += " nell'area di lavoro "+@group_area.name if @group_area%>
 
-<%if @group%>
-    <%=content_for :head do%>
-        <meta property="og:title" content="<%=@group.name%>"/>
+<% if @group %>
+    <%= content_for :head do %>
+        <meta property="og:title" content="<%= @group.name %>"/>
         <meta property="og:type" content="airesis:group"/>
         <meta property="og:image" content="<%= if !@group.image_url.blank?
                                                  @group.image_url
                                                else
                                                  "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
-                                               end%>
+                                               end %>
                                           "/>
-        <meta property="og:description" content="<%=@group.description%>"/>
-    <%end%>
-<%end%>
+        <meta property="og:description" content="<%= @group.description %>"/>
+    <% end %>
+<% end %>
 
-<%=render :layout => "layouts/page_title", :locals => {:title => @page_head} do%>
-	
-<%end%>
+<%= render :layout => "layouts/page_title", :locals => {:title => @page_head} do %>
+
+<% end %>
 
 <div style="clear:both"></div>
 
 
 <div id="tabs">
-	<ul>
-      <%if ::Configuration.phases_active %>
-		<li>
-			<%=link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>1,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'dibattito', :title=>t("pages.proposals.index.debate")%>
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>2,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'votazione', :title=>t("pages.proposals.index.voting") %>
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>3,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'accettate', :title =>t("pages.proposals.index.accepted") %>
-			<div class="tabs-triangle"/>
-		</li>
-		<li>
-			<%=link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll=>true,:state=>4,:category=>params[:category], :group_id => (@group.id if @group)), :class=>"status_title", :id=>'revisione', :title =>t("pages.proposals.index.revision") %>
-			<div class="tabs-triangle"/>
-		</li>
-      <%else%>
-		    <li>
-		        <%=link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_DATE, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'ultime', :title=>t("pages.proposals.index.last")%>
-		        <div class="tabs-triangle"/>
-		    </li>
-		    <li>
-		      <%=link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_RANK, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'popolari', :title=>t("pages.proposals.index.most_popular")%>
-		      <div class="tabs-triangle"/>
-		    </li>
-          <li>
-            <%=link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll=>true,:view=>ORDER_BY_VOTES, :category=>params[:category], :group_id => params[:group_id]), :class=>"status_title", :id=>'valutate', :title=>t("pages.proposals.index.most_valutated")%>
-            <div class="tabs-triangle"/>
-          </li>
-        <%end%>
-	</ul>
-	
-	<div id="<%=::Configuration.phases_active ? 'Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito' : 'Ultime_inserite'%>">
-		<div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-			<%=image_tag 'ajax-loader.gif', :alt=>"Caricamento"%><br />
-			<b>Sto caricando le proposte...</b>
-		</div>
-	</div>
+  <ul>
+    <% if ::Configuration.phases_active %>
+        <li>
+          <%= link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 1, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
+          <div class="tabs-triangle"/>
+        </li>
+        <li>
+          <%= link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 2, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
+          <div class="tabs-triangle"/>
+        </li>
+        <li>
+          <%= link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 3, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
+          <div class="tabs-triangle"/>
+        </li>
+        <li>
+          <%= link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 4, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
+          <div class="tabs-triangle"/>
+        </li>
+    <% else %>
+        <li>
+          <%= link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
+          <div class="tabs-triangle"/>
+        </li>
+        <li>
+          <%= link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
+          <div class="tabs-triangle"/>
+        </li>
+        <li>
+          <%= link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
+          <div class="tabs-triangle"/>
+        </li>
+    <% end %>
+  </ul>
+
+  <div id="<%= ::Configuration.phases_active ? 'Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito' : 'Ultime_inserite' %>">
+    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+      <%= image_tag 'ajax-loader.gif', :alt => "Caricamento" %>
+      <br/>
+      <b>Sto caricando le proposte...</b>
+    </div>
+  </div>
 </div>
-<%content_for :left_panel do %>
+<% content_for :left_panel do %>
 
-<%if @group%>
-<%= link_to 'Crea una proposta', new_proposal_path(:group_id => @group.id), :remote => true, :id => 'nuova_proposta', :class=>"disableButton" if (can? :insert_proposal, @group)%>
-<%else%>
-<%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta', :class=>"disableButton" %>
-<%end%>	
+    <% if @group %>
+        <%= link_to 'Crea una proposta', new_proposal_path(:group_id => @group.id, :group_area_id => params[:group_area_id], :category => params[:category]), :remote => true, :id => 'nuova_proposta', :class => "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <% else %>
+        <%= link_to 'Crea una proposta', new_proposal_path, :remote => true, :id => 'nuova_proposta', :class => "disableButton" %>
+    <% end %>
 
-<div id = "create_proposal_dialog" style ="display:none;">
-    <div id = "create_proposal"></div>
-</div>
+    <div id="create_proposal_dialog" style="display:none;">
+      <div id="create_proposal"></div>
+    </div>
 
 
-<div id="categories">
-<%if (params[:category])%>
-	<h4 class="filterSelected">Categorie</h4>
-	<a href="<%=current_url(:category => nil)%>">Tutte le categorie</a>
-<%else%>
-	<h4>Categorie</h4>
-	Tutte le categorie
-<%end%>
-<table>
-<% 
-	conditions = "1 = 1"
-	joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
-	if @group
-		joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-		conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-    end
- 	categories = ProposalCategory.all(
-     :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
-     :joins => joins,
-     :conditions => conditions, 
-     :group => "proposal_categories.id, proposal_categories.description",
-     :order => "proposal_categories.id desc"
-    )
-	#categories = ProposalCategory.all
-   categories.each do |category|%>
-      <tr>
-        <td style="vertical-align: middle;" >
-		<%if params[:category] == category.id.to_s%>
-            <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style=>"width:22px;padding-right:2px;")%>
-            </td>
-            <td><%=category.description%>
-		<%else%>
-            <%=link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style=>"width:22px;padding-right:2px;"), current_url(:category => category.id)%>
-            </td>
-            <td>
-              <a href="<%=current_url(:category => category.id)%>" title='<%=category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria"%>'>
-                <%=category.description%>
-              </a>
-		<%end%>
-        </td>
-       </tr>
-<%end%>
-</table>
-</div>
+    <% if @group && @group.enable_areas && @group.group_areas.length > 0 %>
+        <div id="group_areas">
+          <h4>Aree di lavoro</h4>
+          <% if params[:group_area_id] %>
+              <a href="<%= current_url(:group_area_id => nil) %>">Nessuna area</a>
+          <% else %>
+              Tutte le aree
+          <% end %>
+          <table>
+            <% @group.group_areas.each do |area| %>
+                <tr>
+                  <td>
+                    <% if params[:group_area_id] == area.id.to_s %>
+                        <%= area.name %>
+                    <%else%>
+                        <%= link_to area.name, current_url(:group_area_id => area.id) %>
+                    <%end%>
+                  </td>
 
-	<!--<%= render :partial => 'users/most_active_users_panel' %>-->
+                </tr>
+            <% end %>
+          </table>
+        </div>
+    <% end %>
 
-<%end%>	 
+    <div id="categories">
+      <% if params[:category] %>
+          <h4 class="filterSelected">Categorie</h4>
+          <a href="<%= current_url(:category => nil) %>">Tutte le categorie</a>
+      <% else %>
+          <h4>Categorie</h4>
+          Tutte le categorie
+      <% end %>
+      <table>
+        <%
+           conditions = "1 = 1"
+           joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
+           if @group
+             joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
+             conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
+           end
+           categories = ProposalCategory.all(
+                   :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
+                   :joins => joins,
+                   :conditions => conditions,
+                   :group => "proposal_categories.id, proposal_categories.description",
+                   :order => "proposal_categories.id desc"
+           )
+           #categories = ProposalCategory.all
+           categories.each do |category| %>
+            <tr>
+              <td style="vertical-align: middle;">
+                <% if params[:category] == category.id.to_s %>
+                    <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+                    </td>
+                    <td><%= category.description %>
+                <% else %>
+                    <%= link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
+                    </td>
+                    <td>
+                      <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
+                        <%= category.description %>
+                      </a>
+                <% end %>
+                </td>
+                </tr>
+        <% end %>
+      </table>
+    </div>
+
+
+
+
+    <!--<%= render :partial => 'users/most_active_users_panel' %>-->
+
+<% end %>
 
 <script>
-	$('#nuova_proposta').button({
-		icons: {
-                primary: "ui-icon-lightbulb"
-            },
-            text: true
-	}).bind("ajax:error", function(event, data, status, xhr) {
-    	if (data.status == 401) {
-    		window.location = "/users/sign_in?l=it"
-    	}
-  	});
-;
-	$('#proposte_accettate').button({
-            icons: {
-                primary: "ui-icon-star"
-            },
-            text: true
-        });
-    
+    $('#nuova_proposta').button({
+        icons: {
+            primary: "ui-icon-lightbulb"
+        },
+        text: true
+    }).bind("ajax:error", function (event, data, status, xhr) {
+                if (data.status == 401) {
+                    window.location = "/users/sign_in?l=it"
+                }
+            });
+    ;
+    $('#proposte_accettate').button({
+        icons: {
+            primary: "ui-icon-star"
+        },
+        text: true
+    });
+
     $('#tabs').tabs({
-    	cache: true,
-    	load: function (e, ui) {
-		    $(ui.panel).find("#loading_borders").remove();
-		},
-		select: function (e, ui) {
-			var $panel = $(ui.panel);		
-		     if ($panel.is(":empty")) {
-		         $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
-		     }
-		}    	
-    });   
+        cache: true,
+        load: function (e, ui) {
+            $(ui.panel).find("#loading_borders").remove();
+        },
+        select: function (e, ui) {
+            var $panel = $(ui.panel);
+            if ($panel.is(":empty")) {
+                $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
+            }
+        }
+    });
 </script>
-	 
-<%content_for :right_panel do %>
-<%end%>
+
+<% content_for :right_panel do %>
+<% end %>

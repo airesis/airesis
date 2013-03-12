@@ -113,6 +113,8 @@ it:
    event_answer: "Errore durante l'invio della risposta"
    event_already_answered: "Hai già risposto a questo evento"
    event_past: "L'evento è finito"
+   configuration_required: "Modulo non abilitato"
+   areas_required: "E' necessario abilitare la gestione delle aree di lavoro"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
     blog_created: "Il tuo post è stato creato correttamente."
@@ -162,12 +164,15 @@ it:
       index:
         title: "Elenco utenti"
     groups:
+      accept_requests:
+        portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
       administration_panel:
         title: "Pannello di amministrazione"
         info: "Informazioni di base"
         events: "Eventi e incontri"
         permissions: "Ruoli e permessi"
         proposals: "Quorum e proposte"
+        areas: "Aree di lavoro"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -189,8 +194,12 @@ it:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
         create_button: "Crea il gruppo!"
+        change_permissions_button: "Vuoi cambiare i permessi standard?"
+        change_permissions_title: "Modifica i permessi standard degli utenti appena iscritti"
+        change_permissions_description: "Queste sono le azioni che gli utenti appena iscritti potranno eseguire all'interno del gruppo: ricorda che successivamente potrai sempre modificarli e creare nuovi ruoli!"
       edit:
         title: "Modifica impostazioni gruppo"
+        change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
       layout:
         home_button: "Home Page"
         proposals_button: "Le proposte"
@@ -207,7 +216,7 @@ it:
         no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
       header:
         settings: "Impostazioni"
-        elections: "Area candidati"
+        elections: "Elezioni"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -303,6 +312,16 @@ it:
         tag: "Tag"
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
+    groups_area:
+      edit:
+        title: "Impostazioni area di lavoro"
+    group_areas:
+      index:
+        create_area_button: "Crea un'area di lavoro"
+        title: "Organizza gli utenti all'interno delle aree di lavoro"
+        switch_area_manage_button: "Passa alla gestione delle singole aree"
+      manage:
+        switch_area_index_button: "Passa alla gestione dei partecipanti"
   pl:
     comments:
       zero: nessun commento
@@ -313,7 +332,6 @@ it:
     models:
       meeting: "Incontro"      
       places: "Luogo"
-  
     attributes:
       blog_comment:
          body: "Commento"
@@ -339,13 +357,17 @@ it:
         name: "Nome"
         title_bar: "Barra del titolo"
         description: "Descrizione"
-        accept_requests: "Richieste di partecipazione"
         porta_id: "Portavoce"
         interest_border_tkn: "Confine geografico di interesse"
         interest_border_id: "Confine geografico di interesse"
         image_url: "Indirizzo immagine"
         default_role_name: "Come verranno chiamati gli utenti appena iscritti?"
         default_role_name_placeholder: "Esempio: Iscritti, Membri, Attivisti, Pirati"
+        name_placeholder: "Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova."
+        title_bar_placeholder: "Il titolo che apparirà in testa alla pagina del gruppo."
+        description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
+        image_url_placeholder: "URL dell'immagine del gruppo"
+        facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
@@ -355,6 +377,7 @@ it:
       place:
          address: "Indirizzo"
       proposal:
+        group_area_id: "Area di lavoro"
         proposal_category_id: "Categoria"
         title: "Titolo"
         subtitle: "Sottotitolo"
@@ -391,6 +414,9 @@ it:
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
         blog_image_url: "Indirizzo immagine"
+      group_area:
+        name: "Nome"
+        description: "Descrizione"
     errors:
       template:
         header:
@@ -435,3 +461,13 @@ it:
         group:
           portavoce:
             required: "Devi scegliere un portavoce."
+  controllers:
+    group_areas:
+      create:
+        ok_message: "Hai creato l'area di lavoro"
+        ko_message: "Errore nella creazione dell'area di lavoro"
+    area_roles:
+      create:
+        ok_message: "Hei creato il nuovo ruolo"
+        ko_message: "Errore nella creazione del ruolo"
+  unavailable_option: "Opzione non ancora disponibile"

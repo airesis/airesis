@@ -38,6 +38,13 @@ class Ability
        can :update, PartecipationRole do |partecipation_role|
          partecipation_role.group.portavoce.include? user
        end
+       can :update, AreaRole do |area_role|
+         area_role.group_area.group.portavoce.include? user
+       end
+       can :update, GroupArea do |area|
+         area.group.portavoce.include? user
+       end
+
        can :post_to, Group do |group|
          can_do_on_group?(user,group,1)
        end
@@ -69,6 +76,15 @@ class Ability
        can :insert_proposal, Group do |group|
          #can_do_on_group?(user,group,4)
          can_do_on_group?(user,group,8)
+       end
+       can :view_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,6)
+       end
+       can :partecipate_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,7)
+       end
+       can :insert_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,8)
        end
        can :view_documents, Group do |group|
          can_do_on_group?(user,group,9)
@@ -103,10 +119,23 @@ class Ability
          return false unless partecipation
          role = partecipation.partecipation_role
          return true if (role.id == PartecipationRole::PORTAVOCE)
-         return false if (role.id == PartecipationRole::MEMBER)
-         roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
+         roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => ["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?",action,group.id])
          return roles.include? role
-     end
+      end
+
+
+    def can_do_on_group_area?(user,group_area,action)
+      group_partecipation = user.group_partecipations.first(:conditions => {:group_id => group_area.group.id})
+      return false unless group_partecipation
+      group_role = group_partecipation.partecipation_role
+      return true if (group_role.id == PartecipationRole::PORTAVOCE)
+
+      area_partecipation = user.area_partecipations.first(:conditions => {:group_area_id => group_area.id})
+      return false unless area_partecipation
+      role = area_partecipation.area_role
+      roles = group_area.area_roles.all(:joins => :area_action_abilitations, :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?",action,group_area.id])
+      return roles.include? role
+    end
 
      #un utente può partecipare ad una proposta se è pubblica
      #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta

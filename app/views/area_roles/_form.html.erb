@@ -1,0 +1,45 @@
+<div id="new_area_role" title="Nuovo ruolo" style="display: none; font-size: 14px;">
+  <%=form_for [@group,@group_area,@area_role], :remote => true do |f|%>
+
+      <p>
+        <%=f.label :name%>	<br />
+        <%=f.text_field :name%>
+      </p>
+      <%unless @group_area.area_role_id == @area_role.id %>
+          <p>
+            <%=f.label :description%>	<br />
+            <%=f.text_area :description, style: "width: 300px;height:150px;"%>
+          </p>
+      <%end%>
+      <%=f.submit button_name, :class => 'buttonStyle'%>
+  <%end%>
+
+  <script type="text/javascript">
+      $(function() {
+          /*    $('#partecipation_role_description')
+           .charCount({
+           counterElement:'div',
+           allowed:2000,
+           warning:100
+           });*/
+          disegnaBottoni();
+      });
+  </script>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#new_group_area").validate();
+        disegnaBottoni();
+        $(".elastic").elastic();
+
+
+        $('#group_description')
+                .charCount({
+                    counterElement: 'div',
+                    allowed: 2000,
+                    warning: 100
+                });
+
+    });
+</script>
