@@ -190,6 +190,7 @@ class GroupsController < ApplicationController
         @group = Group.new(params[:group]) #crea il gruppo
         @group.current_user_id = current_user.id
         @group.save!
+        Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
       end
       respond_to do |format|
           flash[:notice] = 'Hai creato il gruppo.'
