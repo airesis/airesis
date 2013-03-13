@@ -14,10 +14,12 @@
         <%= select("proposal", "group_area_id", @group.group_areas.all.collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro' }) %>
       </p>
       <%end%>
+      <%if ::Configuration.proposal_categories%>
       <p>
         <%= f.label :proposal_category_id %><br/>
         <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
       </p>
+      <%end%>
       <% if params[:action] == "new" %>
           <p>
             <%= f.label :title %> *<br/>
@@ -34,33 +36,35 @@
             <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
           </p>
 
+          <%if ::Configuration::folksonomy %>
           <p>
-            <%= f.label :tags_list, 'Tags (separati da virgola)' %><br/>
+            <%= f.label :tags_list %><br/>
             <%= f.text_field :tags_list %>
           </p>
+          <%end%>
 
           <p>
-            <%= f.label :quorum_id, 'Quorum' %><br/>
+            <%= f.label :quorum_id %><br/>
             <% if @group %>
-                <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-                <%= link_to 'Non li conosco!', help_quorums_path(:group_id => @group.id), :remote => true %>
+                <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+                <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
             <% else %>
                 <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
-                <%= link_to 'Non li conosco!', help_quorums_path, :remote => true %>
+                <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
             <% end %>
 
-          <div id="available_quorums_container" title="Elenco quorum disponibili">
+          <div id="available_quorums_container" title="<%= t('pages.quorums.index.title')%>">
           </div>
           </p>
 
           <p>
             <%if @change_advanced_options %>
                 <%= f.check_box :anonima %>
-                <%= f.label :anonima, 'Anonimato temporaneo' %><br/>
+                <%= f.label :anonima %><br/>
                 <%= f.check_box :visible_outside %>
-                <%= f.label :visible_outside, 'Visibile pubblicamente' %><br/>
+                <%= f.label :visible_outside %><br/>
                 <%= f.check_box :secret_vote %>
-                <%= f.label :secret_vote, 'Voto segreto' %><br/>
+                <%= f.label :secret_vote %><br/>
             <%end%>
           </p>
 
@@ -80,8 +84,7 @@
     </div>
 
     <div class="step">
-      <h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole
-        raggiungere la proposta</h4>
+      <h4><%= 'Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta' %></h4>
 
       <p>
         <%= f.label :problems %> *<br/>
@@ -98,10 +101,9 @@
 
     <div class="step">
       <% if params[:action] == "new" %>
-          <h4>Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi
-            ricevuti</h4>
+          <h4><%= 'Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti' %></h4>
       <% else %>
-          <h4>Modifica e aggiorna il testo della proposta!</h4>
+          <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
       <% end %>
       <p>
         <%= f.label :content %><br/>
@@ -137,7 +139,7 @@
         input = $('#proposal_interest_borders_tkn')
         input.tokenInput("/interest_borders.json", {
             crossDomain:false,
-            prePopulate:$('#proposal_interest_borders_tkn').data("pre"),
+            prePopulate:input.data("pre"),
             hintText:"Digita alcuni caratteri per cercare un luogo",
             noResultsText:"Nessun luogo trovato",
             searchingText:"Sto cercando...",

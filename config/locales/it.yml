@@ -238,6 +238,10 @@ it:
         most_popular: "Più popolari"
         most_valutated: "Più valutate"
         continue_reading: 'continua a leggere la proposta'
+        debate_title: "In dibattito (%{count})"
+        voting_title: "In votazione (%{count})"
+        accepted_title: "Approvate (%{count})"
+        revision_title: "In revisione (%{count})"
       show:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"
@@ -253,6 +257,9 @@ it:
         no_periods_contact_group: "Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo"
         no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
         choose_new_votation_period_button: "Scegli una nuova data per la votazione"
+      new:
+        quorum_prompt: "Seleziona un quorum"
+        quorum_help: "Non li conosco!"
     events:
       index:
         title: "Calendario"
@@ -322,6 +329,9 @@ it:
         switch_area_manage_button: "Passa alla gestione delle singole aree"
       manage:
         switch_area_index_button: "Passa alla gestione dei partecipanti"
+    quorums:
+      index:
+        title: "Elenco quorum disponibili"
   pl:
     comments:
       zero: nessun commento
@@ -384,7 +394,12 @@ it:
         problems: "Problemi"
         objectives: "Obiettivi"
         content: "Testo"
-        interest_borders_tkn: "Confini geografici di interesse"        
+        interest_borders_tkn: "Confini geografici di interesse"
+        tags_list: "Tags (separati da virgola)"
+        quorum_id: "Quorum"
+        anonima: "Anonimato temporaneo"
+        visible_outside: "Visibile pubblicamente"
+        secret_vote: "Voto segreto"
       proposal_comment:
          content: "Contenuto"
       quorum:

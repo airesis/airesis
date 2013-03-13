@@ -4,7 +4,7 @@
    else
      @page_head = "Proposte di tutte le categorie"
    end %>
-<%@page_head += " nell'area di lavoro "+@group_area.name if @group_area%>
+<% @page_head += " nell'area di lavoro "+@group_area.name if @group_area %>
 
 <% if @group %>
     <%= content_for :head do %>
@@ -31,32 +31,32 @@
   <ul>
     <% if ::Configuration.phases_active %>
         <li>
-          <%= link_to 'In dibattito ('+@in_valutation_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 1, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
+          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(:scroll => true, :state => 1, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'In votazione ('+@in_votation_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 2, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
+          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true, :state => 2, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'Approvate ('+@accepted_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 3, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
+          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(:scroll => true, :state => 3, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'In revisione ('+@revision_count.to_s+')', tab_list_proposals_path(:scroll => true, :state => 4, :category => params[:category], :group_id => (@group.id if @group),:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
+          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(:scroll => true, :state => 4, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
           <div class="tabs-triangle"/>
         </li>
     <% else %>
         <li>
-          <%= link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
+          <%= link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
+          <%= link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id],:group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
+          <%= link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
           <div class="tabs-triangle"/>
         </li>
     <% end %>
@@ -97,9 +97,9 @@
                   <td>
                     <% if params[:group_area_id] == area.id.to_s %>
                         <%= area.name %>
-                    <%else%>
+                    <% else %>
                         <%= link_to area.name, current_url(:group_area_id => area.id) %>
-                    <%end%>
+                    <% end %>
                   </td>
 
                 </tr>
@@ -107,51 +107,52 @@
           </table>
         </div>
     <% end %>
-
-    <div id="categories">
-      <% if params[:category] %>
-          <h4 class="filterSelected">Categorie</h4>
-          <a href="<%= current_url(:category => nil) %>">Tutte le categorie</a>
-      <% else %>
-          <h4>Categorie</h4>
-          Tutte le categorie
-      <% end %>
-      <table>
-        <%
-           conditions = "1 = 1"
-           joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
-           if @group
-             joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-             conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-           end
-           categories = ProposalCategory.all(
-                   :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
-                   :joins => joins,
-                   :conditions => conditions,
-                   :group => "proposal_categories.id, proposal_categories.description",
-                   :order => "proposal_categories.id desc"
-           )
-           #categories = ProposalCategory.all
-           categories.each do |category| %>
-            <tr>
-              <td style="vertical-align: middle;">
-                <% if params[:category] == category.id.to_s %>
-                    <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+    <% if ::Configuration.proposal_categories %>
+        <div id="categories">
+          <% if params[:category] %>
+              <h4 class="filterSelected">Categorie</h4>
+              <a href="<%= current_url(:category => nil) %>">Tutte le categorie</a>
+          <% else %>
+              <h4>Categorie</h4>
+              Tutte le categorie
+          <% end %>
+          <table>
+            <%
+               conditions = "1 = 1"
+               joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
+               if @group
+                 joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
+                 conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
+               end
+               categories = ProposalCategory.all(
+                       :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
+                       :joins => joins,
+                       :conditions => conditions,
+                       :group => "proposal_categories.id, proposal_categories.description",
+                       :order => "proposal_categories.id desc"
+               )
+               #categories = ProposalCategory.all
+               categories.each do |category| %>
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <% if params[:category] == category.id.to_s %>
+                        <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+                        </td>
+                        <td><%= category.description %>
+                    <% else %>
+                        <%= link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
+                        </td>
+                        <td>
+                          <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
+                            <%= category.description %>
+                          </a>
+                    <% end %>
                     </td>
-                    <td><%= category.description %>
-                <% else %>
-                    <%= link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
-                    </td>
-                    <td>
-                      <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
-                        <%= category.description %>
-                      </a>
-                <% end %>
-                </td>
-                </tr>
-        <% end %>
-      </table>
-    </div>
+                    </tr>
+            <% end %>
+          </table>
+        </div>
+    <% end %>
 
 
 

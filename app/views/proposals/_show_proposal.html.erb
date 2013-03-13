@@ -61,7 +61,7 @@
             <%= link_to 'Cancella', [@group, proposal], method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
         <% else %>
             <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
-        <% end %
+        <% end %>
 	<%elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox%>
 		<div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>

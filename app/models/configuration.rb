@@ -38,4 +38,12 @@ class Configuration < ActiveRecord::Base
   def self.group_areas
     @group_areas = !self.find_by_name('group_areas').value.to_i.zero?
   end
+
+  def self.proposal_categories
+    @proposal_categories = !self.find_by_name('proposal_categories').value.to_i.zero?
+  end
+
+  def self.folksonomy
+    @folksonomy = !self.find_by_name('folksonomy').value.to_i.zero?
+  end
 end
