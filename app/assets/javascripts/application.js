@@ -43,3 +43,10 @@
 //= require_tree ./ice/IceCopyPastePlugin/
 //= require_tree ./ice/IceSmartQuotesPlugin/
 //= require tinymce-jquery
+//= require jqlplot/jquery.jqplot
+//= require jqlplot/jqplot.pieRenderer
+//= require elfinder.full
+//= require i18n/elfinder.it
+//= require elFinderSupportVer1
+//= require jquery.livequery
+

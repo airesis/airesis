@@ -1,0 +1,26 @@
+<%=form_for @partecipation_role, :remote => true do |f|%>
+    <%=f.hidden_field :group_id%>
+    <p>
+      <%=f.label :name%>	<br />
+      <%=f.text_field :name%>
+    </p>
+    <%unless @group.partecipation_role_id == @partecipation_role.id %>
+      <p>
+        <%=f.label :description%>	<br />
+        <%=f.text_area :description, style: "width: 300px;height:150px;"%>
+      </p>
+    <%end%>
+    <%=f.submit button_name, :class => 'buttonStyle'%>
+<%end%>
+
+<script type="text/javascript">
+  $(function() {
+      /*    $('#partecipation_role_description')
+      .charCount({
+          counterElement:'div',
+          allowed:2000,
+          warning:100
+      });*/
+      disegnaBottoni();
+  });
+</script>

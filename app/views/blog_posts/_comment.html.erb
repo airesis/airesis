@@ -11,7 +11,7 @@
 			<p>
 			Inserito il <span class="blogPostDate"><%= comment.formatted_created_at%></span>
 			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id) %>
-					<%= link_to 'Cancella', {:controller => "blog_comments", :action => "delete",  :blog_post_id => @blog_post.id, :id => comment.id},
+					<%= link_to t('pages.blog_posts.comment.delete_button'), {:controller => "blog_comments", :action => "delete",  :blog_post_id => @blog_post.id, :id => comment.id},
 					:remote => "true",
 					:onclick => "return false;",
 					:class => "deleteCommentLink",					
@@ -19,7 +19,7 @@
 			<% end %>	
 			</p>										   
 	</div>
-	<script>	
+	<script type="text/javascript">
 	    
 		<%if (comment.collapsed) %>
 			$('#comment<%= comment.id%>').show(600);

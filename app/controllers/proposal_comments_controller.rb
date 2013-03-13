@@ -64,7 +64,7 @@ class ProposalCommentsController < ApplicationController
       @current_page = (params[:page] || 1).to_i
     else
       if params[:view] == ORDER_BY_RANK
-        order << " proposal_comments.rank desc, proposal_comments.valutations desc"
+        order << " proposal_comments.j_value desc, proposal_comments.id desc"
       else
         order << "proposal_comments.created_at desc"
       end  

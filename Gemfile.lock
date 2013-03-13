@@ -56,12 +56,9 @@ GEM
     attr_required (0.0.5)
     bcrypt-ruby (3.0.1)
     bluecloth (2.0.7)
-    bson (1.8.1)
-    bson_ext (1.8.1)
-      bson (~> 1.8.1)
     builder (3.0.4)
     cancan (1.6.8)
-    client_side_validations (3.1.4)
+    client_side_validations (3.2.2)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -78,6 +75,8 @@ GEM
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
       warden (~> 1.1.1)
+    el_finder (1.1.6)
+      image_size (>= 1.0.0)
     email_preview (1.5.2)
       rails (>= 3.0)
     erubis (2.7.0)
@@ -100,6 +99,7 @@ GEM
     httpauth (0.2.0)
     httpclient (2.3.2)
     i18n (0.6.1)
+    image_size (1.1.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -264,11 +264,11 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth (= 2.0.7)
-  bson_ext
   cancan
-  client_side_validations (= 3.1.4)
+  client_side_validations (= 3.2.2)
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
+  el_finder
   email_preview
   exception_notification (= 2.6.1)
   fb_graph

@@ -8,8 +8,9 @@ class PartecipationRole < ActiveRecord::Base
   has_many :action_abilitations, :class_name => 'ActionAbilitation', :dependent => :destroy
   belongs_to :partecipation_roles, :class_name => 'PartecipationRole', :foreign_key => :parent_partecipation_role_id
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
-  
-  scope :common, { :conditions => {:group_id => nil }}
+
+  #prendi il portavoce, member è deprecato
+  scope :common, { :conditions => {:id => 2 }}
   
   validates_uniqueness_of :name, :scope => :group_id
   
@@ -17,8 +18,9 @@ class PartecipationRole < ActiveRecord::Base
 
   #prima di cancellare un ruolo assegna il ruolo di default a tutti coloro che avevano questo
   before_destroy :change_partecipation_roles
-  
+
+  #quando cancello un ruolo assegnato ad alcuni utenti, a tali utenti dagli il ruolo di default del gruppo
   def change_partecipation_roles
-    self.group_partecipations.update_all(:partecipation_role_id => 1)
+    self.group_partecipations.update_all(:partecipation_role_id => self.group.partecipation_role_id) if (self.group)
   end
 end

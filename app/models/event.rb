@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Event < ActiveRecord::Base
   
-  attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :organizer_id
+  attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
   
   validates_presence_of :title, :description, :starttime, :endtime
   validate :validate_start_time_before_end_time

@@ -29,4 +29,8 @@
  *= require quorums
  *= require redmond/custom
  *= require prettydiff/diffview
+ *= require jqplot/jquery.jqplot
+ *= require elfinder.min
+ *= require theme
+ *= require group_areas
 */

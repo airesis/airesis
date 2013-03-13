@@ -1,6 +1,6 @@
 <div id="blogNewComment" class="blogNewComment">
 	
-	<script>
+	<script type="text/javascript">
 		function sblank() {
 			var el = document.getElementById('blog_comment_body')
 		//	el.value = '';
@@ -31,7 +31,7 @@
 				</div>
 			
 			<p>
-				<%= f.submit 'Inserisci commento', :id => 'insert_comment', :onclick => "hideinsertcomment();return true;"	 %>
+				<%= f.submit t('pages.blog_comments.new.insert_comment'), :id => 'insert_comment', :onclick => "hideinsertcomment();return true;"	 %>
 				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 			</p>
 		<% end %>

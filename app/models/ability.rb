@@ -8,7 +8,6 @@ class Ability
     #user ||= User.new # guest user (not logged in)
     if !user
        can [:index,:show,:read], [Proposal, BlogPost, Blog, Group]
-       #can :edit, Proposal, :user_id => user.id
     elsif user.admin?
        can :manage, :all
     else
@@ -19,9 +18,31 @@ class Ability
        can :partecipate, Proposal do |proposal|
          can_partecipate_proposal?(user,proposal)
        end
+       can :vote, Proposal do |proposal|
+         can_vote_proposal?(user,proposal)
+       end
+ 	   can :destroy, Proposal do |proposal|
+        (proposal.users.include? user) &&
+        !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0))
+      end
        can :new, ProposalSupport
        can :create, ProposalSupport do |support|
          user.groups.include? support.group
+       end
+       can :create, Group do |group|
+         true
+       end
+       can :update, Group do |group|
+         group.portavoce.include? user
+       end
+       can :update, PartecipationRole do |partecipation_role|
+         partecipation_role.group.portavoce.include? user
+       end
+       can :update, AreaRole do |area_role|
+         area_role.group_area.group.portavoce.include? user
+       end
+       can :update, GroupArea do |area|
+         area.group.portavoce.include? user
        end
 
        can :post_to, Group do |group|
@@ -56,6 +77,21 @@ class Ability
          #can_do_on_group?(user,group,4)
          can_do_on_group?(user,group,8)
        end
+       can :view_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,6)
+       end
+       can :partecipate_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,7)
+       end
+       can :insert_proposal, GroupArea do |group_area|
+         can_do_on_group_area?(user,group_area,8)
+       end
+       can :view_documents, Group do |group|
+         can_do_on_group?(user,group,9)
+       end
+       can :manage_documents, Group do |group|
+         can_do_on_group?(user,group,10)
+       end
        #can :update, Proposal do |proposal|
        #  proposal.users.include? user
        #end
@@ -64,6 +100,9 @@ class Ability
 	   end
        can :show_tooltips, User do |fake|
          user.show_tooltips
+       end
+       can :send_message, User do |ut|
+         ut.receive_messages && user != ut && ut.email && user.email
        end
 
        can :destroy, GroupPartecipation do |group_partecipation|
@@ -80,10 +119,23 @@ class Ability
          return false unless partecipation
          role = partecipation.partecipation_role
          return true if (role.id == PartecipationRole::PORTAVOCE)
-         return false if (role.id == PartecipationRole::MEMBER)
-         roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => "action_abilitations.group_action_id = #{action} AND action_abilitations.group_id = #{group.id}")
+         roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => ["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?",action,group.id])
          return roles.include? role
-     end
+      end
+
+
+    def can_do_on_group_area?(user,group_area,action)
+      group_partecipation = user.group_partecipations.first(:conditions => {:group_id => group_area.group.id})
+      return false unless group_partecipation
+      group_role = group_partecipation.partecipation_role
+      return true if (group_role.id == PartecipationRole::PORTAVOCE)
+
+      area_partecipation = user.area_partecipations.first(:conditions => {:group_area_id => group_area.id})
+      return false unless area_partecipation
+      role = area_partecipation.area_role
+      roles = group_area.area_roles.all(:joins => :area_action_abilitations, :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?",action,group_area.id])
+      return roles.include? role
+    end
 
      #un utente può partecipare ad una proposta se è pubblica
      #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
@@ -91,13 +143,27 @@ class Ability
      def can_partecipate_proposal?(user,proposal)
        if proposal.private
          proposal.presentation_groups.each do |group|
-            return true if can_do_on_group?(user,group,7)
+            return true if can_do_on_group?(user,group,7) && (proposal.in_valutation? || proposal.voted?)
          end
          return false
        else
-         return true
+         return proposal.in_valutation? || proposal.voted?
        end
      end
+
+    #un utente può votare una proposta se è pubblica
+    #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
+    #è stata creata
+    def can_vote_proposal?(user,proposal)
+      if proposal.private
+        proposal.presentation_groups.each do |group|
+          return true if can_do_on_group?(user,group,7) && (proposal.voting?)
+        end
+        false
+      else
+        proposal.voting?
+      end
+    end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

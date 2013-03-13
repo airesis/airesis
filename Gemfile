@@ -4,8 +4,6 @@ gem 'rails', '3.2.1'
 
 gem 'therubyracer', '0.10.1'
 
-gem 'bson_ext'
-
 gem 'tinymce-rails'
 
 gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
@@ -82,7 +80,7 @@ gem 'cancan'
 
 gem 'foreigner'
 
-gem 'client_side_validations', '3.1.4'
+gem 'client_side_validations', '3.2.2'
 #gem 'ar_fixtures'
 
 gem 'sitemap_generator'
@@ -109,3 +107,5 @@ gem 'quiet_assets', :group => :development
 gem 'rails_autolink'
 
 gem 'nickname_generator'
+
+gem 'el_finder'

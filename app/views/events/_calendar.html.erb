@@ -1,5 +1,5 @@
 <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
+      src="http://maps.googleapis.com/maps/api/js?key=<%=MAPS_API_KEY%>&sensor=false">
       </script>
       
 <%if can_edit_events%>
@@ -30,7 +30,8 @@
 	                    <%end%>
                 	<%end%>
                 </p>
-                <script>
+
+                <script type="text/javascript">
                     
                     
                     $(function(){

@@ -1,3 +1,4 @@
+<div style="float:left">
 <b>Totale votanti: <%= @proposal.vote.number %> </b>
 <table>
   <thead>
@@ -7,17 +8,17 @@
   </thead>
   <tbody>
   <tr>
-    <td>Positivo</td>
+    <td>Favorevoli</td>
     <td><%= @proposal.vote.positive %></td>
     <td><%= @proposal.vote.positive_perc %>%</td>
   </tr>
   <tr>
-    <td>Negativo</td>
+    <td>Contrari</td>
     <td><%= @proposal.vote.negative %></td>
     <td><%= @proposal.vote.negative_perc %>%</td>
   </tr>
   <tr>
-    <td>Astenuti</td>
+    <td>Neutrali</td>
     <td><%= @proposal.vote.neutral %></td>
     <td><%= @proposal.vote.neutral_perc %>%</td>
   </tr>
@@ -28,17 +29,28 @@
   </tr>-->
   </tbody>
 </table>
+</div>
+
+<div style="height: 200px; width: 200px; float:left;" id="chart1">
+</div>
+<div style="clear: both;"></div>
 
 <hr/>
 <table id="votes_table">
   <thead>
   <th>Nome e cognome</th>
   <th>Data e ora di voto</th>
+  <%unless @proposal.secret_vote%>
+  <th>Voto</th>
+  <%end%>
   </thead>
   <% @proposal.user_votes.each do |user_vote| %>
       <tr>
         <td><%= user_vote.user.fullname %></td>
         <td><%= l user_vote.created_at, :format => "%d %b %Y alle %H:%M" %></td>
+        <%unless @proposal.secret_vote%>
+            <td><%=user_vote.vote_type.description%></td>
+        <%end%>
       </tr>
   <% end %>
 </table>
@@ -46,6 +58,28 @@
 <script type="text/javascript">
     $(function () {
         generateTable();
+
+        var dataa = [
+            ['Favorevoli', <%= @proposal.vote.positive %>],
+            ['Astenuti', <%= @proposal.vote.negative %>],
+            ['Contrari', <%= @proposal.vote.neutral %>]
+        ];
+        $('#chart1').empty();
+        var plot1 = jQuery.jqplot ('chart1', [dataa],
+            {
+                seriesDefaults: {
+                    // Make this a pie chart.
+                    renderer: jQuery.jqplot.PieRenderer,
+                    rendererOptions: {
+                        // Put data labels on the pie slices.
+                        // By default, labels show the percentage of the slice.
+                        showDataLabels: true
+                    }
+                },
+                legend: { show:false, location: 'e' }
+            }
+        );
+
     });
 
     function generateTable() {

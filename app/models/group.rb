@@ -13,10 +13,14 @@ class Group < ActiveRecord::Base
   validates_length_of       :facebook_page_url,    :within => 10..255, :allow_blank => true
   validates_length_of       :title_bar,    :within => 1..255, :allow_blank => true
   validates_presence_of     :interest_border_id
+  validates_presence_of     :default_role_name, :on => :create
   
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url
-  
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions
+  attr_reader :partecipant_tokens
+  attr_accessor :default_role_name, :default_role_actions, :current_user_id
+
+
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
@@ -24,10 +28,10 @@ class Group < ActiveRecord::Base
   has_many :followers,:through => :group_follows, :source => :user, :class_name => 'User'
   has_many :posts,:through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
-  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy
+  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy, :order => 'id DESC'
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
-  
+  belongs_to :default_role, :class_name => 'PartecipationRole', :foreign_key => :partecipation_role_id
   has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'group_id', :dependent => :destroy
   
   has_many :events,:through => :meeting_organizations, :class_name => 'Event', :source => :event
@@ -53,11 +57,50 @@ class Group < ActiveRecord::Base
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
   has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum
 
-  attr_reader :partecipant_tokens
-  
+
   has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2]
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
+
+  has_many :group_areas, dependent: :destroy
+
+  before_create :pre_populate
+  after_create :after_populate
+
+  def pre_populate
+    self.default_visible_outside = true
+
+    #fai si che chi crea il gruppo ne sia anche portavoce
+    self.partecipation_requests.build({:user_id => current_user_id, :group_partecipation_request_status_id => 3})
+
+    self.group_partecipations.build({:user_id => current_user_id, :partecipation_role_id => 2}) #portavoce
+
+    Quorum.public.each do |quorum|
+      copy = quorum.dup
+      copy.public = false
+      copy.save!
+      self.group_quorums.build(:quorum_id => copy.id)
+    end
+    role = self.partecipation_roles.build({name: self.default_role_name, description: 'Ruolo predefinito del gruppo'})
+    self.default_role_actions.each do |action_id|
+      abilitation = role.action_abilitations.build(group_action_id: action_id)
+      abilitation.save!
+    end
+    role.save!
+    self.partecipation_role_id = role.id
+
+  end
+
+  def after_populate
+    self.default_role.update_attribute(:group_id,self.id)
+    ids = self.default_role.action_abilitations.pluck(:id)
+    ActionAbilitation.update_all({:group_id => self.id}, {:id => ids})
+  end
+
+  def destroy
+    self.update_attribute(:partecipation_role_id,nil) && super
+  end
+
 
   #utenti che possono votare
   def count_voter_partecipants

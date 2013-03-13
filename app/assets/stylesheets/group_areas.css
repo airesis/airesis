@@ -1,0 +1,77 @@
+.group_area {
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    float: left;
+    height: auto;
+    margin-left: 9px;
+    min-height: 70px;
+    padding: 3px;
+    position: relative;
+    text-align: left;
+    width: 235px;
+    z-index: 0;
+}
+
+.members {
+    border: 1px dotted #CCCCCC;
+    float: left;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+    padding: 3px;
+    position: relative;
+    text-align: left;
+    width: 170px;
+    background-color: white;
+
+}
+
+.members img {
+    border: 1px solid #CCCCCC;
+    float: left;
+    padding: 2px;
+}
+
+.members b {
+    font-size: 1em;
+}
+
+#public {
+    border-bottom: 3px dotted #CCCCCC;
+    padding-bottom: 10px;
+}
+
+.areas_list {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: none;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100px;
+    position: absolute;
+}
+
+.areas_list ul {
+    margin: 0;
+    padding:  2px;
+}
+
+.areas_list li {
+    float: left;
+    list-style: none outside none;
+    padding: 2px;
+}
+
+.areas_button {
+    background: none repeat scroll 0 0 #FFBB33;
+    border: 1px solid #FFBD21;
+    border-radius: 2px 2px 2px 2px;
+    color: white;
+    float: right;
+    font-weight: bold;
+    padding: 3px;
+}
+
+.areas_button:hover {
+    text-decoration: none;
+}

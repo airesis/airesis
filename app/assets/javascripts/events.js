@@ -106,14 +106,13 @@ function showPeriodAndFrequency(value){
 }
 
 function showPlace(value){
-
     switch (value) {
-        case '2':
+        case '2':   //votazione
 	        $('#luogo').hide();
 	        $('#create_map_canvas').hide();
 	        $('#elezione').hide();
             break;        
-        case '4':
+        case '4':   //elezione
         	$('#luogo').hide();
 	        $('#create_map_canvas').hide();	        
 	        $('#elezione').show();	        	        

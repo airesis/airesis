@@ -34,8 +34,8 @@ it:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
-    day_names: [Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato, Domenica]
-    abbr_day_names: [L, M, M, G, V, S, D]
+    day_names: [Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]
+    abbr_day_names: [D, L, M, M, G, V, S]
     month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
     abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
   time:
@@ -43,6 +43,7 @@ it:
      default: "%d %b %Y alle %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
+     long_date_time: "%A %d %B %Y ore %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
@@ -112,11 +113,16 @@ it:
    event_answer: "Errore durante l'invio della risposta"
    event_already_answered: "Hai già risposto a questo evento"
    event_past: "L'evento è finito"
+   configuration_required: "Modulo non abilitato"
+   areas_required: "E' necessario abilitare la gestione delle aree di lavoro"
   info:
     setting_preferences: "Impostazioni cambiate correttamente" 
     blog_created: "Il tuo post è stato creato correttamente."
     proposal:
       can_change_valutation: "La proposta è stata aggiornata da quando l'hai valutata. Puoi cambiare la tua valutazione se vuoi!"
+    message_sent: "Messaggio inviato correttamente"
+    private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
+    private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
    
   proposal_inserted: "La proposta è stata inserita correttamente."
   proposal_updated:  "La proposta è stata aggiornata correttamente."
@@ -136,7 +142,11 @@ it:
      update: "Errore nell'aggiornamento del gruppo."
    confirm:
      update: "Gruppo aggiornato correttamente."
-  
+  partecipation_role:
+   errors:
+     update: "Errore durante l'aggiornamento del ruolo"
+   confirm:
+     update: "Ruolo aggiornato correttamente"
   pages:
     top_panel:
       login: "Accedi o registrati"
@@ -154,12 +164,15 @@ it:
       index:
         title: "Elenco utenti"
     groups:
+      accept_requests:
+        portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
       administration_panel:
         title: "Pannello di amministrazione"
         info: "Informazioni di base"
         events: "Eventi e incontri"
         permissions: "Ruoli e permessi"
         proposals: "Quorum e proposte"
+        areas: "Aree di lavoro"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -168,10 +181,42 @@ it:
         title: "Gestisci i quorum e le proposte"
       index:
         title: "Tutti i gruppi"
+        open_space_button: "Vai allo spazio comune"
+        create_group_button: "Crea un nuovo gruppo"
+        find_group_label: "Cerca un gruppo di tuo interesse"
+        find_title: "La ricerca avviene all'interno del nome del gruppo"
+        find_button: "Cerca"
+        groups_list: "Gruppi a cui partecipi"
+        groups_registration: "Registrazione Gruppi"
+        groups_list_2: "Elenco gruppi"
+        no_groups_yet: "Non partecipi a nessun %{name} ancora"
       new:
         title: "Crea un nuovo gruppo"
+        new_group: "Nuovo gruppo"
+        create_button: "Crea il gruppo!"
+        change_permissions_button: "Vuoi cambiare i permessi standard?"
+        change_permissions_title: "Modifica i permessi standard degli utenti appena iscritti"
+        change_permissions_description: "Queste sono le azioni che gli utenti appena iscritti potranno eseguire all'interno del gruppo: ricorda che successivamente potrai sempre modificarli e creare nuovi ruoli!"
       edit:
         title: "Modifica impostazioni gruppo"
+        change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
+      layout:
+        home_button: "Home Page"
+        proposals_button: "Le proposte"
+        calendar: "Calendario"
+      show:
+        rules_button: "Regolamento"
+        post_button: "Inserisci post"
+        blog_button: "Crea il mio blog"
+        spokesman: "Portavoce"
+        partecipants_list: "Elenco partecipanti"
+        invite_button: "Invita i tuoi amici!"
+        show_all_partecipants: "Mostra tutti %{count} ..."
+        partecipants_full_list: "Elenco completo dei partecipanti al gruppo"
+        no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
+      header:
+        settings: "Impostazioni"
+        elections: "Elezioni"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -189,7 +234,14 @@ it:
         voting: 'Tutte le proposte in attesa di votazione o attualmente in votazione'
         accepted: 'Lista delle proposte condivise e accettate dagli utenti del portale'
         revision: 'Tutte le proposte che sono state attuate e per le quali si stanno raccogliendo i feedback'
+        last: "Ultime inserite"
+        most_popular: "Più popolari"
+        most_valutated: "Più valutate"
         continue_reading: 'continua a leggere la proposta'
+        debate_title: "In dibattito (%{count})"
+        voting_title: "In votazione (%{count})"
+        accepted_title: "Approvate (%{count})"
+        revision_title: "In revisione (%{count})"
       show:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"
@@ -197,6 +249,17 @@ it:
         random_stack: "Ordinamento intelligente"
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
+        history_button: "History"
+        choose_votation_period: "Scegli un periodo per la votazione"
+        choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
+        choose_votation_period_button: "Ho scelto!"
+        create_votation_period: "Non vi sono date disponibili per la votazione, creane una"
+        no_periods_contact_group: "Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo"
+        no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
+        choose_new_votation_period_button: "Scegli una nuova data per la votazione"
+      new:
+        quorum_prompt: "Seleziona un quorum"
+        quorum_help: "Non li conosco!"
     events:
       index:
         title: "Calendario"
@@ -211,7 +274,64 @@ it:
     blog_posts:
       new:
         title: "Inserisci un nuovo post"
-      
+
+      new_button: "Inserisci un nuovo post"
+      drafts_button: "Post non pubblicati"
+      drafts: "Bozza"
+      edit_button: "Modifica"
+      delete_button: "Cancella"
+      comment:
+        delete_button: "Cancella"
+        confirm_delete: "Sei sicuro di voler cancellare questo commento?"
+    alerts:
+      polling:
+        show_all: "Mostra tutte le notifiche"
+      index:
+        new_not_read: "Nuove notifiche non lette"
+        no_new: "Nessuna nuova notifica"
+        old_not_read: "Vecchie notifiche già lette"
+        no_old: "Nessuna notifica"
+    blog_comments:
+      new:
+        insert_comment: "Inserisci commento"
+    header:
+      groups: "Gruppi"
+      no_groups_yet: "Non partecipi a nessun gruppo ancora"
+      menu:
+        my_page: "La mia pagina"
+        my_blog: "Il mio blog"
+        create_blog: "Crea un tuo blog"
+        preferences: "Preferenze"
+        administration: "Amministrazione"
+        logout: "Logout"
+        become_user: "Diventa utente"
+        become_user_button: "Vai!"
+        remember_me: "Ricordami su questo computer"
+        login_button: "Login"
+        registration_button: "Registrati"
+        forgot_password_button: "Hai dimenticato la password?"
+        resend_email_button: "Non hai ricevuto l'email per la conferma?"
+        no_notifications: "Nessuna notifica"
+    blogs:
+      show:
+        no_posts: "Nessun Post"
+        no_posts_long: "Non vi sono ancora Post in questo Blog, torna presto."
+        tag: "Tag"
+        previous_posts: "Post precedenti..."
+        edit_button: "Modifica blog"
+    groups_area:
+      edit:
+        title: "Impostazioni area di lavoro"
+    group_areas:
+      index:
+        create_area_button: "Crea un'area di lavoro"
+        title: "Organizza gli utenti all'interno delle aree di lavoro"
+        switch_area_manage_button: "Passa alla gestione delle singole aree"
+      manage:
+        switch_area_index_button: "Passa alla gestione dei partecipanti"
+    quorums:
+      index:
+        title: "Elenco quorum disponibili"
   pl:
     comments:
       zero: nessun commento
@@ -222,7 +342,6 @@ it:
     models:
       meeting: "Incontro"      
       places: "Luogo"
-  
     attributes:
       blog_comment:
          body: "Commento"
@@ -248,11 +367,17 @@ it:
         name: "Nome"
         title_bar: "Barra del titolo"
         description: "Descrizione"
-        accept_requests: "Richieste di partecipazione"
         porta_id: "Portavoce"
         interest_border_tkn: "Confine geografico di interesse"
         interest_border_id: "Confine geografico di interesse"
         image_url: "Indirizzo immagine"
+        default_role_name: "Come verranno chiamati gli utenti appena iscritti?"
+        default_role_name_placeholder: "Esempio: Iscritti, Membri, Attivisti, Pirati"
+        name_placeholder: "Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova."
+        title_bar_placeholder: "Il titolo che apparirà in testa alla pagina del gruppo."
+        description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
+        image_url_placeholder: "URL dell'immagine del gruppo"
+        facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"
@@ -262,13 +387,19 @@ it:
       place:
          address: "Indirizzo"
       proposal:
+        group_area_id: "Area di lavoro"
         proposal_category_id: "Categoria"
         title: "Titolo"
         subtitle: "Sottotitolo"
         problems: "Problemi"
         objectives: "Obiettivi"
         content: "Testo"
-        interest_borders_tkn: "Confini geografici di interesse"        
+        interest_borders_tkn: "Confini geografici di interesse"
+        tags_list: "Tags (separati da virgola)"
+        quorum_id: "Quorum"
+        anonima: "Anonimato temporaneo"
+        visible_outside: "Visibile pubblicamente"
+        secret_vote: "Voto segreto"
       proposal_comment:
          content: "Contenuto"
       quorum:
@@ -298,6 +429,9 @@ it:
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
         blog_image_url: "Indirizzo immagine"
+      group_area:
+        name: "Nome"
+        description: "Descrizione"
     errors:
       template:
         header:
@@ -342,3 +476,13 @@ it:
         group:
           portavoce:
             required: "Devi scegliere un portavoce."
+  controllers:
+    group_areas:
+      create:
+        ok_message: "Hai creato l'area di lavoro"
+        ko_message: "Errore nella creazione dell'area di lavoro"
+    area_roles:
+      create:
+        ok_message: "Hei creato il nuovo ruolo"
+        ko_message: "Errore nella creazione del ruolo"
+  unavailable_option: "Opzione non ancora disponibile"

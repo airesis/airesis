@@ -1,6 +1,6 @@
-<%=form_for @event, :html => {:class=>"disableForm"}, :remote => true do |f| %>
+<%=form_for @group ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true do |f| %>
 
-<%= f.hidden_field :organizer_id%>
+<%= f.hidden_field :proposal_id %>
 <div>
 	<table>
 		<tr>
@@ -15,7 +15,9 @@
 				<br/>
 				<%= f.text_area :description, :rows => 4, :cols => 30 %>
 			</p>
-			<p>
+
+            <%if @change_type  %>
+            <p>
 				<div style="float:left;width:50%;">
 				<%= f.label :event_type_id%>
 				<br/>
@@ -29,6 +31,10 @@
 				</div>
 				<div style="clear: both;" />
 			</p>
+            <%else%>
+              <%= f.hidden_field :event_type_id %>
+              <%= f.hidden_field :private %>
+            <%end%>
 			
 			<p>
 				<%= f.label :starttime %>

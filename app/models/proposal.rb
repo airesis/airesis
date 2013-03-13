@@ -32,7 +32,10 @@ class Proposal < ActiveRecord::Base
   
   has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
   has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
-  
+
+  has_many :area_proposals, :class_name => 'AreaProposal', :dependent => :destroy
+  has_many :presentation_areas, :through => :area_proposals, :class_name => 'GroupArea', :source => :group_area
+
   has_many :available_authors, :class_name => 'AvailableAuthor', :dependent => :destroy
   has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
   
@@ -49,10 +52,9 @@ class Proposal < ActiveRecord::Base
   
   validates_presence_of :objectives,:problems, :quorum_id
   
-  attr_accessor :update_user_id, :objectives_dirty, :problems_dirty, :content_dirty
+  attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
   
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
-                  :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :objectives_dirty, :problems_dirty, :content_dirty
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
   
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, { :conditions => {:proposal_state_id => [PROP_VALUT,PROP_WAIT_DATE,PROP_WAIT,PROP_VOTING] }}
@@ -84,6 +86,12 @@ class Proposal < ActiveRecord::Base
   before_update :update_sections
   before_save :save_tags
   after_update :save_proposal_history
+  after_destroy :remove_scheduled_tasks
+
+
+  def remove_scheduled_tasks
+    Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
+  end
  
   def in_valutation?
     self.proposal_state_id == ProposalState::VALUTATION

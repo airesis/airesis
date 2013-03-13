@@ -1,6 +1,7 @@
-$('#proposalsListContainer<%=params[:state]%>').append("<%= escape_javascript(render :partial => 'proposals/list', :locals => {:proposals => @proposals})%>");
+$('#proposalsListContainer<%=params[:state] || params[:view]%>').append("<%= escape_javascript(render :partial => 'proposals/list', :locals => {:proposals => @proposals})%>");
 <%if @proposals.total_pages > @proposals.current_page%>
-  $('#loading_proposals<%=params[:state]%>').show();
+  $('#loading_proposals<%=params[:state] || params[:view]%>').show();
 <%else%>
-  $('#loading_proposals<%=params[:state]%>').hide();
+  $('#loading_proposals<%=params[:state] || params[:view]%>').hide();
 <%end%>
+$('#loading_proposals<%=params[:state] || params[:view]%>').next().hide();

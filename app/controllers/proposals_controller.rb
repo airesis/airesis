@@ -7,6 +7,7 @@ class ProposalsController < ApplicationController
   
   #carica il gruppo
   before_filter :load_group
+  before_filter :load_group_area
   
   layout :choose_layout
   #carica la proposta
@@ -25,10 +26,10 @@ class ProposalsController < ApplicationController
   before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
 
   #la proposta deve essere in stato 'VOTATA'
-  before_filter :voted_state_required, :only => [:add_authors]
+  before_filter :voted_state_required, :only => [:vote_results]
 
   #l'utente deve poter visualizzare la proposta
-  before_filter :can_view, :only => [:add_authors]
+  before_filter :can_view, :only => [:vote_results]
 
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup,:rankdown]
@@ -40,6 +41,10 @@ class ProposalsController < ApplicationController
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
     end
+    if params[:group_area_id]
+      @group_area = GroupArea.find(params[:group_area_id])
+      #@count_base = @category.proposals
+    end
     @count_base = Proposal.in_category(params[:category])
 
     if params[:group_id]
@@ -49,7 +54,12 @@ class ProposalsController < ApplicationController
     
       unless can? :view_proposal, @group
         flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
-      end 
+      end
+
+      if params[:group_area_id]
+        @count_base = @count_base.in_group_area(@group_area.id)
+      end
+
    else
       @count_base = @count_base.public
     end
@@ -124,9 +134,9 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       #format.js
       format.html {
-        if @proposal.proposal_state_id == PROP_WAIT_DATE
+        if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
           flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-        elsif @proposal.proposal_state_id == PROP_VOTING
+        elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
           flash.now[:notice] = "Questa proposta è in fase di votazione."
         end
       } # show.html.erb
@@ -137,7 +147,7 @@ class ProposalsController < ApplicationController
  #   flash[:notice] = t(:error_proposal_loading)
  #   redirect_to proposals_path
   end
-  
+
   def new
     @step = get_next_step(current_user)
     @proposal = Proposal.new
@@ -150,11 +160,20 @@ class ProposalsController < ApplicationController
       @proposal.anonima = @group.default_anonima  
       @proposal.visible_outside = @group.default_visible_outside
       @change_advanced_options = @group.change_advanced_options
+
+      if (params[:group_area_id])
+        @proposal.group_area_id = params[:group_area_id]
+      end
+
     else
       @proposal.quorum_id = Quorum::STANDARD
       @proposal.anonima = DEFAULT_ANONIMA
       @proposal.visible_outside = true
       @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
+    end
+
+    if (params[:category])
+      @proposal.proposal_category_id = params[:category]
     end
     
     respond_to do |format|
@@ -172,6 +191,7 @@ class ProposalsController < ApplicationController
   
   def create
     begin
+      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id]
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
@@ -203,9 +223,14 @@ class ProposalsController < ApplicationController
         if @group
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
+          @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
+          if @group_area
+            @proposal.presentation_areas << @group_area
+          end
         else
           @proposal.anonima = DEFAULT_ANONIMA          
           @proposal.visible_outside = true
+          @proposal.secret_vote = true
         end
         @proposal.quorum_id = copy.id
         
@@ -222,14 +247,16 @@ class ProposalsController < ApplicationController
         
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
-        generate_nickname(current_user,@proposal) 
+        generate_nickname(current_user,@proposal)
+
+
     	
         #fai partire il timer per far scadere la proposta
-        if (quorum.minutes)
+        if quorum.minutes
           Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
-        notify_proposal_has_been_created(@group,@proposal) if @group
+        notify_proposal_has_been_created(@proposal,@group)
       end
       @saved = true
       
@@ -328,8 +355,7 @@ class ProposalsController < ApplicationController
   
   
   def destroy
-    presentations = ProposalPresentation.find_all_by_proposal_id(@proposal.id)
-    presentations.each { |presentation| presentation.destroy }
+    authorize! :destroy, @proposal
     @proposal.destroy
     
     respond_to do |format|
@@ -431,6 +457,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       #invia le notifiche
       users.each do |u|
         notify_user_choosed_as_author(u,@proposal)
+        generate_nickname(u,@proposal)
       end
     end
   
@@ -515,12 +542,18 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
       end
       conditions += ")"
+
+      if params[:group_area_id]
+        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't') "
+      end
+
+
       #startlist = startlist.private
     else
       startlist = startlist.public
     end
     
-    @proposals = startlist.includes([:proposal_supports,:group_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    @proposals = startlist.includes([:proposal_supports,:group_proposals,:area_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
   
   def update_borders(borders)
@@ -595,6 +628,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #carica il gruppo di riferimento della proposta
   def load_group
     @group = Group.find(params[:group_id]) if params[:group_id]
+  end
+
+  #carica l'area di lavoro
+  def load_group_area
+    @group_area = GroupArea.find(params[:group_area_id]) if params[:group_area_id]
   end
 
 

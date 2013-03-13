@@ -1,166 +1,169 @@
 <script type="text/javascript"
-  src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDtW03LI8FjTNde4lliYapacbJrtAXQ6w8&sensor=false">
+        src="http://maps.googleapis.com/maps/api/js?key=<%=MAPS_API_KEY%>&sensor=false">
 </script>
-  
-  
-<h1 class="eventtitle"><%= @event.title%></h1>
-<div class="event_description"> 
-		<%=@event.description%>
-	</div>
 
-<h1>Quando <%='è stato' if @event.is_past?%>?</h1>
+
+<h1 class="eventtitle"><%= @event.title %></h1>
+<div class="event_description">
+  <%= @event.description %>
+</div>
+<br />
+
+<h1>Quando <%= 'è stato' if @event.is_past? %>?</h1>
 <div class="event_when">
-	<div class="event_calendar" style="margin-right:10px;">
-		<div class="day">
-			<%=I18n.localize(@event.starttime, :format => :month)%>
-		</div>
-		<div class="number">
-			<%=@event.starttime.mday%>
-		</div>
-		
-	</div>
-	<h2>
-	<%= I18n.localize(@event.starttime, :format => :long_date)%>
-	</h2>
-		<div style="clear: both"></div>
+  <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
+  <div style="float:left;margin-top: 10px;">
+    <b>
+      Da <%=l @event.starttime, :format => :long_date_time %>
+    </b>
+
+    <div style="margin-top:5px;"></div>
+    <b>
+      Fino a <%= I18n.localize(@event.endtime, :format => :long_date_time) %>
+    </b>
+  </div>
+
+  <div style="clear: both"></div>
 </div>
 <hr/>
 
-<%if @event.event_type_id != EventType::ELEZIONI%>
-	<%if @event.place%>
-	<h1>Dove <%='è stato' if @event.is_past?%>?</h1>
-	<div class="event_where">
-		<div style="float:left; margin-right:10px;">
-			<a href="#" onclick="return openModal();" title="Visualizza su mappa">
-				<%=image_tag('maps.png', :alt => "Mappa", :size=>"64x64")%>
-			</a>
-		</div>
-		
-		<div style="float:left">
-			<h2>
-			    <%=@event.place.comune.description if @event.place.comune%>
-			    <br/> <%=@event.place.address%></h2>
-		</div>
-	    
-		<div style="clear: both"></div>
-	</div>
-	
-	<div id="map_modal" title="Luogo dell'evento" style="width:400px;height:400px;display:none" >
-		<div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>	
-	</div>
-	<hr />
-	<%end%>
-		
-	<%if @event.place%>
-		<script type="text/javascript">
-			var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
-	
-			function openModal() {
-				$( "#map_modal" ).dialog({ height: 400,
-					 					   width: 400, 
-					 					   open: function() {
-												google.maps.event.trigger(map, 'resize');
-												map.setCenter(latlng);					 					   	
-					 					   } });						
-				return false;
-			}
+<% if @event.event_type_id != EventType::ELEZIONI %>
+    <% if @event.place %>
+        <h1>Dove <%= 'è stato' if @event.is_past? %>?</h1>
+        <div class="event_where">
+          <div style="float:left; margin-right:10px;">
+            <a href="#" onclick="return openModal();" title="Visualizza su mappa">
+              <%= image_tag('maps.png', :alt => "Mappa", :size => "64x64") %>
+            </a>
+          </div>
 
-			if (!geocoder) {
-				geocoder = new google.maps.Geocoder();
-			}
-			
-			var center = latlng;
-			var zoom = <%=@event.place.zoom%>;		
-			
-			
-			//noinspection JSUnresolvedVariable
+          <div style="float:left">
+            <h2>
+              <%= @event.place.comune.description if @event.place.comune %>
+              <br/> <%= @event.place.address %></h2>
+          </div>
+
+          <div style="clear: both"></div>
+        </div>
+
+        <div id="map_modal" title="Luogo dell'evento" style="width:400px;height:400px;display:none">
+          <div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>
+        </div>
+        <hr/>
+
+        <script type="text/javascript">
+            var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
+
+            function openModal() {
+                $("#map_modal").dialog({ height: 400,
+                    width: 400,
+                    open: function () {
+                        google.maps.event.trigger(map, 'resize');
+                        map.setCenter(latlng);
+                    } });
+                return false;
+            }
+
+            if (!geocoder) {
+                geocoder = new google.maps.Geocoder();
+            }
+
+            var center = latlng;
+            var zoom = <%=@event.place.zoom%>;
+
+
+            //noinspection JSUnresolvedVariable
             var myOptions = {
-				zoom : zoom,
-				center: latlng,
-				mapTypeId : google.maps.MapTypeId.ROADMAP,
-				panControl : false,
-				streetViewControl : false,
-				mapTypeControl : true,
-				draggable: true
-			};
-		
-			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);	
-			
-			marker = new google.maps.Marker({
-				map : map,
-				position: latlng,
-				draggable : false
-			});
-		</script>
-	<%end%>
-	<%if @event.meeting%>
-		<%if @event.is_past?%>
-			<h1>Chi ha partecipato?</h1>
-		<%else%>
-			<h1>Chi parteciperà?</h1>
-		<%end%>		
-		<div id="partecipants_container">
-			<%= render :partial => 'partecipants' %>
-		</div>
-	<%end%>	
-	
-<!--	<div class="user_tag last_tag shadow-box">
-		
-		<div class="content">
-			Mostra altri...
-		</div>
-</div> -->
-	<% content_for :left_panel do %>
+                zoom: zoom,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                panControl: false,
+                streetViewControl: false,
+                mapTypeControl: true,
+                draggable: true
+            };
+
+            map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+            marker = new google.maps.Marker({
+                map: map,
+                position: latlng,
+                draggable: false
+            });
+        </script>
+    <% end %>
+
+
+    <% if @event.meeting %>
+        <% if @event.is_past? %>
+            <h1>Chi ha partecipato?</h1>
+        <% else %>
+            <h1>Chi parteciperà?</h1>
+        <% end %>
+        <div id="partecipants_container">
+          <%= render :partial => 'partecipants' %>
+        </div>
+    <% end %>
+
+    <!--	<div class="user_tag last_tag shadow-box">
+
+            <div class="content">
+                Mostra altri...
+            </div>
+    </div> -->
+    <% content_for :left_panel do %>
 
         <div style="height:20px;">
           <g:plusone size="small"></g:plusone>
         </div>
         <div style="height:20px;width:100px;">
-          <%=raw facebook_like %>
+          <%= raw facebook_like %>
         </div>
         <div style="height:20px;width:100px;margin-top: 5px;margin-bottom: 5px;">
           <a href="https://twitter.com/share"
              class="twitter-share-button"
              data-lang="en"
-             data-text="C'è un evento su <%=APP_SHORT_NAME%>: <%= event_url(@event) %>">Tweet</a>
+             data-text="C'è un evento su <%= APP_SHORT_NAME %>: <%= event_url(@event) %>">Tweet</a>
         </div>
 
 
-			<!--<%@event.organizers.each do |group|%>
+        <!--
+        <% @event.organizers.each do |group| %>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>
 			    </div>
-			<%end%>-->
-			<%if @event.meeting%>
-			<div id="partecipation_panel_container">
-			<%= render :partial => 'partecipation_panel' %>
-			</div>
-			<%end%>
-	<%end%>
-	
-<%end%>
 
-<%if @event.event_type_id == EventType::VOTAZIONE%>
-<p>
-	Si potrà esprimere il proprio voto su questo stesso sito nella <%=link_to 'pagina dedicata', votation_path%>
+        <% end %>-->
+        <% if @event.meeting %>
+            <div id="partecipation_panel_container">
+              <%= render :partial => 'partecipation_panel' %>
+            </div>
+        <% end %>
+    <% end %>
 
-    <%if @event.proposals.count > 0 %>
+<% end %>
+
+<% if @event.event_type_id == EventType::VOTAZIONE %>
+    <p>
+      Si potrà esprimere il proprio voto su questo stesso sito nella <%= link_to 'pagina dedicata', votation_path %>
+
+      <% if @event.proposals.count > 0 %>
         <h3>In queste giornate si voteranno le seguenti proposte</h3>
-        <br />
-        <%@event.proposals.each do |proposal|%>
-            <%if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first))%>
-            <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal } %>
-            <%end%>
-        <%end%>
-    <%else%>
+        <br/>
+        <% @event.proposals.each do |proposal| %>
+            <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
+                <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal} %>
+            <% end %>
+        <% end %>
+    <% else %>
         <h3>Ancora nessuna proposta in votazione durante queste giornate</h3>
-    <%end%>
-	
-</p>
+    <% end %>
+
+    </p>
 
 
-<%elsif @event.event_type_id == EventType::ELEZIONI%>
-<p>
-	<%=link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election)%>
-</p>
-<%end%>
+<% elsif @event.event_type_id == EventType::ELEZIONI %>
+    <p>
+      <%= link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election) %>
+    </p>
+<% end %>

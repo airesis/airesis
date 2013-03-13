@@ -15,17 +15,21 @@ class VotationsController < ApplicationController
   def vote
     Proposal.transaction do
       @proposal = Proposal.find_by_id(params[:proposal_id])
-      proposal = @proposal
-      proposal.user_votes.build(:user_id => current_user.id)
+
+      authorize! :vote, @proposal
+
+      vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
+      vote.vote_type_id = params[:vote_type].to_i unless @proposal.secret_vote
+      vote.save!
+
       if params[:vote_type] == POSITIVE_VOTE.to_s
-        proposal.vote.positive += 1
+        @proposal.vote.positive += 1
       elsif params[:vote_type] == NEUTRAL_VOTE.to_s
-        proposal.vote.neutral += 1
+        @proposal.vote.neutral += 1
       elsif params[:vote_type] == NEGATIVE_VOTE.to_s
-       proposal.vote.negative += 1
+        @proposal.vote.negative += 1
       end
-      proposal.vote.save!
-      proposal.save!
+      @proposal.vote.save!
 
       load_proposals
       respond_to do |format|
@@ -66,7 +70,7 @@ class VotationsController < ApplicationController
     @proposals_tmp = Proposal.all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
     @proposals = []
     @proposals_tmp.each do |proposal|
-        @proposals << proposal if can? :partecipate, proposal
+        @proposals << proposal if can? :vote, proposal
     end
   end
 end  

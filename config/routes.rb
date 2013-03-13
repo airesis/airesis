@@ -34,6 +34,12 @@ DemocracyOnline3::Application.routes.draw do
       get :privacy_preferences
       post :change_show_tooltips
       post :change_show_urls
+      post :change_receive_messages
+    end
+
+    member do
+      get :show_message
+      post :send_message
     end
   end                                      
   
@@ -81,8 +87,8 @@ DemocracyOnline3::Application.routes.draw do
   end
 
   resources :proposalcategories
-  
-  resources :blogs do 
+
+  resources :blogs do
     resources :blog_posts do
       #match :tag, :on => :member
       match :drafts, :on => :collection 
@@ -142,6 +148,9 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_anonima
       post :change_default_visible_outside
       post :change_advanced_options
+      post :change_default_secret_vote
+      get :reload_storage_size
+      put :enable_areas
     end
 
     collection do
@@ -170,11 +179,34 @@ DemocracyOnline3::Application.routes.draw do
         post :change_status
       end
     end
-    #resources :group_quorums do
-    #end
-       
+
+    resources :documents
+
+    resources :group_areas do
+      collection do
+        put :change
+        get :manage
+      end
+
+      resources :area_roles do
+        collection do
+          put :change
+          put :change_permissions
+        end
+      end
+    end
+
   end
-  
+
+  resources :documents do
+    collection do
+      get :view
+      get :download
+    end
+    member do
+    end
+  end
+
   resources :quorums do
     collection do
       get :help
@@ -196,7 +228,10 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_role
     end
   end
- 
+
+
+  match 'elfinder' => 'elfinder#elfinder'
+
   match '/tags/:text', :to => 'tags#show', :as => 'tag'
 
   match '/votation/', :to => 'votations#show'

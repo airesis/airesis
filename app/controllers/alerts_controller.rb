@@ -17,7 +17,7 @@ class AlertsController < ApplicationController
     end
   end
   
-  #restituisce le nuove notifiche per l'utente
+  #imposta tutte fle notifiche come lette
   def read_alerts
     @new_user_alerts = current_user.user_alerts.update_all("checked = true", "checked = false")
   end

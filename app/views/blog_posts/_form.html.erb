@@ -58,7 +58,7 @@
 				<%= f.text_area :body%>
 			</p>
 			<p>
-				<%= f.label :tags_list, 'Tags (seperati da virgola)' %><br />
+				<%= f.label :tags_list, 'Tags (separati da virgola)' %><br />
 				<%= f.text_field :tags_list %>
 			</p>
 			<p>
@@ -71,10 +71,15 @@
 				<%= f.label :groups, 'Il post verrà pubblicato nelle pagine di questi gruppi:' %>
 				<br/>
 				<% @groups.each do |group|%>
-				  
-				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) %>
-				 <%= f.label group.name%><br />
-				 				 
+				 <div>
+
+				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]), style: 'float:left;'%>
+                  <div class="blogUserImage" title="<%=group.name%>">
+                    <%= group.group_image_tag 20 %>
+                  </div>
+                  <%= f.label group.name, style: 'float:left;'%>
+                   <div style="clear: both;"></div>
+                 </div>
 				<%end%> 
 			</p>
 			<p>

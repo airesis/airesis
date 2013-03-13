@@ -1,10 +1,8 @@
 <%@page_title = t("pages.groups.new.title")%>
 
-<h1>Nuovo gruppo</h1>
+<h1><%= t('pages.groups.new.new_group') %></h1>
 
-<%= render :partial => @group, :locals => { :button_name => "Crea" } %>
-
-<%= link_to 'Indietro', groups_path, :class=>"buttonStyle" %>
+<%= render :partial => @group, :locals => { :button_name => t('pages.groups.new.create_button')} %>
 
 <%=content_for :left_panel do%>	
 	<%= render :partial => 'users/user_groups_panel' %>

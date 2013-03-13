@@ -18,3 +18,4 @@ tmp
 test/fixtures
 script/igraph-0.5.4
 public/assets
+private

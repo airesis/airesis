@@ -1,0 +1,13 @@
+$('#new_invitation_container').html("<%= escape_javascript(render(:partial => 'group_invitations/form'))%>");
+
+$('#new_invitation').dialog({
+    width: 500,
+    height: 'auto',
+    modal : true,
+    resizable: false,
+    close : function(event, ui) {
+        $('#new_invitation').dialog('destroy');
+    }
+});
+
+disegnaBottoni();

@@ -24,5 +24,8 @@ class GroupAction < ActiveRecord::Base
   PROPOSAL_INSERT = 8
   
   
-  has_many :action_abilitations, :class_name => 'ActionAbilitation'  
+  has_many :action_abilitations, :class_name => 'ActionAbilitation'
+
+
+  scope :for_group_areas, :conditions => {id: DEFAULT_AREA_ACTIONS}
 end

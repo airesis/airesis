@@ -7,7 +7,7 @@
 	<h3 class="blogPostTitle">
 		<%= link_to(h(blog_post.title), [blog_post.blog,blog_post]) %>
 		<% if !blog_post.published? %>	
-			[Bozza]
+			[<%= t('pages.blog_posts.drafts') %>]
 		<% end %>
 	</h3>
 
@@ -35,8 +35,8 @@
 	<%if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
 	<p class="blogFooter">
 		<ul class="blogList">
-			<li><%= link_to('Modifica', edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
-			<li><%= link_to('Cancella', blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
+			<li><%= link_to(t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
+			<li><%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
 		</ul>
 	</p>
 	<%end%>

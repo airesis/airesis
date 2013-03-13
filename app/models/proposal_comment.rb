@@ -15,6 +15,8 @@ class ProposalComment < ActiveRecord::Base
   after_initialize :set_collapsed
   
   validate :check_last_comment
+
+  scope :contributes, {:conditions => ['parent_proposal_comment_id is null']}
   
   def set_collapsed     
      @collapsed = false     

@@ -43,12 +43,14 @@
 
 <div style="float: right;  height:30px;">
 
-  <a href="https://twitter.com/share"
-     class="twitter-share-button"
-     data-lang="en"
-     data-text="Guarda questa proposta su <%=APP_SHORT_NAME%>: <%= @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) %>">Tweet</a>
-  <g:plusone size="medium"></g:plusone> 
-  <%=raw facebook_like %>
+  <% if ::Configuration.socialnetwork_active %>
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>: <%= @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>">Tweet</a>
+      <g:plusone size="medium"></g:plusone>
+      <%= raw facebook_like %>
+  <% end %>
 
 
 </div>
@@ -66,31 +68,20 @@
 		<%else%>
 			<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
 		<%end%>
+        <% if @group %>
+            <%= link_to 'Cancella', [@group, proposal], method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+        <% else %>
+            <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+        <% end %>
 	<%elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox%>
+		<div id="wait_date_header_container">
+            <%= render :partial => 'proposals/wait_date_header' %>
+        </div>
 
-		    <%collection = Event.public.vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
-            <%if @group %>
-                <%collection += Event.in_group(@group.id).vote_period.all.collect {|p| [ p.starttime.strftime("%d/%m/%Y %H:%M") + ' - ' + p.endtime.strftime("%d/%m/%Y %H:%M"), p.id ] }%>
-            <%end%>
-          <%if collection.size > 0%>
-              <%= form_for proposal, :url => {:controller => "proposals", :action => "set_votation_date", :group_id => params[:group_id]} do |f| %>
-                <p>
-                  <b>Scegli un periodo per la votazione</b>
-                    <%= select("proposal", "vote_period_id", collection) %>
-                    <%= f.submit 'Ho scelto!', :confirm => 'Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!', :class => 'buttonStyle' %>
-                </p>
-              <%end%>
-          <%else%>
-              <%if @group %>
-                <%if can? :create_event, @group%>
-                  <p><b>Non vi sono date disponibili per la votazione, si prega di creare un evento di tipo 'votazione' dal <%= link_to 'calendario', group_events_path(@group) %>, quindi ritornare alla proposta e porla in votazione</b></p>
-                <%else%>
-                  <p><b>Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo</b></p>
-                <%end%>
-              <%else%>
-                  <p><b>Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare <a href="mailto:info@airesis.it">info@airesis.it</a> in caso di necessità</b></p>
-              <%end%>
-          <%end%>
+        <div id="create_event_dialog" style="display:none;">
+          <div id="create_event">
+          </div>
+        </div>
 	<%end%>
 <%end%>
 </div>

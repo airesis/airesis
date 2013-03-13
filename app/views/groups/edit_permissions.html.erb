@@ -1,27 +1,21 @@
      
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_permissions.title')} do%>
-	<a href="#" class="newButton disableButton" id="addRole">Aggiungi un nuovo ruolo</a>
+
 <%end%>
 
 <div id="roles_panel_container">
 <%= render :partial => 'groups/roles_panel' %>
 </div>
+<br/>
+<a href="#" class="newButton disableButton" id="addRole">Aggiungi un nuovo ruolo</a>
 
+<div id="edit_role" title="Modifica ruolo" style="display: none;">
+
+</div>
 <div id="new_role" title="Nuovo ruolo" style="display: none">
 	<%
-	role = PartecipationRole.new(:group_id => @group.id)%>
-	<%=form_for role, :remote => true do |f|%>
-		<%=f.hidden_field :group_id%>	
-		<p>
-		<%=f.label :name%>	<br />
-		<%=f.text_field :name%>
-		</p>
-		<p>
-		<%=f.label :description%>	<br />
-		<%=f.text_field :description%>
-		</p>
-		<%=f.submit 'Crea', :class => 'buttonStyle'%>
-	<%end%>
+	@partecipation_role = PartecipationRole.new(:group_id => @group.id)%>
+    <%= render(:partial => 'partecipation_roles/form', :locals => {:button_name => "Crea"})%>
 </div>
 
 <hr />
@@ -41,6 +35,7 @@
 					$('#new_role').dialog('destroy');			
 				}
 			});
+            return false;
 		});
 		
 		

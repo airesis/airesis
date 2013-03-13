@@ -1,62 +1,66 @@
-<%=content_for :head do%>
-    <meta property="og:title" content="<%=@proposal.title%>"/>
+<%= content_for :head do %>
+    <meta property="og:title" content="<%= @proposal.title %>"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:image" content="<%="#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}"%>"/>
+    <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
     <meta property="og:site_name" content="Airesis - Scegli di partecipare"/>
-    <meta property="og:description" content="<%=@proposal.subtitle%>"/>
-    <meta property="fb:app_id" content="<%=FACEBOOK_APP_ID%>"/>
-    <meta property="article:published_time"  content="<%=@proposal.created_at.strftime("%Y/%m/%d")%>">
-    <meta property="article:author"          content="<%=@proposal.users.first.fullname%>">
-    <meta property="article:section"         content="<%=@proposal.category.description%>">
-    <meta name="description" content="<%=@proposal.subtitle%>">
-<%end%>
+    <meta property="og:description" content="<%= @proposal.subtitle %>"/>
+    <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
+    <meta property="article:published_time" content="<%= @proposal.created_at.strftime("%Y/%m/%d") %>">
+    <meta property="article:author" content="<%= @proposal.users.first.fullname %>">
+    <meta property="article:section" content="<%= @proposal.category.description %>">
+    <meta name="description" content="<%= @proposal.subtitle %>">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
 
-<%@page_title = @proposal.title%>
+<% end %>
+
+<% @page_title = @proposal.title %>
 <script type="text/javascript">
-$(function() {
-	//$('#svgintro').svg({onLoad: drawIntro});
-})	
-/*	
-function drawIntro(svg) { 
-    svg.polygon([[10,10],[400,10],[200,200]],  
-    {fill: 'none', stroke: 'blue', strokeWidth: 2}); 
-    
+    $(function () {
+        //$('#svgintro').svg({onLoad: drawIntro});
+    })
+    /*
+     function drawIntro(svg) {
+     svg.polygon([[10,10],[400,10],[200,200]],
+     {fill: 'none', stroke: 'blue', strokeWidth: 2});
+
     <%@proposal.comments.each do |c| %>$
-    	/*svg.circle(200,100,2)*/
+     /*svg.circle(200,100,2)*/
     <%end%>
-    
-    
-/*}*/
-	
+
+
+    /*}*/
+
 </script>
 <!-- 
 <div id="svgintro" style="height:600px;width:600px;">
 </div>
 -->
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
+<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step %>
 
-<%= render :partial => 'proposals/show_proposal', :locals => { :proposal => @proposal } %>
+<%= render :partial => 'proposals/show_proposal', :locals => {:proposal => @proposal} %>
 
-<%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-<%= render :partial => @proposal_comment = ProposalComment.new, :locals => { :button_name => 'Invia risposta' } %> <div id="flash_messages_comments" style="height:20px"></div>
-<%else%>
+<% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+    <%= render :partial => @proposal_comment = ProposalComment.new, :locals => {:button_name => 'Invia risposta'} %>
+    <div id="flash_messages_comments" style="height:20px"></div>
+<% else %>
     <div style="height:20px"></div>
-<%end%>
+<% end %>
 
 <div id="order_bar">
-<%= render :partial => 'proposal_comments/order_bar' %>
+  <%= render :partial => 'proposal_comments/order_bar' %>
 </div>
 
 <div id="loading_contributes" style="margin:auto;text-align:center;">
-	<%= image_tag 'ajax-loader.gif'%><br />
-	<b>Caricamento contributi...</b>
+  <%= image_tag 'ajax-loader.gif' %>
+  <br/>
+  <b>Caricamento contributi...</b>
 </div>
 <div id="proposalCommentsContainer">
 
 </div>
 
 <div id="loading_results" style="display:none;">
-	<span>Commenti precedenti...</span>
+  <span>Commenti precedenti...</span>
 </div>
 
 
@@ -68,12 +72,12 @@ function drawIntro(svg) {
     var contributes = [];
     var checkActive = false;
 
-    function hiding(event,id) {
+    function hiding(event, id) {
         if (!retval) {
-            clicked = $('#delete'+id);
+            clicked = $('#delete' + id);
             console.log(clicked);
             if (confirm('Sei sicuro di voler cancellare questo contributo?')) {
-                $('#comment'+id).hide(600,function() {
+                $('#comment' + id).hide(600, function () {
                     retval = true;
                     clicked.click();
                 });
@@ -91,12 +95,12 @@ function drawIntro(svg) {
     }
 
 
-    function hideAndDeleteReply(event,id) {
+    function hideAndDeleteReply(event, id) {
         if (!retval) {
-            clicked = $('#delete'+id);
+            clicked = $('#delete' + id);
             console.log(clicked);
             if (confirm('Sei sicuro di voler cancellare questo suggerimento?')) {
-                $('#replys'+id).hide(600,function() {
+                $('#replys' + id).hide(600, function () {
                     retval = true;
                     clicked.click();
                 });
@@ -115,171 +119,177 @@ function drawIntro(svg) {
 
     function hide_vote_controls() {
         //nascondi i pulsanti di valutazione quando vengono cliccati
-        $('.voteup-mini').bind('ajax:beforeSend',function(n,xhr) {
+        $('.voteup-mini').bind('ajax:beforeSend', function (n, xhr) {
             id = $(this).attr('id');
-            num = id.replace('voteup-mini','');
-            hideRankPanel('rankingpanelcontainer'+num);
+            num = id.replace('voteup-mini', '');
+            hideRankPanel('rankingpanelcontainer' + num);
         });
 
-        $('.votenil-mini').bind('ajax:beforeSend',function(n,xhr) {
+        $('.votenil-mini').bind('ajax:beforeSend', function (n, xhr) {
             id = $(this).attr('id');
-            num = id.replace('votenil-mini','');
-            hideRankPanel('rankingpanelcontainer'+num);
+            num = id.replace('votenil-mini', '');
+            hideRankPanel('rankingpanelcontainer' + num);
         });
 
-        $('.votedown-mini').bind('ajax:beforeSend',function(n,xhr) {
+        $('.votedown-mini').bind('ajax:beforeSend', function (n, xhr) {
             id = $(this).attr('id');
-            num = id.replace('votedown-mini','');
-            hideRankPanel('rankingpanelcontainer'+num);
+            num = id.replace('votedown-mini', '');
+            hideRankPanel('rankingpanelcontainer' + num);
         });
 
-    };
+    }
+    ;
 
-   
 
-    function resetCounter () {
+    function resetCounter() {
         currentPage = 0;
     }
 
     function checkScroll() {
-      if (nearBottomOfPage() && checkActive) {
-        checkActive = false;
-        currentPage++;
-        $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
-                 data: {page: currentPage,
-                        view: currentView,
-                        contributes: contributes
-                 },
-                 type:'post'});
-      } else {
-        setTimeout("checkScroll()", 250);
-      }
+        if (nearBottomOfPage() && checkActive) {
+            checkActive = false;
+            currentPage++;
+            $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
+                data: {page: currentPage,
+                    view: currentView,
+                    contributes: contributes
+                },
+                type: 'post'});
+        } else {
+            setTimeout("checkScroll()", 250);
+        }
     }
 
     function nearBottomOfPage() {
-      return scrollDistanceFromBottom() < 150;
+        return scrollDistanceFromBottom() < 150;
     }
 
     function scrollDistanceFromBottom(argument) {
-      return pageHeight() - (window.pageYOffset + self.innerHeight);
+        return pageHeight() - (window.pageYOffset + self.innerHeight);
     }
 
     function pageHeight() {
-      return Math.max(document.body.scrollHeight, document.body.offsetHeight);
+        return Math.max(document.body.scrollHeight, document.body.offsetHeight);
     }
 
-    $(function() {
-      currentPage++;
-      $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
-               data: {page: currentPage,
-                      view: currentView,
-                      contributes: contributes
-               },
-               type:'post',
-               complete: function() {
-                            $("#loading_contributes").hide();
-                         }
-      });
+    $(function () {
+        currentPage++;
+        $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
+            data: {page: currentPage,
+                view: currentView,
+                contributes: contributes
+            },
+            type: 'post',
+            complete: function () {
+                $("#loading_contributes").hide();
+            }
+        });
 
-	  <%if can? :show_tooltips, current_user %>
-		    $('#random_stack_l').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
-		    $('#random_stack_2').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente");
-		    $('#random_stack_3').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
-		    $('#miglioricontributi').ctooltip({
-		        content : "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!",
-		        position : "bottom"
-		    });
-		    $('#voglioredigere').ctooltip("Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti.");
-		    $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)");
-		    $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)");
-		    $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
-		    $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
-		    $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if @proposal.quorum.minutes%>fino al <b><%= @proposal.quorum.ends_at.strftime("%d/%m/%Y") %></b> <%= (@proposal.quorum.ends_at).strftime(" alle %H:%M") %> <b><%= @proposal.quorum.or? ? 'oppure' : 'e'%></b><%end%> finché non sarà valutata da <b>almeno <%=@proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (@proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
-		    $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%=raw "(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
-	  <%end%>
+        <%if can? :show_tooltips, current_user %>
+        $('#random_stack_l').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
+        $('#random_stack_2').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente");
+        $('#random_stack_3').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
+        $('#miglioricontributi').ctooltip({
+            content: "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!",
+            position: "bottom"
+        });
+        $('#voglioredigere').ctooltip("Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti.");
+        $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)");
+        $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)");
+        $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
+        $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
+        $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if @proposal.quorum.minutes%>fino al <b><%= @proposal.quorum.ends_at.strftime("%d/%m/%Y") %></b> <%= (@proposal.quorum.ends_at).strftime(" alle %H:%M") %> <b><%= @proposal.quorum.or? ? 'oppure' : 'e'%></b><%end%> finché non sarà valutata da <b>almeno <%=@proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (@proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
+        $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%=raw "(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
+        <%end%>
     });
 </script>
 
 
-<%content_for :left_panel do%>
+<% content_for :left_panel do %>
     <div id="rankleftpanel" class="rankleftpanel">
-	<%= render :partial => 'proposals/rank_left_panel' %>	
-</div>
+      <%= render :partial => 'proposals/rank_left_panel' %>
+    </div>
 
 
 
 
 
-<%if @proposal.is_anonima?%>
-  Anonimato temporaneo attivo<br/>
-<%end%>
-<%if signed_in? && @my_nickname && @proposal.is_anonima?%>
-	<h4 style="display:inline">Il tuo nickname è </h4><span id="nickname_panel"><%=image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer'%></span>
-	<div class="blogUserImage">
-		<%=user_tag(current_user,@proposal)%>
-	</div>
-	<div style="clear: both;"></div>
-	
-<%end%>
+    <% if @proposal.is_anonima? %>
+        Anonimato temporaneo attivo<br/>
+    <% end %>
+    <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
+        <h4 style="display:inline">Il tuo nickname è </h4>
+        <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
+        <div class="blogUserImage">
+          <%= user_tag(current_user, @proposal) %>
+        </div>
+        <div style="clear: both;"></div>
 
-<h4>Redigono la sintesi</h4>
-<div id="authors_list">
- <%= render :partial => 'proposals/authors_list_panel'%>
-</div>   
-<%if signed_in? && @proposal.in_valutation?%>
-	<div id="available_author">    
-		<%= render :partial => 'proposals/available_author'%>
-	</div>
-    <%if @proposal.users.include?(current_user)%>
-        <%if @proposal.available_authors.count > 0 %>
-            <%=link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class=> 'personButton littleText disableButton'%>
+    <% end %>
 
-            <div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
-            </div>
-        <%end%>
-    <%end%>
-<%end%>
-        
-<br />
-    
-<div id="support_left_panel_container">   
-<%= render :partial => 'proposals/support_left_panel' %>
-</div>	
+    <h4>Redigono la sintesi</h4>
+    <div id="authors_list">
+      <%= render :partial => 'proposals/authors_list_panel' %>
+    </div>
+    <% if signed_in? && @proposal.in_valutation? %>
+        <div id="available_author">
+          <%= render :partial => 'proposals/available_author' %>
+        </div>
+        <% if @proposal.users.include?(current_user) %>
+            <% if @proposal.available_authors.count > 0 %>
+                <%= link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
 
-    
-<h4>Documenti collegati</h4>
-Nessun documento allegato alla proposta
+                <div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
 
-<%unless @proposal.interest_borders.empty?%>
-	<h4>Confini geografici di interesse</h4>		
-	<%@proposal.interest_borders.each do |ib|%>
-		<div style="margin:5px;" class="ui-state-highlight"><%=ib.description%></div>
-	<%end%>
-<%end%>
+    <br/>
 
-<%unless @proposal.tags.empty?%>
-	<h4>Tags</h4>		
-	<%@proposal.tags.each do |tag|%>
-		<div style="margin:5px;"><a  class="ui-state-highlight" href="<%=tag_path tag.text%>"><%=tag.text%></a> x <%=tag.proposals_count%></div>
-	<%end%>
-<%end%>
+    <% if ::Configuration.proposal_support %>
+        <div id="support_left_panel_container">
+          <%= render :partial => 'proposals/support_left_panel' %>
+        </div>
+    <% end %>
 
-<% unless @proposal.closest(@group ? @group.id : nil).empty?%>
-	<h4>Proposte attinenti</h4>
-	<%@proposal.closest.each do |p|%>
-		<%=link_to p.title, p%><br />
-	<%end%>
-<%end%>
 
-<h4>Categoria</h4>
-<table>
-  <tr>
-    <td style="vertical-align: middle;" >
-      <%=link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style=>"width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
-    </td>
-    <td>
-      <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id)%>
-    </td>
-  </tr>
-</table>
-<%end%>
+    <h4>Documenti collegati</h4>
+    Nessun documento allegato alla proposta
+
+    <% unless @proposal.interest_borders.empty? %>
+        <h4>Confini geografici di interesse</h4>
+        <% @proposal.interest_borders.each do |ib| %>
+            <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
+        <% end %>
+    <% end %>
+
+    <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
+        <h4>Tags</h4>
+        <% @proposal.tags.each do |tag| %>
+            <div style="margin:5px;"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+              x <%= tag.proposals_count %></div>
+        <% end %>
+    <% end %>
+
+    <% unless @proposal.closest(@group ? @group.id : nil).empty? %>
+        <h4>Proposte attinenti</h4>
+        <% @proposal.closest.each do |p| %>
+            <%= link_to p.title, p %><br />
+        <% end %>
+    <% end %>
+
+    <% if ::Configuration.proposal_categories %>
+        <h4>Categoria</h4>
+        <table>
+          <tr>
+            <td style="vertical-align: middle;">
+              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+            <td>
+              <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+          </tr>
+        </table>
+    <% end %>
+<% end %>

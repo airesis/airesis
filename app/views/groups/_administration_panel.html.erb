@@ -1,27 +1,80 @@
 <div id="setting_menu">
-	<h4><%=t('pages.groups.administration_panel.title')%></h4>
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-gear"></span>
-		<%= link_to t('pages.groups.administration_panel.info'), edit_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-<!--	<div class="menu_voice">
+  <h4><%= t('pages.groups.administration_panel.title') %></h4>
+
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-gear"></span>
+    <%= link_to t('pages.groups.administration_panel.info'), edit_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+  <!--	<div class="menu_voice">
 		<span class="Mo ui-icon ui-icon-calendar"></span>
 		<%= link_to t('pages.groups.administration_panel.events'), edit_events_group_path(@group), :class => 'Mo' %>
 		<div style="clear:both"></div>
 	</div>
 -->
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-person"></span>
-		<%= link_to t('pages.groups.administration_panel.permissions'), edit_permissions_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-	
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-comment"></span>
-		<%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group), :class => 'Mo' %>
-		<div style="clear:both"></div>
-	</div>
-	
-	<!--<%=link_to "Torna alla pagina del gruppo", @group, :class=>'buttonStyle littleText'%>-->
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-person"></span>
+    <%= link_to t('pages.groups.administration_panel.permissions'), edit_permissions_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-comment"></span>
+    <%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
+  <% if ::Configuration::group_areas %>
+      <div class="menu_voice">
+        <span class="Mo ui-icon ui-icon-clipboard"></span>
+        <%= link_to t('pages.groups.administration_panel.areas'), group_group_areas_path(@group), :class => 'Mo' %>
+        <div style="clear:both"></div>
+      </div>
+  <% end %>
+
 </div>
+
+<% if can? :update, @group %>
+    <div id="img_modal" class="edit_modal">
+      <form action="/groups/<%= @group.id %>" id="upload_form" method="post" enctype="multipart/form-data">
+        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL
+          dell'immagine</h2>
+
+        <div style="padding-left:150px">
+          <input name="group[blog_image_url]"/>
+          <br/>
+        </div>
+        oppure
+        <div style="float:left">
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica
+            un'immagine</h2>
+
+          <div style="padding-left:150px">
+            <input type="file" name="image"/>
+            <br/>
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/><input type="hidden" value="put" name="_method">
+
+            <div style="margin-top:8px">
+              <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.image_container img').mouseout(function () {
+                $('.caption').hide();
+            });
+
+            $('.image_container div a').click(function () {
+                doModal($("#img_modal"));
+            });
+
+        });
+        $('.image_container img, .caption').mouseover(function () {
+            $('.caption').show();
+        });
+    </script>
+<% end %>

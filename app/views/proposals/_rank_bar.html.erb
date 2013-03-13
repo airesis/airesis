@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function() {
-	$("#pb<%=proposal.id%>").progressBar({
+	$(".progressBar[data-id=<%=proposal.id%>]").progressBar({
 		boxImage : '<%=asset_path "progressbar.gif"%>',
 		barImage :
 			<%if proposal.rank < proposal.quorum.bad_score %>
@@ -39,6 +39,6 @@ titles = []%>
 	<%percentage=percentages.min%>
 	<%title = titles.join(" e ")%>
 <%end%>
-<span class="progressBar" id="pb<%=proposal.id%>" >
+<span class="progressBar" id="pb<%=proposal.id%>" data-id="<%=proposal.id%>" >
 	<%=percentage%>
 </span>		

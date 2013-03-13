@@ -1,0 +1,12 @@
+<%= form_for 'message', :url => send_message_user_path(@user), :remote => true, :class=>'disableForm' do |e| %>
+    <p>
+      <%= e.label 'Oggetto' %> <br/>
+      <%= e.text_field 'subject' %>
+    </p>
+    <p>
+      <%= e.label 'Testo' %> <br/>
+      <%= e.text_area 'body', rows: 10 %>
+    </p>
+
+    <%= e.submit 'Invia', :class => 'buttonStyle disableButton' %>
+<% end %>

@@ -44,9 +44,12 @@ class User < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'BlogPost'
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :blocked_emails, :class_name => 'BlockedEmail'
+
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
-  
-  has_many :groups,:through => :group_partecipations, :class_name => 'Group'  
+  has_many :groups,:through => :group_partecipations, :class_name => 'Group'
+
+  has_many :area_partecipations, :class_name => 'AreaPartecipation'
+  has_many :group_areas,:through => :area_partecipations, :class_name => 'GroupArea'
   
   has_many :partecipation_roles,:through => :group_partecipations, :class_name => 'PartecipationRole'  
   has_many :group_follows, :class_name => 'GroupFollow'
@@ -117,7 +120,8 @@ class User < ActiveRecord::Base
     super && !(has_provider('twitter') || has_provider('linkedin'))
   end
 
-  #dopo aver creato un nuovo utente glia ssegno il primo tutorial
+  #dopo aver creato un nuovo utente gli assegno il primo tutorial e
+  #disattivo le notifiche standard
   def assign_tutorials
     tutorial = Tutorial.find_by_name("Welcome Tutorial")
     assign_tutorial(self,tutorial)      
@@ -125,10 +129,16 @@ class User < ActiveRecord::Base
     assign_tutorial(self,tutorial)
     tutorial = Tutorial.find_by_name("Rank Bar")
     assign_tutorial(self,tutorial)
+    self.blocked_alerts.create(:notification_type_id => 20)
+    self.blocked_alerts.create(:notification_type_id => 21)
+    self.blocked_alerts.create(:notification_type_id => 13)
+    self.blocked_alerts.create(:notification_type_id => 3)
   end
 
   def init
-    self.rank  ||= 0 #imposta il rank a zero se non è valorizzato     
+    self.rank  ||= 0 #imposta il rank a zero se non è valorizzato
+    self.receive_messages = true
+    self.email_alerts = true
   end
 
 

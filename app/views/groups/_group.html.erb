@@ -1,72 +1,114 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-	
-  
-<script type="text/javascript">
-	$(function() {
-		input = $('#group_partecipant_tokens')
-		if (input != null) {
-			input.tokenInput("/users.json", {
-				crossDomain: false,
-				prePopulate: $('#group_partecipant_tokens').data("pre"),
-				hintText: "Digita alcuni caratteri per cercare tra gli utenti",
-				noResultsText: "Nessun utente trovato",
-				searchingText: "Sto cercando...",
-				preventDuplicates: true
-			});
-		}
-		
-		input = $('#group_interest_border_tkn')
-		input.tokenInput("/interest_borders.json", {
-			crossDomain: false,
-			prePopulate: $('#group_interest_border_tkn').data("pre"),
-			hintText: "Digita alcuni caratteri per cercare un luogo",
-			noResultsText: "Nessun luogo trovato",
-			searchingText: "Sto cercando...",
-			preventDuplicates: true,
-			tokenLimit: 1
-		});
-	});
+<%= form_for @group, :validate => true do |f| %>
+    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
-</script>  		
-			
-<%= form_for @group, :builder => InfoTagBuilder do |f| %>
-   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
-  
-  <p>
-	  	<%= f.info_tag :name, :help => "Scrivi un nome dal quale si capisca di cosa si occupa il gruppo e dove si trova." %>   	
-  </p>
-  
-  <p>
-  		<%= f.info_tag :title_bar, :help => "Il titolo che apparirà in testa alla pagina del gruppo." %>   	  	    
-  </p>
-  
-  <p>
-    <%=f.label :description%><br/>
-    <%= f.text_area :description, :style=>'width:90%; height:150px;' %>
-  </p>
-  <p>
-  	<%=f.label :image_url%><br />
-  	<%= f.text_field :image_url%>
-  </p>
-  <p>
-  	<%= f.info_tag :facebook_page_url, :help => "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo." %>   
-  </p>
+    <p>
+      <%= f.label :name %><br/>
+      <%= f.text_field :name, placeholder: t('activerecord.attributes.group.name_placeholder'), style: "width: 600px" %>
+    </p>
 
-  <p>
-    <%= f.label :accept_requests%><br/>
-    <%= f.radio_button :accept_requests , 'p' %>Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo.<br/>
-	<!--<%= f.radio_button :accept_requests , 'v', :disabled=>"disabled", :title=>"Opzione non ancora disponibile" %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-	<%= f.radio_button :accept_requests , 'b', :disabled=>"disabled", :title=>"Opzione non ancora disponibile" %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
+    <p>
+      <%= f.label :title_bar %><br/>
+      <%= f.text_field :title_bar, placeholder: t('activerecord.attributes.group.title_bar_placeholder'), style: "width: 600px" %>
+    </p>
+
+    <p>
+      <%= f.label :description %><br/>
+      <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
+    </p>
+    <p>
+      <%= f.label :image_url %><br/>
+      <%= f.text_field :image_url, placeholder: t('activerecord.attributes.group.image_url_placeholder'), style: "width: 600px" %>
+    </p>
+    <% if ::Configuration::socialnetwork_active %>
+        <p>
+          <%= f.label :facebook_page_url %><br/>
+          <%= f.text_field :facebook_page_url, placeholder: t('activerecord.attributes.group.facebook_page_url_placeholder'), style: "width: 600px" %>
+        </p>
+    <% end %>
+
+    <p>
+      <%= f.label :accept_requests %><br/>
+      <%= f.radio_button :accept_requests, 'p' %>
+      <%= t('pages.groups.accept_requests.portavoce')%><br/>
+      <!--<%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
+	<%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
 	-->
-  </p>
+    </p>
 
-  <p>
-  	
-	<%= f.label :interest_border_tkn%>
-	<%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json if @group.interest_border ) %>
-</p>
+    <p>
 
-  <p>
-    <%= f.submit button_name, :class => 'buttonStyle' %>
-  </p>
+      <%= f.label :interest_border_tkn %>
+      <%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json if @group.interest_border) %>
+    </p>
+
+
+    <% if ['new', 'create'].include? params[:action] %>
+        <p>
+          <%= f.label :default_role_name %>    <br/>
+          <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>
+          <a href="#" onclick="apri_permessi();return false;"><%= t('pages.groups.new.change_permissions_button') %></a>
+        </p>
+
+        <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title')%>" style="display:none;">
+          <%= t('pages.groups.new.change_permissions_description') %><br/>
+          <% GroupAction.all.each do |action| %>
+              <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
+              <br/>
+          <% end %>
+        </div>
+    <% else %>
+        <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
+    <% end %>
+
+    <p>
+      <%= f.submit button_name, :class => 'buttonStyle' %>
+    </p>
 <% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('#group_description')
+                .charCount({
+                    counterElement: 'div',
+                    allowed: 2000,
+                    warning: 100
+                });
+
+        $('#group_interest_border_tkn').tokenInput("/interest_borders.json", {
+            crossDomain: false,
+            prePopulate: $('#group_interest_border_tkn').data("pre"),
+            hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",
+            noResultsText: "<%='Nessun luogo trovato'%>",
+            searchingText: "<%='Sto cercando...'%>",
+            preventDuplicates: true,
+            tokenLimit: 1
+        });
+
+    });
+
+
+    <%if ['new','create'].include? params[:action]%>
+    function apri_permessi() {
+        $('#permessi')
+                .dialog({width: 630,
+                    height: 'auto',
+                    modal: true,
+                    resizable: false,
+                    buttons: {
+                        "Ok": function () {
+                            $(this).dialog("close");
+                        },
+                        "Default": function () {
+                            $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
+                            <%@group.default_role_actions.each do |id|%>
+                            $('#group_default_role_actions_<%=id%>').attr('checked', true);
+                            <%end%>
+                        }
+                    },
+                    beforeClose: function () {
+                        $('#permessi').closest('.ui-dialog').detach().appendTo('#new_group');
+                    }
+                });
+    }
+    <%end%>
+</script>

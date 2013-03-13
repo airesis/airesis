@@ -1,7 +1,7 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
   include NotificationHelper
-  
+
   layout :choose_layout
   #carica il gruppo
   before_filter :load_group, :except => [:index,:new,:create,:ask_for_multiple_follow]
@@ -10,21 +10,19 @@ class GroupsController < ApplicationController
   
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index,:show]
-  
-  
+
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
-  
+
   #l'utente deve essere amministratore
   before_filter :admin_required, :only => [:destroy]
   
    #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
-
+  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
   def index    
     @groups = Group.search(params[:search])
     respond_to do |format|
-      format.js 
+      format.js
       format.html
       #format.xml  { render :xml => @groups }
     end
@@ -35,7 +33,7 @@ class GroupsController < ApplicationController
     @page_title = @group.name
     @partecipants = @group.partecipants
     @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }
@@ -45,7 +43,8 @@ class GroupsController < ApplicationController
   
   def new    
     @group = Group.new(:accept_requests => 'p')
-    
+    @group.default_role_actions = DEFAULT_GROUP_ACTIONS
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @group }
@@ -53,22 +52,23 @@ class GroupsController < ApplicationController
   end
   
   def edit
+    authorize! :update, @group
     @page_title = t("pages.groups.edit.title")
   end
-  
-    
+
+
   def edit_events
     @page_title = t("pages.groups.edit_events.title")
   end
-  
+
   def edit_permissions
     @page_title = t("pages.groups.edit_permissions.title")    
   end
-  
-  def edit_proposals    
+
+  def edit_proposals
     #conta il numero di partecipanti che possono valutare le proposte
   end
-  
+
   def change_advanced_options
     advanced_options = params[:active]
     @group.change_advanced_options = advanced_options
@@ -78,24 +78,24 @@ class GroupsController < ApplicationController
     else
       flash[:notice] = "Gli utenti non potranno modificare le impostazioni avanzate."
     end
-    
+
     respond_to do |format|
       format.js { render :update do |page|
                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                   end
       }
-    end 
-    
+    end
+
     rescue Exception => e
       respond_to do |format|
         flash[:error] = 'Errore nella modifica delle opzioni.'
-        format.js {  render :update do |page|                 
+        format.js {  render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-      end          
+      end
   end
-  
+
 
   def change_default_anonima
     default_anonima = params[:active]
@@ -106,24 +106,24 @@ class GroupsController < ApplicationController
     else
       flash[:notice] = "Le proposte del gruppo saranno palesi di default"
     end
-    
+
     respond_to do |format|
       format.js { render :update do |page|
                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                   end
       }
-    end 
-    
+    end
+
     rescue Exception => e
       respond_to do |format|
         flash[:error] = 'Errore nella modifica delle opzioni.'
-        format.js {  render :update do |page|                 
+        format.js {  render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-      end          
+      end
   end
-  
+
   #change the default option in a group for the public proposals
   def change_default_visible_outside
     default_visible_outside = params[:active]
@@ -134,69 +134,63 @@ class GroupsController < ApplicationController
     else
       flash[:notice] = "Le proposte del gruppo non saranno visibili pubblicamente di default"
     end
-    
+
     respond_to do |format|
       format.js { render :update do |page|
                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                   end
       }
-    end 
-    
+    end
+
     rescue Exception => e
       respond_to do |format|
         flash[:error] = 'Errore nella modifica delle opzioni.'
-        format.js {  render :update do |page|                 
+        format.js {  render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-      end          
+      end
   end
 
-
-
-  def new_event
-    @event = Event.new(:period => "Non ripetere", :organizer_id => @group.id)
-    if (params[:date])
-      @event.starttime = Date.parse(params[:date]) + 1.hour
+  #change the default option in a group for the secret vote
+  def change_default_secret_vote
+    default_secret_vote = params[:active]
+    @group.default_secret_vote = default_secret_vote
+    @group.save
+    if default_secret_vote == 'true'
+      flash[:notice] = "Le proposte avranno voto segreto di default"
     else
-      @event.starttime = Date.today + 1.hour
+      flash[:notice] = "Le proposte avranno voto palese di default"
     end
-    
-    @event.event_type_id = 4 if (params[:type] == 'election')
-    @event.endtime = @event.starttime + 7.day
-    @meeting = @event.build_meeting
-    @place = @meeting.build_place
-    @election = @event.build_election
-    @election.groups_end_time = @event.starttime + 2.day
-    @election.candidates_end_time = @event.starttime + 4.day
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = 'Errore nella modifica delle opzioni.'
+      format.js {  render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
   end
-  
+
   #crea un nuovo gruppo
   def create    
     begin
       Group.transaction do
         
-        #l'utente che crea il gruppo è automaticamente partecipante e portavoce
-        params[:group][:partecipant_ids] -= current_user.id rescue
+        params[:group][:default_role_actions].reject!(&:empty?)
                         
         @group = Group.new(params[:group]) #crea il gruppo
-        @group.default_visible_outside = true
-        #se ci sono già dei partecipanti al gruppo, inserisci a sistema una richiesta di partecipazione accettata per ognuno        
-        @group.partecipant_ids.each do |id|            
-            @group.partecipation_requests.build({:user_id => id, :group_partecipation_request_status_id => 3}) if (id != current_user.id)
-        end
-                 
-        #fai si che chi crea il gruppo ne sia anche portavoce
-        @group.partecipation_requests.build({:user_id => current_user.id, :group_partecipation_request_status_id => 3})
-         
-        @group.group_partecipations.build({:user_id => current_user.id, :partecipation_role_id => 2}) #portavoce
+        @group.current_user_id = current_user.id
         @group.save!
-        Quorum.public.each do |quorum|
-          copy = quorum.dup
-          copy.public = false
-          copy.save!
-          GroupQuorum.create(:quorum_id => copy.id, :group_id => @group.id)         
-        end        
+        Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
       end
       respond_to do |format|
           flash[:notice] = 'Hai creato il gruppo.'
@@ -213,7 +207,7 @@ class GroupsController < ApplicationController
   end #create
   
   def update
-    
+    authorize! :update, @group
     begin
       Group.transaction do
        
@@ -398,8 +392,19 @@ class GroupsController < ApplicationController
   end
 
 
+  def reload_storage_size
+
+  end
+
+
   def partecipants_list_panel
     @partecipants = @group.group_partecipations.includes(:user)
+  end
+
+
+  def enable_areas
+    @group.update_attribute(:enable_areas,true)
+    redirect_to group_group_areas_path @group
   end
 
   protected
@@ -421,5 +426,12 @@ class GroupsController < ApplicationController
       'groups'   
   end
   
-  
+
 end
+
+
+
+
+
+
+

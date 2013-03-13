@@ -1,16 +1,34 @@
-!window.console && (console = { log: function() {}}); 
+!window.console && (console = { log: function() {}});
 
 
 $(function() {
 	disegnaBottoni();
-	
+
 	if (window.location.hash) {
 		setTimeout(function() {
 			$(window.location.hash + " #commentcc").effect('highlight',{mode:'show'},3000)
 		},500);
 	}
 
+
+    if ($('.sticky-anchor').length > 0) {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
+    }
+
 });
+
+function sticky_relocate() {
+    var window_top = $(window).scrollTop();
+    $('.sticky-anchor').each(function() {
+        var div_top = $(this).offset().top;
+        if (window_top > div_top) {
+            $('.sticky').addClass('stick');
+        } else {
+            $('.sticky').removeClass('stick');
+        }
+    });
+}
 
 function disegnaBottoni() {
 	$('.buttonStyle').button();
@@ -21,6 +39,7 @@ function disegnaBottoni() {
 	$('.commentButton').button({icons : {primary : "ui-icon-comment"}});
 	$('.ideaButton').button({icons : {primary : "ui-icon-lightbulb"}});
 	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"}});
+    $('.trashButton').button({icons : {primary : "ui-icon-trash"}});
 	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
 	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
 	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
@@ -33,8 +52,9 @@ function disegnaBottoni() {
     $('.rejectButton').button({icons : {primary : "ui-icon-close"}});
     $('.showAllButton').button({icons : {primary : "ui-icon-script"}});
     $('.inviteButton').button({icons : {primary : "ui-icon-mail-open"}});
+    $('.documentButton').button({icons : {primary : "ui-icon-document"}});
 	$('.disabledButton').button("option", "disabled", true);
-	
+
 	$(".disableButton")
 	    .unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
@@ -51,7 +71,7 @@ function disegnaBottoni() {
     });
 
 
-    
+
     $(".disableForm")
     	.unbind("ajax:beforeSend")
 	    .bind("ajax:beforeSend", function() {
@@ -61,14 +81,14 @@ function disegnaBottoni() {
 	    .bind("ajax:complete", function() {
 	    	showDisableButton($('.disableButton',this));
 	    });
-    
+
 }
 
 function hideDisableButton(button) {
 	button.hide();
 	var toAdd = $('<div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>');
 	toAdd.width(button.outerWidth(true));
-	toAdd.height(button.outerHeight(true)); 
+	toAdd.height(button.outerHeight(true));
 	button.after(toAdd);
 }
 
@@ -91,7 +111,7 @@ function calculate_event_times() {
     et.eventEndTime = et.eet.datetimepicker("getDate");
     et.eventStartDate = new Date(et.eventStartTime);
     et.eventEndDate = new Date(et.eventEndTime);
-    
+
     et.get = $("#groups_end_time")
     et.cet = $("#candidates_end_time")
     et.groupTime = et.get.datetimepicker("getDate");
@@ -102,25 +122,25 @@ function calculate_event_times() {
 
 
 function startTimeChanged() {
-	
+
 	//se la data inizio supera la data fine
 	if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) {
-		//reimposto la data fine avanti			
+		//reimposto la data fine avanti
 		et.eet.datetimepicker("setDate",et.eventStartTime);
 	}
-	
+
 	//se la data inizio supera la data fine gruppi
 	if (!(et.groupDate.getTime() > et.eventStartDate.getTime())) {
-		//reimposto la data gruppi avanti 				
+		//reimposto la data gruppi avanti
 		et.get.datetimepicker("setDate",et.eventStartTime);
 	}
-	
+
 	//se la data inizio supera la data fine candidati
 	if (!(et.candidatesDate.getTime() > et.eventStartDate.getTime())) {
-		//reimposto la data candidati avanti 				
+		//reimposto la data candidati avanti
 		et.cet.datetimepicker("setDate",et.eventStartTime);
 	}
-			
+
 	//imposta come data minima quella di inizio dell'evento
 	var diff =  Math.floor(( et.eventStartDate - new Date()) / 86400000);
 	et.eet.datetimepicker("option","minDate",diff);
@@ -128,26 +148,26 @@ function startTimeChanged() {
 
 function endTimeChanged() {
 	//se la data inizio supera la data fine
-	if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) { 	
-		//reimposta la data inizio indietro			
+	if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) {
+		//reimposta la data inizio indietro
 		et.est.datetimepicker("setDate",et.eventEndTime);
 	}
 }
 
 function groupsTimeChanged() {
-	
+
 	//se supera la data fine candidati
 	if (!(et.candidatesDate.getTime() > et.groupDate.getTime())) {
-		//sposto la data fine candidati 				
+		//sposto la data fine candidati
 		$("#candidates_end_time").datetimepicker("setDate",et.groupTime);
 	}
-	
+
 	//se supera la data fine evento
 	if (!(et.eventEndDate.getTime() > et.groupDate.getTime())) {
-		// sposto la data fine evento in avanti 				
+		// sposto la data fine evento in avanti
 		et.eet.datetimepicker("setDate",et.groupTime);
-	}	
-	
+	}
+
 	//imposta un limite inferiore alla data fine dei candidati
 	var diff =  Math.floor(( et.groupDate - new Date()) / 86400000);
 	$("#candidates_end_time").datetimepicker("option","minDate",diff);
@@ -156,13 +176,13 @@ function groupsTimeChanged() {
 function candidatesTimeChanged() {
 	//se è inferiore alla data fine gruppi
 	if (!(et.candidatesDate.getTime() > et.groupDate.getTime())) {
-		//sposto indietro la data fine gruppi 				
+		//sposto indietro la data fine gruppi
 		$("#groups_end_time").datetimepicker("setDate",et.candidatesTime);
 	}
-	
+
 	//se supera la data fine evento
 	if (!(et.eventEndDate.getTime() > et.candidatesDate.getTime())) {
-		// sposto la data fine evento in avanti 				
+		// sposto la data fine evento in avanti
 		et.eet.datetimepicker("setDate",et.candidatesTime);
 	}
 }
@@ -177,46 +197,46 @@ var datePickerOptions = {
     yearRange : "c:c+10",
     minDate : -2,
     maxDate: "+10Y",
-    duration: "",  
-    showTime: true,  
+    duration: "",
+    showTime: true,
     constrainInput: true,
-    stepMinute: 15,  
-    stepHour: 1,  
-    altTimeField: "alt",  
+    stepMinute: 15,
+    stepHour: 1,
+    altTimeField: "alt",
     time24h: true
 }
 
 
 function disegnaDatePicker() {
-	//data inizio evento	
+	//data inizio evento
 	$('#event_starttime').datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
-        	calculate_event_times();   	
-        	startTimeChanged();		
+        	calculate_event_times();
+        	startTimeChanged();
         }
      }));
-	
+
 	//data termine evento
 	$("#event_endtime").datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
-        	calculate_event_times(); 	
-        	endTimeChanged();	
+        	calculate_event_times();
+        	endTimeChanged();
         }
- 	}));   
-		
+ 	}));
+
 	$("#candidates_end_time").datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
         	calculate_event_times();
-        	
+
 	        candidatesTimeChanged();
- 			
+
         }
- 	}));   
-		
+ 	}));
+
 	$('#groups_end_time').datetimepicker($.extend({},datePickerOptions,{
         onClose: function(date) {
         	calculate_event_times();
-        	
+
 	        groupsTimeChanged();
         }
    }));
@@ -229,7 +249,7 @@ function deleteMe(el) {
 function getURLParameter(name) {
     return decodeURIComponent(
         (location.search.match(RegExp("[?|&]"+name+'=(.+?)(&|$)'))||[,null])[1]
-    );  
+    );
 }
 
 
@@ -276,10 +296,10 @@ function doModal(el){
         minWidth: '400px',
         minHeight: '200px',
         transient: 'true',
-        persist: 'true', 
+        persist: 'true',
         onShow: function(dialog){
             dialog.data.prepend('<div id="error_updating"></div>');
-        },           
+        },
         onClose: function(dialog){
         	$('#error_updating').remove();
             $.modal.close();
