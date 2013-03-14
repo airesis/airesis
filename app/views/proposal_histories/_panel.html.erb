@@ -1,62 +1,90 @@
 <div title="History della proposta" id="proposal_histories" style="display: none;">
-	<div class="history">
-		<table>
-			<thead>
-				<th>Versione</th>
-				<th>Vecchio</th>
-				<th>Nuovo</th>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Versione attuale</td>
-					<td><input type="radio" name="old" checked="checked" value="0"/></td>
-					<td><input type="radio" name="new" checked="checked" value="0"/></td>
-					<td><div style="display: none;"><%= @proposal.content%></div></td>
-				</tr>
-					<%@proposal.proposal_histories.order("created_at DESC").each do |h|%>
-					<tr>
-						<td>
-						<%=h.created_at%>
-						</td>
-						<td><input type="radio" name="old" value="<%=h.id%>"/></td>
-						<td><input type="radio" name="new" value="<%=h.id%>"/></td>
-						<td><div style="display: none;"><%= h.content%></div></td>
-					</tr>
-					<%end%>
-				<td></td>
-			</tbody>
-		</table>
+  <div class="history">
+    <table>
+      <thead>
+      <th>Rev</th>
+      <th>Data e ora</th>
+      </thead>
+      <tbody>
+      <% @proposal.revisions.order("created_at DESC").each_with_index do |revision,i| %>
+          <tr>
+            <td><%= revision.seq %></td>
+            <td>
+              <%= l revision.created_at %>
+            </td>
+            <td><input type="radio" name="new" value="<%= revision.id %>" <%if i == 0%>checked="checked"<%end%>/></td>
+            <td>
+              <div style="display: none;">
+                <% revision.section_histories.each do |section| %>
+                    <h3><%= section.title %></h3>
 
-	</div>
-	<div class="diffview"></div>
+                    <div class="proposalMainContainer proposal_main shadow-box">
+                      <div class="proposal_content">
+                        <%= sanitize(section.paragraphs.first.content) %>
+                      </div>
+                    </div>
+                <% end %>
+
+                <h3>Testo della proposta</h3>
+
+                <div class="proposalMainContainer proposal_main shadow-box">
+                  <% revision.solution_histories.each do |solution| %>
+                      <% solution.section_histories.each do |section| %>
+                          <div class="proposal_content">
+                            <%= sanitize(section.paragraphs.first.content) %>
+                          </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+      <td></td>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="diffview ice">
+    <div class="loading" style="margin:auto;text-align:center;display:none;">
+      <%= image_tag 'ajax-loader.gif'%><br />
+      <b>Caricamento revisione...</b>
+    </div>
+    <div class="diffcontainer"></div>
+  </div>
 </div>
 
 <script type="text/javascript">
-	$(function() {
-		$("input:radio").change(executeDiff);
-		executeDiff();
-	});
-	
-	function executeDiff() {
-			oldel = $("input[name='old']:checked");
-			newel = $("input[name='new']:checked");
-			oldval = oldel.val();
-			newval = newel.val();
-			oldname = oldel.parent().prev().html();
-			newname = newel.parent().prev().prev().html();
-			oldtext = oldel.parent().next().next().children().first().html();
-			newtext = newel.parent().next().children().first().html();
-			console.log('old' + oldval);
-			console.log('new' + newval);
-			
-			out = diffview({
-				baseTextLines: oldtext,
-				newTextLines: newtext,
-				baseTextName: oldname,
-				newTextName: newname
-			});
-			console.log(out[0]);
-			$('#proposal_histories .diffview').html(out[0]);
-	}
-	
+    $(function () {
+        $("input:radio").change(executeDiff);
+        executeDiff();
+    });
+
+    function executeDiff() {
+        var newel = $("input[name='new']:checked");
+        var newval = newel.val();
+        $.ajax({
+            cache: true,
+            url: '<%=proposal_path(@proposal)%>/proposal_histories/'+newval,
+            method: 'get',
+            dataType: 'script',
+            beforeSend: function(msg){
+                console.log('bofere');
+                $('.diffview .diffcontainer').hide();
+                $('.diffview .loading').show();
+
+            },
+            success: function(msg){
+                $('.diffview .diffcontainer').show();
+                $('.diffview .loading').hide();
+            }
+        });
+        /*newel = $("input[name='new']:checked");
+         newval = newel.val();
+         newname = newel.parent().prev().prev().html();
+         newtext = newel.parent().next().children().first().html();
+         console.log('new' + newval);
+         $('#proposal_histories .diffview').html(newtext);*/
+    }
+
 </script>

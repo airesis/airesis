@@ -37,12 +37,12 @@
       insertType: {
         tag: 'span',
         alias: 'ins',
-        action: 'Inserted'
+        action: 'Inserito'
       },
       deleteType: {
         tag: 'span',
         alias: 'del',
-        action: 'Deleted'
+        action: 'Cancellato'
       }
     },
 

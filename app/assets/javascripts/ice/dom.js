@@ -835,7 +835,7 @@
       switch (f) {
         case 'D':
         case 'l':
-          var names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          var names = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
           r = names[date.getDay()];
           if (f === 'D') {
             r = r.substring(0, 3);
@@ -847,7 +847,7 @@
           if (r < 10) r = '0' + r;
           break;
         case 'M':
-          months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+          months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
           r = months[date.getMonth()];
           if (f === 'M') {
             r = r.substring(0, 3);
