@@ -1,5 +1,5 @@
 $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-<%if @event.proposal_id%>
+<%if @event.proposal_id && !@event.proposal_id.empty?%>
   $('#wait_date_header_container').html('<%= escape_javascript(render(:partial => 'proposals/wait_date_header', :locals => {:proposal => @proposal}))%>');
   disegnaBottoni();
 <%else%>

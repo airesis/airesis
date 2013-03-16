@@ -30,6 +30,8 @@ class EventsController < ApplicationController
     elsif params[:type] == 'votation'
       @event.event_type_id = EventType::VOTAZIONE
       @change_type = false
+    else
+      @change_type = true
     end
     if params[:proposal_id]
       @event.proposal_id = params[:proposal_id]
@@ -86,7 +88,7 @@ class EventsController < ApplicationController
       notify_new_event(@event)
     end
 
-    if @event.proposal_id
+    if @event.proposal_id && !@event.proposal_id.empty?
       @proposal = Proposal.find(@event.proposal_id)
       @proposal.vote_period_id = @event.id
     end

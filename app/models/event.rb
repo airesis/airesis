@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
   
   def validate_start_time_before_end_time
     if starttime && endtime
-      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime < starttime
+      errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
     end
     
     if (event_type_id == EventType::ELEZIONI)
