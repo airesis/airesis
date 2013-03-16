@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+<%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
     <div class="legend first">Informazioni iniziali</div>
     <div class="legend">Proposte simili</div>
     <div class="legend">Problemi ed obiettivi</div>
@@ -44,7 +44,7 @@
           <% end %>
 
           <p>
-            <%= f.label :quorum_id %><br/>
+            <%= f.label :quorum_id %> *<br/>
             <% if @group %>
                 <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
                 <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
@@ -86,17 +86,28 @@
     <div class="step">
       <h4><%= 'Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta' %></h4>
 
-      <p>
-        <%= f.label :problems %> *<br/>
-        <%= f.text_area :problems, :rows => 5, :style => "width:500px", :class => "tinymce" %>
-
-      </p>
-
-      <p>
-        <%= f.label :objectives %> *<br/>
-        <%= f.text_area :objectives, :rows => 5, :style => "width:500px", :class => "tinymce" %>
-
-      </p>
+      <%= f.fields_for :sections, @problems do |s| %>
+          <%= s.hidden_field :title %>
+          <%= s.hidden_field :seq %>
+          <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
+              <p>
+                <%= p.label :content, 'Problematica' %> *<br/>
+                <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                <%= p.hidden_field :seq %>
+              </p>
+          <% end %>
+      <% end %>
+      <%= f.fields_for :sections, @objectives do |s| %>
+          <%= s.hidden_field :title %>
+          <%= s.hidden_field :seq %>
+          <%= s.fields_for :paragraphs, @objectives.paragraphs.build(seq: 1) do |p| %>
+              <p>
+                <%= p.label :content, 'Obiettivi' %> *<br/>
+                <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                <%= p.hidden_field :seq %>
+              </p>
+          <% end %>
+      <% end %>
     </div>
 
     <div class="step">
@@ -105,10 +116,22 @@
       <% else %>
           <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
       <% end %>
-      <p>
-        <%= f.label :content %><br/>
-        <%= f.text_area :content, :rows => 5, :style => "width:600px;", :class => "tinymce" %>
-      </p>
+      <%= f.fields_for :solutions, @solution do |sol| %>
+          <%= sol.hidden_field :seq %>
+          <%= sol.fields_for :sections, @solution_section do |s| %>
+              <%= s.hidden_field :title %>
+              <%= s.hidden_field :seq %>
+              <%= s.fields_for :paragraphs, @solution_section.paragraphs.build(seq: 1) do |p| %>
+                  <p>
+                    <%= p.label :content, 'Testo' %><br/>
+                    <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                    <%= p.hidden_field :seq %>
+                  </p>
+              <% end %>
+          <% end %>
+      <% end %>
+
+
     </div>
 
     <p>

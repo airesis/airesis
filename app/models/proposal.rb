@@ -54,11 +54,16 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
   validates_uniqueness_of :title
 
-  validates_presence_of :objectives, :problems, :quorum_id
+  validates_presence_of :quorum_id
 
   attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
 
-  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list, :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
+  attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
+                  :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
+                  :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
+                  :sections_attributes, :solutions_attributes
+
+  accepts_nested_attributes_for :sections, :solutions
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
@@ -86,10 +91,8 @@ class Proposal < ActiveRecord::Base
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
 
 
-  before_create :build_sections
-  before_update :update_sections
+  before_update :save_proposal_history
   before_save :save_tags
-  after_update :save_proposal_history
   after_destroy :remove_scheduled_tasks
 
 
@@ -142,25 +145,6 @@ class Proposal < ActiveRecord::Base
     self.tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
-
-  def build_sections
-    prob = self.sections.build(:title => 'Problematica', :seq => 1)
-    prob.paragraphs.build(:content => self.problems, :seq => 1)
-
-    obj = self.sections.build(:title => 'Obiettivi', :seq => 2)
-    obj.paragraphs.build(:content => self.objectives, :seq => 1)
-
-    sol = self.solutions.build(:seq => 1)
-    solsec = sol.sections.build(:title => 'Soluzione 1', :seq => 1)
-    solsec.paragraphs.build(:content => self.content, :seq => 1)
-  end
-
-  def update_sections
-    self.sections.find_by_title('Problematica').paragraphs.first.update_attribute(:content, self.problems)
-    self.sections.find_by_title('Obiettivi').paragraphs.first.update_attribute(:content, self.objectives)
-    self.solutions.first.sections.find_by_title('Soluzione 1').paragraphs.first.update_attribute(:content, self.content)
-  end
-
   def save_tags
     if @tags_list
       # Remove old tags
@@ -180,6 +164,8 @@ class Proposal < ActiveRecord::Base
       end
       self.tag_ids = tids
     end
+
+    self.content = self.solutions.first.sections.first.paragraphs.first.content
   end
 
   def to_param
@@ -189,28 +175,32 @@ class Proposal < ActiveRecord::Base
   #prima di aggiornare la proposta salvane la
   #storia nella tabella dedicata (se è cambiato il testo)
   def save_proposal_history
-    if self.content_changed? || self.problems_changed? || self.objectives_changed?
-      seq = (self.revisions.maximum(:seq) || 0) + 1
-      revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
-      if self.content_changed?
-        solution = self.solutions.first
-        solution_history = revision.solution_histories.build(seq: solution.seq)
-        section = solution.sections.find_by_title('Soluzione 1')
-        section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-        section_history.paragraphs.build(content: self.content_dirty, seq: 1)
-      end
-      if self.problems_changed?
-        section = self.sections.find_by_title('Problematica')
+    something = false
+    seq = (self.revisions.maximum(:seq) || 0) + 1
+    revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    self.sections.each do |section|
+      paragraph = section.paragraphs.first
+      if paragraph.content_changed?
+        something = true
         section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-        section_history.paragraphs.build(content: self.problems_dirty, seq: 1)
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
       end
-      if self.objectives_changed?
-        section = self.sections.find_by_title('Obiettivi')
-        section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-        section_history.paragraphs.build(content: self.objectives_dirty, seq: 1)
-      end
-      revision.save!
     end
+    self.solutions.each do |solution|
+      solution_history = revision.solution_histories.build(seq: solution.seq)
+      something_solution = false
+      solution.sections.each do |section|
+        paragraph = section.paragraphs.first
+        if paragraph.content_changed?
+          something = true
+          something_solution = true
+          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
+        end
+      end
+      solution_history.destroy unless something_solution
+    end
+    something ? revision.save! : revision.destroy
   end
 
   #restituisce il primo autore della proposta
@@ -221,7 +211,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def short_content
-    return truncate_words(self.content, 60)
+    truncate_words(self.content.gsub( %r{</?[^>]+?>}, '' ), 60)
   end
 
   def interest_borders_tkn

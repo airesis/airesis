@@ -175,7 +175,13 @@ class ProposalsController < ApplicationController
     if (params[:category])
       @proposal.proposal_category_id = params[:category]
     end
-    
+
+    @problems = @proposal.sections.build(title: 'Problematica', seq: 1)
+    @objectives = @proposal.sections.build(title: 'Obiettivi', seq: 2)
+    @solution = @proposal.solutions.build(seq: 1)
+    @solution_section = @solution.sections.build(title: 'Soluzione 1', seq: 1)
+
+
     respond_to do |format|
       format.js
       format.html # new.html.erb
@@ -262,7 +268,15 @@ class ProposalsController < ApplicationController
       
       respond_to do |format|
         flash[:notice] = t(:proposal_inserted)
-        format.js
+        format.js {
+          render :update do |page|
+            if request.env['HTTP_REFERER']["back=home"]
+              page.redirect_to home_url
+            else
+              page.redirect_to @group? [@group,@proposal] : @proposal
+            end
+          end
+        }
         format.html { 
          if request.env['HTTP_REFERER']["back=home"]
           redirect_to home_url
@@ -279,7 +293,12 @@ class ProposalsController < ApplicationController
         #@proposal.errors[:title] = "Esiste già un'altra proposta cono questo titolo. <a href=\"#\">Guardala</a>!"          
       end
       respond_to do |format|
-        format.js
+        format.js {
+          render :update do |page|
+            page.alert 'Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta'
+            #page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end
+        }
         format.html { render :action => "new" }
       end
     end

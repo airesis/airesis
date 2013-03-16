@@ -17,9 +17,15 @@
      * Returns the selection object for the current browser.
      */
     _getSelection: function () {
-      if (this._selection) this._selection.refresh();
-      else if (this.env.frame) this._selection = rangy.getIframeSelection(this.env.frame);
-      else this._selection = rangy.getSelection();
+      if (this._selection) {
+		  this._selection.refresh();
+	  }
+      else if (this.env.frame) {
+		  this._selection = rangy.getIframeSelection(this.env.frame);
+	  }
+      else {
+		  this._selection = rangy.getSelection();
+	  }
       return this._selection;
     },
 
@@ -410,12 +416,6 @@
       };
 
       rangy.rangePrototype.getPreviousTextNode = function (container, skippedBlockEl) {
-        if (container.nodeType === ice.dom.ELEMENT_NODE) {
-          if (container.childNodes.length !== 0) {
-            return this.getLastSelectableChild(container);
-          }
-        }
-
         container = this.getPreviousContainer(container, skippedBlockEl);
         if (container.nodeType === ice.dom.TEXT_NODE) {
           return container;

@@ -59,7 +59,7 @@
 	                   
 	      	
 	 <div class="proposal_content">
-	    <%= h proposal.short_content %>
+	    <%= raw proposal.short_content %>
 		<%= link_to t('pages.proposals.index.continue_reading'), proposal.private ? [proposal.presentation_groups.first,proposal] : proposal %>
 	 </div>
 </div>

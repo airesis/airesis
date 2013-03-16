@@ -1,11 +1,11 @@
 /**
- * Rangy, a cross-browser JavaScript range and selection library
+ * @license Rangy, a cross-browser JavaScript range and selection library
  * http://code.google.com/p/rangy/
  *
- * Copyright 2011, Tim Down
+ * Copyright 2012, Tim Down
  * Licensed under the MIT license.
- * Version: 1.2
- * Build date: 22 August 2011
+ * Version: 1.2.3
+ * Build date: 26 February 2012
  */
 window['rangy'] = (function() {
 
@@ -65,7 +65,7 @@ window['rangy'] = (function() {
     }
 
     var api = {
-        version: "1.2",
+        version: "1.2.3",
         initialized: false,
         supported: true,
 
@@ -308,14 +308,19 @@ rangy.createModule("DomUtil", function(api, module) {
 
     var el = document.createElement("div");
     if (!util.areHostMethods(el, ["insertBefore", "appendChild", "cloneNode"] ||
-            !util.areHostObjects(el, ["previousSibling", "nextSibling", "childNodes", "parentNode"]))) {
+        !util.areHostObjects(el, ["previousSibling", "nextSibling", "childNodes", "parentNode"]))) {
         module.fail("Incomplete Element implementation");
+    }
+
+    // innerHTML is required for Range's createContextualFragment method
+    if (!util.isHostProperty(el, "innerHTML")) {
+        module.fail("Element is missing innerHTML property");
     }
 
     var textNode = document.createTextNode("test");
     if (!util.areHostMethods(textNode, ["splitText", "deleteData", "insertData", "appendData", "cloneNode"] ||
-            !util.areHostObjects(el, ["previousSibling", "nextSibling", "childNodes", "parentNode"]) ||
-            !util.areHostProperties(textNode, ["data"]))) {
+        !util.areHostObjects(el, ["previousSibling", "nextSibling", "childNodes", "parentNode"]) ||
+        !util.areHostProperties(textNode, ["data"]))) {
         module.fail("Incomplete Text Node implementation");
     }
 
@@ -325,9 +330,9 @@ rangy.createModule("DomUtil", function(api, module) {
     // able to replicate it outside of the test. The bug is that indexOf returns -1 when called on an Array that
     // contains just the document as a single element and the value searched for is the document.
     var arrayContains = /*Array.prototype.indexOf ?
-        function(arr, val) {
-            return arr.indexOf(val) > -1;
-        }:*/
+     function(arr, val) {
+     return arr.indexOf(val) > -1;
+     }:*/
 
         function(arr, val) {
             var i = arr.length;
@@ -338,6 +343,17 @@ rangy.createModule("DomUtil", function(api, module) {
             }
             return false;
         };
+
+    // Opera 11 puts HTML elements in the null namespace, it seems, and IE 7 has undefined namespaceURI
+    function isHtmlNamespace(node) {
+        var ns;
+        return typeof node.namespaceURI == UNDEF || ((ns = node.namespaceURI) === null || ns == "http://www.w3.org/1999/xhtml");
+    }
+
+    function parentElement(node) {
+        var parent = node.parentNode;
+        return (parent.nodeType == 1) ? parent : null;
+    }
 
     function getNodeIndex(node) {
         var i = 0;
@@ -513,6 +529,14 @@ rangy.createModule("DomUtil", function(api, module) {
         }
     }
 
+    function fragmentFromNodeChildren(node) {
+        var fragment = getDocument(node).createDocumentFragment(), child;
+        while ( (child = node.firstChild) ) {
+            fragment.appendChild(child);
+        }
+        return fragment;
+    }
+
     function inspectNode(node) {
         if (!node) {
             return "[No node]";
@@ -612,6 +636,8 @@ rangy.createModule("DomUtil", function(api, module) {
 
     api.dom = {
         arrayContains: arrayContains,
+        isHtmlNamespace: isHtmlNamespace,
+        parentElement: parentElement,
         getNodeIndex: getNodeIndex,
         getNodeLength: getNodeLength,
         getCommonAncestor: getCommonAncestor,
@@ -628,6 +654,7 @@ rangy.createModule("DomUtil", function(api, module) {
         getRootContainer: getRootContainer,
         comparePoints: comparePoints,
         inspectNode: inspectNode,
+        fragmentFromNodeChildren: fragmentFromNodeChildren,
         createIterator: createIterator,
         DomPosition: DomPosition
     };
@@ -640,14 +667,14 @@ rangy.createModule("DomUtil", function(api, module) {
     var dom = api.dom;
     var DomPosition = dom.DomPosition;
     var DOMException = api.DOMException;
-    
+
     /*----------------------------------------------------------------------------------------------------------------*/
 
     // Utility functions
 
     function isNonTextPartiallySelected(node, range) {
         return (node.nodeType != 3) &&
-               (dom.isAncestorOf(node, range.startContainer, true) || dom.isAncestorOf(node, range.endContainer, true));
+            (dom.isAncestorOf(node, range.startContainer, true) || dom.isAncestorOf(node, range.endContainer, true));
     }
 
     function getRangeDocument(range) {
@@ -794,7 +821,7 @@ rangy.createModule("DomUtil", function(api, module) {
     function inspect(range) {
         var name = (typeof range.getName == "undefined") ? "Range" : range.getName();
         return "[" + name + "(" + dom.inspectNode(range.startContainer) + ":" + range.startOffset + ", " +
-                dom.inspectNode(range.endContainer) + ":" + range.endOffset + ")]";
+            dom.inspectNode(range.endContainer) + ":" + range.endOffset + ")]";
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -1052,14 +1079,106 @@ rangy.createModule("DomUtil", function(api, module) {
         return offset <= (dom.isCharacterDataNode(node) ? node.length : node.childNodes.length);
     }
 
+    function isRangeValid(range) {
+        return (!!range.startContainer && !!range.endContainer
+            && !isOrphan(range.startContainer)
+            && !isOrphan(range.endContainer)
+            && isValidOffset(range.startContainer, range.startOffset)
+            && isValidOffset(range.endContainer, range.endOffset));
+    }
+
     function assertRangeValid(range) {
         assertNotDetached(range);
-        if (isOrphan(range.startContainer) || isOrphan(range.endContainer) ||
-                !isValidOffset(range.startContainer, range.startOffset) ||
-                !isValidOffset(range.endContainer, range.endOffset)) {
+        if (!isRangeValid(range)) {
             throw new Error("Range error: Range is no longer valid after DOM mutation (" + range.inspect() + ")");
         }
     }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    // Test the browser's innerHTML support to decide how to implement createContextualFragment
+    var styleEl = document.createElement("style");
+    var htmlParsingConforms = false;
+    try {
+        styleEl.innerHTML = "<b>x</b>";
+        htmlParsingConforms = (styleEl.firstChild.nodeType == 3); // Opera incorrectly creates an element node
+    } catch (e) {
+        // IE 6 and 7 throw
+    }
+
+    api.features.htmlParsingConforms = htmlParsingConforms;
+
+    var createContextualFragment = htmlParsingConforms ?
+
+        // Implementation as per HTML parsing spec, trusting in the browser's implementation of innerHTML. See
+        // discussion and base code for this implementation at issue 67.
+        // Spec: http://html5.org/specs/dom-parsing.html#extensions-to-the-range-interface
+        // Thanks to Aleks Williams.
+        function(fragmentStr) {
+            // "Let node the context object's start's node."
+            var node = this.startContainer;
+            var doc = dom.getDocument(node);
+
+            // "If the context object's start's node is null, raise an INVALID_STATE_ERR
+            // exception and abort these steps."
+            if (!node) {
+                throw new DOMException("INVALID_STATE_ERR");
+            }
+
+            // "Let element be as follows, depending on node's interface:"
+            // Document, Document Fragment: null
+            var el = null;
+
+            // "Element: node"
+            if (node.nodeType == 1) {
+                el = node;
+
+                // "Text, Comment: node's parentElement"
+            } else if (dom.isCharacterDataNode(node)) {
+                el = dom.parentElement(node);
+            }
+
+            // "If either element is null or element's ownerDocument is an HTML document
+            // and element's local name is "html" and element's namespace is the HTML
+            // namespace"
+            if (el === null || (
+                el.nodeName == "HTML"
+                    && dom.isHtmlNamespace(dom.getDocument(el).documentElement)
+                    && dom.isHtmlNamespace(el)
+                )) {
+
+                // "let element be a new Element with "body" as its local name and the HTML
+                // namespace as its namespace.""
+                el = doc.createElement("body");
+            } else {
+                el = el.cloneNode(false);
+            }
+
+            // "If the node's document is an HTML document: Invoke the HTML fragment parsing algorithm."
+            // "If the node's document is an XML document: Invoke the XML fragment parsing algorithm."
+            // "In either case, the algorithm must be invoked with fragment as the input
+            // and element as the context element."
+            el.innerHTML = fragmentStr;
+
+            // "If this raises an exception, then abort these steps. Otherwise, let new
+            // children be the nodes returned."
+
+            // "Let fragment be a new DocumentFragment."
+            // "Append all new children to fragment."
+            // "Return fragment."
+            return dom.fragmentFromNodeChildren(el);
+        } :
+
+        // In this case, innerHTML cannot be trusted, so fall back to a simpler, non-conformant implementation that
+        // previous versions of Rangy used (with the exception of using a body element rather than a div)
+        function(fragmentStr) {
+            assertNotDetached(this);
+            var doc = getRangeDocument(this);
+            var el = doc.createElement("body");
+            el.innerHTML = fragmentStr;
+
+            return dom.fragmentFromNodeChildren(el);
+        };
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
@@ -1138,7 +1257,7 @@ rangy.createModule("DomUtil", function(api, module) {
             // no non-text nodes.
             var iterator = new RangeIterator(this, true);
             var boundariesInvalid = (iterator._first && (isNonTextPartiallySelected(iterator._first, this)) ||
-                    (iterator._last && isNonTextPartiallySelected(iterator._last, this)));
+                (iterator._last && isNonTextPartiallySelected(iterator._last, this)));
             iterator.detach();
             return !boundariesInvalid;
         },
@@ -1234,22 +1353,7 @@ rangy.createModule("DomUtil", function(api, module) {
             return 0;
         },
 
-        createContextualFragment: function(html) {
-            assertNotDetached(this);
-            var doc = getRangeDocument(this);
-            var container = doc.createElement("div");
-
-            // The next line is obviously non-standard but will work in all recent browsers
-            container.innerHTML = html;
-
-            var frag = doc.createDocumentFragment(), n;
-
-            while ( (n = container.firstChild) ) {
-                frag.appendChild(n);
-            }
-
-            return frag;
-        },
+        createContextualFragment: createContextualFragment,
 
         toHtml: function() {
             assertRangeValid(this);
@@ -1283,7 +1387,7 @@ rangy.createModule("DomUtil", function(api, module) {
             assertSameDocumentOrFragment(node, this.startContainer);
 
             return (dom.comparePoints(node, offset, this.startContainer, this.startOffset) >= 0) &&
-                   (dom.comparePoints(node, offset, this.endContainer, this.endOffset) <= 0);
+                (dom.comparePoints(node, offset, this.endContainer, this.endOffset) <= 0);
         },
 
         // The methods below are non-standard and invented by me.
@@ -1403,6 +1507,10 @@ rangy.createModule("DomUtil", function(api, module) {
             return Range.rangesEqual(this, range);
         },
 
+        isValid: function() {
+            return isRangeValid(this);
+        },
+
         inspect: function() {
             return inspect(this);
         }
@@ -1472,7 +1580,7 @@ rangy.createModule("DomUtil", function(api, module) {
 
         function setRangeStart(range, node, offset) {
             var ec = range.endContainer, eo = range.endOffset;
-            if (node !== range.startContainer || offset !== this.startOffset) {
+            if (node !== range.startContainer || offset !== range.startOffset) {
                 // Check the root containers of the range and the new boundary, and also check whether the new boundary
                 // is after the current end. In either case, collapse the range to the new position
                 if (getRootContainer(node) != getRootContainer(ec) || dom.comparePoints(node, offset, ec, eo) == 1) {
@@ -1485,7 +1593,7 @@ rangy.createModule("DomUtil", function(api, module) {
 
         function setRangeEnd(range, node, offset) {
             var sc = range.startContainer, so = range.startOffset;
-            if (node !== range.endContainer || offset !== this.endOffset) {
+            if (node !== range.endContainer || offset !== range.endOffset) {
                 // Check the root containers of the range and the new boundary, and also check whether the new boundary
                 // is after the current end. In either case, collapse the range to the new position
                 if (getRootContainer(node) != getRootContainer(sc) || dom.comparePoints(node, offset, sc, so) == -1) {
@@ -1497,7 +1605,7 @@ rangy.createModule("DomUtil", function(api, module) {
         }
 
         function setRangeStartAndEnd(range, node, offset) {
-            if (node !== range.startContainer || offset !== this.startOffset || node !== range.endContainer || offset !== this.endOffset) {
+            if (node !== range.startContainer || offset !== range.startOffset || node !== range.endContainer || offset !== range.endOffset) {
                 boundaryUpdater(range, node, offset, node, offset);
             }
         }
@@ -1567,7 +1675,7 @@ rangy.createModule("DomUtil", function(api, module) {
                 // no non-text nodes.
                 var iterator = new RangeIterator(this, true);
                 var boundariesInvalid = (iterator._first && (isNonTextPartiallySelected(iterator._first, this)) ||
-                        (iterator._last && isNonTextPartiallySelected(iterator._last, this)));
+                    (iterator._last && isNonTextPartiallySelected(iterator._last, this)));
                 iterator.detach();
                 return !boundariesInvalid;
             },
@@ -1748,9 +1856,9 @@ rangy.createModule("DomUtil", function(api, module) {
     Range.getRangeDocument = getRangeDocument;
     Range.rangesEqual = function(r1, r2) {
         return r1.startContainer === r2.startContainer &&
-               r1.startOffset === r2.startOffset &&
-               r1.endContainer === r2.endContainer &&
-               r1.endOffset === r2.endOffset;
+            r1.startOffset === r2.startOffset &&
+            r1.endContainer === r2.endContainer &&
+            r1.endOffset === r2.endOffset;
     };
 
     api.DomRange = Range;
@@ -1771,18 +1879,18 @@ rangy.createModule("DomUtil", function(api, module) {
     /*----------------------------------------------------------------------------------------------------------------*/
 
     /*
-    This is a workaround for a bug where IE returns the wrong container element from the TextRange's parentElement()
-    method. For example, in the following (where pipes denote the selection boundaries):
+     This is a workaround for a bug where IE returns the wrong container element from the TextRange's parentElement()
+     method. For example, in the following (where pipes denote the selection boundaries):
 
-    <ul id="ul"><li id="a">| a </li><li id="b"> b |</li></ul>
+     <ul id="ul"><li id="a">| a </li><li id="b"> b |</li></ul>
 
-    var range = document.selection.createRange();
-    alert(range.parentElement().id); // Should alert "ul" but alerts "b"
+     var range = document.selection.createRange();
+     alert(range.parentElement().id); // Should alert "ul" but alerts "b"
 
-    This method returns the common ancestor node of the following:
-    - the parentElement() of the textRange
-    - the parentElement() of the textRange after calling collapse(true)
-    - the parentElement() of the textRange after calling collapse(false)
+     This method returns the common ancestor node of the following:
+     - the parentElement() of the textRange
+     - the parentElement() of the textRange after calling collapse(true)
+     - the parentElement() of the textRange after calling collapse(false)
      */
     function getTextRangeContainerElement(textRange) {
         var parentEl = textRange.parentElement();
@@ -1838,7 +1946,7 @@ rangy.createModule("DomUtil", function(api, module) {
             containerElement.insertBefore(workingNode, workingNode.previousSibling);
             workingRange.moveToElementText(workingNode);
         } while ( (comparison = workingRange.compareEndPoints(workingComparisonType, textRange)) > 0 &&
-                workingNode.previousSibling);
+            workingNode.previousSibling);
 
         // We've now reached or gone past the boundary of the text range we're interested in
         // so have identified the node we want
@@ -1855,34 +1963,34 @@ rangy.createModule("DomUtil", function(api, module) {
 
             if (/[\r\n]/.test(boundaryNode.data)) {
                 /*
-                For the particular case of a boundary within a text node containing line breaks (within a <pre> element,
-                for example), we need a slightly complicated approach to get the boundary's offset in IE. The facts:
+                 For the particular case of a boundary within a text node containing line breaks (within a <pre> element,
+                 for example), we need a slightly complicated approach to get the boundary's offset in IE. The facts:
 
-                - Each line break is represented as \r in the text node's data/nodeValue properties
-                - Each line break is represented as \r\n in the TextRange's 'text' property
-                - The 'text' property of the TextRange does not contain trailing line breaks
+                 - Each line break is represented as \r in the text node's data/nodeValue properties
+                 - Each line break is represented as \r\n in the TextRange's 'text' property
+                 - The 'text' property of the TextRange does not contain trailing line breaks
 
-                To get round the problem presented by the final fact above, we can use the fact that TextRange's
-                moveStart() and moveEnd() methods return the actual number of characters moved, which is not necessarily
-                the same as the number of characters it was instructed to move. The simplest approach is to use this to
-                store the characters moved when moving both the start and end of the range to the start of the document
-                body and subtracting the start offset from the end offset (the "move-negative-gazillion" method).
-                However, this is extremely slow when the document is large and the range is near the end of it. Clearly
-                doing the mirror image (i.e. moving the range boundaries to the end of the document) has the same
-                problem.
+                 To get round the problem presented by the final fact above, we can use the fact that TextRange's
+                 moveStart() and moveEnd() methods return the actual number of characters moved, which is not necessarily
+                 the same as the number of characters it was instructed to move. The simplest approach is to use this to
+                 store the characters moved when moving both the start and end of the range to the start of the document
+                 body and subtracting the start offset from the end offset (the "move-negative-gazillion" method).
+                 However, this is extremely slow when the document is large and the range is near the end of it. Clearly
+                 doing the mirror image (i.e. moving the range boundaries to the end of the document) has the same
+                 problem.
 
-                Another approach that works is to use moveStart() to move the start boundary of the range up to the end
-                boundary one character at a time and incrementing a counter with the value returned by the moveStart()
-                call. However, the check for whether the start boundary has reached the end boundary is expensive, so
-                this method is slow (although unlike "move-negative-gazillion" is largely unaffected by the location of
-                the range within the document).
+                 Another approach that works is to use moveStart() to move the start boundary of the range up to the end
+                 boundary one character at a time and incrementing a counter with the value returned by the moveStart()
+                 call. However, the check for whether the start boundary has reached the end boundary is expensive, so
+                 this method is slow (although unlike "move-negative-gazillion" is largely unaffected by the location of
+                 the range within the document).
 
-                The method below is a hybrid of the two methods above. It uses the fact that a string containing the
-                TextRange's 'text' property with each \r\n converted to a single \r character cannot be longer than the
-                text of the TextRange, so the start of the range is moved that length initially and then a character at
-                a time to make up for any trailing line breaks not contained in the 'text' property. This has good
-                performance in most situations compared to the previous two methods.
-                */
+                 The method below is a hybrid of the two methods above. It uses the fact that a string containing the
+                 TextRange's 'text' property with each \r\n converted to a single \r character cannot be longer than the
+                 text of the TextRange, so the start of the range is moved that length initially and then a character at
+                 a time to make up for any trailing line breaks not contained in the 'text' property. This has good
+                 performance in most situations compared to the previous two methods.
+                 */
                 var tempRange = workingRange.duplicate();
                 var rangeLength = tempRange.text.replace(/\r\n/g, "\r").length;
 
@@ -1972,7 +2080,7 @@ rangy.createModule("DomUtil", function(api, module) {
     if (api.features.implementsDomRange && (!api.features.implementsTextRange || !api.config.preferTextRange)) {
         // This is a wrapper around the browser's native DOM Range. It has two aims:
         // - Provide workarounds for specific browser bugs
-        // - provide convenient extensions, as found in Rangy's DomRange
+        // - provide convenient extensions, which are inherited from Rangy's DomRange
 
         (function() {
             var rangeProto;
@@ -2046,12 +2154,12 @@ rangy.createModule("DomUtil", function(api, module) {
             // present in 3.6.8) that throws "Index or size is negative or greater than the allowed amount" for
             // insertNode in some circumstances, all browsers will have to use the Rangy's own implementation of
             // insertNode, which works but is almost certainly slower than the native implementation.
-/*
-            rangeProto.insertNode = function(node) {
-                this.nativeRange.insertNode(node);
-                updateRangeProperties(this);
-            };
-*/
+            /*
+             rangeProto.insertNode = function(node) {
+             this.nativeRange.insertNode(node);
+             updateRangeProperties(this);
+             };
+             */
 
             rangeProto.surroundContents = function(node) {
                 this.nativeRange.surroundContents(node);
@@ -2159,7 +2267,7 @@ rangy.createModule("DomUtil", function(api, module) {
             // the 0th character of the text node
             range.selectNodeContents(testTextNode);
             if (range.startContainer == testTextNode && range.endContainer == testTextNode &&
-                    range.startOffset == 0 && range.endOffset == testTextNode.length) {
+                range.startOffset == 0 && range.endOffset == testTextNode.length) {
                 rangeProto.selectNodeContents = function(node) {
                     this.nativeRange.selectNodeContents(node);
                     updateRangeProperties(this);
@@ -2185,7 +2293,7 @@ rangy.createModule("DomUtil", function(api, module) {
             range2.setStart(testTextNode, 2);
 
             if (range.compareBoundaryPoints(range.START_TO_END, range2) == -1 &
-                    range.compareBoundaryPoints(range.END_TO_START, range2) == 1) {
+                range.compareBoundaryPoints(range.END_TO_START, range2) == 1) {
                 // This is the wrong way round, so correct for it
 
 
@@ -2201,6 +2309,15 @@ rangy.createModule("DomUtil", function(api, module) {
             } else {
                 rangeProto.compareBoundaryPoints = function(type, range) {
                     return this.nativeRange.compareBoundaryPoints(type, range.nativeRange || range);
+                };
+            }
+
+            /*--------------------------------------------------------------------------------------------------------*/
+
+            // Test for existence of createContextualFragment and delegate to it if it exists
+            if (api.util.isHostMethod(range, "createContextualFragment")) {
+                rangeProto.createContextualFragment = function(fragmentStr) {
+                    return this.nativeRange.createContextualFragment(fragmentStr);
                 };
             }
 
@@ -2375,7 +2492,7 @@ rangy.createModule("DomUtil", function(api, module) {
 
     // Obtaining a range from a selection
     var selectionHasAnchorAndFocus = util.areHostObjects(testSelection, ["anchorNode", "focusNode"] &&
-                                     util.areHostProperties(testSelection, ["anchorOffset", "focusOffset"]));
+        util.areHostProperties(testSelection, ["anchorOffset", "focusOffset"]));
     api.features.selectionHasAnchorAndFocus = selectionHasAnchorAndFocus;
 
     // Test for existence of native selection extend() method
@@ -2390,10 +2507,13 @@ rangy.createModule("DomUtil", function(api, module) {
     var collapsedNonEditableSelectionsSupported = true;
 
     if (util.areHostMethods(testSelection, ["addRange", "getRangeAt", "removeAllRanges"]) &&
-            typeof testSelection.rangeCount == "number" && api.features.implementsDomRange) {
+        typeof testSelection.rangeCount == "number" && api.features.implementsDomRange) {
 
         (function() {
             var iframe = document.createElement("iframe");
+            iframe.frameBorder = 0;
+            iframe.style.position = "absolute";
+            iframe.style.left = "-10000px";
             body.appendChild(iframe);
 
             var iframeDoc = dom.getIframeDocument(iframe);
@@ -2741,7 +2861,7 @@ rangy.createModule("DomUtil", function(api, module) {
             }
         };
     } else if (util.isHostMethod(testSelection, "empty") && util.isHostMethod(testRange, "select") &&
-               implementsControlRange && useDocumentSelection) {
+        implementsControlRange && useDocumentSelection) {
 
         selProto.removeAllRanges = function() {
             // Added try/catch as fix for issue #21
@@ -3070,7 +3190,7 @@ rangy.createModule("DomUtil", function(api, module) {
             }
         }
         return "[" + name + "(Ranges: " + rangeInspects.join(", ") +
-                ")(anchor: " + anchor.inspect() + ", focus: " + focus.inspect() + "]";
+            ")(anchor: " + anchor.inspect() + ", focus: " + focus.inspect() + "]";
 
     }
 

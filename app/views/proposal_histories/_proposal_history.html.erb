@@ -8,14 +8,15 @@
     </div>
 <% end %>
 
-<h3>Testo della proposta</h3>
-<div class="proposalMainContainer proposal_main shadow-box">
-  <% @revision.solution_histories.each do |solution| %>
-      <% solution.section_histories.each do |section| %>
-          <div class="proposal_content">
-            <%= sanitize(section.paragraphs.first.content) %>
-          </div>
+<% if @revision.solution_histories.size > 0 %>
+    <h3>Testo della proposta</h3>
+    <div class="proposalMainContainer proposal_main shadow-box">
+      <% @revision.solution_histories.each do |solution| %>
+          <% solution.section_histories.each do |section| %>
+              <div class="proposal_content">
+                <%= sanitize(section.paragraphs.first.content) %>
+              </div>
+          <% end %>
       <% end %>
-  <% end %>
-</div>
-
+    </div>
+<% end %>

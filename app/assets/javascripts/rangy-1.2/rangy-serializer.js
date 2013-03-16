@@ -1,300 +1,194 @@
-/**
- * Serializer module for Rangy.
- * Serializes Ranges and Selections. An example use would be to store a user's selection on a particular page in a
- * cookie or local storage and restore it on the user's next visit to the same page.
- *
- * Part of Rangy, a cross-browser JavaScript range and selection library
- * http://code.google.com/p/rangy/
- *
- * Depends on Rangy core.
- *
- * Copyright 2011, Tim Down
- * Licensed under the MIT license.
- * Version: 1.2
- * Build date: 22 August 2011
+/*
+ Serializer module for Rangy.
+ Serializes Ranges and Selections. An example use would be to store a user's selection on a particular page in a
+ cookie or local storage and restore it on the user's next visit to the same page.
+
+ Part of Rangy, a cross-browser JavaScript range and selection library
+ http://code.google.com/p/rangy/
+
+ Depends on Rangy core.
+
+ Copyright 2012, Tim Down
+ Licensed under the MIT license.
+ Version: 1.2.3
+ Build date: 26 February 2012
  */
-rangy.createModule("Serializer", function(api, module) {
-    api.requireModules( ["WrappedSelection", "WrappedRange"] );
-    var UNDEF = "undefined";
-
-    // encodeURIComponent and decodeURIComponent are required for cookie handling
-    if (typeof encodeURIComponent == UNDEF || typeof decodeURIComponent == UNDEF) {
-        module.fail("Global object is missing encodeURIComponent and/or decodeURIComponent method");
-    }
-
-    // Checksum for checking whether range can be serialized
-    var crc32 = (function() {
-        function utf8encode(str) {
-            var utf8CharCodes = [];
-
-            for (var i = 0, len = str.length, c; i < len; ++i) {
-                c = str.charCodeAt(i);
-                if (c < 128) {
-                    utf8CharCodes.push(c);
-                } else if (c < 2048) {
-                    utf8CharCodes.push((c >> 6) | 192, (c & 63) | 128);
-                } else {
-                    utf8CharCodes.push((c >> 12) | 224, ((c >> 6) & 63) | 128, (c & 63) | 128);
-                }
-            }
-            return utf8CharCodes;
-        }
-
-        var cachedCrcTable = null;
-
-        function buildCRCTable() {
-            var table = [];
-            for (var i = 0, j, crc; i < 256; ++i) {
-                crc = i;
-                j = 8;
-                while (j--) {
-                    if ((crc & 1) == 1) {
-                        crc = (crc >>> 1) ^ 0xEDB88320;
-                    } else {
-                        crc >>>= 1;
-                    }
-                }
-                table[i] = crc >>> 0;
-            }
-            return table;
-        }
-
-        function getCrcTable() {
-            if (!cachedCrcTable) {
-                cachedCrcTable = buildCRCTable();
-            }
-            return cachedCrcTable;
-        }
-
-        return function(str) {
-            var utf8CharCodes = utf8encode(str), crc = -1, crcTable = getCrcTable();
-            for (var i = 0, len = utf8CharCodes.length, y; i < len; ++i) {
-                y = (crc ^ utf8CharCodes[i]) & 0xFF;
-                crc = (crc >>> 8) ^ crcTable[y];
-            }
-            return (crc ^ -1) >>> 0;
-        };
-    })();
-
-    var dom = api.dom;
-
-    function escapeTextForHtml(str) {
-        return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    function nodeToInfoString(node, infoParts) {
-        infoParts = infoParts || [];
-        var nodeType = node.nodeType, children = node.childNodes, childCount = children.length;
-        var nodeInfo = [nodeType, node.nodeName, childCount].join(":");
-        var start = "", end = "";
-        switch (nodeType) {
-            case 3: // Text node
-                start = escapeTextForHtml(node.nodeValue);
+rangy.createModule("Serializer", function (g, n) {
+    function o(c, a) {
+        a = a || [];
+        var b = c.nodeType, e = c.childNodes, d = e.length, f = [b, c.nodeName, d].join(":"), h = "", k = "";
+        switch (b) {
+            case 3:
+                h = c.nodeValue.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 break;
-            case 8: // Comment
-                start = "<!--" + escapeTextForHtml(node.nodeValue) + "-->";
+            case 8:
+                h = "<!--" + c.nodeValue.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "--\>";
                 break;
             default:
-                start = "<" + nodeInfo + ">";
-                end = "</>";
-                break;
+                h = "<" + f + ">";
+                k = "</>";
+                break
         }
-        if (start) {
-            infoParts.push(start);
-        }
-        for (var i = 0; i < childCount; ++i) {
-            nodeToInfoString(children[i], infoParts);
-        }
-        if (end) {
-            infoParts.push(end);
-        }
-        return infoParts;
+        h && a.push(h);
+        for (b = 0; b < d; ++b)o(e[b], a);
+        k && a.push(k);
+        return a
     }
 
-    // Creates a string representation of the specified element's contents that is similar to innerHTML but omits all
-    // attributes and comments and includes child node counts. This is done instead of using innerHTML to work around
-    // IE <= 8's policy of including element properties in attributes, which ruins things by changing an element's
-    // innerHTML whenever the user changes an input within the element.
-    function getElementChecksum(el) {
-        var info = nodeToInfoString(el).join("");
-        return crc32(info).toString(16);
+    function j(c) {
+        c = o(c).join("");
+        return u(c).toString(16)
     }
 
-    function serializePosition(node, offset, rootNode) {
-        var pathBits = [], n = node;
-        rootNode = rootNode || dom.getDocument(node).documentElement;
-        while (n && n != rootNode) {
-            pathBits.push(dom.getNodeIndex(n, true));
-            n = n.parentNode;
+    function l(c, a, b) {
+        var e = [], d = c;
+        for (b =
+                 b || i.getDocument(c).documentElement; d && d != b;) {
+            e.push(i.getNodeIndex(d, true));
+            d = d.parentNode
         }
-        return pathBits.join("/") + ":" + offset;
+        return e.join("/") + ":" + a
     }
 
-    function deserializePosition(serialized, rootNode, doc) {
-        if (rootNode) {
-            doc = doc || dom.getDocument(rootNode);
-        } else {
-            doc = doc || document;
-            rootNode = doc.documentElement;
+    function m(c, a, b) {
+        if (a)b || i.getDocument(a); else {
+            b = b || document;
+            a = b.documentElement
         }
-        var bits = serialized.split(":");
-        var node = rootNode;
-        var nodeIndices = bits[0] ? bits[0].split("/") : [], i = nodeIndices.length, nodeIndex;
+        c = c.split(":");
+        a = a;
+        b = c[0] ? c[0].split("/") : [];
+        for (var e = b.length, d; e--;) {
+            d = parseInt(b[e], 10);
+            if (d < a.childNodes.length)a = a.childNodes[parseInt(b[e], 10)]; else throw n.createError("deserializePosition failed: node " + i.inspectNode(a) + " has no child with index " + d + ", " + e);
+        }
+        return new i.DomPosition(a, parseInt(c[1],
+            10))
+    }
 
-        while (i--) {
-            nodeIndex = parseInt(nodeIndices[i], 10);
-            if (nodeIndex < node.childNodes.length) {
-                node = node.childNodes[parseInt(nodeIndices[i], 10)];
-            } else {
-                throw module.createError("deserializePosition failed: node " + dom.inspectNode(node) +
-                        " has no child with index " + nodeIndex + ", " + i);
+    function p(c, a, b) {
+        b = b || g.DomRange.getRangeDocument(c).documentElement;
+        if (!i.isAncestorOf(b, c.commonAncestorContainer, true))throw Error("serializeRange: range is not wholly contained within specified root node");
+        c = l(c.startContainer, c.startOffset, b) + "," + l(c.endContainer, c.endOffset, b);
+        a || (c += "{" + j(b) + "}");
+        return c
+    }
+
+    function q(c, a, b) {
+        if (a)b = b || i.getDocument(a); else {
+            b = b || document;
+            a = b.documentElement
+        }
+        c = /^([^,]+),([^,\{]+)({([^}]+)})?$/.exec(c);
+        var e = c[4], d = j(a);
+        if (e && e !== j(a))throw Error("deserializeRange: checksums of serialized range root node (" +
+            e + ") and target root node (" + d + ") do not match");
+        e = m(c[1], a, b);
+        a = m(c[2], a, b);
+        b = g.createRange(b);
+        b.setStart(e.node, e.offset);
+        b.setEnd(a.node, a.offset);
+        return b
+    }
+
+    function r(c, a, b) {
+        if (a)b || i.getDocument(a); else {
+            b = b || document;
+            a = b.documentElement
+        }
+        c = /^([^,]+),([^,]+)({([^}]+)})?$/.exec(c)[3];
+        return!c || c === j(a)
+    }
+
+    function s(c, a, b) {
+        c = c || g.getSelection();
+        c = c.getAllRanges();
+        for (var e = [], d = 0, f = c.length; d < f; ++d)e[d] = p(c[d], a, b);
+        return e.join("|")
+    }
+
+    function t(c, a, b) {
+        if (a)b = b || i.getWindow(a); else {
+            b = b || window;
+            a = b.document.documentElement
+        }
+        c =
+            c.split("|");
+        for (var e = g.getSelection(b), d = [], f = 0, h = c.length; f < h; ++f)d[f] = q(c[f], a, b.document);
+        e.setRanges(d);
+        return e
+    }
+
+    g.requireModules(["WrappedSelection", "WrappedRange"]);
+    if (typeof encodeURIComponent == "undefined" || typeof decodeURIComponent == "undefined")n.fail("Global object is missing encodeURIComponent and/or decodeURIComponent method");
+    var u = function () {
+        var c = null;
+        return function (a) {
+            for (var b = [], e = 0, d = a.length, f; e < d; ++e) {
+                f = a.charCodeAt(e);
+                if (f < 128)b.push(f); else f < 2048 ? b.push(f >> 6 | 192, f & 63 | 128) :
+                    b.push(f >> 12 | 224, f >> 6 & 63 | 128, f & 63 | 128)
             }
-        }
-
-        return new dom.DomPosition(node, parseInt(bits[1], 10));
-    }
-
-    function serializeRange(range, omitChecksum, rootNode) {
-        rootNode = rootNode || api.DomRange.getRangeDocument(range).documentElement;
-        if (!dom.isAncestorOf(rootNode, range.commonAncestorContainer, true)) {
-            throw new Error("serializeRange: range is not wholly contained within specified root node");
-        }
-        var serialized = serializePosition(range.startContainer, range.startOffset, rootNode) + "," +
-            serializePosition(range.endContainer, range.endOffset, rootNode);
-        if (!omitChecksum) {
-            serialized += "{" + getElementChecksum(rootNode) + "}";
-        }
-        return serialized;
-    }
-
-    function deserializeRange(serialized, rootNode, doc) {
-        if (rootNode) {
-            doc = doc || dom.getDocument(rootNode);
-        } else {
-            doc = doc || document;
-            rootNode = doc.documentElement;
-        }
-        var result = /^([^,]+),([^,\{]+)({([^}]+)})?$/.exec(serialized);
-        var checksum = result[4], rootNodeChecksum = getElementChecksum(rootNode);
-        if (checksum && checksum !== getElementChecksum(rootNode)) {
-            throw new Error("deserializeRange: checksums of serialized range root node (" + checksum +
-                    ") and target root node (" + rootNodeChecksum + ") do not match");
-        }
-        var start = deserializePosition(result[1], rootNode, doc), end = deserializePosition(result[2], rootNode, doc);
-        var range = api.createRange(doc);
-        range.setStart(start.node, start.offset);
-        range.setEnd(end.node, end.offset);
-        return range;
-    }
-
-    function canDeserializeRange(serialized, rootNode, doc) {
-        if (rootNode) {
-            doc = doc || dom.getDocument(rootNode);
-        } else {
-            doc = doc || document;
-            rootNode = doc.documentElement;
-        }
-        var result = /^([^,]+),([^,]+)({([^}]+)})?$/.exec(serialized);
-        var checksum = result[3];
-        return !checksum || checksum === getElementChecksum(rootNode);
-    }
-
-    function serializeSelection(selection, omitChecksum, rootNode) {
-        selection = selection || api.getSelection();
-        var ranges = selection.getAllRanges(), serializedRanges = [];
-        for (var i = 0, len = ranges.length; i < len; ++i) {
-            serializedRanges[i] = serializeRange(ranges[i], omitChecksum, rootNode);
-        }
-        return serializedRanges.join("|");
-    }
-
-    function deserializeSelection(serialized, rootNode, win) {
-        if (rootNode) {
-            win = win || dom.getWindow(rootNode);
-        } else {
-            win = win || window;
-            rootNode = win.document.documentElement;
-        }
-        var serializedRanges = serialized.split("|");
-        var sel = api.getSelection(win);
-        var ranges = [];
-
-        for (var i = 0, len = serializedRanges.length; i < len; ++i) {
-            ranges[i] = deserializeRange(serializedRanges[i], rootNode, win.document);
-        }
-        sel.setRanges(ranges);
-
-        return sel;
-    }
-
-    function canDeserializeSelection(serialized, rootNode, win) {
-        var doc;
-        if (rootNode) {
-            doc = win ? win.document : dom.getDocument(rootNode);
-        } else {
-            win = win || window;
-            rootNode = win.document.documentElement;
-        }
-        var serializedRanges = serialized.split("|");
-
-        for (var i = 0, len = serializedRanges.length; i < len; ++i) {
-            if (!canDeserializeRange(serializedRanges[i], rootNode, doc)) {
-                return false;
+            a = -1;
+            if (!c) {
+                e = [];
+                d = 0;
+                for (var h; d < 256; ++d) {
+                    h = d;
+                    for (f = 8; f--;)if ((h & 1) == 1)h = h >>> 1 ^ 3988292384; else h >>>= 1;
+                    e[d] = h >>> 0
+                }
+                c = e
             }
+            e = c;
+            d = 0;
+            for (f = b.length; d < f; ++d) {
+                h = (a ^ b[d]) & 255;
+                a = a >>> 8 ^ e[h]
+            }
+            return(a ^ -1) >>> 0
         }
-
-        return true;
-    }
-
-
-    var cookieName = "rangySerializedSelection";
-
-    function getSerializedSelectionFromCookie(cookie) {
-        var parts = cookie.split(/[;,]/);
-        for (var i = 0, len = parts.length, nameVal, val; i < len; ++i) {
-            nameVal = parts[i].split("=");
-            if (nameVal[0].replace(/^\s+/, "") == cookieName) {
-                val = nameVal[1];
-                if (val) {
-                    return decodeURIComponent(val.replace(/\s+$/, ""));
+    }(), i = g.dom;
+    g.serializePosition = l;
+    g.deserializePosition = m;
+    g.serializeRange = p;
+    g.deserializeRange = q;
+    g.canDeserializeRange = r;
+    g.serializeSelection = s;
+    g.deserializeSelection = t;
+    g.canDeserializeSelection = function (c, a, b) {
+        var e;
+        if (a)e = b ? b.document : i.getDocument(a); else {
+            b = b || window;
+            a = b.document.documentElement
+        }
+        c = c.split("|");
+        b = 0;
+        for (var d = c.length; b < d; ++b)if (!r(c[b], a, e))return false;
+        return true
+    };
+    g.restoreSelectionFromCookie = function (c) {
+        c = c || window;
+        var a;
+        a:{
+            a = c.document.cookie.split(/[;,]/);
+            for (var b = 0, e = a.length, d; b < e; ++b) {
+                d = a[b].split("=");
+                if (d[0].replace(/^\s+/, "") == "rangySerializedSelection")if (d = d[1]) {
+                    a = decodeURIComponent(d.replace(/\s+$/, ""));
+                    break a
                 }
             }
+            a = null
         }
-        return null;
-    }
-
-    function restoreSelectionFromCookie(win) {
-        win = win || window;
-        var serialized = getSerializedSelectionFromCookie(win.document.cookie);
-        if (serialized) {
-            deserializeSelection(serialized, win.doc)
-        }
-    }
-
-    function saveSelectionCookie(win, props) {
-        win = win || window;
-        props = (typeof props == "object") ? props : {};
-        var expires = props.expires ? ";expires=" + props.expires.toUTCString() : "";
-        var path = props.path ? ";path=" + props.path : "";
-        var domain = props.domain ? ";domain=" + props.domain : "";
-        var secure = props.secure ? ";secure" : "";
-        var serialized = serializeSelection(api.getSelection(win));
-        win.document.cookie = encodeURIComponent(cookieName) + "=" + encodeURIComponent(serialized) + expires + path + domain + secure;
-    }
-
-    api.serializePosition = serializePosition;
-    api.deserializePosition = deserializePosition;
-
-    api.serializeRange = serializeRange;
-    api.deserializeRange = deserializeRange;
-    api.canDeserializeRange = canDeserializeRange;
-
-    api.serializeSelection = serializeSelection;
-    api.deserializeSelection = deserializeSelection;
-    api.canDeserializeSelection = canDeserializeSelection;
-
-    api.restoreSelectionFromCookie = restoreSelectionFromCookie;
-    api.saveSelectionCookie = saveSelectionCookie;
-
-    api.getElementChecksum = getElementChecksum;
+        a && t(a, c.doc)
+    };
+    g.saveSelectionCookie = function (c, a) {
+        c = c || window;
+        a = typeof a == "object" ? a : {};
+        var b = a.expires ? ";expires=" +
+            a.expires.toUTCString() : "", e = a.path ? ";path=" + a.path : "", d = a.domain ? ";domain=" + a.domain : "", f = a.secure ? ";secure" : "", h = s(g.getSelection(c));
+        c.document.cookie = encodeURIComponent("rangySerializedSelection") + "=" + encodeURIComponent(h) + b + e + d + f
+    };
+    g.getElementChecksum = j
 });

@@ -36,6 +36,7 @@
 //= require ice/dom
 //= require ice/icePluginManager
 //= require ice/icePlugin
+//= require ice/polyfills
 //= require ice/selection
 //= require ice/bookmark
 //= require_tree ./ice/IceEmdashPlugin/
