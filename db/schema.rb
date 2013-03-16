@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313104521) do
+ActiveRecord::Schema.define(:version => 20130316183833) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -431,6 +431,12 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
     t.string   "url"
   end
 
+  create_table "paragraph_histories", :force => true do |t|
+    t.integer "section_history_id",                  :null => false
+    t.string  "content",            :limit => 40000
+    t.integer "seq",                                 :null => false
+  end
+
   create_table "paragraphs", :force => true do |t|
     t.integer "section_id",                  :null => false
     t.string  "content",    :limit => 40000
@@ -542,6 +548,7 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
   end
 
   add_index "proposal_presentations", ["proposal_id"], :name => "_idx_proposal_presentations_proposal_id"
+  add_index "proposal_presentations", ["user_id", "proposal_id"], :name => "index_proposal_presentations_on_user_id_and_proposal_id", :unique => true
   add_index "proposal_presentations", ["user_id"], :name => "_idx_proposal_presentations_user_id"
 
   create_table "proposal_rankings", :force => true do |t|
@@ -553,6 +560,16 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
   end
 
   add_index "proposal_rankings", ["proposal_id", "user_id"], :name => "proposal_user", :unique => true
+
+  create_table "proposal_revisions", :force => true do |t|
+    t.integer  "proposal_id"
+    t.integer  "user_id"
+    t.integer  "valutations"
+    t.integer  "rank"
+    t.integer  "seq",         :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "proposal_sections", :force => true do |t|
     t.integer "proposal_id", :null => false
@@ -686,6 +703,11 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
     t.string  "comment",                        :limit => 200
   end
 
+  create_table "revision_section_histories", :force => true do |t|
+    t.integer "proposal_revision_id", :null => false
+    t.integer "section_history_id",   :null => false
+  end
+
   create_table "schulze_votes", :force => true do |t|
     t.integer  "election_id",                :null => false
     t.string   "preferences",                :null => false
@@ -695,6 +717,12 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
   end
 
   add_index "schulze_votes", ["election_id", "preferences"], :name => "index_schulze_votes_on_election_id_and_preferences", :unique => true
+
+  create_table "section_histories", :force => true do |t|
+    t.integer "section_id"
+    t.string  "title",      :limit => 100, :null => false
+    t.integer "seq",                       :null => false
+  end
 
   create_table "sections", :force => true do |t|
     t.string  "title", :limit => 100, :null => false
@@ -709,6 +737,16 @@ ActiveRecord::Schema.define(:version => 20130313104521) do
   end
 
   add_index "simple_votes", ["candidate_id"], :name => "index_simple_votes_on_candidate_id", :unique => true
+
+  create_table "solution_histories", :force => true do |t|
+    t.integer "proposal_revision_id", :null => false
+    t.integer "seq",                  :null => false
+  end
+
+  create_table "solution_section_histories", :force => true do |t|
+    t.integer "solution_history_id", :null => false
+    t.integer "section_history_id",  :null => false
+  end
 
   create_table "solution_sections", :force => true do |t|
     t.integer "solution_id", :null => false
