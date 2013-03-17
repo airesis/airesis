@@ -351,7 +351,9 @@ class ProposalsController < ApplicationController
           redirect_to proposal_path(params[:id])
         }
       end
-    else    
+     else
+      vote_period = Event.find(params[:proposal][:vote_period_id])
+      raise Exception unless vote_period.starttime > (Time.now + 5.seconds)  #controllo di sicurezza
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
