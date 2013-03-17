@@ -180,7 +180,11 @@ DemocracyOnline3::Application.routes.draw do
       end
     end
 
-    resources :documents
+    resources :documents do
+      collection do
+        get :view
+      end
+    end
 
     resources :group_areas do
       collection do
