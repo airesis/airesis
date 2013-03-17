@@ -1,0 +1,32 @@
+$('#create_proposal_container').html('<%= escape_javascript(render(:partial => @proposal, :locals => { :button_name => "Crea la proposta", :remote => true }))%>');
+
+var create_proposal_ = $('#create_proposal');
+<%if @group%>
+create_proposal_.dialog({
+    title: 'Nuova Proposta interno al gruppo: <%=@group.name%>',
+    modal: true,
+    width: 720,
+    height: 'auto',
+    close: function (event, ui) {
+        create_proposal_.dialog('destroy');
+        create_proposal_.remove();
+        window.location.reload(); //TODO workaround se ridisegno la textarea non funziona quindi devo ricaricare la pagina
+    }
+});
+<%else%>
+create_proposal_.dialog({
+    title: 'Nuova Proposta',
+    modal: true,
+    width: 720,
+    height: 'auto',
+    close: function (event, ui) {
+        create_proposal_.dialog('destroy');
+        create_proposal_.remove();
+        window.location.reload(); //TODO workaround se ridisegno la textarea non funziona quindi devo ricaricare la pagina
+    }
+});
+<%end%>
+
+disegnaBottoni();
+
+$('#new_proposal').enableClientSideValidations();
