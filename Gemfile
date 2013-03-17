@@ -21,6 +21,12 @@ end
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
+gem 'sunspot_rails'
+
+group :development do
+  gem 'sunspot_solr'
+end
+
 #gem 'rufus-scheduler'
 
 #per gmail

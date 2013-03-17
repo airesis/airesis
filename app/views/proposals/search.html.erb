@@ -1,0 +1,8 @@
+<%= render :partial => 'search_form' %>
+
+<%if  @proposals.count > 0%>
+    <%= render :partial => 'proposals/proposal_list_element', :collection => @proposals, :as => 'proposal' %>
+<%else%>
+    Nessuna proposta trovata che rispetti i parametri di ricerca
+<%end %>
+

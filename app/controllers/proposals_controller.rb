@@ -12,7 +12,7 @@ class ProposalsController < ApplicationController
   layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
+  before_filter :load_proposal_and_group, :except => [:search,:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
   
   ###SICUREZZA###
   
@@ -35,7 +35,34 @@ class ProposalsController < ApplicationController
   before_filter :can_valutate, :only => [:rankup,:rankdown]
   
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
-    
+
+
+  def search
+    authorize! :view_proposal, @group
+
+    #params[:group_id] = @group.id
+    @search = Proposal.search do
+      fulltext params[:search], :minimum_match => params[:or]
+      any_of do
+        with(:presentation_group_ids, params[:group_id])
+        with(:group_ids, params[:group_id])
+      end
+    end
+
+    #conditions += " and ((proposal_supports.group_id = " + @group.id.to_s + " and proposals.private = 'f')"
+    #conditions += "      or (group_proposals.group_id = " + @group.id.to_s + " and proposals.visible_outside = 't')"
+    #if can? :view_proposal, @group
+    #  conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
+    #end
+    #conditions += ")"
+
+    @proposals = @search.results
+
+  rescue Exception => e
+    @proposals = []
+    flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
+  end
+
   def index    
     if params[:category]
       @category = ProposalCategory.find_by_id(params[:category])
@@ -72,7 +99,8 @@ class ProposalsController < ApplicationController
     
     respond_to do |format|     
       #format.js 
-      format.html # index.html.erb      
+      format.html # index.html.erb
+      format.json
     end
   end
   

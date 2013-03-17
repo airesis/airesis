@@ -172,7 +172,11 @@ DemocracyOnline3::Application.routes.draw do
     
     resources :candidates
     
-    resources :proposals
+    resources :proposals do
+      collection do
+        get :search
+      end
+    end
     
     resources :quorums do
       member do

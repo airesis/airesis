@@ -1,0 +1,35 @@
+{
+<% if @category%>
+    "category": <%=@category.description%>,
+   <%end %>
+<% if @group_area %>
+    "group_area": {
+      "name": <%=@group_area.name %>,
+      "id": <%=@group_area.id %>
+    },
+<%end%>
+
+<% if @group %>
+    "group": {
+      "name": <%=@group.name %>,
+      "id": <%=@group.id%>,
+      "image_url": <%=@group.image_url%>
+    },
+<%end%>
+    "debate": {
+      "id": <%=ProposalState::TAB_DEBATE%>,
+      "count": <%=@in_valutation_count%>
+    },
+    "votation": {
+      "id": <%=ProposalState::TAB_VOTATION%>,
+      "count":<%=@in_votation_count%>
+    },
+    "voted": {
+      "id": <%=ProposalState::TAB_VOTED%>,
+      "count": <%=@accepted_count%>
+    },
+    "revision": {
+      "id": <%=ProposalState::TAB_REVISION%>,
+      "count": <%=@revision_count%>
+    }
+}

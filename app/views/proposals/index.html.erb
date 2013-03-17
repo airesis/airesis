@@ -27,23 +27,28 @@
 <div style="clear:both"></div>
 
 
+<%if @group%>
+    <%= render :partial => 'search_form' %>
+<%end%>
+
+
 <div id="tabs">
   <ul>
     <% if ::Configuration.phases_active %>
         <li>
-          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(:scroll => true, :state => 1, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
+          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_DEBATE, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true, :state => 2, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
+          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true,:state => ProposalState::TAB_VOTATION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(:scroll => true, :state => 3, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
+          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_VOTED, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(:scroll => true, :state => 4, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
+          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_REVISION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
           <div class="tabs-triangle"/>
         </li>
     <% else %>

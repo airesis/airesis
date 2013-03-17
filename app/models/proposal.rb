@@ -211,7 +211,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def short_content
-    truncate_words(self.content.gsub( %r{</?[^>]+?>}, '' ), 60)
+    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 60)
   end
 
   def interest_borders_tkn
@@ -248,5 +248,13 @@ class Proposal < ActiveRecord::Base
                p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
                ORDER BY closeness DESC"
     Proposal.find_by_sql(sql_q)
+  end
+
+
+  searchable do
+    text :title, boost: 5
+    text :content
+    integer :presentation_group_ids, multiple: true
+    integer :group_ids, multiple: true
   end
 end
