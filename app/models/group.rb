@@ -172,18 +172,21 @@ class Group < ActiveRecord::Base
     return true if self.accept_requests == REQ_BY_BOTH
     return false
   end
-  
-  def self.search(search)
-    if search
-      all(:conditions => ['upper(name) LIKE upper(?)', "%#{search}%"])
-    else
-      all(:order => 'created_at desc')
-    end
+
+  def self.look(search)
+    search ?
+      Group.search do
+        fulltext search
+      end.results :
+      Group.all(:order => 'created_at desc')
   end
 
   def to_param
     "#{id}-#{name.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
-  
-  
+
+  searchable do
+    text :name, boost: 5
+    text :description
+  end
 end

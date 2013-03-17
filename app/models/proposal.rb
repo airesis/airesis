@@ -253,7 +253,11 @@ class Proposal < ActiveRecord::Base
 
   searchable do
     text :title, boost: 5
-    text :content
+    text :content, boost: 2
+    text :paragraphs do
+      (sections.map{|section| section.paragraphs.map{|paragraph| paragraph.content}} +
+       solutions.map{|solution| solution.sections.map{|section| section.paragraphs.map{|paragraph| paragraph.content}}}).flatten
+    end
     integer :presentation_group_ids, multiple: true
     integer :group_ids, multiple: true
   end

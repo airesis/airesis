@@ -19,8 +19,8 @@ class GroupsController < ApplicationController
    #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
-  def index    
-    @groups = Group.search(params[:search])
+  def index
+    @groups = Group.look(params[:search])
     respond_to do |format|
       format.js
       format.html
