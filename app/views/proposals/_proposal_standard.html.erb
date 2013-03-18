@@ -73,6 +73,8 @@
               <% end %>
               <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
               <%= f.hidden_field :private %>
+              <%= f.hidden_field :proposal_type_id %>
+              <%= f.hidden_field :proposal_votation_type_id %>
             </p>
 
         <% end %>

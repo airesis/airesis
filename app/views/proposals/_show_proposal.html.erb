@@ -63,17 +63,17 @@
     function elaboraVoto() {
         votestring = "";
         vote = [];
-        $('.candidate_panel').each(function(panel) {
-            var val = $('.slideNumber',this).val();
+        $('.candidate_panel').each(function (panel) {
+            var val = $('.slideNumber', this).val();
             if (!val || val == '') val = "0";
-            vote.push([$('.candidate_id',this).val(),val])
+            vote.push([$('.candidate_id', this).val(), val])
         })
-        vote.sort(function(a,b) {
+        vote.sort(function (a, b) {
             return parseInt(b[1]) - parseInt(a[1]);
         })
         for (v in vote) {
             if (v != 0) {
-                if (vote[v][1] == vote[v-1][1]) {
+                if (vote[v][1] == vote[v - 1][1]) {
                     votestring += ","
                 }
                 else {
@@ -84,10 +84,10 @@
             votestring += vote[v][0]
         }
 
-        $('#data_votes').val(array2dToJson(vote,'candidates',' '));
+        $('#data_votes').val(array2dToJson(vote, 'candidates', ' '));
         $('#data_string').val(votestring);
         console.log('data_string: ' + votestring);
-        console.log('data_votes: ' + array2dToJson(vote,'candidates',' '));
+        console.log('data_votes: ' + array2dToJson(vote, 'candidates', ' '));
         return false;
     }
 
@@ -124,7 +124,7 @@
       <% else %>
           <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
       <% end %>
-      <% if proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox %>
+      <% if proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox  %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
           </div>
@@ -141,17 +141,17 @@
 
 <div class="blogCommentPostedAt">
 
-  <% if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata %>
+  <% if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
       <p>
         <b>Questa proposta sarà in votazione dal
           <%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
       </p>
-  <% elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito %>
+  <% elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito  %>
       Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi
       <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= proposal.comments.count %></em></a>.
       <br/> Per accedere alla votazione dovrà raggiungere un
       <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
-  <% elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione %>
+  <% elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
       <p>
         <%= link_to 'Vai alla pagina di votazione.', votation_path %>
       </p>
@@ -189,13 +189,14 @@
     <% end %>
 <% end %>
 
+<% if @proposal.is_polling? && @proposal.voting? %>
+    <%= form_for 'data', :url => {:action => "vote", :controller => "votations"} do |f| %>
+        <%= f.hidden_field 'votes' %>
+        <%= f.hidden_field 'string' %>
 
-<%=form_for 'data', :url => {:action => "vote", :controller => "votations"} do |f|%>
-    <%=f.hidden_field 'votes'%>
-    <%=f.hidden_field 'string'%>
-
-    <%=f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle'%>
-<%end%>
+        <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
+    <% end %>
+<% end %>
 
 <div id="proposal_histories_container">
 </div>
