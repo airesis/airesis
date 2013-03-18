@@ -1,65 +1,68 @@
 <div id="proposal<%= proposal.id %>" class="proposal_list shadow-box">
-	       <div class="category_icon">
-		<%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description)%>
-				</div>
-	        <div class="maintitle">
-	        	<%= link_to proposal.title, proposal.private ? [proposal.presentation_groups.first,proposal] : proposal %>
-	        </div>
-	       	<div class="datetime">
-                <%if proposal.in_valutation?%>
-	              Ultimo aggiornamento del <span class="blogPostDate"><%=l proposal.updated_at %></span>
-                <%elsif proposal.waiting_date?%>
-                  In attesa che venga stabilita la data di votazione
-                <%elsif proposal.waiting?%>
-                  In votazione dal <span class="blogPostDate"><%=l proposal.vote_period.starttime%></span> al <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
-                <%elsif proposal.voting?%>
-                  In votazione adesso fino al <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
-                 <%elsif proposal.voted?%>
-                     La votazione è terminata il <span class="blogPostDate"><%=l proposal.vote_period.endtime%></span>
-                <%end%>
-	            <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user,proposal)%>
-	        </div>
-	        <% unless proposal.interest_borders.empty?%>
-	        <div class="borders">
-	            <div class="title">Confini di interesse</div>
-	            <%proposal.interest_borders[0..5].each do |ib|%>
-	                <div class="border ui-state-highlight" title="<%=ib.territory_type%>">                    	
-	                    <%= ib.territory.description %>
-	                </div>
-	            <%end%>
-	            <div style="clear:both;"></div>
-	        </div>
-	        <%end%>
-	        
-	        <div class="authors">
-	            <div class="title">Autori</div>
-                  <%if signed_in? && (proposal.users.include? current_user)%>
-                    <%proposal.users.each do |user| %>
-                      <%=user_tag_mini(user)%>
-                    <%end%>
-                  <%else%>
-                    <%proposal.users.each do |user| %>
-                      <%=user_tag_mini(user,proposal)%>
-                    <%end%>
-                  <%end%>
-	              <div style="clear:both;"></div>
-	        </div>
-	        <% unless proposal.groups.empty?%>
-	        <div class="groups">
-	        	<div class="title">Gruppi in sostegno</div>
-	            <%proposal.groups[0..10].each do |group|%>
-	                <div class="blogUserImage" title="<%=group.name%>">                    	
-	                    <%= group.group_image_tag 20 %>
-	                </div>
-	            <%end%>
-	            <div style="clear:both;"></div>
-	        	
-	        </div>
-	        <%end%>
-	                   
-	      	
-	 <div class="proposal_content">
-	    <%= raw proposal.short_content %>
-		<%= link_to t('pages.proposals.index.continue_reading'), proposal.private ? [proposal.presentation_groups.first,proposal] : proposal %>
-	 </div>
+  <div class="category_icon">
+    <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+  </div>
+  <div class="maintitle">
+    <%= link_to proposal.title, proposal.private ? [proposal.presentation_groups.first, proposal] : proposal %>
+  </div>
+  <div class="datetime">
+    <% if proposal.in_valutation? %>
+        Ultimo aggiornamento del <span class="blogPostDate"><%= l proposal.updated_at %></span>
+    <% elsif proposal.waiting_date? %>
+        In attesa che venga stabilita la data di votazione
+    <% elsif proposal.waiting? %>
+        In votazione dal <span class="blogPostDate"><%= l proposal.vote_period.starttime %></span> al
+        <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+    <% elsif proposal.voting? %>
+        In votazione adesso fino al <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+    <% elsif proposal.voted? %>
+        La votazione è terminata il <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+    <% end %>
+    <% if proposal.is_standard? %>
+        <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
+    <% end %>
+  </div>
+  <% unless proposal.interest_borders.empty? %>
+      <div class="borders">
+        <div class="title">Confini di interesse</div>
+        <% proposal.interest_borders[0..5].each do |ib| %>
+            <div class="border ui-state-highlight" title="<%= ib.territory_type %>">
+              <%= ib.territory.description %>
+            </div>
+        <% end %>
+        <div style="clear:both;"></div>
+      </div>
+  <% end %>
+
+  <div class="authors">
+    <div class="title">Autori</div>
+    <% if signed_in? && (proposal.users.include? current_user) %>
+        <% proposal.users.each do |user| %>
+            <%= user_tag_mini(user) %>
+        <% end %>
+    <% else %>
+        <% proposal.users.each do |user| %>
+            <%= user_tag_mini(user, proposal) %>
+        <% end %>
+    <% end %>
+    <div style="clear:both;"></div>
+  </div>
+  <% unless proposal.groups.empty? %>
+      <div class="groups">
+        <div class="title">Gruppi in sostegno</div>
+        <% proposal.groups[0..10].each do |group| %>
+            <div class="blogUserImage" title="<%= group.name %>">
+              <%= group.group_image_tag 20 %>
+            </div>
+        <% end %>
+        <div style="clear:both;"></div>
+
+      </div>
+  <% end %>
+
+
+  <div class="proposal_content">
+    <%= raw proposal.short_content %>
+    <%= link_to t('pages.proposals.index.continue_reading'), proposal.private ? [proposal.presentation_groups.first, proposal] : proposal %>
+  </div>
 </div>

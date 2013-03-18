@@ -50,20 +50,25 @@ class Proposal < ActiveRecord::Base
 
   has_many :solutions, :order => :seq, :dependent => :destroy
 
+  belongs_to :proposal_votation_type, :class_name => 'ProposalVotationType'
+
+  belongs_to :proposal_type, :class_name => 'ProposalType'
+
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
   validates_uniqueness_of :title
 
-  validates_presence_of :quorum_id
+  validates_presence_of :quorum_id, :if => :is_standard?
 
   attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
                   :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
-                  :sections_attributes, :solutions_attributes
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id
 
-  accepts_nested_attributes_for :sections, :solutions
+  accepts_nested_attributes_for :sections
+  accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
@@ -94,6 +99,15 @@ class Proposal < ActiveRecord::Base
   before_update :save_proposal_history
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
+
+
+  def is_standard?
+    self.proposal_type_id.to_s == ProposalType::STANDARD.to_s
+  end
+
+  def is_polling?
+    self.proposal_type_id.to_s == ProposalType::POLL.to_s
+  end
 
 
   def remove_scheduled_tasks

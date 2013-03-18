@@ -1,6 +1,6 @@
 <h1><%=@election.name%></h1>
 
-<h2>Elenco dei candidati all'elezione</h1>
+<h2><%= 'Elenco dei candidati all\'elezione'%></h2>
 <style type="text/css">
 	.candidate_panel {
 		width: 410px;
@@ -47,7 +47,7 @@ candidates_num = @election.candidates.count
 		<%= candidate.user_image_tag 48%>
 		<div class="content">
 			<b><%=link_to_user candidate.user, :full_name => true%></b><br />
-			candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>
+			<%= 'candidato da ' %><b><%=candidate.groups.map{|g| g.name}.join%></b>
 		</div>
 		<div class="vote">
 			<input type="hidden" class="candidate_id" value="<%=candidate.id%>" />

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130316183833) do
+ActiveRecord::Schema.define(:version => 20130317214323) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -571,6 +571,14 @@ ActiveRecord::Schema.define(:version => 20130316183833) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "proposal_schulze_votes", :force => true do |t|
+    t.integer  "proposal_id",                :null => false
+    t.string   "preferences",                :null => false
+    t.integer  "count",       :default => 1, :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "proposal_sections", :force => true do |t|
     t.integer "proposal_id", :null => false
     t.integer "section_id",  :null => false
@@ -598,6 +606,16 @@ ActiveRecord::Schema.define(:version => 20130316183833) do
 
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
+  create_table "proposal_types", :force => true do |t|
+    t.string "short_name",  :limit => 10, :null => false
+    t.string "description",               :null => false
+  end
+
+  create_table "proposal_votation_types", :force => true do |t|
+    t.string "short_name",  :limit => 10, :null => false
+    t.string "description",               :null => false
+  end
+
   create_table "proposal_votes", :force => true do |t|
     t.integer  "proposal_id", :limit => 8
     t.integer  "positive"
@@ -616,25 +634,27 @@ ActiveRecord::Schema.define(:version => 20130316183833) do
 
   create_table "proposals", :force => true do |t|
     t.integer  "proposal_state_id"
-    t.integer  "proposal_category_id",                     :default => 5,     :null => false
-    t.string   "title",                   :limit => 200,                      :null => false
-    t.string   "content",                 :limit => 20000
+    t.integer  "proposal_category_id",                       :default => 5,     :null => false
+    t.string   "title",                     :limit => 200,                      :null => false
+    t.string   "content",                   :limit => 20000
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "valutations",                              :default => 0
+    t.integer  "valutations",                                :default => 0
     t.integer  "vote_period_id"
-    t.integer  "proposal_comments_count",                  :default => 0
-    t.integer  "rank",                                     :default => 0,     :null => false
-    t.string   "problem",                 :limit => 20000
-    t.string   "subtitle",                                 :default => "",    :null => false
-    t.string   "problems",                :limit => 18000, :default => "",    :null => false
-    t.string   "objectives",              :limit => 18000, :default => "",    :null => false
-    t.boolean  "show_comment_authors",                     :default => true,  :null => false
-    t.boolean  "private",                                  :default => false, :null => false
-    t.integer  "quorum_id",                                                   :null => false
-    t.boolean  "anonima",                                  :default => true,  :null => false
-    t.boolean  "visible_outside",                          :default => false, :null => false
-    t.boolean  "secret_vote",                              :default => true,  :null => false
+    t.integer  "proposal_comments_count",                    :default => 0
+    t.integer  "rank",                                       :default => 0,     :null => false
+    t.string   "problem",                   :limit => 20000
+    t.string   "subtitle",                                   :default => "",    :null => false
+    t.string   "problems",                  :limit => 18000, :default => "",    :null => false
+    t.string   "objectives",                :limit => 18000, :default => "",    :null => false
+    t.boolean  "show_comment_authors",                       :default => true,  :null => false
+    t.boolean  "private",                                    :default => false, :null => false
+    t.integer  "quorum_id"
+    t.boolean  "anonima",                                    :default => true,  :null => false
+    t.boolean  "visible_outside",                            :default => false, :null => false
+    t.boolean  "secret_vote",                                :default => true,  :null => false
+    t.integer  "proposal_type_id",                           :default => 1,     :null => false
+    t.integer  "proposal_votation_type_id",                  :default => 1,     :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -1054,6 +1074,8 @@ ActiveRecord::Schema.define(:version => 20130316183833) do
   add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
   add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
 
+  add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
+
   add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
   add_foreign_key "proposal_sections", "sections", :name => "proposal_sections_section_id_fk"
 
@@ -1068,6 +1090,8 @@ ActiveRecord::Schema.define(:version => 20130316183833) do
   add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
   add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
   add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"
+  add_foreign_key "proposals", "proposal_types", :name => "proposals_proposal_type_id_fk"
+  add_foreign_key "proposals", "proposal_votation_types", :name => "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
 
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
