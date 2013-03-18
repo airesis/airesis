@@ -1,45 +1,97 @@
 <script>
-	//style="background-color: rgb(185, 255, 116);"
-		function hideRankPanel(rank_p) {
-			query = '#' + rank_p + ' > .voteup'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votedown'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .loadingup'
-			$(query).show();
-			
-			query = '#' + rank_p + ' > .loading'
-			$(query).show();
-		
-			query = '#' + rank_p + ' > .loadingdown'
-			$(query).show();
-							
-			query = '#' + rank_p + ' > .voteup-mini'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votenil-mini'
-			$(query).hide();
-			
-			query = '#' + rank_p + ' > .votedown-mini'
-			$(query).hide();
-			
-			
-		}	
-	var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination
+    //style="background-color: rgb(185, 255, 116);"
+    function hideRankPanel(rank_p) {
+        query = '#' + rank_p + ' > .voteup'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votedown'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .loadingup'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .loading'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .loadingdown'
+        $(query).show();
+
+        query = '#' + rank_p + ' > .voteup-mini'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votenil-mini'
+        $(query).hide();
+
+        query = '#' + rank_p + ' > .votedown-mini'
+        $(query).hide();
 
 
-    $(function() {
-        $('img.mceItem').each(function(){
+    }
+    var pageURL = "<%= proposal_path(proposal) %>";	//need this for ajaxify pagination
+
+
+    $(function () {
+        $('img.mceItem').each(function () {
             var src = $(this).attr('alt');
             var width = $(this).attr('width') || 640
             var height = $(this).attr('height') || 390
-            $(this).after($('<iframe src=\"http://www.youtube.com/embed/'+src+'\" width=\"'+width+'\" height=\"'+height+'\" frameborder=\"0\" seamless allowfullscreens/>'));
+            $(this).after($('<iframe src=\"http://www.youtube.com/embed/' + src + '\" width=\"' + width + '\" height=\"' + height + '\" frameborder=\"0\" seamless allowfullscreens/>'));
             $(this).remove();
         });
+
+
+        var select = $(".slideNumber");
+        var slider = $("<div class='slider'></div>").insertAfter(select).slider({
+            min: 1,
+            max: <%=@proposal.solutions.count%>+1,
+            range: "min",
+            slide: function (event, ui) {
+                console.log("sliding")
+                $(this).prev()[0].selectedIndex = ui.value - 1;
+            }
+        });
+
+        $(".slideNumber").change(function () {
+            console.log('change');
+            $(this).next().slider("value", this.selectedIndex + 1);
+        });
     });
-</script>	
+
+    var vote = [];
+    var votestring = "";
+
+    function elaboraVoto() {
+        votestring = "";
+        vote = [];
+        $('.candidate_panel').each(function (panel) {
+            var val = $('.slideNumber', this).val();
+            if (!val || val == '') val = "0";
+            vote.push([$('.candidate_id', this).val(), val])
+        })
+        vote.sort(function (a, b) {
+            return parseInt(b[1]) - parseInt(a[1]);
+        })
+        for (v in vote) {
+            if (v != 0) {
+                if (vote[v][1] == vote[v - 1][1]) {
+                    votestring += ","
+                }
+                else {
+                    votestring += ";"
+                }
+
+            }
+            votestring += vote[v][0]
+        }
+
+        $('#data_votes').val(array2dToJson(vote, 'candidates', ' '));
+        $('#data_string').val(votestring);
+        console.log('data_string: ' + votestring);
+        console.log('data_votes: ' + array2dToJson(vote, 'candidates', ' '));
+        return false;
+    }
+
+</script>
 
 <div style="float: right;  height:30px;">
 
@@ -54,77 +106,97 @@
 
 
 </div>
-<h2 class="proposalTitle" itemprop="name"><%=h proposal.title %></h2>
+<h2 class="proposalTitle" itemprop="name"><%= h proposal.title %></h2>
 
-<h3 class="proposalSubtitle"  itemprop="description"><%=h proposal.subtitle %></h3>
+<h3 class="proposalSubtitle" itemprop="description"><%= h proposal.subtitle %></h3>
 
 
 <div style="float:right;">
 
-<%if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
-	<%if proposal.proposal_state_id == ProposalState::VALUTATION #se è ancor modificabile mostra il pulsante%>
-		<%if @group %>
-			<%= link_to 'Modifica', edit_group_proposal_path(@group,proposal), :class => 'editButton'  %>
-		<%else%>
-			<%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton'  %>
-		<%end%>
-        <% if @group %>
-            <%= link_to 'Cancella', [@group, proposal], method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
-        <% else %>
-            <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
-        <% end %>
-	<%elsif proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox%>
-		<div id="wait_date_header_container">
+  <% if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
+      <% if @group %>
+          <%= link_to 'Modifica', edit_group_proposal_path(@group, proposal), :class => 'editButton' if can? :update, proposal %>
+      <% else %>
+          <%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton' if can? :update, proposal %>
+      <% end %>
+      <% if @group %>
+          <%= link_to 'Cancella', [@group, proposal], method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+      <% else %>
+          <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+      <% end %>
+      <% if proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox  %>
+          <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
-        </div>
-
-        <div id="create_event_dialog" style="display:none;">
-          <div id="create_event">
           </div>
-        </div>
-	<%end%>
-<%end%>
+
+          <div id="create_event_dialog" style="display:none;">
+            <div id="create_event">
+            </div>
+          </div>
+      <% end %>
+  <% end %>
 </div>
 <div style="clear: both;"></div>
 
 
 <div class="blogCommentPostedAt">
-    
-<%if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
-	<p>
-    <b>Questa proposta sarà in votazione dal 
-		<%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
-	</p>
-  <%elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito%>
-      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%=proposal.comments.count %></em></a>.
-<br/> Per accedere alla votazione dovrà raggiungere un <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
-  <%elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
-<p>
-	<%= link_to 'Vai alla pagina di votazione.', votation_path %>
-</p>
-<%end%>
-	<br/>		
+
+  <% if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
+      <p>
+        <b>Questa proposta sarà in votazione dal
+          <%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
+      </p>
+  <% elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito  %>
+      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi
+      <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= proposal.comments.count %></em></a>.
+      <br/> Per accedere alla votazione dovrà raggiungere un
+      <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
+  <% elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
+      <p>
+        <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+      </p>
+  <% end %>
+  <br/>
 </div>
 
-<%@proposal.sections.each do |section|%>
-    <h3><%=section.title%></h3>
+<% @proposal.sections.each do |section| %>
+    <h3><%= section.title %></h3>
     <div class="proposalMainContainer proposal_main shadow-box">
       <div class="proposal_content">
-        <%=sanitize(section.paragraphs.first.content) %>
+        <%= sanitize(section.paragraphs.first.content) %>
       </div>
     </div>
-<%end%>
+<% end %>
 
-<h3>Testo della proposta</h3>
-<div id="proposal<%= proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
-  <%@proposal.solutions.each do |solution|%>
-      <%solution.sections.each do |section|%>
-        <div class="proposal_content">
-          <%=sanitize(section.paragraphs.first.content) %>
+<% @proposal.solutions.each do |solution| %>
+    <% solution.sections.each do |section| %>
+        <div class="solution_title">
+          <h3><%= section.title %></h3>
+          <% if @proposal.is_polling? && @proposal.voting? %>
+              <select class="slideNumber">
+                <option selected="selected"></option>
+                <% @proposal.solutions.count.times do |c| %>
+                    <option><%= c+1 %></option>
+                <% end %>
+              </select>
+          <% end %>
         </div>
-      <%end%>
-  <%end%>
-</div>
+        <div id="proposal<%= proposal.id %>" class="proposalMainContainer proposal_main shadow-box">
+          <div class="proposal_content">
+            <%= sanitize(section.paragraphs.first.content) %>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
+<% if @proposal.is_polling? && @proposal.voting? %>
+    <%= form_for 'data', :url => {:action => "vote", :controller => "votations"} do |f| %>
+        <%= f.hidden_field 'votes' %>
+        <%= f.hidden_field 'string' %>
+
+        <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
+    <% end %>
+<% end %>
 
 <div id="proposal_histories_container">
 </div>
