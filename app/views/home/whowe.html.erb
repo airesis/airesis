@@ -1,60 +1,79 @@
 <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
-<% @page_title = "Chi siamo"%>
-<% @page_descr = "Un gruppo di volontari che vogliono migliorare il mondo in cui si vive, dei cittadini come te. "%>
+<% @page_title = "Chi siamo" %>
+<% @page_descr = "Un gruppo di volontari che vogliono migliorare il mondo in cui si vive, dei cittadini come te. " %>
 <h2 id="opensource">Cittadini che vogliono una democrazia pi&ugrave; evoluta</h2>
 
-<p>Airesis nasce dall'unione dei progetti Agor&agrave; 2.0 e Airesis confluiti successivamente nell'associazione <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a> che ha l'obiettivo di realizzare una innovativa piattaforma open-source per l'e-democracy. </p>
-<p>Il lavoro &egrave; portato avanti <strong>interamente da volontari </strong>, uniti dalla volont&agrave; di creare uno strumento che consenta ai cittadini e ai gruppi di organizzarsi ed elaborare <strong>risposte ai problemi comuni </strong>in modo <strong>trasparente </strong>, <strong>democratico</strong>, <strong>partecipato</strong>, <strong>costruttivo</strong>, valorizzando l' <strong>intelligenza collettiva </strong>. </p>
+<p>Airesis nasce dall'unione dei progetti Agor&agrave; 2.0 e Airesis confluiti successivamente nell'associazione
+  <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a> che ha l'obiettivo di
+  realizzare una innovativa piattaforma open-source per l'e-democracy. </p>
+<p>Il lavoro &egrave; portato avanti <strong>interamente da volontari </strong>, uniti dalla volont&agrave; di creare
+  uno strumento che consenta ai cittadini e ai gruppi di organizzarsi ed elaborare
+  <strong>risposte ai problemi comuni </strong>in modo <strong>trasparente </strong>, <strong>democratico</strong>,
+  <strong>partecipato</strong>, <strong>costruttivo</strong>, valorizzando l' <strong>intelligenza collettiva </strong>.
+</p>
 
-<p>Se anche tu condividi il nostro obiettivo <a href="/partecipa">puoi contribuire</a> contattando i nostri volontari: </p>
+<p>Se anche tu condividi il nostro obiettivo <a href="/partecipa">puoi contribuire</a> contattando i nostri volontari:
+</p>
 
 <h2>Area Sviluppo</h2>
 <div class="scheda_volontario">
-	<div class="image_volontario">
-	<%=image_tag "volunteers/rodi_alessandro.jpg", :width=>150%>
+  <div class="image_volontario">
+    <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
 
-	<a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype" /></a><br />		
-	<a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
-		<span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
-		<span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
-		<img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
-	</a><br />
-	<a href="mailto:coorasse@gmail.com">
-		<%=image_tag "gmail_icon.gif" %>
-		coorasse@gmail.com
-	</a>
-	</div>
-	<div class="descrizione_volontario">
-		<h3>Alessandro Rodi</h3>
-		<h4>Referente per la programmazione</h4>
-<p>
-		Ho <%=age(Date.new(1986,8,19))%> anni e vivo a Bologna dove lavoro come sviluppatore Java. 
-Coltivo la passione per la programmazione da molti anni e nel 2009 ho completato il mio percorso di studi laureandomi in Scienze dell'Informazione. 
-Appassionato di politica e tecnologie digitali, a Luglio 2011 mi sono avvicinato a Ruby On Rails e ho iniziato a gettare le basi del codice di Airesis, con in mente un progetto ambizioso: la creazione di un software per la democrazia partecipata. 
-Affascinato da come la politica stia cambiando in questi anni e dal fatto che dovrà presto fare i conti con la rete, mi sono reso conto che uno strumento simile non è mai stato messo a disposizione dei cittadini e quindi....eccomi quà! 
-All'interno del progetto mi occupo di coordinare le attività di sviluppo e della programmazione vera e propria; sono di supporto agli altri programmatori e fungo da supervisore alla qualità del codice. Aiuto inoltre nell'elaborazione delle logiche e nella definizione delle tempistiche necessarie al loro completamento. </p>
-	</div>	
-	<div style="clear:both;"></div>
-</div> 
+    <a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br/>
+    <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+      <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
+      <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
+      <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+    </a><br/>
+    <a href="mailto:coorasse@gmail.com">
+      <%= image_tag "gmail_icon.gif" %>
+      coorasse@gmail.com
+    </a>
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Alessandro Rodi</h3>
+    <h4>Referente per la programmazione</h4>
+
+    <p>
+      Ho <%= age(Date.new(1986, 8, 19)) %> anni e vivo a Bologna dove lavoro come sviluppatore Java.
+      Coltivo la passione per la programmazione da molti anni e nel 2009 ho completato il mio percorso di studi
+      laureandomi in Scienze dell'Informazione.
+      Appassionato di politica e tecnologie digitali, a Luglio 2011 mi sono avvicinato a Ruby On Rails e ho iniziato a
+      gettare le basi del codice di Airesis, con in mente un progetto ambizioso: la creazione di un software per la
+      democrazia partecipata.
+      Affascinato da come la politica stia cambiando in questi anni e dal fatto che dovrà presto fare i conti con la
+      rete, mi sono reso conto che uno strumento simile non è mai stato messo a disposizione dei cittadini e
+      quindi....eccomi quà!
+      All'interno del progetto mi occupo di coordinare le attività di sviluppo e della programmazione vera e propria;
+      sono di supporto agli altri programmatori e fungo da supervisore alla qualità del codice. Aiuto inoltre
+      nell'elaborazione delle logiche e nella definizione delle tempistiche necessarie al loro completamento. </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
 
 <div class="scheda_volontario">
-	<div class="image_volontario">
-	<%=image_tag "volunteers/tilatti_marino.png", :width=>150%>
-      <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype" /></a>
-    </div>
-	<div class="descrizione_volontario">
-		<h3>Marino Tilatti</h3>
-		<h4>Developer</h4>
-Durante i miei studi universitari, compresi le grandi possibilità che internet offre all'umanità. 
-Appena laureatomi in Economia e Commercio scelsi di dedicarmi alle mie passioni e diedi vita in pochi anni ad alcuni importanti portali riguardo il mondo degli animali e gli immobili di prestigio, 
-oltre ad alcuni Application Service Provider.
-Il mio sogno nel cassetto però rimane sempre quello di realizzare uno strumento decisionale capace di attuare la democrazia diretta, 
-per questo, non appena ho saputo di questo progetto mi sono buttato a capofitto nonostante i miei altri impegni e i miei due splendidi bambini. 
-Sto curando gli aspetti grafici e di usabilità, l'aspetto SEO e di comunicazione, oltre alla parte prettamente tecnica di supporto alla programmazione. 
-	</div>	
-	<div style="clear:both;"></div>
-</div> 
-<br />
+  <div class="image_volontario">
+    <%= image_tag "volunteers/tilatti_marino.png", :width => 150 %>
+    <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Marino Tilatti</h3>
+    <h4>Developer</h4>
+    Durante i miei studi universitari, compresi le grandi possibilità che internet offre all'umanità.
+    Appena laureatomi in Economia e Commercio scelsi di dedicarmi alle mie passioni e diedi vita in pochi anni ad alcuni
+    importanti portali riguardo il mondo degli animali e gli immobili di prestigio,
+    oltre ad alcuni Application Service Provider.
+    Il mio sogno nel cassetto però rimane sempre quello di realizzare uno strumento decisionale capace di attuare la
+    democrazia diretta,
+    per questo, non appena ho saputo di questo progetto mi sono buttato a capofitto nonostante i miei altri impegni e i
+    miei due splendidi bambini.
+    Sto curando gli aspetti grafici e di usabilità, l'aspetto SEO e di comunicazione, oltre alla parte prettamente
+    tecnica di supporto alla programmazione.
+  </div>
+  <div style="clear:both;"></div>
+</div>
+<br/>
 <!--<h2>Area test e segnalazione bug</h2>
 
 <div class="scheda_volontario">
@@ -75,53 +94,90 @@ Sto curando gli aspetti grafici e di usabilità, l'aspetto SEO e di comunicazion
 
 <h2>Analisi funzionalità, grafica e organizzazione</h2>
 <div class="scheda_volontario">
-	<div class="image_volontario">
-	<%=image_tag "volunteers/curini_simone.jpg", :width=>150%>
-	<a href="skype:curini.simone?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype" /></a>
-	</div>
-	<div class="descrizione_volontario">
-		<h3>Simone Curini</h3>
-		<h4>Referente riunioni skype</h4>
-		<p>
-Ho <%=age(Date.new(1977,8,19))%> anni e da circa  <%=age(Date.new(2006,1,1))%> sono impegnato in attività politiche e sociali su Firenze col movimento 5 stelle . Ho studiato economia e commercio (mercati finanziari) , poi ho capito chi ( o cosa ) sarei dovuto essere per onorare i miei studi ed ho preferito lidi familiari . Faccio l'antiquario ed il tempo che questo lavoro mi ha regalato l'ho impiegato per perfezionare la conoscenza di alcuni linguaggi di programmazione quali php e java.  
-In Agorà 2.0 - Airesis sono stato coinvolto da Nicola nel 2010 per lo studio delle logiche, per la creazione degli spazi virtuali in cui ha avuto luogo il confronto tra i vari programmatori, ed infine per la sua presentazione e promozione . Attualmente sto studiando Ruby nonostante una figlia di 8 mesi meravigliosamente impegnativa. La speranza è quella di dare vita ad un sogno in cui la politica sia fatta dai cittadini per i cittadini per ottenere sempre  la soluzione più condivisa e ponderata possibile. 
-		</p>
-	</div>	
-	<div style="clear:both;"></div>
-</div> 
+  <div class="image_volontario">
+    <%= image_tag "volunteers/curini_simone.jpg", :width => 150 %>
+    <a href="skype:curini.simone?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Simone Curini</h3>
+    <h4>Referente riunioni skype</h4>
+
+    <p>
+      Ho <%= age(Date.new(1977, 8, 19)) %> anni e da circa  <%= age(Date.new(2006, 1, 1)) %> sono impegnato in attività
+      politiche e sociali su Firenze col movimento 5 stelle . Ho studiato economia e commercio (mercati finanziari) ,
+      poi ho capito chi ( o cosa ) sarei dovuto essere per onorare i miei studi ed ho preferito lidi familiari . Faccio
+      l'antiquario ed il tempo che questo lavoro mi ha regalato l'ho impiegato per perfezionare la conoscenza di alcuni
+      linguaggi di programmazione quali php e java.
+      In Agorà 2.0 - Airesis sono stato coinvolto da Nicola nel 2010 per lo studio delle logiche, per la creazione degli
+      spazi virtuali in cui ha avuto luogo il confronto tra i vari programmatori, ed infine per la sua presentazione e
+      promozione . Attualmente sto studiando Ruby nonostante una figlia di 8 mesi meravigliosamente impegnativa. La
+      speranza è quella di dare vita ad un sogno in cui la politica sia fatta dai cittadini per i cittadini per ottenere
+      sempre la soluzione più condivisa e ponderata possibile.
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
 
 <div class="scheda_volontario">
-	<div class="image_volontario">
-	<%=image_tag "volunteers/giulietti_nicola.png", :width=>150%>
-	 <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype" /></a><br>
-	<a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
-	<span>cell 380/2931955</span>
-<!-- Place this code where you want the badge to render. -->
-	</div>
-	<div class="descrizione_volontario">
-		<h3>Nicola Giulietti</h3>
-		<h4>Referente per la grafica e richiesta informazioni</h4>
-		<p>
-Ho <%=age(Date.new(1984,8,19))%> anni e da circa <%=age(Date.new(1998,8,19))%> sono impegnato nel mondo del volontariato, nell'ambito del quale ho coordinato numerose attività. Ho studiato ingegneria ambientale ed ingegneria energetica. Durante l’università ho partecipato ad alcuni progetti di innovazione tecnologica e ho lavorato nel campo della sostenibilità e della democrazia partecipata.
-In Agorà 2.0 - Airesis mi sono occupato un po' di tutto fuorché della programmazione: studio delle logiche, coordinamento, grafica.  Non è facile essere circondati da informatici, ma resisterò finché Airesis non consentirà alla gente di auto-organizzarsi in modo efficiente e democratico per recuperare il volante di questo mondo impazzito.
-		</p>
-	</div>	
-	<div style="clear:both;"></div>
-</div> 
+  <div class="image_volontario">
+    <%= image_tag "volunteers/giulietti_nicola.png", :width => 150 %>
+    <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
+    <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
+    <span>cell 380/2931955</span>
+    <!-- Place this code where you want the badge to render. -->
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Nicola Giulietti</h3>
+    <h4>Referente per la grafica e richiesta informazioni</h4>
+
+    <p>
+      Ho <%= age(Date.new(1984, 8, 19)) %> anni e da circa <%= age(Date.new(1998, 8, 19)) %> sono impegnato nel mondo
+      del volontariato, nell'ambito del quale ho coordinato numerose attività. Ho studiato ingegneria ambientale ed
+      ingegneria energetica. Durante l’università ho partecipato ad alcuni progetti di innovazione tecnologica e ho
+      lavorato nel campo della sostenibilità e della democrazia partecipata.
+      In Agorà 2.0 - Airesis mi sono occupato un po' di tutto fuorché della programmazione: studio delle logiche,
+      coordinamento, grafica. Non è facile essere circondati da informatici, ma resisterò finché Airesis non consentirà
+      alla gente di auto-organizzarsi in modo efficiente e democratico per recuperare il volante di questo mondo
+      impazzito.
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
 
 
 <h2>Altri volontari attivi nel progetto</h2>
 
-<p>Chiara Gianferrari, Fabio Alemagna, Fabio Ceccarelli, Fabio Palmieri, Giovani Spagnolo, Jacopo Tolja, Laura Maccioni, Luca Zanellato, Pietro Speroni di Fenizio, Riccardo Leone</p>
+<p>Chiara Gianferrari, Fabio Alemagna, Fabio Ceccarelli, Fabio Palmieri, Giovani Spagnolo, Jacopo Tolja, Laura Maccioni,
+  Luca Zanellato, Pietro Speroni di Fenizio, Riccardo Leone</p>
 
 <h2>Hanno contribuito</h2>
-<p>Hanno messo il loro tempo libero a disposizione del progetto anche (in ordine alfabetico): Alessandro Socciarello, Andrea Papini, Aramis amantini, Danilo Mezgec, Enrico Mengotti, Fabio Ceccarelli, Francesco Ercavalierenero, Gianmarco Barel, Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri, Simone D'Errico...</p>
+<p>Hanno messo il loro tempo libero a disposizione del progetto anche (in ordine alfabetico): Alessandro Socciarello,
+  Andrea Papini, Aramis amantini, Danilo Mezgec, Enrico Mengotti, Fabio Ceccarelli, Francesco Ercavalierenero, Gianmarco
+  Barel, Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri, Simone
+  D'Errico...</p>
 <h2>Uno speciale ringraziamento a</h2>
 <ul>
-	<li><a href="http://www.meetup.com/grillipensanti/" target="_blank">L'associazione  Grilli pensanti</a> che supporta il progetto e ha finanziato le spese per l'hosting per tutto il 2013</li>
-  <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave; necessarie per portarlo avanti.
+  <li><a href="http://www.meetup.com/grillipensanti/" target="_blank">L'associazione Grilli pensanti</a> che supporta il
+    progetto e ha finanziato le spese per l'hosting per tutto il 2013
   </li>
-  <li>Chi ci segue attraverso le nostre pagine facebook e le nostre mailing list, fornendo utili consigli, informazioni ed un caldo supporto morale.
+  <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave; necessarie
+    per portarlo avanti.
   </li>
-  <li>Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo. </li>
+  <li>Chi ci segue attraverso le nostre pagine facebook e le nostre mailing list, fornendo utili consigli, informazioni
+    ed un caldo supporto morale.
+  </li>
+  <li>Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo.</li>
+  <li><a href="http://www.jetbrains.com/" target="_blank">JetBrains</a> che ci fornisce gratuitamente
+    <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo.
+  </li>
+  <li><a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente
+    <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e
+    realizzazione dei test
+  </li>
 </ul>
+<a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
+  <img src="http://www.h-online.com/imgs/43/6/0/0/6/6/4/RubyMine_logo200-d15f4bf32abe0692.png" height="32px"/>
+</a>
+<a href="http://www.gurock.com/testrail/" target="_blank">
+  <img src="http://www.gurock.com/images/start/testrail.png" height="32px"/>
+</a>
