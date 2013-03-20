@@ -8,6 +8,8 @@ gem 'tinymce-rails'
 
 gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
 
+gem 'turnout'
+
 group :assets do
   gem 'sass-rails', "~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
