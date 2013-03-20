@@ -259,7 +259,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
   match '/videoguide' => 'home#videoguide'
-  match '/democraziadiretta' => 'home#whatis'
+  match '/edemocracy' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
 
   admin_required = lambda do |request|
