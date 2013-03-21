@@ -150,7 +150,7 @@ class ProposalsController < ApplicationController
               redirect_to group_proposals_path(@group)
             }
             format.json {
-              render :json => {:errors => flash[:error]}, :status => 401
+              render :json => {:error => flash[:error]}, :status => 401
               return
             }
           end

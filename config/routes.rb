@@ -283,7 +283,9 @@ DemocracyOnline3::Application.routes.draw do
     match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
   end
 
-  
+
+  resources :tokens,:only => [:create, :destroy]
+
   #authenticate :admin do
   #  mount Resque::Server, :at => "/resque_admin"
   #end

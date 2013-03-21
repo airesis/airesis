@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317214323) do
+ActiveRecord::Schema.define(:version => 20130321153555) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -940,6 +940,7 @@ ActiveRecord::Schema.define(:version => 20130317214323) do
     t.boolean  "show_tooltips",                             :default => true
     t.boolean  "show_urls",                                 :default => true
     t.boolean  "receive_messages",                          :default => true,  :null => false
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
