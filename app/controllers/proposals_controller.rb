@@ -242,36 +242,32 @@ class ProposalsController < ApplicationController
         #il quorum viene utilizzato per le proposte standard
         if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           quorum = Quorum.find(prparams[:quorum_id])
-          copy = quorum.dup
+          @copy = quorum.dup
           starttime = Time.now
 
-          copy.started_at = starttime
+          @copy.started_at = starttime
           if quorum.minutes
             endtime = starttime + quorum.minutes.minutes
-            copy.ends_at = endtime
+            @copy.ends_at = endtime
           end
           #se il numero di valutazioni è definito
           if quorum.percentage
             if @group #calcolo il numero in base ai partecipanti
-              copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
+              @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
             else #calcolo il numero in base agli utenti del portale (il 10%)
-              copy.valutations = ((quorum.percentage.to_f * User.all.count.to_f) / 1000).floor
+              @copy.valutations = ((quorum.percentage.to_f * User.all.count.to_f) / 1000).floor
             end
             #deve essere almeno 1!
-            copy.valutations = [copy.valutations, 1].max
+            @copy.valutations = [@copy.valutations, 1].max
           end
-          copy.public = false
-          copy.save!
-          @proposal.quorum_id = copy.id
+          @copy.public = false
+          @copy.save!
+          @proposal.quorum_id = @copy.id
 
           #metto la proposta in valutazione se è standard
           @proposal.proposal_state_id = PROP_VALUT
           @proposal.rank = 0
 
-          #fai partire il timer per far scadere la proposta
-          if quorum.minutes
-            Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-          end
 
         elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
           @proposal.proposal_state_id = ProposalState::WAIT_DATE
@@ -281,6 +277,11 @@ class ProposalsController < ApplicationController
         borders = prparams[:interest_borders_tkn]
         update_borders(borders)
         @proposal.save!
+
+        #fai partire il timer per far scadere la proposta
+        if quorum.minutes && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+          Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        end
 
         proposalparams = {
             :proposal_id => @proposal.id,
