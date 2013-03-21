@@ -23,7 +23,7 @@
 				</div>
 				<div class="advanced" style="padding: 5px 10px 5px 0;">
 
-					<%=e.select :condition, {"e" => "OR", "o" => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
+					<%=e.select :condition, {"o" => "OR", "e" => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
                   deve essere valutata da almeno il
 
 					<%=e.text_field :percentage, :class=> "percentage partecipants", :style=>"width:25px", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true%>
