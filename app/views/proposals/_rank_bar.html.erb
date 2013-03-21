@@ -1,44 +1,30 @@
 <script type="text/javascript">
-$(function() {
-	$(".progressBar[data-id=<%=proposal.id%>]").progressBar({
-		boxImage : '<%=asset_path "progressbar.gif"%>',
-		barImage :
-			<%if proposal.rank < proposal.quorum.bad_score %>
-			'<%=asset_path "progressbg_red.gif"%>'
-			<%elsif proposal.rank >= proposal.quorum.good_score %>
-			'<%=asset_path "progressbg_green.gif"%>'
-			<%else%>
-			'<%=asset_path "progressbg_orange.gif"%>'
-			<%end%>
-	});
-});
+    $(function () {
+        $(".progressBar[data-id=<%=proposal.id%>]").progressBar({
+            boxImage: '<%=asset_path "progressbar.gif"%>',
+            barImage: <%if proposal.rank < proposal.quorum.bad_score %>
+                    '<%=asset_path "progressbg_red.gif"%>'
+            <%elsif proposal.rank >= proposal.quorum.good_score %>
+            '<%=asset_path "progressbg_green.gif"%>'
+                    <%else%>
+                    '<%=asset_path "progressbg_orange.gif"%>'
+            <%end%>
+        });
+    });
 </script>
-<%percentages = []
-titles = []%>
-<%if proposal.quorum.valutations%>
-	<%minimum = [proposal.valutations,proposal.quorum.valutations].min
-	percentagevals = minimum.to_f/proposal.quorum.valutations.to_f
-	percentagevals *= 100
-	percentages << percentagevals
-	titles << "almeno " + proposal.quorum.valutations.to_s + " valutazioni"%>
-<%end%>
-<%if proposal.quorum.minutes%>
-	<%
-	minimum = [Time.now,proposal.quorum.ends_at].min
-	minimum = ((minimum - proposal.quorum.started_at)/60)
-	percentagetime = minimum.to_f/proposal.quorum.minutes.to_f
-	percentagetime *= 100
-	percentages << percentagetime
-	titles << "deve rimanere in dibattito fino al " + proposal.quorum.ends_at.strftime("%d/%m/%Y alle %H:%M")%>
-<%end%>
+<% titles = [] %>
+<% if proposal.quorum.valutations %>
+    <%titles << "almeno " + proposal.quorum.valutations.to_s + " valutazioni"%>
+<% end %>
+<% if proposal.quorum.minutes %>
+    <%titles << "deve rimanere in dibattito fino al " + proposal.quorum.ends_at.strftime("%d/%m/%Y alle %H:%M")%>
+<% end %>
 
-<%if proposal.quorum.or?%>
-	<%percentage=percentages.max%>
-	<%title = titles.join(" o ")%>
-<%else%>
-	<%percentage=percentages.min%>
-	<%title = titles.join(" e ")%>
-<%end%>
-<span class="progressBar" id="pb<%=proposal.id%>" data-id="<%=proposal.id%>" >
-	<%=percentage%>
+<% if proposal.quorum.or? %>
+    <% title = titles.join(" o ") %>
+<% else %>
+    <% title = titles.join(" e ") %>
+<% end %>
+<span class="progressBar" id="pb<%= proposal.id %>" data-id="<%= proposal.id %>">
+	<%= proposal.percentage %>
 </span>		

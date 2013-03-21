@@ -1,0 +1,19 @@
+$('#create_proposal_container').html('<%= escape_javascript(render(:partial => @proposal))%>');
+
+var create_proposal_ = $('#create_proposal');
+create_proposal_.dialog({
+    title: '<%=@title%>',
+    modal: true,
+    width: 720,
+    height: 'auto',
+    close: function (event, ui) {
+        create_proposal_.dialog('destroy');
+        create_proposal_.remove();
+        window.location.reload(); //TODO workaround se ridisegno la textarea non funziona quindi devo ricaricare la pagina
+    }
+});
+
+disegnaBottoni();
+
+$('#new_proposal').enableClientSideValidations();
+

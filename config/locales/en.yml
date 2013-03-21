@@ -3,3 +3,7 @@
 
 en:
   hello: "Hello world"
+  controllers:
+    registrations:
+      create:
+        recaptcha_ko: %Q(There was an error with the recaptcha code below. Please re-enter the code.)

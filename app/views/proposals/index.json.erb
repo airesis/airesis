@@ -1,20 +1,11 @@
-{
-<% if @category%>
-    "category": "<%=@category.description%>",
-   <%end %>
+{<% if @category%>
+    "category": <%=raw @category.to_json({only: [:id, :description]})%>,
+<%end %>
 <% if @group_area %>
-    "group_area": {
-      "name": "<%=@group_area.name %>",
-      "id": <%=@group_area.id %>
-    },
+    "group_area": <%=raw @group_area.to_json({only: [:id, :name]})%>,
 <%end%>
-
 <% if @group %>
-    "group": {
-      "name": <%=@group.name %>,
-      "id": <%=@group.id%>,
-      "image_url": <%=@group.image_url%>
-    },
+    "group": <%=raw @group.to_json({only: [:id, :name, :image_url]})%>,
 <%end%>
     "debate": {
       "id": <%=ProposalState::TAB_DEBATE%>,

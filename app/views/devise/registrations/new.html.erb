@@ -29,6 +29,8 @@
       <%= f.check_box :accept_conditions %>
     </p>
 
+    <%= recaptcha_tags :display => {'theme' => 'clean'} %><br /><br />
+
     <div><%= f.submit "Registrati", :class => 'buttonStyle' %></div>
 <% end %>
 

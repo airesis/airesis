@@ -485,4 +485,14 @@ it:
       create:
         ok_message: "Hei creato il nuovo ruolo"
         ko_message: "Errore nella creazione del ruolo"
+    proposals:
+      show:
+        unauthorized: "Non disponi dei permessi per visualizzare questa proposta"
+        cant_partecipate: %Q(Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo)
+        waiting_date: %Q(Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione.)
+        voting: %Q(Questa proposta è in fase di votazione.)
+        ask_for_partecipation: %Q(Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta)
+    registrations:
+      create:
+        recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
   unavailable_option: "Opzione non ancora disponibile"

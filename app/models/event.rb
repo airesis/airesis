@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :meeting, :election
   
   scope :public, {:conditions => ["private = ?",false]}
-  scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Date.today], :order => "starttime asc"}
+  scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Time.now], :order => "starttime asc"}
   scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ["groups.id = ?",group_id]} if group_id}
   
   

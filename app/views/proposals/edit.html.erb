@@ -28,9 +28,10 @@
 
     <h4>Modifica e aggiorna il testo della proposta!</h4>
 
-    <% @proposal.solutions.each do |solution| %>
-        <%= f.fields_for :solutions, @solution do |sol| %>
+    <% @proposal.solutions.each_with_index do |solution,i| %>
+        <%= f.fields_for :solutions, solution do |sol| %>
             <%= sol.hidden_field :seq %>
+            <%= sol.check_box '_destroy', style: 'display:none' %>
             <% solution.sections.each do |section| %>
                 <%= sol.fields_for :sections, section do |s| %>
                     <%= s.hidden_field :title %>
@@ -38,14 +39,24 @@
                     <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                         <p>
                           <%= p.label :content_dirty, section.title %><br/>
-                          <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
-                          <%= p.hidden_field :content %>
+
+                          <% if @proposal.is_standard? %>
+                              <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                              <%= p.hidden_field :content %>
+                          <% elsif @proposal.is_polling? %>
+                              <%= p.text_field :content, :style => "width:80%;" %>
+                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
+                          <% end %>
                           <%= p.hidden_field :seq %>
                         </p>
                     <% end %>
                 <% end %>
             <% end %>
         <% end %>
+    <% end %>
+
+    <% if @proposal.is_polling? %>
+        <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
     <% end %>
 
     <p>
@@ -75,6 +86,7 @@
         body_class: "CT-hide"
     });
     function fillCleanFields() {
+        <%if @proposal.is_standard?%>
         <%for i in 0..(@proposal.sections.count-1) %>
         $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
         <%end%>
@@ -83,6 +95,39 @@
         $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
         <%end%>
         <%end%>
+        <%end%>
         return true;
+    }
+
+    var numSolution = <%=@proposal.solutions.count%>
+
+    function addSolution(el) {
+        paragraph_ = $('<p></p>');
+        paragraph_.append('<label>Opzione '+(numSolution+1)+'</label>');
+        paragraph_.append('<br />');
+        var solutionname = 'proposal[solutions_attributes]['+numSolution+']';
+        var sectionname = solutionname + '[sections_attributes][0]';
+        var paragraphname = sectionname + '[paragraphs_attributes][0]';
+        paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\''+paragraphname+'[content]\'></input>');
+        paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,'+numSolution+',false);return false;\'>Rimuovi opzione</a>');
+        paragraph_.append('<input type=\'hidden\' value=\''+numSolution+'\' name=\''+solutionname+'][seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\''+paragraphname+'[seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\''+sectionname+'[seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'Opzione '+(numSolution+1)+'\' name=\''+sectionname + '[title]\'></input>');
+        $(el).before(paragraph_);
+        numSolution+=1;
+    }
+
+    function removeSolution(el,id,hide) {
+        if (hide) {
+            $('input[name="proposal\[solutions_attributes\]\['+id+'\]\[_destroy\]"]').val(1);
+            $(el).parent().hide();
+        }
+        else {
+            $('input[name^="proposal\[solutions_attributes\]\['+id+'\]"]').remove();
+            $(el).parent().remove();
+        }
+
+
     }
 </script>

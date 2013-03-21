@@ -1,66 +1,72 @@
 <div class="title">
-Le tue proposte
+  Le tue proposte
 </div>
 
 
-<%unless current_user.proposals.empty?%>
-	<div style="overflow-y:scroll;height: 260px;">
-	<table id="proposals_table" class="table_list">
-		<thead>
-			<th>Titolo della proposta</th>
-			<th>Ultima modifica</th>
-		</thead>
-		<tbody>
-			<%current_user.proposals.current.each do |proposal|%>
-         
-            <tr>
-				<td><%=link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0],proposal] : proposal)%><br>
-                  <div style="float: left; margin-right: 5px;">Autori</div>
-                      <%if signed_in? && (proposal.users.include? current_user)%>
-                          <%proposal.users.each do |user| %>
-                              <%=user_tag_mini(user)%>
-                          <%end%>
-                      <%else%>
-                          <%proposal.users.each do |user| %>
-                              <%=user_tag_mini(user,proposal)%>
-                          <%end%>
-                      <%end%>
+<% unless current_user.proposals.empty? %>
+    <div style="overflow-y:scroll;height: 260px;">
+      <table id="proposals_table" class="table_list">
+        <thead>
+        <th>Titolo della proposta</th>
+        <th>Ultima modifica</th>
+        </thead>
+        <tbody>
+        <% current_user.proposals.current.each do |proposal| %>
 
-					 <%= user_valutation_image(current_user,proposal)%>
-				</td>
-				<td align="center">
-					<%=proposal.updated_at.strftime("%d/%m/%Y %H:%M")%><br>
-					<%=render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
-	            </td>
-					
-			</tr>
-			<%end%>
-		</tbody>
-		
-	</table>
-	</div>
-            
-     <script type="text/javascript">
-     		$('#proposals_table').dataTable( {
-	        "oLanguage": {
-	            "sLengthMenu": "Mostra _MENU_ proposte per pagina",
-	             "sSearch": "Cerca:",
-	            "sZeroRecords": "Nessuna proposta, spiacente..",
-	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
-	            "sInfoEmpty": "Sto mostrando 0 proposte",
-	            "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",
-	            "oPaginate": {
-			        "sPrevious": "",
-			        "sNext": ""
-			      },
-	        },
-	        "aoColumns": [null,null],
-	        "aaSorting": [[ 3, "asc" ]],
-	        "bInfo": false,
-	        "bLengthChange": false,
-	    });
-	    
-	    $('#proposals_table_wrapper label').css("font-weight","normal").css("font-size","12px");
-     	
-     </script>           
-<%end%>
+            <tr>
+              <td><%= link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0], proposal] : proposal) %>
+                <br>
+                <div style="float: left; margin-right: 5px;">Autori</div>
+                <% if signed_in? && (proposal.users.include? current_user) %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user) %>
+                    <% end %>
+                <% else %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user, proposal) %>
+                    <% end %>
+                <% end %>
+
+                <%= user_valutation_image(current_user, proposal) %>
+              </td>
+              <td align="center">
+                <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>
+                <br>
+                <% if proposal.is_standard? %>
+                    <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
+                <% end %>
+              </td>
+
+            </tr>
+        <% end %>
+        </tbody>
+
+      </table>
+    </div>
+
+    <script type="text/javascript">
+        $('#proposals_table').dataTable({
+            "oLanguage": {
+                "sLengthMenu": "Mostra _MENU_ proposte per pagina",
+                "sSearch": "Cerca:",
+                "sZeroRecords": "Nessuna proposta, spiacente..",
+                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
+                "sInfoEmpty": "Sto mostrando 0 proposte",
+                "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",
+                "oPaginate": {
+                    "sPrevious": "",
+                    "sNext": ""
+                },
+            },
+            "aoColumns": [null, null],
+            "aaSorting": [
+                [ 3, "asc" ]
+            ],
+            "bInfo": false,
+            "bLengthChange": false,
+        });
+
+        $('#proposals_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+
+    </script>
+<% end %>

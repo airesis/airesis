@@ -13,9 +13,13 @@ class ApplicationController < ActionController::Base
     
   before_filter :prepare_for_mobile
 
+  def extract_locale_from_tld
+    parsed_locale = request.host.split('.').last
+    I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
+  end
  
   def set_locale
-    I18n.locale = params[:l] || I18n.default_locale
+    I18n.locale = extract_locale_from_tld || params[:l] || I18n.default_locale
   end
   
   #def default_url_options(options={})
@@ -249,6 +253,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
-  
 end

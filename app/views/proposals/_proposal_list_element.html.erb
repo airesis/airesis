@@ -22,7 +22,9 @@
             Non vi è stata alcuna votazione
         <% end %>
     <% end %>
-    <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
+    <% if proposal.is_standard? %>
+        <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
+    <% end %>
   </div>
   <% unless proposal.interest_borders.empty? %>
       <div class="borders">

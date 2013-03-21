@@ -17,13 +17,13 @@ class ProposalsController < ApplicationController
   ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:index_accepted, :tab_list, :endless_index, :show]
-  
+  before_filter :authenticate_user!, :except => [:index, :index_accepted, :tab_list, :endless_index, :show]
+
   #l'utente deve essere autore della proposta
-  before_filter :check_author, :only => [:edit, :update, :destroy, :set_votation_date, :add_authors]
-  
+  before_filter :check_author, :only => [:destroy, :set_votation_date, :add_authors]
+
   #la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, :only => [:edit,:update,:rankup,:rankdown,:destroy, :available_author, :add_authors]
+  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :destroy, :available_author, :add_authors]
 
   #la proposta deve essere in stato 'VOTATA'
   before_filter :voted_state_required, :only => [:vote_results]
@@ -63,7 +63,7 @@ class ProposalsController < ApplicationController
     flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
   end
 
-  def index    
+  def index
     if params[:category]
       @category = ProposalCategory.find_by_id(params[:category])
       #@count_base = @category.proposals
@@ -76,38 +76,38 @@ class ProposalsController < ApplicationController
 
     if params[:group_id]
       @count_base = @count_base.in_group(@group.id)
-    	#@count_base = @count_base.includes([:proposal_supports,:group_proposals])
+      #@count_base = @count_base.includes([:proposal_supports,:group_proposals])
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
-    
+
       unless can? :view_proposal, @group
-        flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."    
+        flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
       end
 
       if params[:group_area_id]
         @count_base = @count_base.in_group_area(@group_area.id)
       end
 
-   else
+    else
       @count_base = @count_base.public
     end
-   
+
 
     @in_valutation_count = @count_base.in_valutation.count
     @in_votation_count = @count_base.in_votation.count
     @accepted_count = @count_base.accepted.count
     @revision_count = @count_base.revision.count
-    
-    respond_to do |format|     
+
+    respond_to do |format|
       #format.js 
       format.html # index.html.erb
       format.json
     end
   end
-  
-    
+
+  #list all proposals in a state
   def tab_list
-    query_index             
-    respond_to do |format|     
+    query_index
+    respond_to do |format|
       format.html {
         if params[:replace]
           render :update do |page|
@@ -116,80 +116,80 @@ class ProposalsController < ApplicationController
             #render :partial => 'replace_tab_list', :locals => {:proposals => @proposals} 
             page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
           end
-        else          
+        else
           render :partial => 'tab_list', :locals => {:proposals => @proposals}
         end
-      }# index.html.erb      
+      }
+      format.json
     end
   end
-  
+
   def endless_index
     query_index
-    respond_to do |format|     
-      format.js             
+    respond_to do |format|
+      format.js
     end
   end
-   
+
   def show
-    @step = get_next_step(current_user) if current_user    
+    @step = get_next_step(current_user) if current_user
     if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
-          flash[:notice] = "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+          flash[:notice] = t('controllers.proposals.show.ask_for_partecipation')
         elsif !(can? :partecipate_proposal, @group)
-          flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+          flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       else #se è bloccata alla visione di utenti esterni
         if !current_user #se l'utente non è loggato richiedi l'autenticazione
           authenticate_user!
         elsif !(can? :view_proposal, @group) #se è loggato ma non ha i permessi caccialo fuori
           respond_to do |format|
-            flash[:error] = "Non disponi dei permessi per visualizzare questa proposta"
+            flash[:error] = t('controllers.proposals.show.unauthorized')
             format.html {
               redirect_to group_proposals_path(@group)
             }
+            format.json {
+              render :json => {:errors => flash[:error]}, :status => 401
+              return
+            }
           end
         end
-        unless can? :partecipate_proposal, @group    
-          flash[:notice] = "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+        unless can? :partecipate_proposal, @group
+          flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       end
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
     end
-    #@proposal_comments = @proposal.contributes.includes(:user => :proposal_nicknames).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     respond_to do |format|
       #format.js
       format.html {
         if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
-          flash.now[:notice] = "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+          flash.now[:notice] = t('controllers.proposals.show.waiting_date')
         elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
-          flash.now[:notice] = "Questa proposta è in fase di votazione."
+          flash.now[:notice] = t('controllers.proposals.show.voting')
         end
-      } # show.html.erb
-     # format.xml  { render :xml => @proposal }
+      }
+      format.json
     end
- # rescue Exception => boom
- #   puts boom
- #   flash[:notice] = t(:error_proposal_loading)
- #   redirect_to proposals_path
   end
 
   def new
     @step = get_next_step(current_user)
     @proposal = Proposal.new
-    
-    if (params[:group_id])
+
+    if params[:group_id]
       @group = Group.find_by_id(params[:group_id])
       @proposal.interest_borders << @group.interest_border
       @proposal.private = true
       @proposal.presentation_groups << @group
-      @proposal.anonima = @group.default_anonima  
+      @proposal.anonima = @group.default_anonima
       @proposal.visible_outside = @group.default_visible_outside
       @change_advanced_options = @group.change_advanced_options
 
-      if (params[:group_area_id])
+      if params[:group_area_id]
         @proposal.group_area_id = params[:group_area_id]
       end
 
@@ -200,57 +200,53 @@ class ProposalsController < ApplicationController
       @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
     end
 
-    if (params[:category])
+    if params[:category]
       @proposal.proposal_category_id = params[:category]
     end
 
-    @problems = @proposal.sections.build(title: 'Problematica', seq: 1)
-    @objectives = @proposal.sections.build(title: 'Obiettivi', seq: 2)
-    @solution = @proposal.solutions.build(seq: 1)
-    @solution_section = @solution.sections.build(title: 'Soluzione 1', seq: 1)
+    #initialize all fields necessary for the proposal specific type
+    if params[:proposal_type_id] == ProposalType::STANDARD.to_s
+      @problems = @proposal.sections.build(title: 'Problematica', seq: 1)
+      @objectives = @proposal.sections.build(title: 'Obiettivi', seq: 2)
+      @solution = @proposal.solutions.build(seq: 1)
+      @solution_section = @solution.sections.build(title: 'Soluzione 1', seq: 1)
+      @proposal.proposal_type_id = ProposalType::STANDARD
+      @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+      @title = "Nuova proposta"
+      @title += " interna al gruppo #{@group.name}" if @group
+    elsif params[:proposal_type_id] == ProposalType::POLL.to_s
+      @text = @proposal.sections.build(title: 'Testo del sondaggio', seq: 1)
+      @solution_a = @proposal.solutions.build(seq: 1)
+      @solution_b = @proposal.solutions.build(seq: 2)
+      @solution_c = @proposal.solutions.build(seq: 3)
+      @proposal.proposal_type_id = ProposalType::POLL
+      @proposal.proposal_votation_type_id = ProposalVotationType::SCHULZE
 
+      @solution_a_section = @solution_a.sections.build(title: 'Opzione 1', seq: 1)
+      @solution_b_section = @solution_b.sections.build(title: 'Opzione 2', seq: 1)
+      @solution_c_section = @solution_c.sections.build(title: 'Opzione 3', seq: 1)
+
+      @title = "Nuovo sondaggio"
+      @title += " interno al gruppo #{@group.name}" if @group
+    end
 
     respond_to do |format|
       format.js
-      format.html # new.html.erb
-      format.xml  { render :xml => @proposal }
+      format.html
+      format.xml { render :xml => @proposal }
     end
   end
   
   def edit
-    @proposal.content_dirty = @proposal.content
-    @proposal.objectives_dirty = @proposal.objectives
-    @proposal.problems_dirty = @proposal.problems
+    authorize! :update, @proposal   
   end
-  
+
   def create
     begin
       @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id]
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
-
-        quorum = Quorum.find(prparams[:quorum_id])
-        copy = quorum.dup
-        starttime = Time.now
-        
-        copy.started_at = starttime
-        if quorum.minutes
-          endtime = starttime + quorum.minutes.minutes
-          copy.ends_at = endtime
-        end 
-        #se il numero di valutazioni è definito
-        if quorum.percentage
-          if @group #calcolo il numero in base ai partecipanti
-            copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
-          else  #calcolo il numero in base agli utenti del portale (il 10%)
-            copy.valutations = ((quorum.percentage.to_f * User.all.count.to_f) / 1000).floor
-          end
-          #deve essere almeno 1!
-          copy.valutations = [copy.valutations,1].max
-        end
-	      copy.public = false
-        copy.save!
 
         @proposal = Proposal.new(prparams)
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
@@ -262,38 +258,70 @@ class ProposalsController < ApplicationController
             @proposal.presentation_areas << @group_area
           end
         else
-          @proposal.anonima = DEFAULT_ANONIMA          
+          @proposal.anonima = DEFAULT_ANONIMA
           @proposal.visible_outside = true
           @proposal.secret_vote = true
         end
-        @proposal.quorum_id = copy.id
-        
-        @proposal.proposal_state_id = PROP_VALUT
-        @proposal.rank = 0
+
+        #il quorum viene utilizzato per le proposte standard
+        if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+          quorum = Quorum.find(prparams[:quorum_id])
+          copy = quorum.dup
+          starttime = Time.now
+
+          copy.started_at = starttime
+          if quorum.minutes
+            endtime = starttime + quorum.minutes.minutes
+            copy.ends_at = endtime
+          end
+          #se il numero di valutazioni è definito
+          if quorum.percentage
+            if @group #calcolo il numero in base ai partecipanti
+              copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
+            else #calcolo il numero in base agli utenti del portale (il 10%)
+              copy.valutations = ((quorum.percentage.to_f * User.all.count.to_f) / 1000).floor
+            end
+            #deve essere almeno 1!
+            copy.valutations = [copy.valutations, 1].max
+          end
+          copy.public = false
+          copy.save!
+          @proposal.quorum_id = copy.id
+
+          #metto la proposta in valutazione se è standard
+          @proposal.proposal_state_id = PROP_VALUT
+          @proposal.rank = 0
+
+          #fai partire il timer per far scadere la proposta
+          if quorum.minutes
+            Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+          end
+
+        elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
+          @proposal.proposal_state_id = ProposalState::WAIT_DATE
+        end
+
+
         borders = prparams[:interest_borders_tkn]
         update_borders(borders)
         @proposal.save!
-        
+
         proposalparams = {
-              :proposal_id => @proposal.id,
-              :user_id => current_user.id
+            :proposal_id => @proposal.id,
+            :user_id => current_user.id
         }
-        
+
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
-        generate_nickname(current_user,@proposal)
+        generate_nickname(current_user, @proposal)
 
 
-    	
-        #fai partire il timer per far scadere la proposta
-        if quorum.minutes
-          Resque.enqueue_at(copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-        end
 
-        notify_proposal_has_been_created(@proposal,@group)
+
+        notify_proposal_has_been_created(@proposal, @group)
       end
       @saved = true
-      
+
       respond_to do |format|
         flash[:notice] = t(:proposal_inserted)
         format.js {
@@ -301,19 +329,19 @@ class ProposalsController < ApplicationController
             if request.env['HTTP_REFERER']["back=home"]
               page.redirect_to home_url
             else
-              page.redirect_to @group? [@group,@proposal] : @proposal
+              page.redirect_to @group ? [@group, @proposal] : @proposal
             end
           end
         }
-        format.html { 
-         if request.env['HTTP_REFERER']["back=home"]
-          redirect_to home_url
-         else 
-          redirect_to @group? [@group,@proposal] : @proposal
-         end 
-        }              
+        format.html {
+          if request.env['HTTP_REFERER']["back=home"]
+            redirect_to home_url
+          else
+            redirect_to @group ? [@group, @proposal] : @proposal
+          end
+        }
       end
-      
+
     rescue ActiveRecord::ActiveRecordError => e
       log_error(e)
       if @proposal.errors[:title]
@@ -333,6 +361,7 @@ class ProposalsController < ApplicationController
   end
   
   def update
+    authorize! :update, @proposal
     begin
       Proposal.transaction do
         prparams = params[:proposal]
@@ -341,45 +370,47 @@ class ProposalsController < ApplicationController
         @proposal.proposal_borders.each do |border|
           border.destroy
         end
-      
+
         update_borders(borders)
         @proposal.update_user_id = current_user.id
         @proposal.update_attributes(params[:proposal])
         notify_proposal_has_been_updated(@proposal)
       end
-      
+
       respond_to do |format|
         flash[:notice] = t(:proposal_updated)
         format.html {
           if params[:from_group]
             @group = Group.find_by_id(params[:from_group])
-            redirect_to [@group,@proposal]
+            redirect_to [@group, @proposal]
           else
             redirect_to @proposal
-          end 
+          end
         }
       end
-      
+
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         format.html { render :action => "edit" }
       end
     end
   end
-  
+
   def set_votation_date
-     if @proposal.proposal_state_id != PROP_WAIT_DATE
+    if @proposal.proposal_state_id != PROP_WAIT_DATE
       flash[:error] = t(:error_proposal_not_waiting_date)
       respond_to do |format|
         format.js { render :update do |page|
-                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                    end                  
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
         }
         format.html {
           redirect_to proposal_path(params[:id])
         }
       end
-    else    
+    else
+      vote_period = Event.find(params[:proposal][:vote_period_id])
+      raise Exception unless vote_period.starttime > (Time.now + 5.seconds) #controllo di sicurezza
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
@@ -394,54 +425,54 @@ class ProposalsController < ApplicationController
         format.html { redirect_to proposal_path(params[:id]) }
       end
     end
-    
-    rescue Exception => boom
-      flash[:error] = t(:error_updating)
-      redirect_to :back
+
+  rescue Exception => boom
+    flash[:error] = t(:error_updating)
+    redirect_to :back
   end
-  
-  
+
+
   def destroy
     authorize! :destroy, @proposal
     @proposal.destroy
-    
+
     respond_to do |format|
       format.html {
         flash[:notice] = t(:proposal_deleted)
-        redirect_to(proposals_url) 
+        redirect_to(proposals_url)
       }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
-  
-  def rankup 
+
+  def rankup
     rank 1
   end
-  
+
   def rankdown
     rank 3
   end
-  
-  
+
+
   def statistics
-     respond_to do |format|
-      format.html 
+    respond_to do |format|
+      format.html
       format.js do
-          render :update do |page|
-              page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
-          end
+        render :update do |page|
+          page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
+        end
       end
     end
   end
-  
+
   #restituisce una lista di tutte le proposte simili a quella
   #passata come parametro
   #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
-    tags = params[:tags].downcase.gsub('.','').gsub("'","").split(",").map{|t| "'#{t.strip}'"}.join(",").html_safe
-    if tags.empty? 
+    tags = params[:tags].downcase.gsub('.', '').gsub("'", "").split(",").map { |t| "'#{t.strip}'" }.join(",").html_safe
+    if tags.empty?
       tags = "''"
-    end  
+    end
     sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
             p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
             p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
@@ -455,15 +486,15 @@ class ProposalsController < ApplicationController
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-                                      ORDER BY closeness DESC"                                           
-    @similars  = Proposal.find_by_sql(sql_q)
-                                                  
+                                      ORDER BY closeness DESC"
+    @similars = Proposal.find_by_sql(sql_q)
+
     respond_to do |format|
-      format.js 
-      format.html 
+      format.js
+      format.html
     end
   end
-  
+
   #questo metodo permette all'utente corrente di mettersi a disposizione per redigere la sintesi della proposta
   def available_author
     @proposal.available_user_authors << current_user
@@ -475,13 +506,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     flash[:notice] = "Ti sei reso disponibile per redigere la sintesi della proposta!"
     respond_to do |format|
       format.js { render :update do |page|
-                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                    page.replace_html "available_author", :partial => 'proposals/available_author'
-                  end                   
-      }        
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "available_author", :partial => 'proposals/available_author'
+      end
+      }
     end
   end
-  
+
   #restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
   def available_authors_list
     @available_authors = @proposal.available_user_authors
@@ -489,43 +520,43 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       format.js
     end
   end
-  
+
   #aggiunge alcuni degli utenti che si sono resi disponibili a redigere la sintesi
   #agli autori della proposta
   def add_authors
     available_ids = params['user_ids']
-    
-    Proposal.transaction do    
-      users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map{|id| id.to_i}]) rescue []
+
+    Proposal.transaction do
+      users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map { |id| id.to_i }]) rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
       @proposal.save!
 
       #invia le notifiche
       users.each do |u|
-        notify_user_choosed_as_author(u,@proposal)
-        generate_nickname(u,@proposal)
+        notify_user_choosed_as_author(u, @proposal)
+        generate_nickname(u, @proposal)
       end
     end
-  
+
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"
     respond_to do |format|
       format.js { render :update do |page|
-                    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                    page.replace_html "authors_list", :partial => 'proposals/authors_list_panel'     
-                    page << "$('#available_authors_list_container').dialog('close');"               
-                  end                   
-      }        
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "authors_list", :partial => 'proposals/authors_list_panel'
+        page << "$('#available_authors_list_container').dialog('close');"
+      end
+      }
     end
-    
+
   rescue Exception => e
     flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
     respond_to do |format|
       format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page << "$('#available_authors_list_container').dialog('close');"                               
-        end
-      }              
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page << "$('#available_authors_list_container').dialog('close');"
+      end
+      }
     end
   end
 
@@ -535,15 +566,15 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       format.js
     end
   end
-  
-  
+
+
   protected
-  
+
   def choose_layout
     @group ? "groups" : "open_space"
-  end 
-   
-   
+  end
+
+
   #query per la ricerca delle proposte 
   def query_index
     order = ""
@@ -552,31 +583,31 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     elsif params[:view] == ORDER_BY_VOTES
       order << " proposals.valutations desc, proposals.created_at desc"
     else
-      order << "proposals.created_at desc"  
+      order << "proposals.created_at desc"
     end
-    
+
     conditions = "1 = 1"
-    
+
     if params[:state] == VOTATION_STATE
-      startlist = Proposal.in_votation   
-      @replace_id = t("pages.proposals.index.voting").gsub(' ','_')
+      startlist = Proposal.in_votation
+      @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
     elsif params[:state] == ACCEPTED_STATE
       startlist = Proposal.accepted
-      @replace_id = t("pages.proposals.index.accepted").gsub(' ','_')
+      @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
     elsif params[:state] == REVISION_STATE
       startlist = Proposal.revision
-      @replace_id = t("pages.proposals.index.revision").gsub(' ','_')
+      @replace_id = t("pages.proposals.index.revision").gsub(' ', '_')
     else
-     startlist = Proposal.in_valutation
-     @replace_id = t("pages.proposals.index.debate").gsub(' ','_')
+      startlist = Proposal.in_valutation
+      @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
     end
-    
+
     #se è stata scelta una categoria, filtra per essa
     #if (params[:category])
     #  @category = ProposalCategory.find_by_id(params[:category])
     #  conditions += " and proposal_category_id = #{params[:category]}"
     #end
-    
+
     startlist = startlist.in_category(params[:category])
 
     #applica il filtro per il gruppo
@@ -599,75 +630,75 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     else
       startlist = startlist.public
     end
-    
-    @proposals = startlist.includes([:proposal_supports,:group_proposals,:area_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+
+    @proposals = startlist.includes([:proposal_supports, :group_proposals, :area_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
-  
+
   def update_borders(borders)
-     #confini di interesse, scorrili
+    #confini di interesse, scorrili
     borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
-      ftype = border[0,1] #tipologia (primo carattere)
-      fid = border[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
+      ftype = border[0, 1] #tipologia (primo carattere)
+      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
-      
-   
-      if found  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
+
+
+      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
         puts "New Record!" if (interest_b.new_record?)
         i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
       end
     end if borders
   end
-  
+
   #valuta una proposta
   def rank(rank_type)
-    if @my_ranking            #se essite già una mia valutazione, aggiornala
+    if @my_ranking #se essite già una mia valutazione, aggiornala
       @ranking = @my_ranking
-    else                      #altrimenti creane una nuova
+    else #altrimenti creane una nuova
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
       notify_user_valutate_proposal(@ranking) #invia notifica per indicare la nuova valutazione
     end
-    @ranking.ranking_type_id = rank_type  #setta il tipo di valutazione
-    
+    @ranking.ranking_type_id = rank_type #setta il tipo di valutazione
+
     ProposalRanking.transaction do
       saved = @ranking.save
       @proposal.reload
       check_phase(@proposal)
-           
+
       respond_to do |format|
         if saved
           load_my_vote
           flash[:notice] = t(:proposal_rank_registered)
-          format.js { render :update do |page|                    
-              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-              page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'                     
-            end                     
+          format.js { render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
+          end
           }
-          format.html 
-        else        
+          format.html
+        else
           flash[:notice] = t(:error_on_proposal_rank)
           format.js { render :update do |page|
-              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            end
-          }       
-          format.html 
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end
+          }
+          format.html
         end
       end
-      
+
     end #transaction
   rescue Exception => e
 #    log_error(e)
     flash[:notice] = t(:error_on_proposal_rank)
     respond_to do |format|
       format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
-          
-        end
-      }       
-      format.html 
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
+
+      end
+      }
+      format.html
     end
   end
 
@@ -686,7 +717,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
     if @proposal.presentation_groups.count > 0 && !params[:group_id]
-      redirect_to group_proposal_path(@proposal.presentation_groups.first,@proposal)
+      redirect_to group_proposal_path(@proposal.presentation_groups.first, @proposal, :format => params[:format])
     end
     load_my_vote
 
@@ -695,12 +726,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def load_proposal
     @proposal = Proposal.find(params[:id])
   end
-  
+
   def load_my_vote
     if @proposal.proposal_state_id != PROP_VALUT
       @can_vote_again = 0
     else
-      ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id,@proposal.id) if current_user
+      ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
         if ranking.updated_at < @proposal.updated_at
@@ -714,7 +745,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
     end
   end
-  #questo metodo permette di verificare che l'utente collegato 
+
+  #questo metodo permette di verificare che l'utente collegato
   #sia l'autore della proposta il cui id è presente nei parametri
   def check_author
     if !is_proprietary? @proposal and !is_admin?
@@ -755,13 +787,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def valutation_state_required
-     if @proposal.proposal_state_id != PROP_VALUT
+    if @proposal.proposal_state_id != PROP_VALUT
       flash[:error] = t(:error_proposal_not_valutating)
       respond_to do |format|
         format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
-          end                  
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}
+        end
         }
         format.html {
           redirect_to :back
@@ -769,23 +801,23 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
     end
   end
-  
+
   #viene eseguita prima della registrazione della valutazione dell'utente.
   #se un utente ha già valutato la proposta ed essa non è più stata modifica successivamente
   #allora l'operazione viene annullata e viene mostrato un messagio di errore.
   #la stessa cosa avviene se la proposta non è in fase di valutazione
   #la stessa cosa avviene se l'utente non dispone dei permessi per partecipare ad una proposta privata del gruppo
-  def can_valutate   
-    @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id,params[:id])
+  def can_valutate
+    @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, params[:id])
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
     if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
         (@proposal.private && @group && !(can? :partecipate_proposal, @group)))
       flash[:error] = t(:error_proposal_already_ranked)
       respond_to do |format|
         format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
-          end                  
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}
+        end
         }
         format.html {
           redirect_to proposal_path(params[:id])

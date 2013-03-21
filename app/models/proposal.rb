@@ -50,20 +50,25 @@ class Proposal < ActiveRecord::Base
 
   has_many :solutions, :order => :seq, :dependent => :destroy
 
+  belongs_to :proposal_votation_type, :class_name => 'ProposalVotationType'
+
+  belongs_to :proposal_type, :class_name => 'ProposalType'
+
   #validation
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
   validates_uniqueness_of :title
 
-  validates_presence_of :quorum_id
+  validates_presence_of :quorum_id, :if => :is_standard?
 
-  attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty
+  attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty, :percentage
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
                   :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
-                  :sections_attributes, :solutions_attributes
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id
 
-  accepts_nested_attributes_for :sections, :solutions
+  accepts_nested_attributes_for :sections
+  accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
   scope :current, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
@@ -90,10 +95,23 @@ class Proposal < ActiveRecord::Base
   #condizione di visualizzazione in un gruppo
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
 
+  #condizione di visualizzazione in area di lavoro
+  scope :in_group_area, lambda { |group_area_id| {:include => [:area_proposals], :conditions => ["((area_proposals.group_area_id = ? and proposals.private = 't'))",group_area_id]} if group_area_id}
+
 
   before_update :save_proposal_history
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
+  after_initialize :calculate_percentage
+
+
+  def is_standard?
+    self.proposal_type_id.to_s == ProposalType::STANDARD.to_s
+  end
+
+  def is_polling?
+    self.proposal_type_id.to_s == ProposalType::POLL.to_s
+  end
 
 
   def remove_scheduled_tasks
@@ -255,10 +273,42 @@ class Proposal < ActiveRecord::Base
     text :title, boost: 5
     text :content, boost: 2
     text :paragraphs do
-      (sections.map{|section| section.paragraphs.map{|paragraph| paragraph.content}} +
-       solutions.map{|solution| solution.sections.map{|section| section.paragraphs.map{|paragraph| paragraph.content}}}).flatten
+      (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
+          solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
     end
     integer :presentation_group_ids, multiple: true
     integer :group_ids, multiple: true
+  end
+
+  #restituisce la percentuale di avanzamento della proposta in abse al quorum assegnato
+  def calculate_percentage
+    return unless self.quorum
+    percentages = []
+    if self.quorum.valutations
+      minimum = [self.valutations, self.quorum.valutations].min
+      percentagevals = minimum.to_f/self.quorum.valutations.to_f
+      percentagevals *= 100
+      percentages << percentagevals
+    end
+    if self.quorum.minutes
+      minimum = [Time.now, self.quorum.ends_at].min
+      minimum = ((minimum - self.quorum.started_at)/60)
+      percentagetime = minimum.to_f/self.quorum.minutes.to_f
+      percentagetime *= 100
+      percentages << percentagetime
+    end
+
+    if self.quorum.or?
+      @percentage=percentages.max
+    else
+      @percentage=percentages.min
+    end
+  end
+
+
+  def users_j
+    self.is_anonima? ?
+    self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
+    self.users.as_json(:only => [:id], :methods => [:fullname])
   end
 end

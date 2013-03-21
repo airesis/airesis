@@ -50,6 +50,11 @@ DemocracyOnline3::Application.routes.draw do
       post :change_email_block
     end
   end
+
+
+  resources :proposal_categories do
+    get :index, scope: :collection
+  end
  
   resources :proposals do
     collection do
@@ -184,7 +189,11 @@ DemocracyOnline3::Application.routes.draw do
       end
     end
 
-    resources :documents
+    resources :documents do
+      collection do
+        get :view
+      end
+    end
 
     resources :group_areas do
       collection do
@@ -259,7 +268,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
   match '/videoguide' => 'home#videoguide'
-  match '/democraziadiretta' => 'home#whatis'
+  match '/edemocracy' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
 
   admin_required = lambda do |request|

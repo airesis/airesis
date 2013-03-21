@@ -1,0 +1,6 @@
+{<%=raw @proposals.to_json(only: [:title, :created_at, :updated_at, :proposal_category_id], methods: [:short_content, :percentage, :users_j],
+:include => {
+             :interest_borders => {
+                        :only => [:territory_id, :territory_type],
+                        :methods => [:description]},
+             :groups => { :only => [:id, :name, :image_url]}}) %>}

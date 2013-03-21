@@ -15,6 +15,9 @@ class Ability
        can :read, Proposal do |proposal|
          !proposal.private || proposal.visible_outside || can_do_on_group?(user,proposal.presentation_groups.first,6)
        end
+       can :update, Proposal do |proposal|
+         can_edit_proposal?(user,proposal)
+       end
        can :partecipate, Proposal do |proposal|
          can_partecipate_proposal?(user,proposal)
        end
@@ -137,17 +140,43 @@ class Ability
       return roles.include? role
     end
 
+
+    #un utente può modificare una proposta se ne è l'autore e
+    #se è standard solo durante la fase di dibattito
+    #se è un sondaggio prima che venga messa in votazione
+    def can_edit_proposal?(user,proposal)
+      return false unless user.is_mine? proposal
+      if proposal.is_standard?
+        proposal.proposal_state_id.to_s == ProposalState::VALUTATION.to_s
+      elsif proposal.is_polling?
+        [ProposalState::WAIT_DATE.to_s,ProposalState::WAIT.to_s].include? proposal.proposal_state_id.to_s
+      end
+
+    end
+
      #un utente può partecipare ad una proposta se è pubblica
      #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
      #è stata creata
      def can_partecipate_proposal?(user,proposal)
        if proposal.private
          proposal.presentation_groups.each do |group|
-            return true if can_do_on_group?(user,group,7) && (proposal.in_valutation? || proposal.voted?)
+           if can_do_on_group?(user,group,7)
+             if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+               return true
+             elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+               return true
+             end
+           end
          end
          return false
        else
-         return proposal.in_valutation? || proposal.voted?
+         if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+           return true
+         elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+           return true
+         else
+           return false
+         end
        end
      end
 

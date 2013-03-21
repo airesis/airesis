@@ -1,0 +1,226 @@
+<div id="create_proposal">
+  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+      <div class="legend first">Informazioni iniziali</div>
+      <div class="legend">Sondaggi simili</div>
+      <div class="legend">Testo del sondaggio</div>
+      <div class="legend last">Soluzioni</div>
+
+
+      <div class="step root root">
+        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
+            <p>
+              <%= f.label :group_area_id %><br/>
+              <%= select("proposal", "group_area_id", @group.group_areas.all.collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+            </p>
+        <% end %>
+        <% if ::Configuration.proposal_categories %>
+            <p>
+              <%= f.label :proposal_category_id %><br/>
+              <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
+            </p>
+        <% end %>
+        <% if params[:action] == "new" %>
+            <p>
+              <%= f.label :title %> *<br/>
+              <%= f.text_field :title, :style => "width:300px" %>
+            </p>
+
+            <p>
+              <%= f.label :subtitle %><br/>
+              <%= f.text_field :subtitle, :style => "width:600px;" %>
+            </p>
+
+            <p>
+              <%= f.label :interest_borders_tkn %><br/>
+              <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+            </p>
+
+            <% if ::Configuration::folksonomy %>
+                <p>
+                  <%= f.label :tags_list %><br/>
+                  <%= f.text_field :tags_list %>
+                </p>
+            <% end %>
+
+            <p>
+              <% if @change_advanced_options %>
+                  <%= f.check_box :anonima %>
+                  <%= f.label :anonima %><br/>
+                  <%= f.check_box :visible_outside %>
+                  <%= f.label :visible_outside %><br/>
+                  <%= f.check_box :secret_vote %>
+                  <%= f.label :secret_vote %><br/>
+              <% end %>
+            </p>
+
+            <p>
+              <% if @group %>
+                  <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+              <% end %>
+              <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
+              <%= f.hidden_field :private %>
+              <%= f.hidden_field :proposal_type_id %>
+              <%= f.hidden_field :proposal_votation_type_id %>
+            </p>
+
+        <% end %>
+      </div>
+
+
+      <div class="step" id="suggestions">
+      </div>
+
+      <div class="step">
+        <h4><%= 'Scrivi in maniera adeguata il testo che vuoi portare a sondaggio' %></h4>
+
+        <%= f.fields_for :sections, @text do |s| %>
+            <%= s.hidden_field :title %>
+            <%= s.hidden_field :seq %>
+            <%= s.fields_for :paragraphs, @text.paragraphs.build(seq: 1) do |p| %>
+                <p>
+                  <%= p.label :content, @text.title %> *<br/>
+                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                  <%= p.hidden_field :seq %>
+                </p>
+            <% end %>
+        <% end %>
+      </div>
+
+      <div class="step">
+            <h4><%= 'Inserisci tutte le possibili scelte del sondaggio' %></h4>
+
+        <%= f.fields_for :solutions, @solution_a do |sol| %>
+            <%= sol.hidden_field :seq %>
+            <%= sol.fields_for :sections, @solution_a_section do |s| %>
+                <%= s.hidden_field :title %>
+                <%= s.hidden_field :seq %>
+                <%= s.fields_for :paragraphs, @solution_a_section.paragraphs.build(seq: 1) do |p| %>
+                    <p>
+                      <%= p.label :content, @solution_a_section.title %><br/>
+                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.hidden_field :seq %>
+                    </p>
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <%= f.fields_for :solutions, @solution_b do |sol| %>
+            <%= sol.hidden_field :seq %>
+            <%= sol.fields_for :sections, @solution_b_section do |s| %>
+                <%= s.hidden_field :title %>
+                <%= s.hidden_field :seq %>
+                <%= s.fields_for :paragraphs, @solution_b_section.paragraphs.build(seq: 1) do |p| %>
+                    <p>
+                      <%= p.label :content, @solution_b_section.title %><br/>
+                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.hidden_field :seq %>
+                    </p>
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <%= f.fields_for :solutions, @solution_c do |sol| %>
+            <%= sol.hidden_field :seq %>
+            <%= sol.fields_for :sections, @solution_c_section do |s| %>
+                <%= s.hidden_field :title %>
+                <%= s.hidden_field :seq %>
+                <%= s.fields_for :paragraphs, @solution_c_section.paragraphs.build(seq: 1) do |p| %>
+                    <p>
+                      <%= p.label :content, @solution_c_section.title %><br/>
+                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.hidden_field :seq %>
+                    </p>
+                <% end %>
+            <% end %>
+        <% end %>
+
+
+      </div>
+
+      <p>
+        <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+        <%= f.submit "Crea il sondaggio", :class => 'buttonStyle' %>
+      </p>
+  <% end %>
+</div>
+
+
+<% data = "["
+   @proposal.tags_list.split(',').each do |l|
+     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   end
+   data += "]"
+%>
+<script>
+    $('.legend').hide();
+
+
+    $(function () {
+        $("#new_proposal").quickWizard({
+            nextCallback: showSimilarProposal,
+            prevCallback: skipIfNecessary
+        });
+
+
+        input = $('#proposal_interest_borders_tkn')
+        input.tokenInput("/interest_borders.json", {
+            crossDomain: false,
+            prePopulate: input.data("pre"),
+            hintText: "Digita alcuni caratteri per cercare un luogo",
+            noResultsText: "Nessun luogo trovato",
+            searchingText: "Sto cercando...",
+            preventDuplicates: true
+        });
+
+
+        input = $('#proposal_tags_list')
+        if (input != null) {
+            input.tokenInput([], {
+                theme: "facebook",
+                crossDomain: false,
+                allowCustomEntry: true,
+                prePopulate: <%=raw data%>,
+                hintText: "Digita i tag che vuoi inserire",
+                searchingText: "Digita i tag che vuoi inserire",
+                preventDuplicates: true
+            })
+        }
+    });
+
+    /**
+     * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
+     */
+    function skipIfNecessary(activeDiv) {
+        if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
+            $('#form-wizard-prev').click();
+        }
+    }
+
+    /**
+     * Mostra proposte simili se ve ne sono
+     */
+    function showSimilarProposal(activeDiv) {
+        $(':input', activeDiv).first().focus();
+        if (activeDiv.attr('id') == 'suggestions') {
+            $.ajax({
+                url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
+                data: 'tags=' + $('#proposal_tags_list').val()
+            })
+        }
+        $('#new_proposal').enableClientSideValidations();
+    }
+
+
+    tinyMCE.init({
+        mode: 'textareas',
+        theme: 'advanced',
+        theme_advanced_toolbar_location: 'top',
+        theme_advanced_toolbar_align: 'left',
+        theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube',
+        theme_advanced_buttons2: '',
+        theme_advanced_buttons3: '',
+        plugins: 'media,inlinepopups,youtube',
+        theme_advanced_statusbar_location: "none"
+    });
+
+</script>

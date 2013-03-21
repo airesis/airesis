@@ -93,6 +93,7 @@ class ElectionsController < ApplicationController
      #salva la votazione dell'utente
      schulz = @election.schulze_votes.find_or_create_by_preferences(votestring)
      schulz.count += 1
+     schulz.save!
 
     #memorizza che l'utente ha effettuato la votazione
     @election.voters << current_user
