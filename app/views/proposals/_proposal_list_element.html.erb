@@ -15,7 +15,7 @@
         <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
     <% elsif proposal.voting? %>
         In votazione adesso fino al <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
-    <% elsif proposal.voted? %>
+    <% elsif proposal.voted? && proposal.vote_period %>
         La votazione è terminata il <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
     <% end %>
     <% if proposal.is_standard? %>

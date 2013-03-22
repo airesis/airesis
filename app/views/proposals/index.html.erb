@@ -84,7 +84,7 @@
     </div>
 
 
-    <% if @group && @group.enable_areas && @group.group_areas.length > 0 %>
+    <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
         <div id="group_areas">
           <h4>Aree di lavoro</h4>
           <% if params[:group_area_id] %>
