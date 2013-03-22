@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   ###SICUREZZA###
   
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index,:show]
+  before_filter :authenticate_user!, :except => [:index,:show, :partecipants_list_panel]
 
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
 

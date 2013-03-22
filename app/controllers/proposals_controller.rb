@@ -560,7 +560,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     elsif params[:view] == ORDER_BY_VOTES
       order << " proposals.valutations desc, proposals.created_at desc"
     else
-      order << "proposals.created_at desc"
+      order << "proposals.updated_at desc, proposals.created_at desc"
     end
 
     conditions = "1 = 1"
