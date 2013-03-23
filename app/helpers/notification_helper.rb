@@ -9,7 +9,7 @@ module NotificationHelper
      unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
       alert.save! #invia la notifica
-      if user.email_alerts && (!user.blocked_emails.include?notification.notification_type) && user.email
+      if user.email_alerts && (!user.blocked_email_notifications.include?notification.notification_type) && user.email
         ResqueMailer.notification(alert.id).deliver
       end
      end

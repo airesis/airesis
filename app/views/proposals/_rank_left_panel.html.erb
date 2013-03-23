@@ -1,78 +1,85 @@
 <script type="text/javascript">
-	function hideRankPanel2(panel) {
-		$('.voteup',panel).hide();
-		$('.votedown',panel).hide();		
-		$('.votedup',panel).hide();
-		$('.voteddown',panel).hide();		
-		$('.loadingup',panel).show();
-		$('.loadingdown',panel).show();						
-	}	
-	$(function() {
-		$('.voteup').bind('ajax:beforeSend',function(n,xhr) {
-			id = $(this).attr('id');
-			num = id.replace('voteup','');
-			hideRankPanel2($('.handscontainer'));
-		});
-		
-		$('.votedown').bind('ajax:beforeSend',function(n,xhr) {
-			id = $(this).attr('id');
-			num = id.replace('votedown','');
-			hideRankPanel2($('.handscontainer'));
-		});
+    function hideRankPanel2(panel) {
+        $('.voteup', panel).hide();
+        $('.votedown', panel).hide();
+        $('.votedup', panel).hide();
+        $('.voteddown', panel).hide();
+        $('.loadingup', panel).show();
+        $('.loadingdown', panel).show();
+    }
+    $(function () {
+        $('.voteup').bind('ajax:beforeSend', function (n, xhr) {
+            id = $(this).attr('id');
+            num = id.replace('voteup', '');
+            hideRankPanel2($('.handscontainer'));
+        });
 
-	});
+        $('.votedown').bind('ajax:beforeSend', function (n, xhr) {
+            id = $(this).attr('id');
+            num = id.replace('votedown', '');
+            hideRankPanel2($('.handscontainer'));
+        });
+
+    });
 </script>
 <p class="points">
-    <span class="littleText" id="valutazioni">Valutazioni </span>  <span class="rightAlign"><%=@proposal.valutations %></span>
+  <span class="littleText" id="valutazioni">Valutazioni </span>
+  <span class="rightAlign"><%= @proposal.valutations %></span>
 </p>
 <p class="ranking">
-    <span class="littleText" id="gradimento">Gradimento</span> <span class="rightAlign"><%=@proposal.rank %>%</span>
+  <span class="littleText" id="gradimento">Gradimento</span> <span class="rightAlign"><%= @proposal.rank %>%</span>
 </p>
 <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
-		
-<%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-	<div class="handscontainer">
-	<%if @my_vote%>
-			<% if @my_vote == 1 %>
-				<div class="votedup"></div>
-			 <%elsif @can_vote_again == 1%>
-			 	<span id="voteup"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %></span>
-			<%end%>
-			<% if @my_vote == 3 %>
-				<div class="voteddown"></div>
-			<% elsif @can_vote_again == 1%>
-				<span id="votedown"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %></span>
-			<%end%>		
-	<%elsif @can_vote_again == 1%>
-			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>	
-			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
-	<%end %>
-	</div>
-	<div style="clear: both;"></div>
-<%end %>
 
-<h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description%></h2>
+<% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+    <div class="handscontainer">
+      <% if @my_vote %>
+          <% if @my_vote == 1 %>
+              <div class="votedup"></div>
+          <% elsif @can_vote_again == 1 %>
+              <span id="voteup"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %></span>
+          <% end %>
+          <% if @my_vote == 3 %>
+              <div class="voteddown"></div>
+          <% elsif @can_vote_again == 1 %>
+              <span id="votedown"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %></span>
+          <% end %>
+      <% elsif @can_vote_again == 1 %>
+          <%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>
+          <%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>
+      <% end %>
+    </div>
+    <div style="clear: both;"></div>
+<% end %>
 
-<span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%=l @proposal.created_at %></span> <br/>
-<%if @proposal.updated_at != @proposal.created_at%>
-  <span class="title_grey">Ultima modifica del</span><br/><%=l @proposal.updated_at %>
-   <%if signed_in?%>
-     <div style="margin: 5px;"><%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class=>'historyButton'  %></div>
-     <%if @proposal.voted?%>
-        <%= link_to 'Risultati', vote_results_proposal_path(@proposal), :remote => true, :class=>'disableButton buttonStyle', :id=>"resultsButton"  %>
+<h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description %></h2>
+
+<span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%= l @proposal.created_at %></span>
+<br/>
+<% if @proposal.updated_at != @proposal.created_at %>
+    <span class="title_grey">Ultima modifica del</span><br/><%= l @proposal.updated_at %>
+<% end %>
+<% if signed_in? %>
+    <div style="margin: 5px;">
+      <% if @proposal.proposal_histories.count > 0 %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class => 'historyButton' %>
+      <% end %>
+    </div>
+    <% if @proposal.voted? %>
+        <%= link_to 'Risultati', vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton buttonStyle', :id => "resultsButton" %>
         <div id="vote_results_container" title="Risultati della votazione"></div>
-            <script type="text/javascript">
-              $(function() {
+        <script type="text/javascript">
+            $(function () {
                 $('#resultsButton').click();
-              });
-            </script>
-     <%end%>
-   <%end%>
-<%end%>
-<%if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata%>
-  <span class="title_grey">In votazione</span><br/>
-  <%=raw 'dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
-<%elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione%>
-  <span class="title_grey">In votazione ora!</span><br/>
-  <%= link_to 'Vai alla pagina di votazione.', votation_path %>
-<%end%>
+            });
+        </script>
+    <% end %>
+<% end %>
+
+<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
+    <span class="title_grey">In votazione</span><br/>
+    <%= raw 'dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
+<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
+    <span class="title_grey">In votazione ora!</span><br/>
+    <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+<% end %>

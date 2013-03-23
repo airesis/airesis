@@ -58,7 +58,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
   validates_uniqueness_of :title
 
-  validates_presence_of :quorum_id, :if => :is_standard?
+  validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
   attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty, :percentage
 
@@ -183,7 +183,7 @@ class Proposal < ActiveRecord::Base
       self.tag_ids = tids
     end
 
-    self.content = self.solutions.first.sections.first.paragraphs.first.content
+    self.content = truncate_words(self.solutions.first.sections.first.paragraphs.first.content.gsub( %r{</?[^>]+?>}, '' ), 60)
   end
 
   def to_param

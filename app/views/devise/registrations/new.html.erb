@@ -12,11 +12,11 @@
       <% end %>
     </p>
 
-    <p><%= f.label :password, 'Scegli una password', :for => "new_user_password" %><br/>
-      <%= f.password_field :password, :id => "new_user_password" %></p>
-
-    <p><%= f.label :password_confirmation, 'Conferma la password', :for => "new_user_password_confirmation" %><br/>
+    <p><%= f.label :password_confirmation, 'Scegli una password', :for => "new_user_password_confirmation" %><br/>
       <%= f.password_field :password_confirmation, :id => "new_user_password_confirmation" %></p>
+
+    <p><%= f.label :password, 'Conferma la password', :for => "new_user_password" %><br/>
+      <%= f.password_field :password, :id => "new_user_password" %></p>
 
     <p><%= f.label :name %><br/>
       <%= f.text_field :name %></p>

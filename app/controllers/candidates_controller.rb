@@ -7,6 +7,8 @@ class CandidatesController < ApplicationController
   before_filter :check_group, :only => [:new, :create]
   before_filter :check_election, :only => [:create,:update]
   before_filter :check_user, :only => [:create,:update]
+
+  before_filter :authenticate_user!
   #before_filter :load_election
   #load_and_authorize_resource 
   
