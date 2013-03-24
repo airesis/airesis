@@ -198,7 +198,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           flash[:error] = "Esiste già un altro account con questo indirizzo email."
           redirect_to new_user_session_path
         else
-          session["devise.linkedin_data"] = env["omniauth.auth"]
+          session["devise.linkedin_data"] = request.env["omniauth.auth"]
           redirect_to confirm_credentials_users_url
         end
       else

@@ -14,18 +14,20 @@ class ApplicationController < ActionController::Base
   before_filter :prepare_for_mobile
 
   def extract_locale_from_tld
-    parsed_locale = request.host.split('.').last
-    I18n.available_locales.include?(parsed_locale.to_sym) ? parsed_locale  : nil
+
   end
  
   def set_locale
-    I18n.locale = extract_locale_from_tld || params[:l] || I18n.default_locale
+    @domain_locale = request.host.split('.').last
+    I18n.locale = params[:l] || @domain_locale || I18n.default_locale
   end
   
-  #def default_url_options(options={})
+  def default_url_options(options={})
+    #return {} if extract_locale_from_tld
+    #return {} if params[:l] == I18n.default_locale
     #logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    #{ :l => I18n.locale }
-  #end
+    (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale }
+  end
   
   helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
 

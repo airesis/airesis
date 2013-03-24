@@ -102,7 +102,7 @@ class Proposal < ActiveRecord::Base
   before_update :save_proposal_history
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
-  after_initialize :calculate_percentage
+  after_find :calculate_percentage
 
 
   def is_standard?

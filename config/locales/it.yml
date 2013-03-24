@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 it:
   test: "Test"
   devise:
@@ -242,6 +239,7 @@ it:
         voting_title: "In votazione (%{count})"
         accepted_title: "Approvate (%{count})"
         revision_title: "In revisione (%{count})"
+        login_with: "oppure accedi con:"
       show:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"
@@ -332,6 +330,40 @@ it:
     quorums:
       index:
         title: "Elenco quorum disponibili"
+    home:
+      index:
+        whatis: "COS'E' AIRESIS"
+        partecipate: "PARTECIPA AL PROGETTO"
+        videos: "VIDEO GUIDE"
+        whowe: "CHI SIAMO"
+        support: "♥ SOSTIENICI"
+        cloud_1: "PROPONI"
+        cloud_2: "COLLABORA"
+        cloud_3: "E-DEMOCRACY"
+        cloud_4: "SEGNALA"
+        cloud_5: "DISCUTI"
+        cloud_6: "DIBATTI"
+        cloud_7: "PARTECIPA"
+        cloud_8: "VOTA"
+        cloud_9: "DECIDI"
+        try_it: "Provalo"
+        register: "Registrati"
+        login: "Accedi"
+        forgot_password: "Password dimenticata?"
+        follw_on_twitter: "Segui @democracyo su Twitter"
+        field_1:
+          title: "<em>Proponi</em> delle soluzioni"
+          content: "Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa.         Un potente strumento per valorizzare l'intelligenza collettiva."
+        field_2:
+          title: "<em>Partecipa</em> all' e-democracy"
+          content: "Unisciti ai gruppi, scegli chi ti rappresenta e partecipa agli eventi in base ai tuoi interessi. L'unione         fa la forza."
+        field_3:
+          title: "<em>Decidi</em> il tuo futuro"
+          content: "Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto         semplice, che realizza la democrazia diretta e la democrazia liquida."
+        field_4:
+          title: "<em>Collabora</em> nel tuo interesse"
+          content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
+        keep_connected: "Resta collegato"
   pl:
     comments:
       zero: nessun commento
@@ -367,6 +399,7 @@ it:
         name: "Nome"
         title_bar: "Barra del titolo"
         description: "Descrizione"
+        accept_requests: 'Richieste di partecipazione'
         porta_id: "Portavoce"
         interest_border_tkn: "Confine geografico di interesse"
         interest_border_id: "Confine geografico di interesse"
@@ -488,11 +521,12 @@ it:
     proposals:
       show:
         unauthorized: "Non disponi dei permessi per visualizzare questa proposta"
-        cant_partecipate: %Q(Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo)
-        waiting_date: %Q(Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione.)
-        voting: %Q(Questa proposta è in fase di votazione.)
-        ask_for_partecipation: %Q(Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta)
+        cant_partecipate: "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+        waiting_date: "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+        voting: "Questa proposta è in fase di votazione."
+        ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
   unavailable_option: "Opzione non ancora disponibile"
+  change_language: "Cambia lingua"

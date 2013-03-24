@@ -279,7 +279,7 @@ class ProposalsController < ApplicationController
             if @group #calcolo il numero in base ai partecipanti
               @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
             else #calcolo il numero in base agli utenti del portale (il 10%)
-              @copy.valutations = ((quorum.percentage.to_f * User.all.count.to_f) / 1000).floor
+              @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
             end
             #deve essere almeno 1!
             @copy.valutations = [@copy.valutations, 1].max

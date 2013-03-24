@@ -1,4 +1,4 @@
-it:
+pt:
   errors:
     messages:
       expired: "expirada, por favor, solicitar uma nova"
@@ -16,7 +16,7 @@ it:
       unconfirmed: "deve confirmar a sua conta para continuar."
       locked: "A sua conta está bloqueada."
       invalid: "Endereço de e-mail ou senha inválida."
-      invalid_token: "Código de autenticação inválido
+      invalid_token: "Código de autenticação inválido"
       timeout: "Sessão expirou, faça o login novamente para continuar."
       inactive: "A sua conta não foi ativada."
     sessions:
@@ -35,7 +35,7 @@ it:
       signed_up: "Bem-vindo! Inscreveu-se com sucesso."
       signed_up_but_unconfirmed: "Inscreveu-se com sucesso. No entanto, não pode entrar porque a sua conta tem que ser confirmada. Por favor, abra o link que recebeu por e-mail para ativar sua conta."
       signed_up_but_inactive: "inscreveu-se com sucesso. No entanto, não pode fazer logon porque sua conta não foi ativada."
-      signed_up_but_locked: "Inscreveu-se com sucesso. No entanto, você não pode entrar porque a sua conta é bloqueada
+      signed_up_but_locked: "Inscreveu-se com sucesso. No entanto, você não pode entrar porque a sua conta é bloqueada"
       updated: "A sua conta foi atualizada."
       update_needs_confirmation: "A sua conta foi atualizada, mas precisa de verificar o seu endereço de e-mail novo. Dentro de alguns minutos, receberá um e-mail com as instruções para confirmar seu endereço de e-mail novo."
       destroyed: "Adeus! A sua conta foi excluída. Nós queremos vê-lo em breve!"
