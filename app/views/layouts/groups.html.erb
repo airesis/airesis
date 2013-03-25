@@ -42,7 +42,7 @@
                   <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), :class => 'personButton buttonStyle' if current_user %>
               <% end %>
               <% if ::Configuration::documents_active %>
-                  <%= link_to 'Documenti', group_documents_path(@group), :class => 'documentButton buttonStyle' %>
+                  <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), :class => 'documentButton buttonStyle' %>
               <% end %>
               <% if can? :update, @group %>
                   <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), :class => 'settingsButton buttonStyle' %>

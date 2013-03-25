@@ -115,14 +115,14 @@
 
   <% if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
       <% if @group %>
-          <%= link_to 'Modifica', edit_group_proposal_path(@group, proposal), :class => 'editButton' if can? :update, proposal %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, proposal), :class => 'editButton' if can? :update, proposal %>
       <% else %>
-          <%= link_to 'Modifica', edit_proposal_path(proposal), :class => 'editButton' if can? :update, proposal %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(proposal), :class => 'editButton' if can? :update, proposal %>
       <% end %>
       <% if @group %>
-          <%= link_to 'Cancella', [@group, proposal], method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+          <%= link_to t('pages.proposals.show.delete_button'), [@group, proposal], method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'trashButton' if can? :destroy, proposal %>
       <% else %>
-          <%= link_to 'Cancella', proposal, method: :delete, confirm: 'Sei sicuro di voler eliminare questa proposta?', class: 'trashButton' if can? :destroy, proposal %>
+          <%= link_to t('pages.proposals.show.delete_button'), proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'trashButton' if can? :destroy, proposal %>
       <% end %>
       <% if proposal.proposal_state_id == ProposalState::WAIT_DATE #se bisogna scegliere una data mostra la combobox  %>
           <div id="wait_date_header_container">
@@ -143,17 +143,18 @@
 
   <% if proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
       <p>
-        <b>Questa proposta sarà in votazione dal
-          <%= proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M") + ' al ' + proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M") %></b>
+        <b>
+          <%= t('pages.proposals.show.votation_message', from: proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
+        </b>
       </p>
   <% elsif proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito  %>
-      Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi
+      <%= t('pages.proposals.show.editing_message_1') %>
       <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= proposal.comments.count %></em></a>.
-      <br/> Per accedere alla votazione dovrà raggiungere un
-      <span class="video_faq" id="suffgrad">sufficiente punteggio</span>.
+      <br/> <%= t('pages.proposals.show.editing_message_2') %>
+      <span class="video_faq" id="suffgrad"><%= t('pages.proposals.show.editing_message_3') %></span>.
   <% elsif proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
       <p>
-        <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+        <%= link_to t('pages.proposals.show.votation_page_button'), votation_path %>
       </p>
   <% end %>
   <br/>
@@ -194,7 +195,7 @@
         <%= f.hidden_field 'votes' %>
         <%= f.hidden_field 'string' %>
 
-        <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
+        <%= f.submit t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
     <% end %>
 <% end %>
 

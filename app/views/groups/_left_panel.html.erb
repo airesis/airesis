@@ -16,9 +16,9 @@
     <% end %>
 
     <div class="autoMargin">
-      <a href="#" onclick="openRulesModal();" class="notesButton littleText"><%= t('pages.groups.show.rules_button')%></a>
+      <a href="#" onclick="openRulesModal();" class="notesButton littleText"><%= t('pages.groups.show.rules_button') %></a>
 
-      <div id="rules_modal" title="Regolamento del gruppo" style="width:400px;height:400px;display:none;text-align: justify">
+      <div id="rules_modal" title="<%= t('pages.groups.show.rules_button') %>" style="width:400px;height:400px;display:none;text-align: justify">
         <div>Le regole sono selezionabili alla creazione di un gruppo. <br/>
 
           <p>Al momento tutti gli utenti possono creare un gruppo.</p>
@@ -60,7 +60,7 @@
     <% requests = @group.partecipation_requests.pending
        if requests.size > 0 %>
         <p>
-        <h4>Elenco delle richieste di partecipazione in attesa di risposta</h4>
+        <h4><%= t('pages.groups.show.waiting_partecipation_requests') %></h4>
         </p>
         <% requests.each do |request| %>
             <p>
@@ -75,8 +75,8 @@
                   <% if @group.request_by_vote? %>
                       <%= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
                   <% elsif @group.request_by_portavoce? %>
-                      <%= link_to 'Declina', {:action => "partecipation_request_decline", :controller => "groups", :id => @group.id, :request_id => request.id}, :class => 'confirmRequest rejectButton veryLittleText disableClickButton' %>
-                      <%= link_to 'Accetta', {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id}, :class => 'confirmRequest acceptButton veryLittleText disableClickButton' %>
+                      <%= link_to t('pages.groups.show.reject_request_button'), {:action => "partecipation_request_decline", :controller => "groups", :id => @group.id, :request_id => request.id}, :class => 'confirmRequest rejectButton veryLittleText disableClickButton' %>
+                      <%= link_to t('pages.groups.show.accept_request_button'), {:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id}, :class => 'confirmRequest acceptButton veryLittleText disableClickButton' %>
                   <% end %>
               <% end %>
             </div>
@@ -102,7 +102,7 @@
     <!--
  <h4>Al momento seguono il gruppo <%= @group.followers.count %> persone</h4>
  <% if current_user
-                                                                             follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
+      follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
     end
     if !follow %>
         <%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class => "buttonStyle littleText disableButton" %>

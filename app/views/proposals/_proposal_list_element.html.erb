@@ -7,19 +7,18 @@
   </div>
   <div class="datetime">
     <% if proposal.in_valutation? %>
-        Ultimo aggiornamento del <span class="blogPostDate"><%= l proposal.updated_at %></span>
+        <%= t('pages.proposals.list.last_update', date: (l proposal.updated_at)) %>
     <% elsif proposal.waiting_date? %>
-        In attesa che venga stabilita la data di votazione
+        <%= t('pages.proposals.list.waiting_date') %>
     <% elsif proposal.waiting? %>
-        In votazione dal <span class="blogPostDate"><%= l proposal.vote_period.starttime %></span> al
-        <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+        <%= t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime) , to: (l proposal.vote_period.endtime))%>
     <% elsif proposal.voting? %>
-        In votazione adesso fino al <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+        <%= t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime)) %>
     <% elsif proposal.voted? %>
         <% if proposal.vote_period %>
-            La votazione è terminata il <span class="blogPostDate"><%= l proposal.vote_period.endtime %></span>
+           <%= t('pages.proposals.list.votation_finished', date: (l proposal.vote_period.endtime))%>
         <% else %>
-            Non vi è stata alcuna votazione
+            <%= t('pages.proposals.list.no_votation') %>
         <% end %>
     <% end %>
     <% if proposal.is_standard? %>
@@ -28,7 +27,7 @@
   </div>
   <% unless proposal.interest_borders.empty? %>
       <div class="borders">
-        <div class="title">Confini di interesse</div>
+        <div class="title"><%= t('pages.proposals.list.interest_borders') %></div>
         <% proposal.interest_borders[0..5].each do |ib| %>
             <div class="border ui-state-highlight" title="<%= ib.territory_type %>">
               <%= ib.territory.description %>
@@ -39,7 +38,7 @@
   <% end %>
 
   <div class="authors">
-    <div class="title">Autori</div>
+    <div class="title"><%= t('pages.proposals.list.authors') %></div>
     <% if signed_in? && (proposal.users.include? current_user) %>
         <% proposal.users.each do |user| %>
             <%= user_tag_mini(user) %>
@@ -53,7 +52,7 @@
   </div>
   <% unless proposal.groups.empty? %>
       <div class="groups">
-        <div class="title">Gruppi in sostegno</div>
+        <div class="title"><%= t('pages.proposals.list.support_group') %></div>
         <% proposal.groups[0..10].each do |group| %>
             <div class="blogUserImage" title="<%= group.name %>">
               <%= group.group_image_tag 20 %>

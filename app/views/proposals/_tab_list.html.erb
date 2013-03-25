@@ -1,19 +1,19 @@
 <%unless @proposals.empty? || !::Configuration.phases_active%>
 	<div class="order_options">
 		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
-			Ultime inserite
+			<%= t('pages.proposals.tabs.last_inserted') %>
 		<%else%>
-			<%=link_to 'Ultime inserite', current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
+			<%=link_to t('pages.proposals.tabs.last_inserted'), current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
 		<%end%> | 		
 		<% if (params[:view] == ORDER_BY_RANK)%>
-			Più popolari
+			<%= t('pages.proposals.tabs.most_popular') %>
 		<%else%>
-			<%=link_to 'Più popolari', current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>	
+			<%=link_to t('pages.proposals.tabs.most_popular'), current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>
 		<%end%> | 
 		<% if (params[:view] == ORDER_BY_VOTES)%>
-			Più votate
+			<%= t('pages.proposals.tabs.most_valutated') %>
 		<%else%>	 
-			<%=link_to 'Più valutate', current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
+			<%=link_to t('pages.proposals.tabs.most_valutated'), current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
 		<%end%>
 	</div>
 <%end%>

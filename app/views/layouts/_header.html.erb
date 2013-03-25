@@ -27,7 +27,7 @@
         js = d.createElement('script');
         js.id = id;
         js.async = true;
-        js.src = "//connect.facebook.net/it_IT/all" + (debug ? "/debug" : "") + ".js";
+        js.src = "//connect.facebook.net/<%="#{I18n.locale}_#{I18n.locale.upcase}"%>/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
     }(document, /*debug*/ false));
 
@@ -51,7 +51,7 @@
 <link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
 <script type="text/javascript">
     window.___gcfg = {
-        lang: 'it'
+        lang: '<%=I18n.locale%>'
     };
     (function () {
         var po = document.createElement("script");

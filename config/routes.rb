@@ -13,17 +13,17 @@ DemocracyOnline3::Application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
-    get '/users/sign_in' , :to => 'devise/sessions#new'  
+    get '/users/sign_in' , :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
- 
-  
+
+
 
   root :to => 'home#index'
-  
+
   #match ':controller/:action/:id'
-  
+
   resources :users do
     collection do
       get :confirm_credentials
@@ -41,10 +41,10 @@ DemocracyOnline3::Application.routes.draw do
       get :show_message
       post :send_message
     end
-  end                                      
-  
+  end
+
   resources :notifications do
-    collection do  
+    collection do
       post :change_notification_block
       post :change_email_notification_block
       post :change_email_block
@@ -55,11 +55,11 @@ DemocracyOnline3::Application.routes.draw do
   resources :proposal_categories do
     get :index, scope: :collection
   end
- 
+
   resources :proposals do
     collection do
       get :index_accepted
-      get :endless_index 
+      get :endless_index
       get :similar
       get :tab_list
     end
@@ -96,19 +96,19 @@ DemocracyOnline3::Application.routes.draw do
   resources :blogs do
     resources :blog_posts do
       #match :tag, :on => :member
-      match :drafts, :on => :collection 
+      match :drafts, :on => :collection
       resources :blog_comments
     end
   end
-  
-  
+
+
   resources :blog_posts
-  
+
   resources :alerts do
     member do
       get :check_alert
     end
-    
+
     collection do
       get :polling
       get :read_alerts
@@ -118,12 +118,12 @@ DemocracyOnline3::Application.routes.draw do
  resources :interest_borders
  resources :comunes
 
-  
+
   resources :events do
     resources :meeting_partecipations
     member do
       post :move
-      post :resize      
+      post :resize
     end
     collection do
       get :list
@@ -161,28 +161,28 @@ DemocracyOnline3::Application.routes.draw do
     collection do
       post :ask_for_multiple_follow
     end
-    
+
     resources :events do
       resources :meeting_partecipations
       member do
         post :move
-        post :resize      
+        post :resize
       end
       collection do
         get :list
       end
     end
-    
+
     resources :elections
-    
+
     resources :candidates
-    
+
     resources :proposals do
       collection do
         get :search
       end
     end
-    
+
     resources :quorums do
       member do
         post :change_status
@@ -225,7 +225,7 @@ DemocracyOnline3::Application.routes.draw do
       get :help
     end
   end
-  
+
   resources :elections do
       member do
         get :vote_page
@@ -252,18 +252,18 @@ DemocracyOnline3::Application.routes.draw do
   resources :votations
 
   match ':controller/:action/:id'
-    
+
   match ':controller/:action/:id.:format'
-    
+
   match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
-  
+
   match 'home', :to => 'home#show'
-  
+
   #url friendly 'proposte'
   #match ':proposal_url/:id', :to => 'proposals#show'
   #match ':proposal_url', :to => 'proposals#index'
   #match ':proposal_url/cat/:category/', :to => 'proposals#index'
-  
+
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
@@ -289,5 +289,5 @@ DemocracyOnline3::Application.routes.draw do
   #authenticate :admin do
   #  mount Resque::Server, :at => "/resque_admin"
   #end
-                     
+
 end

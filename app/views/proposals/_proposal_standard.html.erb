@@ -93,7 +93,7 @@
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
                   <%= p.label :content, 'Problematica' %> *<br/>
-                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce", :validate => {:presence => true} %>
                   <%= p.hidden_field :seq %>
                 </p>
             <% end %>
@@ -143,12 +143,6 @@
 </div>
 
 
-<% data = "["
-   @proposal.tags_list.split(',').each do |l|
-     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   end
-   data += "]"
-%>
 <script>
     $('.legend').hide();
 
@@ -159,14 +153,13 @@
             prevCallback: skipIfNecessary
         });
 
-
         input = $('#proposal_interest_borders_tkn')
         input.tokenInput("/interest_borders.json", {
             crossDomain: false,
             prePopulate: input.data("pre"),
-            hintText: "Digita alcuni caratteri per cercare un luogo",
-            noResultsText: "Nessun luogo trovato",
-            searchingText: "Sto cercando...",
+            hintText: "<%=t('interest_borders_hint')%>",
+            noResultsText: "<%=t('no_interest_border')%>",
+            searchingText: "<%=t('looking_for_interest_border')%>",
             preventDuplicates: true
         });
 
@@ -177,9 +170,8 @@
                 theme: "facebook",
                 crossDomain: false,
                 allowCustomEntry: true,
-                prePopulate: <%=raw data%>,
-                hintText: "Digita i tag che vuoi inserire",
-                searchingText: "Digita i tag che vuoi inserire",
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
                 preventDuplicates: true
             })
         }
@@ -217,6 +209,7 @@
         theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube',
         theme_advanced_buttons2: '',
         theme_advanced_buttons3: '',
+        relative_urls : false,
         plugins: 'media,inlinepopups,youtube',
         theme_advanced_statusbar_location: "none"
     });

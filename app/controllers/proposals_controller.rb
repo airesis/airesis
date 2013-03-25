@@ -265,28 +265,7 @@ class ProposalsController < ApplicationController
 
         #il quorum viene utilizzato per le proposte standard
         if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-          quorum = Quorum.find(prparams[:quorum_id])
-          @copy = quorum.dup
-          starttime = Time.now
-
-          @copy.started_at = starttime
-          if quorum.minutes
-            endtime = starttime + quorum.minutes.minutes
-            @copy.ends_at = endtime
-          end
-          #se il numero di valutazioni è definito
-          if quorum.percentage
-            if @group #calcolo il numero in base ai partecipanti
-              @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
-            else #calcolo il numero in base agli utenti del portale (il 10%)
-              @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
-            end
-            #deve essere almeno 1!
-            @copy.valutations = [@copy.valutations, 1].max
-          end
-          @copy.public = false
-          @copy.save!
-          @proposal.quorum_id = @copy.id
+          quorum = assign_quorum(prparams)
 
           #metto la proposta in valutazione se è standard
           @proposal.proposal_state_id = PROP_VALUT
@@ -360,7 +339,33 @@ class ProposalsController < ApplicationController
       end
     end
   end
-  
+
+  def assign_quorum(prparams)
+    quorum = Quorum.find(prparams[:quorum_id])
+    @copy = quorum.dup
+    starttime = Time.now
+
+    @copy.started_at = starttime
+    if quorum.minutes
+      endtime = starttime + quorum.minutes.minutes
+      @copy.ends_at = endtime
+    end
+    #se il numero di valutazioni è definito
+    if quorum.percentage
+      if @group #calcolo il numero in base ai partecipanti
+        @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
+      else #calcolo il numero in base agli utenti del portale (il 10%)
+        @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+      end
+      #deve essere almeno 1!
+      @copy.valutations = [@copy.valutations, 1].max
+    end
+    @copy.public = false
+    @copy.save!
+    @proposal.quorum_id = @copy.id
+    quorum
+  end
+
   def update
     authorize! :update, @proposal
     begin
@@ -374,7 +379,31 @@ class ProposalsController < ApplicationController
 
         update_borders(borders)
         @proposal.update_user_id = current_user.id
+
+        unless can? :destroy, @proposal
+          params[:proposal] = params[:proposal].except(:title,:subtitle,:interest_borders_tkn,:tags_list,:quorum_id,:anonima,:visible_outside,:secret_vote)
+        end
+
+
+        #if params[:proposal][:quorum_id]
+        #  Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+
+        #  @old_quorum = @proposal.quorum
+
+        #  quorum = assign_quorum(params[:proposal])
+
+          #fai partire il timer per far scadere la proposta
+        #  if quorum.minutes && @proposal.proposal_type_id.to_s == ProposalType::STANDARD.to_s
+        #    Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        #  end
+        #  params[:proposal][:quorum_id] = @copy.id
+
+        #end
+
         @proposal.update_attributes(params[:proposal])
+
+        #@old_quorum.destroy if @old_quorum
+
         notify_proposal_has_been_updated(@proposal)
       end
 
@@ -642,10 +671,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
 
-
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
-        puts "New Record!" if (interest_b.new_record?)
         i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
       end
     end if borders

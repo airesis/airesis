@@ -7,7 +7,10 @@
 <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<div id="new_quorum_container">	
+<div id="new_quorum_container" title="Nuovo quorum" style="display: none; font-size: 14px;">
+</div>
+
+<div id="edit_quorum_container" title="Modifica quorum" style="display: none; font-size: 14px;">
 </div>
 
 <br />
@@ -92,8 +95,16 @@
 	
 	function hideNewQuorumPanel() {
     	console.log('hei');
-    	$('#new_quorum').dialog('destroy');
+        $('#new_quorum_container').dialog('destroy');
+        $('#new_quorum_container').empty();
     }
+
+    function hideEditQuorumPanel() {
+        console.log('hei');
+        $('#edit_quorum_container').dialog('destroy');
+        $('#edit_quorum_container').empty();
+    }
+
 </script>
                 
 <%=content_for :left_panel do%>

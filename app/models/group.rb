@@ -55,7 +55,7 @@ class Group < ActiveRecord::Base
   has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal  
   
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
-  has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum
+  has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum, order: :id
 
 
   has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2]

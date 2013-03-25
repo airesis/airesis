@@ -1,10 +1,10 @@
 <% @page_title = t('pages.proposals.index.title') %>
 <% if @category
-     @page_head = "Proposte della categoria "+@category.description
+     @page_head = t('pages.proposals.index.title_with_category', :category => @category.description)
    else
-     @page_head = "Proposte di tutte le categorie"
+     @page_head = t('pages.proposals.index.all_categories_title')
    end %>
-<% @page_head += " nell'area di lavoro "+@group_area.name if @group_area %>
+<% @page_head += t('pages.proposals.index.in_group_area_title')+@group_area.name if @group_area %>
 
 <% if @group %>
     <%= content_for :head do %>
@@ -27,9 +27,9 @@
 <div style="clear:both"></div>
 
 
-<%if @group%>
+<% if @group %>
     <%= render :partial => 'search_form' %>
-<%end%>
+<% end %>
 
 
 <div id="tabs">
@@ -40,7 +40,7 @@
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true,:state => ProposalState::TAB_VOTATION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
+          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_VOTATION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
@@ -53,35 +53,35 @@
         </li>
     <% else %>
         <li>
-          <%= link_to 'Ultime inserite (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
+          <%= link_to t('pages.proposals.index.last_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'Più popolari (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
+          <%= link_to t('pages.proposals.index.most_popular_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to 'Più valutate (TODO)', tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
+          <%= link_to t('pages.proposals.index.most_voted_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
           <div class="tabs-triangle"/>
         </li>
     <% end %>
   </ul>
 
-  <div id="<%= ::Configuration.phases_active ? 'Tutte_le_proposte_da_costruire_che_sono_in_fase_di_dibattito' : 'Ultime_inserite' %>">
+  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/,'_') : t('pages.proposals.index.last_title').gsub(/\s/,'_') %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
       <%= image_tag 'ajax-loader.gif', :alt => "Caricamento" %>
       <br/>
-      <b>Sto caricando le proposte...</b>
+      <b><%= t('pages.proposals.index.loading_proposals') %></b>
     </div>
   </div>
 </div>
 <% content_for :left_panel do %>
 
     <% if @group %>
-        <%= link_to 'Crea una proposta', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+        <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
         <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
     <% else %>
-        <%= link_to 'Crea una proposta', new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
+        <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
         <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
     <% end %>
 
@@ -91,11 +91,11 @@
 
     <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
         <div id="group_areas">
-          <h4>Aree di lavoro</h4>
+          <h4><%= t('pages.proposals.index.group_areas_title') %></h4>
           <% if params[:group_area_id] %>
-              <a href="<%= current_url(:group_area_id => nil) %>">Nessuna area</a>
+              <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
           <% else %>
-              Tutte le aree
+              <%= t('pages.proposals.index.all_areas') %>
           <% end %>
           <table>
             <% @group.group_areas.each do |area| %>
@@ -116,11 +116,11 @@
     <% if ::Configuration.proposal_categories %>
         <div id="categories">
           <% if params[:category] %>
-              <h4 class="filterSelected">Categorie</h4>
-              <a href="<%= current_url(:category => nil) %>">Tutte le categorie</a>
+              <h4 class="filterSelected"><%= t('pages.proposals.index.categories_title') %></h4>
+              <a href="<%= current_url(:category => nil) %>"><%= t('pages.proposals.index.all_categories') %></a>
           <% else %>
-              <h4>Categorie</h4>
-              Tutte le categorie
+              <h4><%= t('pages.proposals.index.categories_title') %></h4>
+              <%= t('pages.proposals.index.all_categories') %>
           <% end %>
           <table>
             <%

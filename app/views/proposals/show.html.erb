@@ -53,14 +53,14 @@
 <div id="loading_contributes" style="margin:auto;text-align:center;">
   <%= image_tag 'ajax-loader.gif' %>
   <br/>
-  <b>Caricamento contributi...</b>
+  <b><%= t('pages.proposals.show.loading_contributions') %></b>
 </div>
 <div id="proposalCommentsContainer">
 
 </div>
 
 <div id="loading_results" style="display:none;">
-  <span>Commenti precedenti...</span>
+  <span><%= t('pages.proposals.show.previos_contributes') %></span>
 </div>
 
 
@@ -76,7 +76,7 @@
         if (!retval) {
             clicked = $('#delete' + id);
             console.log(clicked);
-            if (confirm('Sei sicuro di voler cancellare questo contributo?')) {
+            if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
                 $('#comment' + id).hide(600, function () {
                     retval = true;
                     clicked.click();
@@ -99,7 +99,7 @@
         if (!retval) {
             clicked = $('#delete' + id);
             console.log(clicked);
-            if (confirm('Sei sicuro di voler cancellare questo suggerimento?')) {
+            if (confirm('<%= t('pages.proposals.show.delete_suggestion_confirmation')%>')) {
                 $('#replys' + id).hide(600, function () {
                     retval = true;
                     clicked.click();
@@ -185,24 +185,8 @@
             }
         });
 
-        <%if can? :show_tooltips, current_user %>
-        $('#random_stack_l').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
-        $('#random_stack_2').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente");
-        $('#random_stack_3').ctooltip("<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!");
-        $('#miglioricontributi').ctooltip({
-            content: "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!",
-            position: "bottom"
-        });
-        $('#voglioredigere').ctooltip("Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti.");
-        $('#voteup').ctooltip("<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)");
-        $('#votedown').ctooltip("<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)");
-        $('#valutazioni').ctooltip("numero totale di valutazioni ricevute");
-        $('#gradimento').ctooltip("percentuale di valutazioni positive sul totale");
-        $('#nickname_panel').ctooltip("<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei <%=raw "(loro ti vedono come <b>#{@my_nickname.nickname}</b>)" if @my_nickname%> e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!");
-        <%end%>
-        <%if @proposal.is_standard?%>
-        $('#suffgrad, #pb<%=@proposal.id%>').ctooltip("La proposta rimarrà in dibattito <%if @proposal.quorum.minutes%>fino al <b><%= @proposal.quorum.ends_at.strftime("%d/%m/%Y") %></b> <%= (@proposal.quorum.ends_at).strftime(" alle %H:%M") %> <b><%= @proposal.quorum.or? ? 'oppure' : 'e'%></b><%end%> finché non sarà valutata da <b>almeno <%=@proposal.quorum.valutations.to_s%> persone</b>. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b><%= (@proposal.quorum.good_score) %>%</b> del totale delle valutazioni.");
-        <%end%>
+
+        <%= render :partial => 'show_tooltips' %>
 
     });
 </script>
@@ -220,10 +204,10 @@
 
 
     <% if @proposal.is_anonima? %>
-        Anonimato temporaneo attivo<br/>
+       <%= t('pages.proposals.show.anonimity_active') %><br/>
     <% end %>
     <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
-        <h4 style="display:inline">Il tuo nickname è </h4>
+        <h4 style="display:inline"><%= t('pages.proposals.show.your_nickname_is') %></h4>
         <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
         <div class="blogUserImage">
           <%= user_tag(current_user, @proposal) %>
@@ -232,7 +216,7 @@
 
     <% end %>
 
-    <h4>Redigono la sintesi</h4>
+    <h4><%= t('pages.proposals.show.editors_title') %></h4>
     <div id="authors_list">
       <%= render :partial => 'proposals/authors_list_panel' %>
     </div>
@@ -242,9 +226,9 @@
         </div>
         <% if @proposal.users.include?(current_user) %>
             <% if @proposal.available_authors.count > 0 %>
-                <%= link_to 'Redattori disponibili', {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
+                <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
 
-                <div id="available_authors_list_container" title="Elenco utenti disponibili a redigere la sintesi della proposta">
+                <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title')%>">
                 </div>
             <% end %>
         <% end %>
@@ -259,18 +243,18 @@
     <% end %>
 
 
-    <h4>Documenti collegati</h4>
-    Nessun documento allegato alla proposta
+    <h4><%= t('pages.proposals.show.attached_documents') %></h4>
+    <%= t('pages.proposals.show.no_document_attached') %>
 
     <% unless @proposal.interest_borders.empty? %>
-        <h4>Confini geografici di interesse</h4>
+        <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
         <% @proposal.interest_borders.each do |ib| %>
             <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
         <% end %>
     <% end %>
 
     <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
-        <h4>Tags</h4>
+        <h4><%= t('pages.proposals.show.tags_title') %></h4>
         <% @proposal.tags.each do |tag| %>
             <div style="margin:5px;"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
               x <%= tag.proposals_count %></div>
@@ -278,14 +262,14 @@
     <% end %>
 
     <% unless @proposal.closest(@group ? @group.id : nil).empty? %>
-        <h4>Proposte attinenti</h4>
+        <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
         <% @proposal.closest.each do |p| %>
             <%= link_to p.title, p %><br />
         <% end %>
     <% end %>
 
     <% if ::Configuration.proposal_categories %>
-        <h4>Categoria</h4>
+        <h4><%= t('pages.proposals.show.category_title') %></h4>
         <table>
           <tr>
             <td style="vertical-align: middle;">

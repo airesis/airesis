@@ -1,4 +1,4 @@
-<h4>Gruppi in sostegno</h4>
+<h4><%= t('pages.proposals.show.supporting_group') %></h4>
 <%@proposal.groups.each do |group| %>
 	<div class="pcontainer">
         <div class="MoImg24">
@@ -10,9 +10,9 @@
         <div style="clear: both;"></div>
     </div>
 <%end%>
-<%="Nessun gruppo sostiene la proposta" if @proposal.groups.empty?%>
+<%= t('pages.proposals.show.no_supporting_group') if @proposal.groups.empty?%>
 <%if signed_in?%>
 	<%if !current_user.scoped_group_partecipations(GroupAction::PROPOSAL).empty? && (can? :partecipate, @proposal) %>
-	<%=link_to 'Sostieni la proposta', new_proposal_proposal_support_path(@proposal),:remote => true, :class => 'supportButton littleText disableButton' %>
+	<%=link_to t('pages.proposals.show.support_proposal_button'), new_proposal_proposal_support_path(@proposal),:remote => true, :class => 'supportButton littleText disableButton' %>
 	<%end%>
 <%end%>

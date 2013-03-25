@@ -3,6 +3,108 @@
 
 <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
+    <% if can? :destroy, @proposal %>
+        <div style="background: #FFE3A0; padding: 3px; border-radius: 2px;" class="shadow-box">
+          <p>
+            <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
+
+            <% if last < 2 %>
+                <%= 'Affrettati!' %>
+            <% end %>
+            <% if last > 0 %>
+                <%= "Potrai modificare questi dati ancora per #{last.round(0)} minuti." %>
+            <% else %>
+                <%= "Potrai modificare questi dati solo se nessuno ha ancora partecipato!" %>
+            <% end %>
+          </p>
+
+          <p>
+            <%= f.label :title %> *<br/>
+            <%= f.text_field :title, :style => "width:300px" %>
+          </p>
+
+          <p>
+            <%= f.label :subtitle %><br/>
+            <%= f.text_field :subtitle, :style => "width:600px;" %>
+          </p>
+
+          <p>
+            <%= f.label :interest_borders_tkn %><br/>
+            <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+          </p>
+
+          <% if ::Configuration::folksonomy %>
+              <p>
+                <%= f.label :tags_list %><br/>
+                <%= f.text_field :tags_list %>
+              </p>
+          <% end %>
+
+      <!--    <p>
+            <%= f.label :quorum_id %> *<br/>
+            <% if @group %>
+                <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+                <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
+            <% else %>
+                <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+                <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+            <% end %>
+
+          <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+          </div>
+          </p>
+       -->
+          <p>
+            <% if @change_advanced_options %>
+                <%= f.check_box :anonima %>
+                <%= f.label :anonima %><br/>
+                <%= f.check_box :visible_outside %>
+                <%= f.label :visible_outside %><br/>
+                <%= f.check_box :secret_vote %>
+                <%= f.label :secret_vote %><br/>
+            <% end %>
+          </p>
+
+
+          <% data = "["
+             @proposal.tags_list.split(',').each do |l|
+               data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+             end
+             data += "]"
+          %>
+          <script type="text/javascript">
+              $(function () {
+                  input = $('#proposal_interest_borders_tkn')
+                  input.tokenInput("/interest_borders.json", {
+                      crossDomain: false,
+                      prePopulate: input.data("pre"),
+                      hintText: "<%=t('interest_borders_hint')%>",
+                      noResultsText: "<%=t('no_interest_border')%>",
+                      searchingText: "<%=t('looking_for_interest_border')%>",
+                      preventDuplicates: true
+                  });
+
+
+                  input = $('#proposal_tags_list')
+                  if (input != null) {
+                      input.tokenInput([], {
+                          theme: "facebook",
+                          crossDomain: false,
+                          allowCustomEntry: true,
+                          prePopulate: <%=raw data%>,
+                          hintText: "<%=t('digit_tags')%>",
+                          searchingText: "<%=t('digit_tags')%>",
+                          preventDuplicates: true
+                      })
+                  }
+              });
+          </script>
+
+        </div>
+    <% end %>
+
+
+
     <h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole
       raggiungere la proposta</h4>
 
@@ -28,7 +130,7 @@
 
     <h4>Modifica e aggiorna il testo della proposta!</h4>
 
-    <% @proposal.solutions.each_with_index do |solution,i| %>
+    <% @proposal.solutions.each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
             <%= sol.hidden_field :seq %>
             <%= sol.check_box '_destroy', style: 'display:none' %>
@@ -79,6 +181,7 @@
         theme_advanced_statusbar_location: "none",
         //valid_elements: "-p",
         cleanup_on_startup: true,
+        relative_urls : false,
         ice: {
             user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
             preserveOnPaste: 'p,a[href],i,em,strong'
@@ -101,30 +204,30 @@
 
     var numSolution = <%=@proposal.solutions.count%>
 
-    function addSolution(el) {
-        paragraph_ = $('<p></p>');
-        paragraph_.append('<label>Opzione '+(numSolution+1)+'</label>');
-        paragraph_.append('<br />');
-        var solutionname = 'proposal[solutions_attributes]['+numSolution+']';
-        var sectionname = solutionname + '[sections_attributes][0]';
-        var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\''+paragraphname+'[content]\'></input>');
-        paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,'+numSolution+',false);return false;\'>Rimuovi opzione</a>');
-        paragraph_.append('<input type=\'hidden\' value=\''+numSolution+'\' name=\''+solutionname+'][seq]\'></input>');
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\''+paragraphname+'[seq]\'></input>');
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\''+sectionname+'[seq]\'></input>');
-        paragraph_.append('<input type=\'hidden\' value=\'Opzione '+(numSolution+1)+'\' name=\''+sectionname + '[title]\'></input>');
-        $(el).before(paragraph_);
-        numSolution+=1;
-    }
+            function addSolution(el) {
+                paragraph_ = $('<p></p>');
+                paragraph_.append('<label>Opzione ' + (numSolution + 1) + '</label>');
+                paragraph_.append('<br />');
+                var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
+                var sectionname = solutionname + '[sections_attributes][0]';
+                var paragraphname = sectionname + '[paragraphs_attributes][0]';
+                paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\'' + paragraphname + '[content]\'></input>');
+                paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,' + numSolution + ',false);return false;\'>Rimuovi opzione</a>');
+                paragraph_.append('<input type=\'hidden\' value=\'' + numSolution + '\' name=\'' + solutionname + '][seq]\'></input>');
+                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\'></input>');
+                paragraph_.append('<input type=\'hidden\' value=\'Opzione ' + (numSolution + 1) + '\' name=\'' + sectionname + '[title]\'></input>');
+                $(el).before(paragraph_);
+                numSolution += 1;
+            }
 
-    function removeSolution(el,id,hide) {
+    function removeSolution(el, id, hide) {
         if (hide) {
-            $('input[name="proposal\[solutions_attributes\]\['+id+'\]\[_destroy\]"]').val(1);
+            $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
             $(el).parent().hide();
         }
         else {
-            $('input[name^="proposal\[solutions_attributes\]\['+id+'\]"]').remove();
+            $('input[name^="proposal\[solutions_attributes\]\[' + id + '\]"]').remove();
             $(el).parent().remove();
         }
 

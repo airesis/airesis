@@ -1,5 +1,4 @@
-<div id="new_quorum" title="Nuovo quorum" style="display: none; font-size: 14px;">
-	<%=form_for [@group,Quorum.new], :validate => true, :remote => true do |e|%>		
+	<%=form_for [@group,@quorum], :validate => true, :remote => true do |e|%>
 		<div id="radio">
 			<%= e.radio_button :form_type, 's', :checked=>"checked" %><%= e.label :form_type_s, 'Semplice' %>
 			<%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, 'Avanzato' %>
@@ -17,40 +16,38 @@
 			</p>
 			<div id="options">
 				<div>
-					Affinche la proposta acceda alla fase di votazione deve restare in dibattito per almeno
+					<%= 'Affinche la proposta acceda alla fase di votazione deve restare in dibattito per almeno' %>
                     <%=e.text_field :days_m, :class=> "days", :readonly => true, :style=>"width:35px"%> <%=e.label :days_m%>, <%=e.text_field :hours_m, :class=> "hours", :readonly => true, :style=>"width:25px"%> <%=e.label :hours_m%>, <%=e.text_field :minutes_m, :class=> "minutes", :readonly => true, :style=>"width:25px"%> <%=e.label :minutes_m%>
 					<div style="clear: both;"></div>
 				</div>
 				<div class="advanced" style="padding: 5px 10px 5px 0;">
 
 					<%=e.select :condition, {"o" => "OR", "e" => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
-                  deve essere valutata da almeno il
+                  <%= 'deve essere valutata da almeno il' %>
 
 					<%=e.text_field :percentage, :class=> "percentage partecipants", :style=>"width:25px", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true%>
-					% degli utenti che dispongono i permessi per farlo (ovvero <span id="partecipants_number">0</span> su <%=@partecipants_count%> utenti attualmente)
+					% <%= 'degli utenti che dispongono i permessi per farlo' %> (ovvero <span id="partecipants_number">0</span> su <%=@partecipants_count%> attualmente)
 				</div>
 				<div class="form_float">
-					quindi passa in votazione se il gradimento (valutazioni positive) è superiore al
+					<%= 'quindi passa in votazione se il gradimento (valutazioni positive) è superiore al' %>
 					<%=e.text_field :good_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true%> %
 				</div>
               <div class="form_float advanced">
-                Se invece il gradimento è inferiore al
-                <%=e.text_field :bad_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.bad_score_title'), :readonly => true%>  % la proposta viene bocciata senza accedere alla votazione.<br/>
+                <%= 'Se invece il gradimento è inferiore al' %>
+                <%=e.text_field :bad_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.bad_score_title'), :readonly => true%>  % <%= 'la proposta viene bocciata senza accedere alla votazione.' %><br/>
               </div>
               <div class="form_float advanced">
-                La proposta resta in dibattito fintanto che il gradimento è compreso fra le due soglie.
+                <%= 'La proposta resta in dibattito fintanto che il gradimento è compreso fra le due soglie.' %>
               </div>
 				<div style="clear: both;"></div>
 			</div>
 		
-		<%=e.submit 'Crea', :class => 'buttonStyle'%>
+		<%=e.submit button_name, :class => 'buttonStyle'%>
 	<%end%>
-</div>
 
 <script type="text/javascript">
 $(function() {
 	$("#new_quorum").validate();
-	
 	$('.advanced').hide();
     <%if can? :show_tooltips, nil%>
         $('#name_title').ctooltip("<%=t('activerecord.attributes.quorum.name_title')%>");
@@ -64,13 +61,12 @@ $(function() {
 	    	$('#partecipants_number').html(Math.max(Math.floor(parseFloat(ui.value) * 0.01 * parseFloat(<%=@partecipants_count%>)),0));
 	    }
 	});
-	
 	$('#quorum_good_score').spinner({
 		incremental: true,
 		max: 100,
 		min: 0,	    	
 		spin: function(event,ui) {
-	    	var good = parseInt($('#quorum_good_score').val());
+	    	var good = ui.value;
 	    	var bad = parseInt($('#quorum_bad_score').val());
 	    	if (good < bad) {
 	    		$('#quorum_bad_score').val(good);
@@ -84,15 +80,14 @@ $(function() {
 		min: 0,	    	
 		spin: function(event,ui) {
 	    	var good = parseInt($('#quorum_good_score').val());
-	    	var bad = parseInt($('#quorum_bad_score').val());
-	    	if (bad > good) {
+	    	var bad = ui.value;
+	    	if (bad >= good) {
 	    		$('#quorum_good_score').val(bad);
 	    	}
 	    }
 	}); 
 	 
 	disegnaBottoni();
-	
 	$(".hours").spinner({
 		incremental: true,
 		max: 23,
@@ -112,18 +107,23 @@ $(function() {
 	$( "#radio" ).buttonset();
  
 	$(".elastic").elastic();
- 
 	$('#radio input[name^=quorum]').change(function(event,el) {
  		$("#options").fadeOut('slow',function(){
-	 		val = $('#radio input[name^=quorum]:checked').val();
+	 		var val = $('#radio input[name^=quorum]:checked').val();
 	 		if (val == 's') {
 		     	$('.advanced').hide();
 		    }
 		    else {
 		    	$('.advanced').show();
 		    }
-	     	$('#options').fadeIn();	
+	     	$('#options').fadeIn();
  		})
  	});
+
+    var curval = $('#radio input[name^=quorum]:checked').val();
+    if (curval == 'a') {
+        $('.advanced').show();
+    }
+
 });
 </script>

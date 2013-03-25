@@ -146,7 +146,7 @@ pt:
      update: "Papel atualizado com sucesso"
   pages:
     top_panel:
-      login: "Por favor faça o login ou registe-se"
+      login: "Faça o login ou registe-se"
       facebook_login: "Faça login no Facebook"
       google_login: "Faça login no Google"
       twitter_login: "Faça login no Twitter"
@@ -347,8 +347,8 @@ pt:
         cloud_8: "VOTE"
         cloud_9: "DECIDIR"
         try_it: "Tentar"
-        register: "Registrar"
-        login: "Entrar"
+        register: "Registe-se"
+        login: "Login"
         forgot_password: "Esqueceu a senha?"
         follw_on_twitter: "Follow @democracyo on Twitter"
         field_1:

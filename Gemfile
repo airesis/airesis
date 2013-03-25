@@ -88,7 +88,7 @@ gem 'cancan'
 
 gem 'foreigner'
 
-gem 'client_side_validations', '3.2.2'
+gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '3-2-stable'
 #gem 'ar_fixtures'
 
 gem 'sitemap_generator'

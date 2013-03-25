@@ -187,6 +187,7 @@ it:
         groups_registration: "Registrazione Gruppi"
         groups_list_2: "Elenco gruppi"
         no_groups_yet: "Non partecipi a nessun %{name} ancora"
+        open_space_title: "Eventi pubblici"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
@@ -211,9 +212,14 @@ it:
         show_all_partecipants: "Mostra tutti %{count} ..."
         partecipants_full_list: "Elenco completo dei partecipanti al gruppo"
         no_partecipants: "Nessun utente partecipa ancora a questo gruppo."
+        no_blogs_yet: "Non vi sono ancora Post in questo Gruppo, torna presto."
+        waiting_partecipation_requests: "Elenco delle richieste di partecipazione in attesa di risposta"
+        accept_request_button: "Accetta"
+        reject_request_button: "Declina"
       header:
         settings: "Impostazioni"
         elections: "Elezioni"
+        documents: "Documenti"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -224,6 +230,12 @@ it:
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
       title: "Registrati"
+      email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
+      choose_password: "Scegli una password"
+      confirm_password: "Conferma la password"
+      accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
+      register_button: "Registrati"
+      identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
     proposals:
       index:
         title: "Elenco proposte"
@@ -240,6 +252,18 @@ it:
         accepted_title: "Approvate (%{count})"
         revision_title: "In revisione (%{count})"
         login_with: "oppure accedi con:"
+        group_areas_title: "Aree di lavoro"
+        no_group_areas: "Nessuna area"
+        all_areas: "Tutte le aree"
+        categories_title: "Categorie"
+        all_categories: "Tutte le categorie"
+        loading_proposals: "Sto caricando le proposte..."
+        title_with_category: "Proposte della categoria %{category}"
+        all_categories_title: "Proposte di tutte le categorie"
+        in_group_area_title: "nell'area di lavoro"
+        last_title: "Ultime inserite (TODO)"
+        most_popular_title: "Più popolari (TODO)"
+        most_voted_title: "Più valutate (TODO)"
       show:
         voteup: "Concordo"
         votenil: "Non so/non ho capito"
@@ -255,12 +279,66 @@ it:
         no_periods_contact_group: "Non vi sono date disponibili per la votazione, si prega di contattare gli amministratori del gruppo al fine di decidere un periodo idoneo"
         no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
         choose_new_votation_period_button: "Scegli una nuova data per la votazione"
+        loading_contributions: "Caricamento contributi..."
+        previos_contributes: "Commenti precedenti..."
+        delete_contribute_confirmation: "Sei sicuro di voler cancellare questo contributo?"
+        delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo suggerimento?"
+        offered_as_editor_message: "Ti sei offerto per redigere la sintesi della proposta"
+        offer_as_editor_button: "Voglio redigere la sintesi!"
+        available_editors_button: "Redattori disponibili"
+        editors_list_title: "Elenco utenti disponibili a redigere la sintesi della proposta"
+        attached_documents: "Documenti collegati"
+        no_document_attached: "Nessun documento allegato alla proposta"
+        geographic_boundaries_title: "Confini geografici di interesse"
+        tags_title: "Tags"
+        similar_proposals_title: "Proposte attinenti"
+        category_title: "Categoria"
+        edit_button: "Modifica"
+        delete_button: "Cancella"
+        delete_proposal_confirmation: "Sei sicuro di voler eliminare questa proposta?"
+        votation_message: "Questa proposta sarà in votazione dal %{from} al %{to}"
+        editing_message_1: "Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi"
+        editing_message_2: "Per accedere alla votazione dovrà raggiungere un"
+        editing_message_3: "sufficiente punteggio"
+        votation_page_button: "Vai alla pagina di votazione."
+        vote_button: "Vota!"
+        send_contribute_button: "Invia"
+        characters_left: "Caratteri disponibili:"
+        score: "Valutazioni"
+        rank: "Gradimento"
+        created_at: "Proposta creata il"
+        updated_at: "Ultima modifica del"
+        votation_results: "Risultati"
+        votation_results_title: "Risultati della votazione"
+        in_votation: "In votazione"
+        in_votation_now: "In votazione ora!"
+        anonimity_active: "Anonimato temporaneo attivo"
+        your_nickname_is: "Il tuo nickname è"
+        editors_title: "Redigono la sintesi"
+        supporting_group: "Gruppi in sostegno"
+        no_supporting_group: "Nessun gruppo sostiene la proposta"
+        support_proposal_button: "Sostieni la proposta..."
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
+      tabs:
+        last_inserted: "Ultime aggiornate"
+        most_popular: "Più popolari"
+        most_valutated: "Più valutate"
+      list:
+        last_update: "Ultimo aggiornamento del %{date}"
+        waiting_date: "In attesa che venga stabilita la data di votazione"
+        voting_from_to: "In votazione dal %{from} al %{to}"
+        voting_until: "In votazione adesso fino al %{date}"
+        votation_finished: "La votazione è terminata il %{date}"
+        no_votation: "Non vi è stata alcuna votazione"
+        interest_borders: "Confini di interesse"
+        authors: "Autori"
+        support_group: "Gruppi in sostegno"
     events:
       index:
         title: "Calendario"
+        group_title: "Calendario degli eventi"
     votations:
         show:
           vote_positive: "Voto positivo"
@@ -272,7 +350,6 @@ it:
     blog_posts:
       new:
         title: "Inserisci un nuovo post"
-
       new_button: "Inserisci un nuovo post"
       drafts_button: "Post non pubblicati"
       drafts: "Bozza"
@@ -364,6 +441,11 @@ it:
           title: "<em>Collabora</em> nel tuo interesse"
           content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
+    open_space:
+      layout:
+        proposals_button: "Le proposte"
+        calendar_button: "Calendario"
+        map_button: "Mappa"
   pl:
     comments:
       zero: nessun commento
@@ -530,3 +612,12 @@ it:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
+  terms_of_service: "Condizioni d'uso"
+  privacy_policy: "Normativa sulla Privacy"
+  back_to_top: "Torna sopra"
+  proposals:
+    create_button: "Crea una proposta"
+  interest_borders_hint: %Q(Digita alcuni caratteri per cercare un luogo)
+  no_interest_border: %Q(Nessun luogo trovato)
+  looking_for_interest_border: %Q(Sto cercando...)
+  digit_tags: %Q(Digita i tag che vuoi inserire)

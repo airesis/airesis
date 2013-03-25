@@ -23,11 +23,11 @@
     });
 </script>
 <p class="points">
-  <span class="littleText" id="valutazioni">Valutazioni </span>
+  <span class="littleText" id="valutazioni"><%= t('pages.proposals.show.score') %></span>
   <span class="rightAlign"><%= @proposal.valutations %></span>
 </p>
 <p class="ranking">
-  <span class="littleText" id="gradimento">Gradimento</span> <span class="rightAlign"><%= @proposal.rank %>%</span>
+  <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span> <span class="rightAlign"><%= @proposal.rank %>%</span>
 </p>
 <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>
 
@@ -54,10 +54,16 @@
 
 <h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description %></h2>
 
-<span class="title_grey">Proposta creata il:</span><br/><span class="blogPostDate"><%= l @proposal.created_at %></span>
+<span class="title_grey">
+  <%=raw t('pages.proposals.show.created_at')%>
+  </span><br/>
+    <%= l @proposal.created_at %>
 <br/>
 <% if @proposal.updated_at != @proposal.created_at %>
-    <span class="title_grey">Ultima modifica del</span><br/><%= l @proposal.updated_at %>
+    <span class="title_grey">
+      <%= t('pages.proposals.show.updated_at')%>
+      </span><br/>
+    <%= l @proposal.updated_at %>
 <% end %>
 <% if signed_in? %>
     <div style="margin: 5px;">
@@ -66,8 +72,8 @@
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <%= link_to 'Risultati', vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton buttonStyle', :id => "resultsButton" %>
-        <div id="vote_results_container" title="Risultati della votazione"></div>
+        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton buttonStyle', :id => "resultsButton" %>
+        <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title')%>"></div>
         <script type="text/javascript">
             $(function () {
                 $('#resultsButton').click();
@@ -77,9 +83,9 @@
 <% end %>
 
 <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
-    <span class="title_grey">In votazione</span><br/>
-    <%= raw 'dal ' + (l @proposal.vote_period.starttime) + '<br/> al ' + (l @proposal.vote_period.endtime) %>
+    <span class="title_grey"><%= t('pages.proposals.show.in_votation') %></span><br/>
+    <%= raw "dal #{(l @proposal.vote_period.starttime)}<br/> al #{(l @proposal.vote_period.endtime)}" %>
 <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
-    <span class="title_grey">In votazione ora!</span><br/>
-    <%= link_to 'Vai alla pagina di votazione.', votation_path %>
+    <span class="title_grey"><%= t('pages.proposals.show.in_votation_now') %></span><br/>
+    <%= link_to t('pages.proposals.show.votation_page_button'), votation_path %>
 <% end %>

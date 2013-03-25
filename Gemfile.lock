@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/bcardarella/client_side_validations.git
+  revision: 1acefeb98ae5a3ba24555d7b0868b130d1884c3b
+  branch: 3-2-stable
+  specs:
+    client_side_validations (3.2.2)
+
+GIT
   remote: https://github.com/coorasse/jquery-rjs.git
   revision: 799c27f133101be942e7dcfbac182ae0c4995f0d
   specs:
@@ -58,7 +65,6 @@ GEM
     bluecloth (2.0.7)
     builder (3.0.4)
     cancan (1.6.8)
-    client_side_validations (3.2.2)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -278,7 +284,7 @@ PLATFORMS
 DEPENDENCIES
   bluecloth (= 2.0.7)
   cancan
-  client_side_validations (= 3.2.2)
+  client_side_validations!
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
   el_finder

@@ -32,18 +32,19 @@
 		
 		function calculate(obj){
 			var count = $(obj).val().length;
+            var counter = $('.counter',$(obj).parent());
 			var available = options.allowed - count;
 			if(available <= options.warning && available >= 0){
-				$(obj).next().addClass(options.cssWarning);
+				counter.addClass(options.cssWarning);
 			} else {
-				$(obj).next().removeClass(options.cssWarning);
+                counter.removeClass(options.cssWarning);
 			}
 			if(available < 0){
-				$(obj).next().addClass(options.cssExceeded);
+                counter.addClass(options.cssExceeded);
 			} else {
-				$(obj).next().removeClass(options.cssExceeded);
+                counter.removeClass(options.cssExceeded);
 			}
-			$(obj).next().html(options.counterText + available);
+            counter.html(options.counterText + available);
 		};
 				
 		this.each(function() {  			

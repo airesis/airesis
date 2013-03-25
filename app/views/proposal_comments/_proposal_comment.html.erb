@@ -36,7 +36,7 @@
 		</div>
 	</p>
 	<p>
-		<%= f.submit 'Invia', :id => 'insert_comment', :onclick => "hide();" %>
+		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', :onclick => "hide();" %>
 		<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 	</p>
 	<% end %>
@@ -54,7 +54,7 @@
                     .charCount({
 				allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
 				warning : 100,
-				counterText : 'Caratteri disponibili: '
+				counterText : '<%=t('pages.proposals.show.characters_left')%> '
 			});
             $('#proposal_comment_content').elastic();
 		});

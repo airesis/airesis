@@ -1,4 +1,4 @@
-class  Paragraph < ActiveRecord::Base
+class Paragraph < ActiveRecord::Base
   belongs_to :section
 
   attr_accessor :content_dirty
@@ -9,7 +9,7 @@ class  Paragraph < ActiveRecord::Base
     @content_dirty ||= self.content
   end
 
-  def content_dirty=val
+  def content_dirty= val
     @content_dirty = val
   end
 end
