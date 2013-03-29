@@ -1,9 +1,9 @@
 class CreateGenericBorders < ActiveRecord::Migration
   def up
     create_table :generic_borders do |t|
-      t.description
-      t.name
-      t.seq
+      t.string :description, limit: 255, null: false
+      t.string :name, limit: 255, null: false
+      t.integer :seq
     end
   end
 
