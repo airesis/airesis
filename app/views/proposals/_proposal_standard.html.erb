@@ -1,9 +1,9 @@
 <div id="create_proposal">
   <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
-      <div class="legend first">Informazioni iniziali</div>
-      <div class="legend">Proposte simili</div>
-      <div class="legend">Problemi ed obiettivi</div>
-      <div class="legend last">Proposta iniziale</div>
+      <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
+      <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
+      <div class="legend"><%= t('pages.proposals.new.step_3') %></div>
+      <div class="legend last"><%= t('pages.proposals.new.step_4') %></div>
 
 
       <div class="step root root">
@@ -48,7 +48,7 @@
                   <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
                   <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
               <% else %>
-                  <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => 'Seleziona un quorum') %>
+                  <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
                   <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
               <% end %>
 
@@ -85,14 +85,14 @@
       </div>
 
       <div class="step">
-        <h4><%= 'Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta' %></h4>
+        <h4><%= t('pages.proposals.new.step_3_title') %></h4>
 
         <%= f.fields_for :sections, @problems do |s| %>
             <%= s.hidden_field :title %>
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, 'Problematica' %> *<br/>
+                  <%= p.label :content, t('pages.proposals.new.problems_title') %> *<br/>
                   <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce", :validate => {:presence => true} %>
                   <%= p.hidden_field :seq %>
                 </p>
@@ -103,7 +103,7 @@
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @objectives.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, 'Obiettivi' %> *<br/>
+                  <%= p.label :content, t('pages.proposals.new.objectives_title') %> *<br/>
                   <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
                   <%= p.hidden_field :seq %>
                 </p>
@@ -112,11 +112,7 @@
       </div>
 
       <div class="step">
-        <% if params[:action] == "new" %>
-            <h4><%= 'Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti' %></h4>
-        <% else %>
-            <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
-        <% end %>
+        <h4><%= t('pages.proposals.new.step_4_title') %></h4>
         <%= f.fields_for :solutions, @solution do |sol| %>
             <%= sol.hidden_field :seq %>
             <%= sol.fields_for :sections, @solution_section do |s| %>
@@ -124,7 +120,7 @@
                 <%= s.hidden_field :seq %>
                 <%= s.fields_for :paragraphs, @solution_section.paragraphs.build(seq: 1) do |p| %>
                     <p>
-                      <%= p.label :content, 'Testo' %><br/>
+                      <%= p.label :content, t('pages.proposals.new.first_solution_title') %><br/>
                       <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
                       <%= p.hidden_field :seq %>
                     </p>
@@ -137,7 +133,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit "Crea la proposta", :class => 'buttonStyle' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'buttonStyle' %>
       </p>
   <% end %>
 </div>

@@ -323,6 +323,16 @@ it:
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
+        step_1: "Informazioni iniziali"
+        step_2: "Proposte simili"
+        step_3: "Problemi ed obiettivi"
+        step_4: "Proposta iniziale"
+        step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
+        problems_title: "Problematica"
+        objectives_title: "Obiettivi"
+        step_4_title: "Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti"
+        first_solution_title: "Testo"
+        create_button: "Crea la proposta"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
