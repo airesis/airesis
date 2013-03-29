@@ -597,6 +597,19 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
   end
 
+  #exlipcitly close the debate of a proposal
+  def close_debate
+    authorize! :close_debate, @proposal
+    if @proposal.rank >= @proposal.quorum.good_score
+      @proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
+      notify_proposal_ready_for_vote(@proposal)
+    elsif @proposal.rank < @proposal.quorum.bad_score
+      @proposal.proposal_state_id = PROP_RESP
+      notify_proposal_rejected(@proposal)
+    end
+    @proposal.save
+    redirect_to @proposal
+  end
 
   protected
 
@@ -677,6 +690,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
     end if borders
   end
+
 
   #valuta una proposta
   def rank(rank_type)

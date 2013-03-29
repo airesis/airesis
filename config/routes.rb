@@ -88,6 +88,7 @@ DemocracyOnline3::Application.routes.draw do
       get :available_authors_list
       put :add_authors
       get :vote_results
+      post :close_debate
     end
   end
 
@@ -180,6 +181,9 @@ DemocracyOnline3::Application.routes.draw do
     resources :proposals do
       collection do
         get :search
+      end
+      member do
+        post :close_debate
       end
     end
 

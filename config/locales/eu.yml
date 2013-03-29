@@ -318,6 +318,8 @@ eu:
         supporting_group: "Support groups"
         no_supporting_group: "No group support this proposal"
         support_proposal_button: "Support this proposal..."
+        close_debate_button: "Close debate"
+        close_debate_proposal_confirmation: "Close debate immediatly and go to next phase?"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -617,3 +619,7 @@ eu:
   back_to_top: "Back to top"
   proposals:
     create_button: "Create a proposal"
+  interest_borders_hint: "Type a few characters to search for a place"
+  no_interest_border: "No place found"
+  looking_for_interest_border: "Searching, please wait..."
+  digit_tags: "Type the tags you want to insert"

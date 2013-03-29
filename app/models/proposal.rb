@@ -118,6 +118,7 @@ class Proposal < ActiveRecord::Base
     Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
   end
 
+  #return true if the proposal is currently in debate
   def in_valutation?
     self.proposal_state_id == ProposalState::VALUTATION
   end

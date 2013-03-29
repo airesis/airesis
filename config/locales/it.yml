@@ -318,6 +318,8 @@ it:
         supporting_group: "Gruppi in sostegno"
         no_supporting_group: "Nessun gruppo sostiene la proposta"
         support_proposal_button: "Sostieni la proposta..."
+        close_debate_button: "Chiudi il dibattito"
+        close_debate_proposal_confirmation: "Terminare immediatamente il dibattito e proseguire alla fase successiva?"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -617,7 +619,7 @@ it:
   back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"
-  interest_borders_hint: %Q(Digita alcuni caratteri per cercare un luogo)
-  no_interest_border: %Q(Nessun luogo trovato)
-  looking_for_interest_border: %Q(Sto cercando...)
-  digit_tags: %Q(Digita i tag che vuoi inserire)
+  interest_borders_hint: "Digita alcuni caratteri per cercare un luogo"
+  no_interest_border: "Nessun luogo trovato"
+  looking_for_interest_border: "Sto cercando..."
+  digit_tags: "Digita i tag che vuoi inserire"

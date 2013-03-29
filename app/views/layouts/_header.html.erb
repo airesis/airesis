@@ -203,8 +203,10 @@
 
 
     <% if user_signed_in? %>
-        <div class="menu_element">
-          <%= t('pages.header.groups') %>
+        <div class="menu_element groups_menu_chrome">
+          <span>
+            <%= t('pages.header.groups') %>
+          </span>
           <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
 
           <div class="groups_panel shadow-box hidden_panel" id="groups_panel">
@@ -265,37 +267,39 @@
     });
 
     $('.menu_element')
-    .data('show', false)
-    .click(function (event) {
-        _this = $(this);
-        sval = _this.data('show');
-        $('.hidden_panel').hide();
-        $('.menu_element').removeClass('active').data('show', false);
-        _this.data('show', sval);
-        if (_this.data('show')) {
-            $('.hidden_panel', this).hide();
-            _this.removeClass('active');
-            _this.data('show', false);
-        } else {
-            console.log($('.hidden_panel', this));
-            $('.hidden_panel', this).show().position({
-                my: "right top",
-                at: "right bottom",
-                of: _this
+            .data('show', false)
+            .click(function (event) {
+                _this = $(this);
+                sval = _this.data('show');
+                $('.hidden_panel').hide();
+                $('.menu_element').removeClass('active').data('show', false);
+                _this.data('show', sval);
+                if (_this.data('show')) {
+                    $('.hidden_panel', this).hide();
+                    _this.removeClass('active');
+                    _this.data('show', false);
+                } else {
+                    console.log($('.hidden_panel', this));
+                    $('.hidden_panel', this).show().position({
+                        my: "right top",
+                        at: "right bottom",
+                        of: _this
+                    });
+                    _this.addClass('active');
+                    _this.data('show', true);
+                }
+                event.stopPropagation();
+            })
+            .mouseover(function () {
+                $(this).addClass("active");
+            })
+            .mouseout(function () {
+                if ($(this).data('show') == false) {
+                    $(this).removeClass("active");
+                }
             });
-            _this.addClass('active');
-            _this.data('show', true);
-        }
-        event.stopPropagation();
-    })
-    .mouseover(function () {
-        $(this).addClass("active");
-    })
-    .mouseout(function () {
-        if ($(this).data('show') == false) {
-           $(this).removeClass("active");
-        }
-    });
+
+    $('.groups_menu_chrome').width($('.groups_menu_chrome').width()+3);
 
     function fetchNotifications() {
         jQuery.ajax({
@@ -317,10 +321,10 @@
     poll();
     <%else%>
     $('#registration-panel')
-    .hide()
-    .click(function (event) {
-        event.stopPropagation();
-    });
+            .hide()
+            .click(function (event) {
+                event.stopPropagation();
+            });
 
     user_panel_shown = false;
     $('html').click(function () {
@@ -332,36 +336,36 @@
     });
 
     $(".superHeader")
-    .mouseover(function () {
-        $(this).addClass("active");
-    })
-    .mouseout(function () {
-        if (!user_panel_shown) {
-          $(this).removeClass("active");
-        }
-    })
-    .focusin(function () {
-        $(this).addClass("active");
-    })
-    .focusout(function () {
-        $(this).removeClass("active");
-    })
-    .click(function (event) {
-        if (user_panel_shown) {
-            $('#registration-panel').hide();
-            $('.superHeader').removeClass('active');
-            user_panel_shown = false;
-        } else {
-            $('#registration-panel').show().position({
-                my: "right top",
-                at: "right bottom",
-                of: $('.superHeader')
+            .mouseover(function () {
+                $(this).addClass("active");
             })
-            $('.superHeader').addClass('active');
-            user_panel_shown = true;
-        }
-        event.stopPropagation();
-    });
+            .mouseout(function () {
+                if (!user_panel_shown) {
+                    $(this).removeClass("active");
+                }
+            })
+            .focusin(function () {
+                $(this).addClass("active");
+            })
+            .focusout(function () {
+                $(this).removeClass("active");
+            })
+            .click(function (event) {
+                if (user_panel_shown) {
+                    $('#registration-panel').hide();
+                    $('.superHeader').removeClass('active');
+                    user_panel_shown = false;
+                } else {
+                    $('#registration-panel').show().position({
+                        my: "right top",
+                        at: "right bottom",
+                        of: $('.superHeader')
+                    })
+                    $('.superHeader').addClass('active');
+                    user_panel_shown = true;
+                }
+                event.stopPropagation();
+            });
 
     <%end%>
     $('#loading').hide();
