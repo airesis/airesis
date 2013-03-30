@@ -82,6 +82,8 @@ gem 'resque_mailer'
 
 gem 'resque-scheduler'
 
+gem 'sunspot-queue'
+
 #gem 'resque-mongo-scheduler'#, :git => 'https://github.com/srmelody/resque-mongo-scheduler.git'
 
 gem 'cancan'
