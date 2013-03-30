@@ -423,9 +423,9 @@ it:
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
       new:
-        title: %Q(Crea il tuo blog personale!)
-        cancel_button: %Q(No, grazie!)
-        create_button: %Q(Crea)
+        title: "Crea il tuo blog personale!"
+        cancel_button: "No, grazie!"
+        create_button: "Crea"
     groups_area:
       edit:
         title: "Impostazioni area di lavoro"
