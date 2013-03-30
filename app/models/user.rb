@@ -152,6 +152,16 @@ class User < ActiveRecord::Base
     .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
   end
 
+  #restituisce l'elenco dei gruppi dell'utente
+  #all'interno dei quali possiede un determinato permesso
+  def scoped_groups(abilitation, excluded_groups=nil)
+    ret = self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
+                                        " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
+                                        " and action_abilitations.group_id = group_partecipations.group_id")
+    .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    excluded_groups ? ret - excluded_groups : ret
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
