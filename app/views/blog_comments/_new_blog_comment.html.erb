@@ -27,7 +27,7 @@
 			<% end %>			
 		
 				<div id="comment-form-comment">
-				<%= f.text_area :body, :class => 'blogNewCommentField' %>
+				<%= f.text_area :body, :class => 'blogNewCommentField', :rows => 5, :cols => 70  %>
 				</div>
 			
 			<p>
@@ -45,6 +45,14 @@
 					$('#comment-form-comment').toggleClass("active");
 				});
 				$('input:submit').button();
+
+                $('#blog_comment_body')
+                        .charCount({
+                            allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
+                            warning : 100,
+                            counterText : '<%=t('pages.proposals.show.characters_left')%> '
+                        });
+                $('#blog_comment_body').elastic();
 				
 			});
 			

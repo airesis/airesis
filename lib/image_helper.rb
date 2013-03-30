@@ -9,9 +9,9 @@ module ImageHelper
     
     if group && !group.image_url.blank?
       # Load image from model
-      ret = "<img src=\"#{group.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onerror=\"deleteMe(this);\" />"
+      ret = "<img src=\"#{group.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"\" onerror=\"deleteMe(this);\" />"
     else
-      ret = "<img src=\"/assets/gruppo-anonimo.png\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"Indirizzo immagine non valido\" onerror=\"deleteMe(this);\" />"
+      ret = "<img src=\"/assets/gruppo-anonimo.png\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"\" onerror=\"deleteMe(this);\" />"
     end
     return ret.html_safe
   end

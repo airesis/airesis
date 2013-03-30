@@ -41,7 +41,7 @@
 	<div class="editBlogPost">
 			<% if @blog_post.errors.size > 0 %>
 				<div id="errorExplanation" class="ui-state-error ui-corner-all">
-					<h2>Il post non può essere inserito:</h2>
+					<h2><%= t('pages.groups.new.errors_title') %></h2>
 					<ul>
 						<% @blog_post.errors.full_messages.each do |msg| %>
 							<li><%= msg %></li>
@@ -50,21 +50,21 @@
 				</div>
 			<% end %>
 			<p>
-				<%= f.label "Titolo" %><br />
+				<%= f.label :title %><br />
 				<%= f.text_field :title, :style => 'width:80%' %>
 			</p>
 			<p>
-				<%= f.label "Testo" %><br />
+				<%= f.label :body %><br />
 				<%= f.text_area :body%>
 			</p>
 			<p>
-				<%= f.label :tags_list, 'Tags (separati da virgola)' %><br />
+				<%= f.label :tags_list, t('pages.groups.new.tags.title') %><br />
 				<%= f.text_field :tags_list %>
 			</p>
 			<p>
-				<%= f.label :published, 'Stato' %><br />
-				<%= f.radio_button :published, true, :checked=>"checked" %><%= f.label :published_true, 'Pubblicato' %><br />
-				<%= f.radio_button :published, false %><%= f.label :published_false, 'Bozza' %>
+				<%= f.label :published %><br />
+				<%= f.radio_button :published, true, :checked=>"checked" %><%= f.label :published_true %><br />
+				<%= f.radio_button :published, false %><%= f.label :published_false %>
 			</p>
 			
 			<p>

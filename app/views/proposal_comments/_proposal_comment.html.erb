@@ -2,10 +2,6 @@
 	
 <div id="proposalNewComment" class="blogNewComment">
 	<script>
-		function sblank() {
-			var el = document.getElementById('blog_comment_content');
-			//    el.value = '';
-		}
 
 		function hide() {
 			$('#insert_comment').hide();
@@ -23,7 +19,7 @@
 	<%= render :partial => 'fragments/error_messages', :locals => {:resource =>proposal_comment} %>
 	
 	<p>
-		<%= f.label :content, t(:insert_contribute) %>
+	    <%= f.label :content, t(:insert_contribute) %>
         <span id="miglioricontributi">
           <%=image_tag 'icon_info.gif', :style => 'cursor:pointer'%>
         </span>
@@ -31,9 +27,7 @@
       <br/>
       <div id="comment-form-comment">
         <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
-
-
-		</div>
+	  </div>
 	</p>
 	<p>
 		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', :onclick => "hide();" %>

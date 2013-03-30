@@ -22,10 +22,10 @@
             var minHeight = $(this).height();
             txtArea.after(fakeDiv);
 
-            var reloadText = function(){
+            var reloadText = function(event){
                 txtArea = $(this);
                 fakeDiv = txtArea.next('.autogrow-textarea-mirror');
-                fakeDiv.html(txtArea.val().replace(/\n/g, '<br/>') + "<br/>");
+                fakeDiv.html(stripScripts(txtArea.val().replace(/\n/g, '<br/>') + "<br/>"));
                 if (fakeDiv.height() < minHeight) {
                     txtArea.height(minHeight);
                 }

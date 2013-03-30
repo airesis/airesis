@@ -12,12 +12,7 @@
 	</h3>
 
 	<p class="blogPostPostedAt">
-		Inserito
-		<% if blog_post.show_user? %>
-			da <span class="blogPoster"><%=link_to_user blog_post.user %></span>
-		<% end %>
-		il
-		<span class="blogPostDate"><%= blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
+		<%=raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user blog_post.user), date: (l blog_post.updated_at)) %>
 	</p>
 
 	<div class="blogPostBody">

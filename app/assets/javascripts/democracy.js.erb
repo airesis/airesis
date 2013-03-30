@@ -54,6 +54,7 @@ function disegnaBottoni() {
     $('.inviteButton').button({icons : {primary : "ui-icon-mail-open"}});
     $('.documentButton').button({icons : {primary : "ui-icon-document"}});
     $('.closeButton').button({icons : {primary : "ui-icon-close"}});
+    $('.draftsButton').button({icons : {primary : "ui-icon-pencil"}});
 	$('.disabledButton').button("option", "disabled", true);
 
 	$(".disableButton")
@@ -311,4 +312,16 @@ function doModal(el){
             $.modal.close();
         }
     });
+}
+
+
+function stripScripts(s) {
+    var div = document.createElement('div');
+    div.innerHTML = s;
+    var scripts = div.getElementsByTagName('script');
+    var i = scripts.length;
+    while (i--) {
+        scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    return div.innerHTML;
 }

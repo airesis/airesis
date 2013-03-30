@@ -5,19 +5,19 @@ itemscope itemtype="http://schema.org/Blog"
 <% javascript 'endless_page'
 @title = @blog_post.title
 if !@blog_post.published?	
-	@title += "[Bozza]"
+	@title += t('pages.blog_posts.show.draft')
 end
 %>
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do%>
-	<%= link_to 'Modifica', edit_blog_blog_post_path(@blog), :class => 'editButton littleText' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %><br />
-	<%= link_to 'Cancella', blog_blog_post_path(@blog), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post #{@blog_post.title}?", :class => 'deleteButton littleText' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %><br />
-	<g:plus action="share" annotation="bubble"></g:plus><br />
-	<a href="https://twitter.com/share" 
-	   class="twitter-share-button" 
-	   data-lang="en"
-	   data-text="Ho inserito un nuovo post su <%=APP_SHORT_NAME%>: <%= blog_blog_post_url(@blog) %>">Tweet</a>
-    <%=raw facebook_like %>
+	<g:plus action="share" annotation="bubble"></g:plus>
+    <a href="https://twitter.com/share"
+    class="twitter-share-button"
+    data-lang="en"
+    data-text="Ho inserito un nuovo post su <%=APP_SHORT_NAME%>: <%= blog_blog_post_url(@blog) %>">Tweet</a>
+    <%=raw facebook_like %>   <br/>
+    <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog), :class => 'editButton littleText', style: 'float:right;margin-top:5px;' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %>
+    <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'deleteButton littleText', style: 'float: right; margin-top:5px;' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
 <%end%>
 
 
@@ -31,12 +31,7 @@ end
 
 	
 	<p class="blogPostPostedAt">
-		Inserito
-		<% if @blog_post.show_user? %>
-			da <span class="blogPoster"><%=link_to_user @blog_post.user %></span>
-		<% end %>
-		il
-		<span class="blogPostDate"><%= @blog_post.updated_at.strftime("%d/%m/%Y alle %H:%M") %></span>
+      <%=raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
 	</p>
 
 	<div class="blogPostBody" itemprop="description">
@@ -46,7 +41,7 @@ end
 	<hr class="blogPostBreak" />
 	<% unless @blog_post.tags.empty? %>
 		<p class="blogPostTags">
-			<b>Tags: </b>
+			<b><%= t('pages.blog_posts.show.tags_title') %></b>
 			<%=raw @blog_post.tags_with_links %>
 		</p>
 	<% end %>
@@ -58,7 +53,7 @@ end
 		<%= render :partial => 'blog_posts/comments' %>
 	  </div>
 	  <div id="loading_results">
-	  	<span>Commenti precedenti...</span>
+	  	<span><%= t('pages.blog_posts.show.previous_comments') %></span>
 	  </div>
 	
 	<br style="clear: both;" />

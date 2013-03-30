@@ -234,7 +234,7 @@ class ProposalCommentsController < ApplicationController
         @proposal_comment.reload
         flash[:notice] = t(:proposal_comment_rank_registered)
         format.js { render :update do |page|                    
-                    page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
+                    #page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
                     page.replace_html "rankingpanelcontainer#{params[:id]}", :partial => 'proposal_comments/ranking_panel', :locals => {:comment => @proposal_comment}
                     end
                   }

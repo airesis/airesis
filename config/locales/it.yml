@@ -195,6 +195,9 @@ it:
         change_permissions_button: "Vuoi cambiare i permessi standard?"
         change_permissions_title: "Modifica i permessi standard degli utenti appena iscritti"
         change_permissions_description: "Queste sono le azioni che gli utenti appena iscritti potranno eseguire all'interno del gruppo: ricorda che successivamente potrai sempre modificarli e creare nuovi ruoli!"
+        errors_title: "Il post non può essere inserito:"
+        tags:
+          title: "Tags (separati da virgola)"
       edit:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
@@ -249,8 +252,8 @@ it:
         continue_reading: 'continua a leggere la proposta'
         debate_title: "In dibattito (%{count})"
         voting_title: "In votazione (%{count})"
-        accepted_title: "Approvate (%{count})"
-        revision_title: "In revisione (%{count})"
+        accepted_title: "Votate (%{count})"
+        revision_title: "Abbandonate (%{count})"
         login_with: "oppure accedi con:"
         group_areas_title: "Aree di lavoro"
         no_group_areas: "Nessuna area"
@@ -347,6 +350,7 @@ it:
         interest_borders: "Confini di interesse"
         authors: "Autori"
         support_group: "Gruppi in sostegno"
+      delete_comment: "Cancella"
     events:
       index:
         title: "Calendario"
@@ -370,6 +374,16 @@ it:
       comment:
         delete_button: "Cancella"
         confirm_delete: "Sei sicuro di voler cancellare questo commento?"
+      list_elements:
+        inserted: "Inserito da %{name} il %{date}"
+      show:
+        previous_comments: "Commenti precedenti..."
+        tags_title: "Tags:"
+        edit_button: "Modifica"
+        delete_button: "Cancella"
+        delete_button_confirm: "Sei sicuro di voler cancellare il post?"
+        draft: "[Bozza]"
+        comments_says: "dice..."
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -458,6 +472,11 @@ it:
         proposals_button: "Le proposte"
         calendar_button: "Calendario"
         map_button: "Mappa"
+    proposal_supports:
+      new:
+        panel_title: "Conferma sostegno alla proposta"
+        no_available_groups: "Non disponi dei permessi per sostenere questa proposta a nome di nessun gruppo"
+      confirm_button: "Conferma"
   pl:
     comments:
       zero: nessun commento
@@ -505,6 +524,12 @@ it:
         description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
+      blog_post:
+        title: 'Titolo'
+        body: 'Testo'
+        published: 'Stato'
+        published_true: 'Pubblicato'
+        published_false: 'In bozza'
       partecipation_role:
          name: "Nome"
          description: "Breve descrizione"

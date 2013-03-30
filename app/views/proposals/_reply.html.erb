@@ -2,7 +2,7 @@
 <div id="replys<%=reply.id%>">
 <div class="reply_img" title="<%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%><%=comment_nickname.nickname%><%end%>">
   <%if (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user))%>
-      <img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment_nickname.nickname)%>?s=32&d=identicon&r=PG"/>
+      <img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(comment_nickname.nickname)%>?s=32&d=wavatar&r=PG"/>
   <%else%>
       <%= reply.user_image_tag(32) %>
   <%end%>

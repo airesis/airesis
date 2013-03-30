@@ -8,6 +8,11 @@ production:
 
 development:
   solr:
+#    hostname: airesistest.alwaysdata.net
+#    port: 80
+#    path: '/solr-example'
+#    log_level: WARNING
+#  solr:
     hostname: localhost
     port: 8982
     log_level: INFO

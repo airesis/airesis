@@ -72,7 +72,7 @@ module UsersHelper
     if u_nick
      ret += "<img src=\"http://www.gravatar.com/avatar/"
      ret += Digest::MD5.hexdigest(u_nick.nickname)
-     ret += "?s=24&d=identicon&r=PG\"/>"                         
+     ret += "?s=24&d=wavatar&r=PG\"/>"
     else
      ret += user.user_image_tag(24)
     end
@@ -109,7 +109,7 @@ module UsersHelper
     if u_nick                    
       ret += "<img src=\"http://www.gravatar.com/avatar/"
       ret += Digest::MD5.hexdigest(u_nick.nickname)
-      ret += "?s=24&d=identicon&r=PG\"/>"   
+      ret += "?s=24&d=wavatar&r=PG\"/>"
     else
       ret += user.user_image_tag(20)
     end
