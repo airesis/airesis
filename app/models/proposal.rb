@@ -139,6 +139,10 @@ class Proposal < ActiveRecord::Base
     [ProposalState::ACCEPTED, ProposalState::REJECTED].include? self.proposal_state_id
   end
 
+  def rejected?
+    self.proposal_state_id == ProposalState::REJECTED
+  end
+
   def is_current?
     [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
   end
@@ -265,7 +269,7 @@ class Proposal < ActiveRecord::Base
     sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-               ORDER BY closeness DESC"
+               ORDER BY closeness DESC limit 10"
     Proposal.find_by_sql(sql_q)
   end
 

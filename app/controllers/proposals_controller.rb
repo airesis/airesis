@@ -94,7 +94,7 @@ class ProposalsController < ApplicationController
 
     @in_valutation_count = @count_base.in_valutation.count
     @in_votation_count = @count_base.in_votation.count
-    @accepted_count = @count_base.accepted.count
+    @accepted_count = @count_base.voted.count
     @revision_count = @count_base.revision.count
 
     respond_to do |format|
@@ -322,17 +322,15 @@ class ProposalsController < ApplicationController
         }
       end
 
-    rescue ActiveRecord::ActiveRecordError => e
+    rescue Exception => e
       log_error(e)
       if @proposal.errors[:title]
         @other = Proposal.find_by_title(params[:proposal][:title])
-        #@proposal.errors[:title] = "Esiste già un'altra proposta cono questo titolo. <a href=\"#\">Guardala</a>!"          
       end
       respond_to do |format|
         format.js {
           render :update do |page|
             page.alert 'Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta'
-            #page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         }
         format.html { render :action => "new" }
@@ -635,7 +633,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       startlist = Proposal.in_votation
       @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
     elsif params[:state] == ACCEPTED_STATE
-      startlist = Proposal.accepted
+      startlist = Proposal.voted
       @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
     elsif params[:state] == REVISION_STATE
       startlist = Proposal.revision

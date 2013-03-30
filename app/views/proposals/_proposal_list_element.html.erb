@@ -3,7 +3,7 @@
     <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
   </div>
   <div class="maintitle">
-    <%= link_to proposal.title, proposal.private ? [proposal.presentation_groups.first, proposal] : proposal %>
+    <%= link_to proposal.title, proposal.private ? [proposal.presentation_groups.first, proposal] : proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
   </div>
   <div class="datetime">
     <% if proposal.in_valutation? %>
