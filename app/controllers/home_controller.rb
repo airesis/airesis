@@ -39,6 +39,12 @@ class HomeController < ApplicationController
     
   def helpus
   end
+
+  def privacy
+  end
+
+  def terms
+  end
     
   def show
     @step = get_next_step(current_user)
@@ -51,7 +57,7 @@ class HomeController < ApplicationController
   def choose_layout    
     if [ 'show'].include? action_name
       'users'
-    elsif [ 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
+    elsif [ 'privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
         'landing'
     else
         nil    
