@@ -334,8 +334,10 @@ it:
         problems_title: "Problematica"
         objectives_title: "Obiettivi"
         step_4_title: "Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti"
-        first_solution_title: "Testo"
+        first_solution_title: "Soluzione 1"
         create_button: "Crea la proposta"
+        title: "Nuova proposta"
+        title_group: "interna al gruppo %{name}"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -420,6 +422,10 @@ it:
         tag: "Tag"
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
+      new:
+        title: %Q(Crea il tuo blog personale!)
+        cancel_button: %Q(No, grazie!)
+        create_button: %Q(Crea)
     groups_area:
       edit:
         title: "Impostazioni area di lavoro"
@@ -524,6 +530,8 @@ it:
         description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
+      blogs:
+        title: 'Titolo'
       blog_post:
         title: 'Titolo'
         body: 'Testo'

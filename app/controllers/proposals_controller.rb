@@ -206,14 +206,14 @@ class ProposalsController < ApplicationController
 
     #initialize all fields necessary for the proposal specific type
     if params[:proposal_type_id] == ProposalType::STANDARD.to_s
-      @problems = @proposal.sections.build(title: 'Problematica', seq: 1)
-      @objectives = @proposal.sections.build(title: 'Obiettivi', seq: 2)
+      @problems = @proposal.sections.build(title: t('pages.proposals.new.problems_title'), seq: 1)
+      @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
       @solution = @proposal.solutions.build(seq: 1)
-      @solution_section = @solution.sections.build(title: 'Soluzione 1', seq: 1)
+      @solution_section = @solution.sections.build(title: t('pages.proposals.new.first_solution_title'), seq: 1)
       @proposal.proposal_type_id = ProposalType::STANDARD
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
-      @title = "Nuova proposta"
-      @title += " interna al gruppo #{@group.name}" if @group
+      @title = t('pages.proposals.new.title')
+      @title += t('pages.proposals.new.title_group', name: @group.name) if @group
     elsif params[:proposal_type_id] == ProposalType::POLL.to_s
       @text = @proposal.sections.build(title: 'Testo del sondaggio', seq: 1)
       @solution_a = @proposal.solutions.build(seq: 1)

@@ -1,4 +1,4 @@
-<h1>Vuoi creare un tuo blog personale?</h1>
+<h1><%= t('pages.blogs.new.title') %></h1>
 <%= form_for(@blog) do |f| %>
 <% if @blog.errors.any? %>
 <ul>
@@ -10,13 +10,13 @@
 </ul>
 <% end %>
 <p>
-	<%= f.label 'Titolo del tuo blog' %>
+	<%= f.label :title %>
 	<br />
 	<%= f.text_field :title %>
 </p>
 <p>
-	<%= f.submit 'Crea', :class => 'buttonStyle' %>
+	<%= f.submit t('pages.blogs.new.create_button'), :class => 'buttonStyle' %>
 </p>
 <% end %>
 
-<%= link_to 'No, grazie!', :back, :class => 'buttonStyle' %>
+<%= link_to t('pages.blogs.new.cancel_button'), :back, :class => 'buttonStyle' %>
