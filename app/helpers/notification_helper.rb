@@ -39,13 +39,13 @@ module NotificationHelper
     
   end
 
-  #invia le notifiche quando un utente inserisce un commento alla proposta
-  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
+  #send notifications when a user insert a comment to a proposal
+  #notifications are sent to authors and partecipants
   def notify_user_comment_proposal(comment)
     proposal = comment.proposal
     comment_user = comment.user
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id,proposal.id)
-    name = nickname ? nickname.nickname : comment_user.fullname
+    name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
     msg = "<b>"+name+"</b> ha inserito un commento alla tua proposta <b>"+proposal.title+"</b>!";
     data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}"}
     notification_a = Notification.new(:notification_type_id => 5,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
