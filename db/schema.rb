@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321153555) do
+ActiveRecord::Schema.define(:version => 20130329164016) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -240,6 +240,12 @@ ActiveRecord::Schema.define(:version => 20130321153555) do
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
+  create_table "generic_borders", :force => true do |t|
+    t.string  "description", :null => false
+    t.string  "name",        :null => false
+    t.integer "seq"
+  end
+
   create_table "geometry_columns", :id => false, :force => true do |t|
     t.string  "f_table_catalog",   :limit => 256, :null => false
     t.string  "f_table_schema",    :limit => 256, :null => false
@@ -255,6 +261,7 @@ ActiveRecord::Schema.define(:version => 20130321153555) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "seq"
   end
 
   create_table "group_affinities", :force => true do |t|

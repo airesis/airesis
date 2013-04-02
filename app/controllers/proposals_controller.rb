@@ -665,7 +665,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
 
       if params[:group_area_id]
-        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't') "
+        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't' and area_proposals.group_area_id in (#{current_user.scoped_areas(@group,GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql})) "
       else
         conditions += " and (area_proposals.group_area_id is null or area_proposals.group_area_id in (#{current_user.scoped_areas(@group,GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}))"
       end

@@ -14,14 +14,17 @@ class GroupAction < ActiveRecord::Base
   #inviare candidati alle elezioni del gruppo
   SEND_CANDIDATES = 5
 
-  #visualizzare le proposte
+  #view proposals
   PROPOSAL_VIEW = 6
 
-  #partecipare alle proposte
+  #partecipate at debate phase of the proposals
   PROPOSAL_PARTECIPATION = 7
 
-  #inserire nuove proposte
+  #insert new proposals
   PROPOSAL_INSERT = 8
+
+  #vote proposals
+  PROPOSAL_VOTE =11
   
   
   has_many :action_abilitations, :class_name => 'ActionAbilitation'

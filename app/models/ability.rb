@@ -216,14 +216,15 @@ class Ability
     #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
     #è stata creata
     def can_vote_proposal?(user, proposal)
+      return false unless proposal.voting?
       if proposal.private
         proposal.presentation_groups.each do |group|
-          return true if can_do_on_group?(user, group, 11) && (proposal.voting?)
+          areas = proposal.presentation_areas.where(:group_id => group.id)
+          return can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_VOTE) if areas.count > 0
+          return true if can_do_on_group?(user, group,  GroupAction::PROPOSAL_VOTE)
         end
-        false
-      else
-        proposal.voting?
       end
+      true
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

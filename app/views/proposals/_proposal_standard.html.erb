@@ -1,5 +1,5 @@
 <div id="create_proposal">
-  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true, :html => {:class => 'disableForm'} do |f| %>
       <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_3') %></div>
@@ -138,7 +138,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'buttonStyle' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'buttonStyle disableButton' %>
       </p>
   <% end %>
 </div>
