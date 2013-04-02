@@ -113,7 +113,7 @@
       <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
     </p>
 
-    <% @proposal.sections.each do |section| %>
+    <% @proposal.sections.includes(:paragraphs).each do |section| %>
         <%= f.fields_for :sections, section do |s| %>
             <%= s.hidden_field :title %>
             <%= s.hidden_field :seq %>

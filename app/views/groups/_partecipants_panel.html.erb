@@ -8,7 +8,7 @@
 </p>
 <br/>
 
-<% partecipants = @group.group_partecipations.includes(:user).limit(5) %>
+<% partecipants = @group.group_partecipations.includes([{:user => :image}, :partecipation_role]).limit(5) %>
 <%if partecipants.length > 0 %>
 <p>
     <h4><%= t('pages.groups.show.partecipants_list') %></h4>

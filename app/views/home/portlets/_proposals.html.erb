@@ -1,8 +1,6 @@
 <div class="title">
   <%= t('pages.home.show.your_proposals') %>
 </div>
-
-
 <% unless current_user.proposals.empty? %>
     <div style="overflow-y:scroll;height: 260px;">
       <table id="proposals_table" class="table_list">
@@ -11,10 +9,10 @@
         <th><%= t('pages.home.show.proposals.last_edit') %></th>
         </thead>
         <tbody>
-        <% current_user.proposals.current.each do |proposal| %>
+        <% current_user.proposals.current.includes(:users, :quorum).each do |proposal| %>
 
             <tr>
-              <td><%= link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0], proposal] : proposal) %>
+              <td><%= link_to_proposal proposal %>
                 <br>
                 <div style="float: left; margin-right: 5px;"><%= t('pages.home.show.proposals.authors') %></div>
                 <% if signed_in? && (proposal.users.include? current_user) %>

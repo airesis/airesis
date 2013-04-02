@@ -22,17 +22,22 @@
       <h1><%= @user.fullname %></h1>
       <% if current_user && (@user == current_user) %>
           <%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
+          <%= link_to t('pages.header.menu.preferences'), @user, :class => 'settingsButton buttonStyle' %>
+          <% if @user.blog %>
+              <%= link_to t('pages.header.menu.my_blog'), @user.blog, :class => 'commentButton buttonStyle' %>
+          <% else %>
+              <%= link_to t('pages.header.menu.create_blog'), new_blog_path, :class => 'commentButton buttonStyle' %>
+          <% end %>
       <% end %>
-      <% if current_user && (@user == current_user) %>
-          <%= link_to 'Preferenze', @user, :class => 'settingsButton buttonStyle' %>
-      <% else %>
+      <% if @user != current_user %>
           <% unless @user.new_record? %>
               <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
           <% end %>
+          <% if @user.blog %>
+              <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle' %>
+          <% end %>
       <% end %>
-      <% if @user.blog %>
-          <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle' %>
-      <% end %>
+
     </div>
   </div>
 </div>

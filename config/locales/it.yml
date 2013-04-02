@@ -160,6 +160,20 @@ it:
     users:
       index:
         title: "Elenco utenti"
+      show:
+        groups_title: "Gruppi a cui partecipi"
+        group_column: "Gruppo"
+        role_column: "Ruolo"
+        get_out_of_group_button: "Esci dal gruppo"
+        get_out_of_group_confermation: "Confermi di voler uscire da questo gruppo?"
+        secret_vote: "Segreto"
+        votations_title: "Votazioni a cui hai partecipato"
+        proposal_column: "Proposta"
+        votation_date_column: "Data"
+        vote_column: "Voto"
+        profile_info: "Informazioni di profilo"
+        profile_info_unconfirmed: "(utente non confermato)"
+        send_message_button: "Invia messaggio"
     groups:
       accept_requests:
         portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
@@ -437,10 +451,10 @@ it:
         switch_area_manage_button: "Passa alla gestione delle singole aree"
       manage:
         switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: %Q(Partecipanti)
-        list_title: %Q(Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici)
+        partecipants: "Partecipanti"
+        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
       edit:
-        add_role_button: %Q(Aggiungi un nuovo ruolo)
+        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco quorum disponibili"

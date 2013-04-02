@@ -64,6 +64,8 @@ GEM
     bcrypt-ruby (3.0.1)
     bluecloth (2.0.7)
     builder (3.0.4)
+    bullet (4.5.0)
+      uniform_notifier
     cancan (1.6.8)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
@@ -76,6 +78,7 @@ GEM
     css_parser (1.2.6)
       addressable
       rdoc
+    daemons (1.1.9)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -86,6 +89,7 @@ GEM
     email_preview (1.5.2)
       rails (>= 3.0)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     exception_notification (2.6.1)
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
@@ -259,6 +263,10 @@ GEM
       plist (>= 3.0.1)
     therubyracer (0.10.1)
       libv8 (~> 3.3.10)
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.3.3)
     tinymce-rails (3.5.8)
@@ -274,6 +282,7 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     ultraviolet1x (0.14.0)
       textpow1x (>= 0.11.0)
+    uniform_notifier (1.2.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.1.1)
@@ -285,6 +294,7 @@ PLATFORMS
 
 DEPENDENCIES
   bluecloth (= 2.0.7)
+  bullet
   cancan
   client_side_validations!
   coffee-rails (~> 3.2.1)
@@ -320,6 +330,7 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   therubyracer (= 0.10.1)
+  thin
   tinymce-rails
   turnout
   uglifier (>= 1.0.3)

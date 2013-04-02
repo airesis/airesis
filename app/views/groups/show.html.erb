@@ -27,7 +27,7 @@
 <% end %>
 <%= render :partial => 'left_panel' %>
 
-
+<%if false #disattivato momentaneamente%>
 <%=content_for :right_panel do%>
 	<%if (can? :view_proposal, @group)%>
 		<h4>Proposte interne al gruppo</h4>
@@ -42,5 +42,6 @@
 			<%=link_to proposal.title, proposal_path(proposal)%><br/><br/>
 	<%end%>
 	<%= "Al momento non ci sono proposte" if @group.proposals.empty?%>
+<%end%>
 <%end%>
 

@@ -45,6 +45,8 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :quorum, :class_name => 'Quorum'
 
+  eager_load :quorum
+
   has_many :proposal_sections, :dependent => :destroy
   has_many :sections, :through => :proposal_sections, :order => :seq
 
