@@ -3,7 +3,7 @@
   <th>Ruolo</th>
   <th>Descrizione</th>
 
-  <% GroupAction.for_group_areas.each do |action| %>
+  <% GroupAction.for_group_areas.order(:seq).each do |action| %>
       <th><%= action.description %></th>
   <% end %>
 
@@ -18,7 +18,7 @@
         </td>
         <td> <%= role.description %>
         </td>
-        <% GroupAction.for_group_areas.each do |action| %>
+        <% GroupAction.for_group_areas.order(:seq).each do |action| %>
             <td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
                        <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
                        checked="true"

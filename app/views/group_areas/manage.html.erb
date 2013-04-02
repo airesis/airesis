@@ -5,37 +5,9 @@
 <div id="new_group_area_container">
 </div>
 
-<%= 'Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici' %>
-<div id="public">
-
-  <% @group_areas.each do |area| %>
-      <div class="group_area" id="group<%= area.id %>">
-        <div>
-        <div style="width:40px;height: 40px;"></div>
-
-        <b><%=link_to area.name, edit_group_group_area_path(@group,area), :remote => true %></b>
-          <div style="clear:both;"></div>
-        </div>
-        <%= link_to 'Partecipanti', '#', class: 'areas_button', data: {g_id: area.id} %>
-        <div class="areas_list shadow-box">
-          <ul>
-          <%@partecipants.each do |partecipant|%>
-            <li>
-              <input type="checkbox"
-                     data-user_id="<%=partecipant.id%>"
-                     data-group_area_id="<%=area.id%>"
-                     onclick="change_area_partecipation(this);"
-                     <%if area.partecipants.include? partecipant%> checked='checked'<%end%> >
-              <%= partecipant.fullname %>
-            </li>
-          <%end%>
-
-          </ul>
-          <div style="clear:both;"></div>
-        </div>
-      </div>
-  <% end %>
-  <div style="clear:both;"></div>
+<%= t('pages.group_areas.manage.list_title') %>
+<div id="group_areas_container">
+  <%= render :partial => 'group_areas_list' %>
 </div>
 
 <div id="edit_group_area_container">

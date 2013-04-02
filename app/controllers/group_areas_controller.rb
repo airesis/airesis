@@ -74,7 +74,11 @@ class GroupAreasController < ApplicationController
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         flash[:error] = t('controllers.group_areas.create.ko_message')
-        format.html { render :action => "new" }
+        format.js {
+          render :update do |page|
+            page.redirect_to group_group_areas_path(@group)
+          end
+        }
       end
     end #begin
   end

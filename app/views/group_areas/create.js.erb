@@ -1,3 +1,5 @@
 $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#new_group_area').dialog('destroy');
-$('#new_group_area').remove();
+$('#users_list_container').html('<%= escape_javascript(render(:partial => 'group_areas/users_list'))%>');
+var _new_group_area = $('#new_group_area');
+_new_group_area.dialog('destroy');
+_new_group_area.remove();

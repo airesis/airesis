@@ -13,7 +13,7 @@ class Ability
     else
       #TODO correggere quando più gruppi condivideranno le proposte
       can :read, Proposal do |proposal|
-        !proposal.private || proposal.visible_outside || can_do_on_group?(user, proposal.presentation_groups.first, 6)
+        can_read_proposal?(user,proposal)
       end
       can :update, Proposal do |proposal|
         can_edit_proposal?(user, proposal)
@@ -75,19 +75,12 @@ class Ability
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 6)
       end
-      can :partecipate_proposal, Group do |group|
-        #can_do_on_group?(user,group,4)
-        can_do_on_group?(user, group, 7)
-      end
       can :insert_proposal, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
       end
       can :view_proposal, GroupArea do |group_area|
         can_do_on_group_area?(user, group_area, 6)
-      end
-      can :partecipate_proposal, GroupArea do |group_area|
-        can_do_on_group_area?(user, group_area, 7)
       end
       can :insert_proposal, GroupArea do |group_area|
         can_do_on_group_area?(user, group_area, 8)
@@ -144,6 +137,20 @@ class Ability
     end
 
 
+    def can_read_proposal?(user,proposal)
+      if proposal.private
+        return true if proposal.visible_outside
+        if proposal.presentation_areas.count > 0 #if it's inside a specific area
+          return can_do_on_group_area?(user, proposal.presentation_areas.first, GroupAction::PROPOSAL_VIEW)
+        else
+          return can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_VIEW) #todo when a proposal will be presented by more groups
+        end
+      else
+        return true
+      end
+
+    end
+
     #un utente può modificare una proposta se ne è l'autore e
     #se è standard solo durante la fase di dibattito
     #se è un sondaggio prima che venga messa in votazione
@@ -163,13 +170,25 @@ class Ability
     def can_partecipate_proposal?(user, proposal)
       if proposal.private
         proposal.presentation_groups.each do |group|
-          if can_do_on_group?(user, group, 7)
-            if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
-              return true
-            elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
-              return true
+          areas = proposal.presentation_areas.where(:group_id => group.id)
+          if areas.count > 0
+            if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_PARTECIPATION)
+              if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+                return true
+              elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+                return true
+              end
+            end
+          else
+            if can_do_on_group?(user, group, GroupAction::PROPOSAL_PARTECIPATION)
+              if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+                return true
+              elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+                return true
+              end
             end
           end
+
         end
         return false
       else

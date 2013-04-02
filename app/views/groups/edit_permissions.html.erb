@@ -7,7 +7,7 @@
 <%= render :partial => 'groups/roles_panel' %>
 </div>
 <br/>
-<a href="#" class="newButton disableButton" id="addRole">Aggiungi un nuovo ruolo</a>
+<a href="#" class="newButton disableButton" id="addRole"><%= 'Aggiungi un nuovo ruolo' %></a>
 
 <div id="edit_role" title="Modifica ruolo" style="display: none;">
 
@@ -37,10 +37,6 @@
 			});
             return false;
 		});
-		
-		
-		
-		
 		
 		generateTable();
 	});

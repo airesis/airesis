@@ -162,6 +162,13 @@ class User < ActiveRecord::Base
     excluded_groups ? ret - excluded_groups : ret
   end
 
+  #return all group area partecipations of a particular group where the user can do a particular action
+  def scoped_areas(group_id,abilitation_id)
+    self.group_areas
+    .joins([:area_partecipations => [:group_area, {:area_role => :area_action_abilitations}]])
+    .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id',group_id,abilitation_id])
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]

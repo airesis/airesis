@@ -36,11 +36,6 @@
     font-size: 1em;
 }
 
-#public {
-    border-bottom: 3px dotted #CCCCCC;
-    padding-bottom: 10px;
-}
-
 .areas_list {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;

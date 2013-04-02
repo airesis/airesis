@@ -7,103 +7,13 @@
 </div>
 
 <%= 'Elenco partecipanti al gruppo. Seleziona per ciascuno le aree di lavoro a cui deve appartenere' %>
-<div id="public">
+<div id="users_list_container">
+  <%= render :partial => 'users_list' %>
 
-  <% @group.partecipants.each do |partecipant| %>
-      <div class="members" id="mem<%= partecipant.id %>">
-        <div>
-        <%= partecipant.user_image_tag 40 %>
-
-        <b><%=link_to partecipant.fullname, partecipant %></b>
-          <div style="clear:both;"></div>
-        </div>
-        <%= link_to 'Aree di lavoro', '#', class: 'areas_button', data: {m_id: partecipant.id} %>
-        <div class="areas_list shadow-box">
-
-          <ul>
-          <%@group_areas.each do |area|%>
-            <li>
-              <input type="checkbox"
-                     data-user_id="<%=partecipant.id%>"
-                     data-group_area_id="<%=area.id%>"
-                     onclick="change_area_partecipation(this);"
-                     <%if area.partecipants.include? partecipant%> checked='checked'<%end%> >
-              <%= area.name %>
-            </li>
-          <%end%>
-
-          </ul>
-          <div style="clear:both;"></div>
-        </div>
-      </div>
-  <% end %>
-  <div style="clear:both;"></div>
 </div>
+
+
 
 <%= content_for :left_panel do %>
     <%= render :partial => 'groups/administration_panel' %>
 <% end %>
-
-
-<script type="text/javascript">
-  $(function() {
-      $('.areas_button')
-      .mouseover(function() {
-        var _this = $(this);
-        var _areas_list = _this.next('.areas_list');
-        console.log('mouse over');
-          _areas_list.show().position({
-              at: "left top",
-              my: "left bottom",
-              of: _this
-          });
-      })
-      .mouseout(function() {
-          var _this = $(this);
-          var _areas_list = _this.next('.areas_list');
-          setTimeout(function() {
-              if (_areas_list.is(':hover')  || _this.is(':hover')) {
-
-              }
-              else {
-                  _areas_list.hide();
-              }
-          },200);
-      });
-
-      $('.areas_list')
-      .mouseout(function() {
-          var _this = $(this);
-          var _areas_button = _this.prev('.areas_button');
-          setTimeout(function() {
-              if (_areas_button.is(':hover') || _this.is(':hover')) {
-
-              }
-              else {
-                  _this.hide();
-              }
-          },200);
-      });
-  });
-
-  function change_area_partecipation(el){
-      var group_area_id = $(el).data('group_area_id');
-      var user_id = $(el).data('user_id');
-      if (el.checked) {
-          $.ajax({
-              data: "group_area_id="+group_area_id+"&user_id="+user_id+"&enable=true",
-              url: "<%=change_group_group_areas_path(@group)%>",
-              dataType: 'script',
-              type: 'PUT'
-          });
-      }
-      else {
-          $.ajax({
-              data: "group_area_id="+group_area_id+"&user_id="+user_id+"&enable=false",
-              url: "<%=change_group_group_areas_path(@group)%>",
-              dataType: 'script',
-              type: 'PUT'
-          });
-      }
-  }
-</script>

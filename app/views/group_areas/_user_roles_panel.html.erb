@@ -1,8 +1,8 @@
-<%if @group_area.area_partecipations.count > 1 %>
+<%if @group_area.area_partecipations.count > 0 %>
 <table id="roles_table">
 	<thead>
-		<th>Utente</th>
-		<th>Ruolo</th>
+		<th><%= 'Utente' %></th>
+		<th><%= 'Ruolo' %></th>
 	</thead>
 	<tbody>
 		<%@group_area.area_partecipations.each do |gp| %>

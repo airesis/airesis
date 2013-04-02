@@ -1,0 +1,28 @@
+<% @group_areas.each do |area| %>
+    <div class="group_area" id="group<%= area.id %>">
+      <div>
+        <div style="width:40px;height: 40px;"></div>
+
+        <b><%=link_to area.name, edit_group_group_area_path(@group,area), :remote => true %></b>
+        <div style="clear:both;"></div>
+      </div>
+      <%= link_to t('pages.group_areas.manage.partecipants'), '#', class: 'areas_button', data: {g_id: area.id} %>
+      <div class="areas_list shadow-box">
+        <ul>
+          <%@partecipants.each do |partecipant|%>
+              <li>
+                <input type="checkbox"
+                       data-user_id="<%=partecipant.id%>"
+                       data-group_area_id="<%=area.id%>"
+                       onclick="change_area_partecipation(this);"
+                       <%if area.partecipants.include? partecipant%> checked='checked'<%end%> >
+                <%= partecipant.fullname %>
+              </li>
+          <%end%>
+
+        </ul>
+        <div style="clear:both;"></div>
+      </div>
+    </div>
+<% end %>
+<div style="clear:both;"></div>

@@ -137,13 +137,13 @@ class ProposalsController < ApplicationController
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
           flash[:notice] = t('controllers.proposals.show.ask_for_partecipation')
-        elsif !(can? :partecipate_proposal, @group)
+        elsif !(can? :partecipate, @proposal)
           flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       else #se è bloccata alla visione di utenti esterni
         if !current_user #se l'utente non è loggato richiedi l'autenticazione
           authenticate_user!
-        elsif !(can? :view_proposal, @group) #se è loggato ma non ha i permessi caccialo fuori
+        elsif !(can? :read, @proposal) #se è loggato ma non ha i permessi caccialo fuori
           respond_to do |format|
             flash[:error] = t('controllers.proposals.show.unauthorized')
             format.html {
@@ -155,7 +155,7 @@ class ProposalsController < ApplicationController
             }
           end
         end
-        unless can? :partecipate_proposal, @group
+        unless can? :partecipate, @proposal
           flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       end
@@ -255,6 +255,7 @@ class ProposalsController < ApplicationController
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
           @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
           if @group_area
+            raise Exception unless current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT).include? @group_area #check user permissions for this group area
             @proposal.presentation_areas << @group_area
           end
         else
@@ -628,7 +629,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
 
     conditions = "1 = 1"
-
+    includes = [:proposal_supports, :group_proposals, :area_proposals]
     if params[:state] == VOTATION_STATE
       startlist = Proposal.in_votation
       @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
@@ -662,8 +663,11 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
       conditions += ")"
 
+
       if params[:group_area_id]
         conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't') "
+      else
+        conditions += " and (area_proposals.group_area_id is null or area_proposals.group_area_id in (#{current_user.scoped_areas(@group,GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}))"
       end
 
 
@@ -672,7 +676,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       startlist = startlist.public
     end
 
-    @proposals = startlist.includes([:proposal_supports, :group_proposals, :area_proposals]).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    @proposals = startlist.includes(includes).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
   end
 
   def update_borders(borders)
@@ -851,7 +855,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, params[:id])
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
     if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
-        (@proposal.private && @group && !(can? :partecipate_proposal, @group)))
+        (@proposal.private && @group && !(can? :partecipate, @proposal)))
       flash[:error] = t(:error_proposal_already_ranked)
       respond_to do |format|
         format.js { render :update do |page|
