@@ -1,5 +1,5 @@
 <div class="title">
-  Le tue proposte
+  <%= t('pages.home.show.your_proposals') %>
 </div>
 
 
@@ -7,8 +7,8 @@
     <div style="overflow-y:scroll;height: 260px;">
       <table id="proposals_table" class="table_list">
         <thead>
-        <th>Titolo della proposta</th>
-        <th>Ultima modifica</th>
+        <th><%= t('pages.home.show.proposals.title') %></th>
+        <th><%= t('pages.home.show.proposals.last_edit') %></th>
         </thead>
         <tbody>
         <% current_user.proposals.current.each do |proposal| %>
@@ -16,7 +16,7 @@
             <tr>
               <td><%= link_to proposal.title, (proposal.private? ? [proposal.presentation_groups[0], proposal] : proposal) %>
                 <br>
-                <div style="float: left; margin-right: 5px;">Autori</div>
+                <div style="float: left; margin-right: 5px;"><%= t('pages.home.show.proposals.authors') %></div>
                 <% if signed_in? && (proposal.users.include? current_user) %>
                     <% proposal.users.each do |user| %>
                         <%= user_tag_mini(user) %>
@@ -48,8 +48,8 @@
         $('#proposals_table').dataTable({
             "oLanguage": {
                 "sLengthMenu": "Mostra _MENU_ proposte per pagina",
-                "sSearch": "Cerca:",
-                "sZeroRecords": "Nessuna proposta, spiacente..",
+                "sSearch": "<%='Cerca:'%>",
+                "sZeroRecords": "<%='Nessuna proposta, spiacente..'%>",
                 "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
                 "sInfoEmpty": "Sto mostrando 0 proposte",
                 "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",

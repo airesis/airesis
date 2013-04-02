@@ -7,10 +7,15 @@
 
 
       <div class="step root root">
+        <% @available_areas = current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT) %>
         <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
             <p>
               <%= f.label :group_area_id %><br/>
-              <%= select("proposal", "group_area_id", @group.group_areas.all.collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+              <%if @available_areas.size > 0%>
+                <%= select("proposal", "group_area_id", current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+              <%else%>
+                <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
+              <%end%>
             </p>
         <% end %>
         <% if ::Configuration.proposal_categories %>

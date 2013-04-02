@@ -183,7 +183,7 @@ eu:
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
         find_button: "Find"
-        groups_list: "Group partecipation"
+        groups_list: "Group partecipations"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
         no_groups_yet: "You don't partecipate to any %{name} yet"
@@ -336,6 +336,8 @@ eu:
         step_4_title: "You can enter a text of the proposal or write it later based on the input received"
         first_solution_title: "Text of the proposal"
         create_button: "Create the proposal"
+        title: "New proposal"
+        title_group: " in group %{name}"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -413,6 +415,7 @@ eu:
         forgot_password_button: "Forgot password?"
         resend_email_button: "Have you received a confirmation email?"
         no_notifications: "No notification"
+      welcome: "Welcome"
     blogs:
       show:
         no_posts: "No Posts"
@@ -420,6 +423,10 @@ eu:
         tag: "Tag"
         previous_posts: "Previous Posts..."
         edit_button: "Edit blog"
+      new:
+        title: "Create your blog!"
+        cancel_button: "No, thanks!"
+        create_button: "Create it"
     groups_area:
       edit:
         title: "Workspace settings"
@@ -467,6 +474,14 @@ eu:
           title: "<em>Work</em> in your best interest"
           content: "Share your experiences, improves the proposals of others. Discover new friends who think like you. Realize your ideas with others."
         keep_connected: "Keep session"
+      show:
+        your_proposals: "Your proposals"
+        proposals:
+          title: "Title"
+          last_edit: "Last edit"
+          authors: "Authors"
+        notifications:
+          title: "Alerts"
     open_space:
       layout:
         proposals_button: "Proposals"
@@ -524,6 +539,8 @@ eu:
         description_placeholder: "This message will be on the first page of the group"
         image_url_placeholder: "Group image URL"
         facebook_page_url_placeholder: "Group Facebook page? insert link here."
+      blogs:
+        title: 'Title'
       blog_post:
         title: 'Title'
         body: 'Text'

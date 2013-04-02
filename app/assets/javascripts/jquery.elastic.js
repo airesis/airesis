@@ -19,7 +19,8 @@
         return this.each(function(){
             var txtArea = $(this);
             var fakeDiv = $('<div class="autogrow-textarea-mirror"></div>');
-            var minHeight = $(this).height();
+            var minHeight = hiddenHeight($(this));
+            console.log('minHeight: ' + minHeight);
             txtArea.after(fakeDiv);
 
             var reloadText = function(event){
@@ -57,4 +58,23 @@
         });
     }
 })(jQuery);
+
+
+function hiddenHeight(element) {
+    // try to grab the height of the elem
+    if (element.height() > 0) {
+        return element.height();
+
+// if height is zero, then we're dealing with a hidden element
+    } else {
+        var copied_elem = element.clone()
+            .attr("id", false)
+            .css({visibility:"hidden", display:"block",
+                position:"absolute"});
+        $("body").append(copied_elem);
+        var h = copied_elem.height();
+        copied_elem.remove();
+        return h;
+    }
+}
 

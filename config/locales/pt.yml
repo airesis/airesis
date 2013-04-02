@@ -310,6 +310,7 @@ pt:
         forgot_password_button: "Esqueceu-se da palavra-chave?"
         resend_email_button: "Não recebeu o Email de confirmação?"
         no_notifications: "Nenhuma notificação"
+      welcome: "Bem-vindo"
     blogs:
       show:
         no_posts: "Nenhum artigo"
@@ -364,6 +365,12 @@ pt:
           title: "<em>Collabora</em> nel tuo interesse"
           content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
         keep_connected: "Keep session"
+      show:
+        your_proposals: "Suas propostas"
+        proposals:
+          title: "Título"
+          last_edit: "última edição"
+          authors: "Autores"
   pl:
     comments:
       zero: nenhum comentário

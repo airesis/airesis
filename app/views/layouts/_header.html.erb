@@ -86,7 +86,7 @@
     </div>
 
     <div class="superHeader menu_element"><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
-      <% if user_signed_in? %> <span>Benvenuto </span>
+      <% if user_signed_in? %> <span><%= t('pages.header.welcome') %> </span>
           <% if current_user.name %>
               <%= current_user.name %>
           <% else %>

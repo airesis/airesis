@@ -337,7 +337,7 @@ it:
         first_solution_title: "Soluzione 1"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
-        title_group: "interna al gruppo %{name}"
+        title_group: " interna al gruppo %{name}"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -415,6 +415,7 @@ it:
         forgot_password_button: "Hai dimenticato la password?"
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
+      welcome: "Benvenuto"
     blogs:
       show:
         no_posts: "Nessun Post"
@@ -436,6 +437,10 @@ it:
         switch_area_manage_button: "Passa alla gestione delle singole aree"
       manage:
         switch_area_index_button: "Passa alla gestione dei partecipanti"
+        partecipants: %Q(Partecipanti)
+        list_title: %Q(Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici)
+      edit:
+        add_role_button: %Q(Aggiungi un nuovo ruolo)
     quorums:
       index:
         title: "Elenco quorum disponibili"
@@ -473,6 +478,14 @@ it:
           title: "<em>Collabora</em> nel tuo interesse"
           content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
+      show:
+        your_proposals: "Le tue proposte"
+        proposals:
+          title: "Titolo"
+          last_edit: "Ultima modifica"
+          authors: "Autori"
+        notifications:
+          title: "Le notifiche"
     open_space:
       layout:
         proposals_button: "Le proposte"

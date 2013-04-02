@@ -1,55 +1,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US" <%= yield :html_options %>>
-	<head>
-		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
-		<%=render :partial => "layouts/head" %>
-        <%if @user.google_page_url%><link href="<%=@user.google_page_url%>" rel="author" /><%end%>
-	</head>
-	<body>
-		
-	<%=render :partial => "layouts/header" %>		
-	<div id="subheader" class="ui-widget-header ui-state-default">
-		<div class="body_maxwidth">
-				<div class="header_image leftUserImage image_container">
-			        <%= @user.user_image_tag 120 %>
-			        <div class="caption">
-			            <a style="color:white">Modifica l'immagine</a>
-			        </div>
-			    </div>
-		    <div class="group_title">
-				<h1><%=@user.fullname%></h1>
-				<%if current_user && (@user == current_user)%>
-				<%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
-				<%end%>
-				<%if current_user && (@user == current_user)%>
-				<%= link_to 'Preferenze', @user, :class => 'settingsButton buttonStyle' %>
-				<%else%>
-                <%unless @user.new_record? %>
-                    <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
-                    <%end%>
-                    <%if @user.blog %>
-                    <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle'%>
-                    <%end%>
-                <%end%>
-			</div>
-		</div>			
-	</div>
-		
-		<!-- ##### Main Copy ##### -->
-		<div id="main-copy">
-			<div id="groups_leftpanel">
-				<%= yield :left_panel%>
-			</div>
-			<div id="centerpanelextended">
-				<div id="flash_messages" style="height:20px">
-					<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-				</div>
-				<%= yield :layout %>
-			</div>			
-			<div style="clear: both; height: 0; overflow: hidden;"></div>
-			<div id="footer"><%=render :partial => "layouts/footer" %>
-			</div>
-		</div>
-		
-	</body>
+<head>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
+  <%= render :partial => "layouts/head" %>
+  <% if @user.google_page_url %>
+      <link href="<%= @user.google_page_url %>" rel="author"/>
+  <% end %>
+</head>
+<body>
+
+<%= render :partial => "layouts/header" %>
+<div id="subheader" class="ui-widget-header ui-state-default">
+  <div class="body_maxwidth">
+    <div class="header_image leftUserImage image_container">
+      <%= @user.user_image_tag 120 %>
+      <div class="caption">
+        <a style="color:white"><%= "Modifica l'immagine" %></a>
+      </div>
+    </div>
+    <div class="group_title">
+      <h1><%= @user.fullname %></h1>
+      <% if current_user && (@user == current_user) %>
+          <%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
+      <% end %>
+      <% if current_user && (@user == current_user) %>
+          <%= link_to 'Preferenze', @user, :class => 'settingsButton buttonStyle' %>
+      <% else %>
+          <% unless @user.new_record? %>
+              <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
+          <% end %>
+      <% end %>
+      <% if @user.blog %>
+          <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- ##### Main Copy ##### -->
+<div id="main-copy">
+  <div id="groups_leftpanel">
+    <%= yield :left_panel %>
+  </div>
+  <div id="centerpanelextended">
+    <div id="flash_messages" style="height:20px">
+      <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+    </div>
+    <%= yield :layout %>
+  </div>
+  <div style="clear: both; height: 0; overflow: hidden;"></div>
+  <div id="footer"><%= render :partial => "layouts/footer" %>
+  </div>
+</div>
+
+</body>
 </html>
