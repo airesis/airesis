@@ -160,6 +160,20 @@ eu:
     users:
       index:
         title: 'User List'
+      show:
+        groups_title: "Your groups"
+        group_column: "Grup"
+        role_column: "Role"
+        get_out_of_group_button: "Get out of the group"
+        get_out_of_group_confermation: "Are you sure?"
+        secret_vote: "Secret"
+        votations_title: "Votations you have partecipated"
+        proposal_column: "Proposal"
+        votation_date_column: "Date"
+        vote_column: "Vote"
+        profile_info: "Profile informations"
+        profile_info_unconfirmed: "(unconfirmed user)"
+        send_message_button: "Send private message"
     groups:
       accept_requests:
         portavoce: "Spokesman: when a user wants to join the group only the spokesmen of the group can accept the request. Once the spokesman has accepted the request, the user will actually becomes a member of the group."
@@ -188,6 +202,7 @@ eu:
         groups_list_2: "Groups list"
         no_groups_yet: "You don't partecipate to any %{name} yet"
         open_space_title: "Public events"
+        show_more: "Show more groups"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -206,7 +221,7 @@ eu:
         proposals_button: "Proposals"
         calendar: "Calendar"
       show:
-        rules_button: "Regolamento"
+        rules_button: "Rules"
         post_button: "Insert posts"
         blog_button: "Create my Blog"
         spokesman: "Spokesman"
@@ -219,6 +234,7 @@ eu:
         waiting_partecipation_requests: "Partecipation requests waiting for answer"
         accept_request_button: "Accept"
         reject_request_button: "Reject"
+        ask_partecipate_button: "Ask to be part of the group"
       header:
         settings: "Settings"
         elections: "Elections"
@@ -267,6 +283,7 @@ eu:
         last_title: "Last inserted (TODO)"
         most_popular_title: "Most popular (TODO)"
         most_voted_title: "Most ranked (TODO)"
+        show_more: "Show more proposals..."
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -323,6 +340,13 @@ eu:
         support_proposal_button: "Support this proposal..."
         close_debate_button: "Close debate"
         close_debate_proposal_confirmation: "Close debate immediatly and go to next phase?"
+        during_debate: "Debate proceeding"
+        comment_inserted_by: "Inserted %{when} by %{who}"
+        replies:
+          show_all: "Show all %{count} suggestions..."
+          delete: "Delete"
+        reply_button: "Reply"
+        reply_placeholder: "Give your suggestion"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -344,7 +368,7 @@ eu:
         most_valutated: "Most ranked"
       list:
         last_update: "Last update of %{date}"
-        waiting_date: "Waiting for the authros to choose a votation date"
+        waiting_date: "Waiting for the authors to choose a votation date"
         voting_from_to: "In votation from %{from} to %{to}"
         voting_until: "Voting now until %{date}"
         votation_finished: "Votation ended on %{date}"
@@ -357,6 +381,9 @@ eu:
       index:
         title: 'Calendar'
         group_title: "Events calendar"
+      new:
+        private_tooltip: "Only group members can see and partecipate to the event"
+        title: "New Event"
     votations:
         show:
           vote_positive: 'Positive rating'
@@ -437,6 +464,10 @@ eu:
         switch_area_manage_button: "Skip to each area management"
       manage:
         switch_area_index_button: "Skip to members management"
+        partecipants: "Partecipants"
+        list_title: "List of workspaces. Select partecipants or click to manage specific roles and permissions"
+      edit:
+        add_role_button: "Add a new role"
     quorums:
       index:
         title: "All vailable quorum"
@@ -492,6 +523,8 @@ eu:
         panel_title: "Confirm proposal support"
         no_available_groups: "You are not allowed to support this proposal by any group "
       confirm_button: "Confirm"
+    calendar:
+      create_event_button: "Create new event"
   pl:
     comments:
       zero: no comment
@@ -664,6 +697,11 @@ eu:
     registrations:
       create:
         recaptcha_ko: "Error in captcha validation. Please type it again"
+    proposal_comments:
+      cant_edit: "Can't edit comments that are not yours."
+      insert_error: "Error during insert."
+      edit_ok: "Your comment has been updated succesfully."
+      delete_ok: 'Your comment has been deleted'
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -675,3 +713,4 @@ eu:
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
   digit_tags: "Type the tags you want to insert"
+  ago: "ago"

@@ -24,9 +24,9 @@
                 <p>
                 	<%=content_for :left_panel do%>
 	                	<%if @group%>
-		                	<%=link_to 'Crea un evento', {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
+		                	<%=link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new, :group_id => @group.id},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
 	                	<%else%>
-	                    <%=link_to 'Crea un evento', {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
+	                    <%=link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new},:remote => true, :class=>'buttonStyle newButton disableButton' if can_edit_events %>
 	                    <%end%>
                 	<%end%>
                 </p>
@@ -35,7 +35,6 @@
                     
                     
                     $(function(){
-                        // page is now ready, initialize the calendar...
                         $('#calendar').fullCalendar({
                             editable: true,
                             <%if !can_edit_events %>
@@ -67,21 +66,11 @@
                             timeFormat: 'H:mm{ - H:mm} ',
                             dragOpacity: "0.5",
                             eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-                                //              if (confirm("Are you sure about this change?")) {
                                 moveEvent(event, dayDelta, minuteDelta, allDay);
-                                //              }
-                                //              else {
-                                //                  revertFunc();
-                                //              }
                             },
                             
                             eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-                                //              if (confirm("Are you sure about this change?")) {
                                 resizeEvent(event, dayDelta, minuteDelta);
-                                //              }
-                                //              else {
-                                //                  revertFunc();
-                                //              }
                             },
 
                             eventClick: function(event, jsEvent, view){
@@ -96,9 +85,8 @@
 					        if (event.editable) {
 					           element.css('cursor', 'pointer');
 					        }
-					    },
-                        
-                        
+					    }
+
                         });
                         
 					    <%if params[:new_event] == 'true' %>

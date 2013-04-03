@@ -20,7 +20,7 @@ class GroupsController < ApplicationController
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
   def index
-    @groups = Group.look(params[:search])
+    @groups = Group.look(params[:search],params[:page])
     respond_to do |format|
       format.js
       format.html

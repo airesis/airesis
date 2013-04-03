@@ -23,14 +23,8 @@
 				end%>
             </div>
             <div class="baloon-footer">
-            	Inserito
-                <span class="blogPostDate"><%= time_in_words(comment.created_at) %></span>
-                  da
-                  <%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>
-                      <%=proposal_nickname.nickname%>
-                  <%else%>
-                      <%=link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '') %>
-                  <%end%>
+                <%who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : ''))%>
+                <%=raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who)%>
 	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
     	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
         	    </div>
@@ -52,7 +46,7 @@
     <%@lastreplies = comment.replies.paginate(:page => 1,:per_page => 5, :order => 'created_at DESC').reverse!%>
     <%if countreplies > 5%>
     <div id="<%=comment.id%>_show" class="show_all_comments">
-    	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' suggerimenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true, :method => :post%>
+    	<%=link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true, :method => :post%>
     </div>
     <%end%> 
     <div id="<%=comment.id%>_replies" style="disaply:none;">
@@ -72,10 +66,10 @@
     	
 		<div class="reply_area">
 			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
-			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area"%>
+			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder')%>
         </div>
         <div class="reply_button">
-        	<%=f.submit 'Rispondi', :class=>'disableButton' %>
+        	<%=f.submit t('pages.proposals.show.reply_button'), :class=>'disableButton' %>
         </div>
         <div style="clear: both;"></div>
         <%end%>

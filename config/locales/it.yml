@@ -202,6 +202,7 @@ it:
         groups_list_2: "Elenco gruppi"
         no_groups_yet: "Non partecipi a nessun %{name} ancora"
         open_space_title: "Eventi pubblici"
+        show_more: "Mostra altri gruppi"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
@@ -233,6 +234,7 @@ it:
         waiting_partecipation_requests: "Elenco delle richieste di partecipazione in attesa di risposta"
         accept_request_button: "Accetta"
         reject_request_button: "Declina"
+        ask_partecipate_button: "Richiedi di partecipare al gruppo"
       header:
         settings: "Impostazioni"
         elections: "Elezioni"
@@ -281,8 +283,9 @@ it:
         last_title: "Ultime inserite (TODO)"
         most_popular_title: "Più popolari (TODO)"
         most_voted_title: "Più valutate (TODO)"
+        show_more: "Mostra altre proposte..."
       show:
-        voteup: "Concordo"
+        voteup: 'Concordo'
         votenil: "Non so/non ho capito"
         votedown: "Non concordo"
         random_stack: "Ordinamento intelligente"
@@ -337,6 +340,13 @@ it:
         support_proposal_button: "Sostieni la proposta..."
         close_debate_button: "Chiudi il dibattito"
         close_debate_proposal_confirmation: "Terminare immediatamente il dibattito e proseguire alla fase successiva?"
+        during_debate: "Dibattito in corso"
+        comment_inserted_by: "Inserito %{when} da %{who}"
+        replies:
+          show_all: "Mostra tutti i %{count} suggerimenti..."
+          delete: "Cancella"
+        reply_button: "Rispondi"
+        reply_placeholder: "Inserisci un suggerimento"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -367,10 +377,23 @@ it:
         authors: "Autori"
         support_group: "Gruppi in sostegno"
       delete_comment: "Cancella"
+      results:
+        total: "Totale votanti: %{count}"
+        vote_column: %Q(Voto)
+        number_column: %Q(Numero)
+        percentage_column: %Q(Percentuale)
+        positive: %Q(Favorevoli)
+        negative: %Q(Contrari)
+        neutral: %Q(Neutrali)
+        name_surname_column: %Q(Nome e cognome)
+        date_time_column: %Q(Data e ora di voto)
     events:
       index:
         title: "Calendario"
         group_title: "Calendario degli eventi"
+      new:
+        private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
+        title: "Nuovo Evento"
     votations:
         show:
           vote_positive: "Voto positivo"
@@ -510,6 +533,8 @@ it:
         panel_title: "Conferma sostegno alla proposta"
         no_available_groups: "Non disponi dei permessi per sostenere questa proposta a nome di nessun gruppo"
       confirm_button: "Conferma"
+    calendar:
+      create_event_button: "Crea un evento"
   pl:
     comments:
       zero: nessun commento
@@ -682,6 +707,11 @@ it:
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
+    proposal_comments:
+      cant_edit: "Non puoi modificare commenti che non siano i tuoi."
+      insert_error: "Errore durante l'inserimento."
+      edit_ok: "Il tuo commento è stato aggiornato con successo."
+      delete_ok: 'Il commento è stato cancellato'
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"
@@ -693,3 +723,4 @@ it:
   no_interest_border: "Nessun luogo trovato"
   looking_for_interest_border: "Sto cercando..."
   digit_tags: "Digita i tag che vuoi inserire"
+  ago: "fa"

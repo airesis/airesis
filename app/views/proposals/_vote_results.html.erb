@@ -1,24 +1,24 @@
 <div style="float:left">
-<b>Totale votanti: <%= @proposal.vote.number %> </b>
+<b><%= t('pages.proposals.results.total', count: @proposal.vote.number) %> </b>
 <table>
   <thead>
-  <th>Voto</th>
-  <th>Numero</th>
-  <th>Percentuale</th>
+  <th><%= t('pages.proposals.results.vote_column') %></th>
+  <th><%= t('pages.proposals.results.number_column') %></th>
+  <th><%= t('pages.proposals.results.percentage_column') %></th>
   </thead>
   <tbody>
   <tr>
-    <td>Favorevoli</td>
+    <td><%= t('pages.proposals.results.positive') %></td>
     <td><%= @proposal.vote.positive %></td>
     <td><%= @proposal.vote.positive_perc %>%</td>
   </tr>
   <tr>
-    <td>Contrari</td>
+    <td><%= t('pages.proposals.results.negative') %></td>
     <td><%= @proposal.vote.negative %></td>
     <td><%= @proposal.vote.negative_perc %>%</td>
   </tr>
   <tr>
-    <td>Neutrali</td>
+    <td><%= t('pages.proposals.results.neutral') %></td>
     <td><%= @proposal.vote.neutral %></td>
     <td><%= @proposal.vote.neutral_perc %>%</td>
   </tr>
@@ -38,16 +38,16 @@
 <hr/>
 <table id="votes_table">
   <thead>
-  <th>Nome e cognome</th>
-  <th>Data e ora di voto</th>
+  <th><%= t('pages.proposals.results.name_surname_column') %></th>
+  <th><%= t('pages.proposals.results.date_time_column') %></th>
   <%unless @proposal.secret_vote%>
-  <th>Voto</th>
+  <th><%= t('pages.proposals.results.vote_column') %></th>
   <%end%>
   </thead>
   <% @proposal.user_votes.each do |user_vote| %>
       <tr>
         <td><%= user_vote.user.fullname %></td>
-        <td><%= l user_vote.created_at, :format => "%d %b %Y alle %H:%M" %></td>
+        <td><%= l user_vote.created_at %></td>
         <%unless @proposal.secret_vote%>
             <td><%=user_vote.vote_type.description%></td>
         <%end%>
@@ -60,9 +60,9 @@
         generateTable();
 
         var dataa = [
-            ['Favorevoli', <%= @proposal.vote.positive %>],
-            ['Astenuti', <%= @proposal.vote.negative %>],
-            ['Contrari', <%= @proposal.vote.neutral %>]
+            ['<%= t('pages.proposals.results.positive') %>', <%= @proposal.vote.positive %>],
+            ['<%= t('pages.proposals.results.neutral') %>', <%= @proposal.vote.negative %>],
+            ['<%= t('pages.proposals.results.negative') %>', <%= @proposal.vote.neutral %>]
         ];
         $('#chart1').empty();
         var plot1 = jQuery.jqplot ('chart1', [dataa],

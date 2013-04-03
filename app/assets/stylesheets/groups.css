@@ -57,3 +57,23 @@ input.days, input.hours, input.minutes {
 	float:left;
 	padding: 5px 10px 5px 0;	
 }
+
+.loading_groups {
+    background-color: #FAFAFA;
+    border-top: 1px solid #E3E3E3;
+    display: block;
+    padding: 10px 0;
+    text-align: center;
+    color: #3366CC;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.loading_groups:hover {
+    background-color: #F4F4F4;
+    text-decoration: none;
+}
+
+#groups_list {
+    margin-bottom: 10px;
+}

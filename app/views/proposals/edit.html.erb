@@ -110,7 +110,7 @@
 
     <p>
       <%= f.label :proposal_category_id %><br/>
-      <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
+      <%= select("proposal", "proposal_category_id", ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id] }) %>
     </p>
 
     <% @proposal.sections.includes(:paragraphs).each do |section| %>
@@ -157,9 +157,8 @@
         <% end %>
     <% end %>
 
-    <% if @proposal.is_polling? %>
-        <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
-    <% end %>
+    <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
+
 
     <p>
       <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
@@ -191,14 +190,14 @@
     });
     function fillCleanFields() {
         <%if @proposal.is_standard?%>
-        <%for i in 0..(@proposal.sections.count-1) %>
-        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-        <%end%>
-        <%for i in 0..(@proposal.solutions.count-1) %>
-        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-        <%end%>
-        <%end%>
+          <%for i in 0..(@proposal.sections.count-1) %>
+            $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+          <%end%>
+          <%for i in 0..(@proposal.solutions.count-1) %>
+            <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
+              $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+            <%end%>
+          <%end%>
         <%end%>
         return true;
     }

@@ -133,6 +133,7 @@
                categories = ProposalCategory.all(
                        :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
                        :joins => joins,
+                       :include => :translations,
                        :conditions => conditions,
                        :group => "proposal_categories.id, proposal_categories.description",
                        :order => "proposal_categories.id desc"

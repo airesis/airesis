@@ -1,37 +1,37 @@
-<%@page_title = t('pages.groups.index.title') %>
+<% @page_title = t('pages.groups.index.title') %>
 
-<%if ::Configuration::open_space_proposals %>
-<div style="float:left; margin-top: 16px;">
-  <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "forwardButton"  %>
-</div>
-<%end%>
+<% if ::Configuration::open_space_proposals %>
+    <div style="float:left; margin-top: 16px;">
+      <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "forwardButton" %>
+    </div>
+<% end %>
 <div style="float:right; margin-top: 16px;">
-  <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "newButton" if can? :create, Group  %>
+  <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "newButton" if can? :create, Group %>
 </div>
 
 <div style="clear: both;"></div>
 
-<br /><br />
+<br/><br/>
 
 
 <p>
-	<%= form_for groups_path, :html => {:class=>"disableForm"}, :method => 'get', :remote => true do |f| %>
-		<%=f.label t('pages.groups.index.find_group_label') %>
-		<%=text_field_tag :search, params[:search], :title=> t('pages.groups.index.find_title') %>
-		<%= submit_tag t('pages.groups.index.find_button'), :class=> 'searchButton disableButton', :id=>"search_button"%>
-	<%end%>
-	
+  <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
+      <%= f.label t('pages.groups.index.find_group_label') %>
+      <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title') %>
+      <%= submit_tag t('pages.groups.index.find_button'), :class => 'searchButton disableButton', :id => "search_button" %>
+  <% end %>
+
 </p>
 
 <div id="groups_list">
-<% @groups.each do |group| %>
-<%=render :partial => "group_tag", :locals => {:group => group}%>
-<%end%> 
+
+  <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+  <div style="clear: both"></div>
+</div>
+<div id="more_groups_container">
+<%= render :partial => 'more_groups' %>
 </div>
 
-
-<%=content_for :left_panel do%>
-	<%= render :partial => 'users/user_groups_panel' %>
-
-
-<%end%>
+<%= content_for :left_panel do %>
+    <%= render :partial => 'users/user_groups_panel' %>
+<% end %>

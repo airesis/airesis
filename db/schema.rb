@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329164016) do
+ActiveRecord::Schema.define(:version => 20130403080220) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -360,24 +360,25 @@ ActiveRecord::Schema.define(:version => 20130329164016) do
   add_index "group_quorums", ["quorum_id"], :name => "index_group_quorums_on_quorum_id", :unique => true
 
   create_table "groups", :force => true do |t|
-    t.string   "name",                    :limit => 200
-    t.string   "description",             :limit => 2000
-    t.string   "accept_requests",         :limit => 1,    :default => "v",   :null => false
+    t.string   "name",                       :limit => 200
+    t.string   "description",                :limit => 2000
+    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                   :default => 1
+    t.integer  "partecipation_role_id",                      :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                 :default => true,  :null => false
-    t.boolean  "default_anonima",                         :default => true,  :null => false
-    t.boolean  "default_visible_outside",                 :default => false, :null => false
-    t.boolean  "default_secret_vote",                     :default => true,  :null => false
-    t.integer  "max_storage_size",                        :default => 51200, :null => false
-    t.integer  "actual_storage_size",                     :default => 0,     :null => false
-    t.boolean  "enable_areas",                            :default => false, :null => false
+    t.boolean  "change_advanced_options",                    :default => true,  :null => false
+    t.boolean  "default_anonima",                            :default => true,  :null => false
+    t.boolean  "default_visible_outside",                    :default => false, :null => false
+    t.boolean  "default_secret_vote",                        :default => true,  :null => false
+    t.integer  "max_storage_size",                           :default => 51200, :null => false
+    t.integer  "actual_storage_size",                        :default => 0,     :null => false
+    t.boolean  "enable_areas",                               :default => false, :null => false
+    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -494,6 +495,17 @@ ActiveRecord::Schema.define(:version => 20130329164016) do
     t.integer "parent_proposal_category_id"
     t.string  "description",                 :limit => 200
   end
+
+  create_table "proposal_category_translations", :force => true do |t|
+    t.integer  "proposal_category_id"
+    t.string   "locale"
+    t.string   "description"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "proposal_category_translations", ["locale"], :name => "index_proposal_category_translations_on_locale"
+  add_index "proposal_category_translations", ["proposal_category_id"], :name => "index_proposal_category_translations_on_proposal_category_id"
 
   create_table "proposal_comment_rankings", :force => true do |t|
     t.integer  "proposal_comment_id", :null => false

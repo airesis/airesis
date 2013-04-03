@@ -1,5 +1,10 @@
-$('#groups_list').fadeOut('slow',function() {
-	$('#groups_list').html("<%= escape_javascript(render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
-	disegnaBottoni();
-	$('#groups_list').fadeIn();	
+<%if params[:page] %>
+$('#groups_list').append("<%= escape_javascript(render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+$('#more_groups_container').html("<%= escape_javascript(render :partial => 'more_groups')%>");
+<%else%>
+$('#groups_list').fadeOut('slow', function () {
+    $('#groups_list').html("<%= escape_javascript(render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+    $('#groups_list').fadeIn();
 })
+<%end%>
+disegnaBottoni();

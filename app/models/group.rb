@@ -173,12 +173,12 @@ class Group < ActiveRecord::Base
     return false
   end
 
-  def self.look(search)
+  def self.look(search,page=1)
     search ?
       Group.search do
         fulltext search
       end.results :
-      Group.all(:order => 'created_at desc')
+      Group.paginate(:page => page, :per_page => 15, :order => 'group_partecipations_count desc, created_at desc')
   end
 
   def to_param
