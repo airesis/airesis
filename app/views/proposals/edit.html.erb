@@ -40,7 +40,7 @@
               </p>
           <% end %>
 
-      <!--    <p>
+          <!--    <p>
             <%= f.label :quorum_id %> *<br/>
             <% if @group %>
                 <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
@@ -113,20 +113,37 @@
       <%= select("proposal", "proposal_category_id", ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id] }) %>
     </p>
 
-    <% @proposal.sections.includes(:paragraphs).each do |section| %>
-        <%= f.fields_for :sections, section do |s| %>
-            <%= s.hidden_field :title %>
-            <%= s.hidden_field :seq %>
-            <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                <p>
-                  <%= p.label :content_dirty, section.title %><br/>
-                  <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
-                  <%= p.hidden_field :content %>
-                  <%= p.hidden_field :seq %>
-                </p>
-            <% end %>
-        <% end %>
+    <div class="sections_column">
+      <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
+          <%= f.fields_for :sections, section do |s| %>
+              <%= s.hidden_field :title %>
+              <%= s.hidden_field :seq %>
+              <%= s.check_box '_destroy', style: 'display:none' %>
+              <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                  <p class="section_container">
+                    <%= p.label :content_dirty, section.title, style: 'float:left;' %>
+                    <span class="move_button">
+                      <%= image_tag 'move.png' %>
+                    </span>
+                     <span class="remove_button">
+                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= 'Rimuovi paragrafo' %></a>
+                    </span>
+                    <br/>
+                    <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                    <%= p.hidden_field :content %>
+                    <%= p.hidden_field :seq%>
+                  </p>
+              <% end %>
+          <% end %>
+      <% end %>
+
+    </div>
+
+    <% if @proposal.is_standard? %>
+        <div class="new_section"><a href="#" onclick="addSection(this);return false;">Aggiungi una nuova sezione</a>
+        </div>
     <% end %>
+
 
     <h4>Modifica e aggiorna il testo della proposta!</h4>
 
@@ -140,7 +157,9 @@
                     <%= s.hidden_field :seq %>
                     <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                         <p>
-                          <%= p.label :content_dirty, section.title %><br/>
+                          <%= p.label :content_dirty, section.title %>
+
+                          <br/>
 
                           <% if @proposal.is_standard? %>
                               <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
@@ -157,8 +176,9 @@
         <% end %>
     <% end %>
 
-    <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
-
+    <% if @proposal.is_polling? %>
+        <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
+    <% end %>
 
     <p>
       <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
@@ -177,11 +197,11 @@
         theme_advanced_buttons2: '',
         theme_advanced_buttons3: '',
         plugins: 'media,paste,inlinepopups,youtube,ice',
-        paste_auto_cleanup_on_paste : true,
+        paste_auto_cleanup_on_paste: true,
         theme_advanced_statusbar_location: "none",
         //valid_elements: "-p",
         cleanup_on_startup: true,
-        relative_urls : false,
+        relative_urls: false,
         ice: {
             user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
             preserveOnPaste: 'p,a[href],i,em,strong'
@@ -190,36 +210,63 @@
     });
     function fillCleanFields() {
         <%if @proposal.is_standard?%>
-          <%for i in 0..(@proposal.sections.count-1) %>
-            $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-          <%end%>
-          <%for i in 0..(@proposal.solutions.count-1) %>
-            <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-              $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-            <%end%>
-          <%end%>
+        $('textarea.tinymce').each(function () {
+            var id = $(this).attr('id');
+            $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
+        });
+
+        <%for i in 0..(@proposal.sections.count-1) %>
+        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        <%end%>
+        <%for i in 0..(@proposal.solutions.count-1) %>
+        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
+        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        <%end%>
+        <%end%>
         <%end%>
         return true;
     }
 
-    var numSolution = <%=@proposal.solutions.count%>
+    var numSolution = <%=@proposal.solutions.count%>;
+    var numSections = <%=@proposal.sections.count%>
 
-            function addSolution(el) {
-                paragraph_ = $('<p></p>');
-                paragraph_.append('<label>Opzione ' + (numSolution + 1) + '</label>');
-                paragraph_.append('<br />');
-                var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
-                var sectionname = solutionname + '[sections_attributes][0]';
+            function addSection(el) {
+                var sectionname = 'proposal[sections_attributes][' + numSections + ']';
                 var paragraphname = sectionname + '[paragraphs_attributes][0]';
-                paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\'' + paragraphname + '[content]\'></input>');
-                paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,' + numSolution + ',false);return false;\'>Rimuovi opzione</a>');
-                paragraph_.append('<input type=\'hidden\' value=\'' + numSolution + '\' name=\'' + solutionname + '][seq]\'></input>');
+                var paragraph_ = $('<p></p>');
+
+                paragraph_.append('<input type="text" class="edit_label" value="Titolo paragrafo" name=\'' + sectionname + '[title]\'></input>');
+                paragraph_.append('<br />');
+                var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphname + '[content_dirty]_id\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+                paragraph_.append(textarea_);
+                paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
+                paragraph_.append('<a href=\'#\' onclick=\'removeSection(this,' + numSections + ',false);return false;\'>Rimuovi sezione</a>');
+                paragraph_.append('<input type=\'hidden\' value=\'' + numSections + '\' name=\'' + sectionname + '][seq]\'></input>');
                 paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\'></input>');
-                paragraph_.append('<input type=\'hidden\' value=\'Opzione ' + (numSolution + 1) + '\' name=\'' + sectionname + '[title]\'></input>');
-                $(el).before(paragraph_);
-                numSolution += 1;
+                $('.sections_column').append(paragraph_);
+
+                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+
+                numSections += 1;
             }
+
+
+    function addSolution(el) {
+        var paragraph_ = $('<p></p>');
+        paragraph_.append('<label>Opzione ' + (numSolution + 1) + '</label>');
+        paragraph_.append('<br />');
+        var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
+        var sectionname = solutionname + '[sections_attributes][0]';
+        var paragraphname = sectionname + '[paragraphs_attributes][0]';
+        paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\'' + paragraphname + '[content]\'></input>');
+        paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,' + numSolution + ',false);return false;\'>Rimuovi opzione</a>');
+        paragraph_.append('<input type=\'hidden\' value=\'' + numSolution + '\' name=\'' + solutionname + '][seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'Opzione ' + (numSolution + 1) + '\' name=\'' + sectionname + '[title]\'></input>');
+        $(el).before(paragraph_);
+        numSolution += 1;
+    }
 
     function removeSolution(el, id, hide) {
         if (hide) {
@@ -230,7 +277,36 @@
             $('input[name^="proposal\[solutions_attributes\]\[' + id + '\]"]').remove();
             $(el).parent().remove();
         }
-
-
     }
+
+    function removeSection(el, id, hide) {
+        if (confirm('<%='Sei sicuro di voler rimuovere questo paragrafo?'%>')) {
+            if (hide) {
+                $('input[name="proposal\[sections_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
+                $(el).parent().parent().hide();
+            }
+            else {
+                $('input[name^="proposal\[sections_attributes\]\[' + id + '\]"]').remove();
+                $(el).parent().remove();
+            }
+        }
+    }
+
+
+    $(".sections_column").sortable({
+        connectWith: ".column",
+        cursor: "move",
+        axis: "y",
+        handle: '.move_button',
+        stop: function(e, ui) {
+            var i = 0;
+            $(this).find('p').each(function(el) {
+              var id = $(this).find('.tinymce').attr('id');
+              var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+              $('#'+seq_id).val(i++)
+            });
+        }
+    });
+
+    //$('.section_container').mouseov
 </script>

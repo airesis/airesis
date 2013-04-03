@@ -69,7 +69,7 @@ class Proposal < ActiveRecord::Base
                   :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
                   :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id
 
-  accepts_nested_attributes_for :sections
+  accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte

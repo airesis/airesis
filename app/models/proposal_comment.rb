@@ -7,7 +7,8 @@ class ProposalComment < ActiveRecord::Base
   has_many :replies, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
-  
+  belongs_to :paragraph
+
   validates_length_of :content, :minimum => 10, :maximum => CONTRIBUTE_MAX_LENGTH
   
   attr_accessor :collapsed
@@ -17,6 +18,15 @@ class ProposalComment < ActiveRecord::Base
   validate :check_last_comment
 
   scope :contributes, {:conditions => ['parent_proposal_comment_id is null']}
+
+  attr_accessor :section_id
+
+  before_create :set_paragraph_id
+
+  def set_paragraph_id
+    self.paragraph_id = Paragraph.first(:conditions => {:section_id => self.section_id}, :select => :id)
+
+  end
   
   def set_collapsed     
      @collapsed = false     
@@ -29,14 +39,12 @@ class ProposalComment < ActiveRecord::Base
        self.errors.add(:created_at,"devono passare almeno trenta secondi tra un commento e l'altro.")
     end
   end
- 
- 
-  
+
   # Used to set more tracking for akismet
   def request=(request)
     self.user_ip    = request.remote_ip
     self.user_agent = request.env['HTTP_USER_AGENT']
     self.referrer   = request.env['HTTP_REFERER']
-  end  
+  end
  
 end

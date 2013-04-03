@@ -1,78 +1,82 @@
-<%proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)
+<% proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)
 %>
 
-<div id="comment<%= comment.id %>" class="proposalComment"<%="style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %>>
-    <div class="blogUserImage" title="<%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%><%=proposal_nickname.nickname%><%end%>">
-    	<%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>
-			<img src="http://www.gravatar.com/avatar/<%=Digest::MD5.hexdigest(proposal_nickname.nickname)%>?s=40&d=wavatar&r=PG"/>
-		<%else%>
-	        <%= comment.user_image_tag(40) %>
-		<%end%>
+<div id="comment<%= comment.id %>" class="proposalComment"<%= "style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %>>
+  <div class="blogUserImage" title="
+    <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %><%= proposal_nickname.nickname %>
+    <% end %>">
+    <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
+        <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=wavatar&r=PG"/>
+    <% else %>
+        <%= comment.user_image_tag(40) %>
+    <% end %>
+  </div>
+  <div class="proposal_comment">
+    <div class="baloon-triangle">
     </div>
-    <div class="proposal_comment">
-    	<div class="baloon-triangle">
-    	</div>
-        <div>
-	        <div class="baloon_header">
-				<div id="flash_messages_comment_<%= comment.id %>">
-				</div>
-	        </div>
-            <div class="baloon-content">
-                <%=raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => { :target => '_blank' }, :sanitize => false) do |text|
-				  truncate(text, :length => 15)
-				end%>
-            </div>
-            <div class="baloon-footer">
-                <%who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : ''))%>
-                <%=raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who)%>
-	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
-    	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
-        	    </div>
-                <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
-                    <%= link_to t('pages.proposals.delete_comment'), {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
-						:remote => "true",
-						:onclick => "return false;",
-						:class => "deleteCommentLink",					
-						:id => "delete#{comment.id}",
-                        :data => {id: comment.id}%>
-                <%end%>                               
-            </div>
+    <div>
+      <div class="baloon_header">
+        <div id="flash_messages_comment_<%= comment.id %>">
         </div>
-        
-     
+      </div>
+      <div class="baloon-content">
+        <%= raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+          truncate(text, :length => 15)
+        end %>
+      </div>
+      <div class="baloon-footer">
+        <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
+        <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
+        <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
+        <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
+            <%= link_to t('pages.proposals.delete_comment'), {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},
+                        :remote => "true",
+                        :onclick => "return false;",
+                        :class => "deleteCommentLink",
+                        :id => "delete#{comment.id}",
+                        :data => {id: comment.id} %>
+        <% end %>
+      </div>
+      <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer">
+        <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
+      </div>
+      <div style="clear:both;"></div>
     </div>
-    <%countreplies = comment.replies.count%>
-    <%@lastreplies = comment.replies.paginate(:page => 1,:per_page => 5, :order => 'created_at DESC').reverse!%>
-    <%if countreplies > 5%>
-    <div id="<%=comment.id%>_show" class="show_all_comments">
-    	<%=link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true, :method => :post%>
-    </div>
-    <%end%> 
-    <div id="<%=comment.id%>_replies" style="disaply:none;">
-    </div>
-    <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
-    <div id="<%=comment.id%>_new_replies" style="disaply:none;">
-    </div>
-    
-    <%if signed_in? && (can? :partecipate, @proposal) %>
-	<div class="reply_img">
-		<%= current_user.user_image_tag(32) %>
-	</div>
-    <div  class="proposal_comment_reply">
-    	<div class="baloon-triangle"></div>
-    	<div id="<%=comment.id%>_reply_area_msg"></div>
-    	<%= form_for [@proposal,ProposalComment.new], :html => {:class=>"disableForm"}, :remote => true do |f| %>
-    	
-		<div class="reply_area">
-			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
-			<%= f.text_area :content, :class => 'reply_textarea', :id=> "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder')%>
-        </div>
-        <div class="reply_button">
-        	<%=f.submit t('pages.proposals.show.reply_button'), :class=>'disableButton' %>
-        </div>
-        <div style="clear: both;"></div>
-        <%end%>
-    </div>
-    <%end%>
+
+
+  </div>
+  <% countreplies = comment.replies.count %>
+  <% @lastreplies = comment.replies.paginate(:page => 1, :per_page => 5, :order => 'created_at DESC').reverse! %>
+  <% if countreplies > 5 %>
+      <div id="<%= comment.id %>_show" class="show_all_comments">
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true, :method => :post %>
+      </div>
+  <% end %>
+  <div id="<%= comment.id %>_replies" style="disaply:none;">
+  </div>
+  <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+  <div id="<%= comment.id %>_new_replies" style="disaply:none;">
+  </div>
+
+  <% if signed_in? && (can? :partecipate, @proposal) %>
+      <div class="reply_img">
+        <%= current_user.user_image_tag(32) %>
+      </div>
+      <div class="proposal_comment_reply">
+        <div class="baloon-triangle"></div>
+        <div id="<%= comment.id %>_reply_area_msg"></div>
+        <%= form_for [@proposal, ProposalComment.new], :html => {:class => "disableForm"}, :remote => true do |f| %>
+
+            <div class="reply_area">
+              <%= f.hidden_field :parent_proposal_comment_id, :value => comment.id %>
+              <%= f.text_area :content, :class => 'reply_textarea', :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+            </div>
+            <div class="reply_button">
+              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'disableButton' %>
+            </div>
+            <div style="clear: both;"></div>
+        <% end %>
+      </div>
+  <% end %>
 </div>

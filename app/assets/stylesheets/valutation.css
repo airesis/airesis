@@ -49,12 +49,21 @@
 
 /*pulsanti valutazione positiva contributo*/
 
+
+.notvotedup-mini {
+    background: url('/assets/faces/green_empty_16.png') 0 0 no-repeat;
+    width: 19px;
+    height: 18px;
+    float: right;
+    display: inline-block;
+}
+
 .voteup-mini {
-	background: url('/assets/faces/green_empty_16.png') 0 0 no-repeat;
-	width: 19px;
-	height: 18px;
-	float: right;
-	display: inline-block;
+    background: url('/assets/faces/green_empty_16.png') 0 0 no-repeat;
+    width: 19px;
+    height: 18px;
+    float: right;
+    display: inline-block;
 }
 
 .voteup-mini:hover {
@@ -71,6 +80,14 @@
 }
 
 /*pulsanti valutazione neutra contributo*/
+.notvotednil-mini {
+    background: url('/assets/faces/white_empty_16.png') 0 0 no-repeat;
+    width: 19px;
+    height: 18px;
+    float: right;
+    display: inline-block;
+    margin-right: 5px;
+}
 
 .votenil-mini {
 	background: url('/assets/faces/white_empty_16.png') 0 0 no-repeat;
@@ -95,6 +112,14 @@
 }
 
 /*pulsanti valutazione negativa contributo*/
+.notvoteddown-mini {
+    background: url('/assets/faces/red_empty_16.png') 0 0 no-repeat;
+    width: 19px;
+    height: 18px;
+    float: right;
+    display: inline-block;
+    margin: 0 5px;
+}
 
 .votedown-mini {
 	background: url('/assets/faces/red_empty_16.png') 0 0 no-repeat;
@@ -102,7 +127,6 @@
 	height: 18px;
 	float: right;
 	display: inline-block;
-	margin: 0 5px;
 }
 .votedown-mini:hover {
 	background: url('/assets/faces/red_full_16.png') 0 0 no-repeat;

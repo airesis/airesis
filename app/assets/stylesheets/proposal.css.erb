@@ -18,6 +18,22 @@
     text-decoration: none;
 }
 
+.new_section {
+    background-color: #FAFAFA;
+    border-top: 1px solid #E3E3E3;
+    display: block;
+    padding: 10px 0;
+    text-align: center;
+    color: #3366CC;
+    font-weight: bold;
+    width: 98%;
+}
+
+.new_section:hover {
+    background-color: #F4F4F4;
+    text-decoration: none;
+}
+
 .proposalComment {
     padding: 20px 0 0;
     clear: both;
@@ -224,11 +240,6 @@
 
 }
 
-.rankingpanelcontainer {
-    display: inline-block;
-    color: #444;
-}
-
 #categories {
     position: relative;
     left: 1px;
@@ -394,8 +405,26 @@ ul.blogList li.blogListFirst {
     font-size: 0.9em;
     margin-top: 5px;
     margin-left: 5px;
+    margin-bottom: 2px;
     color: #999999;
+    float:left;
 }
+
+.rankingpanelcontainer {
+    color: #444;
+    float:right;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+
+.rankingpanelcontainer .think {
+    color: #999999;
+    margin-right:10px;
+}
+
+
 
 .baloon-triangle {
     background: url('<%= asset_path('baloon-triangle.png') %>') no-repeat top left;
@@ -438,7 +467,6 @@ form .exceeded {
     float: right;
 }
 
-
 .ice .cts-1 {
     color: green;
 }
@@ -454,37 +482,80 @@ form .exceeded {
 .ice .cts-2 {
     color: #C02000;
 }
+
 .ice .cts-3 {
     color: #004090;
 }
+
 .ice .cts-4 {
     color: #F06000;
 }
+
 .ice .cts-5 {
     color: purple;
 }
+
 .ice .cts-6 {
     color: #801080;
 }
+
 .ice .cts-7 {
     color: #1080B0;
 }
 
 .solution_title h3 {
-    float:left;
+    float: left;
     margin-bottom: 5px;
 }
 
 .solution_title .slideNumber {
-    float:left;
+    float: left;
     margin-bottom: 5px;
     margin-top: 5px;
     margin-left: 10px;
 }
 
 .solution_title .slider {
-    float:left;
-    width:  120px;
+    float: left;
+    width: 120px;
     margin-left: 15px;
     margin-top: 10px;
+}
+
+input.edit_label {
+    color: #444;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.ui-sortable-placeholder {
+    border: 1px dotted black;
+    visibility: visible !important;
+    height: 50px !important;
+    width: 98%;
+}
+
+.ui-sortable-placeholder * {
+    visibility: hidden;
+}
+
+.move_button {
+    float:right;
+    margin-right: 2%;
+    cursor: move;
+    visibility: hidden;
+}
+
+.section_container:hover .move_button {
+    visibility: visible;
+}
+
+.remove_button {
+    float:right;
+    visibility: hidden;
+    margin-right: 20px;
+}
+
+.section_container:hover .remove_button {
+    visibility: visible;
 }

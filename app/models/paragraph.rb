@@ -1,6 +1,8 @@
 class Paragraph < ActiveRecord::Base
   belongs_to :section
 
+  has_many :proposal_comments
+
   attr_accessor :content_dirty
 
   validates_length_of :content, :within => 1..40000, :allow_blank => true

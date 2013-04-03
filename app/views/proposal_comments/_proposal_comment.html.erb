@@ -1,18 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 	
 <div id="proposalNewComment" class="blogNewComment">
-	<script>
 
-		function hide() {
-			$('#insert_comment').hide();
-			$('#insert_comment_loading').show();
-		}
-
-		$(function() {
-			$('#insert_comment').button();
-		});
-
-	</script>
 
 	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
 	
@@ -27,6 +16,11 @@
       <br/>
       <div id="comment-form-comment">
         <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
+        <%@paragraphs_array = []%>
+        <%@proposal.solutions.each { |solution| @paragraphs_array += solution.sections.map { |section| [section.title, section.id] }}%>
+        <%@paragraphs_array += @proposal.sections.map{ |section| [section.title, section.id] }%>
+
+        <%= f.select :section_id, @paragraphs_array, prompt: 'Nessun paragrafo specifico' %>
 	  </div>
 	</p>
 	<p>
@@ -36,7 +30,13 @@
 	<% end %>
 	
 	<script type="text/javascript">
-		$(function() {
+    	function hide() {
+			$('#insert_comment').hide();
+			$('#insert_comment_loading').show();
+		}
+
+        $(function() {
+            $('#insert_comment').button();
 
 			$('.blogNewCommentField').focus(function() {
 				$('#comment-form-comment').toggleClass("active");
@@ -52,7 +52,7 @@
 			});
             $('#proposal_comment_content').elastic();
 		});
-		
+
   		$(document).ajaxError(function(e, XHR, options){
     		if (XHR.status == 401){
       			window.location.replace("<%= new_user_session_path %>");
