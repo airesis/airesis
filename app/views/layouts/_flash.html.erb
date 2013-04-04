@@ -1,5 +1,5 @@
 <% flash.each do |key,value| %>
-<% if ((key == :notice) || (key == :info))
+<% if (key == :notice) || (key == :info) || (key == :warn)
 	classeFlash = 'ui-state-highlight'
    else
  	classeFlash = 'ui-state-error'

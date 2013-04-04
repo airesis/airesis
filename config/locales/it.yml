@@ -437,10 +437,10 @@ it:
         switch_area_manage_button: "Passa alla gestione delle singole aree"
       manage:
         switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: %Q(Partecipanti)
-        list_title: %Q(Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici)
+        partecipants: "Partecipanti"
+        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
       edit:
-        add_role_button: %Q(Aggiungi un nuovo ruolo)
+        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco quorum disponibili"
@@ -665,6 +665,7 @@ it:
         waiting_date: "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
         voting: "Questa proposta è in fase di votazione."
         ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+        visible_outside_warn: "Questa proposta è visibile pubblicamente"
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
