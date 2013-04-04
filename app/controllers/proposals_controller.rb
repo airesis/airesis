@@ -1,21 +1,21 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
   include NotificationHelper, StepHelper, ProposalsModule
-  
+
   #load_and_authorize_resource
-  
-  
+
+
   #carica il gruppo
   before_filter :load_group
   before_filter :load_group_area
-  
+
   layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:search,:index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
-  
+  before_filter :load_proposal_and_group, :except => [:search, :index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
+
   ###SICUREZZA###
-  
+
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :except => [:index, :index_accepted, :tab_list, :endless_index, :show]
 
@@ -32,8 +32,8 @@ class ProposalsController < ApplicationController
   before_filter :can_view, :only => [:vote_results]
 
   #l'utente deve poter valutare la proposta
-  before_filter :can_valutate, :only => [:rankup,:rankdown]
-  
+  before_filter :can_valutate, :only => [:rankup, :rankdown]
+
   #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
 
 
@@ -84,9 +84,17 @@ class ProposalsController < ApplicationController
       end
 
       if params[:group_area_id]
-        @count_base = @count_base.in_group_area(@group_area.id)
-      end
+        unless can? :view_proposal, @group_area
+          flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
+        end
 
+        @count_base = @count_base.in_group_area(@group_area.id)
+      else
+        if current_user
+          @count_base = @count_base.joins('left join area_proposals on proposals.id = area_proposals.proposal_id').where("area_proposals.group_area_id is null or (area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql})  or proposals.visible_outside = 't')")
+        end
+      end
+      @count_base = @count_base.where("proposals.private = 'f' or (proposals.private = 't' and proposals.visible_outside = 't')") unless current_user
     else
       @count_base = @count_base.public
     end
@@ -162,6 +170,9 @@ class ProposalsController < ApplicationController
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
     end
+
+    flash[:warn] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
+
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     respond_to do |format|
       #format.js
@@ -236,9 +247,9 @@ class ProposalsController < ApplicationController
       format.xml { render :xml => @proposal }
     end
   end
-  
+
   def edit
-    authorize! :update, @proposal   
+    authorize! :update, @proposal
   end
 
   def create
@@ -255,7 +266,7 @@ class ProposalsController < ApplicationController
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
           @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
           if @group_area
-            raise Exception unless current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT).include? @group_area #check user permissions for this group area
+            raise Exception unless current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).include? @group_area #check user permissions for this group area
             @proposal.presentation_areas << @group_area
           end
         else
@@ -295,8 +306,6 @@ class ProposalsController < ApplicationController
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
-
-
 
 
         notify_proposal_has_been_created(@proposal, @group)
@@ -380,7 +389,7 @@ class ProposalsController < ApplicationController
         @proposal.update_user_id = current_user.id
 
         unless can? :destroy, @proposal
-          params[:proposal] = params[:proposal].except(:title,:subtitle,:interest_borders_tkn,:tags_list,:quorum_id,:anonima,:visible_outside,:secret_vote)
+          params[:proposal] = params[:proposal].except(:title, :subtitle, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
         end
 
 
@@ -391,7 +400,7 @@ class ProposalsController < ApplicationController
 
         #  quorum = assign_quorum(params[:proposal])
 
-          #fai partire il timer per far scadere la proposta
+        #fai partire il timer per far scadere la proposta
         #  if quorum.minutes && @proposal.proposal_type_id.to_s == ProposalType::STANDARD.to_s
         #    Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         #  end
@@ -600,7 +609,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def close_debate
     authorize! :close_debate, @proposal
     if @proposal.rank >= @proposal.quorum.good_score
-      @proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
+      @proposal.proposal_state_id = PROP_WAIT_DATE #metti la proposta in attesa di una data per la votazione
       notify_proposal_ready_for_vote(@proposal)
     elsif @proposal.rank < @proposal.quorum.bad_score
       @proposal.proposal_state_id = PROP_RESP
@@ -665,9 +674,15 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
 
       if params[:group_area_id]
-        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + " and proposals.private = 't' and area_proposals.group_area_id in (#{current_user.scoped_areas(@group,GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql})) "
+        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + "and ((proposals.visible_outside = 't')"
+        if current_user
+          conditions += " or (proposals.private = 't' and area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}))"
+        end
+        conditions += "))"
       else
-        conditions += " and (area_proposals.group_area_id is null or area_proposals.group_area_id in (#{current_user.scoped_areas(@group,GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}))"
+        if current_user
+          conditions += " and (area_proposals.group_area_id is null or area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}) or proposals.visible_outside = 't')"
+        end
       end
 
 

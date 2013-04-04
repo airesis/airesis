@@ -704,6 +704,7 @@ it:
         waiting_date: "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
         voting: "Questa proposta è in fase di votazione."
         ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+        visible_outside_warn: "Questa proposta è visibile pubblicamente"
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
