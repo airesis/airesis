@@ -1,32 +1,4 @@
-<%=render :layout => "layouts/page_title", :locals => {:title => @group.name + ": Nuova candidatura"} do%>
-<%end%>
+<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.candidates.new.title', name: @group.name)} do %>
+<% end %>
 
-<h4>Scegli uno dei partecipanti al gruppo ed invialo come candidato ad una delle elezioni disponibili.</h4>
-		
-<%= form_for [@group,@candidate], :validate => false do |f| %>
-  <%= render :partial => 'fragments/error_messages', :locals => {:resource => @candidate} %>
-  
-  <p>
-  <%= f.label :user%><br/>
-  <%=f.select :user_id, @group.partecipants.collect{|p| [p.fullname, p.id]}%>
-  
-  </p>
-  
-  <p>
-  <%= f.label :election%><br/>
-  <%=f.select :election_id, @group.elections.candidates_phase.collect{|e| [e.name, e.id]}%>
-  </p>
-  
-  <p>
-    <%= f.submit "Invia la candidatura", :class => 'buttonStyle' %>
-  </p>
-<%end%>
-<%= link_to 'Indietro', :back, :class=>"buttonStyle" %>
-
-
-<script type="text/javascript">
-	$(function() {
-		//electionDatePicker();
-	});
-	
-</script>
+<%= render :partial => 'form' %>

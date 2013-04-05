@@ -379,14 +379,14 @@ it:
       delete_comment: "Cancella"
       results:
         total: "Totale votanti: %{count}"
-        vote_column: %Q(Voto)
-        number_column: %Q(Numero)
-        percentage_column: %Q(Percentuale)
-        positive: %Q(Favorevoli)
-        negative: %Q(Contrari)
-        neutral: %Q(Neutrali)
-        name_surname_column: %Q(Nome e cognome)
-        date_time_column: %Q(Data e ora di voto)
+        vote_column: "Voto"
+        number_column: "Numero"
+        percentage_column: "Percentuale"
+        positive: "Favorevoli"
+        negative: "Contrari"
+        neutral: "Neutrali"
+        name_surname_column: "Nome e cognome"
+        date_time_column: "Data e ora di voto"
     events:
       index:
         title: "Calendario"
@@ -535,6 +535,22 @@ it:
       confirm_button: "Conferma"
     calendar:
       create_event_button: "Crea un evento"
+    candidates:
+      new:
+        title: "%{name} : Nuova candidatura"
+        description: "Scegli uno dei partecipanti al gruppo ed invialo come candidato ad una delle elezioni disponibili."
+        send_button: "Invia la candidatura"
+      index:
+        description: "In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.<br /> 	Prima di poter effettuare una candidatura il gruppo deve"
+        create_election: "indire un'elezione"
+        user_column: "Utente"
+        election_column: "Elezione"
+        state_column: "Stato"
+        candidates_phase: "candidature utenti"
+        voting_phase: "in votazione"
+        terminated_phase: "terminato"
+        send_candidate_button: "Invia un candidato alle elezioni"
+        create_election_button: "Crea una nuova elezione"
   pl:
     comments:
       zero: nessun commento
