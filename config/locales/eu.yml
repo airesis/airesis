@@ -377,6 +377,16 @@ eu:
         authors: "Authors"
         support_group: "Support groups"
       delete_comment: "Delete"
+      results:
+        total: "Total voters: %{count}"
+        vote_column: "Vote"
+        number_column: "Number"
+        percentage_column: "Percentage"
+        positive: "Favorable"
+        negative: "Contrary"
+        neutral: "Neutrals"
+        name_surname_column: "Name and surname"
+        date_time_column: "Vote date and time"
     events:
       index:
         title: 'Calendar'
@@ -525,6 +535,22 @@ eu:
       confirm_button: "Confirm"
     calendar:
       create_event_button: "Create new event"
+    candidates:
+      new:
+        title: "%{name} : New candidature"
+        description: "Choose one of the group participants and send him as candidate for one of available elections."
+        send_button: "Send the candidature"
+      index:
+        description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
+        create_election: "hold an election"
+        user_column: "User"
+        election_column: "Election"
+        state_column: "State"
+        candidates_phase: "user candidatures"
+        voting_phase: "voting phase"
+        terminated_phase: "terminated"
+        send_candidate_button: "Candidate a user"
+        create_election_button: "Create a new election"
   pl:
     comments:
       zero: no comment
@@ -694,6 +720,7 @@ eu:
         waiting_date: "This proposal passed the evaluation stage and is now waiting for a voting date.)"
         voting: "This proposal is under voting.)"
         ask_for_partecipation: "Join the group to evaluate and contribute to this proposal)"
+        visible_outside_warn: "This proposal is publicly visible"
     registrations:
       create:
         recaptcha_ko: "Error in captcha validation. Please type it again"
