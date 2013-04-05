@@ -18,15 +18,15 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :meeting, :election
   
   scope :public, {:conditions => ["private = ?",false]}
-  scope :vote_period, { :conditions => ["event_type_id = ? AND starttime > ?",2,Time.now], :order => "starttime asc"}
-  scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ["groups.id = ?",group_id]} if group_id}
+  scope :vote_period, lambda { where(['event_type_id = ? AND starttime > ?',2,Time.now]).order('starttime asc')}
+  scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ['groups.id = ?',group_id]} if group_id}
   
   
-  REPEATS = ["Non ripetere",
-             "Ogni giorno",
-             "Ogni settimana",
-             "Ogni mese",
-             "Ogni anno"]
+  REPEATS = ['Non ripetere',
+             'Ogni giorno',
+             'Ogni settimana',
+             'Ogni mese',
+             'Ogni anno']
   
   
   def validate_start_time_before_end_time
