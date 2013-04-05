@@ -18,7 +18,7 @@ class ProposalCommentRanking < ActiveRecord::Base
     ranking = 0
     res = num_pos.to_f / nvalutations.to_f
     ranking = res*100 if nvalutations > 0
-    j = num_pos+num_neg > 0 ? ((num_pos.to_f - num_neg.to_f)**2)/(num_pos+num_neg) : 0
+    j = num_pos+num_neg > 0 ? (num_pos.to_f - num_neg.to_f)/Math.sqrt(num_pos+num_neg) : 0
     #TODO sostituire con update_columns quando sarà disponibile
     self.proposal_comment.update_column(:valutations,nvalutations)
     self.proposal_comment.update_column(:rank,ranking.round)
