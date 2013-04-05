@@ -17,13 +17,13 @@ class Election < ActiveRecord::Base
   validate :validate_groups_time_before_candidates_time
   
   #un'elezione che è attualmente in fase di iscrizione gruppi, ovvero l'evento è iniziato, non si è concluso e non è arrivato il termine per l'iscrizione dei gruppi'
-  scope :groups_phase, :include => :event, :conditions => ['events.starttime < ? and events.endtime > ? and elections.groups_end_time > ?',Time.now,Time.now,Time.now]
+  scope :groups_phase, lambda{ includes(:event).where(['events.starttime < ? and events.endtime > ? and elections.groups_end_time > ?',Time.now,Time.now,Time.now])}
   
   #un'elezione che è attualmente in fase di invio candidati, ovvero l'evento è iniziato, non si è concluso e il termine per l'iscrizione dei gruppi è stato raggiunto e non è arrivato il termine per l'invio dei candidati'
-  scope :candidates_phase, :include => :event, :conditions => ['events.starttime < ? and events.endtime > ? and elections.candidates_end_time > ? and elections.groups_end_time < ?',Time.now,Time.now,Time.now,Time.now]
-  
+  scope :candidates_phase, lambda {includes(:event).where(['events.starttime < ? and events.endtime > ? and elections.candidates_end_time > ? and elections.groups_end_time < ?',Time.now,Time.now,Time.now,Time.now])}
+
   #un'elezione che è attualmente in fase di voto, ovvero l'evento è iniziato, non si è concluso e si è conclusa l'iscrizione dei gruppi'
-  scope :voting_phase, :include => :event, :conditions => ['events.starttime < ? and events.endtime > ? and elections.candidates_end_time < ?',Time.now,Time.now,Time.now]
+  scope :voting_phase, lambda {includes(:event).where(['events.starttime < ? and events.endtime > ? and elections.candidates_end_time < ?',Time.now,Time.now,Time.now])}
   
   def validate_groups_time_before_candidates_time
     if groups_end_time && candidates_end_time
