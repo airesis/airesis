@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
   #return all group area partecipations of a particular group where the user can do a particular action
   def scoped_areas(group_id,abilitation_id)
     self.group_areas
-    .joins([:area_partecipations => [:group_area, {:area_role => :area_action_abilitations}]])
+    .joins({:area_roles => :area_action_abilitations})
     .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id',group_id,abilitation_id])
   end
 

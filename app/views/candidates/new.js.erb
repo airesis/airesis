@@ -1,0 +1,12 @@
+var _candidate_container = $('<div id="candidate_modal" title="<%=escape_javascript t('pages.candidates.new.title', name: @group.name) %>"></div>');
+_candidate_container.html("<%= escape_javascript(render(:partial => 'form'))%>");
+$('body').append(_candidate_container);
+_candidate_container.dialog({ height: 'auto',
+    width: 440,
+    modal: true,
+    close: function (event, ui) {
+        _candidate_container.dialog('destroy');
+        _candidate_container.remove();
+    }
+});
+disegnaBottoni();

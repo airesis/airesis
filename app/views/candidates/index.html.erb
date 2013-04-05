@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
+<% end %>
+
 
 <%=render :layout => "layouts/page_title", :locals => {:title => "Area candidature"} do%>
 			
@@ -5,14 +9,13 @@
 
 <%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
-<h4>In questa pagina puoi monitorare le candidature effettuate dal gruppo nelle elezioni.<br />
-	Prima di poter effettuare una candidatura il gruppo deve indire un'elezione.
+<h4><%=raw t('pages.candidates.index.description') + " #{link_to t('pages.candidates.index.create_election'),  new_group_event_path(@group, type: 'election'), :remote => true}." %>
 </h4>
 <table id="candidates">
 	<thead>
-		<th>Utente</th>
-		<th>Elezione</th>
-		<th>Stato</th>
+		<th><%= t('pages.candidates.index.user_column') %></th>
+		<th><%= t('pages.candidates.index.election_column') %></th>
+		<th><%= t('pages.candidates.index.state_column') %></th>
 	</thead>
 	<tbody>
 		<%@group.candidates.all(:include => [:user,{:election => :event}]).each do |candidate|%>
@@ -21,18 +24,23 @@
 				<td><%=link_to candidate.election.name, candidate.election%></td>
 				<td>
 					<%if candidate.election.is_candidates_phase?%>
-						candidature utenti
+						<%= t('pages.candidates.index.candidates_phase')%>
 					<%elsif candidate.election.is_voting_phase?%>
-						in votazione
+						<%= t('pages.candidates.index.voting_phase') %>
 					<%elsif candidate.election.event.is_past?%>
-						terminato
+						<%= t('pages.candidates.index.terminated_phase') %>
 					<%end%>
 				</td>
 			</tr>			
 		<%end%>				
 	</tbody>
 </table>
-<br />		
+<br />
+
+<div id="create_event_dialog" style="display:none;">
+  <div id="create_event">
+  </div>
+</div>
 
 <script type="text/javascript">
 	$(function() {
@@ -69,7 +77,9 @@
 </script>
 
 
+
+
 <% content_for :left_panel do %>
-	<%= link_to 'Invia un candidato alle elezioni', new_group_candidate_path(@group), :class=>"buttonStyle" if (@group.elections.candidates_phase.count != 0)%><br />
-	<%= link_to 'Crea una nuova elezione', new_group_event_path(@group, :type=>'election'), :class=>"newButton" if (can? :create_event, @group)%>
+	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_path(@group),:remote => true, :class=>"personButton disableButton" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
+    <%= link_to t('pages.candidates.index.create_election_button'), new_group_event_path(@group, type: 'election'), :remote => true, :class => 'newButton disableButton' if can? :create_event, @group%>
 <%end%>

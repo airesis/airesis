@@ -34,6 +34,7 @@
             <%else%>
               <%= f.hidden_field :event_type_id %>
               <%= f.hidden_field :private %>
+              <%=hidden_field_tag 'type', params[:type] %>
             <%end%>
 			
 			<p>
