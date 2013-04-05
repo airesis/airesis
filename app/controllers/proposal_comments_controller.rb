@@ -85,6 +85,10 @@ class ProposalCommentsController < ApplicationController
     index
   end
 
+  def edit_list
+    index
+  end
+
   def show
     respond_to do |format|
       format.html # show.html.erb

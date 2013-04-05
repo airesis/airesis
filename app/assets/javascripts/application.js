@@ -50,4 +50,4 @@
 //= require i18n/elfinder.it
 //= require elFinderSupportVer1
 //= require jquery.livequery
-
+//= require proposals

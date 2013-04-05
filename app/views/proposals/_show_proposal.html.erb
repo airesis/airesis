@@ -113,7 +113,7 @@
 
 <div style="float:right;">
 
-  <% if (is_proprietary? proposal) || is_admin? %><!--se sono autorizzato a modificare la proposta-->
+  <% if (is_proprietary? proposal) || is_admin? #se sono autorizzato a modificare la proposta%>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, proposal), :class => 'editButton' if can? :update, proposal %>
       <% else %>

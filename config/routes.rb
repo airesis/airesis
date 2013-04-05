@@ -73,6 +73,7 @@ DemocracyOnline3::Application.routes.draw do
       end
       collection do
         post :list
+        get :edit_list
       end
     end
 

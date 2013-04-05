@@ -1,5 +1,5 @@
 <% @page_title = @proposal.title %>
-<h1>Modifica la proposta</h1>
+<h1><%= 'Modifica la proposta' %></h1>
 
 <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
@@ -126,12 +126,12 @@
                       <%= image_tag 'move.png' %>
                     </span>
                      <span class="remove_button">
-                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= 'Rimuovi paragrafo' %></a>
+                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= 'Rimuovi sezione' %></a>
                     </span>
                     <br/>
                     <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                     <%= p.hidden_field :content %>
-                    <%= p.hidden_field :seq%>
+                    <%= p.hidden_field :seq %>
                   </p>
               <% end %>
           <% end %>
@@ -140,7 +140,7 @@
     </div>
 
     <% if @proposal.is_standard? %>
-        <div class="new_section"><a href="#" onclick="addSection(this);return false;">Aggiungi una nuova sezione</a>
+        <div class="new_section"><a href="#" onclick="addSection(this);return false;"><%='Aggiungi una nuova sezione'%></a>
         </div>
     <% end %>
 
@@ -187,7 +187,61 @@
 <% end %>
 
 
+
+<div id="loading_contributes" style="margin:auto;text-align:center;">
+  <%= image_tag 'ajax-loader.gif' %>
+  <br/>
+  <b><%= t('pages.proposals.show.loading_contributions') %></b>
+</div>
+<div id="proposalCommentsContainer">
+
+</div>
+
+<div id="loading_results" style="display:none;">
+  <span><%= t('pages.proposals.show.previos_contributes') %></span>
+</div>
+
+
 <script type="text/javascript">
+    var currentPage = 0;
+    var currentView = 3;
+    var contributes = [];
+
+    $(function () {
+        currentPage++;
+        $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+            data: {page: currentPage,
+                view: currentView,
+                contributes: contributes
+            },
+            type: 'get',
+            complete: function () {
+                $("#loading_contributes").hide();
+            }
+        });
+
+        <%= render :partial => 'show_tooltips' %>
+
+    });
+
+
+    function checkScroll() {
+        if (nearBottomOfPage() && checkActive) {
+            checkActive = false;
+            currentPage++;
+            $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+                data: {page: currentPage,
+                    view: currentView,
+                    contributes: contributes
+                },
+                type: 'get'});
+        } else {
+            setTimeout("checkScroll()", 250);
+        }
+    }
+
+
+
     tinyMCE.init({
         mode: 'textareas',
         theme: 'advanced',
@@ -298,12 +352,12 @@
         cursor: "move",
         axis: "y",
         handle: '.move_button',
-        stop: function(e, ui) {
+        stop: function (e, ui) {
             var i = 0;
-            $(this).find('p').each(function(el) {
-              var id = $(this).find('.tinymce').attr('id');
-              var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-              $('#'+seq_id).val(i++)
+            $(this).find('p').each(function (el) {
+                var id = $(this).find('.tinymce').attr('id');
+                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                $('#' + seq_id).val(i++)
             });
         }
     });

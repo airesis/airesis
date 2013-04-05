@@ -16,7 +16,7 @@
       <%= raw auto_link((h(reply.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
         truncate(text, :length => 15)
       end %>
-      <div class="baloon-footer">
+      <div class="reply-footer">
         <% who = (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user)) ? comment_nickname.nickname : reply.user.fullname %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(reply.created_at), who: who) %>
 
