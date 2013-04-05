@@ -1,51 +1,53 @@
-<% unless @notriangle %>
-    <div id="triangle-topleft2"></div>
-    <div id="triangle-topleft">
-      <a href="mailto:feedback@airesis.it?subject=Segnalazione da
+<div id="footer">
+  <% unless @notriangle %>
+      <div id="triangle-topleft2"></div>
+      <div id="triangle-topleft">
+        <a href="mailto:feedback@airesis.it?subject=Segnalazione da
 	<%= request.fullpath.dup.force_encoding(Encoding::UTF_8) %>&body=Nel testo della segnalazione ti preghiamo di inserire se hai avuto accesso alla tua area riservata e eventualmente
 	 quale azione stavi compiendo inserendone l'eventuale testo o il messaggio di errore. " target="_blank">
-        <%= image_tag 'segnala_un_bug.png', :alt => "Segnala un bug", :title => "Segnalaci difetti, errori e le migliorie. Aiutaci a migliorare Airesis  " %>
-      </a>
+          <%= image_tag 'segnala_un_bug.png', :alt => "Segnala un bug", :title => "Segnalaci difetti, errori e le migliorie. Aiutaci a migliorare Airesis  " %>
+        </a>
+      </div>
+  <% end %>
+
+  <div style="float:left; width:100%">
+    <hr>
+    <div style="float:left;">
+      <%= image_tag 'copyleft.gif', :height => '16px', :alt => "CopyLeft", :title => "Questo progetto e' un'inizativa Open Source - GNU AGPL 3", :align => "left", :style => "margin-right:5px;" %>
+      Airesis 2013 - Progetto per una democrazia diretta,
+      partecipata, <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %>
     </div>
-<% end %>
+    <div class="pull-right" style="float:right;">
+      <%= link_to t('guide'), videoguide_path, :class => "video_faq" %> -
+      <%= link_to t('pages.home.index.support'), sostienici_path %> -
+      <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link' %> -
+      <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link' %> -
+      <a href="#"><%= t('back_to_top') %></a>
+    </div>
 
-<div style="float:left; width:100%">
-  <hr>
-  <div style="float:left;">
-    <%= image_tag 'copyleft.gif', :height => '16px', :alt => "CopyLeft", :title => "Questo progetto e' un'inizativa Open Source - GNU AGPL 3", :align => "left", :style => "margin-right:5px;" %>
-    Airesis 2013 - Progetto per una democrazia diretta,
-    partecipata, <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %>
-  </div>
-  <div class="pull-right" style="float:right;">
-    <%= link_to t('guide'), videoguide_path, :class => "video_faq" %> -
-    <%= link_to t('pages.home.index.support'), sostienici_path %> -
-    <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link'%> -
-    <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link'%> -
-    <a href="#"><%= t('back_to_top') %></a>
-  </div>
+    <div>
+      <p>
+        <!-- <a id="lang-selector" href="#">Italiano
+        (IT) <img src="/images/arrowdwn.gif"></a>-->
+      </p>
+    </div>
+    <p></p>
 
-  <div>
-    <p>
-      <!-- <a id="lang-selector" href="#">Italiano
-      (IT) <img src="/images/arrowdwn.gif"></a>-->
-    </p>
+    <div>
+    </div>
   </div>
-  <p></p>
+  <!-- /container -->
+  <script type="text/javascript">
 
-  <div>
-  </div>
+      function openCondizioniModal() {
+          $("#eula_modal").dialog({ height: 250, width: 450 });
+          return false;
+      }
+
+      function openPrivacyModal() {
+          $("#privacy_modal").dialog({ height: 250, width: 450 });
+          return false;
+      }
+  </script>
 </div>
-<!-- /container -->
-<script type="text/javascript">
-
-    function openCondizioniModal() {
-        $("#eula_modal").dialog({ height: 250, width: 450 });
-        return false;
-    }
-
-    function openPrivacyModal() {
-        $("#privacy_modal").dialog({ height: 250, width: 450 });
-        return false;
-    }
-</script>
 </div>
