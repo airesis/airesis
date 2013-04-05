@@ -9,18 +9,6 @@
     </div>
 <% end %>
 
-<div id="eula_modal" title="<%= t('terms_of_service') %>" style="width:600px;height:300px;display:none">
-  <p>
-    <%= render :partial => 'devise/registrations/eula' %>
-  </p>
-</div>
-
-
-<div id="privacy_modal" title="<%= t('privacy_policy') %>" style="width:600px;height:300px;display:none">
-  <p>
-    <%= render :partial => 'devise/registrations/privacy' %>
-  </p>
-</div>
 <div style="float:left; width:100%">
   <hr>
   <div style="float:left;">
@@ -31,8 +19,8 @@
   <div class="pull-right" style="float:right;">
     <%= link_to t('guide'), videoguide_path, :class => "video_faq" %> -
     <%= link_to t('pages.home.index.support'), sostienici_path %> -
-    <a href="#" onclick="return openCondizioniModal();"><%= t('terms_of_service') %></a> -
-    <a href="#" onclick="return openPrivacyModal();"><%= t('privacy_policy') %></a> -
+    <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link'%> -
+    <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link'%> -
     <a href="#"><%= t('back_to_top') %></a>
   </div>
 
