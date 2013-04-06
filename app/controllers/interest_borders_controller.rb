@@ -5,6 +5,7 @@ class InterestBordersController < ApplicationController
 
   def index
     hint = params[:q] + "%"
+    map = []
     @continenti = Continente.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
     @stati = Stato.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
     @regiones = Regione.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
@@ -17,7 +18,12 @@ class InterestBordersController < ApplicationController
     stati = @stati.collect { |p| {:id => InterestBorder::SHORT_STATO+'-'+p.id.to_s, :name => p.description + ' (Stato)'} }
     continenti = @continenti.collect { |p| {:id => InterestBorder::SHORT_CONTINENTE+'-'+p.id.to_s, :name => p.description + ' (Continente)'} }
     generics = @generic_borders.collect { |p| {:id => InterestBorder::SHORT_GENERIC+'-'+p.id.to_s, :name => p.description + ' ('+p.name+')'} }
-    map = generics + continenti + stati + regioni + province + comuni
+    if I18n.locale == :eu
+      map = generics + continenti + stati
+    else
+      map = generics + continenti + stati + regioni + province + comuni
+    end
+
     respond_to do |format|      
       format.xml  { render :xml => map[0,10] }
       format.json  { render :json =>  map[0,10]}
