@@ -1,5 +1,6 @@
 $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
 $('#roles_panel_container').html('<%= escape_javascript(render(:partial => 'group_areas/roles_panel'))%>');
+$('#roles_table_container').html('<%= escape_javascript(render(:partial => 'group_areas/user_roles_panel'))%>');
 $('#new_area_role').dialog('destroy');
 $('#new_area_role').remove();
 generateTable();
