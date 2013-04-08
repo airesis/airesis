@@ -222,6 +222,7 @@ class Ability
           areas = proposal.presentation_areas.where(:group_id => group.id)
           return can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_VOTE) if areas.count > 0
           return true if can_do_on_group?(user, group,  GroupAction::PROPOSAL_VOTE)
+	  return false
         end
       end
       true
