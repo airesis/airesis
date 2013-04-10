@@ -12,4 +12,9 @@ class Paragraph < ActiveRecord::Base
   def content_dirty= val
     @content_dirty = val
   end
+
+  def content=(content)
+    write_attribute(:content,content.gsub('&nbsp;',' '))
+  end
+
 end

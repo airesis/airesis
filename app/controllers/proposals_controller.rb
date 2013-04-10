@@ -145,7 +145,7 @@ class ProposalsController < ApplicationController
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
           flash[:notice] = t('controllers.proposals.show.ask_for_partecipation')
-        elsif !(can? :partecipate, @proposal)
+        elsif !(can? :partecipate, @proposal) && @proposal.in_valutation?
           flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       else #se è bloccata alla visione di utenti esterni
@@ -163,7 +163,7 @@ class ProposalsController < ApplicationController
             }
           end
         end
-        unless can? :partecipate, @proposal
+        if !(can? :partecipate, @proposal) && @proposal.in_valutation?
           flash[:notice] = t('controllers.proposals.show.cant_partecipate')
         end
       end
