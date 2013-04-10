@@ -155,7 +155,7 @@
         });
 
         input = $('#proposal_interest_borders_tkn')
-        input.tokenInput("/interest_borders.json", {
+        input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
             crossDomain: false,
             prePopulate: input.data("pre"),
             hintText: "<%=t('interest_borders_hint')%>",

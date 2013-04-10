@@ -2,7 +2,7 @@ $('#create_proposal_container').html('<%= escape_javascript(render(:partial => @
 
 var create_proposal_ = $('#create_proposal');
 create_proposal_.dialog({
-    title: '<%=@title%>',
+    title: '<%=escape_javascript @title%>',
     modal: true,
     width: 720,
     height: 'auto',
