@@ -16,7 +16,7 @@ class Paragraph < ActiveRecord::Base
   end
 
   def content=(content)
-    write_attribute(:content,content.gsub('&nbsp;',' '))
+    write_attribute(:content,content ? content.gsub('&nbsp;',' ') : nil)
   end
 
 end

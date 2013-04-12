@@ -171,7 +171,7 @@
     </div>
 <% end %>
 
-<% @proposal.solutions.each do |solution| %>
+<% @proposal.solutions.includes(:sections).each do |solution| %>
     <% solution.sections.each do |section| %>
         <div class="solution_title">
           <h3><%= section.title %></h3>
