@@ -18,6 +18,9 @@
       <div class="baloon_header">
         <div id="flash_messages_comment_<%= comment.id %>">
         </div>
+        <div style="float:right">
+          <%= 'Integrato' %><input type="checkbox" onclick="integrate_contribute(this,<%=comment.id%>);">
+        </div>
       </div>
       <div class="baloon-content">
         <%= raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|

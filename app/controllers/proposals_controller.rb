@@ -218,7 +218,7 @@ class ProposalsController < ApplicationController
     #initialize all fields necessary for the proposal specific type
     if params[:proposal_type_id] == ProposalType::STANDARD.to_s
       @problems = @proposal.sections.build(title: t('pages.proposals.new.problems_title'), seq: 1)
-      @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
+     # @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
       @solution = @proposal.solutions.build(seq: 1)
       @solution_section = @solution.sections.build(title: t('pages.proposals.new.first_solution_title'), seq: 1)
       @proposal.proposal_type_id = ProposalType::STANDARD

@@ -1,3 +1,5 @@
+
+
 <% @page_title = @proposal.title %>
 <h1><%= 'Modifica la proposta' %></h1>
 
@@ -110,18 +112,17 @@
 
     <p>
       <%= f.label :proposal_category_id %><br/>
-      <%= select("proposal", "proposal_category_id", ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id] }) %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}-22.png")}] }), {}, {class: 'ddslick'} %>
     </p>
 
     <div class="sections_column">
       <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
           <%= f.fields_for :sections, section do |s| %>
-              <%= s.hidden_field :title %>
               <%= s.hidden_field :seq %>
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                   <p class="section_container">
-                    <%= p.label :content_dirty, section.title, style: 'float:left;' %>
+                    <%= s.text_field :title, class: "edit_label", style: 'float:left;' %>
                     <span class="move_button">
                       <%= image_tag 'move.png' %>
                     </span>
@@ -136,57 +137,83 @@
               <% end %>
           <% end %>
       <% end %>
-
     </div>
 
     <% if @proposal.is_standard? %>
-        <div class="new_section"><a href="#" onclick="addSection(this);return false;"><%='Aggiungi una nuova sezione'%></a>
+        <div class="new_section">
+          <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi una nuova sezione' %></a>
         </div>
     <% end %>
 
 
     <h4>Modifica e aggiorna il testo della proposta!</h4>
+    <div class="solutions_column">
+      <% @proposal.solutions.each_with_index do |solution, i| %>
+          <%= f.fields_for :solutions, solution do |sol| %>
+              <%= sol.hidden_field :seq %>
+              <%= sol.check_box '_destroy', style: 'display:none' %>
+              <% solution.sections.each do |section| %>
+                  <%= sol.fields_for :sections, section do |s| %>
+                      <%= s.hidden_field :title %>
+                      <%= s.hidden_field :seq %>
+                      <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                          <p class="section_container">
+                            <%= s.text_field :title, class: "edit_label", style: 'float:left;' %>
+                            <span class="move_button">
+                              <%= image_tag 'move.png' %>
+                            </span>
+                             <span class="remove_button">
+                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;"><%= 'Rimuovi soluzione' %></a>
+                            </span>
+                            <br/>
 
-    <% @proposal.solutions.each_with_index do |solution, i| %>
-        <%= f.fields_for :solutions, solution do |sol| %>
-            <%= sol.hidden_field :seq %>
-            <%= sol.check_box '_destroy', style: 'display:none' %>
-            <% solution.sections.each do |section| %>
-                <%= sol.fields_for :sections, section do |s| %>
-                    <%= s.hidden_field :title %>
-                    <%= s.hidden_field :seq %>
-                    <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                        <p>
-                          <%= p.label :content_dirty, section.title %>
+                            <% if @proposal.is_standard? %>
+                                <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                                <%= p.hidden_field :content %>
+                            <% elsif @proposal.is_polling? %>
+                                <%= p.text_field :content, :style => "width:80%;" %>
+                                <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
+                            <% end %>
+                            <%= p.hidden_field :seq %>
+                          </p>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
 
-                          <br/>
+    <div class="new_section">
+      <a href="#" onclick="addSolution(this);return false;"><%= 'Aggiungi un\'ulteriore soluzione' %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= 'Sai quello che fai?' %></a>
+    </div>
 
-                          <% if @proposal.is_standard? %>
-                              <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
-                              <%= p.hidden_field :content %>
-                          <% elsif @proposal.is_polling? %>
-                              <%= p.text_field :content, :style => "width:80%;" %>
-                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
-                          <% end %>
-                          <%= p.hidden_field :seq %>
-                        </p>
-                    <% end %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <% end %>
-
-    <% if @proposal.is_polling? %>
-        <a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>
-    <% end %>
+    <div id="you_know" title="Uno soluzione o più soluzioni?" style="display:none;line-height: 160%">
+      <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
+      Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
+      Se la soluzione sarà una, al momento della votazione i partecipanti dovranno semplicemente scegliere se approvare
+      o meno il testo che è stato redatto.<br/>
+      Se le soluzioni sono più di una la votazione avverrà in maniera differente e ciascun utente potrà esprimere la
+      propria votazione su ciascuna soluzione mediante voto di Schulze.<br/>
+      Se stai cercando di redigere la sintesi ad un problema e vuoi costruire un testo condiviso
+      <b>non generare soluzioni alternative</b>!<br/>
+      Se, al contrario, stai creando un sondaggio o vuoi proporre un'alternativa che non è integrabile nella prima
+      soluzione allora procedi.<br/>
+      Ricorda che, prima che termini la fase di dibattito, potrai sempre aggiungere o togliere soluzioni e quindi
+      modificare il tipo di votazione che verrà effettuato.
+    </div>
 
     <p>
       <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+
+      <%= f.hidden_field :integrated_contributes_ids %>
+
       <%= f.submit "Aggiorna", :class => 'buttonStyle', :onclick => 'return fillCleanFields();' %>
     </p>
 <% end %>
 
 
+<hr/>
+<%= 'Indica quali contributi hai integrato con questa modifica della proposta' %>
 
 <div id="loading_contributes" style="margin:auto;text-align:center;">
   <%= image_tag 'ajax-loader.gif' %>
@@ -224,6 +251,23 @@
 
     });
 
+    var integrated_contributes = [];
+
+    function integrate_contribute(el, id) {
+        if ($(el).is(':checked')) {
+            integrated_contributes.push(id);
+        }
+        else {
+            integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
+        }
+        $('#proposal_integrated_contributes_ids').val(integrated_contributes);
+        console.log($('#proposal_integrated_contributes_ids').val());
+    }
+
+
+    function you_know() {
+        $('#you_know').dialog({modal: true, width: 600, height: 'auto'});
+    }
 
     function checkScroll() {
         if (nearBottomOfPage() && checkActive) {
@@ -239,7 +283,6 @@
             setTimeout("checkScroll()", 250);
         }
     }
-
 
 
     tinyMCE.init({
@@ -263,6 +306,11 @@
         body_class: "CT-hide"
     });
     function fillCleanFields() {
+        if ($('#proposal_integrated_contributes_ids').val() == "") {
+            if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
+                return false;
+            }
+        }
         <%if @proposal.is_standard?%>
         $('textarea.tinymce').each(function () {
             var id = $(this).attr('id');
@@ -287,17 +335,18 @@
             function addSection(el) {
                 var sectionname = 'proposal[sections_attributes][' + numSections + ']';
                 var paragraphname = sectionname + '[paragraphs_attributes][0]';
-                var paragraph_ = $('<p></p>');
-
+                var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
                 paragraph_.append('<input type="text" class="edit_label" value="Titolo paragrafo" name=\'' + sectionname + '[title]\'></input>');
+                paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
+                paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSolution + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
                 paragraph_.append('<br />');
                 var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphname + '[content_dirty]_id\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
                 paragraph_.append(textarea_);
                 paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-                paragraph_.append('<a href=\'#\' onclick=\'removeSection(this,' + numSections + ',false);return false;\'>Rimuovi sezione</a>');
                 paragraph_.append('<input type=\'hidden\' value=\'' + numSections + '\' name=\'' + sectionname + '][seq]\'></input>');
                 paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
                 $('.sections_column').append(paragraph_);
+                paragraph_.fadeIn();
 
                 tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
 
@@ -306,7 +355,7 @@
 
 
     function addSolution(el) {
-        var paragraph_ = $('<p></p>');
+        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
         paragraph_.append('<label>Opzione ' + (numSolution + 1) + '</label>');
         paragraph_.append('<br />');
         var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
@@ -318,30 +367,36 @@
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\'></input>');
         paragraph_.append('<input type=\'hidden\' value=\'Opzione ' + (numSolution + 1) + '\' name=\'' + sectionname + '[title]\'></input>');
-        $(el).before(paragraph_);
+        $('.solutions_column').append(paragraph_);
+        paragraph_.fadeIn();
         numSolution += 1;
     }
 
     function removeSolution(el, id, hide) {
-        if (hide) {
-            $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
-            $(el).parent().hide();
-        }
-        else {
-            $('input[name^="proposal\[solutions_attributes\]\[' + id + '\]"]').remove();
-            $(el).parent().remove();
+        if (confirm('<%='Sei sicuro di voler rimuovere questa soluzione?'%>')) {
+            var section_ = $(el).parent().parent();
+            if (hide) {
+                $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
+                section_.fadeOut();
+            }
+            else {
+                $('input[name^="proposal\[solutions_attributes\]\[' + id + '\]"]').remove();
+                section_.remove();
+            }
         }
     }
 
     function removeSection(el, id, hide) {
         if (confirm('<%='Sei sicuro di voler rimuovere questo paragrafo?'%>')) {
+            var section_ = $(el).parent().parent();
             if (hide) {
                 $('input[name="proposal\[sections_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
-                $(el).parent().parent().hide();
+                section_.fadeOut();
             }
             else {
-                $('input[name^="proposal\[sections_attributes\]\[' + id + '\]"]').remove();
-                $(el).parent().remove();
+                section_.fadeOut(function () {
+                    section_.remove();
+                });
             }
         }
     }
@@ -353,6 +408,31 @@
         axis: "y",
         handle: '.move_button',
         stop: function (e, ui) {
+            var textarea_ = $('.tinymce',ui.item);
+            tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+            var i = 0;
+            $(this).find('p').each(function (el) {
+                var id = $(this).find('.tinymce').attr('id');
+                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                $('#' + seq_id).val(i++)
+            });
+        }
+    });
+
+
+    $(".solutions_column").sortable({
+        connectWith: ".column",
+        cursor: "move",
+        axis: "y",
+        handle: '.move_button',
+        start: function(e, ui) {
+
+        },
+        stop: function (e, ui) {
+            var textarea_ = $(ui.item, '.tinymce');
+            tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+
             var i = 0;
             $(this).find('p').each(function (el) {
                 var id = $(this).find('.tinymce').attr('id');

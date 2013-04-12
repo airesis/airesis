@@ -57,17 +57,17 @@ class Proposal < ActiveRecord::Base
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
   #validation
-  validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
+  validates_presence_of :title, :message => "obbligatorio"
   validates_uniqueness_of :title
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
-  attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty, :percentage
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
-                  :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
-                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id
+                  :group_area_id,
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true

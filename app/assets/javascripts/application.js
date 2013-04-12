@@ -51,3 +51,4 @@
 //= require elFinderSupportVer1
 //= require jquery.livequery
 //= require proposals
+//= require ddslick.min
