@@ -5,8 +5,6 @@
 
 	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
 	
-	<%= render :partial => 'fragments/error_messages', :locals => {:resource =>proposal_comment} %>
-	
 	<p>
 	    <%= f.label :content, t(:insert_contribute) %>
         <span id="miglioricontributi">

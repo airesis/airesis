@@ -69,6 +69,8 @@ class GroupAreasController < ApplicationController
         @group_area.current_user_id = current_user.id
         @group_area.save!
       end
+      @group_areas = @group.group_areas.includes(:partecipants)
+      @partecipants = @group.partecipants
       flash[:notice] = t('controllers.group_areas.create.ok_message')
 
     rescue ActiveRecord::ActiveRecordError => e

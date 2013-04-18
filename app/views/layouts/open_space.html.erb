@@ -6,7 +6,7 @@
 		<%=render :partial => "layouts/head" %>
 	</head>
 	<body>
-		
+    <div id="great_container">
 	<%=render :partial => "layouts/header" %>		
 	<div id="subheader" class="ui-widget-header ui-state-default">
 		<div class="body_maxwidth">
@@ -35,8 +35,8 @@
 				<%= yield :layout %>
 			</div>					
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
-			<%=render :partial => "layouts/footer" %>
 		</div>
-		
-	</body>
+    </div>
+    <%=render :partial => "layouts/footer" %>
+    </body>
 </html>

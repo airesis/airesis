@@ -37,7 +37,7 @@
     </table>
     <script>
         <%@group_partecipations.each do |partecipation| %>
-            $('#partecipation_<%=partecipation.id%>').ctooltip("<strong>Cosa posso fare?</strong><ul><li><%=raw partecipation.partecipation_role.group_actions.map{|a| a.description}.join('</li><li>')%></li></ul><br/>");
+            $('#partecipation_<%=partecipation.id%>').ctooltip("<strong>Cosa posso fare?</strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>");
       <%end%>
     </script>
 <% end %>

@@ -158,6 +158,7 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_secret_vote
       get :reload_storage_size
       put :enable_areas
+      put :remove_post
     end
 
     collection do
@@ -212,6 +213,12 @@ DemocracyOnline3::Application.routes.draw do
           put :change_permissions
         end
       end
+    end
+
+    resources :blog_posts do
+      #match :tag, :on => :member
+      match :drafts, :on => :collection
+      resources :blog_comments
     end
 
   end

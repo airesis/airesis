@@ -235,6 +235,7 @@ it:
         accept_request_button: "Accetta"
         reject_request_button: "Declina"
         ask_partecipate_button: "Richiedi di partecipare al gruppo"
+        remove_post: "Rimuovi post dalla bacheca del gruppo"
       header:
         settings: "Impostazioni"
         elections: "Elezioni"

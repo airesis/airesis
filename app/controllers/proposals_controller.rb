@@ -254,7 +254,7 @@ class ProposalsController < ApplicationController
 
   def create
     begin
-      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id]
+      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]

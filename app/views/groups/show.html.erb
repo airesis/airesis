@@ -15,17 +15,9 @@
 <div class="group_description">
   <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
 
-
-<% if @group.posts.published.count == 0 %>
-    <div class="blogPost">
-      <p>
-        <%= t('pages.groups.show.no_blogs_yet') %>
-      </p>
-    </div>
-<% else %>
-    <% posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]) %>
-    <%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
-<% end %>
+<div id="posts_container">
+<%= render :partial => 'group_posts' %>
+</div>
 <%= render :partial => 'left_panel' %>
 
 <% if false #disattivato momentaneamente %>

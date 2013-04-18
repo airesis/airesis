@@ -1,4 +1,4 @@
-page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
 if @is_reply
   page.insert_html :bottom, "#{@proposal_comment.contribute.id}_new_replies", :partial => "proposals/reply", :locals => {:reply => @proposal_comment}
   page << "$('##{@proposal_comment.contribute.id}_reply_text_area').val('')"

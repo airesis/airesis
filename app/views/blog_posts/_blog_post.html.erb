@@ -1,11 +1,11 @@
 
-<div class="blogPost">
+<div class="blogPost" id="blogPost<%= blog_post.id%>">
 
 	<div class="blogUserImage">
 		<%= blog_post.user_image_tag %>
 	</div>
 	<h3 class="blogPostTitle">
-		<%= link_to(h(blog_post.title), [blog_post.blog,blog_post]) %>
+		<%= link_to(h(blog_post.title), @group ? [@group,blog_post] : [blog_post.blog,blog_post]) %>
 		<% if !blog_post.published? %>	
 			[<%= t('pages.blog_posts.drafts') %>]
 		<% end %>
@@ -26,16 +26,19 @@
 			<%=raw blog_post.tags_with_links %>
 		</p>
 	<% end %>
-	
+
+  <p class="blogFooter">
+  <ul class="blogList">
+    <%if @group && ((user_signed_in? and current_user.is_my_blog_post? blog_post.id) || (@group.portavoce.include? current_user) || is_admin?)%>
+        <li><%= link_to(t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :confirm => "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?") %></li>
+    <%end%>
 	<%if (user_signed_in? and current_user.is_my_blog_post? blog_post.id)%>
-	<p class="blogFooter">
-		<ul class="blogList">
-			<li><%= link_to(t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
-			<li><%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post: #{blog_post.title}") %></li>
-		</ul>
-	</p>
+    	<li><%= link_to(t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog,blog_post))%></li>
+		<li><%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog,blog_post), :method => :delete, :confirm => "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo.") %></li>
 	<%end%>
-	
+
+  </ul>
+  </p>
 	
 	<div style="clear: both;" ></div>
 </div>

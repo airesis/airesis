@@ -51,7 +51,7 @@ class BlogPostsController < ApplicationController
   end
   
   def show
-    @blog_post = @blog.posts.find(params[:id])
+    @blog_post = BlogPost.find(params[:id])
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
@@ -173,7 +173,7 @@ class BlogPostsController < ApplicationController
   
   def load_blog   
     @blog = Blog.find(params[:blog_id])  if params[:blog_id]
-    @user = @blog.user
+    @user = @blog.user if @blog
          
     @group = Group.find(params[:group_id]) unless params[:group_id].blank?
     @groups = current_user.groups if current_user
