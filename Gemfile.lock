@@ -241,6 +241,9 @@ GEM
     ruby-openid (2.2.2)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
+      nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.5)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -331,6 +334,7 @@ DEPENDENCIES
   resque
   resque-scheduler
   resque_mailer
+  sanitize
   sass-rails (~> 3.2.3)
   seed_dump
   sitemap_generator

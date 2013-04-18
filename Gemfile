@@ -127,3 +127,5 @@ gem 'bullet', group: :development
 gem 'thin', group: :development
 
 gem 'globalize3'
+
+gem 'sanitize'

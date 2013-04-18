@@ -1,4 +1,7 @@
+#encoding: utf-8
+
 require 'rubygems'
+require 'sanitize'
 begin
 	require 'bluecloth'
 rescue Exception => e
@@ -44,6 +47,7 @@ module BlogKitModelHelper
       end
     end.join('')
 
+    post = Sanitize.clean(post.force_encoding(Encoding::UTF_8),Sanitize::Config::RELAXED)
 		return post.html_safe if post.respond_to?(:html_safe)
 		return post
 end
