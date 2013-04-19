@@ -4,14 +4,17 @@ EventType.create( :description => "votazione" ){ |c| c.id = 2 }.save
 EventType.create( :description => "riunione" ){ |c| c.id = 3 }.save
 EventType.create( :description => "elezione" ){ |c| c.id = 4 }.save
 
-GroupAction.create( :name => "STREAM_POST", :description => 'Pubblicare nella Home Page del gruppo'){ |c| c.id = 1 }.save
-GroupAction.create( :name => "CREATE_EVENT", :description => 'Creare eventi e votazioni'){ |c| c.id = 2 }.save
-GroupAction.create( :name => "PROPOSAL", :description => 'Sostenere proposte a nome del gruppo'){ |c| c.id = 3 }.save
-GroupAction.create( :name => "REQUEST_ACCEPT", :description => 'Aggiungere partecipanti nel gruppo'){ |c| c.id = 4 }.save
-GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
-GroupAction.create( :name => "PROPOSAL_VIEW", :description => 'Visualizzare le proposte private'){ |c| c.id = 6 }.save
-GroupAction.create( :name => "PROPOSAL_PARTECIPATION", :description => 'Contribuire alle proposte'){ |c| c.id = 7 }.save
-GroupAction.create( :name => "PROPOSAL_INSERT", :description => 'Inserire nuove proposte nel gruppo'){ |c| c.id = 8 }.save
+GroupAction.create( name: "STREAM_POST", :description => 'Pubblicare nella Home Page del gruppo', seq: 1){ |c| c.id = 1 }.save
+GroupAction.create( name: "CREATE_EVENT", :description => 'Creare eventi e votazioni', seq:2){ |c| c.id = 2 }.save
+GroupAction.create( name: "PROPOSAL", :description => 'Sostenere proposte a nome del gruppo', seq:3){ |c| c.id = 3 }.save
+GroupAction.create( name: "REQUEST_ACCEPT", :description => 'Aggiungere partecipanti nel gruppo', seq:4){ |c| c.id = 4 }.save
+GroupAction.create( name: "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni', seq:5){ |c| c.id = 5 }.save
+GroupAction.create( name: "PROPOSAL_VIEW", :description => 'Visualizzare le proposte private',seq:6){ |c| c.id = 6 }.save
+GroupAction.create( name: "PROPOSAL_PARTECIPATION", :description => 'Contribuire alle proposte', seq:8){ |c| c.id = 7 }.save
+GroupAction.create( name: "PROPOSAL_INSERT", :description => 'Inserire nuove proposte nel gruppo', seq: 7){ |c| c.id = 8 }.save
+GroupAction.create( name: "DOCUMENT_VIEW", :description => 'Visualizzare i documenti', seq: 10){ |c| c.id = 9 }.save
+GroupAction.create( name: "DOCUMENT_MANAGE", :description => 'Gestire i documenti', seq: 11){ |c| c.id = 10 }.save
+GroupAction.create( name: "PROPOSAL_VOTE", :description => 'Votare le proposte', seq: 9){ |c| c.id = 11 }.save
 
 GroupPartecipationRequestStatus.create( :description => "Inoltrata" ){ |c| c.id = 1 }.save
 GroupPartecipationRequestStatus.create( :description => "In votazione" ){ |c| c.id = 2 }.save
@@ -122,3 +125,11 @@ Configuration.create(name: 'blog', value: 1)
 Configuration.create(name: 'phases_active', value: 1)
 Configuration.create(name: 'socialnetwork_active', value: 1)
 Configuration.create(name: 'elections_active', value: 1)
+Configuration.create(name: 'invites_active', value: 1)
+Configuration.create(name: 'user_messages', value: 1)
+Configuration.create(name: 'groups_calendar', value: 1)
+Configuration.create(name: 'proposal_support', value: 1)
+Configuration.create(name: 'documents_active', value: 1)
+Configuration.create(name: 'group_areas', value: 1)
+Configuration.create(name: 'proposal_categories', value: 1)
+Configuration.create(name: 'folksonomy', value: 1)
