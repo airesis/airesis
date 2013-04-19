@@ -1,46 +1,48 @@
-<%=content_for :head do%>
-    <meta property="og:title" content="<%=@group.name%>"/>
+<%= content_for :head do %>
+    <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
     <meta property="og:image" content="<%= if @group && !@group.image_url.blank?
                                              @group.image_url
                                            else
                                              "#{request.protocol}#{request.host_with_port}#{asset_path("gruppo-anonimo.png")}"
-                                           end%>"/>
-    <meta property="og:description" content="<%=@group.description%>"/>
-    <meta name="description" content="<%=@group.description%>">
-<%end%>
+                                           end %>"/>
+    <meta property="og:description" content="<%= @group.description %>"/>
+    <meta name="description" content="<%= @group.description %>">
+<% end %>
 
 <% javascript 'endless_page' %>
 
 <div class="group_description">
-<%=raw (h @group.description).gsub(/\n/, "<br>")%></div>
+  <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
 
-<%posts = @group.posts.published %>
-<% if posts.size == 0 %>
-<div class="blogPost">
-    <p>
-    <%= t('pages.groups.show.no_blogs_yet') %>
-    </p>
-</div>
+
+<% if @group.posts.published.count == 0 %>
+    <div class="blogPost">
+      <p>
+        <%= t('pages.groups.show.no_blogs_yet') %>
+      </p>
+    </div>
 <% else %>
-<%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
+    <% posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]) %>
+    <%= render :collection => posts, :partial => 'blog_posts/blog_post' %>
 <% end %>
 <%= render :partial => 'left_panel' %>
 
+<% if false #disattivato momentaneamente %>
+    <%= content_for :right_panel do %>
+        <% if (can? :view_proposal, @group) %>
+            <h4>Proposte interne al gruppo</h4>
+            <% @group.internal_proposals.each do |proposal| %>
+                <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
+            <% end %>
+            <%= "Al momento non ci sono proposte" if @group.internal_proposals.empty? %>
+        <% end %>
 
-<%=content_for :right_panel do%>
-	<%if (can? :view_proposal, @group)%>
-		<h4>Proposte interne al gruppo</h4>
-			<%@group.internal_proposals.each do |proposal|%>
-				<%=link_to proposal.title, proposal_path(proposal)%><br/><br/>
-			<%end%>
-		<%= "Al momento non ci sono proposte" if @group.internal_proposals.empty?%>
-	<%end%>
-
-	<h4>Proposte sostenute dal gruppo</h4>
-	<%@group.proposals.each do |proposal|%>
-			<%=link_to proposal.title, proposal_path(proposal)%><br/><br/>
-	<%end%>
-	<%= "Al momento non ci sono proposte" if @group.proposals.empty?%>
-<%end%>
+        <h4>Proposte sostenute dal gruppo</h4>
+        <% @group.proposals.each do |proposal| %>
+            <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
+        <% end %>
+        <%= "Al momento non ci sono proposte" if @group.proposals.empty? %>
+    <% end %>
+<% end %>
 

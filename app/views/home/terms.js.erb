@@ -1,0 +1,9 @@
+var _eula_container = $('<div id="eula_modal" title="<%=escape_javascript t('terms_of_service') %>"></div>');
+_eula_container.html("<%= escape_javascript(render(:partial => 'devise/registrations/eula'))%>");
+$('body').append(_eula_container);
+_eula_container.dialog({ height: 250, width: 450, modal: true});
+$('.terms_link').click(function (e) {
+    _eula_container.dialog('open');
+    e.preventDefault();
+    return false;
+});

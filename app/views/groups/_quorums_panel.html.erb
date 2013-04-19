@@ -1,12 +1,12 @@
 <table style="text-align: left; font-size: 12px">
   <tr style="background-color: #E3E9F9" valign="top">
-    <td><b>Attivo</b></td>
-    <td><b>Nome</b></td>
-    <td><b>Partecipanti</b></td>
-    <td><b>Cond</b></td>
-    <td><b>Tempo</b></td>
-    <td><b>Quorum</b></td>
-    <td><b>Quorum neg</b></td>
+    <td><b><%= 'Attivo' %></b></td>
+    <td><b><%= 'Nome' %></b></td>
+    <td><b><%= 'Partecipanti' %></b></td>
+    <td><b title="Condizione"><%= 'Cond' %></b></td>
+    <td><b><%= 'Tempo' %></b></td>
+    <td><b title="Gradimento"><%= 'Quorum' %></b></td>
+    <td><b title="Respingimento"><%= 'Resp' %></b></td>
   </tr>
   <tbody>
   <% @group.quorums.all.each do |quorum| %>

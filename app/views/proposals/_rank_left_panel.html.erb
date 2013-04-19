@@ -52,7 +52,7 @@
     <div style="clear: both;"></div>
 <% end %>
 
-<h2><%= @proposal.state.id==ProposalState::VALUTATION ? "Dibattito in corso" : @proposal.state.description %></h2>
+<h2><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h2>
 
 <span class="title_grey">
   <%=raw t('pages.proposals.show.created_at')%>

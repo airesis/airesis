@@ -23,7 +23,7 @@
 </div>
 <%if @proposals.total_pages > @proposals.current_page%>
 <div id="loading_proposals<%=params[:state] || params[:view]%>" class="loading_proposals">
-	<span>Mostra altre proposte...</span>
+	<span><%= t('pages.proposals.index.show_more') %></span>
 </div>
 <div id="loading_proposals<%=params[:state] || params[:view]%>_2" class="loading_proposals" style="display:none">
   <div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>

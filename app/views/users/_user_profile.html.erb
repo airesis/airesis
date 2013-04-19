@@ -1,6 +1,6 @@
-<h4>Informazioni di profilo <%= '(utente non confermato)' unless @user.confirmed? %></h4>
+<h4><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h4>
 <% if ::Configuration::user_messages %>
-    <span><%= link_to 'Invia messaggio', show_message_user_path(@user), :remote => true, :class => 'inviteButton disableButton' if can? :send_message, @user %></span>
+    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'inviteButton disableButton' if can? :send_message, @user %></span>
 <% end %>
 <table style="width:100%">
 
@@ -8,14 +8,14 @@
     <td>
       <div class="user_profile shadow-box">
         <div id="name_profile" class="profile_element">
-          <h2 class="label_profile">Nome: </h2>
+          <h2 class="label_profile"><%= 'Nome' %>: </h2>
 
           <div class="info_profile">
             <%= h @user.name %>
           </div>
         </div>
         <div id="surname_profile" class="profile_element">
-          <h2 class="label_profile">Cognome: </h2>
+          <h2 class="label_profile"><%= 'Cognome' %>: </h2>
 
           <div class="info_profile">
             <%= h @user.surname %>
@@ -23,14 +23,14 @@
         </div>
         <% if current_user == @user %>
             <div id="email_profile" class="profile_element">
-              <h2 class="label_profile">Email: </h2>
+              <h2 class="label_profile"><%= 'Email' %>: </h2>
 
               <div class="info_profile">
                 <%= @user.email %> <%= raw "<span style=\"color:#888\">(#{@user.unconfirmed_email} da confermare)</span>" if @user.unconfirmed_email %>
               </div>
             </div>
             <div id="password_profile" class="profile_element">
-              <h2 class="label_profile">Password: </h2>
+              <h2 class="label_profile"><%= 'Password' %>: </h2>
 
               <div class="info_profile">
                 *****
@@ -63,7 +63,7 @@
         <% end %>
         <% if @user.login %>
             <div id="username_profile" class="profile_element_no_click">
-              <h2 class="label_profile">Username: </h2>
+              <h2 class="label_profile"><%= 'Username' %>: </h2>
 
               <div class="info_profile">
                 <%= h @user.login %>
@@ -71,7 +71,7 @@
             </div>
         <% end %>
         <div id="confirmed_at_profile" class="profile_element_no_click">
-          <h2 class="label_profile">Registrato dal: </h2>
+          <h2 class="label_profile"><%= 'Registrato dal' %>: </h2>
 
           <div class="info_profile">
             <%= h (@user.confirmed? ? @user.confirmed_at : @user.created_at).strftime("%d/%m/%Y") %>

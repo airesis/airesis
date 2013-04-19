@@ -1,23 +1,24 @@
 <div id="setting_menu">
-	<h4>Impostazioni e preferenze</h4>
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-gear"></span>
-		<a class="Mo" href="<%= user_url(current_user)%>">Informazioni generali</a>
-		<div style="clear:both"></div>
-	</div>
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-alert"></span>
-		<a class="Mo" href="<%= alarm_preferences_users_url%>">Allarmi e notifiche</a>
-		<div style="clear:both"></div>
-	</div>
-	<div class="menu_voice">
-		<span class="Mo ui-icon ui-icon-scissors"></span>
-		<a class="Mo" href="<%= border_preferences_users_url%>">Confini di interesse</a>
-		<div style="clear:both"></div>
-	</div>
-    <div class="menu_voice">
-        <span class="Mo ui-icon ui-icon-key"></span>
-        <a class="Mo" href="<%= privacy_preferences_users_url%>">Account e privacy</a>
-        <div style="clear:both"></div>
-    </div>
+  <h4><%= 'Impostazioni e preferenze' %></h4>
+
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-gear"></span>
+    <%= link_to 'Informazioni generali', user_url(current_user), class: 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-alert"></span>
+    <%= link_to 'Allarmi e notifiche', alarm_preferences_users_url, class: 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-scissors"></span>
+    <%= link_to 'Confini di interesse', border_preferences_users_url, class: 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-key"></span>
+    <%= link_to 'Account e privacy', privacy_preferences_users_url, class: 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
 </div>

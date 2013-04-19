@@ -43,8 +43,9 @@
         var newval = newel.val();
         $.ajax({
             cache: true,
-            url: '<%=proposal_path(@proposal)%>/proposal_histories/' + newval,
+            url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
             method: 'get',
+            data: 'l=<%=params[:l]%>',
             dataType: 'script',
             beforeSend: function (msg) {
                 console.log('bofere');

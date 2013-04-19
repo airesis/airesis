@@ -27,13 +27,14 @@
 				<div style="float:left;width:50%;">
 				<%= f.label :private%>
 				<br/>
-				<%= f.check_box :private, :title => "Solo i membri del gruppo possono partecipare all'evento" %>
+				<%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
 				</div>
 				<div style="clear: both;" />
 			</p>
             <%else%>
               <%= f.hidden_field :event_type_id %>
               <%= f.hidden_field :private %>
+              <%=hidden_field_tag 'type', params[:type] %>
             <%end%>
 			
 			<p>
@@ -65,8 +66,8 @@
 				<%=f.fields_for :election, @election do |e|%>
 					<div id="elezione" style="display:none; width:370px;">	
 						<p>
-							Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento.<br />
-							La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi.<br />
+							<%=raw "Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento.<br />
+							La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi.<br />" %>
 						</p>
 						<p>			
 						<%= e.label :groups_end_time %><br/>

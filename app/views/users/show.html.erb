@@ -1,132 +1,165 @@
-<%content_for :html_options do%>
+<% content_for :html_options do %>
     itemscope itemtype="http://data-vocabulary.org/Person"
-<%end%>
+<% end %>
 
-<%content_for :head do%>
-    <meta itemprop="name" content="<%=@user.fullname%>"/>
-    <meta itemprop="nickname" content="<%=@user.login%>"/>
-    <meta itemprop="url" content="<%="#{request.protocol}#{request.host_with_port}#{request.fullpath}"%>"/>
-<%end%>
+<% content_for :head do %>
+    <meta itemprop="name" content="<%= @user.fullname %>"/>
+    <meta itemprop="nickname" content="<%= @user.login %>"/>
+    <meta itemprop="url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"/>
+<% end %>
 
 
-<%@page_title = @user.fullname%>
+<% @page_title = @user.fullname %>
 <p>
-    <div id="user_profile_container">
-		<%= render :partial => 'user_profile' %>
-    </div>
+<div id="user_profile_container">
+  <%= render :partial => 'user_profile' %>
+</div>
 
 
-    <%if @user == current_user && @user.group_partecipations.count > 0%>
-    <h4>Gruppi a cui partecipi</h4>
+<% if @user == current_user && @user.group_partecipations.count > 0 %>
+    <%@group_partecipations = @user.group_partecipations.includes([:group,{:partecipation_role => :group_actions}, :user]) %>
+    <h4><%= t('pages.users.show.groups_title') %></h4>
     <table id="partecipation_table">
       <thead>
-        <th>Gruppo</th>
-        <th>Ruolo</th>
-        <th></th>
+      <th><%= t('pages.users.show.group_column')%></th>
+      <th><%= t('pages.users.show.role_column')%></th>
+      <th></th>
       </thead>
       <tbody>
-        <%@user.group_partecipations.each do |partecipation| %>
-            <tr>
-              <td><%= partecipation.group.name %></td>
-              <td><%= partecipation.partecipation_role.name %></td>
-              <td><%= link_to 'Esci dal gruppo', group_partecipation_path(partecipation), :method => :delete, :confirm => 'Confermi di voler uscire da questo gruppo?' if can? :destroy, partecipation%></td>
-            </tr>
-        <%end%>
+      <% @group_partecipations.each do |partecipation| %>
+          <tr>
+            <td><%= link_to partecipation.group.name, partecipation.group %></td>
+            <td><span id="partecipation_<%=partecipation.id%>"><%= partecipation.partecipation_role.name %></span></td>
+            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_partecipation_path(partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation') if can? :destroy, partecipation %></td>
+          </tr>
+      <% end %>
       </tbody>
     </table>
-    <%end%>
-   
-    <%if current_user == @user %>
-    <div id="name_modal" class="edit_modal  shadow-box">    	
-        <%=form_for @user, :remote => true do |f| %>
-         <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Nome</h2>
-        <div style="padding-left:135px">
-            <%=f.text_field :name, :size => 20 %>
+    <script>
+        <%@group_partecipations.each do |partecipation| %>
+            $('#partecipation_<%=partecipation.id%>').ctooltip("<strong>Cosa posso fare?</strong><ul><li><%=raw partecipation.partecipation_role.group_actions.map{|a| a.description}.join('</li><li>')%></li></ul><br/>");
+      <%end%>
+    </script>
+<% end %>
+<% if @user == current_user && @user.user_votes.count > 0 %>
+    <h4><%= t('pages.users.show.votations_title') %></h4>
+    <table id="votations_table">
+      <thead>
+      <th><%= t('pages.users.show.proposal_column') %></th>
+      <th><%= t('pages.users.show.votation_date_column') %></th>
+      <th><%= t('pages.users.show.vote_column') %></th>
+      </thead>
+      <tbody>
+      <% @user.user_votes.includes(:proposal, :vote_type).each do |vote| %>
+          <tr>
+            <td><%=link_to_proposal vote.proposal %></td>
+            <td><%=l vote.created_at %></td>
+            <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote')%></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+<% if current_user == @user %>
+    <div id="name_modal" class="edit_modal  shadow-box">
+      <%= form_for @user, :remote => true do |f| %>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Nome' %></h2>
+
+          <div style="padding-left:135px">
+            <%= f.text_field :name, :size => 20 %>
             <div style="margin-top:8px">
-                <%=f.submit 'Salva' %>
-                <input type="button" value="Annulla" onclick="$.modal.close();"/>
+              <%= f.submit 'Salva' %>
+              <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-        </div><%end %>
+          </div>
+      <% end %>
     </div>
     <div id="surname_modal" class="edit_modal shadow-box">
-        <%=form_for @user, :remote => true do |f| %>
-        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Cognome</h2>
-        <div style="padding-left:135px">
-            <%=f.text_field :surname, :size => 20 %>
-            <div style="margin-top:8px">
-                <%=f.submit 'Salva' %>
-                <input type="button" value="Annulla" onclick="$.modal.close();"/>
-            </div>
-        </div><%end %>
-    </div>
-<!--    <div id="facebook_page_url_modal" class="edit_modal shadow-box">
-      <%=form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
+      <%= form_for @user, :remote => true do |f| %>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Cognome' %></h2>
+
           <div style="padding-left:135px">
-            <%=f.text_field :facebook_page_url, :size => 20 %>
+            <%= f.text_field :surname, :size => 20 %>
             <div style="margin-top:8px">
-              <%=f.submit 'Salva' %>
+              <%= f.submit 'Salva' %>
               <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-          </div><%end %>
+          </div>
+      <% end %>
+    </div>
+    <!--    <div id="facebook_page_url_modal" class="edit_modal shadow-box">
+      <%= form_for @user, :remote => true do |f| %>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
+          <div style="padding-left:135px">
+            <%= f.text_field :facebook_page_url, :size => 20 %>
+            <div style="margin-top:8px">
+              <%= f.submit 'Salva' %>
+              <input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+          </div>
+    <% end %>
     </div>
     <div id="google_page_url_modal" class="edit_modal shadow-box">
-      <%=form_for @user, :remote => true do |f| %>
+      <%= form_for @user, :remote => true do |f| %>
           <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
           <div style="padding-left:135px">
-            <%=f.text_field :google_page_url, :size => 20 %>
+            <%= f.text_field :google_page_url, :size => 20 %>
             <div style="margin-top:8px">
-              <%=f.submit 'Salva' %>
+              <%= f.submit 'Salva' %>
               <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-          </div><%end %>
+          </div>
+    <% end %>
     </div>
     <div id="linkedin_page_url_modal" class="edit_modal shadow-box">
-      <%=form_for @user, :remote => true do |f| %>
+      <%= form_for @user, :remote => true do |f| %>
           <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
           <div style="padding-left:135px">
-            <%=f.text_field :linkedin_page_url, :size => 20 %>
+            <%= f.text_field :linkedin_page_url, :size => 20 %>
             <div style="margin-top:8px">
-              <%=f.submit 'Salva' %>
+              <%= f.submit 'Salva' %>
               <input type="button" value="Annulla" onclick="$.modal.close();"/>
             </div>
-          </div><%end %>
+          </div>
+    <% end %>
     </div>
    -->
     <div id="password_modal" class="edit_modal shadow-box">
-  	<%=form_for @user, :remote => true do |f| %>
-	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Password</h2>
-	<div style="padding-left:135px">
-	<%=f.text_field :password, :type => :password, :size => 20, :style=>"margin-bottom:5px;"%>
-	<%=f.text_field :password_confirmation, :type => :password, :size => 20 %>
-	<div style="margin-top:8px">
-		<%=f.submit 'Salva'%>
-		<input type="button" value="Annulla" onclick="$.modal.close();"/>
-	</div>
-	</div>
-	<%end%>
-  </div>
-        
-    <%= render :partial => 'attr_editor_modal', :locals => { :modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
-    <%end %>
+      <%= form_for @user, :remote => true do |f| %>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Password' %></h2>
+
+          <div style="padding-left:135px">
+            <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;" %>
+            <%= f.text_field :password_confirmation, :type => :password, :size => 20 %>
+            <div style="margin-top:8px">
+              <%= f.submit 'Salva' %>
+              <input type="button" value="Annulla" onclick="$.modal.close();"/>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+    <%= render :partial => 'attr_editor_modal', :locals => {:modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
+<% end %>
 </p>
 
 <script type="text/javascript">
     <%if current_user == @user%>
-	    $('#user_password').watermark('Nuova password');
-	    $('#user_password_confirmation').watermark('Conferma nuova password');
+    $('#user_password').watermark('Nuova password');
+    $('#user_password_confirmation').watermark('Conferma nuova password');
 
-		$('#partecipation_table').dataTable( {
-				"bPaginate": false,
-				"bFilter": false,
-				"bSearchable":false,
-				"bInfo":false
-			});
+    $('#partecipation_table, #votations_table').dataTable({
+        "bPaginate": false,
+        "bFilter": false,
+        "bSearchable": false,
+        "bInfo": false
+    });
     <%end%>
 </script>
 
-<%content_for :left_panel do %>
-	<%if current_user == @user%>
-		<%= render :partial => 'users/preferences_panel' %>
-	<%end%>
-<%end%>
+<% content_for :left_panel do %>
+    <% if current_user == @user %>
+        <%= render :partial => 'users/preferences_panel' %>
+    <% end %>
+<% end %>

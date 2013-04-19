@@ -8,8 +8,9 @@
 </p>
 <br/>
 
-<% partecipants = @group.group_partecipations.includes(:user).limit(5) %>
-<%if partecipants.length > 0 %>
+
+<%if @group.group_partecipations.count > 0 %>
+    <%@partecipants = @group.group_partecipations.includes([{:user => :image}, :partecipation_role]).limit(5) %>
 <p>
     <h4><%= t('pages.groups.show.partecipants_list') %></h4>
 
@@ -24,11 +25,11 @@
         <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
       <%end%>
       <% if !@partecipation_request %>
-        <%= link_to 'Richiedi di partecipare al gruppo', url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa', :class=>"editButton littleText disableClickButton" %>
+        <%= link_to t('pages.groups.show.ask_partecipate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa', :class=>"editButton littleText disableClickButton" %>
       <%end%>
     </p>
 
-    <%partecipants.each do |partecipant| %>
+    <%@partecipants.each do |partecipant| %>
 	    <%if !@group.portavoce.include? partecipant.user%>
 			    <div class="pcontainer">
 			        <div class="MoImg24">

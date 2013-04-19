@@ -79,13 +79,13 @@
 <div id="header">
   <div class="body_maxwidth">
     <div class="midHeader">
-      <%= link_to image_tag('logo_head.png', :align => "left", :alt => 'Airesis - Democrazia Diretta', :style => 'width:22px;padding-top:2px;'), root_path %>
+      <%= link_to image_tag('logo_head.png', align: "left", alt: APP_LONG_NAME, title: APP_LONG_NAME, style: 'width:22px;padding-top:2px;'), root_path %>
       <div class="headerTitle" lang="la">
-        <%= link_to APP_LONG_NAME, root_path %>
+        <%= link_to APP_LONG_NAME, root_path, tabindex: 1 %>
       </div>
     </div>
 
-    <div class="superHeader menu_element"><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
+    <div class="superHeader menu_element" tabindex=6><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
       <% if user_signed_in? %> <span><%= t('pages.header.welcome') %> </span>
           <% if current_user.name %>
               <%= current_user.name %>
@@ -183,7 +183,7 @@
     </div>
 
     <% if user_signed_in? %>
-        <div class="alerts_link menu_element">
+        <div class="alerts_link menu_element" tabindex=5>
           <div class="number">
             0
           </div>
@@ -198,13 +198,13 @@
     <% end %>
 
     <div class="nolink_menu_element">
-      <%= link_to t("guide"), videoguide_path, :class => "video_faq" %>
+      <%= link_to t('guide'), videoguide_path, :class => 'video_faq', tabindex: 4 %>
     </div>
 
 
     <% if user_signed_in? %>
-        <div class="menu_element groups_menu_chrome">
-          <span>
+        <div class="menu_element groups_menu_chrome" tabindex=3>
+          <span >
             <%= t('pages.header.groups') %>
           </span>
           <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
@@ -240,7 +240,7 @@
 
     <% if ::Configuration::open_space_proposals %>
         <div class="nolink_menu_element">
-          <%= link_to t("open_space"), proposals_path %>
+          <%= link_to t("open_space"), proposals_path, tabindex: 2%>
         </div>
     <% end %>
 
@@ -266,28 +266,32 @@
 
     });
 
+    function showPanel(el) {
+        _this = $(el);
+        sval = _this.data('show');
+        $('.hidden_panel').hide();
+        $('.menu_element').removeClass('active').data('show', false);
+        _this.data('show', sval);
+        if (_this.data('show')) {
+            $('.hidden_panel', _this).hide();
+            _this.removeClass('active');
+            _this.data('show', false);
+        } else {
+            console.log($('.hidden_panel', _this));
+            $('.hidden_panel', _this).show().position({
+                my: "right top",
+                at: "right bottom",
+                of: _this
+            });
+            _this.addClass('active');
+            _this.data('show', true);
+        }
+    }
+
     $('.menu_element')
             .data('show', false)
             .click(function (event) {
-                _this = $(this);
-                sval = _this.data('show');
-                $('.hidden_panel').hide();
-                $('.menu_element').removeClass('active').data('show', false);
-                _this.data('show', sval);
-                if (_this.data('show')) {
-                    $('.hidden_panel', this).hide();
-                    _this.removeClass('active');
-                    _this.data('show', false);
-                } else {
-                    console.log($('.hidden_panel', this));
-                    $('.hidden_panel', this).show().position({
-                        my: "right top",
-                        at: "right bottom",
-                        of: _this
-                    });
-                    _this.addClass('active');
-                    _this.data('show', true);
-                }
+                showPanel(this);
                 event.stopPropagation();
             })
             .mouseover(function () {
@@ -297,6 +301,19 @@
                 if ($(this).data('show') == false) {
                     $(this).removeClass("active");
                 }
+            })
+            .focusin(function() {
+                $(this).addClass("active");
+            })
+            .focusout(function () {
+                if ($(this).data('show') == false) {
+                    $(this).removeClass("active");
+                }
+            })
+            .keypress(function(event) {
+             if (event.keyCode == 13) {
+               showPanel(this);
+             }
             });
 
     $('.groups_menu_chrome').width($('.groups_menu_chrome').width()+3);
@@ -311,7 +328,7 @@
     }
 
     function poll() {
-        $.getScript("/alerts/polling/");
+        $.getScript("<%=polling_alerts_path%>");
         setTimeout(poll, 60000);
         //valore temporaneo
     }

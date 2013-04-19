@@ -18,7 +18,7 @@ class ProposalCommentsController < ApplicationController
    def check_author
     @proposal_comment = ProposalComment.find(params[:id])
     if ! current_user.is_mine? @proposal_comment
-      flash[:notice] = 'Non puoi modificare commenti che non siano i tuoi.'
+      flash[:notice] = t('controllers.proposal_comments.cant_edit')
       redirect_to :back
     end
    end
@@ -133,7 +133,7 @@ class ProposalCommentsController < ApplicationController
       #log_error(e)
       respond_to do |format|
         puts e
-        flash[:error] = "Errore durante l'inserimento."
+        flash[:error] = t('controllers.proposal_comments.insert_error')
         format.js   { render :update do |page|
                         if @is_reply
                           flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
@@ -151,7 +151,7 @@ class ProposalCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @proposal_comment.update_attributes(params[:proposal_comment])
-        flash[:notice] = 'Il tuo commento è stato aggiornato con successo.'
+        flash[:notice] = t('controllers.proposal_comments.edit_ok')
         format.html { redirect_to(@proposal) }
         format.xml  { head :ok }
       else
@@ -165,7 +165,7 @@ class ProposalCommentsController < ApplicationController
     @proposal_comment.destroy
 
     respond_to do |format|
-      flash[:notice] = 'Commento eliminato.'
+      flash[:notice] = t('controllers.proposal_comments.delete_ok')
       format.js
       format.html { redirect_to @proposal }
       format.xml  { head :ok }
@@ -178,7 +178,7 @@ class ProposalCommentsController < ApplicationController
     @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
     
     respond_to do |format|      
-        flash[:notice] = 'Il commento è stato cancellato'
+        flash[:notice] = t('controllers.proposal_comments.delete_ok')
         format.js   { render :update do |page|
                         page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
                         page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"                                          

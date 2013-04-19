@@ -14,4 +14,4 @@ page.call 'disegnaBottoni'
 page.call 'resetCounter'
 page.call 'checkScroll'
 
-page << "$('.reply_textarea').watermark('Inserisci un suggerimento').elastic();"
+page << "$('.reply_textarea').elastic();"
