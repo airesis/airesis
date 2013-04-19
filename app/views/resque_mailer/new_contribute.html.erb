@@ -1,0 +1,33 @@
+<% @comment = ProposalComment.find(@data['comment_id']) %>
+<% @username = @data['username'] %>
+<% @proposal = Proposal.find(@data['proposal_id']) %>
+
+<%= @username %> ha inserito un nuovo contributo alla proposta.<br/>
+<%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>
+
+<div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
+  <div style="float: left;margin: 0px 5px 5px 0px;" title="<% if @proposal.is_anonima? %><%= @username %><% end %>">
+    <% if @proposal.is_anonima? %>
+        <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@username) %>?s=40&d=identicon&r=PG"/>
+    <% else %>
+        <%= @comment.user_image_tag(40) %>
+    <% end %>
+  </div>
+  <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
+    <div>
+      <div style="word-wrap: break-word;margin: 5px;">
+        <%= raw auto_link((h(@comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+          truncate(text, :length => 15)
+        end %>
+      </div>
+      <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
+        <% who = @username %>
+        <%= raw t('pages.proposals.show.comment_inserted_by', when: (l @comment.created_at), who: who) %>
+        <%= "in \"#{@comment.paragraph.section.title}\"" if @comment.paragraph %>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>
