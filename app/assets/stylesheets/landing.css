@@ -1,5 +1,21 @@
-footer, header, nav, section {
-    display: block
+html, body { height: 100%; }
+
+#great_container {
+    height:  auto;
+    min-height: 95%;
+    padding-bottom: 35px;
+}
+
+#footer {
+    font-size: 12px;
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 35px;
+    margin-top: -45px;
+    width: 981px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 a:focus {
@@ -516,44 +532,6 @@ body {
     margin-right: 5px;
 }
 
-.footer {
-    margin-top: 45px;
-    padding: 35px 0 36px;
-    border-top: 1px solid #e5e5e5;
-}
-
-.footer p {
-    margin-bottom: 0;
-    color: #555;
-}
-
-.footer dl {
-    margin-bottom: 0;
-}
-
-.footer dl dt {
-    font-size: 11px;
-    color: #999;
-    text-transform: uppercase;
-}
-
-.footer dl dd + dt {
-    margin-top: 18px;
-}
-
-.footer dl dd {
-    margin-left: 0;
-    font-size: 12px;
-}
-
-.footer dl a {
-    color: #999;
-}
-
-.footer dl a:hover {
-    color: #555;
-}
-
 /* frontpage */
 
 .frontpage em {
@@ -561,9 +539,6 @@ body {
     font-style: normal;
 }
 
-.frontpage .footer {
-    margin-top: 0px;
-}
 
 .frontpage b {
     color: #000;
@@ -684,8 +659,4 @@ body {
     margin-bottom: 0px;
     margin-top: 8px;
     margin-left: 10px;
-}
-
-#footer {
-    font-size: 12px;
 }

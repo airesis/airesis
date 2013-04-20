@@ -1,4 +1,6 @@
-
+<% content_for :head do %>
+    <%= javascript_include_tag 'ice/index' %>
+<%end%>
 
 <% @page_title = @proposal.title %>
 <h1><%= 'Modifica la proposta' %></h1>

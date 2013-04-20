@@ -1,0 +1,11 @@
+//= require ./ice
+//= require ./dom
+//= require ./icePluginManager
+//= require ./icePlugin
+//= require ./polyfills
+//= require ./selection
+//= require ./bookmark
+//= require ./IceEmdashPlugin/IceEmdashPlugin
+//= require ./IceAddTitlePlugin/IceAddTitlePlugin
+//= require ./IceCopyPastePlugin/IceCopyPastePlugin
+//= require ./IceSmartQuotesPlugin/IceSmartQuotesPlugin
