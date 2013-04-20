@@ -4,7 +4,7 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :adestroy, :rankup, :rankdown, :ranknil]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :rankup, :rankdown, :ranknil, :destroy]
   
 ###SICUREZZA###
 
@@ -44,23 +44,23 @@ class ProposalCommentsController < ApplicationController
       if left > 0
         #estrai id di quelli già valutati
         valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
-        valuated_ids = @proposal.contributes.all(:joins => :rankings, :select => 'distinct(proposal_comments.id)', :conditions => valuated_cond).map {|c| c.id}
+        valuated_ids = @proposal.contributes.unintegrated.all(:joins => :rankings, :select => 'distinct(proposal_comments.id)', :conditions => valuated_cond).map {|c| c.id}
 
         #estrai i contributi non valutati
         non_valuated_cond = conditions
         non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
-        tmp_comments += @proposal.contributes.all(:conditions => non_valuated_cond, :order => " random()", :limit => left)
+        tmp_comments += @proposal.contributes.unintegrated.all(:conditions => non_valuated_cond, :order => " random()", :limit => left)
         left -= tmp_comments.size
 
         if left > 0 && !valuated_ids.empty?
           #estrai quelli già valutati
           valuated_cond = conditions
           valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
-          tmp_comments += @proposal.contributes.all(:conditions => valuated_cond, :order => " rank desc", :limit => left)
+          tmp_comments += @proposal.contributes.unintegrated.all(:conditions => valuated_cond, :order => " rank desc", :limit => left)
         end
       end
       @proposal_comments = tmp_comments
-      @total_pages = (@proposal.contributes.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
+      @total_pages = (@proposal.contributes.unintegrated.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
       @current_page = (params[:page] || 1).to_i
     else
       if params[:view] == ORDER_BY_RANK
@@ -68,7 +68,7 @@ class ProposalCommentsController < ApplicationController
       else
         order << "proposal_comments.created_at desc"
       end  
-      @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
+      @proposal_comments = @proposal.contributes.unintegrated.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
@@ -165,7 +165,7 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @proposal_comment.destroy
 
     respond_to do |format|
@@ -175,24 +175,7 @@ class ProposalCommentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-   def adestroy     
-    @proposal_comment.logical_delete
-    @proposal_comment.destroy
-    @proposal_comments = @proposal.comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-    
-    respond_to do |format|      
-        flash[:notice] = t('controllers.proposal_comments.delete_ok')
-        format.js   { render :update do |page|
-                        page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
-                        page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"                                          
-                      end
-                    }
-        format.html { redirect_to @proposal }
-    end
-  end
-  
-  
+
   def rankup 
     rank 1
   end

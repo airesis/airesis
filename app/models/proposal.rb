@@ -102,6 +102,7 @@ class Proposal < ActiveRecord::Base
 
 
   before_update :save_proposal_history
+  after_update :mark_integrated_contributes
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
   after_find :calculate_percentage
@@ -202,17 +203,17 @@ class Proposal < ActiveRecord::Base
   def save_proposal_history
     something = false
     seq = (self.revisions.maximum(:seq) || 0) + 1
-    revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
       if paragraph.content_changed?
         something = true
-        section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
       end
     end
     self.solutions.each do |solution|
-      solution_history = revision.solution_histories.build(seq: solution.seq)
+      solution_history = @revision.solution_histories.build(seq: solution.seq)
       something_solution = false
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
@@ -225,7 +226,17 @@ class Proposal < ActiveRecord::Base
       end
       solution_history.destroy unless something_solution
     end
-    something ? revision.save! : revision.destroy
+    something ? @revision.save! : @revision.destroy
+  end
+
+  def mark_integrated_contributes
+    if @revision.id
+      comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
+      ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
+      comment_ids.each do |id|
+        IntegratedContribute.create(:proposal_revision_id => @revision.id, :proposal_comment_id => id)
+      end
+    end
   end
 
   #restituisce il primo autore della proposta

@@ -45,7 +45,7 @@
             cache: true,
             url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
             method: 'get',
-            data: 'l=<%=params[:l]%>',
+            data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
             dataType: 'script',
             beforeSend: function (msg) {
                 console.log('bofere');

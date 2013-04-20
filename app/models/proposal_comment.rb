@@ -9,6 +9,9 @@ class ProposalComment < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   belongs_to :paragraph
 
+  has_many :integrated_contributes, :class_name => 'IntegratedContribute'
+  has_many :proposal_revisions, :class_name => 'ProposalRevision', :through => :integrated_contributes
+
   validates_length_of :content, :minimum => 10, :maximum => CONTRIBUTE_MAX_LENGTH
   
   attr_accessor :collapsed
@@ -18,6 +21,8 @@ class ProposalComment < ActiveRecord::Base
   validate :check_last_comment
 
   scope :contributes, {:conditions => ['parent_proposal_comment_id is null']}
+
+  scope :unintegrated, {:conditions => {:integrated => false}}
 
   attr_accessor :section_id
 

@@ -5,4 +5,7 @@ class ProposalRevision < ActiveRecord::Base
   has_many :revision_section_histories, :dependent => :destroy
   has_many :section_histories, :through => :revision_section_histories, :order => :seq
   has_many :solution_histories
+
+  has_many :integrated_contributes, :class_name => 'IntegratedContribute'
+  has_many :contributes, :class_name => 'ProposalComment', :through => :integrated_contributes, :source => :proposal_comment
 end
