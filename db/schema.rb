@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405163922) do
+ActiveRecord::Schema.define(:version => 20130419183445) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -390,6 +390,13 @@ ActiveRecord::Schema.define(:version => 20130405163922) do
     t.datetime "updated_at"
   end
 
+  create_table "integrated_contributes", :force => true do |t|
+    t.integer "proposal_revision_id", :null => false
+    t.integer "proposal_comment_id",  :null => false
+  end
+
+  add_index "integrated_contributes", ["proposal_revision_id", "proposal_comment_id"], :name => "unique_contributes", :unique => true
+
   create_table "interest_borders", :force => true do |t|
     t.integer "territory_id",   :null => false
     t.string  "territory_type", :null => false
@@ -534,6 +541,7 @@ ActiveRecord::Schema.define(:version => 20130405163922) do
     t.integer  "valutations",                                :default => 0,     :null => false
     t.integer  "paragraph_id"
     t.decimal  "j_value",                                    :default => 0.0,   :null => false
+    t.boolean  "integrated",                                 :default => false, :null => false
   end
 
   create_table "proposal_histories", :force => true do |t|
@@ -1064,6 +1072,9 @@ ActiveRecord::Schema.define(:version => 20130405163922) do
 
   add_foreign_key "groups", "interest_borders", :name => "groups_interest_border_id_fk"
   add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
+
+  add_foreign_key "integrated_contributes", "proposal_comments", :name => "integrated_contributes_proposal_comment_id_fk"
+  add_foreign_key "integrated_contributes", "proposal_revisions", :name => "integrated_contributes_proposal_revision_id_fk"
 
   add_foreign_key "meeting_partecipations", "meetings", :name => "meeting_partecipations_meeting_id_fk"
   add_foreign_key "meeting_partecipations", "users", :name => "meeting_partecipations_user_id_fk"

@@ -71,8 +71,9 @@ module NotificationHelper
 
   def notify_proposal_has_been_created(proposal,group = nil)
     if group
+      subject =  "[#{group.name}] #{proposal.title}"
       msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
-      data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s}
+      data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s, 'subject' => subject}
       notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
       notification_a.save
       #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
@@ -82,8 +83,9 @@ module NotificationHelper
         end
       end
     else
+      subject =  "#{proposal.title}"
       msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nello spazio comune"
-      data = {'proposal_id' => proposal.id.to_s}
+      data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
       notification_a = Notification.new(:notification_type_id => 3,:message => msg, :url => proposal_path(proposal), :data => data)
       notification_a.save
       User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
@@ -99,7 +101,9 @@ module NotificationHelper
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal)
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
-    data = {'proposal_id' => proposal.id.to_s}
+    subject = proposal.private? ? "[#{proposal.presentation_groups.first.name}]" : ''
+    subject +=  " #{proposal.title} - Il testo è stato modificato"
+    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
     notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
