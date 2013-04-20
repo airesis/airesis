@@ -30,8 +30,9 @@
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
         <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
-            <%= link_to t('pages.proposals.delete_comment'), {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},
+            <%= link_to t('pages.proposals.delete_comment'), [@proposal,comment],
                         :remote => "true",
+                        :method => :delete,
                         :onclick => "return false;",
                         :class => "deleteCommentLink",
                         :id => "delete#{comment.id}",
@@ -55,7 +56,7 @@
   <% end %>
   <div id="<%= comment.id %>_replies" style="disaply:none;">
   </div>
-  <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+  <%= render :partial => 'proposals/reply', :collection => @lastreplies, locals: {hide: false} %>
   <div id="<%= comment.id %>_new_replies" style="disaply:none;">
   </div>
 
