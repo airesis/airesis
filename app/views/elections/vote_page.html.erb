@@ -1,150 +1,131 @@
-<h1><%=@election.name%></h1>
+<h1><%= @election.name %></h1>
 
-<h2><%= 'Elenco dei candidati all\'elezione'%></h2>
+<h2><%= 'Elenco dei candidati all\'elezione' %></h2>
 <style type="text/css">
-	.candidate_panel {
-		width: 410px;
-		/*height: 48px;*/
-		padding: 4px;	
-		background-color: #F4F4F4;
-    	background-image: -moz-linear-gradient(center top , #FFFFFF, #F4F4F4);
-    	border: 1px solid #DDDDDD;
-    	border-radius: 2px 2px 2px 2px;
-    	margin-bottom: 10px;
-	}
-	
-	.candidate_panel img {
-		width: 48px;
-		height: 48px;
-		float:left;
-	}
-	
-	.candidate_panel .content {
-		float:left;
-		margin: 0px 5px;
-		width: 200px;
-	}
-	
-	.candidate_panel .vote {
-		float:right;
-		margin: 0 10px 0 5px;
-		width:120px;
-		text-align:center;
-	}
-	
-	.candidate_panel .vote select {
-		font-size: 1.6em;		
-		margin-bottom: 5px;
-	}
-	
+    .candidate_panel {
+        width: 410px;
+        /*height: 48px;*/
+        padding: 4px;
+        background-color: #F4F4F4;
+        background-image: -moz-linear-gradient(center top, #FFFFFF, #F4F4F4);
+        border: 1px solid #DDDDDD;
+        border-radius: 2px 2px 2px 2px;
+        margin-bottom: 10px;
+    }
+
+    .candidate_panel img {
+        width: 48px;
+        height: 48px;
+        float: left;
+    }
+
+    .candidate_panel .content {
+        float: left;
+        margin: 0px 5px;
+        width: 200px;
+    }
+
+    .candidate_panel .vote {
+        float: right;
+        margin: 0 10px 0 5px;
+        width: 120px;
+        text-align: center;
+    }
+
+    .candidate_panel .vote select {
+        font-size: 1.6em;
+        margin-bottom: 5px;
+    }
+
 </style>
 
 <%
-candidates_num = @election.candidates.count
-@election.candidates.each do |candidate|%>
+   candidates_num = @election.candidates.count
+   @election.candidates.each do |candidate| %>
 
-	<div class="candidate_panel shadow-box">
-		<%= candidate.user_image_tag 48%>
-		<div class="content">
-			<b><%=link_to_user candidate.user, :full_name => true%></b><br />
-			<%= 'candidato da ' %><b><%=candidate.groups.map{|g| g.name}.join%></b>
-		</div>
-		<div class="vote">
-			<input type="hidden" class="candidate_id" value="<%=candidate.id%>" />
-			<select class="slideNumber">
-					<option selected="selected"></option>
-				<%candidates_num.times do |c|%>
-					<option><%=c+1%></option>
-				<%end%>
-			</select>
-		</div>
-		<div style="clear: both;"></div>
-	</div>
-<%end%>
+    <div class="candidate_panel shadow-box">
+      <%= candidate.user_image_tag 48 %>
+      <div class="content">
+        <b><%= link_to_user candidate.user, :full_name => true %></b><br/>
+        <%= 'candidato da ' %>
+        <b><%= candidate.groups.map { |g| g.name }.join %></b>
+      </div>
+      <div class="vote">
+        <input type="hidden" class="candidate_id" value="<%= candidate.id %>"/>
+        <select class="slideNumber">
+          <option selected="selected"></option>
+          <% candidates_num.times do |c| %>
+              <option><%= c+1 %></option>
+          <% end %>
+        </select>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+<% end %>
 
 
-<%=form_for 'data', :url => {:action => "vote", :controller => "elections"} do |f|%>
-	<%=f.hidden_field 'votes'%>
-	<%=f.hidden_field 'string'%>
-	
-	
-	<%=f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle'%>
-<%end%>
-<br />
-<a href="#" onclick="openSchulzeModal();" class="buttonStyle littleText">Sai come funziona?</a>
-<div id="schulze_modal" title="Votazione di Schulze" style="width:400px;height:400px;display:none;text-align: justify" >
-	<div>		
-		In questa elezione viene utilizzato il <b>metodo di Schulze</b>.<br />
-		Esso permette di esprimere la propria preferenza in maniera più precisa rispetto ad una votazione tradizionale!<br />
-		Accanto ad ogni candidato puoi assegnare una valutazione in base alla tua preferenza: più è alto il valore che assegni al candidato e maggiore sarà <b>la sua valutazione rispetto agli altri candidati</b>.<br />
-		Il valore assoluto, infatti, non conta: quello che viene considerato è l'ordine di preferenza con il quale hai disposto i diversi candidati.<br />
-		Qualche esempio:
-		<ul>
-			<li>se non assegni nessun voto ai candidati questo equivale a dire che non hai preferenze tra di essi;</li>
-			<li>se assegni a tutti i candidati la stessa valutazione, ancora una volta questo significa che non hai preferenze tra di essi;</li>
-			<li>se valuti un solo candidato, qualsiasi punteggio tu inserisca, questo significa che preferisci lui rispetto a tutti gli altri (come in una votazione semplice);</li>
-			<li>se fornisci diverse valutazioni per i singoli candidati imposterai il tuo ordine di preferenze; questo vuole dire che puoi indicare il tuo preferito, ma anche quello che viene subito dopo e che magari ritieni comunque migliore dei restanti.</li>
-		</ul>
-		
-    </div>    
-</div>
+<%= form_for 'data', :url => {:action => "vote", :controller => "elections"} do |f| %>
+    <%= f.hidden_field 'votes' %>
+    <%= f.hidden_field 'string' %>
+
+    <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
+<% end %>
+<br/>
+
+<%= render :partial => 'fragments/how_schulze_works' %>
 
 
 <script type="text/javascript">
-	var vote = [];
-	var votestring = "";
-	
-	function elaboraVoto() {
-		votestring = "";
-		vote = [];
-		$('.candidate_panel').each(function(panel) {
-			var val = $('.slideNumber',this).val();
-			if (!val || val == '') val = "0";
-			vote.push([$('.candidate_id',this).val(),val])
-		})
-		vote.sort(function(a,b) {
-			return parseInt(b[1]) - parseInt(a[1]);
-		})
-		for (v in vote) {
-			if (v != 0) {
-				if (vote[v][1] == vote[v-1][1]) {
-					votestring += ","
-				}
-				else {
-					votestring += ";"
-				}
-				
-			}
-			votestring += vote[v][0]
-		}
-		
-		$('#data_votes').val(array2dToJson(vote,'candidates',' '));
-		$('#data_string').val(votestring);
-		console.log('data_string: ' + votestring);
-		console.log('data_votes: ' + array2dToJson(vote,'candidates',' '));
-		return true;
-	}
+    var vote = [];
+    var votestring = "";
 
-	$(function() {
-		var select = $( ".slideNumber" );
-		var slider = $( "<div class='slider'></div>" ).insertAfter( select ).slider({
-			min: 1,
-			max: <%=candidates_num%>+1,
-			range: "min",
-			slide: function( event, ui ) {
-				console.log("sliding")
-				$(this).prev()[0].selectedIndex = ui.value - 1;
-			}
-		});
-				
-		$( ".slideNumber" ).change(function() {
-			console.log('change');
-			$(this).next().slider( "value", this.selectedIndex + 1 );
-		});
-	});
-			
-	function openSchulzeModal() {
-		$( "#schulze_modal" ).dialog({ height: 400, width: 450 });		
-		return false;
-	}
+    function elaboraVoto() {
+        votestring = "";
+        vote = [];
+        $('.candidate_panel').each(function (panel) {
+            var val = $('.slideNumber', this).val();
+            if (!val || val == '') val = "0";
+            vote.push([$('.candidate_id', this).val(), val])
+        })
+        vote.sort(function (a, b) {
+            return parseInt(b[1]) - parseInt(a[1]);
+        })
+        for (v in vote) {
+            if (v != 0) {
+                if (vote[v][1] == vote[v - 1][1]) {
+                    votestring += ","
+                }
+                else {
+                    votestring += ";"
+                }
+
+            }
+            votestring += vote[v][0]
+        }
+
+        $('#data_votes').val(array2dToJson(vote, 'candidates', ' '));
+        $('#data_string').val(votestring);
+        console.log('data_string: ' + votestring);
+        console.log('data_votes: ' + array2dToJson(vote, 'candidates', ' '));
+        return true;
+    }
+
+    $(function () {
+        var select = $(".slideNumber");
+        var slider = $("<div class='slider'></div>").insertAfter(select).slider({
+            min: 1,
+            max: <%=candidates_num%>+1,
+            range: "min",
+            slide: function (event, ui) {
+                console.log("sliding")
+                $(this).prev()[0].selectedIndex = ui.value - 1;
+            }
+        });
+
+        $(".slideNumber").change(function () {
+            console.log('change');
+            $(this).next().slider("value", this.selectedIndex + 1);
+        });
+    });
+
 </script>
