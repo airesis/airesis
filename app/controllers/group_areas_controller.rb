@@ -126,7 +126,10 @@ class GroupAreasController < ApplicationController
 
 
   def destroy
+    authorize! :destroy, @group_area
     @group_area.destroy
+#    @group_areas = @group.group_areas.includes(:partecipants)
+#    @partecipants = @group.partecipants
   end
 
   def partecipants_list_panel

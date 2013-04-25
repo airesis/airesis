@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates_presence_of     :default_role_name, :on => :create
   
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
@@ -38,7 +38,7 @@ class Group < ActiveRecord::Base
   
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
   has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'
-  belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
+ # belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
   
   has_many :action_abilitations, :class_name => 'ActionAbilitation'
 
@@ -63,6 +63,20 @@ class Group < ActiveRecord::Base
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
 
   has_many :group_areas, dependent: :destroy
+
+
+  # Check for paperclip
+  has_attached_file :image,
+                    :styles => {
+                        :thumb=> "100x100#",
+                        :medium => "300x300>",
+                        :small  => "150x150>"
+                    },
+                    :url  => "/assets/images/groups/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/assets/images/groups/:id/:style/:basename.:extension"
+
+  validates_attachment_size :image, :less_than => 2.megabytes
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
   before_create :pre_populate
   after_create :after_populate
@@ -131,14 +145,16 @@ class Group < ActiveRecord::Base
 
   
    def image_url
-    if self.image_id
-      return self.image.image.url
+    if self.image
+      return self.image.url
     elsif read_attribute(:image_url) != nil
       return read_attribute(:image_url)
     else
       return ""      
     end
-  end
+   end
+
+
     
   
    def interest_border_tkn

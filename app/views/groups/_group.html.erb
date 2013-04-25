@@ -15,10 +15,7 @@
       <%= f.label :description %><br/>
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
-    <p>
-      <%= f.label :image_url %><br/>
-      <%= f.text_field :image_url, placeholder: t('activerecord.attributes.group.image_url_placeholder'), style: "width: 600px" %>
-    </p>
+
     <% if ::Configuration::socialnetwork_active %>
         <p>
           <%= f.label :facebook_page_url %><br/>

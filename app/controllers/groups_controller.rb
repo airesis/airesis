@@ -42,6 +42,7 @@ class GroupsController < ApplicationController
 
 
   def new
+    authorize! :create, Group
     @group = Group.new(:accept_requests => 'p')
     @group.default_role_actions = DEFAULT_GROUP_ACTIONS
 
@@ -182,6 +183,7 @@ class GroupsController < ApplicationController
 
   #crea un nuovo gruppo
   def create
+    authorize! :create, Group
     begin
       Group.transaction do
 
@@ -224,12 +226,8 @@ class GroupsController < ApplicationController
       respond_to do |format|
         if @group.save
           flash[:notice] = t('groups.confirm.update')
-          format.html { redirect_to(@group) }
-          # format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          #format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
         end
+        format.html { render :action => "edit" }
       end
 
     rescue ActiveRecord::ActiveRecordError => e

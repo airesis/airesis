@@ -1,3 +1,10 @@
+<%if LIMIT_PROPOSALS %>
+<%  elapsed = Time.now - current_user.proposals.maximum(:created_at)
+if elapsed < PROPOSALS_TIME_LIMIT%>
+    alert('Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora <%= ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor%> minuti e <%= ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)%> secondi.');
+<%else%>
+<%end%>
+
 $('#create_proposal_container').html('<%= escape_javascript(render(:partial => @proposal))%>');
 
 var create_proposal_ = $('#create_proposal');
@@ -18,4 +25,4 @@ disegnaBottoni();
 //window.ClientSideValidations.forms['new_proposal'].validators['proposal[sections_attributes][][paragraphs_attributes][][content]']['presence'] = [{'message':'deve essere compilato'}];
 
 $('#new_proposal').enableClientSideValidations();
-
+<%end%>

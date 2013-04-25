@@ -1,39 +1,9 @@
 <%proposalsnumber = proposals.count%>
 <%if proposalsnumber > 0 %>
 <% proposals.each do |proposal| %>
-<div class="vote_proposal">
+<div >
 	<%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal}%>
-<div style="float:left">
-    <div>
-        <%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => NEGATIVE_VOTE},:remote => true, :method => :put, :id => "votered#{proposal.id}", :class => "votered", :title => t('pages.votations.show.vote_negative'), :confirm => t('pages.votations.show.confirm_negative', :name => proposal.title), :data => {:proposal_id => proposal.id} %>
-    </div>
-  <div>
-    <%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => NEUTRAL_VOTE},:remote => true, :method => :put, :id => "voteyellow#{proposal.id}", :class => "voteyellow",  :title => t('pages.votations.show.vote_neutral'), :confirm => t('pages.votations.show.confirm_neutral', :name => proposal.title), :data => {:proposal_id => proposal.id}   %>
-  </div>
-  <div>
-    <%= link_to '',{:controller => "votations",:action => "vote",  :proposal_id => proposal.id, :vote_type => POSITIVE_VOTE},:remote => true, :method => :put, :id => "votegreen#{proposal.id}", :class => "votegreen",  :title => t('pages.votations.show.vote_positive'), :confirm => t('pages.votations.show.confirm_positive', :name => proposal.title), :data => {:proposal_id => proposal.id}  %>
-  </div>
-  <%= image_tag "spinner.gif", :style => 'display: none;', :id => "loading#{proposal.id}" %>
-</div>
-<div style="clear:both;"></div>
 </div>
 <% end %>
 <%end %>
-<script type="text/javascript">
-	$(function() {
-		$('.votered, .votegreen, .voteyellow').each(function(idx, button) {
-            var proposal_id = $(button).data('proposal-id')
-            $(button).bind("ajax:beforeSend", function() {
-                console.log('before')
-                $("#votered" + proposal_id + ", #votegreen" + proposal_id + ", #voteyellow" + proposal_id).fadeOut();
-                $("#loading" + proposal_id).show();
-            })
-            .bind("ajax:complete", function() {
-                console.log('after')
-                $( "#loading" + proposal_id + ", #proposal" + proposal_id).effect( 'fold', {}, 500);
-            });
-        });
-	});
-	
-</script>
 

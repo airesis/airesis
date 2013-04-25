@@ -407,7 +407,7 @@ ul.blogList li.blogListFirst {
     margin-left: 5px;
     margin-bottom: 2px;
     color: #999999;
-    float:left;
+    float: left;
 }
 
 .reply-footer {
@@ -418,7 +418,7 @@ ul.blogList li.blogListFirst {
 
 .rankingpanelcontainer {
     color: #444;
-    float:right;
+    float: right;
     font-size: 0.9em;
     margin-top: 5px;
     margin-left: 5px;
@@ -427,10 +427,8 @@ ul.blogList li.blogListFirst {
 
 .rankingpanelcontainer .think {
     color: #999999;
-    margin-right:10px;
+    margin-right: 10px;
 }
-
-
 
 .baloon-triangle {
     background: url('<%= asset_path('baloon-triangle.png') %>') no-repeat top left;
@@ -546,7 +544,7 @@ input.edit_label {
 }
 
 .move_button {
-    float:right;
+    float: right;
     margin-right: 2%;
     cursor: move;
     visibility: hidden;
@@ -561,7 +559,7 @@ input.edit_label {
 }
 
 .remove_button {
-    float:right;
+    float: right;
     visibility: hidden;
     margin-right: 20px;
 }
@@ -578,7 +576,55 @@ input.edit_label {
     margin: 14px 0px 5px 0px;
 }
 
-
 .contributeSectionButton {
     margin-top: 10px;
+}
+
+.vote_panel {
+    background-color: #E2F0B6;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.report_contribute {
+    float: right;
+    background-image: url("/assets/arrow.png");
+    width: 13px;
+    height: 13px;
+    visibility: hidden;
+}
+
+.proposal_comment:hover .report_contribute {
+    visibility: visible;
+}
+
+.report_contribute.visible {
+    visibility: visible;
+}
+
+.proposal_comment:hover .report_contribute:hover {
+    background-image: url("/assets/arrow_hover.png");
+    cursor: pointer;
+}
+
+.report_menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 5px 0px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, .2);
+
+}
+
+.report_menu .menu_item {
+    padding: 6px 8em 6px 30px;
+    cursor: pointer;
+}
+
+.report_menu .menu_item:hover {
+    background-color: #eee;
+    border-color: #eee;
 }

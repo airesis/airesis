@@ -261,6 +261,7 @@ DemocracyOnline3::Application.routes.draw do
 
   match '/votation/', :to => 'votations#show'
   match '/votation/vote', :to => 'votations#vote'
+  match '/votation/vote_schulze', :to => 'votations#vote_schulze'
   resources :votations
 
   match ':controller/:action/:id'

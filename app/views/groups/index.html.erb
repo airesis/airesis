@@ -6,7 +6,11 @@
     </div>
 <% end %>
 <div style="float:right; margin-top: 16px;">
-  <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "newButton" if can? :create, Group %>
+  <%if can? :create, Group %>
+  <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "newButton" %>
+  <%else%>
+    <%= 'Puoi creare al massimo un gruppo al giorno' %>
+  <%end%>
 </div>
 
 <div style="clear: both;"></div>

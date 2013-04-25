@@ -14,7 +14,11 @@ class Proposal < ActiveRecord::Base
 
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote'
+
   has_many :user_votes, :class_name => 'UserVote'
+
+  has_many :schulze_votes, :class_name => 'ProposalSchulzeVote'
+
   # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
   # only the main contributes related to the proposal
@@ -107,6 +111,10 @@ class Proposal < ActiveRecord::Base
   after_destroy :remove_scheduled_tasks
   after_find :calculate_percentage
 
+
+  def is_schulze?
+    self.solutions.count > 1
+  end
 
   def is_standard?
     self.proposal_type_id.to_s == ProposalType::STANDARD.to_s
@@ -294,8 +302,11 @@ class Proposal < ActiveRecord::Base
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
           solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
     end
+    boolean :visible_outside
+    boolean :private
     integer :presentation_group_ids, multiple: true
     integer :group_ids, multiple: true
+    integer :presentation_area_ids, multiple: true
   end
 
   #restituisce la percentuale di avanzamento della proposta in abse al quorum assegnato

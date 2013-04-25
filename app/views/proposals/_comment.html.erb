@@ -18,6 +18,13 @@
       <div class="baloon_header">
         <div id="flash_messages_comment_<%= comment.id %>">
         </div>
+        <div class="report_contribute">
+        </div>
+        <div class="report_menu">
+          <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
+            <%='Marca'%>
+          </div>
+        </div>
       </div>
       <div class="baloon-content">
         <%= raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
@@ -30,7 +37,7 @@
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
         <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
-            <%= link_to t('pages.proposals.delete_comment'), [@proposal,comment],
+            <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
                         :remote => "true",
                         :method => :delete,
                         :onclick => "return false;",
@@ -71,7 +78,7 @@
 
             <div class="reply_area">
               <%= f.hidden_field :parent_proposal_comment_id, :value => comment.id %>
-              <%= f.text_area :content, :class => 'reply_textarea', :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+              <%= f.text_area :content, :class => 'reply_textarea', :data => {:id => comment.id}, :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
               <%= f.submit t('pages.proposals.show.reply_button'), :class => 'disableButton' %>

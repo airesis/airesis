@@ -321,7 +321,7 @@ it:
         editing_message_1: "Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi"
         editing_message_2: "Per accedere alla votazione dovrà raggiungere un"
         editing_message_3: "sufficiente punteggio"
-        votation_page_button: "Vai alla pagina di votazione."
+        votation_page_button: "Vai alla mia pagina personale di votazione"
         vote_button: "Vota!"
         send_contribute_button: "Invia"
         characters_left: "Caratteri disponibili:"
@@ -408,6 +408,7 @@ it:
           confirm_positive: "Confermi il tuo voto POSITIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_neutral: "Confermi il tuo voto NEUTRALE alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_negative: "Confermi il tuo voto NEGATIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
+          confirm_schulze: "Confermi il tuo voto alla proposta %{name}? Non potrai più cambiarlo!"
     blog_posts:
       new:
         title: "Inserisci un nuovo post"
@@ -738,7 +739,7 @@ it:
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"
-  privacy_policy: "Normativa sulla Privacy"
+  privacy_policy: "Politica sulla Privacy"
   back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"

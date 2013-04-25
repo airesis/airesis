@@ -29,13 +29,13 @@
         <% if can_rank_again %>
             <%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
                         :remote => true, :method => :put,
-                        :id => "votedown-mini#{comment.id}", :class => "votedown-mini", :style=>"margin-right:10px", :title => t('pages.proposals.show.votedown') %>
+                        :data => {:id => comment.id}, :class => "votedown-mini vote_comment", :style=>"margin-right:10px", :title => t('pages.proposals.show.votedown') %>
             <%= link_to '', {:action => "ranknil", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
                         :remote => true, :method => :put,
-                        :id => "votenil-mini#{comment.id}", :class => "votenil-mini", :style=>"margin-right:10px", :title => t('pages.proposals.show.votenil') %>
+                        :data => {:id => comment.id}, :class => "votenil-mini vote_comment", :style=>"margin-right:10px", :title => t('pages.proposals.show.votenil') %>
             <%= link_to '', {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
                         :remote => true, :method => :put,
-                        :id => "voteup-mini#{comment.id}", :class => "voteup-mini", :style=>"margin-right:10px", :title => t('pages.proposals.show.voteup') %>
+                        :data => {:id => comment.id}, :class => "voteup-mini vote_comment", :style=>"margin-right:10px", :title => t('pages.proposals.show.voteup') %>
             <span class="rightFloat think" ><%= 'Cosa ne pensi?' %></span>
         <% end %>
     <% end %>

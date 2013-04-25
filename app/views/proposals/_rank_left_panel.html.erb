@@ -86,6 +86,6 @@
     <span class="title_grey"><%= t('pages.proposals.show.in_votation') %></span><br/>
     <%= raw "dal #{(l @proposal.vote_period.starttime)}<br/> al #{(l @proposal.vote_period.endtime)}" %>
 <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
-    <span class="title_grey"><%= t('pages.proposals.show.in_votation_now') %></span><br/>
-    <%= link_to t('pages.proposals.show.votation_page_button'), votation_path %>
+    <span class="title_grey"><%= t('pages.proposals.list.voting_until', date: (l @proposal.vote_period.endtime)) %></span><br/>
+
 <% end %>

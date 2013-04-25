@@ -143,6 +143,13 @@ class User < ActiveRecord::Base
   end
 
 
+  #restituisce l'elencod ei gruppi nei quali sono portavoce
+  def portavoce_groups
+    self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id")
+    .where("(partecipation_roles.name = 'portavoce')")
+
+  end
+
   #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
   def scoped_group_partecipations(abilitation)

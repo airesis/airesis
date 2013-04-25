@@ -1,10 +1,12 @@
-<% @page_title = t('pages.proposals.index.title') %>
+<% @page_head = '' %>
+<% @page_head += @group.name + " - " if @group %>
 <% if @category
-     @page_head = t('pages.proposals.index.title_with_category', :category => @category.description)
+     @page_head += t('pages.proposals.index.title_with_category', :category => @category.description)
    else
-     @page_head = t('pages.proposals.index.all_categories_title')
+     @page_head += t('pages.proposals.index.title')
    end %>
 <% @page_head += t('pages.proposals.index.in_group_area_title')+@group_area.name if @group_area %>
+<% @page_title = @page_head %>
 
 <% if @group %>
     <%= content_for :head do %>
@@ -67,7 +69,7 @@
     <% end %>
   </ul>
 
-  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/,'_') : t('pages.proposals.index.last_title').gsub(/\s/,'_') %>">
+  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/, '_') : t('pages.proposals.index.last_title').gsub(/\s/, '_') %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
       <%= image_tag 'ajax-loader.gif', :alt => "Caricamento" %>
       <br/>
@@ -81,7 +83,7 @@
         <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
         <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
     <% else %>
-        <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
+            <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
         <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
     <% end %>
 

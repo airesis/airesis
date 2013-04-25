@@ -32,7 +32,6 @@
 //= require prettydiff/diffview
 //= require simplemodal
 //= require_tree ./rangy-1.2/
-
 //= require tinymce-jquery
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer

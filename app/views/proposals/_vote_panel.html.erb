@@ -1,0 +1,140 @@
+<% if can? :vote, @proposal %>
+    <div class="vote_panel">
+      <h3><b><%= 'Esprimi il tuo voto!' %></b></h3>
+
+
+      <% if @proposal.solutions.count > 1 #schulze        %>
+          <h4><%= 'Sono presenti più soluzioni possibili a questa proposta. Esprimi il tuo giudizio mediante metodo di Schulze e ordina le soluzioni in base alle tue preferenze.' %></h4>
+          <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
+          <%= render :partial => 'fragments/how_schulze_works' %>
+          <table style="width:60%" id="solutions_table">
+
+            <% @proposal.solutions.each do |solution| %>
+                <tr data-id="<%= solution.id %>">
+                  <td style="width:30%"><%= solution.sections.first.title %></td>
+                  <td style="width:70%"><select class="slideNumber">
+                    <option selected="selected">0</option>
+                    <% @proposal.solutions.count.times do |c| %>
+                        <option><%= c+1 %></option>
+                    <% end %>
+                  </select>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+
+          <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id} do |f| %>
+              <%= f.hidden_field 'votes' %>
+
+              <%= f.submit t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'buttonStyle' %>
+          <% end %>
+
+          <script type="text/javascript">
+              $(function () {
+                  var select = $(".slideNumber");
+                  var slider = $("<div class='slider'></div>").insertAfter(select).slider({
+                      min: 1,
+                      max: <%=@proposal.solutions.count%>+1,
+                      range: "min",
+                      slide: function (event, ui) {
+                          console.log("sliding")
+                          $(this).prev()[0].selectedIndex = ui.value - 1;
+                      }
+                  });
+
+                  $(".slideNumber").change(function () {
+                      console.log('change');
+                      $(this).next().slider("value", this.selectedIndex + 1);
+                  });
+              });
+
+              var vote = [];
+              var votestring = "";
+
+              function elaboraVoto() {
+                  votestring = "";
+                  vote = [];
+                  $('#solutions_table tr').each(function (panel) {
+                      var val = $('.slideNumber', this).val();
+                      console.log(val);
+                      if (!val || val == '') val = "0";
+                      vote.push([$(this).data('id'), val])
+                  })
+                  vote.sort(function (a, b) {
+                      return parseInt(b[1]) - parseInt(a[1]);
+                  })
+                  for (v in vote) {
+                      if (v != 0) {
+                          if (vote[v][1] == vote[v - 1][1]) {
+                              votestring += ","
+                          }
+                          else {
+                              votestring += ";"
+                          }
+
+                      }
+                      votestring += vote[v][0]
+                  }
+
+                  $('#data_votes').val(votestring);
+                  console.log('data_votes: ' + votestring);
+                  return true;
+              }
+
+
+          </script>
+      <% else #standard        %>
+          <h4><%= 'In questa proposta è presenta un\'unica soluzione. Esprimi il tuo giudizio indicando se approvi o meno la soluzione che è stata trovata!' %></h4>
+          <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
+
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => POSITIVE_VOTE), :remote => true, :method => :put, :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), :confirm => t('pages.votations.show.confirm_positive', :name => @proposal.title) %>
+          </div>
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => NEUTRAL_VOTE), :remote => true, :method => :put, :class => "voteyellow votebutton", :title => t('pages.votations.show.vote_neutral'), :confirm => t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>
+          </div>
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => NEGATIVE_VOTE), :remote => true, :method => :put, :class => "votered votebutton", :title => t('pages.votations.show.vote_negative'), :confirm => t('pages.votations.show.confirm_negative', :name => @proposal.title) %>
+          </div>
+          <%= image_tag "spinner.gif", :style => 'display: none;', :class => "loading_vote" %>
+          <div style="clear: both"></div>
+
+          <p>
+            <%= link_to t('pages.proposals.show.votation_page_button'), votation_path %>
+          </p>
+      <% end %>
+
+      <script type="text/javascript">
+          $(function () {
+              $('.votebutton').bind("ajax:beforeSend", function () {
+                  $(".votebutton").fadeOut();
+                  $(".loading_vote").show();
+              });
+          });
+      </script>
+
+
+    </div>
+
+
+<% elsif vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
+    <div class="vote_panel">
+      <h4><%= "Hai espresso il tuo voto il #{l vote.created_at}" %></h4>
+      <% if @proposal.secret_vote %>
+          <h4><%= 'La votazione era segreta pertanto il tuo voto è criptato e non può essere mostrato' %></h4>
+      <% else %>
+          <% if @proposal.solutions.count > 1 %>
+              <h4><%= "Il tuo ordine di preferenze è stato:" %></h4>
+              <ol>
+                <% vote.vote_schulze.split(";").each do |s_v| %>
+                    <li>
+                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).sections.first.title }.join(' o ') %>
+                    </li>
+                <% end %>
+              </ol>
+          <% else %>
+              <h4><%= "Hai espresso voto #{vote.vote_type.description}" %></h4>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

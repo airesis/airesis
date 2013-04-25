@@ -1,7 +1,7 @@
 module ImageHelper
   
   def group_image_tag(size=80)
-    if (self.respond_to?(:group))
+    if self.respond_to?(:group)
       group = self.group
     else
       group = self;

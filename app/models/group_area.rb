@@ -19,7 +19,7 @@ class GroupArea < ActiveRecord::Base
   has_many :area_partecipations, :class_name => 'AreaPartecipation', :dependent => :destroy, :order => 'id DESC'
   has_many :partecipants, :through => :area_partecipations, :source => :user, :class_name => 'User'
 
-  has_many :area_proposals, :class_name => 'AreaProposal', :dependent => :destroy
+  has_many :area_proposals, :class_name => 'AreaProposal'#, :dependent => :destroy
   has_many :internal_proposals, :through => :area_proposals, :class_name => 'Proposal', :source => :proposal
 
   has_many :area_roles, :class_name => 'AreaRole', :dependent => :destroy, :order => 'id DESC'

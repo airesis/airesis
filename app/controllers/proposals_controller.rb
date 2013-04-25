@@ -40,12 +40,21 @@ class ProposalsController < ApplicationController
   def search
     authorize! :view_proposal, @group
 
+    my_areas_ids = current_user.scoped_areas(@group.id,GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
+
     #params[:group_id] = @group.id
-    @search = Proposal.search do
+    @search = Proposal.search(:include => [{:category => [:translations]}, :quorum, {:users => [:image]}, :vote_period]) do
       fulltext params[:search], :minimum_match => params[:or]
-      any_of do
-        with(:presentation_group_ids, params[:group_id])
-        with(:group_ids, params[:group_id])
+      all_of do
+        any_of do
+          with(:presentation_group_ids, params[:group_id])
+          with(:group_ids, params[:group_id])
+        end
+        any_of do
+          with(:visible_outside, true)
+          with(:presentation_area_ids,nil)
+          with(:presentation_area_ids,my_areas_ids)
+        end
       end
     end
 
@@ -253,6 +262,7 @@ class ProposalsController < ApplicationController
   end
 
   def create
+    raise Exception if LIMIT_PROPOSALS && ((Time.now - current_user.proposals.maximum(:created_at)) < PROPOSALS_TIME_LIMIT)
     begin
       @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
       @saved = false
