@@ -347,6 +347,7 @@ eu:
           delete: "Delete"
         reply_button: "Reply"
         reply_placeholder: "Give your suggestion"
+        export_pdf: "Print PDF"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"

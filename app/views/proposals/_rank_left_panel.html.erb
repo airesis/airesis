@@ -72,7 +72,8 @@
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton buttonStyle', :id => "resultsButton" %>
+        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton resultsButton', :id => "resultsButton" %>    <br/><br/>
+        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf),target: '_blank', :class => 'disableButton pdfButton'%>
         <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title')%>"></div>
         <script type="text/javascript">
             $(function () {

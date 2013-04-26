@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419183445) do
+ActiveRecord::Schema.define(:version => 20130425162101) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -277,7 +277,7 @@ ActiveRecord::Schema.define(:version => 20130419183445) do
     t.integer  "group_id",           :null => false
     t.string   "name",               :null => false
     t.string   "description"
-    t.integer  "area_role_id",       :null => false
+    t.integer  "area_role_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "image_file_name"
@@ -379,6 +379,10 @@ ActiveRecord::Schema.define(:version => 20130419183445) do
     t.integer  "actual_storage_size",                        :default => 0,     :null => false
     t.boolean  "enable_areas",                               :default => false, :null => false
     t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "images", :force => true do |t|
@@ -601,7 +605,7 @@ ActiveRecord::Schema.define(:version => 20130419183445) do
   create_table "proposal_schulze_votes", :force => true do |t|
     t.integer  "proposal_id",                :null => false
     t.string   "preferences",                :null => false
-    t.integer  "count",       :default => 1, :null => false
+    t.integer  "count",       :default => 0, :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
@@ -803,8 +807,9 @@ ActiveRecord::Schema.define(:version => 20130419183445) do
   add_index "solution_sections", ["section_id"], :name => "index_solution_sections_on_section_id", :unique => true
 
   create_table "solutions", :force => true do |t|
-    t.integer "proposal_id", :null => false
-    t.integer "seq",         :null => false
+    t.integer "proposal_id",   :null => false
+    t.integer "seq",           :null => false
+    t.integer "schulze_score"
   end
 
   create_table "spatial_ref_sys", :id => false, :force => true do |t|
@@ -929,6 +934,7 @@ ActiveRecord::Schema.define(:version => 20130419183445) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "vote_type_id"
+    t.string   "vote_schulze"
   end
 
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true

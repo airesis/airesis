@@ -193,6 +193,15 @@ class ProposalsController < ApplicationController
         end
       }
       format.json
+      format.pdf {
+        if @proposal.voted?
+          render :pdf => 'show.pdf.erb',
+          :show_as_html => params[:debug].present?
+        else
+          flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
+          redirect_to @proposal, format: 'html'
+        end
+      }
     end
   end
 

@@ -348,6 +348,7 @@ it:
           delete: "Cancella"
         reply_button: "Rispondi"
         reply_placeholder: "Inserisci un suggerimento"
+        export_pdf: "Stampa PDF"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"

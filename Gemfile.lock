@@ -297,6 +297,8 @@ GEM
       rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
+    wicked_pdf (0.9.6)
+      rails
     will_paginate (3.0.3)
 
 PLATFORMS
@@ -348,4 +350,5 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   ultraviolet1x
   vote-schulze!
+  wicked_pdf
   will_paginate
