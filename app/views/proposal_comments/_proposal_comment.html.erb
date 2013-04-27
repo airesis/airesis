@@ -22,7 +22,7 @@
 	  </div>
 	</p>
 	<p>
-		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', :onclick => "hide();" %>
+		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', :onclick => "hide();", class: 'gbutton_tmp bluebtn_tmp', style: "width: 90px;" %>
 		<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 	</p>
 	<% end %>

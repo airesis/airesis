@@ -1,4 +1,4 @@
-<%= form_for @group, :validate => true do |f| %>
+<%= form_for @group, :validate => true, :html => {:multipart => true} do |f| %>
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
     <p>
@@ -31,7 +31,8 @@
 	<%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
 	-->
     </p>
-
+        <%=  f.label :image %><br/>
+        <%=f.file_field :image %>
     <p>
 
       <%= f.label :interest_border_tkn %>
@@ -40,6 +41,11 @@
 
 
     <% if ['new', 'create'].include? params[:action] %>
+
+        <p>
+
+        </p>
+
         <p>
           <%= f.label :default_role_name %>    <br/>
           <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>

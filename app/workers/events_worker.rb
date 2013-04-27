@@ -39,7 +39,7 @@ class EventsWorker
     ResqueMailer.admin_message(msg).deliver
   end
 
-  #fa terminare la votazione di una proposta
+  #terminate proposal votation
   def end_votation(event_id)
     msg = "Termina la votazione con id #{event_id}<br/>"
     event = Event.find(event_id)
@@ -48,9 +48,8 @@ class EventsWorker
     proposals.each do |proposal|
       msg += "La proposta #{proposal.id} termina la votazione<br/>"
 
-      if proposal.solutions.count > 1 #se non ha i dati per la votazione creali
+      if proposal.is_schulze?
         vote_data_schulze = proposal.schulze_votes
-
         Proposal.transaction do
           votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
           vote_data_schulze.each do |vote|

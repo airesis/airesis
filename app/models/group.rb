@@ -145,7 +145,7 @@ class Group < ActiveRecord::Base
 
   
    def image_url
-    if self.image
+    if self.image.exists?
       return self.image.url
     elsif read_attribute(:image_url) != nil
       return read_attribute(:image_url)
