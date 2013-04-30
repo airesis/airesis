@@ -1,0 +1,8 @@
+<h3>E' stata inviata una segnalazione per il contributo:</h3>
+<div><%= @report.proposal_comment.content %></div>
+<br><br/>
+<h3>La segnalazione di tipo</h3>
+<div><%= @report.proposal_comment_report_type.description %></div>
+<h3>è avvenuta da parte dell'utente</h3>
+<div><%=link_to @report.user.fullname, user_url(@report.user) %></div>
+<h3><%= link_to 'Vai alla pagina della proposta per visualizzarlo', proposal_url(@report.proposal_comment.proposal) %></h3>

@@ -1,0 +1,9 @@
+$('body').append('<%= escape_javascript(render(:partial => 'noise'))%>');
+$('#noise_panel').dialog({
+    modal: true,
+    width: 840,
+    close : function(event, ui) {
+        $('#noise_panel').dialog('destroy');
+        $('#noise_panel').remove();
+    }
+})

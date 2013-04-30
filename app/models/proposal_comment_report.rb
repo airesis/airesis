@@ -13,6 +13,10 @@ class ProposalCommentReport < ActiveRecord::Base
     self.proposal_comment_report_type.severity == ProposalCommentReportType::LOW ?
         self.proposal_comment.increment!(:soft_reports_count) :
         self.proposal_comment.increment!(:grave_reports_count)
+
+    if self.proposal_comment_report_type.severity > ProposalCommentReportType::LOW
+      ResqueMailer.report_message(self.id).deliver                #report spam messages
+    end
   end
 
   def decrease_counter_cache

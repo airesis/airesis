@@ -24,6 +24,17 @@
           <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
             <%='Marca'%>
           </div>
+
+          <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
+              <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
+                          :remote => "true",
+                          :method => :delete,
+                          :onclick => "return false;",
+                          :class => "deleteCommentLink menu_item",
+                          :id => "delete#{comment.id}",
+                          :data => {id: comment.id} %>
+          <% end %>
+
         </div>
       </div>
       <div class="baloon-content">
@@ -36,15 +47,7 @@
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
-        <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
-            <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
-                        :remote => "true",
-                        :method => :delete,
-                        :onclick => "return false;",
-                        :class => "deleteCommentLink",
-                        :id => "delete#{comment.id}",
-                        :data => {id: comment.id} %>
-        <% end %>
+
       </div>
       <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer">
         <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>

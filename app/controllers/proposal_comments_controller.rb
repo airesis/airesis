@@ -188,14 +188,15 @@ class ProposalCommentsController < ApplicationController
     rank 3
   end
 
-
   def report
     ProposalCommentReport.transaction do
       report = @proposal_comment.reports.find_by_user_id(current_user.id)
       report.destroy if report
       report = @proposal_comment.reports.create(user_id: current_user.id, proposal_comment_report_type_id: params[:reason])
+
     end
     flash[:notice] = t('controllers.proposal_comments.report_ok')
+
   rescue Exception => e
     #log_error(e)
     respond_to do |format|
