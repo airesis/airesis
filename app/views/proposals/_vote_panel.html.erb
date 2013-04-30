@@ -3,7 +3,7 @@
       <h3><b><%= 'Esprimi il tuo voto!' %></b></h3>
 
 
-      <% if @proposal.id_schulze? #schulze        %>
+      <% if @proposal.is_schulze? #schulze        %>
           <h4><%= 'Sono presenti più soluzioni possibili a questa proposta. Esprimi il tuo giudizio mediante metodo di Schulze e ordina le soluzioni in base alle tue preferenze.' %></h4>
           <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
           <%= render :partial => 'fragments/how_schulze_works' %>
