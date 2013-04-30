@@ -89,7 +89,8 @@ a:hover {
 
 body {	
 	line-height: 18px;
-	font: 14px 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;
+	/*font: 14px 'ubuntu',arial,tahoma,'lucida grande',verdana,sans-serif;*/
+    font: 14px "Lucida Grande", Lucida, Verdana, sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333333;
@@ -314,6 +315,7 @@ table.dataTable td .blogUserImage {
 	color: black;	
 	margin: 0 auto 10px;
 	width: 981px;
+    padding-top: 80px;
 }
 
 
@@ -982,4 +984,237 @@ span.tooltip span.innerc, span.tooltip_sx span.innerc, span.tooltip_bt span.inne
 
 ul.dd-options {
     position:  absolute;
+}
+
+
+
+
+/**NEW LAYOUT **/
+#menu-top{
+    position:fixed;
+    left:0px;
+    right:0px;
+    height:80px;
+    background-color:#33b5e5;
+    z-index:1;
+    box-shadow:0px 2px 3px #797979;
+    z-index:999;
+}
+
+#menu-top #logo-airesis {
+    position: absolute;
+}
+
+#menu-top #logo-airesis img {
+    height: 100%;
+}
+
+#menu-top .sep1 {
+    position: absolute;
+    left: 280px;
+    top: 8px;
+    height: 65px;
+    border-left: 1px dotted rgba(255, 255, 255, 0.5);
+}
+
+#menu-top #menu-group {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    left: 280px;
+    margin-left: 10px;
+    top: 10px;
+    padding: 6px;
+}
+
+#menu-top #menu-group img {
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    margin-left: 0px;
+    margin-top: -5px;
+}
+
+#menu-top #menu-group .tit {
+    position: absolute;
+    margin-top: 2px;
+    margin-left: 70px;
+    font-size: 18px;
+}
+
+#menu-top a {
+    color: white;
+    text-decoration: none;
+}
+
+#menu-top #menu-group #submenu {
+    font-size: 12px;
+    margin-top: 10px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: 70px;
+}
+
+#menu-top a:hover{
+    color:black;
+}
+
+#menu-top #logo-but {
+    position: absolute;
+    top: 20px;
+    left: 204px;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#menu-top #logo-but img {
+    height: 10px;
+    width: 14px;
+    margin-left: 14px;
+    margin-top: 3px;
+    border-radius: 3px;
+    display: inherit;
+    padding: 3px;
+    margin-bottom: 3px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#menu-top .group-cont {
+    position: relative;
+    height: 130px;
+    top: 80px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    display: none;
+    background-color: #55bde4;
+    border-top: 1px dotted rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 2px 3px #797979;
+}
+
+#menu-top .group-cont .tria {
+    position: absolute;
+    top: -10px;
+    left: 220px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 10px solid #55bde4;
+}
+
+#menu-top .group-cont .group-cont-sep {
+    border-left: 1px dotted rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 280px;
+}
+
+#menu-top .group-cont .group-tag {
+    float: left;
+    width: 260px;
+    margin-top: 10px;
+    text-align: right;
+}
+
+#menu-top .group-cont .tag {
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#menu-top .group-cont .group-tag1 {
+    margin-left: 300px;
+    margin-right: 10px;
+    height: 100%;
+    overflow: auto;
+}
+#menu-top .group-cont .group-tag1 .group-item {
+    margin-right: 10px;
+    margin-bottom: 15px;
+    float: left;
+    width: 290px;
+}
+
+#menu-top .group-cont .group-tag1 .group-item img {
+    height: 30px;
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: -21px;
+    margin-right: 3px;
+    box-shadow: 0px 0px 2px gray;
+}
+
+#menu-top .group-cont .group-tag1 .group-item .p1 {
+    font-size: 14px;
+}
+
+#menu-top .group-cont .group-tag1 .group-item .p2 {
+    margin-top: 3px;
+    margin-left: 45px;
+    font-size: 9px;
+}
+
+.cont-mess{
+    width:250px;
+    font-size:12px;
+    margin-bottom:-20px;
+    margin-right:-3px;
+}
+
+.cont-mess ::-webkit-scrollbar,
+#menu-top ::-webkit-scrollbar{
+    width: 8px;
+}
+.cont-mess ::-webkit-scrollbar-track,
+#menu-top ::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+    border-radius: 10px;
+}
+.cont-mess ::-webkit-scrollbar-thumb,
+#menu-top ::-webkit-scrollbar-thumb{
+    background-color:rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+}
+
+#menu-top #tolr {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+
+#inlog {
+    position: absolute;
+    top: 5px;
+    right: 40px;
+    width: 200px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+}
+
+#menu-top #tolr img {
+    height: 15px;
+    margin-left: 2px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+#menu-top #logo-but:hover, #menu-top #logo-but.sel {
+    background-color: rgba(255, 255, 255, 0.2);
 }

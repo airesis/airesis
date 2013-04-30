@@ -76,6 +76,73 @@
 
 </script>
 <!-- ##### Header ##### -->
+
+<div id="menu-top" style="right: 80px;">
+  <div id="logo-airesis">
+    <%= image_tag 'logo.png', class: "logo1" %>
+  </div>
+  <div class="sep1"></div>
+  <div id="menu-group">
+    <%= yield :menu %>
+
+  </div>
+  <div id="logo-but" class="sel">
+    <span>GRUPPI</span>
+    <br>
+    <%= image_tag 'cur-tria.png' %>
+  </div>
+
+  <div id="tolr">
+    <div id="inlog" style="display: none;">
+      <span>ACCEDI</span>
+      <span>-</span>
+      <span>REGISTRATI</span>
+    </div>
+    <%= image_tag 'cur-info.png', :id => 'curinfo', :data => {hasqtip: 27} %>
+  </div>
+
+  <div class="group-cont" style="display: block;">
+    <div class="tria"></div>
+    <div class="group-cont-sep"></div>
+    <div class="group-tag">
+      <div class="tag sel"><span>Gruppi a cui partecipi</span>
+
+        <div class="tria"></div>
+      </div>
+      <div class="tag">In attesa di accettazione</div>
+      <div class="tag">Apri un nuovo gruppo</div>
+      <div class="tag">Cerca Gruppi</div>
+    </div>
+    <div class="group-tag1">
+      <% if user_signed_in? %>
+
+          <% @groups = current_user.groups %>
+          <% if @groups.empty? %>
+              <%= t('pages.header.no_groups_yet') %>
+              <br/>
+          <% else %>
+              <% @groups.each do |group| %>
+                  <div class="group-item">
+                    <div style="width:45px;height: 30px; float:left;">
+                    <%= group.group_image_tag(30) rescue nil %>
+                    </div>
+                    <span class="p1"><%= link_to group.name, group %></span>
+
+                    <div class="p2">
+                      <%= link_to 'PROPOSTE', group_proposals_path(group) %> -
+                      <%= link_to 'EVENTI', group_events_path(group) %></div>
+                  </div>
+              <% end %>
+          <% end %>
+      <% else %>
+          <div class="menu_element">
+            <%= link_to t('pages.top_panel.find_groups'), groups_path %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div id="header">
   <div class="body_maxwidth">
     <div class="midHeader">
@@ -85,7 +152,8 @@
       </div>
     </div>
 
-    <div class="superHeader menu_element" tabindex=6><span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
+    <div class="superHeader menu_element" tabindex=6>
+      <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
       <% if user_signed_in? %> <span><%= t('pages.header.welcome') %> </span>
           <% if current_user.name %>
               <%= current_user.name %>
@@ -204,7 +272,7 @@
 
     <% if user_signed_in? %>
         <div class="menu_element groups_menu_chrome" tabindex=3>
-          <span >
+          <span>
             <%= t('pages.header.groups') %>
           </span>
           <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
@@ -240,7 +308,7 @@
 
     <% if ::Configuration::open_space_proposals %>
         <div class="nolink_menu_element">
-          <%= link_to t("open_space"), proposals_path, tabindex: 2%>
+          <%= link_to t("open_space"), proposals_path, tabindex: 2 %>
         </div>
     <% end %>
 
@@ -302,7 +370,7 @@
                     $(this).removeClass("active");
                 }
             })
-            .focusin(function() {
+            .focusin(function () {
                 $(this).addClass("active");
             })
             .focusout(function () {
@@ -310,13 +378,13 @@
                     $(this).removeClass("active");
                 }
             })
-            .keypress(function(event) {
-             if (event.keyCode == 13) {
-               showPanel(this);
-             }
+            .keypress(function (event) {
+                if (event.keyCode == 13) {
+                    showPanel(this);
+                }
             });
 
-    $('.groups_menu_chrome').width($('.groups_menu_chrome').width()+3);
+    $('.groups_menu_chrome').width($('.groups_menu_chrome').width() + 3);
 
     function fetchNotifications() {
         jQuery.ajax({

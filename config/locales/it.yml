@@ -217,9 +217,9 @@ it:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
       layout:
-        home_button: "Home Page"
-        proposals_button: "Le proposte"
-        calendar: "Calendario"
+        home_button: "HOME PAGE"
+        proposals_button: "LE PROPOSTE"
+        calendar: "CALENDARIO"
       show:
         rules_button: "Regolamento"
         post_button: "Inserisci post"
@@ -237,9 +237,9 @@ it:
         ask_partecipate_button: "Richiedi di partecipare al gruppo"
         remove_post: "Rimuovi post dalla bacheca del gruppo"
       header:
-        settings: "Impostazioni"
-        elections: "Elezioni"
-        documents: "Documenti"
+        settings: "IMPOSTAZIONI"
+        elections: "ELEZIONI"
+        documents: "DOCUMENTI"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
