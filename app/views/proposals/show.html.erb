@@ -63,36 +63,37 @@
   <span><%= t('pages.proposals.show.previos_contributes') %></span>
 </div>
 
+
 <div id="report_contribute" class="report_modal">
-  <form>
-    <div>
+  <%= form_for 'proposal_comment', url: report_proposal_proposal_comments_path(@proposal), remote: true do |f| %>
+      <%= cache "report_panel_#{I18n.locale}" do %>
+          <input type="hidden" name="id" value="0" id="report_contribute_id"/>
+          <div>
+            <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Marca il
+              contributo</h2>
+            <h4 style="font-size: 0.9em">Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
+              Se il contributo viene marcato <%= CONTRIBUTE_MARKS %> volte, gli autori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi "rumorosi".<br/></h4>
+            <%ProposalCommentReportType.softs.each do |r| %>
+                <input type="radio" name="reason" value="<%=r.id%>"> <%= r.description %><br/>
+            <%end%>
+            <hr/>
 
-      <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Marca il contributo</h2>
-
-      <input type="radio" name="reason" checked="checked"> <%= 'Non attinente alla discussione o non costruttivo' %>   <br/>
-      <input type="radio" name="reason"> <%= 'Duplicato' %>
-      <br/>
-      <hr/>
-
-      <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Segnala il contributo</h2>
-
-      <input type="radio" name="reason"> <%= 'Contenuti commerciali o spam' %>
-      <br/>
-      <input type="radio" name="reason"> <%= 'Pornografia o materiale a carattere esplicitamente sessuale' %>
-      <br/>
-      <input type="radio" name="reason"> <%= 'Incitamento all\'odio o violenza' %>
-      <br/>
-      <input type="radio" name="reason"> <%= 'Molestie' %>
-      <br/>
-      <input type="radio" name="reason"> <%= 'Materiale protetto da copyright' %>
-    </div>
-    <div style="margin-top:8px">
-      <input type="submit" value="Marca" class="gbutton bluebtn"/>
-      <input type="button" value="Annulla"  class="gbutton" onclick="$.modal.close();"/>
-    </div>
-
-  </form>
+            <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Segnala il
+              contributo</h2>
+            <h4 style="font-size: 0.9em">Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in vigore.<br/>
+              Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento.</h4>
+            <%ProposalCommentReportType.graves.each do |r| %>
+                <input type="radio" name="reason" value="<%=r.id%>"> <%= r.description %><br/>
+            <%end%>
+          </div>
+          <div style="margin-top:8px">
+            <%= f.submit 'Marca', class: 'gbutton bluebtn' %>
+            <input type="button" value="Annulla" class="gbutton" onclick="$.modal.close();"/>
+          </div>
+      <% end %>
+  <% end %>
 </div>
+
 
 
 <script type="text/javascript">
@@ -171,6 +172,7 @@
     function report_contribute(id) {
         $('.report_menu').hide();
         $('.report_contribute.visible').removeClass('visible');
+        $('#report_contribute_id').val(id);
         doModal($('#report_contribute'));
     }
 

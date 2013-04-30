@@ -12,6 +12,8 @@ class ProposalComment < ActiveRecord::Base
   has_many :integrated_contributes, :class_name => 'IntegratedContribute'
   has_many :proposal_revisions, :class_name => 'ProposalRevision', :through => :integrated_contributes
 
+  has_many :reports, :class_name => 'ProposalCommentReport', :foreign_key => :proposal_comment_id
+
   validates_length_of :content, :minimum => 10, :maximum => CONTRIBUTE_MAX_LENGTH
   
   attr_accessor :collapsed
@@ -23,6 +25,12 @@ class ProposalComment < ActiveRecord::Base
   scope :contributes, {:conditions => ['parent_proposal_comment_id is null']}
 
   scope :unintegrated, {:conditions => {:integrated => false}}
+
+  scope :noise, {:conditions => {:noise => true}}
+
+  scope :listable, {:conditions => {:integrated => false, :noise => false}}
+
+
 
   attr_accessor :section_id
 

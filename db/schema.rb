@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425162101) do
+ActiveRecord::Schema.define(:version => 20130430144832) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -528,6 +528,20 @@ ActiveRecord::Schema.define(:version => 20130425162101) do
 
   add_index "proposal_comment_rankings", ["proposal_comment_id", "user_id"], :name => "user_comment", :unique => true
 
+  create_table "proposal_comment_report_types", :force => true do |t|
+    t.string  "description",                :null => false
+    t.integer "severity",    :default => 0, :null => false
+    t.integer "seq"
+  end
+
+  create_table "proposal_comment_reports", :force => true do |t|
+    t.integer "proposal_comment_id",             :null => false
+    t.integer "user_id",                         :null => false
+    t.integer "proposal_comment_report_type_id", :null => false
+  end
+
+  add_index "proposal_comment_reports", ["proposal_comment_id", "user_id"], :name => "reports_index", :unique => true
+
   create_table "proposal_comments", :force => true do |t|
     t.integer  "parent_proposal_comment_id"
     t.integer  "user_id"
@@ -546,6 +560,9 @@ ActiveRecord::Schema.define(:version => 20130425162101) do
     t.integer  "paragraph_id"
     t.decimal  "j_value",                                    :default => 0.0,   :null => false
     t.boolean  "integrated",                                 :default => false, :null => false
+    t.integer  "grave_reports_count",                        :default => 0,     :null => false
+    t.integer  "soft_reports_count",                         :default => 0,     :null => false
+    t.boolean  "noise",                                      :default => false
   end
 
   create_table "proposal_histories", :force => true do |t|
@@ -1108,6 +1125,8 @@ ActiveRecord::Schema.define(:version => 20130425162101) do
   add_foreign_key "proposal_comment_rankings", "proposal_comments", :name => "proposal_comment_rankings_proposal_comment_id_fk"
   add_foreign_key "proposal_comment_rankings", "ranking_types", :name => "proposal_comment_rankings_ranking_type_id_fk"
   add_foreign_key "proposal_comment_rankings", "users", :name => "proposal_comment_rankings_user_id_fk"
+
+  add_foreign_key "proposal_comment_reports", "proposal_comment_report_types", :name => "proposal_comment_reports_proposal_comment_report_type_id_fk"
 
   add_foreign_key "proposal_comments", "paragraphs", :name => "proposal_comments_paragraph_id_fk"
   add_foreign_key "proposal_comments", "proposals", :name => "proposal_comments_proposal_id_fk"

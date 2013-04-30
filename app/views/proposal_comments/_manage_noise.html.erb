@@ -1,0 +1,70 @@
+<div id="noise_manage_panel" title="Gestisci i contributi inutili alla discussione">
+  <div style="float:left; width:  400px">
+    <h4>Contributi che possono essere marcati</h4>
+  </div>
+  <div style="float:left; width:  400px">
+    <h4>Contributi marcati come Inutili alla discussione</h4>
+  </div>
+  <div style="clear:both"></div>
+  <div style="float:left; width:  400px">
+    <div id="active" class="noiseSortable">
+      <% @proposal.contributes.unintegrated.where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]).each do |contribute| %>
+          <div class="noise_element" data-id="<%=contribute.id%>">
+            <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+              truncate(text, :length => 15)
+            end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+  <div style="float:left; width:  400px">
+    <div id="inactive" class="noiseSortable">
+      <% @proposal.contributes.noise.each do |contribute| %>
+          <div class="noise_element" data-id="<%=contribute.id%>">
+            <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+              truncate(text, :length => 15)
+            end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var oldList, newList, item;
+        $("#active, #inactive").sortable({
+            connectWith: ".noiseSortable",
+            forcePlaceholderSize: '100px',
+            start: function(event, ui) {
+                item = ui.item;
+                newList = oldList = ui.item.parent();
+            },
+            stop: function(event,ui) {
+                if (oldList != newList) {
+                    if (oldList.attr('id') == 'active') {
+                        console.log(item.data('id') + ' deactivated');
+                        $.ajax({
+                            data: "noise=true",
+                            url: "/proposals/" + <%=@proposal.id%> +"/proposal_comments/" + item.data('id') + "/mark_noise",
+                            dataType: 'script',
+                            type: 'post'
+                        });
+                    }
+                    else {
+                        $.ajax({
+                            data: "noise=false",
+                            url: "/proposals/" + <%=@proposal.id%> +"/proposal_comments/" + item.data('id') + "/mark_noise",
+                            dataType: 'script',
+                            type: 'post'
+                        });
+                    }
+                }
+            },
+            change: function(event, ui) {
+                if(ui.sender) newList = ui.placeholder.parent();
+            }
+        }).disableSelection();
+    });
+
+</script>
