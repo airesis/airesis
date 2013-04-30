@@ -84,6 +84,14 @@ class Ability
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
       end
+      can :read, Election do |election|
+        group = election.groups.first
+        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
+      end
+      can :vote, Election do |election|
+        group = election.groups.first
+        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
+      end
       can :view_proposal, GroupArea do |group_area|
         can_do_on_group_area?(user, group_area, 6)
       end
