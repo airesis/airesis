@@ -77,7 +77,58 @@
 </script>
 <!-- ##### Header ##### -->
 
-<div id="menu-top" style="right: 80px;">
+<%if current_user %>
+    <div id="menu-right" class="slim">
+    <div class="cont">
+
+    <div id="account">
+      <%= current_user.user_image_tag 55 %>
+    </div>
+
+    <div id="mybox" style="display: block;">
+
+      <div class="box">
+        <div class="logo" box="box1" style="background:#fff url(img/icon/01.png) center; background-size:cover;" data-hasqtip="28">
+          <button class="notify">3</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="logo" box="box2" style="background:#fff url(img/icon/02.png) center; background-size:cover;" data-hasqtip="29">
+          <button class="notify">15</button>
+          <div class="tria"></div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="logo" box="box3" style="background:#fff url(img/icon/03.png) center; background-size:cover;" data-hasqtip="30">
+          <button class="notify">1</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="logo" box="box4" style="background:#fff url(img/icon/04.png) center; background-size:cover;" data-hasqtip="31">
+          <button class="notify">6</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="logo" box="box5" style="background:#fff url(img/icon/05.png) center; background-size:cover;" data-hasqtip="32" aria-describedby="qtip-32">
+          <button class="notify">22</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="logo" box="box6" style="background:#fff url(img/icon/06.png) center; background-size:cover;" data-hasqtip="33">
+          <button class="notify">15</button>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+
+<%end%>
+
+
+
+<div id="menu-top" <%if current_user %>style="right: 80px;"<%end%>>
   <div id="logo-airesis">
     <%= image_tag 'logo.png', class: "logo1" %>
   </div>
@@ -86,7 +137,7 @@
     <%= yield :menu %>
 
   </div>
-  <div id="logo-but" class="sel">
+  <div id="logo-but">
     <span>GRUPPI</span>
     <br>
     <%= image_tag 'cur-tria.png' %>
@@ -101,7 +152,7 @@
     <%= image_tag 'cur-info.png', :id => 'curinfo', :data => {hasqtip: 27} %>
   </div>
 
-  <div class="group-cont" style="display: block;">
+  <div class="group-cont">
     <div class="tria"></div>
     <div class="group-cont-sep"></div>
     <div class="group-tag">
@@ -142,7 +193,7 @@
     </div>
   </div>
 </div>
-
+<!--
 <div id="header">
   <div class="body_maxwidth">
     <div class="midHeader">
@@ -317,6 +368,7 @@
   </div>
 
 </div>
+-->
 <script type="text/javascript">
 
     <%if user_signed_in?%>

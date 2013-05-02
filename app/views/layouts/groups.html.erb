@@ -10,10 +10,16 @@
   <% content_for :menu do %>
       <% if @group %>
           <%= @group.group_image_tag 60 %>
+          <% if @group.id %>
+          <%= link_to @group.name, @group, class: 'tit' %>
+              <%else%>
+              <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit' %>
+              <%end%>
       <% else %>
           <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+          <%= link_to t('pages.groups.index.title'), groups_path, class: 'tit' %>
       <% end %>
-      <%= link_to @group.name, @group, class: 'tit' %>
+
       <div id="submenu">
         <% if @group && @group.id %>
             <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group) %> -
@@ -37,7 +43,7 @@
 
 
   <!-- ##### Main Copy ##### -->
-  <div id="main-copy">
+  <div id="main-copy" <%if current_user%>style="right:80px;"<%end%>>
     <div id="groups_leftpanel">
       <%= yield :left_panel %>
     </div>

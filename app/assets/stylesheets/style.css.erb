@@ -313,9 +313,11 @@ table.dataTable td .blogUserImage {
 
 #main-copy {
 	color: black;	
-	margin: 0 auto 10px;
-	width: 981px;
     padding-top: 80px;
+    box-shadow: 1px 0px 5px #000;
+    position: absolute;
+    left: 0px;
+    height: 100%;
 }
 
 
@@ -1217,4 +1219,68 @@ ul.dd-options {
 
 #menu-top #logo-but:hover, #menu-top #logo-but.sel {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+#menu-right {
+    position: fixed;
+    right: 0px;
+    background-color: rgba(0,0,0,.04);
+    width:  80px;
+}
+
+#account {
+    padding-top: 10px;
+    cursor: pointer;
+    color:  white;
+}
+
+#account img {
+    height: 60px;
+    margin-left:10px;
+    border-radius: 5px;
+    border: 1px solid #939393;
+}
+
+#menu-right.slim #mybox .box {
+    position: relative;
+    height: 70px;
+    border: 0;
+    margin: 8px;
+    height: 60px;
+    margin-right: 5px;
+
+}
+
+#menu-right #mybox .box .logo {
+    position: absolute;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #888;
+}
+
+#menu-right #mybox .box .notify {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    padding: 5px;
+    background-color: rgba(255, 0, 0, 0.9);
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+    box-shadow: -1px 1px 1px #000;
+    border: 0px;
+    z-index: 998;
+}
+
+#menu-right #account img:hover,
+#menu-right #mybox .box .logo:hover{
+    box-shadow:0px 0px 2px #000;
 }

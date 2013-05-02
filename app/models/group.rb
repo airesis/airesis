@@ -150,7 +150,7 @@ class Group < ActiveRecord::Base
     elsif read_attribute(:image_url) != nil
       return read_attribute(:image_url)
     else
-      return ""      
+      return ""
     end
    end
 
