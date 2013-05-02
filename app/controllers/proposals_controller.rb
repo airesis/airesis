@@ -68,6 +68,7 @@ class ProposalsController < ApplicationController
     @proposals = @search.results
 
   rescue Exception => e
+    log_error e
     @proposals = []
     flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
   end
