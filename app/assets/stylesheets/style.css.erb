@@ -343,7 +343,8 @@ table.dataTable td .blogUserImage {
 }
 
 #centerpanelextended {
-    margin-left: 280px;
+ /*   margin-left: 280px;*/
+    float:left;
     margin-top: 0px;
 	padding-left: 20px;
 	max-width: 800px;
@@ -932,7 +933,6 @@ span.tooltip span.innerc, span.tooltip_sx span.innerc, span.tooltip_bt span.inne
 
 .title_grey  {color:#808080;}
 
-
 #eula_modal {
     width:600px;
     height:300px;
@@ -951,9 +951,6 @@ ul.dd-options {
     position:  absolute;
 }
 
-
-
-
 /**NEW LAYOUT **/
 #menu-top{
     position:fixed;
@@ -966,11 +963,11 @@ ul.dd-options {
     z-index:999;
 }
 
-#menu-top #logo-airesis {
+#logo-airesis {
     position: absolute;
 }
 
-#menu-top #logo-airesis img {
+#logo-airesis img {
     height: 100%;
 }
 
@@ -982,7 +979,7 @@ ul.dd-options {
     border-left: 1px dotted rgba(255, 255, 255, 0.5);
 }
 
-#menu-top #menu-group {
+#menu-group {
     color: white;
     font-size: 13px;
     font-weight: bold;
@@ -991,9 +988,10 @@ ul.dd-options {
     margin-left: 10px;
     top: 10px;
     padding: 6px;
+    right: 50px;
 }
 
-#menu-top #menu-group img {
+#menu-group img {
     height: 60px;
     width: 60px;
     position: absolute;
@@ -1001,7 +999,7 @@ ul.dd-options {
     margin-top: -5px;
 }
 
-#menu-top #menu-group .tit {
+#menu-group .tit {
     position: absolute;
     margin-top: 2px;
     margin-left: 70px;
@@ -1013,7 +1011,7 @@ ul.dd-options {
     text-decoration: none;
 }
 
-#menu-top #menu-group #submenu {
+#submenu {
     font-size: 12px;
     margin-top: 10px;
     color: white;
@@ -1023,11 +1021,18 @@ ul.dd-options {
     margin-left: 70px;
 }
 
+#submenu a.sel {
+    color: black;
+    background-color: #fff;
+    padding: 2px 10px 2px 10px;
+    border-radius: 20px;
+}
+
 #menu-top a:hover{
     color:black;
 }
 
-#menu-top #logo-but {
+#logo-but {
     position: absolute;
     top: 20px;
     left: 204px;
@@ -1039,7 +1044,7 @@ ul.dd-options {
     padding: 5px;
 }
 
-#menu-top #logo-but img {
+#logo-but img {
     height: 10px;
     width: 14px;
     margin-left: 19px;
@@ -1190,6 +1195,7 @@ ul.dd-options {
     right: 0px;
     background-color: rgba(0,0,0,.04);
     width:  80px;
+    min-height: 100%;
 }
 
 #account {
@@ -1248,6 +1254,15 @@ ul.dd-options {
     box-shadow:0px 0px 2px #000;
 }
 
+#menu-top .group-cont .tag.sel span {
+    background-color: #fff;
+    padding: 6px;
+    color: gray;
+    border-radius: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 .qtip.qtip-login {
     border-radius: 5px;
     box-shadow: 0px 0px 5px #333;
@@ -1265,3 +1280,128 @@ ul.dd-options {
 }
 
 
+.qtip-avatar {
+    width: auto;
+    padding: 0px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.qtip-avatar .cont {
+    text-align: right;
+}
+
+.qtip-avatar h2 {
+    font-size: 20px;
+    padding: 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -5px;
+    background-color: transparent;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.qtip-avatar .sep {
+    border-bottom: 1px dotted #000;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.qtip-avatar li {
+    list-style: none;
+    padding: 5px 0px 5px 0px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.qtip-avatar a {
+    text-decoration: none;
+}
+
+/*ALERTS CSS*/
+.cont-mess {
+    width: 250px;
+    font-size: 12px;
+    margin-bottom: -20px;
+    margin-right: -3px;
+}
+
+.cont-mess .tool {
+    height: 40px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px dotted silver;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.cont-mess .tool .logo {
+    height: 40px;
+    margin-bottom: -15px;
+}
+
+.cont-mess .tool span {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.cont-mess .mess button {
+    float: right;
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    margin-top: -3px;
+    margin-right: -3px;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+.cont-mess .mess:hover button {
+    display: inline-block;
+}
+
+.cont-mess .cont1 {
+    max-height: 500px;
+    overflow: auto;
+    padding-right: 0px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.cont-mess .mess {
+    line-height: 20px;
+    border: 1px dotted silver;
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+    margin-right: 5px;
+    display: block;
+}
+
+.cont-mess .mess.new {
+    background-color: #ededed;
+}
+
+.cont-mess .mess.old {
+    background-color: white;
+}
+
+.cont-mess .p2 {
+    margin: 0px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}

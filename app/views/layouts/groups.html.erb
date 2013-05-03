@@ -21,19 +21,19 @@
 
     <div id="submenu">
       <% if @group && @group.id %>
-          <%= link_to t('pages.groups.layout.home_button'), @group %> -
-          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group) %> -
+          <%= link_to t('pages.groups.layout.home_button'), @group, class: (params[:controller] == 'groups' && params[:action] == 'show' ? 'sel' : '') %> -
+          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: (params[:controller] == 'proposals' ? 'sel' : '') %> -
           <% if ::Configuration::groups_calendar %>
-              <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group) %> -
+              <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group), class: (params[:controller] == 'events' ? 'sel' : '') %> -
           <% end %>
           <% if ::Configuration::elections_active %>
-              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group) if current_user %> -
+              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: (params[:controller] == 'elections' ? 'sel' : '') if current_user %> -
           <% end %>
           <% if ::Configuration::documents_active %>
-              <%= link_to t('pages.groups.header.documents'), group_documents_path(@group) %> -
+              <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %> -
           <% end %>
           <% if can? :update, @group %>
-              <%= link_to t('pages.groups.header.settings'), edit_group_path(@group) %>
+              <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), class: (params[:controller] == 'groups' && params[:action] != 'show' ? 'sel' : '') %>
           <% end %>
       <% end %>
     </div>

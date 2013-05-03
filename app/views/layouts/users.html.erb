@@ -18,20 +18,20 @@
 
       <div id="submenu">
         <% if current_user && (@user == current_user) %>
-            <%= link_to 'HOME PAGE', root_path %> -
-            <%= link_to t('pages.header.menu.preferences'), @user %> -
+            <%= link_to 'HOME PAGE', root_path, class: (params[:controller] == 'home' ? 'sel' : '') %> -
+            <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %> -
             <% if @user.blog %>
-                <%= link_to t('pages.header.menu.my_blog'), @user.blog %>
+                <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
             <% else %>
-                <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
+                <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
             <% end %>
         <% end %>
         <% if @user != current_user %>
             <% unless @user.new_record? %>
-                - <%= link_to 'PROFILO', @user %>
+                - <%= link_to 'PROFILO', @user, class: (params[:controller] == 'home' ? 'sel' : '') %>
             <% end %>
             <% if @user.blog %>
-                - <%= link_to 'BLOG', @user.blog %>
+                - <%= link_to 'BLOG', @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
             <% end %>
         <% end %>
 

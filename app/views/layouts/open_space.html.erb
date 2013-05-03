@@ -7,24 +7,24 @@
 	</head>
 	<body>
     <div id="great_container">
-	<%=render :partial => "layouts/header" %>		
-	<div id="subheader" class="ui-widget-header ui-state-default">
-		<div class="body_maxwidth">
-			<div class="header_image">
-		    	<%= image_tag 'logo120.png', :width => 120, :alt => APP_LONG_NAME %>
-		    </div>
-		    <div class="group_title">
-			<h1><%=t('open_space')%></h1>
-			<%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, :class => 'ideaButton buttonStyle'%>
-			<%= link_to t('pages.open_space.layout.calendar_button'), events_path, :class => 'calendarButton buttonStyle' %>
-			<!--<%= link_to t('pages.open_space.layout.map_button'), proposals_path, :class => 'mapButton buttonStyle' %>-->
-			</div>
-		</div>
-			
-	</div>
+
+      <% content_for :menu do %>
+          <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+          <span class="tit"><%=t('open_space')%></span>
+
+          <div id="submenu">
+            <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: (params[:controller] == 'proposals' ? 'sel' : '')%> -
+            <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+          </div>
+      <% end %>
+
+
+
+
+	<%=render :partial => "layouts/header" %>
 		
 		<!-- ##### Main Copy ##### -->
-		<div id="main-copy">
+		<div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
 			<div id="leftpanel">
 				<%= yield :left_panel%>
 			</div>

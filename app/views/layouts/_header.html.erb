@@ -86,38 +86,13 @@
         </div>
 
         <div id="mybox" style="display: block;">
-
-          <div class="box">
-            <div class="logo" box="box1" style="background:#fff url(img/icon/01.png) center; background-size:cover;" data-hasqtip="28">
-              <button class="notify">3</button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="logo" box="box2" style="background:#fff url(img/icon/02.png) center; background-size:cover;" data-hasqtip="29">
-              <button class="notify">15</button>
-              <div class="tria"></div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="logo" box="box3" style="background:#fff url(img/icon/03.png) center; background-size:cover;" data-hasqtip="30">
-              <button class="notify">1</button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="logo" box="box4" style="background:#fff url(img/icon/04.png) center; background-size:cover;" data-hasqtip="31">
-              <button class="notify">6</button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="logo" box="box5" style="background:#fff url(img/icon/05.png) center; background-size:cover;" data-hasqtip="32" aria-describedby="qtip-32">
-              <button class="notify">22</button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="logo" box="box6" style="background:#fff url(img/icon/06.png) center; background-size:cover;" data-hasqtip="33">
-              <button class="notify">15</button>
-            </div>
-          </div>
+          <%NotificationCategory.all.each do |category| %>
+              <div class="box">
+                <div class="alert_box logo"  data-id="<%=category.id%>" style="background:#fff url(img/icon/01.png) center; background-size:cover;">
+                  <!--<button class="notify">3</button>-->
+                </div>
+              </div>
+          <%end%>
 
         </div>
 
@@ -130,7 +105,7 @@
 
 <div id="menu-top"
      <% if current_user %>style="right: 80px;"
-<% end %>>
+     <% end %>>
   <div id="logo-airesis">
     <%= image_tag 'logo.png', class: "logo1" %>
   </div>
@@ -150,44 +125,45 @@
         <div id="inlog">
           <a id="login_button" href="#" onclick="return false;">ACCEDI</a>
           -
-          <%=link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
+          <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
         </div>
 
         <div id="login_panel" style="display:none;">
           <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
 
-                <%= f.text_field :login, placeholder: 'Email o username' %>
+              <%= f.text_field :login, placeholder: 'Email o username' %>
 
-                <%= f.password_field :password, placeholder: 'Password' %>         <br/>
-                <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
+              <%= f.password_field :password, placeholder: 'Password' %>         <br/>
+              <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
 
-                <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
+              <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
 
           <% end %>
 
 
           <div class="box lost">
             <p><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></p>
+
             <p><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></p>
           </div>
 
           <% if ::Configuration.socialnetwork_active %>
               <div class="box more">
-              <div class="more">
-                <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-              </div>
-              <div class="more">
-                <%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-              </div>
-              <div class="more">
-                <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
-              </div>
-              <div class="more">
-                <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-              </div>
-              <div class="more">
-                <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-              </div>
+                <div class="more">
+                  <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+                </div>
+                <div class="more">
+                  <%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                </div>
+                <div class="more">
+                  <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                </div>
+                <div class="more">
+                  <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                </div>
+                <div class="more">
+                  <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+                </div>
               </div>
           <% end %>
         </div>
@@ -203,9 +179,8 @@
 
         <div class="tria"></div>
       </div>
-      <div class="tag">In attesa di accettazione</div>
-      <div class="tag">Apri un nuovo gruppo</div>
-      <div class="tag">Cerca Gruppi</div>
+      <div class="tag"><%= link_to 'Apri un nuovo gruppo',  new_group_path%></div>
+      <div class="tag"><%= link_to 'Cerca gruppi',  groups_path%></div>
     </div>
     <div class="group-tag1">
       <% if user_signed_in? %>
@@ -236,182 +211,50 @@
     </div>
   </div>
 </div>
-<!--
-<div id="header">
-  <div class="body_maxwidth">
-    <div class="midHeader">
-      <%= link_to image_tag('logo_head.png', align: "left", alt: APP_LONG_NAME, title: APP_LONG_NAME, style: 'width:22px;padding-top:2px;'), root_path %>
-      <div class="headerTitle" lang="la">
-        <%= link_to APP_LONG_NAME, root_path, tabindex: 1 %>
+
+
+
+<% if user_signed_in? %>
+    <div id="avatar-qtip" style="display: none;">
+      <div class="cont">
+        <h2>Marcello Kabora</h2>
+
+        <div class="sep"></div>
+        <li>
+          <%= link_to t('pages.header.menu.my_page'), root_url %>
+        </li>
+        <li>
+          <% if current_user.blog %>
+              <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
+          <% else %>
+              <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
+        </li>
+        <div class="sep"></div>
+        <li>
+          <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
+        </li>
+        <% if is_admin? %>
+
+            <li>
+              <span class="Mo ui-icon ui-icon-key"></span>
+              <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
+            </li>
+
+            <%= form_tag "/admin/become/" do %>
+                <%= label_tag t('pages.header.menu.become_user') %>
+                <%= text_field_tag 'user_id' %>
+                <%= submit_tag t('pages.header.menu.become_user_button') %>
+            <% end %>
+
+        <% end %>
       </div>
     </div>
+<% end %>
 
-    <div class="superHeader menu_element" tabindex=6>
-      <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
-      <% if user_signed_in? %> <span><%= t('pages.header.welcome') %> </span>
-          <% if current_user.name %>
-        <%= current_user.name %>
-    <% else %>
-        <%= current_user.login %>
-    <% end %>
-          <div class="user-panel shadow-box hidden_panel" id="user-panel">
-            <div style="float:left">
-              <%= current_user.user_image_tag %>
-            </div>
-            <ul class="menu-list">
-              <li>
-                <span class="Mo ui-icon ui-icon-contact"></span>
-                <%= link_to t('pages.header.menu.my_page'), root_url %>
-              </li>
-              <li>
-                <span class="Mo ui-icon ui-icon-comment"></span>
-                <% if current_user.blog %>
-        <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
-    <% else %>
-        <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
-    <% end %>
-              <li>
-                <span class="Mo ui-icon ui-icon-contact"></span>
-                <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
-              </li>
-              <% if is_admin? %>
-                  <li>
-                    <span class="Mo ui-icon ui-icon-key"></span>
-                    <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
-                  </li>
-              <% end %>
-              </li>
-              <li>
-                <span class="Mo ui-icon ui-icon-power"></span>
-                <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
-              </li>
-            </ul>
-            <% if is_admin? %>
-        <%= form_tag "/admin/become/" do %>
-            <%= label_tag t('pages.header.menu.become_user') %>
-            <%= text_field_tag 'user_id' %>
-            <%= submit_tag t('pages.header.menu.become_user_button') %>
-        <% end %>
-    <% end %>
-          </div>
-      <% else %>
-          <span><%= t('pages.top_panel.login') %></span>
-
-          <div class="shadow-box hidden_panel" id="registration-panel">
-            <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-                <div>
-                  <%= f.label :login %>
-                  <br/>
-                  <%= f.text_field :login, style: 'width:80%' %>
-                </div>
-                <div>
-                  <%= f.label :password %>
-                  <br/>
-                  <%= f.password_field :password, style: 'width:80%' %>
-                </div>
-                <div class="remember_me">
-                  <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
-                </div>
-                <div style="float: none;">
-                  <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
-        <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
-                  <br/>
-                </div>
-            <% end %>
-    <% if ::Configuration.socialnetwork_active %>
-
-                <div style="padding-top: 15px;">
-                  <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                  <%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                  <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                  <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-                </div>
-                <div style="padding-top: 15px;">
-                  <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-                </div>
-            <% end %>
-            <ul style="padding-left: 15px;">
-              <li><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></li>
-              <li><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></li>
-            </ul>
-          </div>
-      <% end %>
-    </div>
-
-    <% if user_signed_in? %>
-        <div class="alerts_link menu_element" tabindex=5>
-          <div class="number">
-            0
-          </div>
-          <div class="notification-panel shadow-box hidden_panel" id="notification-panel">
-            <ul class="menu-list">
-              <li>
-                <%= t('pages.header.menu.no_notifications') %>
-              </li>
-            </ul>
-          </div>
-        </div>
-    <% end %>
-
-    <div class="nolink_menu_element">
-      <%= link_to t('guide'), videoguide_path, :class => 'video_faq', tabindex: 4 %>
-    </div>
-
-
-    <% if user_signed_in? %>
-        <div class="menu_element groups_menu_chrome" tabindex=3>
-          <span>
-            <%= t('pages.header.groups') %>
-          </span>
-          <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
-
-          <div class="groups_panel shadow-box hidden_panel" id="groups_panel">
-            <% @groups = current_user.groups %>
-    <% if @groups.empty? %>
-        <%= t('pages.header.no_groups_yet') %>
-                <br/>
-            <% else %>
-        <% @groups.each do |group| %>
-                    <div class="groupcontainer">
-                      <div class="groupImg24" style="margin-right: 5px;">
-                        <%= group.group_image_tag(24) rescue nil %>
-                      </div>
-                      <div class="group">
-                        <%= link_to group.name, group %>
-                      </div>
-                    </div>
-                <% end %>
-    <% end %>
-            <div style="clear:both;"></div>
-            <div class="menu-footer">
-              <%= link_to t('pages.top_panel.find_groups'), groups_path %>
-            </div>
-          </div>
-        </div>
-    <% else %>
-        <div class="menu_element">
-          <%= link_to t('pages.top_panel.find_groups'), groups_path %>
-        </div>
-    <% end %>
-
-<% if ::Configuration::open_space_proposals %>
-        <div class="nolink_menu_element">
-          <%= link_to t("open_space"), proposals_path, tabindex: 2 %>
-        </div>
-    <% end %>
-
-
-    <div style="clear: both; height: 0; overflow: hidden;"></div>
-  </div>
-
-</div>
--->
 <script type="text/javascript">
 
     <%if user_signed_in?%>
@@ -481,52 +324,150 @@
 
     $('.groups_menu_chrome').width($('.groups_menu_chrome').width() + 3);
 
-    function fetchNotifications() {
-        jQuery.ajax({
-            data: '',
-            dataType: 'script',
-            type: 'get',
-            url: "/alerts/polling"
-        });
-    }
-
     function poll() {
-        $.getScript("<%=polling_alerts_path%>");
-        setTimeout(poll, 60000);
-        //valore temporaneo
-    }
+        $.ajax({
+            dataType: 'json',
+            type: 'get',
+            url: "<%=polling_alerts_path%>",
+            success: function(data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    if (obj.count > 0) {
+                      $('.alert_box.logo[data-id='+obj.id+']').append($('<button class="notify">').append(obj.count));
+                    }
+                    console.log('add container');
+                    var n_container = $('<div id="alert_cont_'+obj.id+'" class="cont-mess" style="display:none">');
+                    var tool_container = $('<div class="tool">');
+                    var img_container = $('<img class="logo" src="/assets/notification_categories/'+obj.id+'">');
+                    var span_container = $('<span>'+obj.title+'</span>');
+                    tool_container.append(img_container).append(span_container);
+                    var sub_container = $('<div class="cont1">');
+                    n_container.append(tool_container).append(sub_container);
+                    for (var j = 0; j < obj.alerts.length; j++) {
+                        var alert = obj.alerts[j];
+                        var alert_container = $('<a class="mess" href="'+alert.path+'">');
+                        alert_container.addClass(alert.checked ? 'old' : 'new');
+                        //alert_container.append($('<button>X</button>'));
+                        alert_container.append($('<p class="p2">AAAA</p>'));
+                        sub_container.append(alert_container);
+                    }
+                    $('body').append(n_container);
+                }
 
-    //setTimeout(poll, 600000);
-    //valore temporaneo
-    poll();
-    <%else%>
-        $('#login_button').qtip({
-            content: $('#login_panel'),
-            position: {
-                at: 'bottom center',
-                my: 'top center',
-                viewport: $(window),
-                effect: false,
-                adjust: {
-                    method: 'shift',
-                    x: 0,
-                    y: 0
-                }
+                $('.alert_box.logo').each(function(){
+                    $(this).qtip({
+                        prerender: true,
+                        content: $('#alert_cont_'+$(this).data('id')),
+                        position: {
+                            at: 'left center',
+                            my: 'right center',
+                            viewport: $(window),
+                            effect: false,
+                            resize: true,
+                            adjust: {
+                                method: 'shift',
+                                x: -5, y: 0
+                            }
+                        },
+                        show: {
+                            event: 'click',
+                            solo: true
+                        },
+                        hide: 'unfocus',
+                        style: {
+                            classes: 'qtip-light qtip-right',
+                            tip: {
+                                corner: true,
+                                width: 15,
+                                height: 5
+                            }
+                        }
+                    })
+                })
+
+                $( '.cont1' )
+                .bind( 'mousewheel DOMMouseScroll', function ( e ) {
+                    if( e.originalEvent ) e = e.originalEvent;
+                    console.log('scrolling');
+                    console.log(e);
+                    var delta = e.wheelDelta || -e.detail;
+                    console.log('delta: '+ delta);
+                    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                    e.preventDefault();
+                });
+
+
             },
-            show: {
-                event: 'click',
-                solo: true
+            error: function(data) {
+              console.log(data);
             },
-            hide: 'unfocus',
-            style: {
-                classes: 'qtip-light qtip-shadow  qtip-login',
-                tip: {
-                    corner: true,
-                    height: 5,
-                    width: 5
-                }
+            complete: function(data) {
+                //setTimeout(poll, 60000);
             }
         });
+    }
+
+    poll();
+
+    $('#account img').qtip({
+        content: $('#avatar-qtip'),
+        position: {
+            at: 'left center',
+            my: 'right center',
+            viewport: $(window),
+            effect: false,
+            adjust: {
+                method: 'shift',
+                x: -5, y: -10
+            }
+        },
+        show: {
+            event: 'click',
+            solo: true
+        },
+        hide: 'unfocus',
+        style: {
+            classes: 'qtip-light qtip-shadow qtip-avatar',
+            tip: {
+                corner: true,
+                width: 15,
+                height: 5
+            }
+        }
+    });
+
+
+
+
+    <%else%>
+    $('#login_button').qtip({
+        content: $('#login_panel'),
+        position: {
+            at: 'bottom center',
+            my: 'top center',
+            viewport: $(window),
+            effect: false,
+            adjust: {
+                method: 'shift',
+                x: 0,
+                y: 0
+            }
+        },
+        show: {
+            event: 'click',
+            solo: true
+        },
+        hide: 'unfocus',
+        style: {
+            classes: 'qtip-light qtip-shadow  qtip-login',
+            tip: {
+                corner: true,
+                height: 5,
+                width: 5
+            }
+        }
+    });
     $('#registration-panel')
             .hide()
             .click(function (event) {

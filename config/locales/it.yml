@@ -448,12 +448,12 @@ it:
       groups: "Gruppi"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
-        my_page: "La mia pagina"
+        my_page: "LA MIA PAGINA"
         my_blog: "IL MIO BLOG"
         create_blog: "CREA UN TUO BLOG"
         preferences: "PREFERENZE"
         administration: "Amministrazione"
-        logout: "Logout"
+        logout: "LOGOUT"
         become_user: "Diventa utente"
         become_user_button: "Vai!"
         remember_me: "Ricordami su questo computer"
@@ -535,8 +535,8 @@ it:
           title: "Le notifiche"
     open_space:
       layout:
-        proposals_button: "Le proposte"
-        calendar_button: "Calendario"
+        proposals_button: "LE PROPOSTE"
+        calendar_button: "CALENDARIO"
         map_button: "Mappa"
     proposal_supports:
       new:
