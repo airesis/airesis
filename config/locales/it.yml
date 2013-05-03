@@ -449,9 +449,9 @@ it:
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
         my_page: "La mia pagina"
-        my_blog: "Il mio blog"
-        create_blog: "Crea un tuo blog"
-        preferences: "Preferenze"
+        my_blog: "IL MIO BLOG"
+        create_blog: "CREA UN TUO BLOG"
+        preferences: "PREFERENZE"
         administration: "Amministrazione"
         logout: "Logout"
         become_user: "Diventa utente"

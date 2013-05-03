@@ -80,7 +80,8 @@ class ResqueMailer < ActionMailer::Base
     end
   end
 
-  def feedback feeedback_id
-
+  def feedback(feedback_id)
+    @feedback = SentFeedback.find(feedback_id)
+    mail(to: 'coorasse@gmail.com', from: "Feedback <feedback@airesis.it>", subject: 'Nuova segnalazione')
   end
 end

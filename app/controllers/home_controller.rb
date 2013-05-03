@@ -10,16 +10,12 @@
 class HomeController < ApplicationController
   include StepHelper
   layout :choose_layout
-  
+
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :only => [:show]
 
   def index
-    if current_user
-      redirect_to home_url
-    else
-      @notriangle = true
-    end
+    redirect_to home_url if current_user
   end
 
   def videoguide
@@ -30,13 +26,13 @@ class HomeController < ApplicationController
 
   def whatis
   end
-    
+
   def roadmap
   end
-    
+
   def whowe
   end
-    
+
   def helpus
   end
 
@@ -45,7 +41,7 @@ class HomeController < ApplicationController
 
   def terms
   end
-    
+
   def show
     @step = get_next_step(current_user)
     @user = current_user
@@ -54,30 +50,39 @@ class HomeController < ApplicationController
 
   def feedback
     feedback = JSON.parse(params[:data])
-    data = feedback[1][22..-1]
+    data = feedback[1][22..-1] if feedback[1]#get the feedback image data
 
-    SentFeedback.create
 
-    File.open('/home/coorasse/tmp/test2.png',"wb") do |file|
-      file.write(Base64.decode64(data))
+    feedback = SentFeedback.new(message: feedback[0]['message'])
+
+    if data
+      temp_file = Tempfile.new(['tmp','.png'], encoding: 'ascii-8bit')
+      begin
+        temp_file.write(Base64.decode64(data))
+        feedback.image = temp_file
+      ensure
+        temp_file.close
+        temp_file.unlink
+      end
     end
+    feedback.save!
 
-
-    ResqueMailer.feedback('Test feedback').deliver
+    ResqueMailer.feedback(feedback.id).deliver
     respond_to do |format|
-      format.html {}
+      format.html {render :nothing => true}
       format.js {}
     end
   end
+
   private
 
-  def choose_layout    
-    if [ 'show'].include? action_name
+  def choose_layout
+    if ['show'].include? action_name
       'users'
-    elsif [ 'privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
-        'landing'
+    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
+      'landing'
     else
-        nil    
+      nil
     end
-  end 
+  end
 end

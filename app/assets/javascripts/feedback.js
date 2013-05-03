@@ -73,6 +73,7 @@
 
         },
         nextButton,
+        sendButton,
         H2C_IGNORE = "data-html2canvas-ignore",
         currentPage,
         modalBody = document.createElement("div");
@@ -147,9 +148,23 @@
                     currentPage = 0;
                     modalBody.appendChild( options.pages[ currentPage++ ].dom );
 
+                    //Send button
+                    sendButton = element("button", options.sendLabel);
+                    sendButton.onclick = function() {
+                        if (currentPage > 0 ) {
+                            if ( options.pages[ currentPage - 1 ].end( modal ) === false ) {
+                                // page failed validation, cancel onclick
+                                return;
+                            }
+                        }
+                        emptyElements( modalBody );
+                        returnMethods.send( options.adapter );
+                    }
+                    sendButton.className =  "feedback-btn";
+
 
                     // Next button
-                    nextButton = element( "button", options.nextLabel );
+                    nextButton = element( "button", options.nextLabel);
 
                     nextButton.className =  "feedback-btn";
                     nextButton.onclick = function() {
@@ -185,6 +200,7 @@
                             // if next page is review page, change button label
                             if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
                                 nextButton.firstChild.nodeValue = options.reviewLabel;
+                                sendButton.style.display = 'none';
                             }
 
 
@@ -193,6 +209,7 @@
                     };
 
                     modalFooter.className = "feedback-footer";
+                    modalFooter.appendChild( sendButton );
                     modalFooter.appendChild( nextButton );
 
 
@@ -246,6 +263,7 @@
                     }
 
                     nextButton.disabled = true;
+                    sendButton.style.display = 'none';
 
                     emptyElements( modalBody );
                     modalBody.appendChild( loader() );
@@ -344,6 +362,10 @@
                 case "textarea":
                     this.dom.appendChild( element("label", item.label + ":" + (( item.required === true ) ? " *" : "")) );
                     this.dom.appendChild( ( item.element = document.createElement("textarea")) );
+                    break;
+                case "input":
+                    this.dom.appendChild( element("label", item.label + ":" + (( item.required === true ) ? " *" : "")) );
+                    this.dom.appendChild( ( item.element = document.createElement("input")) );
                     break;
             }
         }

@@ -1,14 +1,4 @@
 <div id="footer">
-  <% unless @notriangle %>
-      <div id="triangle-topleft2"></div>
-      <div id="triangle-topleft">
-        <a href="mailto:feedback@airesis.it?subject=Segnalazione da
-	<%= request.fullpath.dup.force_encoding(Encoding::UTF_8) %>&body=Nel testo della segnalazione ti preghiamo di inserire se hai avuto accesso alla tua area riservata e eventualmente
-	 quale azione stavi compiendo inserendone l'eventuale testo o il messaggio di errore. " target="_blank">
-          <%= image_tag 'segnala_un_bug.png', :alt => "Segnala un bug", :title => "Segnalaci difetti, errori e le migliorie. Aiutaci a migliorare Airesis  " %>
-        </a>
-      </div>
-  <% end %>
 
   <div style="float:left; width:100%;padding-top: 10px;">
     <div style="float:left;">

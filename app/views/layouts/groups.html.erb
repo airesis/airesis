@@ -21,6 +21,7 @@
 
     <div id="submenu">
       <% if @group && @group.id %>
+          <%= link_to t('pages.groups.layout.home_button'), @group %> -
           <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group) %> -
           <% if ::Configuration::groups_calendar %>
               <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group) %> -
@@ -41,7 +42,7 @@
 <%= render :partial => "layouts/header" %>
 
 <!-- ##### Main Copy ##### -->
-<div id="main-copy" style="right:<%= current_user ? '80px' : '0px' %>">
+<div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
   <div id="leftpanel">
     <%= yield :left_panel %>
   </div>

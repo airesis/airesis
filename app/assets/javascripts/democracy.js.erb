@@ -37,9 +37,37 @@ $(function() {
         }
     });
 
+
+    var feedback_options =
+
     Feedback({
         h2cPath: '/assets/html2canvas.js',
-        url: '/send_feedback'
+        url: '/send_feedback',
+        label: 'Invia feedback',
+        header: 'Invia feedback',
+        nextLabel: 'Aggiungi dettagli',
+        reviewLabel: 'Visualizza anteprima',
+        sendLabel: 'Invia',
+        closeLabel: 'Chiudi',
+        messageSuccess: 'Feedback inviato correttamente. Grazie!',
+        messageError: 'Spiacenti ma si è verificato un errore durante l\'invio del feedback',
+        pages: [
+            new window.Feedback.Form([{
+                    type: "textarea",
+                    name: "message",
+                    label: "Descrivi il problema che stai affrontando",
+                    required: true
+                },
+                /*{
+                    type: "input",
+                    name: "Email",
+                    label: "Inserisci un'indirizzo email sul quale ricevere risposta",
+                    required: false
+                }*/]
+            ),
+            new window.Feedback.Screenshot({h2cPath: '/assets/html2canvas.js'}),
+            new window.Feedback.Review()
+        ]
     });
 });
 

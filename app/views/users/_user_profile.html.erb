@@ -1,3 +1,11 @@
+<div class="header_image image_container">
+  <%= @user.user_image_tag 120 %>
+  <div class="caption">
+    <a style="color:white"><%= "Modifica l'immagine" %></a>
+  </div>
+</div>
+
+
 <h4><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h4>
 <% if ::Configuration::user_messages %>
     <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'inviteButton disableButton' if can? :send_message, @user %></span>

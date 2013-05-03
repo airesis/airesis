@@ -10,41 +10,38 @@
 <body>
 <div id="great_container">
 
-  <%= render :partial => "layouts/header" %>
-  <div id="subheader" class="ui-widget-header ui-state-default">
-    <div class="body_maxwidth">
-      <div class="header_image leftUserImage image_container">
-        <%= @user.user_image_tag 120 %>
-        <div class="caption">
-          <a style="color:white"><%= "Modifica l'immagine" %></a>
-        </div>
-      </div>
-      <div class="group_title">
-        <h1><%= @user.fullname %></h1>
+
+  <% content_for :menu do %>
+      <span class="tit"><%= @user.fullname %></span>
+      <%= @user.user_image_tag 60 %>
+
+
+      <div id="submenu">
         <% if current_user && (@user == current_user) %>
-            <%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
-            <%= link_to t('pages.header.menu.preferences'), @user, :class => 'settingsButton buttonStyle' %>
+            <%= link_to 'HOME PAGE', root_path %> -
+            <%= link_to t('pages.header.menu.preferences'), @user %> -
             <% if @user.blog %>
-                <%= link_to t('pages.header.menu.my_blog'), @user.blog, :class => 'commentButton buttonStyle' %>
+                <%= link_to t('pages.header.menu.my_blog'), @user.blog %>
             <% else %>
-                <%= link_to t('pages.header.menu.create_blog'), new_blog_path, :class => 'commentButton buttonStyle' %>
+                <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
             <% end %>
         <% end %>
         <% if @user != current_user %>
             <% unless @user.new_record? %>
-                <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
+                - <%= link_to 'PROFILO', @user %>
             <% end %>
             <% if @user.blog %>
-                <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle' %>
+                - <%= link_to 'BLOG', @user.blog %>
             <% end %>
         <% end %>
 
       </div>
-    </div>
-  </div>
+  <% end %>
+
+  <%= render :partial => "layouts/header" %>
 
   <!-- ##### Main Copy ##### -->
-  <div id="main-copy">
+  <div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
     <div id="leftpanel">
       <%= yield :left_panel %>
     </div>

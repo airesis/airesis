@@ -797,12 +797,13 @@ ActiveRecord::Schema.define(:version => 20130502173658) do
     t.integer "seq",                  :null => false
   end
 
-  create_table "sent_feedback", :force => true do |t|
+  create_table "sent_feedbacks", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.text     "message"
+    t.string   "email"
   end
 
   create_table "simple_votes", :force => true do |t|
