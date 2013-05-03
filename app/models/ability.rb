@@ -38,7 +38,7 @@ class Ability
       can :create, ProposalSupport do |support|
         user.groups.include? support.group
       end
-      can :create, Group if LIMIT_GROUPS && ((Time.now - user.portavoce_groups.maximum(:created_at) > GROUPS_TIME_LIMIT)) #puoi creare solo un gruppo ogni 24 ore
+      can :create, Group if LIMIT_GROUPS && ((Time.now - (user.portavoce_groups.maximum(:created_at) || (Time.now - (GROUPS_TIME_LIMIT + 1.seconds))) > GROUPS_TIME_LIMIT)) #puoi creare solo un gruppo ogni 24 ore
 
       can :update, Group do |group|
         group.portavoce.include? user

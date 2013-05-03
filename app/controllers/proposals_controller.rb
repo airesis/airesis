@@ -53,7 +53,7 @@ class ProposalsController < ApplicationController
         any_of do
           with(:visible_outside, true)
           with(:presentation_area_ids,nil)
-          with(:presentation_area_ids,my_areas_ids)
+          with(:presentation_area_ids,my_areas_ids) unless my_areas_ids.empty?
         end
       end
     end
@@ -68,6 +68,7 @@ class ProposalsController < ApplicationController
     @proposals = @search.results
 
   rescue Exception => e
+    log_error e
     @proposals = []
     flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
   end
@@ -271,7 +272,8 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    raise Exception if LIMIT_PROPOSALS && ((Time.now - current_user.proposals.maximum(:created_at)) < PROPOSALS_TIME_LIMIT)
+    max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+    raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
     begin
       @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
       @saved = false

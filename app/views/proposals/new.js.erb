@@ -1,6 +1,7 @@
 <%if LIMIT_PROPOSALS %>
-<%  elapsed = Time.now - current_user.proposals.maximum(:created_at)
-if elapsed < PROPOSALS_TIME_LIMIT%>
+<% max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)%>
+<% elapsed = Time.now - max %>
+<%if elapsed < PROPOSALS_TIME_LIMIT%>
     alert('Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora <%= ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor%> minuti e <%= ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)%> secondi.');
 <%else%>
 <%end%>

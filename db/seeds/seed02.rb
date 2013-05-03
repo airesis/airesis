@@ -133,3 +133,10 @@ Configuration.create(name: 'documents_active', value: 1)
 Configuration.create(name: 'group_areas', value: 1)
 Configuration.create(name: 'proposal_categories', value: 1)
 Configuration.create(name: 'folksonomy', value: 1)
+
+ProposalType.create( short_name: 'STANDARD', description: "Proposta standard"){ |c| c.id = 1 }.save
+ProposalType.create( short_name: 'POLL', description: "Sondaggio"){ |c| c.id = 2 }.save
+
+ProposalVotationType.create( short_name: 'STANDARD', description: "Standard"){ |c| c.id = 1 }.save
+ProposalVotationType.create( short_name: 'PREFERENCE', description: "Preference"){ |c| c.id = 2 }.save
+ProposalVotationType.create( short_name: 'SCHULZE', description: "Schulze"){ |c| c.id = 3 }.save
