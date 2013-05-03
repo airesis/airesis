@@ -77,58 +77,60 @@
 </script>
 <!-- ##### Header ##### -->
 
-<%if current_user %>
+<% if current_user %>
     <div id="menu-right" class="slim">
-    <div class="cont">
+      <div class="cont">
 
-    <div id="account">
-      <%= current_user.user_image_tag 55 %>
+        <div id="account">
+          <%= current_user.user_image_tag 55 %>
+        </div>
+
+        <div id="mybox" style="display: block;">
+
+          <div class="box">
+            <div class="logo" box="box1" style="background:#fff url(img/icon/01.png) center; background-size:cover;" data-hasqtip="28">
+              <button class="notify">3</button>
+            </div>
+          </div>
+          <div class="box">
+            <div class="logo" box="box2" style="background:#fff url(img/icon/02.png) center; background-size:cover;" data-hasqtip="29">
+              <button class="notify">15</button>
+              <div class="tria"></div>
+            </div>
+          </div>
+          <div class="box">
+            <div class="logo" box="box3" style="background:#fff url(img/icon/03.png) center; background-size:cover;" data-hasqtip="30">
+              <button class="notify">1</button>
+            </div>
+          </div>
+          <div class="box">
+            <div class="logo" box="box4" style="background:#fff url(img/icon/04.png) center; background-size:cover;" data-hasqtip="31">
+              <button class="notify">6</button>
+            </div>
+          </div>
+          <div class="box">
+            <div class="logo" box="box5" style="background:#fff url(img/icon/05.png) center; background-size:cover;" data-hasqtip="32" aria-describedby="qtip-32">
+              <button class="notify">22</button>
+            </div>
+          </div>
+          <div class="box">
+            <div class="logo" box="box6" style="background:#fff url(img/icon/06.png) center; background-size:cover;" data-hasqtip="33">
+              <button class="notify">15</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
-    <div id="mybox" style="display: block;">
-
-      <div class="box">
-        <div class="logo" box="box1" style="background:#fff url(img/icon/01.png) center; background-size:cover;" data-hasqtip="28">
-          <button class="notify">3</button>
-        </div>
-      </div>
-      <div class="box">
-        <div class="logo" box="box2" style="background:#fff url(img/icon/02.png) center; background-size:cover;" data-hasqtip="29">
-          <button class="notify">15</button>
-          <div class="tria"></div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="logo" box="box3" style="background:#fff url(img/icon/03.png) center; background-size:cover;" data-hasqtip="30">
-          <button class="notify">1</button>
-        </div>
-      </div>
-      <div class="box">
-        <div class="logo" box="box4" style="background:#fff url(img/icon/04.png) center; background-size:cover;" data-hasqtip="31">
-          <button class="notify">6</button>
-        </div>
-      </div>
-      <div class="box">
-        <div class="logo" box="box5" style="background:#fff url(img/icon/05.png) center; background-size:cover;" data-hasqtip="32" aria-describedby="qtip-32">
-          <button class="notify">22</button>
-        </div>
-      </div>
-      <div class="box">
-        <div class="logo" box="box6" style="background:#fff url(img/icon/06.png) center; background-size:cover;" data-hasqtip="33">
-          <button class="notify">15</button>
-        </div>
-      </div>
-
-    </div>
-
-    </div>
-    </div>
-
-<%end%>
+<% end %>
 
 
 
-<div id="menu-top" <%if current_user %>style="right: 80px;"<%end%>>
+<div id="menu-top"
+     <% if current_user %>style="right: 80px;"
+<% end %>>
   <div id="logo-airesis">
     <%= image_tag 'logo.png', class: "logo1" %>
   </div>
@@ -144,11 +146,52 @@
   </div>
 
   <div id="tolr">
-    <div id="inlog" style="display: none;">
-      <span>ACCEDI</span>
-      <span>-</span>
-      <span>REGISTRATI</span>
-    </div>
+    <% unless current_user %>
+        <div id="inlog">
+          <a id="login_button" href="#" onclick="return false;">ACCEDI</a>
+          -
+          <%=link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
+        </div>
+
+        <div id="login_panel" style="display:none;">
+          <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
+
+                <%= f.text_field :login, placeholder: 'Email o username' %>
+
+                <%= f.password_field :password, placeholder: 'Password' %>         <br/>
+                <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
+
+                <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
+
+          <% end %>
+
+
+          <div class="box lost">
+            <p><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></p>
+            <p><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></p>
+          </div>
+
+          <% if ::Configuration.socialnetwork_active %>
+              <div class="box more">
+              <div class="more">
+                <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+              </div>
+              <div class="more">
+                <%= link_to image_tag('accedi_google.png', :width => '150px'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+              </div>
+              <div class="more">
+                <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+              </div>
+              <div class="more">
+                <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+              </div>
+              <div class="more">
+                <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+              </div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
     <%= image_tag 'cur-info.png', :id => 'curinfo', :data => {hasqtip: 27} %>
   </div>
 
@@ -175,7 +218,7 @@
               <% @groups.each do |group| %>
                   <div class="group-item">
                     <div style="width:45px;height: 30px; float:left;">
-                    <%= group.group_image_tag(30) rescue nil %>
+                      <%= group.group_image_tag(30) rescue nil %>
                     </div>
                     <span class="p1"><%= link_to group.name, group %></span>
 
@@ -207,10 +250,10 @@
       <span class="ui-icon ui-icon-triangle-1-s" style="float: right;"></span>
       <% if user_signed_in? %> <span><%= t('pages.header.welcome') %> </span>
           <% if current_user.name %>
-              <%= current_user.name %>
-          <% else %>
-              <%= current_user.login %>
-          <% end %>
+        <%= current_user.name %>
+    <% else %>
+        <%= current_user.login %>
+    <% end %>
           <div class="user-panel shadow-box hidden_panel" id="user-panel">
             <div style="float:left">
               <%= current_user.user_image_tag %>
@@ -223,10 +266,10 @@
               <li>
                 <span class="Mo ui-icon ui-icon-comment"></span>
                 <% if current_user.blog %>
-                    <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
-                <% else %>
-                    <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
-                <% end %>
+        <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
+    <% else %>
+        <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
+    <% end %>
               <li>
                 <span class="Mo ui-icon ui-icon-contact"></span>
                 <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
@@ -244,12 +287,12 @@
               </li>
             </ul>
             <% if is_admin? %>
-                <%= form_tag "/admin/become/" do %>
-                    <%= label_tag t('pages.header.menu.become_user') %>
-                    <%= text_field_tag 'user_id' %>
-                    <%= submit_tag t('pages.header.menu.become_user_button') %>
-                <% end %>
-            <% end %>
+        <%= form_tag "/admin/become/" do %>
+            <%= label_tag t('pages.header.menu.become_user') %>
+            <%= text_field_tag 'user_id' %>
+            <%= submit_tag t('pages.header.menu.become_user_button') %>
+        <% end %>
+    <% end %>
           </div>
       <% else %>
           <span><%= t('pages.top_panel.login') %></span>
@@ -271,11 +314,11 @@
                 </div>
                 <div style="float: none;">
                   <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
-                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
+        <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), :class => "buttonStyle", :style => "margin-left: 105px" %>
                   <br/>
                 </div>
             <% end %>
-            <% if ::Configuration.socialnetwork_active %>
+    <% if ::Configuration.socialnetwork_active %>
 
                 <div style="padding-top: 15px;">
                   <%= link_to image_tag('accedi_facebook.jpg'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
@@ -330,11 +373,11 @@
 
           <div class="groups_panel shadow-box hidden_panel" id="groups_panel">
             <% @groups = current_user.groups %>
-            <% if @groups.empty? %>
-                <%= t('pages.header.no_groups_yet') %>
+    <% if @groups.empty? %>
+        <%= t('pages.header.no_groups_yet') %>
                 <br/>
             <% else %>
-                <% @groups.each do |group| %>
+        <% @groups.each do |group| %>
                     <div class="groupcontainer">
                       <div class="groupImg24" style="margin-right: 5px;">
                         <%= group.group_image_tag(24) rescue nil %>
@@ -344,7 +387,7 @@
                       </div>
                     </div>
                 <% end %>
-            <% end %>
+    <% end %>
             <div style="clear:both;"></div>
             <div class="menu-footer">
               <%= link_to t('pages.top_panel.find_groups'), groups_path %>
@@ -357,7 +400,7 @@
         </div>
     <% end %>
 
-    <% if ::Configuration::open_space_proposals %>
+<% if ::Configuration::open_space_proposals %>
         <div class="nolink_menu_element">
           <%= link_to t("open_space"), proposals_path, tabindex: 2 %>
         </div>
@@ -457,6 +500,33 @@
     //valore temporaneo
     poll();
     <%else%>
+        $('#login_button').qtip({
+            content: $('#login_panel'),
+            position: {
+                at: 'bottom center',
+                my: 'top center',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0,
+                    y: 0
+                }
+            },
+            show: {
+                event: 'click',
+                solo: true
+            },
+            hide: 'unfocus',
+            style: {
+                classes: 'qtip-light qtip-shadow  qtip-login',
+                tip: {
+                    corner: true,
+                    height: 5,
+                    width: 5
+                }
+            }
+        })
     $('#registration-panel')
             .hide()
             .click(function (event) {

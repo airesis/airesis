@@ -458,7 +458,7 @@ it:
         become_user_button: "Vai!"
         remember_me: "Ricordami su questo computer"
         login_button: "Login"
-        registration_button: "Registrati"
+        registration_button: "REGISTRATI"
         forgot_password_button: "Hai dimenticato la password?"
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"

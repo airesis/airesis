@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430144832) do
+ActiveRecord::Schema.define(:version => 20130502173658) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -795,6 +795,14 @@ ActiveRecord::Schema.define(:version => 20130430144832) do
   create_table "sections", :force => true do |t|
     t.string  "title", :limit => 100, :null => false
     t.integer "seq",                  :null => false
+  end
+
+  create_table "sent_feedback", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.text     "message"
   end
 
   create_table "simple_votes", :force => true do |t|

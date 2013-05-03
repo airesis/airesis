@@ -12,10 +12,9 @@ html, body { height: 100%; }
     position: relative;
     z-index: 10;
     height: 35px;
-    margin-top: -45px;
-    width: 981px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+
 }
 
 
@@ -61,7 +60,7 @@ h3 {
 	margin: 0 5px;
 }
 
-#groups_leftpanel h4{
+#leftpanel h4{
     margin: 20px 0 5px;
 }
 
@@ -315,31 +314,15 @@ table.dataTable td .blogUserImage {
 	color: black;	
     padding-top: 80px;
     box-shadow: 1px 0px 5px #000;
-    position: absolute;
     left: 0px;
-    height: 100%;
+    min-height: 100%;
 }
 
-
-#rightpanel {
-	float: left;
-	margin: 0 10px;
-	width: 165px;
-}
-
-#groups_leftpanel {
-    float: left;
-    width: 164px;
-    min-height: 100px;
-    padding: 90px 0px 0px 0px;
-    /*font-size:14px;*/
-}
-
-#groups_leftpanel .pcontainer .Mo {
+#leftpanel .pcontainer .Mo {
     width: 130px;
 }
 
-#groups_leftpanel .groupcontainer .group {
+#leftpanel .groupcontainer .group {
     width: 130px;
 }
 #groups_panel .groupcontainer .group {
@@ -349,9 +332,9 @@ table.dataTable td .blogUserImage {
 }
 #leftpanel {
 	float: left;
-	width: 164px;
+	width: 260px;
 	min-height: 100px;
-	/*padding: 0 10px 0 0;*/
+    padding: 90px 0px 0px 20px;
 }
 
 .MoImg24 {
@@ -359,32 +342,12 @@ table.dataTable td .blogUserImage {
     margin-top:2px;
 }
 
-
-
-
-
-#centerpanel{
-	min-height: 100%;
-}
-
-#centerpanel {
-	border-left: 1px solid rgb(216, 210, 195);
-	border-right: 1px solid rgb(216, 210, 195);
-	border-bottom: 1px solid rgb(216, 210, 195);
-	float: left;
-	padding: 0 15px;
-	width: 600px;
-	margin: 0 auto;	
-}
-
 #centerpanelextended {
-	/*border-left: 1px solid rgb(216, 210, 195);
-	border-right: 1px solid rgb(216, 210, 195);
-	border-bottom: 1px solid rgb(216, 210, 195);*/
-	float: left;
-	padding: 0 15px;
-	width: 765px;
-	margin: 0 auto;
+    margin-left: 280px;
+    margin-top: 0px;
+	padding-left: 20px;
+	max-width: 800px;
+    border-left: 1px dotted gray;
 }
 
 #centerpanel img {
@@ -1079,7 +1042,7 @@ ul.dd-options {
 #menu-top #logo-but img {
     height: 10px;
     width: 14px;
-    margin-left: 14px;
+    margin-left: 19px;
     margin-top: 3px;
     border-radius: 3px;
     display: inherit;
@@ -1284,3 +1247,21 @@ ul.dd-options {
 #menu-right #mybox .box .logo:hover{
     box-shadow:0px 0px 2px #000;
 }
+
+.qtip.qtip-login {
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #333;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 400px;
+    padding-top: 5px;
+}
+
+.qtip-login .box {
+    padding: 5px;
+    background-color: white;
+    border: 1px dotted gray;
+    margin-bottom: 10px;
+}
+
+

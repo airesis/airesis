@@ -41,3 +41,5 @@
 //= require jquery.livequery
 //= require proposals
 //= require ddslick.min
+//= require jquery.qtip
+//= require feedback

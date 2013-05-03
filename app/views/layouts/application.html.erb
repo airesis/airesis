@@ -6,6 +6,13 @@
 		
 	</head>
 	<body>
+    <% content_for :menu do %>
+
+        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+        <span class="tit"><%= @page_title %></span>
+
+    <% end %>
+
 		<%=render :partial => "layouts/header" %>
 		
 		<!-- ##### Main Copy ##### -->
@@ -13,27 +20,14 @@
 			<div id="leftpanel">
 				<%= yield :left_panel%>
 			</div>
-			<div id="centerpanel">
+			<div id="centerpanelextended">
 				<div id="flash_messages" style="height:20px">
 					<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
 				</div>
 				<%= yield :layout %>
 				
 			</div>
-			<div id="rightpanel">
-				<%= yield :right_panel%>
-				<%= render :partial => 'events/next_events_panel' %>
-				<g:plusone href="http://www.airesis.it"></g:plusone>
-				
-				<a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @democracyo</a>
 
-				<%if (!@group.facebook_page_url.empty? rescue false)%>
-				<div class="fb-like-box" data-href="<%=@group.facebook_page_url%>" data-width="180" data-height="400" data-show-faces="false" data-stream="false" data-header="true"></div>
-				<%else%>
-				<div class="fb-like-box" data-href="https://www.facebook.com/pages/Democracy-Online/113093412144167" data-width="180" data-height="400" data-show-faces="true" data-stream="true" data-header="false"></div>
-				<%end%>
-			
-			</div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 			<%=render :partial => "layouts/footer" %>
 

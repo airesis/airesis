@@ -79,4 +79,8 @@ class ResqueMailer < ActionMailer::Base
       end
     end
   end
+
+  def feedback feeedback_id
+
+  end
 end

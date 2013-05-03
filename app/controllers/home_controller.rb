@@ -51,7 +51,24 @@ class HomeController < ApplicationController
     @user = current_user
     @page_title = @user.fullname
   end
-   
+
+  def feedback
+    feedback = JSON.parse(params[:data])
+    data = feedback[1][22..-1]
+
+    SentFeedback.create
+
+    File.open('/home/coorasse/tmp/test2.png',"wb") do |file|
+      file.write(Base64.decode64(data))
+    end
+
+
+    ResqueMailer.feedback('Test feedback').deliver
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
+  end
   private
 
   def choose_layout    

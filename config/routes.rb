@@ -289,6 +289,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/sostienici' => 'home#helpus'
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
+  match '/send_feedback' => 'home#feedback'
 
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?

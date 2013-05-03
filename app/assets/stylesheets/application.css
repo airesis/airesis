@@ -35,4 +35,6 @@
  *= require group_areas
  *= require blog_posts
  *= require buttons
+ *= require jquery.qtip
+ *= require feedback
 */
