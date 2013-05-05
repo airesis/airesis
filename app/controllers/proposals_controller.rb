@@ -34,9 +34,6 @@ class ProposalsController < ApplicationController
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup, :rankdown]
 
-  #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
-
-
   def search
     authorize! :view_proposal, @group
 
@@ -906,5 +903,16 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     else
       return true
     end
+  end
+
+
+  private
+
+  def render_404(exception=nil)
+    log_error(exception) if exception
+    respond_to do |format|
+      format.html { render "errors/404", :status => 404, :layout => true, :locals => {:title => 'Questa proposta non esiste', :message => 'La proposta che cerchi non esiste o è stata cancellata'}}
+    end
+    true
   end
 end
