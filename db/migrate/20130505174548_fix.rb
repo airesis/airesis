@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Fix < ActiveRecord::Migration
   def up
     execute " insert into stato_translations(stato_id,locale,description) values(5,'it','Isole Åland');
