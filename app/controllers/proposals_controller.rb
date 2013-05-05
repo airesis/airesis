@@ -430,7 +430,7 @@ class ProposalsController < ApplicationController
 
         #@old_quorum.destroy if @old_quorum
 
-        notify_proposal_has_been_updated(@proposal)
+        notify_proposal_has_been_updated(@proposal,@group)
       end
 
       respond_to do |format|
@@ -470,7 +470,7 @@ class ProposalsController < ApplicationController
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
-      notify_proposal_waiting_for_date(@proposal)
+      notify_proposal_waiting_for_date(@proposal,@group)
       flash[:notice] = t(:proposal_date_selected)
       respond_to do |format|
         format.js do
@@ -628,7 +628,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     authorize! :close_debate, @proposal
     if @proposal.rank >= @proposal.quorum.good_score
       @proposal.proposal_state_id = PROP_WAIT_DATE #metti la proposta in attesa di una data per la votazione
-      notify_proposal_ready_for_vote(@proposal)
+      notify_proposal_ready_for_vote(@proposal,@group)
     elsif @proposal.rank < @proposal.quorum.bad_score
       @proposal.proposal_state_id = PROP_RESP
       notify_proposal_rejected(@proposal)

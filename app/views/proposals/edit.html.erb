@@ -160,7 +160,7 @@
                       <%= s.hidden_field :seq %>
                       <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                           <p class="section_container">
-                            <%= s.text_field :title, class: "edit_label", style: 'float:left;' %>
+                            <%= s.text_field :title, class: "edit_label" %>
                             <span class="move_button">
                               <%= image_tag 'move.png' %>
                             </span>
