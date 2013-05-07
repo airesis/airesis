@@ -194,7 +194,6 @@
           <%= link_to 'EVENTI', events_path %></div>
       </div>
       <% if user_signed_in? %>
-
           <% @groups = current_user.groups %>
           <% if @groups.empty? %>
               <%= t('pages.header.no_groups_yet') %>
@@ -213,10 +212,6 @@
                   </div>
               <% end %>
           <% end %>
-      <% else %>
-          <div class="menu_element">
-            <%= link_to t('pages.top_panel.find_groups'), groups_path %>
-          </div>
       <% end %>
     </div>
   </div>
@@ -266,7 +261,7 @@
 <% end %>
 
 <script type="text/javascript">
-    $('#submenu .tria').animate({'left':$('#submenu .sel').offset().left+($('#submenu .sel').width()/2)-12},0);
+    $('#submenu .tria').animate({'left':$('#submenu .sel').offset().left+($('#submenu .sel').width()/2)-12},0)
 
     <%if user_signed_in?%>
     $('.hidden_panel').hide().click(function (event) {
