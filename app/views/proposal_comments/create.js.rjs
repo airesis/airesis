@@ -1,5 +1,6 @@
 page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
 if @is_reply
+  page.replace_html "rankingpanelcontainer#{@proposal_comment.contribute.id}", :partial => 'proposal_comments/ranking_panel', :locals => {:comment => @proposal_comment.contribute}
   page.insert_html :bottom, "#{@proposal_comment.contribute.id}_new_replies", :partial => "proposals/reply", :locals => {:reply => @proposal_comment, :hide => false}
   page << "$('##{@proposal_comment.contribute.id}_reply_text_area').val('')"
   page << "$('.deleteReplyLink').unbind('click');
@@ -7,6 +8,7 @@ if @is_reply
             hideAndDeleteReply(event,$(this).data('id'));
           });"
   page << "$('.reply_textarea').attr('placeholder','"+t('pages.proposals.show.reply_placeholder')+"');"
+
 else
   page.replace_html "proposalCommentsContainer", :partial => "proposals/comments"
   page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal.comments.new}

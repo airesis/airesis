@@ -250,7 +250,7 @@ class ProposalCommentsController < ApplicationController
 
 
   def rank(rank_type)
-    if @my_ranking
+    if @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
       @ranking = @my_ranking
     else
       @ranking = ProposalCommentRanking.new
@@ -280,27 +280,19 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
-  #viene eseguita prima della registrazione della valutazione dell'utente.
-  #se un utente ha già valutato la proposta ed essa non è più stata modifica successivamente
-  #allora l'operazione viene annullata e viene mostrato un messagio di errore.
+
+  #check if the user can valutate again a contribute. that can happen only if the contribute received a suggestion after the previous valutation
   def already_ranked
-    my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, params[:id])
-    my_rank = my_ranking.ranking_type_id if my_ranking
-    if my_rank && my_ranking.updated_at > @proposal_comment.updated_at
-      flash[:notice] = t(:error_proposal_comment_already_ranked)
-      respond_to do |format|
-        format.js { render :update do |page|
-          page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
-        end
-        }
-        format.html {
-          redirect_to proposal_path(params[:proposal_id])
-        }
+    return true if current_user.can_rank_again_comment?(@proposal_comment)
+    flash[:notice] = t(:error_proposal_comment_already_ranked)
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
-    else
-      return true
+      }
+      format.html {
+        redirect_to proposal_path(params[:proposal_id])
+      }
     end
   end
-
-
 end
