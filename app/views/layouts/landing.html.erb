@@ -29,17 +29,20 @@
 		</div>
 			
 	</div>
-		
+    <div id="main">
 		<!-- ##### Main Copy ##### -->
 		<div id="main-copy">
-		  <div id="leftpanel">
-		   <%= yield :left_panel%>
+		  <div id="menu-left">
+            <div class="menu2">
+            <%= yield :left_panel%>
+              </div>
 		  </div>
 			<div id="centerpanelextended" style="font-size: 16px; line-height: 22px;"><%= yield :layout %></div>
 			<div style="clear: both; height: 0; overflow: hidden;"></div>
 			<%=render :partial => "layouts/footer" %>
 		</div>
 
+    </div>
 
         <script type="text/javascript">
           $(function(){

@@ -22,6 +22,7 @@
 
     });
 </script>
+
 <p class="points">
   <span class="littleText" id="valutazioni"><%= t('pages.proposals.show.score') %></span>
   <span class="rightAlign"><%= @proposal.valutations %></span>
@@ -88,5 +89,7 @@
     <%= raw "dal #{(l @proposal.vote_period.starttime)}<br/> al #{(l @proposal.vote_period.endtime)}" %>
 <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
     <span class="title_grey"><%= t('pages.proposals.list.voting_until', date: (l @proposal.vote_period.endtime)) %></span><br/>
-
+<% end %>
+<% if @proposal.is_anonima? %>
+    <%= t('pages.proposals.show.anonimity_active') %><br/>
 <% end %>

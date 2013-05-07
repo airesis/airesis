@@ -275,7 +275,7 @@ it:
         group_areas_title: "Aree di lavoro"
         no_group_areas: "Nessuna area"
         all_areas: "Tutte le aree"
-        categories_title: "Categorie"
+        categories_title: "CATEGORIE"
         all_categories: "Tutte le categorie"
         loading_proposals: "Sto caricando le proposte..."
         title_with_category: "Proposte della categoria %{category}"

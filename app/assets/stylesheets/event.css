@@ -10,6 +10,10 @@
 	cursor: pointer;
 }
 
+.fc-content {
+    background: white;
+}
+
 .event_calendar {
 	background: url("/assets/calendar.png") no-repeat;
 	width: 64px;

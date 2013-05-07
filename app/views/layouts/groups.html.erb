@@ -21,40 +21,54 @@
 
     <div id="submenu">
       <% if @group && @group.id %>
-          <%= link_to t('pages.groups.layout.home_button'), @group, class: (params[:controller] == 'groups' && params[:action] == 'show' ? 'sel' : '') %> -
-          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: (params[:controller] == 'proposals' ? 'sel' : '') %> -
+          <%= link_to t('pages.groups.layout.home_button'), @group, class: (params[:controller] == 'groups' && params[:action] == 'show' ? 'sel' : '') %>
+          <span> ⋅ </span>
+          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: (params[:controller] == 'proposals' ? 'sel' : '') %>
+          <span> ⋅ </span>
           <% if ::Configuration::groups_calendar %>
-              <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group), class: (params[:controller] == 'events' ? 'sel' : '') %> -
+              <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
+              <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::elections_active %>
-              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: (params[:controller] == 'elections' ? 'sel' : '') if current_user %> -
+              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: (params[:controller] == 'elections' ? 'sel' : '') if current_user %>
+              <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::documents_active %>
-              <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %> -
+              <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
+              <span> ⋅ </span>
           <% end %>
           <% if can? :update, @group %>
-              <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), class: (params[:controller] == 'groups' && params[:action] != 'show' ? 'sel' : '') %>
+              <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
           <% end %>
       <% end %>
+
+      <div class="borx"></div>
+      <div class="tria" style="left: 389px;"></div>
+
+
     </div>
 <% end %>
 
 <%= render :partial => "layouts/header" %>
 
 <!-- ##### Main Copy ##### -->
-<div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
-  <div id="leftpanel">
-    <%= yield :left_panel %>
-  </div>
-  <div id="centerpanelextended">
-    <div id="flash_messages" style="height:20px">
-      <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+<div id="main" style="right:<%= current_user ? '80px' : '0px' %>">
+  <div id="main-copy">
+    <div id="menu-left">
+      <div class="menu2">
+        <%= yield :left_panel %>
+      </div>
     </div>
-    <%= yield :layout %>
+    <div id="centerpanelextended">
+      <div id="flash_messages" style="height:20px">
+        <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+      </div>
+      <%= yield :layout %>
+    </div>
+    <div style="clear: both; height: 0; overflow: hidden;"></div>
+    <%= render :partial => "layouts/footer" %>
   </div>
-  <div style="clear: both; height: 0; overflow: hidden;"></div>
 </div>
-<%= render :partial => "layouts/footer" %>
 
 
 </body>

@@ -10,7 +10,6 @@
 <body>
 <div id="great_container">
 
-
   <% content_for :menu do %>
       <span class="tit"><%= @user.fullname %></span>
       <%= @user.user_image_tag 60 %>
@@ -18,8 +17,10 @@
 
       <div id="submenu">
         <% if current_user && (@user == current_user) %>
-            <%= link_to 'HOME PAGE', root_path, class: (params[:controller] == 'home' ? 'sel' : '') %> -
-            <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %> -
+            <%= link_to 'HOME PAGE', root_path, class: (params[:controller] == 'home' ? 'sel' : '') %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
+            <span> ⋅ </span>
             <% if @user.blog %>
                 <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
             <% else %>
@@ -28,33 +29,39 @@
         <% end %>
         <% if @user != current_user %>
             <% unless @user.new_record? %>
-                - <%= link_to 'PROFILO', @user, class: (params[:controller] == 'home' ? 'sel' : '') %>
+                <span> ⋅ </span>
+                <%= link_to 'PROFILO', @user, class: (params[:controller] == 'home' ? 'sel' : '') %>
             <% end %>
             <% if @user.blog %>
-                - <%= link_to 'BLOG', @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
+                <span> ⋅ </span>
+                <%= link_to 'BLOG', @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
             <% end %>
         <% end %>
+        <div class="borx"></div>
+        <div class="tria" style="left: 389px;"></div>
 
       </div>
   <% end %>
 
   <%= render :partial => "layouts/header" %>
-
-  <!-- ##### Main Copy ##### -->
-  <div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
-    <div id="leftpanel">
-      <%= yield :left_panel %>
-    </div>
-    <div id="centerpanelextended">
-      <div id="flash_messages" style="height:20px">
-        <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+  <div id="main" style="margin-right:<%= current_user ? '80px' : '0px' %>">
+    <!-- ##### Main Copy ##### -->
+    <div id="main-copy">
+      <div id="menu-left">
+        <div class="menu2">
+        <%= yield :left_panel %>
+          </div>
       </div>
-      <%= yield :layout %>
+      <div id="centerpanelextended">
+        <div id="flash_messages" style="height:20px">
+          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        </div>
+        <%= yield :layout %>
+      </div>
+      <%= render :partial => "layouts/footer" %>
     </div>
-    <div style="clear: both; height: 0; overflow: hidden;"></div>
-
   </div>
 </div>
-<%= render :partial => "layouts/footer" %>
+
 </body>
 </html>

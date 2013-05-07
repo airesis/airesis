@@ -1,42 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
-	<head>
-		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
-		
-		<%=render :partial => "layouts/head" %>
-	</head>
-	<body>
-    <div id="great_container">
+<head>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
 
-      <% content_for :menu do %>
-          <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-          <span class="tit"><%=t('open_space')%></span>
+  <%= render :partial => "layouts/head" %>
+</head>
+<body>
+<div id="great_container">
 
-          <div id="submenu">
-            <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: (params[:controller] == 'proposals' ? 'sel' : '')%> -
-            <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
-          </div>
-      <% end %>
+  <% content_for :menu do %>
+      <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+      <span class="tit"><%= t('open_space') %></span>
+
+      <div id="submenu">
+        <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: (params[:controller] == 'proposals' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+
+        <div class="borx"></div>
+        <div class="tria" style="left: 389px;"></div>
+      </div>
+
+
+  <% end %>
 
 
 
 
-	<%=render :partial => "layouts/header" %>
-		
-		<!-- ##### Main Copy ##### -->
-		<div id="main-copy" style="margin-right:<%= current_user ? '80px' : '0px' %>">
-			<div id="leftpanel">
-				<%= yield :left_panel%>
-			</div>
-			<div id="centerpanelextended" <%=raw @extend ? '' : 'class="noextend"' %> >
-				<div id="flash_messages" style="height:20px">
-					<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-				</div>
-				<%= yield :layout %>
-			</div>					
-			<div style="clear: both; height: 0; overflow: hidden;"></div>
-		</div>
+  <%= render :partial => "layouts/header" %>
+  <div id="main" style="right:<%= current_user ? '80px' : '0px' %>">
+    <!-- ##### Main Copy ##### -->
+    <div id="main-copy">
+      <div id="menu-left">
+        <div class="menu2">
+          <%= yield :left_panel %>
+        </div>
+      </div>
+      <div id="centerpanelextended" <%= raw @extend ? '' : 'class="noextend"' %> >
+        <div id="flash_messages" style="height:20px">
+          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        </div>
+        <%= yield :layout %>
+      </div>
+      <div style="clear: both; height: 0; overflow: hidden;"></div>
+      <%= render :partial => "layouts/footer" %>
     </div>
-    <%=render :partial => "layouts/footer" %>
-    </body>
+  </div>
+</div>
+
+</body>
 </html>

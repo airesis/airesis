@@ -68,23 +68,29 @@
   <%= form_for 'proposal_comment', url: report_proposal_proposal_comments_path(@proposal), remote: true do |f| %>
       <%= cache "report_panel_#{I18n.locale}" do %>
           <input type="hidden" name="id" value="0" id="report_contribute_id"/>
+
           <div>
             <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Marca il
               contributo</h2>
-            <h4 style="font-size: 0.9em">Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
-              Se il contributo viene marcato <%= CONTRIBUTE_MARKS %> volte, gli autori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi "rumorosi".<br/></h4>
-            <%ProposalCommentReportType.softs.each do |r| %>
-                <input type="radio" name="reason" value="<%=r.id%>"> <%= r.description %><br/>
-            <%end%>
+            <h4 style="font-size: 0.9em">Puoi indicare ai redattori della proposta che questo contributo non contiene
+              informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
+              Se il contributo viene marcato <%= CONTRIBUTE_MARKS %> volte, gli autori della proposta potranno
+              eliminarlo dalla discussione ed inserirlo nella cartella dei contributi "rumorosi".<br/></h4>
+            <% ProposalCommentReportType.softs.each do |r| %>
+                <input type="radio" name="reason" value="<%= r.id %>"> <%= r.description %>
+                <br/>
+            <% end %>
             <hr/>
 
             <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Segnala il
               contributo</h2>
-            <h4 style="font-size: 0.9em">Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in vigore.<br/>
+            <h4 style="font-size: 0.9em">Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in
+              vigore.<br/>
               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento.</h4>
-            <%ProposalCommentReportType.graves.each do |r| %>
-                <input type="radio" name="reason" value="<%=r.id%>"> <%= r.description %><br/>
-            <%end%>
+            <% ProposalCommentReportType.graves.each do |r| %>
+                <input type="radio" name="reason" value="<%= r.id %>"> <%= r.description %>
+                <br/>
+            <% end %>
           </div>
           <div style="margin-top:8px">
             <%= f.submit 'Marca', class: 'gbutton bluebtn' %>
@@ -251,45 +257,58 @@
 
 <% content_for :left_panel do %>
     <% if @proposal.is_standard? %>
-        <div id="rankleftpanel" class="rankleftpanel">
+        <div id="rankleftpanel" class="rankleftpanel mybox">
           <%= render :partial => 'proposals/rank_left_panel' %>
         </div>
     <% end %>
 
-
-
-
-
-    <% if @proposal.is_anonima? %>
-        <%= t('pages.proposals.show.anonimity_active') %><br/>
+    <% if ::Configuration.socialnetwork_active %>
+        <div class="mybox">
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>: <%= @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>">Tweet</a>
+          <g:plusone size="medium"></g:plusone>
+          <%= raw facebook_like %>
+        </div>
     <% end %>
+
     <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
-        <h4 style="display:inline"><%= t('pages.proposals.show.your_nickname_is') %></h4>
-        <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
-        <div class="blogUserImage">
-          <%= user_tag(current_user, @proposal) %>
-        </div>
-        <div style="clear: both;"></div>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.your_nickname_is') %></h4>
 
+          <div class="mycont">
+            <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
+
+            <div class="blogUserImage">
+              <%= user_tag(current_user, @proposal) %>
+            </div>
+          </div>
+        </div>
     <% end %>
 
-    <h4><%= t('pages.proposals.show.editors_title') %></h4>
-    <div id="authors_list">
-      <%= render :partial => 'proposals/authors_list_panel' %>
-    </div>
-    <% if signed_in? && @proposal.in_valutation? %>
-        <div id="available_author">
-          <%= render :partial => 'proposals/available_author' %>
-        </div>
-        <% if @proposal.users.include?(current_user) %>
-            <% if @proposal.available_authors.count > 0 %>
-                <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.editors_title') %></h4>
 
-                <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title') %>">
-                </div>
+      <div class="mycont">
+        <div id="authors_list">
+          <%= render :partial => 'proposals/authors_list_panel' %>
+        </div>
+        <% if signed_in? && @proposal.in_valutation? %>
+            <div id="available_author">
+              <%= render :partial => 'proposals/available_author' %>
+            </div>
+            <% if @proposal.users.include?(current_user) %>
+                <% if @proposal.available_authors.count > 0 %>
+                    <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
+
+                    <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title') %>">
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
-    <% end %>
+      </div>
+    </div>
 
     <br/>
 
@@ -299,43 +318,66 @@
         </div>
     <% end %>
 
-
+    <!--
     <h4><%= t('pages.proposals.show.attached_documents') %></h4>
     <%= t('pages.proposals.show.no_document_attached') %>
+    -->
 
     <% unless @proposal.interest_borders.empty? %>
-        <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
-        <% @proposal.interest_borders.each do |ib| %>
-            <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.interest_borders.each do |ib| %>
+                <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
-        <h4><%= t('pages.proposals.show.tags_title') %></h4>
-        <% @proposal.tags.each do |tag| %>
-            <div style="margin:5px;"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-              x <%= tag.proposals_count %></div>
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.tags_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.tags.each do |tag| %>
+                <div style="margin:5px;">
+                  <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+                  x <%= tag.proposals_count %></div>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% unless @proposal.closest(@group ? @group.id : nil).empty? %>
-        <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
-        <% @proposal.closest.each do |p| %>
-            <%= link_to p.title, p %><br />
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.closest.each do |p| %>
+                <%= link_to p.title, p %>
+                <br/>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% if ::Configuration.proposal_categories %>
-        <h4><%= t('pages.proposals.show.category_title') %></h4>
-        <table>
-          <tr>
-            <td style="vertical-align: middle;">
-              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-            <td>
-              <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-          </tr>
-        </table>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.category_title') %></h4>
+
+          <div class="mycont">
+            <table>
+              <tr>
+                <td style="vertical-align: middle;">
+                  <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+                </td>
+                <td>
+                  <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
     <% end %>
 <% end %>
