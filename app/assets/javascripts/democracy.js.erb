@@ -20,18 +20,15 @@ $(function() {
           sticky_relocate();
     }
 
-
-
-
     $("#menu-top #logo-but, #logo-airesis").click(function () {
         if(submenupannel==0){
             submenupannel=1;
-            $('#main #main-copy').animate({'padding-top':'250px'}, 200);
+            /*$('#main #main-copy').animate({'padding-top':'250px'}, 200);*/
             $('#menu-top .group-cont').slideDown().delay(200);
             $(this).addClass("sel");
         }else{
             submenupannel=0;
-            $('#main #main-copy').animate({'padding-top':'80px'}, 200);
+            /*$('#main #main-copy').animate({'padding-top':'80px'}, 200);*/
             $('#menu-top .group-cont').slideUp().delay(0);
             $(this).removeClass("sel");
         }

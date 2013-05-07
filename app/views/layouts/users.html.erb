@@ -49,14 +49,17 @@
     <div id="main-copy">
       <div id="menu-left">
         <div class="menu2">
-        <%= yield :left_panel %>
-          </div>
+          <%= yield :left_panel %>
+        </div>
       </div>
       <div id="centerpanelextended">
-        <div id="flash_messages" style="height:20px">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        <div class="centerfloat">
+          <div id="flash_messages" style="height:20px">
+            <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+          </div>
+          <%= yield :layout %>
         </div>
-        <%= yield :layout %>
+        <div class="clearboth"></div>
       </div>
       <%= render :partial => "layouts/footer" %>
     </div>
