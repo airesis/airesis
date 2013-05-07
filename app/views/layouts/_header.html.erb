@@ -183,6 +183,16 @@
       <div class="tag"><%= link_to 'Cerca gruppi',  groups_path%></div>
     </div>
     <div class="group-tag1">
+      <div class="group-item">
+        <div style="width:45px;height: 30px; float:left;">
+          <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
+        </div>
+        <span class="p1"><%= link_to t('open_space'), proposals_path %></span>
+
+        <div class="p2">
+          <%= link_to 'PROPOSTE', proposals_path %> -
+          <%= link_to 'EVENTI', events_path %></div>
+      </div>
       <% if user_signed_in? %>
 
           <% @groups = current_user.groups %>
