@@ -13,7 +13,7 @@ class Election < ActiveRecord::Base
   
   has_many :schulze_votes, :class_name => 'SchulzeVote'
   
-  validates_presence_of :name, :description, :groups_end_time, :candidates_end_time
+  validates_presence_of :name, :description, :candidates_end_time#TODO momentaneamente disabilitato , :groups_end_time
   validate :validate_groups_time_before_candidates_time
   
   #un'elezione che è attualmente in fase di iscrizione gruppi, ovvero l'evento è iniziato, non si è concluso e non è arrivato il termine per l'iscrizione dei gruppi'
@@ -24,6 +24,12 @@ class Election < ActiveRecord::Base
 
   #un'elezione che è attualmente in fase di voto, ovvero l'evento è iniziato, non si è concluso e si è conclusa l'iscrizione dei gruppi'
   scope :voting_phase, lambda {includes(:event).where(['events.starttime < ? and events.endtime > ? and elections.candidates_end_time < ?',Time.now,Time.now,Time.now])}
+
+  before_save :populate_groups_end_time
+
+  def populate_groups_end_time
+    self.groups_end_time = self.event.starttime
+  end
   
   def validate_groups_time_before_candidates_time
     if groups_end_time && candidates_end_time

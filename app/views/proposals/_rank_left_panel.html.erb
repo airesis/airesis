@@ -85,9 +85,12 @@
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'btn disable resultsButton', :id => "resultsButton" %>    <br/><br/>
-        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf),target: '_blank', :class => 'btn disable pdfButton'%>
-        <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title')%>"></div>
+        <% if @proposal.vote %>
+            <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
+            <br/><br/>
+        <% end %>
+        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
+        <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
         <script type="text/javascript">
             $(function () {
                 $('#resultsButton').click();
@@ -95,6 +98,3 @@
         </script>
     <% end %>
 <% end %>
-
-
-

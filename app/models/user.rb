@@ -163,17 +163,17 @@ class User < ActiveRecord::Base
   #all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups=nil)
     ret = self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
-                                        " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
-                                        " and action_abilitations.group_id = group_partecipations.group_id")
+                                " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
+                                " and action_abilitations.group_id = group_partecipations.group_id")
     .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 
   #return all group area partecipations of a particular group where the user can do a particular action
-  def scoped_areas(group_id,abilitation_id)
+  def scoped_areas(group_id, abilitation_id)
     self.group_areas
     .joins({:area_roles => :area_action_abilitations})
-    .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id',group_id,abilitation_id])
+    .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
   end
 
   def self.new_with_session(params, session)
@@ -297,23 +297,14 @@ class User < ActiveRecord::Base
   end
 
   #restituisce true se l'utente ha valutato un contributo
-  #ma il contributo è stato successivamente modificato e può quindi valutarlo di nuovo 
+  #ma è stato successivamente inserito un suggerimento e può quindi valutarlo di nuovo
   def can_rank_again_comment?(comment)
-    if (comment.proposal.proposal_state_id != PROP_VALUT)
-      return false
-    else
-      ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
-      my_rank = ranking.ranking_type_id if ranking
-      if my_rank
-        if ranking.updated_at < comment.updated_at
-          return true
-        else
-          return false
-        end
-      else
-        return true
-      end
-    end
+    return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
+    ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
+    return true unless ranking
+    last_suggest = comment.replies.first(:order => 'created_at desc')
+    return false unless last_suggest
+    ranking.updated_at < last_suggest.created_at
   end
 
 

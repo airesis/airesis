@@ -26,7 +26,9 @@ module ProposalsModule
       if proposal.rank >= quorum.good_score
         puts "proposta accettata"
         proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
-        notify_proposal_ready_for_vote(proposal)
+        proposal.private? ?
+          notify_proposal_ready_for_vote(proposal,proposal.presentation_groups.first) :
+          notify_proposal_ready_for_vote(proposal)
       elsif proposal.rank < quorum.bad_score
         puts "proposta rifiutata"
         proposal.proposal_state_id = PROP_RESP

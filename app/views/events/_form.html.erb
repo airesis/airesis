@@ -66,13 +66,13 @@
 				<%=f.fields_for :election, @election do |e|%>
 					<div id="elezione" style="display:none; width:370px;">	
 						<p>
-							<%=raw "Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento.<br />
-							La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi.<br />" %>
+							<%=raw "Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento." %><br />
+							<!--<%=raw "La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi."%><br />-->
 						</p>
-						<p>			
+						<!--<p>
 						<%= e.label :groups_end_time %><br/>
 						<%= e.text_field :groups_end_time, :class=>"datePicker", :id => "groups_end_time" %>
-						</p>
+						</p>-->
 						<p>
 						<%= e.label :candidates_end_time %><br/>
 						<%= e.text_field :candidates_end_time, :class=>"datePicker", :id => "candidates_end_time" %>

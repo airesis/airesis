@@ -179,6 +179,7 @@
         $('.report_menu').hide();
         $('.report_contribute.visible').removeClass('visible');
         $('#report_contribute_id').val(id);
+        $('input[name=reason]').removeAttr('checked');
         doModal($('#report_contribute'));
     }
 

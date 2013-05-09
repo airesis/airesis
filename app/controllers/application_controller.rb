@@ -177,6 +177,11 @@ class ApplicationController < ActionController::Base
       @proposal_comment.user_id = current_user.id
       @proposal_comment.request = request
       @proposal_comment.save!
+      @ranking = ProposalCommentRanking.new
+      @ranking.user_id = current_user.id
+      @ranking.proposal_comment_id = @proposal_comment.id
+      @ranking.ranking_type_id = RankingType::POSITIVE
+      @ranking.save!
       
       generate_nickname(current_user,@proposal)
       
