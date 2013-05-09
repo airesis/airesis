@@ -35,9 +35,10 @@
           <% end %>
           <% if ::Configuration::documents_active %>
               <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
-              <span> ⋅ </span>
+
           <% end %>
           <% if can? :update, @group %>
+              <span> ⋅ </span>
               <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
           <% end %>
       <% end %>

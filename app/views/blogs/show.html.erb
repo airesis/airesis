@@ -1,7 +1,7 @@
 <% javascript 'endless_page' %>
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @blog.title} do%>
-<%= render :partial => 'blog_posts/admin_links' %>
+
 <%end%>
   
 <% if @blog_posts.size == 0 && !params[:page] %>
@@ -32,6 +32,7 @@
 
 <% content_for :left_panel do %>
     <div class="mybox">
-    <%=link_to t('pages.blogs.show.edit_button'), edit_blog_path(@blog), :class => 'editButton' %>
+
+      <%= render :partial => 'blog_posts/admin_links' %>
     </div>
 <%end%>

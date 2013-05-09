@@ -405,7 +405,7 @@
     text-decoration: none;
 }
 
-/*ALERTS CSS*/
+    /*ALERTS CSS*/
 .cont-mess {
     width: 250px;
     font-size: 12px;
@@ -508,12 +508,11 @@
 
 #menu-left .menu2 {
     margin-bottom: 10px;
-    border: 1px solid silver;
-    border-radius: 5px;
     background-color: rgba(255, 255, 255, 1);
-    padding: 10px;
     margin-right: 20px;
     margin-left: 20px;
+    padding: 0px;
+    border: 0px;
 }
 
 #menu-left .menu2 .mybox {
@@ -561,7 +560,7 @@
 }
 
 .centerfloat {
-    float:left;
+    float: left;
     min-width: 800px;
 }
 
@@ -569,33 +568,36 @@
     clear: both;
 }
 
-/*  ---------------------------------------  BUTTON  */
+    /*  ---------------------------------------  BUTTON  */
 
-
-/*------------------------------------*\
-	$WRAPPER
-\*------------------------------------*/
-.buttons {/* Style as you wish (toolbar) */
+    /*------------------------------------*\
+        $WRAPPER
+    \*------------------------------------*/
+.buttons {
+    /* Style as you wish (toolbar) */
 }
-/* The Magnificent CLEARFIX */
+
+    /* The Magnificent CLEARFIX */
 .buttons:before, .buttons:after {
     content: "\0020";
     display: block;
     height: 0;
     visibility: hidden;
 }
+
 .buttons:after {
     clear: both;
 }
+
 .buttons {
     zoom: 1;
 }
-/* ------------------------ */
 
+    /* ------------------------ */
 
-/*------------------------------------*\
-	$BUTTON
-\*------------------------------------*/
+    /*------------------------------------*\
+        $BUTTON
+    \*------------------------------------*/
 
 #menu-left .btn {
     display: table;
@@ -605,7 +607,7 @@
 
 .btn {
     text-decoration: none;
-    text-shadow: 0 1px rgba(0,0,0,0.1);
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     font: bold 11px Arial, sans-serif;
     color: #444;
     line-height: 17px;
@@ -624,14 +626,16 @@
     cursor: pointer;
     position: relative;
 }
+
 .btn:hover {
     background: #f8f8f8;
     border-color: #c6c6c6;
     color: #333;
     text-decoration: none;
 }
+
 .btn:active {
-    box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .btn:focus {
@@ -653,6 +657,7 @@
     color: #FFF !important;
     text-shadow: none;
 }
+
 .btn.blue:hover {
     border: 1px solid #2F5BB7 !important;
     background: #3F83F1;
@@ -661,11 +666,13 @@
     background: -ms-linear-gradient(top, #4D90FE, #357AE8);
     background: -o-linear-gradient(top, #4D90FE, #357AE8);
 }
+
 .btn.blue:active {
     border-color: #2F5BB7 !important;
     background: #357ae8;
-    box-shadow: 0px 1px 2px rgba(0,0,0,1);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
 }
+
 .btn.green {
     color: #fff;
     border: 1px solid #29691D !important;
@@ -679,6 +686,7 @@
     -o-transition: border .20s;
     transition: border .20s;
 }
+
 .btn.green:hover {
     border: 1px solid #368200 !important;
     background: #2D6200;
@@ -719,6 +727,7 @@
     -o-transition: border .20s;
     transition: border .20s;
 }
+
 .btn.red:hover {
     border: 1px solid #B0281A !important;
     background: #D14130;
@@ -727,11 +736,13 @@
     background: -ms-linear-gradient(top, #DC4A38, #C53727);
     background: -o-linear-gradient(top, #DC4A38, #C53727);
 }
+
 .btn.action:hover {
     -moz-box-shadow: 0 1px 0px #DDD;
     -webkit-box-shadow: 0 1px 0px #DDD;
-    box-shadow:iset 0 1px 0px #DDD;
+    box-shadow: iset 0 1px 0px #DDD;
 }
+
 .btn.action:active {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
@@ -742,13 +753,14 @@
 .btn.green:active {
     border-color: #2D6200 !important;
 }
+
 .btn.red:active {
     border-color: #B0281A !important;
 }
 
-/*------------------------------------*\
-	$BUTTON LABEL UNUSED ACTUALLY
-\*------------------------------------*/
+    /*------------------------------------*\
+        $BUTTON LABEL UNUSED ACTUALLY
+    \*------------------------------------*/
 .btn span.label {
     display: inline-block;
     float: left;
@@ -762,15 +774,19 @@
     -o-transition: color .20s;
     transition: color .20s;
 }
+
 .btn span.label {
     line-height: 15px !important;
 }
+
 .btn:hover .label.blue {
     color: #7090C8;
 }
+
 .btn:hover .label.green {
     color: #42B449;
 }
+
 .btn:hover .label.yellow {
     color: #F7CB38;
 }
@@ -779,31 +795,35 @@
     color: #FFF !important;
     text-shadow: 0 1px 0 #2D6200 !important;
 }
+
 .btn.red .label {
     color: #FFF !important;
     text-shadow: 0 1px 0 #B0281A !important;
 }
+
 .btn.action .label {
     padding: 0 17px !important;
 }
+
 .btn.action:active .label {
     color: #333 !important;
 }
+
 .btn.blue:active .label, .btn.green:active .label, .btn.red:active .label {
     color: #FFF !important;
 }
 
-.btn .hidden{
-    display:none;
+.btn .hidden {
+    display: none;
 }
 
-.btn img{
-     height:18px;
-     margin:0px;
-     margin-bottom:-6px;
-     margin-left:5px;
-     margin-right:-5px;
- }
+.btn img {
+    height: 18px;
+    margin: 0px;
+    margin-bottom: -6px;
+    margin-left: 5px;
+    margin-right: -5px;
+}
 
 .btn .ui-icon {
     background-image: url('<%=asset_path 'icons_444.png'%>');
@@ -817,4 +837,9 @@
 
 .btn .text {
     margin-left: 14px;
+}
+
+.btn.little {
+    font-size: 0.8em;
+    padding: 0.2em 0.8em;
 }
