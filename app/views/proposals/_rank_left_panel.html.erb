@@ -66,15 +66,27 @@
       </span><br/>
     <%= l @proposal.updated_at %>
 <% end %>
+
+<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
+    <span class="title_grey"><%= t('pages.proposals.show.in_votation') %></span><br/>
+    <%= raw "dal #{(l @proposal.vote_period.starttime)}<br/> al #{(l @proposal.vote_period.endtime)}" %>
+<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
+    <span class="title_grey"><%= t('pages.proposals.list.voting_until', date: (l @proposal.vote_period.endtime)) %></span><br/>
+<% end %>
+
+<% if @proposal.is_anonima? %>
+    <%= t('pages.proposals.show.anonimity_active') %><br/>
+<% end %>
+
 <% if signed_in? %>
     <div style="margin: 5px;">
       <% if @proposal.revisions.count > 0 %>
-          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class => 'historyButton' %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class => 'btn historyButton' %>
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'disableButton resultsButton', :id => "resultsButton" %>    <br/><br/>
-        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf),target: '_blank', :class => 'disableButton pdfButton'%>
+        <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'btn disable resultsButton', :id => "resultsButton" %>    <br/><br/>
+        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf),target: '_blank', :class => 'btn disable pdfButton'%>
         <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title')%>"></div>
         <script type="text/javascript">
             $(function () {
@@ -84,12 +96,5 @@
     <% end %>
 <% end %>
 
-<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
-    <span class="title_grey"><%= t('pages.proposals.show.in_votation') %></span><br/>
-    <%= raw "dal #{(l @proposal.vote_period.starttime)}<br/> al #{(l @proposal.vote_period.endtime)}" %>
-<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
-    <span class="title_grey"><%= t('pages.proposals.list.voting_until', date: (l @proposal.vote_period.endtime)) %></span><br/>
-<% end %>
-<% if @proposal.is_anonima? %>
-    <%= t('pages.proposals.show.anonimity_active') %><br/>
-<% end %>
+
+

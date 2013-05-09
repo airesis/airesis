@@ -79,13 +79,13 @@
 </div>
 <% content_for :left_panel do %>
 
-    <div class="mybox">
+
 
       <% if @group %>
-          <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+          <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
           <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
       <% else %>
-          <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
+          <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable" %>
           <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
       <% end %>
 
@@ -93,7 +93,7 @@
       <div id="create_proposal_container" style="display:none;">
       </div>
 
-    </div>
+
 
 
     <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
@@ -189,23 +189,12 @@
 <% end %>
 
 <script>
-    $('#nuova_proposta, #nuovo_sondaggio').button({
-        icons: {
-            primary: "ui-icon-lightbulb"
-        },
-        text: true
-    }).bind("ajax:error", function (event, data, status, xhr) {
+    $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
                 if (data.status == 401) {
                     window.location = "/users/sign_in?l=it"
                 }
             });
     ;
-    $('#proposte_accettate').button({
-        icons: {
-            primary: "ui-icon-star"
-        },
-        text: true
-    });
 
     $('#tabs').tabs({
         cache: true,

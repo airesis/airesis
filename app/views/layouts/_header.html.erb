@@ -222,7 +222,7 @@
 <% if user_signed_in? %>
     <div id="avatar-qtip" style="display: none;">
       <div class="cont">
-        <h2>Marcello Kabora</h2>
+        <h2><%= current_user.fullname %></h2>
 
         <div class="sep"></div>
         <li>

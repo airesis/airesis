@@ -27,17 +27,17 @@
 
   <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta    %>
       <% if @group %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'editButton' if can? :update, @proposal %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), :class => 'editButton' if can? :update, @proposal %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% end %>
       <% if @group %>
-          <%= link_to t('pages.proposals.show.delete_button'), [@group, @proposal], method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'trashButton' if can? :destroy, @proposal %>
+          <%= link_to t('pages.proposals.show.delete_button'), [@group, @proposal], method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
       <% else %>
-          <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'trashButton' if can? :destroy, @proposal %>
+          <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
       <% end %>
       <% if @proposal.in_valutation? %>
-          <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'closeButton' if can? :close_debate, @proposal %>
+          <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
       <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox      %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
@@ -75,7 +75,7 @@
     <h3 style="float: left; " class="section_title">
       <%= section.title %></h3>
     <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-        <a href="#" class="contributeButton contributeSectionButton" style="float:right;" onclick="return contribute(<%=section.id%>);"><%= 'Dai il tuo contributo' %></a>
+        <a href="#" class="btn green contributeButton contributeSectionButton" style="float:right;" onclick="return contribute(<%=section.id%>);"><%= 'Dai il tuo contributo' %></a>
     <% end %>
     <div class="proposalMainContainer proposal_main shadow-box">
       <div class="proposal_content">
@@ -90,7 +90,7 @@
           <h3 style="float: left; " class="section_title">
             <%= section.title %></h3>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-              <a href="#" class="contributeButton contributeSectionButton" style="float:right;" onclick="return contribute(<%=section.id%>);"><%= 'Dai il tuo contributo' %></a>
+              <a href="#" class="btn green contributeButton contributeSectionButton" style="float:right;" onclick="return contribute(<%=section.id%>);"><%= 'Dai il tuo contributo' %></a>
           <% end %>
 
         </div>

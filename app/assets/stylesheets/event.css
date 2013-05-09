@@ -59,3 +59,19 @@
     margin-top: -5px;
     text-align: center;
 }
+
+.event-overview {
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    color: #294145;
+    display: none;
+    height: 80px;
+    margin-bottom: 5px;
+    margin-left: -182px;
+    margin-top: -39px;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    width: 158px;
+    z-index: 3;
+}

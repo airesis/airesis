@@ -80,35 +80,40 @@ function sticky_relocate() {
     });
 }
 
+function gbutton() {
+
+}
+
 function disegnaBottoni() {
-	$('.buttonStyle').button();
-	$('.editButton').button({icons : {primary : "ui-icon-pencil"}});
-	$('.personButton').button({icons : {primary : "ui-icon-person"}});
-	$('.homeButton').button({icons : {primary : "ui-icon-home"}});
-	$('.calendarButton').button({icons : {primary : "ui-icon-calendar"}});
-	$('.commentButton').button({icons : {primary : "ui-icon-comment"}});
-	$('.ideaButton').button({icons : {primary : "ui-icon-lightbulb"}});
-	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"}});
-    $('.trashButton').button({icons : {primary : "ui-icon-trash"}});
-	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
-	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
-	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
-    $('.forwardButton').button({icons : {primary : "ui-icon-arrowthick-1-e"}});
-	$('.historyButton').button({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
-	$('.notesButton').button({icons : {primary : "ui-icon-note"}});
-	$('.supportButton').button({icons : {primary : "ui-icon-heart"}});
-    $('.searchButton').button({icons : {primary : "ui-icon-search"}});
-    $('.acceptButton').button({icons : {primary : "ui-icon-check"}});
-    $('.rejectButton').button({icons : {primary : "ui-icon-close"}});
-    $('.showAllButton').button({icons : {primary : "ui-icon-script"}});
-    $('.inviteButton').button({icons : {primary : "ui-icon-mail-open"}});
-    $('.documentButton').button({icons : {primary : "ui-icon-document"}});
-    $('.closeButton').button({icons : {primary : "ui-icon-close"}});
-    $('.draftsButton').button({icons : {primary : "ui-icon-pencil"}});
-    $('.contributeButton').button({icons : {primary : "ui-icon-signal-diag"}});
-    $('.pdfButton').button({icons : {primary : "ui-icon-print"}});
-    $('.resultsButton').button({icons : {primary : "ui-icon-check"}});
-	$('.disabledButton').button("option", "disabled", true);
+    console.log('diisegna bottoni');
+	$('.buttonStyle').gbutton();
+	$('.editButton').gbutton({icons : {primary : "ui-icon-pencil"}});
+	$('.personButton').gbutton({icons : {primary : "ui-icon-person"}});
+	$('.homeButton').gbutton({icons : {primary : "ui-icon-home"}});
+	$('.calendarButton').gbutton({icons : {primary : "ui-icon-calendar"}});
+	$('.commentButton').gbutton({icons : {primary : "ui-icon-comment"}});
+	$('.ideaButton').gbutton({icons : {primary : "ui-icon-lightbulb"}});
+	$('.deleteButton').gbutton({icons : {primary : "ui-icon-circle-close"}});
+    $('.trashButton').gbutton({icons : {primary : "ui-icon-trash"}});
+	$('.newButton').gbutton({icons : {primary : "ui-icon-plusthick"}});
+	$('.settingsButton').gbutton({icons : {primary : "ui-icon-wrench"}});
+	$('.mapButton').gbutton({icons : {primary : "ui-icon-image"}});
+    $('.forwardButton').gbutton({icons : {primary : "ui-icon-arrowthick-1-e"}});
+	$('.historyButton').gbutton({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
+	$('.notesButton').gbutton({icons : {primary : "ui-icon-note"}});
+	$('.supportButton').gbutton({icons : {primary : "ui-icon-heart"}});
+    $('.searchButton').gbutton({icons : {primary : "ui-icon-search"}});
+    $('.acceptButton').gbutton({icons : {primary : "ui-icon-check"}});
+    $('.rejectButton').gbutton({icons : {primary : "ui-icon-close"}});
+    $('.showAllButton').gbutton({icons : {primary : "ui-icon-script"}});
+    $('.inviteButton').gbutton({icons : {primary : "ui-icon-mail-open"}});
+    $('.documentButton').gbutton({icons : {primary : "ui-icon-document"}});
+    $('.closeButton').gbutton({icons : {primary : "ui-icon-close"}});
+    $('.draftsButton').gbutton({icons : {primary : "ui-icon-pencil"}});
+    $('.contributeButton').gbutton({icons : {primary : "ui-icon-signal-diag"}});
+    $('.pdfButton').gbutton({icons : {primary : "ui-icon-print"}});
+    $('.resultsButton').gbutton({icons : {primary : "ui-icon-check"}});
+	$('.disabledButton').gbutton("option", "disabled", true);
 
 
 	$(".disableButton")
@@ -120,6 +125,16 @@ function disegnaBottoni() {
 	    .bind("ajax:complete", function() {
 	    	showDisableButton($(this));
 	    });
+
+    $(".btn.disable")
+            .unbind("ajax:beforeSend")
+            .bind("ajax:beforeSend", function() {
+                hideDisableGButton($(this));
+            })
+            .unbind("ajax:complete")
+            .bind("ajax:complete", function() {
+                showDisableGButton($(this));
+            });
 
     $(".disableClickButton")
     .bind("click", function() {
@@ -153,6 +168,25 @@ function hideDisableButton(button) {
 function showDisableButton(button) {
 	button.show();
 	$('.waitDiv').remove();
+
+}
+
+function hideDisableGButton(button) {
+    //button.hide();
+    var textInside = button.html();
+
+    var toAdd = $('<div class="load"><span>LOADING</span><%=image_tag "gloading.gif", :alt => ""%></div>');
+    button.width(button.width());
+    button.height(button.height());
+    button.empty();
+    button.append($('<span class="hidden">').append(textInside));
+    button.append(toAdd);
+}
+
+function showDisableGButton(button) {
+    var content = $('.hidden',button).html();
+    $('.load',button).remove();
+    button.html(content);
 }
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );

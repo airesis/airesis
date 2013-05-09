@@ -29,6 +29,7 @@
 //= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.ctooltip
+//= require jquery.gbutton
 //= require prettydiff/diffview
 //= require simplemodal
 //= require_tree ./rangy-1.2/

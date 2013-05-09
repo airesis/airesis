@@ -599,6 +599,10 @@ input.edit_label {
     visibility: visible;
 }
 
+.proposal_comment_area {
+    resize: none;
+}
+
 .report_contribute.visible {
     visibility: visible;
 }
@@ -649,4 +653,56 @@ input.edit_label {
     margin:  5px;
     background-color: #eee;
     min-height: 100px;
+}
+
+
+    /*link ai commenti*/
+.spch-bub-inside {
+    position: relative;
+}
+
+a.spch-bub-inside {
+    color: #00F;
+    text-decoration: none;
+}
+
+.spch-bub-inside em {
+    font-style: normal;
+}
+
+.spch-bub-inside em {
+    background: #00F;
+    color: #FFF;
+    padding: 0 0.2em;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    border-radius: 0.25em;
+    position: relative;
+}
+
+.spch-bub-inside .point {
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 0.9em;
+    left: 0.4em;
+    display: block;
+    border-left: 0.45em solid #00F;
+    border-bottom: 0.45em solid #FFF; /* IE fix */
+    border-bottom: 0.45em solid #FFF;
+    overflow: hidden; /* IE fix */
+}
+
+a.spch-bub-inside:hover {
+    color: #F00;
+}
+
+a.spch-bub-inside:hover em {
+    cursor: pointer;
+    background: #F00;
+    color: #FF0;
+}
+
+a.spch-bub-inside:hover .point {
+    border-left: 0.5em solid #F00;
 }
