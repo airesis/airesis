@@ -8,7 +8,7 @@
 
 <h4><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h4>
 <% if ::Configuration::user_messages %>
-    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'inviteButton disableButton' if can? :send_message, @user %></span>
+    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'btn inviteButton disable' if can? :send_message, @user %></span>
 <% end %>
 <table style="width:100%">
 
@@ -113,7 +113,8 @@
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/><input type="hidden" value="put" name="_method">
 
             <div style="margin-top:8px">
-              <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+              <input type="submit" name="commit" value="Salva" class="btn blue"/>
+              <input type="button" value="Annulla" onclick="$.modal.close();"  class="btn"/>
             </div>
           </div>
           <div><h4><%= 'Dimensione massima: 2MB' %></h4></div>
@@ -143,18 +144,6 @@
             $('#password_profile').click(function () {
                 doModal($("#password_modal"));
             });
-
-            /*  $('#facebook_profile').click(function(){
-             doModal($("#facebook_page_url_modal"));
-             });
-
-             $('#google_profile').click(function(){
-             doModal($("#google_page_url_modal"));
-             });
-
-             $('#linkedin_profile').click(function(){
-             doModal($("#linkedin_page_url_modal"));
-             });*/
 
             $('.image_container img, .caption').mouseover(function () {
                 $('.caption').show();

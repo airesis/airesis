@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def facebook_like
-    "<div class=\"fb-like\" data-send=\"false\" data-layout=\"button_count\" data-width=\"100\" data-show-faces=\"false\"></div>"
+    "<div class=\"fb-like\" data-send=\"false\" data-layout=\"box_count\" data-width=\"100\" data-show-faces=\"false\"></div>"
   end
   
   def calendar(*args)

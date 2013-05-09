@@ -25,9 +25,9 @@
           <%= content_for :left_panel do %>
             <div class="menu2">
               <% if @group %>
-                  <%= link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new, :group_id => @group.id}, :remote => true, :class => 'buttonStyle newButton disableButton' if can_edit_events %>
+                  <%= link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new, :group_id => @group.id}, :remote => true, :class => 'btn blue newButton disable' if can_edit_events %>
               <% else %>
-                  <%= link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new}, :remote => true, :class => 'buttonStyle newButton disableButton' if can_edit_events %>
+                  <%= link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new}, :remote => true, :class => 'btn blue newButton disable' if can_edit_events %>
               <% end %>
             </div>
         <% end %>

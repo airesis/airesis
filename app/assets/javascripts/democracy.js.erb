@@ -25,11 +25,13 @@ $(function() {
             submenupannel=1;
             /*$('#main #main-copy').animate({'padding-top':'250px'}, 200);*/
             $('#menu-top .group-cont').slideDown().delay(200);
+            $('#submenu .tria').hide();
             $(this).addClass("sel");
         }else{
             submenupannel=0;
             /*$('#main #main-copy').animate({'padding-top':'80px'}, 200);*/
             $('#menu-top .group-cont').slideUp().delay(0);
+            $('#submenu .tria').delay(200).show(0);
             $(this).removeClass("sel");
         }
     });

@@ -93,8 +93,8 @@
             <% end %>
           </div>
           <div style="margin-top:8px">
-            <%= f.submit 'Marca', class: 'gbutton bluebtn' %>
-            <input type="button" value="Annulla" class="gbutton" onclick="$.modal.close();"/>
+            <%= f.submit 'Marca', class: 'btn blue' %>
+            <input type="button" value="Annulla" class="btn" onclick="$.modal.close();"/>
           </div>
       <% end %>
   <% end %>
@@ -267,8 +267,9 @@
           <a href="https://twitter.com/share"
              class="twitter-share-button"
              data-lang="en"
+             data-count="vertical"
              data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>: <%= @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>">Tweet</a>
-          <g:plusone size="medium"></g:plusone>
+          <g:plusone size="tall"></g:plusone>
           <%= raw facebook_like %>
         </div>
     <% end %>

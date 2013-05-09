@@ -4,8 +4,8 @@
 	<div style="padding-left:135px">
 	<%=f.text_field attr_name, size: 25 %>
 	<div style="margin-top:8px">
-		<%=f.submit 'Salva'%>
-		<input type="button" value="Annulla" onclick="$.modal.close();"/>
+		<%=f.submit 'Salva', class: 'btn blue'%>
+		<input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
 	</div>
 	</div>
 	<%end%>
