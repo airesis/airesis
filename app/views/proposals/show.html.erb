@@ -111,10 +111,11 @@
     var checkActive = false;
 
     var $viewport = $('html, body');
+
     function contribute(section_id) {
         $('#proposal_comment_section_id').val(section_id);
         $viewport.animate({
-            scrollTop: $("#proposal_comment_content").offset().top - 47
+            scrollTop: $("#proposal_comment_content").offset().top - 150
         }, 2000, function () {
             $('#proposal_comment_content').focus();
         });
@@ -196,20 +197,20 @@
             $(this).parent().find('.vote_comment').hide();
             $(this).parent().find('.loading').show();
             $('.reply_textarea[data-id=' + num + ']').focus().attr('placeholder', 'Indica il motivo della tua valutazione negativa').effect('highlight', {}, 3000);
-        })
+        });
 
 
-        $('.report_menu')
+        $('.hidden_menu')
                 .click(function (event) {
                     event.stopPropagation();
                 });
 
         $('html').click(function () {
-            $('.report_menu').hide();
-            $('.report_contribute.visible').removeClass('visible');
+            $('.hidden_menu').hide();
+            $('.hidden_link.visible').removeClass('visible');
         });
 
-        $('.report_contribute')
+        $('.hidden_link')
                 .click(function (event) {
                     $(this).addClass('visible');
                     $(this).next().show().position({

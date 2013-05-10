@@ -1,11 +1,13 @@
 <%@page_title = t("pages.groups.edit_proposals.title")%>     
 <%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_proposals.title')} do%>
-	<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_path(@group), :remote => true, :class=>"newButton disableButton"%>
+
 <%end%>
 
 <div id="quorum_panel_container">
 <%= render :partial => 'groups/quorums_panel' %>
 </div>
+
+<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_path(@group), :remote => true, :class=>"btn blue newButton disable"%>
 
 <div id="new_quorum_container" title="Nuovo quorum" style="display: none; font-size: 14px;">
 </div>

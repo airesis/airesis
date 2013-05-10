@@ -98,9 +98,9 @@ class EventsController < ApplicationController
         format.js {
           render :update do |page|             
             if @event
-              page.alert @event.errors.full_messages.join(";")
+              page.alert @event.errors.full_messages.join("\n")
             elsif @event_series
-              page.alert @event_series.errors.full_messages.join(";")
+              page.alert @event_series.errors.full_messages.join("\n")
             end
           end
         }

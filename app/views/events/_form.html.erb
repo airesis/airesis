@@ -60,6 +60,7 @@
 				<%= f.select :frequency, (1..30).to_a %> <span id = "period"></span>
 			</p> 
 			<p>
+                <a href="#" class="btn" onclick="$('#create_event_dialog').dialog('destroy');"><%= t('buttons.cancel') %></a>
 				<%= f.submit 'Crea!', :class => 'btn blue disable'%>
 			</p></td>
 			<td width="40%"> 

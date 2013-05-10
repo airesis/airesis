@@ -63,14 +63,12 @@
 
 .proposal_main {
     position: relative;
-    border: 1px solid #CCCCCC;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 3px;
-    background: repeat scroll 0 0 #FFF;
-    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #FFFFFF), color-stop(70%, #DFEFFC));
-    background: -moz-linear-gradient(center top, #FFFFFF 0%, #DFEFFC 70%) repeat scroll 0 0 transparent;
-    margin-bottom: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0px 0px 1px #000;
+    margin-bottom: 20px;
 }
 
 .proposal_comment {
@@ -328,7 +326,7 @@ ul.blogList li.blogListFirst {
     width: 765px;
 }
 
-.proposalMainContainer {
+/*.proposalMainContainer {
     clear: both;
 }
 
@@ -336,7 +334,35 @@ ul.blogList li.blogListFirst {
     word-wrap: break-word;
     margin: 0 10px;
     letter-spacing: 1px;
-    /*text-align: justify; */
+} */
+
+h3 .tit1 {
+    position: relative;
+    margin-bottom: -16px;
+    background-color: rgba(222, 222, 222, 0.5);
+    padding: 10px;
+    border-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 14px;
+    z-index: 1;
+}
+
+
+.tit1 .suggest {
+    position: absolute;
+    right: 0px;
+    color: gray;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 999;
+    color: gray;
+    font-weight: bold;
+    margin-top: -29px;
+}
+
+.proposal_content {
+    padding: 10px;
 }
 
 .rankleftpanel {
@@ -572,9 +598,6 @@ input.edit_label {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.section_title {
-    margin: 14px 0px 5px 0px;
-}
 
 .contributeSectionButton {
     margin-top: 10px;
@@ -587,7 +610,7 @@ input.edit_label {
     margin-top: 15px;
 }
 
-.report_contribute {
+.hidden_link {
     float: right;
     background-image: url("/assets/arrow.png");
     width: 13px;
@@ -595,24 +618,24 @@ input.edit_label {
     visibility: hidden;
 }
 
-.proposal_comment:hover .report_contribute {
-    visibility: visible;
-}
-
-.proposal_comment_area {
-    resize: none;
-}
-
-.report_contribute.visible {
-    visibility: visible;
-}
-
-.proposal_comment:hover .report_contribute:hover {
+.hidden_link:hover {
     background-image: url("/assets/arrow_hover.png");
     cursor: pointer;
 }
 
-.report_menu {
+.proposal_comment:hover .hidden_link {
+    visibility: visible;
+}
+
+.blogPost:hover .hidden_link {
+    visibility: visible;
+}
+
+.hidden_link.visible {
+    visibility: visible;
+}
+
+.hidden_menu {
     display: none;
     position: absolute;
     background-color: white;
@@ -624,16 +647,21 @@ input.edit_label {
 
 }
 
-.report_menu .menu_item {
+.hidden_menu .menu_item {
     padding: 6px 8em 6px 30px;
     cursor: pointer;
     color: #333;
     text-decoration: none;
+    display: block;
 }
 
-.report_menu .menu_item:hover {
+.hidden_menu .menu_item:hover {
     background-color: #eee;
     border-color: #eee;
+}
+
+.proposal_comment_area {
+    resize: none;
 }
 
 .noise_element {

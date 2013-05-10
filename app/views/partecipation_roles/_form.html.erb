@@ -10,7 +10,8 @@
         <%=f.text_area :description, style: "width: 300px;height:150px;"%>
       </p>
     <%end%>
-    <%=f.submit button_name, :class => 'buttonStyle'%>
+    <a href="#" class="btn" onclick="$('#new_role').dialog('destroy');"><%= t('buttons.cancel') %></a>
+    <%=f.submit button_name, :class => 'btn blue'%>
 <%end%>
 
 <script type="text/javascript">

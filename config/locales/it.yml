@@ -582,15 +582,19 @@ it:
         groups_end_time: "Data termine iscrizione gruppi"
         candidates_end_time: "Data termine iscrizione candidati"
       event:
-         title: "Titolo dell'evento"
-         description: "Descrizione"
-         event_type_id: "Tipo di evento"
-         starttime: "Data di inizio"
-         endtime: "Data di fine"
-         all_day: "Tutto il giorno"
-         period: "Ripeti"
-         frequency: "Ripeti ogni"
-         private: "Privato"
+        title: "Titolo dell'evento"
+        description: "Descrizione"
+        event_type_id: "Tipo di evento"
+        starttime: "Data di inizio"
+        endtime: "Data di fine"
+        all_day: "Tutto il giorno"
+        period: "Ripeti"
+        frequency: "Ripeti ogni"
+        private: "Privato"
+      meeting:
+        place:
+          address: "Indirizzo"
+          comune_id: "Comune"
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
@@ -739,6 +743,8 @@ it:
       insert_error: "Errore durante l'inserimento."
       edit_ok: "Il tuo commento è stato aggiornato con successo."
       delete_ok: 'Il commento è stato cancellato'
+      report_ok: "Contributo marcato correttamente"
+      report_error: "Errore durante la segnalazione del contributo"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"
@@ -751,3 +757,5 @@ it:
   looking_for_interest_border: "Sto cercando..."
   digit_tags: "Digita i tag che vuoi inserire"
   ago: "fa"
+  buttons:
+    cancel: Annulla

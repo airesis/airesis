@@ -4,8 +4,13 @@ $('#proposal_histories').dialog({modal:true,
 									height:400,
 									resizable: true,
 									width:1042,
+     open: function() {
+         $('html').css('overflow', 'hidden');
+         $('.ui-widget-overlay').width($(".ui-widget-overlay").width() + 18);
+     },
 	 close: function(event, ui){ 
-                                  $(this).dialog('destroy'); 
-                                  $('#proposal_histories').remove();
-               }
+          $(this).dialog('destroy');
+          $('#proposal_histories').remove();
+          $('html').css('overflow', '');
+     }
 });

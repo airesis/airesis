@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   attr_accessor :period, :frequency, :commit_button, :backgroundColor, :textColor, :proposal_id
   
   validates_presence_of :title, :description, :starttime, :endtime
-  validate :validate_start_time_before_end_time
+  validate :validate_start_time_end_time
   
   belongs_to :event_series
   belongs_to :event_type
@@ -20,8 +20,10 @@ class Event < ActiveRecord::Base
   scope :public, {:conditions => ["private = ?",false]}
   scope :vote_period, lambda { where(['event_type_id = ? AND starttime > ?',2,Time.now]).order('starttime asc')}
   scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ['groups.id = ?',group_id]} if group_id}
-  
-  
+
+
+  after_destroy :remove_scheduled_tasks
+
   REPEATS = ['Non ripetere',
              'Ogni giorno',
              'Ogni settimana',
@@ -29,25 +31,30 @@ class Event < ActiveRecord::Base
              'Ogni anno']
   
   
-  def validate_start_time_before_end_time
+  def validate_start_time_end_time
     if starttime && endtime
       errors.add(:starttime, "La data di inizio deve essere antecedente la data di fine") if endtime <= starttime
     end
     
-    if (event_type_id == EventType::ELEZIONI)
-      if (election.groups_end_time && election.candidates_end_time)
-        if (election.groups_end_time < starttime ||
+    if event_type_id == EventType::ELEZIONI
+      if election.groups_end_time && election.candidates_end_time
+        if election.groups_end_time < starttime ||
             election.groups_end_time > endtime ||
             election.candidates_end_time < starttime ||
-            election.candidates_end_time > endtime)
+            election.candidates_end_time > endtime
         errors.add(:starttime, "Le date di termine iscrizioni devono essere comprese tra la data inizio e la data fine dell'evento")
         end 
       end
     end
   end
+
+  def remove_scheduled_tasks
+    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+  end
   
   def organizer_id=(id)
-    if (self.meeting_organizations.empty?)
+    if self.meeting_organizations.empty?
       self.meeting_organizations.build(:group_id => id)
     end
   end
@@ -57,31 +64,31 @@ class Event < ActiveRecord::Base
   end
   
   def is_past?
-    return Time.now > self.endtime
+    Time.now > self.endtime
   end
   
   def is_now?
-    return self.starttime < Time.now && self.endtime > Time.now
+    self.starttime < Time.now && self.endtime > Time.now
   end
   
   def is_not_started?
-    return Time.now < self.starttime
+    Time.now < self.starttime
   end
 
   def is_elezione?
-    return self.event_type_id == EventType::ELEZIONI
+    self.event_type_id == EventType::ELEZIONI
   end
 
   def is_votazione?
-    return self.event_type_id == EventType::VOTAZIONE
+    self.event_type_id == EventType::VOTAZIONE
   end
   
   def backgroundColor
-    return "#DFEFFC"
+    "#DFEFFC"
   end
   
   def textColor
-    return "#333333"
+    "#333333"
   end
   
   def validate
@@ -116,9 +123,5 @@ class Event < ActiveRecord::Base
     event_series.attributes = event
     event_series.save
   end
-  
- 
-  
-  
-  
+
 end
