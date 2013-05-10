@@ -1,4 +1,5 @@
 <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+
 <% @page_title = "Chi siamo" %>
 <% @page_descr = "Un gruppo di volontari che vogliono migliorare il mondo in cui si vive, dei cittadini come te. " %>
 <h2 id="opensource">Cittadini che vogliono una democrazia pi&ugrave; evoluta</h2>
@@ -74,25 +75,87 @@
   <div style="clear:both;"></div>
 </div>
 <br/>
-<!--<h2>Area test e segnalazione bug</h2>
+
+
+<h2>Area Analisi</h2>
+
 
 <div class="scheda_volontario">
-	<div class="image_volontario">
-	<a href="skype:rikkardoleone?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype" /></a>
-	</div>
-	<div class="descrizione_volontario">
-		<h3>Riccardo Leone</h3>
-		<h4>Referente per i test</h4>
-		<p>
-		</p>
-	</div>	
-	<div style="clear:both;"></div>
-</div> 
+  <div class="image_volontario">
+    <%= image_tag "volunteers/giulietti_nicola.png", :width => 150 %>
+    <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
+    <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
+    <span>cell 380/2931955</span>
+    <!-- Place this code where you want the badge to render. -->
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Nicola Giulietti</h3>
+    <h4>Analista e coordinatore</h4>
 
+    <p>
+      Ho <%= age(Date.new(1984, 8, 19)) %> anni e da circa <%= age(Date.new(1998, 8, 19)) %> sono impegnato nel mondo
+      del volontariato, nell'ambito del quale ho coordinato numerose attività. Ho studiato ingegneria ambientale ed
+      ingegneria energetica. Durante l’università ho partecipato ad alcuni progetti di innovazione tecnologica e ho
+      lavorato nel campo della sostenibilità e della democrazia partecipata.
+      In Agorà 2.0 - Airesis mi sono occupato un po' di tutto fuorché della programmazione: studio delle logiche,
+      coordinamento, grafica. Non è facile essere circondati da informatici, ma resisterò finché Airesis non consentirà
+      alla gente di auto-organizzarsi in modo efficiente e democratico per recuperare il volante di questo mondo
+      impazzito.
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
 
-<br>-->
+<div class="scheda_volontario">
+  <div class="image_volontario">
+    <%= image_tag "volunteers/baiotto_marco.png", :width => 150 %>
+    <a href="mailto:marco.baiotto@gmail.com">marco.baiotto@gmail.com</a>
+  </div>
+  <div class="descrizione_volontario">
+    <h3>Marco Baiotto</h3>
+    <h4>Analista</h4>
 
-<h2>Analisi funzionalità, grafica e organizzazione</h2>
+    <p>
+      Riveste il ruolo di responsabile dei sistemi informativi per due grandi aziende metalmeccaniche appartenenti ad
+      una
+      holding internazionale operante nel settore automotive.
+      Da sempre diviso tra informatica e scienze umane, è giornalista pubblicista e critico letterario.
+      Curatore del sito <%= link_to 'http://www.lordglenn.com', 'http://www.lordglenn.com', target: '_blank' %> (nonché
+      giudice nell’omonimo concorso letterario dedicato agli animali), ha
+      collaborato a siti internet e riviste culturali e di varia umanità (tra
+      cui <%= link_to 'http://www.literary.it', 'www.literary.it', target: '_blank' %> ), nonché a volumi collettanei.
+      Ideatore dell’iperrelazionismo sensibile, costrutto filosofico in fieri, è autore del saggio "Wide Democracy,
+      oltre
+      la politica", sintesi di 3 anni di studi volti a realizzare un software di E-democracy certificato (rimasto allo
+      stadio
+      prototipale).<br/>
+      Si è imbattuto nel progetto Airesis e ne è rimasto folgorato. Ha deciso così di devolvere il frutto delle proprie
+      ricerche
+      ed il suo tempo libero, partecipando al gruppo di sviluppo. Si occupa prevalentemente di analisi delle logiche
+      funzionali e di testing, ma non disdegna la critica etica e filosofica rispetto alle scelte evolutive di più largo
+      respiro
+      operate all’interno del gruppo.
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+<h2>Area Grafica</h2>
+<div class="scheda_volontario">
+  <div class="image_volontario">
+
+  </div>
+  <div class="descrizione_volontario">
+    <h3></h3>
+    <h4></h4>
+
+    <p>
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+<h2>Area Comunicazione</h2>
 <div class="scheda_volontario">
   <div class="image_volontario">
     <%= image_tag "volunteers/curini_simone.jpg", :width => 150 %>
@@ -100,7 +163,7 @@
   </div>
   <div class="descrizione_volontario">
     <h3>Simone Curini</h3>
-    <h4>Referente riunioni skype</h4>
+    <h4>Divulgazione del progetto sul territorio e contatti con i Meetup</h4>
 
     <p>
       Ho <%= age(Date.new(1977, 8, 19)) %> anni e da circa  <%= age(Date.new(2006, 1, 1)) %> sono impegnato in attività
@@ -118,27 +181,32 @@
   <div style="clear:both;"></div>
 </div>
 
+
+<h2>Area Test</h2>
+
 <div class="scheda_volontario">
   <div class="image_volontario">
-    <%= image_tag "volunteers/giulietti_nicola.png", :width => 150 %>
-    <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
-    <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
-    <span>cell 380/2931955</span>
-    <!-- Place this code where you want the badge to render. -->
+
   </div>
   <div class="descrizione_volontario">
-    <h3>Nicola Giulietti</h3>
-    <h4>Referente per la grafica e richiesta informazioni</h4>
+    <h3></h3>
+    <h4></h4>
 
     <p>
-      Ho <%= age(Date.new(1984, 8, 19)) %> anni e da circa <%= age(Date.new(1998, 8, 19)) %> sono impegnato nel mondo
-      del volontariato, nell'ambito del quale ho coordinato numerose attività. Ho studiato ingegneria ambientale ed
-      ingegneria energetica. Durante l’università ho partecipato ad alcuni progetti di innovazione tecnologica e ho
-      lavorato nel campo della sostenibilità e della democrazia partecipata.
-      In Agorà 2.0 - Airesis mi sono occupato un po' di tutto fuorché della programmazione: studio delle logiche,
-      coordinamento, grafica. Non è facile essere circondati da informatici, ma resisterò finché Airesis non consentirà
-      alla gente di auto-organizzarsi in modo efficiente e democratico per recuperare il volante di questo mondo
-      impazzito.
+    </p>
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+<div class="scheda_volontario">
+  <div class="image_volontario">
+
+  </div>
+  <div class="descrizione_volontario">
+    <h3></h3>
+    <h4></h4>
+
+    <p>
     </p>
   </div>
   <div style="clear:both;"></div>
@@ -157,7 +225,7 @@
   D'Errico...</p>
 <h2>Uno speciale ringraziamento a</h2>
 <ul>
-  <li><a href="http://www.meetup.com/grillipensanti/" target="_blank">L'associazione Grilli pensanti</a> che supporta il
+  <li><a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5 Stelle</a> che supporta il
     progetto e ha finanziato le spese per l'hosting per tutto il 2013
   </li>
   <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave; necessarie
@@ -168,16 +236,23 @@
   </li>
   <li>Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo.</li>
   <li><a href="http://www.jetbrains.com/" target="_blank">JetBrains</a> che ci fornisce gratuitamente
-    <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo.                                                               oute
+    <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo. oute
   </li>
   <li><a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente
     <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e
     realizzazione dei test
   </li>
+  <li>Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente l'abbonamento
+    <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby On Rails
+  </li>
 </ul>
 <a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
   <img src="http://www.h-online.com/imgs/43/6/0/0/6/6/4/RubyMine_logo200-d15f4bf32abe0692.png" height="32px"/>
 </a>
-<a href="http://www.gurock.com/testrail/" target="_blank">
+<a href="http://www.gurock.com/testrail/" target="_blank" style="margin-right:40px;">
   <img src="http://www.gurock.com/images/start/testrail.png" height="32px"/>
 </a>
+<a href="http://railscasts.com/" target="_blank">
+  <img src="http://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" height="32px"/>
+</a>
+

@@ -50,6 +50,8 @@ $(function() {
         closeLabel: 'Chiudi',
         messageSuccess: 'Feedback inviato correttamente. Grazie!',
         messageError: 'Spiacenti ma si è verificato un errore durante l\'invio del feedback',
+        appendTo: $('#footer .pull-right')[0],
+        btnClass: "feedbackBtn",
         pages: [
             new window.Feedback.Form([{
                     type: "textarea",
@@ -74,7 +76,7 @@ function sticky_relocate() {
     var window_top = $(window).scrollTop();
     $('.sticky-anchor').each(function() {
         var div_top = $(this).offset().top;
-        if (window_top > div_top) {
+        if (window_top > (div_top - 90)) {
             $('.sticky').addClass('stick');
         } else {
             $('.sticky').removeClass('stick');
@@ -115,6 +117,7 @@ function disegnaBottoni() {
     $('.contributeButton').gbutton({icons : {primary : "ui-icon-signal-diag"}});
     $('.pdfButton').gbutton({icons : {primary : "ui-icon-print"}});
     $('.resultsButton').gbutton({icons : {primary : "ui-icon-check"}});
+    $('.searchButton').gbutton({icons : {primary : "ui-icon-search"}});
 	$('.disabledButton').gbutton("option", "disabled", true);
 
 

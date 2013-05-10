@@ -261,7 +261,13 @@
 <% end %>
 
 <script type="text/javascript">
-    $('#submenu .tria').animate({'left':$('#submenu .sel').offset().left+($('#submenu .sel').width()/2)-12},0)
+    var selector_ = $('#submenu .sel');
+    if (selector_.length > 0) {
+        $('#submenu .tria').animate({'left':selector_.offset().left+(selector_.width()/2)-12},0)
+    }
+    else {
+        $('#submenu .tria').remove();
+    }
 
     <%if user_signed_in?%>
     $('.hidden_panel').hide().click(function (event) {

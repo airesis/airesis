@@ -298,9 +298,11 @@
 
         options = options || {};
 
-        button = element( "button", options.label );
-        button.className = "feedback-btn feedback-bottom-right";
-
+        button = element( "a", options.label );
+        /*button.className = "feedback-btn feedback-bottom-right";*/
+        if ( options.btnClass !== null ) {
+          button.className = options.btnClass;
+        }
         button.setAttribute(H2C_IGNORE, true);
 
         button.onclick = returnMethods.open;

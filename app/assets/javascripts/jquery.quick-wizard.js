@@ -3,8 +3,8 @@
     $.fn.quickWizard = function (options, callback) {
         
         var settings = {
-            'prevButton': '<button id="form-wizard-prev" type="button" class="buttonStyle">Torna al passo precedente</button>',
-            'nextButton': '<button id="form-wizard-next" type="button" class="buttonStyle">Procedi</button>',
+            'prevButton': '<button id="form-wizard-prev" type="button" class="btn backButton">Torna al passo precedente</button>',
+            'nextButton': '<button id="form-wizard-next" type="button" class="btn blue forwardButton">Procedi</button>',
             'activeClass': 'form-wizard-active',
             'element': 'div.step',
             'submit': '[type = "submit"]',

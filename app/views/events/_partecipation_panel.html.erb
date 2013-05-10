@@ -35,9 +35,10 @@
 					<input type="radio" name="meeting_partecipation[response]" value="N">
 					NO</input>
 				</div>
+                <br />
 			</div>
-			<%= f.text_area :comment, :rows => 4, :cols => 10%>
-			<%= f.submit "Rispondi!", :style => "margin-bottom: 15px;margin-top: 10px;"%>
+			<%= f.text_area :comment, rows: 4, cols: 10%>
+			<%= f.submit "Rispondi!", style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn'%>
 			<%end%>
 		<script type="text/javascript">
 			$(function() {

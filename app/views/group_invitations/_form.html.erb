@@ -12,7 +12,7 @@
 
   <div class="actions">
     <%= f.hidden_field :group_id%>
-    <%= f.submit 'Invita', class: "inviteButton" %>
+    <%= f.submit 'Invita', class: "btn blue inviteButton" %>
   </div>
 <% end %>
 </div>
@@ -23,7 +23,7 @@
       $('#group_invitation_emails_list').tokenInput([], {
           theme: "facebook",
           crossDomain: false,
-          allowCustomEntry: true,
+          allowFreeTagging: true,
           hintText: "Digita gli indirizzi email separati da virgola",
           searchingText: "Digita gli indirizzi email separati da virgola",
           invalidTokenText: "Indirizzo email non valido",

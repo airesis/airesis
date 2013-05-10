@@ -227,7 +227,7 @@ class EventsController < ApplicationController
       permissions_denied
       return
     end
-    p = org.portavoce
+    p = org.scoped_partecipants(GroupAction::CREATE_EVENT)
     permissions_denied if (!current_user || !(p.include?current_user))
   end
 

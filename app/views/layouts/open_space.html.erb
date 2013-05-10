@@ -37,7 +37,7 @@
         </div>
       </div>
       <div id="centerpanelextended">
-        <div class="centerfloat" <%= raw @extend ? 'style="width:90%"': '' %> >
+        <div class="centerfloat <%= raw @extend ? 'extended': '' %>" >
         <div id="flash_messages" style="height:20px">
           <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>
