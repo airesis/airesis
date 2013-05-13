@@ -30,7 +30,7 @@
               <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::elections_active %>
-              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: (params[:controller] == 'elections' ? 'sel' : '') if current_user %>
+              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: ((['elections','candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
               <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::documents_active %>

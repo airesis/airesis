@@ -1,38 +1,32 @@
-<table class="table_list">
-  <thead class="table_header">
-  <th>Ruolo</th>
-  <th>Descrizione</th>
-
-  <% GroupAction.order(:seq).each do |action| %>
-      <th><%= action.description %></th>
-  <% end %>
-
-  </thead>
-  <tbody>
+<div id="roles_accordion">
 
   <% @group.partecipation_roles.each do |role|
     abilitations = role.action_abilitations.by_group(@group).all %>
-      <tr valign="top" style="border-bottom: 1px dotted grey; <%='background-color: #EAEBFF' if (role.id == @group.partecipation_role_id)%>">
-        <td>
-          <%= role.name %>
-        </td>
-        <td> <%= role.description %>
-        </td>
+      <h3><%= role.name %>
+        <% if (role.id == @group.partecipation_role_id) %> (default)
+        <% end %></h3>
+
+      <div>
+        <% if (role.id != @group.partecipation_role_id) %>
+            <%= link_to "Elimina", partecipation_role_path(role), :method => :delete, :remote => true, :class=> 'btn deleteButton', style: 'float:right', :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+        <% end %>
+        <%= link_to "Modifica", edit_partecipation_role_path(role), :class=> 'btn editButton', style: 'float:right', :remote => true %>
+        <h4><%= role.description %></h4>
         <% GroupAction.order(:seq).each do |action| %>
-            <td><input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
-                       <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
-                       checked="true"
-                       <% end %>
-                       /></td>
+            <input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
+                   <% if (abilitations.find { |a| a.group_action_id == action.id }) %>
+                   checked="true"
+                   <% end %>
+                   />
+            <span><%= action.description %></span>    <br/>
         <% end %>
 
-        <td>
-          <% if (role.id != @group.partecipation_role_id) %>
-              <%= link_to "X", partecipation_role_path(role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
-          <% end %>
-          <%= link_to "Modifica", edit_partecipation_role_path(role), :remote => true %>
-        </td>
-      </tr>
+      </div>
   <% end %>
-  </tbody>
-</table>
+</div>
+<script>
+    $(function() {
+        $( "#roles_accordion" ).accordion();
+        disegnaBottoni();
+    });
+</script>

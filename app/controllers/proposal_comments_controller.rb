@@ -139,11 +139,11 @@ class ProposalCommentsController < ApplicationController
       puts e
       flash[:error] = t('controllers.proposal_comments.insert_error')
       format.js { render :update do |page|
+        flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
         if @is_reply
-          flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
         else
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
           page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
         end
       end

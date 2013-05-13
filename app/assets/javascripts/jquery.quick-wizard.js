@@ -172,7 +172,7 @@
                     /* If there are no more sections, hide the next button and show the submit button */
                     if (afterNextSet.length <= 0) {
                         $(next).hide();
-                        submitButton.show();
+                        submitButton.show().css('display','inline-block');
                     }
                     
                     settings.nextCallback(nextSet);
