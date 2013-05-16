@@ -12,8 +12,10 @@
                     if (options && options.icons && options.icons.primary) {
                         var class_ = options.icons.primary;
                         if ($('.ui-icon', this).length == 0) {
-                            $(this).html($('<span class="text">').html($(this).html()));
-                            $(this).prepend($('<span class="ui-button-icon-primary ui-icon">').addClass(class_));
+                            if (!$(this).is(':empty')) {
+                                $(this).html($('<span class="text"></span>').html($(this).html()));
+                                $(this).prepend($('<span class="ui-button-icon-primary ui-icon"></span>').addClass(class_));
+                            }
                         }
                     }
                 }

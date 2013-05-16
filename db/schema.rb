@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502173658) do
+ActiveRecord::Schema.define(:version => 20130516130000) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -425,7 +425,9 @@ ActiveRecord::Schema.define(:version => 20130502173658) do
   end
 
   create_table "notification_categories", :force => true do |t|
-    t.string "description"
+    t.string  "description"
+    t.integer "seq"
+    t.string  "short",       :limit => 8
   end
 
   create_table "notification_data", :force => true do |t|

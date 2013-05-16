@@ -241,7 +241,7 @@
     -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
 }
 
-#menu-top #tolr {
+#tolr {
     position: absolute;
     right: 10px;
     top: 12px;
@@ -249,8 +249,8 @@
 
 #inlog {
     position: absolute;
-    top: 5px;
-    right: 40px;
+    top: 37px;
+    right: 0px;
     width: 200px;
     color: white;
     font-size: 13px;
@@ -258,7 +258,7 @@
     text-align: right;
 }
 
-#menu-top #tolr img {
+#tolr img {
     height: 15px;
     margin-left: 2px;
     padding: 5px;
@@ -268,7 +268,7 @@
     cursor: pointer;
 }
 
-#menu-top #logo-but:hover, #menu-top #logo-but.sel {
+#logo-but:hover, #logo-but.sel {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -293,17 +293,16 @@
     border: 1px solid #939393;
 }
 
-#menu-right.slim #mybox .box {
+#menu-right.slim .box {
     position: relative;
     height: 70px;
     border: 0;
     margin: 8px;
-    height: 60px;
     margin-right: 5px;
 
 }
 
-#menu-right #mybox .box .logo {
+#menu-right .box .logo {
     position: absolute;
     right: 0px;
     width: 50px;
@@ -313,10 +312,9 @@
     margin-bottom: 15px;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #888;
 }
 
-#menu-right #mybox .box .notify {
+#menu-right .box .notify {
     position: absolute;
     right: -10px;
     top: -10px;
@@ -331,8 +329,8 @@
     z-index: 998;
 }
 
-#menu-right #account img:hover,
-#menu-right #mybox .box .logo:hover {
+#menu-right img:hover,
+#menu-right .box .logo:hover {
     box-shadow: 0px 0px 2px #000;
 }
 
@@ -419,7 +417,6 @@
     margin-top: 5px;
     margin-bottom: 10px;
     border: 1px dotted silver;
-    margin-bottom: 5px;
     padding: 5px;
     background-color: white;
 }
@@ -429,10 +426,18 @@
     margin-bottom: -15px;
 }
 
-.cont-mess .tool span {
+.cont-mess .tool div {
     font-size: 14px;
     font-weight: bold;
-    margin-left: 10px;
+    position:  absolute;
+    display: inline-block;
+    margin-top: 10px;
+    line-height: 1.1em;
+    margin-left: 2px;
+}
+
+.cont-mess .mess:hover{
+    border:1px dotted black;
 }
 
 .cont-mess .mess button {
@@ -471,6 +476,21 @@
     margin-right: 5px;
     display: block;
 }
+
+.cont-mess .mess .read {
+    float:right;
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.cont-mess .mess:hover .read {
+    visibility: visible;
+}
+
+.cont-mess .mess .read:hover {
+    background-color:rgba(255, 255, 255, 0.5);
+}
+
 
 .cont-mess .mess.new {
     background-color: #ededed;
@@ -542,6 +562,18 @@
     padding-bottom: 10px;
 }
 
+#footer {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    padding: 7px;
+    background-color: #33b5e5;
+    color: white;
+    box-shadow: 0px -1px 1px #333;
+    font-size: 0.9em;
+}
+
 #footer a {
     color: white;
     text-decoration: none;
@@ -573,6 +605,13 @@
     max-width: none;
 }
 
+
+
+.qtip-right {
+    border-radius: 3px;
+    padding-bottom: 9px;
+    margin-top: 10px;
+}
 
 
 

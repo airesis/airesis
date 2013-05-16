@@ -66,12 +66,12 @@ class Proposal < ActiveRecord::Base
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
                   :group_area_id,
-                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids_list
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -112,6 +112,10 @@ class Proposal < ActiveRecord::Base
   after_find :calculate_percentage
 
 
+  def integrated_contributes_ids_list=(value)
+    self.integrated_contributes_ids = value.split(/,\s*/)
+  end
+
   def is_schulze?
     self.solutions.count > 1
   end
@@ -123,7 +127,6 @@ class Proposal < ActiveRecord::Base
   def is_polling?
     self.proposal_type_id.to_s == ProposalType::POLL.to_s
   end
-
 
   def remove_scheduled_tasks
     Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
@@ -235,6 +238,7 @@ class Proposal < ActiveRecord::Base
       solution_history.destroy unless something_solution
     end
     something ? @revision.save! : @revision.destroy
+    self.touch
   end
 
   def mark_integrated_contributes

@@ -28,11 +28,6 @@
           </p>
 
           <p>
-            <%= f.label :subtitle %><br/>
-            <%= f.text_field :subtitle, :style => "width:600px;" %>
-          </p>
-
-          <p>
             <%= f.label :interest_borders_tkn %><br/>
             <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
           </p>
@@ -207,7 +202,8 @@
     <p>
       <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
 
-      <%= f.hidden_field :integrated_contributes_ids %>
+
+      <%= f.hidden_field :integrated_contributes_ids_list %>
 
       <%= f.submit "Aggiorna", :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
     </p>
@@ -262,8 +258,7 @@
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
         }
-        $('#proposal_integrated_contributes_ids').val(integrated_contributes);
-        console.log($('#proposal_integrated_contributes_ids').val());
+        $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
     }
 
 
