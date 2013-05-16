@@ -44,7 +44,7 @@
   <% end %>
 
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="margin-right:<%= current_user ? '80px' : '0px' %>">
+  <div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
     <!-- ##### Main Copy ##### -->
     <div id="main-copy">
       <div id="menu-left">
