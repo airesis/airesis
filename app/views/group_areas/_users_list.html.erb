@@ -1,4 +1,4 @@
-<% @group.partecipants.each do |partecipant| %>
+<% @group.partecipants.includes(:image).each do |partecipant| %>
     <div class="members" id="mem<%= partecipant.id %>">
       <div>
         <%= partecipant.user_image_tag 40 %>

@@ -11,7 +11,8 @@
             <%=f.text_area :description, style: "width: 300px;height:150px;"%>
           </p>
       <%end%>
-      <%=f.submit button_name, :class => 'buttonStyle'%>
+
+      <%=f.submit button_name, :class => 'btn blue'%>
   <%end%>
 
   <script type="text/javascript">
@@ -29,7 +30,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#new_group_area").validate();
+        $("#new_area_role").validate();
         disegnaBottoni();
         $(".elastic").elastic();
 

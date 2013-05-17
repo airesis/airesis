@@ -5,6 +5,6 @@ $('#group_areas_container').html('<%= escape_javascript(render(:partial => 'grou
 <%else%>
 $('#users_list_container').html('<%= escape_javascript(render(:partial => 'group_areas/users_list'))%>');
 <%end%>
-var _new_group_area = $('#new_group_area');
+var _new_group_area = $('#group_area_panel');
 _new_group_area.dialog('destroy');
 _new_group_area.remove();

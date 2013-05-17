@@ -209,7 +209,7 @@ class EventsController < ApplicationController
   
   def load_event 
     @event = Event.find_by_id(params[:id])
-    #@group = @event.meeting_organizations.first.group rescue nil
+    @group = @event.meeting_organizations.first.group rescue nil
   end
 
 

@@ -85,15 +85,16 @@
           <%= current_user.user_image_tag 55 %>
         </div>
 
-        <div id="mybox" style="display: block;">
-          <% NotificationCategory.order(:seq).each do |category| %>
-              <div class="box">
-                <div class="alert_box logo" data-id="<%= category.id %>" style="background:#fff url(<%=asset_path 'notification_categories/' + category.short.downcase! + '.png'%>) center; background-size:cover;">
-                </div>
-              </div>
-          <% end %>
-
-        </div>
+        <%= cache ["right_menu", I18n.locale] do %>
+            <div id="mybox" style="display: block;">
+              <% NotificationCategory.order(:seq).each do |category| %>
+                  <div class="box">
+                    <div class="alert_box logo" data-id="<%= category.id %>" style="background:#fff url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
 
       </div>
     </div>
@@ -145,23 +146,25 @@
           </div>
 
           <% if ::Configuration.socialnetwork_active %>
-              <div class="box more">
-                <div class="more">
-                  <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-                </div>
-                <div class="more">
-                  <%= link_to image_tag('accedi_google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                </div>
-                <div class="more">
-                  <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
-                </div>
-                <div class="more">
-                  <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-                </div>
-                <div class="more">
-                  <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-                </div>
-              </div>
+              <%= cache ["social_network_header", I18n.locale] do %>
+                  <div class="box more">
+                    <div class="more">
+                      <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+                    </div>
+                    <div class="more">
+                      <%= link_to image_tag('accedi_google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                    </div>
+                    <div class="more">
+                      <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                    </div>
+                    <div class="more">
+                      <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                    </div>
+                    <div class="more">
+                      <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+                    </div>
+                  </div>
+              <% end %>
           <% end %>
         </div>
     <% end %>
@@ -381,7 +384,7 @@
                         alert_container.addClass(alert.checked ? 'old' : 'new');
 
                         if (!alert.checked) {
-                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="Letto" data-type_id="'+obj.id+'" onclick="read_notifica(this);return false;"></span>'));
+                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="Letto" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }
 
                         alert_container.append($('<p class="p2">' + alert.text + '</p>'));

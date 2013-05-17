@@ -32,7 +32,7 @@
 	-->
     </p>
         <%=  f.label :image %><br/>
-        <%=f.file_field :image %>
+        <%=f.file_field :image, accept: "image/jpeg,image/png"  %>
     <p>
 
       <%= f.label :interest_border_tkn %>

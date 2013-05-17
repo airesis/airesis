@@ -226,7 +226,6 @@ class ApplicationController < ActionController::Base
     return proposals_path
   end
 
-
   protected
   def discard_flash_if_xhr
     flash.discard if request.xhr?

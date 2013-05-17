@@ -4,14 +4,14 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :rankup, :rankdown, :ranknil, :destroy, :report, :mark_noise]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :rankup, :rankdown, :ranknil, :destroy, :report]
 
 ###SICUREZZA###
 
 #l'utente deve aver fatto login
   before_filter :authenticate_user!, :only => [:edit, :update, :delete, :new, :report, :mark_noise]
   before_filter :save_post_and_authenticate_user, :only => [:create]
-  before_filter :check_author, :only => [:edit, :update, :delete, :mark_noise]
+  before_filter :check_author, :only => [:edit, :update, :delete]
   before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
 
   #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
@@ -217,16 +217,25 @@ class ProposalCommentsController < ApplicationController
 
   end
 
-  #the editor marked
+  #the editor marked some contributes as unuseful
   def mark_noise
-    if params[:noise] == 'true'
-      @proposal_comment.update_attribute(:noise, true)
-    elsif params[:noise] == 'false'
-      @proposal_comment.update_attribute(:noise, false)
-    end
+    return unless current_user.is_my_proposal? @proposal
+
+    active = params[:comments][:active]
+    inactive = params[:comments][:inactive]
+
+    active = active.split(/,\s*/)
+    inactive = inactive.split(/,\s*/)
+
+    to_active = @proposal.contributes.where(["id in (?) and soft_reports_count >= ?", active, CONTRIBUTE_MARKS])
+    to_inactive = @proposal.contributes.where(:id => inactive)
+
+    to_active.update_all(:noise => false)
+    to_inactive.update_all(:noise => true)
 
     respond_to do |format|
-      format.js {}
+      format.js {render :nothing => true}
+      format.html {redirect_to @proposal}
     end
 
   end

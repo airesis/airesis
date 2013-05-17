@@ -239,6 +239,7 @@ GEM
     rsolr (1.0.8)
       builder (>= 2.1.2)
     ruby-openid (2.2.2)
+    ruby-prof (0.13.0)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
     sanitize (2.0.3)
@@ -269,6 +270,7 @@ GEM
       nokogiri
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
+    test-unit (2.5.4)
     textpow1x (1.2.5)
       plist (>= 3.0.1)
     therubyracer (0.10.1)
@@ -336,6 +338,7 @@ DEPENDENCIES
   resque
   resque-scheduler
   resque_mailer
+  ruby-prof
   sanitize
   sass-rails (~> 3.2.3)
   seed_dump
@@ -343,6 +346,7 @@ DEPENDENCIES
   sunspot-queue
   sunspot_rails
   sunspot_solr
+  test-unit
   therubyracer (= 0.10.1)
   thin
   tinymce-rails

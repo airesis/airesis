@@ -25,7 +25,7 @@ class GroupAreasController < ApplicationController
 
   def index
     if @group.enable_areas
-      @group_areas = @group.group_areas.includes(:partecipants)
+      @group_areas = @group.group_areas#.includes(:partecipants)
       @partecipants = @group.partecipants
     else
       render 'area_inactive'
@@ -33,7 +33,7 @@ class GroupAreasController < ApplicationController
   end
 
   def manage
-    @group_areas = @group.group_areas.includes(:partecipants)
+    @group_areas = @group.group_areas#.includes(:partecipants)
     @partecipants = @group.partecipants
   end
 

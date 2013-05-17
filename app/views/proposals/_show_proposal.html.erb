@@ -8,7 +8,7 @@
             var src = $(this).attr('alt');
             var width = $(this).attr('width') || 640
             var height = $(this).attr('height') || 390
-            $(this).after($('<iframe src=\"http://www.youtube.com/embed/' + src + '\" width=\"' + width + '\" height=\"' + height + '\" frameborder=\"0\" seamless allowfullscreens/>'));
+            $(this).after($('<iframe src=\"http://www.youtube.com/embed/' + src + '?wmode=transparent\" width=\"' + width + '\" height=\"' + height + '\" frameborder=\"0\" seamless allowfullscreens/>'));
             $(this).remove();
         });
     });

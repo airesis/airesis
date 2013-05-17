@@ -39,6 +39,7 @@ DemocracyOnline3::Application.routes.draw do
     member do
       get :show_message
       post :send_message
+      post :update_image
     end
   end
 
@@ -68,9 +69,10 @@ DemocracyOnline3::Application.routes.draw do
         put :ranknil
         put :rankdown
         post :show_all_replies
-        post :mark_noise
+
       end
       collection do
+        post :mark_noise
         post :list
         get :edit_list
         post :report

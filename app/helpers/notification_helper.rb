@@ -219,7 +219,7 @@ module NotificationHelper
     blog_post.groups.each do |group|
       msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
       #notifica a chi segue il gruppo
-      notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => blog_blog_post_path(blog_post.blog, blog_post))
+      notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => group_blog_post_path(group, blog_post))
       group.followers.each do |user|
         if (user != post_user) && (!sent_users.include?user)
           if send_notification_to_user(notification_b,user)
@@ -229,7 +229,7 @@ module NotificationHelper
       end
       
       #notifica a chi partecipa al gruppo
-      notification_b = Notification.create(:notification_type_id => 9,:message => msg,:url => blog_blog_post_path(blog_post.blog, blog_post))
+      notification_b = Notification.create(:notification_type_id => 9,:message => msg,:url => group_blog_post_path(group, blog_post))
       group.partecipants.each do |user|
         if (user != post_user) && (!sent_users.include?user)
           if send_notification_to_user(notification_b,user)

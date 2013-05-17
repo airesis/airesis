@@ -6,7 +6,7 @@
       <p>
         <%= text_field_tag :search, params[:search], placeholder: 'Inserisci almeno due caratteri per effettuare la ricerca', size: 40 %><br />
         <%= check_box_tag :or, params[:or] %> <%= 'Almeno una parola' %><br />
-        <%= submit_tag 'Cerca', onclick: 'return checkCharacters();' %>
+        <%= submit_tag 'Cerca', onclick: 'return checkCharacters();', class: 'btn' %>
       </p>
   <% end %>
 </fieldset>

@@ -460,3 +460,7 @@ function read_notifica(el) {
     });
 }
 
+function set_noise_data() {
+    $('#comments_active').val($('#active .noise_element').map(function(){return $(this).data('id')}).get());
+    $('#comments_inactive').val($('#inactive .noise_element').map(function(){return $(this).data('id')}).get());
+}

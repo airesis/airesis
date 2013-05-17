@@ -94,15 +94,16 @@
 </table>
 <% if current_user == @user %>
     <div id="img_modal" class="edit_modal">
-      <form action="/users/<%= @user.id %>" id="upload_form" method="post" enctype="multipart/form-data">
+      <form action="/users/<%= @user.id %>/update_image" id="upload_form" method="post" enctype="multipart/form-data">
         <div style="float:left">
           <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica
             un'immagine</h2>
 
           <div style="padding-left:150px">
-            <input type="file" name="image"/>
+            <input type="file" name="image" accept="image/jpeg,image/png" />
             <br/>
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/><input type="hidden" value="put" name="_method">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
+            <input type="hidden" value="post" name="_method">
 
             <div style="margin-top:8px">
               <input type="button" value="Annulla" onclick="$.modal.close();"  class="btn"/>

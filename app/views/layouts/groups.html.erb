@@ -21,7 +21,7 @@
 
     <div id="submenu">
       <% if @group && @group.id %>
-          <%= link_to t('pages.groups.layout.home_button'), @group, class: (params[:controller] == 'groups' && params[:action] == 'show' ? 'sel' : '') %>
+          <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
           <span> ⋅ </span>
           <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: (params[:controller] == 'proposals' ? 'sel' : '') %>
           <span> ⋅ </span>

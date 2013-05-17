@@ -28,6 +28,14 @@
       <% end %>
     </div>
   </div>
+  <div class="clearboth"></div>
+  <%=form_for 'comments', url:  mark_noise_proposal_proposal_comments_path(@proposal.id), method: :post  do |f| %>
+      <%= f.hidden_field 'active' %>
+      <%= f.hidden_field 'inactive' %>
+      <%= f.submit 'Salva', class: 'btn blue', onclick: 'set_noise_data();' %>
+      <input type="button" value="Annulla" class="btn" onclick="$.modal.close();"/>
+  <%end%>
+
 </div>
 
 <script type="text/javascript">
@@ -35,8 +43,8 @@
         var oldList, newList, item;
         $("#active, #inactive").sortable({
             connectWith: ".noiseSortable",
-            forcePlaceholderSize: '100px',
-            start: function(event, ui) {
+            forcePlaceholderSize: '100px'
+           /* start: function(event, ui) {
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
@@ -48,7 +56,10 @@
                             data: "noise=true",
                             url: "/proposals/" + <%=@proposal.id%> +"/proposal_comments/" + item.data('id') + "/mark_noise",
                             dataType: 'script',
-                            type: 'post'
+                            type: 'post',
+                            success: function() {
+                                $('#comment'+item.data('id')).hide();
+                            }
                         });
                     }
                     else {
@@ -56,14 +67,17 @@
                             data: "noise=false",
                             url: "/proposals/" + <%=@proposal.id%> +"/proposal_comments/" + item.data('id') + "/mark_noise",
                             dataType: 'script',
-                            type: 'post'
+                            type: 'post',
+                            success: function() {
+                                $('#comment'+item.data('id')).show();
+                            }
                         });
                     }
                 }
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
-            }
+            }*/
         }).disableSelection();
     });
 

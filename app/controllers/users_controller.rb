@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :edit, :show_message, :send_message]
+  before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :update_image, :edit, :show_message, :send_message]
 
   def blank
     render :text => "Not Found", :status => 404
@@ -180,17 +180,31 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def update_image
+    if params[:image]
+      image = Image.new({:image => params[:image]})
+      image.save!
+      @user.image_id = image.id
+    end
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "user_profile_container", :partial => "user_profile"
+        end
+      end
+      format.html {
+        if params[:back] == "home"
+          redirect_to home_url
+        else
+          redirect_to @user
+        end
+      }
+    end
+  end
 
   def update
     respond_to do |format|
-      if params[:user][:blog_image_url] && params[:user][:blog_image_url].blank?
-        params[:user][:blog_image_url] = nil
-      end
-      if (params[:image])
-        image = Image.new({:image => params[:image]})
-        image.save!
-        @user.image_id = image.id
-      end
 
       if @user.update_attributes(params[:user])
         flash[:notice] = t(:user_updated)
