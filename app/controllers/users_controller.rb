@@ -185,6 +185,7 @@ class UsersController < ApplicationController
       image = Image.new({:image => params[:image]})
       image.save!
       @user.image_id = image.id
+      @user.save!
     end
     respond_to do |format|
       format.js do
