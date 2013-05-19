@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   
   
    def new 
-    @event = Event.new(starttime: Time.now, endtime: 1.day.from_now, period: "Non ripetere")
+    @event = Event.new(starttime: Time.now + 10.minutes, endtime: 1.day.from_now + 10.minutes, period: "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")

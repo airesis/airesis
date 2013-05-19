@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516130000) do
+ActiveRecord::Schema.define(:version => 20130519105025) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -155,21 +155,59 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   end
 
   create_table "circoscrizioni_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                  :null => false
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "circoscrizione_id"
+    t.integer  "id",                                                            :null => false
+    t.string   "name",                       :limit => 200
+    t.string   "description",                :limit => 2000
+    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
+    t.integer  "interest_border_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                      :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                    :default => true,  :null => false
+    t.boolean  "default_anonima",                            :default => true,  :null => false
+    t.boolean  "default_visible_outside",                    :default => false, :null => false
+    t.boolean  "default_secret_vote",                        :default => true,  :null => false
+    t.integer  "max_storage_size",                           :default => 51200, :null => false
+    t.integer  "actual_storage_size",                        :default => 0,     :null => false
+    t.boolean  "enable_areas",                               :default => false, :null => false
+    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "circoscrizione_id"
   end
 
   create_table "comunali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                  :null => false
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "comune_id"
+    t.integer  "id",                                                            :null => false
+    t.string   "name",                       :limit => 200
+    t.string   "description",                :limit => 2000
+    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
+    t.integer  "interest_border_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                      :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                    :default => true,  :null => false
+    t.boolean  "default_anonima",                            :default => true,  :null => false
+    t.boolean  "default_visible_outside",                    :default => false, :null => false
+    t.boolean  "default_secret_vote",                        :default => true,  :null => false
+    t.integer  "max_storage_size",                           :default => 51200, :null => false
+    t.integer  "actual_storage_size",                        :default => 0,     :null => false
+    t.boolean  "enable_areas",                               :default => false, :null => false
+    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "comune_id"
   end
 
   create_table "comunes", :force => true do |t|
@@ -713,12 +751,31 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   add_index "proposals", ["vote_period_id"], :name => "_idx_proposals_vote_period_id"
 
   create_table "provinciali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                  :null => false
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "provincia_id"
+    t.integer  "id",                                                            :null => false
+    t.string   "name",                       :limit => 200
+    t.string   "description",                :limit => 2000
+    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
+    t.integer  "interest_border_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                      :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                    :default => true,  :null => false
+    t.boolean  "default_anonima",                            :default => true,  :null => false
+    t.boolean  "default_visible_outside",                    :default => false, :null => false
+    t.boolean  "default_secret_vote",                        :default => true,  :null => false
+    t.integer  "max_storage_size",                           :default => 51200, :null => false
+    t.integer  "actual_storage_size",                        :default => 0,     :null => false
+    t.boolean  "enable_areas",                               :default => false, :null => false
+    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "provincia_id"
   end
 
   create_table "provincias", :force => true do |t|
@@ -749,12 +806,31 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   end
 
   create_table "regionali_groups", :id => false, :force => true do |t|
-    t.integer "id",                                                  :null => false
-    t.string  "name",               :limit => 200
-    t.string  "description",        :limit => 2000
-    t.string  "accept_requests",    :limit => 1,    :default => "v", :null => false
-    t.integer "interest_border_id"
-    t.integer "regione_id"
+    t.integer  "id",                                                            :null => false
+    t.string   "name",                       :limit => 200
+    t.string   "description",                :limit => 2000
+    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
+    t.integer  "interest_border_id"
+    t.string   "facebook_page_url"
+    t.integer  "image_id"
+    t.string   "title_bar"
+    t.string   "image_url"
+    t.integer  "partecipation_role_id",                      :default => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "change_advanced_options",                    :default => true,  :null => false
+    t.boolean  "default_anonima",                            :default => true,  :null => false
+    t.boolean  "default_visible_outside",                    :default => false, :null => false
+    t.boolean  "default_secret_vote",                        :default => true,  :null => false
+    t.integer  "max_storage_size",                           :default => 51200, :null => false
+    t.integer  "actual_storage_size",                        :default => 0,     :null => false
+    t.boolean  "enable_areas",                               :default => false, :null => false
+    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "regione_id"
   end
 
   create_table "regiones", :force => true do |t|
@@ -897,6 +973,12 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
 
+  create_table "testi_vari", :id => false, :force => true do |t|
+    t.integer "id",                      :null => false
+    t.string  "testo_a", :limit => 4000
+    t.string  "testo_b", :limit => 4000
+  end
+
   create_table "tutorial_assignees", :force => true do |t|
     t.integer  "user_id",                        :null => false
     t.integer  "tutorial_id",                    :null => false
@@ -951,7 +1033,7 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
-    t.text   "short_name"
+    t.string "short_name",  :limit => nil
   end
 
   add_index "user_types", ["short_name"], :name => "srt_name_unq", :unique => true
@@ -984,7 +1066,7 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "deleted_at"
-    t.text     "state"
+    t.string   "state",                     :limit => nil
     t.string   "reset_password_token"
     t.string   "encrypted_password",        :limit => 128,                     :null => false
     t.boolean  "activist",                                  :default => false, :null => false
@@ -1024,7 +1106,6 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   end
 
   add_foreign_key "action_abilitations", "group_actions", :name => "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", :name => "action_abilitations_group_id_fk"
   add_foreign_key "action_abilitations", "partecipation_roles", :name => "action_abilitations_partecipation_role_id_fk"
 
   add_foreign_key "area_action_abilitations", "area_roles", :name => "area_action_abilitations_area_role_id_fk"
@@ -1040,41 +1121,51 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
 
   add_foreign_key "area_roles", "group_areas", :name => "area_roles_group_area_id_fk"
 
-  add_foreign_key "authentications", "users", :name => "authentications_user_id_fk"
+  add_foreign_key "authentications", "users", :name => "Ref_authentications_to_users"
 
   add_foreign_key "available_authors", "proposals", :name => "available_authors_proposal_id_fk"
   add_foreign_key "available_authors", "users", :name => "available_authors_user_id_fk"
 
-  add_foreign_key "blocked_alerts", "notification_types", :name => "blocked_alerts_notification_type_id_fk"
-  add_foreign_key "blocked_alerts", "users", :name => "blocked_alerts_user_id_fk"
+  add_foreign_key "blocked_alerts", "notification_types", :name => "Ref_blocked_alerts_to_notification_types"
+  add_foreign_key "blocked_alerts", "users", :name => "Ref_blocked_alerts_to_users"
 
   add_foreign_key "blocked_emails", "notification_types", :name => "blocked_emails_notification_type_id_fk"
   add_foreign_key "blocked_emails", "users", :name => "blocked_emails_user_id_fk"
 
-  add_foreign_key "blog_comments", "blog_comments", :name => "blog_comments_parent_blog_comment_id_fk", :column => "parent_blog_comment_id"
-  add_foreign_key "blog_comments", "blog_posts", :name => "blog_comments_blog_post_id_fk"
-  add_foreign_key "blog_comments", "users", :name => "blog_comments_user_id_fk"
+  add_foreign_key "blog_comments", "blog_comments", :name => "Ref_blog_comments_to_blog_comments", :column => "parent_blog_comment_id"
+  add_foreign_key "blog_comments", "blog_posts", :name => "Ref_blog_comments_to_blog_entries"
+  add_foreign_key "blog_comments", "users", :name => "Ref_blog_comments_to_users"
 
-  add_foreign_key "blog_post_tags", "blog_posts", :name => "blog_post_tags_blog_post_id_fk"
+  add_foreign_key "blog_post_images", "blog_posts", :name => "Ref_blog_post_images_to_blog_posts"
+  add_foreign_key "blog_post_images", "images", :name => "Ref_blog_post_images_to_images"
+
+  add_foreign_key "blog_post_tags", "blog_posts", :name => "Ref_blog_tags_to_blog_posts"
   add_foreign_key "blog_post_tags", "tags", :name => "blog_post_tags_tag_id_fk"
 
-  add_foreign_key "blog_posts", "blogs", :name => "blog_posts_blog_id_fk"
-  add_foreign_key "blog_posts", "users", :name => "blog_posts_user_id_fk"
+  add_foreign_key "blog_posts", "blogs", :name => "Ref_blog_entries_to_blogs"
+  add_foreign_key "blog_posts", "users", :name => "Ref_blog_posts_to_users"
 
-  add_foreign_key "blog_tags", "blogs", :name => "blog_tags_blog_id_fk"
+  add_foreign_key "blog_tags", "blogs", :name => "Ref_blog_tags_to_blogs"
   add_foreign_key "blog_tags", "tags", :name => "blog_tags_tag_id_fk"
 
-  add_foreign_key "blogs", "users", :name => "blogs_user_id_fk"
+  add_foreign_key "blogs", "users", :name => "Ref_blogs_to_users"
 
   add_foreign_key "candidates", "elections", :name => "candidates_election_id_fk"
   add_foreign_key "candidates", "users", :name => "candidates_user_id_fk"
+
+  add_foreign_key "circoscriziones", "comunes", :name => "Ref_circoscriziones_to_comunes"
+
+  add_foreign_key "circoscrizioni_groups", "circoscriziones", :name => "Ref_circoscrizioni_groups_to_circoscriziones"
+
+  add_foreign_key "comunali_groups", "comunes", :name => "Ref_comunali_groups_to_comunes"
 
   add_foreign_key "election_votes", "elections", :name => "election_votes_election_id_fk"
   add_foreign_key "election_votes", "users", :name => "election_votes_user_id_fk"
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
-  add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
+  add_foreign_key "events", "event_series", :name => "Ref_events_to_event_series"
+  add_foreign_key "events", "event_types", :name => "Ref_events_to_event_types"
 
   add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
   add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
@@ -1085,18 +1176,21 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   add_foreign_key "group_elections", "elections", :name => "group_elections_election_id_fk"
   add_foreign_key "group_elections", "groups", :name => "group_elections_group_id_fk"
 
+  add_foreign_key "group_follows", "groups", :name => "Ref_group_follows_to_groups"
+  add_foreign_key "group_follows", "users", :name => "Ref_group_follows_to_users"
+
   add_foreign_key "group_invitation_emails", "groups", :name => "group_invitation_emails_group_id_fk"
 
   add_foreign_key "group_invitations", "users", :name => "group_invitations_invited_id_fk", :column => "invited_id"
   add_foreign_key "group_invitations", "users", :name => "group_invitations_inviter_id_fk", :column => "inviter_id"
 
-  add_foreign_key "group_partecipation_requests", "group_partecipation_request_statuses", :name => "parent_fk"
-  add_foreign_key "group_partecipation_requests", "groups", :name => "group_partecipation_requests_group_id_fk"
-  add_foreign_key "group_partecipation_requests", "users", :name => "group_partecipation_requests_user_id_fk"
+  add_foreign_key "group_partecipation_requests", "group_partecipation_request_statuses", :name => "Ref_group_partecipation_requests_to_group_partecipation_request"
+  add_foreign_key "group_partecipation_requests", "groups", :name => "Ref_group_partecipation_requests_to_groups"
+  add_foreign_key "group_partecipation_requests", "users", :name => "Ref_group_partecipation_requests_to_users"
 
-  add_foreign_key "group_partecipations", "groups", :name => "group_partecipations_group_id_fk"
-  add_foreign_key "group_partecipations", "partecipation_roles", :name => "group_partecipations_partecipation_role_id_fk"
-  add_foreign_key "group_partecipations", "users", :name => "group_partecipations_user_id_fk"
+  add_foreign_key "group_partecipations", "groups", :name => "Ref_groups_partecipations_to_groups"
+  add_foreign_key "group_partecipations", "partecipation_roles", :name => "Ref_groups_partecipations_to_partecipation_roles"
+  add_foreign_key "group_partecipations", "users", :name => "Ref_groups_partecipations_to_users"
 
   add_foreign_key "group_proposals", "groups", :name => "group_proposals_group_id_fk"
   add_foreign_key "group_proposals", "proposals", :name => "group_proposals_proposal_id_fk"
@@ -1104,53 +1198,83 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   add_foreign_key "group_quorums", "groups", :name => "group_quorums_group_id_fk"
   add_foreign_key "group_quorums", "quorums", :name => "group_quorums_quorum_id_fk"
 
-  add_foreign_key "groups", "interest_borders", :name => "groups_interest_border_id_fk"
+  add_foreign_key "groups", "interest_borders", :name => "Ref_groups_to_interest_borders"
   add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
 
   add_foreign_key "integrated_contributes", "proposal_comments", :name => "integrated_contributes_proposal_comment_id_fk"
   add_foreign_key "integrated_contributes", "proposal_revisions", :name => "integrated_contributes_proposal_revision_id_fk"
 
+  add_foreign_key "meeting_organizations", "events", :name => "Ref_meetings_organizations_to_events"
+  add_foreign_key "meeting_organizations", "groups", :name => "Ref_meetings_organizations_to_groups"
+
+  add_foreign_key "meeting_partecipations", "meetings", :name => "Ref_meetings_partecipations_to_meetings"
   add_foreign_key "meeting_partecipations", "meetings", :name => "meeting_partecipations_meeting_id_fk"
+  add_foreign_key "meeting_partecipations", "users", :name => "Ref_meetings_partecipations_to_users"
   add_foreign_key "meeting_partecipations", "users", :name => "meeting_partecipations_user_id_fk"
 
+  add_foreign_key "meetings", "events", :name => "Ref_meetings_to_events"
   add_foreign_key "meetings", "events", :name => "meetings_event_id_fk"
+  add_foreign_key "meetings", "places", :name => "Ref_meetings_to_places"
   add_foreign_key "meetings", "places", :name => "meetings_place_id_fk"
 
   add_foreign_key "notification_data", "notifications", :name => "notification_data_notification_id_fk"
 
+  add_foreign_key "notification_types", "notification_categories", :name => "Ref_notification_types_to_notification_categories"
+
+  add_foreign_key "notifications", "notification_types", :name => "Ref_notifications_to_notification_type"
   add_foreign_key "notifications", "notification_types", :name => "notifications_notification_type_id_fk"
 
   add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
 
+  add_foreign_key "partecipation_roles", "groups", :name => "Ref_partecipation_roles_to_groups"
   add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
+  add_foreign_key "partecipation_roles", "partecipation_roles", :name => "Ref_partecipation_roles_to_partecipation_roles", :column => "parent_partecipation_role_id"
   add_foreign_key "partecipation_roles", "partecipation_roles", :name => "partecipation_roles_parent_partecipation_role_id_fk", :column => "parent_partecipation_role_id"
 
+  add_foreign_key "places", "comunes", :name => "Ref_places_to_comunes"
+
+  add_foreign_key "post_publishings", "blog_posts", :name => "Ref_post_publishings_to_blog_posts"
   add_foreign_key "post_publishings", "blog_posts", :name => "post_publishings_blog_post_id_fk"
+  add_foreign_key "post_publishings", "groups", :name => "Ref_post_publishings_to_groups"
   add_foreign_key "post_publishings", "groups", :name => "post_publishings_group_id_fk"
 
+  add_foreign_key "proposal_borders", "interest_borders", :name => "Ref_proposal_borders_to_interest_borders"
   add_foreign_key "proposal_borders", "interest_borders", :name => "proposal_borders_interest_border_id_fk"
+  add_foreign_key "proposal_borders", "proposals", :name => "Ref_proposal_borders_to_proposals"
   add_foreign_key "proposal_borders", "proposals", :name => "proposal_borders_proposal_id_fk"
 
   add_foreign_key "proposal_categories", "proposal_categories", :name => "proposal_categories_parent_proposal_category_id_fk", :column => "parent_proposal_category_id"
 
+  add_foreign_key "proposal_comment_rankings", "proposal_comments", :name => "Ref_proposal_comment_rankings_to_proposal_comments"
   add_foreign_key "proposal_comment_rankings", "proposal_comments", :name => "proposal_comment_rankings_proposal_comment_id_fk"
+  add_foreign_key "proposal_comment_rankings", "ranking_types", :name => "Ref_proposal_comment_rankings_to_ranking_types"
   add_foreign_key "proposal_comment_rankings", "ranking_types", :name => "proposal_comment_rankings_ranking_type_id_fk"
+  add_foreign_key "proposal_comment_rankings", "users", :name => "Ref_proposal_comment_rankings_to_users"
   add_foreign_key "proposal_comment_rankings", "users", :name => "proposal_comment_rankings_user_id_fk"
 
   add_foreign_key "proposal_comment_reports", "proposal_comment_report_types", :name => "proposal_comment_reports_proposal_comment_report_type_id_fk"
 
   add_foreign_key "proposal_comments", "paragraphs", :name => "proposal_comments_paragraph_id_fk"
+  add_foreign_key "proposal_comments", "proposal_comments", :name => "Ref_proposal_comments_to_proposal_comments", :column => "parent_proposal_comment_id"
+  add_foreign_key "proposal_comments", "proposals", :name => "Ref_proposal_comments_to_proposals"
   add_foreign_key "proposal_comments", "proposals", :name => "proposal_comments_proposal_id_fk"
+  add_foreign_key "proposal_comments", "users", :name => "Ref_proposal_comments_to_users"
+  add_foreign_key "proposal_comments", "users", :name => "Ref_proposal_comments_to_users0", :column => "deleted_user_id"
   add_foreign_key "proposal_comments", "users", :name => "proposal_comments_deleted_user_id_fk"
   add_foreign_key "proposal_comments", "users", :name => "proposal_comments_user_id_fk"
 
   add_foreign_key "proposal_nicknames", "proposals", :name => "proposal_nicknames_proposal_id_fk"
   add_foreign_key "proposal_nicknames", "users", :name => "proposal_nicknames_user_id_fk"
 
+  add_foreign_key "proposal_presentations", "proposals", :name => "Ref_proposals_presentations_to_proposals"
   add_foreign_key "proposal_presentations", "proposals", :name => "proposal_presentations_proposal_id_fk"
+  add_foreign_key "proposal_presentations", "users", :name => "Ref_proposals_presentations_to_users"
   add_foreign_key "proposal_presentations", "users", :name => "proposal_presentations_user_id_fk"
 
+  add_foreign_key "proposal_rankings", "proposals", :name => "Ref_proposal_rankings_to_proposals"
   add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
+  add_foreign_key "proposal_rankings", "ranking_types", :name => "Ref_proposal_rankings_to_ranking_types"
+  add_foreign_key "proposal_rankings", "users", :name => "Ref_proposal_rankings_to_users"
   add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
 
   add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
@@ -1158,22 +1282,39 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
   add_foreign_key "proposal_sections", "sections", :name => "proposal_sections_section_id_fk"
 
+  add_foreign_key "proposal_supports", "groups", :name => "Ref_proposal_supports_to_groups"
   add_foreign_key "proposal_supports", "groups", :name => "proposal_supports_group_id_fk"
+  add_foreign_key "proposal_supports", "proposals", :name => "Ref_proposal_supports_to_proposals"
   add_foreign_key "proposal_supports", "proposals", :name => "proposal_supports_proposal_id_fk"
 
   add_foreign_key "proposal_tags", "proposals", :name => "proposal_tags_proposal_id_fk"
   add_foreign_key "proposal_tags", "tags", :name => "proposal_tags_tag_id_fk"
 
+  add_foreign_key "proposal_votes", "proposals", :name => "Ref_proposal_votes_to_proposals"
   add_foreign_key "proposal_votes", "proposals", :name => "proposal_votes_proposal_id_fk"
 
+  add_foreign_key "proposal_watches", "proposals", :name => "Ref_proposal_watches_to_proposals"
+  add_foreign_key "proposal_watches", "users", :name => "Ref_proposal_watches_to_users"
+
+  add_foreign_key "proposals", "events", :name => "Ref_proposals_to_events", :column => "vote_period_id"
   add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
+  add_foreign_key "proposals", "proposal_categories", :name => "Ref_proposals_to_proposal_categories"
   add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
+  add_foreign_key "proposals", "proposal_states", :name => "Ref_proposals_to_proposal_states"
   add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"
   add_foreign_key "proposals", "proposal_types", :name => "proposals_proposal_type_id_fk"
   add_foreign_key "proposals", "proposal_votation_types", :name => "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
 
+  add_foreign_key "provinciali_groups", "provincias", :name => "Ref_provinciali_groups_to_provincias"
+
+  add_foreign_key "regionali_groups", "regiones", :name => "Ref_regionali_groups_to_regiones"
+
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
+
+  add_foreign_key "request_votes", "group_partecipation_requests", :name => "Ref_request_votes_to_group_partecipation_requests"
+  add_foreign_key "request_votes", "request_vote_types", :name => "Ref_request_votes_to_request_vote_types"
+  add_foreign_key "request_votes", "users", :name => "Ref_request_votes_to_users"
 
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
 
@@ -1186,6 +1327,8 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
 
   add_foreign_key "statos", "continentes", :name => "statos_continente_id_fk"
 
+  add_foreign_key "steps", "tutorials", :name => "steps_tutorial_id_fk"
+
   add_foreign_key "supporters", "candidates", :name => "supporters_candidate_id_fk"
   add_foreign_key "supporters", "groups", :name => "supporters_group_id_fk"
 
@@ -1195,19 +1338,31 @@ ActiveRecord::Schema.define(:version => 20130516130000) do
   add_foreign_key "tutorial_progresses", "steps", :name => "tutorial_progresses_step_id_fk"
   add_foreign_key "tutorial_progresses", "users", :name => "tutorial_progresses_user_id_fk"
 
+  add_foreign_key "user_alerts", "notifications", :name => "Ref_user_alerts_to_notifications"
   add_foreign_key "user_alerts", "notifications", :name => "user_alerts_notification_id_fk"
+  add_foreign_key "user_alerts", "users", :name => "Ref_user_alerts_to_users"
   add_foreign_key "user_alerts", "users", :name => "user_alerts_user_id_fk"
 
+  add_foreign_key "user_borders", "interest_borders", :name => "Ref_user_borders_to_interest_borders"
   add_foreign_key "user_borders", "interest_borders", :name => "user_borders_interest_border_id_fk"
+  add_foreign_key "user_borders", "users", :name => "Ref_user_borders_to_users"
   add_foreign_key "user_borders", "users", :name => "user_borders_user_id_fk"
 
+  add_foreign_key "user_follows", "users", :name => "Ref_user_follows_to_users", :column => "follower_id"
+  add_foreign_key "user_follows", "users", :name => "Ref_user_follows_to_users0", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
 
+  add_foreign_key "user_votes", "proposals", :name => "Ref_user_votes_to_proposals"
+  add_foreign_key "user_votes", "users", :name => "Ref_user_votes_to_users"
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"
 
+  add_foreign_key "users", "images", :name => "Ref_users_to_images"
   add_foreign_key "users", "images", :name => "users_image_id_fk"
+  add_foreign_key "users", "places", :name => "Ref_users_to_places", :column => "residenza_id"
+  add_foreign_key "users", "places", :name => "Ref_users_to_places0", :column => "nascita_id"
+  add_foreign_key "users", "user_types", :name => "Ref_users_to_user_types"
   add_foreign_key "users", "user_types", :name => "users_user_type_id_fk"
 
 end

@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
  
   def set_locale
     @domain_locale = request.host.split('.').last
-    I18n.locale = params[:l] || @domain_locale || I18n.default_locale
+    I18n.locale =
+      (Rails.env == :staging ?
+       params[:l] || I18n.default_locale :
+       params[:l] || @domain_locale || I18n.default_locale)
+
   end
   
   def default_url_options(options={})

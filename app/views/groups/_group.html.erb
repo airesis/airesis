@@ -77,7 +77,7 @@
                     warning: 100
                 });
 
-        $('#group_interest_border_tkn').tokenInput("/interest_borders.json", {
+        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
             hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",
