@@ -71,7 +71,7 @@ module StepHelper
       when 1
         return (user.interest_borders.count > 0)
       when 2
-        return (user.group_partecipations.count > 0 || user.group_follows.count > 0)
+        return (user.group_partecipations.count > 0 || user.group_partecipation_requests.count > 0)
       when 3
         return (user.proposals.count > 0)
       when 4

@@ -6,16 +6,16 @@
       <% if @proposal.is_schulze? #schulze        %>
           <h4><%= 'Sono presenti più soluzioni possibili a questa proposta. Esprimi il tuo giudizio mediante metodo di Schulze e ordina le soluzioni in base alle tue preferenze.' %></h4>
           <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
-          <%= render :partial => 'fragments/how_schulze_works' %>
           <table style="width:60%" id="solutions_table">
 
+	<%range = @proposal.solutions.count %>
+	<%range += 1 if range.even?%>
             <% @proposal.solutions.each do |solution| %>
                 <tr data-id="<%= solution.id %>">
                   <td style="width:30%"><%= solution.sections.first.title %></td>
                   <td style="width:70%"><select class="slideNumber">
-                    <option selected="selected">0</option>
-                    <% @proposal.solutions.count.times do |c| %>
-                        <option><%= c+1 %></option>
+                    <% range.times do |c| %>
+                        <option <%='selected="selected"' if c==range/2 %>><%= c+1 %></option>
                     <% end %>
                   </select>
                   </td>
@@ -26,7 +26,8 @@
           <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id} do |f| %>
               <%= f.hidden_field 'votes' %>
 
-              <%= f.submit t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'buttonStyle' %>
+              <%= render :partial => 'fragments/how_schulze_works' %>
+              <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'btn blue acceptButton' %>
           <% end %>
 
           <script type="text/javascript">
@@ -34,10 +35,10 @@
                   var select = $(".slideNumber");
                   var slider = $("<div class='slider'></div>").insertAfter(select).slider({
                       min: 1,
-                      max: <%=@proposal.solutions.count%>+1,
+                      max: <%=@proposal.solutions.count%>,
                       range: "min",
+		      value: select.val(),
                       slide: function (event, ui) {
-                          console.log("sliding")
                           $(this).prev()[0].selectedIndex = ui.value - 1;
                       }
                   });

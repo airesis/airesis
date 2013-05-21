@@ -387,7 +387,7 @@ class User < ActiveRecord::Base
     if user
       return user
     else #crea un nuovo account google
-      user = User.new(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil), :email => data["email"], :password => Devise.friendly_token[0, 20], :google_page_url => data["link"])
+      user = User.new(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil), :email => data["email"], :password => Devise.friendly_token[0, 20], :google_page_url => data["link"], :blog_image_url => data["picture"])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)

@@ -22,12 +22,11 @@
         </div>
         <div class="report_menu hidden_menu">
           <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
-            <%='Marca'%>
+            <%='Segnala'%>
           </div>
 
           <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
               <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
-                          :remote => "true",
                           :method => :delete,
                           :onclick => "return false;",
                           :class => "deleteCommentLink menu_item",

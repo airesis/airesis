@@ -74,9 +74,9 @@
     <div class="proposal_main">
       <h3>
         <div class="tit1">
-        <span>
+        <div class="tit2">
           <%= section.title %>
-        </span>
+        </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
               <div class="suggest">
                       <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= 'Dai il tuo contributo' %></a>
@@ -97,9 +97,9 @@
       <% solution.sections.each do |section| %>
           <h3>
             <div class="tit1">
-              <span>
+              <div class="tit2">
                 <%= section.title %>
-              </span>
+              </div>
               <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
 
                   <div class="suggest">

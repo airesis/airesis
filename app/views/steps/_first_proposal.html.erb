@@ -2,14 +2,15 @@
 <b>Il tuo primo contributo<br /></b>
 E' ora di dire la tua! <br />
 Inserisci una proposta, un'idea o una segnalazione dal territorio. <br /> 
-Contribuisci alla discussione e fatti conoscere dagli altri utenti per aumentare il tuo ranking.
+Contribuisci alla discussione e fatti conoscere dagli altri utenti. <br/>
+La tua proposta verrà inserita nello <%=link_to 'spazio comune', proposals_path%> e potrebbe essere supportata dai gruppi sul tuo territorio!
 <div style="margin:auto; text-align: center;">
 
-  <%= link_to 'Inserisci una proposta', new_proposal_path(:back => 'home', proposal_type_id: ProposalType::STANDARD), :remote => true, :class=> "buttonStyle disableButton" %>
+  <%= link_to 'Inserisci una proposta', new_proposal_path(:back => 'home', proposal_type_id: ProposalType::STANDARD), :remote => true, :class=> "btn blue disable newButton" %>
   <div id="create_proposal_container" style="display:none;">
   </div>
 
 </div>
 </div> 
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'buttonStyle littleText', :style => "float:right;" %>
+<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
 <div style="clear: both"></div>

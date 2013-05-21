@@ -12,7 +12,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module DemocracyOnline3
+module Airesis
   class Application < Rails::Application
     config.encoding = "utf-8"
     config.coding = "utf-8"

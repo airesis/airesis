@@ -103,7 +103,6 @@
 
 
 <script type="text/javascript">
-    var retval = false;
     var clicked;
 
     var currentView = <%=current_user ? 1 : 3 %>;
@@ -132,25 +131,17 @@
     }
 
     function hiding(event, id) {
-        if (!retval) {
-            clicked = $('#delete' + id);
-            console.log(clicked);
-            if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
-                $('#comment' + id).hide(600, function () {
-                    retval = true;
-                    clicked.click();
-                });
-                event.stopPropagation();
-                return false;
-            }
-            event.stopPropagation();
-            return false;
-        }
-        else {
-            retval = false;
-            return true;
-        }
-
+      if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
+        $('#comment' + id).hide(600, function () {
+          $.ajax({
+		dataType: 'json',
+		type: 'delete',
+		url: '/proposals/<%=@proposal.id%>/proposal_comments/'+id
+	  });
+        });
+        return false;
+      }
+      return false;
     }
 
 

@@ -18,7 +18,7 @@
         <%@proposal.solutions.each { |solution| @paragraphs_array += solution.sections.map { |section| [section.title, section.id] }}%>
         <%@paragraphs_array += @proposal.sections.map{ |section| [section.title, section.id] }%>
 
-        <%= f.select :section_id, @paragraphs_array, prompt: 'Nessun paragrafo specifico' %>
+        <%= f.select :section_id, @paragraphs_array, {prompt: 'Nessun paragrafo specifico'}, {class: 'paragraph_select'} %>
 	  </div>
 	</p>
 	<p>

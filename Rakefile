@@ -6,4 +6,4 @@ require 'rake/dsl_definition'
 require 'rake'
 require 'resque_scheduler/tasks'
 
-DemocracyOnline3::Application.load_tasks
+Airesis::Application.load_tasks

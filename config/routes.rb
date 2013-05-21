@@ -1,4 +1,4 @@
-DemocracyOnline3::Application.routes.draw do
+Airesis::Application.routes.draw do
 
 
   resources :tutorial_progresses
