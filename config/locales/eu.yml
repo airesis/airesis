@@ -217,9 +217,9 @@ eu:
         title: 'Edit Group Settings'
         change_permissions: "In Roles and Permissions Settings you can always change the members permissions."
       layout:
-        home_button: "Home Page"
-        proposals_button: "Proposals"
-        calendar: "Calendar"
+        home_button: "HOME PAGE"
+        proposals_button: "PROPOSALS"
+        calendar: "CALENDAR"
       show:
         rules_button: "Rules"
         post_button: "Insert posts"
@@ -235,10 +235,11 @@ eu:
         accept_request_button: "Accept"
         reject_request_button: "Reject"
         ask_partecipate_button: "Ask to be part of the group"
+        remove_post: "Remove from the group board"
       header:
-        settings: "Settings"
-        elections: "Elections"
-        documents: "Documents"
+        settings: "SETTINGS"
+        elections: "ELECTIONS"
+        documents: "DOCUMENTS"
     login:
       title: 'Perform authentication'
     confirmation:
@@ -249,7 +250,7 @@ eu:
       submit: 'Please send instructions to reset password.'
     registration:
       title: 'Register'
-      email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
+      email_confirmed: "If you ergister with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Password confirm"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
@@ -274,7 +275,7 @@ eu:
         group_areas_title: "Working areas"
         no_group_areas: "No area"
         all_areas: "All the areas"
-        categories_title: "Categories"
+        categories_title: "CATEGORIES"
         all_categories: "All categories"
         loading_proposals: "Loading proposals, please wait..."
         title_with_category: "Proposals in category %{category}"
@@ -348,6 +349,9 @@ eu:
         reply_button: "Reply"
         reply_placeholder: "Give your suggestion"
         export_pdf: "Print PDF"
+        manage_noise_folder: "Removed contributes"
+        noise_folder: "Removed contributes"
+        what_nickname: "What's that?"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -357,12 +361,17 @@ eu:
         step_4: "First proposal"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         problems_title: "Problems"
+        problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
         objectives_title: "Objectives"
         step_4_title: "You can enter a text of the proposal or write it later based on the input received"
         first_solution_title: "Text of the proposal"
         create_button: "Create the proposal"
         title: "New proposal"
         title_group: " in group %{name}"
+        title_synthetic: "(in summary)"
+        title_placeholder: "es. \"Facilitate bike transport on trains\""
+        interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
+        tags_list_placeholder: "Insert words about your proposal"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -388,6 +397,14 @@ eu:
         neutral: "Neutrals"
         name_surname_column: "Name and surname"
         date_time_column: "Vote date and time"
+      report_contribute:
+        mark_title: "Mark the contribute"
+        mark_description: "You can point out to authors of the proposal that this contribution does not contain
+                           relevant information to find a solution to the proposal.<br/>
+                           If the contribution is marked %{num} times, the authors of the proposal can
+                           delete it from the discussion and place it in the \"noise \" folder. <br/>"
+        report_title: "Report the contribution"
+        report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
     events:
       index:
         title: 'Calendar'
@@ -403,6 +420,7 @@ eu:
           confirm_positive: "Confirm your POSITIVE vote on the proposal '% {name}'?  Once you have voted it cannot be modified."
           confirm_neutral: "Confirm your NEUTRAL vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
           confirm_negative: "Confirm your NEGATIVE vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
+          confirm_schulze: "Confirm your vote on the proposal %{name}? Once you have voted it cannot be modified."
     blog_posts:
       new:
         title: 'Enter a new post'
@@ -573,15 +591,19 @@ eu:
         groups_end_time: 'Deadline date for group entry'
         candidates_end_time: 'Deadline date for candidates entry'
       event:
-         title: 'Event title'
-         description: 'Description'
-         event_type_id: 'Event Type'
-         starttime: 'Start Date'
-         endtime: 'End Date'
-         all_day: 'All Day'
-         period: 'Repeat'
-         frequency: 'Repeat every'
-         private: 'Private'
+        title: 'Event title'
+        description: 'Description'
+        event_type_id: 'Event Type'
+        starttime: 'Start Date'
+        endtime: 'End Date'
+        all_day: 'All Day'
+        period: 'Repeat'
+        frequency: 'Repeat every'
+        private: 'Private'
+      meeting:
+        place:
+          address: "Address"
+          comune_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -730,6 +752,8 @@ eu:
       insert_error: "Error during insert."
       edit_ok: "Your comment has been updated succesfully."
       delete_ok: 'Your comment has been deleted'
+      report_ok: "Contribution reported succesfully"
+      report_error: "Error during contribution report"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -742,3 +766,7 @@ eu:
   looking_for_interest_border: "Searching, please wait..."
   digit_tags: "Type the tags you want to insert"
   ago: "ago"
+  buttons:
+    cancel: Cancel
+    save: "Save"
+    report: "Report"

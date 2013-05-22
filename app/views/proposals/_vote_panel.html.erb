@@ -1,11 +1,11 @@
 <% if can? :vote, @proposal %>
     <div class="vote_panel">
-      <h3><b><%= 'Esprimi il tuo voto!' %></b></h3>
+      <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
 
 
       <% if @proposal.is_schulze? #schulze        %>
-          <h4><%= 'Sono presenti più soluzioni possibili a questa proposta. Esprimi il tuo giudizio mediante metodo di Schulze e ordina le soluzioni in base alle tue preferenze.' %></h4>
-          <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
+          <h4><%= t('pages.proposals.vote_panel.schulze_title') %></h4>
+          <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
           <table style="width:60%" id="solutions_table">
 
 	<%range = @proposal.solutions.count %>
@@ -85,8 +85,8 @@
 
           </script>
       <% else #standard        %>
-          <h4><%= 'In questa proposta è presenta un\'unica soluzione. Esprimi il tuo giudizio indicando se approvi o meno la soluzione che è stata trovata!' %></h4>
-          <h4><%= @proposal.secret_vote ? 'Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso' : 'Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti' %></h4>
+          <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
+          <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
 
           <div style="float: left">
             <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => POSITIVE_VOTE), :remote => true, :method => :put, :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), :confirm => t('pages.votations.show.confirm_positive', :name => @proposal.title) %>
@@ -120,12 +120,12 @@
 
 <% elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
     <div class="vote_panel">
-      <h4><%= "Hai espresso il tuo voto il #{l vote.created_at}" %></h4>
+      <h4><%= t('pages.proposals.vote_panel.results_time', when: (l vote.created_at)) %></h4>
       <% if @proposal.secret_vote %>
-          <h4><%= 'La votazione era segreta pertanto il tuo voto è criptato e non può essere mostrato' %></h4>
+          <h4><%= t('pages.proposals.vote_panel.hidden_vote') %></h4>
       <% else %>
           <% if @proposal.is_schulze? %>
-              <h4><%= "Il tuo ordine di preferenze è stato:" %></h4>
+              <h4><%= t('pages.proposals.vote_panel.preferences_order') %></h4>
               <ol>
                 <% vote.vote_schulze.split(";").each do |s_v| %>
                     <li>
@@ -134,7 +134,7 @@
                 <% end %>
               </ol>
           <% else %>
-              <h4><%= "Hai espresso voto #{vote.vote_type.description}" %></h4>
+              <h4><%= t('pages.proposals.vote_panel.expressed_vote', vote: vote.vote_type.description) %></h4>
           <% end %>
       <% end %>
     </div>

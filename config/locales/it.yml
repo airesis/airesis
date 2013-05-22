@@ -351,6 +351,8 @@ it:
         export_pdf: "Stampa PDF"
         manage_noise_folder: "Contributi eliminati"
         noise_folder: "Contributi eliminati"
+        what_nickname: "Di cosa si tratta?"
+        give_contribute: "Dai il tuo contributo"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -396,6 +398,24 @@ it:
         neutral: "Neutrali"
         name_surname_column: "Nome e cognome"
         date_time_column: "Data e ora di voto"
+      report_contribute:
+        mark_title: "Marca il contributo"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene
+                           informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
+                           Se il contributo viene marcato %{num} volte, gli autori della proposta potranno
+                           eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        report_title: "Segnala il contributo"
+        report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
+      vote_panel:
+        title: "Esprimi il tuo voto!"
+        schulze_title: "Sono presenti più soluzioni possibili a questa proposta. Esprimi il tuo giudizio mediante metodo di Schulze e ordina le soluzioni in base alle tue preferenze."
+        secret_vote: "Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso"
+        clear_vote: "Il tuo voto è palese e sarà quindi controllabile e verificabile da te e da tutti gli altri votanti"
+        single_title: "In questa proposta è presenta un\'unica soluzione. Esprimi il tuo giudizio indicando se approvi o meno la soluzione che è stata trovata!"
+        results_time: "Hai espresso il tuo voto il %{when}"
+        hidden_vote: "La votazione era segreta pertanto il tuo voto è criptato e non può essere mostrato"
+        preferences_order: "Il tuo ordine di preferenze è stato:"
+        expressed_vote: "Hai espresso voto %{vote}"
     events:
       index:
         title: "Calendario"
@@ -759,3 +779,5 @@ it:
   ago: "fa"
   buttons:
     cancel: Annulla
+    save: "Salva"
+    report: "Segnala"

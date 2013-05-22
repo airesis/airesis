@@ -69,8 +69,8 @@
           <div style="padding-left:135px">
             <%= f.text_field :name, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
       <% end %>
@@ -82,8 +82,8 @@
           <div style="padding-left:135px">
             <%= f.text_field :surname, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
       <% end %>
@@ -94,8 +94,8 @@
           <div style="padding-left:135px">
             <%= f.text_field :facebook_page_url, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
     <% end %>
@@ -106,8 +106,8 @@
           <div style="padding-left:135px">
             <%= f.text_field :google_page_url, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
     <% end %>
@@ -118,8 +118,8 @@
           <div style="padding-left:135px">
             <%= f.text_field :linkedin_page_url, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
     <% end %>
@@ -133,8 +133,8 @@
             <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;" %>
             <%= f.text_field :password_confirmation, :type => :password, :size => 20 %>
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit 'Salva', class: 'btn blue' %>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+              <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
       <% end %>

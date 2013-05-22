@@ -106,8 +106,8 @@
             <input type="hidden" value="post" name="_method">
 
             <div style="margin-top:8px">
-              <input type="button" value="Annulla" onclick="$.modal.close();"  class="btn"/>
-              <input type="submit" name="commit" value="Salva" class="btn blue"/>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();"  class="btn"/>
+              <input type="submit" name="commit" value="<%=t('buttons.save')%>" class="btn blue"/>
             </div>
           </div>
           <div><h4><%= 'Dimensione massima: 2MB' %></h4></div>

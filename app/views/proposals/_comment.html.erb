@@ -22,7 +22,7 @@
         </div>
         <div class="report_menu hidden_menu">
           <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
-            <%='Segnala'%>
+            <%= t('buttons.report')%>
           </div>
 
           <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>

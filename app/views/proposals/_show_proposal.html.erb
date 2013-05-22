@@ -79,7 +79,7 @@
         </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
               <div class="suggest">
-                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= 'Dai il tuo contributo' %></a>
+                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
               </div>
           <% end %>
         </div>
@@ -103,7 +103,7 @@
               <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
 
                   <div class="suggest">
-                          <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= 'Dai il tuo contributo' %></a>
+                          <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
                   </div>
               <% end %>
             </div>

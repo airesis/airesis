@@ -9,5 +9,5 @@
     </p>
 
     <%= e.submit 'Invia', :class => 'btn blue disable' %>
-    <a href="#" class="btn" onclick="$('#new_message_container').dialog('destroy');$('#new_message_container').remove();return false;">Annulla</a>
+    <a href="#" class="btn" onclick="$('#new_message_container').dialog('destroy');$('#new_message_container').remove();return false;"><%=t('buttons.cancel')%></a>
 <% end %>
