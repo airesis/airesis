@@ -1,15 +1,15 @@
 <% if can? :vote, @proposal %>
     <div class="vote_panel">
       <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
-
+      <%range = @proposal.solutions.count %>
+      <%range += 1 if range.even?%>
 
       <% if @proposal.is_schulze? #schulze        %>
-          <h4><%=raw t('pages.proposals.vote_panel.schulze_title') %></h4>
+          <h4><%=raw t('pages.proposals.vote_panel.schulze_title',max:range) %></h4>
           <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
           <table style="width:60%" id="solutions_table">
 
-	<%range = @proposal.solutions.count %>
-	<%range += 1 if range.even?%>
+
             <% @proposal.solutions.each do |solution| %>
                 <tr data-id="<%= solution.id %>">
                   <td style="width:30%"><span class="vote_solution_title" data-id="<%=solution.id%>"><%= solution.sections.first.title %></span></td>
