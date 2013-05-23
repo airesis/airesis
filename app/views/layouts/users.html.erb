@@ -7,54 +7,63 @@
       <link href="<%= @user.google_page_url %>" rel="author"/>
   <% end %>
 </head>
-<body>
+<body style="min-width:1000px;">
+<div id="great_container">
 
-<%= render :partial => "layouts/header" %>
-<div id="subheader" class="ui-widget-header ui-state-default">
-  <div class="body_maxwidth">
-    <div class="header_image leftUserImage image_container">
-      <%= @user.user_image_tag 120 %>
-      <div class="caption">
-        <a style="color:white"><%= "Modifica l'immagine" %></a>
+  <% content_for :menu do %>
+      <span class="tit"><%= @user.fullname %></span>
+      <%= @user.user_image_tag 60 %>
+
+
+      <div id="submenu">
+        <% if current_user && (@user == current_user) %>
+            <%= link_to t('pages.header.menu.my_page'), root_path, class: (params[:controller] == 'home' ? 'sel' : '') %>
+            <span> ⋅ </span>
+            <% if @user.blog %>
+                <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs','blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+            <% else %>
+                <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs','blog_posts'].include? params[:controller] ? 'sel' : '') %>
+            <% end %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
+        <% end %>
+        <% if @user != current_user %>
+            <% unless @user.new_record? %>
+                <span> ⋅ </span>
+                <%= link_to 'PROFILO', @user, class: (params[:controller] == 'home' ? 'sel' : '') %>
+            <% end %>
+            <% if @user.blog %>
+                <span> ⋅ </span>
+                <%= link_to 'BLOG', @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
+            <% end %>
+        <% end %>
+        <div class="borx"></div>
+        <div class="tria" style="left: 389px;"></div>
+
       </div>
-    </div>
-    <div class="group_title">
-      <h1><%= @user.fullname %></h1>
-      <% if current_user && (@user == current_user) %>
-          <%= link_to 'Home Page', root_path, :class => 'homeButton buttonStyle' %>
-          <%= link_to t('pages.header.menu.preferences'), @user, :class => 'settingsButton buttonStyle' %>
-          <% if @user.blog %>
-              <%= link_to t('pages.header.menu.my_blog'), @user.blog, :class => 'commentButton buttonStyle' %>
-          <% else %>
-              <%= link_to t('pages.header.menu.create_blog'), new_blog_path, :class => 'commentButton buttonStyle' %>
-          <% end %>
-      <% end %>
-      <% if @user != current_user %>
-          <% unless @user.new_record? %>
-              <%= link_to 'Profilo', @user, :class => 'personButton buttonStyle' %>
-          <% end %>
-          <% if @user.blog %>
-              <%= link_to 'Blog', @user.blog, :class => 'commentButton buttonStyle' %>
-          <% end %>
-      <% end %>
+  <% end %>
 
+  <%= render :partial => "layouts/header" %>
+  <div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
+    <!-- ##### Main Copy ##### -->
+    <div id="main-copy">
+      <div id="menu-left">
+        <div class="menu2">
+          <%= yield :left_panel %>
+        </div>
+      </div>
+      <div id="centerpanelextended">
+        <div class="centerfloat <%= raw @extend ? 'extended': '' %>">
+          <div id="flash_messages" style="height:20px">
+            <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+          </div>
+          <%= yield :layout %>
+        </div>
+        <div class="clearboth"></div>
+      </div>
+      <%= render :partial => "layouts/footer" %>
     </div>
   </div>
-</div>
-
-<!-- ##### Main Copy ##### -->
-<div id="main-copy">
-  <div id="groups_leftpanel">
-    <%= yield :left_panel %>
-  </div>
-  <div id="centerpanelextended">
-    <div id="flash_messages" style="height:20px">
-      <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-    </div>
-    <%= yield :layout %>
-  </div>
-  <div style="clear: both; height: 0; overflow: hidden;"></div>
-  <%= render :partial => "layouts/footer" %>
 </div>
 
 </body>

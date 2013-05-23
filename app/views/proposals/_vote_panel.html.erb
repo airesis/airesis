@@ -1,0 +1,148 @@
+<% if can? :vote, @proposal %>
+    <div class="vote_panel">
+      <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
+
+
+      <% if @proposal.is_schulze? #schulze        %>
+          <h4><%=raw t('pages.proposals.vote_panel.schulze_title') %></h4>
+          <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
+          <table style="width:60%" id="solutions_table">
+
+	<%range = @proposal.solutions.count %>
+	<%range += 1 if range.even?%>
+            <% @proposal.solutions.each do |solution| %>
+                <tr data-id="<%= solution.id %>">
+                  <td style="width:30%"><span class="vote_solution_title" data-id="<%=solution.id%>"><%= solution.sections.first.title %></span></td>
+                  <td style="width:70%"><select class="slideNumber">
+                    <% range.times do |c| %>
+                        <option <%='selected="selected"' if c==range/2 %>><%= c+1 %></option>
+                    <% end %>
+                  </select>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+
+          <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id} do |f| %>
+              <%= f.hidden_field 'votes' %>
+
+              <%= render :partial => 'fragments/how_schulze_works' %>
+              <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'btn blue acceptButton' %>
+          <% end %>
+
+          <script type="text/javascript">
+              $(function () {
+                  $('.vote_solution_title').each(function() {
+                      $(this).qtip({
+                          content: $('.proposal_content[data-id='+$(this).data('id')+']').clone()
+                      });
+                  });
+
+
+                  var select = $(".slideNumber");
+                  var slider = $("<div class='slider'></div>").insertAfter(select).slider({
+                      min: 1,
+                      max: <%=range%>,
+                      range: "min",
+		              value: select.val(),
+                      slide: function (event, ui) {
+                          $(this).prev()[0].selectedIndex = ui.value - 1;
+                      }
+                  });
+
+                  $(".slideNumber").change(function () {
+                      console.log('change');
+                      $(this).next().slider("value", this.selectedIndex + 1);
+                  });
+              });
+
+              var vote = [];
+              var votestring = "";
+
+              function elaboraVoto() {
+                  votestring = "";
+                  vote = [];
+                  $('#solutions_table tr').each(function (panel) {
+                      var val = $('.slideNumber', this).val();
+                      console.log(val);
+                      if (!val || val == '') val = "0";
+                      vote.push([$(this).data('id'), val])
+                  })
+                  vote.sort(function (a, b) {
+                      return parseInt(b[1]) - parseInt(a[1]);
+                  })
+                  for (v in vote) {
+                      if (v != 0) {
+                          if (vote[v][1] == vote[v - 1][1]) {
+                              votestring += ","
+                          }
+                          else {
+                              votestring += ";"
+                          }
+
+                      }
+                      votestring += vote[v][0]
+                  }
+
+                  $('#data_votes').val(votestring);
+                  console.log('data_votes: ' + votestring);
+                  return true;
+              }
+
+
+          </script>
+      <% else #standard        %>
+          <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
+          <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
+
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => POSITIVE_VOTE), :remote => true, :method => :put, :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), :confirm => t('pages.votations.show.confirm_positive', :name => @proposal.title) %>
+          </div>
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => NEUTRAL_VOTE), :remote => true, :method => :put, :class => "voteyellow votebutton", :title => t('pages.votations.show.vote_neutral'), :confirm => t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>
+          </div>
+          <div style="float: left">
+            <%= link_to '', votation_vote_path(:proposal_id => @proposal.id, :vote_type => NEGATIVE_VOTE), :remote => true, :method => :put, :class => "votered votebutton", :title => t('pages.votations.show.vote_negative'), :confirm => t('pages.votations.show.confirm_negative', :name => @proposal.title) %>
+          </div>
+          <%= image_tag "spinner.gif", :style => 'display: none;', :class => "loading_vote" %>
+          <div style="clear: both"></div>
+
+          <p>
+            <%= link_to t('pages.proposals.show.votation_page_button'), votation_path %>
+          </p>
+      <% end %>
+
+      <script type="text/javascript">
+          $(function () {
+              $('.votebutton').bind("ajax:beforeSend", function () {
+                  $(".votebutton").fadeOut();
+                  $(".loading_vote").show();
+              });
+          });
+      </script>
+
+
+    </div>
+
+
+<% elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
+    <div class="vote_panel">
+      <h4><%= t('pages.proposals.vote_panel.results_time', when: (l vote.created_at)) %></h4>
+      <% if @proposal.secret_vote %>
+          <h4><%= t('pages.proposals.vote_panel.hidden_vote') %></h4>
+      <% else %>
+          <% if @proposal.is_schulze? %>
+              <h4><%= t('pages.proposals.vote_panel.preferences_order') %></h4>
+              <ol>
+                <% vote.vote_schulze.split(";").each do |s_v| %>
+                    <li>
+                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).sections.first.title }.join(' o ') %>
+                    </li>
+                <% end %>
+              </ol>
+          <% else %>
+              <h4><%= t('pages.proposals.vote_panel.expressed_vote', vote: vote.vote_type.description) %></h4>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

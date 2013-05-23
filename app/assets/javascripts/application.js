@@ -29,20 +29,10 @@
 //= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.ctooltip
+//= require jquery.gbutton
 //= require prettydiff/diffview
 //= require simplemodal
 //= require_tree ./rangy-1.2/
-//= require ice/ice
-//= require ice/dom
-//= require ice/icePluginManager
-//= require ice/icePlugin
-//= require ice/polyfills
-//= require ice/selection
-//= require ice/bookmark
-//= require_tree ./ice/IceEmdashPlugin/
-//= require_tree ./ice/IceAddTitlePlugin/
-//= require_tree ./ice/IceCopyPastePlugin/
-//= require_tree ./ice/IceSmartQuotesPlugin/
 //= require tinymce-jquery
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer
@@ -50,4 +40,6 @@
 //= require i18n/elfinder.it
 //= require elFinderSupportVer1
 //= require jquery.livequery
-
+//= require proposals
+//= require jquery.qtip
+//= require feedback

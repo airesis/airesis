@@ -25,7 +25,7 @@ class GroupAreasController < ApplicationController
 
   def index
     if @group.enable_areas
-      @group_areas = @group.group_areas.includes(:partecipants)
+      @group_areas = @group.group_areas#.includes(:partecipants)
       @partecipants = @group.partecipants
     else
       render 'area_inactive'
@@ -33,7 +33,7 @@ class GroupAreasController < ApplicationController
   end
 
   def manage
-    @group_areas = @group.group_areas.includes(:partecipants)
+    @group_areas = @group.group_areas#.includes(:partecipants)
     @partecipants = @group.partecipants
   end
 
@@ -69,6 +69,8 @@ class GroupAreasController < ApplicationController
         @group_area.current_user_id = current_user.id
         @group_area.save!
       end
+      @group_areas = @group.group_areas.includes(:partecipants)
+      @partecipants = @group.partecipants
       flash[:notice] = t('controllers.group_areas.create.ok_message')
 
     rescue ActiveRecord::ActiveRecordError => e
@@ -124,7 +126,10 @@ class GroupAreasController < ApplicationController
 
 
   def destroy
+    authorize! :destroy, @group_area
     @group_area.destroy
+#    @group_areas = @group.group_areas.includes(:partecipants)
+#    @partecipants = @group.partecipants
   end
 
   def partecipants_list_panel

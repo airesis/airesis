@@ -5,8 +5,8 @@ en:
       success: 'Your registration has been completed. Welcome!'
     registrations:
       user:
-        inactive_signed_up: 'To complete your registration please click on the link in the e-mail you received'
-        signed_up_but_unconfirmed: 'Click on the link in the e-mail sent to your address to complete the registration process'
+        inactive_signed_up: 'To complete your registration please click on the link in the email you received'
+        signed_up_but_unconfirmed: 'Click on the link in the email sent to your address to complete the registration process'
     confirmations:
       user:
         confirmed: 'Your registration has been successfully completed'            
@@ -217,9 +217,9 @@ en:
         title: 'Edit Group Settings'
         change_permissions: "In Roles and Permissions Settings you can always change the members permissions."
       layout:
-        home_button: "Home Page"
-        proposals_button: "Proposals"
-        calendar: "Calendar"
+        home_button: "HOME PAGE"
+        proposals_button: "PROPOSALS"
+        calendar: "CALENDAR"
       show:
         rules_button: "Rules"
         post_button: "Insert posts"
@@ -235,12 +235,13 @@ en:
         accept_request_button: "Accept"
         reject_request_button: "Reject"
         ask_partecipate_button: "Ask to be part of the group"
+        remove_post: "Remove from the group board"
       header:
-        settings: "Settings"
-        elections: "Elections"
-        documents: "Documents"
+        settings: "SETTINGS"
+        elections: "ELECTIONS"
+        documents: "DOCUMENTS"
     login:
-      title: 'Perform authentication'
+      title: 'Login'
     confirmation:
       title: 'Re-send Confirmation Instructions'
       submit: 'Send me the instructions'
@@ -249,12 +250,12 @@ en:
       submit: 'Please send instructions to reset password.'
     registration:
       title: 'Register'
-      email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
+      email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Password confirm"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
       register_button: "Register"
-      identity_provviders_title: "Get in immediatly with you favorite account"
+      identity_provviders_title: "Get in immediatly with your favorite account"
     proposals:
       index:
         title: 'List of proposals'
@@ -274,7 +275,7 @@ en:
         group_areas_title: "Working areas"
         no_group_areas: "No area"
         all_areas: "All the areas"
-        categories_title: "Categories"
+        categories_title: "CATEGORIES"
         all_categories: "All categories"
         loading_proposals: "Loading proposals, please wait..."
         title_with_category: "Proposals in category %{category}"
@@ -347,6 +348,12 @@ en:
           delete: "Delete"
         reply_button: "Reply"
         reply_placeholder: "Give your suggestion"
+        export_pdf: "Print PDF"
+        manage_noise_folder: "Removed contributes"
+        noise_folder: "Removed contributes"
+        what_nickname: "What's that?"
+        give_contribute: "Make your contribution"
+        no_contributes: "Durante la votazione i contributi non vengono mostrati"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -356,12 +363,17 @@ en:
         step_4: "First proposal"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         problems_title: "Problems"
+        problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
         objectives_title: "Objectives"
         step_4_title: "You can enter a text of the proposal or write it later based on the input received"
         first_solution_title: "Text of the proposal"
         create_button: "Create the proposal"
         title: "New proposal"
         title_group: " in group %{name}"
+        title_synthetic: "(in summary)"
+        title_placeholder: "es. \"Facilitate bike transport on trains\""
+        interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
+        tags_list_placeholder: "Insert words about your proposal"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -387,6 +399,24 @@ en:
         neutral: "Neutrals"
         name_surname_column: "Name and surname"
         date_time_column: "Vote date and time"
+      report_contribute:
+        mark_title: "Mark the contribute"
+        mark_description: "You can point out to authors of the proposal that this contribution does not contain
+                           relevant information to find a solution to the proposal.<br/>
+                           If the contribution is marked %{num} times, the authors of the proposal can
+                           delete it from the discussion and place it in the \"noise \" folder. <br/>"
+        report_title: "Report the contribution"
+        report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+      vote_panel:
+        title: "Make your vote!"
+        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to 5 (I really like)"
+        secret_vote: "Your vote is secret and you will not be able to recover or change it once expressed."
+        clear_vote: "Your vote is recorded and will therefore be verifiable."
+        single_title: "In this proposal there is only one solution. Make your point!"
+        results_time: "You expressed your vote on %{when}"
+        hidden_vote: "The vote was secret so it can't be shown."
+        preferences_order: "Your preferences order was:"
+        expressed_vote: "You expressed %{vote} vote"
     events:
       index:
         title: 'Calendar'
@@ -402,6 +432,7 @@ en:
           confirm_positive: "Confirm your POSITIVE vote on the proposal '% {name}'?  Once you have voted it cannot be modified."
           confirm_neutral: "Confirm your NEUTRAL vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
           confirm_negative: "Confirm your NEGATIVE vote on the proposal  '% {name}'? Once you have voted it cannot be modified."
+          confirm_schulze: "Confirm your vote on the proposal %{name}? Once you have voted it cannot be modified."
     blog_posts:
       new:
         title: 'Enter a new post'
@@ -435,24 +466,33 @@ en:
       new:
         insert_comment: "Insert comment"
     header:
-      groups: "Groups"
+      groups:
+        events: "EVENTS"
+        proposals: "PROPOSALS"
       no_groups_yet: "You are not in any groups yet"
       menu:
-        my_page: "My homepage"
-        my_blog: "My Blog"
-        create_blog: "Create your Blog"
-        preferences: "Preferences"
-        administration: "Administration"
-        logout: "Logout"
-        become_user: "ecome a user"
+        my_page: "MY HOMEPAGE"
+        my_blog: "MY BLOG"
+        create_blog: "CREATE YOUR BLOG"
+        preferences: "PREFERENCES"
+        administration: "ADMINISTRATION"
+        logout: "LOGOUT"
+        become_user: "Become a user"
         become_user_button: "Go!"
         remember_me: "Remembre me on this computer"
         login_button: "Login"
-        registration_button: "Join us"
+        registration_button: "JOIN US"
         forgot_password_button: "Forgot password?"
         resend_email_button: "Have you received a confirmation email?"
         no_notifications: "No notification"
       welcome: "Welcome"
+      groups_title: "GROUPS"
+      login: "LOGIN"
+      login_placeholder: "Email or username"
+      groups_list: "Your groups"
+      open_group: "Start a new group"
+      new_group: "Find groups"
+      support_us: "SUPPORT US"
     blogs:
       show:
         no_posts: "No Posts"
@@ -525,9 +565,9 @@ en:
           title: "Alerts"
     open_space:
       layout:
-        proposals_button: "Proposals"
-        calendar_button: "Calendar"
-        map_button: "Map"
+        proposals_button: "PROPOSALS"
+        calendar_button: "CALENDAR"
+        map_button: "MAP"
     proposal_supports:
       new:
         panel_title: "Confirm proposal support"
@@ -551,6 +591,14 @@ en:
         terminated_phase: "terminated"
         send_candidate_button: "Candidate a user"
         create_election_button: "Create a new election"
+    sessions:
+      new:
+        login_label: "Username or Email"
+        remember_me_label: "Remember me"
+      links:
+        register: "Not registered yet? Sign up!"
+        forgot_password: "Forgot your password?"
+        havent_received_email: "Haven't received confirmation email?"
   pl:
     comments:
       zero: no comment
@@ -572,15 +620,19 @@ en:
         groups_end_time: 'Deadline date for group entry'
         candidates_end_time: 'Deadline date for candidates entry'
       event:
-         title: 'Event title'
-         description: 'Description'
-         event_type_id: 'Event Type'
-         starttime: 'Start Date'
-         endtime: 'End Date'
-         all_day: 'All Day'
-         period: 'Repeat'
-         frequency: 'Repeat every'
-         private: 'Private'
+        title: 'Event title'
+        description: 'Description'
+        event_type_id: 'Event Type'
+        starttime: 'Start Date'
+        endtime: 'End Date'
+        all_day: 'All Day'
+        period: 'Repeat'
+        frequency: 'Repeat every'
+        private: 'Private'
+      meeting:
+        place:
+          address: "Address"
+          comune_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -729,6 +781,8 @@ en:
       insert_error: "Error during insert."
       edit_ok: "Your comment has been updated succesfully."
       delete_ok: 'Your comment has been deleted'
+      report_ok: "Contribution reported succesfully"
+      report_error: "Error during contribution report"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -741,3 +795,7 @@ en:
   looking_for_interest_border: "Searching, please wait..."
   digit_tags: "Type the tags you want to insert"
   ago: "ago"
+  buttons:
+    cancel: Cancel
+    save: "Save"
+    report: "Report"

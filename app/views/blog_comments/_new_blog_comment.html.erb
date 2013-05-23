@@ -17,7 +17,7 @@
 		<h2><%=t(:login_to_post_comment)%></h2>
 	<% else %>
 		<label><%=t(:insert_comment)%></label>
-		<%= form_for [@blog, @blog_post, blog_comment],:remote => true do |f| %>
+		<%= form_for [@blog_post.blog, @blog_post, blog_comment],:remote => true do |f| %>
 			<% if blog_comment.errors.any? %>
 			  <ul>
 			    <% blog_comment.errors.full_messages.each do |msg| %>
@@ -31,7 +31,7 @@
 				</div>
 			
 			<p>
-				<%= f.submit t('pages.blog_comments.new.insert_comment'), :id => 'insert_comment', :onclick => "hideinsertcomment();return true;"	 %>
+				<%= f.submit t('pages.blog_comments.new.insert_comment'), :id => 'insert_comment', :onclick => "hideinsertcomment();return true;", :class => 'btn green' %>
 				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
 			</p>
 		<% end %>
@@ -44,7 +44,6 @@
 				}).focusout(function() {
 					$('#comment-form-comment').toggleClass("active");
 				});
-				$('input:submit').button();
 
                 $('#blog_comment_body')
                         .charCount({

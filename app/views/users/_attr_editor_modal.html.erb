@@ -1,12 +1,13 @@
-<div id="<%=modal_id%>" class="edit_modal shadow-box">
-  	<%=form_for @user, :remote => true do |f| %>
-	<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%=attr_label%></h2>
-	<div style="padding-left:135px">
-	<%=f.text_field attr_name, size: 25 %>
-	<div style="margin-top:8px">
-		<%=f.submit 'Salva'%>
-		<input type="button" value="Annulla" onclick="$.modal.close();"/>
-	</div>
-	</div>
-	<%end%>
-  </div>
+<div id="<%= modal_id %>" class="edit_modal shadow-box">
+  <%= form_for @user, :remote => true do |f| %>
+      <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= attr_label %></h2>
+
+      <div style="padding-left:135px">
+        <%= f.text_field attr_name, size: 25 %>
+        <div style="margin-top:8px">
+          <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+          <%= f.submit t('buttons.save'), class: 'btn blue' %>
+        </div>
+      </div>
+  <% end %>
+</div>

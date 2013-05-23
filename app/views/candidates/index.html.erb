@@ -80,6 +80,8 @@
 
 
 <% content_for :left_panel do %>
-	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_path(@group),:remote => true, :class=>"personButton disableButton" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
-    <%= link_to t('pages.candidates.index.create_election_button'), new_group_event_path(@group, type: 'election'), :remote => true, :class => 'newButton disableButton' if can? :create_event, @group%>
+    <div class="mybox">
+	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_path(@group),:remote => true, :class=>"btn personButton disable" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
+    <%= link_to t('pages.candidates.index.create_election_button'), new_group_event_path(@group, type: 'election'), :remote => true, :class => 'btn newButton disable' if can? :create_event, @group%>
+    </div>
 <%end%>

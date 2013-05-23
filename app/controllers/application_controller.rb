@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
  
   def set_locale
     @domain_locale = request.host.split('.').last
-    I18n.locale = params[:l] || @domain_locale || I18n.default_locale
+    I18n.locale =
+      (Rails.env == :staging ?
+       params[:l] || I18n.default_locale :
+       params[:l] || @domain_locale || I18n.default_locale)
+
   end
   
   def default_url_options(options={})
@@ -177,6 +181,11 @@ class ApplicationController < ActionController::Base
       @proposal_comment.user_id = current_user.id
       @proposal_comment.request = request
       @proposal_comment.save!
+      @ranking = ProposalCommentRanking.new
+      @ranking.user_id = current_user.id
+      @ranking.proposal_comment_id = @proposal_comment.id
+      @ranking.ranking_type_id = RankingType::POSITIVE
+      @ranking.save!
       
       generate_nickname(current_user,@proposal)
       
@@ -220,7 +229,6 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     return proposals_path
   end
-
 
   protected
   def discard_flash_if_xhr

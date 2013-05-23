@@ -1,6 +1,14 @@
+<div class="header_image image_container">
+  <%= @user.user_image_tag 120 %>
+  <div class="caption">
+    <a style="color:white"><%= "Modifica l'immagine" %></a>
+  </div>
+</div>
+
+
 <h4><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h4>
 <% if ::Configuration::user_messages %>
-    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'inviteButton disableButton' if can? :send_message, @user %></span>
+    <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'btn inviteButton disable' if can? :send_message, @user %></span>
 <% end %>
 <table style="width:100%">
 
@@ -86,28 +94,23 @@
 </table>
 <% if current_user == @user %>
     <div id="img_modal" class="edit_modal">
-      <form action="/users/<%= @user.id %>" id="upload_form" method="post" enctype="multipart/form-data">
-        <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL
-          dell'immagine</h2>
-
-        <div style="padding-left:150px">
-          <input name="user[blog_image_url]"/>
-          <br/>
-        </div>
-        oppure
+      <form action="/users/<%= @user.id %>/update_image" id="upload_form" method="post" enctype="multipart/form-data">
         <div style="float:left">
           <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica
             un'immagine</h2>
 
           <div style="padding-left:150px">
-            <input type="file" name="image"/>
+            <input type="file" name="image" accept="image/jpeg,image/png" />
             <br/>
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/><input type="hidden" value="put" name="_method">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
+            <input type="hidden" value="post" name="_method">
 
             <div style="margin-top:8px">
-              <input type="submit" name="commit" value="Salva"/><input type="button" value="Annulla" onclick="$.modal.close();"/>
+              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();"  class="btn"/>
+              <input type="submit" name="commit" value="<%=t('buttons.save')%>" class="btn blue"/>
             </div>
           </div>
+          <div><h4><%= 'Dimensione massima: 2MB' %></h4></div>
         </div>
       </form>
     </div>
@@ -134,18 +137,6 @@
             $('#password_profile').click(function () {
                 doModal($("#password_modal"));
             });
-
-            /*  $('#facebook_profile').click(function(){
-             doModal($("#facebook_page_url_modal"));
-             });
-
-             $('#google_profile').click(function(){
-             doModal($("#google_page_url_modal"));
-             });
-
-             $('#linkedin_profile').click(function(){
-             doModal($("#linkedin_page_url_modal"));
-             });*/
 
             $('.image_container img, .caption').mouseover(function () {
                 $('.caption').show();

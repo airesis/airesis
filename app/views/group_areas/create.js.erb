@@ -1,5 +1,10 @@
 $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+
+<%if params[:manage] == 'true' %>
+$('#group_areas_container').html('<%= escape_javascript(render(:partial => 'group_areas/group_areas_list'))%>');
+<%else%>
 $('#users_list_container').html('<%= escape_javascript(render(:partial => 'group_areas/users_list'))%>');
-var _new_group_area = $('#new_group_area');
+<%end%>
+var _new_group_area = $('#group_area_panel');
 _new_group_area.dialog('destroy');
 _new_group_area.remove();

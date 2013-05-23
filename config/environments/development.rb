@@ -54,9 +54,18 @@ DemocracyOnline3::Application.configure do
  
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
- 
+
   #limita il numero di commenti
   LIMIT_COMMENTS=false
+  COMMENTS_TIME_LIMIT=30.seconds
+
+  #limita il numero di proposte
+  LIMIT_PROPOSALS=true
+  PROPOSALS_TIME_LIMIT=2.minutes
+
+  #limita il numero di gruppi
+  LIMIT_GROUPS=true
+  GROUPS_TIME_LIMIT=24.hours
 
 
   

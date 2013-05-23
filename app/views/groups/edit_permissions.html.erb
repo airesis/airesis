@@ -7,7 +7,7 @@
 <%= render :partial => 'groups/roles_panel' %>
 </div>
 <br/>
-<a href="#" class="newButton disableButton" id="addRole"><%= 'Aggiungi un nuovo ruolo' %></a>
+<a href="#" class="btn blue newButton disable" id="addRole"><%= 'Aggiungi un nuovo ruolo' %></a>
 
 <div id="edit_role" title="Modifica ruolo" style="display: none;">
 
@@ -29,7 +29,7 @@
 		$('#addRole').click(function() {
 			$('#new_role').dialog({
 				modal : true,
-				width: 320,
+				width: 340,
 				height: 'auto',
 				close : function(event, ui) {
 					$('#new_role').dialog('destroy');			

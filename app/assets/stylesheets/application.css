@@ -25,6 +25,7 @@
  *= require portlet
  *= require jquery.dataTables
  *= require style
+ *= require kabora
  *= require notifications
  *= require quorums
  *= require redmond/custom
@@ -34,4 +35,7 @@
  *= require theme
  *= require group_areas
  *= require blog_posts
+ *= require buttons
+ *= require jquery.qtip
+ *= require feedback
 */

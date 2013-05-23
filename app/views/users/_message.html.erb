@@ -8,5 +8,6 @@
       <%= e.text_area 'body', rows: 10 %>
     </p>
 
-    <%= e.submit 'Invia', :class => 'buttonStyle disableButton' %>
+    <%= e.submit 'Invia', :class => 'btn blue disable' %>
+    <a href="#" class="btn" onclick="$('#new_message_container').dialog('destroy');$('#new_message_container').remove();return false;"><%=t('buttons.cancel')%></a>
 <% end %>

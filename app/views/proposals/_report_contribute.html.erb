@@ -1,0 +1,29 @@
+<div id="report_contribute" class="report_modal">
+  <%= form_for 'proposal_comment', url: report_proposal_proposal_comments_path(@proposal), remote: true do |f| %>
+      <%= cache "report_panel_#{I18n.locale}" do %>
+          <input type="hidden" name="id" value="0" id="report_contribute_id"/>
+
+          <div>
+            <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.proposals.report_contribute.mark_title') %></h2>
+            <h4 style="font-size: 0.9em">
+              <%=raw t('pages.proposals.report_contribute.mark_description', num: CONTRIBUTE_MARKS)%></h4>
+            <% ProposalCommentReportType.softs.each do |r| %>
+                <input type="radio" name="reason" value="<%= r.id %>"> <%= r.description %>
+                <br/>
+            <% end %>
+            <hr/>
+
+            <h2 style="margin-top:0px;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.proposals.report_contribute.report_title')%></h2>
+            <h4 style="font-size: 0.9em"><%=raw t('pages.proposals.report_contribute.report_description')%></h4>
+            <% ProposalCommentReportType.graves.each do |r| %>
+                <input type="radio" name="reason" value="<%= r.id %>"> <%= r.description %>
+                <br/>
+            <% end %>
+          </div>
+          <div style="margin-top:8px">
+            <%= f.submit t('buttons.report'), class: 'btn blue' %>
+            <input type="button" value="<%=t('buttons.cancel')%>" class="btn" onclick="$.modal.close();"/>
+          </div>
+      <% end %>
+  <% end %>
+</div>

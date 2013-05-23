@@ -160,6 +160,20 @@ pt:
     users:
       index:
         title: "Lista de membros"
+      show:
+        groups_title: "Your groups"
+        group_column: "Grup"
+        role_column: "Role"
+        get_out_of_group_button: "Get out of the group"
+        get_out_of_group_confermation: "Are you sure?"
+        secret_vote: "Secret"
+        votations_title: "Votations you have partecipated"
+        proposal_column: "Proposal"
+        votation_date_column: "Date"
+        vote_column: "Vote"
+        profile_info: "Profile informations"
+        profile_info_unconfirmed: "(unconfirmed user)"
+        send_message_button: "Send private message"
     groups:
       accept_requests:
         portavoce: "Porta-voz: quando um utilizador pede para participar no grupo, é aceite apenas pelo porta-voz do grupo. Logo que aceite o pedido, o utilizador estará dado como participante no grupo."
@@ -187,6 +201,8 @@ pt:
         groups_registration: "Participar em Grupos"
         groups_list_2: "Lista de Grupo"
         no_groups_yet: "Não participe em nenhum %{name} ainda"
+        open_space_title: "Public events"
+        show_more: "Show more groups"
       new:
         title: "Criar um novo grupo"
         new_group: "Novo grupo"
@@ -194,6 +210,9 @@ pt:
         change_permissions_button: "Quer mudar o padrão de permissões?"
         change_permissions_title: "Mude as permissões de utilizador padrão já inscrito"
         change_permissions_description: "Estas são as ações que os utilizadores podem executar apenas se se juntaram ao grupo: lembre-se que você sempre pode editar e criar novas funções!"
+        errors_title: "The post can't be inserted, sorry:"
+        tags:
+          title: "Tags (separated by comma)"
       edit:
         title: "Editar configurações do grupo"
         change_permissions: "Em Configurações de Funções e permissões pode alterar as ações que podem tornar membros"
@@ -211,9 +230,16 @@ pt:
         show_all_partecipants: "Mostra todos %{count} ..."
         partecipants_full_list: "Lista completa de participantes no grupo"
         no_partecipants: "Nenhum utilizador participa ainda neste grupo."
+        no_blogs_yet: "No blog posts in this group yet, come back soon."
+        waiting_partecipation_requests: "Partecipation requests waiting for answer"
+        accept_request_button: "Accept"
+        reject_request_button: "Reject"
+        ask_partecipate_button: "Ask to be part of the group"
+        remove_post: "Remove from the group board"
       header:
         settings: "Configurações"
         elections: "Eleições"
+        documents: "DOCUMENTS"
     login:
       title: "Realizar a autenticação"
     confirmation:
@@ -224,6 +250,12 @@ pt:
       submit: "Enviar as instruções para reinicialziar a palavra-chave"  
     registration:
       title: "Registe-se"
+      email_confirmed: "If you ergister with that email address you will not be asked to confirm your email address."
+      choose_password: "Choose a password"
+      confirm_password: "Password confirm"
+      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
+      register_button: "Register"
+      identity_provviders_title: "Get in immediatly with your favorite account"
     proposals:
       index:
         title: "Lista de propostas"
@@ -240,6 +272,19 @@ pt:
         accepted_title: "Aprovadas (%{count})"
         revision_title: "Em revisão (%{count})"
         login_with: "or login with:"
+        group_areas_title: "Working areas"
+        no_group_areas: "No area"
+        all_areas: "All the areas"
+        categories_title: "CATEGORIES"
+        all_categories: "All categories"
+        loading_proposals: "Loading proposals, please wait..."
+        title_with_category: "Proposals in category %{category}"
+        all_categories_title: "Proposals in all categories"
+        in_group_area_title: "in working area"
+        last_title: "Last inserted (TODO)"
+        most_popular_title: "Most popular (TODO)"
+        most_voted_title: "Most ranked (TODO)"
+        show_more: "Show more proposals..."
       show:
         voteup: "Concordo"
         votenil: "Não sei/não compreendo"
@@ -255,12 +300,130 @@ pt:
         no_periods_contact_group: "Não há datas disponíveis para a votação, entre em contato com o administrador do grupo para decidir sobre um período adequado"
         no_periods_contact_admin: "Não há datas disponíveis para a votação no momento. E preciso esperar . Contate% {email} em caso de necessidade"
         choose_new_votation_period_button: "Escolha uma nova data para a votação"
+        loading_contributions: "Loading contributes, please wait..."
+        previos_contributes: "Previous contributes..."
+        delete_contribute_confirmation: "Are you sure you want to delete this contribute?"
+        delete_suggestion_confirmation: "Are you sure you want to delete this suggestion?"
+        offered_as_editor_message: "You offered as editor for this proposal"
+        offer_as_editor_button: "I wanna be editor for this proposal!"
+        available_editors_button: "Available editors"
+        editors_list_title: "List of available editors for this proposal"
+        attached_documents: "Attached documents"
+        no_document_attached: "No documents attached"
+        geographic_boundaries_title: "Geographic boundaries"
+        tags_title: "Tags"
+        similar_proposals_title: "Similar proposals"
+        category_title: "Category"
+        edit_button: "Edit"
+        delete_button: "Delete"
+        delete_proposal_confirmation: "Are you sure you want to delete this proposal?"
+        votation_message: "This proposal will be voted from %{from} to %{to}"
+        editing_message_1: "This proposal will be developed by the editors thanks to all the contributions"
+        editing_message_2: "To be voted it will have to reach a"
+        editing_message_3: "minimum rank"
+        votation_page_button: "Go to votation page."
+        vote_button: "Vote!"
+        send_contribute_button: "Send"
+        characters_left: "Characters left:"
+        score: "Score"
+        rank: "Rank"
+        created_at: "Proposal created on"
+        updated_at: "Last update of"
+        votation_results: "Results"
+        votation_results_title: "Votation results"
+        in_votation: "Voting"
+        in_votation_now: "Voting right now!"
+        anonimity_active: "Temporary anonymity active"
+        your_nickname_is: "Your nickname is"
+        editors_title: "Editors"
+        supporting_group: "Support groups"
+        no_supporting_group: "No group support this proposal"
+        support_proposal_button: "Support this proposal..."
+        close_debate_button: "Close debate"
+        close_debate_proposal_confirmation: "Close debate immediatly and go to next phase?"
+        during_debate: "Debate proceeding"
+        comment_inserted_by: "Inserted %{when} by %{who}"
+        replies:
+          show_all: "Show all %{count} suggestions..."
+          delete: "Delete"
+        reply_button: "Reply"
+        reply_placeholder: "Give your suggestion"
+        export_pdf: "Print PDF"
+        manage_noise_folder: "Removed contributes"
+        noise_folder: "Removed contributes"
+        what_nickname: "What's that?"
+        give_contribute: "Make your contribution"
+        no_contributes: "Durante la votazione i contributi non vengono mostrati"
       new:
         quorum_prompt: "Selecione um quorum"
         quorum_help: "Não os conheço!"
+        step_1: "Initial informations"
+        step_2: "Similar proposals"
+        step_3: "Problems and objectives"
+        step_4: "First proposal"
+        step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
+        problems_title: "Problems"
+        problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
+        objectives_title: "Objectives"
+        step_4_title: "You can enter a text of the proposal or write it later based on the input received"
+        first_solution_title: "Text of the proposal"
+        create_button: "Create the proposal"
+        title: "New proposal"
+        title_group: " in group %{name}"
+        title_synthetic: "(in summary)"
+        title_placeholder: "es. \"Facilitate bike transport on trains\""
+        interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
+        tags_list_placeholder: "Insert words about your proposal"
+      tabs:
+        last_inserted: "Last updated"
+        most_popular: "Most popular"
+        most_valutated: "Most ranked"
+      list:
+        last_update: "Last update of %{date}"
+        waiting_date: "Waiting for the authors to choose a votation date"
+        voting_from_to: "In votation from %{from} to %{to}"
+        voting_until: "Voting now until %{date}"
+        votation_finished: "Votation ended on %{date}"
+        no_votation: "There has not been any votation"
+        interest_borders: "Geographic boundaries"
+        authors: "Authors"
+        support_group: "Support groups"
+      delete_comment: "Delete"
+      results:
+        total: "Total voters: %{count}"
+        vote_column: "Vote"
+        number_column: "Number"
+        percentage_column: "Percentage"
+        positive: "Favorable"
+        negative: "Contrary"
+        neutral: "Neutrals"
+        name_surname_column: "Name and surname"
+        date_time_column: "Vote date and time"
+      report_contribute:
+        mark_title: "Mark the contribute"
+        mark_description: "You can point out to authors of the proposal that this contribution does not contain
+                           relevant information to find a solution to the proposal.<br/>
+                           If the contribution is marked %{num} times, the authors of the proposal can
+                           delete it from the discussion and place it in the \"noise \" folder. <br/>"
+        report_title: "Report the contribution"
+        report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+      vote_panel:
+        title: "Make your vote!"
+        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to 5 (I really like)"
+        secret_vote: "Your vote is secret and you will not be able to recover or change it once expressed."
+        clear_vote: "Your vote is recorded and will therefore be verifiable."
+        single_title: "In this proposal there is only one solution. Make your point!"
+        results_time: "You expressed your vote on %{when}"
+        hidden_vote: "The vote was secret so it can't be shown."
+        preferences_order: "Your preferences order was:"
+        expressed_vote: "You expressed %{vote} vote"
     events:
       index:
         title: "Calendário"
+        group_title: "Events calendar"
+      new:
+        private_tooltip: "Only group members can see and partecipate to the event"
+        title: "New Event"
     votations:
         show:
           vote_positive: "Voto positivo"
@@ -269,10 +432,10 @@ pt:
           confirm_positive: "Confirme o seu voto sobre a proposta '% {name}' POSITIVO? Você não o pode mudar!"
           confirm_neutral: "Confirme o seu voto sobre a proposta '% {nome}' NEUTRAL? Você não o pode mudar"
           confirm_negative: "Confirme o seu voto sobre a proposta '% {nome}' NEGATIVO? Você não o pode mudar"
+          confirm_schulze: "Confirme o seu voto sobre a proposta %{name}? Você não o pode mudar."
     blog_posts:
       new:
         title: "Adicionar um novo artigo"
-
       new_button: "Adicionar um novo artigo"
       drafts_button: "Artigo não publicado"
       drafts: "Rascunho"
@@ -281,6 +444,16 @@ pt:
       comment:
         delete_button: "Cancelar"
         confirm_delete: "Tem certeza de que quer apagar este comentário?"
+      list_elements:
+        inserted: "Inserted by %{name} on %{date}"
+      show:
+        previous_comments: "Previous comments..."
+        tags_title: "Tags:"
+        edit_button: "Edit"
+        delete_button: "Delete"
+        delete_button_confirm: "Are you sure you want to delete this post?"
+        draft: "[Draft]"
+        comments_says: "says..."
     alerts:
       polling:
         show_all: "Ver todas as notificações"
@@ -293,7 +466,9 @@ pt:
       new:
         insert_comment: "Inserir comentário"
     header:
-      groups: "Grupos"
+      groups:
+        events: "EVENTS"
+        proposals: "PROPOSALS"
       no_groups_yet: "Ainda não pertence a nenhum grupo"
       menu:
         my_page: "A minha página"
@@ -311,6 +486,13 @@ pt:
         resend_email_button: "Não recebeu o Email de confirmação?"
         no_notifications: "Nenhuma notificação"
       welcome: "Bem-vindo"
+      groups_title: "GROUPS"
+      login: "LOGIN"
+      login_placeholder: "Email or username"
+      groups_list: "Your groups"
+      open_group: "Start a new group"
+      new_group: "Find groups"
+      support_us: "SUPPORT US"
     blogs:
       show:
         no_posts: "Nenhum artigo"
@@ -318,6 +500,10 @@ pt:
         tag: "Tag"
         previous_posts: "Artigos anteriores..."
         edit_button: "Modificar blogue"
+      new:
+        title: "Create your blog!"
+        cancel_button: "No, thanks!"
+        create_button: "Create it"
     groups_area:
       edit:
         title: "Configurações do espaço de trabalho"
@@ -328,6 +514,10 @@ pt:
         switch_area_manage_button: "Ir para a gestão de áreas individuais"
       manage:
         switch_area_index_button: "Ir para a gestão dos participantes"
+        partecipants: "Partecipants"
+        list_title: "List of workspaces. Select partecipants or click to manage specific roles and permissions"
+      edit:
+        add_role_button: "Add a new role"
     quorums:
       index:
         title: "Lista quorum disponível"
@@ -371,6 +561,44 @@ pt:
           title: "Título"
           last_edit: "última edição"
           authors: "Autores"
+        notifications:
+          title: "Alerts"
+    open_space:
+      layout:
+        proposals_button: "PROPOSALS"
+        calendar_button: "CALENDAR"
+        map_button: "MAP"
+    proposal_supports:
+      new:
+        panel_title: "Confirm proposal support"
+        no_available_groups: "You are not allowed to support this proposal by any group "
+      confirm_button: "Confirm"
+    calendar:
+      create_event_button: "Create new event"
+    candidates:
+      new:
+        title: "%{name} : New candidature"
+        description: "Choose one of the group participants and send him as candidate for one of available elections."
+        send_button: "Send the candidature"
+      index:
+        description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
+        create_election: "hold an election"
+        user_column: "User"
+        election_column: "Election"
+        state_column: "State"
+        candidates_phase: "user candidatures"
+        voting_phase: "voting phase"
+        terminated_phase: "terminated"
+        send_candidate_button: "Candidate a user"
+        create_election_button: "Create a new election"
+    sessions:
+      new:
+        login_label: "Username or Email"
+        remember_me_label: "Remember me"
+      links:
+        register: "Not registered yet? Sign up!"
+        forgot_password: "Forgot your password?"
+        havent_received_email: "Haven't received confirmation email?"
   pl:
     comments:
       zero: nenhum comentário
@@ -401,6 +629,10 @@ pt:
          period: "Repetição"
          frequency: "repetir todos"
          private: "Privado"
+      meeting:
+        place:
+          address: "Address"
+          comune_id: "City"
       group:
         facebook_page_url: "Endereço do página Facebook"
         name: "Nome"
@@ -418,6 +650,14 @@ pt:
         description_placeholder: "Esta mensagem será exibida na primeira página do grupo"
         image_url_placeholder: "URL da imagem do grupo"
         facebook_page_url_placeholder: "Se o grupo tem uma página no Facebook, digite o endereço."
+      blogs:
+        title: 'Title'
+      blog_post:
+        title: 'Title'
+        body: 'Text'
+        published: 'State'
+        published_true: 'Publicated'
+        published_false: 'Draft'
       partecipation_role:
          name: "Nome"
          description: "Breve descrição"
@@ -512,7 +752,7 @@ pt:
         user:
           attributes:
             email:
-              already_confirmed: "QEste endereço de e-mail já está registrado corretamente."
+              already_confirmed: "QEste endereço de email já está registrado corretamente."
         group:
           portavoce:
             required: "Deve escolher um porta-voz."
@@ -532,8 +772,30 @@ pt:
         waiting_date: "Esta proposta já passou a fase de avaliação e agora está à espera de uma data para a votação."
         voting: "Esta proposta está em processo de votação."
         ask_for_partecipation: "Pedir para entrar no grupo para avaliar e contribuir para esta proposta"
+        visible_outside_warn: "This proposal is publicly visible"
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
+    proposal_comments:
+      cant_edit: "Can't edit comments that are not yours."
+      insert_error: "Error during insert."
+      edit_ok: "Your comment has been updated succesfully."
+      delete_ok: 'Your comment has been deleted'
+      report_ok: "Contribution reported succesfully"
+      report_error: "Error during contribution report"
   unavailable_option: "Esta opção ainda não está disponível"
   change_language: "Mudar o idioma"
+  terms_of_service: "Terms of service"
+  privacy_policy: "Privacy Policy"
+  back_to_top: "Back to top"
+  proposals:
+    create_button: "Create a proposal"
+  interest_borders_hint: "Type a few characters to search for a place"
+  no_interest_border: "No place found"
+  looking_for_interest_border: "Searching, please wait..."
+  digit_tags: "Type the tags you want to insert"
+  ago: "ago"
+  buttons:
+    cancel: Cancel
+    save: "Save"
+    report: "Report"

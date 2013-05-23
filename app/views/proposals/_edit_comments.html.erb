@@ -1,0 +1,5 @@
+<div class="blogComments" id="proposalComments">
+	<% @proposal_comments.each do |comment| %>
+		<%= render :partial => 'proposals/edit_comment', :locals => {:comment => comment} %>
+	<% end %>
+</div>

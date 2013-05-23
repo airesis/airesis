@@ -1,10 +1,10 @@
-DemocracyOnline3::Application.routes.draw do
+Airesis::Application.routes.draw do
 
 
   resources :tutorial_progresses
 
   resources :tutorials do
-    resources :steps  do
+    resources :steps do
       member do
         get :complete
       end
@@ -12,12 +12,11 @@ DemocracyOnline3::Application.routes.draw do
     resources :tutorial_assignees
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
-    get '/users/sign_in' , :to => 'devise/sessions#new'
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
+    get '/users/sign_in', :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
-
 
 
   root :to => 'home#index'
@@ -40,6 +39,7 @@ DemocracyOnline3::Application.routes.draw do
     member do
       get :show_message
       post :send_message
+      post :update_image
     end
   end
 
@@ -58,7 +58,6 @@ DemocracyOnline3::Application.routes.draw do
 
   resources :proposals do
     collection do
-      get :index_accepted
       get :endless_index
       get :similar
       get :tab_list
@@ -70,9 +69,15 @@ DemocracyOnline3::Application.routes.draw do
         put :ranknil
         put :rankdown
         post :show_all_replies
+
       end
       collection do
+        post :mark_noise
         post :list
+        get :edit_list
+        post :report
+        get :noise
+        get :manage_noise
       end
     end
 
@@ -116,8 +121,9 @@ DemocracyOnline3::Application.routes.draw do
     end
   end
 
- resources :interest_borders
- resources :comunes
+  resources :interest_borders
+  resources :comunes
+
 
 
   resources :events do
@@ -157,6 +163,7 @@ DemocracyOnline3::Application.routes.draw do
       post :change_default_secret_vote
       get :reload_storage_size
       put :enable_areas
+      put :remove_post
     end
 
     collection do
@@ -213,6 +220,12 @@ DemocracyOnline3::Application.routes.draw do
       end
     end
 
+    resources :blog_posts do
+      #match :tag, :on => :member
+      match :drafts, :on => :collection
+      resources :blog_comments
+    end
+
   end
 
   resources :documents do
@@ -231,12 +244,12 @@ DemocracyOnline3::Application.routes.draw do
   end
 
   resources :elections do
-      member do
-        get :vote_page
-        post :vote
-        get :calculate_results
-      end
+    member do
+      get :vote_page
+      post :vote
+      get :calculate_results
     end
+  end
 
   resources :partecipation_roles do
     collection do
@@ -253,6 +266,7 @@ DemocracyOnline3::Application.routes.draw do
 
   match '/votation/', :to => 'votations#show'
   match '/votation/vote', :to => 'votations#vote'
+  match '/votation/vote_schulze', :to => 'votations#vote_schulze'
   resources :votations
 
   match ':controller/:action/:id'
@@ -276,6 +290,7 @@ DemocracyOnline3::Application.routes.draw do
   match '/sostienici' => 'home#helpus'
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
+  match '/send_feedback' => 'home#feedback'
 
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?
@@ -290,7 +305,7 @@ DemocracyOnline3::Application.routes.draw do
   end
 
 
-  resources :tokens,:only => [:create, :destroy]
+  resources :tokens, :only => [:create, :destroy]
 
   #authenticate :admin do
   #  mount Resque::Server, :at => "/resque_admin"

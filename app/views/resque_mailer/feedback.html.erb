@@ -1,0 +1,4 @@
+<h1>Nuovo feedback ricevuto</h1>
+<%= link_to 'Visualizza immagine', Maktoub.home_domain + @feedback.image.url if @feedback.image.exists?%>
+<h1>Messaggio:</h1>
+<%= @feedback.message %>

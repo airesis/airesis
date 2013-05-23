@@ -1,8 +1,10 @@
 <%if user_signed_in? %>
+<div class="mybox">
 	<h4><%= t('pages.groups.index.groups_list') %></h4>
+<div class="mycont">
 		<%@groups = current_user.groups %>
         <%if @groups.empty?%>
-            <%=raw t('pages.groups.index.no_groups_yet',{name: (link_to "area di lavoro", groups_path)})%>
+            <%=raw t('pages.groups.index.no_groups_yet',{name: (link_to "gruppo", groups_path)})%>
 	    <%end%>
 		<%@groups.each do |group|%>
 			<div class="groupcontainer">
@@ -17,6 +19,7 @@
 	<div style="clear: both;"></div>	
 <!--<%if @groups.size > 5%>
 	<a href="#">Mostra tutti...</a>
+
 <%end%>-->
 <!--
 	<h4>Gruppi che segui</h4>
@@ -38,5 +41,6 @@
 <!--<%if @following.size > 5%>
 	<a href="#">Mostra tutti...</a>
 <%end%>-->
-			
+</div>
+</div>
 <%end%> 

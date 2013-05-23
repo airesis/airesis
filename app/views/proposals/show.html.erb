@@ -2,7 +2,7 @@
     <meta property="og:title" content="<%= @proposal.title %>"/>
     <meta property="og:type" content="article"/>
     <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
-    <meta property="og:site_name" content="Airesis - Scegli di partecipare"/>
+    <meta property="og:site_name" content="<%=APP_LONG_NAME%>"/>
     <meta property="og:description" content="<%= @proposal.subtitle %>"/>
     <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
     <meta property="article:published_time" content="<%= @proposal.created_at.strftime("%Y/%m/%d") %>">
@@ -37,15 +37,19 @@
 -->
 <%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step %>
 
-<%= render :partial => 'proposals/show_proposal', :locals => {:proposal => @proposal} %>
+<%= render :partial => 'proposals/show_proposal' %>
 
-<% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+<% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
     <%= render :partial => @proposal_comment = ProposalComment.new, :locals => {:button_name => 'Invia risposta'} %>
     <div id="flash_messages_comments" style="height:20px"></div>
 <% else %>
     <div style="height:20px"></div>
 <% end %>
 
+
+<%if @proposal.voting? %>
+    <h4><%= t('pages.proposals.show.no_contributes') %></h4>
+<%else%>
 <div id="order_bar">
   <%= render :partial => 'proposal_comments/order_bar' %>
 </div>
@@ -64,34 +68,66 @@
 </div>
 
 
+<%= render :partial => 'report_contribute' %>
+
+<%end%>
+
 <script type="text/javascript">
-    var retval = false;
     var clicked;
-    var currentPage = 0;
+
     var currentView = <%=current_user ? 1 : 3 %>;
     var contributes = [];
     var checkActive = false;
 
-    function hiding(event, id) {
-        if (!retval) {
-            clicked = $('#delete' + id);
-            console.log(clicked);
-            if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
-                $('#comment' + id).hide(600, function () {
-                    retval = true;
-                    clicked.click();
-                });
-                event.stopPropagation();
-                return false;
-            }
-            event.stopPropagation();
-            return false;
-        }
-        else {
-            retval = false;
-            return true;
-        }
+    var $viewport = $('html, body');
 
+
+    function scroll_to_vote_panel() {
+        $viewport.animate({
+            scrollTop: $(".vote_panel").offset().top - 100
+        }, 2000);
+
+        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+            }
+        });
+        return false;
+    }
+
+    function contribute(section_id) {
+        $('#proposal_comment_section_id').val(section_id);
+        $viewport.animate({
+            scrollTop: $("#proposal_comment_content").offset().top - 150
+        }, 2000, function () {
+            $('#proposal_comment_content').focus();
+            $('#comment-form-comment').effect('highlight', {}, 3000);
+        });
+
+
+        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+            }
+        });
+
+        return false;
+    }
+
+    function hiding(event, id) {
+      if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
+        $('#comment' + id).hide(600, function () {
+          $.ajax({
+		dataType: 'json',
+		type: 'delete',
+		url: '/proposals/<%=@proposal.id%>/proposal_comments/'+id
+	  });
+        });
+        return false;
+      }
+      return false;
     }
 
 
@@ -117,35 +153,55 @@
 
     }
 
+    function report_contribute(id) {
+        $('.report_menu').hide();
+        $('.report_contribute.visible').removeClass('visible');
+        $('#report_contribute_id').val(id);
+        $('input[name=reason]').removeAttr('checked');
+        doModal($('#report_contribute'));
+    }
+
     function hide_vote_controls() {
         //nascondi i pulsanti di valutazione quando vengono cliccati
-        $('.voteup-mini').bind('ajax:beforeSend', function (n, xhr) {
-            id = $(this).attr('id');
-            num = id.replace('voteup-mini', '');
-            hideRankPanel('rankingpanelcontainer' + num);
-        });
+        $('.vote_comment').bind('ajax:beforeSend', function (n, xhr) {
+            $(this).parent().find('.vote_comment').hide();
+            $(this).parent().find('.loading').show();
 
-        $('.votenil-mini').bind('ajax:beforeSend', function (n, xhr) {
-            id = $(this).attr('id');
-            num = id.replace('votenil-mini', '');
-            hideRankPanel('rankingpanelcontainer' + num);
         });
 
         $('.votedown-mini').bind('ajax:beforeSend', function (n, xhr) {
-            id = $(this).attr('id');
-            num = id.replace('votedown-mini', '');
-            hideRankPanel('rankingpanelcontainer' + num);
+            var num = $(this).data('id');
+            $(this).parent().find('.vote_comment').hide();
+            $(this).parent().find('.loading').show();
+            $('.reply_textarea[data-id=' + num + ']').focus().attr('placeholder', 'Indica il motivo della tua valutazione negativa').effect('highlight', {}, 3000);
         });
 
-    }
-    ;
 
+        $('.hidden_menu')
+                .click(function (event) {
+                    event.stopPropagation();
+                });
 
-    function resetCounter() {
-        currentPage = 0;
+        $('html').click(function () {
+            $('.hidden_menu').hide();
+            $('.hidden_link.visible').removeClass('visible');
+        });
+
+        $('.hidden_link')
+                .click(function (event) {
+                    $(this).addClass('visible');
+                    $(this).next().show().position({
+                        my: "right top",
+                        at: "right bottom",
+                        of: $(this)
+                    });
+                    event.stopPropagation();
+                });
     }
+
 
     function checkScroll() {
+        <%unless @proposal.voting? %>
         if (nearBottomOfPage() && checkActive) {
             checkActive = false;
             currentPage++;
@@ -158,21 +214,11 @@
         } else {
             setTimeout("checkScroll()", 250);
         }
-    }
-
-    function nearBottomOfPage() {
-        return scrollDistanceFromBottom() < 150;
-    }
-
-    function scrollDistanceFromBottom(argument) {
-        return pageHeight() - (window.pageYOffset + self.innerHeight);
-    }
-
-    function pageHeight() {
-        return Math.max(document.body.scrollHeight, document.body.offsetHeight);
+        <%end%>
     }
 
     $(function () {
+        <%unless @proposal.voting? %>
         currentPage++;
         $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
             data: {page: currentPage,
@@ -184,6 +230,7 @@
                 $("#loading_contributes").hide();
             }
         });
+        <%end%>
 
         <%= render :partial => 'show_tooltips' %>
 
@@ -193,91 +240,128 @@
 
 <% content_for :left_panel do %>
     <% if @proposal.is_standard? %>
-        <div id="rankleftpanel" class="rankleftpanel">
+        <div id="rankleftpanel" class="rankleftpanel mybox">
           <%= render :partial => 'proposals/rank_left_panel' %>
         </div>
     <% end %>
 
-
-
-
-
-    <% if @proposal.is_anonima? %>
-       <%= t('pages.proposals.show.anonimity_active') %><br/>
+    <% if ::Configuration.socialnetwork_active %>
+        <div class="mybox">
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-count="vertical"
+             data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>: <%= @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>">Tweet</a>
+          <g:plusone size="tall"></g:plusone>
+          <%= raw facebook_like %>
+        </div>
     <% end %>
+
     <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
-        <h4 style="display:inline"><%= t('pages.proposals.show.your_nickname_is') %></h4>
-        <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
-        <div class="blogUserImage">
-          <%= user_tag(current_user, @proposal) %>
-        </div>
-        <div style="clear: both;"></div>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.your_nickname_is') %></h4>
 
+          <div class="mycont">
+            <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => t('pages.proposals.show.what_nickname'), :style => 'cursor:pointer' %></span>
+
+            <div class="blogUserImage">
+              <%= user_tag(current_user, @proposal) %>
+            </div>
+          </div>
+        </div>
     <% end %>
 
-    <h4><%= t('pages.proposals.show.editors_title') %></h4>
-    <div id="authors_list">
-      <%= render :partial => 'proposals/authors_list_panel' %>
-    </div>
-    <% if signed_in? && @proposal.in_valutation? %>
-        <div id="available_author">
-          <%= render :partial => 'proposals/available_author' %>
-        </div>
-        <% if @proposal.users.include?(current_user) %>
-            <% if @proposal.available_authors.count > 0 %>
-                <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.editors_title') %></h4>
 
-                <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title')%>">
-                </div>
+      <div class="mycont">
+        <div id="authors_list">
+          <%= render :partial => 'proposals/authors_list_panel' %>
+        </div>
+        <% if signed_in? && @proposal.in_valutation? %>
+            <div id="available_author">
+              <%= render :partial => 'proposals/available_author' %>
+            </div>
+            <% if @proposal.users.include?(current_user) %>
+                <% if @proposal.available_authors.count > 0 %>
+                    <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
+
+                    <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title') %>">
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
-    <% end %>
+      </div>
+    </div>
 
     <br/>
 
-    <% if ::Configuration.proposal_support %>
+    <% if ::Configuration.proposal_support && !@proposal.private %>
         <div id="support_left_panel_container">
           <%= render :partial => 'proposals/support_left_panel' %>
         </div>
     <% end %>
 
-
+    <!--
     <h4><%= t('pages.proposals.show.attached_documents') %></h4>
     <%= t('pages.proposals.show.no_document_attached') %>
+    -->
 
     <% unless @proposal.interest_borders.empty? %>
-        <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
-        <% @proposal.interest_borders.each do |ib| %>
-            <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.interest_borders.each do |ib| %>
+                <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
-        <h4><%= t('pages.proposals.show.tags_title') %></h4>
-        <% @proposal.tags.each do |tag| %>
-            <div style="margin:5px;"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-              x <%= tag.proposals_count %></div>
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.tags_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.tags.each do |tag| %>
+                <div style="margin:5px;">
+                  <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+                  x <%= tag.proposals_count %></div>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% unless @proposal.closest(@group ? @group.id : nil).empty? %>
-        <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
-        <% @proposal.closest.each do |p| %>
-            <%= link_to p.title, p %><br />
-        <% end %>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
+
+          <div class="mycont">
+            <% @proposal.closest.each do |p| %>
+                <%= link_to p.title, p %>
+                <br/>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 
     <% if ::Configuration.proposal_categories %>
-        <h4><%= t('pages.proposals.show.category_title') %></h4>
-        <table>
-          <tr>
-            <td style="vertical-align: middle;">
-              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "-22.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-            <td>
-              <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-          </tr>
-        </table>
+        <div class="mybox">
+          <h4><%= t('pages.proposals.show.category_title') %></h4>
+
+          <div class="mycont">
+            <table>
+              <tr>
+                <td style="vertical-align: middle;">
+                  <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+                </td>
+                <td>
+                  <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
     <% end %>
 <% end %>

@@ -107,7 +107,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'btnSave'   : 'Salva',
 			'btnRm'     : 'Rimuovi',
 			'btnApply'  : 'Applica',
-			'btnCancel' : 'Cancella',
+			'btnCancel' : 'Annulla',
 			'btnNo'     : 'No',
 			'btnYes'    : 'Si',
 

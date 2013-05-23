@@ -1,5 +1,5 @@
 <div id="create_proposal">
-  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true, :html => {:class => 'disableForm'} do |f| %>
+  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
       <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_3') %></div>
@@ -7,82 +7,78 @@
 
 
       <div class="step root root">
-        <% @available_areas = current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT) %>
+        <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
         <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
             <p>
               <%= f.label :group_area_id %><br/>
-              <%if @available_areas.size > 0%>
-                <%= select("proposal", "group_area_id", current_user.scoped_areas(@group,GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
-              <%else%>
-                <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
-              <%end%>
+              <% if @available_areas.size > 0 %>
+                  <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+              <% else %>
+                  <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
+              <% end %>
             </p>
         <% end %>
+
+
+        <p>
+          <%= f.label :title %> * <%= t('pages.proposals.new.title_synthetic') %><br/>
+          <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), :style => "width:500px" %>
+        </p>
+
         <% if ::Configuration.proposal_categories %>
             <p>
               <%= f.label :proposal_category_id %><br/>
-              <%= select("proposal", "proposal_category_id", ProposalCategory.all.collect { |p| [p.description, p.id] }) %>
+              <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}),{}, {class: 'ddslick_tmp'} %>
             </p>
         <% end %>
-        <% if params[:action] == "new" %>
+
+        <p>
+          <%= f.label :interest_borders_tkn %><br/>
+          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder') %>
+        </p>
+
+        <% if ::Configuration::folksonomy %>
             <p>
-              <%= f.label :title %> *<br/>
-              <%= f.text_field :title, :style => "width:300px" %>
+              <%= f.label :tags_list %> <%= '(separate da virgola)' %><br/>
+              <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
             </p>
-
-            <p>
-              <%= f.label :subtitle %><br/>
-              <%= f.text_field :subtitle, :style => "width:600px;" %>
-            </p>
-
-            <p>
-              <%= f.label :interest_borders_tkn %><br/>
-              <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
-            </p>
-
-            <% if ::Configuration::folksonomy %>
-                <p>
-                  <%= f.label :tags_list %><br/>
-                  <%= f.text_field :tags_list %>
-                </p>
-            <% end %>
-
-            <p>
-              <%= f.label :quorum_id %> *<br/>
-              <% if @group %>
-                  <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-                  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
-              <% else %>
-                  <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-                  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
-              <% end %>
-
-            <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
-            </div>
-            </p>
-
-            <p>
-              <% if @change_advanced_options %>
-                  <%= f.check_box :anonima %>
-                  <%= f.label :anonima %><br/>
-                  <%= f.check_box :visible_outside %>
-                  <%= f.label :visible_outside %><br/>
-                  <%= f.check_box :secret_vote %>
-                  <%= f.label :secret_vote %><br/>
-              <% end %>
-            </p>
-
-            <p>
-              <% if @group %>
-                  <input type="hidden" name="from_group" value="<%= @group.id %>"/>
-              <% end %>
-              <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
-              <%= f.hidden_field :private %>
-              <%= f.hidden_field :proposal_type_id %>
-              <%= f.hidden_field :proposal_votation_type_id %>
-            </p>
-
         <% end %>
+
+        <p>
+          <%= f.label :quorum_id %> *<br/>
+          <% if @group %>
+              <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
+          <% else %>
+              <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+          <% end %>
+
+        <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+        </div>
+        </p>
+
+        <p>
+          <% if @change_advanced_options %>
+              <%= f.check_box :anonima %>
+              <%= f.label :anonima %><br/>
+              <%= f.check_box :visible_outside %>
+              <%= f.label :visible_outside %><br/>
+              <%= f.check_box :secret_vote %>
+              <%= f.label :secret_vote %><br/>
+          <% end %>
+        </p>
+
+        <p>
+          <% if @group %>
+              <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+          <% end %>
+          <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
+          <%= f.hidden_field :private %>
+          <%= f.hidden_field :proposal_type_id %>
+          <%= f.hidden_field :proposal_votation_type_id %>
+        </p>
+
       </div>
 
 
@@ -90,30 +86,26 @@
       </div>
 
       <div class="step">
-        <h4><%= t('pages.proposals.new.step_3_title') %></h4>
+
 
         <%= f.fields_for :sections, @problems do |s| %>
             <%= s.hidden_field :title %>
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, t('pages.proposals.new.problems_title') %> *<br/>
-                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce", :validate => {:presence => true} %>
+                  <%= p.label :content, t('pages.proposals.new.problems_title_label') %> *<br/>
+                  <%= p.text_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true} %>
                   <%= p.hidden_field :seq %>
                 </p>
             <% end %>
         <% end %>
-        <%= f.fields_for :sections, @objectives do |s| %>
-            <%= s.hidden_field :title %>
-            <%= s.hidden_field :seq %>
-            <%= s.fields_for :paragraphs, @objectives.paragraphs.build(seq: 1) do |p| %>
-                <p>
-                  <%= p.label :content, t('pages.proposals.new.objectives_title') %> *<br/>
-                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
-                  <%= p.hidden_field :seq %>
-                </p>
-            <% end %>
-        <% end %>
+
+        <div class="suggestion_box">
+          <div><%= 'Esempi di compilazione' %></div>
+          <div><%= 'CASO 1 (obiettivo: "Ridurre l\'uso di acqua potabile per l\'irrigazione")' %></div>
+          <div><%= 'Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l\'acquedotto si sta esaurendo' %></div>
+        </div>
+
       </div>
 
       <div class="step">
@@ -132,88 +124,75 @@
                 <% end %>
             <% end %>
         <% end %>
-
+        <div class="suggestion_box">
+        <%=raw 'Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
+         Se non lo farai la tua proposta non andrà in votazione.<br/>
+          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.' %>
+        </div>
 
       </div>
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'buttonStyle disableButton' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable' %>
       </p>
+      </div>
+
   <% end %>
-</div>
+  <script>
+      $('.legend').hide();
 
 
-<script>
-    $('.legend').hide();
+      $(function () {
+          $("#new_proposal").quickWizard({
+              nextCallback: showSimilarProposal,
+              prevCallback: skipIfNecessary
+          });
+
+          input = $('#proposal_interest_borders_tkn')
+          input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
+              crossDomain: false,
+              prePopulate: input.data("pre"),
+              hintText: "<%=t('interest_borders_hint')%>",
+              noResultsText: "<%=t('no_interest_border')%>",
+              searchingText: "<%=t('looking_for_interest_border')%>",
+              preventDuplicates: true
+          });
 
 
-    $(function () {
-        $("#new_proposal").quickWizard({
-            nextCallback: showSimilarProposal,
-            prevCallback: skipIfNecessary
-        });
+          input = $('#proposal_tags_list')
+          if (input != null) {
+              input.tokenInput([], {
+                  theme: "facebook",
+                  crossDomain: false,
+                  allowFreeTagging: true,
+                  hintText: "<%=t('digit_tags')%>",
+                  searchingText: "<%=t('digit_tags')%>",
+                  preventDuplicates: true
+              })
+          }
+      });
 
-        input = $('#proposal_interest_borders_tkn')
-        input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
-            crossDomain: false,
-            prePopulate: input.data("pre"),
-            hintText: "<%=t('interest_borders_hint')%>",
-            noResultsText: "<%=t('no_interest_border')%>",
-            searchingText: "<%=t('looking_for_interest_border')%>",
-            preventDuplicates: true
-        });
+      /**
+       * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
+       */
+      function skipIfNecessary(activeDiv) {
+          if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
+              $('#form-wizard-prev').click();
+          }
+      }
 
-
-        input = $('#proposal_tags_list')
-        if (input != null) {
-            input.tokenInput([], {
-                theme: "facebook",
-                crossDomain: false,
-                allowCustomEntry: true,
-                hintText: "<%=t('digit_tags')%>",
-                searchingText: "<%=t('digit_tags')%>",
-                preventDuplicates: true
-            })
-        }
-    });
-
-    /**
-     * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
-     */
-    function skipIfNecessary(activeDiv) {
-        if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
-            $('#form-wizard-prev').click();
-        }
-    }
-
-    /**
-     * Mostra proposte simili se ve ne sono
-     */
-    function showSimilarProposal(activeDiv) {
-        $(':input', activeDiv).first().focus();
-        if (activeDiv.attr('id') == 'suggestions') {
-            $.ajax({
-                url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
-                data: 'tags=' + $('#proposal_tags_list').val()
-            })
-        }
-        $('#new_proposal').enableClientSideValidations();
-    }
-
-
-    tinyMCE.init({
-        mode: 'textareas',
-        theme: 'advanced',
-        theme_advanced_toolbar_location: 'top',
-        theme_advanced_toolbar_align: 'left',
-        theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube',
-        theme_advanced_buttons2: '',
-        theme_advanced_buttons3: '',
-        relative_urls : false,
-        plugins: 'media,inlinepopups,youtube,paste',
-        paste_auto_cleanup_on_paste : true,
-        theme_advanced_statusbar_location: "none"
-    });
-
-</script>
+      /**
+       * Mostra proposte simili se ve ne sono
+       */
+      function showSimilarProposal(activeDiv) {
+          $(':input', activeDiv).first().focus();
+          if (activeDiv.attr('id') == 'suggestions') {
+              $.ajax({
+                  url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
+                  data: 'tags=' + $('#proposal_tags_list').val()
+              })
+          }
+          $('#new_proposal').enableClientSideValidations();
+      }
+  </script>

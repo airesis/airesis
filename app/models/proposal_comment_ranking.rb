@@ -6,6 +6,7 @@ class ProposalCommentRanking < ActiveRecord::Base
   
   scope :positives, { :conditions => {:ranking_type_id => POSITIVE_VALUTATION }}
   scope :negatives, { :conditions => {:ranking_type_id => NEGATIVE_VALUTATION }}
+  scope :neutrals, { :conditions => {:ranking_type_id => NEUTRAL_VALUTATION }}
 
   after_save :update_counter_cache
   after_destroy :update_counter_cache

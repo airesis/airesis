@@ -14,7 +14,11 @@ class Proposal < ActiveRecord::Base
 
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote'
+
   has_many :user_votes, :class_name => 'UserVote'
+
+  has_many :schulze_votes, :class_name => 'ProposalSchulzeVote'
+
   # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
   # only the main contributes related to the proposal
@@ -57,19 +61,19 @@ class Proposal < ActiveRecord::Base
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
   #validation
-  validates_presence_of :title, :message => "Il titolo della proposta è obbligatorio"
+  validates_presence_of :title, :message => "obbligatorio"
   validates_uniqueness_of :title
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
-  attr_accessor :update_user_id, :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty, :percentage
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
-                  :group_area_id, :objectives_dirty, :problems_dirty, :content_dirty,
-                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id
+                  :group_area_id,
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids_list
 
-  accepts_nested_attributes_for :sections
+  accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
@@ -89,7 +93,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, {:conditions => {:proposal_state_id => PROP_REVISION}}
 
   scope :public, {:conditions => {:private => false}}
-  scope :private, {:conditions => {:private => true}}
+  scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
   scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
@@ -102,10 +106,19 @@ class Proposal < ActiveRecord::Base
 
 
   before_update :save_proposal_history
+  after_update :mark_integrated_contributes
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
   after_find :calculate_percentage
 
+
+  def integrated_contributes_ids_list=(value)
+    self.integrated_contributes_ids = value.split(/,\s*/)
+  end
+
+  def is_schulze?
+    self.solutions.count > 1
+  end
 
   def is_standard?
     self.proposal_type_id.to_s == ProposalType::STANDARD.to_s
@@ -114,7 +127,6 @@ class Proposal < ActiveRecord::Base
   def is_polling?
     self.proposal_type_id.to_s == ProposalType::POLL.to_s
   end
-
 
   def remove_scheduled_tasks
     Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
@@ -202,17 +214,17 @@ class Proposal < ActiveRecord::Base
   def save_proposal_history
     something = false
     seq = (self.revisions.maximum(:seq) || 0) + 1
-    revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
       if paragraph.content_changed?
         something = true
-        section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
       end
     end
     self.solutions.each do |solution|
-      solution_history = revision.solution_histories.build(seq: solution.seq)
+      solution_history = @revision.solution_histories.build(seq: solution.seq)
       something_solution = false
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
@@ -225,7 +237,18 @@ class Proposal < ActiveRecord::Base
       end
       solution_history.destroy unless something_solution
     end
-    something ? revision.save! : revision.destroy
+    something ? @revision.save! : @revision.destroy
+    self.touch
+  end
+
+  def mark_integrated_contributes
+    if @revision.id
+      comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
+      ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
+      comment_ids.each do |id|
+        IntegratedContribute.create(:proposal_revision_id => @revision.id, :proposal_comment_id => id)
+      end
+    end
   end
 
   #restituisce il primo autore della proposta
@@ -283,8 +306,11 @@ class Proposal < ActiveRecord::Base
       (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
           solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
     end
+    boolean :visible_outside
+    boolean :private
     integer :presentation_group_ids, multiple: true
     integer :group_ids, multiple: true
+    integer :presentation_area_ids, multiple: true
   end
 
   #restituisce la percentuale di avanzamento della proposta in abse al quorum assegnato

@@ -19,6 +19,7 @@ class ElectionsController < ApplicationController
   #load_and_authorize_resource 
   
   def show
+    authorize! :read, @election
     @group = @election.groups.first
     @page_title = @election.event.title
     #se l'elezione è terminata e non ho ancora calcolato i risultati, fallo ora.
@@ -55,6 +56,7 @@ class ElectionsController < ApplicationController
   end
     
   def vote_page
+    authorize! :read, @election
     @group = @election.groups.first
     @page_title = @election.event.title + " - Pagina di voto"
     respond_to do |format|
@@ -62,11 +64,12 @@ class ElectionsController < ApplicationController
       format.html {
         redirect_to @election
       }
-    end if (@has_voted)
+    end if @has_voted
   end
   
   #un utente invia il voto per l'elezione
   def vote
+    authorize! :vote, @election
     begin
       votes = (JSON.parse params[:data][:votes])
       votes = votes['candidates']
@@ -74,8 +77,8 @@ class ElectionsController < ApplicationController
       votes.sort! {|a,b| b[1] <=> a[1] }    
       
       votes.each_with_index do |vote,index|
-        if (index != 0)  
-          if (vote[1].to_i == votes[index-1][1].to_i)
+        if index != 0
+          if vote[1].to_i == votes[index-1][1].to_i
             votestring += ","
            else
              votestring += ";"

@@ -18,6 +18,22 @@
     text-decoration: none;
 }
 
+.new_section {
+    background-color: #FAFAFA;
+    border-top: 1px solid #E3E3E3;
+    display: block;
+    padding: 10px 0;
+    text-align: center;
+    color: #3366CC;
+    font-weight: bold;
+    width: 98%;
+}
+
+.new_section:hover {
+    background-color: #F4F4F4;
+    text-decoration: none;
+}
+
 .proposalComment {
     padding: 20px 0 0;
     clear: both;
@@ -47,14 +63,12 @@
 
 .proposal_main {
     position: relative;
-    border: 1px solid #CCCCCC;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 3px;
-    background: repeat scroll 0 0 #FFF;
-    background: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #FFFFFF), color-stop(70%, #DFEFFC));
-    background: -moz-linear-gradient(center top, #FFFFFF 0%, #DFEFFC 70%) repeat scroll 0 0 transparent;
-    margin-bottom: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0px 0px 1px #000;
+    margin-bottom: 20px;
 }
 
 .proposal_comment {
@@ -100,8 +114,8 @@
 }
 
 .proposal_comment_reply .reply_area {
-    float: left;
-    width: 540px;
+    margin-right: 140px;
+    left:  0px;
 }
 
 .proposal_comment_reply .reply_area textarea {
@@ -110,16 +124,14 @@
 }
 
 .proposal_comment_reply .reply_button {
-    bottom: 6px;
+    bottom: 3px;
     position: absolute;
     right: 20px;
 }
 
 .proposal_comment_reply .reply_content {
-    float: left;
-    margin: 5px;
-    width: 655px;
-    word-wrap: break-word;
+    padding: 5px;
+    word-break: break-word;
 }
 
 .proposal_comment_reply textarea {
@@ -224,11 +236,6 @@
 
 }
 
-.rankingpanelcontainer {
-    display: inline-block;
-    color: #444;
-}
-
 #categories {
     position: relative;
     left: 1px;
@@ -313,11 +320,12 @@ ul.blogList li.blogListFirst {
 }
 
 #proposal_histories .diffview {
-    float: left;
-    width: 765px;
+    /*float: left;
+    width: 765px;*/
+    margin-left: 233px;
 }
 
-.proposalMainContainer {
+/*.proposalMainContainer {
     clear: both;
 }
 
@@ -325,7 +333,39 @@ ul.blogList li.blogListFirst {
     word-wrap: break-word;
     margin: 0 10px;
     letter-spacing: 1px;
-    /*text-align: justify; */
+} */
+
+h3 .tit1 {
+    position: relative;
+    margin-bottom: -16px;
+    background-color: rgba(222, 222, 222, 0.5);
+    padding: 10px;
+    border-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.tit1 .tit2 {
+    margin-right: 140px;
+    word-break: break-word;
+}
+
+.tit1 .suggest {
+    position: absolute;
+    right: 0px;
+    color: gray;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 999;
+    color: gray;
+    font-weight: bold;
+    margin-top: -29px;
+}
+
+.proposal_content {
+    padding: 10px;
 }
 
 .rankleftpanel {
@@ -349,20 +389,32 @@ ul.blogList li.blogListFirst {
 
 .rankleftpanel .voteup {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .rankleftpanel .votedown {
     float: left;
+    margin-right: 5px;
 }
 
 .rankleftpanel .votedup {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .rankleftpanel .voteddown {
     float: left;
+    margin-right: 5px;
+}
+
+.vote_container {
+   margin-bottmo: 5px;
+}
+
+.vote_description {
+    margin-top: 8px;
+    float:left;
+    font-weight: bold;
 }
 
 .rankleftpanel .handscontainer {
@@ -385,7 +437,7 @@ ul.blogList li.blogListFirst {
 }
 
 .baloon-content {
-    word-wrap: break-word;
+    word-break: break-word;
     margin: 5px;
 }
 
@@ -394,7 +446,31 @@ ul.blogList li.blogListFirst {
     font-size: 0.9em;
     margin-top: 5px;
     margin-left: 5px;
+    margin-bottom: 2px;
     color: #999999;
+    float: left;
+}
+
+.reply-footer {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: #999999;
+}
+
+.rankingpanelcontainer {
+    color: #444;
+    float: right;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+
+
+
+.rankingpanelcontainer .think {
+    color: #999999;
+    margin-right: 10px;
 }
 
 .baloon-triangle {
@@ -434,10 +510,13 @@ form .exceeded {
     color: #e00;
 }
 
+.paragraph_select {
+  max-width: 400px;
+}
+
 #new_proposal_comment .counter {
     float: right;
 }
-
 
 .ice .cts-1 {
     color: green;
@@ -454,37 +533,226 @@ form .exceeded {
 .ice .cts-2 {
     color: #C02000;
 }
+
 .ice .cts-3 {
     color: #004090;
 }
+
 .ice .cts-4 {
     color: #F06000;
 }
+
 .ice .cts-5 {
     color: purple;
 }
+
 .ice .cts-6 {
     color: #801080;
 }
+
 .ice .cts-7 {
     color: #1080B0;
 }
 
 .solution_title h3 {
-    float:left;
+    float: left;
     margin-bottom: 5px;
 }
 
 .solution_title .slideNumber {
-    float:left;
+    float: left;
     margin-bottom: 5px;
     margin-top: 5px;
     margin-left: 10px;
 }
 
 .solution_title .slider {
-    float:left;
-    width:  120px;
+    float: left;
+    width: 120px;
     margin-left: 15px;
     margin-top: 10px;
+}
+
+input.edit_label {
+    color: #444;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.ui-sortable-placeholder {
+    border: 1px dotted black;
+    visibility: visible !important;
+    height: 309px !important;
+    width: 98%;
+}
+
+.ui-sortable-placeholder * {
+    visibility: hidden;
+}
+
+.move_button {
+    float: right;
+    margin-right: 2%;
+    cursor: move;
+    visibility: hidden;
+}
+
+.section_container {
+    background: white;
+}
+
+.section_container:hover .move_button {
+    visibility: visible;
+}
+
+.remove_button {
+    float: right;
+    visibility: hidden;
+    margin-right: 20px;
+}
+
+.section_container:hover .remove_button {
+    visibility: visible;
+}
+
+.mceLayout {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.contributeSectionButton {
+    margin-top: 10px;
+}
+
+.vote_panel {
+    background-color: #E2F0B6;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.hidden_link {
+    float: right;
+    background-image: url("/assets/arrow.png");
+    width: 13px;
+    height: 13px;
+    visibility: hidden;
+}
+
+.hidden_link:hover {
+    background-image: url("/assets/arrow_hover.png");
+    cursor: pointer;
+}
+
+.proposal_comment:hover .hidden_link {
+    visibility: visible;
+}
+
+.blogPost:hover .hidden_link {
+    visibility: visible;
+}
+
+.hidden_link.visible {
+    visibility: visible;
+}
+
+.hidden_menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 5px 0px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, .2);
+    z-index: 1;
+
+}
+
+.hidden_menu .menu_item {
+    padding: 6px 8em 6px 30px;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.hidden_menu .menu_item:hover {
+    background-color: #eee;
+    border-color: #eee;
+}
+
+.proposal_comment_area {
+    resize: none;
+}
+
+.noise_element {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    background-color: white;
+    cursor: move;
+}
+
+.noise_element.ui-sortable-placeholder {
+    height: 100px !important;
+    width: 94%;
+}
+
+.noiseSortable {
+    padding: 5px;
+    margin:  5px;
+    background-color: #eee;
+    min-height: 100px;
+}
+
+
+    /*link ai commenti*/
+.spch-bub-inside {
+    position: relative;
+}
+
+a.spch-bub-inside {
+    color: #00F;
+    text-decoration: none;
+}
+
+.spch-bub-inside em {
+    font-style: normal;
+}
+
+.spch-bub-inside em {
+    background: #00F;
+    color: #FFF;
+    padding: 0 0.2em;
+    -moz-border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    border-radius: 0.25em;
+    position: relative;
+}
+
+.spch-bub-inside .point {
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 0.9em;
+    left: 0.4em;
+    display: block;
+    border-left: 0.45em solid #00F;
+    border-bottom: 0.45em solid #FFF; /* IE fix */
+    border-bottom: 0.45em solid #FFF;
+    overflow: hidden; /* IE fix */
+}
+
+a.spch-bub-inside:hover {
+    color: #F00;
+}
+
+a.spch-bub-inside:hover em {
+    cursor: pointer;
+    background: #F00;
+    color: #FF0;
+}
+
+a.spch-bub-inside:hover .point {
+    border-left: 0.5em solid #F00;
 }

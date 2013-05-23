@@ -1,12 +1,15 @@
 <% @group_areas.each do |area| %>
     <div class="group_area" id="group<%= area.id %>">
       <div>
+        <span class="remove_area_button">
+          <%=link_to 'Rimuovi sezione', [@group,area], method: :delete, remote: true, confirm: 'Sei sicuro di voler rimuovere quest\'area di lavoro?' if can? :destroy, area%>
+        </span>
         <div style="width:40px;height: 40px;"></div>
 
         <b><%=link_to area.name, edit_group_group_area_path(@group,area), :remote => true %></b>
         <div style="clear:both;"></div>
       </div>
-      <%= link_to t('pages.group_areas.manage.partecipants'), '#', class: 'areas_button', data: {g_id: area.id} %>
+      <%= link_to t('pages.group_areas.manage.partecipants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
       <div class="areas_list shadow-box">
         <ul>
           <%@partecipants.each do |partecipant|%>

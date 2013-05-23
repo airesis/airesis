@@ -47,6 +47,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']
+    logger.info access_token
     if current_user   #sto agganciando il provider
       data = access_token['extra']['raw_info'] #dati di google
       auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])

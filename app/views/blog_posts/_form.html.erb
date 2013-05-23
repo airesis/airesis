@@ -84,7 +84,7 @@
 			</p>
 			<p>
 				<input  type="hidden" name="group_id" value="<%=params[:group_id]%>"/>
-				<%= f.submit 'Salva', :class=>'buttonStyle' %><br/><br />
+				<%= f.submit t('buttons.save'), :class=>'buttonStyle' %><br/><br />
 				<%= link_to 'Torna indietro', :back, :class=>'buttonStyle' %>
 			</p>
 		<div class="blogEditRightPanel">
@@ -110,7 +110,7 @@
 			input.tokenInput([], {
 				theme: "facebook",
 				crossDomain: false,
-				allowCustomEntry: true,
+                allowFreeTagging: true,
 				prePopulate: <%=raw data%>,
 				hintText: "Digita i tag che vuoi inserire",
 				searchingText: "Digita i tag che vuoi inserire",

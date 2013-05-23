@@ -10,6 +10,9 @@ class Ability
       can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
     elsif user.admin?
       can :manage, :all
+      can :vote, Proposal do |proposal|
+        can_vote_proposal?(user, proposal)
+      end
     else
       #TODO correggere quando più gruppi condivideranno le proposte
       can :read, Proposal do |proposal|
@@ -35,9 +38,8 @@ class Ability
       can :create, ProposalSupport do |support|
         user.groups.include? support.group
       end
-      can :create, Group do |group|
-        true
-      end
+      can :create, Group if LIMIT_GROUPS && ((Time.now - (user.portavoce_groups.maximum(:created_at) || (Time.now - (GROUPS_TIME_LIMIT + 1.seconds))) > GROUPS_TIME_LIMIT)) #puoi creare solo un gruppo ogni 24 ore
+
       can :update, Group do |group|
         group.portavoce.include? user
       end
@@ -49,6 +51,9 @@ class Ability
       end
       can :update, GroupArea do |area|
         area.group.portavoce.include? user
+      end
+      can :destroy, GroupArea do |area|
+        (area.group.portavoce.include? user) && (area.internal_proposals.count == 0)
       end
 
       can :post_to, Group do |group|
@@ -78,6 +83,14 @@ class Ability
       can :insert_proposal, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
+      end
+      can :read, Election do |election|
+        group = election.groups.first
+        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
+      end
+      can :vote, Election do |election|
+        group = election.groups.first
+        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
       end
       can :view_proposal, GroupArea do |group_area|
         can_do_on_group_area?(user, group_area, 6)
@@ -214,9 +227,11 @@ class Ability
 
     #un utente può votare una proposta se è pubblica
     #oppure se dispone dei permessi necessari in uno dei gruppi all'interno dei quali la proposta
-    #è stata creata
+    #è stata creata e se non ha già votato la proposta
+    #e se la proposta è in votazione
     def can_vote_proposal?(user, proposal)
       return false unless proposal.voting?
+      return false if UserVote.find_by_proposal_id_and_user_id(proposal.id,user.id)
       if proposal.private
         proposal.presentation_groups.each do |group|
           areas = proposal.presentation_areas.where(:group_id => group.id)

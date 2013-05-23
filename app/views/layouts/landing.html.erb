@@ -1,54 +1,56 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
-	<head>
-		<title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME%></title>
-		
-		<%=render :partial => "layouts/head" %>
-        <%= stylesheet_link_tag 'menu_left' %>
-		<meta name="description" content="<%= (@page_descr)%>">
+<head>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
 
-    </head>
-    <body>
-		
-    <%=render :partial => "layouts/header" %>
-		
-	<div id="subheader" class="ui-widget-header ui-state-default">
-		<div class="body_maxwidth">
-			<div class="header_image">
-		    	    	<%= image_tag 'logo120.png', :width => 120, :alt =>"Airesis - Democrazia Diretta" %>
-		    </div>
-	      <div class="group_title">
-			<h1><%=@page_title%></h1>
-			<%= link_to 'Cos\'è Airesis?', edemocracy_path, :class => 'coseButton' %>
-            <%= link_to 'Partecipa allo sviluppo', partecipa_path, :class => 'sviluppoButton' %>
-			<%= link_to 'Video guide', videoguide_path, :class => 'videoButton' %>
-			<%= link_to 'Chi siamo', chisiamo_path, :class => 'chisiamoButton' %>
-			<%= link_to 'Sostienici', sostienici_path, :class => 'sostieniButton' %>
-			
-			</div>
-		</div>
-			
-	</div>
-		
-		<!-- ##### Main Copy ##### -->
-		<div id="main-copy">
-		  <div id="groups_leftpanel">
-		   <%= yield :left_panel%>
-		  </div>
-			<div id="centerpanelextended" style="font-size: 16px; line-height: 22px;"><%= yield :layout %></div>
-			<div style="clear: both; height: 0; overflow: hidden;"></div>
-			<%=render :partial => "layouts/footer" %>
-		</div>
+  <%= render :partial => "layouts/head" %>
+  <%= stylesheet_link_tag 'menu_left' %>
+  <meta name="description" content="<%= (@page_descr) %>">
+
+</head>
+<body style="min-width:1000px;">
 
 
-        <script type="text/javascript">
-          $(function(){
-              $('.sviluppoButton').button({icons : {primary : "ui-icon-pencil"}});
-              $('.coseButton').button({icons : {primary : "ui-icon-help"}});
-              $('.videoButton').button({icons : {primary : "ui-icon-video"}});
-              $('.chisiamoButton').button({icons : {primary : "ui-icon-person"}});
-              $('.sostieniButton').button({icons : {primary : "ui-icon-heart"}});
-          });
-        </script>
-	</body>
+<% content_for :menu do %>
+        <span class="tit"><%= @page_title %></span>
+        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+
+
+    <div id="submenu">
+      <%= link_to "COS'E' AIRESIS?", edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
+      <span> ⋅ </span>
+      <%= link_to 'PARTECIPA ALLO SVILUPPO', partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
+      <span> ⋅ </span>
+      <%= link_to 'VIDEO GUIDE', videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
+      <span> ⋅ </span>
+      <%= link_to 'CHI SIAMO', chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
+      <span> ⋅ </span>
+      <%= link_to 'SOSTIENICI', sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
+      <div class="borx"></div>
+      <div class="tria" style="left: 389px;"></div>
+    </div>
+<% end %>
+
+<%= render :partial => "layouts/header" %>
+
+<div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
+  <!-- ##### Main Copy ##### -->
+  <div id="main-copy">
+    <div id="menu-left">
+      <div class="menu2">
+        <%= yield :left_panel %>
+      </div>
+    </div>
+    <div id="centerpanelextended" style="font-size: 16px; line-height: 22px;">
+      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+        <%= yield :layout %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+    <div style="clear: both; height: 0; overflow: hidden;"></div>
+    <%= render :partial => "layouts/footer" %>
+  </div>
+</div>
+
+</body>
 </html>

@@ -2,17 +2,17 @@
 <h2><%=t('pages.login.title') %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-  <div><%= f.label :login, 'Il tuo Username o la tua Email' %><br />
+  <div><%= f.label :login, t('pages.sessions.new.login_label') %><br />
   <%= f.text_field :login %></div>
   
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
   <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, "Ricordami su questo computer" %></div>
+    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.sessions.new.remember_me_label') %></div>
   <% end -%>
 
-  <div><%= f.submit "Login", :class=>'buttonStyle'  %></div>
+  <div><%= f.button "Login", :class=>'btn blue loginButton'  %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

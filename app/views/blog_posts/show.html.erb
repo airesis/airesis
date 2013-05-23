@@ -1,64 +1,72 @@
-<%content_for :html_options do%>
-itemscope itemtype="http://schema.org/Blog"
-<%end%>
+<% content_for :html_options do %>
+    itemscope itemtype="http://schema.org/Blog"
+<% end %>
 
 <% javascript 'endless_page'
-@title = @blog_post.title
-if !@blog_post.published?	
-	@title += t('pages.blog_posts.show.draft')
-end
+   @title = @blog_post.title
+   if !@blog_post.published?
+     @title += t('pages.blog_posts.show.draft')
+   end
 %>
 
-<%=render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do%>
-	<g:plus action="share" annotation="bubble"></g:plus>
-    <a href="https://twitter.com/share"
-    class="twitter-share-button"
-    data-lang="en"
-    data-text="Ho inserito un nuovo post su <%=APP_SHORT_NAME%>: <%= blog_blog_post_url(@blog) %>">Tweet</a>
-    <%=raw facebook_like %>   <br/>
-    <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog), :class => 'editButton littleText', style: 'float:right;margin-top:5px;' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %>
-    <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'deleteButton littleText', style: 'float: right; margin-top:5px;' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
-<%end%>
+<%= render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do %>
+
+<% end %>
 
 
 <div class="blogPost">
 
-<script type="text/javascript">
-	
-	var pageURL = "<%= blog_blog_post_path(@blog) %>";
-	 
-</script>
+  <script type="text/javascript">
 
-	
-	<p class="blogPostPostedAt">
-      <%=raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
-	</p>
+      var pageURL = "<%= @group ?  group_blog_post_url(@group) : blog_blog_post_url(@blog) %>";
 
-	<div class="blogPostBody" itemprop="description">
-		<%= @blog_post.parsed_body %>
-	</div>
+  </script>
 
-	<hr class="blogPostBreak" />
-	<% unless @blog_post.tags.empty? %>
-		<p class="blogPostTags">
-			<b><%= t('pages.blog_posts.show.tags_title') %></b>
-			<%=raw @blog_post.tags_with_links %>
-		</p>
-	<% end %>
-	
-		
-	<%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
-		
-		<div id="blogPostCommentsContainer">
-		<%= render :partial => 'blog_posts/comments' %>
-	  </div>
-	  <div id="loading_results">
-	  	<span><%= t('pages.blog_posts.show.previous_comments') %></span>
-	  </div>
-	
-	<br style="clear: both;" />
+
+  <p class="blogPostPostedAt">
+    <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
+  </p>
+
+  <div class="blogPostBody" itemprop="description">
+    <%= @blog_post.parsed_body %>
+  </div>
+
+  <hr class="blogPostBreak"/>
+  <% unless @blog_post.tags.empty? %>
+      <p class="blogPostTags">
+        <b><%= t('pages.blog_posts.show.tags_title') %></b>
+        <%= raw @blog_post.tags_with_links %>
+      </p>
+  <% end %>
+
+
+  <%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
+
+  <div id="blogPostCommentsContainer">
+    <%= render :partial => 'blog_posts/comments' %>
+  </div>
+  <div id="loading_results">
+    <span><%= t('pages.blog_posts.show.previous_comments') %></span>
+  </div>
+
+  <br style="clear: both;"/>
 </div>
 
 
-<%content_for :left_panel do%>
-<%end%>
+<%= content_for :left_panel do %>
+    <div class="mybox">
+      <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %>
+      <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
+    </div>
+    <% if ::Configuration.socialnetwork_active %>
+        <div class="mybox">
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-count="vertical"
+             data-text="Guarda questo post su <%= APP_SHORT_NAME %>: <%= @group ? group_blog_post_url(@group) : blog_blog_post_url(@blog) %>">Tweet</a>
+          <g:plusone size="tall"></g:plusone>
+          <%= raw facebook_like %>   <br/>
+        </div>
+    <% end %>
+<% end %>

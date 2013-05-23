@@ -1,0 +1,66 @@
+<div>
+  <b><%= t('pages.proposals.results.total', count: @proposal.schulze_votes.sum(:count)) %> </b>
+
+
+  <table>
+    <thead>
+    <th><%= 'Soluzione' %></th>
+    <th><%= 'Punteggio' %></th>
+    </thead>
+    <tbody>
+    <% Solution.where(:proposal_id => @proposal.id).order('schulze_score desc').each do |solution| %>
+        <tr>
+          <td><%= solution.sections.first.title %></td>
+          <td style="text-align: center"><%= solution.schulze_score %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>
+<hr/>
+<table id="votes_table">
+  <thead>
+  <th><%= t('pages.proposals.results.name_surname_column') %></th>
+  <th><%= t('pages.proposals.results.date_time_column') %></th>
+  <% unless @proposal.secret_vote %>
+      <th><%= t('pages.proposals.results.vote_column') %></th>
+  <% end %>
+  </thead>
+  <% @proposal.user_votes.each do |user_vote| %>
+      <tr>
+        <td><%= user_vote.user.fullname %></td>
+        <td><%= l user_vote.created_at %></td>
+        <% unless @proposal.secret_vote %>
+            <td><%= @proposal.is_schulze? ? user_vote.vote_schulze : user_vote.vote_type.description %></td>
+        <% end %>
+      </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        generateTable();
+
+    });
+
+    function generateTable() {
+        $('#votes_table').dataTable({
+            "oLanguage": {
+                "sLengthMenu": "Mostra _MENU_ utenti per pagina",
+                "sSearch": "Cerca:",
+                "sZeroRecords": "Nessun utente, spiacente..",
+                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
+                "sInfoEmpty": "Sto mostrando 0 utenti",
+                "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
+                "oPaginate": {
+                    "sPrevious": "Pagina precedente",
+                    "sNext": "Pagina successiva"
+                }
+            }
+            //"aoColumns": [null,{ "bSortable": false }]
+        });
+
+        $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+    }
+</script>

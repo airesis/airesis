@@ -1,7 +1,7 @@
 <p>
     <h4><%= t('pages.groups.show.spokesman') %></h4>
     
-    <%@group.portavoce.each do |user| %>
+    <%@group.portavoce.includes(:image).each do |user| %>
     	<%=user_tag(user, nil,true,false)%>
     <%end %>
     
@@ -15,7 +15,7 @@
     <h4><%= t('pages.groups.show.partecipants_list') %></h4>
 
     <% if (can? :accept_requests, @group) %>
-        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "inviteButton disableButton littleText" %>
+        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "btn inviteButton disable" %>
         <div id="new_invitation_container"></div>
     <%end%>
 
@@ -25,7 +25,7 @@
         <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
       <%end%>
       <% if !@partecipation_request %>
-        <%= link_to t('pages.groups.show.ask_partecipate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :id => 'group_partecipa', :class=>"editButton littleText disableClickButton" %>
+        <%= link_to t('pages.groups.show.ask_partecipate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :class=>"btn blue editButton" %>
       <%end%>
     </p>
 
@@ -43,7 +43,7 @@
 	    <%end%>
     <%end %>
     <%if @group.group_partecipations.count > 5 %>
-        <%=link_to t('pages.groups.show.show_all_partecipants', :count => @group.group_partecipations.count), {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "showAllButton disableButton littleText"%>
+        <%=link_to t('pages.groups.show.show_all_partecipants', :count => @group.group_partecipations.count), {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "btn showAllButton disable"%>
         <div id="partecipants_list_container" title="<%= t('pages.groups.show.partecipants_full_list')%>"></div>
     <%end%>
 </p>

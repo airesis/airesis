@@ -1,4 +1,4 @@
-<%= form_for @group, :validate => true do |f| %>
+<%= form_for @group, :validate => true, :html => {:multipart => true} do |f| %>
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
     <p>
@@ -15,10 +15,7 @@
       <%= f.label :description %><br/>
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
-    <p>
-      <%= f.label :image_url %><br/>
-      <%= f.text_field :image_url, placeholder: t('activerecord.attributes.group.image_url_placeholder'), style: "width: 600px" %>
-    </p>
+
     <% if ::Configuration::socialnetwork_active %>
         <p>
           <%= f.label :facebook_page_url %><br/>
@@ -34,7 +31,8 @@
 	<%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
 	-->
     </p>
-
+        <%=  f.label :image %><br/>
+        <%=f.file_field :image, accept: "image/jpeg,image/png"  %>
     <p>
 
       <%= f.label :interest_border_tkn %>
@@ -43,6 +41,11 @@
 
 
     <% if ['new', 'create'].include? params[:action] %>
+
+        <p>
+
+        </p>
+
         <p>
           <%= f.label :default_role_name %>    <br/>
           <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>
@@ -61,7 +64,7 @@
     <% end %>
 
     <p>
-      <%= f.submit button_name, :class => 'buttonStyle' %>
+      <%= f.submit button_name, :class => 'btn blue' %>
     </p>
 <% end %>
 
@@ -74,7 +77,7 @@
                     warning: 100
                 });
 
-        $('#group_interest_border_tkn').tokenInput("/interest_borders.json", {
+        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
             hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",

@@ -1,4 +1,4 @@
-<div id="new_group_area" title="Nuova area di lavoro" style="display: none; font-size: 14px;">
+<div id="group_area_panel" title="Nuova area di lavoro" style="display: none; font-size: 14px;">
   <%= form_for [@group, GroupArea.new], :validate => true, :remote => true do |e| %>
       <p>
         <%= e.label :name, t('activerecord.attributes.group_area.name') %> <br/>
@@ -19,13 +19,16 @@
 
       <% end %>
 
-      <%= e.submit 'Crea', :class => 'buttonStyle' %>
+      <input type="hidden" name="manage" value="<%= params[:manage]%>"/>
+
+      <a href="#" class="btn" onclick="$('#group_area_panel').dialog('close');"><%= t('buttons.cancel') %></a>
+      <%= e.submit 'Crea', :class => 'btn blue' %>
   <% end %>
 </div>
 
 <script type="text/javascript">
     $(function () {
-        $("#new_group_area").validate();
+
         disegnaBottoni();
         $(".elastic").elastic();
 

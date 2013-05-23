@@ -1,10 +1,12 @@
-<% @page_title = t('pages.proposals.index.title') %>
+<% @page_head = '' %>
+<% @page_head += @group.name + " - " if @group %>
 <% if @category
-     @page_head = t('pages.proposals.index.title_with_category', :category => @category.description)
+     @page_head += t('pages.proposals.index.title_with_category', :category => @category.description)
    else
-     @page_head = t('pages.proposals.index.all_categories_title')
+     @page_head += t('pages.proposals.index.title')
    end %>
 <% @page_head += t('pages.proposals.index.in_group_area_title')+@group_area.name if @group_area %>
+<% @page_title = @page_head %>
 
 <% if @group %>
     <%= content_for :head do %>
@@ -67,7 +69,7 @@
     <% end %>
   </ul>
 
-  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/,'_') : t('pages.proposals.index.last_title').gsub(/\s/,'_') %>">
+  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/, '_') : t('pages.proposals.index.last_title').gsub(/\s/, '_') %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
       <%= image_tag 'ajax-loader.gif', :alt => "Caricamento" %>
       <br/>
@@ -77,87 +79,105 @@
 </div>
 <% content_for :left_panel do %>
 
-    <% if @group %>
-        <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-        <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-    <% else %>
-        <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "disableButton" %>
-        <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
-    <% end %>
 
-    <div id="create_proposal_container" style="display:none;">
-    </div>
+
+      <% if @group %>
+          <%= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+          <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+      <% else %>
+          <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
+          <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
+      <% end %>
+
+
+      <div id="create_proposal_container" style="display:none;">
+      </div>
+
+
 
 
     <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
-        <div id="group_areas">
-          <h4><%= t('pages.proposals.index.group_areas_title') %></h4>
-          <% if params[:group_area_id] %>
-              <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
-          <% else %>
-              <%= t('pages.proposals.index.all_areas') %>
-          <% end %>
-          <table>
-            <% @group.group_areas.each do |area| %>
-                <tr>
-                  <td>
-                    <% if params[:group_area_id] == area.id.to_s %>
-                        <%= area.name %>
-                    <% else %>
-                        <%= link_to area.name, current_url(:group_area_id => area.id) %>
-                    <% end %>
-                  </td>
+        <div class="mybox">
+          <div id="group_areas">
+            <h4><%= t('pages.proposals.index.group_areas_title') %></h4>
 
-                </tr>
-            <% end %>
-          </table>
+            <div class="mycont">
+              <% if params[:group_area_id] %>
+                  <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
+              <% else %>
+                  <%= t('pages.proposals.index.all_areas') %>
+              <% end %>
+              <table>
+                <% @group.group_areas.each do |area| %>
+                    <tr>
+                      <td>
+                        <% if params[:group_area_id] == area.id.to_s %>
+                            <%= area.name %>
+                        <% else %>
+                            <%= link_to area.name, current_url(:group_area_id => area.id) %>
+                        <% end %>
+                      </td>
+
+                    </tr>
+                <% end %>
+              </table>
+            </div>
+          </div>
         </div>
     <% end %>
     <% if ::Configuration.proposal_categories %>
+
         <div id="categories">
-          <% if params[:category] %>
-              <h4 class="filterSelected"><%= t('pages.proposals.index.categories_title') %></h4>
-              <a href="<%= current_url(:category => nil) %>"><%= t('pages.proposals.index.all_categories') %></a>
-          <% else %>
-              <h4><%= t('pages.proposals.index.categories_title') %></h4>
-              <%= t('pages.proposals.index.all_categories') %>
-          <% end %>
-          <table>
-            <%
-               conditions = "1 = 1"
-               joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
-               if @group
-                 joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-                 conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-               end
-               categories = ProposalCategory.all(
-                       :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
-                       :joins => joins,
-                       :include => :translations,
-                       :conditions => conditions,
-                       :group => "proposal_categories.id, proposal_categories.description",
-                       :order => "proposal_categories.id desc"
-               )
-               #categories = ProposalCategory.all
-               categories.each do |category| %>
-                <tr>
-                  <td style="vertical-align: middle;">
-                    <% if params[:category] == category.id.to_s %>
-                        <%= image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
-                        </td>
-                        <td><%= category.description %>
-                    <% else %>
-                        <%= link_to image_tag("proposal_categories/"+category.id.to_s + "-22.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
-                        </td>
-                        <td>
-                          <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
-                            <%= category.description %>
-                          </a>
-                    <% end %>
-                    </td>
-                    </tr>
+          <div class="mybox">
+            <% if params[:category] %>
+                <h4 class="filterSelected"><%= t('pages.proposals.index.categories_title') %></h4>
+            <% else %>
+                <h4><%= t('pages.proposals.index.categories_title') %></h4>
             <% end %>
-          </table>
+            <div class="mycont">
+              <% if params[:category] %>
+                  <a href="<%= current_url(:category => nil) %>" style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></a>
+              <% else %>
+                  <span style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></span>
+              <% end %>
+              <table>
+                <%
+                   conditions = "1 = 1"
+                   joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
+                   if @group
+                     joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
+                     conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
+                   end
+                   categories = ProposalCategory.all(
+                           :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
+                           :joins => joins,
+                           :include => :translations,
+                           :conditions => conditions,
+                           :group => "proposal_categories.id, proposal_categories.description",
+                           :order => "proposal_categories.id desc"
+                   )
+                   #categories = ProposalCategory.all
+                   categories.each do |category| %>
+                    <tr>
+                      <td style="vertical-align: middle;">
+                        <% if params[:category] == category.id.to_s %>
+                            <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+                            </td>
+                            <td><%= category.description %>
+                        <% else %>
+                            <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
+                            </td>
+                            <td>
+                              <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
+                                <%= category.description %>
+                              </a>
+                        <% end %>
+                        </td>
+                        </tr>
+                <% end %>
+              </table>
+            </div>
+          </div>
         </div>
     <% end %>
 
@@ -169,23 +189,12 @@
 <% end %>
 
 <script>
-    $('#nuova_proposta, #nuovo_sondaggio').button({
-        icons: {
-            primary: "ui-icon-lightbulb"
-        },
-        text: true
-    }).bind("ajax:error", function (event, data, status, xhr) {
+    $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
                 if (data.status == 401) {
-                    window.location = "/users/sign_in?l=it"
+                    window.location = "/users/sign_in?l=<%=I18n.locale%>"
                 }
             });
     ;
-    $('#proposte_accettate').button({
-        icons: {
-            primary: "ui-icon-star"
-        },
-        text: true
-    });
 
     $('#tabs').tabs({
         cache: true,

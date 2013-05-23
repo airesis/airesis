@@ -1,0 +1,2 @@
+page<< "$('#comment" + @proposal_comment.id.to_s + "').hide(600);"
+page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}

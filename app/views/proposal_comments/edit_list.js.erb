@@ -1,0 +1,16 @@
+$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/edit_comments'))%>");
+
+firstCheck = false;
+<%if @total_pages > @current_page%>
+  $('#loading_results').show();
+  if (!firstCheck) {
+    checkScroll();
+    firstCheck = true;
+  }
+  checkActive = true;
+<%else%>
+  $('#loading_results').hide();
+<%end%>
+
+$('.reply_textarea').elastic();
+disegnaBottoni();

@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   
   
    def new 
-    @event = Event.new(starttime: Time.now, endtime: 1.day.from_now, period: "Non ripetere")
+    @event = Event.new(starttime: Time.now + 10.minutes, endtime: 1.day.from_now + 10.minutes, period: "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
@@ -98,9 +98,9 @@ class EventsController < ApplicationController
         format.js {
           render :update do |page|             
             if @event
-              page.alert @event.errors.full_messages.join(";")
+              page.alert @event.errors.full_messages.join("\n")
             elsif @event_series
-              page.alert @event_series.errors.full_messages.join(";")
+              page.alert @event_series.errors.full_messages.join("\n")
             end
           end
         }
@@ -209,7 +209,7 @@ class EventsController < ApplicationController
   
   def load_event 
     @event = Event.find_by_id(params[:id])
-    #@group = @event.meeting_organizations.first.group rescue nil
+    @group = @event.meeting_organizations.first.group rescue nil
   end
 
 
@@ -227,7 +227,7 @@ class EventsController < ApplicationController
       permissions_denied
       return
     end
-    p = org.portavoce
+    p = org.scoped_partecipants(GroupAction::CREATE_EVENT)
     permissions_denied if (!current_user || !(p.include?current_user))
   end
 

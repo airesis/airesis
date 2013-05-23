@@ -41,8 +41,8 @@
               </div>
 				<div style="clear: both;"></div>
 			</div>
-		
-		<%=e.submit button_name, :class => 'buttonStyle'%>
+        <a href="#" class="btn" onclick="$('#new_quorum_container').dialog('destroy');$('#new_quorum_container').empty();"><%= t('buttons.cancel') %></a>
+		<%=e.submit button_name, :class => 'btn blue'%>
 	<%end%>
 
 <script type="text/javascript">

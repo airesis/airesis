@@ -7,7 +7,8 @@ class InterestBordersController < ApplicationController
     hint = params[:q] + "%"
     map = []
     @continenti = Continente.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
-    @stati = Stato.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
+
+    @stati = Stato.with_translations(I18n.locale).all(:conditions => ["upper(stato_translations.description) like upper(?)",hint], :limit => 10)
     @regiones = Regione.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
     @province = Provincia.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)
     @comunes = Comune.all(:conditions => ["upper(description) like upper(?)",hint], :limit => 10)

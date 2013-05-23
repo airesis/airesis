@@ -12,12 +12,12 @@ class ProposalsController < ApplicationController
   layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:search, :index, :index_accepted, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
+  before_filter :load_proposal_and_group, :except => [:search, :index, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
 
   ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :index_accepted, :tab_list, :endless_index, :show]
+  before_filter :authenticate_user!, :except => [:index, :tab_list, :endless_index, :show]
 
   #l'utente deve essere autore della proposta
   before_filter :check_author, :only => [:destroy, :set_votation_date, :add_authors]
@@ -34,18 +34,24 @@ class ProposalsController < ApplicationController
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup, :rankdown]
 
-  #TODO se la proposta è interna ad un gruppo, l'utente deve avere i permessi per visualizzare,inserire o partecipare alla proposta
-
-
   def search
     authorize! :view_proposal, @group
 
+    my_areas_ids = current_user.scoped_areas(@group.id,GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
+
     #params[:group_id] = @group.id
-    @search = Proposal.search do
+    @search = Proposal.search(:include => [{:category => [:translations]}, :quorum, {:users => [:image]}, :vote_period]) do
       fulltext params[:search], :minimum_match => params[:or]
-      any_of do
-        with(:presentation_group_ids, params[:group_id])
-        with(:group_ids, params[:group_id])
+      all_of do
+        any_of do
+          with(:presentation_group_ids, params[:group_id])
+          with(:group_ids, params[:group_id])
+        end
+        any_of do
+          with(:visible_outside, true)
+          with(:presentation_area_ids,nil)
+          with(:presentation_area_ids,my_areas_ids) unless my_areas_ids.empty?
+        end
       end
     end
 
@@ -59,6 +65,7 @@ class ProposalsController < ApplicationController
     @proposals = @search.results
 
   rescue Exception => e
+    log_error e
     @proposals = []
     flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
   end
@@ -184,6 +191,15 @@ class ProposalsController < ApplicationController
         end
       }
       format.json
+      format.pdf {
+        if @proposal.voted?
+          render :pdf => 'show.pdf.erb',
+          :show_as_html => params[:debug].present?
+        else
+          flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
+          redirect_to @proposal, format: 'html'
+        end
+      }
     end
   end
 
@@ -218,7 +234,7 @@ class ProposalsController < ApplicationController
     #initialize all fields necessary for the proposal specific type
     if params[:proposal_type_id] == ProposalType::STANDARD.to_s
       @problems = @proposal.sections.build(title: t('pages.proposals.new.problems_title'), seq: 1)
-      @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
+     # @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
       @solution = @proposal.solutions.build(seq: 1)
       @solution_section = @solution.sections.build(title: t('pages.proposals.new.first_solution_title'), seq: 1)
       @proposal.proposal_type_id = ProposalType::STANDARD
@@ -253,8 +269,10 @@ class ProposalsController < ApplicationController
   end
 
   def create
+    max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+    raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
     begin
-      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id]
+      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
@@ -412,7 +430,7 @@ class ProposalsController < ApplicationController
 
         #@old_quorum.destroy if @old_quorum
 
-        notify_proposal_has_been_updated(@proposal)
+        notify_proposal_has_been_updated(@proposal,@group)
       end
 
       respond_to do |format|
@@ -452,7 +470,7 @@ class ProposalsController < ApplicationController
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
-      notify_proposal_waiting_for_date(@proposal)
+      notify_proposal_waiting_for_date(@proposal,@group)
       flash[:notice] = t(:proposal_date_selected)
       respond_to do |format|
         format.js do
@@ -610,7 +628,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     authorize! :close_debate, @proposal
     if @proposal.rank >= @proposal.quorum.good_score
       @proposal.proposal_state_id = PROP_WAIT_DATE #metti la proposta in attesa di una data per la votazione
-      notify_proposal_ready_for_vote(@proposal)
+      notify_proposal_ready_for_vote(@proposal,@group)
     elsif @proposal.rank < @proposal.quorum.bad_score
       @proposal.proposal_state_id = PROP_RESP
       notify_proposal_rejected(@proposal)
@@ -733,6 +751,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
           format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
             page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
+            page.call 'disegnaBottoni'
           end
           }
           format.html
@@ -885,5 +904,16 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     else
       return true
     end
+  end
+
+
+  private
+
+  def render_404(exception=nil)
+    log_error(exception) if exception
+    respond_to do |format|
+      format.html { render "errors/404", :status => 404, :layout => true, :locals => {:title => 'Questa proposta non esiste', :message => 'La proposta che cerchi non esiste o è stata cancellata'}}
+    end
+    true
   end
 end

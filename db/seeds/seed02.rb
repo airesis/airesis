@@ -4,51 +4,54 @@ EventType.create( :description => "votazione" ){ |c| c.id = 2 }.save
 EventType.create( :description => "riunione" ){ |c| c.id = 3 }.save
 EventType.create( :description => "elezione" ){ |c| c.id = 4 }.save
 
-GroupAction.create( :name => "STREAM_POST", :description => 'Pubblicare nella Home Page del gruppo'){ |c| c.id = 1 }.save
-GroupAction.create( :name => "CREATE_EVENT", :description => 'Creare eventi e votazioni'){ |c| c.id = 2 }.save
-GroupAction.create( :name => "PROPOSAL", :description => 'Sostenere proposte a nome del gruppo'){ |c| c.id = 3 }.save
-GroupAction.create( :name => "REQUEST_ACCEPT", :description => 'Aggiungere partecipanti nel gruppo'){ |c| c.id = 4 }.save
-GroupAction.create( :name => "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni'){ |c| c.id = 5 }.save
-GroupAction.create( :name => "PROPOSAL_VIEW", :description => 'Visualizzare le proposte private'){ |c| c.id = 6 }.save
-GroupAction.create( :name => "PROPOSAL_PARTECIPATION", :description => 'Contribuire alle proposte'){ |c| c.id = 7 }.save
-GroupAction.create( :name => "PROPOSAL_INSERT", :description => 'Inserire nuove proposte nel gruppo'){ |c| c.id = 8 }.save
+GroupAction.create( name: "STREAM_POST", :description => 'Pubblicare nella Home Page del gruppo', seq: 1){ |c| c.id = 1 }.save
+GroupAction.create( name: "CREATE_EVENT", :description => 'Creare eventi e votazioni', seq:2){ |c| c.id = 2 }.save
+GroupAction.create( name: "PROPOSAL", :description => 'Sostenere proposte a nome del gruppo', seq:3){ |c| c.id = 3 }.save
+GroupAction.create( name: "REQUEST_ACCEPT", :description => 'Aggiungere partecipanti nel gruppo', seq:4){ |c| c.id = 4 }.save
+GroupAction.create( name: "SEND_CANDIDATES", :description => 'Candidare utenti alle elezioni', seq:5){ |c| c.id = 5 }.save
+GroupAction.create( name: "PROPOSAL_VIEW", :description => 'Visualizzare le proposte private',seq:6){ |c| c.id = 6 }.save
+GroupAction.create( name: "PROPOSAL_PARTECIPATION", :description => 'Contribuire alle proposte', seq:8){ |c| c.id = 7 }.save
+GroupAction.create( name: "PROPOSAL_INSERT", :description => 'Inserire nuove proposte nel gruppo', seq: 7){ |c| c.id = 8 }.save
+GroupAction.create( name: "DOCUMENT_VIEW", :description => 'Visualizzare i documenti', seq: 10){ |c| c.id = 9 }.save
+GroupAction.create( name: "DOCUMENT_MANAGE", :description => 'Gestire i documenti', seq: 11){ |c| c.id = 10 }.save
+GroupAction.create( name: "PROPOSAL_VOTE", :description => 'Votare le proposte', seq: 9){ |c| c.id = 11 }.save
 
 GroupPartecipationRequestStatus.create( :description => "Inoltrata" ){ |c| c.id = 1 }.save
 GroupPartecipationRequestStatus.create( :description => "In votazione" ){ |c| c.id = 2 }.save
 GroupPartecipationRequestStatus.create( :description => "Accettata" ){ |c| c.id = 3 }.save
 GroupPartecipationRequestStatus.create( :description => "Negata" ){ |c| c.id = 4 }.save
 
-NotificationCategory.create( :description => "Proposte" ){ |c| c.id = 1 }.save
-NotificationCategory.create( :description => "Sondaggi" ){ |c| c.id = 2 }.save
-NotificationCategory.create( :description => "Gruppi" ){ |c| c.id = 3 }.save
-NotificationCategory.create( :description => "Eventi" ){ |c| c.id = 4 }.save
-NotificationCategory.create( :description => "Utenti" ){ |c| c.id = 5 }.save
+a = NotificationCategory.create(description: 'Proposte che redigo', seq: 1, short: 'MYPROP')
+b = NotificationCategory.create(description: 'Proposte a cui partecipo', seq: 2, short: 'PROP')
+c = NotificationCategory.create(description: 'Nuove proposte', seq: 3, short: 'NEWPROP')
+d = NotificationCategory.create(description: 'Nuovi eventi', seq: 4, short: 'NEWEVENT')
+e = NotificationCategory.create(description: 'Gruppi', seq: 5, short: 'GROUPS')
 
 
-NotificationType.create( :description => "Nuovi contributi e suggerimenti alle proposte a cui partecipo", :notification_category_id => 1 ){ |c| c.id = 1 }.save
-NotificationType.create( :description => "Aggiornamento del testo di una proposta a cui partecipo", :notification_category_id => 1 ){ |c| c.id = 2 }.save
-NotificationType.create( :description => "Nuove proposte inserite nello spazio comune", :notification_category_id => 1 ){ |c| c.id = 3 }.save
-NotificationType.create( :description => "Cambio di stato di una proposta a cui partecipo", :notification_category_id => 1 ){ |c| c.id = 4 }.save
-NotificationType.create( :description => "Nuovi commenti alle mie proposte", :notification_category_id => 1 ){ |c| c.id = 5 }.save
-NotificationType.create( :description => "Cambio di stato delle mie proposte", :notification_category_id => 1 ){ |c| c.id = 6 }.save
-NotificationType.create( :description => "Nuovo sondaggio inserito", :notification_category_id => 2 ){ |c| c.id = 7 }.save
-NotificationType.create( :description => "Nuovi post sulle pagine dei gruppi che seguo", :notification_category_id => 3 ){ |c| c.id = 8 }.save
-NotificationType.create( :description => "Nuovi post sulle pagine dei gruppi a cui partecipo", :notification_category_id => 3 ){ |c| c.id = 9 }.save
-NotificationType.create( :description => "Nuove proposte interne al gruppo", :notification_category_id => 3 ){ |c| c.id = 10 }.save
-NotificationType.create( :description => "Cambio di stato di una proposta di gruppo", :notification_category_id => 3 ){ |c| c.id = 11 }.save
-NotificationType.create( :description => "Nuova richiesta di partecipazione", :notification_category_id => 3 ){ |c| c.id = 12 }.save
-NotificationType.create( :description => "Nuovi eventi pubblici", :notification_category_id => 4 ){ |c| c.id = 13 }.save
-NotificationType.create( :description => "Nuovi eventi dei gruppi a cui partecipo", :notification_category_id => 4 ){ |c| c.id = 14 }.save
-NotificationType.create( :description => "Nuovo post di un utente che seguo", :notification_category_id => 5 ){ |c| c.id = 15 }.save
-NotificationType.create( :description => "Nuova proposta di utente che seguo", :notification_category_id => 5 ){ |c| c.id = 16 }.save
-NotificationType.create( :description => "Nuovo sondaggio di un utente che seguo", :notification_category_id => 5 ){ |c| c.id = 17 }.save
-NotificationType.create( :description => "Nuovo commento di un utente che seguo", :notification_category_id => 5 ){ |c| c.id = 18 }.save
-NotificationType.create( :description => "Nuovi eventi inseriti dagli utenti che seguo", :notification_category_id => 5 ){ |c| c.id = 19 }.save
-NotificationType.create( :description => "Nuova valutazione ad una mia proposta", :notification_category_id => 1 ){ |c| c.id = 20 }.save
-NotificationType.create( :description => "Nuova valutazione ad una proposta a cui partecipi", :notification_category_id => 1 ){ |c| c.id = 21 }.save
-NotificationType.create( :description => "Utente disponibile a redigere la sintesi di una proposta",:email_subject => "Un utente si è reso disponibile a redigere la sintesi di una proposta", :notification_category_id => 1 ){ |c| c.id = 22 }.save
-NotificationType.create( :description => "Accettazione come redattore di una proposta",:email_subject => "Sei stato scelto come redattore di una proposta", :notification_category_id => 1 ){ |c| c.id = 23 }.save
-NotificationType.create( :description => "Nuovi redattori per le proposte",:email_subject => "Nuovi redattori per una proposta", :notification_category_id => 1 ){ |c| c.id = 24 }.save
+NotificationType.create( :description => "Nuovi contributi e suggerimenti alle proposte a cui partecipo", :notification_category_id => b.id ){ |c| c.id = 1 }.save
+NotificationType.create( :description => "Aggiornamento del testo di una proposta a cui partecipo", :notification_category_id => b.id ){ |c| c.id = 2 }.save
+NotificationType.create( :description => "Nuove proposte inserite nello spazio comune", :notification_category_id => c.id ){ |c| c.id = 3 }.save
+NotificationType.create( :description => "Cambio di stato di una proposta a cui partecipo", :notification_category_id => b.id ){ |c| c.id = 4 }.save
+NotificationType.create( :description => "Nuovi commenti alle mie proposte", :notification_category_id => a.id ){ |c| c.id = 5 }.save
+NotificationType.create( :description => "Cambio di stato delle mie proposte", :notification_category_id => a.id ){ |c| c.id = 6 }.save
+#NotificationType.create( :description => "Nuovo sondaggio inserito", :notification_category_id => 2 ){ |c| c.id = 7 }.save
+#NotificationType.create( :description => "Nuovi post sulle pagine dei gruppi che seguo", :notification_category_id => 3 ){ |c| c.id = 8 }.save
+NotificationType.create( :description => "Nuovi post sulle pagine dei gruppi a cui partecipo", :notification_category_id => e.id ){ |c| c.id = 9 }.save
+NotificationType.create( :description => "Nuove proposte interne al gruppo", :notification_category_id => c.id ){ |c| c.id = 10 }.save
+NotificationType.create( :description => "Cambio di stato di una proposta di gruppo", :notification_category_id => c.id ){ |c| c.id = 11 }.save
+NotificationType.create( :description => "Nuova richiesta di partecipazione", :notification_category_id => e.id ){ |c| c.id = 12 }.save
+NotificationType.create( :description => "Nuovi eventi pubblici", :notification_category_id => d.id ){ |c| c.id = 13 }.save
+NotificationType.create( :description => "Nuovi eventi dei gruppi a cui partecipo", :notification_category_id => d.id ){ |c| c.id = 14 }.save
+#NotificationType.create( :description => "Nuovo post di un utente che seguo", :notification_category_id => e.id ){ |c| c.id = 15 }.save
+#NotificationType.create( :description => "Nuova proposta di utente che seguo", :notification_category_id => 5 ){ |c| c.id = 16 }.save
+#NotificationType.create( :description => "Nuovo sondaggio di un utente che seguo", :notification_category_id => 5 ){ |c| c.id = 17 }.save
+#NotificationType.create( :description => "Nuovo commento di un utente che seguo", :notification_category_id => 5 ){ |c| c.id = 18 }.save
+#NotificationType.create( :description => "Nuovi eventi inseriti dagli utenti che seguo", :notification_category_id => 5 ){ |c| c.id = 19 }.save
+NotificationType.create( :description => "Nuova valutazione ad una mia proposta", :notification_category_id => a.id ){ |c| c.id = 20 }.save
+NotificationType.create( :description => "Nuova valutazione ad una proposta a cui partecipi", :notification_category_id => b.id ){ |c| c.id = 21 }.save
+NotificationType.create( :description => "Utente disponibile a redigere la sintesi di una proposta",:email_subject => "Un utente si è reso disponibile a redigere la sintesi di una proposta", :notification_category_id => a.id ){ |c| c.id = 22 }.save
+NotificationType.create( :description => "Accettazione come redattore di una proposta",:email_subject => "Sei stato scelto come redattore di una proposta", :notification_category_id => a.id ){ |c| c.id = 23 }.save
+NotificationType.create( :description => "Nuovi redattori per le proposte",:email_subject => "Nuovi redattori per una proposta", :notification_category_id => b.id ){ |c| c.id = 24 }.save
 
 
 ProposalCategory.create( :parent_proposal_category_id => nil, :description => "Nessuna categoria" ){ |c| c.id = 5 }.save

@@ -1,6 +1,27 @@
 !window.console && (console = { log: function() {}});
 
+function checkWidth() {
+        if (window.innerWidth < 1000) {
+           $('#menu-top').css('position','absolute');
+           $('#submenu .borx').hide();
+           $('#submenu .tria').hide();
+        }
+        else {
+            $('#menu-top').css('position','fixed');
+            $('#submenu .borx').show();
+            $('#submenu .tria').show();
+        }
+}
+
 $(function() {
+    /*$('#great_container').height($(window).height()-0);*/
+    var submenupannel=0;
+
+    checkWidth();
+    $(window).resize(function() {
+        checkWidth();
+    });
+
 	disegnaBottoni();
 
 	if (window.location.hash) {
@@ -15,13 +36,63 @@ $(function() {
           sticky_relocate();
     }
 
+    $("#menu-top #logo-but, #logo-airesis").click(function () {
+        if(submenupannel==0){
+            submenupannel=1;
+            /*$('#main #main-copy').animate({'padding-top':'250px'}, 200);*/
+            $('#menu-top .group-cont').slideDown().delay(200);
+            $('#submenu .tria').hide();
+            $(this).addClass("sel");
+        }else{
+            submenupannel=0;
+            /*$('#main #main-copy').animate({'padding-top':'80px'}, 200);*/
+            $('#menu-top .group-cont').slideUp().delay(0);
+            $('#submenu .tria').delay(200).show(0);
+            $(this).removeClass("sel");
+        }
+    });
+
+
+    var feedback_options =
+
+    Feedback({
+        h2cPath: '/assets/html2canvas.js',
+        url: '/send_feedback',
+        label: 'Invia feedback',
+        header: 'Invia feedback',
+        nextLabel: 'Aggiungi dettagli',
+        reviewLabel: 'Visualizza anteprima',
+        sendLabel: 'Invia',
+        closeLabel: 'Chiudi',
+        messageSuccess: 'Feedback inviato correttamente. Grazie!',
+        messageError: 'Spiacenti ma si è verificato un errore durante l\'invio del feedback',
+        appendTo: $('#footer .pull-right')[0],
+        btnClass: "feedbackBtn",
+        pages: [
+            new window.Feedback.Form([{
+                    type: "textarea",
+                    name: "message",
+                    label: "Descrivi il problema che stai affrontando",
+                    required: true
+                },
+                /*{
+                    type: "input",
+                    name: "Email",
+                    label: "Inserisci un'indirizzo email sul quale ricevere risposta",
+                    required: false
+                }*/]
+            ),
+            new window.Feedback.Screenshot({h2cPath: '/assets/html2canvas.js'}),
+            new window.Feedback.Review()
+        ]
+    });
 });
 
 function sticky_relocate() {
     var window_top = $(window).scrollTop();
     $('.sticky-anchor').each(function() {
         var div_top = $(this).offset().top;
-        if (window_top > div_top) {
+        if (window_top > (div_top - 90)) {
             $('.sticky').addClass('stick');
         } else {
             $('.sticky').removeClass('stick');
@@ -29,32 +100,44 @@ function sticky_relocate() {
     });
 }
 
+function gbutton() {
+
+}
+
 function disegnaBottoni() {
-	$('.buttonStyle').button();
-	$('.editButton').button({icons : {primary : "ui-icon-pencil"}});
-	$('.personButton').button({icons : {primary : "ui-icon-person"}});
-	$('.homeButton').button({icons : {primary : "ui-icon-home"}});
-	$('.calendarButton').button({icons : {primary : "ui-icon-calendar"}});
-	$('.commentButton').button({icons : {primary : "ui-icon-comment"}});
-	$('.ideaButton').button({icons : {primary : "ui-icon-lightbulb"}});
-	$('.deleteButton').button({icons : {primary : "ui-icon-circle-close"}});
-    $('.trashButton').button({icons : {primary : "ui-icon-trash"}});
-	$('.newButton').button({icons : {primary : "ui-icon-plusthick"}});
-	$('.settingsButton').button({icons : {primary : "ui-icon-wrench"}});
-	$('.mapButton').button({icons : {primary : "ui-icon-image"}});
-    $('.forwardButton').button({icons : {primary : "ui-icon-arrowthick-1-e"}});
-	$('.historyButton').button({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
-	$('.notesButton').button({icons : {primary : "ui-icon-note"}});
-	$('.supportButton').button({icons : {primary : "ui-icon-heart"}});
-    $('.searchButton').button({icons : {primary : "ui-icon-search"}});
-    $('.acceptButton').button({icons : {primary : "ui-icon-check"}});
-    $('.rejectButton').button({icons : {primary : "ui-icon-close"}});
-    $('.showAllButton').button({icons : {primary : "ui-icon-script"}});
-    $('.inviteButton').button({icons : {primary : "ui-icon-mail-open"}});
-    $('.documentButton').button({icons : {primary : "ui-icon-document"}});
-    $('.closeButton').button({icons : {primary : "ui-icon-close"}});
-    $('.draftsButton').button({icons : {primary : "ui-icon-pencil"}});
-	$('.disabledButton').button("option", "disabled", true);
+    console.log('diisegna bottoni');
+	$('.buttonStyle').gbutton();
+	$('.editButton').gbutton({icons : {primary : "ui-icon-pencil"}});
+	$('.personButton').gbutton({icons : {primary : "ui-icon-person"}});
+	$('.homeButton').gbutton({icons : {primary : "ui-icon-home"}});
+	$('.calendarButton').gbutton({icons : {primary : "ui-icon-calendar"}});
+	$('.commentButton').gbutton({icons : {primary : "ui-icon-comment"}});
+	$('.ideaButton').gbutton({icons : {primary : "ui-icon-lightbulb"}});
+	$('.deleteButton').gbutton({icons : {primary : "ui-icon-circle-close"}});
+    $('.trashButton').gbutton({icons : {primary : "ui-icon-trash"}});
+	$('.newButton').gbutton({icons : {primary : "ui-icon-plusthick"}});
+	$('.settingsButton').gbutton({icons : {primary : "ui-icon-wrench"}});
+	$('.mapButton').gbutton({icons : {primary : "ui-icon-image"}});
+    $('.forwardButton').gbutton({icons : {primary : "ui-icon-arrowthick-1-e"}});
+	$('.historyButton').gbutton({icons : {primary : "ui-icon-arrowreturnthick-1-w"}});
+	$('.notesButton').gbutton({icons : {primary : "ui-icon-note"}});
+	$('.supportButton').gbutton({icons : {primary : "ui-icon-heart"}});
+    $('.searchButton').gbutton({icons : {primary : "ui-icon-search"}});
+    $('.acceptButton').gbutton({icons : {primary : "ui-icon-check"}});
+    $('.rejectButton').gbutton({icons : {primary : "ui-icon-close"}});
+    $('.showAllButton').gbutton({icons : {primary : "ui-icon-script"}});
+    $('.inviteButton').gbutton({icons : {primary : "ui-icon-mail-open"}});
+    $('.documentButton').gbutton({icons : {primary : "ui-icon-document"}});
+    $('.closeButton').gbutton({icons : {primary : "ui-icon-close"}});
+    $('.draftsButton').gbutton({icons : {primary : "ui-icon-pencil"}});
+    $('.contributeButton').gbutton({icons : {primary : "ui-icon-signal-diag"}});
+    $('.pdfButton').gbutton({icons : {primary : "ui-icon-print"}});
+    $('.resultsButton').gbutton({icons : {primary : "ui-icon-check"}});
+    $('.searchButton').gbutton({icons : {primary : "ui-icon-search"}});
+	$('.btn.help').gbutton({icons : {primary : "ui-icon-help"}});
+    $('.btn.loginButton').gbutton({icons : {primary : "ui-icon-key"}});
+	$('.disabledButton').gbutton("option", "disabled", true);
+
 
 	$(".disableButton")
 	    .unbind("ajax:beforeSend")
@@ -65,6 +148,16 @@ function disegnaBottoni() {
 	    .bind("ajax:complete", function() {
 	    	showDisableButton($(this));
 	    });
+
+    $(".btn.disable")
+            .unbind("ajax:beforeSend")
+            .bind("ajax:beforeSend", function() {
+                hideDisableGButton($(this));
+            })
+            .unbind("ajax:complete")
+            .bind("ajax:complete", function() {
+                showDisableGButton($(this));
+            });
 
     $(".disableClickButton")
     .bind("click", function() {
@@ -83,6 +176,8 @@ function disegnaBottoni() {
 	    	showDisableButton($('.disableButton',this));
 	    });
 
+    //$('.ddslick').ddslick();
+
 }
 
 function hideDisableButton(button) {
@@ -96,6 +191,31 @@ function hideDisableButton(button) {
 function showDisableButton(button) {
 	button.show();
 	$('.waitDiv').remove();
+}
+
+function hideDisableGButton(button) {
+    //button.hide();
+    var textInside = button.html();
+
+    var toAdd = $('<div class="load"><span>LOADING</span><%=image_tag "gloading.gif", :alt => ""%></div>');
+    button.width(button.width());
+    button.height(button.height());
+    button.empty();
+    button.append($('<span class="hidden">').append(textInside));
+    button.append(toAdd);
+    button.attr('disabled', 'disabled');
+    button.bind('click.killlink',function(e) {
+        e.preventDefault();
+        return false;
+    });
+}
+
+function showDisableGButton(button) {
+    var content = $('.hidden',button).html();
+    $('.load',button).remove();
+    button.html(content);
+    button.removeAttr('disabled');
+    button.unbind('click.killlink');
 }
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
@@ -206,7 +326,7 @@ var datePickerOptions = {
     duration: "",
     showTime: true,
     constrainInput: true,
-    stepMinute: 15,
+    stepMinute: 5,
     stepHour: 1,
     altTimeField: "alt",
     time24h: true
@@ -324,3 +444,32 @@ function stripScripts(s) {
     }
     return div.innerHTML;
 }
+
+
+function read_notifica(el) {
+    var parent_ = $(el).parent()
+    parent_.addClass('old').removeClass('new');
+    var url_ = parent_.attr('href');
+    var type_id = $(el).data('type_id');
+    var box_ = $('.alert_box.logo[data-id='+type_id+'] .notify');
+    var num_ = parseInt(box_.html());
+    if (num_ > 1) {
+        num_ -= 1;
+        box_.html(num_);
+    }
+    else {
+        box_.remove();
+    }
+    $.ajax({
+        dataType: 'js',
+        type: 'get',
+        url: url_
+    });
+}
+
+function set_noise_data() {
+    $('#comments_active').val($('#active .noise_element').map(function(){return $(this).data('id')}).get());
+    $('#comments_inactive').val($('#inactive .noise_element').map(function(){return $(this).data('id')}).get());
+}
+
+

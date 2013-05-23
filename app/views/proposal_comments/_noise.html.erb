@@ -1,0 +1,13 @@
+<div id="noise_panel" title="Elenco contributi inutili alla discussione">
+  <%if @proposal.contributes.noise.count > 0 %>
+  <% @proposal.contributes.noise.each do |contribute| %>
+      <div class="noise_element" data-id="<%= contribute.id %>">
+        <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+          truncate(text, :length => 15)
+        end %>
+      </div>
+  <% end %>
+      <%else %>
+  <%= 'Nessun contributo è stato eliminato dalla discussione' %>
+  <%end%>
+</div>

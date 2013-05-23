@@ -189,6 +189,7 @@
 
 /*Aggiunte h2 e h3 da inserire poi nello style.css*/
 h2 {
+    background-repeat: no-repeat;
     background-image: url(/assets/sfondo_h2.png);
     margin-top: 36px;
     padding-top: 5px;
@@ -213,8 +214,7 @@ h3 {
 }
 .sticky.stick {
     position: fixed;
-    top: 0;
+    top: 90px;
     z-index: 10000;
-
     border-radius: 0 0 0.5em 0.5em;
 }

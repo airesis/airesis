@@ -217,9 +217,9 @@ it:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
       layout:
-        home_button: "Home Page"
-        proposals_button: "Le proposte"
-        calendar: "Calendario"
+        home_button: "BACHECA"
+        proposals_button: "LE PROPOSTE"
+        calendar: "CALENDARIO"
       show:
         rules_button: "Regolamento"
         post_button: "Inserisci post"
@@ -235,10 +235,11 @@ it:
         accept_request_button: "Accetta"
         reject_request_button: "Declina"
         ask_partecipate_button: "Richiedi di partecipare al gruppo"
+        remove_post: "Rimuovi post dalla bacheca del gruppo"
       header:
-        settings: "Impostazioni"
-        elections: "Elezioni"
-        documents: "Documenti"
+        settings: "IMPOSTAZIONI"
+        elections: "ELEZIONI"
+        documents: "DOCUMENTI"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -274,7 +275,7 @@ it:
         group_areas_title: "Aree di lavoro"
         no_group_areas: "Nessuna area"
         all_areas: "Tutte le aree"
-        categories_title: "Categorie"
+        categories_title: "CATEGORIE"
         all_categories: "Tutte le categorie"
         loading_proposals: "Sto caricando le proposte..."
         title_with_category: "Proposte della categoria %{category}"
@@ -320,7 +321,7 @@ it:
         editing_message_1: "Questa proposta sarà sviluppata dai suoi redattori grazie a tutti i contributi"
         editing_message_2: "Per accedere alla votazione dovrà raggiungere un"
         editing_message_3: "sufficiente punteggio"
-        votation_page_button: "Vai alla pagina di votazione."
+        votation_page_button: "Vai alla mia pagina personale di votazione"
         vote_button: "Vota!"
         send_contribute_button: "Invia"
         characters_left: "Caratteri disponibili:"
@@ -347,21 +348,32 @@ it:
           delete: "Cancella"
         reply_button: "Rispondi"
         reply_placeholder: "Inserisci un suggerimento"
+        export_pdf: "Stampa PDF"
+        manage_noise_folder: "Contributi eliminati"
+        noise_folder: "Contributi eliminati"
+        what_nickname: "Di cosa si tratta?"
+        give_contribute: "Dai il tuo contributo"
+        no_contributes: "Durante la votazione i contributi non vengono mostrati"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
         step_1: "Informazioni iniziali"
         step_2: "Proposte simili"
-        step_3: "Problemi ed obiettivi"
+        step_3: "Problema/ostacoli"
         step_4: "Proposta iniziale"
         step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
-        problems_title: "Problematica"
+        problems_title: "Problema/ostacoli"
+        problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
         objectives_title: "Obiettivi"
-        step_4_title: "Puoi inserire un testo iniziale della proposta o scriverlo successivamente in base ai contributi ricevuti"
+        step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
         first_solution_title: "Soluzione 1"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
         title_group: " interna al gruppo %{name}"
+        title_synthetic: "(in estrema sintesi)"
+        title_placeholder: "es. \"Facilitare il trasporto bici sui treni\""
+        interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
+        tags_list_placeholder: "Inserisci delle parole attinenti alla tua proposta"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -387,6 +399,24 @@ it:
         neutral: "Neutrali"
         name_surname_column: "Nome e cognome"
         date_time_column: "Data e ora di voto"
+      report_contribute:
+        mark_title: "Marca il contributo"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene
+                           informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
+                           Se il contributo viene marcato %{num} volte, gli autori della proposta potranno
+                           eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        report_title: "Segnala il contributo"
+        report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
+      vote_panel:
+        title: "Esprimi il tuo voto!"
+        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze mediante metodo di Schulze da 1 (non mi piace) a 5 (mi piace molto)."
+        secret_vote: "Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso."
+        clear_vote: "Il tuo voto è palese e sarà quindi verificabile."
+        single_title: "In questa proposta è presente un'unica soluzione. Esprimi il tuo giudizio!"
+        results_time: "Hai espresso il tuo voto il %{when}"
+        hidden_vote: "La votazione era segreta pertanto il tuo voto non può essere mostrato"
+        preferences_order: "Il tuo ordine di preferenze è stato:"
+        expressed_vote: "Hai espresso voto %{vote}"
     events:
       index:
         title: "Calendario"
@@ -402,6 +432,7 @@ it:
           confirm_positive: "Confermi il tuo voto POSITIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_neutral: "Confermi il tuo voto NEUTRALE alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_negative: "Confermi il tuo voto NEGATIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
+          confirm_schulze: "Confermi il tuo voto alla proposta %{name}? Non potrai più cambiarlo!"
     blog_posts:
       new:
         title: "Inserisci un nuovo post"
@@ -435,24 +466,33 @@ it:
       new:
         insert_comment: "Inserisci commento"
     header:
-      groups: "Gruppi"
+      groups:
+        events: "EVENTI"
+        proposals: "PROPOSTE"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
-        my_page: "La mia pagina"
-        my_blog: "Il mio blog"
-        create_blog: "Crea un tuo blog"
-        preferences: "Preferenze"
+        my_page: "LA MIA PAGINA"
+        my_blog: "IL MIO BLOG"
+        create_blog: "CREA UN TUO BLOG"
+        preferences: "PREFERENZE"
         administration: "Amministrazione"
-        logout: "Logout"
+        logout: "LOGOUT"
         become_user: "Diventa utente"
         become_user_button: "Vai!"
         remember_me: "Ricordami su questo computer"
         login_button: "Login"
-        registration_button: "Registrati"
+        registration_button: "REGISTRATI"
         forgot_password_button: "Hai dimenticato la password?"
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
       welcome: "Benvenuto"
+      groups_title: "GRUPPI"
+      login: "ACCEDI"
+      login_placeholder: "Email o username"
+      groups_list: "Gruppi a cui partecipi"
+      open_group: "Apri un nuovo gruppo"
+      new_group: "Cerca gruppi"
+      support_us: "SOSTIENICI"
     blogs:
       show:
         no_posts: "Nessun Post"
@@ -525,9 +565,9 @@ it:
           title: "Le notifiche"
     open_space:
       layout:
-        proposals_button: "Le proposte"
-        calendar_button: "Calendario"
-        map_button: "Mappa"
+        proposals_button: "LE PROPOSTE"
+        calendar_button: "CALENDARIO"
+        map_button: "MAPPA"
     proposal_supports:
       new:
         panel_title: "Conferma sostegno alla proposta"
@@ -551,6 +591,14 @@ it:
         terminated_phase: "terminato"
         send_candidate_button: "Invia un candidato alle elezioni"
         create_election_button: "Crea una nuova elezione"
+    sessions:
+      new:
+        login_label: "Username o Email"
+        remember_me_label: "Ricordami su questo computer"
+      links:
+        register: "Non sei ancora registrato? Registrati!"
+        forgot_password: "Hai dimenticato la password?"
+        havent_received_email: "Non hai ricevuto l'email per la conferma?"
   pl:
     comments:
       zero: nessun commento
@@ -572,15 +620,19 @@ it:
         groups_end_time: "Data termine iscrizione gruppi"
         candidates_end_time: "Data termine iscrizione candidati"
       event:
-         title: "Titolo dell'evento"
-         description: "Descrizione"
-         event_type_id: "Tipo di evento"
-         starttime: "Data di inizio"
-         endtime: "Data di fine"
-         all_day: "Tutto il giorno"
-         period: "Ripeti"
-         frequency: "Ripeti ogni"
-         private: "Privato"
+        title: "Titolo dell'evento"
+        description: "Descrizione"
+        event_type_id: "Tipo di evento"
+        starttime: "Data di inizio"
+        endtime: "Data di fine"
+        all_day: "Tutto il giorno"
+        period: "Ripeti"
+        frequency: "Ripeti ogni"
+        private: "Privato"
+      meeting:
+        place:
+          address: "Indirizzo"
+          comune_id: "Comune"
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
@@ -617,13 +669,13 @@ it:
       proposal:
         group_area_id: "Area di lavoro"
         proposal_category_id: "Categoria"
-        title: "Titolo"
+        title: "Obiettivo"
         subtitle: "Sottotitolo"
         problems: "Problemi"
         objectives: "Obiettivi"
         content: "Testo"
-        interest_borders_tkn: "Confini geografici di interesse"
-        tags_list: "Tags (separati da virgola)"
+        interest_borders_tkn: "Luogo"
+        tags_list: "Parole chiave"
         quorum_id: "Quorum"
         anonima: "Anonimato temporaneo"
         visible_outside: "Visibile pubblicamente"
@@ -729,10 +781,12 @@ it:
       insert_error: "Errore durante l'inserimento."
       edit_ok: "Il tuo commento è stato aggiornato con successo."
       delete_ok: 'Il commento è stato cancellato'
+      report_ok: "Contributo marcato correttamente"
+      report_error: "Errore durante la segnalazione del contributo"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"
-  privacy_policy: "Normativa sulla Privacy"
+  privacy_policy: "Politica sulla Privacy"
   back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"
@@ -741,3 +795,7 @@ it:
   looking_for_interest_border: "Sto cercando..."
   digit_tags: "Digita i tag che vuoi inserire"
   ago: "fa"
+  buttons:
+    cancel: Annulla
+    save: "Salva"
+    report: "Segnala"

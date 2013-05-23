@@ -1,6 +1,6 @@
 <%= render :layout => "layouts/page_title", :locals => {:title => t('pages.group_areas.index.title')} do %>
-    <%= link_to t('pages.group_areas.manage.switch_area_index_button'), group_group_areas_path(@group), :class => "historyButton disableButton" %><br />
-    <%= link_to t('pages.group_areas.index.create_area_button'), new_group_group_area_path(@group), :remote => true, :class => "newButton disableButton" %>
+    <%= link_to t('pages.group_areas.manage.switch_area_index_button'), group_group_areas_path(@group), :class => "btn historyButton disable" %><br />
+    <%= link_to t('pages.group_areas.index.create_area_button'), new_group_group_area_path(@group, :manage => true), :remote => true, :class => "btn newButton disable" %>
 <% end %>
 <div id="new_group_area_container">
 </div>
@@ -27,7 +27,7 @@
         var _areas_list = _this.next('.areas_list');
         console.log('mouse over');
           _areas_list.show().position({
-              at: "left top",
+              at: "left bottom",
               my: "left bottom",
               of: _this
           });

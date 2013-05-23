@@ -1,5 +1,9 @@
+<% content_for :head do %>
+    <%= javascript_include_tag 'ice/index' %>
+<%end%>
+
 <% @page_title = @proposal.title %>
-<h1>Modifica la proposta</h1>
+<h1><%= 'Modifica la proposta' %></h1>
 
 <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
@@ -24,11 +28,6 @@
           </p>
 
           <p>
-            <%= f.label :subtitle %><br/>
-            <%= f.text_field :subtitle, :style => "width:600px;" %>
-          </p>
-
-          <p>
             <%= f.label :interest_borders_tkn %><br/>
             <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
           </p>
@@ -40,7 +39,7 @@
               </p>
           <% end %>
 
-      <!--    <p>
+          <!--    <p>
             <%= f.label :quorum_id %> *<br/>
             <% if @group %>
                 <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
@@ -110,64 +109,179 @@
 
     <p>
       <%= f.label :proposal_category_id %><br/>
-      <%= select("proposal", "proposal_category_id", ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id] }) %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick_tmp'} %>
     </p>
 
-    <% @proposal.sections.includes(:paragraphs).each do |section| %>
-        <%= f.fields_for :sections, section do |s| %>
-            <%= s.hidden_field :title %>
-            <%= s.hidden_field :seq %>
-            <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                <p>
-                  <%= p.label :content_dirty, section.title %><br/>
-                  <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
-                  <%= p.hidden_field :content %>
-                  <%= p.hidden_field :seq %>
-                </p>
-            <% end %>
-        <% end %>
+    <div class="sections_column">
+      <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
+          <%= f.fields_for :sections, section do |s| %>
+              <%= s.hidden_field :seq %>
+              <%= s.check_box '_destroy', style: 'display:none' %>
+              <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                  <p class="section_container">
+                    <%= s.text_field :title, class: "edit_label" %>
+                    <span class="move_button">
+                      <%= image_tag 'move.png' %>
+                    </span>
+                     <span class="remove_button">
+                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= 'Rimuovi sezione' %></a>
+                    </span>
+                    <br/>
+                    <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                    <%= p.hidden_field :content %>
+                    <%= p.hidden_field :seq %>
+                  </p>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+
+    <% if @proposal.is_standard? %>
+        <div class="new_section">
+          <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi una nuova sezione' %></a>
+        </div>
     <% end %>
+
 
     <h4>Modifica e aggiorna il testo della proposta!</h4>
+    <div class="solutions_column">
+      <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
+          <%= f.fields_for :solutions, solution do |sol| %>
+              <%= sol.hidden_field :seq %>
+              <%= sol.check_box '_destroy', style: 'display:none' %>
+              <% solution.sections.each do |section| %>
+                  <%= sol.fields_for :sections, section do |s| %>
+                      <%= s.hidden_field :title %>
+                      <%= s.hidden_field :seq %>
+                      <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                          <p class="section_container">
+                            <%= s.text_field :title, class: "edit_label" %>
+                            <span class="move_button">
+                              <%= image_tag 'move.png' %>
+                            </span>
+                             <span class="remove_button">
+                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;"><%= 'Rimuovi soluzione' %></a>
+                            </span>
+                            <br/>
 
-    <% @proposal.solutions.each_with_index do |solution, i| %>
-        <%= f.fields_for :solutions, solution do |sol| %>
-            <%= sol.hidden_field :seq %>
-            <%= sol.check_box '_destroy', style: 'display:none' %>
-            <% solution.sections.each do |section| %>
-                <%= sol.fields_for :sections, section do |s| %>
-                    <%= s.hidden_field :title %>
-                    <%= s.hidden_field :seq %>
-                    <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                        <p>
-                          <%= p.label :content_dirty, section.title %><br/>
+                            <% if @proposal.is_standard? %>
+                                <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                                <%= p.hidden_field :content %>
+                            <% elsif @proposal.is_polling? %>
+                                <%= p.text_field :content, :style => "width:80%;" %>
+                                <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
+                            <% end %>
+                            <%= p.hidden_field :seq %>
+                          </p>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
 
-                          <% if @proposal.is_standard? %>
-                              <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
-                              <%= p.hidden_field :content %>
-                          <% elsif @proposal.is_polling? %>
-                              <%= p.text_field :content, :style => "width:80%;" %>
-                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
-                          <% end %>
-                          <%= p.hidden_field :seq %>
-                        </p>
-                    <% end %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <% end %>
+    <div class="new_section">
+      <a href="#" onclick="addSolution(this);return false;"><%= 'Aggiungi un\'ulteriore soluzione' %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= 'Sai quello che fai?' %></a>
+    </div>
 
-    <!--<a href="#" onclick="addSolution(this);return false;">Aggiungi un'opzione</a>-->
-
+    <div id="you_know" title="Uno soluzione o più soluzioni?" style="display:none;line-height: 160%">
+      <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
+      Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
+      Se la soluzione sarà una, al momento della votazione i partecipanti dovranno semplicemente scegliere se approvare
+      o meno il testo che è stato redatto.<br/>
+      Se le soluzioni sono più di una la votazione avverrà in maniera differente e ciascun utente potrà esprimere la
+      propria votazione su ciascuna soluzione mediante voto di Schulze.<br/>
+      Se stai cercando di redigere la sintesi ad un problema e vuoi costruire un testo condiviso
+      <b>non generare soluzioni alternative</b>!<br/>
+      Se, al contrario, stai creando un sondaggio o vuoi proporre un'alternativa che non è integrabile nella prima
+      soluzione allora procedi.<br/>
+      Ricorda che, prima che termini la fase di dibattito, potrai sempre aggiungere o togliere soluzioni e quindi
+      modificare il tipo di votazione che verrà effettuato.
+    </div>
 
     <p>
       <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-      <%= f.submit "Aggiorna", :class => 'buttonStyle', :onclick => 'return fillCleanFields();' %>
+
+
+      <%= f.hidden_field :integrated_contributes_ids_list %>
+
+      <%= f.submit "Aggiorna", :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
     </p>
 <% end %>
 
 
+<hr/>
+<%= 'Indica quali contributi hai integrato con questa modifica della proposta' %>
+
+<div id="loading_contributes" style="margin:auto;text-align:center;">
+  <%= image_tag 'ajax-loader.gif' %>
+  <br/>
+  <b><%= t('pages.proposals.show.loading_contributions') %></b>
+</div>
+<div id="proposalCommentsContainer">
+
+</div>
+
+<div id="loading_results" style="display:none;">
+  <span><%= t('pages.proposals.show.previos_contributes') %></span>
+</div>
+
+
 <script type="text/javascript">
+    var currentPage = 0;
+    var currentView = 3;
+    var contributes = [];
+
+    $(function () {
+        currentPage++;
+        $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+            data: {page: currentPage,
+                view: currentView,
+                contributes: contributes
+            },
+            type: 'get',
+            complete: function () {
+                $("#loading_contributes").hide();
+            }
+        });
+
+        <%= render :partial => 'show_tooltips' %>
+
+    });
+
+    var integrated_contributes = [];
+
+    function integrate_contribute(el, id) {
+        if ($(el).is(':checked')) {
+            integrated_contributes.push(id);
+        }
+        else {
+            integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
+        }
+        $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
+    }
+
+
+    function you_know() {
+        $('#you_know').dialog({modal: true, width: 600, height: 'auto'});
+    }
+
+    function checkScroll() {
+        if (nearBottomOfPage() && checkActive) {
+            checkActive = false;
+            currentPage++;
+            $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
+                data: {page: currentPage,
+                    view: currentView,
+                    contributes: contributes
+                },
+                type: 'get'});
+        } else {
+            setTimeout("checkScroll()", 250);
+        }
+    }
+
+
     tinyMCE.init({
         mode: 'textareas',
         theme: 'advanced',
@@ -176,12 +290,15 @@
         theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube,separator,ice_toggleshowchanges',
         theme_advanced_buttons2: '',
         theme_advanced_buttons3: '',
-        plugins: 'media,paste,inlinepopups,youtube,ice',
-        paste_auto_cleanup_on_paste : true,
+        plugins: 'legacyoutput,media,paste,inlinepopups,youtube,ice',
+        formats: {
+            underline: { inline: 'u' }
+        },
+        paste_auto_cleanup_on_paste: true,
         theme_advanced_statusbar_location: "none",
         //valid_elements: "-p",
         cleanup_on_startup: true,
-        relative_urls : false,
+        relative_urls: false,
         ice: {
             user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
             preserveOnPaste: 'p,a[href],i,em,strong'
@@ -189,48 +306,168 @@
         body_class: "CT-hide"
     });
     function fillCleanFields() {
+        if ($('#proposal_integrated_contributes_ids').val() == "") {
+            if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
+                return false;
+            }
+        }
         <%if @proposal.is_standard?%>
-          <%for i in 0..(@proposal.sections.count-1) %>
-            $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-          <%end%>
-          <%for i in 0..(@proposal.solutions.count-1) %>
-            <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-              $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-            <%end%>
-          <%end%>
+        $('textarea.tinymce').each(function () {
+            var id = $(this).attr('id');
+            $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
+        });
+
+        <%for i in 0..(@proposal.sections.count-1) %>
+        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        <%end%>
+        <%for i in 0..(@proposal.solutions.count-1) %>
+        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
+        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        <%end%>
+        <%end%>
         <%end%>
         return true;
     }
 
-    var numSolution = <%=@proposal.solutions.count%>
+    var numSolution = <%=@proposal.solutions.count%>;
+    var numSections = <%=@proposal.sections.count%>
 
-            function addSolution(el) {
-                paragraph_ = $('<p></p>');
-                paragraph_.append('<label>Opzione ' + (numSolution + 1) + '</label>');
-                paragraph_.append('<br />');
-                var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
-                var sectionname = solutionname + '[sections_attributes][0]';
-                var paragraphname = sectionname + '[paragraphs_attributes][0]';
-                paragraph_.append('<input style=\'width:80%\' type=\'text\' name=\'' + paragraphname + '[content]\'></input>');
-                paragraph_.append('<a href=\'#\' onclick=\'removeSolution(this,' + numSolution + ',false);return false;\'>Rimuovi opzione</a>');
-                paragraph_.append('<input type=\'hidden\' value=\'' + numSolution + '\' name=\'' + solutionname + '][seq]\'></input>');
-                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\'></input>');
-                paragraph_.append('<input type=\'hidden\' value=\'Opzione ' + (numSolution + 1) + '\' name=\'' + sectionname + '[title]\'></input>');
-                $(el).before(paragraph_);
-                numSolution += 1;
-            }
+    function addSection(el) {
+        var sectionname = 'proposal[sections_attributes][' + numSections + ']';
+        var sectionid = sectionname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        var paragraphname = sectionname + '[paragraphs_attributes][0]';
+        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+        var paragraphid = paragraphname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        paragraph_.append('<input type="text" class="edit_label" value="Paragrafo '+(numSections+1)+'" name=\'' + sectionname + '[title]\'></input>');
+        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
+        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
+        paragraph_.append('<br />');
+        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+        paragraph_.append(textarea_);
+        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
+        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\''+sectionid+'_seq\'></input>');
+        seq_.val(numSections);
+        paragraph_.append(seq_);
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+        $('.sections_column').append(paragraph_);
+        paragraph_.fadeIn();
+
+        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+
+        numSections += 1;
+    }
+
+
+    function addSolution(el) {
+        var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
+        var sectionname = solutionname + '[sections_attributes][0]';
+        var solutionid = solutionname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        var paragraphname = sectionname + '[paragraphs_attributes][0]';
+        var paragraphid = paragraphname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+        paragraph_.append('<input type="text" class="edit_label" value="Soluzione '+(numSolution + 1) +'" name=\'' + sectionname + '[title]\'></input>');
+        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
+        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolution(this,' + numSolution + ',false);return false;"><%= 'Rimuovi soluzione' %></a></span>');
+        paragraph_.append('<br />');
+        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+        paragraph_.append(textarea_);
+        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
+        var seq_ = $('<input type=\'hidden\' name=\'' + solutionname + '[seq]\' id=\''+solutionid+'_seq\'></input>');
+        seq_.val(numSolution);
+        paragraph_.append(seq_);
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\' ></input>');
+        $('.solutions_column').append(paragraph_);
+        paragraph_.fadeIn();
+
+        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+
+        numSolution += 1;
+    }
 
     function removeSolution(el, id, hide) {
-        if (hide) {
-            $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
-            $(el).parent().hide();
+        if (confirm('<%='Sei sicuro di voler rimuovere questa soluzione?'%>')) {
+            var section_ = $(el).parent().parent();
+            if (hide) {
+                $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
+                section_.fadeOut();
+            }
+            else {
+                section_.fadeOut(function () {
+                    section_.remove();
+                });
+            }
         }
-        else {
-            $('input[name^="proposal\[solutions_attributes\]\[' + id + '\]"]').remove();
-            $(el).parent().remove();
-        }
-
-
     }
+
+    function removeSection(el, id, hide) {
+        if (confirm('<%='Sei sicuro di voler rimuovere questo paragrafo?'%>')) {
+            var section_ = $(el).parent().parent();
+            if (hide) {
+                $('input[name="proposal\[sections_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
+                section_.fadeOut();
+            }
+            else {
+                section_.fadeOut(function () {
+                    section_.remove();
+                });
+            }
+        }
+    }
+
+
+    $(".sections_column").sortable({
+        connectWith: ".column",
+        cursor: "move",
+        axis: "y",
+        handle: '.move_button',
+        start: function(e,ui) {
+            if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
+                var textarea_ = $('.tinymce',ui.item);
+                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            }
+        },
+        stop: function (e, ui) {
+            var textarea_ = $('.tinymce',ui.item);
+            if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
+                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            }
+            tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+            var i = 0;
+            $(this).find('p').each(function (el) {
+                var id = $(this).find('.tinymce').attr('id');
+                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                console.log(seq_id + ', id: ' + i);
+                $('#' + seq_id).val(i++);
+            });
+        }
+    });
+
+
+    $(".solutions_column").sortable({
+        connectWith: ".column",
+        cursor: "move",
+        axis: "y",
+        handle: '.move_button',
+        start: function(e, ui) {
+
+        },
+        stop: function (e, ui) {
+            var textarea_ = $('.tinymce',ui.item);
+
+            setTimeout(function() {
+                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+            },1000);
+
+            var i = 0;
+            $(this).find('p').each(function (el) {
+                var id = $(this).find('.tinymce').attr('id');
+                var seq_id = id.replace(/sections_attributes.*/, 'seq');
+                $('#' + seq_id).val(i++)
+            });
+        }
+    });
+
+    //$('.section_container').mouseov
 </script>

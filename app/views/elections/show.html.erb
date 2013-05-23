@@ -26,9 +26,9 @@
 		<%=@election.event.starttime.mday%>
 	</div>	
 </div>
-<h3>L'elezione ha inizio il <%= @election.event.starttime.strftime("%d/%m/%Y alle %H:%M") %> con l'iscrizione dei gruppi.</h3>
+<h3>L'elezione ha inizio il <%= @election.event.starttime.strftime("%d/%m/%Y alle %H:%M") %> con l'iscrizione dei candidati.</h3>
 <div style="clear:both"></div>
-
+<!--
 <div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.groups_end_time, :format => :month)%>
@@ -39,7 +39,7 @@
 </div>
 <h3>Il <%= @election.groups_end_time.strftime("%d/%m/%Y alle %H:%M") %> terminano le iscrizioni dei gruppi ed inizia l'iscrizione dei candidati.</h3>
 <div style="clear:both"></div>
-
+-->
 <div class="event_calendar" style="margin-right:10px;">
 	<div class="day">
 		<%=I18n.localize(@election.candidates_end_time, :format => :month)%>
@@ -65,12 +65,16 @@
 <h2>Elenco dei candidati all'elezione</h2>
 
 <ul>
-<%@election.candidates.each do |candidate|%>
-	<li>
-		<b><%=link_to_user candidate.user, :full_name => true%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>	
-	</li>
+  <%if @election.candidates.count > 0 %>
+    <%@election.candidates.each do |candidate|%>
+        <li>
+            <b><%=link_to_user candidate.user, :full_name => true%></b> candidato da <b><%=candidate.groups.map{|g| g.name}.join%></b>
+        </li>
 
-<%end%>
+    <%end%>
+   <%else%>
+  <b><%= "Nessun candidato all'elezione" %></b>
+  <%end%>
 </ul>	
 
 <%if @election.event.is_past?%>
