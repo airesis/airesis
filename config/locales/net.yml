@@ -217,7 +217,7 @@ net:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
       layout:
-        home_button: "HOME PAGE"
+        home_button: "BACHECA"
         proposals_button: "LE PROPOSTE"
         calendar: "CALENDARIO"
       show:
@@ -351,6 +351,9 @@ net:
         export_pdf: "Stampa PDF"
         manage_noise_folder: "Contributi eliminati"
         noise_folder: "Contributi eliminati"
+        what_nickname: "Di cosa si tratta?"
+        give_contribute: "Dai il tuo contributo"
+        no_contributes: "Durante la votazione i contributi non vengono mostrati"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -396,6 +399,24 @@ net:
         neutral: "Neutrali"
         name_surname_column: "Nome e cognome"
         date_time_column: "Data e ora di voto"
+      report_contribute:
+        mark_title: "Marca il contributo"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene
+                           informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
+                           Se il contributo viene marcato %{num} volte, gli autori della proposta potranno
+                           eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        report_title: "Segnala il contributo"
+        report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
+      vote_panel:
+        title: "Esprimi il tuo voto!"
+        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze mediante metodo di Schulze da 1 (non mi piace) a 5 (mi piace molto)."
+        secret_vote: "Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso."
+        clear_vote: "Il tuo voto è palese e sarà quindi verificabile."
+        single_title: "In questa proposta è presente un'unica soluzione. Esprimi il tuo giudizio!"
+        results_time: "Hai espresso il tuo voto il %{when}"
+        hidden_vote: "La votazione era segreta pertanto il tuo voto non può essere mostrato"
+        preferences_order: "Il tuo ordine di preferenze è stato:"
+        expressed_vote: "Hai espresso voto %{vote}"
     events:
       index:
         title: "Calendario"
@@ -445,7 +466,9 @@ net:
       new:
         insert_comment: "Inserisci commento"
     header:
-      groups: "Gruppi"
+      groups:
+        events: "EVENTI"
+        proposals: "PROPOSTE"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
         my_page: "LA MIA PAGINA"
@@ -463,6 +486,13 @@ net:
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
       welcome: "Benvenuto"
+      groups_title: "GRUPPI"
+      login: "ACCEDI"
+      login_placeholder: "Email o username"
+      groups_list: "Gruppi a cui partecipi"
+      open_group: "Apri un nuovo gruppo"
+      new_group: "Cerca gruppi"
+      support_us: "SOSTIENICI"
     blogs:
       show:
         no_posts: "Nessun Post"
@@ -537,7 +567,7 @@ net:
       layout:
         proposals_button: "LE PROPOSTE"
         calendar_button: "CALENDARIO"
-        map_button: "Mappa"
+        map_button: "MAPPA"
     proposal_supports:
       new:
         panel_title: "Conferma sostegno alla proposta"
@@ -561,6 +591,14 @@ net:
         terminated_phase: "terminato"
         send_candidate_button: "Invia un candidato alle elezioni"
         create_election_button: "Crea una nuova elezione"
+    sessions:
+      new:
+        login_label: "Username o Email"
+        remember_me_label: "Ricordami su questo computer"
+      links:
+        register: "Non sei ancora registrato? Registrati!"
+        forgot_password: "Hai dimenticato la password?"
+        havent_received_email: "Non hai ricevuto l'email per la conferma?"
   pl:
     comments:
       zero: nessun commento
@@ -759,3 +797,5 @@ net:
   ago: "fa"
   buttons:
     cancel: Annulla
+    save: "Salva"
+    report: "Segnala"

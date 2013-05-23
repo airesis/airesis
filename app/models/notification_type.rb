@@ -3,4 +3,5 @@ class NotificationType < ActiveRecord::Base
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :notifications, :class_name => 'Notification'
   has_many :blockers, :through => :blocked_alerts, :class_name => 'User', :source => :user
+
 end

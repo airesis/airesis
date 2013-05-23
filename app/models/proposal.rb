@@ -93,7 +93,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, {:conditions => {:proposal_state_id => PROP_REVISION}}
 
   scope :public, {:conditions => {:private => false}}
-  scope :private, {:conditions => {:private => true}}
+  scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
   scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }

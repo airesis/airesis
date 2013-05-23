@@ -1,6 +1,11 @@
 <!-- ### facebook ###-->
 <div id="fb-root"></div>
 <script>
+    $.fn.qtip.defaults = $.extend(true,{}, $.fn.qtip.defaults,{
+        style: {
+            classes: 'qtip-light qtip-shadow'
+        }});
+
     window.fbAsyncInit = function () {
         // init the FB JS SDK
         FB.init({
@@ -82,14 +87,17 @@
       <div class="cont">
 
         <div id="account">
-          <%= current_user.user_image_tag 55 %>
+          <span class="avatar">
+          <%= current_user.user_image_tag 48 %>
+          </span>
+          <%= image_tag 'cur-tria-blue.png', class:'triangle' %>
         </div>
 
         <%= cache ["right_menu", I18n.locale] do %>
             <div id="mybox" style="display: block;">
               <% NotificationCategory.order(:seq).each do |category| %>
                   <div class="box">
-                    <div class="alert_box logo" data-id="<%= category.id %>" style="background:#fff url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
+                    <div class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
                     </div>
                   </div>
               <% end %>
@@ -113,7 +121,7 @@
 
   </div>
   <div id="logo-but">
-    <span>GRUPPI</span>
+    <span><%= t('pages.header.groups_title') %></span>
     <br>
     <%= image_tag 'cur-tria.png' %>
   </div>
@@ -121,7 +129,7 @@
   <div id="tolr">
     <% unless current_user %>
         <div id="inlog">
-          <a id="login_button" href="#" onclick="return false;">ACCEDI</a>
+          <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
           -
           <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
         </div>
@@ -129,12 +137,12 @@
         <div id="login_panel" style="display:none;">
           <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
 
-              <%= f.text_field :login, placeholder: 'Email o username' %>
+              <%= f.text_field :login, placeholder: t('pages.header.login_placeholder') %>
 
               <%= f.password_field :password, placeholder: 'Password' %>         <br/>
               <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
 
-              <%= f.submit t('pages.header.menu.login_button'), :class => "buttonStyle" %>
+              <%= f.button t('pages.header.menu.login_button'), :class => "btn blue loginButton" %>
 
           <% end %>
 
@@ -169,7 +177,7 @@
         </div>
     <% end %>
 
-    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur', title: 'SOSTIENICI' %>
+    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur', title: t('pages.header.support_us') %>
     <%= link_to (image_tag 'cur-feed.png'), '#', :class => 'cur', title: 'FEEDBACK', onclick: "$('.feedbackBtn').click();return false;" %>
     <%= link_to (image_tag 'cur-info.png'), videoguide_path, :class => 'cur', title: 'TUTORIAL' %>
   </div>
@@ -178,12 +186,12 @@
     <div class="tria"></div>
     <div class="group-cont-sep"></div>
     <div class="group-tag">
-      <div class="tag sel"><span>Gruppi a cui partecipi</span>
+      <div class="tag sel"><span><%= t('pages.header.groups_list') %></span>
 
         <div class="tria"></div>
       </div>
-      <div class="tag"><%= link_to 'Apri un nuovo gruppo', new_group_path %></div>
-      <div class="tag"><%= link_to 'Cerca gruppi', groups_path %></div>
+      <div class="tag"><%= link_to t('pages.header.open_group'), new_group_path %></div>
+      <div class="tag"><%= link_to t('pages.header.new_group'), groups_path %></div>
     </div>
     <div class="group-tag1">
       <div class="group-item">
@@ -193,8 +201,8 @@
         <span class="p1"><%= link_to t('open_space'), proposals_path %></span>
 
         <div class="p2">
-          <%= link_to 'PROPOSTE', proposals_path %> -
-          <%= link_to 'EVENTI', events_path %></div>
+          <%= link_to t('pages.header.groups.proposals'), proposals_path %> -
+          <%= link_to t('pages.header.groups.events'), events_path %></div>
       </div>
       <% if user_signed_in? %>
           <% @groups = current_user.groups %>
@@ -210,8 +218,8 @@
                     <span class="p1"><%= link_to group.name, group %></span>
 
                     <div class="p2">
-                      <%= link_to 'PROPOSTE', group_proposals_path(group) %> -
-                      <%= link_to 'EVENTI', group_events_path(group) %></div>
+                      <%= link_to t('pages.header.groups.proposals'), group_proposals_path(group) %> -
+                      <%= link_to t('pages.header.groups.events'), group_events_path(group) %></div>
                   </div>
               <% end %>
           <% end %>
@@ -390,6 +398,9 @@
                         alert_container.append($('<p class="p2">' + alert.text + '</p>'));
                         sub_container.append(alert_container);
                     }
+                    if (obj.alerts.length == 0) {
+                        sub_container.append($('<span>Nessuna notifica</span>'));
+                    }
                     $('body').append(n_container);
                 }
 
@@ -464,16 +475,17 @@
 
     poll();
 
-    $('#account img').qtip({
+    $('#account').qtip({
         content: $('#avatar-qtip'),
         position: {
+            target: $('#account .avatar'),
             at: 'left center',
             my: 'right center',
             viewport: $(window),
             effect: false,
             adjust: {
                 method: 'shift',
-                x: -5, y: -10
+                x: 0, y: -25
             }
         },
         show: {

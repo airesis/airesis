@@ -219,8 +219,6 @@
 .cont-mess {
     width: 250px;
     font-size: 12px;
-    margin-bottom: -20px;
-    margin-right: -3px;
 }
 
 .cont-mess ::-webkit-scrollbar,
@@ -287,10 +285,27 @@
 }
 
 #account img {
-    height: 60px;
-    margin-left: 10px;
+    height: 48px;
+    margin-left: 8px;
     border-radius: 5px;
     border: 1px solid #939393;
+}
+
+#account img.triangle {
+    width: 12px;
+    height: 12px;
+    border: none;
+    position: absolute;
+    top: 27px;
+    margin-left: 4px;
+}
+
+#account img.triangle:hover {
+    box-shadow: none;
+}
+
+#mybox {
+    margin-top: 20px;
 }
 
 #menu-right.slim .box {
@@ -403,12 +418,17 @@
     text-decoration: none;
 }
 
+.qtip.qtip-yellow {
+    background-color: #E2F0B6;
+    color: #000;
+    font-size: 0.9em;
+    line-height: 1em;
+}
+
     /*ALERTS CSS*/
 .cont-mess {
     width: 250px;
     font-size: 12px;
-    margin-bottom: -20px;
-    margin-right: -3px;
 }
 
 .cont-mess .tool {
@@ -429,15 +449,15 @@
 .cont-mess .tool div {
     font-size: 14px;
     font-weight: bold;
-    position:  absolute;
+    position: absolute;
     display: inline-block;
     margin-top: 10px;
     line-height: 1.1em;
     margin-left: 2px;
 }
 
-.cont-mess .mess:hover{
-    border:1px dotted black;
+.cont-mess .mess:hover {
+    border: 1px dotted black;
 }
 
 .cont-mess .mess button {
@@ -464,6 +484,7 @@
     margin-bottom: 10px;
     margin-top: 5px;
     font-size: 12px;
+    padding-bottom: 10px;
 }
 
 .cont-mess .mess {
@@ -478,7 +499,7 @@
 }
 
 .cont-mess .mess .read {
-    float:right;
+    float: right;
     border-radius: 10px;
     visibility: hidden;
 }
@@ -488,9 +509,8 @@
 }
 
 .cont-mess .mess .read:hover {
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
 }
-
 
 .cont-mess .mess.new {
     background-color: #ededed;
@@ -605,20 +625,15 @@
     max-width: none;
 }
 
-
-
 .qtip-right {
     border-radius: 3px;
     padding-bottom: 9px;
     margin-top: 10px;
 }
 
+    /*  ---------------------------------------  BUTTON  */
 
-
-/*  ---------------------------------------  BUTTON  */
-
-
-/* The Magnificent CLEARFIX */
+    /* The Magnificent CLEARFIX */
 .buttons:before, .buttons:after {
     content: "\0020";
     display: block;

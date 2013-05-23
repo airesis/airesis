@@ -191,7 +191,7 @@
 <script>
     $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
                 if (data.status == 401) {
-                    window.location = "/users/sign_in?l=it"
+                    window.location = "/users/sign_in?l=<%=I18n.locale%>"
                 }
             });
     ;

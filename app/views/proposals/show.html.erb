@@ -46,6 +46,10 @@
     <div style="height:20px"></div>
 <% end %>
 
+
+<%if @proposal.voting? %>
+    <h4><%= t('pages.proposals.show.no_contributes') %></h4>
+<%else%>
 <div id="order_bar">
   <%= render :partial => 'proposal_comments/order_bar' %>
 </div>
@@ -66,6 +70,7 @@
 
 <%= render :partial => 'report_contribute' %>
 
+<%end%>
 
 <script type="text/javascript">
     var clicked;
@@ -76,12 +81,28 @@
 
     var $viewport = $('html, body');
 
+
+    function scroll_to_vote_panel() {
+        $viewport.animate({
+            scrollTop: $(".vote_panel").offset().top - 100
+        }, 2000);
+
+        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+            }
+        });
+        return false;
+    }
+
     function contribute(section_id) {
         $('#proposal_comment_section_id').val(section_id);
         $viewport.animate({
             scrollTop: $("#proposal_comment_content").offset().top - 150
         }, 2000, function () {
             $('#proposal_comment_content').focus();
+            $('#comment-form-comment').effect('highlight', {}, 3000);
         });
 
 
@@ -180,6 +201,7 @@
 
 
     function checkScroll() {
+        <%unless @proposal.voting? %>
         if (nearBottomOfPage() && checkActive) {
             checkActive = false;
             currentPage++;
@@ -192,9 +214,11 @@
         } else {
             setTimeout("checkScroll()", 250);
         }
+        <%end%>
     }
 
     $(function () {
+        <%unless @proposal.voting? %>
         currentPage++;
         $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
             data: {page: currentPage,
@@ -206,6 +230,7 @@
                 $("#loading_contributes").hide();
             }
         });
+        <%end%>
 
         <%= render :partial => 'show_tooltips' %>
 

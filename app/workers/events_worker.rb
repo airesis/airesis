@@ -34,7 +34,7 @@ class EventsWorker
         vote_data = ProposalVote.new(:proposal_id => proposal.id, :positive => 0, :negative => 0, :neutral => 0)
         vote_data.save!
       end
-      proposal.private? ?
+      proposal.private ?
           notify_proposal_in_vote(proposal, proposal.presentation_groups.first) :
           notify_proposal_in_vote(proposal)
 

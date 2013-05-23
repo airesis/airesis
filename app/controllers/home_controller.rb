@@ -55,6 +55,8 @@ class HomeController < ApplicationController
 
     feedback = SentFeedback.new(message: feedback[0]['message'])
 
+    feedback.email = current_user.email if current_user #save user email if is logged in
+
     if data
       temp_file = Tempfile.new(['tmp','.png'], encoding: 'ascii-8bit')
       begin

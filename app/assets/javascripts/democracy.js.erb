@@ -1,6 +1,5 @@
 !window.console && (console = { log: function() {}});
 
-
 function checkWidth() {
         if (window.innerWidth < 1000) {
            $('#menu-top').css('position','absolute');
@@ -136,6 +135,7 @@ function disegnaBottoni() {
     $('.resultsButton').gbutton({icons : {primary : "ui-icon-check"}});
     $('.searchButton').gbutton({icons : {primary : "ui-icon-search"}});
 	$('.btn.help').gbutton({icons : {primary : "ui-icon-help"}});
+    $('.btn.loginButton').gbutton({icons : {primary : "ui-icon-key"}});
 	$('.disabledButton').gbutton("option", "disabled", true);
 
 
@@ -191,7 +191,6 @@ function hideDisableButton(button) {
 function showDisableButton(button) {
 	button.show();
 	$('.waitDiv').remove();
-
 }
 
 function hideDisableGButton(button) {
@@ -204,12 +203,19 @@ function hideDisableGButton(button) {
     button.empty();
     button.append($('<span class="hidden">').append(textInside));
     button.append(toAdd);
+    button.attr('disabled', 'disabled');
+    button.bind('click.killlink',function(e) {
+        e.preventDefault();
+        return false;
+    });
 }
 
 function showDisableGButton(button) {
     var content = $('.hidden',button).html();
     $('.load',button).remove();
     button.html(content);
+    button.removeAttr('disabled');
+    button.unbind('click.killlink');
 }
 
 $.datepicker.setDefaults( $.datepicker.regional[ "it" ] );
@@ -465,3 +471,5 @@ function set_noise_data() {
     $('#comments_active').val($('#active .noise_element').map(function(){return $(this).data('id')}).get());
     $('#comments_inactive').val($('#inactive .noise_element').map(function(){return $(this).data('id')}).get());
 }
+
+

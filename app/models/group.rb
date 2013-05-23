@@ -118,7 +118,7 @@ class Group < ActiveRecord::Base
 
   #utenti che possono votare
   def count_voter_partecipants
-    return self.partecipants.count( 
+    self.partecipants.count(
     :joins => "join partecipation_roles 
                on group_partecipations.partecipation_role_id = partecipation_roles.id
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
@@ -127,7 +127,7 @@ class Group < ActiveRecord::Base
 
   #utenti che possono eseguire un'azione
   def scoped_partecipants(action_id)
-    return self.partecipants.all(
+    self.partecipants.all(
         :joins => "join partecipation_roles
                on group_partecipations.partecipation_role_id = partecipation_roles.id
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",

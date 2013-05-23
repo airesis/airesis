@@ -241,7 +241,7 @@ eu:
         elections: "ELECTIONS"
         documents: "DOCUMENTS"
     login:
-      title: 'Perform authentication'
+      title: 'Login'
     confirmation:
       title: 'Re-send Confirmation Instructions'
       submit: 'Send me the instructions'
@@ -352,6 +352,8 @@ eu:
         manage_noise_folder: "Removed contributes"
         noise_folder: "Removed contributes"
         what_nickname: "What's that?"
+        give_contribute: "Make your contribution"
+        no_contributes: "Durante la votazione i contributi non vengono mostrati"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -405,6 +407,16 @@ eu:
                            delete it from the discussion and place it in the \"noise \" folder. <br/>"
         report_title: "Report the contribution"
         report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+      vote_panel:
+        title: "Make your vote!"
+        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to 5 (I really like)"
+        secret_vote: "Your vote is secret and you will not be able to recover or change it once expressed."
+        clear_vote: "Your vote is recorded and will therefore be verifiable."
+        single_title: "In this proposal there is only one solution. Make your point!"
+        results_time: "You expressed your vote on %{when}"
+        hidden_vote: "The vote was secret so it can't be shown."
+        preferences_order: "Your preferences order was:"
+        expressed_vote: "You expressed %{vote} vote"
     events:
       index:
         title: 'Calendar'
@@ -454,24 +466,33 @@ eu:
       new:
         insert_comment: "Insert comment"
     header:
-      groups: "Groups"
+      groups:
+        events: "EVENTS"
+        proposals: "PROPOSALS"
       no_groups_yet: "You are not in any groups yet"
       menu:
-        my_page: "My homepage"
-        my_blog: "My Blog"
-        create_blog: "Create your Blog"
-        preferences: "Preferences"
-        administration: "Administration"
-        logout: "Logout"
-        become_user: "ecome a user"
+        my_page: "MY HOMEPAGE"
+        my_blog: "MY BLOG"
+        create_blog: "CREATE YOUR BLOG"
+        preferences: "PREFERENCES"
+        administration: "ADMINISTRATION"
+        logout: "LOGOUT"
+        become_user: "Become a user"
         become_user_button: "Go!"
         remember_me: "Remembre me on this computer"
         login_button: "Login"
-        registration_button: "Join us"
+        registration_button: "JOIN US"
         forgot_password_button: "Forgot password?"
         resend_email_button: "Have you received a confirmation email?"
         no_notifications: "No notification"
       welcome: "Welcome"
+      groups_title: "GROUPS"
+      login: "LOGIN"
+      login_placeholder: "Email or username"
+      groups_list: "Your groups"
+      open_group: "Start a new group"
+      new_group: "Find groups"
+      support_us: "SUPPORT US"
     blogs:
       show:
         no_posts: "No Posts"
@@ -544,9 +565,9 @@ eu:
           title: "Alerts"
     open_space:
       layout:
-        proposals_button: "Proposals"
-        calendar_button: "Calendar"
-        map_button: "Map"
+        proposals_button: "PROPOSALS"
+        calendar_button: "CALENDAR"
+        map_button: "MAP"
     proposal_supports:
       new:
         panel_title: "Confirm proposal support"
@@ -570,6 +591,14 @@ eu:
         terminated_phase: "terminated"
         send_candidate_button: "Candidate a user"
         create_election_button: "Create a new election"
+    sessions:
+      new:
+        login_label: "Username or Email"
+        remember_me_label: "Remember me"
+      links:
+        register: "Not registered yet? Sign up!"
+        forgot_password: "Forgot your password?"
+        havent_received_email: "Haven't received confirmation email?"
   pl:
     comments:
       zero: no comment
