@@ -466,7 +466,7 @@ pt:
       new:
         insert_comment: "Inserir comentário"
     header:
-      groups: "Grupos"
+      groups:
         events: "EVENTS"
         proposals: "PROPOSALS"
       no_groups_yet: "Ainda não pertence a nenhum grupo"
