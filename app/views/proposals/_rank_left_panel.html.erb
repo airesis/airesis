@@ -36,7 +36,7 @@
     <div class="handscontainer">
       <% if @my_vote %>
           <% if @my_vote == 1 %>
-              <div class="votedup"></div> <span class="vote_description">Pronta per la votazione</span>
+              <div class="votedup"></div> <span class="vote_description">Pronta per la votazione</span>  <div class="clearboth"></div>
           <% elsif @can_vote_again == 1 %>
               <div id="voteup"><%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %></div>
           <% end %>
