@@ -120,6 +120,7 @@
                   <li><%= link_to (image_tag 'flags/pt.png') + ' Português', current_url(:l => :pt) %></li>
                   <li><%= link_to (image_tag 'flags/en.png') + ' English', current_url(:l => :en) %></li>
                   <li><%= link_to (image_tag 'flags/eu.png') + ' European', current_url(:l => (@domain_locale == 'eu' ? nil : :eu)) %></li>
+                  <li><%= link_to (image_tag 'flags/us.png') + ' United States', current_url(:l => (@domain_locale == 'us' ? nil : :us)) %></li>
                 </ul>
               </dd>
             </dl>
@@ -140,10 +141,10 @@
 
           <div
           style="position: absolute;  left: 52%;">
-            <div style=" width:378px;font-family:Arial; text-align:center;">
+            <div style=" width:387px;font-family:Arial; text-align:center;">
               <div style="margin:5px; line-height:26px;">
                 <%= link_to t('pages.home.index.cloud_1'), proposals_path, :style => 'font-size:37px;text-decoration:none; color: #87A800; ' %>
-                <%= link_to t('pages.home.index.cloud_2'), groups_path, :style => 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
+                <%= link_to t('pages.home.index.cloud_2'), groups_path, :style => 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %><br/>
                 <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', :target => '_blank', :style => 'font-size:32px;text-decoration:none; color: #039FAF;' %>
                 <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #FF7600;' %>
                 <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', :target => '_blank', :style => 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>

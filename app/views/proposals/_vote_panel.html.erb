@@ -42,7 +42,7 @@
                   var select = $(".slideNumber");
                   var slider = $("<div class='slider'></div>").insertAfter(select).slider({
                       min: 1,
-                      max: <%=@proposal.solutions.count%>,
+                      max: <%=range%>,
                       range: "min",
 		              value: select.val(),
                       slide: function (event, ui) {
