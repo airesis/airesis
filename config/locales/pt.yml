@@ -255,7 +255,7 @@ pt:
       confirm_password: "Password confirm"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
       register_button: "Register"
-      identity_provviders_title: "Get in immediatly with you favorite account"
+      identity_provviders_title: "Get in immediatly with your favorite account"
     proposals:
       index:
         title: "Lista de propostas"
@@ -752,7 +752,7 @@ pt:
         user:
           attributes:
             email:
-              already_confirmed: "QEste endereço de e-mail já está registrado corretamente."
+              already_confirmed: "QEste endereço de email já está registrado corretamente."
         group:
           portavoce:
             required: "Deve escolher um porta-voz."

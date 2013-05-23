@@ -1,49 +1,43 @@
 .voteup {
 	background: url('/assets/like-blank.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
+	width: 35px;
+	height: 35px;
+	display: block;
 }
 .voteup:hover {
 	background: url('/assets/like.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
 }
 .votedown {
 	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
+	width: 35px;
+	height: 35px;
+	display: block;
 }
 .votedown:hover {
 	background: url('/assets/dislike.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
 }
 .votedup {
 	background: url('/assets/like.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
+	width: 35px;
+	height: 35px;
+	display: block;
 }
 .voteddown {
 	background: url('/assets/dislike.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block;
+    width: 35px;
+    height: 35px;
+    display: block;
 }
 .notvotedup {
 	background: url('/assets/like-blank.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
-	display: block
+	width: 35px;
+	height: 35px;
+	display: block;
 }
 .notvoteddown {
 	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
-	width: 25px;
-	height: 25px;
+	width: 35px;
+	height: 35px;
 	display: block;
 }
 

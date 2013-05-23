@@ -5,8 +5,8 @@ eu:
       success: 'Your registration has been completed. Welcome!'
     registrations:
       user:
-        inactive_signed_up: 'To complete your registration please click on the link in the e-mail you received'
-        signed_up_but_unconfirmed: 'Click on the link in the e-mail sent to your address to complete the registration process'
+        inactive_signed_up: 'To complete your registration please click on the link in the email you received'
+        signed_up_but_unconfirmed: 'Click on the link in the email sent to your address to complete the registration process'
     confirmations:
       user:
         confirmed: 'Your registration has been successfully completed'            
@@ -250,12 +250,12 @@ eu:
       submit: 'Please send instructions to reset password.'
     registration:
       title: 'Register'
-      email_confirmed: "If you ergister with that email address you will not be asked to confirm your email address."
+      email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Password confirm"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
       register_button: "Register"
-      identity_provviders_title: "Get in immediatly with you favorite account"
+      identity_provviders_title: "Get in immediatly with your favorite account"
     proposals:
       index:
         title: 'List of proposals'

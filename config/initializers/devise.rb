@@ -2,10 +2,10 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # ==> Mailer Configuration
-  # Configure the e-mail address which will be shown in Devise::Mailer,
+  # Configure the email address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "Airesis <info@airesis.it>"
-  # Configure the class responsible to send e-mails.
+  # Configure the class responsible to send emails.
   # config.mailer = "Devise::Mailer"
 
   # Automatically apply schema changes in tableless databases
@@ -63,7 +63,7 @@ Devise.setup do |config|
   # config.http_authentication_realm = "Application"
 
   # It will change confirmation, password recovery and other workflows
-  # to behave the same regardless if the e-mail provided was right or wrong.
+  # to behave the same regardless if the email provided was right or wrong.
   # Does not affect registerable.
   # config.paranoid = true
 
@@ -120,7 +120,7 @@ Devise.setup do |config|
 
   # Email regex used to validate email formats. It simply asserts that
   # an one (and only one) @ exists in the given string. This is mainly
-  # to give user feedback and not to assert the e-mail validity.
+  # to give user feedback and not to assert the email validity.
   # config.email_regexp = /\A[^@]+@[^@]+\z/
 
   # ==> Configuration for :timeoutable

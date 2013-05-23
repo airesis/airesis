@@ -109,7 +109,7 @@
 
     <p>
       <%= f.label :proposal_category_id %><br/>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}-22.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick_tmp'} %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick_tmp'} %>
     </p>
 
     <div class="sections_column">

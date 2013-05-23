@@ -15,7 +15,7 @@ pt:
       unauthenticated: "Deve fazer login ou registar-se para continuar."
       unconfirmed: "deve confirmar a sua conta para continuar."
       locked: "A sua conta está bloqueada."
-      invalid: "Endereço de e-mail ou senha inválida."
+      invalid: "Endereço de email ou senha inválida."
       invalid_token: "Código de autenticação inválido"
       timeout: "Sessão expirou, faça o login novamente para continuar."
       inactive: "A sua conta não foi ativada."
@@ -23,26 +23,26 @@ pt:
       signed_in: "Logado com sucesso."
       signed_out: "Você está fora corretamente."
     passwords:
-      send_instructions: "Dentro de alguns minutos, receberá um e-mail com instruções para redefinir sua senha."
+      send_instructions: "Dentro de alguns minutos, receberá um email com instruções para redefinir sua senha."
       updated: "Sua senha foi alterada. Agora está conetado."
       updated_not_active: "A senha foi alterada."
-      send_paranoid_instructions: "O endereço de e-mail existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail que contém um link para redefinir sua senha"
+      send_paranoid_instructions: "O endereço de email existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail que contém um link para redefinir sua senha"
     confirmations:
-      send_instructions: "receberá um e-mail com instruções sobre como confirmar a sua conta dentro de alguns minutos."
-      send_paranoid_instructions: "Se o seu endereço de e-mail existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como confirmar a sua conta."
+      send_instructions: "receberá um email com instruções sobre como confirmar a sua conta dentro de alguns minutos."
+      send_paranoid_instructions: "Se o seu endereço de email existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como confirmar a sua conta."
       confirmed: "A sua conta foi confirmada com sucesso. Está agora conectado."
     registrations:
       signed_up: "Bem-vindo! Inscreveu-se com sucesso."
-      signed_up_but_unconfirmed: "Inscreveu-se com sucesso. No entanto, não pode entrar porque a sua conta tem que ser confirmada. Por favor, abra o link que recebeu por e-mail para ativar sua conta."
+      signed_up_but_unconfirmed: "Inscreveu-se com sucesso. No entanto, não pode entrar porque a sua conta tem que ser confirmada. Por favor, abra o link que recebeu por email para ativar sua conta."
       signed_up_but_inactive: "inscreveu-se com sucesso. No entanto, não pode fazer logon porque sua conta não foi ativada."
       signed_up_but_locked: "Inscreveu-se com sucesso. No entanto, você não pode entrar porque a sua conta é bloqueada"
       updated: "A sua conta foi atualizada."
-      update_needs_confirmation: "A sua conta foi atualizada, mas precisa de verificar o seu endereço de e-mail novo. Dentro de alguns minutos, receberá um e-mail com as instruções para confirmar seu endereço de e-mail novo."
+      update_needs_confirmation: "A sua conta foi atualizada, mas precisa de verificar o seu endereço de email novo. Dentro de alguns minutos, receberá um e-mail com as instruções para confirmar seu endereço de e-mail novo."
       destroyed: "Adeus! A sua conta foi excluída. Nós queremos vê-lo em breve!"
     unlocks:
-      send_instructions: "Dentro de alguns minutos, receberá um e-mail com instruções sobre como desbloquear sua conta."
+      send_instructions: "Dentro de alguns minutos, receberá um email com instruções sobre como desbloquear sua conta."
       unlocked: "A sua conta foi desbloqueado com sucesso. Você agora está conectado."
-      send_paranoid_instructions: "Se o seu endereço de e-mail existe na base de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como desbloquear sua conta."
+      send_paranoid_instructions: "Se o seu endereço de email existe na base de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como desbloquear sua conta."
     omniauth_callbacks:
       success: "Autorizado com sucesso a partir do seu %{kind}."
       failure: 'Não foi possível autorizar %{kind} porque "%{reason}".'
