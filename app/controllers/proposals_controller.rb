@@ -912,7 +912,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      format.html { render "errors/404", :status => 404, :layout => true, :locals => {:title => 'Questa proposta non esiste', :message => 'La proposta che cerchi non esiste o è stata cancellata'}}
+      @title = 'Questa proposta non esiste'
+      @message = 'La proposta che cerchi non esiste o è stata cancellata'
+      format.html { render "errors/404", :status => 404, :layout => true}
     end
     true
   end

@@ -34,7 +34,7 @@
             <% end %>
             <% if @user.blog %>
                 <span> ⋅ </span>
-                <%= link_to 'BLOG', @user.blog, class: (params[:controller] == 'blogs' ? 'sel' : '') %>
+                <%= link_to 'BLOG', @user.blog, class: ((['blogs','blog_posts'].include? params[:controller]) ? 'sel' : '') %>
             <% end %>
         <% end %>
         <div class="borx"></div>
