@@ -665,6 +665,10 @@ it:
         havent_received_email: "Non hai ricevuto l'email per la conferma?"
     steps:
       next: "Prosegui"
+    proposal_histories:
+      index:
+        title: "History della proposta %{title}"
+        back_to_proposal: "Torna alla proposta"
   pl:
     comments:
       zero: nessun commento

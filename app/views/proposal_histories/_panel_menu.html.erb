@@ -1,0 +1,52 @@
+<div class="history">
+  <table>
+    <thead>
+    <th>Rev</th>
+    <th>Data e ora</th>
+    </thead>
+    <tbody>
+    <% @proposal.revisions.order("created_at DESC").each_with_index do |revision, i| %>
+        <tr>
+          <td><%= revision.seq %></td>
+          <td>
+            <%= l revision.created_at %>
+          </td>
+          <td><input type="radio" name="new" value="<%= revision.id %>"
+                     <% if i == 0 %>checked="checked"
+                     <% end %>/></td>
+        </tr>
+    <% end %>
+    <td></td>
+    </tbody>
+  </table>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("input:radio").change(executeDiff);
+        executeDiff();
+    });
+
+    function executeDiff() {
+        var newel = $("input[name='new']:checked");
+        var newval = newel.val();
+        $.ajax({
+            cache: true,
+            url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
+            method: 'get',
+            data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
+            dataType: 'script',
+            beforeSend: function (msg) {
+                $('.diffview .diffcontainer').hide();
+                $('.diffview .loading').show();
+
+            },
+            success: function (msg) {
+                $('.diffview .diffcontainer').show();
+                $('.diffview .loading').hide();
+            }
+        });
+    }
+
+</script>

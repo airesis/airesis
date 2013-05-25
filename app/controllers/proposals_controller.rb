@@ -34,6 +34,9 @@ class ProposalsController < ApplicationController
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, :only => [:rankup, :rankdown]
 
+
+  after_filter :check_page_alerts, only: :show
+
   def search
     authorize! :view_proposal, @group
 

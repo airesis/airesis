@@ -665,6 +665,10 @@ eu:
         havent_received_email: "Haven't received confirmation email?"
     steps:
       next: "Continue"
+    proposal_histories:
+      index:
+        title: "%{title} - Revision History"
+        back_to_proposal: "Back to proposal"
   pl:
     comments:
       zero: no comment

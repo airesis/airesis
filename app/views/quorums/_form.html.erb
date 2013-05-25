@@ -50,8 +50,8 @@ $(function() {
 	$("#new_quorum").validate();
 	$('.advanced').hide();
     <%if can? :show_tooltips, nil%>
-        $('#name_title').ctooltip("<%=t('activerecord.attributes.quorum.name_title')%>");
-        $('#description_title').ctooltip("<%=t('activerecord.attributes.quorum.description_title')%>");
+        $('#name_title').qtip({content:"<%=t('activerecord.attributes.quorum.name_title')%>"});
+        $('#description_title').qtip({content:"<%=t('activerecord.attributes.quorum.description_title')%>"});
     <%end%>
 	$(".partecipants").spinner({
 		incremental: true,
