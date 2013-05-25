@@ -313,7 +313,7 @@ class User < ActiveRecord::Base
   end
 
   def moderator?
-    self.user_type.short_name == 'mod'
+    self.user_type.short_name == 'mod' || admin?
   end
 
   #restituisce la richiesta di partecipazione 

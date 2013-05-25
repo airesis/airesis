@@ -1,25 +1,25 @@
 <div class="mybox" id="setting_menu">
-  <h4><%= 'Impostazioni e preferenze' %></h4>
+  <h4><%= t('pages.users.left_panel.title') %></h4>
 
   <div class="mycont">
     <div class="menu_voice">
       <span class="Mo ui-icon ui-icon-gear"></span>
-      <%= link_to 'Informazioni generali', user_url(current_user), class: 'Mo' %>
+      <%= link_to t('pages.users.left_panel.general_info'), user_url(current_user), class: 'Mo' %>
       <div style="clear:both"></div>
     </div>
     <div class="menu_voice">
       <span class="Mo ui-icon ui-icon-alert"></span>
-      <%= link_to 'Allarmi e notifiche', alarm_preferences_users_url, class: 'Mo' %>
+      <%= link_to t('pages.users.left_panel.alarm_and_notifications'), alarm_preferences_users_url, class: 'Mo' %>
       <div style="clear:both"></div>
     </div>
     <div class="menu_voice">
       <span class="Mo ui-icon ui-icon-scissors"></span>
-      <%= link_to 'Confini di interesse', border_preferences_users_url, class: 'Mo' %>
+      <%= link_to t('pages.users.left_panel.geographic_borders'), border_preferences_users_url, class: 'Mo' %>
       <div style="clear:both"></div>
     </div>
     <div class="menu_voice">
       <span class="Mo ui-icon ui-icon-key"></span>
-      <%= link_to 'Account e privacy', privacy_preferences_users_url, class: 'Mo' %>
+      <%= link_to t('pages.users.left_panel.account_and_privacy'), privacy_preferences_users_url, class: 'Mo' %>
       <div style="clear:both"></div>
     </div>
   </div>

@@ -9,10 +9,6 @@ class UsersController < ApplicationController
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :update_image, :edit, :show_message, :send_message]
 
-  def blank
-    render :text => "Not Found", :status => 404
-  end
-
   def confirm_credentials
     @user = User.new_with_session(nil, session)
     @orig = User.find_by_email(@user.email)
@@ -36,18 +32,18 @@ class UsersController < ApplicationController
                                                                            #aggiungi il provider
         User.transaction do
           auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token => (data['credentials']['token'] rescue nil))
-          auth.save
+          auth.save!
         end
         #fine dell'unione
-        flash[:info] = 'Account uniti correttamente!'
+        flash[:info] = t('controllers.users.join_accounts.ok_message')
         sign_in_and_redirect auth, :event => :authentication
       else
-        flash[:error] = 'Password errata'
+        flash[:error] = t('controllers.users.join_accounts.wrong_password')
         redirect_to confirm_credentials_users_url
       end
     end
   rescue Exception => e
-    flash[:error] = "Errore durante lunione dei due account. L'operazione non è possibile al momento."
+    flash[:error] = t('controllers.users.ko_message')
     redirect_to confirm_credentials_users_url
   end
 
@@ -64,7 +60,7 @@ class UsersController < ApplicationController
 
   def show
     respond_to do |format|
-      flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
+      flash.now[:notice] = t('controllers.users.show.clic_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end
@@ -74,7 +70,7 @@ class UsersController < ApplicationController
   def alarm_preferences
     @user = current_user
     respond_to do |format|
-      flash.now[:notice] = "Fai clic sulle informazioni che desideri modificare." if (current_user == @user)
+      flash.now[:notice] = t('controllers.users.show.clic_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end
@@ -92,11 +88,9 @@ class UsersController < ApplicationController
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
     current_user.save
-    if params[:active] == 'true'
-      flash[:notice] = "Tooltip abilitati"
-    else
-      flash[:notice] = "Tooltip disabilitati"
-    end
+    params[:active] == 'true' ?
+        flash[:notice] = t('controllers.users.tooltips.enabled') :
+        flash[:notice] = t('controllers.users.tooltips.disabled')
 
     respond_to do |format|
       format.js { render :update do |page|
@@ -107,7 +101,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('controllers.users.tooltips.ko_message')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -118,11 +112,9 @@ class UsersController < ApplicationController
   def change_show_urls
     current_user.show_urls = params[:active]
     current_user.save
-    if params[:active] == 'true'
-      flash[:notice] = "URL mostrati"
-    else
-      flash[:notice] = "URL nascosti"
-    end
+    params[:active] == 'true' ?
+        flash[:notice] = t('controllers.users.urls.shown') :
+        flash[:notice] = t('controllers.users.urls.hidden')
 
     respond_to do |format|
       format.js { render :update do |page|
@@ -133,7 +125,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('controllers.users.tooltips.ko_message')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -159,7 +151,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('controllers.users.tooltips.ko_message')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -175,7 +167,7 @@ class UsersController < ApplicationController
       border.destroy
     end
     update_borders(borders)
-    flash[:notice] = "Confini di interesse aggiornati correttamente"
+    flash[:notice] = t('controllers.users.interest_borders.ok_message')
     AffinityHelper.calculate_group_affinity(current_user, Group.all)
     redirect_to :back
   end
@@ -210,7 +202,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         flash[:notice] = t(:user_updated)
         if params[:user][:email] && @user.email != params[:user][:email]
-          flash[:notice] += " Devi confermare il nuovo indirizzo email."
+          flash[:notice] += t('controllers.users.update.confirm_email')
         end
         format.js do
           render :update do |page|
@@ -281,9 +273,8 @@ class UsersController < ApplicationController
       fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(border)
 
-      if (found) #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+      if found #if I found something so the ID is correct and I can proceed with geographic border creation
         interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
-        puts "New Record!" if (interest_b.new_record?)
         i = current_user.user_borders.build({:interest_border_id => interest_b.id})
         i.save
       end

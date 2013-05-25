@@ -1,15 +1,15 @@
-<h1>Modifica blog</h1>
+<h1><%= t('pages.blogs.edit.title') %></h1>
 
 <%= form_for(@blog) do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => @blog} %>
 
   <p>
-    <%= f.label 'Titolo del blog' %><br />
+    <%= f.label t('pages.blogs.edit.title_label') %><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.submit 'Aggiorna', :class => 'buttonStyle' %>
+    <%= link_to t('pages.blogs.edit.back_to_blog'), @blog, class: 'btn backButton' %>
+    <%= f.button t('buttons.update'), :class => 'btn blue updateButton' %>
   </p>
 <% end %>
 
-<%= link_to 'Torna al blog', @blog %>

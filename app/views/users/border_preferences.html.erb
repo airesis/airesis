@@ -5,9 +5,9 @@
 	</div>
 	<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
 	<%= image_tag 'ajax-loader.gif'%><br />
-	<b>Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti.</b>
+	<b><%= t('pages.users.border_preferences.updating') %></b>
 	</div>
- <%= f.submit t('buttons.save'), :id => "submit_borders", :class=> 'btn blue' %>
+ <%= f.button t('buttons.save'), :id => "submit_borders", :class=> 'btn blue saveButton' %>
 <%end%>
 <script type="text/javascript">
 	$(function() {

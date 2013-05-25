@@ -8,11 +8,6 @@ class Ability
     #user ||= User.new # guest user (not logged in)
     if !user
       can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
-    elsif user.admin?
-      can :manage, :all
-      can :vote, Proposal do |proposal|
-        can_vote_proposal?(user, proposal)
-      end
     else
       #TODO correggere quando più gruppi condivideranno le proposte
       can :read, Proposal do |proposal|
@@ -30,6 +25,9 @@ class Ability
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
             !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0))
+      end
+      can :destroy, ProposalComment do |comment| #you can destroy a contribute only if it's yours and it has been posted less than 5 minutes ago
+        (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)
       end
       can :close_debate, Proposal do |proposal|
         can_close_debate_proposal?(user, proposal)
@@ -123,7 +121,35 @@ class Ability
             user == group_partecipation.user
       end
 
+
+      if user.moderator?
+        can :destroy, ProposalComment do |comment|
+          comment.grave_reports_count > 0
+        end
+      end
+
+      if user.admin?
+        can :close_debate, Proposal do |proposal|  #can close debate of a proposal
+          proposal.in_valutation?
+        end
+        can :send_message, User # can send messages to every user although they denied it
+        can :read, Proposal # can see all the proposals
+        can :update, Proposal #can edit them
+        can :partecipate, Proposal #can partecipate
+        can :destroy, Proposal #can destroy one
+        can :destroy, ProposalComment
+        #cannot :show_tooltips
+       #can :vote, Proposal do |proposal|
+       #  can_vote_proposal?(user, proposal)
+       #end
+       #can :destroy, ProposalComment do |comment|
+       #  (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)
+       #end
+      end
+
     end
+
+
 
     def can_do_on_group?(user, group, action)
       user.groups.where("partecipation_role_id = 2")

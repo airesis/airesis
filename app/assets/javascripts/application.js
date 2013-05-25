@@ -28,7 +28,6 @@
 //= require simplemodal
 //= require jquery.watermark.min
 //= require jquery.elastic
-//= require jquery.ctooltip
 //= require jquery.gbutton
 //= require prettydiff/diffview
 //= require simplemodal

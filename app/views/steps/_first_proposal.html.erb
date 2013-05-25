@@ -12,5 +12,5 @@ La tua proposta verrà inserita nello <%=link_to 'spazio comune', proposals_path
 
 </div>
 </div> 
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
+<%= link_to t('pages.steps.next'), complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
 <div style="clear: both"></div>

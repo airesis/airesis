@@ -7,15 +7,15 @@
 <%= render :partial => 'groups/roles_panel' %>
 </div>
 <br/>
-<a href="#" class="btn blue newButton disable" id="addRole"><%= 'Aggiungi un nuovo ruolo' %></a>
+<a href="#" class="btn blue newButton disable" id="addRole"><%= t('pages.groups.edit_permissions.new_role') %></a>
 
-<div id="edit_role" title="Modifica ruolo" style="display: none;">
+<div id="edit_role" title="<%= t('pages.groups.edit_permissions.edit_role_title')%>" style="display: none;">
 
 </div>
-<div id="new_role" title="Nuovo ruolo" style="display: none">
+<div id="new_role" title="<%= t('pages.groups.edit_permissions.new_role_title')%>" style="display: none">
 	<%
 	@partecipation_role = PartecipationRole.new(:group_id => @group.id)%>
-    <%= render(:partial => 'partecipation_roles/form', :locals => {:button_name => "Crea"})%>
+    <%= render(:partial => 'partecipation_roles/form', :locals => {:button_name => t('buttons.create')})%>
 </div>
 
 <hr />

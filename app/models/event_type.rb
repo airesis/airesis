@@ -1,5 +1,6 @@
 class EventType < ActiveRecord::Base
-  
+  translates :description
+
   INCONTRO = 1
   VOTAZIONE = 2
   RIUNIONE = 3

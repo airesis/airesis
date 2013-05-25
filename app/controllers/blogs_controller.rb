@@ -11,13 +11,13 @@ class BlogsController < ApplicationController
    def check_author
     @blog = Blog.find(params[:id])
     if !(current_user.is_my_blog? @blog.id) && !is_admin?
-      flash[:notice] = 'Non puoi modificare un blog che non ti appartiene.'
+      flash[:notice] = t('controllers.blogs.cant_edit')
       redirect_to :back
     end
    end
   
   def index
-    @page_title = "Elenco blog"
+    @page_title = t('controllers.blogs.index.title')
     @blogs = Blog.all
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class BlogsController < ApplicationController
   # GET /blogs/new.xml
   def new
     if current_user.blog
-      flash[:error] = "Spiacente. Disponi già di un blog."
+      flash[:error] = t('controllers.blogs.new.already_one')
       redirect_to root_path
     else
       @user = current_user
@@ -73,7 +73,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.save
-        flash[:notice] = 'Hai creato il tuo blog!.'
+        flash[:notice] = t('controllers.blogs.create.ok_message')
         format.html {
           if session[:blog_return_to]
             redirect_to session[:blog_return_to]
@@ -96,7 +96,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
-        flash[:notice] = 'Il titolo del Blog è stato aggiornato correttamente'
+        flash[:notice] = t('controllers.blogs.update.ok_message')
         format.html { redirect_to(@blog) }
         format.xml  { head :ok }
       else

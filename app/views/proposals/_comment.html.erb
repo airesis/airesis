@@ -25,7 +25,7 @@
             <%= t('buttons.report')%>
           </div>
 
-          <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
+          <% if can? :destroy, comment %>
               <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
                           :method => :delete,
                           :onclick => "return false;",
