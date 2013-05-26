@@ -12,6 +12,6 @@ L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizz
 <%end%>
 Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su <b>Modifica l'immagine</b>.
 <div style="clear: both"></div>
-<%= link_to 'Prosegui', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
+<%= link_to t('pages.steps.next'), complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
 <div style="clear: both"></div>
 </div> 

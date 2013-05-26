@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, :through => :user_borders, :class_name => 'InterestBorder'
 
-  has_many :user_alerts, :class_name => 'UserAlert', :order => 'created_at DESC'
+  has_many :user_alerts, :class_name => 'UserAlert', :order => 'user_alerts.created_at DESC'
   has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
   has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
 
@@ -313,7 +313,7 @@ class User < ActiveRecord::Base
   end
 
   def moderator?
-    self.user_type.short_name == 'mod'
+    self.user_type.short_name == 'mod' || admin?
   end
 
   #restituisce la richiesta di partecipazione 

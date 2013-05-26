@@ -4,7 +4,7 @@
 <%else%>
 <%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id}, :remote => true, :id => "vote"+action, :class=>"vote"+action %>
 <%end%>
-<span class="vote_description"><%= action == 'up' ? 'Pronta per la votazione' : 'Continua la discussione' %></span>
+<span class="vote_description"><%= action == 'up' ? t('proposals.show.ready_for_vote') : t('proposals.show.keep_discuss') %></span>
 <div class="clearboth"></div>
 </div>
 <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loading'+action %>

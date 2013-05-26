@@ -1,5 +1,5 @@
 class GroupAction < ActiveRecord::Base
-
+  translates :description
   #inserire post nello stream del gruppo
   STREAM_POST = 1
 

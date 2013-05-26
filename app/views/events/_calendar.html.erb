@@ -53,27 +53,27 @@
                     height: 600,
                     aspectRatio: 1,
                     slotMinutes: 15,
-                    firstDay: 1,
-                    monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-                    monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
-                    dayNames: ['Domenica','Luned&#236','Marted&#236','Mercoled&#236','Gioved&#236','Venerd&#236','Sabato'],
-                    dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+                    firstDay: <%=t('calendar.firstDay')%>,
+                    monthNames: <%=t('calendar.monthNames')%>,
+                    monthNamesShort: <%=t('calendar.monthNamesShort')%>,
+                    dayNames: <%=t('calendar.dayNames')%>,
+                    dayNamesShort: <%=t('calendar.dayNamesShort')%>,
                     buttonText: {
                         prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
                         next: "<span class='fc-text-arrow'>&rsaquo;</span>",
                         prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
                         nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-                        today: 'oggi',
-                        month: 'mese',
-                        week: 'settimana',
-                        day: 'giorno'
+                        today: '<%=t('calendar.today')%>',
+                        month: '<%=t('calendar.month')%>',
+                        week: '<%=t('calendar.week')%>',
+                        day: '<%=t('calendar.day')%>'
                     },
                     <%if @group %>
                     events: '<%=list_events_url(:group_id => @group)%>',
                     <%else%>
                     events: '<%=list_events_url%>',
                     <%end%>
-                    timeFormat: 'H:mm{ - H:mm} ',
+                    timeFormat: '<%=t('calendar.timeFormat')%>',
                     dragOpacity: "0.5",
                     eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                         moveEvent(event, dayDelta, minuteDelta, allDay);

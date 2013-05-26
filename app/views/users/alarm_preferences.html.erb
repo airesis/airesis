@@ -74,13 +74,13 @@
          checked="true"
          <% end %>
          onclick="return change_email_block(this);"/>
-  <b>Ricevi notifiche e newsletter su <%= current_user.email %></b>
+  <b><%= t('pages.users.alarm_preferences.receive_on_address', email: current_user.email) %></b>
 
   <% blocked = @current_user.blocked_notifications.all
      blocked_emails = @current_user.blocked_email_notifications.all %>
 
 <table>
-  <% NotificationCategory.includes(:notification_types).order(:seq).each do |category| %>
+  <% NotificationCategory.includes(:translations, {:notification_types => :translations}).order(:seq).each do |category| %>
       <tr>
         <td>
           <%= image_tag "notification_categories/#{category.short.downcase}.png" %>
@@ -89,10 +89,10 @@
           <h4><%= category.description %></h4>
         </td>
         <td>
-          Ricevi notifica
+          <%= t('pages.users.alarm_preferences.alerts') %>
         </td>
         <td>
-          Ricevi email
+          <%= t('pages.users.alarm_preferences.emails') %>
         </td>
       </tr>
       <% category.notification_types.where('id not in (8,15)').each do |type| %>

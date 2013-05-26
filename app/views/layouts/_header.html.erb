@@ -256,14 +256,14 @@
         <% if is_admin? %>
 
             <li>
-              <span class="Mo ui-icon ui-icon-key"></span>
               <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
             </li>
+            <div class="sep"></div>
 
             <%= form_tag "/admin/become/" do %>
-                <%= label_tag t('pages.header.menu.become_user') %>
-                <%= text_field_tag 'user_id' %>
-                <%= submit_tag t('pages.header.menu.become_user_button') %>
+                <%= label_tag t('pages.header.menu.become_user') %><br/>
+                <%= text_field_tag 'user_id' %> <br/>
+                <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
             <% end %>
 
         <% end %>
@@ -400,7 +400,7 @@
                         sub_container.append(alert_container);
                     }
                     if (obj.alerts.length == 0) {
-                        sub_container.append($('<span>Nessuna notifica</span>'));
+                        sub_container.append($('<span><%=t('pages.header.no_alerts')%></span>'));
                     }
                     $('body').append(n_container);
                 }

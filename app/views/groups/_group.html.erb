@@ -54,10 +54,13 @@
 
         <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title')%>" style="display:none;">
           <%= t('pages.groups.new.change_permissions_description') %><br/>
-          <% GroupAction.all.each do |action| %>
+          <% GroupAction.includes(:translations).all.each do |action| %>
               <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
               <br/>
           <% end %>
+
+          <a href="#" onclick="return default_action();" class="btn">Default</a>
+          <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
         </div>
     <% else %>
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
@@ -97,21 +100,23 @@
                     height: 'auto',
                     modal: true,
                     resizable: false,
-                    buttons: {
-                        "Ok": function () {
-                            $(this).dialog("close");
-                        },
-                        "Default": function () {
-                            $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
-                            <%@group.default_role_actions.each do |id|%>
-                            $('#group_default_role_actions_<%=id%>').attr('checked', true);
-                            <%end%>
-                        }
-                    },
                     beforeClose: function () {
                         $('#permessi').closest('.ui-dialog').detach().appendTo('#new_group');
                     }
                 });
+    }
+
+    function ok_action() {
+        $('#permessi').dialog("close");
+        return false;
+    }
+
+    function default_action() {
+        $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
+        <%@group.default_role_actions.each do |id|%>
+        $('#group_default_role_actions_<%=id%>').attr('checked', true);
+        <%end%>
+        return false;
     }
     <%end%>
 </script>

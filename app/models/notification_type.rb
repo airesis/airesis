@@ -1,4 +1,6 @@
 class NotificationType < ActiveRecord::Base
+  translates :description, :email_subject
+
   belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :notifications, :class_name => 'Notification'

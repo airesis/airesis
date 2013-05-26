@@ -5,6 +5,7 @@ class ProposalHistoriesController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
 
+  layout :choose_layout
 ###SICUREZZA###
 
 #l'utente deve aver fatto login
@@ -26,6 +27,11 @@ class ProposalHistoriesController < ApplicationController
 
   def load_proposal
     @proposal = Proposal.find(params[:proposal_id])
+    @group = @proposal.presentation_groups.first if @proposal.private
+  end
+
+  def choose_layout
+    @proposal.private ? "groups" : "open_space"
   end
 
 end

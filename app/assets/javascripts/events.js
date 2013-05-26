@@ -27,17 +27,17 @@ function goEventPage(event){
 
 function showEventDetails(event){
     $('#event_desc').html(event.description);    
-    $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ",this)' class='buttonStyle disableButton'>Modifica</a>");
-	$('#edit_event').append("<a href = '/events/"+event.id+"' class='buttonStyle'>Vai alla pagina</a>");
+    $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ",this)' class='btn disable'>Modifica</a>");
+	$('#edit_event').append("<a href = '/events/"+event.id+"' class='btn'>Vai alla pagina</a>");
     if (event.recurring) {
         title = event.title + " (Ricorrente)";
-        $('#delete_event').html("&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='buttonStyle'>Cancella solo questa occorrenza</a>");
-        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + true + ")' class='buttonStyle'>Cancella tutte le occorrenze</a>")
-        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", \"future\")' class='buttonStyle'>Cancella tutte le occorrenze future</a>")
+        $('#delete_event').html("&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='btn'>Cancella solo questa occorrenza</a>");
+        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + true + ")' class='btn'>Cancella tutte le occorrenze</a>")
+        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", \"future\")' class='btn'>Cancella tutte le occorrenze future</a>")
     }
     else {
         title = event.title;
-        $('#delete_event').html("<a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='buttonStyle'>Cancella</a>");
+        $('#delete_event').html("<a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='btn'>Cancella</a>");
     }
     $('#desc_dialog').dialog({
         title: title,

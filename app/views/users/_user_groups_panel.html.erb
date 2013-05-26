@@ -4,7 +4,7 @@
 <div class="mycont">
 		<%@groups = current_user.groups %>
         <%if @groups.empty?%>
-            <%=raw t('pages.groups.index.no_groups_yet',{name: (link_to "gruppo", groups_path)})%>
+            <%=raw t('pages.groups.index.no_groups_yet',{name: (link_to t('group'), groups_path)})%>
 	    <%end%>
 		<%@groups.each do |group|%>
 			<div class="groupcontainer">

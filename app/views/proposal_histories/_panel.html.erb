@@ -1,69 +1,7 @@
 <div title="History della proposta" id="proposal_histories" style="display: none;">
-  <div class="history">
-    <table>
-      <thead>
-      <th>Rev</th>
-      <th>Data e ora</th>
-      </thead>
-      <tbody>
-      <% @proposal.revisions.order("created_at DESC").each_with_index do |revision, i| %>
-          <tr>
-            <td><%= revision.seq %></td>
-            <td>
-              <%= l revision.created_at %>
-            </td>
-            <td><input type="radio" name="new" value="<%= revision.id %>"
-                       <% if i == 0 %>checked="checked"
-            <% end %>/></td>
-          </tr>
-      <% end %>
-      <td></td>
-      </tbody>
-    </table>
+  <%= render :partial => 'panel_menu' %>
 
-  </div>
-  <div class="diffview ice">
-    <div class="loading" style="margin:auto;text-align:center;display:none;">
-      <%= image_tag 'ajax-loader.gif' %>
-      <br/>
-      <b>Caricamento revisione...</b>
-    </div>
-    <div class="diffcontainer"></div>
-  </div>
+  <%= render :partial => 'panel_content' %>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        $("input:radio").change(executeDiff);
-        executeDiff();
-    });
 
-    function executeDiff() {
-        var newel = $("input[name='new']:checked");
-        var newval = newel.val();
-        $.ajax({
-            cache: true,
-            url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
-            method: 'get',
-            data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
-            dataType: 'script',
-            beforeSend: function (msg) {
-                console.log('bofere');
-                $('.diffview .diffcontainer').hide();
-                $('.diffview .loading').show();
-
-            },
-            success: function (msg) {
-                $('.diffview .diffcontainer').show();
-                $('.diffview .loading').hide();
-            }
-        });
-        /*newel = $("input[name='new']:checked");
-         newval = newel.val();
-         newname = newel.parent().prev().prev().html();
-         newtext = newel.parent().next().children().first().html();
-         console.log('new' + newval);
-         $('#proposal_histories .diffview').html(newtext);*/
-    }
-
-</script>

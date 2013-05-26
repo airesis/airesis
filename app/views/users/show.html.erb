@@ -17,15 +17,17 @@
 
 
 <% if @user == current_user && @user.group_partecipations.count > 0 %>
-    <%@group_partecipations = @user.group_partecipations.includes([:group,{:partecipation_role => :group_actions}, :user]) %>
+    <%@group_partecipations = @user.group_partecipations.includes([:group,:partecipation_role, :user]) %>
     <h4><%= t('pages.users.show.groups_title') %></h4>
     <table id="partecipation_table">
+
       <thead>
       <th><%= t('pages.users.show.group_column')%></th>
       <th><%= t('pages.users.show.role_column')%></th>
       <th></th>
       </thead>
       <tbody>
+
       <% @group_partecipations.each do |partecipation| %>
           <tr>
             <td><%= link_to partecipation.group.name, partecipation.group %></td>
@@ -37,7 +39,7 @@
     </table>
     <script>
         <%@group_partecipations.each do |partecipation| %>
-            $('#partecipation_<%=partecipation.id%>').ctooltip("<strong>Cosa posso fare?</strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>");
+            $('#partecipation_<%=partecipation.id%>').qtip({content:"<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.includes(:translations).order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
       <%end%>
     </script>
 <% end %>
@@ -64,7 +66,7 @@
 <% if current_user == @user %>
     <div id="name_modal" class="edit_modal  shadow-box">
       <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Nome' %></h2>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.name_label') %></h2>
 
           <div style="padding-left:135px">
             <%= f.text_field :name, :size => 20 %>
@@ -77,7 +79,7 @@
     </div>
     <div id="surname_modal" class="edit_modal shadow-box">
       <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Cognome' %></h2>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.surname_label') %></h2>
 
           <div style="padding-left:135px">
             <%= f.text_field :surname, :size => 20 %>
@@ -127,11 +129,11 @@
    -->
     <div id="password_modal" class="edit_modal shadow-box">
       <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= 'Password' %></h2>
+          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.password_label') %></h2>
 
           <div style="padding-left:135px">
-            <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;" %>
-            <%= f.text_field :password_confirmation, :type => :password, :size => 20 %>
+            <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;", placeholder: 'Nuova password' %>
+            <%= f.text_field :password_confirmation, :type => :password, :size => 20, placeholder: 'Conferma nuova password' %>
             <div style="margin-top:8px">
               <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
               <%= f.submit t('buttons.save'), class: 'btn blue' %>
@@ -140,21 +142,18 @@
       <% end %>
     </div>
 
-    <%= render :partial => 'attr_editor_modal', :locals => {:modal_id => 'email_modal', :attr_label => "Email", :attr_name => :email} %>
+    <%= render :partial => 'attr_editor_modal', :locals => {:modal_id => 'email_modal', :attr_label => t('pages.users.show.email_label'), :attr_name => :email} %>
 <% end %>
 </p>
 
 <script type="text/javascript">
     <%if current_user == @user%>
-    $('#user_password').watermark('Nuova password');
-    $('#user_password_confirmation').watermark('Conferma nuova password');
-
-    $('#partecipation_table, #votations_table').dataTable({
-        "bPaginate": false,
-        "bFilter": false,
-        "bSearchable": false,
-        "bInfo": false
-    });
+            $('#partecipation_table, #votations_table').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bSearchable": false,
+                "bInfo": false
+            });
     <%end%>
 </script>
 

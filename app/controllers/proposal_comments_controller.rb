@@ -4,32 +4,17 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :delete, :rankup, :rankdown, :ranknil, :destroy, :report]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :rankup, :rankdown, :ranknil, :destroy, :report]
 
 ###SICUREZZA###
 
 #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :only => [:edit, :update, :delete, :new, :report, :mark_noise]
+  before_filter :authenticate_user!, :only => [:edit, :update, :new, :report, :mark_noise]
   before_filter :save_post_and_authenticate_user, :only => [:create]
-  before_filter :check_author, :only => [:edit, :update, :delete]
+  before_filter :check_author, :only => [:edit, :update]
   before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
 
-  #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
-  def check_author
-    @proposal_comment = ProposalComment.find(params[:id])
-    if !current_user.is_mine? @proposal_comment
-      flash[:notice] = t('controllers.proposal_comments.cant_edit')
-      redirect_to :back
-    end
-  end
 
-  def load_proposal
-    @proposal = Proposal.find(params[:proposal_id])
-  end
-
-  def load_proposal_comment
-    @proposal_comment = @proposal.comments.find(params[:id])
-  end
 
 
   #restituisce l'elenco dei contributi
@@ -166,6 +151,8 @@ class ProposalCommentsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @proposal_comment
+
     @proposal_comment.destroy
 
     respond_to do |format|
@@ -243,8 +230,25 @@ class ProposalCommentsController < ApplicationController
 
   protected
 
+  #questo metodo permette di verificare che l'utente collegato sia l'autore del commento
+  def check_author
+    @proposal_comment = ProposalComment.find(params[:id])
+    unless current_user.is_mine? @proposal_comment
+      flash[:notice] = t('controllers.proposal_comments.cant_edit')
+      redirect_to :back
+    end
+  end
+
+  def load_proposal
+    @proposal = Proposal.find(params[:proposal_id])
+  end
+
+  def load_proposal_comment
+    @proposal_comment = @proposal.comments.find(params[:id])
+  end
+
   def save_post_and_authenticate_user
-    if (!current_user)
+    unless current_user
       session[:proposal_comment] = params[:proposal_comment]
       session[:proposal_id] = params[:proposal_id]
       flash[:info] = t('login_to_post_contribute')
