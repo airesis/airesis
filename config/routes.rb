@@ -285,6 +285,7 @@ Airesis::Application.routes.draw do
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'
   match '/roadmap' => 'home#roadmap'
+  match '/bugtracking' => 'home#bugtracking'
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
   match '/sostienici' => 'home#helpus'

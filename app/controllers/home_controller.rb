@@ -9,10 +9,13 @@
 
 class HomeController < ApplicationController
   include StepHelper
+
   layout :choose_layout
 
   #l'utente deve aver fatto login
   before_filter :authenticate_user!, :only => [:show]
+
+  before_filter :initialize_roadmap, :only => [:bugtracking]
 
   def index
     redirect_to home_url if current_user
@@ -28,6 +31,13 @@ class HomeController < ApplicationController
   end
 
   def roadmap
+  end
+
+  def bugtracking
+    @versions = @roadmap.versions
+    respond_to do |format|
+      format.json { render :json => @versions.to_json }
+    end
   end
 
   def whowe
@@ -77,6 +87,11 @@ class HomeController < ApplicationController
   end
 
   private
+  def initialize_roadmap
+    @roadmap ||= Roadmap.new(BUGTRACKING_USERNAME,BUGTRACKING_PASSWORD)
+  end
+
+  private
 
   def choose_layout
     if ['show'].include? action_name
@@ -87,4 +102,9 @@ class HomeController < ApplicationController
       nil
     end
   end
+
+
+
+
+
 end

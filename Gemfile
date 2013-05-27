@@ -132,3 +132,5 @@ gem 'globalize3'
 gem 'sanitize'
 
 gem 'wicked_pdf'
+
+gem 'httparty'
