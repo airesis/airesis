@@ -1,7 +1,9 @@
 class Roadmap
   include HTTParty
 
-  base_uri 'bugtracking.alwaysdata.net'
+  base_uri BUGTRACKING_URL
+
+
 
   def initialize(u, p)
     @auth = {:username => u, :password => p}
@@ -9,5 +11,9 @@ class Roadmap
 
   def versions
     self.class.get("/projects/airesis/versions.xml")
+  end
+
+  def issues
+    self.class.get("/projects/airesis/issues.xml")
   end
 end

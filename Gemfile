@@ -134,3 +134,5 @@ gem 'sanitize'
 gem 'wicked_pdf'
 
 gem 'httparty'
+
+gem 'icalendar'
