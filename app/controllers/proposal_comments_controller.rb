@@ -17,28 +17,33 @@ class ProposalCommentsController < ApplicationController
 
 
 
-  #restituisce l'elenco dei contributi
+  #retrieve contributes list
   def index
     order = ""
     conditions = " 1 = 1 "
     if params[:view] == ORDER_RANDOM
+      #remove already shown contributes
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
       left = COMMENTS_PER_PAGE
       tmp_comments = []
-      #estrai i contributi con notifiche
+      #retrieve contributes with alerts TODO
+      #alerted = UserAlert.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and user_alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
+      #unread_cond = conditions + " AND proposal_comments.id in "
+      #tmp_comments += @proposal.contributes.listable.all(:conditions => unread_cond).map { |c| c.id }
+
       if left > 0
-        #estrai id di quelli già valutati
+        #extract evaluated ids
         valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
         valuated_ids = @proposal.contributes.listable.all(:joins => :rankings, :select => 'distinct(proposal_comments.id)', :conditions => valuated_cond).map { |c| c.id }
 
-        #estrai i contributi non valutati
+        #extract not evaluated contributes
         non_valuated_cond = conditions
         non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
         tmp_comments += @proposal.contributes.listable.all(:conditions => non_valuated_cond, :order => " random()", :limit => left)
         left -= tmp_comments.size
 
         if left > 0 && !valuated_ids.empty?
-          #estrai quelli già valutati
+          #extract the evaluated ones
           valuated_cond = conditions
           valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
           tmp_comments += @proposal.contributes.listable.all(:conditions => valuated_cond, :order => " rank desc", :limit => left)

@@ -116,6 +116,7 @@ GEM
     httpauth (0.2.0)
     httpclient (2.3.2)
     i18n (0.6.1)
+    icalendar (1.4.0)
     image_size (1.1.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
@@ -324,6 +325,7 @@ DEPENDENCIES
   foreigner
   globalize3
   httparty
+  icalendar
   jquery-rails (= 2.1.4)
   jquery-rjs!
   maktoub!

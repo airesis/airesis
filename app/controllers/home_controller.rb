@@ -35,8 +35,9 @@ class HomeController < ApplicationController
 
   def bugtracking
     @versions = @roadmap.versions
+    @issues = @roadmap.issues
     respond_to do |format|
-      format.json { render :json => @versions.to_json }
+      format.json { render :json => "{\"data\":[#{@versions.to_json},#{@issues.to_json}]}" }
     end
   end
 

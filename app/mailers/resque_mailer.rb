@@ -5,7 +5,7 @@ class ResqueMailer < ActionMailer::Base
 
   layout 'maktoub/newsletter_mailer'
 
-
+  #specific templates for notification types
   TEMPLATES = { 5 => 'new_contribute', 1 => 'new_contribute'}
   
   def notification(alert_id)

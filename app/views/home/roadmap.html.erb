@@ -1,11 +1,6 @@
 <% @page_title = "Road Map e futuri sviluppi "%>
 <% @page_descr = "Il nostro percorso per realizzare un nuovo software, una idea nata con internet capace di far evolvere la democrazia. "%>
 
-<div id="loading_roadmap" style="margin:auto;text-align:center;">
-  <%= image_tag 'ajax-loader.gif'%><br />
-  <b><%= t('loading_roadmap') %></b>
-</div>
-
 <h2  id="strumento">Destinazione: la democrazia diretta</h2>
 <p>Airesis nasce dall'incontro di due progetti avviati oltre due anni fa a seguito della necessit&agrave; di usufruire di uno strumento informatico che potesse integrare le funzioni principali di social network, gestione di eventi e sistema deliberativo di massa.</p>
 <p>A Marzo 2012, durante l'incontro "Cittadini a cinque stelle" organizzato a Rimini, Rodi Alessandro con il progetto Airesis entra in contatto con Nicola Giulietti ed il progetto Agora 2.0: da una parte c'era un buon software, mentre dall'altra un'ottima analisi delle caratteristiche avrebbe dovuto avere un portale per la democrazia partecipata.</p>
@@ -16,63 +11,49 @@
 	Siamo riusciti a tracciare un percorso che ci porterà a terminare la fase Alfa di Airesis entro gennaio 2013. 
 	Successivamente saranno previste ulteriori release del software a cadenza mensile o bimestrale per soddisfare le richieste e le esigenze degli utenti, 
 	nell'ottica del miglioramento continuo.</p>
-<p><strong>Gennaio 2013</strong> - termine della fase Alfa del progetto e uscita di una nuova versione del software con nuove funzioni, tra cui:</p>
-<ul>
-  <li>Log delle operazioni degli amministratori</li>
-  <li>Possibilit&agrave; di invitare alla discussione di una proposta i propri contatti facebook, google mail o su altri social network</li>
-  <li>Url significativi per le pagine</li>
-  <li>Miglioramento e ampliamento dei metodi di votazione delle proposte</li>
-</ul>
-<p><strong>Novembre 2012</strong> - Uscita di una nuova versione del software rivista e con nuove funzioni, tra cui:</p>
-<ul>
-  <li>Miglioramento della scrivania dell'utente e del profilo utente</li>
-  <li>Gestione di competenze nei gruppi</li>
-</ul>
-<p><strong>Ottobre 2012</strong> - Uscita di una nuova versione del software rivista e con nuove funzioni, tra cui:</p>
-<ul>
-  <li>Connessione tramite HTTPS</li>
-  <li>Miglioramento della struttura e della grafica della pagina di elaborazione delle proposte</li>
-  <li>Maggiore integrazione con i social network</li>
-</ul>
-<p><strong>Fine settembre 2012</strong> - Inizia la fase di sperimentazione della nuova versione del software da parte di alcuni gruppi. Tutti coloro che lo desiderano possono testare il software all'indirizzo <a href="http://www.airesis.it/">http://www.airesis.it/</a> , segnalare bug e suggerire miglioramenti al sistema.</p>
-<p><strong>Settembre 2012</strong> - La struttura di Airesis viene rivoluzionata dall'introduzione di uno spazio per le proposte e di un calendario all'interno dei gruppi. Miglioramento dello strumento di forum (con la possibilit&agrave; di gestire anche dibattiti anonimi), miglioramento della grafica, correzione di alcuni bug.</p>
-<p><strong>Luglio 2012</strong> - Fusione del progetto Agor&agrave; 2.0 e del progetto Airesis</p>
-<p><strong>Giugno 2012</strong> - Esce una versione di Airesis in parte ispirata alle logiche di Agor&agrave; 2.0</p>
-<p><strong>Febbraio 2012</strong> - Il progetto Agor&agrave; 2.0 ed Airesis entrano in contatto</p>
-<p><strong>Gennaio 2012</strong> - Una primissima versione della piattaforma Airesis viene messa on line, nel progetto Agor&agrave; 2.0 si assiste al completamento dei principali mockup ad opera del gruppo grafica e alla messa a punto della piattaforma di sviluppo.</p>
-<p><strong>Autunno 2011</strong> - Costituzione di un gruppo di lavoro dedicato allo studio dell'interfaccia grafica e di un gruppo di lavoro per la programmazione di Agor&agrave; 2.0.</p>
-<p><strong>Estate 2011</strong> -  Completamento dello studio delle logiche di Agor&agrave; 2.0 e degli aspetti grafici pi&ugrave; rilevanti e definizione dei casi d'uso (una sintesi &egrave; presentata qui <a href="http://agora20.altervista.org/%20Informativa_Agora2punto0.pdf" target="_blank">http://agora20.altervista.org/ Informativa_Agora2punto0.pdf</a> e qui <a href="http://www.slideshare.net/%20agora20/progettoagor2punto0" target="_blank">http://www.slideshare.net/ agora20/progettoagor2punto0</a> ). Intanto, Alessandro Rodi, ancora non in contatto con il progetto Agor&agrave; 2.0, avvia indipendentemente la programmazione di Airesis, un portale per l'e-democarcy.</p>
-<p><strong>Autunno 2010</strong>- Avvio dello studio delle logiche di Agor&agrave; 2.0</p>
-<p><strong>Estate 2010</strong> - Avvio dello studio delle esperienze di e-democracy presenti nel mondo ed attivazione di relazioni con alcune di esse (a partire da quelle italiane)</p>
-<p><strong>Primavera 2010</strong> - Avvio, nell'ambito del progetto Agor&agrave; 2.0, del dibattito su un nuovo strumento di e-democracy open source adatto a gestire anche l'elaborazione di proposte nell'ambito di un gruppo</p>
-<p><br>
-</p>
 
-Potete accedere alla roadMap di sviluppo del software al seguente indirizzo:
-<a href="https://docs.google.com/document/pub?id=1We5-ibD9FlwHq5YU64j0J6pFySCQiFWD4OXlT2rQTaA">RoadMap ufficale</a>
-
+<div id="loading_roadmap" style="margin:auto;text-align:center;">
+  <%= image_tag 'ajax-loader.gif'%><br />
+  <b><%= t('loading_roadmap') %></b>
+</div>
 
 <script type=text/javascript>
     $.ajax({
         url: '<%=bugtracking_path%>',
         format: 'json',
-        success: function(data) {
-            console.log(data.versions);
-            console.log(data.versions.map(function(v,i) {
-                return v.id;
-            }));
-            data.versions = data.versions.sort(function(a,b) {
-                return parseInt(a.id) > parseInt(b.id);
+        success: function(resp) {
+            var versions = resp.data[0].versions;
+            var issues = resp.data[1].issues;
+
+            versions = versions.sort(function(a,b) {
+                var date_a = $.datepicker.parseDate('yy-mm-dd', a.due_date);
+                var date_b = $.datepicker.parseDate('yy-mm-dd', b.due_date);
+                return date_a > date_b ? -1 : (date_a < date_b ? 1 : 0);
             });
-            console.log(data.versions.map(function(v,i) {
-                return v.id;
-            }));
+
             var container_ = $('<div id="roadmap_container"></div>');
-            for (var i = 0; i < data.versions.length; i++) {
-                var version = data.versions[i];
+
+            var containers = {};
+            for (var i = 0; i < versions.length; i++) {
+                var version = versions[i];
                 var vcontainer_ = $('<div></div>');
                 vcontainer_.append($('<h3>'+version.name+'</h3>'));
                 container_.append(vcontainer_);
+                var issuecontainer_ = $('<ul></ul>');
+                container_.append(issuecontainer_);
+                containers[version.id] = issuecontainer_;
+            }
+
+            for (var i = 0; i < issues.length; i++) {
+                var issue = issues[i];
+                if (issue.fixed_version != null) {
+                    var vcontainer_ = containers[issue.fixed_version.id];
+                    var icontainer_ = $('<li><a href="http://<%=BUGTRACKING_URL%>/issues/'+issue.id+'" target="_blank">'+issue.subject+'</a></li>');
+                    vcontainer_.append(icontainer_);
+                }
+
+                //vcontainer_.append($('<h3>'+version.name+'</h3>'));
+                //container_.append(vcontainer_);
             }
 
             $('#loading_roadmap').before(container_);

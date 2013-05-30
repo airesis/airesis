@@ -9,12 +9,38 @@ class EventsController < ApplicationController
   before_filter :load_group, :only => [:index, :list]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
   before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit,:update]
-  
+
+  def index
+    @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
+    @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
+    respond_to do |format|
+      format.html
+      format.ics do
+        @events = @group ?
+          @group.events.all :
+          @events = Event.all(:conditions => ["private = false"])
+        calendar = Icalendar::Calendar.new
+        @events.each do |event|
+          calendar.add_event(event.to_ics)
+        end
+        calendar.publish
+        render :text => calendar.to_ical
+      end
+    end
+  end
+
+
   def show
     @page_title = @event.title
     respond_to do |format|
       format.js
       format.html
+      format.ics do
+        calendar = Icalendar::Calendar.new
+        calendar.add_event(@event.to_ics)
+        calendar.publish
+        render :text => calendar.to_ical
+      end
     end
   end
   
@@ -107,10 +133,7 @@ class EventsController < ApplicationController
       end
   end
    
-  def index    
-    @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title') 
-    @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
-  end
+
   
   
   def list
@@ -119,14 +142,14 @@ class EventsController < ApplicationController
     else
     @events = Event.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}' and private = false"] )
     end
-    events = [] 
+    events = []
     @events.each do |event|
-      events << {:id => event.id, 
-                 :title => event.title, 
-                 :description => event.description || "Some cool description here...", 
-                 :start => "#{event.starttime.iso8601}", 
-                 :end => "#{event.endtime.iso8601}", 
-                 :allDay => event.all_day, 
+      events << {:id => event.id,
+                 :title => event.title,
+                 :description => event.description || "Some cool description here...",
+                 :start => "#{event.starttime.iso8601}",
+                 :end => "#{event.endtime.iso8601}",
+                 :allDay => event.all_day,
                  :recurring => event.event_series_id ? true: false,
                  :backgroundColor => event.backgroundColor,
                  :textColor => event.textColor,
