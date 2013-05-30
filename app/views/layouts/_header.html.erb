@@ -95,9 +95,9 @@
 
         <%= cache ["right_menu", I18n.locale] do %>
             <div id="mybox" style="display: block;">
-              <% NotificationCategory.order(:seq).each do |category| %>
+              <% NotificationCategory.includes(:translations).order(:seq).each do |category| %>
                   <div class="box">
-                    <div class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
+                    <div title="<%=category.description%>" class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
                     </div>
                   </div>
               <% end %>
@@ -383,8 +383,10 @@
                     var img_container = $('<img class="logo" src="/assets/notification_categories/' + obj.short + '.png">');
                     var span_container = $('<div>' + obj.title + '</div>');
                     tool_container.append(img_container).append(span_container);
+                    var read_container = $('<div class="read_all">');
+                    read_container.append($('<a href="#" onclick="sign_all_as_read('+obj.id+');return false;">Segna come lette</a>'));
                     var sub_container = $('<div class="cont1">');
-                    n_container.append(tool_container).append(sub_container);
+                    n_container.append(tool_container).append(read_container).append(sub_container);
                     for (var j = 0; j < obj.alerts.length; j++) {
                         var alert = obj.alerts[j];
                         var alert_container = $('<a class="mess" href="' + alert.path + '">');
@@ -424,7 +426,7 @@
                             event: 'click',
                             solo: true
                         },
-                        hide: 'unfocus',
+                        hide: 'click unfocus',
                         style: {
                             classes: 'qtip-light qtip-shadow qtip-right',
                             tip: {
@@ -432,6 +434,20 @@
                                 width: 15,
                                 height: 5
                             }
+                        }
+                    })
+                    .removeData('qtip')
+                    .qtip({
+                        prerender: true,
+                        content: $(this).attr('oldtitle'),
+                        position: {
+                            at: 'top center',
+                            my: 'bottom center',
+                            viewport: $(window),
+                            effect: false
+                        },
+                        style: {
+                            classes: 'qtip-dark'
                         }
                     })
                 });

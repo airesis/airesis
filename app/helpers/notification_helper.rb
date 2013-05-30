@@ -106,8 +106,8 @@ module NotificationHelper
 
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
 
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
-    notification_a = Notification.new(:notification_type_id => 2,:message => msg, :url => proposal_path(proposal), :data => data)
+    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil)}
+    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE,:message => msg, :url => proposal_path(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user
@@ -117,7 +117,33 @@ module NotificationHelper
       end
     end    
   end
-  
+
+
+
+  def notify_user_unintegrated_contribute(proposal_comment)
+    @proposal = proposal_comment.proposal
+    @group = @proposal.private ? @proposal.presentation_groups.first : nil
+    comment_user = proposal_comment.user
+    nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id,@proposal.id)
+    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
+
+    subject = ''
+    subject +=  "[#{@group.name}] " if @group
+    subject +="#{@proposal.title} - Contributo rimesso in dibattito"
+
+    msg = "Un contributo che avevi integrato è stato rimesso in dibattito"
+
+    data = {'proposal_id' => @proposal.id.to_s, 'subject' => subject, 'comment_id' => proposal_comment.id.to_s, 'username' => name}
+    notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE,:message => msg, :url => proposal_path(@proposal), :data => data)
+    notification_a.save
+    @proposal.users.each do |user|
+      if user != current_user
+        send_notification_to_user(notification_a,user)
+      end
+    end
+  end
+
+
    #invia le notifiche quando viene scelta una data di votazione per la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_waiting_for_date(proposal,group = nil)

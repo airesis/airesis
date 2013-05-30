@@ -1,0 +1,44 @@
+<% @proposal = Proposal.find(@data['proposal_id']) %>
+
+<p>
+  La proposta <b> <%= link_to @proposal.title, check_alert_alert_url(@alert) %></b> è stata aggiornata!
+</p>
+
+<% if @data['revision_id'] %>
+    <% @revision = ProposalRevision.find(@data['revision_id']) %>
+    <% @contributes = @revision.contributes.all(conditions: ['proposal_comments.user_id = ?', @alert.user.id]) %>
+
+    <% if @contributes.count > 0 %>
+        <p>
+          Complimenti! I seguenti contributi che evevi inserito sono stati integrati dall'autore:
+        </p>
+
+        <% @contributes.each do |contribute| %>
+            <div id="comment<%= contribute.id %>" style="padding: 20px 0 0;clear: both;">
+              <div style="float: left;margin: 0px 5px 5px 0px;">
+                <%= contribute.user_image_tag(40, true) %>
+              </div>
+              <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
+                <div>
+                  <div style="word-wrap: break-word;margin: 5px;">
+                    <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+                      truncate(text, :length => 15)
+                    end %>
+                  </div>
+                  <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
+                    <% who = contribute.user.fullname %>
+                    <%= raw t('pages.proposals.show.comment_inserted_by', when: (l contribute.created_at), who: who) %>
+                    <%= "in \"#{contribute.paragraph.section.title}\"" if contribute.paragraph %>
+                  </div>
+                  <div style="clear:both;"></div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <p>
+          <%= link_to "Collegati a #{APP_SHORT_NAME}", check_alert_alert_url(@alert) %> e verifica che il nuovo testo
+          contenga i tuoi suggerimenti.<br/>
+          Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History.
+        </p>
+    <% end %>
+<% end %>

@@ -1,10 +1,10 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
-
+  include NotificationHelper
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :rankup, :rankdown, :ranknil, :destroy, :report]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
 
 ###SICUREZZA###
 
@@ -166,6 +166,19 @@ class ProposalCommentsController < ApplicationController
       format.html { redirect_to @proposal }
       format.xml { head :ok }
     end
+  end
+
+  #allow a user to tell the proposal author that his contribute has not been integrated well
+  def unintegrate
+    authorize! :unintegrate, @proposal_comment
+    ProposalComment.transaction do
+      @proposal_comment.integrated_contribute.destroy
+      @proposal_comment.update_attribute(:integrated, false)
+      notify_user_unintegrated_contribute(@proposal_comment)
+    end
+
+    redirect_to @proposal
+
   end
 
   def rankup

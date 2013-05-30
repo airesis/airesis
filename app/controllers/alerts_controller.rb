@@ -35,13 +35,21 @@ class AlertsController < ApplicationController
   
   #marca come 'letta' una notifica e redirige verso l'url indicato
   def check_alert
-    @user_alert = UserAlert.find_by_id(params[:id])
+    @user_alert = current_user.user_alerts.find_by_id(params[:id])
     @user_alert.checked = true
     @user_alert.save
 
     respond_to do |format|
       format.js  {render :nothing => true}
       format.html {redirect_to @user_alert.notification.url}
+    end
+  end
+
+  #check all notifications in a specific category
+  def check_all
+    current_user.user_alerts.joins(:notification => :notification_type).where(['notification_category_id = ?', params[:id].to_i]).update_all(:checked => true)
+    respond_to do |format|
+      format.js  {render :nothing => true}
     end
   end
   

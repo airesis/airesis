@@ -69,7 +69,7 @@ Airesis::Application.routes.draw do
         put :ranknil
         put :rankdown
         post :show_all_replies
-
+        put :unintegrate
       end
       collection do
         post :mark_noise
@@ -118,6 +118,7 @@ Airesis::Application.routes.draw do
     collection do
       get :polling
       get :read_alerts
+      post :check_all
     end
   end
 

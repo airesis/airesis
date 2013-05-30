@@ -9,7 +9,7 @@ class ProposalComment < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   belongs_to :paragraph
 
-  has_many :integrated_contributes, :class_name => 'IntegratedContribute', dependent: :destroy
+  has_one :integrated_contribute, :class_name => 'IntegratedContribute', dependent: :destroy
   has_many :proposal_revisions, :class_name => 'ProposalRevision', :through => :integrated_contributes
 
   has_many :reports, :class_name => 'ProposalCommentReport', :foreign_key => :proposal_comment_id

@@ -66,7 +66,7 @@ class Proposal < ActiveRecord::Base
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
@@ -243,10 +243,11 @@ class Proposal < ActiveRecord::Base
 
   def mark_integrated_contributes
     if @revision.id
+      self.last_revision = @revision
       comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
       ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
       comment_ids.each do |id|
-        IntegratedContribute.create(:proposal_revision_id => @revision.id, :proposal_comment_id => id)
+        self.last_revision.integrated_contributes.create(:proposal_comment_id => id)
       end
     end
   end

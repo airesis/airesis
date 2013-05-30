@@ -29,6 +29,9 @@ class Ability
       can :destroy, ProposalComment do |comment| #you can destroy a contribute only if it's yours and it has been posted less than 5 minutes ago
         (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)
       end
+      can :unintegrate, ProposalComment do |comment|
+        (user.is_mine? comment) && comment.integrated
+      end
       can :close_debate, Proposal do |proposal|
         can_close_debate_proposal?(user, proposal)
       end
