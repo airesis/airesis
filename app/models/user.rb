@@ -439,7 +439,7 @@ class User < ActiveRecord::Base
       splitted = fullname.split(' ', 2)
       name = splitted ? splitted[0] : fullname
       surname = splitted ? splitted[1] : ''
-      user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0, 20], :blog_image_url => data[:photo][:photo_link])
+      user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0, 20], :blog_image_url => (data[:photo][:photo_link] if data[:photo]))
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)

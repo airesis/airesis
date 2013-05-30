@@ -238,7 +238,7 @@ class EventsController < ApplicationController
     return if is_admin?
     permissions_denied if !group_id
     permissions_denied if !@group
-    permission_denied if (cannot? :create_event, @group)
+    permissions_denied if (cannot? :create_event, @group)
   end
 
 

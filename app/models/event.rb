@@ -49,8 +49,8 @@ class Event < ActiveRecord::Base
   end
 
   def remove_scheduled_tasks
-    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => self.id})
+    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => self.id})
   end
   
   def organizer_id=(id)

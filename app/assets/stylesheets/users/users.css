@@ -49,6 +49,10 @@
 /*	position: relative;*/
 }
 
+.image_container:hover .caption {
+    display:block;
+}
+
 .user_profile {
 	border: 1px solid #808080;
     border-radius: 3px 3px 3px 3px;
@@ -60,7 +64,7 @@
 	width: 95%;	 
 }
 .profile_element_hover {
-	background: url("redmond/images/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC;
+	background: #DFEFFC;
 }
 
 .label_profile {

@@ -226,7 +226,7 @@ eu:
         join_meetup: "Join your Meetup account"
         providers_list: "List of activated provider"
       border_preferences:
-        updating: "Please wait while we update your preferences accordin to your border preferences."
+        updating: "Please wait while we update your preferences according to your border preferences."
     groups:
       accept_requests:
         portavoce: "Spokesman: when a user wants to join the group only the spokesmen of the group can accept the request. Once the spokesman has accepted the request, the user will actually becomes a member of the group."
