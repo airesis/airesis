@@ -136,3 +136,5 @@ gem 'wicked_pdf'
 gem 'httparty'
 
 gem 'icalendar'
+
+gem 'private_pub'

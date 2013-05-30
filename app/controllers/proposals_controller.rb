@@ -751,11 +751,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         if saved
           load_my_vote
           flash[:notice] = t(:proposal_rank_registered)
-          format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
-            page.call 'disegnaBottoni'
-          end
+          format.js { render 'rank'
           }
           format.html
         else

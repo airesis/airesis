@@ -15,3 +15,13 @@ function scrollDistanceFromBottom(argument) {
 function pageHeight() {
     return Math.max(document.body.scrollHeight, document.body.offsetHeight);
 }
+
+
+function hideRankPanel2(panel) {
+    $('.voteup', panel).hide();
+    $('.votedown', panel).hide();
+    $('.votedup', panel).hide();
+    $('.voteddown', panel).hide();
+    $('.loadingup', panel).show();
+    $('.loadingdown', panel).show();
+}

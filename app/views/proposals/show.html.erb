@@ -13,6 +13,8 @@
 
 <% end %>
 
+<%= subscribe_to proposal_path(@proposal) %>
+
 <% @page_title = @proposal.title %>
 <script type="text/javascript">
     $(function () {
@@ -241,7 +243,12 @@
 <% content_for :left_panel do %>
     <% if @proposal.is_standard? %>
         <div id="rankleftpanel" class="rankleftpanel mybox">
+          <div class="points">
+          <%= render :partial => 'proposals/points_left_panel' %>
+          </div>
+          <div class="rank">
           <%= render :partial => 'proposals/rank_left_panel' %>
+          </div>
         </div>
     <% end %>
 
@@ -365,3 +372,4 @@
         </div>
     <% end %>
 <% end %>
+

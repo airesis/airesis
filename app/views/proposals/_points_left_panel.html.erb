@@ -1,0 +1,8 @@
+<p class="points">
+  <span class="littleText" id="valutazioni"><%= t('pages.proposals.show.score') %></span>
+  <span class="rightAlign"><%= @proposal.valutations %></span>
+</p>
+<p class="ranking">
+  <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span> <span class="rightAlign"><%= @proposal.rank %>%</span>
+</p>
+<%= render :partial => 'proposals/rank_bar', :locals => {:proposal => @proposal} %>

@@ -1,0 +1,9 @@
+$('#flash_messages').html('<%=j (render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+
+$('#rankleftpanel .rank').html('<%=j render 'proposals/rank_left_panel'%>');
+disegnaBottoni();
+
+
+<% publish_to  proposal_path(@proposal) do %>
+$('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
+<% end %>

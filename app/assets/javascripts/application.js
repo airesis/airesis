@@ -42,3 +42,4 @@
 //= require proposals
 //= require jquery.qtip
 //= require feedback
+//= require private_pub
