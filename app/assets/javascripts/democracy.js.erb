@@ -180,7 +180,74 @@ function disegnaBottoni() {
                 showDisableButton($('.disableButton', this));
             });
 
-    //$('.ddslick').ddslick();
+    $('.ddslick').each(function () {
+        var original_ = $(this);
+        var original_id = $(this).attr('id');
+        var dropdown_;
+        $(this).ddslick({
+            width: 300,
+            onOpen: function (data) {
+                var container = $('#' + original_id).next();;
+                if (!container.hasClass('dd-container')) {
+                    container = container.children('.dd-container');
+                }
+
+                dropdown_ = container.children('ul');
+                dropdown_.detach();
+                var fakeselect_ = container.children('.dd-select');
+
+                console.log(fakeselect_);
+                $('body').append(dropdown_);
+                dropdown_.position({
+                    my: "left top",
+                    at: "left bottom",
+                    of: fakeselect_
+                })
+                        .css('max-height', '400px')
+                        .width(dropdown_.width() + 20);
+            },
+            onClose: function (data) {
+                if (dropdown_ !== undefined) {
+                    var container = $('#' + original_id).next();;
+                    if (!container.hasClass('dd-container')) {
+                        container = container.children('.dd-container');
+                    }
+
+                    dropdown_.detach();
+                    $(container).append(dropdown_);
+
+                    var ddclick_ = $('#' + original_id + '_container');
+                    var val_ = $('#' + original_id).val();
+                    if (val_ != '') {
+                        if (ddclick_.parent().hasClass('field_with_errors')) {
+                            ddclick_.parent().children('.message').remove();
+                            ddclick_.unwrap();
+                        }
+                    }
+                    else {
+                        if (!ddclick_.parent().hasClass('field_with_errors')) {
+                            var wrap_ = $('<div class="field_with_errors"></div>');
+                            ddclick_.wrap(wrap_);
+                            ddclick_.after($('<label class="message">obbligatorio</label>'));
+                        }
+                    }
+                    /*   if (original_.data('validate')) {
+                     console.log('validate');
+                     var settings = window.ClientSideValidations.forms[original_[0].form.id];
+                     console.log(original_.val());
+                     if (original_.val() == '') {
+                     original_.val(null);
+                     }
+                     console.log(original_.val());
+                     var ret = original_.isValid(settings.validators);
+                     console.log('ret: ' + ret);
+                     }*/
+                }
+
+            }
+        });
+    });
+
 
 }
 
@@ -487,10 +554,10 @@ function sign_all_as_read(id) {
         url: '/alerts/check_all/',
         type: 'post',
         dataType: 'js',
-        complete: function(data) {
-          $('#alert_cont_' + id + ' .mess.new').removeClass('new');
-          var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
-          box_.remove();
+        complete: function (data) {
+            $('#alert_cont_' + id + ' .mess.new').removeClass('new');
+            var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
+            box_.remove();
         }
     });
 }

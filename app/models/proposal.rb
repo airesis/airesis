@@ -63,6 +63,7 @@ class Proposal < ActiveRecord::Base
   #validation
   validates_presence_of :title, :message => "obbligatorio"
   validates_uniqueness_of :title
+  validates_presence_of :proposal_category_id, :message => "obbligatorio"
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 

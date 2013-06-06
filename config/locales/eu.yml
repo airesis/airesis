@@ -433,6 +433,10 @@ eu:
         title_placeholder: "es. \"Facilitate bike transport on trains\""
         interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
+        estimate:
+          problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
+        agenda:
+          problems_title_label: "Che tipo di incontro si desidera organizzare? (es. “Assemblea generale straordinaria dei soci”) Perchè lo si vuole organizzare?"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"

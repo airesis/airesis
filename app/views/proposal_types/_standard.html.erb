@@ -1,0 +1,70 @@
+<div id="create_proposal">
+  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+      <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
+      <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
+      <div class="legend"><%= t('pages.proposals.new.step_3') %></div>
+      <div class="legend last"><%= t('pages.proposals.new.step_4') %></div>
+
+
+      <div class="step root root" id="first_step">
+        <%= render 'proposal_types/first_step', {:f => f} %>
+      </div>
+
+
+      <div class="step" id="suggestions">
+      </div>
+
+      <div class="step">
+
+
+        <%= f.fields_for :sections, @problems do |s| %>
+            <%= s.hidden_field :title %>
+            <%= s.hidden_field :seq %>
+            <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
+                <p>
+                  <%= p.label :content, t('pages.proposals.new.standard.problems_title_label') %> *<br/>
+                  <%= p.text_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true} %>
+                  <%= p.hidden_field :seq %>
+                </p>
+            <% end %>
+        <% end %>
+
+        <div class="suggestion_box">
+          <div><%= 'Esempi di compilazione' %></div>
+          <div><%= 'CASO 1 (obiettivo: "Ridurre l\'uso di acqua potabile per l\'irrigazione")' %></div>
+          <div><%= 'Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l\'acquedotto si sta esaurendo' %></div>
+        </div>
+
+      </div>
+
+      <div class="step">
+        <h4><%= t('pages.proposals.new.standard.step_4_title') %></h4>
+        <%= f.fields_for :solutions, @solution do |sol| %>
+            <%= sol.hidden_field :seq %>
+            <%= sol.fields_for :sections, @solution_section do |s| %>
+                <%= s.hidden_field :title %>
+                <%= s.hidden_field :seq %>
+                <%= s.fields_for :paragraphs, @solution_section.paragraphs.build(seq: 1) do |p| %>
+                    <p>
+                      <%= p.label :content, t('pages.proposals.new.standard.first_solution_title') %><br/>
+                      <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                      <%= p.hidden_field :seq %>
+                    </p>
+                <% end %>
+            <% end %>
+        <% end %>
+        <div class="suggestion_box">
+        <%=raw 'Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
+         Se non lo farai la tua proposta non andrà in votazione.<br/>
+          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.' %>
+        </div>
+
+      </div>
+
+      <p>
+        <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();' %>
+      </p>
+      </div>
+
+  <% end %>

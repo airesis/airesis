@@ -7,78 +7,7 @@
 
 
       <div class="step root root">
-        <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
-        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
-            <p>
-              <%= f.label :group_area_id %><br/>
-              <% if @available_areas.size > 0 %>
-                  <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
-              <% else %>
-                  <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
-              <% end %>
-            </p>
-        <% end %>
-
-
-        <p>
-          <%= f.label :title %> * <%= t('pages.proposals.new.title_synthetic') %><br/>
-          <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), :style => "width:500px" %>
-        </p>
-
-        <% if ::Configuration.proposal_categories %>
-            <p>
-              <%= f.label :proposal_category_id %><br/>
-              <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}),{}, {class: 'ddslick_tmp'} %>
-            </p>
-        <% end %>
-
-        <p>
-          <%= f.label :interest_borders_tkn %><br/>
-          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder') %>
-        </p>
-
-        <% if ::Configuration::folksonomy %>
-            <p>
-              <%= f.label :tags_list %> <%= '(separate da virgola)' %><br/>
-              <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
-            </p>
-        <% end %>
-
-        <p>
-          <%= f.label :quorum_id %> *<br/>
-          <% if @group %>
-              <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
-          <% else %>
-              <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
-          <% end %>
-
-        <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
-        </div>
-        </p>
-
-        <p>
-          <% if @change_advanced_options %>
-              <%= f.check_box :anonima %>
-              <%= f.label :anonima %><br/>
-              <%= f.check_box :visible_outside %>
-              <%= f.label :visible_outside %><br/>
-              <%= f.check_box :secret_vote %>
-              <%= f.label :secret_vote %><br/>
-          <% end %>
-        </p>
-
-        <p>
-          <% if @group %>
-              <input type="hidden" name="from_group" value="<%= @group.id %>"/>
-          <% end %>
-          <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
-          <%= f.hidden_field :private %>
-          <%= f.hidden_field :proposal_type_id %>
-          <%= f.hidden_field :proposal_votation_type_id %>
-        </p>
-
+        <%= render 'proposal_types/first_step', {:f => f} %>
       </div>
 
 
@@ -93,7 +22,7 @@
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, t('pages.proposals.new.problems_title_label') %> *<br/>
+                  <%= p.label :content, t('pages.proposals.new.estimate.problems_title_label') %> *<br/>
                   <%= p.text_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true} %>
                   <%= p.hidden_field :seq %>
                 </p>
@@ -101,9 +30,9 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempi di compilazione' %></div>
-          <div><%= 'CASO 1 (obiettivo: "Ridurre l\'uso di acqua potabile per l\'irrigazione")' %></div>
-          <div><%= 'Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l\'acquedotto si sta esaurendo' %></div>
+          <div><%= 'Esempio' %></div>
+          <div><%= 'Sostituzione dell’impianto termico nella sede dell’Associazione' %></div>
+          <div><%= "A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il gusto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico."%></div>
         </div>
 
       </div>

@@ -1,0 +1,51 @@
+<h4><%= t('pages.proposals.new.step_1_title') %></h4>
+
+<p>
+  <%= f.label :title %> * <%= t('pages.proposals.new.title_synthetic') %><br/>
+  <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), :style => "width:500px" %>
+</p>
+
+
+<% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
+<% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
+    <p>
+      <%= f.label :group_area_id %><br/>
+      <% if @available_areas.size > 0 %>
+          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+      <% else %>
+          <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
+      <% end %>
+    </p>
+<% end %>
+
+
+<% if ::Configuration.proposal_categories %>
+    <p>
+      <%= f.label :proposal_category_id %> *<br/>
+      <%logger.info @proposal.proposal_category_id %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {class: 'ddslick'} %>
+    </p>
+<% end %>
+
+<p>
+  <%= f.label :interest_borders_tkn %><br/>
+  <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder') %>
+</p>
+
+<% if ::Configuration::folksonomy %>
+    <p>
+      <%= f.label :tags_list %> <%= '(separate da virgola)' %><br/>
+      <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
+    </p>
+<% end %>
+
+
+<p>
+  <% if @group %>
+      <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+  <% end %>
+  <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
+  <%= f.hidden_field :private %>
+  <%= f.hidden_field :proposal_type_id %>
+  <%= f.hidden_field :proposal_votation_type_id %>
+</p>

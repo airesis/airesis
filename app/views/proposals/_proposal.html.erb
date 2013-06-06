@@ -1,5 +1,1 @@
-<%if params[:proposal_type_id] == ProposalType::STANDARD.to_s%>
-    <%= render :partial => 'proposal_standard' %>
-<%elsif params[:proposal_type_id] == ProposalType::POLL.to_s%>
-    <%= render :partial => 'proposal_poll' %>
-<%end%>
+<%= render :partial => "proposal_types/#{params[:proposal_type_id].downcase}" %>

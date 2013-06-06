@@ -904,7 +904,7 @@
                 } else {
                     dropdown_ul.show();
                 }
-            } else {
+            } else if (!$(input).data("setting").allowFreeTagging ) {
                 if($(input).data("settings").noResultsText) {
                     dropdown.html("<p>" + escapeHTML($(input).data("settings").noResultsText) + "</p>");
                     show_dropdown();

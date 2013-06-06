@@ -24,7 +24,7 @@
 
 <div style="text-align: right;float:right;">
 
-  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta         %>
+  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta          %>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
@@ -37,7 +37,7 @@
       <% end %>
       <% if @proposal.in_valutation? %>
           <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
-      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox           %>
+      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox            %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
           </div>
@@ -46,8 +46,8 @@
             <div id="create_event">
             </div>
           </div>
-      <%elsif @proposal.voting?%>
-      <b><%=raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>
+      <% elsif @proposal.voting? %>
+          <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>
 
       <% end %>
   <% end %>
@@ -57,13 +57,13 @@
 
 <div class="blogCommentPostedAt">
 
-  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata           %>
+  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata            %>
       <p>
         <b>
           <%= t('pages.proposals.show.votation_message', from: @proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
         </b>
       </p>
-  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito           %>
+  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito            %>
       <%= t('pages.proposals.show.editing_message_1') %>
       <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= @proposal.comments.count %></em></a>.
       <br/> <%= t('pages.proposals.show.editing_message_2') %>
@@ -77,12 +77,12 @@
     <div class="proposal_main">
       <h3>
         <div class="tit1">
-        <div class="tit2">
-          <%= section.title %>
-        </div>
+          <div class="tit2">
+            <%= section.title %>
+          </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
               <div class="suggest">
-                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
+                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
               </div>
           <% end %>
         </div>
@@ -96,27 +96,44 @@
 <% end %>
 
 <% @proposal.solutions.includes(:sections).each do |solution| %>
-    <div class="proposal_main">
-      <% solution.sections.each do |section| %>
-          <h3>
-            <div class="tit1">
-              <div class="tit2">
-                <%= section.title %>
+    <%first_section = solution.sections.first #TODO%>
+    <div class="solution_main">
+      <h3>
+        <div class="tit1">
+          <div class="tit2">
+            <%= first_section.title %>
+          </div>
+          <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+
+              <div class="suggest">
+                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= first_section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
               </div>
-              <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+          <% end %>
+        </div>
+      </h3>
+      <% solution.sections.each do |section| %>
+          <div class="proposal_main">
+           <!-- <h3>
+              <div class="tit1">
+                <div class="tit2">
+                  <%= section.title %>
+                </div>
+                <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
 
-                  <div class="suggest">
-                          <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
-                  </div>
-              <% end %>
+                    <div class="suggest">
+                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
+                    </div>
+                <% end %>
+              </div>
+            </h3> -->
+
+            <div class="proposal_content" data-id="<%= solution.id %>">
+              <%= sanitize(section.paragraphs.first.content) %>
             </div>
-          </h3>
-
-          <div class="proposal_content" data-id="<%=solution.id%>">
-            <%= sanitize(section.paragraphs.first.content) %>
           </div>
       <% end %>
     </div>
+
 <% end %>
 
 <div id="vote_panel_container">

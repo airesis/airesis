@@ -1,0 +1,32 @@
+<h4><%= t('pages.proposals.new.step_4_title') %></h4>
+
+<p>
+  <%= f.label :quorum_id %> *<br/>
+  <% if @group %>
+    <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+    <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
+<% else %>
+    <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
+    <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+<% end %>
+
+<div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+</div>
+</p>
+
+<p>
+  <% if @change_advanced_options %>
+    <%= f.check_box :anonima %>
+    <%= f.label :anonima %><br/>
+      <%= f.check_box :visible_outside %>
+    <%= f.label :visible_outside %><br/>
+      <%= f.check_box :secret_vote %>
+    <%= f.label :secret_vote %><br/>
+  <% end %>
+</p>
+
+<div class="suggestion_box">
+  <%=raw 'Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
+         Se non lo farai la tua proposta non andrà in votazione.<br/>
+          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.' %>
+</div>

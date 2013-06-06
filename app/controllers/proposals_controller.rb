@@ -230,33 +230,17 @@ class ProposalsController < ApplicationController
       @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
     end
 
-    if params[:category]
-      @proposal.proposal_category_id = params[:category]
-    end
+    @proposal.proposal_category_id = params[:category]
 
+    send(params[:proposal_type_id].downcase + '_new',@proposal)
+    @proposal.proposal_type = ProposalType.find_by_short_name(params[:proposal_type_id])
+    @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+
+    @title = ProposalType.find_by_short_name(params[:proposal_type_id]).description
     #initialize all fields necessary for the proposal specific type
     if params[:proposal_type_id] == ProposalType::STANDARD.to_s
-      @problems = @proposal.sections.build(title: t('pages.proposals.new.problems_title'), seq: 1)
-     # @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
-      @solution = @proposal.solutions.build(seq: 1)
-      @solution_section = @solution.sections.build(title: t('pages.proposals.new.first_solution_title'), seq: 1)
-      @proposal.proposal_type_id = ProposalType::STANDARD
-      @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
-      @title = t('pages.proposals.new.title')
       @title += t('pages.proposals.new.title_group', name: @group.name) if @group
     elsif params[:proposal_type_id] == ProposalType::POLL.to_s
-      @text = @proposal.sections.build(title: 'Testo del sondaggio', seq: 1)
-      @solution_a = @proposal.solutions.build(seq: 1)
-      @solution_b = @proposal.solutions.build(seq: 2)
-      @solution_c = @proposal.solutions.build(seq: 3)
-      @proposal.proposal_type_id = ProposalType::POLL
-      @proposal.proposal_votation_type_id = ProposalVotationType::SCHULZE
-
-      @solution_a_section = @solution_a.sections.build(title: 'Opzione 1', seq: 1)
-      @solution_b_section = @solution_b.sections.build(title: 'Opzione 2', seq: 1)
-      @solution_c_section = @solution_c.sections.build(title: 'Opzione 3', seq: 1)
-
-      @title = "Nuovo sondaggio"
       @title += " interno al gruppo #{@group.name}" if @group
     end
 
@@ -281,6 +265,10 @@ class ProposalsController < ApplicationController
         prparams = params[:proposal]
 
         @proposal = Proposal.new(prparams)
+
+        @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
+        send(@proposal_type.short_name.downcase + '_create',@proposal)
+
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
@@ -297,7 +285,7 @@ class ProposalsController < ApplicationController
         end
 
         #il quorum viene utilizzato per le proposte standard
-        if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+       # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           quorum = assign_quorum(prparams)
 
           #metto la proposta in valutazione se è standard
@@ -305,9 +293,9 @@ class ProposalsController < ApplicationController
           @proposal.rank = 0
 
 
-        elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
-          @proposal.proposal_state_id = ProposalState::WAIT_DATE
-        end
+        #elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
+       #   @proposal.proposal_state_id = ProposalState::WAIT_DATE
+       # end
 
 
         borders = prparams[:interest_borders_tkn]
@@ -315,7 +303,7 @@ class ProposalsController < ApplicationController
         @proposal.save!
 
         #fai partire il timer per far scadere la proposta
-        if quorum.minutes && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+        if quorum.minutes# && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
