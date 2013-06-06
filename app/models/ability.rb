@@ -24,7 +24,8 @@ class Ability
       end
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
-            !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0))
+        !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0)) &&
+        proposal.in_valutation?
       end
       can :destroy, ProposalComment do |comment| #you can destroy a contribute only if it's yours and it has been posted less than 5 minutes ago
         (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)

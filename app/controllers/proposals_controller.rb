@@ -20,10 +20,10 @@ class ProposalsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :tab_list, :endless_index, :show]
 
   #l'utente deve essere autore della proposta
-  before_filter :check_author, :only => [:destroy, :set_votation_date, :add_authors]
+  before_filter :check_author, :only => [:set_votation_date, :add_authors]
 
   #la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :destroy, :available_author, :add_authors]
+  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :available_author, :add_authors]
 
   #la proposta deve essere in stato 'VOTATA'
   before_filter :voted_state_required, :only => [:vote_results]
