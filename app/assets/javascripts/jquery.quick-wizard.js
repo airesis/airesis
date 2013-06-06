@@ -229,6 +229,7 @@
 function validElement() {
     //If the form is valid then go to next else dont
     var valid = true;
+    console.log('valid?');
     // this will cycle through all visible inputs and attempt to validate all of them.
     // if validations fail 'valid' is set to false
     $('[data-validate]:input:visible').each(function () {

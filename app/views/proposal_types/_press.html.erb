@@ -38,27 +38,7 @@
       </div>
 
       <div class="step">
-        <h4><%= t('pages.proposals.new.step_4_title') %></h4>
-        <%= f.fields_for :solutions, @solution do |sol| %>
-            <%= sol.hidden_field :seq %>
-            <%= sol.fields_for :sections, @solution_section do |s| %>
-                <%= s.hidden_field :title %>
-                <%= s.hidden_field :seq %>
-                <%= s.fields_for :paragraphs, @solution_section.paragraphs.build(seq: 1) do |p| %>
-                    <p>
-                      <%= p.label :content, t('pages.proposals.new.press.first_solution_title') %><br/>
-                      <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
-                      <%= p.hidden_field :seq %>
-                    </p>
-                <% end %>
-            <% end %>
-        <% end %>
-        <div class="suggestion_box">
-        <%=raw 'Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
-         Se non lo farai la tua proposta non andrà in votazione.<br/>
-          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.' %>
-        </div>
-
+        <%= render 'proposal_types/last_step', {f: f} %>
       </div>
 
       <p>
@@ -68,60 +48,3 @@
       </div>
 
   <% end %>
-  <script>
-      $('.legend').hide();
-
-
-      $(function () {
-          $("#new_proposal").quickWizard({
-              nextCallback: showSimilarProposal,
-              prevCallback: skipIfNecessary
-          });
-
-          input = $('#proposal_interest_borders_tkn')
-          input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
-              crossDomain: false,
-              prePopulate: input.data("pre"),
-              hintText: "<%=t('interest_borders_hint')%>",
-              noResultsText: "<%=t('no_interest_border')%>",
-              searchingText: "<%=t('looking_for_interest_border')%>",
-              preventDuplicates: true
-          });
-
-
-          input = $('#proposal_tags_list')
-          if (input != null) {
-              input.tokenInput([], {
-                  theme: "facebook",
-                  crossDomain: false,
-                  allowFreeTagging: true,
-                  hintText: "<%=t('digit_tags')%>",
-                  searchingText: "<%=t('digit_tags')%>",
-                  preventDuplicates: true
-              })
-          }
-      });
-
-      /**
-       * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
-       */
-      function skipIfNecessary(activeDiv) {
-          if (activeDiv.attr('id') == 'suggestions' && skippedSuggestionStep) {
-              $('#form-wizard-prev').click();
-          }
-      }
-
-      /**
-       * Mostra proposte simili se ve ne sono
-       */
-      function showSimilarProposal(activeDiv) {
-          $(':input', activeDiv).first().focus();
-          if (activeDiv.attr('id') == 'suggestions') {
-              $.ajax({
-                  url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
-                  data: 'tags=' + $('#proposal_tags_list').val()
-              })
-          }
-          $('#new_proposal').enableClientSideValidations();
-      }
-  </script>

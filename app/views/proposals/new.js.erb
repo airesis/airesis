@@ -4,48 +4,9 @@
 <%if elapsed < PROPOSALS_TIME_LIMIT%>
 alert('Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora <%= ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor%> minuti e <%= ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)%> secondi.');
 <%else%>
-<%end%>
-
-window.ClientSideValidations.selectors = {
-    inputs: ':input:not(button):not([type="submit"])[name]:enabled',
-    validate_inputs: ':input:enabled:visible[data-validate]',
-    forms: 'form[data-validate]'
-};
-
-$('.legend').hide();
 
 
-$(function () {
-    $("#new_proposal").quickWizard({
-        nextCallback: showSimilarProposal,
-        prevCallback: skipIfNecessary
-    });
 
-    input = $('#proposal_interest_borders_tkn')
-    input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
-        crossDomain: false,
-        prePopulate: input.data("pre"),
-        hintText: "<%=t('interest_borders_hint')%>",
-        noResultsText: "<%=t('no_interest_border')%>",
-        searchingText: "<%=t('looking_for_interest_border')%>",
-        preventDuplicates: true
-    });
-
-
-    input = $('#proposal_tags_list')
-    if (input != null) {
-        input.tokenInput([], {
-            theme: "facebook",
-            crossDomain: false,
-            allowFreeTagging: true,
-            hintText: "<%=t('digit_tags')%>",
-            searchingText: "<%=t('digit_tags')%>",
-            preventDuplicates: true
-        })
-    }
-
-    $('#new_proposal').enableClientSideValidations();
-});
 
 /**
  * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
@@ -71,24 +32,63 @@ function showSimilarProposal(activeDiv) {
 
 }
 
-
+window.ClientSideValidations.selectors = {
+    inputs: ':input:not(button):not([type="submit"])[name]:enabled',
+    validate_inputs: ':input:enabled:visible[data-validate]',
+    forms: 'form[data-validate]'
+};
 
 
 var container_ = $('#create_proposal_container');
 container_.html('<%=j render "proposal_types/#{params[:proposal_type_id].downcase}"%>');
-container_.dialog('option', 'title', '<%=j @title%>');
+<%if params[:models] %>
+    container_.dialog('option', 'title', '<%=j @title%>');
+<%else%>
+    container_.dialog({
+        title: '<%=j @title%>',
+        modal: true,
+        width: 720,
+        height: 'auto',
+        close: function (event, ui) {
+            create_proposal_.dialog('destroy');
+        }
+    });
+<%end%>
+
+$('.legend').hide();
+
+
+
+$("#new_proposal").quickWizard({
+    nextCallback: showSimilarProposal,
+    prevCallback: skipIfNecessary
+});
+
+input = $('#proposal_interest_borders_tkn')
+input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
+    crossDomain: false,
+    prePopulate: input.data("pre"),
+    hintText: "<%=t('interest_borders_hint')%>",
+    noResultsText: "<%=t('no_interest_border')%>",
+    searchingText: "<%=t('looking_for_interest_border')%>",
+    preventDuplicates: true
+});
+
+
+input = $('#proposal_tags_list')
+if (input != null) {
+    input.tokenInput([], {
+        theme: "facebook",
+        crossDomain: false,
+        allowFreeTagging: true,
+        hintText: "<%=t('digit_tags')%>",
+        searchingText: "<%=t('digit_tags')%>",
+        preventDuplicates: true
+    })
+}
 
 var create_proposal_ = $('#create_proposal');
-/*create_proposal_.dialog({
- title: '<%=escape_javascript @title%>',
- modal: true,
- width: 720,
- height: 'auto',
- close: function (event, ui) {
- create_proposal_.dialog('destroy');
- create_proposal_.remove();
- }
- });*/
+
 
 $('#new_proposal').enableClientSideValidations();
 disegnaBottoni();
@@ -114,4 +114,5 @@ tinyMCE.init({
 });
 
 
+<%end%>
 <%end%>

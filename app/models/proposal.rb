@@ -54,7 +54,7 @@ class Proposal < ActiveRecord::Base
   has_many :proposal_sections, :dependent => :destroy
   has_many :sections, :through => :proposal_sections, :order => :seq
 
-  has_many :solutions, :order => :seq, :dependent => :destroy
+  has_many :solutions, :order => 'solutions.seq', :dependent => :destroy
 
   belongs_to :proposal_votation_type, :class_name => 'ProposalVotationType'
 

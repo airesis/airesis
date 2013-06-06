@@ -56,8 +56,25 @@ module ProposalsModule
     # @objectives = @proposal.sections.build(title: t('pages.proposals.new.objectives_title'), seq: 2)
     @solution = proposal.solutions.build(seq: 1)
     @solution_section = @solution.sections.build(title: t('pages.proposals.new.agenda.first_solution_title'), seq: 1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::STANDARD)
+    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::AGENDA)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+  end
+
+  def agenda_create(proposal)
+    seq = 1
+    proposal.sections.build(title: 'Vincoli tecnici', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: 'Vincoli temporali', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: 'Vincoli ambientali, etici, normativi', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: 'Spesa massima', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: 'Destinatari richiesta di preventivo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+
+    seq = 0
+    solution = proposal.solutions.build(seq: 1)
+    solution.sections.build(title: t('pages.proposals.new.agenda.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: 'Importo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: 'Rispetto dei vincoli e problemi', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: 'Documentazione', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+
   end
 
   def estimate_new(proposal)

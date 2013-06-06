@@ -232,7 +232,7 @@
                 create_proposal_inner_.remove();
                 create_proposal_.append('<%=j render "fragments/loading"%>');
                 $.ajax({
-                    url: '<%=new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], category: params[:category])%>',
+                    url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], models: true)%>',
                     data: 'proposal_type_id='+ type_id,
                     dataType: 'script'
                 })

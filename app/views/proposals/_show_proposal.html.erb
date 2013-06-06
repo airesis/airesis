@@ -95,25 +95,20 @@
     </div>
 <% end %>
 
-<% @proposal.solutions.includes(:sections).each do |solution| %>
+<% @proposal.solutions.includes(:sections).order('sections.seq').each do |solution| %>
     <%first_section = solution.sections.first #TODO%>
     <div class="solution_main">
       <h3>
-        <div class="tit1">
+        <div class="tit1 sol">
           <div class="tit2">
-            <%= first_section.title %>
+            <%= "Soluzione #{solution.seq}" %>
           </div>
-          <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-
-              <div class="suggest">
-                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= first_section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
-              </div>
-          <% end %>
         </div>
       </h3>
+      <div class="sol_content">
       <% solution.sections.each do |section| %>
           <div class="proposal_main">
-           <!-- <h3>
+             <h3>
               <div class="tit1">
                 <div class="tit2">
                   <%= section.title %>
@@ -125,13 +120,14 @@
                     </div>
                 <% end %>
               </div>
-            </h3> -->
+            </h3>
 
             <div class="proposal_content" data-id="<%= solution.id %>">
               <%= sanitize(section.paragraphs.first.content) %>
             </div>
           </div>
       <% end %>
+      </div>
     </div>
 
 <% end %>

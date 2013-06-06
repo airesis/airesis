@@ -1,6 +1,6 @@
 <% content_for :head do %>
     <%= javascript_include_tag 'ice/index' %>
-<%end%>
+<% end %>
 
 <% @page_title = @proposal.title %>
 <h1><%= 'Modifica la proposta' %></h1>
@@ -136,49 +136,60 @@
       <% end %>
     </div>
 
-    <% if @proposal.is_standard? %>
-        <div class="new_section">
-          <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi una nuova sezione' %></a>
-        </div>
-    <% end %>
+    <div class="new_section">
+      <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi una nuova sezione' %></a>
+    </div>
 
+    <hr/>
+    <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
 
-    <h4>Modifica e aggiorna il testo della proposta!</h4>
-    <div class="solutions_column">
-      <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
-          <%= f.fields_for :solutions, solution do |sol| %>
-              <%= sol.hidden_field :seq %>
-              <%= sol.check_box '_destroy', style: 'display:none' %>
-              <% solution.sections.each do |section| %>
-                  <%= sol.fields_for :sections, section do |s| %>
-                      <%= s.hidden_field :title %>
-                      <%= s.hidden_field :seq %>
-                      <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                          <p class="section_container">
-                            <%= s.text_field :title, class: "edit_label" %>
-                            <span class="move_button">
+    <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
+        <div class="solution_main">
+          <h3>
+            <div class="tit1 sol">
+              <div class="tit2">
+                <%= "Soluzione #{solution.seq}" %>
+              </div>
+            </div>
+          </h3>
+          <div class="sol_content">
+            <div class="solutions_column">
+
+              <%= f.fields_for :solutions, solution do |sol| %>
+                  <%= sol.hidden_field :seq %>
+                  <%= sol.check_box '_destroy', style: 'display:none' %>
+                  <% solution.sections.each do |section| %>
+                      <%= sol.fields_for :sections, section do |s| %>
+                          <%= s.hidden_field :title %>
+                          <%= s.hidden_field :seq %>
+                          <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                              <p class="section_container">
+                                <%= s.text_field :title, class: "edit_label" %>
+                                <span class="move_button">
                               <%= image_tag 'move.png' %>
                             </span>
                              <span class="remove_button">
-                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;"><%= 'Rimuovi soluzione' %></a>
+                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;"><%= 'Rimuovi sezione' %></a>
                             </span>
-                            <br/>
+                                <br/>
 
-                            <% if @proposal.is_standard? %>
+
                                 <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                                 <%= p.hidden_field :content %>
-                            <% elsif @proposal.is_polling? %>
-                                <%= p.text_field :content, :style => "width:80%;" %>
-                                <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;">Rimuovi opzione</a>
-                            <% end %>
-                            <%= p.hidden_field :seq %>
-                          </p>
+
+                                <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
+
+                                <%= p.hidden_field :seq %>
+                              </p>
+                          <% end %>
                       <% end %>
                   <% end %>
               <% end %>
-          <% end %>
-      <% end %>
-    </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
 
     <div class="new_section">
       <a href="#" onclick="addSolution(this);return false;"><%= 'Aggiungi un\'ulteriore soluzione' %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= 'Sai quello che fai?' %></a>
@@ -247,9 +258,42 @@
 
         <%= render :partial => 'show_tooltips' %>
 
+        //setTimeout('anima()',2000);
     });
 
     var integrated_contributes = [];
+
+
+    function anima() {
+        var toggleMinHeight = 30,
+                duration = 500,
+                easing = 'swing';
+
+        $('.solution_main').each(function(){
+            $(this).attr('data-height',$(this).height());
+        })
+        .click(function(){
+            var curH = $(this).height();
+            console.log('click heght: ' + curH);
+            if ($(this).is(':animated')){
+                return false;
+            }
+            else if (curH == $(this).attr('data-height')) {
+                console.log('compress');
+                $(this).animate(
+                        {
+                            'height' : toggleMinHeight
+                        }, duration, easing);
+            }
+            else if (curH == toggleMinHeight){
+                console.log('expand');
+                $(this).animate(
+                        {
+                            'height' : $(this).attr('data-height')
+                        }, duration, easing);
+            }
+        });
+    }
 
     function integrate_contribute(el, id) {
         if ($(el).is(':checked')) {
@@ -285,6 +329,7 @@
     tinyMCE.init({
         mode: 'textareas',
         theme: 'advanced',
+        height: 180,
         theme_advanced_toolbar_location: 'top',
         theme_advanced_toolbar_align: 'left',
         theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube,separator,ice_toggleshowchanges',
@@ -332,57 +377,71 @@
     var numSolution = <%=@proposal.solutions.count%>;
     var numSections = <%=@proposal.sections.count%>
 
-    function addSection(el) {
-        var sectionname = 'proposal[sections_attributes][' + numSections + ']';
-        var sectionid = sectionname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
-        var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
-        var paragraphid = paragraphname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
-        paragraph_.append('<input type="text" class="edit_label" value="Paragrafo '+(numSections+1)+'" name=\'' + sectionname + '[title]\'></input>');
-        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
-        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
-        paragraph_.append('<br />');
-        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
-        paragraph_.append(textarea_);
-        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\''+sectionid+'_seq\'></input>');
-        seq_.val(numSections);
-        paragraph_.append(seq_);
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-        $('.sections_column').append(paragraph_);
-        paragraph_.fadeIn();
+            function addSection(el) {
+                var sectionname = 'proposal[sections_attributes][' + numSections + ']';
+                var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+                var paragraphname = sectionname + '[paragraphs_attributes][0]';
+                var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+                var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+                paragraph_.append('<input type="text" class="edit_label" value="Paragrafo ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
+                paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
+                paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
+                paragraph_.append('<br />');
+                var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+                paragraph_.append(textarea_);
+                paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
+                var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
+                seq_.val(numSections);
+                paragraph_.append(seq_);
+                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+                $('.sections_column').append(paragraph_);
+                paragraph_.fadeIn();
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
 
-        numSections += 1;
-    }
+                numSections += 1;
+            }
 
 
     function addSolution(el) {
-        var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
+        /*var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
         var sectionname = solutionname + '[sections_attributes][0]';
-        var solutionid = solutionname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        var solutionid = solutionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraphid = paragraphname.replace(/\]\[/g,'_').replace(/\[/,'_').replace(/\]/,'');
+        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
-        paragraph_.append('<input type="text" class="edit_label" value="Soluzione '+(numSolution + 1) +'" name=\'' + sectionname + '[title]\'></input>');
+        paragraph_.append('<input type="text" class="edit_label" value="Soluzione ' + (numSolution + 1) + '" name=\'' + sectionname + '[title]\'></input>');
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolution(this,' + numSolution + ',false);return false;"><%= 'Rimuovi soluzione' %></a></span>');
         paragraph_.append('<br />');
         var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
         paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-        var seq_ = $('<input type=\'hidden\' name=\'' + solutionname + '[seq]\' id=\''+solutionid+'_seq\'></input>');
+        var seq_ = $('<input type=\'hidden\' name=\'' + solutionname + '[seq]\' id=\'' + solutionid + '_seq\'></input>');
         seq_.val(numSolution);
         paragraph_.append(seq_);
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\' ></input>');
-        $('.solutions_column').append(paragraph_);
+        $('.solutions_column').append(paragraph_);*/
+
+        var paragraph_ = $('<%=j render "proposal_types/#{@proposal.proposal_type.short_name.downcase}_solution"%>');
+
+        $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
+        paragraph_.find('.tit2').append(++numSolution);
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function() {
+            var name_ = $(this).attr('name');
+            $(this).attr('name',name_.replace('proposals[solutions_attributes][0]','proposal[solutions_attributes]['+numSolution+']'));
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+        })
 
-        numSolution += 1;
+        console.log(paragraph_.find('textarea.tinymce'));
+        paragraph_.find('textarea.tinymce').each(function() {
+            tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
+        });
+
+
     }
 
     function removeSolution(el, id, hide) {
@@ -421,14 +480,14 @@
         cursor: "move",
         axis: "y",
         handle: '.move_button',
-        start: function(e,ui) {
+        start: function (e, ui) {
             if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
-                var textarea_ = $('.tinymce',ui.item);
+                var textarea_ = $('.tinymce', ui.item);
                 tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
             }
         },
         stop: function (e, ui) {
-            var textarea_ = $('.tinymce',ui.item);
+            var textarea_ = $('.tinymce', ui.item);
             if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
                 tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
             }
@@ -449,25 +508,32 @@
         cursor: "move",
         axis: "y",
         handle: '.move_button',
-        start: function(e, ui) {
+        start: function (e, ui) {
 
         },
         stop: function (e, ui) {
-            var textarea_ = $('.tinymce',ui.item);
+            var textarea_ = $('.tinymce', ui.item);
 
-            setTimeout(function() {
+            setTimeout(function () {
                 tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
                 tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
-            },1000);
+            }, 1000);
 
             var i = 0;
             $(this).find('p').each(function (el) {
                 var id = $(this).find('.tinymce').attr('id');
-                var seq_id = id.replace(/sections_attributes.*/, 'seq');
+                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                console.log(seq_id + ', id: ' + i);
                 $('#' + seq_id).val(i++)
+                console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i-1));
             });
         }
     });
+
+
+
+
+
 
     //$('.section_container').mouseov
 </script>

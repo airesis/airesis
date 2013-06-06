@@ -1,0 +1,51 @@
+<%
+   seq = 0
+   solution = Solution.new
+   solution.sections.build(title: t('pages.proposals.new.agenda.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+   solution.sections.build(title: 'Importo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+   solution.sections.build(title: 'Rispetto dei vincoli e problemi', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+   solution.sections.build(title: 'Documentazione', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+%>
+
+
+<div class="solution_main">
+  <h3>
+    <div class="tit1 sol">
+      <div class="tit2">
+        <%= "Soluzione #{solution.seq}" %>
+      </div>
+    </div>
+  </h3>
+  <div class="sol_content">
+    <div class="solutions_column">
+      <%= fields_for :proposals, Proposal.new do |p| %>
+          <%= p.fields_for :solutions, solution do |sol| %>
+              <%= sol.hidden_field :seq %>
+              <%= sol.check_box '_destroy', style: 'display:none' %>
+              <% solution.sections.each do |section| %>
+                  <%= sol.fields_for :sections, section do |s| %>
+                      <%= s.hidden_field :title %>
+                      <%= s.hidden_field :seq %>
+                      <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
+                          <p class="section_container">
+                            <%= s.text_field :title, class: "edit_label" %>
+                            <span class="move_button">
+                              <%= image_tag 'move.png' %>
+                            </span>
+                             <span class="remove_button">
+                              <a href="#" onclick="removeSolution(this,0,true);return false;"><%= 'Rimuovi sezione' %></a>
+                            </span>
+                            <br/>
+                            <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                            <%= p.hidden_field :content %>
+                            <%= p.hidden_field :seq %>
+                          </p>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

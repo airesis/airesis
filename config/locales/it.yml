@@ -423,7 +423,7 @@ it:
         step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
-        title_group: " interna al gruppo %{name}"
+        title_group: "%{name}: "
         title_synthetic: "(in estrema sintesi)"
         title_placeholder: "es. \"Facilitare il trasporto bici sui treni\" o \"Organizzare una festa per Luca\""
         interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
@@ -448,6 +448,8 @@ it:
         agenda:
           problems_title: "Tipologia di incontro"
           first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
         event:
           problems_title: "Scopo dell'evento"
           first_solution_title: "Soluzione 1"
