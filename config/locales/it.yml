@@ -904,6 +904,9 @@ it:
         ok_message: "Confini di interesse aggiornati correttamente"
       update:
         confirm_email: "Devi confermare il nuovo indirizzo email."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider scollegato"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"

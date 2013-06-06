@@ -190,7 +190,7 @@ module NotificationHelper
 
     msg = "La proposta <b>" + proposal.title + "</b> è in votazione da adesso!"
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
-    notification_a = Notification.new(notification_type_id: 6, message: msg, url: proposal_path(proposal), data: data)
+    notification_a = Notification.new(notification_type_id: 4, message: msg, url: proposal_path(proposal), data: data)
     notification_a.save
 
     users = group ?

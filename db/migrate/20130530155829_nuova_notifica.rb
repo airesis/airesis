@@ -3,7 +3,7 @@ class NuovaNotifica < ActiveRecord::Migration
   def up
     I18n.locale = :it
 
-    NotificationType.create( :description => "Contributi rimessi in dibattito",:email_subject => "Un contributo è stato rimesso in dibattito", :notification_category_id => NotificationCategory.find_by_short('MYPROP') ){ |c| c.id = 25 }.save
+    NotificationType.create( :description => "Contributi rimessi in dibattito",:email_subject => "Un contributo è stato rimesso in dibattito", :notification_category_id => NotificationCategory.find_by_short('MYPROP').id ){ |c| c.id = 25 }.save
 
     I18n.locale = :us
 

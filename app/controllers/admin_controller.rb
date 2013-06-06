@@ -16,10 +16,7 @@ class AdminController < ApplicationController
   
   #fa un test della gemma
   def test_gem
-    
     AiresisMetis.hi
-    
-    
     respond_to do |format|
       format.html {
         flash[:notice] = 'OK'
@@ -30,10 +27,7 @@ class AdminController < ApplicationController
   
   #calcola il ranking degli utenti
   def calculate_ranking
-    
     AdminHelper.calculate_ranking
-    
-    
     respond_to do |format|
       format.html {
         flash[:notice] = 'Ranking ricalcolato'
@@ -159,7 +153,8 @@ class AdminController < ApplicationController
 
 
   def send_newsletter
-    ResqueMailer.publish(params['mail']['name'], :subject => params['mail']['subject'], :receiver => params['mail']['receiver'] ).deliver
+    Resque.enqueue_at(Time.now+30.seconds, NewsletterSender, params)
+
     flash[:notice] = "Newsletter pubblicata correttamente"
     redirect_to :controller => 'admin', :action => 'mailing_list'
   end

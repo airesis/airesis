@@ -22,7 +22,7 @@ eu:
         send_instructions: 'Instructions have been forwarded to your email'        
     failure:
         already_authenticated: 'You are already registered'        
-        unauthenticated: 'Log-in required to access this page.  Please log –in.'      
+        unauthenticated: 'Log-in required to access this page.  Please log-in.'
         unconfirmed: "Account has not been confirmed yet"
         user:
           invalid: 'Invalid username or password'
@@ -106,7 +106,7 @@ eu:
   error_comment_not_your: 'You are not authorized  to delete this comment'
   error_proposal_already_ranked: 'You have already evaluated this proposal. This proposal has not been edited further since then'
   error_proposal_not_valutating: 'This proposal is currently being evaluated, therefore you can not execute this action'
-  error_proposal_not_voted: "This proposal has not finshed the voting phase yet, therefore you can not execute this action"
+  error_proposal_not_voted: "This proposal has not finished the voting phase yet, therefore you can not execute this action"
   error_proposal_not_waiting_date: 'A date for voting this proposal has not been set yet'
   error_on_proposal_rank: 'An error occurred while registering your evaluation. We are sorry for the inconvenience. Please try again later'
   error_proposal_comment_already_ranked: 'You have already evaluated this comment.'  
@@ -115,14 +115,14 @@ eu:
    admin_required: 'You must be the administrator to access this page.'
    permissions_required: 'You do not have permission to access this page.'
    portavoce_required: 'You must be the spokesman to access this page'
-   blog_required: 'Before to proceed you are required to create a personal blog'
+   blog_required: 'Before you proceed you are required to create a personal blog'
    not_your_blog: 'This action can not be carried out on another blog'
    role_permission_change: 'You are not authorized to modify this parameter'
-   event_answer: 'There as been an error during sending the response'
+   event_answer: 'There has been an error in sending the response'
    event_already_answered: 'You have already answered this'
    event_past: "Event finished"
    configuration_required: "Module not available yet"
-   areas_required: "You nedd to activate working areas"
+   areas_required: "You need to activate working areas"
   info:
     setting_preferences: 'Settings changed successfully'
     blog_created: 'Your post has been created successfully'
@@ -152,7 +152,7 @@ eu:
      update: 'Group updated successfully.'
   partecipation_role:
    errors:
-     update: "Error during role update"
+     update: "Error updating role"
    confirm:
      update: "Role has been updated succesfully"
   pages:
@@ -173,12 +173,12 @@ eu:
         title: 'User List'
       show:
         groups_title: "Your groups"
-        group_column: "Grup"
+        group_column: "Group"
         role_column: "Role"
         get_out_of_group_button: "Get out of the group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
-        votations_title: "Votations you have partecipated"
+        votations_title: "Votations you have partecipated in"
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
@@ -255,7 +255,7 @@ eu:
         create_group_button: "Create a new group"
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
-        find_button: "Find"
+        find_button: "Search"
         groups_list: "Group partecipations"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
@@ -311,10 +311,10 @@ eu:
       title: 'Register'
       email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
-      confirm_password: "Password confirm"
-      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
+      confirm_password: "Confirm password"
+      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
       register_button: "Register"
-      identity_provviders_title: "Get in immediatly with your favorite account"
+      identity_provviders_title: "Get in immediately with your favourite account"
     proposals:
       index:
         title: 'List of proposals'
@@ -355,7 +355,7 @@ eu:
         choose_votation_period: "Choose a voting period"
         choose_votation_period_alert: "Are you sure about the voting period? You can't change it later!"
         choose_votation_period_button: "I chose!"
-        create_votation_period: "No voting dates set,please sets a new date"
+        create_votation_period: "No voting dates set, please sets a new date"
         no_periods_contact_group: "No voting dates set, please contact the administrators in order to choose a date."
         no_periods_contact_admin: "No voting date available at the moment. They need to be set. Contact %{email} if needed"
         choose_new_votation_period_button: "Please choose a new voting date"
@@ -363,7 +363,7 @@ eu:
         previos_contributes: "Previous contributes..."
         delete_contribute_confirmation: "Are you sure you want to delete this contribute?"
         delete_suggestion_confirmation: "Are you sure you want to delete this suggestion?"
-        offered_as_editor_message: "You offered as editor for this proposal"
+        offered_as_editor_message: "You offered as an editor for this proposal"
         offer_as_editor_button: "I wanna be editor for this proposal!"
         available_editors_button: "Available editors"
         editors_list_title: "List of available editors for this proposal"
@@ -377,8 +377,8 @@ eu:
         delete_button: "Delete"
         delete_proposal_confirmation: "Are you sure you want to delete this proposal?"
         votation_message: "This proposal will be voted from %{from} to %{to}"
-        editing_message_1: "This proposal will be developed by the editors thanks to all the contributions"
-        editing_message_2: "To be voted it will have to reach a"
+        editing_message_1: "This proposal will be developed by the editors thanks to all the contributes"
+        editing_message_2: "In order to be voted it will have to reach a"
         editing_message_3: "minimum rank"
         votation_page_button: "Go to votation page."
         vote_button: "Vote!"
@@ -399,7 +399,7 @@ eu:
         no_supporting_group: "No group support this proposal"
         support_proposal_button: "Support this proposal..."
         close_debate_button: "Close debate"
-        close_debate_proposal_confirmation: "Close debate immediatly and go to next phase?"
+        close_debate_proposal_confirmation: "Close debate immediatly and go to the next phase?"
         during_debate: "Debate proceeding"
         comment_inserted_by: "Inserted %{when} by %{who}"
         replies:
@@ -412,7 +412,7 @@ eu:
         noise_folder: "Removed contributes"
         what_nickname: "What's that?"
         give_contribute: "Make your contribution"
-        no_contributes: "Durante la votazione i contributi non vengono mostrati"
+        no_contributes: "While voting contributes are not shown"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -431,7 +431,7 @@ eu:
         title_group: " in group %{name}"
         title_synthetic: "(in summary)"
         title_placeholder: "es. \"Facilitate bike transport on trains\""
-        interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
+        interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
         estimate:
           problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
@@ -469,7 +469,7 @@ eu:
                            If the contribution is marked %{num} times, the authors of the proposal can
                            delete it from the discussion and place it in the \"noise \" folder. <br/>"
         report_title: "Report the contribution"
-        report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+        report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: "Make your vote!"
         schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to %{max} (I really like)"
@@ -522,7 +522,7 @@ eu:
         show_all: "Show all notifications"
       index:
         new_not_read: "New unread notifications"
-        no_new: "No new notifications"
+        no_new: "No new notification"
         old_not_read: "Old notifications already read"
         no_old: "No notification"
     blog_comments:
@@ -532,7 +532,7 @@ eu:
       groups:
         events: "EVENTS"
         proposals: "PROPOSALS"
-      no_groups_yet: "You are not in any groups yet"
+      no_groups_yet: "You are not in any group yet"
       menu:
         my_page: "MY HOMEPAGE"
         my_blog: "MY BLOG"
@@ -542,11 +542,11 @@ eu:
         logout: "LOGOUT"
         become_user: "Become a user"
         become_user_button: "Go!"
-        remember_me: "Remembre me on this computer"
+        remember_me: "Remember me on this computer"
         login_button: "Login"
         registration_button: "JOIN US"
         forgot_password_button: "Forgot password?"
-        resend_email_button: "Have you received a confirmation email?"
+        resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
       welcome: "Welcome"
       groups_title: "GROUPS"
@@ -646,7 +646,7 @@ eu:
     candidates:
       new:
         title: "%{name} : New candidature"
-        description: "Choose one of the group participants and send him as candidate for one of available elections."
+        description: "Choose one of the group participants and send him as candidate for one of the available elections."
         send_button: "Send the candidature"
       index:
         description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
@@ -758,7 +758,7 @@ eu:
          content: 'Content'
       quorum:
         name: 'Name of the quorum'
-        name_title: 'Please enter a short title, explanatory'
+        name_title: 'Please enter a short, explanatory title'
         description: 'Description / Brief explanation'
         description_title: 'A description to understand the purpose of this quorum'
         days_m: Days
@@ -885,6 +885,9 @@ eu:
         ok_message: "Geographic borders updated correctly"
       update:
         confirm_email: "You need to confirm the new email address."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider removed"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -898,7 +901,7 @@ eu:
   interest_borders_hint: "Type a few characters to search for a place"
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
-  digit_tags: "Type the tags you want to insert"
+  digit_tags: "Type the tags you want to add"
   ago: "ago"
   buttons:
     cancel: Cancel

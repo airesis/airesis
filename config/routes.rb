@@ -41,6 +41,8 @@ Airesis::Application.routes.draw do
       post :send_message
       post :update_image
     end
+
+    resources :authentications
   end
 
   resources :notifications do
