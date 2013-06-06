@@ -54,29 +54,16 @@ class ResqueMailer < ActionMailer::Base
   end
 
 
-  def publish(newsletter_name, params)
-    receiver = params['receiver']
-    if receiver == 'all'
-      @users = User.all
-    elsif receiver == 'not_confirmed'
-      @users = User.unconfirmed.all
-    elsif receiver == 'test'
-      @users = User.all(limit: 1)
-    elsif receiver == 'admin'
-      @users = User.find_all_by_login('admin')
-    elsif receiver == 'portavoce'
-      raise Exception
-    end
-    @users.each do |user|
-      mail_fields = {
-        subject: params['subject'],
-        to: user.email
-      }
-      @name = user.fullname
+  def publish(params)
+    user = User.find_by_id(params['user_id'])
+    mail_fields = {
+      subject: params['subject'],
+      to: user.email
+    }
+    @name = user.fullname
 
-      mail(mail_fields) do |format|
-        format.html { render("maktoub/newsletters/#{newsletter_name}") }
-      end
+    mail(mail_fields) do |format|
+      format.html { render("maktoub/newsletters/#{params['newsletter']}") }
     end
   end
 
