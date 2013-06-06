@@ -894,6 +894,7 @@
 
         xhr.open( "POST", this.url, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-CSRF-Token", $('meta[name="csrf-token"]').attr('content'));
         xhr.send( "data=" + encodeURIComponent( window.JSON.stringify( data ) ) );
 
     };
