@@ -125,6 +125,10 @@ class Ability
             user == group_partecipation.user
       end
 
+      can :destroy, Authentication do |authentication|
+        user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
+      end
+
 
       if user.moderator?
         can :destroy, ProposalComment do |comment|

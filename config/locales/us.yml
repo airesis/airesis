@@ -22,17 +22,28 @@ us:
         send_instructions: 'Instructions have been forwarded to your email'        
     failure:
         already_authenticated: 'You are already registered'        
-        unauthenticated: 'Log-in required to access this page.  Please log –in.'      
+        unauthenticated: 'Log-in required to access this page.  Please log-in.'
         unconfirmed: "Account has not been confirmed yet"
         user:
-          invalid: 'Invalid username or password'                
+          invalid: 'Invalid username or password'
+  calendar:
+    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
+    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+    today: 'today'
+    month: 'month'
+    week: 'week'
+    day: 'day'
+    firstDay: 0
+    timeFormat: 'h(:mm)t '
   date:
     order: [:day, :month, :year ]
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-    day_names: [Monday, Tuesday, Wednesday, Friday, Thursday, Saturday, Sunday]
-    abbr_day_names: [M, T, W, F, T, S, S]
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]
+    abbr_day_names: [S, M, T, W, F, T, S]
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
   time:
@@ -95,7 +106,7 @@ us:
   error_comment_not_your: 'You are not authorized  to delete this comment'
   error_proposal_already_ranked: 'You have already evaluated this proposal. This proposal has not been edited further since then'
   error_proposal_not_valutating: 'This proposal is currently being evaluated, therefore you can not execute this action'
-  error_proposal_not_voted: "This proposal has not finshed the voting phase yet, therefore you can not execute this action"
+  error_proposal_not_voted: "This proposal has not finished the voting phase yet, therefore you can not execute this action"
   error_proposal_not_waiting_date: 'A date for voting this proposal has not been set yet'
   error_on_proposal_rank: 'An error occurred while registering your evaluation. We are sorry for the inconvenience. Please try again later'
   error_proposal_comment_already_ranked: 'You have already evaluated this comment.'  
@@ -104,14 +115,14 @@ us:
    admin_required: 'You must be the administrator to access this page.'
    permissions_required: 'You do not have permission to access this page.'
    portavoce_required: 'You must be the spokesman to access this page'
-   blog_required: 'Before to proceed you are required to create a personal blog'
+   blog_required: 'Before you proceed you are required to create a personal blog'
    not_your_blog: 'This action can not be carried out on another blog'
    role_permission_change: 'You are not authorized to modify this parameter'
-   event_answer: 'There as been an error during sending the response'
+   event_answer: 'There has been an error in sending the response'
    event_already_answered: 'You have already answered this'
    event_past: "Event finished"
    configuration_required: "Module not available yet"
-   areas_required: "You nedd to activate working areas"
+   areas_required: "You need to activate working areas"
   info:
     setting_preferences: 'Settings changed successfully'
     blog_created: 'Your post has been created successfully'
@@ -141,7 +152,7 @@ us:
      update: 'Group updated successfully.'
   partecipation_role:
    errors:
-     update: "Error during role update"
+     update: "Error updating role"
    confirm:
      update: "Role has been updated succesfully"
   pages:
@@ -162,18 +173,60 @@ us:
         title: 'User List'
       show:
         groups_title: "Your groups"
-        group_column: "Grup"
+        group_column: "Group"
         role_column: "Role"
         get_out_of_group_button: "Get out of the group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
-        votations_title: "Votations you have partecipated"
+        votations_title: "Votations you have partecipated in"
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
         profile_info: "Profile informations"
         profile_info_unconfirmed: "(unconfirmed user)"
         send_message_button: "Send private message"
+        name_label: "Name"
+        surname_label: "Surname"
+        email_label: "Email"
+        edit_image: "Edit image"
+        to_be_confirmed: "to be confirmed"
+        password_label: "Password"
+        facebook_url_label: "Facebook URL"
+        googleplus_url_label: "Google+ URL"
+        linkedin_url: "Linkedin URL"
+        username_label: "Username"
+        registered_from: "Registered from"
+        load_image: "Load an image"
+        max_file_size: "Max size: 2MB"
+        what_can_i_do: "What can I do?"
+      send_message:
+        subject_label: "Subject"
+        body_label: "Body"
+      left_panel:
+        general_info: "General informations"
+        alarm_and_notifications: "Alarm and notifications"
+        geographic_borders: "Geographic borders"
+        account_and_privacy: "Account and privacy"
+        title: "SETTINGS AND PREFERENCES"
+      alarm_preferences:
+        receive_on_address: "Get alerts and newsletter on %{email}"
+        alerts: "Alerts"
+        emails: "Emails"
+      privacy_preferences:
+        tooltips: "Show tooltips"
+        show_urls: "Show Facebook, Google+ and LinkedIn URLs to users"
+        private_messages: "Receive private messages from other users"
+        join_accounts: "Join another account"
+        join_accounts_description: "On Airesis you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
+        joined_all: "You already joined all available providers. Thank you!"
+        join_facebook: "Join your Facebook account"
+        join_google: "Join your Google account"
+        join_twitter: "Join your Twitter account"
+        join_linkedin: "Join your Linkedin account"
+        join_meetup: "Join your Meetup account"
+        providers_list: "List of activated provider"
+      border_preferences:
+        updating: "Please wait while we update your preferences according to your border preferences."
     groups:
       accept_requests:
         portavoce: "Spokesman: when a user wants to join the group only the spokesmen of the group can accept the request. Once the spokesman has accepted the request, the user will actually becomes a member of the group."
@@ -188,6 +241,12 @@ us:
         title: 'Manage group events'
       edit_permissions:
         title: 'Manage roles and permissions'
+        new_role: "Add a new role"
+        edit_role_title: "Edit role"
+        new_role_title: "New role"
+        user_title: "User"
+        role_title: "Role"
+        no_users_yet: "Here you will be able to manage partecipants roles."
       edit_proposals:
         title: 'Manage quorum and proposals'
       index:
@@ -196,7 +255,7 @@ us:
         create_group_button: "Create a new group"
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
-        find_button: "Find"
+        find_button: "Search"
         groups_list: "Group partecipations"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
@@ -252,10 +311,10 @@ us:
       title: 'Register'
       email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
-      confirm_password: "Password confirm"
-      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">terms of service</a>"
+      confirm_password: "Confirm password"
+      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
       register_button: "Register"
-      identity_provviders_title: "Get in immediatly with your favorite account"
+      identity_provviders_title: "Get in immediately with your favourite account"
     proposals:
       index:
         title: 'List of proposals'
@@ -296,7 +355,7 @@ us:
         choose_votation_period: "Choose a voting period"
         choose_votation_period_alert: "Are you sure about the voting period? You can't change it later!"
         choose_votation_period_button: "I chose!"
-        create_votation_period: "No voting dates set,please sets a new date"
+        create_votation_period: "No voting dates set, please sets a new date"
         no_periods_contact_group: "No voting dates set, please contact the administrators in order to choose a date."
         no_periods_contact_admin: "No voting date available at the moment. They need to be set. Contact %{email} if needed"
         choose_new_votation_period_button: "Please choose a new voting date"
@@ -304,7 +363,7 @@ us:
         previos_contributes: "Previous contributes..."
         delete_contribute_confirmation: "Are you sure you want to delete this contribute?"
         delete_suggestion_confirmation: "Are you sure you want to delete this suggestion?"
-        offered_as_editor_message: "You offered as editor for this proposal"
+        offered_as_editor_message: "You offered as an editor for this proposal"
         offer_as_editor_button: "I wanna be editor for this proposal!"
         available_editors_button: "Available editors"
         editors_list_title: "List of available editors for this proposal"
@@ -318,8 +377,8 @@ us:
         delete_button: "Delete"
         delete_proposal_confirmation: "Are you sure you want to delete this proposal?"
         votation_message: "This proposal will be voted from %{from} to %{to}"
-        editing_message_1: "This proposal will be developed by the editors thanks to all the contributions"
-        editing_message_2: "To be voted it will have to reach a"
+        editing_message_1: "This proposal will be developed by the editors thanks to all the contributes"
+        editing_message_2: "In order to be voted it will have to reach a"
         editing_message_3: "minimum rank"
         votation_page_button: "Go to votation page."
         vote_button: "Vote!"
@@ -340,7 +399,7 @@ us:
         no_supporting_group: "No group support this proposal"
         support_proposal_button: "Support this proposal..."
         close_debate_button: "Close debate"
-        close_debate_proposal_confirmation: "Close debate immediatly and go to next phase?"
+        close_debate_proposal_confirmation: "Close debate immediatly and go to the next phase?"
         during_debate: "Debate proceeding"
         comment_inserted_by: "Inserted %{when} by %{who}"
         replies:
@@ -353,7 +412,7 @@ us:
         noise_folder: "Removed contributes"
         what_nickname: "What's that?"
         give_contribute: "Make your contribution"
-        no_contributes: "Durante la votazione i contributi non vengono mostrati"
+        no_contributes: "While voting contributes are not shown"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -372,7 +431,7 @@ us:
         title_group: " in group %{name}"
         title_synthetic: "(in summary)"
         title_placeholder: "es. \"Facilitate bike transport on trains\""
-        interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
+        interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
       tabs:
         last_inserted: "Last updated"
@@ -406,7 +465,7 @@ us:
                            If the contribution is marked %{num} times, the authors of the proposal can
                            delete it from the discussion and place it in the \"noise \" folder. <br/>"
         report_title: "Report the contribution"
-        report_description: "You can point out to webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
+        report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: "Make your vote!"
         schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to %{max} (I really like)"
@@ -459,7 +518,7 @@ us:
         show_all: "Show all notifications"
       index:
         new_not_read: "New unread notifications"
-        no_new: "No new notifications"
+        no_new: "No new notification"
         old_not_read: "Old notifications already read"
         no_old: "No notification"
     blog_comments:
@@ -469,7 +528,7 @@ us:
       groups:
         events: "EVENTS"
         proposals: "PROPOSALS"
-      no_groups_yet: "You are not in any groups yet"
+      no_groups_yet: "You are not in any group yet"
       menu:
         my_page: "MY HOMEPAGE"
         my_blog: "MY BLOG"
@@ -479,11 +538,11 @@ us:
         logout: "LOGOUT"
         become_user: "Become a user"
         become_user_button: "Go!"
-        remember_me: "Remembre me on this computer"
+        remember_me: "Remember me on this computer"
         login_button: "Login"
         registration_button: "JOIN US"
         forgot_password_button: "Forgot password?"
-        resend_email_button: "Have you received a confirmation email?"
+        resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
       welcome: "Welcome"
       groups_title: "GROUPS"
@@ -493,6 +552,7 @@ us:
       open_group: "Start a new group"
       new_group: "Find groups"
       support_us: "SUPPORT US"
+      no_alerts: "No alerts"
     blogs:
       show:
         no_posts: "No Posts"
@@ -504,6 +564,10 @@ us:
         title: "Create your blog!"
         cancel_button: "No, thanks!"
         create_button: "Create it"
+      edit:
+        title: "Edit blog"
+        title_label: "Blog title"
+        back_to_blog: "Back to my blog"
     groups_area:
       edit:
         title: "Workspace settings"
@@ -578,7 +642,7 @@ us:
     candidates:
       new:
         title: "%{name} : New candidature"
-        description: "Choose one of the group participants and send him as candidate for one of available elections."
+        description: "Choose one of the group participants and send him as candidate for one of the available elections."
         send_button: "Send the candidature"
       index:
         description: "On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must "
@@ -599,6 +663,12 @@ us:
         register: "Not registered yet? Sign up!"
         forgot_password: "Forgot your password?"
         havent_received_email: "Haven't received confirmation email?"
+    steps:
+      next: "Continue"
+    proposal_histories:
+      index:
+        title: "%{title} - Revision History"
+        back_to_proposal: "Back to proposal"
   pl:
     comments:
       zero: no comment
@@ -684,7 +754,7 @@ us:
          content: 'Content'
       quorum:
         name: 'Name of the quorum'
-        name_title: 'Please enter a short title, explanatory'
+        name_title: 'Please enter a short, explanatory title'
         description: 'Description / Brief explanation'
         description_title: 'A description to understand the purpose of this quorum'
         days_m: Days
@@ -783,6 +853,37 @@ us:
       delete_ok: 'Your comment has been deleted'
       report_ok: "Contribution reported succesfully"
       report_error: "Error during contribution report"
+    blogs:
+      cant_edit: "That's not your blog"
+      index:
+        title: "Blogs list"
+      new:
+        already_one: "I'm sorry. You already own a blog"
+      create:
+        ok_message: "Blog created succesfully!"
+      update:
+        ok_message: "Blog title updated succesfully"
+    users:
+      show:
+        clic_to_change: "Click on informations you want to update."
+      join_accounts:
+        ok_message: "Accounts joined succesfully!"
+        wrong_password: "Wrong password"
+      ko_message: "Error during accounts join. The operation is not possible at the moment."
+      tooltips:
+        enabled: "Tooltip enabled"
+        disabled: "Tooltip disabled"
+        ko_message: "Error during update. Please try later"
+      urls:
+        shown: "URL visible"
+        hidden: "URL hidden"
+      interest_borders:
+        ok_message: "Geographic borders updated correctly"
+      update:
+        confirm_email: "You need to confirm the new email address."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider removed"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -790,12 +891,37 @@ us:
   back_to_top: "Back to top"
   proposals:
     create_button: "Create a proposal"
+    show:
+      ready_for_vote: "Ready for vote"
+      keep_discuss: "Keep the discussion"
   interest_borders_hint: "Type a few characters to search for a place"
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
-  digit_tags: "Type the tags you want to insert"
+  digit_tags: "Type the tags you want to add"
   ago: "ago"
   buttons:
     cancel: Cancel
     save: "Save"
     report: "Report"
+    update: "Update"
+    send: "Send"
+    create: "Create"
+    delete: "Delete"
+    edit: "Edit"
+  tooltips:
+    random_stack_1: "<strong>How it works?</strong><br/>Contributions are shown first novel and then evaluated and the contributions that you already rated in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent."
+    random_stack_3: "<strong>How it works?</strong><br/>Contributions are shown first in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    miglioricontributi: "<strong> How can I help? </strong> <br/> contributions should not express appreciation of the simple but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a summary of the text shared. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!"
+    voglioredigere: "Ask the editors allow you to edit the text of the proposal on the basis of contributions from users."
+    voteup: "<div class='votedup'></div>the proposal is mature and can go to the vote (you can change the rating whether the proposal is updated)"
+    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>the proposal is not yet mature as in the text has to be integrated user contributions (you can change the rating when the proposal will be updated)"
+    valutazioni: "total number of evaluations received"
+    gradimento: "percentage of positive evaluations on the total"
+    nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
+    manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
+    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal"
+    quorum_minutes: "until <b>%{date}</b> %{time}"
+    quorum_valutations: "until it will be rated good by <b>least %{valutations} people</b>"
+    quorum_description: "The proposal will be in debate %{conditions}. Will pass to votation state if obtain a <b>rank</b> (positive valutation) grater than <b>%{good_score}%</b> of the total number of votation."
+  group: group

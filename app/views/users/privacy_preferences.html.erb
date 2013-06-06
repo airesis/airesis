@@ -18,7 +18,9 @@
     <h5>
       <%= raw t('pages.users.privacy_preferences.join_accounts_description') %></h5>
 
-    <% alreadyproviders = current_user.authentications.pluck(:provider) %>
+    <%
+       authentications = current_user.authentications
+       alreadyproviders = current_user.authentications.pluck(:provider) %>
 
     <% if alreadyproviders.size == 5 %>
         <%= t('pages.users.privacy_preferences.joined_all') %>
@@ -46,27 +48,25 @@
 
     <% if alreadyproviders.size > 0 %>
         <h2><%= t('pages.users.privacy_preferences.providers_list') %>:</h2>
-        <% if alreadyproviders.include? Authentication::FACEBOOK %>
-            Facebook<br/>
-        <% end %>
-
-        <% if alreadyproviders.include? Authentication::GOOGLE %>
-            Google<br/>
-        <% end %>
-
-
-        <% if alreadyproviders.include? Authentication::TWITTER %>
-            Twitter<br/>
-        <% end %>
-
-        <% if alreadyproviders.include? Authentication::LINKEDIN %>
-            Linkedin<br/>
-        <% end %>
-
-        <% if alreadyproviders.include? Authentication::MEETUP %>
-            Meetup<br/>
-        <% end %>
-
+        <%authentications.each do |authentication| %>
+            <% if authentication.provider == Authentication::FACEBOOK %>
+                Facebook
+            <% elsif authentication.provider == Authentication::GOOGLE %>
+                Google
+            <% elsif authentication.provider == Authentication::TWITTER %>
+                Twitter
+            <% elsif authentication.provider == Authentication::LINKEDIN %>
+                Linkedin
+            <% elsif authentication.provider == Authentication::MEETUP %>
+                Meetup
+            <% end %>
+             -
+            <%if @user.email %>
+                <%=link_to 'Scollega', [@user,authentication], method: :delete, confirm: 'Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso.'%><br/>
+            <%else%>
+                <%=link_to 'Scollega', '#', onclick: "alert('#{j 'Per poter rimuovere l\'Identity Provider devi prima fornire un indirizzo email valido e confermarlo dal menu \'Informazioni Generali\'.'}');return false;"%><br/>
+            <%end%>
+        <%end%>
     <% end %>
 <% end %>
 

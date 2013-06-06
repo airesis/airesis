@@ -22,17 +22,28 @@ en:
         send_instructions: 'Instructions have been forwarded to your email'        
     failure:
         already_authenticated: 'You are already registered'        
-        unauthenticated: 'Log-in required to access this page.  Please log–in.'      
+        unauthenticated: 'Log-in required to access this page.  Please log-in.'
         unconfirmed: "Account has not been confirmed yet"
         user:
-          invalid: 'Invalid username or password'                
+          invalid: 'Invalid username or password'
+  calendar:
+    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
+    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+    today: 'today'
+    month: 'month'
+    week: 'week'
+    day: 'day'
+    firstDay: 0
+    timeFormat: 'h(:mm)t '
   date:
     order: [:day, :month, :year ]
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-    day_names: [Monday, Tuesday, Wednesday, Friday, Thursday, Saturday, Sunday]
-    abbr_day_names: [M, T, W, F, T, S, S]
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]
+    abbr_day_names: [S, M, T, W, F, T, S]
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
   time:
@@ -174,6 +185,48 @@ en:
         profile_info: "Profile informations"
         profile_info_unconfirmed: "(unconfirmed user)"
         send_message_button: "Send private message"
+        name_label: "Name"
+        surname_label: "Surname"
+        email_label: "Email"
+        edit_image: "Edit image"
+        to_be_confirmed: "to be confirmed"
+        password_label: "Password"
+        facebook_url_label: "Facebook URL"
+        googleplus_url_label: "Google+ URL"
+        linkedin_url: "Linkedin URL"
+        username_label: "Username"
+        registered_from: "Registered from"
+        load_image: "Load an image"
+        max_file_size: "Max size: 2MB"
+        what_can_i_do: "What can I do?"
+      send_message:
+        subject_label: "Subject"
+        body_label: "Body"
+      left_panel:
+        general_info: "General informations"
+        alarm_and_notifications: "Alarm and notifications"
+        geographic_borders: "Geographic borders"
+        account_and_privacy: "Account and privacy"
+        title: "SETTINGS AND PREFERENCES"
+      alarm_preferences:
+        receive_on_address: "Get alerts and newsletter on %{email}"
+        alerts: "Alerts"
+        emails: "Emails"
+      privacy_preferences:
+        tooltips: "Show tooltips"
+        show_urls: "Show Facebook, Google+ and LinkedIn URLs to users"
+        private_messages: "Receive private messages from other users"
+        join_accounts: "Join another account"
+        join_accounts_description: "On Airesis you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
+        joined_all: "You already joined all available providers. Thank you!"
+        join_facebook: "Join your Facebook account"
+        join_google: "Join your Google account"
+        join_twitter: "Join your Twitter account"
+        join_linkedin: "Join your Linkedin account"
+        join_meetup: "Join your Meetup account"
+        providers_list: "List of activated provider"
+      border_preferences:
+        updating: "Please wait while we update your preferences according to your border preferences."
     groups:
       accept_requests:
         portavoce: "Spokesman: when a user wants to join the group only the spokesmen of the group can accept the request. Once the spokesman has accepted the request, the user will actually becomes a member of the group."
@@ -188,6 +241,12 @@ en:
         title: 'Manage group events'
       edit_permissions:
         title: 'Manage roles and permissions'
+        new_role: "Add a new role"
+        edit_role_title: "Edit role"
+        new_role_title: "New role"
+        user_title: "User"
+        role_title: "Role"
+        no_users_yet: "Here you will be able to manage partecipants roles."
       edit_proposals:
         title: 'Manage quorum and proposals'
       index:
@@ -493,6 +552,7 @@ en:
       open_group: "Start a new group"
       new_group: "Find groups"
       support_us: "SUPPORT US"
+      no_alerts: "No alerts"
     blogs:
       show:
         no_posts: "No Posts"
@@ -504,6 +564,10 @@ en:
         title: "Create your blog!"
         cancel_button: "No, thanks!"
         create_button: "Create it"
+      edit:
+        title: "Edit blog"
+        title_label: "Blog title"
+        back_to_blog: "Back to my blog"
     groups_area:
       edit:
         title: "Workspace settings"
@@ -599,6 +663,12 @@ en:
         register: "Not registered yet? Sign up!"
         forgot_password: "Forgot your password?"
         havent_received_email: "Haven't received confirmation email?"
+    steps:
+      next: "Continue"
+    proposal_histories:
+      index:
+        title: "%{title} - Revision History"
+        back_to_proposal: "Back to proposal"
   pl:
     comments:
       zero: no comment
@@ -783,6 +853,37 @@ en:
       delete_ok: 'Your comment has been deleted'
       report_ok: "Contribution reported succesfully"
       report_error: "Error during contribution report"
+    blogs:
+      cant_edit: "That's not your blog"
+      index:
+        title: "Blogs list"
+      new:
+        already_one: "I'm sorry. You already own a blog"
+      create:
+        ok_message: "Blog created succesfully!"
+      update:
+        ok_message: "Blog title updated succesfully"
+    users:
+      show:
+        clic_to_change: "Click on informations you want to update."
+      join_accounts:
+        ok_message: "Accounts joined succesfully!"
+        wrong_password: "Wrong password"
+      ko_message: "Error during accounts join. The operation is not possible at the moment."
+      tooltips:
+        enabled: "Tooltip enabled"
+        disabled: "Tooltip disabled"
+        ko_message: "Error during update. Please try later"
+      urls:
+        shown: "URL visible"
+        hidden: "URL hidden"
+      interest_borders:
+        ok_message: "Geographic borders updated correctly"
+      update:
+        confirm_email: "You need to confirm the new email address."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider removed"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -790,6 +891,9 @@ en:
   back_to_top: "Back to top"
   proposals:
     create_button: "Create a proposal"
+    show:
+      ready_for_vote: "Ready for vote"
+      keep_discuss: "Keep the discussion"
   interest_borders_hint: "Type a few characters to search for a place"
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
@@ -799,3 +903,25 @@ en:
     cancel: Cancel
     save: "Save"
     report: "Report"
+    update: "Update"
+    send: "Send"
+    create: "Create"
+    delete: "Delete"
+    edit: "Edit"
+  tooltips:
+    random_stack_1: "<strong>How it works?</strong><br/>Contributions are shown first novel and then evaluated and the contributions that you already rated in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent."
+    random_stack_3: "<strong>How it works?</strong><br/>Contributions are shown first in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    miglioricontributi: "<strong> How can I help? </strong> <br/> contributions should not express appreciation of the simple but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a summary of the text shared. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!"
+    voglioredigere: "Ask the editors allow you to edit the text of the proposal on the basis of contributions from users."
+    voteup: "<div class='votedup'></div>the proposal is mature and can go to the vote (you can change the rating whether the proposal is updated)"
+    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>the proposal is not yet mature as in the text has to be integrated user contributions (you can change the rating when the proposal will be updated)"
+    valutazioni: "total number of evaluations received"
+    gradimento: "percentage of positive evaluations on the total"
+    nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
+    manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
+    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal"
+    quorum_minutes: "until <b>%{date}</b> %{time}"
+    quorum_valutations: "until it will be rated good by <b>least %{valutations} people</b>"
+    quorum_description: "The proposal will be in debate %{conditions}. Will pass to votation state if obtain a <b>rank</b> (positive valutation) grater than <b>%{good_score}%</b> of the total number of votation."
+  group: group
