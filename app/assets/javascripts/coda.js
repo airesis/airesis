@@ -68,7 +68,7 @@ $(function() {
 		}
 
         if (clicktrigger.length > 0)
-		    $(clicktrigger).click(showandhide);
+		    clicktrigger.click(showandhide);
 	});
 	
 });
