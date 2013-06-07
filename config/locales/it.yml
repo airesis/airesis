@@ -1001,3 +1001,7 @@ it:
     problems_title: "Problematica"
     rule_book:
       problems_title: "Problematica"
+      sections:
+        inspire: "Regolamenti a cui ispirarsi"
+        stackeholders: "Stakeholders (persone coinvolte)"
+        requisiti: "Requisiti da rispettare"

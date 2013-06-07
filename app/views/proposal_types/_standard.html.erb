@@ -43,7 +43,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: 'Loading...' %>
       </p>
       </div>
 
