@@ -252,9 +252,9 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-    raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
     begin
+      max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+      raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
       @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
       @saved = false
       Proposal.transaction do
@@ -324,7 +324,7 @@ class ProposalsController < ApplicationController
             if request.env['HTTP_REFERER']["back=home"]
               page.redirect_to home_url
             else
-              page.redirect_to @group ? [@group, @proposal] : @proposal
+              page.redirect_to @group ? edit_group_proposal_path(@group, @proposal) : edit_proposal_path(@proposal)
             end
           end
         }
@@ -332,7 +332,7 @@ class ProposalsController < ApplicationController
           if request.env['HTTP_REFERER']["back=home"]
             redirect_to home_url
           else
-            redirect_to @group ? [@group, @proposal] : @proposal
+            redirect_to @group ? edit_group_proposal_path(@group, @proposal) : edit_proposal_path(@proposal)
           end
         }
       end

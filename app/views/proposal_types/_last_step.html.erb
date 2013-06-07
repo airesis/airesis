@@ -3,12 +3,12 @@
 <p>
   <%= f.label :quorum_id %> *<br/>
   <% if @group %>
-    <%= f.collection_select(:quorum_id, @group.quorums.active.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-    <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(:group_id => @group.id), :remote => true %>
+    <%@quorum_collection = @group.quorums.active%>
 <% else %>
-    <%= f.collection_select(:quorum_id, Quorum.public.all, :id, :name, :prompt => t('pages.proposals.new.quorum_prompt')) %>
-    <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+    <%@quorum_collection = Quorum.public %>
 <% end %>
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.all.collect { |p| [p.name, p.id, {'data-description' => p.description}]}),{:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick'} %>
+  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
 
 <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
 </div>

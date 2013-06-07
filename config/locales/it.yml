@@ -429,35 +429,81 @@ it:
         interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
         tags_list_placeholder: "Inserisci delle parole attinenti alla tua proposta"
         standard:
-          problems_title: "Problema/ostacoli"
+          problems_title: "Problema e/o ostacoli"
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
           objectives_title: "Obiettivi"
           step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
           first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            description: "Descrizione della soluzione"
+            time: "Tempistiche"
+            subject: "Soggetto attuatore e verifica"
+            resources: "Risorse necessarie e loro reperimento"
+            aspects: "Aspetti etici, ambientali, sociali"
+            documents: "Documentazione"
+            pros: "Pro"
+            cons: "Contro"
         rule_book:
           problems_title_label: "Quali sono i problemi da risolvere con l’applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
           first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            article: "Article %{num}"
+            pros: "Pro"
+            cons: "Contro"
         press:
           problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
           first_solution_title: "Titolo"
           problems_title: "Messaggio da trasmettere"
+          solution:
+            title: "Titolo"
+            subtitle: "Sottotitolo/Occhiello"
+            incipit: "Incipit"
+            body: "Corpo"
+            conclusion: "Conclusioni"
+            deep: "Approfondimenti"
         estimate:
           problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
           problems_title: "Problematica"
           first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            cost: "Importo"
+            problems: "Rispetto dei vincoli e problemi"
+            dumentation: "Documentazione"
         agenda:
           problems_title: "Tipologia di incontro"
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
+            points: "Punti all’ordine del giorno"
+            priorities: "Priorità dei punti proposti"
+            links: "Link di approfondimento"
         event:
           problems_title: "Scopo dell'evento"
           first_solution_title: "Soluzione 1"
           problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
+          solution:
+            title: "Titolo"
+            description: "Descrizione della soluzione"
+            program: "Data, orario e programma"
+            body: "place"
+            place: "Luogo"
+            organization: "Organizzazione dell’evento"
+            resources: "Risorse necessarie e loro reperimento"
+            pros: "Pro"
+            cons: "Contro"
         step_1_title: "Puoi proporre un problema da risolvere, un’idea da perfezionare, un’iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l’aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
         step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
         category_prompt: "--Seleziona una categoria--"
+        candidates:
+          solution:
+            name: "Nome e cognome"
+            data: "Dati anagrafici"
+            curriculum: "Curriculum"
+            available: "Disponibilità a ricoprire la carica"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"

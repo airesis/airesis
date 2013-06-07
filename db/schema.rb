@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601093527) do
+ActiveRecord::Schema.define(:version => 20130607113243) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -842,8 +842,9 @@ ActiveRecord::Schema.define(:version => 20130601093527) do
   end
 
   create_table "sections", :force => true do |t|
-    t.string  "title", :limit => 100, :null => false
-    t.integer "seq",                  :null => false
+    t.string  "title",    :limit => 100,   :null => false
+    t.integer "seq",                       :null => false
+    t.string  "question", :limit => 20000
   end
 
   create_table "sent_feedbacks", :force => true do |t|
@@ -885,6 +886,7 @@ ActiveRecord::Schema.define(:version => 20130601093527) do
     t.integer "proposal_id",   :null => false
     t.integer "seq",           :null => false
     t.integer "schulze_score"
+    t.string  "title"
   end
 
   create_table "spatial_ref_sys", :id => false, :force => true do |t|

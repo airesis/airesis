@@ -1,13 +1,7 @@
+<%= cache "solution_#{I18n.locale}_#{@proposal.proposal_type.short_name.downcase}" do %>
 <%
-   seq = 0
-   solution = Solution.new
-   solution.sections.build(title: t('pages.proposals.new.agenda.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-   solution.sections.build(title: 'Importo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-   solution.sections.build(title: 'Rispetto dei vincoli e problemi', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-   solution.sections.build(title: 'Documentazione', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+   solution = send(@proposal.proposal_type.short_name.downcase + '_solution')
 %>
-
-
 <div class="solution_main">
   <h3>
     <div class="tit1 sol">
@@ -48,4 +42,5 @@
     </div>
   </div>
 </div>
+<%end%>
 

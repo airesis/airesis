@@ -377,54 +377,35 @@
     var numSolution = <%=@proposal.solutions.count%>;
     var numSections = <%=@proposal.sections.count%>
 
-            function addSection(el) {
-                var sectionname = 'proposal[sections_attributes][' + numSections + ']';
-                var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-                var paragraphname = sectionname + '[paragraphs_attributes][0]';
-                var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
-                var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-                paragraph_.append('<input type="text" class="edit_label" value="Paragrafo ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
-                paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
-                paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
-                paragraph_.append('<br />');
-                var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
-                paragraph_.append(textarea_);
-                paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-                var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
-                seq_.val(numSections);
-                paragraph_.append(seq_);
-                paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-                $('.sections_column').append(paragraph_);
-                paragraph_.fadeIn();
-
-                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
-
-                numSections += 1;
-            }
-
-
-    function addSolution(el) {
-        /*var solutionname = 'proposal[solutions_attributes][' + numSolution + ']';
-        var sectionname = solutionname + '[sections_attributes][0]';
-        var solutionid = solutionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+    function addSection(el) {
+        var sectionname = 'proposal[sections_attributes][' + numSections + ']';
+        var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
-        paragraph_.append('<input type="text" class="edit_label" value="Soluzione ' + (numSolution + 1) + '" name=\'' + sectionname + '[title]\'></input>');
+        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+        paragraph_.append('<input type="text" class="edit_label" value="Paragrafo ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
-        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolution(this,' + numSolution + ',false);return false;"><%= 'Rimuovi soluzione' %></a></span>');
+        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%= 'Rimuovi sezione' %></a></span>');
         paragraph_.append('<br />');
         var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
         paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
-        var seq_ = $('<input type=\'hidden\' name=\'' + solutionname + '[seq]\' id=\'' + solutionid + '_seq\'></input>');
-        seq_.val(numSolution);
+        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
+        seq_.val(numSections);
         paragraph_.append(seq_);
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
-        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + sectionname + '[seq]\' ></input>');
-        $('.solutions_column').append(paragraph_);*/
+        $('.sections_column').append(paragraph_);
+        paragraph_.fadeIn();
 
-        var paragraph_ = $('<%=j render "proposal_types/#{@proposal.proposal_type.short_name.downcase}_solution"%>');
+        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+
+        numSections += 1;
+    }
+
+
+    function addSolution(el) {
+
+        var paragraph_ = $('<%=j render "proposal_types/solution"%>');
 
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
@@ -440,6 +421,8 @@
         paragraph_.find('textarea.tinymce').each(function() {
             tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
         });
+
+        make_solution_sortable($(".solutions_column",paragraph_));
 
 
     }
@@ -503,32 +486,39 @@
     });
 
 
-    $(".solutions_column").sortable({
-        connectWith: ".column",
-        cursor: "move",
-        axis: "y",
-        handle: '.move_button',
-        start: function (e, ui) {
+    function make_solution_sortable(jquery_obj) {
+        jquery_obj.sortable({
+            connectWith: ".column",
+            cursor: "move",
+            axis: "y",
+            handle: '.move_button',
+            start: function (e, ui) {
 
-        },
-        stop: function (e, ui) {
-            var textarea_ = $('.tinymce', ui.item);
+            },
+            stop: function (e, ui) {
+                var textarea_ = $('.tinymce', ui.item);
 
-            setTimeout(function () {
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
-                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
-            }, 1000);
+                setTimeout(function () {
+                    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+                    tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+                }, 1000);
 
-            var i = 0;
-            $(this).find('p').each(function (el) {
-                var id = $(this).find('.tinymce').attr('id');
-                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                console.log(seq_id + ', id: ' + i);
-                $('#' + seq_id).val(i++)
-                console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i-1));
-            });
-        }
-    });
+                var i = 0;
+                $(this).find('p').each(function (el) {
+                    var id = $(this).find('.tinymce').attr('id');
+                    var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                    console.log(seq_id + ', id: ' + i);
+                    $('#' + seq_id).val(i++)
+                    console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i-1));
+                });
+            }
+        });
+
+    }
+
+
+    make_solution_sortable($(".solutions_column"));
+
 
 
 

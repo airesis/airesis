@@ -44,3 +44,4 @@
 //= require feedback
 //= require private_pub
 //= require ddslick.min
+//= require toastr

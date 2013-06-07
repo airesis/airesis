@@ -3,10 +3,8 @@
 <% elapsed = Time.now - max %>
 <%if elapsed < PROPOSALS_TIME_LIMIT%>
 alert('Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora <%= ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor%> minuti e <%= ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)%> secondi.');
+<%end%>
 <%else%>
-
-
-
 
 /**
  * Se lo step delle proposte simili era stato saltato, saltalo anche quando torni indietro
@@ -114,5 +112,4 @@ tinyMCE.init({
 });
 
 
-<%end%>
 <%end%>
