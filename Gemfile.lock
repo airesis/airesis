@@ -263,6 +263,7 @@ GEM
       rufus-scheduler
     resque_mailer (2.2.1)
       actionmailer (~> 3.0)
+    rotp (1.4.1)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     ruby-openid (2.2.2)
@@ -370,6 +371,7 @@ DEPENDENCIES
   resque
   resque-scheduler
   resque_mailer
+  rotp
   ruby-prof
   sanitize
   sass-rails (~> 3.2.3)

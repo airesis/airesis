@@ -35,7 +35,7 @@ class UsersController < ApplicationController
           auth.save!
         end
         #fine dell'unione
-        flash[:info] = t('controllers.users.join_accounts.ok_message')
+        flash[:notice] = t('controllers.users.join_accounts.ok_message')
         sign_in_and_redirect auth, :event => :authentication
       else
         flash[:error] = t('controllers.users.join_accounts.wrong_password')
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
-    current_user.save
+    current_user.save!
     params[:active] == 'true' ?
         flash[:notice] = t('controllers.users.tooltips.enabled') :
         flash[:notice] = t('controllers.users.tooltips.disabled')
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
 
   def change_show_urls
     current_user.show_urls = params[:active]
-    current_user.save
+    current_user.save!
     params[:active] == 'true' ?
         flash[:notice] = t('controllers.users.urls.shown') :
         flash[:notice] = t('controllers.users.urls.hidden')
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
 
   def change_receive_messages
     current_user.receive_messages = params[:active]
-    current_user.save
+    current_user.save!
     if params[:active] == 'true'
       flash[:notice] = t('info.private_messages_active')
     else
@@ -145,6 +145,36 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = t('controllers.users.tooltips.ko_message')
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
+  #enable or disable rotp feature
+  def change_rotp_enabled
+    authorize! :change_rotp_enabled, current_user
+    current_user.rotp_enabled = params[:active]
+    if params[:active] == 'true'
+      current_user.rotp_secret = ROTP::Base32.random_base32
+      flash[:notice] = t('info.rotp_active')
+    else
+      flash[:notice] = t('info.rotp_inactive')
+    end
+    current_user.save!
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "rotp_container", :partial => 'users/rotp_code'
       end
       }
     end

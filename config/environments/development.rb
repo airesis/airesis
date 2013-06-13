@@ -60,14 +60,14 @@ Airesis::Application.configure do
   COMMENTS_TIME_LIMIT=30.seconds
 
   #limita il numero di proposte
-  LIMIT_PROPOSALS=true
+  LIMIT_PROPOSALS=false
   PROPOSALS_TIME_LIMIT=2.minutes
 
   #limita il numero di gruppi
   LIMIT_GROUPS=true
   GROUPS_TIME_LIMIT=24.hours
 
-
+  ROTP_DRIFT = 23
   
   #config.gem 'resque-mongo', :lib => 'resque'
 

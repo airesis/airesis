@@ -71,6 +71,8 @@ DemocracyOnline3::Application.configure do
   LIMIT_GROUPS=true
   GROUPS_TIME_LIMIT=24.hours
 
+  ROTP_DRIFT = 23
+
   config.middleware.use ExceptionNotifier,
                         :email_prefix => "[Exception] ",
                         :sender_address => %{"Exception Notifier" <coorasse+notifier@gmail.com>},

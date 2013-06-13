@@ -2,6 +2,8 @@
 <%= render :layout => "layouts/page_title", :locals => {:title => t('pages.user.privacy')} do %>
 <% end %>
 
+<h2><%= t('pages.users.privacy_preferences.options') %></h2>
+
 <%= check_box :user, :show_tooltips, value: current_user.show_tooltips, onclick: "return change_show_tooltips(this);" %> <%= t('pages.users.privacy_preferences.tooltips') %>
 <br/>
 <% if ::Configuration::socialnetwork_active %>
@@ -12,6 +14,15 @@
     <%= check_box :user, :receive_messages, value: current_user.receive_messages, onclick: "return change_receive_messages(this);" %> <%= t('pages.users.privacy_preferences.private_messages') %>
     <br/>
 <% end %>
+<% if ::Configuration.rotp %>
+    <h2><%= t('pages.users.privacy_preferences.rotp') %></h2>
+    <%= check_box :user, :rotp_enabled, value: current_user.rotp_enabled, onclick: "return change_rotp_enabled(this);" %> <%= t('pages.users.privacy_preferences.rotp') %>
+    <div id="rotp_container">
+      <%= render 'users/rotp_code' %>
+    </div>
+<% end %>
+
+<br/>
 
 <% if ::Configuration::socialnetwork_active %>
     <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
@@ -26,29 +37,34 @@
         <%= t('pages.users.privacy_preferences.joined_all') %>
     <% end %>
     <% unless alreadyproviders.include? Authentication::FACEBOOK %>
-        <%= link_to t('pages.users.privacy_preferences.join_facebook'), user_omniauth_authorize_path(:facebook) %>    <br/>
+        <%= link_to t('pages.users.privacy_preferences.join_facebook'), user_omniauth_authorize_path(:facebook) %>
+        <br/>
     <% end %>
 
     <% unless alreadyproviders.include? Authentication::GOOGLE %>
-        <%= link_to t('pages.users.privacy_preferences.join_google'), user_omniauth_authorize_path(:google_oauth2) %>      <br/>
+        <%= link_to t('pages.users.privacy_preferences.join_google'), user_omniauth_authorize_path(:google_oauth2) %>
+        <br/>
     <% end %>
 
     <% unless alreadyproviders.include? Authentication::TWITTER %>
-        <%= link_to t('pages.users.privacy_preferences.join_twitter'), user_omniauth_authorize_path(:twitter) %>        <br/>
+        <%= link_to t('pages.users.privacy_preferences.join_twitter'), user_omniauth_authorize_path(:twitter) %>
+        <br/>
     <% end %>
 
     <% unless alreadyproviders.include? Authentication::LINKEDIN %>
-        <%= link_to t('pages.users.privacy_preferences.join_linkedin'), user_omniauth_authorize_path(:linkedin) %>         <br/>
+        <%= link_to t('pages.users.privacy_preferences.join_linkedin'), user_omniauth_authorize_path(:linkedin) %>
+        <br/>
     <% end %>
 
     <% unless alreadyproviders.include? Authentication::MEETUP %>
-        <%= link_to t('pages.users.privacy_preferences.join_meetup'), user_omniauth_authorize_path(:meetup) %>         <br/>
+        <%= link_to t('pages.users.privacy_preferences.join_meetup'), user_omniauth_authorize_path(:meetup) %>
+        <br/>
     <% end %>
 
 
     <% if alreadyproviders.size > 0 %>
         <h2><%= t('pages.users.privacy_preferences.providers_list') %>:</h2>
-        <%authentications.each do |authentication| %>
+        <% authentications.each do |authentication| %>
             <% if authentication.provider == Authentication::FACEBOOK %>
                 Facebook
             <% elsif authentication.provider == Authentication::GOOGLE %>
@@ -60,13 +76,13 @@
             <% elsif authentication.provider == Authentication::MEETUP %>
                 Meetup
             <% end %>
-             -
-            <%if @user.email %>
-                <%=link_to 'Scollega', [@user,authentication], method: :delete, confirm: 'Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso.'%><br/>
-            <%else%>
-                <%=link_to 'Scollega', '#', onclick: "alert('#{j 'Per poter rimuovere l\'Identity Provider devi prima fornire un indirizzo email valido e confermarlo dal menu \'Informazioni Generali\'.'}');return false;"%><br/>
-            <%end%>
-        <%end%>
+            -
+            <% if @user.email %>
+                <%= link_to 'Scollega', [@user, authentication], method: :delete, confirm: 'Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso.' %><br/>
+            <% else %>
+                <%= link_to 'Scollega', '#', onclick: "alert('#{j 'Per poter rimuovere l\'Identity Provider devi prima fornire un indirizzo email valido e confermarlo dal menu \'Informazioni Generali\'.'}');return false;" %><br/>
+            <% end %>
+        <% end %>
     <% end %>
 <% end %>
 
@@ -102,6 +118,27 @@
             type: 'post'
         });
     }
+
+    function change_rotp_enabled(el) {
+        <%if can? :change_rotp_enabled, current_user %>
+        var confirm_msg = el.checked ? 'Sei sicuro di voler attivare il token di sicurezza?' : 'Sei sicuro di voler disattivare il token di sicurezza?';
+        if (!confirm(confirm_msg)) {
+            return false;
+        }
+
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active,
+            url: "/users/change_rotp_enabled",
+            dataType: 'script',
+            type: 'post'
+        });
+        <%else %>
+        alert('Per abilitare il Token di sicurezza devi inserire un\'indirizzo email valido');
+        return false;
+        <%end%>
+    }
+
 </script>
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607113243) do
+ActiveRecord::Schema.define(:version => 20130613161922) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -405,6 +405,7 @@ ActiveRecord::Schema.define(:version => 20130607113243) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "admin_title",                :limit => 200
   end
 
   create_table "images", :force => true do |t|
@@ -789,6 +790,7 @@ ActiveRecord::Schema.define(:version => 20130607113243) do
     t.datetime "updated_at"
     t.datetime "started_at"
     t.datetime "ends_at"
+    t.integer  "seq"
   end
 
   create_table "ranking_types", :force => true do |t|
@@ -1063,6 +1065,8 @@ ActiveRecord::Schema.define(:version => 20130607113243) do
     t.boolean  "show_urls",                                 :default => true
     t.boolean  "receive_messages",                          :default => true,  :null => false
     t.string   "authentication_token"
+    t.string   "rotp_secret",               :limit => 16
+    t.boolean  "rotp_enabled",                              :default => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

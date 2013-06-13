@@ -225,6 +225,7 @@ eu:
         join_linkedin: "Join your Linkedin account"
         join_meetup: "Join your Meetup account"
         providers_list: "List of activated provider"
+        rotp: "Enable Security Token"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences."
     groups:

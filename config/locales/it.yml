@@ -131,7 +131,9 @@ it:
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
-   
+
+    rotp_active: "Token di sicurezza attivato"
+    rotp_inactive: "Token di sicurezza disattivato"
   proposal_inserted: "Proposta creata correttamente. Continua l'elaborazione compilando i campi rimanenti"
   proposal_updated:  "La proposta è stata aggiornata correttamente."
   proposal_deleted:  "La proposta è stata eliminata correttamente."
@@ -167,7 +169,7 @@ it:
       find_groups: "Cerca gruppi"
     user:
       notifications: "Allarmi e notifiche"
-      privacy: "Account e privacy"
+      privacy: "Impostazioni Account e Privacy"
     users:
       index:
         title: "Elenco utenti"
@@ -225,6 +227,8 @@ it:
         join_linkedin: "Collega il tuo account Linkedin"
         join_meetup: "Collega il tuo account Meetup"
         providers_list: "Elenco Provider attivati per accedere"
+        options: "Opzioni"
+        rotp: "Abilita Token di sicurezza"
       border_preferences:
         updating: "Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti."
     groups:

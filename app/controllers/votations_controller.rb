@@ -18,15 +18,35 @@ class VotationsController < ApplicationController
 
       authorize! :vote, @proposal
 
+      vote_type = params[:data][:vote_type].to_i
+
+      #check if user has rotp enabled and check the code
+      if current_user.rotp_enabled && ::Configuration.rotp
+        security_code = params[:data][:token].to_i
+        totp = ROTP::TOTP.new(current_user.rotp_secret)
+        unless totp.verify_with_drift(security_code,ROTP_DRIFT || 0)
+          flash[:error] = 'Token di sicurezza non valido'
+          respond_to do |format|
+            format.js   { render :update do |page|
+              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+              page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+            end
+            }
+          end
+          return
+        end
+      end
+
+
       vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
-      vote.vote_type_id = params[:vote_type].to_i unless @proposal.secret_vote
+      vote.vote_type_id = vote_type unless @proposal.secret_vote
       vote.save!
 
-      if params[:vote_type] == POSITIVE_VOTE.to_s
+      if vote_type == POSITIVE_VOTE
         @proposal.vote.positive += 1
-      elsif params[:vote_type] == NEUTRAL_VOTE.to_s
+      elsif vote_type  == NEUTRAL_VOTE
         @proposal.vote.neutral += 1
-      elsif params[:vote_type] == NEGATIVE_VOTE.to_s
+      elsif vote_type  == NEGATIVE_VOTE
         @proposal.vote.negative += 1
       end
       @proposal.vote.save!
@@ -59,9 +79,32 @@ class VotationsController < ApplicationController
 
   #un utente invia il voto in formato schulze
   def vote_schulze
+
+
+
+
     begin
       Proposal.transaction do
         @proposal = Proposal.find_by_id(params[:proposal_id])
+        authorize! :vote, @proposal
+
+        #check if user has rotp enabled and check the code
+        if current_user.rotp_enabled && ::Configuration.rotp
+          security_code = params[:data][:token].to_i
+          totp = ROTP::TOTP.new(current_user.rotp_secret)
+          unless totp.verify_with_drift(security_code,ROTP_DRIFT || 0)
+            flash[:error] = 'Token di sicurezza non valido'
+            respond_to do |format|
+              format.js   { render :update do |page|
+                page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+                page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+              end
+              }
+            end
+            return
+          end
+        end
+
         votestring = params[:data][:votes]
         solutions = votestring.split(/;|,/).map{|a| a.to_i}.sort #lista degli id delle soluzioni
         p_sol = @proposal.solutions.pluck(:id).sort

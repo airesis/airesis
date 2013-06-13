@@ -1,0 +1,3 @@
+<%if current_user.rotp_enabled %>
+    <%= google_authenticator_qrcode(current_user) %>
+<%end%>

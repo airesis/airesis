@@ -1,4 +1,4 @@
-# Methods added to this helper will be available to all templates in the application.
+#encoding: utf-8
 module ApplicationHelper
   
   #ricarica i messaggi flash
@@ -34,6 +34,12 @@ module ApplicationHelper
   def time_in_words(from_time, include_seconds=false)
     diff = Time.now - from_time
     diff > 23.hours ? "il " + from_time.strftime("%d/%m/%Y %H:%M") : time_ago_in_words(from_time,include_seconds) + " " + t('ago')
+  end
+
+  def google_authenticator_qrcode(user)
+    data = "otpauth://totp/#{user.email}?secret=#{user.rotp_secret}"
+    url = "https://chart.googleapis.​com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
+    image_tag(url, :alt => 'Google Authenticator QRCode')
   end
   
 end

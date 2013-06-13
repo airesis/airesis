@@ -138,3 +138,5 @@ gem 'httparty'
 gem 'icalendar'
 
 gem 'private_pub'
+
+gem 'rotp'

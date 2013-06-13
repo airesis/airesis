@@ -136,6 +136,8 @@ class Ability
         blog_post.user == user
       end
 
+      can :change_rotp_enabled, User if user.email
+
 
       if user.moderator?
         can :destroy, ProposalComment do |comment|
