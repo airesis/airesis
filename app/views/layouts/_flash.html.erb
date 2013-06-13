@@ -1,7 +1,9 @@
 <script>
 $(function () {
     <% flash.each do |key,value| %>
-      <% if (key == :notice) || (key == :info) %>
+      <%if (key == :info) %>
+        toastr.success('<%=j value%>');
+      <%elsif (key == :notice)%>
         toastr.info('<%=j value%>');
       <%elsif  (key == :warn) %>
         toastr.warning('<%=j value%>');

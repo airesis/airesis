@@ -288,6 +288,16 @@ function validElement() {
         }
     }
 
+
+    var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
+    if (content_.is(':visible')) {
+        var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
+        if (escapedcontent_ == '') {
+            return false;
+        }
+    }
+
+
     // if any of the inputs are invalid we want to disrupt the click event
     return valid;
 }

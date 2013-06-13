@@ -45,6 +45,9 @@ class Ability
       can :update, Group do |group|
         group.portavoce.include? user
       end
+      can :remove_post, Group do |group|
+        group.portavoce.include? user
+      end
       can :update, PartecipationRole do |partecipation_role|
         partecipation_role.group.portavoce.include? user
       end
@@ -129,6 +132,10 @@ class Ability
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
       end
 
+      can :edit, BlogPost do |blog_post|
+        blog_post.user == user
+      end
+
 
       if user.moderator?
         can :destroy, ProposalComment do |comment|
@@ -146,6 +153,8 @@ class Ability
         can :partecipate, Proposal #can partecipate
         can :destroy, Proposal #can destroy one
         can :destroy, ProposalComment
+        can :manage, Group
+        can :manage, BlogPost
         #cannot :show_tooltips
        #can :vote, Proposal do |proposal|
        #  can_vote_proposal?(user, proposal)

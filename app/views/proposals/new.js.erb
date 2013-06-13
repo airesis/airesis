@@ -69,7 +69,8 @@ input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
     hintText: "<%=t('interest_borders_hint')%>",
     noResultsText: "<%=t('no_interest_border')%>",
     searchingText: "<%=t('looking_for_interest_border')%>",
-    preventDuplicates: true
+    preventDuplicates: true,
+    allowTabOut: true
 });
 
 
@@ -81,7 +82,8 @@ if (input != null) {
         allowFreeTagging: true,
         hintText: "<%=t('digit_tags')%>",
         searchingText: "<%=t('digit_tags')%>",
-        preventDuplicates: true
+        preventDuplicates: true,
+        allowTabOut: true
     })
 }
 
@@ -105,7 +107,7 @@ $('.ddslick2').ddslick({
         }
 });
 
-$('#proposal_quorum_id_container').css('float','left');
+$('#proposal_quorum_id_container').css('float','left').css('margin-right','5px');
 
 
 //window.ClientSideValidations.forms['new_proposal'].validators['proposal[sections_attributes][][paragraphs_attributes][][content]']['presence'] = [{'message':'deve essere compilato'}];

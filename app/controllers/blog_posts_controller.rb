@@ -94,7 +94,7 @@ class BlogPostsController < ApplicationController
       respond_to do |format|
         if saved
           notify_user_insert_blog_post(@blog_post) if @blog_post.published
-          flash[:notice] = t('info.blog_created')
+          flash[:info] = t('info.blog_created')
           format.html {
             redirect_to group_path(params[:group_id]) if (params[:group_id] && !params[:group_id].empty?)               
             redirect_to([@blog,@blog_post]) if (!params[:group_id] || params[:group_id].empty?) 
@@ -115,7 +115,7 @@ class BlogPostsController < ApplicationController
     
     respond_to do |format|
       if @blog_post.update_attributes(params[:blog_post])
-        flash[:notice] = 'Il tuo post è stato aggiornato correttamente.'
+        flash[:info] = 'Il tuo post è stato aggiornato correttamente.'
         format.html { redirect_to([@blog,@blog_post]) }
         format.xml  { head :ok }
       else
@@ -130,7 +130,7 @@ class BlogPostsController < ApplicationController
     @blog_post = @blog.posts.find(params[:id])
     @blog_post.destroy
     
-    flash[:notice] = 'Il tuo post è stato cancellato correttamente.'
+    flash[:info] = 'Il tuo post è stato cancellato correttamente.'
     
     respond_to do |format|
       format.html { redirect_to @blog }
@@ -141,12 +141,11 @@ class BlogPostsController < ApplicationController
   private
   def require_admin
     if !current_user || !current_user.admin?
-      flash[:notice] = 'Devi essere amministratore per visualizzare questa pagina.'
+      flash[:error] = 'Devi essere amministratore per visualizzare questa pagina.'
       redirect_to blog_path(@blog)
       return false
     end
-    
-    return true
+    true
   end
   
   def choose_layout
@@ -184,17 +183,17 @@ class BlogPostsController < ApplicationController
   
   #risposta nel caso non sia presente il blog dell'utente
   def require_blog
-    if (!current_user.blog)
+    unless current_user.blog
       respond_to do |format|
         format.js do        #se era una chiamata ajax, mostra il messaggio
-          flash.now[:notice] = t('error.blog_required')
+          flash.now[:error] = t('error.blog_required')
           render :update do |page|
              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end  
         end
         format.html do   #vai alla pagina di ceazione blog
           session[:blog_return_to] = request.url
-          flash[:notice] = t('error.blog_required')
+          flash[:error] = t('error.blog_required')
           redirect_to new_blog_path        
         end
       end
@@ -202,7 +201,7 @@ class BlogPostsController < ApplicationController
   end
   
   def must_be_my_blog
-    if (@blog != current_user.blog)
+    if @blog != current_user.blog
       respond_to do |format|
         format.js do        #se era una chiamata ajax, mostra il messaggio
           flash.now[:error] = t('error.not_your_blog')

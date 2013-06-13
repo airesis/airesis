@@ -3,7 +3,7 @@
       <div class="hidden_link">
       </div>
       <div class="hidden_menu">
-        <% if @group && ((user_signed_in? and current_user.is_my_blog_post? blog_post.id) || (@group.portavoce.include? current_user) || is_admin?) %>
+        <% if @group && ((can? :remove_post, @group) || (can? :edit, blog_post)) %>
             <%= link_to(t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', :confirm => "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?") %>
         <% end %>
         <% if (user_signed_in? and ((current_user.is_my_blog_post? blog_post.id) || is_admin?)) %>

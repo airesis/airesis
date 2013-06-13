@@ -859,6 +859,7 @@
 
         // Populate the results dropdown with some results
         function populate_dropdown (query, results) {
+            console.log($(input).data("setting"));
             if(results && results.length) {
                 dropdown.empty();
                 var dropdown_ul = $("<ul>")
@@ -904,7 +905,7 @@
                 } else {
                     dropdown_ul.show();
                 }
-            } else if (!$(input).data("setting").allowFreeTagging ) {
+            } else if (!$(input).data("settings").allowFreeTagging ) {
                 if($(input).data("settings").noResultsText) {
                     dropdown.html("<p>" + escapeHTML($(input).data("settings").noResultsText) + "</p>");
                     show_dropdown();

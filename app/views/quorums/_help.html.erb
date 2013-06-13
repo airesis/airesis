@@ -24,7 +24,7 @@
 					<%if @group%>
 						<%=[(quorum.percentage.to_f * 0.01 * @group.count_voter_partecipants).floor,1].max%>
 					<%else%>
-						<%=[(quorum.percentage * 0.001 * User.all.count).floor,1].max%>
+						<%=[(quorum.percentage.to_f * 0.001 * User.all.count).floor,1].max%>
 					<%end%>
 					 partecipanti</b>
 				<%end%>
@@ -32,7 +32,8 @@
 					<%if quorum.percentage%>
 						<b><%=(quorum.condition.upcase == 'OR') ? 'o ' : 'e '%></b>
 						devono trascorrere almeno <b><%=quorum.time%></b>.
-					<%else%>					
+					<%else%>
+                     <br/>
 					 La durata è impostata a <b><%=quorum.time%></b>. 
 					<%end%>
 				<%end%><br />
@@ -48,7 +49,7 @@
 					<b><%if @group%>
 						<%=[(quorum.percentage.to_f * 0.01 * @group.count_voter_partecipants).floor,1].max%>
 					<%else%>
-						<%=[(quorum.percentage * 0.001 * User.all.count).floor,1].max%>
+						<%=[(quorum.percentage.to_f * 0.001 * User.confirmed.count).floor,1].max%>
 					<%end%>
 					</b>
 				<%else%>

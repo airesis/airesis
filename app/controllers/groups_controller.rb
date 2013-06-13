@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
 
   #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :remove_post]
+  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
   def index
     @groups = Group.look(params[:search], params[:page])
@@ -225,7 +225,7 @@ class GroupsController < ApplicationController
 
       respond_to do |format|
         if @group.save
-          flash[:notice] = t('groups.confirm.update')
+          flash[:info] = t('groups.confirm.update')
         end
         format.html { render :action => "edit" }
       end
@@ -426,9 +426,10 @@ class GroupsController < ApplicationController
   end
 
   def remove_post
+    raise Exception unless (can? :remove_post, @group) || (can? :edit, BlogPost.find(params[:post_id]))
     @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
     @publishing.destroy
-    flash[:notice] = 'Il post è stato rimosso dalla bacheca del gruppo'
+    flash[:info] = 'Il post è stato rimosso dalla bacheca del gruppo'
 
   rescue Exception => e
     respond_to do |format|
