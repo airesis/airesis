@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates_presence_of     :default_role_name, :on => :create
   
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
@@ -80,6 +80,14 @@ class Group < ActiveRecord::Base
 
   before_create :pre_populate
   after_create :after_populate
+
+  before_save :normalize_blank_values
+
+  def normalize_blank_values
+    [:admin_title].each do |att|
+      self[att] = nil if self[att].blank?
+    end
+  end
 
   def pre_populate
     self.default_visible_outside = true

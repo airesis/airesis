@@ -791,6 +791,7 @@ it:
         description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
+        admin_title: "Nome amministratore"
       blogs:
         title: 'Titolo'
       blog_post:
@@ -817,7 +818,7 @@ it:
         content: "Testo"
         interest_borders_tkn: "Luogo"
         tags_list: "Parole chiave"
-        quorum_id: "Durata"
+        quorum_id: "Quorum"
         anonima: "Anonimato temporaneo"
         visible_outside: "Visibile pubblicamente"
         secret_vote: "Voto segreto"
@@ -1005,3 +1006,4 @@ it:
         inspire: "Regolamenti a cui ispirarsi"
         stackeholders: "Stakeholders (persone coinvolte)"
         requisiti: "Requisiti da rispettare"
+  default_admin_title: "Amministratore"

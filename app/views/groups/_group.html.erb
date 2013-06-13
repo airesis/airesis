@@ -63,6 +63,11 @@
           <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
         </div>
     <% else %>
+        <p>
+          <%=  f.label :admin_title %> <br/>
+          <%= f.text_field :admin_title, placeholder: 'Nome ruolo amministratore gruppo (default: Amministratore)', style: 'width:600px' %>
+
+        </p>
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
     <% end %>
 

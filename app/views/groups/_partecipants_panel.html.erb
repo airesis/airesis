@@ -1,5 +1,5 @@
 <p>
-    <h4><%= t('pages.groups.show.spokesman') %></h4>
+    <h4><%= @group.admin_title || t('default_admin_title') %></h4>
     
     <%@group.portavoce.includes(:image).each do |user| %>
     	<%=user_tag(user, nil,true,false)%>

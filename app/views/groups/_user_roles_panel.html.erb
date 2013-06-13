@@ -11,7 +11,7 @@
 			<td><%=gp.user.fullname%>
 			</td>
 			<td>
-				<%=select_tag "user_role", options_from_collection_for_select(PartecipationRole.common + @group.partecipation_roles,:id,:name,gp.partecipation_role.id), "data-user_id" => gp.user.id, :class => "user_role_changer" %>
+				<%=select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('default_admin_title')})] + @group.partecipation_roles,:id,:name,gp.partecipation_role.id), "data-user_id" => gp.user.id, :class => "user_role_changer" %>
 			</td>
 		</tr>
 		<%end%>
