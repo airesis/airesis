@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Quorum < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   
@@ -98,5 +99,35 @@ class Quorum < ActiveRecord::Base
     ar << pluralize(min,"minuto","minuti") if (min && min > 0)
     retstr = ar.join(" e ")    
     retstr
+  end
+
+  def explanation
+    @explanation = explanation_pop
+  end
+
+  protected
+
+  def explanation_pop
+    conditions = []
+    if self.minutes
+      ret = ""
+      if self.percentage
+        if self.condition == 'OR'
+          ret = "Il dibattito proseguirà finchè non avranno partecipato il #{self.percentage}% degli aventi diritto e, in ogni caso, al massimo per #{self.time}."
+        else
+          ret = "Il dibattito durerà #{self.time} ma proseguirà se non avrà partecipato almeno il #{self.percentage}% degli aventi diritto."
+        end
+      else
+        ret = "Il dibattito durerà esattamente #{self.time}."
+      end
+    elsif self.percentage
+      ret = "Il dibattito proseguirà finchè non avranno partecipato il #{self.percentage}% degli aventi diritto."
+    end
+    ret += "<br/>Andrà in votazione se supererà il #{self.good_score}% del gradimento"
+    if self.bad_score && self.bad_score != self.good_score
+      ret += " e verrà abbandonata se sarà sotto il #{self.bad_score}%.<br/>Il dibattito continuerà se il gradimento rimarrà tra queste due soglie indipendentemente dal tempo o dal numero di valutazioni."
+    end
+    ret += "."
+    ret.html_safe
   end
 end

@@ -16,10 +16,11 @@
           <%= p.fields_for :solutions, solution do |sol| %>
               <%= sol.hidden_field :seq %>
               <%= sol.check_box '_destroy', style: 'display:none' %>
-              <% solution.sections.each do |section| %>
+              <% solution.sections.each_with_index do |section,j| %>
                   <%= sol.fields_for :sections, section do |s| %>
                       <%= s.hidden_field :title %>
                       <%= s.hidden_field :seq %>
+                      <%= s.check_box '_destroy', style: 'display:none' %>
                       <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                           <p class="section_container">
                             <%= s.text_field :title, class: "edit_label" %>
@@ -27,7 +28,7 @@
                               <%= image_tag 'move.png' %>
                             </span>
                              <span class="remove_button">
-                              <a href="#" onclick="removeSolution(this,0,true);return false;"><%= 'Rimuovi sezione' %></a>
+                              <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%=j%>"><%= 'Rimuovi sezione' %></a>
                             </span>
                             <br/>
                             <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
@@ -39,6 +40,11 @@
               <% end %>
           <% end %>
       <% end %>
+
+      <div class="new_section">
+        <a href="#" onclick="addSolutionSection(this);return false;" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+      </div>
+
     </div>
   </div>
 </div>

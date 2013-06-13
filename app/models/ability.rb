@@ -203,12 +203,11 @@ class Ability
     #se è un sondaggio prima che venga messa in votazione
     def can_edit_proposal?(user, proposal)
       return false unless user.is_mine? proposal
-      if proposal.is_standard?
-        proposal.proposal_state_id.to_s == ProposalState::VALUTATION.to_s
-      elsif proposal.is_polling?
+      if proposal.is_polling?
         [ProposalState::WAIT_DATE.to_s, ProposalState::WAIT.to_s].include? proposal.proposal_state_id.to_s
+      else
+        proposal.proposal_state_id.to_s == ProposalState::VALUTATION.to_s
       end
-
     end
 
     #un utente può partecipare ad una proposta se è pubblica
@@ -239,9 +238,9 @@ class Ability
         end
         return false
       else
-        if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+        if  proposal.is_polling? && (proposal.voting? || proposal.voted?)
           return true
-        elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+        elsif proposal.in_valutation? || proposal.voted?
           return true
         else
           return false

@@ -25,7 +25,7 @@
 <div id="content">
   <h1><%= @proposal.title %></h1>
   <div id="wicked_left_panel" style="float:left;width:20%;border-right: 1px #ccc dotted;">
-    <% if @proposal.is_standard? %>
+    <% unless @proposal.is_polling? %>
         <div id="rankleftpanel" class="rankleftpanel">
 
           <p class="points">

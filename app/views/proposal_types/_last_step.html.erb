@@ -7,11 +7,16 @@
 <% else %>
     <%@quorum_collection = Quorum.public %>
 <% end %>
-  <%= f.select :quorum_id, options_for_select(@quorum_collection.all.collect { |p| [p.name, p.id, {'data-description' => p.description}]}),{:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick'} %>
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.all.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}]}),{:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick2'} %>
   <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+
 
 <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
 </div>
+</p>
+<div class="clearboth"></div>
+<p id="quorum_explanation" class="toast-info" style="display:none; padding: 5px; border-radius: 5px; color: #fff;">
+
 </p>
 
 <p>

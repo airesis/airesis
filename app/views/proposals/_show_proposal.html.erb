@@ -73,7 +73,7 @@
   <br/>
 </div>
 
-<% @proposal.sections.each do |section| %>
+<% @proposal.sections.includes(:paragraphs).each do |section| %>
     <div class="proposal_main">
       <h3>
         <div class="tit1">
@@ -95,8 +95,7 @@
     </div>
 <% end %>
 
-<% @proposal.solutions.includes(:sections).order('sections.seq').each do |solution| %>
-    <%first_section = solution.sections.first #TODO%>
+<% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each do |solution| %>
     <div class="solution_main">
       <h3>
         <div class="tit1 sol">

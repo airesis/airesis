@@ -132,7 +132,7 @@ it:
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
    
-  proposal_inserted: "La proposta è stata inserita correttamente."
+  proposal_inserted: "Proposta creata correttamente. Continua l'elaborazione compilando i campi rimanenti"
   proposal_updated:  "La proposta è stata aggiornata correttamente."
   proposal_deleted:  "La proposta è stata eliminata correttamente."
   proposal_date_selected:  "La proposta verrà votata nel periodo scelto."
@@ -817,7 +817,7 @@ it:
         content: "Testo"
         interest_borders_tkn: "Luogo"
         tags_list: "Parole chiave"
-        quorum_id: "Quorum"
+        quorum_id: "Durata"
         anonima: "Anonimato temporaneo"
         visible_outside: "Visibile pubblicamente"
         secret_vote: "Voto segreto"

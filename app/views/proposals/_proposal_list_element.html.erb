@@ -21,7 +21,7 @@
             <%= t('pages.proposals.list.no_votation') %>
         <% end %>
     <% end %>
-    <% if proposal.is_standard? %>
+    <% unless proposal.is_polling? %>
         <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
     <% end %>
   </div>

@@ -109,7 +109,7 @@
 
     <p>
       <%= f.label :proposal_category_id %><br/>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick_tmp'} %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick'} %>
     </p>
 
     <div class="sections_column">
@@ -137,7 +137,7 @@
     </div>
 
     <div class="new_section">
-      <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi una nuova sezione' %></a>
+      <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi un nuovo paragrafo' %></a>
     </div>
 
     <hr/>
@@ -153,15 +153,16 @@
             </div>
           </h3>
           <div class="sol_content">
-            <div class="solutions_column">
+            <div class="solutions_column" data-solution_id="<%=i %>">
 
               <%= f.fields_for :solutions, solution do |sol| %>
                   <%= sol.hidden_field :seq %>
                   <%= sol.check_box '_destroy', style: 'display:none' %>
-                  <% solution.sections.each do |section| %>
+                  <% solution.sections.each_with_index do |section, j| %>
                       <%= sol.fields_for :sections, section do |s| %>
                           <%= s.hidden_field :title %>
                           <%= s.hidden_field :seq %>
+                          <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                               <p class="section_container">
                                 <%= s.text_field :title, class: "edit_label" %>
@@ -169,7 +170,7 @@
                               <%= image_tag 'move.png' %>
                             </span>
                              <span class="remove_button">
-                              <a href="#" onclick="removeSolution(this,<%=i%>,true);return false;"><%= 'Rimuovi sezione' %></a>
+                              <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= 'Rimuovi sezione' %></a>
                             </span>
                                 <br/>
 
@@ -184,7 +185,12 @@
                           <% end %>
                       <% end %>
                   <% end %>
+
+
               <% end %>
+            </div>
+            <div class="new_section">
+              <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
             </div>
           </div>
         </div>
@@ -222,6 +228,7 @@
 
 
 <hr/>
+
 <%= 'Indica quali contributi hai integrato con questa modifica della proposta' %>
 
 <div id="loading_contributes" style="margin:auto;text-align:center;">
@@ -258,41 +265,56 @@
 
         <%= render :partial => 'show_tooltips' %>
 
-        //setTimeout('anima()',2000);
+        toastr.options = {tapToDismiss: false,extendedTimeOut: 0, timeOut: 0};
+        toastr.info('<%=raw 'Quando hai terminato le modifiche clicca sul pulsante ''Aggiorna'' per salvare.' %><br/><input type="button" class="btn" value="Aggiorna" onclick="$(\'form input:submit\').click();"></input>');
+
+        //anima();
     });
 
     var integrated_contributes = [];
 
 
     function anima() {
-        var toggleMinHeight = 30,
+        console.log('anima');
+        var toggleMinHeight = 60,
                 duration = 500,
                 easing = 'swing';
 
-        $('.solution_main').each(function(){
-            $(this).attr('data-height',$(this).height());
+        $('.solution_main h3').each(function () {
+            $(this).parent().attr('data-compressed',false);
         })
-        .click(function(){
-            var curH = $(this).height();
-            console.log('click heght: ' + curH);
-            if ($(this).is(':animated')){
-                return false;
-            }
-            else if (curH == $(this).attr('data-height')) {
-                console.log('compress');
-                $(this).animate(
+                .click(function () {
+                    var compress_ = $(this).parent();
+                    var curH = compress_.height();
+                    if (compress_.is(':animated')) {
+                        return false;
+                    }
+                    else if (compress_.attr('data-compressed') == 'false') {
+                        compress_.attr('data-compressed',true);
+                        compress_.attr('data-height',compress_.height());
+                        $('.sol_content',compress_).hide();
+                        $('.tinymce',compress_).each(function() {
+                            var editor_id = $(this).attr('id');
+                            tinymce.get(editor_id).hide();
+                        })
+                        compress_.animate(
+                                {
+                                    'height': toggleMinHeight
+                                }, duration, easing);
+                    }
+                    else {
+                        compress_.attr('data-compressed',false);
+                        compress_.animate(
                         {
-                            'height' : toggleMinHeight
+                            'height': compress_.attr('data-height')
                         }, duration, easing);
-            }
-            else if (curH == toggleMinHeight){
-                console.log('expand');
-                $(this).animate(
-                        {
-                            'height' : $(this).attr('data-height')
-                        }, duration, easing);
-            }
-        });
+                        $('.sol_content',compress_).show();
+                        $('.tinymce',compress_).each(function() {
+                            var editor_id = $(this).attr('id');
+                            tinymce.get(editor_id).show();
+                        })
+                    }
+                });
     }
 
     function integrate_contribute(el, id) {
@@ -350,32 +372,39 @@
         },
         body_class: "CT-hide"
     });
+
     function fillCleanFields() {
-        if ($('#proposal_integrated_contributes_ids').val() == "") {
+        var integrated_ = $('#proposal_integrated_contributes_ids').val();
+        console.log('integrated: ' + integrated_);
+        if (integrated_ == "") {
             if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
                 return false;
             }
         }
-        <%if @proposal.is_standard?%>
         $('textarea.tinymce').each(function () {
             var id = $(this).attr('id');
             $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
         });
 
         <%for i in 0..(@proposal.sections.count-1) %>
-        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+          $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
         <%end%>
         <%for i in 0..(@proposal.solutions.count-1) %>
-        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-        <%end%>
-        <%end%>
+          <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
+            $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+          <%end%>
         <%end%>
         return true;
     }
 
     var numSolution = <%=@proposal.solutions.count%>;
-    var numSections = <%=@proposal.sections.count%>
+    var numSections = <%=@proposal.sections.count%>;
+
+    var numSolutionSections = {};
+
+    <%@proposal.solutions.each_with_index do |sol,i|%>
+    numSolutionSections[<%=i%>] = <%=sol.sections.count%>;
+    <%end%>
 
     function addSection(el) {
         var sectionname = 'proposal[sections_attributes][' + numSections + ']';
@@ -403,6 +432,33 @@
     }
 
 
+    function addSolutionSection(el) {
+        var solutionid = $(el).attr('data-solution_id');
+        var sectionname = 'proposal[solutions_attributes][' + solutionid + '][sections_attributes][' + numSolutionSections[solutionid] + ']';
+        var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+        var paragraphname = sectionname + '[paragraphs_attributes][0]';
+        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+        var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
+        paragraph_.append('<input type="text" class="edit_label" value="Paragrafo ' + (numSolutionSections[solutionid] + 1) + '" name=\'' + sectionname + '[title]\'></input>');
+        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
+        paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolutionSection(this,false);return false;"><%= 'Rimuovi sezione' %></a></span>');
+        paragraph_.append('<br />');
+        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+        paragraph_.append(textarea_);
+        paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
+        var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
+        seq_.val(numSolutionSections[solutionid]);
+        paragraph_.append(seq_);
+        paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
+        $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
+        paragraph_.fadeIn();
+
+        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+
+        numSolutionSections[solutionid] += 1;
+    }
+
+
     function addSolution(el) {
 
         var paragraph_ = $('<%=j render "proposal_types/solution"%>');
@@ -411,27 +467,31 @@
         paragraph_.fadeIn();
         paragraph_.find('.tit2').append(++numSolution);
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function() {
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var name_ = $(this).attr('name');
-            $(this).attr('name',name_.replace('proposals[solutions_attributes][0]','proposal[solutions_attributes]['+numSolution+']'));
+            $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + numSolution + ']'));
 
         })
 
         console.log(paragraph_.find('textarea.tinymce'));
-        paragraph_.find('textarea.tinymce').each(function() {
+        paragraph_.find('textarea.tinymce').each(function () {
             tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
         });
 
-        make_solution_sortable($(".solutions_column",paragraph_));
+        paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
+
+        make_solution_sortable($(".solutions_column", paragraph_));
 
 
     }
 
-    function removeSolution(el, id, hide) {
-        if (confirm('<%='Sei sicuro di voler rimuovere questa soluzione?'%>')) {
+    function removeSolutionSection(el, hide) {
+        if (confirm('<%='Sei sicuro di voler rimuovere questo paragrafo?'%>')) {
             var section_ = $(el).parent().parent();
+            var solution_id = $(el).attr('data-solution_id');
+            var section_id = $(el).attr('data-section_id');
             if (hide) {
-                $('input[name="proposal\[solutions_attributes\]\[' + id + '\]\[_destroy\]"]').val(1);
+                $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[sections_attributes\]\[' + section_id + '\]\[_destroy\]"]').val(1);
                 section_.fadeOut();
             }
             else {
@@ -509,7 +569,7 @@
                     var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
                     console.log(seq_id + ', id: ' + i);
                     $('#' + seq_id).val(i++)
-                    console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i-1));
+                    console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i - 1));
                 });
             }
         });
@@ -518,11 +578,6 @@
 
 
     make_solution_sortable($(".solutions_column"));
-
-
-
-
-
 
 
     //$('.section_container').mouseov

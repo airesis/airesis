@@ -241,7 +241,7 @@
 
 
 <% content_for :left_panel do %>
-    <% if @proposal.is_standard? %>
+    <% unless @proposal.is_polling? %>
         <div id="rankleftpanel" class="rankleftpanel mybox">
           <div class="points">
           <%= render :partial => 'proposals/points_left_panel' %>

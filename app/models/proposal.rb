@@ -122,11 +122,11 @@ class Proposal < ActiveRecord::Base
   end
 
   def is_standard?
-    self.proposal_type_id.to_s == ProposalType::STANDARD.to_s
+    self.proposal_type.short_name == ProposalType::STANDARD
   end
 
   def is_polling?
-    self.proposal_type_id.to_s == ProposalType::POLL.to_s
+    self.proposal_type.short_name == ProposalType::POLL
   end
 
   def remove_scheduled_tasks

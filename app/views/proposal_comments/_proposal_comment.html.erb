@@ -16,9 +16,7 @@
         <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
         <%@paragraphs_array = []%>
         <%@paragraphs_array << ["Paragrafi", @proposal.sections.map{ |section| [section.title, section.id]}]%>
-        <%@proposal.solutions.each { |solution| @paragraphs_array << ["Soluzione #{solution.seq}",solution.sections.map { |section| [section.title, section.id] }]}%>
-
-
+        <%@proposal.solutions.includes(:sections).order('solutions.seq desc, sections.seq asc').each { |solution| @paragraphs_array << ["Soluzione #{solution.seq}",solution.sections.map { |section| [section.title, section.id] }]}%>
         <%= f.select :section_id, @paragraphs_array, {prompt: 'Nessun paragrafo specifico'}, {class: 'paragraph_select'} %>
 	  </div>
 	</p>

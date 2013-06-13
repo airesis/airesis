@@ -436,13 +436,17 @@
                             }
                         }
                     })
+                });
+
+                $('.alert_box.logo').each(function () {
+                    $(this)
                     .removeData('qtip')
                     .qtip({
                         prerender: true,
                         content: $(this).attr('oldtitle'),
                         position: {
-                            at: 'top center',
-                            my: 'bottom center',
+                            at: 'left top',
+                            my: 'bottom right',
                             viewport: $(window),
                             effect: false
                         },
@@ -451,6 +455,8 @@
                         }
                     })
                 });
+
+
 
                 $('.cont-mess .mess .read').qtip({
                     position: {

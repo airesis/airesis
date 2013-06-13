@@ -30,7 +30,7 @@
               <td align="center">
                 <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>
                 <br>
-                <% if proposal.is_standard? %>
+                <% unless proposal.is_polling? %>
                     <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
                 <% end %>
               </td>
