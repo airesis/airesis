@@ -26,6 +26,17 @@ net:
         unconfirmed: "L'account non è ancora stato confermato."
         user:
           invalid: "Nome utente o password non validi"
+  calendar:
+    monthNames: "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']"
+    monthNamesShort: "['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']"
+    dayNames: "['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato']"
+    dayNamesShort: "['Dom','Lun','Mar','Mer','Gio','Ven','Sab']"
+    today: 'oggi'
+    month: 'mese'
+    week: 'settimana'
+    day: 'giorno'
+    firstDay: 1
+    timeFormat: 'H:mm{ - H:mm} '
   date:
     order: [:day, :month, :year ]
     formats:
@@ -120,8 +131,10 @@ net:
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
-   
-  proposal_inserted: "La proposta è stata inserita correttamente."
+
+    rotp_active: "Token di sicurezza attivato"
+    rotp_inactive: "Token di sicurezza disattivato"
+  proposal_inserted: "Proposta creata correttamente. Continua l'elaborazione compilando i campi rimanenti"
   proposal_updated:  "La proposta è stata aggiornata correttamente."
   proposal_deleted:  "La proposta è stata eliminata correttamente."
   proposal_date_selected:  "La proposta verrà votata nel periodo scelto."
@@ -156,7 +169,7 @@ net:
       find_groups: "Cerca gruppi"
     user:
       notifications: "Allarmi e notifiche"
-      privacy: "Account e privacy"
+      privacy: "Impostazioni Account e Privacy"
     users:
       index:
         title: "Elenco utenti"
@@ -174,6 +187,50 @@ net:
         profile_info: "Informazioni di profilo"
         profile_info_unconfirmed: "(utente non confermato)"
         send_message_button: "Invia messaggio"
+        name_label: "Nome"
+        surname_label: "Cognome"
+        email_label: "Email"
+        edit_image: "Modifica l'immagine"
+        to_be_confirmed: "da confermare"
+        password_label: "Password"
+        facebook_url_label: "URL Facebook"
+        googleplus_url_label: "URL Google+"
+        linkedin_url: "URL Linkedin"
+        username_label: "Username"
+        registered_from: "Registrato dal"
+        load_image: "Carica un'immagine"
+        max_file_size: "Dimensione massima: 2MB"
+        what_can_i_do: "Cosa posso fare?"
+      send_message:
+        subject_label: "Oggetto"
+        body_label: "Testo"
+      left_panel:
+        general_info: "Informazioni generali"
+        alarm_and_notifications: "Allarmi e notifiche"
+        geographic_borders: "Confini di interesse"
+        account_and_privacy: "Account e privacy"
+        title: "IMPOSTAZIONI E PREFERENZE"
+      alarm_preferences:
+        receive_on_address: "Ricevi notifiche e newsletter su %{email}"
+        alerts: "Ricevi notifica"
+        emails: "Ricevi email"
+      privacy_preferences:
+        tooltips: "Mostra tooltip di aiuto"
+        show_urls: "Mostra URL Facebook, Google+ e LinkedIn agli altri utenti"
+        private_messages: "Ricevi messaggi privati dagli altri utenti"
+        join_accounts: "Collega un altro account"
+        join_accounts_description: "Su Airesis hai la possibilità di collegare tutti i tuoi Social Network ad un'unico account.<br/>       Seleziona i provider da collegare e avrai la possibilità di accedere sempre allo stesso account da Facebook, Google, Twitter e molti altri!"
+        joined_all: "Hai già collegato tutti i provider disponibili.Complimenti!"
+        join_facebook: "Collega il tuo account Facebook"
+        join_google: "Collega il tuo account Google"
+        join_twitter: "Collega il tuo account Twitter"
+        join_linkedin: "Collega il tuo account Linkedin"
+        join_meetup: "Collega il tuo account Meetup"
+        providers_list: "Elenco Provider attivati per accedere"
+        options: "Opzioni"
+        rotp: "Abilita Token di sicurezza"
+      border_preferences:
+        updating: "Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti."
     groups:
       accept_requests:
         portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
@@ -188,6 +245,12 @@ net:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
         title: "Gestisci i ruoli e i permessi"
+        new_role: "Aggiungi un nuovo ruolo"
+        edit_role_title: "Modifica ruolo"
+        new_role_title: "Nuovo ruolo"
+        user_title: "Utente"
+        role_title: "Ruolo"
+        no_users_yet: "Qui potrai gestire i ruoli dei partecipanti quando ve ne saranno."
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -357,23 +420,94 @@ net:
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
-        step_1: "Informazioni iniziali"
+        step_1: "Classificazione"
         step_2: "Proposte simili"
         step_3: "Problema/ostacoli"
-        step_4: "Proposta iniziale"
+        step_4: "Creazione proposta"
         step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
-        problems_title: "Problema/ostacoli"
-        problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
-        objectives_title: "Obiettivi"
-        step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
-        first_solution_title: "Soluzione 1"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
-        title_group: " interna al gruppo %{name}"
+        title_group: "%{name}: "
         title_synthetic: "(in estrema sintesi)"
-        title_placeholder: "es. \"Facilitare il trasporto bici sui treni\""
+        title_placeholder: "es. \"Facilitare il trasporto bici sui treni\" o \"Organizzare una festa per Luca\""
         interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
         tags_list_placeholder: "Inserisci delle parole attinenti alla tua proposta"
+        standard:
+          problems_title: "Problema e/o ostacoli"
+          problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
+          objectives_title: "Obiettivi"
+          step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
+          first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            description: "Descrizione della soluzione"
+            time: "Tempistiche"
+            subject: "Soggetto attuatore e verifica"
+            resources: "Risorse necessarie e loro reperimento"
+            aspects: "Aspetti etici, ambientali, sociali"
+            documents: "Documentazione"
+            pros: "Pro"
+            cons: "Contro"
+        rule_book:
+          problems_title_label: "Quali sono i problemi da risolvere con l’applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
+          first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            article: "Article %{num}"
+            pros: "Pro"
+            cons: "Contro"
+        press:
+          problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
+          first_solution_title: "Titolo"
+          problems_title: "Messaggio da trasmettere"
+          solution:
+            title: "Titolo"
+            subtitle: "Sottotitolo/Occhiello"
+            incipit: "Incipit"
+            body: "Corpo"
+            conclusion: "Conclusioni"
+            deep: "Approfondimenti"
+        estimate:
+          problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
+          problems_title: "Problematica"
+          first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            cost: "Importo"
+            problems: "Rispetto dei vincoli e problemi"
+            dumentation: "Documentazione"
+        agenda:
+          problems_title: "Tipologia di incontro"
+          first_solution_title: "Soluzione 1"
+          solution:
+            title: "Titolo"
+            points: "Punti all’ordine del giorno"
+            priorities: "Priorità dei punti proposti"
+            links: "Link di approfondimento"
+        event:
+          problems_title: "Scopo dell'evento"
+          first_solution_title: "Soluzione 1"
+          problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
+          solution:
+            title: "Titolo"
+            description: "Descrizione della soluzione"
+            program: "Data, orario e programma"
+            body: "place"
+            place: "Luogo"
+            organization: "Organizzazione dell’evento"
+            resources: "Risorse necessarie e loro reperimento"
+            pros: "Pro"
+            cons: "Contro"
+        step_1_title: "Puoi proporre un problema da risolvere, un’idea da perfezionare, un’iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l’aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
+        step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
+        step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
+        category_prompt: "--Seleziona una categoria--"
+        candidates:
+          solution:
+            name: "Nome e cognome"
+            data: "Dati anagrafici"
+            curriculum: "Curriculum"
+            available: "Disponibilità a ricoprire la carica"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -493,6 +627,7 @@ net:
       open_group: "Apri un nuovo gruppo"
       new_group: "Cerca gruppi"
       support_us: "SOSTIENICI"
+      no_alerts: "Nessuna notifica"
     blogs:
       show:
         no_posts: "Nessun Post"
@@ -504,6 +639,10 @@ net:
         title: "Crea il tuo blog personale!"
         cancel_button: "No, grazie!"
         create_button: "Crea"
+      edit:
+        title: "Modifica blog"
+        title_label: "Titolo del blog"
+        back_to_blog: "Torna al mio blog"
     groups_area:
       edit:
         title: "Impostazioni area di lavoro"
@@ -599,6 +738,12 @@ net:
         register: "Non sei ancora registrato? Registrati!"
         forgot_password: "Hai dimenticato la password?"
         havent_received_email: "Non hai ricevuto l'email per la conferma?"
+    steps:
+      next: "Prosegui"
+    proposal_histories:
+      index:
+        title: "History della proposta %{title}"
+        back_to_proposal: "Torna alla proposta"
   pl:
     comments:
       zero: nessun commento
@@ -650,6 +795,7 @@ net:
         description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
+        admin_title: "Nome amministratore"
       blogs:
         title: 'Titolo'
       blog_post:
@@ -783,6 +929,37 @@ net:
       delete_ok: 'Il commento è stato cancellato'
       report_ok: "Contributo marcato correttamente"
       report_error: "Errore durante la segnalazione del contributo"
+    blogs:
+      cant_edit: "Non puoi modificare un blog che non ti appartiene."
+      index:
+        title: "Elenco blog"
+      new:
+        already_one: "Spiacente. Disponi già di un blog."
+      create:
+        ok_message: "Hai creato il tuo blog!."
+      update:
+        ok_message: "Il titolo del Blog è stato aggiornato correttamente"
+    users:
+      show:
+        clic_to_change: "Fai clic sulle informazioni che desideri modificare."
+      join_accounts:
+        ok_message: "Account uniti correttamente!"
+        wrong_password: "Password errata"
+      ko_message: "Errore durante l'unione dei due account. L'operazione non è possibile al momento."
+      tooltips:
+        enabled: "Tooltip abilitati"
+        disabled: "Tooltip disabilitati"
+        ko_message: "Errore nella modifica delle opzioni."
+      urls:
+        shown: "URL mostrati"
+        hidden: "URL nascosti"
+      interest_borders:
+        ok_message: "Confini di interesse aggiornati correttamente"
+      update:
+        confirm_email: "Devi confermare il nuovo indirizzo email."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider scollegato"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni d'uso"
@@ -790,12 +967,47 @@ net:
   back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"
+    show:
+      ready_for_vote: "Pronta per la votazione"
+      keep_discuss: "Continua la discussione"
   interest_borders_hint: "Digita alcuni caratteri per cercare un luogo"
   no_interest_border: "Nessun luogo trovato"
   looking_for_interest_border: "Sto cercando..."
   digit_tags: "Digita i tag che vuoi inserire"
   ago: "fa"
   buttons:
-    cancel: Annulla
+    cancel: "Annulla"
     save: "Salva"
     report: "Segnala"
+    update: "Aggiorna"
+    send: "Invia"
+    create: "Crea"
+    delete: "Elimina"
+    edit: "Modifica"
+  tooltips:
+    random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
+    random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
+    random_stack_3: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
+    miglioricontributi: "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!"
+    voglioredigere: "Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti."
+    voteup: "<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)"
+    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)"
+    valutazioni: "numero totale di valutazioni ricevute"
+    gradimento: "percentuale di valutazioni positive sul totale"
+    nickname: "<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!"
+    manage_noise: "<strong>Gestisci i contributi inutili</strong><br />I partecipanti ti segnaleranno quali contributi sono inutili alla discussione. Attraverso questo pannello potrai eliminarli e metterli nella cartella Contributi Eliminati"
+    view_noise: "<strong>Visualizza i contributi inutili</strong><br />Qui dentro potrai trovare tutti i contributi che sono stati ritenuti inutili alla discussione e rimossi dagli autori della proposta"
+    quorum_minutes: "fino al <b>%{date}</b> %{time}"
+    quorum_valutations: "finché non sarà valutata da <b>almeno %{valutations} persone</b>"
+    quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
+  group: gruppo
+  loading: "Caricamento..."
+  proposal_types:
+    problems_title: "Problematica"
+    rule_book:
+      problems_title: "Problematica"
+      sections:
+        inspire: "Regolamenti a cui ispirarsi"
+        stackeholders: "Stakeholders (persone coinvolte)"
+        requisiti: "Requisiti da rispettare"
+  default_admin_title: "Amministratore"
