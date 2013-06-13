@@ -91,6 +91,23 @@ var create_proposal_ = $('#create_proposal');
 $('#new_proposal').enableClientSideValidations();
 disegnaBottoni();
 
+$('.ddslick2').ddslick({
+        width: 400,
+        onSelected: function(data) {
+            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
+            console.log('selected: ' + exlanation_);
+            if (exlanation_) {
+              $('#quorum_explanation').html(exlanation_).show();
+            }
+            else {
+              $('#quorum_explanation').hide();
+            }
+        }
+});
+
+$('#proposal_quorum_id_container').css('float','left');
+
+
 //window.ClientSideValidations.forms['new_proposal'].validators['proposal[sections_attributes][][paragraphs_attributes][][content]']['presence'] = [{'message':'deve essere compilato'}];
 
 
