@@ -20,6 +20,7 @@ class NewDefaultQuorums < ActiveRecord::Migration
       [a,b,c,d,e].each do |quorum|
         copy = quorum.dup
         copy.public = false
+        copy.active = true
         copy.save!
         group.group_quorums.build(:quorum_id => copy.id)
       end

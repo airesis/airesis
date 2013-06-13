@@ -94,7 +94,7 @@ class BlogPostsController < ApplicationController
       respond_to do |format|
         if saved
           notify_user_insert_blog_post(@blog_post) if @blog_post.published
-          flash[:info] = t('info.blog_created')
+          flash[:notice] = t('info.blog_created')
           format.html {
             redirect_to group_path(params[:group_id]) if (params[:group_id] && !params[:group_id].empty?)               
             redirect_to([@blog,@blog_post]) if (!params[:group_id] || params[:group_id].empty?) 
@@ -115,7 +115,7 @@ class BlogPostsController < ApplicationController
     
     respond_to do |format|
       if @blog_post.update_attributes(params[:blog_post])
-        flash[:info] = 'Il tuo post è stato aggiornato correttamente.'
+        flash[:notice] = 'Il tuo post è stato aggiornato correttamente.'
         format.html { redirect_to([@blog,@blog_post]) }
         format.xml  { head :ok }
       else
@@ -130,7 +130,7 @@ class BlogPostsController < ApplicationController
     @blog_post = @blog.posts.find(params[:id])
     @blog_post.destroy
     
-    flash[:info] = 'Il tuo post è stato cancellato correttamente.'
+    flash[:notice] = 'Il tuo post è stato cancellato correttamente.'
     
     respond_to do |format|
       format.html { redirect_to @blog }

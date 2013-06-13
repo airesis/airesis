@@ -12,7 +12,7 @@ class NotificationsController < ApplicationController
       b = current_user.blocked_alerts.first(:conditions => {:notification_type_id => params[:id]})
       b.destroy
     end
-    flash[:info] =t('info.setting_preferences')
+    flash[:notice] =t('info.setting_preferences')
 
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
@@ -32,7 +32,7 @@ class NotificationsController < ApplicationController
       b = current_user.blocked_emails.first(:conditions => {:notification_type_id => params[:id]})
       b.destroy
     end
-    flash[:info] = t('info.setting_preferences')
+    flash[:notice] = t('info.setting_preferences')
 
   rescue Exception => e
     respond_to do |format|
@@ -52,7 +52,7 @@ class NotificationsController < ApplicationController
       current_user.email_alerts = true
       current_user.save!
     end
-    flash[:info] = t('info.setting_preferences')
+    flash[:notice] = t('info.setting_preferences')
 
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|

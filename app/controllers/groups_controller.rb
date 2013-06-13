@@ -225,7 +225,7 @@ class GroupsController < ApplicationController
 
       respond_to do |format|
         if @group.save
-          flash[:info] = t('groups.confirm.update')
+          flash[:notice] = t('groups.confirm.update')
         end
         format.html { render :action => "edit" }
       end
@@ -429,7 +429,7 @@ class GroupsController < ApplicationController
     raise Exception unless (can? :remove_post, @group) || (can? :edit, BlogPost.find(params[:post_id]))
     @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
     @publishing.destroy
-    flash[:info] = 'Il post è stato rimosso dalla bacheca del gruppo'
+    flash[:notice] = 'Il post è stato rimosso dalla bacheca del gruppo'
 
   rescue Exception => e
     respond_to do |format|
