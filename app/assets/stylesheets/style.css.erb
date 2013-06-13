@@ -639,6 +639,7 @@ h4 {
 .field_with_errors .message {
     color: #FF0000;
     font-size: 0.8em;
+    margin-left: 6px;
 }
 
 .rightFloat {
@@ -1031,4 +1032,14 @@ ul.dd-options {
 
 .feedbackBtn {
     cursor: pointer;
+}
+
+#toast-container {
+    top: 100px;
+    right: 100px;
+    z-index: 10000 !important;
+}
+
+#toast-container.sticky:hover {
+    cursor: default;
 }

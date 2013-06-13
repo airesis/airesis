@@ -188,6 +188,10 @@
                     $toastElement.click(fadeAway);
                 }
 
+                if (!options.tapToDismiss) {
+                    $container.addClass('sticky');
+                }
+
                 if (options.onclick) {
                     $toastElement.click(function () {
                         options.onclick() && fadeAway();

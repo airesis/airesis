@@ -90,12 +90,12 @@ class ProposalsController < ApplicationController
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
 
       unless can? :view_proposal, @group
-        flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
+        flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
       end
 
       if params[:group_area_id]
         unless can? :view_proposal, @group_area
-          flash.now[:notice] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
+          flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
         end
 
         @count_base = @count_base.in_group_area(@group_area.id)
@@ -423,12 +423,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t(:proposal_updated)
         format.html {
-          if params[:from_group]
-            @group = Group.find_by_id(params[:from_group])
-            redirect_to [@group, @proposal]
-          else
-            redirect_to @proposal
-          end
+          redirect_to @group ? [@group, @proposal] : @proposal
         }
       end
 

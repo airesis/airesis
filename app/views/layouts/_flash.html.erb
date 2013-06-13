@@ -1,17 +1,13 @@
-<% flash.each do |key,value| %>
-<% if (key == :notice) || (key == :info) || (key == :warn)
-	classeFlash = 'ui-state-highlight'
-   else
- 	classeFlash = 'ui-state-error'
-   end
-%>
-<div class="flashMessage <%= classeFlash %>">
-    <span class="message"><%= value %></span>
-</div>
-<%end %>
-
 <script>
-$(document).ready(function () {
-    $('.flashMessage').delay(7000).hide(2000);
+$(function () {
+    <% flash.each do |key,value| %>
+      <% if (key == :notice) || (key == :info) %>
+        toastr.info('<%=j value%>');
+      <%elsif  (key == :warn) %>
+        toastr.warning('<%=j value%>');
+      <%else%>
+        toastr.error('<%=j value%>');
+      <%end%>
+    <%end%>
 });
 </script>
