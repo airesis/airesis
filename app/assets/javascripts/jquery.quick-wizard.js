@@ -257,6 +257,34 @@ function validElement() {
                 ddclick_.after($('<label class="message">obbligatorio</label>'));
                 return false;
             }
+            else {
+                return false;
+            }
+        }
+    }
+
+
+    var ddclick2_ = $('#proposal_quorum_id_container');
+    if (ddclick2_.is(':visible')) {
+        var val2_ = $('#proposal_quorum_id').val();
+        if (val2_ != '') {
+
+            if (ddclick2_.parent().hasClass('field_with_errors')) {
+                ddclick2_.parent().children('.message').remove();
+                ddclick2_.unwrap();
+            }
+            return valid;
+        }
+        else {
+            if (!ddclick2_.parent().hasClass('field_with_errors')) {
+                var wrap2_ = $('<div class="field_with_errors"></div>');
+                ddclick2_.wrap(wrap2_);
+                ddclick2_.after($('<label class="message">obbligatorio</label>'));
+                return false;
+            }
+            else {
+                return false;
+            }
         }
     }
 
