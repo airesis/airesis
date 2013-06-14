@@ -40,7 +40,7 @@ class ProposalsController < ApplicationController
   def search
     authorize! :view_proposal, @group
 
-    my_areas_ids = current_user.scoped_areas(@group.id,GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
+    my_areas_ids = current_user.scoped_areas(@group.id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
 
     #params[:group_id] = @group.id
     @search = Proposal.search(:include => [{:category => [:translations]}, :quorum, {:users => [:image]}, :vote_period]) do
@@ -52,8 +52,8 @@ class ProposalsController < ApplicationController
         end
         any_of do
           with(:visible_outside, true)
-          with(:presentation_area_ids,nil)
-          with(:presentation_area_ids,my_areas_ids) unless my_areas_ids.empty?
+          with(:presentation_area_ids, nil)
+          with(:presentation_area_ids, my_areas_ids) unless my_areas_ids.empty?
         end
       end
     end
@@ -197,7 +197,7 @@ class ProposalsController < ApplicationController
       format.pdf {
         if @proposal.voted?
           render :pdf => 'show.pdf.erb',
-          :show_as_html => params[:debug].present?
+                 :show_as_html => params[:debug].present?
         else
           flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
           redirect_to @proposal, format: 'html'
@@ -207,43 +207,60 @@ class ProposalsController < ApplicationController
   end
 
   def new
-    @step = get_next_step(current_user)
-    @proposal = Proposal.new
-
-    if params[:group_id]
-      @group = Group.find_by_id(params[:group_id])
-      @proposal.interest_borders << @group.interest_border
-      @proposal.private = true
-      @proposal.presentation_groups << @group
-      @proposal.anonima = @group.default_anonima
-      @proposal.visible_outside = @group.default_visible_outside
-      @change_advanced_options = @group.change_advanced_options
-
-      if params[:group_area_id]
-        @proposal.group_area_id = params[:group_area_id]
+    begin
+      if LIMIT_PROPOSALS
+        max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+        elapsed = Time.now - max
+        if elapsed < PROPOSALS_TIME_LIMIT
+          raise Exception
+        end
       end
 
-    else
-      @proposal.quorum_id = Quorum::STANDARD
-      @proposal.anonima = DEFAULT_ANONIMA
-      @proposal.visible_outside = true
-      @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
-    end
+      @step = get_next_step(current_user)
+      @proposal = Proposal.new
 
-    @proposal.proposal_category_id = params[:category]
+      if params[:group_id]
+        @group = Group.find_by_id(params[:group_id])
+        @proposal.interest_borders << @group.interest_border
+        @proposal.private = true
+        @proposal.presentation_groups << @group
+        @proposal.anonima = @group.default_anonima
+        @proposal.visible_outside = @group.default_visible_outside
+        @change_advanced_options = @group.change_advanced_options
 
-    send(params[:proposal_type_id].downcase + '_new',@proposal)
-    @proposal.proposal_type = ProposalType.find_by_short_name(params[:proposal_type_id])
-    @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+        if params[:group_area_id]
+          @proposal.group_area_id = params[:group_area_id]
+        end
 
-    @title = ''
-    @title += t('pages.proposals.new.title_group', name: @group.name) if @group
-    @title += ProposalType.find_by_short_name(params[:proposal_type_id]).description
+      else
+        @proposal.quorum_id = Quorum::STANDARD
+        @proposal.anonima = DEFAULT_ANONIMA
+        @proposal.visible_outside = true
+        @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
+      end
 
-    respond_to do |format|
-      format.js
-      format.html
-      format.xml { render :xml => @proposal }
+      @proposal.proposal_category_id = params[:category]
+
+      send(params[:proposal_type_id].downcase + '_new', @proposal)
+      @proposal.proposal_type = ProposalType.find_by_short_name(params[:proposal_type_id])
+      @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+
+      @title = ''
+      @title += t('pages.proposals.new.title_group', name: @group.name) if @group
+      @title += ProposalType.find_by_short_name(params[:proposal_type_id]).description
+
+      respond_to do |format|
+        format.js
+        format.html
+        format.xml { render :xml => @proposal }
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.js { render :update do |page|
+          page.alert "Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora #{((PROPOSALS_TIME_LIMIT - elapsed)/60).floor} minuti e #{((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)} secondi."
+          page << "$('#create_proposal_container').dialog('destroy');"
+        end }
+      end
     end
   end
 
@@ -263,7 +280,7 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
 
         @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
-        send(@proposal_type.short_name.downcase + '_create',@proposal) #execute specific method to build sections
+        send(@proposal_type.short_name.downcase + '_create', @proposal) #execute specific method to build sections
 
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group
@@ -281,17 +298,17 @@ class ProposalsController < ApplicationController
         end
 
         #il quorum viene utilizzato per le proposte standard
-       # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-          quorum = assign_quorum(prparams)
+        # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+        quorum = assign_quorum(prparams)
 
-          #metto la proposta in valutazione se è standard
-          @proposal.proposal_state_id = PROP_VALUT
-          @proposal.rank = 0
+        #metto la proposta in valutazione se è standard
+        @proposal.proposal_state_id = PROP_VALUT
+        @proposal.rank = 0
 
 
         #elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
-       #   @proposal.proposal_state_id = ProposalState::WAIT_DATE
-       # end
+        #   @proposal.proposal_state_id = ProposalState::WAIT_DATE
+        # end
 
 
         borders = prparams[:interest_borders_tkn]
@@ -299,7 +316,7 @@ class ProposalsController < ApplicationController
         @proposal.save!
 
         #fai partire il timer per far scadere la proposta
-        if quorum.minutes# && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+        if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
@@ -417,7 +434,7 @@ class ProposalsController < ApplicationController
 
         #@old_quorum.destroy if @old_quorum
 
-        notify_proposal_has_been_updated(@proposal,@group)
+        notify_proposal_has_been_updated(@proposal, @group)
       end
 
       respond_to do |format|
@@ -452,7 +469,7 @@ class ProposalsController < ApplicationController
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
-      notify_proposal_waiting_for_date(@proposal,@group)
+      notify_proposal_waiting_for_date(@proposal, @group)
       flash[:notice] = t(:proposal_date_selected)
       respond_to do |format|
         format.js do
@@ -610,7 +627,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     authorize! :close_debate, @proposal
     if @proposal.rank >= @proposal.quorum.good_score
       @proposal.proposal_state_id = PROP_WAIT_DATE #metti la proposta in attesa di una data per la votazione
-      notify_proposal_ready_for_vote(@proposal,@group)
+      notify_proposal_ready_for_vote(@proposal, @group)
     elsif @proposal.rank < @proposal.quorum.bad_score
       @proposal.proposal_state_id = PROP_RESP
       notify_proposal_rejected(@proposal)
@@ -892,7 +909,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     respond_to do |format|
       @title = 'Questa proposta non esiste'
       @message = 'La proposta che cerchi non esiste o è stata cancellata'
-      format.html { render "errors/404", :status => 404, :layout => true}
+      format.html { render "errors/404", :status => 404, :layout => true }
     end
     true
   end
