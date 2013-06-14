@@ -22,7 +22,7 @@ class NewDefaultQuorums < ActiveRecord::Migration
         copy.public = false
         copy.active = true
         copy.save!
-        group.group_quorums.build(:quorum_id => copy.id)
+        group.group_quorums.create(:quorum_id => copy.id)
       end
     end
 
@@ -31,11 +31,11 @@ class NewDefaultQuorums < ActiveRecord::Migration
   def down
     remove_column :groups, :admin_title
     remove_column :quorums, :seq
-    Quorum.find_all_by_name('1 giorno').destroy_all
-    Quorum.find_all_by_name('3 giorni').destroy_all
-    Quorum.find_all_by_name('7 giorni').destroy_all
-    Quorum.find_all_by_name('15 giorni').destroy_all
-    Quorum.find_all_by_name('30 giorni').destroy_all
+    Quorum.destroy_all({name: '1 giorno', valutations: nil, ends_at: nil})
+    Quorum.destroy_all({name: '3 giorni', valutations: nil, ends_at: nil})
+    Quorum.destroy_all({name: '7 giorni', valutations: nil, ends_at: nil})
+    Quorum.destroy_all({name: '15 giorni', valutations: nil, ends_at: nil})
+    Quorum.destroy_all({name: '30 giorni', valutations: nil, ends_at: nil})
     Quorum.update_all({name: 'fast', description: nil},{name: 'Veloce'})
     Quorum.update_all({name: 'standard', description: nil}, {name: 'Normale'})
     Quorum.update_all({name: 'long', description: nil}, {name: 'long'})
