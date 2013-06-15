@@ -13,9 +13,6 @@ class GroupsController < ApplicationController
 
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
 
-  #l'utente deve essere amministratore
-  before_filter :admin_required, :only => [:destroy]
-
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
 
@@ -195,14 +192,14 @@ class GroupsController < ApplicationController
         Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
       end
       respond_to do |format|
-        flash[:notice] = 'Hai creato il gruppo.'
+        flash[:notice] = t('controllers.groups.create.ok_message')
         format.html { redirect_to(@group) }
         #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end #respond_to
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione del gruppo.'
+        flash[:error] = t('controllers.groups.create.ko_message')
         format.html { render :action => "new" }
       end
     end #begin
@@ -249,7 +246,9 @@ class GroupsController < ApplicationController
 
 
   def destroy
+    authorize! :destroy, @group
     @group.destroy
+    flash[:notice] = t('controllers.groups.destroy.ok_message')
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }

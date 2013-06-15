@@ -2,7 +2,9 @@
     <div class="group_area" id="group<%= area.id %>">
       <div>
         <span class="remove_area_button">
-          <%=link_to 'Rimuovi sezione', [@group,area], method: :delete, remote: true, confirm: 'Sei sicuro di voler rimuovere quest\'area di lavoro?' if can? :destroy, area%>
+          <%#=link_to 'Modifica', edit_group_group_area_path(@group,area), remote: true if can? :update, area%><br/>
+          <%=link_to 'Rimuovi', [@group,area], method: :delete, remote: true, confirm: 'Sei sicuro di voler rimuovere quest\'area di lavoro?' if can? :destroy, area%>
+
         </span>
         <div style="width:40px;height: 40px;"></div>
 

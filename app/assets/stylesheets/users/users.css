@@ -41,6 +41,7 @@
 	opacity: 0.6;
 	padding: 4px;
 	margin: 5px;
+    left: 1px;
 }
 .caption a {
 	cursor: pointer;

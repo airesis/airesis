@@ -1,8 +1,10 @@
 <div class="header_image image_container">
   <%= @user.user_image_tag 120 %>
-  <div class="caption">
-    <a style="color:white"><%= t('pages.users.show.edit_image') %></a>
-  </div>
+  <% if @user == current_user %>
+      <div class="caption">
+        <a style="color:white"><%= t('pages.users.show.edit_image') %></a>
+      </div>
+  <% end %>
 </div>
 
 
@@ -80,7 +82,7 @@
     <h2 class="label_profile"><%= t('pages.users.show.registered_from') %>: </h2>
 
     <div class="info_profile">
-      <%=l (@user.confirmed? ? @user.confirmed_at : @user.created_at)%>
+      <%= l (@user.confirmed? ? @user.confirmed_at : @user.created_at) %>
     </div>
   </div>
 

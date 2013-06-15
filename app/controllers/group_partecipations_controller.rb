@@ -7,9 +7,9 @@ class GroupPartecipationsController < ApplicationController
 
   #sicurezza
   before_filter :authenticate_user!
-  before_filter :verify
 
   def destroy
+    authorize! :destroy, @group_partecipation
 
     @group_partecipation_request = GroupPartecipationRequest.find_by_user_id_and_group_id(@group_partecipation.user_id,@group_partecipation.group_id)
 
@@ -21,7 +21,7 @@ class GroupPartecipationsController < ApplicationController
         @group_partecipation_request.destroy
         @group_partecipation.destroy
       end
-      flash[:notice] = "Sei uscito dal gruppo. Potrai successivamente richiedere di parteciparvi"
+      flash[:notice] = current_user == @group_partecipation.user ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : "#{@group_partecipation.user.fullname} rimosso correttamente dal gruppo"
     end
 
     respond_to do |format|
@@ -32,15 +32,6 @@ class GroupPartecipationsController < ApplicationController
   
   protected
 
-  #verifica che l'utente abbia i permessi per eseguire l'operazione
-  def verify
-    unless current_user == @group_partecipation.user
-      flash[:error] = t('error.permissions_required')
-      redirect_to current_user
-    end
-  end
-
-  
   def load_group_partecipation
     @group_partecipation = GroupPartecipation.find(params[:id])
   end

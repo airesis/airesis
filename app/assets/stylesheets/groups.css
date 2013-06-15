@@ -78,12 +78,4 @@ input.days, input.hours, input.minutes {
     margin-bottom: 10px;
 }
 
-.remove_area_button {
-    float:right;
-    visibility: hidden;
-    margin-right: 20px;
-}
 
-.group_area:hover .remove_area_button {
-    visibility: visible;
-}

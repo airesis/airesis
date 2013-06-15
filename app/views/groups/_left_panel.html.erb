@@ -86,13 +86,27 @@
     <!--
  <h4>Al momento seguono il gruppo <%= @group.followers.count %> persone</h4>
  <% if current_user
-                                                                             follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
+      follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
     end
     if !follow %>
         <%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class => "buttonStyle littleText disableButton" %>
 		<br/>(notifiche non ancora attive, spiacente)
  <% end %>
     -->
+
+    <%@mypartecipation = @group.group_partecipations.where(:user_id => current_user.id).first if current_user %>
+    <% if (can? :destroy, @group) || (can? :destroy, @mypartecipation) %>
+        <div class="mybox">
+          <%= link_to t('pages.users.show.get_out_of_group_button'), group_partecipation_path(@mypartecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, @mypartecipation %>
+          <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, confirm: t('pages.groups.show.confirm_destroy'), class: 'btn red trashButton' if can? :destroy, @group %>
+        </div>
+    <% end %>
+
+
+
+
+
+
     <div id="rules_modal" title="<%= t('pages.groups.show.rules_button') %>" style="width:400px;height:400px;display:none;text-align: justify">
       <div>Le regole sono selezionabili alla creazione di un gruppo. <br/>
 

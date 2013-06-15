@@ -57,16 +57,12 @@
     padding: 2px;
 }
 
-/*.areas_button {
-    background: none repeat scroll 0 0 #FFBB33;
-    border: 1px solid #FFBD21;
-    border-radius: 2px 2px 2px 2px;
-    color: white;
-    float: right;
-    font-weight: bold;
-    padding: 3px;
+.remove_area_button {
+    float:right;
+    /*visibility: hidden;*/
+    margin-right: 20px;
 }
 
-.areas_button:hover {
-    text-decoration: none;
-} */
+.group_area:hover .remove_area_button {
+    /*visibility: visible;*/
+}
