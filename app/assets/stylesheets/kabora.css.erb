@@ -628,7 +628,7 @@
 }
 
 .extended {
-    width: 90%;
+    width: 100%;
     max-width: none;
 }
 
@@ -901,6 +901,36 @@
 .btn.blue .ui-icon, .btn.red .ui-icon, .btn.green .ui-icon {
     background-image: url('<%=asset_path 'icons_fff.png'%>');
 }
+
+.ui-dialog .ui-icon {
+    background-image: url('<%=asset_path 'icons_fff.png'%>');
+}
+
+.ui-dialog .ui-state-hover .ui-icon {
+    background-image: url('<%=asset_path 'icons_444.png'%>');
+}
+
+.ui-dialog.ui-widget-content {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.ui-dialog-content.ui-widget-content::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.ui-dialog-content.ui-widget-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+}
+
+.ui-dialog-content.ui-widget-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+
 
 .btn .text {
     margin-left: 14px;

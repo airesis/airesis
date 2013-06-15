@@ -73,7 +73,7 @@
 				<% @groups.each do |group|%>
 				 <div>
 
-				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]), style: 'float:left;'%>
+				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) || (@blog_post.group_ids.include? group.id), style: 'float:left;'%>
                   <div class="blogUserImage" title="<%=group.name%>">
                     <%= group.group_image_tag 20 %>
                   </div>

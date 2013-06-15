@@ -1,0 +1,15 @@
+<div class="title">
+  <%= t('pages.home.show.your_contributes') %>
+</div>
+<%@c = current_user.proposal_comments.order('created_at desc').limit(20)%>
+<% unless @c.empty? %>
+    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+        <%@c.each do |contribute| %>
+            <div class="home_contribute">
+              <div class="content">
+                <%= contribute.content %>
+              </div>
+            </div>
+        <%end%>
+    </div>
+<% end %>

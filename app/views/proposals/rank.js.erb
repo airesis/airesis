@@ -6,4 +6,4 @@ disegnaBottoni();
 
 <% publish_to  proposal_path(@proposal) do %>
 $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
-<% end %>
+<% end rescue nil %>

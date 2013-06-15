@@ -258,8 +258,11 @@ class ApplicationController < ActionController::Base
           case params[:action]
             when 'show'
               #mark as checked all user alerts about this proposal
-              current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ?', 'proposal_id', @proposal.id.to_s]).update_all(:checked => true)
-              #logger.info @alerts.select('user_alerts.id').all
+              @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', @proposal.id.to_s, false])
+              if @unread.where(['notifications.notification_type_id = ?',NotificationType::AVAILABLE_AUTHOR]).exists?
+                flash[:info] = t('controllers.proposals.show.available_authors')
+              end
+              @unread.update_all(:checked => true)
             else
           end
         else

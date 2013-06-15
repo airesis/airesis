@@ -29,7 +29,9 @@
       <%= f.check_box :accept_conditions %>
     </p>
 
-    <%= recaptcha_tags :display => {'theme' => 'clean'} %><br /><br />
+    <% if ::Configuration.recaptcha %>
+      <%= recaptcha_tags :display => {'theme' => 'clean'} %><br /><br />
+    <%end%>
 
     <div><%= f.submit t('pages.registration.register_button'), :class => 'btn blue' %></div>
 <% end %>

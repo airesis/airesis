@@ -2,7 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     if session[:omniauth] == nil
-      if verify_recaptcha
+      if !::Configuration.recaptcha || verify_recaptcha
         super
         session[:omniauth] = nil unless @user.new_record?
       else

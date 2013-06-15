@@ -113,7 +113,7 @@ it:
   error:
    setting_preferences: "Errore durante l'impostazione delle preferenze"
    admin_required: "Devi essere amministratore per visualizzare la pagina."
-   permissions_required: "Non disponi dei permessi per visualizzare la pagina."
+   permissions_required: "Non disponi dei permessi per eseguire l'azione."
    portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
    blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
    not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
@@ -369,7 +369,7 @@ it:
         delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo suggerimento?"
         offered_as_editor_message: "Ti sei offerto per redigere la sintesi della proposta"
         offer_as_editor_button: "Voglio redigere la sintesi!"
-        available_editors_button: "Redattori disponibili"
+        available_editors_button: "Redattori disponibili (%{count})"
         editors_list_title: "Elenco utenti disponibili a redigere la sintesi della proposta"
         attached_documents: "Documenti collegati"
         no_document_attached: "Nessun documento allegato alla proposta"
@@ -695,13 +695,14 @@ it:
           content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
       show:
-        your_proposals: "Le tue proposte"
+        your_proposals: "Proposte a cui partecipi"
         proposals:
           title: "Titolo"
           last_edit: "Ultima modifica"
           authors: "Autori"
         notifications:
           title: "Le notifiche"
+        your_contributes: "I tuoi ultimi contributi"
     open_space:
       layout:
         proposals_button: "LE PROPOSTE"
@@ -919,6 +920,7 @@ it:
         voting: "Questa proposta è in fase di votazione."
         ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
         visible_outside_warn: "Questa proposta è visibile pubblicamente"
+        available_authors: %Q(Ci sono nuovi redattori disponibili per la proposta)
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
@@ -1011,3 +1013,5 @@ it:
         stackeholders: "Stakeholders (persone coinvolte)"
         requisiti: "Requisiti da rispettare"
   default_admin_title: "Amministratore"
+  saving: "Salvataggio..."
+  sending: "Invio..."

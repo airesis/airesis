@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613161922) do
+ActiveRecord::Schema.define(:version => 20130615131439) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -753,11 +753,13 @@ ActiveRecord::Schema.define(:version => 20130613161922) do
     t.boolean  "secret_vote",                                :default => true,  :null => false
     t.integer  "proposal_type_id",                           :default => 1,     :null => false
     t.integer  "proposal_votation_type_id",                  :default => 1,     :null => false
+    t.string   "url",                                                           :null => false
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
   add_index "proposals", ["proposal_state_id"], :name => "_idx_proposals_proposal_state_id"
   add_index "proposals", ["quorum_id"], :name => "index_proposals_on_quorum_id", :unique => true
+  add_index "proposals", ["updated_at"], :name => "index_proposals_on_updated_at"
   add_index "proposals", ["vote_period_id"], :name => "_idx_proposals_vote_period_id"
 
   create_table "provinciali_groups", :id => false, :force => true do |t|

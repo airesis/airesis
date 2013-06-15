@@ -35,7 +35,7 @@ class ProposalsController < ApplicationController
   before_filter :can_valutate, :only => [:rankup, :rankdown]
 
 
-  after_filter :check_page_alerts, only: :show
+  before_filter :check_page_alerts, only: :show
 
   def search
     authorize! :view_proposal, @group
@@ -154,9 +154,9 @@ class ProposalsController < ApplicationController
     if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
-          flash[:notice] = t('controllers.proposals.show.ask_for_partecipation')
+          flash[:info] = t('controllers.proposals.show.ask_for_partecipation')
         elsif !(can? :partecipate, @proposal) && @proposal.in_valutation?
-          flash[:notice] = t('controllers.proposals.show.cant_partecipate')
+          flash[:info] = t('controllers.proposals.show.cant_partecipate')
         end
       else #se è bloccata alla visione di utenti esterni
         if !current_user #se l'utente non è loggato richiedi l'autenticazione
@@ -174,23 +174,23 @@ class ProposalsController < ApplicationController
           end
         end
         if !(can? :partecipate, @proposal) && @proposal.in_valutation?
-          flash[:notice] = t('controllers.proposals.show.cant_partecipate')
+          flash[:info] = t('controllers.proposals.show.cant_partecipate')
         end
       end
       author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
       @author_name = User.find(author_id).name
     end
 
-    flash[:warn] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
+    flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     respond_to do |format|
       #format.js
       format.html {
         if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
-          flash.now[:notice] = t('controllers.proposals.show.waiting_date')
+          flash.now[:info] = t('controllers.proposals.show.waiting_date')
         elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
-          flash.now[:notice] = t('controllers.proposals.show.voting')
+          flash.now[:info] = t('controllers.proposals.show.voting')
         end
       }
       format.json
@@ -430,7 +430,13 @@ class ProposalsController < ApplicationController
 
         #end
 
-        @proposal.update_attributes(params[:proposal])
+        @proposal.attributes = params[:proposal]
+
+        if @proposal.title_changed?
+          @proposal.url = @proposal.private? ? group_proposal_path(@proposal.presentation_groups.first,@proposal) : proposal_path(@proposal)
+        end
+
+        @proposal.save!
 
         #@old_quorum.destroy if @old_quorum
 
@@ -599,6 +605,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         page.replace_html "authors_list", :partial => 'proposals/authors_list_panel'
+        page.replace_html "available_authors_button", :partial => 'proposals/available_authors_button'
         page << "$('#available_authors_list_container').dialog('close');"
       end
       }
@@ -808,7 +815,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
         if ranking.updated_at < @proposal.updated_at
-          flash.now[:notice] = t('info.proposal.can_change_valutation')
+          flash.now[:info] = t('info.proposal.can_change_valutation')
           @can_vote_again = 1
         else
           @can_vote_again = 0

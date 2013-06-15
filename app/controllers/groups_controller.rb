@@ -216,26 +216,28 @@ class GroupsController < ApplicationController
       Group.transaction do
 
         @group.attributes = params[:group]
+
+        if @group.name_changed?
+          @group.internal_proposals.each do |proposal|
+            proposal.update_column(:url,group_proposal_path(@group, proposal))
+          end
+        end
+
+
         partecipant_ids = @group.partecipant_ids
         partecipant_ids.each do |id|
           r = GroupPartecipationRequest.new({:group_id => @group.id, :user_id => id, :group_partecipation_request_status_id => 3})
           r.save
         end
+
+        @group.save!
       end
 
       respond_to do |format|
-        if @group.save
-          flash[:notice] = t('groups.confirm.update')
-        end
+        flash[:notice] = t('groups.confirm.update')
         format.html { render :action => "edit" }
       end
 
-    rescue ActiveRecord::ActiveRecordError => e
-      puts e
-      respond_to do |format|
-        flash[:error] = t('groups.errors.update')
-        format.html { render :action => "edit" }
-      end
     rescue Exception => e
       puts e
       respond_to do |format|
@@ -327,7 +329,7 @@ class GroupsController < ApplicationController
       unless request #se non l'ha mai fatta
         partecipation = current_user.groups.find_by_id(group.id)
         if partecipation #verifica se per caso non fa già parte del gruppo
-                           #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+                         #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
           request = GroupPartecipationRequest.new
           request.user_id = current_user.id
           request.group_id = group.id
@@ -341,7 +343,7 @@ class GroupsController < ApplicationController
           request.group_partecipation_request_status_id = 1 #in attesa...
           saved = request.save!
           notify_user_asked_for_partecipation(group) #invia notifica ai portavoce
-	  number += 1
+          number += 1
         end
       end
     end

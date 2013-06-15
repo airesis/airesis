@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   has_many :followed_groups, :through => :group_follows, :class_name => 'Group', :source => :group
   has_many :user_votes, :class_name => 'UserVote'
   has_many :proposal_comments, :class_name => 'ProposalComment'
+  has_many :partecipating_proposals, through: :proposal_comments, class_name: 'Proposal', source: :proposal
   has_many :proposal_comment_rankings, :class_name => 'ProposalCommentRanking'
   has_many :proposal_rankings, :class_name => 'ProposalRanking'
   belongs_to :user_type, :class_name => 'UserType', :foreign_key => :user_type_id

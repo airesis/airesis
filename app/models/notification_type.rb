@@ -5,7 +5,9 @@ class NotificationType < ActiveRecord::Base
   NEW_CONTRIBUTES = 1
   TEXT_UPDATE = 2
   NEW_CONTRIBUTES_MINE = 5
+  AVAILABLE_AUTHOR = 22
   UNINTEGRATED_CONTRIBUTE = 25
+
 
   belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id
   has_many :blocked_alerts, :class_name => 'BlockedAlert'

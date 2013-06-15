@@ -1,21 +1,26 @@
 <div class="title">
   <%= t('pages.home.show.your_proposals') %>
 </div>
-<% unless current_user.proposals.empty? %>
-    <div style="overflow-y:scroll;height: 260px;">
+<% @a = current_user.proposals.current.pluck('proposals.id')%>
+<% @b =  current_user.partecipating_proposals.current.pluck('proposals.id')%>
+<%@c = @a  | @b%>
+<% unless @c.empty? %>
+    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
       <table id="proposals_table" class="table_list">
         <thead>
         <th><%= t('pages.home.show.proposals.title') %></th>
         <th><%= t('pages.home.show.proposals.last_edit') %></th>
         </thead>
         <tbody>
-        <% current_user.proposals.current.includes(:users, :quorum).each do |proposal| %>
+
+        <%@proposals_p = Proposal.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?) and (proposal_rankings.user_id = ? or proposal_rankings.user_id is null)',@c,current_user.id], order: 'proposals.updated_at desc')%>
+        <% @proposals_p.each do |proposal| %>
 
             <tr>
-              <td><%= link_to_proposal proposal %>
+              <td class="first"><%= link_to_proposal proposal %>
                 <br>
                 <div style="float: left; margin-right: 5px;"><%= t('pages.home.show.proposals.authors') %></div>
-                <% if signed_in? && (proposal.users.include? current_user) %>
+                <% if proposal.users.include? current_user %>
                     <% proposal.users.each do |user| %>
                         <%= user_tag_mini(user) %>
                     <% end %>
@@ -25,10 +30,10 @@
                     <% end %>
                 <% end %>
 
-                <%= user_valutation_image(current_user, proposal) %>
+                <%= user_valutation_image(current_user, proposal,{fetched: true}) %>
               </td>
-              <td align="center">
-                <%= proposal.updated_at.strftime("%d/%m/%Y %H:%M") %>
+              <td align="center"  class="second">
+                <%=l proposal.updated_at %>
                 <br>
                 <% unless proposal.is_polling? %>
                     <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
@@ -54,14 +59,13 @@
                 "oPaginate": {
                     "sPrevious": "",
                     "sNext": ""
-                },
+                }
             },
+            "aaSorting": [],
             "aoColumns": [null, null],
-            "aaSorting": [
-                [ 3, "asc" ]
-            ],
             "bInfo": false,
             "bLengthChange": false,
+            "bPaginate": false
         });
 
         $('#proposals_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");

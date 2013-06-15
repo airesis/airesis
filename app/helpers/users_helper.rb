@@ -92,14 +92,14 @@ module UsersHelper
   
   def user_tag_mini(user,proposal=nil,full_name=true)
     raise "Invalid User" unless user
-    if (proposal && proposal.is_anonima? && (user != current_user))
-      u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
+    if proposal && proposal.is_anonima? && (user != current_user)
+        u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
     end 
     ret = "<div class=\"blogUserImage\" title=\""
     if u_nick
       ret += u_nick.nickname
     else
-      if (full_name)
+      if full_name
         ret += "#{user.name} #{user.surname}"
       else
         ret += "#{user.login}"
@@ -114,16 +114,21 @@ module UsersHelper
       ret += user.user_image_tag(20)
     end
     ret += "</div>"
-    return ret.html_safe
+    ret.html_safe
   end
   
-  def user_valutation_image(user,proposal,option={})
-    val = user.proposal_rankings.find_by_proposal_id(proposal.id).ranking_type_id rescue nil
-    if (val == 1)
-      return "<div class=\"votedup-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
-    elsif (val == 3)
-      return "<div class=\"voteddown-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
+  def user_valutation_image(user,proposal,options={})
+    if options[:fetched]
+      val = proposal.rankings[0].ranking_type_id rescue nil
+    else
+      val = proposal.rankings.find_by_user_id(user.id).ranking_type_id rescue nil
     end
+      if val == 1
+        return "<div class=\"like-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
+      elsif val == 3
+        return "<div class=\"dislike-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
+      end
+
   end
   
   

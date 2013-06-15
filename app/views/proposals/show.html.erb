@@ -289,14 +289,9 @@
             <div id="available_author">
               <%= render :partial => 'proposals/available_author' %>
             </div>
-            <% if @proposal.users.include?(current_user) %>
-                <% if @proposal.available_authors.count > 0 %>
-                    <%= link_to t('pages.proposals.show.available_editors_button'), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'personButton littleText disableButton' %>
-
-                    <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title') %>">
-                    </div>
-                <% end %>
-            <% end %>
+            <div id="available_authors_button">
+              <%= render :partial => 'available_authors_button' %>
+            </div>
         <% end %>
       </div>
     </div>

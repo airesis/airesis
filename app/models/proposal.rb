@@ -49,7 +49,7 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :quorum, :class_name => 'Quorum'
 
-  eager_load :quorum
+  #eager_load :quorum
 
   has_many :proposal_sections, :dependent => :destroy
   has_many :sections, :through => :proposal_sections, :order => :seq
@@ -110,7 +110,7 @@ class Proposal < ActiveRecord::Base
   after_update :mark_integrated_contributes
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
-  after_find :calculate_percentage
+  #after_find :calculate_percentage
 
 
   def integrated_contributes_ids_list=(value)
@@ -204,6 +204,8 @@ class Proposal < ActiveRecord::Base
     end
 
     self.content = truncate_words(self.solutions.first.sections.first.paragraphs.first.content.gsub( %r{</?[^>]+?>}, '' ), 60)
+
+
   end
 
   def to_param
@@ -315,7 +317,7 @@ class Proposal < ActiveRecord::Base
     integer :presentation_area_ids, multiple: true
   end
 
-  #restituisce la percentuale di avanzamento della proposta in abse al quorum assegnato
+  #restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
   def calculate_percentage
     return unless self.quorum
     percentages = []
@@ -338,6 +340,10 @@ class Proposal < ActiveRecord::Base
     else
       @percentage=percentages.min
     end
+  end
+
+  def percentage
+    @percentage ||= calculate_percentage
   end
 
 

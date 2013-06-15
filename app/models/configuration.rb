@@ -50,4 +50,8 @@ class Configuration < ActiveRecord::Base
   def self.rotp
     @rotp = !self.find_by_name('rotp').value.to_i.zero?
   end
+
+  def self.recaptcha
+    @rotp = !self.find_by_name('recaptcha').value.to_i.zero?
+  end
 end

@@ -1,0 +1,8 @@
+<% if @proposal.users.include?(current_user) %>
+    <% if (count_available = @proposal.available_authors.count) > 0 %>
+        <%= link_to t('pages.proposals.show.available_editors_button', count: count_available), {:controller => "proposals", :action => "available_authors_list", :group_id => params[:group_id]}, :remote => true, :class => 'btn personButton disable' %>
+
+        <div id="available_authors_list_container" title="<%= t('pages.proposals.show.editors_list_title') %>">
+        </div>
+    <% end %>
+<% end %>

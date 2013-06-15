@@ -277,7 +277,8 @@ module NotificationHelper
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
     msg = "L'utente <b>#{current_user.fullname}</b> si è offerto come redattore della proposta <b>#{proposal.title}</b>."
-    notification_a = Notification.new(:notification_type_id => 22,:message => msg, :url => proposal_path(proposal))
+    data = {'proposal_id' => proposal.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 22,:message => msg, :url => proposal_path(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if user != current_user

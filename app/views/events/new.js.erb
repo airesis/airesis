@@ -4,7 +4,7 @@ $('#create_event').html("<%= escape_javascript(render(:partial => 'form'))%>");
 $('#create_event_dialog').dialog({
 	title : '<%=escape_javascript @group ? "#{@group.name} - #{t('pages.events.new.title')}" : t('pages.events.new.title')%>',
 	modal : true,
-	width : 700,
+	width : 740,
 	close : function(event, ui) {
 		$('#create_event_dialog').dialog('destroy');			
 	}
