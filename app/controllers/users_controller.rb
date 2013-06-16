@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
   def show
     respond_to do |format|
-      flash.now[:notice] = t('controllers.users.show.clic_to_change') if (current_user == @user)
+      flash.now[:info] = t('controllers.users.show.clic_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   def alarm_preferences
     @user = current_user
     respond_to do |format|
-      flash.now[:notice] = t('controllers.users.show.clic_to_change') if (current_user == @user)
+      flash.now[:info] = t('controllers.users.show.clic_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end

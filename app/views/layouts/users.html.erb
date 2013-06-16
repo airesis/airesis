@@ -29,8 +29,7 @@
         <% end %>
         <% if @user != current_user %>
             <% unless @user.new_record? %>
-                <span> ⋅ </span>
-                <%= link_to 'PROFILO', @user, class: (params[:controller] == 'home' ? 'sel' : '') %>
+                <%= link_to 'PROFILO', @user, class: ((['home','users'].include? params[:controller]) ? 'sel' : '') %>
             <% end %>
             <% if @user.blog %>
                 <span> ⋅ </span>

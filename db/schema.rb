@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615131439) do
+ActiveRecord::Schema.define(:version => 20130615150249) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -296,12 +296,12 @@ ActiveRecord::Schema.define(:version => 20130615131439) do
   end
 
   create_table "group_areas", :force => true do |t|
-    t.integer  "group_id",           :null => false
-    t.string   "name",               :null => false
-    t.string   "description"
+    t.integer  "group_id",                           :null => false
+    t.string   "name",                               :null => false
+    t.string   "description",        :limit => 2000
     t.integer  "area_role_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

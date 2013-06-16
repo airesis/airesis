@@ -1,5 +1,6 @@
 #encoding: utf-8
 class VotationsController < ApplicationController
+  include RotpModule
 
   layout 'open_space'
 
@@ -22,9 +23,7 @@ class VotationsController < ApplicationController
 
       #check if user has rotp enabled and check the code
       if current_user.rotp_enabled && ::Configuration.rotp
-        security_code = params[:data][:token].to_i
-        totp = ROTP::TOTP.new(current_user.rotp_secret)
-        unless totp.verify_with_drift(security_code,ROTP_DRIFT || 0)
+        unless check_token(current_user, params[:data][:token])
           flash[:error] = 'Token di sicurezza non valido'
           respond_to do |format|
             format.js   { render :update do |page|
@@ -87,9 +86,7 @@ class VotationsController < ApplicationController
 
         #check if user has rotp enabled and check the code
         if current_user.rotp_enabled && ::Configuration.rotp
-          security_code = params[:data][:token].to_i
-          totp = ROTP::TOTP.new(current_user.rotp_secret)
-          unless totp.verify_with_drift(security_code,ROTP_DRIFT || 0)
+          unless check_token(current_user, params[:data][:token])
             flash[:error] = 'Token di sicurezza non valido'
             respond_to do |format|
               format.js   { render :update do |page|
