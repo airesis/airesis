@@ -80,9 +80,6 @@ class VotationsController < ApplicationController
   #un utente invia il voto in formato schulze
   def vote_schulze
 
-
-
-
     begin
       Proposal.transaction do
         @proposal = Proposal.find_by_id(params[:proposal_id])
@@ -126,6 +123,7 @@ class VotationsController < ApplicationController
         format.js {
           render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
           end
         }
       end

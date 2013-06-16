@@ -132,6 +132,8 @@ eu:
     private_messages_active: "Other users will be able to send you private messages"
     private_messages_inactive: "Other users will not be able to send you private messages"
 
+    rotp_active: "Security Token activated"
+    rotp_inactive: "Token di sicurezza disattivato"
   proposal_inserted: 'The proposal has been  entered correctly.'
   proposal_updated: 'The proposal has been updated successfully.'
   proposal_deleted:  'The proposal has been deleted successfully.'
@@ -225,6 +227,7 @@ eu:
         join_linkedin: "Join your Linkedin account"
         join_meetup: "Join your Meetup account"
         providers_list: "List of activated provider"
+        options: "Options"
         rotp: "Enable Security Token"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences."
@@ -276,6 +279,7 @@ eu:
       edit:
         title: 'Edit Group Settings'
         change_permissions: "In Roles and Permissions Settings you can always change the members permissions."
+        remove_user_confirm: "Are you sure you want to remove %{name} from the group?"
       layout:
         home_button: "HOME PAGE"
         proposals_button: "PROPOSALS"

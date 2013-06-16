@@ -23,7 +23,7 @@
             <% end %>
           </table>
 
-          <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id}, method: :put do |f| %>
+          <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id}, method: :put, remote: true do |f| %>
               <%= f.hidden_field 'votes' %>
 
               <%= render :partial => 'fragments/how_schulze_works' %>

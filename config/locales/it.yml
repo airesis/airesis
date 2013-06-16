@@ -177,7 +177,7 @@ it:
         groups_title: "Gruppi a cui partecipi"
         group_column: "Gruppo"
         role_column: "Ruolo"
-        get_out_of_group_button: "Esci dal gruppo"
+        get_out_of_group_button: "Abbandona il gruppo"
         get_out_of_group_confermation: "Confermi di voler uscire da questo gruppo?"
         secret_vote: "Segreto"
         votations_title: "Votazioni a cui hai partecipato"
@@ -279,6 +279,7 @@ it:
       edit:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
+        remove_user_confirm: "Sei sicuro di voler rimuovere %{name} dal gruppo?"
       layout:
         home_button: "BACHECA"
         proposals_button: "LE PROPOSTE"
@@ -299,6 +300,8 @@ it:
         reject_request_button: "Declina"
         ask_partecipate_button: "Richiedi di partecipare al gruppo"
         remove_post: "Rimuovi post dalla bacheca del gruppo"
+        destroy_button: "Rimuovi gruppo"
+        confirm_destroy: "STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?"
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -335,7 +338,7 @@ it:
         accepted_title: "Votate (%{count})"
         revision_title: "Abbandonate (%{count})"
         login_with: "oppure accedi con:"
-        group_areas_title: "Aree di lavoro"
+        group_areas_title: "AREE DI LAVORO"
         no_group_areas: "Nessuna area"
         all_areas: "Tutte le aree"
         categories_title: "CATEGORIE"
@@ -906,7 +909,7 @@ it:
   controllers:
     group_areas:
       create:
-        ok_message: "Hai creato l'area di lavoro"
+        ok_message: "Area di lavoro creata correttamente"
         ko_message: "Errore nella creazione dell'area di lavoro"
     area_roles:
       create:
@@ -920,7 +923,7 @@ it:
         voting: "Questa proposta è in fase di votazione."
         ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
         visible_outside_warn: "Questa proposta è visibile pubblicamente"
-        available_authors: %Q(Ci sono nuovi redattori disponibili per la proposta)
+        available_authors: "Ci sono nuovi redattori disponibili per la proposta"
     registrations:
       create:
         recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
@@ -962,10 +965,16 @@ it:
     authentications:
       destroy:
         ok_message: "Identity Provider scollegato"
+    groups:
+      destroy:
+        ok_message: "Gruppo eliminato correttamente"
+      create:
+        ok_message: "Gruppo creato correttamente"
+        ko_message: "Errore durante la creazione del gruppo."
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
-  terms_of_service: "Condizioni d'uso"
-  privacy_policy: "Politica sulla Privacy"
+  terms_of_service: "Condizioni"
+  privacy_policy: "Privacy"
   back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"
