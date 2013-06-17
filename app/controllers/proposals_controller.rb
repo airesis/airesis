@@ -314,9 +314,12 @@ class ProposalsController < ApplicationController
         borders = prparams[:interest_borders_tkn]
         update_borders(borders)
 
-        @proposal.url = @proposal.private? ? group_proposal_path(@group,@proposal) : proposal_path(@proposal)
+
 
         @proposal.save!
+
+        @proposal.update_attribute(:url,@proposal.private? ? group_proposal_path(@group,@proposal) : proposal_path(@proposal))
+
 
         #fai partire il timer per far scadere la proposta
         if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s

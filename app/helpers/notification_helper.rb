@@ -309,7 +309,6 @@ module NotificationHelper
 
   #invia una notifica agli utenti che è stato creato un nuovo evento
   def notify_new_event(event)
-
     if event.private
       organizer = event.organizers.first
       data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}"}

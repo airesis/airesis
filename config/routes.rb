@@ -168,6 +168,7 @@ Airesis::Application.routes.draw do
       get :reload_storage_size
       put :enable_areas
       put :remove_post
+      get :permissions_list
     end
 
     collection do
@@ -229,6 +230,9 @@ Airesis::Application.routes.draw do
       match :drafts, :on => :collection
       resources :blog_comments
     end
+
+
+    resources :group_partecipations
 
   end
 

@@ -110,8 +110,13 @@ class Proposal < ActiveRecord::Base
   after_update :mark_integrated_contributes
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
-  #after_find :calculate_percentage
+  before_create :populate_fake_url
 
+  def populate_fake_url
+    self.url = ''
+  end
+
+  #after_find :calculate_percentage
 
   def integrated_contributes_ids_list=(value)
     self.integrated_contributes_ids = value.split(/,\s*/)

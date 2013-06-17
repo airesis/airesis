@@ -1,6 +1,11 @@
 <!-- ### facebook ###-->
 <div id="fb-root"></div>
 <script>
+
+    var Airesis = {}
+    Airesis.id = <%=current_user ? current_user.id : -1 %>;
+
+
     $.fn.qtip.defaults = $.extend(true,{}, $.fn.qtip.defaults,{
         style: {
             classes: 'qtip-light qtip-shadow'

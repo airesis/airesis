@@ -442,6 +442,11 @@ class GroupsController < ApplicationController
     end
   end
 
+  #retrieve the list of permission for the current user in the group
+  def permissions_list
+    @actions = @group.group_partecipations.find_by_user_id(current_user.id).partecipation_role.group_actions
+  end
+
   protected
 
   def load_group

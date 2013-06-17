@@ -201,6 +201,7 @@ it:
         load_image: "Carica un'immagine"
         max_file_size: "Dimensione massima: 2MB"
         what_can_i_do: "Cosa posso fare?"
+        what_i_cant_do: "Cosa NON posso fare?"
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
@@ -302,6 +303,10 @@ it:
         remove_post: "Rimuovi post dalla bacheca del gruppo"
         destroy_button: "Rimuovi gruppo"
         confirm_destroy: "STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?"
+        list_permissions:
+          title: "Elenco dei tuoi permessi all'interno di questo gruppo"
+          button: "Elenco permessi"
+        print_all_partecipants: "Stampa elenco partecipanti"
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -420,6 +425,7 @@ it:
         what_nickname: "Di cosa si tratta?"
         give_contribute: "Dai il tuo contributo"
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
+        new_valutation_message: "La proposta ha ricevuto una nuova valutazione"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"

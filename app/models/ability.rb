@@ -237,17 +237,17 @@ class Ability
           areas = proposal.presentation_areas.where(:group_id => group.id)
           if areas.count > 0
             if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_PARTECIPATION)
-              if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+              if proposal.is_polling? && (proposal.voting? || proposal.voted?)
                 return true
-              elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+              elsif proposal.in_valutation? || proposal.voted?
                 return true
               end
             end
           else
             if can_do_on_group?(user, group, GroupAction::PROPOSAL_PARTECIPATION)
-              if proposal.is_standard? && (proposal.in_valutation? || proposal.voted?)
+              if proposal.is_polling? && (proposal.voting? || proposal.voted?)
                 return true
-              elsif proposal.is_polling? && (proposal.voting? || proposal.voted?)
+              elsif proposal.in_valutation? || proposal.voted?
                 return true
               end
             end
