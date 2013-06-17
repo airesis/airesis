@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615150249) do
+ActiveRecord::Schema.define(:version => 20130616225403) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -357,9 +357,11 @@ ActiveRecord::Schema.define(:version => 20130615150249) do
   add_index "group_partecipation_requests", ["user_id", "group_id"], :name => "unique", :unique => true
 
   create_table "group_partecipations", :force => true do |t|
-    t.integer "user_id",                              :null => false
-    t.integer "group_id",                             :null => false
-    t.integer "partecipation_role_id", :default => 1, :null => false
+    t.integer  "user_id",                              :null => false
+    t.integer  "group_id",                             :null => false
+    t.integer  "partecipation_role_id", :default => 1, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "group_partecipations", ["user_id", "group_id"], :name => "only_once_per_group", :unique => true

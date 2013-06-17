@@ -2,11 +2,33 @@
 class GroupPartecipationsController < ApplicationController
   include NotificationHelper
 
+
+
+
   #carica il gruppo
-  before_filter :load_group_partecipation
+  before_filter :load_group
+
+  before_filter :load_group_partecipation, :except => :index
 
   #sicurezza
   before_filter :authenticate_user!
+
+
+  def index
+    @group_partecipations = @group.group_partecipations.joins(:user).reorder(:surname)
+    respond_to do |format|
+      format.csv { send_data build_csv }
+    end
+  end
+
+  def build_csv
+    CSV.generate do |csv|
+      csv << ['Cognome','Nome','Ruolo','Iscritto dal']
+      @group_partecipations.each do |group_partecipation|
+        csv << [group_partecipation.user.surname,group_partecipation.user.name,group_partecipation.partecipation_role.name,group_partecipation.created_at ? (l group_partecipation.created_at) : ' ']
+      end
+    end
+  end
 
   def destroy
     authorize! :destroy, @group_partecipation
@@ -35,7 +57,10 @@ class GroupPartecipationsController < ApplicationController
   def load_group_partecipation
     @group_partecipation = GroupPartecipation.find(params[:id])
   end
-  
+
+  def load_group
+    @group = Group.find(params[:group_id])
+  end
   
   
 end
