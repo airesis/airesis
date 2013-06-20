@@ -43,11 +43,12 @@
 	    <%end%>
     <%end %>
 
-    <%=link_to t('pages.groups.show.print_all_partecipants'), group_group_partecipations_path(@group, format: :csv), :class => "btn printButton disable"%>
+
     <%if @group.group_partecipations.count > 5 %>
         <%=link_to t('pages.groups.show.show_all_partecipants', :count => @group.group_partecipations.count), {:controller => "groups", :action => "partecipants_list_panel", :group_id => @group.id}, :remote => true, :class => "btn showAllButton disable"%>
         <div id="partecipants_list_container" title="<%= t('pages.groups.show.partecipants_full_list')%>"></div>
     <%end%>
+    <%=link_to t('pages.groups.show.print_all_partecipants'), group_group_partecipations_path(@group, format: :csv), :class => "btn printButton disable"%>
 </p>
 <%else %>
 <p>
