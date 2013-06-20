@@ -42,7 +42,7 @@
         <span class="rightFloat think"><%= 'Cosa ne pensi?' %></span>
         <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loading' %>
     <% else %>
-        <%= render 'ranking_panel_others' %>
+        <%= render 'ranking_panel_others', {comment: comment}%>
     <% end %>
 
 <% else %>

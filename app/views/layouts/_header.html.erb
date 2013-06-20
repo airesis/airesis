@@ -88,6 +88,10 @@
 <!-- ##### Header ##### -->
 
 <% if current_user %>
+
+
+
+
     <div id="menu-right" class="slim">
       <div class="cont">
 
@@ -236,6 +240,8 @@
 
 
 <% if user_signed_in? %>
+    <%= subscribe_to "/notifications/#{current_user.id}"%>
+
     <div id="avatar-qtip" style="display: none;">
       <div class="cont">
         <h2><%= current_user.fullname %></h2>
@@ -304,6 +310,18 @@
 
 
     <%if user_signed_in?%>
+
+    var last_poll_start = new Date().getTime() / 1000;
+    var last_poll_end = new Date().getTime() / 1000;
+
+
+    PrivatePub.subscribe("/notifications/<%=current_user.id%>",function(data, channel) {
+        var now_ = new Date().getTime() / 1000;
+        if (last_poll_end > last_poll_start && last_poll_end < (now_-5)) {
+            poll();
+        }
+    });
+
     $('.hidden_panel').hide().click(function (event) {
         event.stopPropagation();
     });
@@ -371,11 +389,17 @@
     $('.groups_menu_chrome').width($('.groups_menu_chrome').width() + 3);
 
     function poll() {
+        last_poll_start = new Date().getTime() / 1000;
         $.ajax({
             dataType: 'json',
             type: 'get',
             url: "<%=polling_alerts_path%>",
             success: function (data) {
+                $('.alert_box.logo').each(function () {
+                    $(this).qtip('destroy');
+                });
+                $('.cont-mess').remove();
+
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     var obj = data[i];
@@ -497,6 +521,7 @@
             },
             complete: function (data) {
                 //setTimeout(poll, 60000);
+                last_poll_end = new Date().getTime() / 1000;
             }
         });
     }

@@ -28,7 +28,9 @@ module ProposalsModule
           notify_proposal_ready_for_vote(proposal)
       elsif proposal.rank < quorum.bad_score
         proposal.proposal_state_id = PROP_RESP
-        notify_proposal_rejected(proposal)
+        proposal.private? ?
+          notify_proposal_rejected(proposal,proposal.presentation_groups.first) :
+          notify_proposal_rejected(proposal)
       end 
       proposal.save
       proposal.reload
