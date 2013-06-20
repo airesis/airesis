@@ -191,9 +191,13 @@ class ApplicationController < ActionController::Base
 
       generate_nickname(current_user, @proposal)
 
-      #notifica solo se si tratta di un nuovo contributo      
-      notify_user_comment_proposal(@proposal_comment) unless @proposal_comment.parent_proposal_comment_id
-      flash[:notice] = 'Contributo inserito correttamente.'
+      if @proposal_comment.is_contribute?
+        #alert only for contributes
+        flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
+        notify_user_comment_proposal(@proposal_comment)
+      else
+        flash[:notice] = t('controllers.proposal_comments.suggestion_ok_message')
+      end
     end
   end
 

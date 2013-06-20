@@ -13,6 +13,7 @@
 
 <% end %>
 
+
 <%= subscribe_to proposal_path(@proposal) %>
 
 <% @page_title = @proposal.title %>
@@ -31,6 +32,9 @@
 
 
     /*}*/
+
+    Airesis.can_partecipate = <%=can? :partecipate, @proposal%>;
+    Airesis.image_tag = $('<%=j current_user.user_image_tag 32%>');
 
 </script>
 <!-- 

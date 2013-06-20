@@ -40,20 +40,10 @@
         <% end %>
         <span class="rightFloat" style="margin-right:3px"><%= comment.rankings.positives.count %></span>
         <span class="rightFloat think"><%= 'Cosa ne pensi?' %></span>
+        <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loading' %>
     <% else %>
-        <% if can_rank_again %>
-            <%= link_to '', {:action => "rankdown", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
-                        :remote => true, :method => :put,
-                        :data => {:id => comment.id}, :class => "votedown-mini vote_comment", :style => "margin-right:10px", :title => t('pages.proposals.show.votedown') %>
-            <%= link_to '', {:action => "ranknil", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
-                        :remote => true, :method => :put,
-                        :data => {:id => comment.id}, :class => "votenil-mini vote_comment", :style => "margin-right:10px", :title => t('pages.proposals.show.votenil') %>
-            <%= link_to '', {:action => "rankup", :controller => "proposal_comments", :id => comment.id, :proposal_id => @proposal.id},
-                        :remote => true, :method => :put,
-                        :data => {:id => comment.id}, :class => "voteup-mini vote_comment", :style => "margin-right:10px", :title => t('pages.proposals.show.voteup') %>
-            <span class="rightFloat think"><%= 'Cosa ne pensi?' %></span>
-        <% end %>
+        <%= render 'ranking_panel_others' %>
     <% end %>
+
 <% else %>
 <% end %>
-<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loading' %>

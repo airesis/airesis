@@ -36,6 +36,10 @@ class ProposalComment < ActiveRecord::Base
 
   before_create :set_paragraph_id
 
+  def is_contribute?
+    self.parent_proposal_comment_id.nil?
+  end
+
   def set_paragraph_id
     self.paragraph = Paragraph.first(:conditions => {:section_id => self.section_id}, :select => :id)
 
