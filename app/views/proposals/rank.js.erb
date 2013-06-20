@@ -9,5 +9,5 @@ if (Airesis.id != <%=current_user.id%>) {
   $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
   toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
 }
-<% end%>
+<% end rescue nil%>
 
