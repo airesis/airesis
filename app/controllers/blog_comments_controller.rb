@@ -23,10 +23,11 @@ class BlogCommentsController < ApplicationController
     
     respond_to do |format|
       if @blog_comment.save
-        flash[:notice] = 'Commento inserito.'      
+        flash[:notice] = t('controllers.blog_comments.create.ok_message')
         @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
         @saved.collapsed = true
+        notify_new_blog_post_comment(@blog_comment)
         format.js   { render :update do |page|
                         page.replace_html "blogPostCommentsContainer", :partial => "blog_posts/comments", :layout => false
                         page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_post.blog_comments.new}
@@ -36,7 +37,8 @@ class BlogCommentsController < ApplicationController
         format.html 
         
         format.xml  { render :xml => @blog_comment, :status => :created, :location => @blog_comment }
-      else        
+      else
+        flash[:notice] = t('controllers.blog_comments.create.ko_message')
         format.js   { render :update do |page|
                         page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment}
                       end

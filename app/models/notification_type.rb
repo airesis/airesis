@@ -4,9 +4,12 @@ class NotificationType < ActiveRecord::Base
 
   NEW_CONTRIBUTES = 1
   TEXT_UPDATE = 2
+  CHANGE_STATUS = 4
   NEW_CONTRIBUTES_MINE = 5
+  CHANGE_STATUS_MINE = 6
   AVAILABLE_AUTHOR = 22
   UNINTEGRATED_CONTRIBUTE = 25
+  NEW_BLOG_COMMENT = 26
 
 
   belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id

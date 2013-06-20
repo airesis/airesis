@@ -462,7 +462,7 @@ it:
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
-            article: "Article %{num}"
+            article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
         press:
@@ -979,6 +979,10 @@ it:
       create:
         ok_message: "Gruppo creato correttamente"
         ko_message: "Errore durante la creazione del gruppo."
+    blog_comments:
+      create:
+        ok_message: %Q(Commento inserito correttamente.)
+        ko_message: "Errore durante l'inserimento del commento"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni"

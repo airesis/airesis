@@ -462,7 +462,7 @@ net:
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
-            article: "Article %{num}"
+            article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
         press:
