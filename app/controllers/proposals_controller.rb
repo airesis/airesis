@@ -643,7 +643,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       notify_proposal_ready_for_vote(@proposal, @group)
     elsif @proposal.rank < @proposal.quorum.bad_score
       @proposal.proposal_state_id = PROP_RESP
-      notify_proposal_rejected(@proposal)
+      notify_proposal_rejected(@proposal, @group)
     end
     @proposal.save
     redirect_to @proposal

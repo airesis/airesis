@@ -9,6 +9,7 @@ module NotificationHelper
      unless user.blocked_notifications.include?notification.notification_type #se il tipo non è bloccato
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
       alert.save! #invia la notifica
+      res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello')   #todo send specific alert to be included
       if user.email_alerts && (!user.blocked_email_notifications.include?notification.notification_type) && user.email
         ResqueMailer.notification(alert.id).deliver
       end
@@ -208,15 +209,30 @@ module NotificationHelper
   
      #invia le notifiche quando la proposta è stata rigettata
    #le notifiche vengono inviate ai partecipanti
-  def notify_proposal_rejected(proposal)
-    msg = "La proposta <b>" + proposal.title + "</b> è stata rigettata dagli utenti, spiacente."
-    notification_a = Notification.new(notification_type_id: 4, message: msg, url: proposal_path(proposal))
+  def notify_proposal_rejected(proposal,group=nil)
+    ubject = ''
+    subject +=  "[#{group.name}] " if group
+    subject +="#{proposal.title} è stata respinta"
+    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
+
+    msg = "La tua proposta <b>" + proposal.title + "</b> è stata respinta dai partecipanti, spiacente."
+    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, message: msg, url: proposal_path(proposal), :data => data)
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
         send_notification_to_user(notification_a,user)
       end
-    end    
+    end
+
+    msg = "La proposta <b>" + proposal.title + "</b> è stata respinta dai partecipanti."
+    notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS,:message => msg,:url => proposal_path(proposal), :data => data)
+    proposal.partecipants.each do |user|
+      if (user != comment_user) && (!proposal.users.include?user)
+        send_notification_to_user(notification_b,user)
+      end
+    end
+
+
   end
   
   #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
@@ -334,4 +350,19 @@ module NotificationHelper
       end
     end
   end
+
+
+  #send an alert to the author that there is a new comments in his blog
+  def notify_new_blog_post_comment(blog_comment)
+    blog_post = blog_comment.blog_post
+    user = blog_comment.user
+    unless blog_post.user == user #don't send a notification to myself
+      data = {'blog_post_id' => blog_post.id.to_s,'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}"}
+      msg = "#{user.fullname} ha inserito un nuovo commento al tuo post #{blog_post.title}<br/> Vai alla pagina di <b>#{blog_post.title}</b> per visualizzarlo."
+      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, message: msg, :url => blog_blog_post_path(blog_post.blog,blog_post), data: data)
+      notification_a.save
+      send_notification_to_user(notification_a,blog_post.user)
+    end
+  end
+
 end
