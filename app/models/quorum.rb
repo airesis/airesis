@@ -102,10 +102,29 @@ class Quorum < ActiveRecord::Base
   end
 
   def explanation
-    @explanation = explanation_pop
+    @explanation ||= explanation_pop
+  end
+
+
+  def min_partecipants
+    @min_partecipants ||= min_partecipants_pop
   end
 
   protected
+
+  def min_partecipants_pop
+    count = 1
+    if self.percentage
+      if self.group
+        count = (self.percentage.to_f * 0.01 * self.group.count_voter_partecipants)
+			else
+        count = (self.percentage.to_f * 0.001 * User.count)
+		  end
+      [count,1].max.floor
+    else
+      nil
+    end
+  end
 
   def explanation_pop
     conditions = []

@@ -20,12 +20,9 @@
 				<hr />
 				<%=quorum.description%>
 				<%if quorum.percentage%>
+
 					Sono necessari almeno <b>
-					<%if @group%>
-						<%=[(quorum.percentage.to_f * 0.01 * @group.count_voter_partecipants).floor,1].max%>
-					<%else%>
-						<%=[(quorum.percentage.to_f * 0.001 * User.all.count).floor,1].max%>
-					<%end%>
+					<%= quorum.min_partecipants %>
 					 partecipanti</b>
 				<%end%>
 				<%if quorum.minutes%>
@@ -46,11 +43,7 @@
 				<hr />
 				<label>Numero minimo di partecipanti: </label>
 				<%if quorum.percentage%>
-					<b><%if @group%>
-						<%=[(quorum.percentage.to_f * 0.01 * @group.count_voter_partecipants).floor,1].max%>
-					<%else%>
-						<%=[(quorum.percentage.to_f * 0.001 * User.confirmed.count).floor,1].max%>
-					<%end%>
+					<b><%= quorum.min_partecipants %>
 					</b>
 				<%else%>
 					<b>Non indicato</b>
