@@ -20,7 +20,7 @@
     <% end %>
 
     <div id="submenu">
-      <% if @group && @group.id %>
+      <% if @group && @group.id && (can? :view_data, @group)%>
           <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
           <span> ⋅ </span>
           <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: ((['proposals','proposal_histories'].include? params[:controller]) ? 'sel' : '') %>

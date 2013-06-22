@@ -806,6 +806,7 @@ it:
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
         admin_title: "Nome amministratore"
+        private: "Gruppo chiuso"
       blogs:
         title: 'Titolo'
       blog_post:

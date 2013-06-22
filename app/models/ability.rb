@@ -87,6 +87,9 @@ class Ability
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
       end
+      can :view_data, Group do |group|
+        !group.is_private? || (group.partecipants.include? user)
+      end
 
       can :update, PartecipationRole do |partecipation_role|
         partecipation_role.group.portavoce.include? user

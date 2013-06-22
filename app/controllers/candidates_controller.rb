@@ -14,7 +14,8 @@ class CandidatesController < ApplicationController
   
   def index
     @step = get_next_step(current_user)
-    @group = Group.find_by_id(params[:group_id]) 
+    @group = Group.find_by_id(params[:group_id])
+    authorize! :view_data, @group
     @page_title = @group.name + ": Area candidature"
   end
   

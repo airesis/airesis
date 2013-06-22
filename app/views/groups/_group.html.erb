@@ -66,7 +66,14 @@
         <p>
           <%=  f.label :admin_title %> <br/>
           <%= f.text_field :admin_title, placeholder: 'Nome ruolo amministratore gruppo (default: Amministratore)', style: 'width:600px' %>
-
+        </p>
+        <p>
+          <%= f.check_box :private%><%=  f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>  <br/>
+          <%if @group.is_private? %>
+            <p class="toast-info info-panel">
+            <%=raw  "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
+            </p>
+              <%end%>
         </p>
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
     <% end %>

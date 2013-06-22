@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
 
   #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas]
+  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
   def index
     @groups = Group.look(params[:search], params[:page])

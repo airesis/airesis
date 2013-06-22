@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
   def admin_denied
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:notice] = t('error.admin_required')
+        flash.now[:error] = t('error.admin_required')
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
@@ -140,14 +140,14 @@ class ApplicationController < ActionController::Base
   def permissions_denied
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:notice] = t('error.permissions_required')
+        flash.now[:error] = t('error.permissions_required')
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
         store_location
-        flash[:notice] = t('error.permissions_required')
+        flash[:error] = t('error.permissions_required')
         if request.env["HTTP_REFERER"]
           redirect_to :back
         else

@@ -85,6 +85,7 @@ class ProposalsController < ApplicationController
     @count_base = Proposal.in_category(params[:category])
 
     if params[:group_id]
+      authorize! :view_data, @group
       @count_base = @count_base.in_group(@group.id)
       #@count_base = @count_base.includes([:proposal_supports,:group_proposals])
       #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])

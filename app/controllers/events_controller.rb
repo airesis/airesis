@@ -11,6 +11,7 @@ class EventsController < ApplicationController
   before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit,:update]
 
   def index
+    authorize! :view_data, @group
     @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
     @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
     respond_to do |format|
@@ -31,6 +32,7 @@ class EventsController < ApplicationController
 
 
   def show
+    authorize! :view_data, @group
     @page_title = @event.title
     respond_to do |format|
       format.js

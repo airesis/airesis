@@ -8,9 +8,11 @@ class DocumentsController < ApplicationController
 
   before_filter :authenticate_user!
 
+  def index
+    authorize! :view_data, @group
+  end
 
   def view
-
     url = params[:url]
     group_id = params[:url][/\/private\/elfinder\/([^\/]*)\/(.*)/,1]
     @group = Group.find(group_id)

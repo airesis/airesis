@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620172012) do
+ActiveRecord::Schema.define(:version => 20130622092809) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -408,6 +408,7 @@ ActiveRecord::Schema.define(:version => 20130620172012) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "admin_title",                :limit => 200
+    t.boolean  "private",                                    :default => false
   end
 
   create_table "images", :force => true do |t|
