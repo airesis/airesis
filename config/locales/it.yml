@@ -784,6 +784,7 @@ it:
         period: "Ripeti"
         frequency: "Ripeti ogni"
         private: "Privato"
+        candidates_end_time: 'Termine iscrizione candidati'
       meeting:
         place:
           address: "Indirizzo"

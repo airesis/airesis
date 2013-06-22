@@ -14,6 +14,7 @@
     </p>
 
     <p>
-      <%= f.submit t('pages.candidates.new.send_button'), :class => 'buttonStyle' %>
+      <a href="#" class="btn" onclick="$('#candidate_modal').dialog('destroy');$('#candidate_modal').remove();"><%= t('buttons.cancel') %></a>
+      <%= f.submit t('pages.candidates.new.send_button'), :class => 'btn blue' %>
     </p>
 <% end %>

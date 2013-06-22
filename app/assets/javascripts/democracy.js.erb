@@ -37,20 +37,32 @@ $(function () {
         sticky_relocate();
     }
 
-    $("#menu-top #logo-but, #logo-airesis").click(function () {
+    $("#menu-top #logo-but, #logo-airesis").click(function (event) {
         if (submenupannel == 0) {
             submenupannel = 1;
-            /*$('#main #main-copy').animate({'padding-top':'250px'}, 200);*/
             $('#menu-top .group-cont').slideDown().delay(200);
             $('#submenu .tria').hide();
             $(this).addClass("sel");
         } else {
             submenupannel = 0;
-            /*$('#main #main-copy').animate({'padding-top':'80px'}, 200);*/
             $('#menu-top .group-cont').slideUp().delay(0);
             $('#submenu .tria').delay(200).show(0);
             $(this).removeClass("sel");
         }
+        event.stopPropagation();
+    });
+
+    $('html').click(function () {
+        if (submenupannel == 1) {
+            submenupannel = 0;
+            $('#menu-top .group-cont').slideUp().delay(0);
+            $('#submenu .tria').delay(200).show(0);
+            $(this).removeClass("sel");
+        }
+    });
+
+    $('.group-cont').click(function(event) {
+        event.stopPropagation();
     });
 
 
@@ -236,19 +248,25 @@ var et = {};
 
 
 function calculate_event_times() {
-    et.est = $("#event_starttime")
-    et.eet = $("#event_endtime")
+    et.est = $("#event_starttime");
+    et.eet = $("#event_endtime");
     et.eventStartTime = et.est.datetimepicker("getDate");
     et.eventEndTime = et.eet.datetimepicker("getDate");
     et.eventStartDate = new Date(et.eventStartTime);
     et.eventEndDate = new Date(et.eventEndTime);
 
-    et.get = $("#groups_end_time")
-    et.cet = $("#candidates_end_time")
+    et.get = $("#groups_end_time");
+    et.cet = $("#candidates_end_time");
     et.groupTime = et.get.datetimepicker("getDate");
     et.candidatesTime = et.cet.datetimepicker("getDate");
     et.groupDate = new Date(et.groupTime);
     et.candidatesDate = new Date(et.candidatesTime);
+    console.log('endate: ' + et.eventEndDate);
+    console.log('startdate: ' + et.eventStartDate);
+    console.log('candidatedate: ' + et.candidatesDate);
+    console.log('entime: ' + et.eventEndTime/1000);
+    console.log('startime: ' + et.eventStartTime/1000);
+    console.log('candidatetime: ' + et.candidatesTime/1000);
 }
 
 function addMinutes(date, minutes) {
@@ -319,7 +337,8 @@ function candidatesTimeChanged() {
     //se supera la data fine evento
     if (!(et.eventEndDate.getTime() > et.candidatesDate.getTime())) {
         // sposto la data fine evento in avanti
-        et.eet.datetimepicker("setDate", et.candidatesTime);
+        var min15 = addMinutes(et.candidatesTime, 15);
+        et.eet.datetimepicker("setDate", min15);
     }
 }
 
@@ -499,4 +518,37 @@ function sign_all_as_read(id) {
             box_.remove();
         }
     });
+}
+
+function secondsToString (seconds) {
+    var years = Math.floor(seconds / 31536000);
+    var max =5;
+    var current = 0;
+    var str = "";
+    if (years && current<max) {
+        str+= years + ' anni ';
+        current++;
+    }
+    var days = Math.floor((seconds %= 31536000) / 86400);
+    if (days && current<max) {
+        str+= days + ' giorni ';
+        current++;
+    }
+    var hours = Math.floor((seconds %= 86400) / 3600);
+    if (hours && current<max) {
+        str+= hours + ' ore ';
+        current++;
+    }
+    var minutes = Math.floor((seconds %= 3600) / 60);
+    if (minutes && current<max) {
+        str+= minutes + ' minuti ';
+        current++;
+    }
+    var seconds = seconds % 60;
+    if (seconds && current<max) {
+        str+= seconds + ' secondi ';
+        current++;
+    }
+
+    return str;
 }

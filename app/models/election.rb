@@ -13,7 +13,8 @@ class Election < ActiveRecord::Base
   
   has_many :schulze_votes, :class_name => 'SchulzeVote'
   
-  validates_presence_of :name, :description, :candidates_end_time#TODO momentaneamente disabilitato , :groups_end_time
+  #validates_presence_of :name, :description#TODO momentaneamente disabilitato , :groups_end_time
+  validates_presence_of :candidates_end_time#TODO momentaneamente disabilitato , :groups_end_time
   validate :validate_groups_time_before_candidates_time
   
   #un'elezione che è attualmente in fase di iscrizione gruppi, ovvero l'evento è iniziato, non si è concluso e non è arrivato il termine per l'iscrizione dei gruppi'

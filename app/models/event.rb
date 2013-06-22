@@ -37,12 +37,11 @@ class Event < ActiveRecord::Base
     end
     
     if event_type_id == EventType::ELEZIONI
-      if election.groups_end_time && election.candidates_end_time
-        if election.groups_end_time < starttime ||
-            election.groups_end_time > endtime ||
-            election.candidates_end_time < starttime ||
-            election.candidates_end_time > endtime
-        errors.add(:starttime, "Le date di termine iscrizioni devono essere comprese tra la data inizio e la data fine dell'evento")
+      #if election.groups_end_time && election.candidates_end_time
+      if election.candidates_end_time
+        if  election.candidates_end_time <= starttime ||
+            election.candidates_end_time >= endtime
+        errors.add(:candidates_end_time, "deve essere compreso tra la data inizio e la data fine dell'evento")
         end 
       end
     end

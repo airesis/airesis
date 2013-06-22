@@ -11,7 +11,7 @@
 	<%if @has_voted%>
 		<b>Hai già espresso il tuo voto per questa elezione. Torna su questa pagina al termine dell'evento per vedere i risultati</b>
 	<%else%>
-	<%=link_to 'Vai alla pagina di voto', vote_page_election_path(@election), :class => 'buttonStyle'%>
+	<%=link_to 'Vai alla pagina di voto', vote_page_election_path(@election), :class => 'btn blue'%>
 	<%end%>
 <%end%>
 
@@ -85,3 +85,6 @@
 	<%end%>
 </ul>
 <%end%>
+
+
+<%= render 'time_left', election: @election %>
