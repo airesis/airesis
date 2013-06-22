@@ -1,4 +1,21 @@
+<%@extend=true%>
 <% @page_title = t('pages.registration.title') %>
+
+
+<% if ::Configuration.socialnetwork_active %>
+    <h2><%= t('pages.registration.identity_provviders_title') %></h2>
+    <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+
+    <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+
+    <%= link_to image_tag('accedi_google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+
+    <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+
+    <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+    <br/>
+    <br/>
+<% end %>
 
 <h2><%= t('pages.registration.title') %></h2>
 
@@ -36,20 +53,8 @@
     <div><%= f.submit t('pages.registration.register_button'), :class => 'btn blue' %></div>
 <% end %>
 
-<br/>
-<% if ::Configuration.socialnetwork_active %>
-    <h2><%= t('pages.registration.identity_provviders_title') %></h2>
-    <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
 
-    <%= link_to image_tag('accedi_twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
 
-    <%= link_to image_tag('accedi_google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-
-    <%= link_to image_tag('accedi_linkedin.png'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-
-    <%= link_to image_tag('accedi_meetup.png'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-    <br/>
-<% end %>
 <div id="eula_modal" title="<%= t('terms_of_service')%>" style="width:600px;height:300px;display:none">
   <p>
     <%= render :partial => 'devise/registrations/eula' %>

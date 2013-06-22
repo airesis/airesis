@@ -320,7 +320,7 @@ it:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
-      title: "Registrati"
+      title: "oppure registrati"
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
