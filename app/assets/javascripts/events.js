@@ -196,6 +196,7 @@ function listenZoomChanged() {
 function confirmEventData(el) {
     var event_form = $(el).closest('form');
     var valid = true;
+
     $('[data-validate]:input:visible', event_form).each(function () {
         var settings = window.ClientSideValidations.forms[this.form.id]
         if (!$(this).isValid(settings.validators)) {
@@ -203,22 +204,26 @@ function confirmEventData(el) {
         }
     });
     if (valid) {
-
-        var event_duration = et.eventEndTime - et.eventStartTime;
-        var candidates_duration = et.candidatesTime - et.eventStartTime;
-        var election_duration = et.eventEndTime - et.candidatesTime;
-        console.log('entime: ' + et.eventEndTime / 1000);
-        console.log('startime: ' + et.eventStartTime / 1000);
-        console.log('candidatetime: ' + et.candidatesTime / 1000);
-        console.log('event: ' + event_duration / 1000);
-        console.log('candidates: ' + candidates_duration / 1000);
-        console.log('election: ' + election_duration / 1000);
-        if (event_duration <= 0 || candidates_duration <= 0 || election_duration <= 0) {
-            alert('Le date non sono impostate correttamente. Ricontrollale.')
-            return false;
+        if ($('#event_event_type_id').val() == 4) {
+            var event_duration = et.eventEndTime - et.eventStartTime;
+            var candidates_duration = et.candidatesTime - et.eventStartTime;
+            var election_duration = et.eventEndTime - et.candidatesTime;
+            console.log('entime: ' + et.eventEndTime / 1000);
+            console.log('startime: ' + et.eventStartTime / 1000);
+            console.log('candidatetime: ' + et.candidatesTime / 1000);
+            console.log('event: ' + event_duration / 1000);
+            console.log('candidates: ' + candidates_duration / 1000);
+            console.log('election: ' + election_duration / 1000);
+            if (event_duration <= 0 || candidates_duration <= 0 || election_duration <= 0) {
+                alert('Le date non sono impostate correttamente. Ricontrollale.')
+                return false;
+            }
+            else {
+                return confirm('Durata evento: ' + secondsToString(event_duration / 1000) + ', durata iscrizioni: ' + secondsToString(candidates_duration / 1000) + ', durata votazione: ' + secondsToString(election_duration / 1000) + '. Sei sicuro?');
+            }
         }
         else {
-            return confirm('Durata evento: ' + secondsToString(event_duration / 1000) + ', durata iscrizioni: ' + secondsToString(candidates_duration / 1000) + ', durata votazione: ' + secondsToString(election_duration / 1000) + '. Sei sicuro?');
+            return true;
         }
     }
     else {
