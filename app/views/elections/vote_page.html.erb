@@ -68,11 +68,15 @@
     <%= f.hidden_field 'votes' %>
     <%= f.hidden_field 'string' %>
 
-    <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'buttonStyle' %>
+    <%= render :partial => 'fragments/how_schulze_works' %>
+    <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'btn blue' %>
 <% end %>
-<br/>
 
-<%= render :partial => 'fragments/how_schulze_works' %>
+
+
+<%= render 'time_left', election: @election %>
+
+
 
 
 <script type="text/javascript">

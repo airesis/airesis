@@ -45,3 +45,4 @@
 //= require private_pub
 //= require ddslick.min
 //= require toastr
+//= require countdown/index

@@ -65,6 +65,12 @@ class ElectionsController < ApplicationController
         redirect_to @election
       }
     end if @has_voted
+    respond_to do |format|
+      flash[:error] = "Tempo di votazione scaduto."
+      format.html {
+        redirect_to @election
+      }
+    end if @election.event.endtime <= Time.now
   end
   
   #un utente invia il voto per l'elezione

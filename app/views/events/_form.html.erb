@@ -1,4 +1,4 @@
-<%=form_for @group ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true do |f| %>
+<%=form_for @group ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true, :validate => true do |f| %>
 
 <%= f.hidden_field :proposal_id %>
 <div>
@@ -61,7 +61,7 @@
 			</p> 
 			<p>
                 <a href="#" class="btn" onclick="$('#create_event_dialog').dialog('destroy');"><%= t('buttons.cancel') %></a>
-				<%= f.submit 'Crea!', :class => 'btn blue disable'%>
+				<%= f.submit 'Crea!', :class => 'btn blue disable', :onclick => 'return confirmEventData(this);'%>
 			</p></td>
 			<td width="40%"> 
 				<%=f.fields_for :election, @election do |e|%>
