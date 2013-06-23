@@ -81,6 +81,14 @@ class Event < ActiveRecord::Base
   def is_votazione?
     self.event_type_id == EventType::VOTAZIONE
   end
+
+  def is_incontro?
+    self.event_type_id == EventType::INCONTRO
+  end
+
+  def is_riunione?
+    self.event_type_id == EventType::RIUNIONE
+  end
   
   def backgroundColor
     "#DFEFFC"
@@ -137,6 +145,11 @@ class Event < ActiveRecord::Base
     event.uid = event.url = "#{Maktoub.home_domain}/events/#{self.id}"
     event.add_comment("AF83 - Shake your digital, we do WowWare")
     event
+  end
+
+
+  def to_param
+    "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
   end
 
 end

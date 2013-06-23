@@ -22,7 +22,7 @@ function resizeEvent(event, dayDelta, minuteDelta) {
 }
 
 function goEventPage(event) {
-    window.location = "/events/" + event.id;
+    window.location = event.url;
 }
 
 function showEventDetails(event) {

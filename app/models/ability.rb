@@ -136,8 +136,8 @@ class Ability
         ((group_partecipation.partecipation_role_id != PartecipationRole::PORTAVOCE ||
             group_partecipation.group.portavoce.count > 1) &&
             user == group_partecipation.user) ||
-        ((group_partecipation.group.portavoce.include? user) && (group_partecipation.user != user))
-        end
+            ((group_partecipation.group.portavoce.include? user) && (group_partecipation.user != user))
+      end
 
       can :destroy, Authentication do |authentication|
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
@@ -148,6 +148,14 @@ class Ability
       end
 
       can :change_rotp_enabled, User if user.email
+
+
+      can :update, Event do |event|
+        can_edit_event?(user, event)
+      end
+      can :destroy, Event do |event|
+        can_edit_event?(user, event)
+      end
 
 
       if user.moderator?
@@ -177,6 +185,14 @@ class Ability
         #end
       end
 
+    end
+
+
+    def can_edit_event?(user, event)
+      (event.organizers.first.scoped_partecipants(GroupAction::CREATE_EVENT).include? user) &&
+          ((event.is_votazione? && event.proposals.count == 0) ||
+              (event.is_elezione? && event.election.candidates.count == 0) ||
+              (event.is_incontro? || event.is_riunione?))
     end
 
 

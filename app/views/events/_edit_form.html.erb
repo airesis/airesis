@@ -54,7 +54,7 @@ admin event
 				  <%=f.submit 'Aggiorna tutte le occorrenze', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
 				  <%=f.submit 'Aggiorna tutte le occorrenze successive', :onclick => "document.getElementById('event_commit_button').value = this.value"%>
 			  <%else-%>
-			  	<%=f.submit 'Aggiorna', :onclick => "document.getElementById('event_commit_button').value = this.value", :class=>'btn blue'%>
+			  	<%=f.submit 'Aggiorna', :onclick => "document.getElementById('event_commit_button').value = this.value", :class=>'btn blue', :disable_with => t('updating')%>
 			  <%end-%>			  			 
 			</p></td>
 			<td width="40%"> 

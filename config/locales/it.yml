@@ -985,6 +985,11 @@ it:
       create:
         ok_message: %Q(Commento inserito correttamente.)
         ko_message: "Errore durante l'inserimento del commento"
+    events:
+      destroy:
+        ok_message: %Q(Evento eliminato correttamente)
+      update:
+        ok_message: %Q(Evento aggiornato correttamente)
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni"
@@ -1038,3 +1043,4 @@ it:
   default_admin_title: "Amministratore"
   saving: "Salvataggio..."
   sending: "Invio..."
+  updating: "Aggiornamento..."

@@ -1,11 +1,11 @@
-<% if @election.event.is_not_started? %>
-    <% @time = @election.event.starttime %>
+<% if election.event.is_not_started? %>
+    <% @time = election.event.starttime %>
     <% @msg = 'Inizio iscrizione candidati tra:' %>
-<% elsif @election.is_candidates_phase? %>
-    <% @time = @election.candidates_end_time %>
+<% elsif election.is_candidates_phase? %>
+    <% @time = election.candidates_end_time %>
     <% @msg = 'Chiusura iscrizione candidati ed inizio votazione tra:' %>
-<% elsif @election.is_voting_phase? %>
-    <% @time = @election.event.endtime %>
+<% elsif election.is_voting_phase? %>
+    <% @time = election.event.endtime %>
     <% @msg = 'Chiusura votazioni tra:' %>
 <% else %>
     <% @closed = true %>

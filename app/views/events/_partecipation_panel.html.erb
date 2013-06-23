@@ -1,17 +1,17 @@
 <style type="text/css">
 	/* Character Count styles */
 
-	label {
+	.mybox label {
 		display: block;
 		font-size: 14px;
 	}
-	textarea {
-		width: 490px;
+    .mybox textarea {
+		width: 190px;
 		height: 60px;
 		padding: 3px;
 		color: #333;
 	}
-	form div {
+    .mybox form div {
 		position: relative;
 		margin: 1em 0;
 	}
@@ -20,7 +20,6 @@
 </style>
 <%if user_signed_in?%>
 	<% partecipation = @event.meeting.meeting_partecipations.find_by_user_id(current_user.id)%>
-	<div class="leftcontainer shadow-box">
 	<%if !partecipation%>
 		<%if !@event.is_past?%>
 			<h1>Parteciperai all'evento?</h1>
@@ -38,7 +37,7 @@
                 <br />
 			</div>
 			<%= f.text_area :comment, rows: 4, cols: 10%>
-			<%= f.submit "Rispondi!", style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn'%>
+			<%= f.submit "Rispondi!", style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', disable_with: t('sending')%>
 			<%end%>
 		<script type="text/javascript">
 			$(function() {
@@ -77,5 +76,4 @@
 			<%end%>
 		<%end%>
 	<%end%>
-	</div>
 <%end%>

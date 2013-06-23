@@ -8,10 +8,9 @@ class EventsController < ApplicationController
   
   before_filter :load_group, :only => [:index, :list]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
-  before_filter :check_event_edit_permission,:only => [:destroy, :move, :resize, :edit,:update]
 
   def index
-    authorize! :view_data, @group
+    authorize! :view_data, @group if @group
     @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
     @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
     respond_to do |format|
@@ -134,10 +133,7 @@ class EventsController < ApplicationController
         }
       end
   end
-   
 
-  
-  
   def list
     if @group
     @events = @group.events.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
@@ -155,7 +151,8 @@ class EventsController < ApplicationController
                  :recurring => event.event_series_id ? true: false,
                  :backgroundColor => event.backgroundColor,
                  :textColor => event.textColor,
-                 :editable => !event.is_votazione?}
+                 :editable => !event.is_votazione?,
+                 :url => event.is_elezione? ? election_path(event.election) : event_path(event)}
     end
     render :text => events.to_json
   end
@@ -163,6 +160,7 @@ class EventsController < ApplicationController
   
   
   def move
+    authorize! :update, @event
     if @event
       @event.starttime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.starttime))
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
@@ -173,6 +171,7 @@ class EventsController < ApplicationController
   
   
   def resize
+    authorize! :update, @event
     if @event
       @event.endtime = (params[:minute_delta].to_i).minutes.from_now((params[:day_delta].to_i).days.from_now(@event.endtime))
       @event.save
@@ -180,10 +179,12 @@ class EventsController < ApplicationController
   end
   
   def edit
+    authorize! :update, @event
   end
   
   def update
     @event = Event.find_by_id(params[:event][:id])
+    authorize! :update, @event
     if params[:event][:commit_button] == "Aggiorna tutte le occorrenze"
       @events = @event.event_series.events
       @event.update_events(@events, params[:event])
@@ -195,16 +196,16 @@ class EventsController < ApplicationController
       @event.save
     end
 
-    flash[:notice] = "Aggiornamento avvenuto correttamente"
+    flash[:notice] = t('controllers.events.update.ok_message')
     render :update do |page|
-      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-      page<<"$('#desc_dialog').dialog('destroy')" 
-      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      page.reload
     end
     
   end  
   
   def destroy
+    authorize! :destroy, @event
+    @group = @event.organizers.first if @event.organizers.count > 0
     if params[:delete_all] == 'true'
       @event.event_series.destroy
     elsif params[:delete_all] == 'future'
@@ -213,12 +214,13 @@ class EventsController < ApplicationController
     else
       @event.destroy
     end
-    
-    render :update do |page|
-      page<<"$('#calendar').fullCalendar( 'refetchEvents' )"
-      page<<"$('#desc_dialog').dialog('destroy')" 
+    flash[:notice] = t('controllers.events.destroy.ok_message')
+
+    respond_to do |format|
+      format.html {
+        redirect_to @group ? group_events_path(@group) : events_path
+      }
     end
-    
   end
   
   protected
@@ -236,26 +238,6 @@ class EventsController < ApplicationController
     @event = Event.find_by_id(params[:id])
     @group = @event.meeting_organizations.first.group rescue nil
   end
-
-
-  def check_event_edit_permission
-    @event = Event.find_by_id(params[:id])
-    if @event.is_votazione?
-      if (params[:action] != 'destroy') || (@event.proposals.count > 0)
-        permissions_denied
-        return
-      end
-    end
-    return true if is_admin?
-    org = @event.organizers.first
-    if !org
-      permissions_denied
-      return
-    end
-    p = org.scoped_partecipants(GroupAction::CREATE_EVENT)
-    permissions_denied if (!current_user || !(p.include?current_user))
-  end
-
 
   def check_events_permissions
     group_id = params[:group_id]

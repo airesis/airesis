@@ -1,33 +1,34 @@
-<script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
-</script>
-
-
-<h1 class="eventtitle"><%= @event.title %></h1>
-<div class="event_description">
-  <%= @event.description %>
-</div>
-<br/>
-
-<h1>Quando <%= 'è stato' if @event.is_past? %>?</h1>
-<div class="event_when">
-  <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
-  <div style="float:left;margin-top: 10px;">
-    <b>
-      Da <%= l @event.starttime, :format => :long_date_time %>
-    </b>
-
-    <div style="margin-top:5px;"></div>
-    <b>
-      Fino a <%= I18n.localize(@event.endtime, :format => :long_date_time) %>
-    </b>
-  </div>
-
-  <div style="clear: both"></div>
-</div>
-<hr/>
-
 <% if @event.event_type_id != EventType::ELEZIONI %>
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
+    </script>
+
+
+    <h1 class="eventtitle"><%= @event.title %></h1>
+    <div class="event_description">
+      <%= @event.description %>
+    </div>
+    <br/>
+
+    <h1>Quando <%= 'è stato' if @event.is_past? %>?</h1>
+    <div class="event_when">
+      <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
+      <div style="float:left;margin-top: 10px;">
+        <b>
+          Da <%= l @event.starttime, :format => :long_date_time %>
+        </b>
+
+        <div style="margin-top:5px;"></div>
+        <b>
+          Fino a <%= I18n.localize(@event.endtime, :format => :long_date_time) %>
+        </b>
+      </div>
+
+      <div style="clear: both"></div>
+    </div>
+    <hr/>
+
+
     <% if @event.place %>
         <h1>Dove <%= 'è stato' if @event.is_past? %>?</h1>
         <div class="event_where">
@@ -112,6 +113,12 @@
             </div>
     </div> -->
     <% content_for :left_panel do %>
+        <% if can? :update, @event %>
+            <div class="mybox">
+              <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', disable_with: t('loading') if can? :update, @event %>
+              <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', disable_with: t('loading') if can? :destroy, @event %>
+            </div>
+        <% end %>
 
         <% if ::Configuration::socialnetwork_active %>
             <div class="mybox">
@@ -161,7 +168,7 @@
 
 
 <% elsif @event.event_type_id == EventType::ELEZIONI %>
-    <p>
-      <%= link_to "Vai alla pagina dell'elezione per seguirne l'andamento", election_path(@event.election) %>
-    </p>
+
+    <%= render 'elections/election', {election: @event.election} %>
+
 <% end %>

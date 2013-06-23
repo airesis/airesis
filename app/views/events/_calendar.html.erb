@@ -84,11 +84,7 @@
                     },
 
                     eventClick: function (event, jsEvent, view) {
-                        <%if can_edit_events %>
-                        showEventDetails(event);
-                        <%else%>
                         goEventPage(event);
-                        <%end%>
                     },
 
                     eventRender: function (event, element) {

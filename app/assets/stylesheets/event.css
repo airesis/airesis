@@ -75,3 +75,6 @@
     width: 158px;
     z-index: 3;
 }
+
+
+div#event_edit, div#create_event_dialog{ font-size: 12px !important;}
