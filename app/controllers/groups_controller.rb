@@ -356,7 +356,7 @@ class GroupsController < ApplicationController
   def partecipation_request_confirm
     authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if (!request)
+    if !request
       flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
       redirect_to group_url(@group)
     else
@@ -364,6 +364,7 @@ class GroupsController < ApplicationController
         part = GroupPartecipation.new
         part.user_id = request.user_id
         part.group_id = @group.id
+        part.acceptor_id = current_user.id
         part.partecipation_role_id = @group.partecipation_role_id
         part.save!
         request.group_partecipation_request_status_id = 3
@@ -371,7 +372,7 @@ class GroupsController < ApplicationController
         request.group_partecipation_request_status_id = 2
       end
       saved = request.save
-      if (!saved)
+      if !saved
         flash[:error] = 'Errore durante l' 'operazione. Impossibile procedere.'
       else
         if @group.request_by_portavoce?
@@ -387,7 +388,7 @@ class GroupsController < ApplicationController
   def partecipation_request_decline
     authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if (!request)
+    if !request
       flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
       redirect_to group_url(@group)
     else
@@ -397,7 +398,7 @@ class GroupsController < ApplicationController
         request.group_partecipation_request_status_id = 2
       end
       saved = request.save
-      if (!saved)
+      if !saved
         flash[:error] = 'Errore durante l' 'operazione. Impossibile procedere.'
       else
         if @group.request_by_portavoce?
@@ -454,7 +455,7 @@ class GroupsController < ApplicationController
   end
 
   def portavoce_required
-    if !((current_user && (@group.portavoce.include? current_user)) || is_admin?)
+    unless (current_user && (@group.portavoce.include? current_user)) || is_admin?
       flash[:error] = t('error.portavoce_required')
       redirect_to group_url(@group)
     end

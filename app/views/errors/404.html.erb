@@ -1,4 +1,4 @@
-
+<%@extend=true%>
 	<style type="text/css">
 		div.error_dialog {
 			width: 25em;
@@ -10,7 +10,7 @@
 	</style>
 
   <div class="error_dialog shadow-box">
-    <h1><%= @title || 'La pagina che cerchi non esiste.'%></h1>
-    <p><%= @message ||'Potresti aver sbagliato indirizzo, oppure la pagina non esiste più.'%></p>
+    <h1><%=raw @title || 'La pagina che cerchi non esiste.'%></h1>
+    <p><%=raw @message ||'Potresti aver sbagliato indirizzo, oppure la pagina non esiste più.'%></p>
     <%=link_to 'Torna indietro...', :back%>
   </div>

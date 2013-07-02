@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :update_image, :edit, :show_message, :send_message]
+  before_filter :load_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :update_image, :edit, :show_message, :send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)
@@ -292,7 +292,7 @@ class UsersController < ApplicationController
     (['index'].include? action_name) ? 'settings' : 'users'
   end
 
-  def find_user
+  def load_user
     @user = User.find(params[:id])
   end
 
