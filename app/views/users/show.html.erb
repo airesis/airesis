@@ -54,7 +54,7 @@
       <tbody>
       <% @user.user_votes.includes(:proposal, :vote_type).each do |vote| %>
           <tr>
-            <td><%=link_to_proposal vote.proposal %></td>
+            <td><%=vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
             <td><%=l vote.created_at %></td>
             <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote')%></td>
           </tr>

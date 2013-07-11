@@ -73,4 +73,9 @@ class ResqueMailer < ActionMailer::Base
     mail(to: 'info@airesis.it', from: "Feedback <feedback@airesis.it>", reply_to: @feedback.email, subject: 'Nuova segnalazione') :
     mail(to: 'info@airesis.it', from: "Feedback <feedback@airesis.it>", subject: 'Nuova segnalazione')
   end
+
+  def blocked(user_id)
+    @user = User.find(user_id)
+    mail(to: @user.email, from: "Airesis <noreply@airesis.it>", subject: 'Cancellazione account')
+  end
 end
