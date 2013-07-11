@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130616225403) do
+ActiveRecord::Schema.define(:version => 20130710064016) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1071,6 +1071,8 @@ ActiveRecord::Schema.define(:version => 20130616225403) do
     t.string   "authentication_token"
     t.string   "rotp_secret",               :limit => 16
     t.boolean  "rotp_enabled",                              :default => false
+    t.string   "blocked_name"
+    t.string   "blocked_surname"
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
