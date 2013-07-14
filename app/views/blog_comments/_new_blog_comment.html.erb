@@ -26,7 +26,7 @@
 			  </ul>
 			<% end %>			
 		
-				<div id="comment-form-comment">
+				<div class="comment-form-comment">
 				<%= f.text_area :body, :class => 'blogNewCommentField', :rows => 5, :cols => 70  %>
 				</div>
 			
@@ -40,20 +40,24 @@
 <script type="text/javascript">
 			$(function() {
 				$('.blogNewCommentField').focus(function() {
-					$('#comment-form-comment').toggleClass("active");	
+					$('.comment-form-comment').toggleClass("active");
 				}).focusout(function() {
-					$('#comment-form-comment').toggleClass("active");
+					$('.comment-form-comment').toggleClass("active");
 				});
 
-                $('#blog_comment_body')
-                        .charCount({
+                $('#blog_comment_body').each(function() {
+                    if ($(this).attr('data-initialized') != 1) {
+                        $(this).charCount({
                             allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
                             warning : 100,
                             counterText : '<%=t('pages.proposals.show.characters_left')%> '
                         });
-                $('#blog_comment_body').elastic();
-				
-			});
+                        $(this).elastic();
+                        $(this).attr('data-initialized',1);
+                    }
+                });
+
+            });
 			
 		
 		</script>

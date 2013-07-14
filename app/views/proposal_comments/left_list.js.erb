@@ -1,0 +1,8 @@
+
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').html('');
+
+<% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%=j (render :partial => 'proposal_comments/right_comment')%>");
+<% end %>
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+$('#loading_contributes').hide();

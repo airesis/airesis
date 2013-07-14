@@ -82,7 +82,13 @@
           </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
               <div class="suggest">
-                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
+                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%=section.id%>" data-contributes_num="<%=section.proposal_comments.listable.count%>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{section.proposal_comments.listable.count})" %></a>
+                <div class="suggest_l" style="display: none;">
+                <img class="tria" src="/assets/suggest.png">
+                <!--<span class="ui-icon ui-icon-lightbulb bulb"></span>
+                <span class="ui-icon ui-icon-clock clock"></span>
+                <span class="ui-icon ui-icon-star star"></span>-->
+                </div>
               </div>
           <% end %>
         </div>
@@ -115,7 +121,8 @@
                 <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
 
                     <div class="suggest">
-                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" onclick="return contribute(<%= section.id %>);"><%= t('pages.proposals.show.give_contribute') %></a>
+                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%=section.id%>" data-contributes_num="<%=section.proposal_comments.listable.count%>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{section.proposal_comments.listable.count})" %></a>
+                      <img class="tria" src="/assets/suggest.png" style="display: none;">
                     </div>
                 <% end %>
               </div>

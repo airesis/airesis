@@ -41,7 +41,7 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def set_paragraph_id
-    self.paragraph = Paragraph.first(:conditions => {:section_id => self.section_id}, :select => :id)
+    self.paragraph = Paragraph.first(:conditions => {:section_id => self.section_id})
 
   end
   

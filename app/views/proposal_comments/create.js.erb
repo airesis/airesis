@@ -15,16 +15,38 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
     }
     <% end rescue nil%>
 <%else%>
-    $("#proposalCommentsContainer").html('<%=j render partial: 'proposals/comments'%>');
-    $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new}%>');
+    <%if params[:right] %>
+        var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
+        $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment', locals: {comment: @proposal_comment})%>');
+        $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
+        var num_contributes = parseInt($('.contributeButton'+data_section_id).attr('data-contributes_num'));
+        $('.contributeButton'+data_section_id).attr('data-contributes_num',num_contributes+1);
+    <%else%>
+        $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment', :locals => {:comment => @proposal_comment}%>');
+        $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: params[:section_id])}%>');
 
-    <% publish_to  proposal_path(@proposal) do %>
-    if (Airesis.id != <%=current_user.id%>) {
-        toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');
-        $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment_others', :locals => {:comment => @proposal_comment} %>');
-        hide_vote_controls();
-    }
-    <% end rescue nil%>
+    <%end%>
+    $('.proposalComment[data-collapsed=true]').show(600);
+    <% publish_to proposal_path(@proposal) do %>
+        if (Airesis.id != <%=current_user.id%>) {
+            toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');
+            <%if params[:right] %>
+            var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
+            console.log('data-section_id:' + data_section_id);
+            var contribute_button = $('.contributeButton'+data_section_id);
+            console.log('button:' + contribute_button);
+            var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
+            console.log('num:' + num_contributes);
+            contribute_button.attr('data-contributes_num',num_contributes+1);
+            $('.text', contribute_button).text('VISUALIZZA CONTRIBUTI').append(" (" + contribute_button.attr('data-contributes_num') + ")");
+            $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment', locals: {comment: @proposal_comment})%>');
+            contribute_button.effect('highlight', {}, 3000);
+            <%else%>
+            $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment_others', :locals => {:comment => @proposal_comment} %>');
+            <%end%>
+            hide_vote_controls();
+        }
+    <% end%>
 
 
 <%end%>

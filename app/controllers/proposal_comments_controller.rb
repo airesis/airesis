@@ -21,6 +21,15 @@ class ProposalCommentsController < ApplicationController
   def index
     order = ""
     conditions = " 1 = 1 "
+
+    if params[:section_id]
+      @section = Section.find(params[:section_id])
+      paragraphs_ids = @section.paragraph_ids
+      conditions += " AND proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
+    else
+      conditions += " AND proposal_comments.paragraph_id is null"
+    end
+
     if params[:view] == ORDER_RANDOM
       #remove already shown contributes
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
@@ -58,7 +67,7 @@ class ProposalCommentsController < ApplicationController
       else
         order << "proposal_comments.created_at desc"
       end
-      @proposal_comments = @proposal.contributes.listable.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
+      @proposal_comments = @proposal.contributes.listable.where(conditions).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
@@ -72,6 +81,10 @@ class ProposalCommentsController < ApplicationController
   end
 
   def list
+    index
+  end
+
+  def left_list
     index
   end
 
@@ -111,14 +124,24 @@ class ProposalCommentsController < ApplicationController
     @is_reply = parent_id != nil
     post_contribute
 
-
     respond_to do |format|
-      @proposal_comments = @proposal.contributes.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+      #conditions = ''
+
+      @section = Section.find(params[:proposal_comment][:section_id]) if params[:right]
+      #  conditions = "proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
+      #else
+      #  conditions = "proposal_comments.paragraph_id is null"
+      #end
+
+      #@proposal_comments = @proposal.contributes.listable.where(conditions).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
-      unless @is_reply
-        @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
-        @saved.collapsed = true
-      end
+      #@proposal_comment.reload
+      @proposal_comment.collapsed = true
+      #unless @is_reply
+      #  @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
+      #  @saved.collapsed = true
+      #end
       format.js
       format.html { redirect_to @proposal }
     end
@@ -134,7 +157,7 @@ class ProposalCommentsController < ApplicationController
           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
         else
           page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
+          #page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
         end
       end
       }

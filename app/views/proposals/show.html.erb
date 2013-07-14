@@ -2,7 +2,7 @@
     <meta property="og:title" content="<%= @proposal.title %>"/>
     <meta property="og:type" content="article"/>
     <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
-    <meta property="og:site_name" content="<%=APP_LONG_NAME%>"/>
+    <meta property="og:site_name" content="<%= APP_LONG_NAME %>"/>
     <meta property="og:description" content="<%= @proposal.subtitle %>"/>
     <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
     <meta property="article:published_time" content="<%= @proposal.created_at.strftime("%Y/%m/%d") %>">
@@ -13,9 +13,9 @@
 
 <% end %>
 
-
-<%= subscribe_to proposal_path(@proposal) %>
-
+<% if current_user %>
+    <%= subscribe_to proposal_path(@proposal) %>
+<% end %>
 <% @page_title = @proposal.title %>
 <script type="text/javascript">
     $(function () {
@@ -32,9 +32,10 @@
 
 
     /*}*/
-
+    <%if current_user %>
     Airesis.can_partecipate = <%=can? :partecipate, @proposal%>;
     Airesis.image_tag = $('<%=j current_user.user_image_tag 32%>');
+    <%end%>
 
 </script>
 <!-- 
@@ -46,37 +47,37 @@
 <%= render :partial => 'proposals/show_proposal' %>
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
-    <%= render :partial => @proposal_comment = ProposalComment.new, :locals => {:button_name => 'Invia risposta'} %>
+    <%= render :partial => @proposal_comment = ProposalComment.new %>
     <div id="flash_messages_comments" style="height:20px"></div>
 <% else %>
     <div style="height:20px"></div>
 <% end %>
 
 
-<%if @proposal.voting? %>
+<% if @proposal.voting? %>
     <h4><%= t('pages.proposals.show.no_contributes') %></h4>
-<%else%>
-<div id="order_bar">
-  <%= render :partial => 'proposal_comments/order_bar' %>
-</div>
+<% else %>
+    <div id="order_bar">
+      <%= render :partial => 'proposal_comments/order_bar' %>
+    </div>
 
-<div id="loading_contributes" style="margin:auto;text-align:center;">
-  <%= image_tag 'ajax-loader.gif' %>
-  <br/>
-  <b><%= t('pages.proposals.show.loading_contributions') %></b>
-</div>
-<div id="proposalCommentsContainer">
+    <div id="loading_contributes" style="margin:auto;text-align:center;">
+      <%= image_tag 'ajax-loader.gif' %>
+      <br/>
+      <b><%= t('pages.proposals.show.loading_contributions') %></b>
+    </div>
+    <div id="proposalCommentsContainer">
 
-</div>
+    </div>
 
-<div id="loading_results" style="display:none;">
-  <span><%= t('pages.proposals.show.previos_contributes') %></span>
-</div>
+    <div id="loading_results" style="display:none;">
+      <span><%= t('pages.proposals.show.previos_contributes') %></span>
+    </div>
 
 
-<%= render :partial => 'report_contribute' %>
+    <%= render :partial => 'report_contribute' %>
 
-<%end%>
+<% end %>
 
 <script type="text/javascript">
     var clicked;
@@ -123,17 +124,17 @@
     }
 
     function hiding(event, id) {
-      if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
-        $('#comment' + id).hide(600, function () {
-          $.ajax({
-		dataType: 'json',
-		type: 'delete',
-		url: '/proposals/<%=@proposal.id%>/proposal_comments/'+id
-	  });
-        });
+        if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
+            $('#comment' + id).hide(600, function () {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'delete',
+                    url: '/proposals/<%=@proposal.id%>/proposal_comments/' + id
+                });
+            });
+            return false;
+        }
         return false;
-      }
-      return false;
     }
 
 
@@ -203,6 +204,8 @@
                     });
                     event.stopPropagation();
                 });
+
+
     }
 
 
@@ -223,6 +226,39 @@
         <%end%>
     }
 
+
+    function open_right_contributes(_this) {
+        var section_id = _this.attr("data-section_id");
+        _this.attr("data-status", 1);
+        $('#suggest').show();
+        _this.parent().find(".tria").show();
+        _this.parent().addClass("sel");
+        $('.text', _this).text('CHIUDI CONTRIBUTI');
+        if (window.innerWidth < 1600) {
+            $('#menu-left').animate({'margin-left': '-300'}, 200);
+            $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
+            var fetched = $('.suggestion_right[data-section_id=' + section_id + ']');
+            fetched.animate({'left': '618px'}, 200);
+            $('.suggestion_right[data-section_id=' + section_id + ']').show();
+            _this.next().show();
+        }
+    }
+
+
+    function close_right_contributes(_this) {
+        var section_id = _this.attr("data-section_id");
+        _this.attr("data-status", 2);
+        $('.suggestion_right[data-section_id=' + section_id + ']').hide();
+        _this.parent().find(".tria").hide();
+        $('.text', _this).text('VISUALIZZA CONTRIBUTI').append(" (" + _this.attr('data-contributes_num') + ")");
+        if (window.innerWidth < 1600) {
+            $('#menu-left').animate({'margin-left': '0'}, 200);
+            $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
+            $('.suggestion_right[data-section_id=' + section_id + ']').animate({'left': '1110px'}, 200);
+        }
+        _this.next().hide();
+    }
+
     $(function () {
         <%unless @proposal.voting? %>
         currentPage++;
@@ -240,6 +276,97 @@
 
         <%= render :partial => 'show_tooltips' %>
 
+        //0 - not fetched - closed
+        //1 - fetched - open
+        //2 - fetched - closed
+
+        console.log('attaching event');
+        $(".contributeButton").click(function () {
+            console.log('hi');
+            var this_ = $(this);
+            var mypos = ($("#main-copy").width() - $("#centerpanelextended").width() - 220);
+            var section_id = $(this).attr("data-section_id");
+            var this_status = $(this).attr("data-status");
+
+            $(".contributeButton").each(function () {
+                var his_status = $(this).attr("data-status");
+                var his_section_id = $(this).attr("data-section_id");
+                if (this_ != $(this)) {
+                    if (his_status == 1) {
+                        $(this).attr("data-status", 2);
+                        $('.suggestion_right[data-section_id=' + his_section_id + ']').hide();
+                        $(this).parent().find(".tria").hide();
+                        $('.text', this).text('VISUALIZZA CONTRIBUTI').append(" (" + $(this).attr('data-contributes_num') + ")");
+                        if (window.innerWidth < 1600) {
+                            //$('#menu-left').animate({'margin-left': '0'}, 200);
+                            //$('#centerpanelextended').animate({'margin-left': '280px','max-width': '800px'}, 200);
+                            $('.suggestion_right[data-section_id=' + his_section_id + ']').animate({'left': '1110px'}, 200);
+                        }
+
+                        $(this).next().hide();
+                    }
+                }
+            });
+            if (mypos < 300) {
+                mypos = 300
+            }
+            ;
+            $(".suggest .tria").hide();
+            $(".suggest").removeClass("sel");
+            if (this_status == 0) { //closed and never fetched
+                $(this).attr("data-status", 1);
+                $('#suggest').show();
+                $(this).parent().find(".tria").show();
+                $(this).parent().addClass("sel");
+                $('.text', this).text('CHIUDI CONTRIBUTI');
+                if (window.innerWidth < 1600) {
+                    $('#menu-left').animate({'margin-left': '-300'}, 200);
+                    $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
+
+                    var fetched = $('<div data-section_id="' + section_id + '"class="suggestion_right"></div>');
+
+
+                    fetched.append('<div style="margin:auto;text-align:center;"><%= image_tag 'ajax-loader.gif' %><br/><b><%= t('pages.proposals.show.loading_contributions') %></b></div>');
+
+
+                    $('#centerpanelextended').append(fetched);
+
+                    fetched.animate({'left': '618px'}, 200);
+                    fetched.height($(window).height() - 110);
+
+                    $(window).resize(function () {
+                        fetched.height($(window).height() - 110);
+                    });
+                    $(this).next().show();
+
+                    $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
+                        data: {
+                            section_id: section_id
+                        },
+                        type: 'get',
+                        complete: function () {
+                            $(".loading", fetched).hide();
+                        }
+                    });
+
+                    $('.suggestion_right')
+                            .bind('mousewheel DOMMouseScroll', function (e) {
+                                if (e.originalEvent) e = e.originalEvent;
+                                var delta = e.wheelDelta || -e.detail;
+                                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                                e.preventDefault();
+                            });
+                }
+            }
+            else if (this_status == 2) { //closed and fetched
+                open_right_contributes($(this));
+            }
+            else {   //status == 1  //fetched and open
+                close_right_contributes($(this));
+            }
+            return false;
+        });
+
     });
 </script>
 
@@ -248,10 +375,10 @@
     <% unless @proposal.is_polling? %>
         <div id="rankleftpanel" class="rankleftpanel mybox">
           <div class="points">
-          <%= render :partial => 'proposals/points_left_panel' %>
+            <%= render :partial => 'proposals/points_left_panel' %>
           </div>
           <div class="rank">
-          <%= render :partial => 'proposals/rank_left_panel' %>
+            <%= render :partial => 'proposals/rank_left_panel' %>
           </div>
         </div>
     <% end %>
