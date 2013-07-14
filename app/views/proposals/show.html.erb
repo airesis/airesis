@@ -395,19 +395,9 @@
         </div>
     <% end %>
 
-    <% if signed_in? && @my_nickname && @proposal.is_anonima? %>
-        <div class="mybox">
-          <h4><%= t('pages.proposals.show.your_nickname_is') %></h4>
-
-          <div class="mycont">
-            <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => t('pages.proposals.show.what_nickname'), :style => 'cursor:pointer' %></span>
-
-            <div class="blogUserImage">
-              <%= user_tag(current_user, @proposal) %>
-            </div>
-          </div>
-        </div>
-    <% end %>
+    <div id="nickname_container">
+        <%= render 'proposals/nickname_panel' %>
+    </div>
 
     <div class="mybox">
       <h4><%= t('pages.proposals.show.editors_title') %></h4>

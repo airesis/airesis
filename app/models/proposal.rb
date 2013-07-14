@@ -208,7 +208,9 @@ class Proposal < ActiveRecord::Base
       self.tag_ids = tids
     end
 
-    self.content = truncate_words(self.solutions.first.sections.first.paragraphs.first.content.gsub( %r{</?[^>]+?>}, '' ), 60)
+    first_solution = self.solutions.first
+    first_section = first_solution.sections.first || self.sections.first
+    self.content = truncate_words(first_section.paragraphs.first.content.gsub( %r{</?[^>]+?>}, ''), 60)
 
 
   end

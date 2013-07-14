@@ -20,7 +20,6 @@
             var txtArea = $(this);
             var fakeDiv = $('<div class="autogrow-textarea-mirror"></div>');
             var minHeight = hiddenHeight($(this));
-            console.log('minHeight: ' + minHeight);
             txtArea.after(fakeDiv);
 
             var reloadText = function(event){

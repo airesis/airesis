@@ -152,6 +152,9 @@ Airesis::Application.routes.draw do
   end
 
 
+  resources :proposal_nicknames
+
+
   resources :groups do
     member do
       get :ask_for_partecipation
@@ -190,6 +193,8 @@ Airesis::Application.routes.draw do
     resources :elections
 
     resources :candidates
+
+    resources :group_partecipations
 
     resources :proposals do
       collection do

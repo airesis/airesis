@@ -18,7 +18,6 @@
 //= require gcal
 //= require events
 //= require timepicker
-//= require coda
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min
@@ -41,6 +40,7 @@
 //= require jquery.livequery
 //= require proposals
 //= require jquery.qtip
+//= require jquery.scrollTo
 //= require feedback
 //= require private_pub
 //= require ddslick.min

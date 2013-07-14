@@ -3,7 +3,7 @@ class GroupPartecipationsController < ApplicationController
   include NotificationHelper
 
 
-
+  layout 'groups'
 
   #carica il gruppo
   before_filter :load_group
@@ -16,7 +16,10 @@ class GroupPartecipationsController < ApplicationController
 
   def index
     @group_partecipations = @group.group_partecipations.joins(:user).reorder(:surname)
+    @partecipants = @group.group_partecipations.includes(:user)
     respond_to do |format|
+      format.html
+      format.js
       format.csv { send_data build_csv }
     end
   end

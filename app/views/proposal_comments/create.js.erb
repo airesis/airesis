@@ -51,6 +51,11 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
 
 <%end%>
 
+<%if @generated_nickname %>
+    toastr.info("Ti è stato assegnato il nickname '<%=@my_nickname.nickname%>'. Puoi cambiarlo entro 10 minuti dal pannello a sinistra.")
+    $('#nickname_container').html('<%=j (render('proposals/nickname_panel'))%>');
+<%end%>
+
 disegnaBottoni();
 resetCounter();
 checkScroll();

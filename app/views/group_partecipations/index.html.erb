@@ -1,0 +1,43 @@
+<h1>Elenco partecipanti</h1>
+<br/>
+<table style="width:800px;">
+  <thead>
+  <th><%= 'Utente' %></th>
+  <th><%= 'Ruolo' %></th>
+  <th><%= 'Registrato dal' %></th>
+  <th><%= 'Inserito da' %></th>
+
+  </thead>
+  <tbody>
+  <% @partecipants.each do |partecipant| %>
+      <tr>
+        <td>
+          <div class="pcontainer">
+            <div class="MoImg24">
+              <%= partecipant.user_image_tag(24) %>
+            </div>
+            <div class="Mo">
+              <%= link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        </td>
+        <td><%= partecipant.partecipation_role.name %></td>
+        <td><%= l partecipant.created_at if partecipant.created_at %></td>
+        <td>
+          <% if partecipant.acceptor %>
+              <div class="pcontainer">
+                <div class="MoImg24">
+                  <%= partecipant.acceptor.user_image_tag(24) %>
+                </div>
+                <div class="Mo">
+                  <%= link_to_user partecipant.acceptor, :full_name => true %>
+                </div>
+                <div style="clear:both;"></div>
+              </div>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

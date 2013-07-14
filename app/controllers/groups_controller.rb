@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show, :partecipants_list_panel]
+  before_filter :authenticate_user!, :except => [:index, :show]
 
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
 
@@ -415,12 +415,6 @@ class GroupsController < ApplicationController
   def reload_storage_size
 
   end
-
-
-  def partecipants_list_panel
-    @partecipants = @group.group_partecipations.includes(:user)
-  end
-
 
   def enable_areas
     @group.update_attribute(:enable_areas, true)

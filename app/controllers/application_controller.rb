@@ -210,6 +210,7 @@ class ApplicationController < ActionController::Base
         loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id, nickname)
       end
       ProposalNickname.create(:user_id => user.id, :proposal_id => proposal.id, :nickname => nickname)
+      @generated_nickname = true
     end
   end
 

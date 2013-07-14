@@ -157,6 +157,10 @@ class Ability
         can_edit_event?(user, event)
       end
 
+      can :update, ProposalNickname do |proposal_nickname|
+        proposal_nickname.created_at > Time.now - 10.minutes &&
+        proposal_nickname.user == user
+      end
 
       if user.moderator?
         can :destroy, ProposalComment do |comment|
