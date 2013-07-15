@@ -40,7 +40,6 @@
 //= require jquery.livequery
 //= require proposals
 //= require jquery.qtip
-//= require jquery.scrollTo
 //= require feedback
 //= require private_pub
 //= require ddslick.min
