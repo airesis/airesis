@@ -144,18 +144,23 @@
     <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
-        <div class="solution_main">
-          <h3>
-            <div class="tit1 sol">
-              <div class="tit2">
-                <%= "Soluzione #{solution.seq}" %>
-              </div>
-            </div>
-          </h3>
-          <div class="sol_content">
-            <div class="solutions_column" data-solution_id="<%=i %>">
+        <%= f.fields_for :solutions, solution do |sol| %>
+            <div class="solution_main">
+              <h3>
+                <div class="tit1 sol">
+                  <div class="tit2">
+                    <%= sol.text_field :title%>
+                  </div>
+                  <span class="remove_sol_button">
+                    <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= 'Rimuovi soluzione' %></a>
+                  </span>
+                </div>
+              </h3>
+              <div class="pressed">Clicca sul titolo per comprimere questa soluzione</div>
+              <div class="sol_content">
+                <div class="solutions_column" data-solution_id="<%= i %>">
 
-              <%= f.fields_for :solutions, solution do |sol| %>
+
                   <%= sol.hidden_field :seq %>
                   <%= sol.check_box '_destroy', style: 'display:none' %>
                   <% solution.sections.each_with_index do |section, j| %>
@@ -187,12 +192,12 @@
                   <% end %>
 
 
-              <% end %>
-            </div>
-            <div class="new_section">
-              <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
-            </div>
-          </div>
+                </div>
+        <% end %>
+        <div class="new_section">
+          <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+        </div>
+        </div>
         </div>
     <% end %>
 
@@ -255,7 +260,8 @@
         $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
             data: {page: currentPage,
                 view: currentView,
-                contributes: contributes
+                contributes: contributes,
+                all: true
             },
             type: 'get',
             complete: function () {
@@ -265,10 +271,10 @@
 
         <%= render :partial => 'show_tooltips' %>
 
-        toastr.options = {tapToDismiss: false,extendedTimeOut: 0, timeOut: 0};
+        toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
         toastr.info('<%=raw 'Quando hai terminato le modifiche clicca sul pulsante ''Aggiorna'' per salvare.' %><br/><input type="button" class="btn" value="Aggiorna" onclick="$(\'form input:submit\').click();"></input>');
 
-        //anima();
+        anima();
     });
 
     var integrated_contributes = [];
@@ -276,40 +282,52 @@
 
     function anima() {
         console.log('anima');
-        var toggleMinHeight = 60,
+        var toggleMinHeight = 80,
                 duration = 500,
                 easing = 'swing';
 
         $('.solution_main h3').each(function () {
-            $(this).parent().attr('data-compressed',false);
+
+            $(this).parent().attr('data-compressed', false);
         })
                 .click(function () {
+                    var this_ = $(this);
                     var compress_ = $(this).parent();
                     var curH = compress_.height();
                     if (compress_.is(':animated')) {
                         return false;
                     }
                     else if (compress_.attr('data-compressed') == 'false') {
-                        compress_.attr('data-compressed',true);
-                        compress_.attr('data-height',compress_.height());
-                        $('.sol_content',compress_).hide();
-                        $('.tinymce',compress_).each(function() {
+                        compress_.attr('data-compressed', true);
+                        compress_.attr('data-height', compress_.height());
+                        $('.sol_content', compress_).hide();
+                        $('.tinymce', compress_).each(function () {
                             var editor_id = $(this).attr('id');
                             tinymce.get(editor_id).hide();
                         })
                         compress_.animate(
                                 {
                                     'height': toggleMinHeight
-                                }, duration, easing);
+                                }, duration, easing,function() {
+                                    var pressed_ = $('.pressed',compress_).text('Clicca sul titolo per espandere questa soluzione');
+                                    pressed_.hide();
+                                    this_.after(pressed_);
+                                    pressed_.fadeIn();
+                                });
+
                     }
                     else {
-                        compress_.attr('data-compressed',false);
+                        compress_.attr('data-compressed', false);
+
                         compress_.animate(
-                        {
-                            'height': compress_.attr('data-height')
-                        }, duration, easing);
-                        $('.sol_content',compress_).show();
-                        $('.tinymce',compress_).each(function() {
+                                {
+                                    'height': compress_.attr('data-height')
+                                }, duration, easing, function() {
+                                    var pressed_ = $('.pressed',compress_).text('Clicca sul titolo per comprimere questa soluzione');
+                                });
+
+                        $('.sol_content', compress_).show();
+                        $('.tinymce', compress_).each(function () {
                             var editor_id = $(this).attr('id');
                             tinymce.get(editor_id).show();
                         })
@@ -387,12 +405,12 @@
         });
 
         <%for i in 0..(@proposal.sections.count-1) %>
-          $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
         <%end%>
         <%for i in 0..(@proposal.solutions.count-1) %>
-          <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-            $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-          <%end%>
+        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
+        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
+        <%end%>
         <%end%>
         return true;
     }
@@ -465,7 +483,7 @@
 
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
-        paragraph_.find('.tit2').append(++numSolution);
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution));
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var name_ = $(this).attr('name');
@@ -492,6 +510,22 @@
             var section_id = $(el).attr('data-section_id');
             if (hide) {
                 $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[sections_attributes\]\[' + section_id + '\]\[_destroy\]"]').val(1);
+                section_.fadeOut();
+            }
+            else {
+                section_.fadeOut(function () {
+                    section_.remove();
+                });
+            }
+        }
+    }
+
+    function removeSolution(el, hide) {
+        if (confirm('<%='Sei sicuro di voler rimuovere questa soluzione?'%>')) {
+            var section_ = $(el).closest('.solution_main');
+            var solution_id = $(el).attr('data-solution_id');
+            if (hide) {
+                $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[_destroy\]"]').val(1);
                 section_.fadeOut();
             }
             else {

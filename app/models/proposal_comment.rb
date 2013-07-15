@@ -30,7 +30,7 @@ class ProposalComment < ActiveRecord::Base
 
   scope :listable, {:conditions => {:integrated => false, :noise => false}}
 
-
+  scope :unread, lambda { |user_id,proposal_id| {:conditions => ["proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ", user_id, proposal_id]}}
 
   attr_accessor :section_id
 

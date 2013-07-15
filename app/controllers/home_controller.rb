@@ -33,6 +33,9 @@ class HomeController < ApplicationController
   def roadmap
   end
 
+  def press
+  end
+
   def bugtracking
     @versions = @roadmap.versions
     @issues = @roadmap.issues
@@ -97,7 +100,7 @@ class HomeController < ApplicationController
   def choose_layout
     if ['show'].include? action_name
       'users'
-    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide'].include? action_name
+    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press'].include? action_name
       'landing'
     else
       nil

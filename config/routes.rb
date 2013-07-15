@@ -303,6 +303,7 @@ Airesis::Application.routes.draw do
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
   match '/sostienici' => 'home#helpus'
+  match '/press' => 'home#press'
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
   match '/send_feedback' => 'home#feedback'

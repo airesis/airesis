@@ -270,6 +270,14 @@ class ApplicationController < ActionController::Base
               @unread.update_all(:checked => true)
             else
           end
+        when 'blog_posts'
+          case params[:action]
+            when 'show'
+              #mark as checked all user alerts about this proposal
+              @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'blog_post_id', @blog_post.id.to_s, false])
+              @unread.update_all(:checked => true)
+            else
+          end
         else
       end
     end

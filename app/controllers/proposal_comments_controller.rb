@@ -15,8 +15,6 @@ class ProposalCommentsController < ApplicationController
   before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
 
 
-
-
   #retrieve contributes list
   def index
     order = ""
@@ -26,6 +24,8 @@ class ProposalCommentsController < ApplicationController
       @section = Section.find(params[:section_id])
       paragraphs_ids = @section.paragraph_ids
       conditions += " AND proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
+    elsif params[:all]
+      conditions += ''
     else
       conditions += " AND proposal_comments.paragraph_id is null"
     end

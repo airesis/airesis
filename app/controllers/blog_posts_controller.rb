@@ -15,6 +15,8 @@ class BlogPostsController < ApplicationController
   #before_filter :require_user, :except => [:index, :show, :tag]
   before_filter :load_blog, :except => [:tag]
 
+  before_filter :load_blog_post, only: :show
+
   #il blog caricato deve essere dell'utente.
   #l'azione può essere eseguita solo sul proprio blog, altrimenti viene dato errore e redirezionato alla pagina precedente.
   before_filter :must_be_my_blog, :only => [:new, :edit, :update, :create, :destroy]
@@ -22,6 +24,8 @@ class BlogPostsController < ApplicationController
   
   #before_filter :require_admin, :except => [:index, :show, :tag]
   before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
+
+  before_filter :check_page_alerts, only: :show
   
   layout :choose_layout
   
@@ -51,7 +55,6 @@ class BlogPostsController < ApplicationController
   end
   
   def show
-    @blog_post = BlogPost.find(params[:id])
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
@@ -179,6 +182,10 @@ class BlogPostsController < ApplicationController
     #if !@blog
     #  blog_required
     #end
+  end
+
+  def load_blog_post
+    @blog_post = BlogPost.find(params[:id])
   end
   
   #risposta nel caso non sia presente il blog dell'utente

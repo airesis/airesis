@@ -581,6 +581,7 @@
             var value = $.trim(input_box.val());
             var tokens = value.split($(input).data("settings").tokenDelimiter);
             $.each(tokens, function(i, token) {
+                token = $.trim(token);
                 if (!token) {
                     return;
                 }
