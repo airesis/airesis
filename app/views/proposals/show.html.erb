@@ -237,11 +237,26 @@
         if (window.innerWidth < 1600) {
             $('#menu-left').animate({'margin-left': '-300'}, 200);
             $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-            var fetched = $('.suggestion_right[data-section_id=' + section_id + ']');
-            fetched.animate({'left': '618px'}, 200);
-            $('.suggestion_right[data-section_id=' + section_id + ']').show();
-            _this.next().show();
         }
+        else if (window.innerWidth < 1800){
+            $('#centerpanelextended').animate({'max-width': '600px'}, 200);
+        }
+        else {
+
+        }
+        var fetched = $('.suggestion_right[data-section_id=' + section_id + ']');
+        if (window.innerWidth < 1600) {
+            fetched.animate({'left': '618px'}, 200);
+        }
+        else if (window.innerWidth < 1800){
+            fetched.animate({'left': '908px'}, 200);
+        }
+        else {
+            fetched.animate({'left': '1108px'}, 200);
+        }
+        $('.suggestion_right[data-section_id=' + section_id + ']').fadeIn();
+        _this.next().show();
+
     }
 
 
@@ -250,16 +265,18 @@
         _this.attr("data-status", 2);
         $('.suggestion_right[data-section_id=' + section_id + ']').hide();
         _this.parent().find(".tria").hide();
-        $('.text', _this).text('VISUALIZZA CONTRIBUTI').append(" (" + _this.attr('data-unread_contributes_num') + "/"  + _this.attr('data-contributes_num') + ")");
-        if (window.innerWidth < 1600) {
-            $('#menu-left').animate({'margin-left': '0'}, 200);
-            $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
-            $('.suggestion_right[data-section_id=' + section_id + ']').animate({'left': '1110px'}, 200);
-        }
+        $('.text', _this).text('VISUALIZZA CONTRIBUTI').append(" (" + _this.attr('data-unread_contributes_num') + "/" + _this.attr('data-contributes_num') + ")");
+        $('#menu-left').animate({'margin-left': '0'}, 200);
+        $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
+        $('.suggestion_right[data-section_id=' + section_id + ']').animate({'left': '1110px'}, 200);
+
         _this.next().hide();
     }
 
     $(function () {
+
+        $('#centerpanelextended').css('max-width','800px');
+
         <%unless @proposal.voting? %>
         currentPage++;
         $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
@@ -284,7 +301,6 @@
         $(".contributeButton").click(function () {
             console.log('hi');
             var this_ = $(this);
-            var mypos = ($("#main-copy").width() - $("#centerpanelextended").width() - 220);
             var section_id = $(this).attr("data-section_id");
             var this_status = $(this).attr("data-status");
 
@@ -307,10 +323,7 @@
                     }
                 }
             });
-            if (mypos < 300) {
-                mypos = 300
-            }
-            ;
+
             $(".suggest .tria").hide();
             $(".suggest").removeClass("sel");
             if (this_status == 0) { //closed and never fetched
@@ -322,42 +335,57 @@
                 if (window.innerWidth < 1600) {
                     $('#menu-left').animate({'margin-left': '-300'}, 200);
                     $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-
-                    var fetched = $('<div data-section_id="' + section_id + '"class="suggestion_right"></div>');
-
-
-                    fetched.append('<div style="margin:auto;text-align:center;"><%= image_tag 'ajax-loader.gif' %><br/><b><%= t('pages.proposals.show.loading_contributions') %></b></div>');
-
-
-                    $('#centerpanelextended').append(fetched);
-
-                    fetched.animate({'left': '618px'}, 200);
-                    fetched.height($(window).height() - 110);
-
-                    $(window).resize(function () {
-                        fetched.height($(window).height() - 110);
-                    });
-                    $(this).next().show();
-
-                    $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
-                        data: {
-                            section_id: section_id,
-                            view: 1
-                        },
-                        type: 'get',
-                        complete: function () {
-                            $(".loading", fetched).hide();
-                        }
-                    });
-
-                    $('.suggestion_right')
-                            .bind('mousewheel DOMMouseScroll', function (e) {
-                                if (e.originalEvent) e = e.originalEvent;
-                                var delta = e.wheelDelta || -e.detail;
-                                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                                e.preventDefault();
-                            });
                 }
+                else if (window.innerWidth < 1800){
+                    $('#centerpanelextended').animate({'max-width': '600px'}, 200);
+
+                }
+                else {
+
+                }
+                var fetched = $('<div data-section_id="' + section_id + '"class="suggestion_right"></div>');
+
+
+                fetched.append('<div style="margin:auto;text-align:center;"><%= image_tag 'ajax-loader.gif' %><br/><b><%= t('pages.proposals.show.loading_contributions') %></b></div>');
+
+
+                $('#centerpanelextended').append(fetched);
+
+                if (window.innerWidth < 1600) {
+                    fetched.animate({'left': '618px'}, 200);
+                }
+                else if (window.innerWidth < 1800){
+                    fetched.animate({'left': '908px'}, 200);
+                }
+                else {
+                    fetched.animate({'left': '1108px'}, 200);
+                }
+                fetched.height($(window).height() - 110);
+
+                $(window).resize(function () {
+                    fetched.height($(window).height() - 110);
+                });
+                $(this).next().show();
+
+                $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
+                    data: {
+                        section_id: section_id,
+                        view: 1
+                    },
+                    type: 'get',
+                    complete: function () {
+                        $(".loading", fetched).hide();
+                    }
+                });
+
+                $('.suggestion_right')
+                        .bind('mousewheel DOMMouseScroll', function (e) {
+                            if (e.originalEvent) e = e.originalEvent;
+                            var delta = e.wheelDelta || -e.detail;
+                            this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                            e.preventDefault();
+                        });
+
             }
             else if (this_status == 2) { //closed and fetched
                 open_right_contributes($(this));
