@@ -1,0 +1,127 @@
+<% unless @proposal.is_polling? %>
+    <div id="rankleftpanel" class="rankleftpanel mybox">
+      <div class="points">
+        <%= render :partial => 'proposals/points_left_panel' %>
+      </div>
+      <div class="rank">
+        <%= render :partial => 'proposals/rank_left_panel' %>
+      </div>
+    </div>
+<% end %>
+
+<% if ::Configuration.socialnetwork_active %>
+    <div class="mybox">
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-count="vertical"
+         data-text="Guarda questa proposta su <%= APP_SHORT_NAME %>">Tweet</a>
+      <g:plusone size="tall"></g:plusone>
+      <%= raw facebook_like %>
+    </div>
+<% end %>
+
+<div id="nickname_container">
+  <%= render 'proposals/nickname_panel' %>
+</div>
+
+<% if @proposal.abandoned? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.old_editors_title') %></h4>
+
+      <div class="mycont">
+        <div id="old_authors_list">
+          <%= render :partial => 'proposals/old_authors_list_panel' %>
+        </div>
+      </div>
+    </div>
+<% else %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.editors_title') %></h4>
+
+      <div class="mycont">
+        <div id="authors_list">
+          <%= render :partial => 'proposals/authors_list_panel' %>
+        </div>
+        <% if signed_in? && @proposal.in_valutation? %>
+            <div id="available_author">
+              <%= render :partial => 'proposals/available_author' %>
+            </div>
+            <div id="available_authors_button">
+              <%= render :partial => 'available_authors_button' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<br/>
+
+<% if ::Configuration.proposal_support && !@proposal.private %>
+    <div id="support_left_panel_container">
+      <%= render :partial => 'proposals/support_left_panel' %>
+    </div>
+<% end %>
+
+<!--
+    <h4><%= t('pages.proposals.show.attached_documents') %></h4>
+    <%= t('pages.proposals.show.no_document_attached') %>
+-->
+
+<% unless @proposal.interest_borders.empty? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.interest_borders.each do |ib| %>
+            <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.tags_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.tags.each do |tag| %>
+            <div style="margin:5px;">
+              <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+              x <%= tag.proposals_count %></div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<% unless @proposal.closest(@group ? @group.id : nil).empty? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.closest.each do |p| %>
+            <%= link_to p.title, p %>
+            <br/>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<% if ::Configuration.proposal_categories %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.category_title') %></h4>
+
+      <div class="mycont">
+        <table>
+          <tr>
+            <td style="vertical-align: middle;">
+              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+            <td>
+              <%= link_to @proposal.category.description, @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+<% end %>

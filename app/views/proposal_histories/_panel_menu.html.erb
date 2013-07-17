@@ -5,16 +5,96 @@
     <th>Data e ora</th>
     </thead>
     <tbody>
-    <% @proposal.revisions.order("created_at DESC").each_with_index do |revision, i| %>
+    <% if @proposal.proposal_lives.count > 0 %>
         <tr>
-          <td><%= revision.seq %></td>
+          <td colspan="2" style="font-weight: bold">Ciclo di vita attuale</td>
           <td>
-            <%= l revision.created_at %>
           </td>
-          <td><input type="radio" name="new" value="<%= revision.id %>"
-                     <% if i == 0 %>checked="checked"
-                     <% end %>/></td>
         </tr>
+
+        <% lives = @proposal.proposal_lives.order('seq desc') %>
+        <% if lives.count == 0 %>
+            <% revisions = @proposal.revisions %>
+
+            <% if revisions.count > 0 %>
+                <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
+                    <tr>
+                      <td><%= revision.seq %></td>
+                      <td>
+                        <%= l revision.created_at %>
+                      </td>
+                      <td><input type="radio" name="new" value="<%= revision.id %>"
+                                 <% if i == 0 %>checked="checked"
+                                 <% end %>/></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                  <td colspan=3>Nessuna revisione</td>
+                </tr>
+            <% end %>
+        <% else %>
+            <% revisions = @proposal.revisions.where(['created_at > ?', lives.first.created_at]) %>
+            <% if revisions.count > 0 %>
+                <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
+                    <tr>
+                      <td><%= revision.seq %></td>
+                      <td>
+                        <%= l revision.created_at %>
+                      </td>
+                      <td><input type="radio" name="new" value="<%= revision.id %>"
+                                 <% if i == 0 %>checked="checked"
+                                 <% end %>/></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                  <td colspan=3>Nessuna revisione</td>
+                </tr>
+            <% end %>
+            <% lives.each_with_index do |life, i| %>
+                <tr>
+                  <td colspan="2" style="font-weight: bold">Ciclo di vita <%= life.seq %></td>
+                  <td>
+                    <input type="radio" name="new" value="<%= life.id %>" data-life_id="<%= life.id %>" data-is_life="true">
+                  </td>
+                </tr>
+                <% revisions = @proposal.revisions.where(['created_at <= ?', life.created_at]) %>
+                <% if (i < (@proposal.proposal_lives.count - 1)) %>
+                    <% revisions = revisions.where(['created_at > ?', lives[i+1].created_at]) %>
+                <% end %>
+                <% if revisions.count > 0 %>
+                    <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
+                        <tr>
+                          <td><%= revision.seq %></td>
+                          <td>
+                            <%= l revision.created_at %>
+                          </td>
+                          <td><input type="radio" name="new" value="<%= revision.id %>"
+                                     <% if i == 0 %>checked="checked"
+                                     <% end %>/></td>
+                        </tr>
+                    <% end %>
+                <% else %>
+                    <tr>
+                      <td colspan=3>Nessuna revisione</td>
+                    </tr>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% else %>
+
+        <% @proposal.revisions.order("created_at DESC").each_with_index do |revision, i| %>
+            <tr>
+              <td><%= revision.seq %></td>
+              <td>
+                <%= l revision.created_at %>
+              </td>
+              <td><input type="radio" name="new" value="<%= revision.id %>"
+                         <% if i == 0 %>checked="checked"
+                         <% end %>/></td>
+            </tr>
+        <% end %>
     <% end %>
     <td></td>
     </tbody>
@@ -31,22 +111,42 @@
     function executeDiff() {
         var newel = $("input[name='new']:checked");
         var newval = newel.val();
-        $.ajax({
-            cache: true,
-            url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
-            method: 'get',
-            data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
-            dataType: 'script',
-            beforeSend: function (msg) {
-                $('.diffview .diffcontainer').hide();
-                $('.diffview .loading').show();
+        if (newel.attr('data-is_life') == 'true') {
+            $.ajax({
+                cache: true,
+                url: '/proposals/<%=@proposal.id%>/proposal_lives/' + newval,
+                method: 'get',
+                data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
+                dataType: 'script',
+                beforeSend: function (msg) {
+                    $('.diffview .diffcontainer').hide();
+                    $('.diffview .loading').show();
 
-            },
-            success: function (msg) {
-                $('.diffview .diffcontainer').show();
-                $('.diffview .loading').hide();
-            }
-        });
+                },
+                success: function (msg) {
+                    $('.diffview .diffcontainer').show();
+                    $('.diffview .loading').hide();
+                }
+            });
+        }
+        else {
+            $.ajax({
+                cache: true,
+                url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
+                method: 'get',
+                data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
+                dataType: 'script',
+                beforeSend: function (msg) {
+                    $('.diffview .diffcontainer').hide();
+                    $('.diffview .loading').show();
+
+                },
+                success: function (msg) {
+                    $('.diffview .diffcontainer').show();
+                    $('.diffview .loading').hide();
+                }
+            });
+        }
     }
 
 </script>

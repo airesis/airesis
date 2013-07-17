@@ -210,7 +210,7 @@ module NotificationHelper
      #invia le notifiche quando la proposta è stata rigettata
    #le notifiche vengono inviate ai partecipanti
   def notify_proposal_rejected(proposal,group=nil)
-    ubject = ''
+    subject = ''
     subject +=  "[#{group.name}] " if group
     subject +="#{proposal.title} è stata respinta"
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
@@ -227,7 +227,7 @@ module NotificationHelper
     msg = "La proposta <b>" + proposal.title + "</b> è stata respinta dai partecipanti."
     notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS,:message => msg,:url => proposal_path(proposal), :data => data)
     proposal.partecipants.each do |user|
-      if (user != comment_user) && (!proposal.users.include?user)
+      unless proposal.users.include? user
         send_notification_to_user(notification_b,user)
       end
     end

@@ -1,0 +1,8 @@
+<% @proposal.proposal_lives.each do |life| %>
+    <% life.users.each do |user| %>
+        <%= user_tag(user) %>
+    <% end %>
+<% end %>
+
+
+<div style="clear: both;"></div>

@@ -24,7 +24,7 @@
 
 <div style="text-align: right;float:right;">
 
-  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta          %>
+  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta           %>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
@@ -37,7 +37,7 @@
       <% end %>
       <% if @proposal.in_valutation? %>
           <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
-      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox            %>
+      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox             %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
           </div>
@@ -51,19 +51,80 @@
 
       <% end %>
   <% end %>
+
+  <% if @proposal.abandoned? %>
+      <% if @group %>
+          <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+      <% else %>
+          <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' %>
+      <% end %>
+
+      <div id="regenerate_container" title="<%= 'Scegli il nuovo quorum' %>" style="display:none">
+        <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true do |f| %>
+            <p>
+              <%= f.label :quorum_id %> *<br/>
+              <% if @group %>
+                  <% @quorum_collection = @group.quorums.active %>
+              <% else %>
+                  <% @quorum_collection = Quorum.public.order('seq nulls last') %>
+              <% end %>
+              <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick2'} %>
+              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+
+
+            <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+            </div>
+            </p>
+            <div class="clearboth"></div>
+            <p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
+
+            </p>
+            <a href="#" class="btn" onclick="$('#regenerate_container').dialog('destroy');"><%= t('buttons.cancel') %></a>
+            <%= f.button 'Rimetti in dibattito', class: 'btn blue', disable_with: t('loading') %>
+        <% end %>
+      </div>
+
+      <script type="text/javascript">
+
+        function regenerate() {
+          $('#regenerate_container').dialog({
+              width: 500,
+              height: 'auto'
+          });
+        }
+
+          $('.ddslick2').ddslick({
+              width: 400,
+              onSelected: function(data) {
+                  var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
+                  console.log('selected: ' + exlanation_);
+                  if (exlanation_) {
+                      $('#quorum_explanation').html(exlanation_).show();
+                  }
+                  else {
+                      $('#quorum_explanation').hide();
+                  }
+              }
+          });
+
+          $('#proposal_quorum_id_container').css('float','left').css('margin-right','5px');
+      </script>
+
+  <% end %>
+
 </div>
 <div style="clear: both;"></div>
 
 
 <div class="blogCommentPostedAt">
 
-  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata            %>
+  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
       <p>
         <b>
           <%= t('pages.proposals.show.votation_message', from: @proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
         </b>
       </p>
-  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito            %>
+  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito             %>
       <%= t('pages.proposals.show.editing_message_1') %>
       <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= @proposal.comments.count %></em></a>.
       <br/> <%= t('pages.proposals.show.editing_message_2') %>
@@ -81,15 +142,16 @@
             <%= section.title %>
           </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-              <% unread = section.proposal_comments.listable.unread(current_user.id,@proposal.id).count %>
+              <% unread = section.proposal_comments.listable.unread(current_user.id, @proposal.id).count %>
               <% contributes_num = section.proposal_comments.listable.count %>
               <div class="suggest">
-                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%=section.id%>" data-contributes_num="<%=contributes_num%>"  data-unread_contributes_num="<%=unread%>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+
                 <div class="suggest_l" style="display: none;">
-                <img class="tria" src="/assets/suggest.png">
-                <!--<span class="ui-icon ui-icon-lightbulb bulb"></span>
-                <span class="ui-icon ui-icon-clock clock"></span>
-                <span class="ui-icon ui-icon-star star"></span>-->
+                  <img class="tria" src="/assets/suggest.png">
+                  <!--<span class="ui-icon ui-icon-lightbulb bulb"></span>
+                  <span class="ui-icon ui-icon-clock clock"></span>
+                  <span class="ui-icon ui-icon-star star"></span>-->
                 </div>
               </div>
           <% end %>
@@ -113,29 +175,29 @@
         </div>
       </h3>
       <div class="sol_content">
-      <% solution.sections.each do |section| %>
-          <div class="proposal_main">
-             <h3>
-              <div class="tit1">
-                <div class="tit2">
-                  <%= section.title %>
+        <% solution.sections.each do |section| %>
+            <div class="proposal_main">
+              <h3>
+                <div class="tit1">
+                  <div class="tit2">
+                    <%= section.title %>
+                  </div>
+                  <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+                      <% unread = section.proposal_comments.listable.unread(current_user.id, @proposal.id).count %>
+                      <% contributes_num = section.proposal_comments.listable.count %>
+                      <div class="suggest">
+                        <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+                        <img class="tria" src="/assets/suggest.png" style="display: none;">
+                      </div>
+                  <% end %>
                 </div>
-                <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-                    <% unread = section.proposal_comments.listable.unread(current_user.id,@proposal.id).count %>
-                    <% contributes_num = section.proposal_comments.listable.count %>
-                    <div class="suggest">
-                      <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%=section.id%>" data-contributes_num="<%=contributes_num%>"  data-unread_contributes_num="<%=unread%>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
-                      <img class="tria" src="/assets/suggest.png" style="display: none;">
-                    </div>
-                <% end %>
-              </div>
-            </h3>
+              </h3>
 
-            <div class="proposal_content" data-id="<%= solution.id %>">
-              <%= sanitize(section.paragraphs.first.content) %>
+              <div class="proposal_content" data-id="<%= solution.id %>">
+                <%= sanitize(section.paragraphs.first.content) %>
+              </div>
             </div>
-          </div>
-      <% end %>
+        <% end %>
       </div>
     </div>
 

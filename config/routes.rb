@@ -86,6 +86,7 @@ Airesis::Application.routes.draw do
     end
 
     resources :proposal_histories
+    resources :proposal_lives
     resources :proposal_supports
 
     member do
@@ -98,6 +99,7 @@ Airesis::Application.routes.draw do
       put :add_authors
       get :vote_results
       post :close_debate
+      put :regenerate
     end
   end
 
@@ -202,6 +204,7 @@ Airesis::Application.routes.draw do
       end
       member do
         post :close_debate
+        put :regenerate
       end
     end
 

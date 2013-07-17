@@ -426,6 +426,7 @@ it:
         give_contribute: "VISUALIZZA CONTRIBUTI"
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
         new_valutation_message: "La proposta ha ricevuto una nuova valutazione"
+        old_editors_title: "Hanno redatto la proposta"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -1000,6 +1001,7 @@ it:
     show:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
+    regenerate_button: "Rimetti in dibattito"
   interest_borders_hint: "Digita alcuni caratteri per cercare un luogo"
   no_interest_border: "Nessun luogo trovato"
   looking_for_interest_border: "Sto cercando..."

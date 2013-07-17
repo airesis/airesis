@@ -22,6 +22,9 @@ class Ability
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
+      can :regenerate, Proposal do |proposal|
+        can_regenerate_proposal?(user,proposal)
+      end
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
             !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0)) &&
@@ -315,6 +318,14 @@ class Ability
         end
       end
       true
+    end
+
+
+    def can_regenerate_proposal?(user,proposal)
+      return false unless proposal.abandoned?
+      proposal.private ?
+        can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_INSERT) :
+        true
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

@@ -6,6 +6,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
   has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC', :dependent => :destroy
+
   has_many :proposal_borders, :class_name => 'ProposalBorder', :dependent => :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
 
@@ -26,6 +27,7 @@ class Proposal < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 
+  has_many :proposal_lives, :class_name => 'ProposalLife', :dependent => :destroy
   has_many :users, :through => :proposal_presentations, :class_name => 'User'
 
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
@@ -82,16 +84,18 @@ class Proposal < ActiveRecord::Base
   #tutte le proposte in valutazione
   scope :in_valutation, {:conditions => {:proposal_state_id => PROP_VALUT}}
   #tutte le proposte in attesa di votazione o attualmente in votazione
-  scope :in_votation, {:conditions => {:proposal_state_id => [PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
+  scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
   #tutte le proposte accettate
-  scope :accepted, {:conditions => {:proposal_state_id => PROP_ACCEPT}}
+  scope :accepted, {:conditions => {:proposal_state_id => ProposalState::ACCEPTED}}
   #tutte le proposte respinte
-  scope :rejected, {:conditions => {:proposal_state_id => PROP_RESP}}
+  scope :rejected, {:conditions => {:proposal_state_id => ProposalState::REJECTED}}
+  #tutte le proposte respinte
+  scope :abandoned, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
 
   scope :voted, {:conditions => {:proposal_state_id => [ProposalState::ACCEPTED, ProposalState::REJECTED]}}
 
   #tutte le proposte entrate in fase di revisione e feedback
-  scope :revision, {:conditions => {:proposal_state_id => PROP_REVISION}}
+  scope :revision, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
 
   scope :public, {:conditions => {:private => false}}
   scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
@@ -153,6 +157,10 @@ class Proposal < ActiveRecord::Base
 
   def voting?
     self.proposal_state_id == ProposalState::VOTING
+  end
+
+  def abandoned?
+    self.proposal_state_id == ProposalState::ABANDONED
   end
 
   def voted?
@@ -285,7 +293,13 @@ class Proposal < ActiveRecord::Base
     a = User.all(:joins => {:proposal_rankings => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
     b = User.all(:joins => {:proposal_comments => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
     c = (a | b)
-    return c
+    if self.private
+      d = self.presentation_groups.map{|group| group.partecipants}.flatten
+      e = self.groups.map {|group| group.partecipants}.flatten
+      f = d | e
+      c = c & f
+    end
+    c
   end
 
   #restituisce la lista delle 10 proposte più vicine a questa

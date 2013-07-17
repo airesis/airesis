@@ -66,7 +66,7 @@ class EventsWorker
             c.schulze_score = vs.ranks[i].to_i
             c.save!
           end
-          proposal.proposal_state_id = PROP_ACCEPT
+          proposal.proposal_state_id = ProposalState::ACCEPTED
         end #fine transazione
       else
         vote_data = proposal.vote
@@ -75,9 +75,9 @@ class EventsWorker
         neutral = vote_data.neutral
         votes = positive + negative + neutral
         if positive > negative #se ha avuto più voti positivi allora diventa ACCETTATA
-          proposal.proposal_state_id = PROP_ACCEPT
+          proposal.proposal_state_id = ProposalState::ACCEPTED
         elsif positive <= negative #se ne ha di più negativi allora diventa RESPINTA
-          proposal.proposal_state_id = PROP_RESP
+          proposal.proposal_state_id = ProposalState::REJECTED
         end
       end
       proposal.save

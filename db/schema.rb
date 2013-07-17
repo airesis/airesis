@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715173401) do
+ActiveRecord::Schema.define(:version => 20130716183908) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -502,6 +502,13 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
     t.string   "url"
   end
 
+  create_table "old_proposal_presentations", :force => true do |t|
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "proposal_life_id"
+    t.integer  "user_id"
+  end
+
   create_table "paragraph_histories", :force => true do |t|
     t.integer "section_history_id",                  :null => false
     t.string  "content",            :limit => 40000
@@ -626,6 +633,16 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
     t.integer  "rank",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "proposal_lives", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "proposal_id"
+    t.integer  "quorum_id"
+    t.integer  "valutations"
+    t.integer  "rank"
+    t.integer  "seq"
   end
 
   create_table "proposal_nicknames", :force => true do |t|
@@ -797,6 +814,7 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
     t.datetime "started_at"
     t.datetime "ends_at"
     t.integer  "seq"
+    t.integer  "quorum_id"
   end
 
   create_table "ranking_types", :force => true do |t|
@@ -1192,6 +1210,9 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
 
   add_foreign_key "notifications", "notification_types", :name => "notifications_notification_type_id_fk"
 
+  add_foreign_key "old_proposal_presentations", "proposal_lives", :name => "old_proposal_presentations_proposal_life_id_fk"
+  add_foreign_key "old_proposal_presentations", "users", :name => "old_proposal_presentations_user_id_fk"
+
   add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
 
   add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
@@ -1215,6 +1236,9 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
   add_foreign_key "proposal_comments", "proposals", :name => "proposal_comments_proposal_id_fk"
   add_foreign_key "proposal_comments", "users", :name => "proposal_comments_deleted_user_id_fk"
   add_foreign_key "proposal_comments", "users", :name => "proposal_comments_user_id_fk"
+
+  add_foreign_key "proposal_lives", "proposals", :name => "proposal_lives_proposal_id_fk"
+  add_foreign_key "proposal_lives", "quorums", :name => "proposal_lives_quorum_id_fk"
 
   add_foreign_key "proposal_nicknames", "proposals", :name => "proposal_nicknames_proposal_id_fk"
   add_foreign_key "proposal_nicknames", "users", :name => "proposal_nicknames_user_id_fk"
@@ -1244,6 +1268,8 @@ ActiveRecord::Schema.define(:version => 20130715173401) do
   add_foreign_key "proposals", "proposal_types", :name => "proposals_proposal_type_id_fk"
   add_foreign_key "proposals", "proposal_votation_types", :name => "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
+
+  add_foreign_key "quorums", "quorums", :name => "quorums_quorum_id_fk"
 
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
 

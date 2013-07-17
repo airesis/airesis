@@ -20,23 +20,53 @@ module ProposalsModule
       passed = (timepassed && vpassed)
     end
 
+
     if passed
       if proposal.rank >= quorum.good_score
-        proposal.proposal_state_id = PROP_WAIT_DATE  #metti la proposta in attesa di una data per la votazione
+        proposal.proposal_state_id = ProposalState::WAIT_DATE #metti la proposta in attesa di una data per la votazione
         proposal.private? ?
           notify_proposal_ready_for_vote(proposal,proposal.presentation_groups.first) :
           notify_proposal_ready_for_vote(proposal)
+
+        #elimina il timer se vi è ancora associato
+        if quorum.minutes
+          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
+        end
       elsif proposal.rank < quorum.bad_score
-        proposal.proposal_state_id = PROP_RESP
+        proposal.proposal_state_id = ProposalState::ABANDONED
         proposal.private? ?
           notify_proposal_rejected(proposal,proposal.presentation_groups.first) :
           notify_proposal_rejected(proposal)
-      end 
+
+        #elimina il timer se vi è ancora associato
+        if quorum.minutes
+          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
+        end
+      end
+
       proposal.save
       proposal.reload
     end
   end
 
+
+  def abandon(proposal)
+    proposal.proposal_state_id = ProposalState::ABANDONED
+    life = proposal.proposal_lives.create(quorum_id: proposal.quorum_id, valutations: proposal.valutations, rank: proposal.rank, seq: ((proposal.proposal_lives.maximum(:seq) || 0) + 1))
+    #save old authors
+    proposal.users.each do |user|
+      life.users << user
+    end
+    life.save!
+    #delete old data
+    proposal.valutations = 0
+    proposal.rank = 0
+    #proposal.quorum_id = nil
+
+    #and authors
+    proposal.proposal_presentations.destroy_all
+    #proposal.save!
+  end
 
 
   def standard_new(proposal)

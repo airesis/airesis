@@ -8,6 +8,7 @@ class ProposalState < ActiveRecord::Base
   REJECTED=5
   ACCEPTED=6
   REVISION=7
+  ABANDONED=8
 
   TAB_DEBATE = 1
   TAB_VOTATION = 2

@@ -1,0 +1,19 @@
+<h2><%= "Ciclo di vita numero #{@life.seq}" %></h2>
+<p>
+  <%= 'Data termine: ' %> <b><%=l @life.created_at %></b>
+</p>
+<p>
+  <%= "Score raggiunto: "%> <b><%= @life.rank %> </b> <br/>
+  <%= "Numero di valutazioni: "%> <b><%=@life.valutations %></b>
+</p>
+<p>
+  <%= 'Quorum utilizzato:' %><br/>
+  <b><%= @life.quorum.explanation %></b>
+</p>
+
+<p>
+  <%= 'Autori durante questo ciclo di vita:' %><br/>
+  <%@life.users.each do |user|%>
+    <%= user_tag(user) %>
+  <%end%>
+</p>

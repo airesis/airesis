@@ -178,8 +178,6 @@ class ProposalsController < ApplicationController
           flash[:info] = t('controllers.proposals.show.cant_partecipate')
         end
       end
-      author_id = ProposalPresentation.find_by_proposal_id(params[:id]).user_id
-      @author_name = User.find(author_id).name
     end
 
     flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
@@ -316,10 +314,9 @@ class ProposalsController < ApplicationController
         update_borders(borders)
 
 
-
         @proposal.save!
 
-        @proposal.update_attribute(:url,@proposal.private? ? group_proposal_path(@group,@proposal) : proposal_path(@proposal))
+        @proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
 
         #fai partire il timer per far scadere la proposta
@@ -375,6 +372,28 @@ class ProposalsController < ApplicationController
         format.html { render :action => "new" }
       end
     end
+  end
+
+
+  def regenerate
+    authorize! :regenerate, @proposal
+
+    @proposal.proposal_state_id = ProposalState::VALUTATION
+    @proposal.users << current_user
+
+    quorum = assign_quorum(params[:proposal])
+    #fai partire il timer per far scadere la proposta
+    if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+      Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+    end
+
+    generate_nickname(current_user, @proposal)
+
+    @proposal.save!
+
+    flash[:notice] = 'La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore.'
+
+    redirect_to @proposal.url
   end
 
   def assign_quorum(prparams)
@@ -440,7 +459,7 @@ class ProposalsController < ApplicationController
         @proposal.attributes = params[:proposal]
 
         if @proposal.title_changed?
-          @proposal.url = @proposal.private? ? group_proposal_path(@proposal.presentation_groups.first,@proposal) : proposal_path(@proposal)
+          @proposal.url = @proposal.private? ? group_proposal_path(@proposal.presentation_groups.first, @proposal) : proposal_path(@proposal)
         end
 
         @proposal.save!
@@ -639,15 +658,32 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #exlipcitly close the debate of a proposal
   def close_debate
     authorize! :close_debate, @proposal
-    if @proposal.rank >= @proposal.quorum.good_score
-      @proposal.proposal_state_id = PROP_WAIT_DATE #metti la proposta in attesa di una data per la votazione
-      notify_proposal_ready_for_vote(@proposal, @group)
-    elsif @proposal.rank < @proposal.quorum.bad_score
-      @proposal.proposal_state_id = PROP_RESP
-      notify_proposal_rejected(@proposal, @group)
+
+    Proposal.transaction do
+      if @proposal.rank >= @proposal.quorum.good_score
+        @proposal.proposal_state_id = ProposalState::WAIT_DATE #metti la proposta in attesa di una data per la votazione
+        notify_proposal_ready_for_vote(@proposal, @group)
+      elsif @proposal.rank < @proposal.quorum.bad_score
+        abandon(@proposal)
+        notify_proposal_rejected(@proposal, @group)
+      end
+      @proposal.save!
     end
-    @proposal.save
     redirect_to @proposal
+
+  rescue Exception => e
+    puts e
+    flash[:error] = "Errore durante la chiusura del dibattito"
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+      format.html {
+        flash[:notice] = t(:proposal_deleted)
+        redirect_to(@proposal)
+      }
+    end
   end
 
   protected
