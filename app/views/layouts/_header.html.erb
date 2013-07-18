@@ -409,7 +409,7 @@
                     var span_container = $('<div>' + obj.title + '</div>');
                     tool_container.append(img_container).append(span_container);
                     var read_container = $('<div class="read_all">');
-                    read_container.append($('<a href="#" onclick="sign_all_as_read('+obj.id+');return false;">Segna come lette</a>'));
+                    read_container.append($('<a href="#" onclick="sign_all_as_read('+obj.id+');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
                     var sub_container = $('<div class="cont1">');
                     n_container.append(tool_container).append(read_container).append(sub_container);
                     for (var j = 0; j < obj.alerts.length; j++) {

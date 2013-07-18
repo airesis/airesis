@@ -1,0 +1,8 @@
+<div class="left_panel">
+  <ul>
+    <li><a href="#" onclick="showSection('whatis');return false;">Come si legge il quorum?</a></li>
+    <%@quorums.each do |quorum|%>
+        <li><a href="#" onclick="showSection('quorum_'+<%=quorum.id%>);return false;"><%=quorum.name%></a></li>
+    <%end%>
+  </ul>
+</div>

@@ -24,7 +24,7 @@
 
 <div style="text-align: right;float:right;">
 
-  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta           %>
+  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta            %>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
@@ -37,7 +37,7 @@
       <% end %>
       <% if @proposal.in_valutation? %>
           <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
-      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox             %>
+      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox              %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
           </div>
@@ -59,7 +59,7 @@
           <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' %>
       <% end %>
 
-      <div id="regenerate_container" title="<%= 'Scegli il nuovo quorum' %>" style="display:none">
+      <div id="regenerate_container" title="<%= t('pages.proposals.show.new_quorum_title') %>" style="display:none">
         <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true do |f| %>
             <p>
               <%= f.label :quorum_id %> *<br/>
@@ -69,7 +69,7 @@
                   <% @quorum_collection = Quorum.public.order('seq nulls last') %>
               <% end %>
               <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick2'} %>
-              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path, :remote => true %>
+              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
 
 
             <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
@@ -80,22 +80,43 @@
 
             </p>
             <a href="#" class="btn" onclick="$('#regenerate_container').dialog('destroy');"><%= t('buttons.cancel') %></a>
-            <%= f.button 'Rimetti in dibattito', class: 'btn blue', disable_with: t('loading') %>
+            <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', disable_with: t('loading'), onclick: 'return check_quorum();' %>
         <% end %>
       </div>
 
       <script type="text/javascript">
 
-        function regenerate() {
-          $('#regenerate_container').dialog({
-              width: 500,
-              height: 'auto'
-          });
-        }
+
+          function check_quorum() {
+              var ddclick2_ = $('#proposal_quorum_id_container');
+              var val2_ = $('#proposal_quorum_id').val();
+              if (val2_ != '') {
+                  if (ddclick2_.parent().hasClass('field_with_errors')) {
+                      ddclick2_.parent().children('.message').remove();
+                      ddclick2_.unwrap();
+                  }
+                  return true;
+              }
+              else {
+                  if (!ddclick2_.parent().hasClass('field_with_errors')) {
+                      var wrap2_ = $('<div class="field_with_errors"></div>');
+                      ddclick2_.wrap(wrap2_);
+                      ddclick2_.after($('<label class="message">obbligatorio</label>'));
+                  }
+                  return false;
+              }
+          }
+
+          function regenerate() {
+              $('#regenerate_container').dialog({
+                  width: 500,
+                  height: 'auto'
+              });
+          }
 
           $('.ddslick2').ddslick({
               width: 400,
-              onSelected: function(data) {
+              onSelected: function (data) {
                   var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
                   console.log('selected: ' + exlanation_);
                   if (exlanation_) {
@@ -107,7 +128,7 @@
               }
           });
 
-          $('#proposal_quorum_id_container').css('float','left').css('margin-right','5px');
+          $('#proposal_quorum_id_container').css('float', 'left').css('margin-right', '5px');
       </script>
 
   <% end %>
@@ -118,13 +139,13 @@
 
 <div class="blogCommentPostedAt">
 
-  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
+  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata   %>
       <p>
         <b>
           <%= t('pages.proposals.show.votation_message', from: @proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
         </b>
       </p>
-  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito             %>
+  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito              %>
       <%= t('pages.proposals.show.editing_message_1') %>
       <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= @proposal.comments.count %></em></a>.
       <br/> <%= t('pages.proposals.show.editing_message_2') %>
@@ -142,8 +163,9 @@
             <%= section.title %>
           </div>
           <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-              <% unread = section.proposal_comments.listable.unread(current_user.id, @proposal.id).count %>
+
               <% contributes_num = section.proposal_comments.listable.count %>
+              <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
               <div class="suggest">
                 <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
 
@@ -183,8 +205,8 @@
                     <%= section.title %>
                   </div>
                   <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-                      <% unread = section.proposal_comments.listable.unread(current_user.id, @proposal.id).count %>
                       <% contributes_num = section.proposal_comments.listable.count %>
+                      <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
                       <div class="suggest">
                         <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
                         <img class="tria" src="/assets/suggest.png" style="display: none;">

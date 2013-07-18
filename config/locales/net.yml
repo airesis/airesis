@@ -320,7 +320,7 @@ net:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
-      title: "Registrati"
+      title: "oppure registrati"
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
@@ -356,6 +356,11 @@ net:
         most_popular_title: "Più popolari (TODO)"
         most_voted_title: "Più valutate (TODO)"
         show_more: "Mostra altre proposte..."
+        loading_alt: "Caricamento"
+        choose_model: "Scegli un modello di proposta"
+        search_title: "Cerca tra le proposte del gruppo"
+        search_placeholder: "Inserisci almeno due caratteri per effettuare la ricerca"
+        search_words: "Almeno una parola"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -376,7 +381,7 @@ net:
         delete_contribute_confirmation: "Sei sicuro di voler cancellare questo contributo?"
         delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo suggerimento?"
         offered_as_editor_message: "Ti sei offerto per redigere la sintesi della proposta"
-        offer_as_editor_button: "Voglio redigere la sintesi!"
+        offer_as_editor_button: "Voglio redigere la proposta!"
         available_editors_button: "Redattori disponibili (%{count})"
         editors_list_title: "Elenco utenti disponibili a redigere la sintesi della proposta"
         attached_documents: "Documenti collegati"
@@ -406,7 +411,7 @@ net:
         in_votation_now: "In votazione ora!"
         anonimity_active: "Anonimato temporaneo attivo"
         your_nickname_is: "Il tuo nickname è"
-        editors_title: "Redigono la sintesi"
+        editors_title: "Redigono la proposta"
         supporting_group: "Gruppi in sostegno"
         no_supporting_group: "Nessun gruppo sostiene la proposta"
         support_proposal_button: "Sostieni la proposta..."
@@ -423,9 +428,12 @@ net:
         manage_noise_folder: "Contributi eliminati"
         noise_folder: "Contributi eliminati"
         what_nickname: "Di cosa si tratta?"
-        give_contribute: "Dai il tuo contributo"
+        give_contribute: "VISUALIZZA CONTRIBUTI"
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
         new_valutation_message: "La proposta ha ricevuto una nuova valutazione"
+        old_editors_title: "Hanno redatto la proposta"
+        back_debate_button: "Rimetti in dibattito"
+        new_quorum_title: "Scegli il nuovo quorum"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -458,7 +466,7 @@ net:
             pros: "Pro"
             cons: "Contro"
         rule_book:
-          problems_title_label: "Quali sono i problemi da risolvere con l’applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
+          problems_title_label: "Quali sono i problemi da risolvere con l'applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
@@ -490,7 +498,7 @@ net:
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
-            points: "Punti all’ordine del giorno"
+            points: "Punti all'ordine del giorno"
             priorities: "Priorità dei punti proposti"
             links: "Link di approfondimento"
         event:
@@ -503,11 +511,11 @@ net:
             program: "Data, orario e programma"
             body: "place"
             place: "Luogo"
-            organization: "Organizzazione dell’evento"
+            organization: "Organizzazione dell'evento"
             resources: "Risorse necessarie e loro reperimento"
             pros: "Pro"
             cons: "Contro"
-        step_1_title: "Puoi proporre un problema da risolvere, un’idea da perfezionare, un’iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l’aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
+        step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
         step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
         category_prompt: "--Seleziona una categoria--"
@@ -618,7 +626,7 @@ net:
         my_blog: "IL MIO BLOG"
         create_blog: "CREA UN TUO BLOG"
         preferences: "PREFERENZE"
-        administration: "Amministrazione"
+        administration: "AMMINISTRAZIONE"
         logout: "LOGOUT"
         become_user: "Diventa utente"
         become_user_button: "Vai!"
@@ -628,6 +636,7 @@ net:
         forgot_password_button: "Hai dimenticato la password?"
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
+        sign_has_read: "Segna come lette"
       welcome: "Benvenuto"
       groups_title: "GRUPPI"
       login: "ACCEDI"
@@ -784,6 +793,7 @@ net:
         period: "Ripeti"
         frequency: "Ripeti ogni"
         private: "Privato"
+        candidates_end_time: "Termine iscrizione candidati"
       meeting:
         place:
           address: "Indirizzo"
@@ -806,6 +816,7 @@ net:
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
         admin_title: "Nome amministratore"
+        private: "Gruppo chiuso"
       blogs:
         title: 'Titolo'
       blog_post:
@@ -979,6 +990,15 @@ net:
       create:
         ok_message: "Gruppo creato correttamente"
         ko_message: "Errore durante la creazione del gruppo."
+    blog_comments:
+      create:
+        ok_message: "Commento inserito correttamente."
+        ko_message: "Errore durante l'inserimento del commento"
+    events:
+      destroy:
+        ok_message: "Evento eliminato correttamente"
+      update:
+        ok_message: "Evento aggiornato correttamente"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni"
@@ -989,6 +1009,7 @@ net:
     show:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
+    regenerate_button: "Rimetti in dibattito"
   interest_borders_hint: "Digita alcuni caratteri per cercare un luogo"
   no_interest_border: "Nessun luogo trovato"
   looking_for_interest_border: "Sto cercando..."
@@ -1032,3 +1053,4 @@ net:
   default_admin_title: "Amministratore"
   saving: "Salvataggio..."
   sending: "Invio..."
+  updating: "Aggiornamento..."

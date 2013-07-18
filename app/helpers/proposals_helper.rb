@@ -64,8 +64,8 @@ module ProposalsHelper
     solution.sections.build(title: t('pages.proposals.new.event.solution.place'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.event.solution.organization'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.event.solution.resources'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    solution.sections.build(title: t('pages.proposals.new.event.solution.pros'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    solution.sections.build(title: t('pages.proposals.new.event.solution.cons'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    #solution.sections.build(title: t('pages.proposals.new.event.solution.pros'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    #solution.sections.build(title: t('pages.proposals.new.event.solution.cons'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution
   end
 

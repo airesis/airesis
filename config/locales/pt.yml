@@ -26,6 +26,17 @@ pt:
         unconfirmed: "A conta ainda não foi confirmada."
         user:
           invalid: "Nome de utilizador ou palavra-pase inválida"
+  calendar:
+    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
+    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+    today: 'today'
+    month: 'month'
+    week: 'week'
+    day: 'day'
+    firstDay: 0
+    timeFormat: 'h(:mm)t '
   date:
     order: [:day, :month, :year ]
     formats:
@@ -121,6 +132,8 @@ pt:
     private_messages_active: "Os outros utilizadores podem enviar mensagens privadas"
     private_messages_inactive: "Os outros utilizadores não podem enviar mensagens privadas"
    
+    rotp_active: "Security Token activated"
+    rotp_inactive: "Token di sicurezza disattivato"
   proposal_inserted: "A proposta foi inserida corretamente."
   proposal_updated:  "A proposta foi atualizado com sucesso."
   proposal_deleted:  "A proposta foi excluído com sucesso."
@@ -167,13 +180,58 @@ pt:
         get_out_of_group_button: "Get out of the group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
-        votations_title: "Votations you have partecipated"
+        votations_title: "Votations you have partecipated in"
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
         profile_info: "Profile informations"
         profile_info_unconfirmed: "(unconfirmed user)"
         send_message_button: "Send private message"
+        name_label: "Name"
+        surname_label: "Surname"
+        email_label: "Email"
+        edit_image: "Edit image"
+        to_be_confirmed: "to be confirmed"
+        password_label: "Password"
+        facebook_url_label: "Facebook URL"
+        googleplus_url_label: "Google+ URL"
+        linkedin_url: "Linkedin URL"
+        username_label: "Username"
+        registered_from: "Registered from"
+        load_image: "Load an image"
+        max_file_size: "Max size: 2MB"
+        what_can_i_do: "What can I do?"
+        what_i_cant_do: "What I can't do?"
+      send_message:
+        subject_label: "Subject"
+        body_label: "Body"
+      left_panel:
+        general_info: "General informations"
+        alarm_and_notifications: "Alarm and notifications"
+        geographic_borders: "Geographic borders"
+        account_and_privacy: "Account and privacy"
+        title: "SETTINGS AND PREFERENCES"
+      alarm_preferences:
+        receive_on_address: "Get alerts and newsletter on %{email}"
+        alerts: "Alerts"
+        emails: "Emails"
+      privacy_preferences:
+        tooltips: "Show tooltips"
+        show_urls: "Show Facebook, Google+ and LinkedIn URLs to users"
+        private_messages: "Receive private messages from other users"
+        join_accounts: "Join another account"
+        join_accounts_description: "On Airesis you have the ability to connect all your Social Network to a single account. <br/> Select the provider to connect and you will always be able to access the same account from Facebook, Google, Twitter and many more!"
+        joined_all: "You already joined all available providers. Thank you!"
+        join_facebook: "Join your Facebook account"
+        join_google: "Join your Google account"
+        join_twitter: "Join your Twitter account"
+        join_linkedin: "Join your Linkedin account"
+        join_meetup: "Join your Meetup account"
+        providers_list: "List of activated provider"
+        options: "Options"
+        rotp: "Enable Security Token"
+      border_preferences:
+        updating: "Please wait while we update your preferences according to your border preferences."
     groups:
       accept_requests:
         portavoce: "Porta-voz: quando um utilizador pede para participar no grupo, é aceite apenas pelo porta-voz do grupo. Logo que aceite o pedido, o utilizador estará dado como participante no grupo."
@@ -188,6 +246,12 @@ pt:
         title: "Gerir os eventos do grupo"
       edit_permissions:
         title: "Gerir funções e permissões"
+        new_role: "Add a new role"
+        edit_role_title: "Edit role"
+        new_role_title: "New role"
+        user_title: "User"
+        role_title: "Role"
+        no_users_yet: "Here you will be able to manage partecipants roles."
       edit_proposals:
         title: "Gerir propostas"
       index:
@@ -216,6 +280,7 @@ pt:
       edit:
         title: "Editar configurações do grupo"
         change_permissions: "Em Configurações de Funções e permissões pode alterar as ações que podem tornar membros"
+        remove_user_confirm: "Are you sure you want to remove %{name} from the group?"
       layout:
         home_button: "Home Page"
         proposals_button: "A proposta"
@@ -236,6 +301,12 @@ pt:
         reject_request_button: "Reject"
         ask_partecipate_button: "Ask to be part of the group"
         remove_post: "Remove from the group board"
+        destroy_button: "Remove group"
+        confirm_destroy: "YOU ARE DELETING THE GROUP!!! Are you sure you want to do that?"
+        list_permissions:
+          title: "List of your permissions inside the group"
+          button: "Permissions list"
+        print_all_partecipants: "Print partecipants list"
       header:
         settings: "Configurações"
         elections: "Eleições"
@@ -285,6 +356,11 @@ pt:
         most_popular_title: "Most popular (TODO)"
         most_voted_title: "Most ranked (TODO)"
         show_more: "Show more proposals..."
+        loading_alt: "Loading"
+        choose_model: "Choose a proposal model"
+        search_title: "Search in group proposals"
+        search_placeholder: "Insert at least two characters to search"
+        search_words: "Any words"
       show:
         voteup: "Concordo"
         votenil: "Não sei/não compreendo"
@@ -354,6 +430,10 @@ pt:
         what_nickname: "What's that?"
         give_contribute: "Make your contribution"
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
+        new_valutation_message: "The proposal has received a new valutation"
+        old_editors_title: "Old editors"
+        back_debate_button: "Put back in debate"
+        new_quorum_title: "Choose a new quorum"
       new:
         quorum_prompt: "Selecione um quorum"
         quorum_help: "Não os conheço!"
@@ -362,11 +442,6 @@ pt:
         step_3: "Problems and objectives"
         step_4: "First proposal"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
-        problems_title: "Problems"
-        problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
-        objectives_title: "Objectives"
-        step_4_title: "You can enter a text of the proposal or write it later based on the input received"
-        first_solution_title: "Text of the proposal"
         create_button: "Create the proposal"
         title: "New proposal"
         title_group: " in group %{name}"
@@ -374,6 +449,82 @@ pt:
         title_placeholder: "es. \"Facilitate bike transport on trains\""
         interest_borders_tkn_placeholder: "Cities, Regions or STates interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
+        standard:
+          problems_title: "Problems"
+          problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
+          objectives_title: "Objectives"
+          step_4_title: "You can enter a text of the proposal or write it later based on the input received"
+          first_solution_title: "Text of the proposal"
+          solution:
+            title: "Title"
+            description: "Description of the solution"
+            time: "Times"
+            subject: "Supervisor"
+            resources: "Necessary resources and how to retrieve them"
+            aspects: "Ethical, environmental, social aspects"
+            documents: "Documentation"
+            pros: "Pro"
+            cons: "Cons"
+        rule_book:
+          problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            article: "Article %{num}"
+            pros: "Pro"
+            cons: "Cons"
+        press:
+          problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
+          first_solution_title: "Title"
+          problems_title: "Message to transmit"
+          solution:
+            title: "Title"
+            subtitle: "Subtitle"
+            incipit: "Incipit"
+            body: "Body"
+            conclusion: "Conclusions"
+            deep: "Insights"
+        estimate:
+          problems_title_label: "What goods or services you wish to purchase? To solve which problems?"
+          problems_title: "Problems"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            cost: "Amount"
+            problems: "Rispect of constraints and problems"
+            dumentation: "Documentation"
+        agenda:
+          problems_title: "Type of meeting"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            points: "Agenda items"
+            priorities: "Items priorities"
+            links: "Insights links"
+        event:
+          problems_title: "Evento scope"
+          first_solution_title: "Solution 1"
+          problems_title_label: "Why do you want to organize an event? What are the aims?"
+          solution:
+            title: "Title"
+            description: "Description of the solution"
+            program: "Date, time and plan"
+            body: "place"
+            place: "Place"
+            organization: "Event organization"
+            resources: "Necessary resources and how to retrieve them"
+            pros: "Pro"
+            cons: "Cons"
+        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of others, through a process of shared problem solving."
+        step_2_title: "Maybe someone has already inserted a proposal similar to your: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! By clicking on the title of the proposals will be opened in a new tab."
+        step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
+        category_prompt: "--Choose a category--"
+        candidates:
+          solution:
+            name: "Name and surname"
+            data: "Personal data"
+            curriculum: "Curriculum"
+            available: "Availability for the position"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -485,6 +636,7 @@ pt:
         forgot_password_button: "Esqueceu-se da palavra-chave?"
         resend_email_button: "Não recebeu o Email de confirmação?"
         no_notifications: "Nenhuma notificação"
+        sign_has_read: "Sign as read"
       welcome: "Bem-vindo"
       groups_title: "GROUPS"
       login: "LOGIN"
@@ -493,6 +645,7 @@ pt:
       open_group: "Start a new group"
       new_group: "Find groups"
       support_us: "SUPPORT US"
+      no_alerts: "No alerts"
     blogs:
       show:
         no_posts: "Nenhum artigo"
@@ -504,6 +657,10 @@ pt:
         title: "Create your blog!"
         cancel_button: "No, thanks!"
         create_button: "Create it"
+      edit:
+        title: "Edit blog"
+        title_label: "Blog title"
+        back_to_blog: "Back to my blog"
     groups_area:
       edit:
         title: "Configurações do espaço de trabalho"
@@ -563,6 +720,7 @@ pt:
           authors: "Autores"
         notifications:
           title: "Alerts"
+        your_contributes: "Your last contributes"
     open_space:
       layout:
         proposals_button: "PROPOSALS"
@@ -599,6 +757,12 @@ pt:
         register: "Not registered yet? Sign up!"
         forgot_password: "Forgot your password?"
         havent_received_email: "Haven't received confirmation email?"
+    steps:
+      next: "Continue"
+    proposal_histories:
+      index:
+        title: "%{title} - Revision History"
+        back_to_proposal: "Back to proposal"
   pl:
     comments:
       zero: nenhum comentário
@@ -629,6 +793,7 @@ pt:
          period: "Repetição"
          frequency: "repetir todos"
          private: "Privado"
+         candidates_end_time: 'Deadline date for candidates entry'
       meeting:
         place:
           address: "Address"
@@ -650,6 +815,8 @@ pt:
         description_placeholder: "Esta mensagem será exibida na primeira página do grupo"
         image_url_placeholder: "URL da imagem do grupo"
         facebook_page_url_placeholder: "Se o grupo tem uma página no Facebook, digite o endereço."
+        admin_title: "Administrator name"
+        private: "Private group"
       blogs:
         title: 'Title'
       blog_post:
@@ -773,9 +940,10 @@ pt:
         voting: "Esta proposta está em processo de votação."
         ask_for_partecipation: "Pedir para entrar no grupo para avaliar e contribuir para esta proposta"
         visible_outside_warn: "This proposal is publicly visible"
+        available_authors: "There are new editors available for the proposal"
     registrations:
       create:
-        recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
+        recaptcha_ko: "Error in captcha validation. Please type it again"
     proposal_comments:
       cant_edit: "Can't edit comments that are not yours."
       insert_error: "Error during insert."
@@ -783,6 +951,54 @@ pt:
       delete_ok: 'Your comment has been deleted'
       report_ok: "Contribution reported succesfully"
       report_error: "Error during contribution report"
+      contribute_ok_message: "Contribute inserted correctly"
+      suggestion_ok_message: "Suggestion inserted correctly"
+    blogs:
+      cant_edit: "That's not your blog"
+      index:
+        title: "Blogs list"
+      new:
+        already_one: "I'm sorry. You already own a blog"
+      create:
+        ok_message: "Blog created succesfully!"
+      update:
+        ok_message: "Blog title updated succesfully"
+    users:
+      show:
+        clic_to_change: "Click on informations you want to update."
+      join_accounts:
+        ok_message: "Accounts joined succesfully!"
+        wrong_password: "Wrong password"
+      ko_message: "Error during accounts join. The operation is not possible at the moment."
+      tooltips:
+        enabled: "Tooltip enabled"
+        disabled: "Tooltip disabled"
+        ko_message: "Error during update. Please try later"
+      urls:
+        shown: "URL visible"
+        hidden: "URL hidden"
+      interest_borders:
+        ok_message: "Geographic borders updated correctly"
+      update:
+        confirm_email: "You need to confirm the new email address."
+    authentications:
+      destroy:
+        ok_message: "Identity Provider removed"
+    groups:
+      destroy:
+        ok_message: "Grup deleted correctly"
+      create:
+        ok_message: "Grup created correctly"
+        ko_message: "Error during group creation"
+    blog_comments:
+      create:
+        ok_message: "Commento inserito correttamente."
+        ko_message: "Errore durante l'inserimento del commento"
+    events:
+      destroy:
+        ok_message: "Evento eliminato correttamente"
+      update:
+        ok_message: "Evento aggiornato correttamente"
   unavailable_option: "Esta opção ainda não está disponível"
   change_language: "Mudar o idioma"
   terms_of_service: "Terms of service"
@@ -790,6 +1006,10 @@ pt:
   back_to_top: "Back to top"
   proposals:
     create_button: "Create a proposal"
+    show:
+      ready_for_vote: "Ready for vote"
+      keep_discuss: "Keep the discussion"
+    regenerate_button: "But back in debate"
   interest_borders_hint: "Type a few characters to search for a place"
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
@@ -799,3 +1019,38 @@ pt:
     cancel: Cancel
     save: "Save"
     report: "Report"
+    update: "Update"
+    send: "Send"
+    create: "Create"
+    delete: "Delete"
+    edit: "Edit"
+  tooltips:
+    random_stack_1: "<strong>How it works?</strong><br/>Contributions are shown first novel and then evaluated and the contributions that you already rated in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent."
+    random_stack_3: "<strong>How it works?</strong><br/>Contributions are shown first in order of popularity. <br/> <b>Note</b>: Your rating will change the sort order!"
+    miglioricontributi: "<strong> How can I help? </strong> <br/> contributions should not express appreciation of the simple but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a summary of the text shared. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!"
+    voglioredigere: "Ask the editors allow you to edit the text of the proposal on the basis of contributions from users."
+    voteup: "<div class='votedup'></div>the proposal is mature and can go to the vote (you can change the rating whether the proposal is updated)"
+    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>the proposal is not yet mature as in the text has to be integrated user contributions (you can change the rating when the proposal will be updated)"
+    valutazioni: "total number of evaluations received"
+    gradimento: "percentage of positive evaluations on the total"
+    nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
+    manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
+    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal"
+    quorum_minutes: "until <b>%{date}</b> %{time}"
+    quorum_valutations: "until it will be rated good by <b>least %{valutations} people</b>"
+    quorum_description: "The proposal will be in debate %{conditions}. Will pass to votation state if obtain a <b>rank</b> (positive valutation) grater than <b>%{good_score}%</b> of the total number of votation."
+  group: group
+  loading: "Loading..."
+  proposal_types:
+    problems_title: "Problems"
+    rule_book:
+      problems_title: "Problems"
+      sections:
+        inspire: "Rules from which get example"
+        stackeholders: "Stakeholders"
+        requisiti: "Requirements to be met"
+  default_admin_title: "Administrator"
+  saving: "Saving..."
+  sending: "Sending..."
+  updating: "Updating..."

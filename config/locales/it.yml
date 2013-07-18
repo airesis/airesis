@@ -356,6 +356,11 @@ it:
         most_popular_title: "Più popolari (TODO)"
         most_voted_title: "Più valutate (TODO)"
         show_more: "Mostra altre proposte..."
+        loading_alt: "Caricamento"
+        choose_model: "Scegli un modello di proposta"
+        search_title: "Cerca tra le proposte del gruppo"
+        search_placeholder: "Inserisci almeno due caratteri per effettuare la ricerca"
+        search_words: "Almeno una parola"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -427,6 +432,8 @@ it:
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
         new_valutation_message: "La proposta ha ricevuto una nuova valutazione"
         old_editors_title: "Hanno redatto la proposta"
+        back_debate_button: "Rimetti in dibattito"
+        new_quorum_title: "Scegli il nuovo quorum"
       new:
         quorum_prompt: "Seleziona un quorum"
         quorum_help: "Non li conosco!"
@@ -459,7 +466,7 @@ it:
             pros: "Pro"
             cons: "Contro"
         rule_book:
-          problems_title_label: "Quali sono i problemi da risolvere con l’applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
+          problems_title_label: "Quali sono i problemi da risolvere con l'applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
@@ -491,7 +498,7 @@ it:
           first_solution_title: "Soluzione 1"
           solution:
             title: "Titolo"
-            points: "Punti all’ordine del giorno"
+            points: "Punti all'ordine del giorno"
             priorities: "Priorità dei punti proposti"
             links: "Link di approfondimento"
         event:
@@ -504,11 +511,11 @@ it:
             program: "Data, orario e programma"
             body: "place"
             place: "Luogo"
-            organization: "Organizzazione dell’evento"
+            organization: "Organizzazione dell'evento"
             resources: "Risorse necessarie e loro reperimento"
             pros: "Pro"
             cons: "Contro"
-        step_1_title: "Puoi proporre un problema da risolvere, un’idea da perfezionare, un’iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l’aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
+        step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
         step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
         category_prompt: "--Seleziona una categoria--"
@@ -629,6 +636,7 @@ it:
         forgot_password_button: "Hai dimenticato la password?"
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
+        sign_has_read: "Segna come lette"
       welcome: "Benvenuto"
       groups_title: "GRUPPI"
       login: "ACCEDI"
@@ -785,7 +793,7 @@ it:
         period: "Ripeti"
         frequency: "Ripeti ogni"
         private: "Privato"
-        candidates_end_time: 'Termine iscrizione candidati'
+        candidates_end_time: "Termine iscrizione candidati"
       meeting:
         place:
           address: "Indirizzo"
@@ -984,13 +992,13 @@ it:
         ko_message: "Errore durante la creazione del gruppo."
     blog_comments:
       create:
-        ok_message: %Q(Commento inserito correttamente.)
+        ok_message: "Commento inserito correttamente."
         ko_message: "Errore durante l'inserimento del commento"
     events:
       destroy:
-        ok_message: %Q(Evento eliminato correttamente)
+        ok_message: "Evento eliminato correttamente"
       update:
-        ok_message: %Q(Evento aggiornato correttamente)
+        ok_message: "Evento aggiornato correttamente"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni"

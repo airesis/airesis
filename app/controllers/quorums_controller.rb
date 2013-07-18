@@ -11,6 +11,7 @@ class QuorumsController < ApplicationController
 
   before_filter :check_permissions, :only => [:new,:create,:edit,:update,:destroy,:change_status]
 
+  layout :choose_layout
 
   def new
     @quorum = Quorum.new
@@ -157,6 +158,11 @@ class QuorumsController < ApplicationController
 
   def load_quorum
     @quorum = Quorum.find(params[:id])
+  end
+
+
+  def choose_layout
+    @group ? "groups" : "open_space"
   end
 
 end

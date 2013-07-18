@@ -203,14 +203,15 @@ class ApplicationController < ActionController::Base
 
   def generate_nickname(user, proposal)
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id, proposal.id)
-    if !nickname
+    unless nickname
       loop = true
       while loop do
         nickname = NicknameGeneratorHelper.give_me_a_nickname
         loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id, nickname)
       end
       ProposalNickname.create(:user_id => user.id, :proposal_id => proposal.id, :nickname => nickname)
-      @generated_nickname = true
+
+      @generated_nickname = @proposal.is_anonima?
     end
   end
 

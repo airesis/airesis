@@ -1,11 +1,11 @@
 <%if can? :view_proposal, @group%>
 <fieldset>
-  <legend><%= 'Cerca tra le proposte del gruppo' %></legend>
+  <legend><%= t('pages.proposals.index.search_title') %></legend>
 
   <%= form_tag search_group_proposals_path(@group), method: :get do %>
       <p>
-        <%= text_field_tag :search, params[:search], placeholder: 'Inserisci almeno due caratteri per effettuare la ricerca', size: 40 %><br />
-        <%= check_box_tag :or, params[:or] %> <%= 'Almeno una parola' %><br />
+        <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 40 %><br />
+        <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br />
         <%= submit_tag 'Cerca', onclick: 'return checkCharacters();', class: 'btn' %>
       </p>
   <% end %>

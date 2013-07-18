@@ -1,0 +1,15 @@
+<%= content_for :left_panel do %>
+  <%= render :partial => 'help_menu' %>
+<%end%>
+<%= render :partial => 'help_content' %>
+
+<script type="text/javascript">
+    function showSection(id) {
+        $('.quorum_section').hide();
+        $('#'+id).fadeIn();
+    }
+    $(function() {
+        $('.quorum_section').hide();
+        $('#whatis').fadeIn();
+    })
+</script>

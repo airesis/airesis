@@ -71,7 +71,7 @@
 
   <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/, '_') : t('pages.proposals.index.last_title').gsub(/\s/, '_') %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', :alt => "Caricamento" %>
+      <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
       <br/>
       <b><%= t('pages.proposals.index.loading_proposals') %></b>
     </div>
@@ -214,7 +214,7 @@
         select: function (e, ui) {
             var $panel = $(ui.panel);
             if ($panel.is(":empty")) {
-                $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=escape_javascript(image_tag 'ajax-loader.gif', :alt=>"Caricamento")%><br /><b>Sto caricando le proposte...</b></div>");
+                $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=j (image_tag 'ajax-loader.gif', :alt=>t('pages.proposals.index.loading_alt'))%><br /><b><%= t('pages.proposals.index.loading_proposals')%></b></div>");
             }
         }
     });
@@ -243,7 +243,7 @@
 
 
         create_proposal_.dialog({
-            title: 'Scegli un modello di proposta',
+            title: "<%=j t('pages.proposals.index.choose_model') %>",
             modal: true,
             width: 720,
             height: 'auto',
