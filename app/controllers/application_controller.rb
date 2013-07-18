@@ -195,6 +195,7 @@ class ApplicationController < ActionController::Base
         #alert only for contributes
         flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
         notify_user_comment_proposal(@proposal_comment)
+        @section = @proposal_comment.paragraph.section if @proposal_comment.paragraph
       else
         flash[:notice] = t('controllers.proposal_comments.suggestion_ok_message')
       end

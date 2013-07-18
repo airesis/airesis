@@ -7,14 +7,36 @@
     </p>
 
     <p>
-      <%= f.label :title_bar %><br/>
-      <%= f.text_field :title_bar, placeholder: t('activerecord.attributes.group.title_bar_placeholder'), style: "width: 600px" %>
-    </p>
-
-    <p>
       <%= f.label :description %><br/>
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
+
+    <% if ['edit','update'].include? params[:action] %>
+        <p>
+          <%= f.label :rule_book %><br/>
+          <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
+        </p>
+
+        <script type="text/javascript">
+            tinyMCE.init({
+                mode: 'exact',
+                elements: 'group_rule_book',
+                theme: 'advanced',
+                theme_advanced_toolbar_location: 'top',
+                theme_advanced_toolbar_align: 'left',
+                theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor',
+                theme_advanced_buttons2: '',
+                theme_advanced_buttons3: '',
+                relative_urls: false,
+                plugins: 'legacyoutput,media,inlinepopups,autolink,paste',
+                formats: {
+                    underline: { inline: 'u' }
+                },
+                paste_auto_cleanup_on_paste: true,
+                theme_advanced_statusbar_location: "none"
+            });
+        </script>
+    <%end%>
 
     <% if ::Configuration::socialnetwork_active %>
         <p>
@@ -23,14 +45,16 @@
         </p>
     <% end %>
 
+    <!--
     <p>
       <%= f.label :accept_requests %><br/>
       <%= f.radio_button :accept_requests, 'p' %>
       <%= t('pages.groups.accept_requests.portavoce')%><br/>
-      <!--<%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-	<%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
-	-->
+      <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
+      <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
     </p>
+    -->
+    <p>
         <%=  f.label :image %><br/>
         <%=f.file_field :image, accept: "image/jpeg,image/png"  %>
     <p>

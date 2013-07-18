@@ -127,7 +127,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       #conditions = ''
 
-      @section = Section.find(params[:proposal_comment][:section_id]) if params[:right]
+      #@section = Section.find(params[:proposal_comment][:section_id]) if params[:right]
       #  conditions = "proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
       #else
       #  conditions = "proposal_comments.paragraph_id is null"
@@ -147,7 +147,7 @@ class ProposalCommentsController < ApplicationController
     end
 
   rescue Exception => e
-    #log_error(e)
+    log_error(e)
     respond_to do |format|
       puts e
       flash[:error] = t('controllers.proposal_comments.insert_error')

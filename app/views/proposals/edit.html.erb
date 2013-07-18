@@ -89,11 +89,12 @@
                       input.tokenInput([], {
                           theme: "facebook",
                           crossDomain: false,
-                          allowCustomEntry: true,
                           prePopulate: <%=raw data%>,
                           hintText: "<%=t('digit_tags')%>",
                           searchingText: "<%=t('digit_tags')%>",
-                          preventDuplicates: true
+                          preventDuplicates: true,
+                          allowFreeTagging: true,
+                          allowTabOut: true
                       })
                   }
               });

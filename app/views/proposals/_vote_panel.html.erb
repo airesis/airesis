@@ -12,7 +12,7 @@
 
             <% @proposal.solutions.each do |solution| %>
                 <tr data-id="<%= solution.id %>">
-                  <td style="width:30%"><span class="vote_solution_title" data-id="<%=solution.id%>"><%= solution.sections.first.title %></span></td>
+                  <td style="width:30%"><span class="vote_solution_title" data-id="<%=solution.id%>"><%= solution.title %></span></td>
                   <td style="width:70%"><select class="slideNumber">
                     <% range.times do |c| %>
                         <option <%='selected="selected"' if c==range/2 %>><%= c+1 %></option>

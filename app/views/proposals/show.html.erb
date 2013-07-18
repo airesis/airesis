@@ -137,7 +137,7 @@
         return false;
     }
 
-
+    var retval = false;
     function hideAndDeleteReply(event, id) {
         if (!retval) {
             clicked = $('#delete' + id);
@@ -157,7 +157,6 @@
             retval = false;
             return true;
         }
-
     }
 
     function report_contribute(id) {

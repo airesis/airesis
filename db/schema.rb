@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718100933) do
+ActiveRecord::Schema.define(:version => 20130718140236) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -387,29 +387,30 @@ ActiveRecord::Schema.define(:version => 20130718100933) do
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
     t.string   "description",                :limit => 2000
-    t.string   "accept_requests",            :limit => 1,    :default => "v",   :null => false
+    t.string   "accept_requests",            :limit => 1,     :default => "v",   :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                      :default => 1
+    t.integer  "partecipation_role_id",                       :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                    :default => true,  :null => false
-    t.boolean  "default_anonima",                            :default => true,  :null => false
-    t.boolean  "default_visible_outside",                    :default => false, :null => false
-    t.boolean  "default_secret_vote",                        :default => true,  :null => false
-    t.integer  "max_storage_size",                           :default => 51200, :null => false
-    t.integer  "actual_storage_size",                        :default => 0,     :null => false
-    t.boolean  "enable_areas",                               :default => false, :null => false
-    t.integer  "group_partecipations_count",                 :default => 1,     :null => false
+    t.boolean  "change_advanced_options",                     :default => true,  :null => false
+    t.boolean  "default_anonima",                             :default => true,  :null => false
+    t.boolean  "default_visible_outside",                     :default => false, :null => false
+    t.boolean  "default_secret_vote",                         :default => true,  :null => false
+    t.integer  "max_storage_size",                            :default => 51200, :null => false
+    t.integer  "actual_storage_size",                         :default => 0,     :null => false
+    t.boolean  "enable_areas",                                :default => false, :null => false
+    t.integer  "group_partecipations_count",                  :default => 1,     :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "admin_title",                :limit => 200
-    t.boolean  "private",                                    :default => false
+    t.boolean  "private",                                     :default => false
+    t.string   "rule_book",                  :limit => 40000
   end
 
   create_table "images", :force => true do |t|
