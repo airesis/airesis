@@ -1,34 +1,6 @@
 //$('#event_actions').fadeOut();
 var event_edit = $('<div id="event_edit"></div>');
 
-event_edit.html("<%= escape_javascript(render(:partial => 'edit_form'))%>");
-disegnaBottoni();
-
-$("#event_meeting_attributes_place_attributes_comune_id",event_edit).tokenInput("/comunes.json", {
-	crossDomain : false,
-	prePopulate : $('#event_meeting_attributes_place_attributes_comune_id',event_edit).data("pre"),
-	hintText : "Digita alcuni caratteri per cercare un comune",
-	noResultsText : "Nessun comune trovato",
-	searchingText : "Sto cercando...",
-	preventDuplicates : true,
-	tokenLimit : 1,
-    allowTabOut: true
-});		
-		
-if (!geocoder)
-	geocoder = new google.maps.Geocoder();
-
-<%if @event.place%>	
-	var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>,<%=@event.place.longitude_original%>);
-	var center = new google.maps.LatLng(<%=@event.place.latitude_center%>,<%=@event.place.longitude_center%>);
-	var zoom = <%=@event.place.zoom%>;			
-<%else%>
-	var latlng = new google.maps.LatLng(42.407235,14.260254);
-	var center = latlng;
-	var zoom = 5;
-<%end%>
-
-
 event_edit.dialog({
     title : '<%=j 'Modifica evento'%>',
     modal : true,
@@ -40,46 +12,4 @@ event_edit.dialog({
     }
 });
 
-var map_canvas = $('#edit_map_canvas',event_edit)[0];
-
-if (map_canvas) {
-	var myOptions = {
-		zoom : zoom,
-		center: center,
-		mapTypeId : google.maps.MapTypeId.ROADMAP,
-		panControl : true,
-		streetViewControl : true,
-		mapTypeControl : false
-	};
-
-	map = new google.maps.Map(map_canvas, myOptions);
-	
-	var panoramaOptions = {
-		position : latlng,
-		pov : {
-			heading : 34,
-			pitch : 10,
-			zoom : 1
-		}
-	};
-	
-	marker = new google.maps.Marker({
-		map : map,
-		position: latlng,
-		draggable : true
-	});
-	
-	google.maps.event.addListener(marker, 'dragend', listenMarkerPosition);
-	google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
-	google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
-	
-	/*var panorama = new  google.maps.StreetViewPanorama(document.getElementById("panorama_canvas"),panoramaOptions);
-	 map.setStreetView(panorama);*/
-
-	<%unless @event.place%>
-		putMarker("Italy");	//inizializza il marcatore sull'Italia
-	<%end%>
-}
-
-disegnaDatePicker();
-
+event_edit.html("<%= escape_javascript(render(:partial => 'edit_form'))%>");
