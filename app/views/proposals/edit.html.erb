@@ -150,7 +150,7 @@
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
-                    <%= sol.text_field :title%>
+                    <%= sol.text_field :title %>
                   </div>
                   <span class="remove_sol_button">
                     <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= 'Rimuovi soluzione' %></a>
@@ -309,8 +309,8 @@
                         compress_.animate(
                                 {
                                     'height': toggleMinHeight
-                                }, duration, easing,function() {
-                                    var pressed_ = $('.pressed',compress_).text('Clicca sul titolo per espandere questa soluzione');
+                                }, duration, easing, function () {
+                                    var pressed_ = $('.pressed', compress_).text('Clicca sul titolo per espandere questa soluzione');
                                     pressed_.hide();
                                     this_.after(pressed_);
                                     pressed_.fadeIn();
@@ -323,8 +323,8 @@
                         compress_.animate(
                                 {
                                     'height': compress_.attr('data-height')
-                                }, duration, easing, function() {
-                                    var pressed_ = $('.pressed',compress_).text('Clicca sul titolo per comprimere questa soluzione');
+                                }, duration, easing, function () {
+                                    var pressed_ = $('.pressed', compress_).text('Clicca sul titolo per comprimere questa soluzione');
                                 });
 
                         $('.sol_content', compress_).show();
@@ -334,6 +334,11 @@
                         })
                     }
                 });
+        $('.solution_main h3 input').click(function (event) {
+            event.preventDefault();
+            return false;
+        });
+
     }
 
     function integrate_contribute(el, id) {
@@ -486,13 +491,16 @@
         paragraph_.fadeIn();
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution));
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
+        paragraph_.find("textarea[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
+            var id_ = $(this).attr('id');
+            $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + numSolution));
+        });
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var name_ = $(this).attr('name');
             $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + numSolution + ']'));
+        });
 
-        })
 
-        console.log(paragraph_.find('textarea.tinymce'));
         paragraph_.find('textarea.tinymce').each(function () {
             tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
         });
@@ -500,7 +508,6 @@
         paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
 
         make_solution_sortable($(".solutions_column", paragraph_));
-
 
     }
 

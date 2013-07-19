@@ -8,7 +8,7 @@ module ProposalsHelper
   #create a solution for a standard proposal
   def standard_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.standard.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.standard.solution.description'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.standard.solution.time'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -23,7 +23,7 @@ module ProposalsHelper
 
   def candidates_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Nome e Cognome candidato')
     solution.sections.build(title: t('pages.proposals.new.candidates.solution.name'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.candidates.solution.data'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.candidates.solution.curriculum'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -33,7 +33,7 @@ module ProposalsHelper
 
   def rule_book_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.rule_book.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     4.times do
       solution.sections.build(title: t('pages.proposals.new.rule_book.solution.article',num: seq), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -45,7 +45,7 @@ module ProposalsHelper
 
   def press_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.press.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.press.solution.subtitle'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.press.solution.incipit'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -57,7 +57,7 @@ module ProposalsHelper
 
   def event_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.event.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.event.solution.description'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.event.solution.program'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -71,7 +71,7 @@ module ProposalsHelper
 
   def estimate_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.estimate.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.estimate.solution.cost'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.estimate.solution.problems'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -81,7 +81,7 @@ module ProposalsHelper
 
   def agenda_solution
     seq = 0
-    solution = Solution.new
+    solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.agenda.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.agenda.solution.points'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.agenda.solution.priorities'), seq: seq+=1).paragraphs.build(content: '', seq: 1)

@@ -1009,7 +1009,7 @@ en:
     show:
       ready_for_vote: "Ready for vote"
       keep_discuss: "Keep the discussion"
-    regenerate_button: "But back in debate"
+    regenerate_button: "Put back in debate"
   interest_borders_hint: "Type a few characters to search for a place"
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."

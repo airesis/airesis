@@ -304,7 +304,8 @@ class ProposalCommentsController < ApplicationController
 
 
   def rank(rank_type)
-    if @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
+    @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
+    if @my_ranking
       @ranking = @my_ranking
     else
       @ranking = ProposalCommentRanking.new
@@ -317,11 +318,7 @@ class ProposalCommentsController < ApplicationController
       if @ranking.save
         @proposal_comment.reload
         flash[:notice] = t(:proposal_comment_rank_registered)
-        format.js { render :update do |page|
-          #page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "rankingpanelcontainer#{params[:id]}", :partial => 'proposal_comments/ranking_panel', :locals => {:comment => @proposal_comment}
-        end
-        }
+        format.js { render 'rank' }
         format.html { redirect_to @proposal }
       else
         flash[:notice] = t(:error_on_proposal_comment_rank)

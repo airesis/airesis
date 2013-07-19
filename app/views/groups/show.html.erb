@@ -10,17 +10,20 @@
     <meta name="description" content="<%= @group.description %>">
 <% end %>
 
-<% javascript 'endless_page' %>
+<% if can? :view_data, @group %>
+    <% javascript 'endless_page' %>
 
-<div class="group_description">
-  <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
+    <div class="group_description">
+      <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
 
-<div id="posts_container">
-  <%= render :partial => 'group_posts' %>
-</div>
+    <div id="posts_container">
+      <%= render :partial => 'group_posts' %>
+    </div>
+<% end %>
+
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente  %>
+<% if false #disattivato momentaneamente   %>
     <%= content_for :right_panel do %>
         <% if (can? :view_proposal, @group) %>
             <h4>Proposte interne al gruppo</h4>

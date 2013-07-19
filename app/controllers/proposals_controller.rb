@@ -665,7 +665,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         notify_proposal_ready_for_vote(@proposal, @group)
       elsif @proposal.rank < @proposal.quorum.bad_score
         abandon(@proposal)
-        notify_proposal_rejected(@proposal, @group)
+        notify_proposal_abandoned(@proposal, @group)
       end
       @proposal.save!
     end
@@ -858,7 +858,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
         if ranking.updated_at < @proposal.updated_at
-          flash.now[:info] = t('info.proposal.can_change_valutation')
+          flash.now[:info] = t('info.proposal.can_change_valutation') if ['show','update'].include? params[:action]
           @can_vote_again = 1
         else
           @can_vote_again = 0
