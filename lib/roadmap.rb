@@ -14,6 +14,6 @@ class Roadmap
   end
 
   def issues
-    self.class.get("/projects/airesis/issues.xml?status_id=*&tracker_id=2&limit=500")
+    self.class.get("/projects/airesis/issues.xml?tracker_id=2&limit=100&status_id=*&cf_13=1")
   end
 end
