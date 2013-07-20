@@ -218,7 +218,7 @@
                     view: currentView,
                     contributes: contributes
                 },
-                type: 'post'});
+                type: 'get'});
         } else {
             setTimeout("checkScroll()", 250);
         }
@@ -283,7 +283,7 @@
                 view: currentView,
                 contributes: contributes
             },
-            type: 'post',
+            type: 'get',
             complete: function () {
                 $("#loading_contributes").hide();
             }

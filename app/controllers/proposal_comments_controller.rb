@@ -15,6 +15,9 @@ class ProposalCommentsController < ApplicationController
   before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
 
 
+  layout :choose_layout
+
+
   #retrieve contributes list
   def index
     order = ""
@@ -345,5 +348,9 @@ class ProposalCommentsController < ApplicationController
         redirect_to proposal_path(params[:proposal_id])
       }
     end
+  end
+
+  def choose_layout
+    @group ? "groups" : "open_space"
   end
 end

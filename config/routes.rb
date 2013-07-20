@@ -76,7 +76,7 @@ Airesis::Application.routes.draw do
       end
       collection do
         post :mark_noise
-        post :list
+        get :list
         get :left_list
         get :edit_list
         post :report
