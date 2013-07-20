@@ -97,7 +97,6 @@ module ProposalsModule
 
   def agenda_create(proposal)
     seq = 1
-    proposal.sections.build(title: 'Tipologia di incontro', seq: seq+=1).paragraphs.build(content: '', seq: 1)
     proposal.sections.build(title: 'Data e orario', seq: seq+=1).paragraphs.build(content: '', seq: 1)
     proposal.sections.build(title: 'Luogo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
 

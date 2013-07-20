@@ -94,7 +94,7 @@ class Ability
         can_do_on_group?(user, group, 8)
       end
       can :view_data, Group do |group|
-        !group.is_private? || (group.partecipants.include? user)
+        !group.is_private? || (group.partecipants.include? user)        #todo remove first condition
       end
 
       can :update, PartecipationRole do |partecipation_role|

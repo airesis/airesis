@@ -1,14 +1,14 @@
 <h4><%= t('pages.proposals.new.step_4_title') %></h4>
 
 <p>
-  <%= f.label :quorum_id %> *<br/>
+  <%= f.label :quorum_id %> *  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %><br/>
   <% if @group %>
     <%@quorum_collection = @group.quorums.active%>
 <% else %>
     <%@quorum_collection = Quorum.public.order('seq nulls last') %>
 <% end %>
   <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}]}),{:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick2'} %>
-  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
+
 
 
 <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
