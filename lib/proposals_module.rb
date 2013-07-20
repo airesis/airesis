@@ -33,10 +33,11 @@ module ProposalsModule
           Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
         end
       elsif proposal.rank < quorum.bad_score
-        proposal.proposal_state_id = ProposalState::ABANDONED
+        abandon(proposal)
+
         proposal.private? ?
-          notify_proposal_rejected(proposal,proposal.presentation_groups.first) :
-          notify_proposal_rejected(proposal)
+          notify_proposal_abandoned(proposal,proposal.presentation_groups.first) :
+          notify_proposal_abandoned(proposal)
 
         #elimina il timer se vi è ancora associato
         if quorum.minutes

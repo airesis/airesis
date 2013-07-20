@@ -663,9 +663,20 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       if @proposal.rank >= @proposal.quorum.good_score
         @proposal.proposal_state_id = ProposalState::WAIT_DATE #metti la proposta in attesa di una data per la votazione
         notify_proposal_ready_for_vote(@proposal, @group)
+
+        #elimina il timer se vi è ancora associato
+        if @proposal.quorum.minutes
+          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        end
+
       elsif @proposal.rank < @proposal.quorum.bad_score
         abandon(@proposal)
         notify_proposal_abandoned(@proposal, @group)
+
+        #elimina il timer se vi è ancora associato
+        if @proposal.quorum.minutes
+          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        end
       end
       @proposal.save!
     end

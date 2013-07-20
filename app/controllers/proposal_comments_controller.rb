@@ -147,7 +147,7 @@ class ProposalCommentsController < ApplicationController
     end
 
   rescue Exception => e
-    log_error(e)
+    #log_error(e)
     respond_to do |format|
       puts e
       flash[:error] = t('controllers.proposal_comments.insert_error')
