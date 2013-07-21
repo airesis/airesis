@@ -26,7 +26,7 @@ class Ability
         can_vote_proposal?(user, proposal)
       end
       can :regenerate, Proposal do |proposal|
-        can_regenerate_proposal?(user,proposal)
+        can_regenerate_proposal?(user, proposal)
       end
       can :destroy, Proposal do |proposal|
         (proposal.users.include? user) &&
@@ -94,7 +94,7 @@ class Ability
         can_do_on_group?(user, group, 8)
       end
       can :view_data, Group do |group|
-        !group.is_private? || (group.partecipants.include? user)        #todo remove first condition
+        !group.is_private? || (group.partecipants.include? user) #todo remove first condition
       end
 
       can :update, PartecipationRole do |partecipation_role|
@@ -165,7 +165,7 @@ class Ability
 
       can :update, ProposalNickname do |proposal_nickname|
         proposal_nickname.created_at > Time.now - 10.minutes &&
-        proposal_nickname.user == user
+            proposal_nickname.user == user
       end
 
       if user.moderator?
@@ -186,6 +186,7 @@ class Ability
         can :destroy, ProposalComment
         can :manage, Group
         can :manage, BlogPost
+        can :update, PartecipationRole
         #cannot :show_tooltips
         #can :vote, Proposal do |proposal|
         #  can_vote_proposal?(user, proposal)
@@ -199,10 +200,17 @@ class Ability
 
 
     def can_edit_event?(user, event)
-      (event.organizers.first.scoped_partecipants(GroupAction::CREATE_EVENT).include? user) &&
-          ((event.is_votazione? && event.proposals.count == 0) ||
-              (event.is_elezione? && event.election.candidates.count == 0) ||
-              (event.is_incontro? || event.is_riunione?))
+      group = event.organizers.first
+      c1 = false
+      if group
+        c1 = (group.scoped_partecipants(GroupAction::CREATE_EVENT).include? user)
+      else
+        c1 = user.admin?
+      end
+      c1 &&
+      ((event.is_votazione? && event.proposals.count == 0) ||
+          (event.is_elezione? && event.election.candidates.count == 0) ||
+          (event.is_incontro? || event.is_riunione?))
     end
 
 
@@ -324,11 +332,11 @@ class Ability
     end
 
 
-    def can_regenerate_proposal?(user,proposal)
+    def can_regenerate_proposal?(user, proposal)
       return false unless proposal.abandoned?
       proposal.private ?
-        can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_INSERT) :
-        true
+          can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_INSERT) :
+          true
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
