@@ -193,12 +193,22 @@ class ApplicationController < ActionController::Base
 
       if @proposal_comment.is_contribute?
         #alert only for contributes
-        flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
         notify_user_comment_proposal(@proposal_comment)
-        @section = @proposal_comment.paragraph.section if @proposal_comment.paragraph
+        if @proposal_comment.paragraph
+          @section = @proposal_comment.paragraph.section
+          if params[:right]
+            flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
+          else
+            flash[:notice] = t('controllers.proposal_comments.right_contribute_ok_message', {section: @section.title})
+          end
+        else
+          flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
+        end
       else
         flash[:notice] = t('controllers.proposal_comments.suggestion_ok_message')
       end
+      #if it's lateral show a message, else show show another message
+
     end
   end
 

@@ -955,6 +955,7 @@ it:
       report_error: "Errore durante la segnalazione del contributo"
       contribute_ok_message: "Contributo inserito correttamente"
       suggestion_ok_message: "Suggerimento inserito correttamente"
+      right_contribute_ok_message: "Contributo inserito correttamente.<br/>Per vederlo clicca su 'visualizza contributi' a fianco del paragrafo '%{section}'"
     blogs:
       cant_edit: "Non puoi modificare un blog che non ti appartiene."
       index:
