@@ -17,10 +17,19 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
 <%else%>
     <%if @proposal_comment.paragraph_id %>
         var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
+        var contribute_button = $('.contributeButton'+data_section_id);
         $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment', locals: {comment: @proposal_comment})%>');
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
-        var num_contributes = parseInt($('.contributeButton'+data_section_id).attr('data-contributes_num'));
-        $('.contributeButton'+data_section_id).attr('data-contributes_num',num_contributes+1);
+        var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
+        contribute_button.attr('data-contributes_num',num_contributes+1);
+
+        if (contribute_button.attr('data-status') != 1) {
+            $('.text', contribute_button).text('VISUALIZZA CONTRIBUTI').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+        }
+        contribute_button.effect('highlight', {}, 3000);
+
+
+
     <%else%>
         $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment', :locals => {:comment => @proposal_comment}%>');
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');

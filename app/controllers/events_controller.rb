@@ -136,9 +136,9 @@ class EventsController < ApplicationController
 
   def list
     if @group
-    @events = @group.events.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}'"] )
+    @events = @group.events.all(:conditions => ["(starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}') or (endtime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}')"] )
     else
-    @events = Event.all(:conditions => ["starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}' and private = false"] )
+    @events = Event.all(:conditions => ["(starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}') or (endtime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}')"] )
     end
     events = []
     @events.each do |event|

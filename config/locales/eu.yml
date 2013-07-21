@@ -817,6 +817,8 @@ eu:
         facebook_page_url_placeholder: "Group Facebook page? insert link here."
         admin_title: "Administrator name"
         private: "Private group"
+        rule_book: "Rule book"
+        image: "Load image"
       blogs:
         title: 'Title'
       blog_post:
@@ -953,6 +955,7 @@ eu:
       report_error: "Error during contribution report"
       contribute_ok_message: "Contribute inserted correctly"
       suggestion_ok_message: "Suggestion inserted correctly"
+      right_contribute_ok_message: "Contribute inserted correctly.<br/>Too see it click on 'view contributes' next to the paragraph '%{section}'"
     blogs:
       cant_edit: "That's not your blog"
       index:

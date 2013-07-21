@@ -2,13 +2,13 @@
 $(function () {
     <% flash.each do |key,value| %>
       <%if (key == :info) %>
-        toastr.info('<%=j value%>');
+        toastr.info('<%=raw j value%>');
       <%elsif (key == :notice)%>
-        toastr.success('<%=j value%>');
+        toastr.success('<%=raw j value%>');
       <%elsif  (key == :warn) %>
-        toastr.warning('<%=j value%>');
+        toastr.warning('<%=raw j value%>');
       <%else%>
-        toastr.error('<%=j value%>');
+        toastr.error('<%=raw j value%>');
       <%end%>
     <%end%>
 });

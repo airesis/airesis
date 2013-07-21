@@ -66,6 +66,7 @@ module ProposalsModule
 
     #and authors
     proposal.proposal_presentations.destroy_all
+    proposal.rankings.destroy_all
     #proposal.save!
   end
 

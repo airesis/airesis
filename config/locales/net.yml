@@ -435,8 +435,8 @@ net:
         back_debate_button: "Rimetti in dibattito"
         new_quorum_title: "Scegli il nuovo quorum"
       new:
-        quorum_prompt: "Seleziona un quorum"
-        quorum_help: "Non li conosco!"
+        quorum_prompt: "Seleziona una durata"
+        quorum_help: "Help"
         step_1: "Classificazione"
         step_2: "Proposte simili"
         step_3: "Problema/ostacoli"
@@ -677,7 +677,7 @@ net:
         add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
-        title: "Elenco quorum disponibili"
+        title: "Elenco durate disponibili"
     home:
       index:
         whatis: "COS'E' AIRESIS"
@@ -817,6 +817,8 @@ net:
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
         admin_title: "Nome amministratore"
         private: "Gruppo chiuso"
+        rule_book: "Regolamento"
+        image: "Carica immagine"
       blogs:
         title: 'Titolo'
       blog_post:
@@ -843,7 +845,7 @@ net:
         content: "Testo"
         interest_borders_tkn: "Luogo"
         tags_list: "Parole chiave"
-        quorum_id: "Quorum"
+        quorum_id: "Durata dibattito"
         anonima: "Anonimato temporaneo"
         visible_outside: "Visibile pubblicamente"
         secret_vote: "Voto segreto"
@@ -953,6 +955,7 @@ net:
       report_error: "Errore durante la segnalazione del contributo"
       contribute_ok_message: "Contributo inserito correttamente"
       suggestion_ok_message: "Suggerimento inserito correttamente"
+      right_contribute_ok_message: "Contributo inserito correttamente.<br/>Per vederlo clicca su 'visualizza contributi' a fianco del paragrafo '%{section}'"
     blogs:
       cant_edit: "Non puoi modificare un blog che non ti appartiene."
       index:
