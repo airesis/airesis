@@ -56,6 +56,10 @@ class HomeController < ApplicationController
   def terms
   end
 
+  def statistics
+
+  end
+
   def show
     @step = get_next_step(current_user)
     @user = current_user

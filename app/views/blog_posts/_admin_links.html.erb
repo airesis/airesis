@@ -2,7 +2,8 @@
 <div class="blogAdminLinks">
 
 	<%= link_to t('pages.blog_posts.new_button'), new_blog_blog_post_path(@blog), :class => 'btn green newButton' %>
-	<%= link_to t('pages.blog_posts.drafts_button'), drafts_blog_blog_posts_path(@blog), :class => 'btn draftsButton' %>
+	<%= link_to t('pages.blog_posts.drafts_button'), drafts_blog_blog_posts_path(@blog), :class => 'btn draftsButton' unless params[:action] == 'drafts'%>
+    <%= link_to t('pages.blog_posts.published_button'), @blog, :class => 'btn draftsButton' unless params[:action] == 'show'%>
 
     <%=link_to t('pages.blogs.show.edit_button'), edit_blog_path(@blog), :class => 'btn editButton' %>
 </div>

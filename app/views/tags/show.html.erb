@@ -1,19 +1,32 @@
 <h2>Elenco proposte con tag: '<%= @tag %>'</h2>
 <% if @proposals.size == 0 %>
-	<div class="Proposal">
-		<p>Non vi sono ancora proposte con questo tag.</p>
-	</div>
+    <div class="Proposal">
+      <p>Non vi sono ancora proposte con questo tag.</p>
+    </div>
 <% else %>
-	<%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
+    <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
 <% end %>
 
 
 
-<h2>Elenco post con tag: '<%=@tag%>'</h2>
+<h2>Elenco post con tag: '<%= @tag %>'</h2>
 <% if @blog_posts.size == 0 %>
-	<div class="blogPost">
-		<p>Non vi sono ancora Post con questo tag.</p>
-	</div>
+    <div class="blogPost">
+      <p>Non vi sono ancora Post con questo tag.</p>
+    </div>
 <% else %>
-	<%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+    <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+<% end %>
+
+
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <h4><%= t('pages.tags.show.related_title') %></h4>
+      <% @similars.each do |tag| %>
+          <div style="margin:5px;">
+            <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+          </div>
+      <% end %>
+    </div>
 <% end %>

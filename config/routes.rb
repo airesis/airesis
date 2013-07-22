@@ -310,6 +310,7 @@ Airesis::Application.routes.draw do
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
   match '/send_feedback' => 'home#feedback'
+  match '/statistics' => 'home#statistics'
 
   admin_required = lambda do |request|
     request.env['warden'].authenticate? and request.env['warden'].user.admin?

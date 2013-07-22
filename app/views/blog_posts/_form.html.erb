@@ -66,7 +66,8 @@
 				<%= f.radio_button :published, true, :checked=>"checked" %><%= f.label :published_true %><br />
 				<%= f.radio_button :published, false %><%= f.label :published_false %>
 			</p>
-			
+
+      <%if @groups.count > 0 %>
 			<p>
 				<%= f.label :groups, 'Il post verrà pubblicato nelle pagine di questi gruppi:' %>
 				<br/>
@@ -82,10 +83,12 @@
                  </div>
 				<%end%> 
 			</p>
+          <%end%>
 			<p>
 				<input  type="hidden" name="group_id" value="<%=params[:group_id]%>"/>
-				<%= f.submit t('buttons.save'), :class=>'buttonStyle' %><br/><br />
-				<%= link_to 'Torna indietro', :back, :class=>'buttonStyle' %>
+              <%= link_to 'Annulla', :back, :class=>'btn' %>
+              <%= f.submit t('buttons.save'), :class=>'btn blue' %>
+
 			</p>
 		<div class="blogEditRightPanel">
 			

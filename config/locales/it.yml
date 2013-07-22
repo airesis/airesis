@@ -605,6 +605,7 @@ it:
         delete_button_confirm: "Sei sicuro di voler cancellare il post?"
         draft: "[Bozza]"
         comments_says: "dice..."
+      published_button: "Post pubblicati"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -763,6 +764,9 @@ it:
       index:
         title: "History della proposta %{title}"
         back_to_proposal: "Torna alla proposta"
+    tags:
+      show:
+        related_title: "Tag correlati"
   pl:
     comments:
       zero: nessun commento

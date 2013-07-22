@@ -1,6 +1,5 @@
 
 <%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
-	<%= render :partial => 'admin_links' %>	
 <%end%>
 
 
@@ -16,3 +15,10 @@
 <div class="blogPages">
 	<%= will_paginate @blog_posts %>
 </div>
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+
+      <%= render :partial => 'blog_posts/admin_links' %>
+    </div>
+<%end%>
