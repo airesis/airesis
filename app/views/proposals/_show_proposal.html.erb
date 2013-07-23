@@ -146,10 +146,9 @@
         </b>
       </p>
   <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito              %>
-      <%= t('pages.proposals.show.editing_message_1') %>
-      <a class="spch-bub-inside" href="#proposalComments"><span class="point"></span><em><%= @proposal.comments.count %></em></a>.
-      <br/> <%= t('pages.proposals.show.editing_message_2') %>
-      <span class="video_faq" id="suffgrad"><%= t('pages.proposals.show.editing_message_3') %></span>.
+      <%= t('pages.proposals.show.editing_message_1') %>.<br/>
+      <%= @proposal.quorum.explanation %>
+
 
   <% end %>
   <br/>

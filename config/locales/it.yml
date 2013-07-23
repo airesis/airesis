@@ -1,4 +1,5 @@
 it:
+  permissions_required: "Non disponi dei permessi sufficienti"
   test: "Test"
   devise:
     omniauth_callbacks:
@@ -379,7 +380,7 @@ it:
         loading_contributions: "Caricamento contributi..."
         previos_contributes: "Commenti precedenti..."
         delete_contribute_confirmation: "Sei sicuro di voler cancellare questo contributo?"
-        delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo suggerimento?"
+        delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo commento?"
         offered_as_editor_message: "Ti sei offerto per redigere la sintesi della proposta"
         offer_as_editor_button: "Voglio redigere la proposta!"
         available_editors_button: "Redattori disponibili (%{count})"
@@ -423,7 +424,7 @@ it:
           show_all: "Mostra tutti i %{count} suggerimenti..."
           delete: "Cancella"
         reply_button: "Rispondi"
-        reply_placeholder: "Inserisci un suggerimento"
+        reply_placeholder: "Inserisci un commento"
         export_pdf: "Stampa PDF"
         manage_noise_folder: "Contributi eliminati"
         noise_folder: "Contributi eliminati"
@@ -958,7 +959,7 @@ it:
       report_ok: "Contributo marcato correttamente"
       report_error: "Errore durante la segnalazione del contributo"
       contribute_ok_message: "Contributo inserito correttamente"
-      suggestion_ok_message: "Suggerimento inserito correttamente"
+      suggestion_ok_message: "Commento inserito correttamente"
       right_contribute_ok_message: "Contributo inserito correttamente.<br/>Per vederlo clicca su 'visualizza contributi' a fianco del paragrafo '%{section}'"
     blogs:
       cant_edit: "Non puoi modificare un blog che non ti appartiene."

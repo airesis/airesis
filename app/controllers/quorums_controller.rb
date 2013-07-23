@@ -141,7 +141,7 @@ class QuorumsController < ApplicationController
 
   private
   def check_permissions
-    return  if @group.portavoce.include? current_user
+    return  if current_user.admin? || (@group.portavoce.include? current_user)
     flash[:error] = t(:permissions_required)
     respond_to do |format|
       format.js { render :update do |page|

@@ -96,11 +96,11 @@
     </div>
 
     <div class="choose_model" style="display:none;">
-      <%ProposalType.active.order(:seq).each do |proposal_type| %>
-      <div class="proposal_model_option" data-id="<%=proposal_type.short_name%>">
-        <div class="model_name"><%= proposal_type.description %></div>
-      </div>
-      <%end%>
+      <% ProposalType.active.order(:seq).each do |proposal_type| %>
+          <div class="proposal_model_option" data-id="<%= proposal_type.short_name %>">
+            <div class="model_name"><%= proposal_type.description %></div>
+          </div>
+      <% end %>
     </div>
 
 
@@ -210,12 +210,27 @@
         cache: true,
         load: function (e, ui) {
             $(ui.panel).find("#loading_borders").remove();
+
         },
         select: function (e, ui) {
             var $panel = $(ui.panel);
             if ($panel.is(":empty")) {
                 $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=j (image_tag 'ajax-loader.gif', :alt=>t('pages.proposals.index.loading_alt'))%><br /><b><%= t('pages.proposals.index.loading_proposals')%></b></div>");
             }
+            window.location.hash = ui.index;
+        }
+    });
+
+    $(function() {
+        // grab the url
+        var url = document.URL;
+        // grab the value of the hash
+        var hashValue = url.substring(url.indexOf('#')).replace('#', '');
+
+        // check to make sure it is a number
+        if (!isNaN(hashValue)) {
+            // set the active tab
+            $('#tabs').tabs("option", "active", hashValue);
         }
     });
 
@@ -225,15 +240,15 @@
         create_proposal_.append($('.choose_model').clone().show());
 
 
-        $('.proposal_model_option',create_proposal_).click(function() {
-            var create_proposal_inner_ = $('.choose_model',create_proposal_);
+        $('.proposal_model_option', create_proposal_).click(function () {
+            var create_proposal_inner_ = $('.choose_model', create_proposal_);
             var type_id = $(this).data('id');
-            create_proposal_inner_.hide(1000,function() {
+            create_proposal_inner_.hide(1000, function () {
                 create_proposal_inner_.remove();
                 create_proposal_.append('<%=j render "fragments/loading"%>');
                 $.ajax({
                     url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], models: true)%>',
-                    data: 'proposal_type_id='+ type_id,
+                    data: 'proposal_type_id=' + type_id,
                     dataType: 'script'
                 })
             });
@@ -254,7 +269,6 @@
         });
         return false;
     }
-
 
 
 </script>

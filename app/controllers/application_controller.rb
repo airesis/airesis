@@ -193,7 +193,7 @@ class ApplicationController < ActionController::Base
 
       if @proposal_comment.is_contribute?
         #alert only for contributes
-        notify_user_comment_proposal(@proposal_comment)
+        Resque.enqueue_in(1, NotificationProposalCommentCreate, @proposal_comment.id)
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
           if params[:right]

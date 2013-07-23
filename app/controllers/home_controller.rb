@@ -57,6 +57,7 @@ class HomeController < ApplicationController
   end
 
   def statistics
+    @stat1 = StatNumProposal.extract
 
   end
 
@@ -104,7 +105,7 @@ class HomeController < ApplicationController
   def choose_layout
     if ['show'].include? action_name
       'users'
-    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press'].include? action_name
+    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press','statistics'].include? action_name
       'landing'
     else
       nil

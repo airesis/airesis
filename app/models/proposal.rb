@@ -84,6 +84,9 @@ class Proposal < ActiveRecord::Base
   #tutte le proposte in valutazione
   scope :in_valutation, {:conditions => {:proposal_state_id => PROP_VALUT}}
   #tutte le proposte in attesa di votazione o attualmente in votazione
+
+  #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
+
   scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
   #tutte le proposte accettate
   scope :accepted, {:conditions => {:proposal_state_id => ProposalState::ACCEPTED}}

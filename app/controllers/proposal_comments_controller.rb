@@ -128,23 +128,8 @@ class ProposalCommentsController < ApplicationController
     post_contribute
 
     respond_to do |format|
-      #conditions = ''
-
-      #@section = Section.find(params[:proposal_comment][:section_id]) if params[:right]
-      #  conditions = "proposal_comments.paragraph_id in (#{paragraphs_ids.join(',')})"
-      #else
-      #  conditions = "proposal_comments.paragraph_id is null"
-      #end
-
-      #@proposal_comments = @proposal.contributes.listable.where(conditions).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
-
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
-      #@proposal_comment.reload
       @proposal_comment.collapsed = true
-      #unless @is_reply
-      #  @saved = @proposal_comments.find { |comment| comment.id == @proposal_comment.id }
-      #  @saved.collapsed = true
-      #end
       format.js
       format.html { redirect_to @proposal }
     end

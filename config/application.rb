@@ -30,6 +30,8 @@ module Airesis
     config.time_zone = 'Rome' 
     config.i18n.default_locale = :it
 
+    config.i18n.fallbacks =[:it]
+
     config.to_prepare do
       Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
     end

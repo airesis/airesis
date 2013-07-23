@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718140236) do
+ActiveRecord::Schema.define(:version => 20130723095641) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -85,6 +85,18 @@ ActiveRecord::Schema.define(:version => 20130718140236) do
     t.integer  "user_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+  end
+
+  create_table "blocked_proposal_alerts", :force => true do |t|
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "proposal_id"
+    t.integer  "user_id"
+    t.boolean  "updates",     :default => false
+    t.boolean  "contributes", :default => false
+    t.boolean  "state",       :default => false
+    t.boolean  "authors",     :default => false
+    t.boolean  "valutations", :default => false
   end
 
   create_table "blog_comments", :force => true do |t|
@@ -924,6 +936,14 @@ ActiveRecord::Schema.define(:version => 20130718140236) do
     t.string  "proj4text", :limit => 2048
   end
 
+  create_table "stat_num_proposals", :force => true do |t|
+    t.date    "date"
+    t.integer "year"
+    t.integer "month"
+    t.integer "day"
+    t.integer "value"
+  end
+
   create_table "stato_translations", :force => true do |t|
     t.integer  "stato_id"
     t.string   "locale"
@@ -1141,6 +1161,9 @@ ActiveRecord::Schema.define(:version => 20130718140236) do
 
   add_foreign_key "blocked_emails", "notification_types", :name => "blocked_emails_notification_type_id_fk"
   add_foreign_key "blocked_emails", "users", :name => "blocked_emails_user_id_fk"
+
+  add_foreign_key "blocked_proposal_alerts", "proposals", :name => "blocked_proposal_alerts_proposal_id_fk"
+  add_foreign_key "blocked_proposal_alerts", "users", :name => "blocked_proposal_alerts_user_id_fk"
 
   add_foreign_key "blog_comments", "blog_comments", :name => "blog_comments_parent_blog_comment_id_fk", :column => "parent_blog_comment_id"
   add_foreign_key "blog_comments", "blog_posts", :name => "blog_comments_blog_post_id_fk"

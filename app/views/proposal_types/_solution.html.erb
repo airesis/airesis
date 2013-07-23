@@ -10,6 +10,9 @@
                   <div class="tit2">
                     <%=sol.text_field :title %>
                   </div>
+                  <span class="remove_sol_button">
+                    <a href="#" onclick="removeSolution(this,false);return false;"> <%= 'Rimuovi soluzione' %></a>
+                  </span>
                 </div>
               </h3>
               <div class="sol_content">

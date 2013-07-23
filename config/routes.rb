@@ -88,6 +88,14 @@ Airesis::Application.routes.draw do
     resources :proposal_histories
     resources :proposal_lives
     resources :proposal_supports
+    resources :proposal_presentations
+
+    resources :blocked_proposal_alerts do
+      collection do
+        post :block
+        post :unlock
+      end
+    end
 
     member do
       get :rankup
@@ -103,7 +111,8 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :proposalcategories
+  resources :proposal_categories
+
 
   resources :blogs do
     resources :blog_posts do

@@ -125,6 +125,12 @@ class Ability
         group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
       end
 
+      #should be you, and proposal must have more users
+      can :destroy, ProposalPresentation do |presentation|
+        presentation.user == user &&
+        presentation.proposal.users.count > 1
+      end
+
       #can :update, Proposal do |proposal|
       #  proposal.users.include? user
       #end
@@ -186,6 +192,7 @@ class Ability
         can :destroy, ProposalComment
         can :manage, Group
         can :manage, BlogPost
+        can :manage, Quorum
         can :update, PartecipationRole
         #cannot :show_tooltips
         #can :vote, Proposal do |proposal|

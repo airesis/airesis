@@ -2,6 +2,8 @@
     <%@proposal.users.each do |user| %>
         <%=user_tag(user) %>
     <%end%>
+    <%@proposal_presentation = @proposal.proposal_presentations.where(user_id: current_user.id).first %>
+    <%= link_to 'Non voglio più redigere la proposta', proposal_proposal_presentation_path(@proposal,@proposal_presentation), method: :delete, class: 'btn' if can? :destroy, @proposal_presentation  %>
 <%else%>
     <%@proposal.users.each do |user| %>
         <%=user_tag(user,@proposal) %>

@@ -183,6 +183,8 @@ class ProposalsController < ApplicationController
     flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
+    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id)
+
     respond_to do |format|
       #format.js
       format.html {
@@ -333,8 +335,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-
-        notify_proposal_has_been_created(@proposal, @group)
+        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.id)
       end
       @saved = true
 

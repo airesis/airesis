@@ -34,6 +34,9 @@
 //= require tinymce-jquery
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer
+//= require jqlplot/jqplot.dateAxisRenderer
+//= require jqlplot/jqplot.cursor
+//= require jqlplot/jqplot.highlighter
 //= require elfinder.full
 //= require i18n/elfinder.it
 //= require elFinderSupportVer1

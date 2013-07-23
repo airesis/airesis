@@ -27,77 +27,20 @@ module NotificationHelper
       notification_a.save
     proposal.users.each do |user|
       if user != proposal_ranking.user
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
+
       end
     end
     msg = "La proposta <b>"+proposal.title+"</b> ha ricevuto una nuova valutazione!";
     notification_b = Notification.create(:notification_type_id => 21,:message => msg,:url => proposal_path(proposal))
     proposal.partecipants.each do |user|
       if (user != proposal_ranking.user) && (!proposal.users.include?user)
-        send_notification_to_user(notification_b,user)
+        send_notification_to_user(notification_b,user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
     
   end
 
-  #send notifications when a user insert a comment to a proposal
-  #notifications are sent to authors and partecipants
-  def notify_user_comment_proposal(comment)
-    proposal = comment.proposal
-    comment_user = comment.user
-    nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id,proposal.id)
-    name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
-    msg = "<b>"+name+"</b> ha inserito un contributo alla tua proposta <b>"+proposal.title+"</b>!";
-    subject = proposal.private? ? "[#{proposal.presentation_groups.first.name}]" : ''
-    subject +=  " #{proposal.title} - Nuovo contributo"
-    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name}
-    notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE,:message => msg, :url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
-    notification_a.save
-    proposal.users.each do |user|
-      if user != comment_user
-        send_notification_to_user(notification_a,user)
-      end
-    end
-    
-    msg = "<b>"+name+"</b> ha inserito un contributo alla proposta <b>"+proposal.title+"</b>!";
-    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_CONTRIBUTES,:message => msg,:url => proposal_path(proposal) +"#comment"+comment.id.to_s, :data => data)
-    proposal.partecipants.each do |user|
-      if (user != comment_user) && (!proposal.users.include?user)
-        send_notification_to_user(notification_b,user)
-      end
-    end
-  end
-
-  #invia le notifiche quando un una proposta viene creata
-
-  def notify_proposal_has_been_created(proposal,group = nil)
-    if group
-      subject =  "[#{group.name}] #{proposal.title}"
-      msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
-      data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s, 'subject' => subject}
-      notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
-      notification_a.save
-      #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
-      group.scoped_partecipants(GroupAction::PROPOSAL_VIEW).each do |user|
-        if user != current_user
-          send_notification_to_user(notification_a,user)
-        end
-      end
-    else
-      subject =  "#{proposal.title}"
-      msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nello spazio comune"
-      data = {'proposal_id' => proposal.id.to_s, 'subject' => subject}
-      notification_a = Notification.new(:notification_type_id => 3,:message => msg, :url => proposal_path(proposal), :data => data)
-      notification_a.save
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
-        if user != current_user
-          send_notification_to_user(notification_a,user)
-        end
-      end
-    end
-  end
-  
-  
   #invia le notifiche quando un una proposta viene modificata
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal,group=nil)
@@ -114,7 +57,7 @@ module NotificationHelper
       if user != current_user
         #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
         another = Notification.first(:joins => [:notification_data, :user_alerts => [:user]],:conditions => ['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false','proposal_id',proposal.id.to_s,2,user.id.to_s])
-        send_notification_to_user(notification_a,user) unless another
+        send_notification_to_user(notification_a,user) unless (another || BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id))
       end
     end    
   end
@@ -160,7 +103,7 @@ module NotificationHelper
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user)  unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end    
   end
@@ -178,7 +121,7 @@ module NotificationHelper
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user)  unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end    
   end
@@ -200,7 +143,7 @@ module NotificationHelper
 
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user)  unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
 
@@ -221,7 +164,7 @@ module NotificationHelper
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user)  unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
 
@@ -229,7 +172,7 @@ module NotificationHelper
     notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS,:message => msg,:url => proposal_path(proposal), :data => data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
-        send_notification_to_user(notification_b,user)
+        send_notification_to_user(notification_b,user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
   end
@@ -247,7 +190,7 @@ module NotificationHelper
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a,user)
+        send_notification_to_user(notification_a,user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
 
@@ -255,7 +198,7 @@ module NotificationHelper
     notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS,:message => msg,:url => proposal_path(proposal), :data => data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
-        send_notification_to_user(notification_b,user)
+        send_notification_to_user(notification_b,user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id,proposal.id)
       end
     end
   end
