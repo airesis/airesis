@@ -1,6 +1,12 @@
 Airesis::Application.routes.draw do
 
 
+  resources :announcements do
+    member do
+      post :hide
+    end
+  end
+
   resources :tutorial_progresses
 
   resources :tutorials do

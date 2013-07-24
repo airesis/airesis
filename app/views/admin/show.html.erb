@@ -17,15 +17,8 @@
 	<%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'btn' %>
     <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list" }, :class => 'btn' %>
+    <%= link_to 'Announcements', announcements_path, :class => 'btn' %>
 
-	<p>
-		Encoding.default_external: <%=Encoding.default_external.name%>
-	</p>
-	<p>
-		Encoding.default_internal: <%=Encoding.default_internal.name%>
-	</p>
-	
-	
 	<p>
 		<%current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |group_partecipation|
 		 group = group_partecipation.group
