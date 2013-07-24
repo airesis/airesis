@@ -1,15 +1,21 @@
 <script>
-$(function () {
-    <% flash.each do |key,value| %>
-      <%if (key == :info) %>
-        toastr.info('<%=raw j value%>');
-      <%elsif (key == :notice)%>
-        toastr.success('<%=raw j value%>');
-      <%elsif  (key == :warn) %>
-        toastr.warning('<%=raw j value%>');
-      <%else%>
-        toastr.error('<%=raw j value%>');
-      <%end%>
-    <%end%>
-});
+    $(function () {
+        <% flash.each do |key,value| %>
+            <%if (key == :info) %>
+                toastr.info('<%=raw j value%>');
+            <%elsif (key == :notice)%>
+                toastr.success('<%=raw j value%>');
+            <%elsif  (key == :warn) %>
+                toastr.warning('<%=raw j value%>');
+            <%else%>
+                toastr.error('<%=raw j value%>');
+            <%end%>
+        <%end%>
+
+        <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
+            toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
+            toastr.info('<div id="announcement<%=announcement.id%>"><%=raw announcement.message%><%= link_to "OK", hide_announcement_path(announcement), class: 'btn', style: 'color: #444', remote: true, method: :post %></div>');
+        <%end%>
+
+    });
 </script>
