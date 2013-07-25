@@ -70,12 +70,26 @@ module ProposalsModule
     #proposal.save!
   end
 
+  def simple_new(proposal)
+    @problems = proposal.sections.build(title: t('pages.proposals.new.simple.problems_title'), seq: 1)
+    @problems.paragraphs.build(content:'', seq:1)
+    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::SIMPLE)
+    proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+  end
 
   def standard_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.standard.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
     proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::STANDARD)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+  end
+
+
+  def simple_create(proposal)
+    seq = 1
+    solution = simple_solution
+    solution.seq = 1
+    proposal.solutions << solution
   end
 
   def standard_create(proposal)

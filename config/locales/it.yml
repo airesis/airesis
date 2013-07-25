@@ -526,6 +526,11 @@ it:
             data: "Dati anagrafici"
             curriculum: "Curriculum"
             available: "Disponibilità a ricoprire la carica"
+        simple:
+          problems_title: "Problematica"
+          solution:
+            description: "Descrizione"
+          problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -787,7 +792,7 @@ it:
          election: "Elezione"
       election:
         groups_end_time: "Data termine iscrizione gruppi"
-        candidates_end_time: "Data termine iscrizione candidati"
+        candidates_end_time: "Data termine iscrizione candidati e inizio votazione"
       event:
         title: "Titolo dell'evento"
         description: "Descrizione"

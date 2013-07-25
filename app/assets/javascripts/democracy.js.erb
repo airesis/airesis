@@ -3,12 +3,12 @@
 
 function checkWidth() {
     if (window.innerWidth < 1000) {
-        $('#menu-top').css('position', 'absolute');
+        $('#menu-top, #menu-right .cont').css('position', 'absolute');
         $('#submenu .borx').hide();
         $('#submenu .tria').hide();
     }
     else {
-        $('#menu-top').css('position', 'fixed');
+        $('#menu-top, #menu-right .cont').css('position', 'fixed');
         $('#submenu .borx').show();
         $('#submenu .tria').show();
     }

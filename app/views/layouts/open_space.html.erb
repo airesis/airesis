@@ -13,7 +13,7 @@
       <span class="tit"><%= t('open_space') %></span>
 
       <div id="submenu">
-        <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals','proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+        <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
         <span> ⋅ </span>
         <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
 
@@ -28,7 +28,7 @@
 
 
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
+  <div id="main" style="right:0px;min-width:1000px;">
     <!-- ##### Main Copy ##### -->
     <div id="main-copy">
       <div id="menu-left">
@@ -37,15 +37,16 @@
         </div>
       </div>
       <div id="centerpanelextended">
-        <div class="centerfloat <%= raw @extend ? 'extended': '' %>" >
-        <div id="flash_messages" style="height:20px">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+          <div id="flash_messages" style="height:20px">
+            <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+          </div>
+          <%= yield :layout %>
         </div>
-        <%= yield :layout %>
-        </div>
+
+        <%= render :partial => "layouts/menu_right" %>
         <div class="clearboth"></div>
       </div>
-      <div style="clear: both; height: 0; overflow: hidden;"></div>
       <%= render :partial => "layouts/footer" %>
     </div>
   </div>

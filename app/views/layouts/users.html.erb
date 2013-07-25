@@ -45,7 +45,7 @@
   <% end %>
 
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
+  <div id="main" style="right:0px;min-width:1000px;">
     <!-- ##### Main Copy ##### -->
     <div id="main-copy">
       <div id="menu-left">
@@ -60,6 +60,10 @@
           </div>
           <%= yield :layout %>
         </div>
+
+
+        <%= render :partial => "layouts/menu_right" %>
+
         <div class="clearboth"></div>
       </div>
       <%= render :partial => "layouts/footer" %>

@@ -54,6 +54,7 @@
             <%= f.hidden_field :id, :value => @event.id %>
             <%= f.hidden_field :commit_button, :value => "" %>
             <p>
+              <a href="#" class="btn" onclick="$('#event_edit').dialog('destroy');$('#event_edit').remove();"><%= t('buttons.cancel') %></a>
               <% if @event.event_series -%>
                   <%= f.submit 'Aggiorna solo questa occorrenza', :onclick => "document.getElementById('event_commit_button').value = this.value" %>
                   <%= f.submit 'Aggiorna tutte le occorrenze', :onclick => "document.getElementById('event_commit_button').value = this.value" %>
@@ -63,6 +64,24 @@
               <% end -%>
             </p></td>
           <td width="40%">
+
+            <%=f.fields_for :election, @election do |e|%>
+                <div id="elezione" style="display:none; width:370px;">
+                  <p>
+                    <%=raw "Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento." %><br />
+                    <!--<%=raw "La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi."%><br />-->
+                  </p>
+                  <!--<p>
+						<%= e.label :groups_end_time %><br/>
+						<%= e.text_field :groups_end_time, :class=>"datePicker", :id => "groups_end_time" %>
+						</p>-->
+                  <p>
+                    <%= e.label :candidates_end_time %><br/>
+                    <%= e.text_field :candidates_end_time, :class=>"datePicker", :id => "candidates_end_time" %>
+                  </p>
+                </div>
+            <%end%>
+
             <%= f.fields_for :meeting, @meeting do |m| %>
                 <%= m.fields_for :place, @place do |p| %>
                     <p id="edit_luogo">
@@ -87,75 +106,3 @@
     </div>
 <% end %>
 
-
-<script type="text/javascript">
-    disegnaBottoni();
-
-    $("#event_meeting_attributes_place_attributes_comune_id").tokenInput("/comunes.json", {
-        crossDomain: false,
-        prePopulate: $('#event_meeting_attributes_place_attributes_comune_id').data("pre"),
-        hintText: "Digita alcuni caratteri per cercare un comune",
-        noResultsText: "Nessun comune trovato",
-        searchingText: "Sto cercando...",
-        preventDuplicates: true,
-        tokenLimit: 1,
-        allowTabOut: true
-    });
-
-    if (!geocoder)
-        geocoder = new google.maps.Geocoder();
-
-    <%if @event.place%>
-    var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
-    var center = new google.maps.LatLng(<%=@event.place.latitude_center%>, <%=@event.place.longitude_center%>);
-    var zoom = <%=@event.place.zoom%>;
-    <%else%>
-    var latlng = new google.maps.LatLng(42.407235, 14.260254);
-    var center = latlng;
-    var zoom = 5;
-    <%end%>
-
-    var map_canvas = $('#edit_map_canvas')[0];
-
-    if (map_canvas) {
-        var myOptions = {
-            zoom: zoom,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            panControl: true,
-            streetViewControl: true,
-            mapTypeControl: false
-        };
-
-        map = new google.maps.Map(map_canvas, myOptions);
-
-        var panoramaOptions = {
-            position: latlng,
-            pov: {
-                heading: 34,
-                pitch: 10,
-                zoom: 1
-            }
-        };
-
-        marker = new google.maps.Marker({
-            map: map,
-            position: latlng,
-            draggable: true
-        });
-
-        google.maps.event.addListener(marker, 'dragend', listenMarkerPosition);
-        google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
-        google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
-
-        /*var panorama = new  google.maps.StreetViewPanorama(document.getElementById("panorama_canvas"),panoramaOptions);
-         map.setStreetView(panorama);*/
-
-        <%unless @event.place%>
-        putMarker("Italy");	//inizializza il marcatore sull'Italia
-        <%end%>
-    }
-
-    disegnaDatePicker();
-
-</script>

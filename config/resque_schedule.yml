@@ -15,3 +15,10 @@ delete_old_notifications:
   class: DeleteOldNotifications
   queue: cron
   description: "Cancella le vecchie notifiche già lette"
+
+
+count_created_proposals:
+  cron: "0 1 * * *"
+  class: CountCreatedProposals
+  queue: cron
+  description: "Conta le proposte create durante il giorno"

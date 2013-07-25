@@ -193,14 +193,27 @@ class EventsController < ApplicationController
       @event.update_events(@events, params[:event])
     else
       @event.attributes = params[:event]
-      @event.save
+      @event.save!
     end
 
     flash[:notice] = t('controllers.events.update.ok_message')
     render :update do |page|
       page.reload
     end
-    
+
+  rescue ActiveRecord::ActiveRecordError => e
+    respond_to do |format|
+      format.js {
+        render :update do |page|
+          if @event
+            page.alert @event.errors.full_messages.join("\n")
+          elsif @event_series
+            page.alert @event_series.errors.full_messages.join("\n")
+          end
+        end
+      }
+    end
+
   end  
   
   def destroy

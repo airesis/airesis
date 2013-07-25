@@ -5,13 +5,13 @@
     right: 0px;
     bottom: 0px;
     display: inherit;
+    min-width: 1000px;
 }
 
 #main-copy {
     position: relative;
     background-color: white;
     padding-right: 20px;
-    box-shadow: 1px 0px 5px #000;
     min-height: 100%;
 
 }
@@ -22,7 +22,6 @@
     right: 0px;
     height: 80px;
     background-color: #33b5e5;
-    z-index: 1;
     box-shadow: 0px 2px 3px #797979;
     z-index: 1000;
 }
@@ -40,9 +39,9 @@
     border-left: 1px dotted gray;
     display: inherit;
     padding-top: 95px;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
     margin-left: 280px;
-    margin-top: 0px;
+    margin-right: 90px;
 }
 
 #logo-airesis {
@@ -154,6 +153,7 @@
     background-color: #55bde4;
     border-top: 1px dotted rgba(255, 255, 255, 0.2);
     box-shadow: 0px 2px 3px #797979;
+    margin-right: 90px;
 }
 
 #menu-top .group-cont .tria {
@@ -246,8 +246,8 @@
 
 #tolr {
     position: absolute;
-    right: 10px;
-    top: 12px;
+    right: 100px;
+    top: 24px;
 }
 
 #inlog {
@@ -276,24 +276,37 @@
 }
 
 #menu-right {
-    position: fixed;
+    position: absolute;
+    top: 80px;
     right: 0px;
-    background-color: rgba(0, 0, 0, .04);
-    width: 80px;
-    min-height: 100%;
+    bottom: 50px;
+    width: 90px;
+    border-left: 1px dotted gray;
+    z-index: 998;
+}
+
+#menu-right .cont {
+    position: fixed;
+    width: 77px;
+    right: 7px;
 }
 
 #account {
-    padding-top: 10px;
+    position: absolute;
+    right:  0px;
+    top:  0px;
     cursor: pointer;
     color: white;
+    width: 90px;
+    border-left: 1px dotted #fff;
+    height:  80px;
 }
 
 #account img {
     height: 48px;
     margin-left: 8px;
-    border-radius: 5px;
-    border: 1px solid #939393;
+    margin-top: 10px;
+    border-radius:  28px;
 }
 
 #account img.triangle {
@@ -301,7 +314,7 @@
     height: 12px;
     border: none;
     position: absolute;
-    top: 27px;
+    top: 25px;
     margin-left: 4px;
 }
 
@@ -553,7 +566,7 @@
     position: fixed;
     top: 82px;
     left: 0px;
-    right: 80px;
+    right: 92px;
     height: 10px;
     background: #fff;
 }

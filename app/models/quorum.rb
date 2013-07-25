@@ -128,8 +128,8 @@ class Quorum < ActiveRecord::Base
 
   def explanation_pop
     conditions = []
+    ret = ""
     if self.minutes
-      ret = ""
       if self.percentage
         if self.condition == 'OR'
           ret = "Il dibattito proseguirà finchè non avranno partecipato il #{self.percentage}% degli aventi diritto e, in ogni caso, al massimo per #{self.time}."

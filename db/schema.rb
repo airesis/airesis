@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724093002) do
+ActiveRecord::Schema.define(:version => 20130724112411) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1169,6 +1169,9 @@ ActiveRecord::Schema.define(:version => 20130724093002) do
 
   add_foreign_key "blocked_emails", "notification_types", :name => "blocked_emails_notification_type_id_fk"
   add_foreign_key "blocked_emails", "users", :name => "blocked_emails_user_id_fk"
+
+  add_foreign_key "blocked_proposal_alerts", "proposals", :name => "blocked_proposal_alerts_proposal_id_fk"
+  add_foreign_key "blocked_proposal_alerts", "users", :name => "blocked_proposal_alerts_user_id_fk"
 
   add_foreign_key "blog_comments", "blog_comments", :name => "blog_comments_parent_blog_comment_id_fk", :column => "parent_blog_comment_id"
   add_foreign_key "blog_comments", "blog_posts", :name => "blog_comments_blog_post_id_fk"

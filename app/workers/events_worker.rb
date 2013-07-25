@@ -5,6 +5,7 @@ class EventsWorker
   STARTVOTATION='startvotation'
   ENDVOTATION='endvotation'
 
+
   def self.perform(*args)
     params = args[0]
     case params['action']
@@ -84,6 +85,7 @@ class EventsWorker
     end #end each
     ResqueMailer.admin_message(msg).deliver
   end
+
 
 
 end

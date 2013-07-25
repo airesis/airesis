@@ -183,7 +183,7 @@ class ProposalsController < ApplicationController
     flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id)
+    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id) if current_user
 
     respond_to do |format|
       #format.js
