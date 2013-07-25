@@ -1063,6 +1063,9 @@ it:
         inspire: "Regolamenti a cui ispirarsi"
         stackeholders: "Stakeholders (persone coinvolte)"
         requisiti: "Requisiti da rispettare"
+    candidates:
+      sections:
+        description: "Descrizione del tipo di elezione"
   default_admin_title: "Amministratore"
   saving: "Salvataggio..."
   sending: "Invio..."

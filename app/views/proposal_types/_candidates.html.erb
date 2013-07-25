@@ -22,7 +22,7 @@
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, t('pages.proposals.new.simple.problems_title_label') %> *<br/>
+                  <%= p.label :content, t('proposal_types.candidates.sections.description') %> *<br/>
                   <%= p.text_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true} %>
                   <%= p.hidden_field :seq %>
                 </p>
@@ -31,8 +31,8 @@
 
         <div class="suggestion_box">
           <div><%= 'Esempi di compilazione' %></div>
-          <div><%= 'CASO 1 (obiettivo: "Ridurre l\'uso di acqua potabile per l\'irrigazione")' %></div>
-          <div><%= 'Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l\'acquedotto si sta esaurendo' %></div>
+          <div><%= 'CASO 1 (obiettivo: "Eleggere il nuovo referente per il gruppo comunicazione")' %></div>
+          <div><%= 'Il gruppo comuicazione è appena stato istituito ed è necessario eleggere un referente. Si possono candidare tutti coloro che partecipano al gruppo da almeno 5 mesi.' %></div>
         </div>
 
       </div>

@@ -34,7 +34,7 @@ module ProposalsHelper
   def candidates_solution
     seq = 0
     solution = Solution.new(title: 'Nome e Cognome candidato')
-    solution.sections.build(title: t('pages.proposals.new.candidates.solution.name'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: t('pages.proposals.new.candidates.solution.curriculum'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     #solution.sections.build(title: t('pages.proposals.new.candidates.solution.data'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     #solution.sections.build(title: t('pages.proposals.new.candidates.solution.curriculum'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     #solution.sections.build(title: t('pages.proposals.new.candidates.solution.available'), seq: seq+=1).paragraphs.build(content: '', seq: 1)

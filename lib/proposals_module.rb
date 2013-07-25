@@ -212,7 +212,7 @@ module ProposalsModule
 
 
   def candidates_new(proposal)
-    @problems = proposal.sections.build(title: t('pages.proposals.new.problems_title'), seq: 1)
+    @problems = proposal.sections.build(title: t('proposal_types.candidates.sections.description'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
   end
 
