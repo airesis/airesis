@@ -194,6 +194,9 @@ class Ability
         can :manage, BlogPost
         can :manage, Quorum
         can :update, PartecipationRole
+        can :manage, Election
+        can :manage, Event
+
         #cannot :show_tooltips
         #can :vote, Proposal do |proposal|
         #  can_vote_proposal?(user, proposal)
@@ -205,7 +208,9 @@ class Ability
 
     end
 
-
+    #you can edit an event only if you have permissions or you are an admin
+    #if it's votation there must not be any proposal attached
+    #if it's election should be no candidate yet
     def can_edit_event?(user, event)
       group = event.organizers.first
       c1 = false
