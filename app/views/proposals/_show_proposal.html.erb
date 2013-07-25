@@ -162,7 +162,7 @@
           <div class="tit2">
             <%= section.title %>
           </div>
-          <% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+          <% unless @proposal.voting? %>
 
               <% contributes_num = section.proposal_comments.listable.count %>
               <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>

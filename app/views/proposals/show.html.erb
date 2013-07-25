@@ -369,7 +369,7 @@
                 $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
                     data: {
                         section_id: section_id,
-                        view: 1
+                        view: <%=current_user ? 1 : 3 %>
                     },
                     type: 'get',
                     complete: function () {
