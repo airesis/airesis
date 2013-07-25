@@ -10,7 +10,7 @@ Airesis::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
   # Print deprecation notices to the Rails logger
@@ -61,7 +61,7 @@ Airesis::Application.configure do
 
   #limita il numero di proposte
   LIMIT_PROPOSALS=true
-  PROPOSALS_TIME_LIMIT=2.minutes
+  PROPOSALS_TIME_LIMIT=1.minute
 
   #limita il numero di gruppi
   LIMIT_GROUPS=true
