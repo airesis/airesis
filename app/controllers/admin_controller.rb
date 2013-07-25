@@ -3,8 +3,10 @@
 #require 'airesis_metis'
 require 'rake'
 
-class AdminController < ApplicationController
+class AdminController < ManagerController
   before_filter :admin_required#, :only => [:new, :create, :destroy]
+
+  layout 'users'
 
   def index
    
@@ -126,37 +128,6 @@ class AdminController < ApplicationController
     redirect_to root_url # or user_root_url
   end
 
-  def block
-    @user = User.find_by_id(params[:user_id])
-    @user = User.find_by_email(params[:user_id]) unless @user
-    if @user
-      @user.blocked = true
-      @user.blocked_name = @user.name
-      @user.blocked_surname = @user.surname
-      @user.name = 'Utente'
-      @user.surname = 'Eliminato'
-      @user.save!
-    end
-    flash[:notice] = 'Account bloccato'
-    ResqueMailer.blocked(@user.id).deliver
-    redirect_to admin_panel_path
-  end
-
-  def unblock
-    @user = User.find_by_id(params[:user_id])
-    @user = User.find_by_email(params[:user_id]) unless @user
-    if @user
-      @user.blocked = false
-      @user.name = @user.blocked_name
-      @user.surname = @user.blocked_surname
-      @user.blocked_name = nil
-      @user.blocked_surname = nil
-      @user.save!
-    end
-    flash[:notice] = 'Account sbloccato'
-    redirect_to admin_panel_path
-  end
-  
   def write_sitemap
     Rake::Task["sitemap:refresh"].invoke
     respond_to do |format|

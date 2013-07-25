@@ -1,4 +1,4 @@
-<% @event.meeting.yes_partecipations.each do |partecipation| %>
+<% partecipants.each do |partecipation| %>
     <div>
       <div style="float:left;">
         <%= partecipation.user_image_tag 48 %>
@@ -14,12 +14,4 @@
       </div>
       <div style="clear: both;"></div>
     </div>
-<% end %>
-
-<% if @event.meeting.yes_partecipations.empty? %>
-    <% if @event.is_past? %>
-        <h4>Non ha partecipato nessuno</h4>
-    <% else %>
-        <h4>Ancora nessun partecipante</h4>
-    <% end %>
 <% end %>

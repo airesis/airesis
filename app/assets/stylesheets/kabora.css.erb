@@ -347,10 +347,7 @@
     cursor: pointer;
 }
 
-#menu-right .box .notify {
-    position: absolute;
-    right: -10px;
-    top: -10px;
+.alert.notify {
     padding: 5px;
     background-color: rgba(255, 0, 0, 0.9);
     border-radius: 3px;
@@ -360,6 +357,17 @@
     box-shadow: -1px 1px 1px #000;
     border: 0px;
     z-index: 998;
+}
+
+.alert.notify:hover {
+    text-decoration: none;
+}
+
+
+.alert.notify.boxed {
+    position: absolute;
+    right: -10px;
+    top: -10px;
 }
 
 #menu-right img:hover,

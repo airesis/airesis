@@ -331,6 +331,17 @@ Airesis::Application.routes.draw do
     request.env['warden'].authenticate? and request.env['warden'].user.admin?
   end
 
+  moderator_required = lambda do |request|
+    request.env['warden'].authenticate? and request.env['warden'].user.moderator?
+  end
+
+  constraints moderator_required do
+    match ':controller/:action/'
+    match 'moderator_panel', :to => 'moderator#show', :as => 'moderator/panel'
+  end
+
+
+
   constraints admin_required do
     mount Resque::Server, :at => "/resque_admin/"
     mount Maktoub::Engine => "/maktoub/"

@@ -1,42 +1,39 @@
 <div class="title">
   <%= t('pages.home.show.your_proposals') %>
 </div>
-<% @a = current_user.proposals.current.pluck('proposals.id')%>
-<% @b =  current_user.partecipating_proposals.current.pluck('proposals.id')%>
-<%@c = @a  | @b%>
+<% @a = current_user.proposals.current.pluck('proposals.id') %>
+<% @b = current_user.partecipating_proposals.current.pluck('proposals.id') %>
+<% @c = @a | @b %>
 <% unless @c.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
       <table id="proposals_table" class="table_list">
         <thead>
         <th><%= t('pages.home.show.proposals.title') %></th>
         <th><%= t('pages.home.show.proposals.last_edit') %></th>
+        <th><%= t('pages.home.show.proposals.notifications') %></th>
         </thead>
         <tbody>
 
-        <%@proposals_p = Proposal.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?) and (proposal_rankings.user_id = ? or proposal_rankings.user_id is null)',@c,current_user.id], order: 'proposals.updated_at desc')%>
+        <% @proposals_p = Proposal.current.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?) and (proposal_rankings.user_id = ? or proposal_rankings.user_id is null)', @c, current_user.id], order: 'proposals.updated_at desc') %>
         <% @proposals_p.each do |proposal| %>
 
             <tr>
               <td class="first"><%= link_to_proposal proposal %>
-                <br>
-                <div style="float: left; margin-right: 5px;"><%= t('pages.home.show.proposals.authors') %></div>
-                <% if proposal.users.include? current_user %>
-                    <% proposal.users.each do |user| %>
-                        <%= user_tag_mini(user) %>
-                    <% end %>
-                <% else %>
-                    <% proposal.users.each do |user| %>
-                        <%= user_tag_mini(user, proposal) %>
-                    <% end %>
-                <% end %>
-
-                <%= user_valutation_image(current_user, proposal,{fetched: true}) %>
+                <%= user_valutation_image(current_user, proposal, {fetched: true}) %>
               </td>
-              <td align="center"  class="second">
-                <%=l proposal.updated_at %>
+              <td align="center" class="second">
+                <%= l proposal.updated_at %>
                 <br>
                 <% unless proposal.is_polling? %>
                     <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
+                <% end %>
+              </td>
+              <td align="center" class="second">
+                <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
+                <% if count > 0 %>
+                    <%=link_to count,proposal, class: "alert notify" %>
+                    <%else%>
+                -
                 <% end %>
               </td>
 

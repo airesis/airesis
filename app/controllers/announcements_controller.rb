@@ -1,6 +1,6 @@
 class AnnouncementsController < ApplicationController
 
-  before_filter :admin_required
+  before_filter :moderator_required
 
   # GET /announcements
   # GET /announcements.json

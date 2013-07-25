@@ -94,15 +94,9 @@
         </script>
     <% end %>
 
-
     <% if @event.meeting %>
-        <% if @event.is_past? %>
-            <h1>Chi ha partecipato?</h1>
-        <% else %>
-            <h1>Chi parteciperà?</h1>
-        <% end %>
         <div id="partecipants_container">
-          <%= render :partial => 'partecipants' %>
+        <%= render :partial => 'meeting_responses' %>
         </div>
     <% end %>
 

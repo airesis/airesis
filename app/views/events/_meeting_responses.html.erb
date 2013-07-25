@@ -1,0 +1,23 @@
+<% if @event.is_past? %>
+    <h1>Chi ha partecipato?</h1>
+<% else %>
+    <h1>Chi parteciperà?</h1>
+<% end %>
+
+<%= render :partial => 'events/partecipants', locals: {partecipants: @event.meeting.yes_partecipations} %>
+<% if @event.meeting.yes_partecipations.empty? %>
+    <% if @event.is_past? %>
+        <h4>Non ha partecipato nessuno</h4>
+    <% else %>
+        <h4>Ancora nessun partecipante</h4>
+    <% end %>
+<% end %>
+
+<hr>
+<% if @event.is_past? %>
+    <h1>Chi non ha partecipato?</h1>
+<% else %>
+    <h1>Chi non parteciperà?</h1>
+<% end %>
+
+<%= render :partial => 'events/partecipants', locals: {partecipants: @event.meeting.no_partecipations} %>

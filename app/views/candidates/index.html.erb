@@ -2,12 +2,14 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
 <% end %>
 
+<div class="toast-warning info-panel" >
+  <b>ATTENZIONE!</b> <br/>
+  Il modulo elezioni verrà presto abbandonato a favore del nuovo modello di proposta 'Elezione candidati'
+</div>
 
 <%=render :layout => "layouts/page_title", :locals => {:title => "Area candidature"} do%>
 			
 <%end%>
-
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 
 <h4><%=raw t('pages.candidates.index.description') + " #{link_to t('pages.candidates.index.create_election'),  new_group_event_path(@group, type: 'election'), :remote => true}." %>
 </h4>

@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
   end
 
-  helper_method :is_admin?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
+  helper_method :is_admin?,:is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
 
 
   def log_error(exception)
@@ -73,11 +73,12 @@ class ApplicationController < ActionController::Base
 
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
   def is_admin?
-    if user_signed_in? && current_user.user_type.short_name == "admin"
-      true
-    else
-      false
-    end
+    user_signed_in? && current_user.admin?
+  end
+
+  #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
+  def is_moderator?
+    user_signed_in? && current_user.moderator?
   end
 
   #helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
@@ -113,6 +114,10 @@ class ApplicationController < ActionController::Base
 
   def admin_required
     is_admin? || admin_denied
+  end
+
+  def moderator_required
+    is_admin? ||is_moderator? || admin_denied
   end
 
   #risposta nel caso sia necessario essere amministartori

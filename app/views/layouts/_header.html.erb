@@ -252,8 +252,12 @@
         <li>
           <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
         </li>
+        <% if is_moderator? %>
+            <li>
+              <%= link_to t('pages.header.menu.moderator'), moderator_panel_path %>
+            </li>
+        <% end %>
         <% if is_admin? %>
-
             <li>
               <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
             </li>
@@ -418,7 +422,7 @@
                 for (var i = 0; i < data.length; i++) {
                     var obj = data[i];
                     if (obj.count > 0) {
-                        $('.alert_box.logo[data-id=' + obj.id + ']').append($('<button class="notify">').append(obj.count));
+                        $('.alert_box.logo[data-id=' + obj.id + ']').append($('<button class="alert notify boxed">').append(obj.count));
                     }
                     console.log('add container');
                     var n_container = $('<div id="alert_cont_' + obj.id + '" class="cont-mess" style="display:none">');

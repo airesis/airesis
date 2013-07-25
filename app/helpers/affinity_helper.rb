@@ -63,17 +63,17 @@ module AffinityHelper
     c_conf_u = ib_conf_u.collect{ |ib| ib.territory if ib.territory_type == InterestBorder::COMUNE}.compact
     p_conf_u = ib_conf_u.collect{ |ib| ib.territory if ib.territory_type == InterestBorder::PROVINCIA}.compact
     r_conf_u = ib_conf_u.collect{ |ib| ib.territory if ib.territory_type == InterestBorder::REGIONE}.compact
-    if (ib_conf_g.territory_type == InterestBorder::COMUNE)
+    if ib_conf_g.territory_type == InterestBorder::COMUNE
       p_conf_g = conf_g.provincia
       r_conf_g = p_conf_g.regione
       return COMUNE_IN_PROVINCIA if p_conf_u.include?(p_conf_g) #è un comune compreso in una delle province di interesse
       return COMUNE_IN_REGIONE if r_conf_u.include? (r_conf_g)  #è un comune compreso in una delle regioni di interesse
-    elsif (ib_conf_g.territory_type == InterestBorder::PROVINCIA)
+    elsif ib_conf_g.territory_type == InterestBorder::PROVINCIA
         r_conf_g = conf_g.regione
         return PROVINCIA_IN_REGIONE if r_conf_u.include?(r_conf_g) #è una provincia compresa in una delle regioni di interesse
         pc_conf_u = c_conf_u.collect{ |comune| comune.provincia}
         return PROVINCIA_HAS_COMUNE if pc_conf_u.include?(conf_g) #è una provincia che comprende uno dei comuni di interesse
-    elsif (ib_conf_g.territory_type == InterestBorder::REGIONE)
+    elsif ib_conf_g.territory_type == InterestBorder::REGIONE
       rp_conf_u = p_conf_u.collect{ |provincia| provincia.regione}
       return REGIONE_HAS_PROVINCIA if rp_conf_u.include?(conf_g) #è una regione che comprende una delle province di interesse
       rpc_conf_u = c_conf_u.collect{ |comune| comune.provincia.regione}

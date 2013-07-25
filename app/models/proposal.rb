@@ -119,6 +119,21 @@ class Proposal < ActiveRecord::Base
   after_destroy :remove_scheduled_tasks
   before_create :populate_fake_url
 
+
+
+  def count_notifications(user_id)
+    (self.connection.select_all "select count(ua.*)
+                                from user_alerts ua
+                                join notifications n
+                                on ua.notification_id = n.id
+                                join notification_data nd
+                                on n.id = nd.notification_id
+                                where nd.name = 'proposal_id'
+                                and nd.value = '#{self.id}'
+                                and ua.user_id = #{user_id}
+                                and ua.checked = 'f'")[0]
+  end
+
   def populate_fake_url
     self.url = ''
   end

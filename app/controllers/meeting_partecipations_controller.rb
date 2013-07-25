@@ -15,9 +15,9 @@ class MeetingPartecipationsController < ApplicationController
     flash[:notice] = "La tua risposta è stata inviata."
     respond_to do |format|
       format.js { render :update do |page|
-                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                      page.replace "partecipation_panel_container", :partial => 'events/partecipation_panel', :locals => {:event => @event}    
-                      page.replace "partecipants_container", :partial => 'events/partecipants', :locals => {:event => @event}
+                      page.replace_html 'flash_messages', :partial => 'layouts/flash', :locals => {:flash => flash}
+                      page.replace 'partecipation_panel_container', :partial => 'events/partecipation_panel', :locals => {:event => @event}
+                      page.replace 'partecipants_container', :partial => 'events/meeting_responses', :locals => {:event => @event}
                   end                  
       }
       format.html {

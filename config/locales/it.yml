@@ -644,6 +644,7 @@ it:
         resend_email_button: "Non hai ricevuto l'email per la conferma?"
         no_notifications: "Nessuna notifica"
         sign_has_read: "Segna come lette"
+        moderator: "PANNELLO MODERATORE"
       welcome: "Benvenuto"
       groups_title: "GRUPPI"
       login: "ACCEDI"
@@ -725,6 +726,7 @@ it:
           title: "Titolo"
           last_edit: "Ultima modifica"
           authors: "Autori"
+          notifications: "Notifiche"
         notifications:
           title: "Le notifiche"
         your_contributes: "I tuoi ultimi contributi"
