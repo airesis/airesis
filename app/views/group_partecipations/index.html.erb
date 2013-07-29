@@ -1,43 +1,22 @@
 <h1>Elenco partecipanti</h1>
-<br/>
-<table style="width:800px;">
-  <thead>
-  <th><%= 'Utente' %></th>
-  <th><%= 'Ruolo' %></th>
-  <th><%= 'Registrato dal' %></th>
-  <th><%= 'Inserito da' %></th>
+<% if current_user && ((@group.portavoce.include? current_user) || is_admin?) %>
+    <%= form_for [@group, SearchPartecipant.new], remote: true do |f| %>
+        <p><%= f.label :keywords %><br/>
+          <%= f.text_field :keywords %>
+        </p>
+        <p>
+          <%= f.label :role_id %><br/>
+          <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => 'Scegli un ruolo' %>
+        </p>
+        <p>
+          <%= f.label :status_id %><br/>
+          <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => 'Scegli uno stato di iscrizione' %>
+        </p>
+        <%= f.button 'Filtra', class: 'btn blue' %>
+    <% end %>
+<% end %>
 
-  </thead>
-  <tbody>
-  <% @partecipants.each do |partecipant| %>
-      <tr>
-        <td>
-          <div class="pcontainer">
-            <div class="MoImg24">
-              <%= partecipant.user_image_tag(24) %>
-            </div>
-            <div class="Mo">
-              <%= link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
-            </div>
-            <div style="clear:both;"></div>
-          </div>
-        </td>
-        <td><%= partecipant.partecipation_role.name %></td>
-        <td><%= l partecipant.created_at if partecipant.created_at %></td>
-        <td>
-          <% if partecipant.acceptor %>
-              <div class="pcontainer">
-                <div class="MoImg24">
-                  <%= partecipant.acceptor.user_image_tag(24) %>
-                </div>
-                <div class="Mo">
-                  <%= link_to_user partecipant.acceptor, :full_name => true %>
-                </div>
-                <div style="clear:both;"></div>
-              </div>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<br/>
+<div id="results_panel">
+  <%= render :partial => 'group_partecipation_results' %>
+</div>

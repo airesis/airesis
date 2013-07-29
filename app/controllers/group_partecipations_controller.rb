@@ -15,8 +15,9 @@ class GroupPartecipationsController < ApplicationController
 
 
   def index
-    @group_partecipations = @group.group_partecipations.joins(:user).reorder(:surname)
-    @partecipants = @group.group_partecipations.includes(:user)
+    @group_partecipations = @group.group_partecipations.search(params[:search])
+
+    @partecipants = @group_partecipations
     respond_to do |format|
       format.html
       format.js

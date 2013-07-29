@@ -878,7 +878,10 @@ it:
         bad_score: Quorum negativo (percentuale)
         bad_score_title: "Gradimento al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
-        condition_title: "Le condizioni di Durata e Partecipanti devono essere superate entrambe o è sufficiente una delle due?" 
+        condition_title: "Le condizioni di Durata e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
+      search_partecipant:
+        role_id: 'Ruolo'
+        keywords: 'Nome o Cognome'
       user:
         name: "Nome"
         email: "Indirizzo Email"

@@ -67,6 +67,9 @@ class Group < ActiveRecord::Base
   has_many :group_affinities, dependent: :destroy
 
 
+  has_many :search_partecipants
+
+
   # Check for paperclip
   has_attached_file :image,
                     :styles => {

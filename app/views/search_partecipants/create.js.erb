@@ -1,0 +1,2 @@
+$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+$('#results_panel').html('<%=j render 'group_partecipations/group_partecipation_results'%>');

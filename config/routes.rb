@@ -213,6 +213,8 @@ Airesis::Application.routes.draw do
 
     resources :group_partecipations
 
+    resources :search_partecipants
+
     resources :proposals do
       collection do
         get :search
