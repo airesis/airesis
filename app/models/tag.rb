@@ -27,7 +27,7 @@ class Tag < ActiveRecord::Base
                 ON t2p1.proposal_id = t2p2.proposal_id
                 JOIN tags t2
                 ON t2p2.tag_id = t2.id
-                GROUP BY t2p2.id LIMIT 11)
+                GROUP BY t2p2.tag_id LIMIT 11)
                 and tt3.text != '#{self.text}'"
   end
 end
