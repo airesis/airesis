@@ -1,6 +1,7 @@
 class ProposalComment < ActiveRecord::Base
   include BlogKitModelHelper
   include LogicalDeleteHelper
+  include ActionView::Helpers::TextHelper
 
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
   belongs_to :contribute, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
@@ -61,7 +62,7 @@ class ProposalComment < ActiveRecord::Base
   def request=(request)
     self.user_ip    = request.remote_ip
     self.user_agent = request.env['HTTP_USER_AGENT']
-    self.referrer   = request.env['HTTP_REFERER']
+    self.referrer   = truncate(request.env['HTTP_REFERER'], length: 255)
   end
  
 end
