@@ -160,6 +160,7 @@ Airesis::Application.routes.draw do
   end
 
   resources :group_partecipations
+
   resources :group_invitations do
     collection do
       get :accept
@@ -211,7 +212,11 @@ Airesis::Application.routes.draw do
 
     resources :candidates
 
-    resources :group_partecipations
+    resources :group_partecipations do
+      collection do
+        post :send_email
+      end
+    end
 
     resources :search_partecipants
 

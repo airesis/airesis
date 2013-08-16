@@ -1,3 +1,6 @@
+<input type="hidden" id="count_results" value="<%=@partecipants.count%>"/>
+<input type="hidden" id="ids_results" value="<%=@partecipants.map{|p| p.user_id}.join(',')%>"/>
+
 <table style="width:800px;">
   <thead>
   <th><%= 'Utente' %></th>

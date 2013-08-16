@@ -8,7 +8,7 @@ class GroupPartecipationsController < ApplicationController
   #carica il gruppo
   before_filter :load_group
 
-  before_filter :load_group_partecipation, :except => :index
+  before_filter :load_group_partecipation, :except => [:index, :send_email]
 
   #sicurezza
   before_filter :authenticate_user!
@@ -32,6 +32,16 @@ class GroupPartecipationsController < ApplicationController
         csv << [group_partecipation.user.surname,group_partecipation.user.name,group_partecipation.partecipation_role.name,group_partecipation.created_at ? (l group_partecipation.created_at) : ' ']
       end
     end
+  end
+
+
+  #send a massive email to all users
+  def send_email
+    ids = params[:message][:receiver_ids]
+    subject = params[:message][:subject]
+    body = params[:message][:body]
+    ResqueMailer.massive_email(current_user.id,ids,@group.id,subject,body).deliver!
+    flash[:notice] = t('info.message_sent')
   end
 
   def destroy

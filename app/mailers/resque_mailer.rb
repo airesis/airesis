@@ -53,6 +53,14 @@ class ResqueMailer < ActionMailer::Base
     mail(to: @to.email, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, subject: subject)
   end
 
+  def massive_email(from_id,to_ids,group_id,subject,body)
+    @body = body
+    @from = User.find(from_id)
+    @group = Group.find(group_id)
+    @to = @group.partecipants.where('users.id in (?)',to_ids.split(','))
+    mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
+  end
+
 
   def publish(params)
     user = User.find_by_id(params['user_id'])
