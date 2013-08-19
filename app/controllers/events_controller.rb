@@ -244,7 +244,7 @@ class EventsController < ApplicationController
 
 
   def load_group
-    @group = Group.find(params[:group_id]) rescue nil
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
   end
   
   def load_event 

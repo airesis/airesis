@@ -23,23 +23,23 @@
       <% if @group && @group.id && (can? :view_data, @group)%>
           <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
           <span> ⋅ </span>
-          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_path(@group), class: ((['proposals','proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals','proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
           <span> ⋅ </span>
           <% if ::Configuration::groups_calendar %>
-              <%= link_to t('pages.groups.layout.calendar'), group_events_path(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
+              <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
               <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::elections_active %>
-              <%= link_to t('pages.groups.header.elections'), group_candidates_path(@group), class: ((['elections','candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
+              <%= link_to t('pages.groups.header.elections'), group_candidates_url(@group), class: ((['elections','candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
               <span> ⋅ </span>
           <% end %>
           <% if ::Configuration::documents_active %>
-              <%= link_to t('pages.groups.header.documents'), group_documents_path(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
+              <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
 
           <% end %>
           <% if can? :update, @group %>
               <span> ⋅ </span>
-              <%= link_to t('pages.groups.header.settings'), edit_group_path(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
+              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
           <% end %>
       <% end %>
 

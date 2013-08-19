@@ -26,7 +26,7 @@
 
   <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta            %>
       <% if @group %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_path(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_url(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% end %>

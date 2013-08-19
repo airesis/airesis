@@ -11,7 +11,7 @@ module UrlHelper
       options[:host] = with_subdomain(options.delete(:subdomain))
 
     elsif options.kind_of?(Group)
-      if request.subdomain && options.certified
+      if !request.subdomain.empty? && options.certified
         options = '/'
       end
     elsif options.kind_of?(Array) && (options[0].instance_of? Group)

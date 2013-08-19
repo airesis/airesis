@@ -14,7 +14,7 @@ class CandidatesController < ApplicationController
   
   def index
     @step = get_next_step(current_user)
-    @group = Group.find_by_id(params[:group_id])
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     authorize! :view_data, @group
     @page_title = @group.name + ": Area candidature"
   end
@@ -71,7 +71,7 @@ class CandidatesController < ApplicationController
   protected
   
   def check_group
-    @group = Group.find_by_id(params[:group_id])
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     if !(can? :send_candidate, @group)
       flash[:error] = "Non puoi inviare candidati per questo gruppo"
       respond_to do |format|

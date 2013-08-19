@@ -215,8 +215,8 @@
                     <span class="p1"><%= link_to group.name, group %></span>
 
                     <div class="p2">
-                      <%= link_to t('pages.header.groups.proposals'), group_proposals_path(group) %> -
-                      <%= link_to t('pages.header.groups.events'), group_events_path(group) %></div>
+                      <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
+                      <%= link_to t('pages.header.groups.events'), group_events_url(group) %></div>
                   </div>
               <% end %>
           <% end %>
@@ -236,7 +236,7 @@
 
         <div class="sep"></div>
         <li>
-          <%= link_to t('pages.header.menu.my_page'), root_url %>
+          <%= link_to t('pages.header.menu.my_page'), home_url %>
         </li>
         <li>
           <% if current_user.blog %>

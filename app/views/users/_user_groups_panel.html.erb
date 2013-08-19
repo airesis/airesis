@@ -12,7 +12,7 @@
 					<%= group.group_image_tag(24) rescue nil %>
 				</div>
 				<div class="group">
-					<%= link_to group.name, group %>
+					<%= link_to group.name, group_url(group) %>
 				</div>
 			</div>
 		<%end unless @groups.empty?%>

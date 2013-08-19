@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper, StepHelper, ProposalsModule
+  include NotificationHelper, StepHelper, ProposalsModule, GroupsHelper
 
   #load_and_authorize_resource
 
@@ -346,7 +346,7 @@ class ProposalsController < ApplicationController
             if request.env['HTTP_REFERER']["back=home"]
               page.redirect_to home_url
             else
-              page.redirect_to @group ? edit_group_proposal_path(@group, @proposal) : edit_proposal_path(@proposal)
+              page.redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
             end
           end
         }
@@ -354,7 +354,7 @@ class ProposalsController < ApplicationController
           if request.env['HTTP_REFERER']["back=home"]
             redirect_to home_url
           else
-            redirect_to @group ? edit_group_proposal_path(@group, @proposal) : edit_proposal_path(@proposal)
+            redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
           end
         }
       end
@@ -460,7 +460,7 @@ class ProposalsController < ApplicationController
         @proposal.attributes = params[:proposal]
 
         if @proposal.title_changed?
-          @proposal.url = @proposal.private? ? group_proposal_path(@proposal.presentation_groups.first, @proposal) : proposal_path(@proposal)
+          @proposal.url = @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_path(@proposal)
         end
 
         @proposal.save!
@@ -473,7 +473,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t(:proposal_updated)
         format.html {
-          redirect_to @group ? [@group, @proposal] : @proposal
+          redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
         }
       end
 
@@ -852,7 +852,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
-    if @proposal.presentation_groups.count > 0 && !params[:group_id]
+    if @proposal.presentation_groups.count > 0 && !params[:group_id] && request.subdomain.empty?
       redirect_to group_proposal_path(@proposal.presentation_groups.first, @proposal, :format => params[:format])
     end
     load_my_vote
