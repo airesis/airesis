@@ -24,7 +24,7 @@ Airesis::Application.routes.draw do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
-
+  match '', to: 'groups#show', constraints: {subdomain: /.+/}
   root :to => 'home#index'
 
   #match ':controller/:action/:id'

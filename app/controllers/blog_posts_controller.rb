@@ -177,7 +177,7 @@ class BlogPostsController < ApplicationController
     @blog = Blog.find(params[:blog_id])  if params[:blog_id]
     @user = @blog.user if @blog
          
-    @group = Group.find(params[:group_id]) unless params[:group_id].blank?
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     @groups = current_user.groups if current_user
     #if !@blog
     #  blog_required

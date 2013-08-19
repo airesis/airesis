@@ -840,7 +840,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   #carica il gruppo di riferimento della proposta
   def load_group
-    @group = Group.find(params[:group_id]) if params[:group_id]
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    #@group = Group.find(params[:group_id]) if params[:group_id]
   end
 
   #carica l'area di lavoro

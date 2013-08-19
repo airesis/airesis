@@ -445,7 +445,7 @@ class GroupsController < ApplicationController
   protected
 
   def load_group
-    @group = Group.find(params[:id])
+    @group = params[:id] ? Group.find(params[:id]) : Group.find_by_subdomain(request.subdomain)
   end
 
   def portavoce_required

@@ -187,19 +187,19 @@
 
         <div class="tria"></div>
       </div>
-      <div class="tag"><%= link_to t('pages.header.open_group'), new_group_path %></div>
-      <div class="tag"><%= link_to t('pages.header.new_group'), groups_path %></div>
+      <div class="tag"><%= link_to t('pages.header.open_group'), new_group_url(subdomain: false) %></div>
+      <div class="tag"><%= link_to t('pages.header.new_group'), groups_url(subdomain: false) %></div>
     </div>
     <div class="group-tag1">
       <div class="group-item">
         <div style="width:45px;height: 30px; float:left;">
           <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
         </div>
-        <span class="p1"><%= link_to t('open_space'), proposals_path %></span>
+        <span class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></span>
 
         <div class="p2">
-          <%= link_to t('pages.header.groups.proposals'), proposals_path %> -
-          <%= link_to t('pages.header.groups.events'), events_path %></div>
+          <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
+          <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %></div>
       </div>
       <% if user_signed_in? %>
           <% @groups = current_user.groups %>
