@@ -44,8 +44,6 @@
       <div class="baloon-footer">
         <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
-        <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
-
 
       </div>
       <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer">

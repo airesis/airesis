@@ -17,11 +17,11 @@
 
 <br />
 <h2><%= 'Parametri di configurazione proposte' %></h2>
-<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%><%= 'Anonimato attivo di default' %><br />
-<%=check_box :group, :default_visible_outside, :onclick=>"return change_default_visible_outside(this);"%><%= "Proposte visibili all'esterno di default" %><br />
-<%=check_box :group, :default_secret_vote, :onclick=>"return change_default_secret_vote(this);"%> <%= 'Voto segreto di default' %><br />
+<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%><%= 'Anonimato temporaneo attivo' %><br />
+<%=check_box :group, :default_visible_outside, :onclick=>"return change_default_visible_outside(this);"%><%= "Proposte visibili all'esterno" %><br />
+<%=check_box :group, :default_secret_vote, :onclick=>"return change_default_secret_vote(this);"%><%= 'Voto segreto' %><br />
 <hr>
-<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> <%= 'Permettere ai redattori di scegliere liberamente le opzioni sopraindicate' %><br />
+<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> <%= 'Permetti ai redattori di scegliere liberamente le opzioni sopraindicate' %><br />
 
 <script type="text/javascript">
 	function change_default_anonima(el) {
