@@ -335,7 +335,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.id)
+        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil)
       end
       @saved = true
 

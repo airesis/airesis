@@ -6,6 +6,7 @@ class ProposalComment < ActiveRecord::Base
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
   belongs_to :contribute, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
   has_many :replies, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id, dependent: :destroy
+  has_many :repliers, class_name: 'User', :through => :replies, :source => :user, uniq: true
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
   belongs_to :paragraph
@@ -63,6 +64,11 @@ class ProposalComment < ActiveRecord::Base
     self.user_ip    = request.remote_ip
     self.user_agent = request.env['HTTP_USER_AGENT']
     self.referrer   = truncate(request.env['HTTP_REFERER'], length: 255)
+  end
+
+  #retrieve all the partecipants to this discussion
+  def partecipants
+    self.repliers | [self.user]
   end
  
 end

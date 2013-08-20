@@ -1,5 +1,5 @@
 $("#rankingpanelcontainer<%=params[:id]%>").html('<%=j (render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => @proposal_comment})%>');
-<%if @proposal_comment.paragraph_id %>
+<%if @proposal_comment.paragraph_id && !@my_ranking %>
     var data_section_id = "[data-section_id=<%=@proposal_comment.paragraph.section.id%>]";
     var contribute_button = $('.contributeButton'+data_section_id);
     var new_contributes = parseInt(contribute_button.attr('data-unread_contributes_num'));
