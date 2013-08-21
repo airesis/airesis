@@ -51,7 +51,7 @@ module NotificationHelper
     msg = "La proposta <b>" + proposal.title + "</b> è stata aggiornata!"
 
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil)}
-    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE,:message => msg, :url => proposal_path(proposal), :data => data)
+    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE,:message => msg, :url => group ? group_proposal_url(group,proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user

@@ -159,8 +159,6 @@ Airesis::Application.routes.draw do
   #routes available only on main site
   constraints NoSubdomain do
 
-
-
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
