@@ -421,7 +421,7 @@ it:
         during_debate: "Dibattito in corso"
         comment_inserted_by: "Inserito %{when} da %{who}"
         replies:
-          show_all: "Mostra tutti i %{count} suggerimenti..."
+          show_all: "Mostra tutti i %{count} commenti..."
           delete: "Cancella"
         reply_button: "Rispondi"
         reply_placeholder: "Inserisci un commento"

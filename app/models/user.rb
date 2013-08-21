@@ -298,7 +298,7 @@ class User < ActiveRecord::Base
   end
 
   #restituisce true se l'utente ha valutato un contributo
-  #ma è stato successivamente inserito un suggerimento e può quindi valutarlo di nuovo
+  #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo
   def can_rank_again_comment?(comment)
     return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
     ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
