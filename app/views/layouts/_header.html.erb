@@ -154,11 +154,11 @@
         </div>
     <% end %>
 
-    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
+    <%= link_to (image_tag 'cur-love.png'), sostienici_url(subdomain: false), :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
       <%= link_to 'SEGNALAZIONI', '#', title: 'FEEDBACK', onclick: "$('.feedbackBtn').click();return false;" %> <br/>
-      <%= link_to 'VIDEOGUIDE', videoguide_path, title: 'VIDEOGUIDE' %> <br/>
+      <%= link_to 'VIDEOGUIDE', videoguide_url(subdomain: false), title: 'VIDEOGUIDE' %> <br/>
       <%= link_to 'FAQ', '#', title: 'FAQ' %> <br/>
       <%= link_to 'GUIDA', '#', title: 'GUIDA' %> <br/>
       <%= link_to "COS'È AIRESIS", edemocracy_path, title: "COS'È AIRESIS" %> <br/>

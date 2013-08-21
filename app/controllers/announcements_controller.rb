@@ -1,6 +1,6 @@
 class AnnouncementsController < ApplicationController
 
-  before_filter :moderator_required
+  before_filter :moderator_required, except: :hide
 
   # GET /announcements
   # GET /announcements.json
