@@ -30,7 +30,7 @@
       <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
       <span> ⋅ </span>
       <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
-      <div class="borx"></div>
+      <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
       <div class="tria" style="left: 389px;"></div>
     </div>
 <% end %>

@@ -1,4 +1,75 @@
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
+
+
 <% @page_title = t('pages.groups.index.title') %>
+
+
+<script type="text/javascript">
+    var geocoder;
+    var map;
+    $(function () {
+        if (!geocoder) {
+            geocoder = new google.maps.Geocoder();
+        }
+
+        var myOptions = {
+            zoom : 5,
+            center: new google.maps.LatLng(41.77275,14.95214),
+            mapTypeId : google.maps.MapTypeId.ROADMAP,
+            panControl : true,
+            streetViewControl : true,
+            mapTypeControl : false
+        };
+
+
+        map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+
+        google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
+        /*geocoder.geocode({
+                    'address': 'Italy'
+                },
+                function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        posizionaMappa(results[0].geometry.location, results[0].geometry.viewport);
+                        listenMarkerPosition();
+                    }
+                    else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+                        alert('Spiacente ma non riesco a trovare l\'indirizzo. Prova a cambiarlo...');
+                    }
+                    else {
+                        alert("Impossibile utilizzare il geocoder di Google: " + status);
+                    }
+                });
+
+        var center = latlng;
+
+
+        //noinspection JSUnresolvedVariable
+        var myOptions = {
+            zoom: zoom,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            panControl: false,
+            streetViewControl: false,
+            mapTypeControl: true,
+            draggable: true
+        };
+
+       # map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+        marker = new google.maps.Marker({
+            map: map,
+            position: latlng,
+            draggable: false
+        });         */
+    });
+</script>
+
+<div id="map" style="width:100%;height: 340px;">
+
+</div>
+
 
 <p>
   <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
@@ -16,19 +87,19 @@
 </div>
 <div class="clearboth"></div>
 <div id="more_groups_container">
-<%= render :partial => 'more_groups' %>
+  <%= render :partial => 'more_groups' %>
 </div>
 
 <%= content_for :left_panel do %>
     <div class="mybox">
       <% if ::Configuration::open_space_proposals %>
-      <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "btn forwardButton" %>
+          <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "btn forwardButton" %>
       <% end %>
-      <%if !current_user || (can? :create, Group) %>
+      <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
-      <%else%>
+      <% else %>
           <%= 'Puoi creare al massimo un gruppo al giorno' %>
-      <%end%>
+      <% end %>
     </div>
     <%= render :partial => 'users/user_groups_panel' %>
 <% end %>

@@ -1,4 +1,4 @@
-<%=form_for @group ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true, :validate => true do |f| %>
+<%=form_for (@group && !in_subdomain?) ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true, :validate => true do |f| %>
 
 <%= f.hidden_field :proposal_id %>
 <div>

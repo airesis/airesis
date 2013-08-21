@@ -122,6 +122,7 @@ GEM
       tzinfo
     foreigner (1.2.1)
       activerecord (>= 3.0.0)
+    geocoder (1.1.8)
     globalize3 (0.3.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -348,6 +349,7 @@ DEPENDENCIES
   exception_notification (= 2.6.1)
   fb_graph
   foreigner
+  geocoder
   globalize3
   httparty
   icalendar

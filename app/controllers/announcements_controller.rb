@@ -1,5 +1,7 @@
 class AnnouncementsController < ApplicationController
 
+  layout 'open_space'
+
   before_filter :moderator_required, except: :hide
 
   # GET /announcements

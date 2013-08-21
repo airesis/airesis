@@ -37,9 +37,8 @@
                     <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
                 <% end %>
             <% end %>
-            <div class="borx"></div>
+            <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
             <div class="tria" style="left: 389px;"></div>
-
           </div>
       <% end %>
   <% end %>

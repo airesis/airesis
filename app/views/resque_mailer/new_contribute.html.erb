@@ -2,7 +2,7 @@
 <% @username = @data['username'] %>
 <% @proposal = Proposal.find(@data['proposal_id']) %>
 
-<%= @username %> ha inserito un nuovo contributo alla proposta.<br/>
+<%= @username %> ha inserito un nuovo <%= @comment.is_contribute? ? ' contributo' : 'commento' %> alla proposta.<br/>
 <%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">

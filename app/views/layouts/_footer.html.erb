@@ -1,12 +1,15 @@
 <div id="footer">
     <div class="pull-left">
-      Airesis™ v. <%= VERSION %> - Progetto <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %> per l'e-democracy
+      Airesis™ v. <%= VERSION %> - Progetto <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %> per l'e-democracy.
+      <%if in_subdomain? %>
+       <%= link_to 'Vai al sito principale', root_url(subdomain: false)  %>
+      <%end%>
 
     </div>
 
     <div class="pull-right" style="float:right;">
-      <%= link_to t('guide'), videoguide_path, :class => "video_faq" %> -
-      <%= link_to t('pages.home.index.support'), sostienici_path %> -
+      <%= link_to t('guide'), videoguide_url(subdomain: false), :class => "video_faq" %> -
+      <%= link_to t('pages.home.index.support'), sostienici_url(subdomain: false) %> -
       <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link' %> -
       <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link' %> -
     </div>

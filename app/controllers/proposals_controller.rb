@@ -183,7 +183,7 @@ class ProposalsController < ApplicationController
     flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
-    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id) if current_user
+    @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
 
     respond_to do |format|
       #format.js
@@ -335,7 +335,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.id)
+        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil)
       end
       @saved = true
 
@@ -852,15 +852,18 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
-    if @proposal.presentation_groups.count > 0 && !params[:group_id] && request.subdomain.empty?
-      redirect_to group_proposal_path(@proposal.presentation_groups.first, @proposal, :format => params[:format])
+    @pgroup = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+
+    if @pgroup && !(@proposal.presentation_groups.include? @pgroup)
+      raise ActiveRecord::RecordNotFound
+    elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && request.subdomain.empty?
+      redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, :format => params[:format])
     end
     load_my_vote
-
   end
 
   def load_proposal
-    @proposal = Proposal.find(params[:id])
+    @proposal = @group ? @group.proposals.find(params[:id]) : Proposal.find(params[:id])
   end
 
   def load_my_vote
@@ -871,7 +874,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
         if ranking.updated_at < @proposal.updated_at
-          flash.now[:info] = t('info.proposal.can_change_valutation') if ['show','update'].include? params[:action]
+          flash.now[:info] = t('info.proposal.can_change_valutation') if ['show', 'update'].include? params[:action]
           @can_vote_again = 1
         else
           @can_vote_again = 0

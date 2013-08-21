@@ -1,51 +1,105 @@
 module GroupsHelper
 
-  def group_url(group,option={})
-    group.certified? ?
-      root_url(:subdomain => group.subdomain) :
+  def group_url(group, options={})
+    if group.certified?
+      root_url(:subdomain => group.subdomain)
+    else
+      options[:subdomain] = false
       super
+    end
+  end
+
+  def edit_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/edit' :
+        super
+  end
+
+  def edit_permissions_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/edit_permissions' :
+        super
+  end
+
+  def edit_proposals_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/edit_proposals' :
+        super
+  end
+
+  def permissions_list_group_path(group, options={})
+    (group_in_subdomain? group) ?
+        '/permissions_list' :
+        super
+  end
+
+
+  def group_group_areas_url(group, options={})
+    (group_in_subdomain? group) ?
+        group_areas_url(options) :
+        super
   end
 
   def group_candidates_url(group, options={})
-    (in_subdomain? group) ?
+    (group_in_subdomain? group) ?
         candidates_url(options) :
         super
   end
 
   def group_proposals_url(group, options={})
-    (in_subdomain? group) ?
-        proposals_url(options) :
-        super
+    if group_in_subdomain? group
+      proposals_url(options)
+    else
+      options[:subdomain] = false
+      super
+    end
   end
 
-  def group_proposal_url(group,proposal, options={})
-    (in_subdomain? group) ?
+  def group_proposal_url(group, proposal, options={})
+    (group_in_subdomain? group) ?
         proposal_url(proposal) :
         super
   end
 
-  def edit_group_proposal_url(group,proposal,option={})
-    (in_subdomain? group) ?
+  def edit_group_proposal_url(group, proposal, option={})
+    (group_in_subdomain? group) ?
         edit_proposal_url(proposal) :
         super
   end
 
 
   def group_events_url(group, options={})
-    (in_subdomain? group) ?
-        events_url :
-        super
+    if group_in_subdomain? group
+      events_url
+    else
+      options[:subdomain] = false
+      super
+    end
   end
 
   def group_documents_url(group, options={})
-    (in_subdomain? group) ?
+    (group_in_subdomain? group) ?
         documents_url :
         super
   end
 
+  def new_group_candidate_url(group, options={})
+    (group_in_subdomain? group) ?
+        new_candidate_url(options) :
+        super
+  end
+
+
+  def new_group_event_url(group, options={})
+    (group_in_subdomain? group) ?
+        new_event_url(options) :
+        super
+  end
+
+
   private
 
-  def in_subdomain?(group)
+  def group_in_subdomain?(group)
     group.certified && (request.subdomain == group.subdomain)
   end
 end

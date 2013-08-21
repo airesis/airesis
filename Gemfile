@@ -97,6 +97,8 @@ gem 'sitemap_generator'
 
 #gem 'georuby'
 
+gem 'geocoder'
+
 gem 'email_preview'
 
 gem 'seed_dump'

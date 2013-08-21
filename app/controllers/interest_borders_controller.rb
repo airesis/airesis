@@ -11,7 +11,7 @@ class InterestBordersController < ApplicationController
     @stati = Stato.with_translations(I18n.locale).all(conditions: ["upper(stato_translations.description) like upper(?)", hint], limit: 10)
     @regiones = Regione.all(conditions: ["upper(description) like upper(?)", hint], limit: 10)
     @province = Provincia.all(conditions: ["upper(description) like upper(?)", hint], limit: 10)
-    @comunes = Comune.all(conditions: ["upper(description) like upper(?)", hint], order: 'population nulls last', limit: 10)
+    @comunes = Comune.all(conditions: ["upper(description) like upper(?)", hint], order: 'population desc nulls last', limit: 10)
     @generic_borders = GenericBorder.all(conditions: ["upper(description) like upper(?)", hint], limit: 10)
     regioni = @regiones.collect { |r| {:id => InterestBorder::SHORT_REGIONE+'-'+r.id.to_s, :name => r.description + ' (Regione)'} }
     province = @province.collect { |p| {:id => InterestBorder::SHORT_PROVINCIA+'-'+p.id.to_s, :name => p.description + ' (Provincia)'} }

@@ -1,5 +1,5 @@
 <div id="create_proposal">
-  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
       <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
       <div class="legend"><%= t('pages.proposals.new.step_3') %></div>

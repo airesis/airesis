@@ -31,6 +31,6 @@ class DocumentsController < ApplicationController
   protected
 
   def load_group
-    @group = Group.find(params[:group_id])
+    @group = params[:group_id] ? Group.find(params[:group_id]) : Group.find_by_subdomain(request.subdomain)
   end
 end

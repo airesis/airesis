@@ -253,10 +253,8 @@ class EventsController < ApplicationController
   end
 
   def check_events_permissions
-    group_id = params[:group_id]
-    @group = Group.find_by_id(group_id)
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     return if is_admin?
-    permissions_denied if !group_id
     permissions_denied if !@group
     permissions_denied if (cannot? :create_event, @group)
   end

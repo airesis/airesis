@@ -196,9 +196,9 @@ class ApplicationController < ActionController::Base
 
       generate_nickname(current_user, @proposal)
 
+      Resque.enqueue_in(1, NotificationProposalCommentCreate, @proposal_comment.id)
       if @proposal_comment.is_contribute?
-        #alert only for contributes
-        Resque.enqueue_in(1, NotificationProposalCommentCreate, @proposal_comment.id)
+
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
           if params[:right]

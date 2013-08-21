@@ -5,7 +5,7 @@
 <% @page_title = @proposal.title %>
 <h1><%= 'Modifica la proposta' %></h1>
 
-<%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+<%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
     <% if can? :destroy, @proposal %>
         <div style="background: #FFE3A0; padding: 3px; border-radius: 2px;" class="shadow-box">

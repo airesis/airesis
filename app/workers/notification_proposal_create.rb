@@ -1,5 +1,5 @@
 class NotificationProposalCreate < NotificationSender
-  include Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers, GroupsHelper
 
   @queue = :notifications
 
@@ -17,7 +17,7 @@ class NotificationProposalCreate < NotificationSender
       subject =  "[#{group.name}] #{proposal.title}"
       msg = "E' stata creata una proposta <b>" + proposal.title + "</b> nel gruppo <b>" + group.name + "</b>"
       data = {'group_id' => group.id.to_s, 'proposal_id' => proposal.id.to_s, 'subject' => subject}
-      notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_path(group,proposal), :data => data)
+      notification_a = Notification.new(:notification_type_id => 10,:message => msg, :url => group_proposal_url(group,proposal), :data => data)
       notification_a.save
       #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
       group.scoped_partecipants(GroupAction::PROPOSAL_VIEW).each do |user|

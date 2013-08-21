@@ -1,5 +1,5 @@
 <div id="create_proposal">
-  <%= form_for @group ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
       <div class="legend first">Informazioni iniziali</div>
       <div class="legend">Sondaggi simili</div>
       <div class="legend">Testo del sondaggio</div>

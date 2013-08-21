@@ -39,10 +39,12 @@
             <% end %>
         <% end %>
         <span class="rightFloat" style="margin-right:3px"><%= comment.rankings.positives.count %></span>
-        <span class="rightFloat think"><%= 'Cosa ne pensi?' %></span>
+        <% if can_rank_again %>
+            <span class="rightFloat think"><%= 'Ora cosa ne pensi?' %></span>
+        <% end %>
         <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loading' %>
     <% else %>
-        <%= render 'ranking_panel_others', {comment: comment}%>
+        <%= render 'ranking_panel_others', {comment: comment} %>
     <% end %>
 
 <% else %>

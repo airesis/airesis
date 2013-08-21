@@ -321,7 +321,7 @@ it:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"  
     registration:
-      title: "oppure registrati"
+      title: "Registrati"
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
@@ -421,7 +421,7 @@ it:
         during_debate: "Dibattito in corso"
         comment_inserted_by: "Inserito %{when} da %{who}"
         replies:
-          show_all: "Mostra tutti i %{count} suggerimenti..."
+          show_all: "Mostra tutti i %{count} commenti..."
           delete: "Cancella"
         reply_button: "Rispondi"
         reply_placeholder: "Inserisci un commento"

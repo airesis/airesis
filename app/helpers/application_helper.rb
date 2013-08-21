@@ -41,5 +41,10 @@ module ApplicationHelper
     url = "https://chart.googleapis.​com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
     image_tag(url, :alt => 'Google Authenticator QRCode')
   end
+
+
+  def in_subdomain?
+    request.subdomain.present? && request.subdomain != 'www'
+  end
   
 end
