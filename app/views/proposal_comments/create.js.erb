@@ -24,7 +24,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
         contribute_button.attr('data-contributes_num',num_contributes+1);
 
         if (contribute_button.attr('data-status') != 1) {
-            $('.text', contribute_button).text('VISUALIZZA CONTRIBUTI').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+            $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
         }
         contribute_button.effect('highlight', {}, 3000);
 
@@ -56,7 +56,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
                 $('.contributeButton'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);
 
                 if (contribute_button.attr('data-status') != 1) {
-                    $('.text', contribute_button).text('VISUALIZZA CONTRIBUTI').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+                    $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
                 }
                 $('.suggestion_right'+data_section_id +' .blogComments').prepend('<%=j (render partial: 'proposals/comment_others', locals: {comment: @proposal_comment})%>');
                 contribute_button.effect('highlight', {}, 3000);

@@ -94,9 +94,9 @@ class Quorum < ActiveRecord::Base
       end
     end
     ar = []
-    ar << pluralize(days,"giorno","giorni") if (days && days > 0)
-    ar << pluralize(hours,"ora","ore") if (hours && hours > 0)
-    ar << pluralize(min,"minuto","minuti") if (min && min > 0)
+    ar << I18n.t('day',count: days) if (days && days > 0)
+    ar << I18n.t('hour',count: hours) if (hours && hours > 0)
+    ar << I18n.t('minute',count: min) if (min && min > 0)
     retstr = ar.join(" e ")    
     retstr
   end
@@ -132,19 +132,23 @@ class Quorum < ActiveRecord::Base
     if self.minutes
       if self.percentage
         if self.condition == 'OR'
-          ret = "Il dibattito proseguirà finchè non avranno partecipato il #{self.percentage}% degli aventi diritto e, in ogni caso, al massimo per #{self.time}."
+          ret = I18n.translate('models.quorum.or_condition_1',percentage: self.percentage, time: self.time)
         else
-          ret = "Il dibattito durerà #{self.time} ma proseguirà se non avrà partecipato almeno il #{self.percentage}% degli aventi diritto."
+          ret = I18n.translate('models.quorum.and_condition_1',percentage: self.percentage, time: self.time)
         end
       else
-        ret = "Il dibattito durerà esattamente #{self.time}."
+        ret = I18n.translate('models.quorum.time_condition_1',time: self.time)
       end
     elsif self.percentage
-      ret = "Il dibattito proseguirà finchè non avranno partecipato il #{self.percentage}% degli aventi diritto."
+      ret = I18n.translate('models.quorum.partecipants_condition_1',percentage: self.percentage)
     end
-    ret += "<br/>Andrà in votazione se supererà il #{self.good_score}% del gradimento"
+    ret += "<br/>"
+    ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)
     if self.bad_score && self.bad_score != self.good_score
-      ret += " e verrà abbandonata se sarà sotto il #{self.bad_score}%.<br/>Il dibattito continuerà se il gradimento rimarrà tra queste due soglie indipendentemente dal tempo o dal numero di valutazioni."
+      ret += " "
+      ret += I18n.translate('models.quorum.bad_score_condition',bad_score: self.bad_score)
+      ret += "<br/>"
+      ret += I18n.translate('models.quorum.bad_score_explain')
     end
     ret += "."
     ret.html_safe

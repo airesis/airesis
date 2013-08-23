@@ -429,12 +429,16 @@ it:
         manage_noise_folder: "Contributi eliminati"
         noise_folder: "Contributi eliminati"
         what_nickname: "Di cosa si tratta?"
-        give_contribute: "VISUALIZZA CONTRIBUTI"
+        give_contribute: "SCRIVI E VISUALIZZA CONTRIBUTI"
         no_contributes: "Durante la votazione i contributi non vengono mostrati"
         new_valutation_message: "La proposta ha ricevuto una nuova valutazione"
         old_editors_title: "Hanno redatto la proposta"
         back_debate_button: "Rimetti in dibattito"
         new_quorum_title: "Scegli il nuovo quorum"
+        enable_alerts: "Attiva notifiche"
+        disable_alerts: "Disattiva notifiche"
+        close_contribute: "CHIUDI CONTRIBUTI"
+        contributes_list: "Elenco contributi in %{section}"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -574,6 +578,23 @@ it:
         hidden_vote: "La votazione era segreta pertanto il tuo voto non può essere mostrato"
         preferences_order: "Il tuo ordine di preferenze è stato:"
         expressed_vote: "Hai espresso voto %{vote}"
+      edit:
+        title: "Modifica la proposta"
+        hurry_up: "Affrettati!"
+        last_minutes: "Potrai modificare questi dati ancora per %{minutes} minuti."
+        no_partecipants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
+        remove_section: "Rimuovi sezione"
+        add_paragraph: "Aggiungi un nuovo paragrafo"
+        edit_proposal: "Modifica e aggiorna il testo della proposta!"
+        remove_solution: "Rimuovi soluzione"
+        press_to_compress: "Clicca sul titolo per comprimere questa soluzione"
+        add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
+        add_solution: "Aggiungi un'ulteriore soluzione"
+        you_know_what_you_do: "Sai quello che fai?"
+        schulze_title: "Uno soluzione o più soluzioni?"
+        update: "Aggiorna"
+        inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
+        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare."
     events:
       index:
         title: "Calendario"
@@ -1018,6 +1039,15 @@ it:
         ok_message: "Evento eliminato correttamente"
       update:
         ok_message: "Evento aggiornato correttamente"
+  models:
+    quorum:
+      or_condition_1: "Il dibattito proseguirà finchè non avranno partecipato il %{percentage}% degli aventi diritto e, in ogni caso, al massimo per %{time}."
+      and_condition_1: "Il dibattito durerà %{time} ma proseguirà se non avrà partecipato almeno il %{percentage}% degli aventi diritto."
+      time_condition_1: "Il dibattito durerà esattamente %{time}."
+      partecipants_condition_1: "Il dibattito proseguirà finchè non avranno partecipato il %{percentage}% degli aventi diritto."
+      good_score_condition: "Andrà in votazione se supererà il %{good_score}% del gradimento"
+      bad_score_condition: "e verrà abbandonata se sarà sotto il %{bad_score}%."
+      bad_score_explain: "Il dibattito continuerà se il gradimento rimarrà tra queste due soglie indipendentemente dal tempo o dal numero di valutazioni"
   unavailable_option: "Opzione non ancora disponibile"
   change_language: "Cambia lingua"
   terms_of_service: "Condizioni"
@@ -1076,3 +1106,12 @@ it:
   saving: "Salvataggio..."
   sending: "Invio..."
   updating: "Aggiornamento..."
+  day:
+    one: "%{count} giorno"
+    other: "%{count} giorni"
+  hour:
+    one: "%{count} ora"
+    other: "%{count} ore"
+  minute:
+    one: "%{count} minuto"
+    other: "%{count} minuti"

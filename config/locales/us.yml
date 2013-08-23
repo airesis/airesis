@@ -1,4 +1,5 @@
 us:
+  permissions_required: "You are not allowed to make this operation"
   test: "Test"
   devise:
     omniauth_callbacks:
@@ -428,12 +429,16 @@ us:
         manage_noise_folder: "Removed contributes"
         noise_folder: "Removed contributes"
         what_nickname: "What's that?"
-        give_contribute: "Make your contribution"
+        give_contribute: "WRITE AND SHOW CONTRIBUTES"
         no_contributes: "While voting contributes are not shown"
         new_valutation_message: "The proposal has received a new valutation"
         old_editors_title: "Old editors"
         back_debate_button: "Put back in debate"
         new_quorum_title: "Choose a new quorum"
+        enable_alerts: "Enable alerts"
+        disable_alerts: "Disable alerts"
+        close_contribute: "CLOSE CONTRIBUTES"
+        contributes_list: "List of contributes in %{section}"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -525,6 +530,11 @@ us:
             data: "Personal data"
             curriculum: "Curriculum"
             available: "Availability for the position"
+        simple:
+          problems_title: "Problem"
+          solution:
+            description: "Description"
+          problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -568,6 +578,23 @@ us:
         hidden_vote: "The vote was secret so it can't be shown."
         preferences_order: "Your preferences order was:"
         expressed_vote: "You expressed %{vote} vote"
+      edit:
+        title: "Edit the proposal"
+        hurry_up: "Hurry up!"
+        last_minutes: "You are allowed to edit these fields only for %{minutes} minutes."
+        no_partecipants: "You are allowed to edit these fileds only if nobody has been partecipated!"
+        remove_section: "Remove section"
+        add_paragraph: "Add a new paragraph"
+        edit_proposal: "Edit and update the proposal text"
+        remove_solution: "Remove solution"
+        press_to_compress: "Click on the title to compress this solution"
+        add_paragraph_to_solution: "Add a paragraph to the solution"
+        add_solution: "Add another solution"
+        you_know_what_you_do: "Do you know what are you going to do?"
+        schulze_title: "One or more solutions?"
+        update: "Update"
+        inserted_contributes: "Sign contributes you have integrated in this revision"
+        tooltip: "When you have finished editing, press button 'Update' to save your work."
     events:
       index:
         title: 'Calendar'
@@ -605,6 +632,7 @@ us:
         delete_button_confirm: "Are you sure you want to delete this post?"
         draft: "[Draft]"
         comments_says: "says..."
+      published_button: "Published posts"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -637,6 +665,7 @@ us:
         resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
         sign_has_read: "Sign as read"
+        moderator: "MODERATOR PANEL"
       welcome: "Welcome"
       groups_title: "GROUPS"
       login: "LOGIN"
@@ -718,6 +747,7 @@ us:
           title: "Title"
           last_edit: "Last edit"
           authors: "Authors"
+          notifications: "Notifications"
         notifications:
           title: "Alerts"
         your_contributes: "Your last contributes"
@@ -763,6 +793,9 @@ us:
       index:
         title: "%{title} - Revision History"
         back_to_proposal: "Back to proposal"
+    tags:
+      show:
+        related_title: "Related tags"
   pl:
     comments:
       zero: no comment
@@ -867,6 +900,9 @@ us:
         bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the quorum is not met'
         condition: Condition
         condition_title: 'The conditions of Duration and Participants must be both overcome or just one of them?'
+      search_partecipant:
+        role_id: 'Role'
+        keywords: 'Name or surname'
       user:
         name: 'Name'
         email: 'Email address'
@@ -878,6 +914,7 @@ us:
         accept_conditions: 'Terms of Use'
         email_alerts: 'Notifications via Email'
         blog_image_url: 'Image address'
+        blocked: "Error"
       group_area:
         name: "Name"
         description: "Description"
@@ -1002,6 +1039,15 @@ us:
         ok_message: "Evento eliminato correttamente"
       update:
         ok_message: "Evento aggiornato correttamente"
+  models:
+    quorum:
+      or_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible, and in any case for a maximum of %{time}"
+      and_condition_1: "The debate will last %{time}, but will continue unless he has attended at least %{percentage}% of those eligible."
+      time_condition_1: "The debate will last exactly %{time}."
+      partecipants_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible."
+      good_score_condition: "It will go to the vote if it get over a rank of %{good_score}%"
+      bad_score_condition: "and will be abandoned if the rank will be under the %{bad_score}%."
+      bad_score_explain: "The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of valutations"
   unavailable_option: "This option is not yet available"
   change_language: "Change language"
   terms_of_service: "Terms of service"
@@ -1053,7 +1099,19 @@ us:
         inspire: "Rules from which get example"
         stackeholders: "Stakeholders"
         requisiti: "Requirements to be met"
+    candidates:
+      sections:
+        description: "Description of election kind"
   default_admin_title: "Administrator"
   saving: "Saving..."
   sending: "Sending..."
   updating: "Updating..."
+  day:
+    one: "%{count} day"
+    other: "%{count} days"
+  hour:
+    one: "%{count} hour"
+    other: "%{count} hours"
+  minute:
+    one: "%{count} minute"
+    other: "%{count} minutes"

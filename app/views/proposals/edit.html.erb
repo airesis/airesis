@@ -3,7 +3,7 @@
 <% end %>
 
 <% @page_title = @proposal.title %>
-<h1><%= 'Modifica la proposta' %></h1>
+<h1><%= t('pages.proposals.edit.title') %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
@@ -13,12 +13,12 @@
             <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
 
             <% if last < 2 %>
-                <%= 'Affrettati!' %>
+                <%= t('pages.proposals.edit.hurry_up') %>
             <% end %>
             <% if last > 0 %>
-                <%= "Potrai modificare questi dati ancora per #{last.round(0)} minuti." %>
+                <%= t('pages.proposals.edit.last_minutes', minutes: last.round(0)) %>
             <% else %>
-                <%= "Potrai modificare questi dati solo se nessuno ha ancora partecipato!" %>
+                <%= t('pages.proposals.edit.no_partecipants') %>
             <% end %>
           </p>
 
@@ -103,11 +103,6 @@
         </div>
     <% end %>
 
-
-
-    <h4>Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole
-      raggiungere la proposta</h4>
-
     <p>
       <%= f.label :proposal_category_id %><br/>
       <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick'} %>
@@ -125,7 +120,7 @@
                       <%= image_tag 'move.png' %>
                     </span>
                      <span class="remove_button">
-                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= 'Rimuovi sezione' %></a>
+                      <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
                     <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
@@ -138,11 +133,11 @@
     </div>
 
     <div class="new_section">
-      <a href="#" onclick="addSection(this);return false;"><%= 'Aggiungi un nuovo paragrafo' %></a>
+      <a href="#" onclick="addSection(this);return false;"><%= t('pages.proposals.edit.add_paragraph') %></a>
     </div>
 
     <hr/>
-    <h4><%= 'Modifica e aggiorna il testo della proposta!' %></h4>
+    <h4><%= t('pages.proposals.edit.edit_proposal') %></h4>
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
@@ -153,11 +148,11 @@
                     <%= sol.text_field :title %>
                   </div>
                   <span class="remove_sol_button">
-                    <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= 'Rimuovi soluzione' %></a>
+                    <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_solution') %></a>
                   </span>
                 </div>
               </h3>
-              <div class="pressed">Clicca sul titolo per comprimere questa soluzione</div>
+              <div class="pressed"><%= t('pages.proposals.edit.press_to_compress') %></div>
               <div class="sol_content">
                 <div class="solutions_column" data-solution_id="<%= i %>">
 
@@ -176,7 +171,7 @@
                               <%= image_tag 'move.png' %>
                             </span>
                              <span class="remove_button">
-                              <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= 'Rimuovi sezione' %></a>
+                              <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_section') %></a>
                             </span>
                                 <br/>
 
@@ -196,7 +191,7 @@
                 </div>
         <% end %>
         <div class="new_section">
-          <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+          <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
         </div>
         </div>
         </div>
@@ -204,10 +199,10 @@
 
 
     <div class="new_section">
-      <a href="#" onclick="addSolution(this);return false;"><%= 'Aggiungi un\'ulteriore soluzione' %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= 'Sai quello che fai?' %></a>
+      <a href="#" onclick="addSolution(this);return false;"><%= t('pages.proposals.edit.add_solution') %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
     </div>
 
-    <div id="you_know" title="Uno soluzione o più soluzioni?" style="display:none;line-height: 160%">
+    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title')%>" style="display:none;line-height: 160%">
       <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
       Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
       Se la soluzione sarà una, al momento della votazione i partecipanti dovranno semplicemente scegliere se approvare
@@ -228,14 +223,14 @@
 
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit "Aggiorna", :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
+      <%= f.submit t('pages.proposals.edit.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
     </p>
 <% end %>
 
 
 <hr/>
 
-<%= 'Indica quali contributi hai integrato con questa modifica della proposta' %>
+<%= t('pages.proposals.edit.inserted_contributes') %>
 
 <div id="loading_contributes" style="margin:auto;text-align:center;">
   <%= image_tag 'ajax-loader.gif' %>
@@ -273,7 +268,7 @@
         <%= render :partial => 'show_tooltips' %>
 
         toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
-        toastr.info('<%=raw 'Quando hai terminato le modifiche clicca sul pulsante ''Aggiorna'' per salvare.' %><br/><input type="button" class="btn" value="Aggiorna" onclick="$(\'form input:submit\').click();"></input>');
+        toastr.info('<%=raw (j t('pages.proposals.edit.tooltip'))%><br/><input type="button" class="btn" value="<%=t('pages.proposals.edit.update')%>" onclick="$(\'form input:submit\').click();"></input>');
 
         anima();
     });

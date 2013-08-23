@@ -1,8 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <span class="ui-icon ui-icon-close" style="position: absolute; top: 5px; right: 5px; cursor: pointer;" onclick="close_right_contributes($('.contributeButton[data-section_id=<%=@section.id%>]'));return false;"></span>
 <div id="proposalNewComment" class="blogNewComment">
-  <h2><%= "Elenco contributi in #{@section.title}" %></h2>
+  <h2><%= t('pages.proposals.show.contributes_list', section: @section.title) %></h2>
 
 
 

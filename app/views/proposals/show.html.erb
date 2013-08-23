@@ -232,7 +232,7 @@
         $('#suggest').show();
         _this.parent().find(".tria").show();
         _this.parent().addClass("sel");
-        $('.text', _this).text('CHIUDI CONTRIBUTI');
+        $('.text', _this).text('<%=j t('pages.proposals.show.close_contribute')%>');
         if (window.innerWidth < 1600) {
             $('#menu-left').animate({'margin-left': '-300'}, 200);
             $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
@@ -264,7 +264,7 @@
         _this.attr("data-status", 2);
         $('.suggestion_right[data-section_id=' + section_id + ']').hide();
         _this.parent().find(".tria").hide();
-        $('.text', _this).text('VISUALIZZA CONTRIBUTI').append(" (" + _this.attr('data-unread_contributes_num') + "/" + _this.attr('data-contributes_num') + ")");
+        $('.text', _this).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + _this.attr('data-unread_contributes_num') + "/" + _this.attr('data-contributes_num') + ")");
         $('#menu-left').animate({'margin-left': '0'}, 200);
         $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
         $('.suggestion_right[data-section_id=' + section_id + ']').animate({'left': '1110px'}, 200);
@@ -311,7 +311,7 @@
                         $(this).attr("data-status", 2);
                         $('.suggestion_right[data-section_id=' + his_section_id + ']').hide();
                         $(this).parent().find(".tria").hide();
-                        $('.text', this).text('VISUALIZZA CONTRIBUTI').append(" (" + $(this).attr('data-unread_contributes_num') + "/" + $(this).attr('data-contributes_num') + ")");
+                        $('.text', this).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + $(this).attr('data-unread_contributes_num') + "/" + $(this).attr('data-contributes_num') + ")");
                         if (window.innerWidth < 1600) {
                             //$('#menu-left').animate({'margin-left': '0'}, 200);
                             //$('#centerpanelextended').animate({'margin-left': '280px','max-width': '800px'}, 200);
@@ -330,7 +330,7 @@
                 $('#suggest').show();
                 $(this).parent().find(".tria").show();
                 $(this).parent().addClass("sel");
-                $('.text', this).text('CHIUDI CONTRIBUTI');
+                $('.text', this).text('<%=j t('pages.proposals.show.close_contribute')%>');
                 if (window.innerWidth < 1600) {
                     $('#menu-left').animate({'margin-left': '-300'}, 200);
                     $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
