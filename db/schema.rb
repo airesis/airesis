@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729074529) do
+ActiveRecord::Schema.define(:version => 20130819100342) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -271,102 +271,6 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
-  create_table "forem_categories", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "slug"
-    t.integer  "group_id",   :null => false
-  end
-
-  add_index "forem_categories", ["slug"], :name => "index_forem_categories_on_slug", :unique => true
-
-  create_table "forem_forums", :force => true do |t|
-    t.string  "name"
-    t.text    "description"
-    t.integer "category_id"
-    t.integer "views_count", :default => 0
-    t.string  "slug"
-  end
-
-  add_index "forem_forums", ["slug"], :name => "index_forem_forums_on_slug", :unique => true
-
-  create_table "forem_groups", :force => true do |t|
-    t.string "name"
-  end
-
-  add_index "forem_groups", ["name"], :name => "index_forem_groups_on_name"
-
-  create_table "forem_memberships", :force => true do |t|
-    t.integer "group_id"
-    t.integer "member_id"
-  end
-
-  add_index "forem_memberships", ["group_id"], :name => "index_forem_memberships_on_group_id"
-
-  create_table "forem_moderator_groups", :force => true do |t|
-    t.integer "forum_id"
-    t.integer "group_id"
-  end
-
-  add_index "forem_moderator_groups", ["forum_id"], :name => "index_forem_moderator_groups_on_forum_id"
-
-  create_table "forem_posts", :force => true do |t|
-    t.integer  "topic_id"
-    t.text     "text"
-    t.integer  "user_id"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.integer  "reply_to_id"
-    t.string   "state",       :default => "pending_review"
-    t.boolean  "notified",    :default => false
-  end
-
-  add_index "forem_posts", ["reply_to_id"], :name => "index_forem_posts_on_reply_to_id"
-  add_index "forem_posts", ["state"], :name => "index_forem_posts_on_state"
-  add_index "forem_posts", ["topic_id"], :name => "index_forem_posts_on_topic_id"
-  add_index "forem_posts", ["user_id"], :name => "index_forem_posts_on_user_id"
-
-  create_table "forem_subscriptions", :force => true do |t|
-    t.integer "subscriber_id"
-    t.integer "topic_id"
-  end
-
-  create_table "forem_topics", :force => true do |t|
-    t.integer  "forum_id"
-    t.integer  "user_id"
-    t.string   "subject"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.boolean  "locked",       :default => false,            :null => false
-    t.boolean  "pinned",       :default => false
-    t.boolean  "hidden",       :default => false
-    t.datetime "last_post_at"
-    t.string   "state",        :default => "pending_review"
-    t.integer  "views_count",  :default => 0
-    t.string   "slug"
-  end
-
-  add_index "forem_topics", ["forum_id"], :name => "index_forem_topics_on_forum_id"
-  add_index "forem_topics", ["slug"], :name => "index_forem_topics_on_slug", :unique => true
-  add_index "forem_topics", ["state"], :name => "index_forem_topics_on_state"
-  add_index "forem_topics", ["user_id"], :name => "index_forem_topics_on_user_id"
-
-  create_table "forem_views", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "viewable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "count",             :default => 0
-    t.string   "viewable_type"
-    t.datetime "current_viewed_at"
-    t.datetime "past_viewed_at"
-  end
-
-  add_index "forem_views", ["updated_at"], :name => "index_forem_views_on_updated_at"
-  add_index "forem_views", ["user_id"], :name => "index_forem_views_on_user_id"
-  add_index "forem_views", ["viewable_id"], :name => "index_forem_views_on_topic_id"
-
   create_table "generic_borders", :force => true do |t|
     t.string  "description", :null => false
     t.string  "name",        :null => false
@@ -502,6 +406,13 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
   add_index "group_quorums", ["quorum_id", "group_id"], :name => "index_group_quorums_on_quorum_id_and_group_id", :unique => true
   add_index "group_quorums", ["quorum_id"], :name => "index_group_quorums_on_quorum_id", :unique => true
 
+  create_table "group_tags", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "group_id"
+    t.integer  "tag_id"
+  end
+
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
     t.string   "description",                :limit => 2000
@@ -529,7 +440,11 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
     t.string   "admin_title",                :limit => 200
     t.boolean  "private",                                     :default => false
     t.string   "rule_book",                  :limit => 40000
+    t.string   "subdomain",                  :limit => 100
+    t.boolean  "certified",                                   :default => false, :null => false
   end
+
+  add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
 
   create_table "images", :force => true do |t|
     t.string   "image_file_name"
@@ -980,6 +895,15 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
 
   add_index "schulze_votes", ["election_id", "preferences"], :name => "index_schulze_votes_on_election_id_and_preferences", :unique => true
 
+  create_table "search_partecipants", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "status_id"
+    t.string   "keywords"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "section_histories", :force => true do |t|
     t.integer "section_id"
     t.string  "title",      :limit => 100, :null => false
@@ -1048,14 +972,6 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
     t.integer "month"
     t.integer "day"
     t.integer "value"
-  end
-
-  create_table "static_pages", :force => true do |t|
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.string   "content",    :limit => 100000
-    t.string   "draft",      :limit => 100000
-    t.string   "key"
   end
 
   create_table "stato_translations", :force => true do |t|
@@ -1178,7 +1094,7 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
 
   create_table "users", :force => true do |t|
-    t.integer  "user_type_id",                              :default => 3,                :null => false
+    t.integer  "user_type_id",                              :default => 3,     :null => false
     t.integer  "residenza_id"
     t.integer  "nascita_id"
     t.string   "name",                      :limit => 100
@@ -1196,9 +1112,9 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
     t.datetime "deleted_at"
     t.text     "state"
     t.string   "reset_password_token"
-    t.string   "encrypted_password",        :limit => 128,                                :null => false
-    t.boolean  "activist",                                  :default => false,            :null => false
-    t.boolean  "elected",                                   :default => false,            :null => false
+    t.string   "encrypted_password",        :limit => 128,                     :null => false
+    t.boolean  "activist",                                  :default => false, :null => false
+    t.boolean  "elected",                                   :default => false, :null => false
     t.string   "blog_image_url",            :limit => 1000
     t.integer  "image_id"
     t.integer  "rank"
@@ -1212,8 +1128,8 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
     t.string   "account_type"
     t.datetime "remember_created_at"
     t.datetime "confirmation_sent_at"
-    t.boolean  "banned",                                    :default => false,            :null => false
-    t.boolean  "email_alerts",                              :default => false,            :null => false
+    t.boolean  "banned",                                    :default => false, :null => false
+    t.boolean  "email_alerts",                              :default => false, :null => false
     t.datetime "reset_password_sent_at"
     t.string   "facebook_page_url"
     t.string   "linkedin_page_url"
@@ -1222,15 +1138,12 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
     t.string   "google_page_url"
     t.boolean  "show_tooltips",                             :default => true
     t.boolean  "show_urls",                                 :default => true
-    t.boolean  "receive_messages",                          :default => true,             :null => false
+    t.boolean  "receive_messages",                          :default => true,  :null => false
     t.string   "authentication_token"
     t.string   "rotp_secret",               :limit => 16
     t.boolean  "rotp_enabled",                              :default => false
     t.string   "blocked_name"
     t.string   "blocked_surname"
-    t.boolean  "forem_admin",                               :default => false
-    t.string   "forem_state",                               :default => "pending_review"
-    t.boolean  "forem_auto_subscribe",                      :default => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
@@ -1278,6 +1191,9 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
 
   add_foreign_key "blocked_emails", "notification_types", :name => "blocked_emails_notification_type_id_fk"
   add_foreign_key "blocked_emails", "users", :name => "blocked_emails_user_id_fk"
+
+  add_foreign_key "blocked_proposal_alerts", "proposals", :name => "blocked_proposal_alerts_proposal_id_fk"
+  add_foreign_key "blocked_proposal_alerts", "users", :name => "blocked_proposal_alerts_user_id_fk"
 
   add_foreign_key "blog_comments", "blog_comments", :name => "blog_comments_parent_blog_comment_id_fk", :column => "parent_blog_comment_id"
   add_foreign_key "blog_comments", "blog_posts", :name => "blog_comments_blog_post_id_fk"
@@ -1331,6 +1247,9 @@ ActiveRecord::Schema.define(:version => 20130729074529) do
 
   add_foreign_key "group_quorums", "groups", :name => "group_quorums_group_id_fk"
   add_foreign_key "group_quorums", "quorums", :name => "group_quorums_quorum_id_fk"
+
+  add_foreign_key "group_tags", "groups", :name => "group_tags_group_id_fk"
+  add_foreign_key "group_tags", "tags", :name => "group_tags_tag_id_fk"
 
   add_foreign_key "groups", "interest_borders", :name => "groups_interest_border_id_fk"
   add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"

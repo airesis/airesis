@@ -14,7 +14,7 @@
 
         <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
             toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
-            toastr.info('<div id="announcement<%=announcement.id%>"><%=raw announcement.message%><%= link_to "OK", hide_announcement_path(announcement), class: 'btn', style: 'color: #444', remote: true, method: :post %></div>');
+            toastr.info('<div id="announcement<%=announcement.id%>"><%=j (raw announcement.message)%><%= link_to "OK", hide_announcement_path(announcement), class: 'btn', style: 'color: #444', remote: true, method: :post %></div>');
         <%end%>
 
     });

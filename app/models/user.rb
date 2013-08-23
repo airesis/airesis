@@ -147,7 +147,7 @@ class User < ActiveRecord::Base
   #restituisce l'elencod ei gruppi nei quali sono portavoce
   def portavoce_groups
     self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id")
-    .where("(partecipation_roles.name = 'portavoce')")
+    .where("(partecipation_roles.name = 'amministratore')")
 
   end
 
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
     self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
                                         " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
                                         " and action_abilitations.group_id = group_partecipations.group_id")
-    .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    .all(:conditions => "(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
   end
 
   #restituisce l'elenco dei gruppi dell'utente
@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
     ret = self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
                                 " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
                                 " and action_abilitations.group_id = group_partecipations.group_id")
-    .all(:conditions => "(partecipation_roles.name = 'portavoce' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    .all(:conditions => "(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 

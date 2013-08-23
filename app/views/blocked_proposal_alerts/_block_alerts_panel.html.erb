@@ -1,5 +1,5 @@
 <% if @blocked_alerts %>
-    <%= link_to 'Attiva notifiche', unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn' %>
+    <%= link_to 'Attiva notifiche', unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', disable_with: t('loading') %>
 <% else %>
-    <%= link_to 'Disattiva notifiche', block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn' %>
+    <%= link_to 'Disattiva notifiche', block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn', disable_with: t('loading') %>
 <% end %>

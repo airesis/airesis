@@ -68,6 +68,8 @@ module GroupsHelper
   end
 
 
+
+
   def group_events_url(group, options={})
     if group_in_subdomain? group
       events_url

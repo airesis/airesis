@@ -893,6 +893,7 @@ it:
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
         blog_image_url: "Indirizzo immagine"
+        blocked: "Errore"
       group_area:
         name: "Nome"
         description: "Descrizione"

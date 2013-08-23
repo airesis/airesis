@@ -102,7 +102,7 @@ Airesis::Application.routes.draw do
 
   match 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations"} do
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords"} do
     get '/users/sign_in', :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'

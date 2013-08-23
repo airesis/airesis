@@ -175,6 +175,7 @@ class Ability
       end
 
       if user.moderator?
+        can :read, Proposal # can see all the proposals
         can :destroy, ProposalComment do |comment|
           comment.grave_reports_count > 0
         end
@@ -185,7 +186,7 @@ class Ability
           proposal.in_valutation?
         end
         can :send_message, User # can send messages to every user although they denied it
-        can :read, Proposal # can see all the proposals
+
         can :update, Proposal #can edit them
         can :partecipate, Proposal #can partecipate
         can :destroy, Proposal #can destroy one

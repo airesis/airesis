@@ -9,7 +9,8 @@
               <%= f.label group.name %>
               <br/>
           <% end %>
-          <%= f.submit t('pages.proposal_supports.confirm_button'), :class => 'buttonStyle' %>
+          <a href="#" class="btn" onclick="$('#proposal_support').dialog('destroy');$('#proposal_support').remove();"><%= t('buttons.cancel') %></a>
+          <%= f.submit t('pages.proposal_supports.confirm_button'), :class => 'btn blue' %>
       <% end %>
   <% end %>
 </div>
