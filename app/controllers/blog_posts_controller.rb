@@ -99,14 +99,12 @@ class BlogPostsController < ApplicationController
           notify_user_insert_blog_post(@blog_post) if @blog_post.published
           flash[:notice] = t('info.blog_created')
           format.html {
-            if (params[:group_id] && !params[:group_id].empty?)
+            if params[:group_id] && !params[:group_id].empty?
               @group = Group.find(params[:group_id])
               redirect_to group_url(@group)
             else
-              redirect_to([@blog,@blog_post]) if (!params[:group_id] || params[:group_id].empty?)
+              redirect_to([@blog,@blog_post])
             end
-
-
            }
           #format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
@@ -183,7 +181,7 @@ class BlogPostsController < ApplicationController
     @blog = Blog.find(params[:blog_id])  if params[:blog_id]
     @user = @blog.user if @blog
          
-    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    @group = (params[:group_id] && !params[:group_id].empty?) ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     @groups = current_user.groups if current_user
     #if !@blog
     #  blog_required

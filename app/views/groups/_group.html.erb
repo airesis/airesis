@@ -38,7 +38,7 @@
         </script>
     <%end%>
 
-    <% if ::Configuration::socialnetwork_active %>
+    <% if ::Configuration::socialnetwork_active && false%>
         <p>
           <%= f.label :facebook_page_url %><br/>
           <%= f.text_field :facebook_page_url, placeholder: t('activerecord.attributes.group.facebook_page_url_placeholder'), style: "width: 600px" %>

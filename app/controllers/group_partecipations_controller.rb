@@ -73,7 +73,7 @@ class GroupPartecipationsController < ApplicationController
   end
 
   def load_group
-    @group = Group.find(params[:group_id])
+    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
   end
   
   

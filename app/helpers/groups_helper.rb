@@ -66,6 +66,14 @@ module GroupsHelper
         super
   end
 
+  def group_group_partecipations_url(group, options={})
+    (group_in_subdomain? group) ?
+        group_partecipations_url(options) :
+        super
+  end
+
+
+
   def group_candidates_url(group, options={})
     (group_in_subdomain? group) ?
         candidates_url(options) :

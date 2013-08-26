@@ -1,8 +1,5 @@
 Airesis::Application.routes.draw do
 
-
-
-
   match 'home', :to => 'home#show'
 
   resources :proposal_nicknames
@@ -204,6 +201,12 @@ Airesis::Application.routes.draw do
       end
     end
 
+    resources :group_partecipations do
+      collection do
+        post :send_email
+      end
+    end
+
 
     get '/:action', controller: 'groups'
 
@@ -232,8 +235,6 @@ Airesis::Application.routes.draw do
         get :list
       end
     end
-
-    resources :group_partecipations
 
     resources :group_invitations do
       collection do
@@ -332,10 +333,6 @@ Airesis::Application.routes.draw do
         match :drafts, :on => :collection
         resources :blog_comments
       end
-
-
-      resources :group_partecipations
-
     end
 
     resources :documents do
