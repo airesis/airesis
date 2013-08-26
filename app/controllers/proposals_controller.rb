@@ -863,7 +863,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def load_proposal
-    @proposal = @group ? @group.proposals.find(params[:id]) : Proposal.find(params[:id])
+    @proposal = @group ? @group.internal_proposals.find(params[:id]) : Proposal.find(params[:id])
   end
 
   def load_my_vote

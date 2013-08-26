@@ -10,7 +10,7 @@
     <tbody>
     <% Solution.where(:proposal_id => @proposal.id).order('schulze_score desc').each do |solution| %>
         <tr>
-          <td><%= solution.sections.first.title %></td>
+          <td><%= solution.title %></td>
           <td style="text-align: center"><%= solution.schulze_score %></td>
         </tr>
     <% end %>
@@ -32,7 +32,7 @@
         <td><%= user_vote.user.fullname %></td>
         <td><%= l user_vote.created_at %></td>
         <% unless @proposal.secret_vote %>
-            <td><%= @proposal.is_schulze? ? user_vote.vote_schulze : user_vote.vote_type.description %></td>
+            <td><%= @proposal.is_schulze? ? user_vote.desc_vote_schulze : user_vote.vote_type.description %></td>
         <% end %>
       </tr>
   <% end %>

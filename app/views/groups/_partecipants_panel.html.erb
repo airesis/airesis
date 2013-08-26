@@ -25,7 +25,7 @@
         <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
       <%end%>
       <% if !@partecipation_request %>
-        <%= link_to t('pages.groups.show.ask_partecipate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :class=>"btn blue editButton" %>
+        <%= link_to t('pages.groups.show.ask_partecipate_button'), ask_for_partecipation_group_url(@group), :class=>"btn blue editButton" %>
       <%end%>
     </p>
 

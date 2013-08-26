@@ -111,7 +111,9 @@ class VotationsController < ApplicationController
 
         #memorizza che l'utente ha effettuato la votazione
         vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
-        vote.vote_schulze = votestring unless @proposal.secret_vote
+        unless @proposal.secret_vote
+          vote.vote_schulze = votestring
+        end
         vote.save!
       end
       respond_to do |format|

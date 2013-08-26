@@ -1,6 +1,6 @@
 #encoding: utf-8
 class GroupsController < ApplicationController
-  include NotificationHelper
+  include NotificationHelper, GroupsHelper
 
   layout :choose_layout
   #carica il gruppo

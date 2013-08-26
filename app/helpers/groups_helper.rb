@@ -33,6 +33,12 @@ module GroupsHelper
         super
   end
 
+  def ask_for_partecipation_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/ask_for_partecipation' :
+        super
+  end
+
 
   def group_group_areas_url(group, options={})
     (group_in_subdomain? group) ?
