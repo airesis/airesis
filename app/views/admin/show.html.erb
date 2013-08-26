@@ -18,6 +18,7 @@
 	<%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'btn' %>
     <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list" }, :class => 'btn' %>
     <%= link_to 'Announcements', announcements_path, :class => 'btn' %>
+    <%= link_to 'Movements', sys_movements_path, :class => 'btn' %>
 
 	<p>
 		<%current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |group_partecipation|

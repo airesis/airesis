@@ -1,0 +1,43 @@
+<%= form_for(@sys_movement) do |f| %>
+    <% if @sys_movement.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@sys_movement.errors.count, "error") %> prohibited this sys_movement from being saved:</h2>
+
+          <ul>
+            <% @sys_movement.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :sys_movement_type_id %>
+      <br/>
+      <%= f.collection_select :sys_movement_type_id, SysMovementType.all, :id, :description %>
+    </div>
+
+    <div class="field">
+      <%= f.label :made_on %>
+      <br/>
+      <%= f.datetime_select :made_on %>
+    </div>
+
+    <div class="field" style="float:left">
+      <%= f.label :amount %>
+      <br/>
+      <%= f.text_field :amount, maxlength: 10 %>
+    </div>
+    <div class="field" style="float:left">
+      <%= f.label :sys_currency_id %>
+      <br/>
+      <%= f.collection_select :sys_currency_id, SysCurrency.all, :id, :description %>
+    </div>
+    <div class="clearboth">
+      <br>
+
+      <div class="actions">
+        <%= link_to 'Annulla', sys_movements_path, class: 'btn' %>
+        <%= f.button 'Salva', class: 'btn blue' %>
+      </div>
+<% end %>

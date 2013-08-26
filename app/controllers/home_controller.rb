@@ -56,6 +56,11 @@ class HomeController < ApplicationController
   def terms
   end
 
+  def movements
+    @income = SysMovement.income
+    @outcome = SysMovement.outcome
+  end
+
   def statistics
     @stat1 = StatNumProposal.extract
 
@@ -105,7 +110,7 @@ class HomeController < ApplicationController
   def choose_layout
     if ['show'].include? action_name
       'users'
-    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press','statistics'].include? action_name
+    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press','statistics','movements'].include? action_name
       'landing'
     else
       nil

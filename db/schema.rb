@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819100342) do
+ActiveRecord::Schema.define(:version => 20130826145711) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1012,6 +1012,28 @@ ActiveRecord::Schema.define(:version => 20130819100342) do
 
   add_index "supporters", ["candidate_id", "group_id"], :name => "index_supporters_on_candidate_id_and_group_id", :unique => true
 
+  create_table "sys_currencies", :force => true do |t|
+    t.string   "description", :limit => 10, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "sys_movement_types", :force => true do |t|
+    t.string   "description", :limit => 20, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "sys_movements", :force => true do |t|
+    t.integer  "sys_movement_type_id", :null => false
+    t.integer  "sys_currency_id",      :null => false
+    t.datetime "made_on",              :null => false
+    t.integer  "user_id",              :null => false
+    t.float    "amount",               :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "text",                            :null => false
     t.integer  "proposals_count",  :default => 0, :null => false
@@ -1089,6 +1111,7 @@ ActiveRecord::Schema.define(:version => 20130819100342) do
     t.datetime "updated_at"
     t.integer  "vote_type_id"
     t.string   "vote_schulze"
+    t.string   "vote_schulze_desc", :limit => 2000
   end
 
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
@@ -1343,6 +1366,10 @@ ActiveRecord::Schema.define(:version => 20130819100342) do
 
   add_foreign_key "supporters", "candidates", :name => "supporters_candidate_id_fk"
   add_foreign_key "supporters", "groups", :name => "supporters_group_id_fk"
+
+  add_foreign_key "sys_movements", "sys_currencies", :name => "sys_movements_sys_currency_id_fk"
+  add_foreign_key "sys_movements", "sys_movement_types", :name => "sys_movements_sys_movement_type_id_fk"
+  add_foreign_key "sys_movements", "users", :name => "sys_movements_user_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"

@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th>Effettuato il</th>
+    <th>User</th>
+    <th>Ammontare</th>
+  </tr>
+
+  <% movements.each do |sys_movement| %>
+      <tr>
+
+        <td><%=l sys_movement.made_on %></td>
+        <td><%= sys_movement.user.fullname %></td>
+        <td><%= sys_movement.amount %> <%= sys_movement.currency.description %></td>
+
+      </tr>
+  <% end %>
+</table>
+<br>
+<b>Totale: </b> <%= movements.sum(:amount) %>

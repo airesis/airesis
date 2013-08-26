@@ -1,0 +1,25 @@
+<div id="tabs">
+  <ul>
+    <li><a href="#income">Entrate</a></li>
+    <li><a href="#outcome">Uscite</a></li>
+  </ul>
+  <div id="income">
+
+    <%= render :partial => 'movements_list', locals: {movements: @income} %>
+
+
+  </div>
+  <div id="outcome">
+    <%= render :partial => 'movements_list', locals: {movements: @outcome} %>
+
+  </div>
+</div>
+<br>
+<b>Il progetto attualmente conta su una disponibilità di: </b> <%= @income.sum(:amount) - @outcome.sum(:amount) %> EUR
+
+
+
+<script type="text/javascript">
+    $('#tabs').tabs();
+</script>
+

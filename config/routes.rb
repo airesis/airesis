@@ -1,6 +1,8 @@
 Airesis::Application.routes.draw do
 
 
+
+
   match 'home', :to => 'home#show'
 
   resources :proposal_nicknames
@@ -74,6 +76,8 @@ Airesis::Application.routes.draw do
     end
   end
 
+  resources :sys_movements
+
   resources :tutorial_progresses
 
   resources :tutorials do
@@ -106,6 +110,38 @@ Airesis::Application.routes.draw do
     get '/users/sign_in', :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
+
+
+  resources :users do
+    collection do
+      get :confirm_credentials
+      get :alarm_preferences #preferenze allarmi utente
+      get :border_preferences #preferenze confini di interesse utente
+      post :set_interest_borders #cambia i confini di interesse
+      post :join_accounts
+      get :privacy_preferences
+      post :change_show_tooltips
+      post :change_show_urls
+      post :change_receive_messages
+      post :change_rotp_enabled
+    end
+
+    member do
+      get :show_message
+      post :send_message
+      post :update_image
+    end
+
+    resources :authentications
+  end
+
+  resources :notifications do
+    collection do
+      post :change_notification_block
+      post :change_email_notification_block
+      post :change_email_block
+    end
   end
 
   #specific routes for subdomains
@@ -162,38 +198,6 @@ Airesis::Application.routes.draw do
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
-
-    resources :users do
-      collection do
-        get :confirm_credentials
-        get :alarm_preferences #preferenze allarmi utente
-        get :border_preferences #preferenze confini di interesse utente
-        post :set_interest_borders #cambia i confini di interesse
-        post :join_accounts
-        get :privacy_preferences
-        post :change_show_tooltips
-        post :change_show_urls
-        post :change_receive_messages
-        post :change_rotp_enabled
-      end
-
-      member do
-        get :show_message
-        post :send_message
-        post :update_image
-      end
-
-      resources :authentications
-    end
-
-    resources :notifications do
-      collection do
-        post :change_notification_block
-        post :change_email_notification_block
-        post :change_email_block
-      end
-    end
-
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -380,6 +384,7 @@ Airesis::Application.routes.draw do
     match '/terms' => 'home#terms'
     match '/send_feedback' => 'home#feedback'
     match '/statistics' => 'home#statistics'
+    match '/movements' => 'home#movements'
 
     admin_required = lambda do |request|
       request.env['warden'].authenticate? and request.env['warden'].user.admin?

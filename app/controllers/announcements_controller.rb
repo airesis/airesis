@@ -1,11 +1,11 @@
+#encoding: utf-8
 class AnnouncementsController < ApplicationController
 
   layout 'open_space'
 
   before_filter :moderator_required, except: :hide
 
-  # GET /announcements
-  # GET /announcements.json
+
   def index
     @announcements = Announcement.all
 

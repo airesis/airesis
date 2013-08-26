@@ -277,7 +277,7 @@ it:
         change_permissions_description: "Queste sono le azioni che gli utenti appena iscritti potranno eseguire all'interno del gruppo: ricorda che successivamente potrai sempre modificarli e creare nuovi ruoli!"
         errors_title: "Il post non può essere inserito:"
         tags:
-          title: "Tags (separati da virgola)"
+          title: "Parole chiave (separate da virgola)"
       edit:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
@@ -852,7 +852,7 @@ it:
         private: "Gruppo chiuso"
         rule_book: "Regolamento"
         image: "Carica immagine"
-      blogs:
+      blog:
         title: 'Titolo'
       blog_post:
         title: 'Titolo'
@@ -903,6 +903,11 @@ it:
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
+      sys_movement:
+        sys_movement_type_id: 'Tipo'
+        made_on: 'Effettuato il'
+        amount: 'Ammontare'
+        sys_currency_id: 'Valuta'
       user:
         name: "Nome"
         email: "Indirizzo Email"
@@ -1000,7 +1005,7 @@ it:
       new:
         already_one: "Spiacente. Disponi già di un blog."
       create:
-        ok_message: "Hai creato il tuo blog!."
+        ok_message: "Blog creato con successo"
       update:
         ok_message: "Il titolo del Blog è stato aggiornato correttamente"
     users:
