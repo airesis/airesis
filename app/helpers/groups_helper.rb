@@ -15,6 +15,26 @@ module GroupsHelper
         super
   end
 
+  def partecipation_request_confirm_group_url(group, options={})
+    if (group_in_subdomain? group)
+      ret = '/partecipation_request_confirm'
+      query = options.to_query
+      ret += "?#{query}" unless query.empty?
+    else
+      super
+    end
+  end
+
+  def partecipation_request_decline_group_url(group, options={})
+    if (group_in_subdomain? group)
+      ret = '/partecipation_request_decline'
+      query = options.to_query
+      ret += "?#{query}" unless query.empty?
+    else
+      super
+    end
+  end
+
   def edit_permissions_group_url(group, options={})
     (group_in_subdomain? group) ?
         '/edit_permissions' :
@@ -72,8 +92,6 @@ module GroupsHelper
         edit_proposal_url(proposal) :
         super
   end
-
-
 
 
   def group_events_url(group, options={})
