@@ -144,6 +144,23 @@ Airesis::Application.routes.draw do
     end
   end
 
+  resources :partecipation_roles do
+    collection do
+      post :change_group_permission
+      post :change_user_permission
+      post :change_default_role
+    end
+  end
+
+  resources :blog_posts
+
+  match '/tags/:text', :to => 'tags#show', :as => 'tag'
+
+  match '/votation/', :to => 'votations#show'
+  match '/votation/vote', :to => 'votations#vote'
+  match '/votation/vote_schulze', :to => 'votations#vote_schulze'
+  resources :votations
+
   #specific routes for subdomains
   constraints Subdomain do
     match '', to: 'groups#show'
@@ -203,7 +220,7 @@ Airesis::Application.routes.draw do
       get :index, scope: :collection
     end
 
-    resources :blog_posts
+
 
     resources :events do
       resources :meeting_partecipations
@@ -344,21 +361,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :partecipation_roles do
-      collection do
-        post :change_group_permission
-        post :change_user_permission
-        post :change_default_role
-      end
-    end
 
-
-    match '/tags/:text', :to => 'tags#show', :as => 'tag'
-
-    match '/votation/', :to => 'votations#show'
-    match '/votation/vote', :to => 'votations#vote'
-    match '/votation/vote_schulze', :to => 'votations#vote_schulze'
-    resources :votations
 
     match ':controller/:action/:id'
 

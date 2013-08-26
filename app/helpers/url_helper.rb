@@ -23,7 +23,8 @@ module UrlHelper
       end
     elsif options.kind_of? String
       super
+    else
+      super
     end
-    super
   end
 end
