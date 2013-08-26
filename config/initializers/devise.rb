@@ -7,6 +7,9 @@ Devise.setup do |config|
   config.mailer_sender = "Airesis <info@airesis.it>"
   # Configure the class responsible to send emails.
   # config.mailer = "Devise::Mailer"
+  config.mailer.class_eval do
+    helper :url
+  end
 
   # Automatically apply schema changes in tableless databases
  # config.apply_schema = false

@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def create
+    session[:subdomain] = request.subdomain
     if session[:omniauth] == nil
       if !::Configuration.recaptcha || verify_recaptcha
         super

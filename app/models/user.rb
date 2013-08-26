@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
   has_many :proposal_nicknames, :class_name => 'ProposalNickname'
 
   #fake columns
-  attr_accessor :image_url, :accept_conditions
+  attr_accessor :image_url, :accept_conditions, :subdomain
 
   before_create :init
 
@@ -179,6 +179,7 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
+      user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
       data = fdata["extra"]["raw_info"] if fdata
       if data

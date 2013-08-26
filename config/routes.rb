@@ -102,7 +102,7 @@ Airesis::Application.routes.draw do
 
   match 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords"} do
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
     get '/users/sign_in', :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -221,9 +221,6 @@ Airesis::Application.routes.draw do
         get :anymore
       end
     end
-
-
-
 
 
     resources :groups do
@@ -352,8 +349,6 @@ Airesis::Application.routes.draw do
     end
 
 
-
-
     match '/tags/:text', :to => 'tags#show', :as => 'tag'
 
     match '/votation/', :to => 'votations#show'
@@ -366,7 +361,6 @@ Airesis::Application.routes.draw do
     match ':controller/:action/:id.:format'
 
     match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
-
 
 
     #url friendly 'proposte'
