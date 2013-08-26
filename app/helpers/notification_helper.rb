@@ -280,7 +280,9 @@ module NotificationHelper
     notification_a.save
     send_notification_to_user(notification_a,user)
 
-    msg = "L'utente <b>#{user.fullname}</b> è stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>."
+    nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id,proposal.id)
+    name = (nickname && proposal.is_anonima?) ? nickname.nickname : user.fullname #send nickname if proposal is anonymous
+    msg = "L'utente <b>#{name}</b> è stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>."
     notification_b = Notification.new(notification_type_id: 24, message: msg, url: proposal_path(proposal))
     notification_b.save
     proposal.partecipants.each do |partecipant|
