@@ -216,7 +216,7 @@ class GroupsController < ApplicationController
 
         if @group.name_changed?
           @group.internal_proposals.each do |proposal|
-            proposal.update_column(:url,group_proposal_path(@group, proposal))
+            proposal.update_column(:url, group_proposal_path(@group, proposal))
           end
         end
 
@@ -358,7 +358,15 @@ class GroupsController < ApplicationController
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if !request
       flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
-      redirect_to group_url(@group)
+      respond_to do |format|
+        format.js { render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+        format.html {
+          redirect_to group_url(@group)
+        }
+      end
     else
       if @group.request_by_portavoce?
         part = GroupPartecipation.new
@@ -373,14 +381,28 @@ class GroupsController < ApplicationController
       end
       saved = request.save
       if !saved
-        flash[:error] = 'Errore durante l' 'operazione. Impossibile procedere.'
+        flash[:error] = "Errore durante l'operazione. Impossibile procedere."
+        respond_to do |format|
+          format.js { render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end
+          }
+          format.html {
+            redirect_to group_url(@group)
+          }
+        end
       else
         if @group.request_by_portavoce?
           flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
         else
           flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
         end
-        redirect_to group_url(@group)
+        respond_to do |format|
+          format.js
+          format.html {
+            redirect_to group_url(@group)
+          }
+        end
       end
     end
   end
@@ -390,7 +412,15 @@ class GroupsController < ApplicationController
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if !request
       flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
-      redirect_to group_url(@group)
+      respond_to do |format|
+        format.js { render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+        }
+        format.html {
+          redirect_to group_url(@group)
+        }
+      end
     else
       if @group.request_by_portavoce?
         request.group_partecipation_request_status_id = 4
@@ -400,13 +430,27 @@ class GroupsController < ApplicationController
       saved = request.save
       if !saved
         flash[:error] = 'Errore durante l' 'operazione. Impossibile procedere.'
+        respond_to do |format|
+          format.js { render :update do |page|
+            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          end
+          }
+          format.html {
+            redirect_to group_url(@group)
+          }
+        end
       else
         if @group.request_by_portavoce?
           flash[:notice] = 'La richiesta di partecipazione è passata in stato: DECLINATA.'
         else
           flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
         end
-        redirect_to group_url(@group)
+        respond_to do |format|
+          format.js
+          format.html {
+            redirect_to group_url(@group)
+          }
+        end
       end
     end
   end
@@ -418,7 +462,7 @@ class GroupsController < ApplicationController
 
   def enable_areas
     @group.update_attribute(:enable_areas, true)
-    redirect_to group_group_areas_path @group
+    redirect_to group_group_areas_url @group
   end
 
   def remove_post

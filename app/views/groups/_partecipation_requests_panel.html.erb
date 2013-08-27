@@ -1,0 +1,30 @@
+<% requests = @group.partecipation_requests.pending
+   if requests.size > 0 %>
+    <div class="mybox">
+      <p>
+      <h4><%= t('pages.groups.show.waiting_partecipation_requests') %></h4>
+      </p>
+      <% requests.each do |request| %>
+          <p>
+
+          <div class="pcontainer">
+            <div class="MoImg24">
+              <%= request.user_image_tag(24) %>
+            </div>
+            <div class="Mo2" style="width:155px">
+              <%= link_to_user request.user, :full_name => true %>
+            </div>
+            <% if (can? :accept_requests, @group) %>
+                <% if @group.request_by_vote? %>
+                    <%= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
+                <% elsif @group.request_by_portavoce? %>
+                    <%= link_to t('pages.groups.show.accept_request_button'), partecipation_request_confirm_group_url(@group, :request_id => request.id), method: :put, remote: true, :class => 'btn blue little acceptButton', style: "float:left", disable_with: t('loading') %>
+                    <%= link_to t('pages.groups.show.reject_request_button'), partecipation_request_decline_group_url(@group, :request_id => request.id), method: :put, remote: true, :confirm => 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading'), :class => 'btn little rejectButton', style: "float:left" %>
+                <% end %>
+            <% end %>
+            <div style="clear:both"></div>
+          </div>
+          </p>
+      <% end %>
+    </div>
+<% end %>

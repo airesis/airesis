@@ -3,6 +3,7 @@ module UrlHelper
   def with_subdomain(subdomain)
     subdomain = (subdomain || "")
     subdomain += "." unless subdomain.empty?
+    subdomain += "www." if subdomain.empty?
     host = Rails.application.config.action_mailer.default_url_options[:host]
     host = host.split(':')[0]
     [subdomain, host].join
@@ -18,8 +19,9 @@ module UrlHelper
       end
       super
     elsif options.kind_of?(Array) && (options[0].instance_of? Group)
-      if request.subdomain
-        super options[1]
+      if !['','www'].include? request.subdomain.to_s
+        options.shift
+        super options
       else
         super
       end

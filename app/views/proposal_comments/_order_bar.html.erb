@@ -14,14 +14,14 @@
       <% if pv == 2 %>
 	    <%= t('pages.proposals.show.most_recent') %>
       <% else %>
-	    <%= link_to t('pages.proposals.show.most_recent'), list_proposal_proposal_comments_url(@proposal, :view => 2, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(2);" %>
+	    <%= link_to t('pages.proposals.show.most_recent'), list_proposal_proposal_comments_url(@proposal, :view => 2, :reset => true), :remote => true, :onclick => "hideContributes(2);" %>
       <% end %>
     </span> |
     <span id="random_stack_3">
       <% if pv == 3 || (!current_user && !pv) %>
 	    <%= t('pages.proposals.show.most_ranked') %>
       <% else %>
-	    <%= link_to t('pages.proposals.show.most_ranked'), list_proposal_proposal_comments_url(@proposal, :view => 3, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(3);" %>
+	    <%= link_to t('pages.proposals.show.most_ranked'), list_proposal_proposal_comments_url(@proposal, :view => 3, :reset => true), :remote => true, :onclick => "hideContributes(3);" %>
     <% end %>
     </span>
 

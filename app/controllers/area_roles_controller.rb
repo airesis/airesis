@@ -111,10 +111,6 @@ class AreaRolesController < ApplicationController
 
   protected
 
-  def load_group
-    @group = Group.find(params[:group_id])
-  end
-
   def load_group_area
     @group_area = GroupArea.find(params[:group_area_id])
   end

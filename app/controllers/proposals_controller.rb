@@ -837,13 +837,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
   end
 
-
-  #carica il gruppo di riferimento della proposta
-  def load_group
-    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
-    #@group = Group.find(params[:group_id]) if params[:group_id]
-  end
-
   #carica l'area di lavoro
   def load_group_area
     @group_area = GroupArea.find(params[:group_area_id]) if params[:group_area_id]
@@ -854,7 +847,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @proposal = Proposal.find(params[:id])
     @pgroup = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
 
-    if @pgroup && !(@proposal.presentation_groups.include? @pgroup)
+    if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound
     elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && request.subdomain.empty?
       redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, :format => params[:format])

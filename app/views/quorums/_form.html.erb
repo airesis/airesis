@@ -1,4 +1,4 @@
-	<%=form_for [@group,@quorum], :validate => true, :remote => true do |e|%>
+	<%=form_for !in_subdomain? ? [@group,@quorum] : @quorum, :validate => true, :remote => true do |e|%>
 		<div id="radio">
 			<%= e.radio_button :form_type, 's', :checked=>"checked" %><%= e.label :form_type_s, 'Semplice' %>
 			<%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, 'Avanzato' %>

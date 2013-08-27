@@ -45,9 +45,4 @@ class ElfinderController < ApplicationController
     render (r.empty? ? {:nothing => true} : {:text => r.to_json}), :layout => false
   end
 
-  protected
-
-  def load_group
-    @group = Group.find(params[:group_id])
-  end
 end

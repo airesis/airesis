@@ -7,7 +7,7 @@
 <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_path(@group), :remote => true, :class=>"btn blue newButton disable"%>
+<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_url(@group), :remote => true, :class=>"btn blue newButton disable"%>
 
 <div id="new_quorum_container" title="Nuovo quorum" style="display: none; font-size: 14px;">
 </div>

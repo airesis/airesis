@@ -171,12 +171,5 @@ class RequestVotesController < ApplicationController
    end
    
  end
- 
- 
- 
- protected
- 
-  def load_group
-    @group = Group.find(params[:id])
-  end
+
 end

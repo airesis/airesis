@@ -1,5 +1,5 @@
 <div id="group_area_panel" title="Nuova area di lavoro" style="display: none; font-size: 14px;">
-  <%= form_for [@group, GroupArea.new], :validate => true, :remote => true do |e| %>
+  <%= form_for !in_subdomain? ? [@group, GroupArea.new] : GroupArea.new, :validate => true, :remote => true do |e| %>
       <p>
         <%= e.label :name, t('activerecord.attributes.group_area.name') %> <br/>
         <%= e.text_field :name %>

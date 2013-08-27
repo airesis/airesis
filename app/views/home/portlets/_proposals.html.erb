@@ -14,7 +14,7 @@
         </thead>
         <tbody>
 
-        <% @proposals_p = Proposal.current.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?) and (proposal_rankings.user_id = ? or proposal_rankings.user_id is null)', @c, current_user.id], order: 'proposals.updated_at desc') %>
+        <% @proposals_p = Proposal.current.uniq.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?)', @c], order: 'proposals.updated_at desc') %>
         <% @proposals_p.each do |proposal| %>
 
             <tr>

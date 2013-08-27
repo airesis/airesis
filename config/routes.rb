@@ -168,6 +168,12 @@ Airesis::Application.routes.draw do
 
     resources :candidates
 
+    resources :quorums do
+      member do
+        post :change_status
+      end
+    end
+
     resources :documents do
       collection do
         get :view
@@ -209,6 +215,7 @@ Airesis::Application.routes.draw do
 
 
     get '/:action', controller: 'groups'
+    put '/:action', controller: 'groups'
 
   end
 
@@ -249,7 +256,8 @@ Airesis::Application.routes.draw do
       member do
         get :ask_for_partecipation
         get :ask_for_follow
-        get :partecipation_request_confirm
+        put :partecipation_request_confirm
+        put :partecipation_request_decline
         get :edit_events
         get :new_event
         post :create_event

@@ -12,13 +12,5 @@ class GroupQuorumsController < ApplicationController
   def create
     
   end
-  
-  protected
-  
-  def load_group
-    @group = Group.find(params[:group_id])
-  end
-  
-  
-  
+
 end

@@ -2,10 +2,16 @@ module ProposalsHelper
 
   def link_to_proposal(proposal, options={})
     raise "Invalid proposal" unless proposal
-    link_to proposal.title, proposal.url, options
+    #group proposals
+    if proposal.private?
+      group = proposal.presentation_groups.first
+      link_to proposal.title, group_proposal_url(group, proposal), options
+    else
+      link_to proposal.title, proposal_url(proposal, subdomain: false), options
+    end
   end
 
-  #create a solution for a standard proposal
+#create a solution for a standard proposal
   def simple_solution
     seq = 0
     solution = Solution.new(title: 'Soluzione')
@@ -14,8 +20,7 @@ module ProposalsHelper
   end
 
 
-
-  #create a solution for a standard proposal
+#create a solution for a standard proposal
   def standard_solution
     seq = 0
     solution = Solution.new(title: 'Soluzione 1')
@@ -46,7 +51,7 @@ module ProposalsHelper
     solution = Solution.new(title: 'Soluzione 1')
     #solution.sections.build(title: t('pages.proposals.new.rule_book.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     4.times do
-      solution.sections.build(title: t('pages.proposals.new.rule_book.solution.article',num: seq), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+      solution.sections.build(title: t('pages.proposals.new.rule_book.solution.article', num: seq), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     end
     solution.sections.build(title: t('pages.proposals.new.rule_book.solution.pros'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.rule_book.solution.cons'), seq: seq+=1).paragraphs.build(content: '', seq: 1)

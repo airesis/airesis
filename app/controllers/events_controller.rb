@@ -242,11 +242,6 @@ class EventsController < ApplicationController
     @group ? "groups" : "open_space"
   end  
 
-
-  def load_group
-    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
-  end
-  
   def load_event 
     @event = Event.find_by_id(params[:id])
     @group = @event.meeting_organizations.first.group rescue nil

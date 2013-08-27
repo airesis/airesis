@@ -31,7 +31,7 @@
         <td> <%= (quorum.bad_score != quorum.good_score) ? quorum.bad_score.to_s + '%' : '-' %>
         </td>
         <td>
-            <%= link_to "Modifica", edit_group_quorum_path(@group, quorum), :remote => true, :title => 'Modifica', :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>
+            <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => 'Modifica', :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>
             <%= link_to 'Delete', [@group, quorum], :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare il quorum '"+quorum.name+"'?", :title => 'Elimina', :class => "ui-icon ui-icon-trash", :style=>'float:left' %>
         </td>
       </tr>

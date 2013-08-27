@@ -10,9 +10,4 @@ class SearchPartecipantsController < ApplicationController
     end
   end
 
-  protected
-
-  def load_group
-    @group = Group.find(params[:group_id])
-  end
 end

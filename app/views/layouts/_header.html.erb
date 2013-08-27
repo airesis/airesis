@@ -86,11 +86,19 @@
 
 </script>
 
+<% if Rails.env != 'production' %>
+   <style type="text/css">
+    #menu-top {
+        background-color: #3341E5;
+    }
+   </style>
+
+<% end %>
 
 
 <div id="menu-top" style="right:0px;min-width:1000px;">
   <div id="logo-airesis">
-    <%= link_to (image_tag 'logo.png', class: "logo1"), root_path, tabindex: 1 %>
+    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1"), root_path, tabindex: 1 %>
   </div>
   <div class="sep1"></div>
   <div id="menu-group">
@@ -103,7 +111,9 @@
     <%= image_tag 'cur-tria.png' %>
   </div>
 
-  <div id="tolr" <%unless current_user%>class="not_logged"<%end%>>
+  <div id="tolr"
+       <% unless current_user %>class="not_logged"
+  <% end %>>
     <% unless current_user %>
         <div id="inlog">
           <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
@@ -159,13 +169,13 @@
     <div id="help_panel" style="display:none;">
       <%= link_to 'SEGNALAZIONI', '#', title: 'FEEDBACK', onclick: "$('.feedbackBtn').click();return false;" %> <br/>
       <%= link_to 'VIDEOGUIDE', videoguide_url(subdomain: false), title: 'VIDEOGUIDE' %> <br/>
-      <%= link_to 'FAQ', 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: 'FAQ', target: '_blank' %> <br/>
-      <%= link_to 'GUIDA', 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: 'GUIDA', target: '_blank' %> <br/>
+      <%= link_to 'FAQ', 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: 'FAQ', target: '_blank' %>
+      <br/>
+      <%= link_to 'GUIDA', 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: 'GUIDA', target: '_blank' %>
+      <br/>
       <%= link_to "COS'È AIRESIS", edemocracy_url(subdomain: false), title: "COS'È AIRESIS" %> <br/>
       <%= link_to "CHI SIAMO", chisiamo_url(subdomain: false), title: 'CHI SIAMO' %>
     </div>
-
-
 
 
   </div>

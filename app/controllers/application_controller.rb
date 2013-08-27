@@ -16,6 +16,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+
+  def load_group
+    if params[:group_id].to_s != ''
+      @group = Group.find(params[:group_id])
+    elsif !['', 'www'].include? request.subdomain
+      @group = Group.find_by_subdomain(request.subdomain)
+    end
+  end
+
   def extract_locale_from_tld
 
   end
@@ -36,7 +45,7 @@ class ApplicationController < ActionController::Base
     (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
   end
 
-  helper_method :is_admin?,:is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
 
 
   def log_error(exception)
@@ -281,7 +290,7 @@ class ApplicationController < ActionController::Base
             when 'show'
               #mark as checked all user alerts about this proposal
               @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', @proposal.id.to_s, false])
-              if @unread.where(['notifications.notification_type_id = ?',NotificationType::AVAILABLE_AUTHOR]).exists?
+              if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
                 flash[:info] = t('controllers.proposals.show.available_authors')
               end
               @unread.update_all(:checked => true)

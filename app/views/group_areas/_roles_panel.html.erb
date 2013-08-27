@@ -28,9 +28,9 @@
 
         <td>
           <% if role.id != @group_area.area_role_id %>
-              <%= link_to "X", group_group_area_area_role_path(@group,@group_area,role), :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+              <%= link_to "X", [@group,@group_area,role], :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
           <% end %>
-          <%= link_to "Modifica", edit_group_group_area_area_role_path(@group,@group_area,role), :remote => true %>
+          <%= link_to "Modifica", edit_group_group_area_area_role_url(@group,@group_area,role), :remote => true %>
         </td>
       </tr>
   <% end %>

@@ -263,10 +263,6 @@ class ElectionsController < ApplicationController
     end
   end
   
-  def load_group
-    @group = Group.find_by_id(params[:group_id])
-  end
-  
   def load_election
     @election = Election.find_by_id(params[:id], :include => :event)
   end

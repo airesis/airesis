@@ -26,7 +26,7 @@ module GroupsHelper
   end
 
   def partecipation_request_decline_group_url(group, options={})
-    if (group_in_subdomain? group)
+    if group_in_subdomain? group
       ret = '/partecipation_request_decline'
       query = options.to_query
       ret += "?#{query}" unless query.empty?
@@ -59,6 +59,12 @@ module GroupsHelper
         super
   end
 
+  def enable_areas_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/enable_areas' :
+        super
+  end
+
 
   def group_group_areas_url(group, options={})
     (group_in_subdomain? group) ?
@@ -71,7 +77,6 @@ module GroupsHelper
         group_partecipations_url(options) :
         super
   end
-
 
 
   def group_candidates_url(group, options={})
@@ -89,10 +94,27 @@ module GroupsHelper
     end
   end
 
+  def group_group_areas_url(group, options={})
+    if group_in_subdomain? group
+      group_areas_url(options)
+    else
+      options[:subdomain] = false
+      super
+    end
+  end
+
+
   def group_proposal_url(group, proposal, options={})
-    (group_in_subdomain? group) ?
-        proposal_url(proposal) :
+    if group_in_subdomain? group
+      proposal_url(proposal,options)
+    else
+      if group.certified?
+        options[:subdomain] = group.subdomain
+        proposal_url(proposal,options)
+      else
         super
+      end
+    end
   end
 
   def edit_group_proposal_url(group, proposal, option={})
@@ -130,10 +152,71 @@ module GroupsHelper
         super
   end
 
+  def new_group_group_area_url(group, options={})
+    (group_in_subdomain? group) ?
+        new_group_area_url(options) :
+        super
+  end
+
+  def new_group_group_area_area_role_url(group, area, options={})
+    (group_in_subdomain? group) ?
+        new_group_area_area_role_url(area, options) :
+        super
+  end
+
+  def edit_group_group_area_url(group, options={})
+    (group_in_subdomain? group) ?
+        edit_group_area_url(options) :
+        super
+  end
+
+  def edit_group_group_area_area_role_url(group, area, options={})
+    (group_in_subdomain? group) ?
+        edit_group_area_area_role_url(area, options) :
+        super
+  end
+
+  def manage_group_group_areas_url(group, options={})
+    (group_in_subdomain? group) ?
+        manage_group_areas_url(options) :
+        super
+  end
+
+  def change_group_group_areas_url(group, options={})
+    (group_in_subdomain? group) ?
+        change_group_areas_url(options) :
+        super
+  end
+
+  def new_group_quorum_url(group, options={})
+    (group_in_subdomain? group) ?
+        new_quorum_url(options) :
+        super
+  end
+
+  def edit_group_quorum_url(group, options={})
+    (group_in_subdomain? group) ?
+        edit_quorum_url(options) :
+        super
+  end
+
+
+  def change_group_group_area_area_roles_url(group, area, options={})
+    (group_in_subdomain? group) ?
+        change_group_area_area_roles_url(area, options) :
+        super
+  end
+
+  def change_permissions_group_group_area_area_roles_url(group, area, options={})
+    (group_in_subdomain? group) ?
+        change_permissions_group_area_area_roles_url(area, options) :
+        super
+  end
+
 
   private
 
   def group_in_subdomain?(group)
-    group.certified && (request.subdomain == group.subdomain)
+    (defined? request) && group.certified && (request.subdomain == group.subdomain)
   end
 end

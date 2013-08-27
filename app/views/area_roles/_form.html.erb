@@ -1,5 +1,5 @@
-<div id="new_area_role" title="Nuovo ruolo" style="display: none; font-size: 14px;">
-  <%=form_for [@group,@group_area,@area_role], :remote => true do |f|%>
+<div id="new_area_role" title="<%= t('pages.area_roles.new.title')%>" style="display: none; font-size: 14px;">
+  <%=form_for in_subdomain? ? [@group_area,@area_role] : [@group,@group_area,@area_role] , :remote => true do |f|%>
 
       <p>
         <%=f.label :name%>	<br />
@@ -11,6 +11,7 @@
             <%=f.text_area :description, style: "width: 300px;height:150px;"%>
           </p>
       <%end%>
+
 
       <%=f.submit button_name, :class => 'btn blue'%>
   <%end%>

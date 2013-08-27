@@ -152,9 +152,6 @@ class QuorumsController < ApplicationController
 
   protected
 
-  def load_group
-    @group = Group.find(params[:group_id])
-  end
 
   def load_quorum
     @quorum = Quorum.find(params[:id])

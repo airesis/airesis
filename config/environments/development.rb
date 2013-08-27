@@ -40,13 +40,13 @@ Airesis::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'airesisdev.it:3000' }
   
   
   config.quiet_assets = true
   
   #indirizzo del sito
-  SITE="http://localhost:3000"
+  SITE="http://airesisdev.it:3000"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
@@ -106,3 +106,5 @@ Devise.setup do |config|
   require "omniauth-linkedin"
   config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
 end
+
+Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options
