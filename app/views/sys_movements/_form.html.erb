@@ -33,11 +33,16 @@
       <br/>
       <%= f.collection_select :sys_currency_id, SysCurrency.all, :id, :description %>
     </div>
-    <div class="clearboth">
-      <br>
+    <div class="clearboth"></div>
+    <div class="field">
+      <%= f.label :description %>
+      <br/>
+      <%= f.text_area :description %>
+    </div>
+    <br/>
 
-      <div class="actions">
-        <%= link_to 'Annulla', sys_movements_path, class: 'btn' %>
-        <%= f.button 'Salva', class: 'btn blue' %>
-      </div>
+    <div class="actions">
+      <%= link_to 'Annulla', sys_movements_path, class: 'btn' %>
+      <%= f.button 'Salva', class: 'btn blue' %>
+    </div>
 <% end %>

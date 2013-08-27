@@ -117,6 +117,19 @@ module GroupsHelper
     end
   end
 
+  def group_blog_post_url(group, blog_post, options={})
+    if group_in_subdomain? group
+      blog_post_url(blog_post,options)
+    else
+      if group.certified?
+        options[:subdomain] = group.subdomain
+        blog_post_url(blog_post,options)
+      else
+        super
+      end
+    end
+  end
+
   def edit_group_proposal_url(group, proposal, option={})
     (group_in_subdomain? group) ?
         edit_proposal_url(proposal) :

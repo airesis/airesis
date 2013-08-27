@@ -1,7 +1,7 @@
 class SysMovement < ActiveRecord::Base
 
 
-  attr_accessible :sys_currency_id, :sys_movement_type_id, :amount, :made_on
+  attr_accessible :sys_currency_id, :sys_movement_type_id, :amount, :made_on, :description
 
   belongs_to :currency, class_name: 'SysCurrency', foreign_key: :sys_currency_id
   belongs_to :user

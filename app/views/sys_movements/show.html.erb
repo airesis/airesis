@@ -20,5 +20,10 @@
   <%= @sys_movement.amount %> <%= @sys_movement.currency.description %>
 </p>
 
+<p>
+  <b>Descrizione:</b>
+  <%= @sys_movement.description %> <%= @sys_movement.description %>
+</p>
+
 <%= link_to 'Torna alla lista', sys_movements_path, class: 'btn' %>
 <%= link_to 'Modifica', edit_sys_movement_path(@sys_movement), class: 'btn blue' %>

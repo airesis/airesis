@@ -1,8 +1,9 @@
 <table>
   <tr>
     <th>Effettuato il</th>
-    <th>User</th>
+    <th>Utente</th>
     <th>Ammontare</th>
+    <th>Descrizione</th>
   </tr>
 
   <% movements.each do |sys_movement| %>
@@ -11,7 +12,7 @@
         <td><%=l sys_movement.made_on %></td>
         <td><%= sys_movement.user.fullname %></td>
         <td><%= sys_movement.amount %> <%= sys_movement.currency.description %></td>
-
+        <td><%= sys_movement.description %></td>
       </tr>
   <% end %>
 </table>

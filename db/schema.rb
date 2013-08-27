@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130826145711) do
+ActiveRecord::Schema.define(:version => 20130827144545) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1025,13 +1025,14 @@ ActiveRecord::Schema.define(:version => 20130826145711) do
   end
 
   create_table "sys_movements", :force => true do |t|
-    t.integer  "sys_movement_type_id", :null => false
-    t.integer  "sys_currency_id",      :null => false
-    t.datetime "made_on",              :null => false
-    t.integer  "user_id",              :null => false
-    t.float    "amount",               :null => false
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.integer  "sys_movement_type_id",                  :null => false
+    t.integer  "sys_currency_id",                       :null => false
+    t.datetime "made_on",                               :null => false
+    t.integer  "user_id",                               :null => false
+    t.float    "amount",                                :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.string   "description",          :limit => 10000
   end
 
   create_table "tags", :force => true do |t|
