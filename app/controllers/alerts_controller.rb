@@ -38,7 +38,7 @@ class AlertsController < ApplicationController
   #marca come 'letta' una notifica e redirige verso l'url indicato
   def check_alert
     begin
-      @user_alert = current_user.user_alerts.find_by_id(params[:id])
+      @user_alert = current_user.admin? ? UserAlert.find(params[:id]) : current_user.user_alerts.find_by_id(params[:id])
       @user_alert.checked = true
       @user_alert.save
 

@@ -796,7 +796,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
-      notify_user_valutate_proposal(@ranking) #invia notifica per indicare la nuova valutazione
+      notify_user_valutate_proposal(@ranking,@group) #invia notifica per indicare la nuova valutazione
     end
     @ranking.ranking_type_id = rank_type #setta il tipo di valutazione
 
