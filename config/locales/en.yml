@@ -39,7 +39,7 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
@@ -549,6 +549,7 @@ en:
         interest_borders: "Geographic boundaries"
         authors: "Authors"
         support_group: "Support groups"
+        no_proposals: "No proposals yet"
       delete_comment: "Delete"
       results:
         total: "Total voters: %{count}"

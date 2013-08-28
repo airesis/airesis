@@ -39,7 +39,7 @@ net:
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
@@ -277,7 +277,7 @@ net:
         change_permissions_description: "Queste sono le azioni che gli utenti appena iscritti potranno eseguire all'interno del gruppo: ricorda che successivamente potrai sempre modificarli e creare nuovi ruoli!"
         errors_title: "Il post non può essere inserito:"
         tags:
-          title: "Tags (separati da virgola)"
+          title: "Parole chiave (separate da virgola)"
       edit:
         title: "Modifica impostazioni gruppo"
         change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
@@ -549,6 +549,7 @@ net:
         interest_borders: "Confini di interesse"
         authors: "Autori"
         support_group: "Gruppi in sostegno"
+        no_proposals: "Nessuna proposta al momento"
       delete_comment: "Cancella"
       results:
         total: "Totale votanti: %{count}"
@@ -698,6 +699,11 @@ net:
         create_area_button: "Crea un'area di lavoro"
         title: "Organizza gli utenti all'interno delle aree di lavoro"
         switch_area_manage_button: "Passa alla gestione delle singole aree"
+        title_inactive: "Aree di lavoro non abilitate"
+        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
+        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
+        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
+        enable_button: "Abilita le aree di lavoro!"
       manage:
         switch_area_index_button: "Passa alla gestione dei partecipanti"
         partecipants: "Partecipanti"
@@ -796,11 +802,14 @@ net:
     tags:
       show:
         related_title: "Tag correlati"
+    area_roles:
+      new:
+        title: "Nuovo ruolo"
   pl:
     comments:
-      zero: nessun commento
-      one: un commento
-      other: %{count} commenti  
+      zero: "nessun commento"
+      one: "un commento"
+      other: "%{count} commenti"
       
   activerecord:
     models:
@@ -852,7 +861,7 @@ net:
         private: "Gruppo chiuso"
         rule_book: "Regolamento"
         image: "Carica immagine"
-      blogs:
+      blog:
         title: 'Titolo'
       blog_post:
         title: 'Titolo'
@@ -903,6 +912,11 @@ net:
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
+      sys_movement:
+        sys_movement_type_id: 'Tipo'
+        made_on: 'Effettuato il'
+        amount: 'Ammontare'
+        sys_currency_id: 'Valuta'
       user:
         name: "Nome"
         email: "Indirizzo Email"
@@ -1000,7 +1014,7 @@ net:
       new:
         already_one: "Spiacente. Disponi già di un blog."
       create:
-        ok_message: "Hai creato il tuo blog!."
+        ok_message: "Blog creato con successo"
       update:
         ok_message: "Il titolo del Blog è stato aggiornato correttamente"
     users:

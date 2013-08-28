@@ -39,7 +39,7 @@ net:
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"

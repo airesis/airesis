@@ -39,7 +39,7 @@ it:
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
@@ -549,6 +549,7 @@ it:
         interest_borders: "Confini di interesse"
         authors: "Autori"
         support_group: "Gruppi in sostegno"
+        no_proposals: "Nessuna proposta al momento"
       delete_comment: "Cancella"
       results:
         total: "Totale votanti: %{count}"
@@ -803,12 +804,12 @@ it:
         related_title: "Tag correlati"
     area_roles:
       new:
-        title: %Q(Nuovo ruolo)
+        title: "Nuovo ruolo"
   pl:
     comments:
-      zero: nessun commento
-      one: un commento
-      other: %{count} commenti  
+      zero: "nessun commento"
+      one: "un commento"
+      other: "%{count} commenti"
       
   activerecord:
     models:

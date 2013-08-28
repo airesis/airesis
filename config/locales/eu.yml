@@ -39,7 +39,7 @@ eu:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
