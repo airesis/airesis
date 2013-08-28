@@ -62,12 +62,16 @@ GEM
     arel (3.0.2)
     attr_required (0.0.5)
     bcrypt-ruby (3.0.1)
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     bluecloth (2.0.7)
     builder (3.0.4)
     bullet (4.5.0)
       uniform_notifier
     cancan (1.6.8)
     cocaine (0.4.2)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -338,6 +342,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
   bluecloth (= 2.0.7)
   bullet
   cancan

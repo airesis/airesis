@@ -1,4 +1,4 @@
 if defined? Bullet
-  Bullet.enable = true
+  Bullet.enable = false
   Bullet.alert = true
 end
