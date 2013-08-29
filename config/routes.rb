@@ -98,6 +98,14 @@ Airesis::Application.routes.draw do
     end
   end
 
+  resources :group_invitations do
+    collection do
+      get :accept
+      get :reject
+      get :anymore
+    end
+  end
+
   resources :interest_borders
   resources :comunes
 
@@ -150,6 +158,9 @@ Airesis::Application.routes.draw do
   end
 
   resources :blog_posts
+
+
+  resources :tags
 
   match '/tags/:text', :to => 'tags#show', :as => 'tag'
 
@@ -243,13 +254,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :group_invitations do
-      collection do
-        get :accept
-        get :reject
-        get :anymore
-      end
-    end
+
 
 
     resources :groups do

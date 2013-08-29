@@ -2,8 +2,8 @@
     <%= javascript_include_tag 'ice/index' %>
 <% end %>
 
-<% @page_title = @proposal.title %>
-<h1><%= t('pages.proposals.edit.title') %></h1>
+<% @page_title = t('pages.proposals.edit.title',title: @proposal.title) %>
+<h1><%= @page_title %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
 
@@ -86,15 +86,16 @@
 
                   input = $('#proposal_tags_list')
                   if (input != null) {
-                      input.tokenInput([], {
+                      input.tokenInput("<%=tags_path(format: :json )%>", {
                           theme: "facebook",
                           crossDomain: false,
-                          prePopulate: <%=raw data%>,
+                          allowFreeTagging: true,
+                          minChars: 3,
                           hintText: "<%=t('digit_tags')%>",
                           searchingText: "<%=t('digit_tags')%>",
                           preventDuplicates: true,
-                          allowFreeTagging: true,
-                          allowTabOut: true
+                          allowTabOut: true,
+                          tokenValue: "name"
                       })
                   }
               });

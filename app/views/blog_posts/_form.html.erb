@@ -110,15 +110,16 @@
 	$(function() {
 		input = $('#blog_post_tags_list')
 		if (input != null) {
-			input.tokenInput([], {
-				theme: "facebook",
-				crossDomain: false,
+			input.tokenInput("<%=tags_path(format: :json )%>", {
+                theme: "facebook",
+                crossDomain: false,
                 allowFreeTagging: true,
-				prePopulate: <%=raw data%>,
-				hintText: "Digita i tag che vuoi inserire",
-				searchingText: "Digita i tag che vuoi inserire",
-				preventDuplicates: true,
-                allowTabOut: true
+                minChars: 3,
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
+                preventDuplicates: true,
+                allowTabOut: true,
+                tokenValue: "name"
 			})
 		}
 	});

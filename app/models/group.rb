@@ -16,7 +16,7 @@ class Group < ActiveRecord::Base
   validates_presence_of     :default_role_name, :on => :create
   
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book
+  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
@@ -69,6 +69,8 @@ class Group < ActiveRecord::Base
 
   has_many :search_partecipants
 
+  has_many :group_tags, :dependent => :destroy
+  has_many :tags, :through => :group_tags, :class_name => 'Tag'
 
   # Check for paperclip
   has_attached_file :image,
@@ -87,6 +89,40 @@ class Group < ActiveRecord::Base
   after_create :after_populate
 
   before_save :normalize_blank_values
+  before_save :save_tags, :if => :not_resaving?
+
+  def tags_list
+    @tags_list ||= self.tags.map(&:text).join(', ')
+  end
+
+  def tags_list_json
+    @tags_list ||= self.tags.map(&:text).join(', ')
+  end
+
+  def tags_list=(tags_list)
+    @tags_list = tags_list
+  end
+
+  def tags_with_links
+    html = self.tags.collect {|t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+    return html
+  end
+
+  def save_tags
+    if @tags_list
+      tids = []
+      @tags_list.split(/,/).each do |tag|
+        stripped = tag.strip.downcase.gsub('.','')
+        t = Tag.find_or_create_by_text(stripped)
+        tids << t.id
+      end
+      self.tag_ids = tids
+    end
+  end
+
+  def not_resaving?
+    !@resaving
+  end
 
 
   def normalize_blank_values

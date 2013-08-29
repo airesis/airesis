@@ -11,8 +11,6 @@ class Tag < ActiveRecord::Base
    { :id => self.text, :name => self.text }
   end
 
-
-
   def nearest
    Tag.find_by_sql "select tt3.id, tt3.text
                 from tags tt3 where

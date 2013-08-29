@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130827144545) do
+ActiveRecord::Schema.define(:version => 20130828160428) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -533,7 +533,7 @@ ActiveRecord::Schema.define(:version => 20130827144545) do
     t.datetime "updated_at"
     t.integer  "notification_type_id",                 :null => false
     t.string   "message",              :limit => 1000
-    t.string   "url"
+    t.string   "url",                  :limit => 400
   end
 
   create_table "old_proposal_presentations", :force => true do |t|
@@ -1042,6 +1042,7 @@ ActiveRecord::Schema.define(:version => 20130827144545) do
     t.integer  "blogs_count",      :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "groups_count",     :default => 0, :null => false
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true

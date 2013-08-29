@@ -11,7 +11,7 @@
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
 
-    <% if ['edit','update'].include? params[:action] %>
+    <% if ['edit', 'update'].include? params[:action] %>
         <p>
           <%= f.label :rule_book %><br/>
           <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
@@ -36,9 +36,9 @@
                 theme_advanced_statusbar_location: "none"
             });
         </script>
-    <%end%>
+    <% end %>
 
-    <% if ::Configuration::socialnetwork_active && false%>
+    <% if ::Configuration::socialnetwork_active && false %>
         <p>
           <%= f.label :facebook_page_url %><br/>
           <%= f.text_field :facebook_page_url, placeholder: t('activerecord.attributes.group.facebook_page_url_placeholder'), style: "width: 600px" %>
@@ -49,14 +49,20 @@
     <p>
       <%= f.label :accept_requests %><br/>
       <%= f.radio_button :accept_requests, 'p' %>
-      <%= t('pages.groups.accept_requests.portavoce')%><br/>
+    <%= t('pages.groups.accept_requests.portavoce') %><br/>
       <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
       <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
     </p>
     -->
+
+
     <p>
-        <%=  f.label :image %><br/>
-        <%=f.file_field :image, accept: "image/jpeg,image/png"  %>
+      <%= f.label :tags_list, t('pages.groups.new.tags.title') %><br/>
+      <%= f.text_field :tags_list %>
+    </p>
+    <p>
+      <%= f.label :image %><br/>
+      <%= f.file_field :image, accept: "image/jpeg,image/png" %>
     <p>
 
       <%= f.label :interest_border_tkn %>
@@ -76,8 +82,9 @@
           <a href="#" onclick="apri_permessi();return false;"><%= t('pages.groups.new.change_permissions_button') %></a>
         </p>
 
-        <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title')%>" style="display:none;">
-          <%= t('pages.groups.new.change_permissions_description') %><br/>
+        <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
+          <%= t('pages.groups.new.change_permissions_description') %>
+          <br/>
           <% GroupAction.includes(:translations).all.each do |action| %>
               <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
               <br/>
@@ -88,16 +95,17 @@
         </div>
     <% else %>
         <p>
-          <%=  f.label :admin_title %> <br/>
+          <%= f.label :admin_title %> <br/>
           <%= f.text_field :admin_title, placeholder: 'Nome ruolo amministratore gruppo (default: Amministratore)', style: 'width:600px' %>
         </p>
         <p>
-          <%= f.check_box :private%><%=  f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>  <br/>
-          <%if @group.is_private? %>
+          <%= f.check_box :private %><%= f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>
+          <br/>
+          <% if @group.is_private? %>
             <p class="toast-info info-panel">
-            <%=raw  "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
+              <%= raw "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
             </p>
-              <%end%>
+        <% end %>
         </p>
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
     <% end %>
@@ -154,5 +162,35 @@
         <%end%>
         return false;
     }
+
     <%end%>
+
+    <% data = "["
+       @group.tags_list.split(',').each do |l|
+   	     data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   	   end
+       data += "]"
+    %>
+
+
+    $(function() {
+        var input = $('#group_tags_list')
+        if (input != null) {
+            input.tokenInput("<%=tags_path(format: :json )%>", {
+                theme: "facebook",
+                crossDomain: false,
+                allowFreeTagging: true,
+                minChars: 3,
+                prePopulate: <%=raw data%>,
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
+                preventDuplicates: true,
+                allowTabOut: true,
+                tokenValue: "name"
+            })
+        }
+    });
+
+
+
 </script>
