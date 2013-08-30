@@ -1,4 +1,4 @@
-<% @page_title = 'Archivio documenti' %>
+<% @page_title = t('pages.groups.documents.documents_archive') %>
 
 
 <%= render :layout => "layouts/page_title", :locals => {:title => @page_title} do %>
@@ -43,7 +43,7 @@
                     ['help']
                  ]
             },
-            lang: 'it'
+            lang: 'it' //TODO:Automatic detection of current locale
         }).elfinder('instance');
 
         elf

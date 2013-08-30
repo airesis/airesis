@@ -95,14 +95,12 @@ en:
         one: one second
         other: ! '%{count} seconds'
   open_space: 'Open space'
-  guide: "Video tutorial"
-
   hello: 'Hello world'
   error_not_logged_in: 'Access reserved to registered users'
   error_proposal_not_your: 'You can not modify proposals which were not submitted by you'
   error_proposal_loading: 'Error while loading your proposal'
   error_blog_not_your: ""
-  error_blog_post_not_your: ""
+  error_blog_post_not_yours: ""
   error_updating: 'Error while updating'
   error_comment_not_your: 'You are not authorized  to delete this comment'
   error_proposal_already_ranked: 'You have already evaluated this proposal. This proposal has not been edited further since then'
@@ -135,6 +133,8 @@ en:
 
     rotp_active: "Security Token activated"
     rotp_inactive: "Token di sicurezza disattivato"
+    user:
+      info_updated: "Informazioni aggiornate correttamente"
   proposal_inserted: 'The proposal has been  entered correctly.'
   proposal_updated: 'The proposal has been updated successfully.'
   proposal_deleted:  'The proposal has been deleted successfully.'
@@ -233,6 +233,7 @@ en:
         rotp: "Enable Security Token"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences."
+        your_borders: "Your geographical borders of interest"
     groups:
       accept_requests:
         portavoce: "Spokesman: when a user wants to join the group only the spokesmen of the group can accept the request. Once the spokesman has accepted the request, the user will actually becomes a member of the group."
@@ -291,23 +292,23 @@ en:
         post_button: "Insert posts"
         blog_button: "Create my Blog"
         spokesman: "Spokesman"
-        partecipants_list: "Partecipant list "
+        participants_list: "Partecipant list "
         invite_button: "Invite your friends!"
-        show_all_partecipants: "Shows all %{count} ..."
-        partecipants_full_list: "Complete list of group members"
-        no_partecipants: "No users participating to this group yet."
+        show_all_participants: "Shows all %{count} ..."
+        participants_full_list: "Complete list of group members"
+        no_participants: "No users participating to this group yet."
         no_blogs_yet: "No blog posts in this group yet, come back soon."
-        waiting_partecipation_requests: "Partecipation requests waiting for answer"
+        waiting_participation_requests: "Partecipation requests waiting for answer"
         accept_request_button: "Accept"
         reject_request_button: "Reject"
-        ask_partecipate_button: "Ask to be part of the group"
+        ask_participate_button: "Ask to be part of the group"
         remove_post: "Remove from the group board"
         destroy_button: "Remove group"
         confirm_destroy: "YOU ARE DELETING THE GROUP!!! Are you sure you want to do that?"
         list_permissions:
           title: "List of your permissions inside the group"
           button: "Permissions list"
-        print_all_partecipants: "Print partecipants list"
+        print_all_participants: "Print partecipants list"
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -583,7 +584,7 @@ en:
         title: "Edit the proposal"
         hurry_up: "Hurry up!"
         last_minutes: "You are allowed to edit these fields only for %{minutes} minutes."
-        no_partecipants: "You are allowed to edit these fileds only if nobody has been partecipated!"
+        no_participants: "You are allowed to edit these fileds only if nobody has been partecipated!"
         remove_section: "Remove section"
         add_paragraph: "Add a new paragraph"
         edit_proposal: "Edit and update the proposal text"
@@ -603,6 +604,8 @@ en:
       new:
         private_tooltip: "Only group members can see and partecipate to the event"
         title: "New Event"
+        submit: "Create event"
+        city: "City"
     votations:
         show:
           vote_positive: 'Positive rating'
@@ -699,9 +702,11 @@ en:
         create_area_button: "Create a new workspace"
         title: "Organizes members into workspaces"
         switch_area_manage_button: "Skip to each area management"
+        title_inactive: "Workspaces not activated"
+        description_1: "Airesis lets you manage multiple workspaces inside the group"
       manage:
         switch_area_index_button: "Skip to members management"
-        partecipants: "Partecipants"
+        participants: "Partecipants"
         list_title: "List of workspaces. Select partecipants or click to manage specific roles and permissions"
       edit:
         add_role_button: "Add a new role"
@@ -712,7 +717,7 @@ en:
       index:
         whatis: "WHAT IS AIRESIS"
         partecipate: "GET INVOLVED"
-        videos: "TUTORIAL"
+        videos: "VIDEO GUIDES"
         whowe: "ABOUT US"
         support: "♥ SUPPORT US"
         cloud_1: "SUGGEST"
@@ -742,6 +747,9 @@ en:
           title: "<em>Work</em> in your best interest"
           content: "Share your experiences, improves the proposals of others. Discover new friends who think like you. Realize your ideas with others."
         keep_connected: "Keep session"
+        feedback: "FEEDBACK"
+        FAQ: "FAQ"
+        guide: "GUIDE"
       show:
         your_proposals: "Your proposals"
         proposals:
@@ -797,11 +805,14 @@ en:
     tags:
       show:
         related_title: "Related tags"
+    area_roles:
+      new:
+        title: "New Role"
   pl:
     comments:
-      zero: no comment
-      one: one comment
-      other: comments
+      zero: "no comment"
+      one: "one comment"
+      other: "%{count} comments"
       
   activerecord:
     models:
@@ -838,7 +849,7 @@ en:
         title_bar: 'Title Bar'
         description: 'Description'
         accept_requests: 'Request for Participation'
-        porta_id: 'Spokesman'
+        porta_id: 'Administrator'
         interest_border_tkn: 'Geographical place of interest'
         interest_border_id: 'Geographical place of interest'
         image_url: 'Image Address'
@@ -904,6 +915,11 @@ en:
       search_partecipant:
         role_id: 'Role'
         keywords: 'Name or surname'
+      sys_movement:
+        sys_movement_type_id: "Tipe"
+        made_on: "Made on"
+        amount: "Amount"
+        sys_currency_id: "Currency"
       user:
         name: 'Name'
         email: 'Email address'
@@ -1045,7 +1061,7 @@ en:
       or_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible, and in any case for a maximum of %{time}"
       and_condition_1: "The debate will last %{time}, but will continue unless he has attended at least %{percentage}% of those eligible."
       time_condition_1: "The debate will last exactly %{time}."
-      partecipants_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible."
+      participants_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible."
       good_score_condition: "It will go to the vote if it get over a rank of %{good_score}%"
       bad_score_condition: "and will be abandoned if the rank will be under the %{bad_score}%."
       bad_score_explain: "The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of valutations"
@@ -1066,7 +1082,7 @@ en:
   digit_tags: "Type the tags you want to add"
   ago: "ago"
   buttons:
-    cancel: Cancel
+    cancel: "Cancel"
     save: "Save"
     report: "Report"
     update: "Update"

@@ -15,7 +15,7 @@
 
 <div id="img_modal" class="edit_modal">
 	<form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
-   		<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">URL dell'immagine</h2>
+   		<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%="URL dell'immagine"%></h2>
         <div style="padding-left:150px">
             <input name="user[blog_image_url]" value="<%=@user.blog_image_url%>"/>
             <input type="hidden" name="back" value="home"/>

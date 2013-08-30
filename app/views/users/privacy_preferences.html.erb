@@ -121,7 +121,7 @@
 
     function change_rotp_enabled(el) {
         <%if can? :change_rotp_enabled, current_user %>
-        var confirm_msg = el.checked ? 'Sei sicuro di voler attivare il token di sicurezza?' : 'Sei sicuro di voler disattivare il token di sicurezza?';
+        var confirm_msg = el.checked ? "Sei sicuro di voler attivare il token di sicurezza?" : 'Sei sicuro di voler disattivare il token di sicurezza?';
         if (!confirm(confirm_msg)) {
             return false;
         }

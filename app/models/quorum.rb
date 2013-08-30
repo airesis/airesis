@@ -140,7 +140,7 @@ class Quorum < ActiveRecord::Base
         ret = I18n.translate('models.quorum.time_condition_1',time: self.time)
       end
     elsif self.percentage
-      ret = I18n.translate('models.quorum.partecipants_condition_1',percentage: self.percentage)
+      ret = I18n.translate('models.quorum.participants_condition_1',percentage: self.percentage)
     end
     ret += "<br/>"
     ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)

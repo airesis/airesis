@@ -18,7 +18,7 @@ class PartecipationRolesController < ApplicationController
       end
       
       respond_to do |format|
-          flash[:notice] = 'Hai creato il ruolo.'
+          flash[:notice] = t('info.participation_roles.role_created')
           format.js { render :update do |page|
                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                      page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
@@ -32,7 +32,7 @@ class PartecipationRolesController < ApplicationController
     
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione del ruolo.'
+        flash[:error] = t('error.participation_roles.role_created')
         format.js {  render :update do |page|
                page.alert @role.errors.full_messages.join(";")
         end}
@@ -55,12 +55,12 @@ class PartecipationRolesController < ApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = t('partecipation_role.confirm.update')
+      flash[:notice] = t('info.participation_roles.role_updated')
       format.js
     end
     rescue Exception => e
       respond_to do |format|
-        flash[:error] = t('partecipation_role.errors.update')
+        flash[:error] = t('error.participation_roles.role_updated')
         format.js  {  render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end}

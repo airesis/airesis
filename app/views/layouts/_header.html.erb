@@ -167,14 +167,14 @@
     <%= link_to (image_tag 'cur-love.png'), sostienici_url(subdomain: false), :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
-      <%= link_to 'SEGNALAZIONI', '#', title: 'FEEDBACK', onclick: "$('.feedbackBtn').click();return false;" %> <br/>
-      <%= link_to 'VIDEOGUIDE', videoguide_url(subdomain: false), title: 'VIDEOGUIDE' %> <br/>
-      <%= link_to 'FAQ', 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: 'FAQ', target: '_blank' %>
+      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %> <br/>
+      <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), title: t('pages.home.index.videos') %> <br/>
+      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' %>
       <br/>
-      <%= link_to 'GUIDA', 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: 'GUIDA', target: '_blank' %>
+      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' %>
       <br/>
-      <%= link_to "COS'È AIRESIS", edemocracy_url(subdomain: false), title: "COS'È AIRESIS" %> <br/>
-      <%= link_to "CHI SIAMO", chisiamo_url(subdomain: false), title: 'CHI SIAMO' %>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %> <br/>
+      <%= link_to t('pages.home.index.whowe'), chisiamo_url(subdomain: false), title: t('pages.home.index.whowe') %>
     </div>
 
 

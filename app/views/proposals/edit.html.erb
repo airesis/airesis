@@ -18,7 +18,7 @@
             <% if last > 0 %>
                 <%= t('pages.proposals.edit.last_minutes', minutes: last.round(0)) %>
             <% else %>
-                <%= t('pages.proposals.edit.no_partecipants') %>
+                <%= t('pages.proposals.edit.no_participants') %>
             <% end %>
           </p>
 
@@ -223,7 +223,7 @@
 
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit t('pages.proposals.edit.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
+      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
     </p>
 <% end %>
 
@@ -268,7 +268,7 @@
         <%= render :partial => 'show_tooltips' %>
 
         toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
-        toastr.info('<%=raw (j t('pages.proposals.edit.tooltip'))%><br/><input type="button" class="btn" value="<%=t('pages.proposals.edit.update')%>" onclick="$(\'form input:submit\').click();"></input>');
+        toastr.info('<%=raw (j t('pages.proposals.edit.tooltip'))%><br/><input type="button" class="btn" value="<%=t('buttons.update')%>" onclick="$(\'form input:submit\').click();"></input>');
 
         anima();
     });
