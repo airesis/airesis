@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
-  include NotificationHelper
+
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
@@ -250,8 +250,8 @@ class ProposalCommentsController < ApplicationController
     to_inactive.update_all(:noise => true)
 
     respond_to do |format|
-      format.js {render :nothing => true}
-      format.html {redirect_to @proposal}
+      format.js { render :nothing => true }
+      format.html { redirect_to @proposal }
     end
 
   end

@@ -36,7 +36,7 @@
           <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
       <% end %>
       <% if @proposal.in_valutation? %>
-          <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_path(@group, @proposal) : close_debate_proposal_path(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
+          <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
       <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox              %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>

@@ -439,7 +439,7 @@ en:
         enable_alerts: "Enable alerts"
         disable_alerts: "Disable alerts"
         close_contribute: "CLOSE CONTRIBUTES"
-        contributes_list: "List of contributes in %{section}"
+        contributes_list: "List of contributes in '%{section}'"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -581,7 +581,7 @@ en:
         preferences_order: "Your preferences order was:"
         expressed_vote: "You expressed %{vote} vote"
       edit:
-        title: "Edit the proposal"
+        title: "Edit the proposal '%{title}'"
         hurry_up: "Hurry up!"
         last_minutes: "You are allowed to edit these fields only for %{minutes} minutes."
         no_participants: "You are allowed to edit these fileds only if nobody has been partecipated!"
@@ -597,6 +597,9 @@ en:
         update: "Update"
         inserted_contributes: "Sign contributes you have integrated in this revision"
         tooltip: "When you have finished editing, press button 'Update' to save your work."
+      manage_noise:
+        available: "Contributes eligible for deletion"
+        removed: "Contributes removed from discussion"
     events:
       index:
         title: 'Calendar'

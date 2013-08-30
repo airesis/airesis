@@ -460,7 +460,7 @@ it:
         enable_alerts: "Attiva notifiche"
         disable_alerts: "Disattiva notifiche"
         close_contribute: "CHIUDI CONTRIBUTI"
-        contributes_list: "Elenco contributi in %{section}"
+        contributes_list: "Elenco contributi in '%{section}'"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -602,7 +602,7 @@ it:
         preferences_order: "Il tuo ordine di preferenze è stato:"
         expressed_vote: "Hai espresso voto %{vote}"
       edit:
-        title: "Modifica la proposta"
+        title: "Modifica la proposta '%{title}'"
         hurry_up: "Affrettati!"
         last_minutes: "Potrai modificare questi dati ancora per %{minutes} minuti."
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
@@ -617,6 +617,9 @@ it:
         schulze_title: "Uno soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
         tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare."
+      manage_noise:
+        available: "Contributi che possono essere eliminati"
+        removed: "Contributi eliminati dalla discussione"
     events:
       index:
         title: "Calendario"

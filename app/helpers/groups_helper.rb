@@ -72,6 +72,7 @@ module GroupsHelper
         super
   end
 
+
   def group_group_partecipations_url(group, options={})
     (group_in_subdomain? group) ?
         group_partecipations_url(options) :
@@ -133,6 +134,12 @@ module GroupsHelper
   def edit_group_proposal_url(group, proposal, option={})
     (group_in_subdomain? group) ?
         edit_proposal_url(proposal) :
+        super
+  end
+
+  def close_debate_group_proposal_url(group,proposal,options={})
+    (group_in_subdomain? group) ?
+        close_debate_proposal_url(proposal) :
         super
   end
 

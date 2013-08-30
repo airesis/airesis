@@ -3,7 +3,7 @@
 <% @comment = @proposal.contributes.find(@data['comment_id']) %>
 
 <p>
-Un contributo che era stato integrato nella proposta La proposta <b> <%=link_to @proposal.title, check_alert_alert_url(@alert)%></b> è stato rimesso in dibattito dal suo autore.
+Un contributo che era stato integrato nella proposta <b> <%=link_to @proposal.title, check_alert_alert_url(@alert)%></b> è stato rimesso in dibattito dal suo autore.
 </p>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
@@ -32,5 +32,5 @@ Un contributo che era stato integrato nella proposta La proposta <b> <%=link_to 
 </div>
 
 <p>
-  Verifica per quale motivo l'autore non ha ritenuto che il suo contributo sia stato integrato adeguatamente.
+  <%=link_to 'Verifica', check_alert_alert_url(@alert)%> per quale motivo l'autore non ha ritenuto che il suo contributo sia stato integrato adeguatamente.
 </p>

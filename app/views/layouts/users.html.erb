@@ -18,7 +18,7 @@
 
           <div id="submenu">
             <% if current_user && (@user == current_user) %>
-                <%= link_to t('pages.header.menu.my_page'), root_path, class: (params[:controller] == 'home' ? 'sel' : '') %>
+                <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
                 <span> ⋅ </span>
                 <% if @user.blog %>
                     <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>

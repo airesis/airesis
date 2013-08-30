@@ -375,7 +375,7 @@ class ProposalsController < ApplicationController
     end
   end
 
-
+  #put back in debate a proposal
   def regenerate
     authorize! :regenerate, @proposal
 
@@ -394,7 +394,7 @@ class ProposalsController < ApplicationController
 
     flash[:notice] = 'La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore.'
 
-    redirect_to @proposal.url
+    redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
   end
 
   def assign_quorum(prparams)

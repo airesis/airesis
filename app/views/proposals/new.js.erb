@@ -68,14 +68,16 @@ input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
 
 input = $('#proposal_tags_list')
 if (input != null) {
-    input.tokenInput([], {
+    input.tokenInput("<%=tags_path(format: :json )%>", {
         theme: "facebook",
         crossDomain: false,
         allowFreeTagging: true,
+        minChars: 3,
         hintText: "<%=t('digit_tags')%>",
         searchingText: "<%=t('digit_tags')%>",
         preventDuplicates: true,
-        allowTabOut: true
+        allowTabOut: true,
+        tokenValue: "name"
     })
 }
 

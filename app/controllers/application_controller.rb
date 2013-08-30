@@ -3,7 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include NotificationHelper
+  include GroupsHelper, NotificationHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   after_filter :discard_flash_if_xhr
@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     @domain_locale = request.host.split('.').last
-    @domain_locale = 'en' if ['us','en','eu'].include? @domain_locale
-    @domain_locale = 'it' if ['it','org','net'].include? @domain_locale
-    I18n.locale =
+    @locale =
         (Rails.env == :staging ?
             params[:l] || I18n.default_locale :
             params[:l] || @domain_locale || I18n.default_locale)
-
+    @locale = 'en' if ['us','en','eu'].include? @locale
+    @locale = 'it' if ['it','org','net'].include? @locale
+    I18n.locale = @locale
   end
 
   def default_url_options(options={})
