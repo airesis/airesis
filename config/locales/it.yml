@@ -103,31 +103,9 @@ it:
   minute:
       one: "%{count} minuto"
       other: "%{count} minuti"
+  ago: "fa"
   open_space: "Spazio Comune"
   hello: "Ciao mondo"
-  error_not_logged_in: "Accesso riservato agli utenti registrati."
-  error_proposal_not_your: "Non puoi modificare proposte che non sono state presentate da te."
-  error_proposal_loading: "Errore nel caricamento della proposta."
-  error_blog_not_your: ""
-  error_blog_post_not_yours: ""
-  error_updating: "Errore durante l'aggiornamento"
-  error_comment_not_your: "Non disponi dei diritti per cancellare il commento."
-  error_proposal_already_ranked: "Hai già valutato questa proposta una volta. Non sono state apportate modifiche dalla tua ultima valutazione."
-  error_proposal_not_valutating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione."
-  error_proposal_not_voted: "Questa proposta non ha terminato la votazione, pertanto non puoi più eseguire questa azione."
-  error_proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione."
-  error_on_proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
-  error_proposal_comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
-  proposal_inserted: "Proposta creata correttamente. Continua l'elaborazione compilando i campi rimanenti"
-  proposal_updated:  "La proposta è stata aggiornata correttamente."
-  proposal_deleted:  "La proposta è stata eliminata correttamente."
-  proposal_date_selected:  "La proposta verrà votata nel periodo scelto."
-  proposal_rank_registered: "La tua valutazione è stata registrata."
-  proposal_comment_rank_registered: "La tua valutazione è stata registrata."
-  insert_comment: "Inserisci un commento"
-  insert_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta l'autore a migliorare la proposta"
-  login_to_post_comment: "Fai login per inserire un commento."
-  login_to_post_contribute: "Esegui login per inserire il tuo contributo."
   pages:
     top_panel:
       login: "Accedi o registrati"
@@ -207,6 +185,7 @@ it:
     groups:
       accept_requests:
         portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
+        unavailable_option: "Opzione non ancora disponibile"
       administration_panel:
         title: "Pannello di amministrazione"
         info: "Informazioni di base"
@@ -234,7 +213,6 @@ it:
         create_group_button: "Crea un nuovo gruppo"
         find_group_label: "Cerca un gruppo di tuo interesse"
         find_title: "La ricerca avviene all'interno del nome del gruppo"
-        find_button: "Cerca"
         groups_list: "Gruppi a cui partecipi"
         groups_registration: "Registrazione Gruppi"
         groups_list_2: "Elenco gruppi"
@@ -334,6 +312,7 @@ it:
           list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
           title: "Impostazioni area di lavoro"
         manage_group_areas: "Organizza gli utenti all'interno delle aree di lavoro"
+      default_admin_title: "Amministratore"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -350,6 +329,7 @@ it:
       accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
+      username_or_email: "Il tuo Username o la tua Email"
     proposals:
       index:
         title: "Elenco proposte"
@@ -461,6 +441,9 @@ it:
         disable_alerts: "Disattiva notifiche"
         close_contribute: "CHIUDI CONTRIBUTI"
         contributes_list: "Elenco contributi in '%{section}'"
+        add_comment: "Inserisci un commento"
+        add_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta l'autore a migliorare la proposta"
+        login_to_comment: "Fai login per inserire un commento"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -709,6 +692,7 @@ it:
         tag: "Tag"
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
+        title: "Elenco blog"
       new:
         title: "Crea il tuo blog personale!"
         cancel_button: "No, grazie!"
@@ -757,6 +741,7 @@ it:
         feedback: "FEEDBACK"
         FAQ: "FAQ"
         guide: "GUIDA"
+        change_language: "Cambia lingua"
       show:
         your_proposals: "Proposte a cui partecipi"
         proposals:
@@ -806,6 +791,23 @@ it:
         havent_received_email: "Non hai ricevuto l'email per la conferma?"
     steps:
       next: "Prosegui"
+      interest_borders:
+        title: "Inizia a partecipare"
+        description1: "Definisci i tuoi confini geografici di interesse."
+        description2: "Se sappiamo quali sono i territori ai quali sei interessato possiamo consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio."
+      choose_image:
+        title: "Immagine del profilo"
+        gravatar: "L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato."
+        edit_image: "Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su "
+        Identity_provider: "L'immagine che vedi è stata presa dal tuo Identity Provider."
+        Identity_provider2: "Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis."
+      rank_bar_explain:
+        title: "La barra di gradimento"
+        description: "La barra di gradimento è posta nel menu laterale a sinistra."
+        description2: "La barra indica qual è l'indice di gradimento della proposta tra i partecipanti."
+        description3: "Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra."
+        description4: "L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente."
+        description5: "Il colore della barra indica se la proposta è in grado di passare la fase di valutazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione."
     proposal_histories:
       index:
         title: "History della proposta %{title}"
@@ -869,6 +871,7 @@ it:
         private: "Gruppo chiuso"
         rule_book: "Regolamento"
         image: "Carica immagine"
+        admin_title_placeholder: "Nome ruolo amministratore gruppo (default: Amministratore)"
       blog:
         title: 'Titolo'
       blog_post:
@@ -984,77 +987,6 @@ it:
         group:
           portavoce:
             required: "Devi scegliere un portavoce."
-  controllers:
-    group_areas:
-      create:
-        ok_message: "Area di lavoro creata correttamente"
-        ko_message: "Errore nella creazione dell'area di lavoro"
-    proposals:
-      show:
-        unauthorized: "Non disponi dei permessi per visualizzare questa proposta"
-        cant_partecipate: "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
-        waiting_date: "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
-        voting: "Questa proposta è in fase di votazione."
-        ask_for_partecipation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
-        visible_outside_warn: "Questa proposta è visibile pubblicamente"
-        available_authors: "Ci sono nuovi redattori disponibili per la proposta"
-    registrations:
-      create:
-        recaptcha_ko: "Errore nella validazione del captcha. Digitarlo nuovamente"
-    proposal_comments:
-      cant_edit: "Non puoi modificare commenti che non siano i tuoi."
-      insert_error: "Errore durante l'inserimento."
-      edit_ok: "Il tuo commento è stato aggiornato con successo."
-      delete_ok: 'Il commento è stato cancellato'
-      report_ok: "Contributo marcato correttamente"
-      report_error: "Errore durante la segnalazione del contributo"
-      contribute_ok_message: "Contributo inserito correttamente"
-      suggestion_ok_message: "Commento inserito correttamente"
-      right_contribute_ok_message: "Contributo inserito correttamente.<br/>Per vederlo clicca su 'visualizza contributi' a fianco del paragrafo '%{section}'"
-    blogs:
-      cant_edit: "Non puoi modificare un blog che non ti appartiene."
-      index:
-        title: "Elenco blog"
-      new:
-        already_one: "Spiacente. Disponi già di un blog."
-      create:
-        ok_message: "Blog creato con successo"
-      update:
-        ok_message: "Il titolo del Blog è stato aggiornato correttamente"
-    users:
-      join_accounts:
-        ok_message: "Account uniti correttamente!"
-        wrong_password: "Password errata"
-      ko_message: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
-      tooltips:
-        enabled: "Tooltip abilitati"
-        disabled: "Tooltip disabilitati"
-        ko_message: "Errore nella modifica delle opzioni"
-      urls:
-        shown: "URL mostrati"
-        hidden: "URL nascosti"
-      interest_borders:
-        ok_message: "Confini di interesse aggiornati correttamente"
-      update:
-        confirm_email: "Devi confermare il nuovo indirizzo email"
-    authentications:
-      destroy:
-        ok_message: "Identity Provider scollegato"
-    groups:
-      destroy:
-        ok_message: "Gruppo eliminato correttamente"
-      create:
-        ok_message: "Gruppo creato correttamente"
-        ko_message: "Errore durante la creazione del gruppo"
-    blog_comments:
-      create:
-        ok_message: "Commento inserito correttamente"
-        ko_message: "Errore durante l'inserimento del commento"
-    events:
-      destroy:
-        ok_message: "Evento eliminato correttamente"
-      update:
-        ok_message: "Evento aggiornato correttamente"
   models:
     quorum:
       or_condition_1: "Il dibattito proseguirà finchè non avranno partecipato il %{percentage}% degli aventi diritto e, in ogni caso, al massimo per %{time}."
@@ -1064,22 +996,15 @@ it:
       good_score_condition: "Andrà in votazione se supererà il %{good_score}% del gradimento"
       bad_score_condition: "e verrà abbandonata se sarà sotto il %{bad_score}%."
       bad_score_explain: "Il dibattito continuerà se il gradimento rimarrà tra queste due soglie indipendentemente dal tempo o dal numero di valutazioni"
-  unavailable_option: "Opzione non ancora disponibile"
-  change_language: "Cambia lingua"
   terms_of_service: "Condizioni"
   privacy_policy: "Privacy"
-  back_to_top: "Torna sopra"
   proposals:
     create_button: "Crea una proposta"
     show:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
-  interest_borders_hint: "Digita alcuni caratteri per cercare un luogo"
-  no_interest_border: "Nessun luogo trovato"
-  looking_for_interest_border: "Sto cercando..."
   digit_tags: "Digita i tag che vuoi inserire"
-  ago: "fa"
   buttons:
     cancel: "Annulla"
     save: "Salva"
@@ -1088,6 +1013,7 @@ it:
     send: "Invia"
     create: "Crea"
     delete: "Elimina"
+    search: "Cerca"
     edit: "Modifica"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
@@ -1105,8 +1031,7 @@ it:
     quorum_minutes: "fino al <b>%{date}</b> %{time}"
     quorum_valutations: "finché non sarà valutata da <b>almeno %{valutations} persone</b>"
     quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
-  group: gruppo
-  loading: "Caricamento..."
+  group: "gruppo"
   proposal_types:
     problems_title: "Problematica"
     rule_book:
@@ -1118,16 +1043,16 @@ it:
     candidates:
       sections:
         description: "Descrizione del tipo di elezione"
-  default_admin_title: "Amministratore"
   saving: "Salvataggio..."
   sending: "Invio..."
   updating: "Aggiornamento..."
+  loading: "Caricamento..."
   error:
      setting_preferences: "Errore durante l'impostazione delle preferenze"
-     admin_required: "Devi essere amministratore per visualizzare la pagina."
-     permissions_required: "Non disponi dei permessi per eseguire l'azione."
-     portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina."
-     blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale."
+     admin_required: "Devi essere amministratore per visualizzare la pagina"
+     permissions_required: "Non disponi dei permessi per eseguire l'azione"
+     portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina"
+     blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale"
      not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
      role_permission_change: "Non è possibile modificare questo parametro"
      event_answer: "Errore durante l'invio della risposta"
@@ -1136,19 +1061,64 @@ it:
      configuration_required: "Modulo non abilitato"
      areas_required: "E' necessario abilitare la gestione delle aree di lavoro"
      quorums:
-       quorum_creation: "Errore nella creazione del quorum."
-       quorum_modification: "Errore nell'aggiornanto del quorum."
-       advanced_proposals_settings: "Errore nella modifica delle opzioni."
+       quorum_creation: "Errore nella creazione del quorum"
+       quorum_modification: "Errore nell'aggiornamento del quorum"
+       advanced_proposals_settings: "Errore nella modifica delle opzioni"
      participation_roles:
        role_updated: "Errore durante l'aggiornamento del ruolo"
        role_created: "Errore nella creazione del ruolo"
      groups:
        update: "Errore nell'aggiornamento del gruppo"
+       work_area:
+         area_created: "Errore nella creazione dell'area di lavoro"
+       creation: "Errore durante la creazione del gruppo"
+     proposals:
+       view_proposal: "Non disponi dei permessi per visualizzare questa proposta"
+       participate: "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta gli amministratori del gruppo"
+       modify_comments: "Non puoi modificare commenti che non siano i tuoi"
+       insert_comment: "Errore durante l'inserimento"
+       contribute_report: "Errore durante la segnalazione del contributo"
+       updating: "Errore durante l'aggiornamento"
+       proposal_rank: "Errore durante la registrazione della tua valutazione. Ci scusiamo per l'inconveniente. Riprova più tardi. Grazie"
+       proposal_not_waiting_date: "Questa proposta non è in attesa di una data per la votazione"
+       proposal_not_voted: "Questa proposta non ha terminato la votazione, pertanto non puoi più eseguire questa azione"
+       proposal_not_valuating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione"
+       proposal_already_ranked: "Hai già valutato questa proposta una volta. La proposta non è stata modificata dalla tua ultima valutazione"
+       proposal_not_your: "Non puoi modificare proposte che non sono state create da te"
+     registration:
+       recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
+       user_not_found: "Utente non trovato"
+     blog:
+       cannot_edit: "Non puoi modificare un blog che non ti appartiene"
+       already_have: "Spiacente. Disponi già di un blog"
+       comment_added: "Errore durante l'inserimento del commento"
+     users:
+       join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
+       join_accounts_password: "Password errata"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
-    blog_created: "Il tuo post è stato creato correttamente."
+    blog_created: "Il tuo post è stato creato correttamente"
     proposal:
       can_change_valutation: "La proposta è stata aggiornata da quando l'hai valutata. Puoi cambiare la tua valutazione se vuoi!"
+      waiting_date: "Questa proposta ha passato la fase di valutazione ed è ora in attesa di una data per la votazione."
+      voting: "Questa proposta è in fase di votazione"
+      ask_participation: "Richiedi di partecipare al gruppo per valutare e contribuire a questa proposta"
+      public_visible: "Questa proposta è visibile pubblicamente"
+      available_authors: "Ci sono nuovi redattori disponibili per la proposta"
+      updated_comment: "Il tuo commento è stato aggiornato con successo"
+      comment_deleted: "Il commento è stato cancellato correttamente"
+      contribute_reported: "Contributo marcato correttamente"
+      contribute_added: "Contributo inserito correttamente"
+      comment_added: "Commento inserito correttamente"
+      contribute_added_right: "Contributo inserito correttamente.<br/>Per vederlo clicca su 'visualizza contributi' a fianco del paragrafo '%{section}'"
+      proposal_created: "Proposta creata correttamente. Continua l'elaborazione compilando i campi rimanenti"
+      proposal_updated: "La proposta è stata aggiornata correttamente"
+      proposal_deleted: "La proposta è stata eliminata correttamente"
+      date_selected: "La proposta verrà votata nel periodo scelto"
+      rank_recorderd: "La tua valutazione è stata registrata"
+      comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento"
+      comment_not_your: "Non disponi dei diritti per cancellare il commento"
+      login_to_contribute: "Fai login per inserire il tuo contributo"
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1170,6 +1140,10 @@ it:
        non_secret_vote: "Le proposte avranno voto palese di default"
     groups:
       group_updated: "Gruppo aggiornato correttamente"
+      work_area:
+        area_created: "Area di lavoro creata correttamente"
+      group_deleted: "Gruppo eliminato correttamente"
+      group_created: "Gruppo creato correttamente"
     participation_roles:
       role_updated: "Ruolo aggiornato correttamente"
       permissions_updated: "Permessi aggiornati"
@@ -1177,3 +1151,22 @@ it:
     user:
       click_to_change: "Fai clic sulle informazioni che desideri modificare"
       info_updated: "Informazioni aggiornate correttamente"
+      account_joined: "Account uniti correttamente!"
+      tooltips_enabled: "Tooltip abilitati"
+      tooltips_disabled: "Tooltip disabilitati"
+      url_shown: "URL mostrati"
+      url_hidden: "URL nascosti"
+      update_border: "Confini di interesse aggiornati correttamente"
+      confirm_email: "Devi confermare il nuovo indirizzo email"
+      IP_disabled: "Identity Provider scollegato"
+    blog:
+      blog_created: "Blog creato con successo"
+      title_updated: "Il titolo del Blog è stato aggiornato correttamente"
+      comment_added: "Commento inserito correttamente"
+    events:
+      event_deleted: "Evento eliminato correttamente"
+      event_updated: "Evento aggiornato correttamente"
+  interest_borders:
+    hint: "Digita alcuni caratteri per cercare un luogo"
+    no_place_found: "Nessun luogo trovato"
+    searching: "Ricerca in corso..."

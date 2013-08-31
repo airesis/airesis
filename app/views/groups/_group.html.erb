@@ -50,8 +50,8 @@
       <%= f.label :accept_requests %><br/>
       <%= f.radio_button :accept_requests, 'p' %>
     <%= t('pages.groups.accept_requests.portavoce') %><br/>
-      <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-      <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
+      <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
+      <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
     </p>
     -->
 
@@ -95,8 +95,8 @@
         </div>
     <% else %>
         <p>
-          <%= f.label :admin_title %> <br/>
-          <%= f.text_field :admin_title, placeholder: 'Nome ruolo amministratore gruppo (default: Amministratore)', style: 'width:600px' %>
+          <%= f.label :default_admin_title %> <br/>
+          <%= f.text_field :default_admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
         <p>
           <%= f.check_box :private %><%= f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>

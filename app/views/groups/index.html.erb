@@ -76,7 +76,7 @@
   <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
       <%= f.label t('pages.groups.index.find_group_label') %>
       <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title') %>
-      <%= f.submit t('pages.groups.index.find_button'), :class => 'btn searchButton disable' %>
+      <%= f.submit t('buttons.search'), :class => 'btn searchButton disable' %>
   <% end %>
 
 </p>

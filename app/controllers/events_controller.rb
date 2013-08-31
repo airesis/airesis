@@ -196,7 +196,7 @@ class EventsController < ApplicationController
       @event.save!
     end
 
-    flash[:notice] = t('controllers.events.update.ok_message')
+    flash[:notice] = t('info.events.event_updated')
     render :update do |page|
       page.reload
     end
@@ -227,7 +227,7 @@ class EventsController < ApplicationController
     else
       @event.destroy
     end
-    flash[:notice] = t('controllers.events.destroy.ok_message')
+    flash[:notice] = t('info.events.event_deleted')
 
     respond_to do |format|
       format.html {

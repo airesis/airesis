@@ -11,7 +11,7 @@ class AuthenticationsController < ApplicationController
   def destroy
     authorize! :destroy, @authentication
     @authentication.destroy
-    flash[:notice] = t('controllers.authentications.destroy.ok_message')
+    flash[:notice] = t('info.user.IP_disabled')
     redirect_to privacy_preferences_users_url
   end
 

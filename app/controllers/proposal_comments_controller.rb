@@ -138,7 +138,7 @@ class ProposalCommentsController < ApplicationController
     #log_error(e)
     respond_to do |format|
       puts e
-      flash[:error] = t('controllers.proposal_comments.insert_error')
+      flash[:error] = t('error.proposals.insert_comment')
       format.js { render :update do |page|
         flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
         if @is_reply
@@ -156,7 +156,7 @@ class ProposalCommentsController < ApplicationController
   def update
     respond_to do |format|
       if @proposal_comment.update_attributes(params[:proposal_comment])
-        flash[:notice] = t('controllers.proposal_comments.edit_ok')
+        flash[:notice] = t('info.proposal.updated_comment')
         format.html { redirect_to(@proposal) }
         format.xml { head :ok }
       else
@@ -172,7 +172,7 @@ class ProposalCommentsController < ApplicationController
     @proposal_comment.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controllers.proposal_comments.delete_ok')
+      flash[:notice] = t('info.proposal.comment_deleted')
       format.js
       format.html { redirect_to @proposal }
       format.xml { head :ok }
@@ -211,12 +211,12 @@ class ProposalCommentsController < ApplicationController
       report = @proposal_comment.reports.create(user_id: current_user.id, proposal_comment_report_type_id: params[:reason])
 
     end
-    flash[:notice] = t('controllers.proposal_comments.report_ok')
+    flash[:notice] = t('info.proposal.contribute_reported')
 
   rescue Exception => e
     #log_error(e)
     respond_to do |format|
-      flash[:error] = t('controllers.proposal_comments.report_error')
+      flash[:error] = t('error.proposals.contribute_report')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -263,7 +263,7 @@ class ProposalCommentsController < ApplicationController
   def check_author
     @proposal_comment = ProposalComment.find(params[:id])
     unless current_user.is_mine? @proposal_comment
-      flash[:notice] = t('controllers.proposal_comments.cant_edit')
+      flash[:notice] = t('error.proposals.modify_comments')
       redirect_to :back
     end
   end
@@ -280,7 +280,7 @@ class ProposalCommentsController < ApplicationController
     unless current_user
       session[:proposal_comment] = params[:proposal_comment]
       session[:proposal_id] = params[:proposal_id]
-      flash[:info] = t('login_to_post_contribute')
+      flash[:info] = t('info.proposal.login_to_contribute')
       respond_to do |format|
         format.js { render :update do |page|
           page.redirect_to new_user_session_path
@@ -305,7 +305,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       if @ranking.save
         @proposal_comment.reload
-        flash[:notice] = t(:proposal_comment_rank_registered)
+        flash[:notice] = t('info.proposal.rank_recorderd')
         format.js { render 'rank' }
         format.html { redirect_to @proposal }
       else
@@ -323,7 +323,7 @@ class ProposalCommentsController < ApplicationController
   #check if the user can valutate again a contribute. that can happen only if the contribute received a suggestion after the previous valutation
   def already_ranked
     return true if current_user.can_rank_again_comment?(@proposal_comment)
-    flash[:notice] = t(:error_proposal_comment_already_ranked)
+    flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}

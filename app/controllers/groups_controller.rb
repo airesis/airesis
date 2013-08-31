@@ -192,14 +192,14 @@ class GroupsController < ApplicationController
         Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
       end
       respond_to do |format|
-        flash[:notice] = t('controllers.groups.create.ok_message')
+        flash[:notice] = t('info.groups.group_created')
         format.html { redirect_to(@group) }
         #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end #respond_to
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = t('controllers.groups.create.ko_message')
+        flash[:error] = t('error.groups.creation')
         format.html { render :action => "new" }
       end
     end #begin
@@ -248,7 +248,7 @@ class GroupsController < ApplicationController
   def destroy
     authorize! :destroy, @group
     @group.destroy
-    flash[:notice] = t('controllers.groups.destroy.ok_message')
+    flash[:notice] = t('info.groups.group_deleted')
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }

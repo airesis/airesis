@@ -71,11 +71,11 @@ class GroupAreasController < ApplicationController
       end
       @group_areas = @group.group_areas.includes(:partecipants)
       @partecipants = @group.partecipants
-      flash[:notice] = t('controllers.group_areas.create.ok_message')
+      flash[:notice] = t('info.groups.work_area.area_created')
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = t('controllers.group_areas.create.ko_message')
+        flash[:error] = t('error.groups.work_area.area_created')
         format.js {
           render :update do |page|
             page.redirect_to group_group_areas_path(@group)

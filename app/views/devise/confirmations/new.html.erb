@@ -4,7 +4,7 @@
 <%= form_for(resource, :as => resource_name, :url => user_confirmation_path, :html => { :method => :post }) do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
 
-  <div><%= f.label :email, 'Il tuo Username o la tua Email' %><br />
+  <div><%= f.label :email, t('pages.registration.username_or_email') %><br />
   <%= f.text_field :email %></div>
 <br/>
   <div><%= f.submit t("pages.confirmation.submit"), :class=>'buttonStyle' %></div>
