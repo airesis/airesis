@@ -26,7 +26,13 @@ class NotificationProposalCommentCreate < NotificationSender
       subject = proposal.private? ? "[#{group.name}]" : ''
       subject += " #{proposal.title} - Nuovo contributo"
       data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name}
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :message => msg, :url => url +"#comment"+comment.id.to_s, :data => data)
+      query = {'comment_id' => comment.id.to_s}
+      if comment.paragraph
+        query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
+        query['section_id'] = data['section_id'] = comment.paragraph.section_id
+
+      end
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :message => msg, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
       proposal.users.each do |user|
         if user != comment_user

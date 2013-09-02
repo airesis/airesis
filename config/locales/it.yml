@@ -268,6 +268,10 @@ it:
         no_groups_yet: "Non partecipi a nessun %{name} ancora"
         open_space_title: "Eventi pubblici"
         show_more: "Mostra altri gruppi"
+        partecipants_number: "Numero di partecipanti"
+        proposals_number: "Numero di proposte"
+        events_number: "Numero di eventi organizzati"
+        no_results: "Nessun gruppo trovato"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
@@ -426,7 +430,7 @@ it:
         reply_button: "Rispondi"
         reply_placeholder: "Inserisci un commento"
         export_pdf: "Stampa PDF"
-        manage_noise_folder: "Contributi eliminati"
+        manage_noise_folder: "Gestisci contributi eliminati (%{removable}/%{removed})"
         noise_folder: "Contributi eliminati"
         what_nickname: "Di cosa si tratta?"
         give_contribute: "SCRIVI E VISUALIZZA CONTRIBUTI"
@@ -759,6 +763,7 @@ it:
         notifications:
           title: "Le notifiche"
         your_contributes: "I tuoi ultimi contributi"
+        voting_proposals: "Proposte in votazione"
     open_space:
       layout:
         proposals_button: "LE PROPOSTE"
@@ -806,7 +811,7 @@ it:
         related_title: "Tag correlati"
     area_roles:
       new:
-        title: %Q(Nuovo ruolo)
+        title: "Nuovo ruolo"
   pl:
     comments:
       zero: nessun commento

@@ -1,4 +1,3 @@
-
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').html('');
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) && @section%>
@@ -6,3 +5,23 @@ $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%=j (r
 <% end %>
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
 $('#loading_contributes').hide();
+
+
+<%if params[:comment_id] %>
+var comment_ = $('#comment<%=params[:comment_id]%> .proposal_comment');
+
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').animate({
+    scrollTop: comment_.offset().top - 100
+}, 2000);
+
+// Stop the animation if the user scrolls. Defaults on .stop() should be fine
+/*$viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+ if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+ $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+ }
+ });
+ return false;
+ */
+
+comment_.effect('highlight', {}, 3000);
+<%end%>

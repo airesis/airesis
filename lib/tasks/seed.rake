@@ -81,6 +81,9 @@ namespace :airesis do
         ProposalState.all.each do |state|
           f.puts("ProposalState.create( :description => \"#{state.description}\" ){ |c| c.id = #{state.id} }.save")
         end
+        ProposalType.all.each do |type|
+          f.puts("ProposalType.create( :description => \"#{type.description}\", :short_name => \"#{type.short_name}\" ){ |c| c.id = #{type.id} }.save")
+        end
         RankingType.all.each do |rank|
           f.puts("RankingType.create( :description => \"#{rank.description}\" ){ |c| c.id = #{rank.id} }.save")
         end

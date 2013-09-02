@@ -1,20 +1,20 @@
 class Group < ActiveRecord::Base
-  include ImageHelper 
+  include ImageHelper
   REQ_BY_PORTAVOCE = 'p'
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
-  
-  validates_presence_of     :name
-  validates_length_of       :name,    :within => 3..60
-  validates_uniqueness_of   :name
-  
-  validates_presence_of     :description
-  validates_length_of       :image_url,    :within => 1..255, :allow_blank => true
-  validates_length_of       :facebook_page_url,    :within => 10..255, :allow_blank => true
-  validates_length_of       :title_bar,    :within => 1..255, :allow_blank => true
-  validates_presence_of     :interest_border_id
-  validates_presence_of     :default_role_name, :on => :create
-  
+
+  validates_presence_of :name
+  validates_length_of :name, :within => 3..60
+  validates_uniqueness_of :name
+
+  validates_presence_of :description
+  validates_length_of :image_url, :within => 1..255, :allow_blank => true
+  validates_length_of :facebook_page_url, :within => 10..255, :allow_blank => true
+  validates_length_of :title_bar, :within => 1..255, :allow_blank => true
+  validates_presence_of :interest_border_id
+  validates_presence_of :default_role_name, :on => :create
+
   #has_many :meeting_organizations, :class_name => 'MeetingsOrganization'
   attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list
   attr_reader :partecipant_tokens
@@ -24,41 +24,41 @@ class Group < ActiveRecord::Base
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
-  has_many :partecipants,:through => :group_partecipations, :source => :user, :class_name => 'User'
-  has_many :followers,:through => :group_follows, :source => :user, :class_name => 'User'
-  has_many :posts,:through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
+  has_many :partecipants, :through => :group_partecipations, :source => :user, :class_name => 'User'
+  has_many :followers, :through => :group_follows, :source => :user, :class_name => 'User'
+  has_many :posts, :through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
   has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy, :order => 'id DESC'
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   belongs_to :default_role, :class_name => 'PartecipationRole', :foreign_key => :partecipation_role_id
   has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'group_id', :dependent => :destroy
-  
-  has_many :events,:through => :meeting_organizations, :class_name => 'Event', :source => :event
-  
+
+  has_many :events, :through => :meeting_organizations, :class_name => 'Event', :source => :event
+
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
   has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'
- # belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
-  
+  # belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
+
   has_many :action_abilitations, :class_name => 'ActionAbilitation'
 
 
   has_many :group_elections, :class_name => 'GroupElection'
   #elezioni a cui partecipa
   has_many :elections, :through => :group_elections, :class_name => 'Election'
-  
+
   has_many :supporters, :class_name => 'Supporter'
   #candidati che sostiene alle elezioni
   has_many :candidates, :through => :supporters, :class_name => 'Candidate'
 
   has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
-  has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal  
-  
+  has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal
+
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
   has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum, order: 'seq nulls last, quorums.id'
 
 
-  has_many :voters,:through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?",2]
+  has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
 
@@ -75,11 +75,11 @@ class Group < ActiveRecord::Base
   # Check for paperclip
   has_attached_file :image,
                     :styles => {
-                        :thumb=> "100x100#",
+                        :thumb => "100x100#",
                         :medium => "300x300>",
-                        :small  => "150x150>"
+                        :small => "150x150>"
                     },
-                    :url  => "/assets/images/groups/:id/:style/:basename.:extension",
+                    :url => "/assets/images/groups/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/assets/images/groups/:id/:style/:basename.:extension"
 
   validates_attachment_size :image, :less_than => 2.megabytes
@@ -104,7 +104,7 @@ class Group < ActiveRecord::Base
   end
 
   def tags_with_links
-    html = self.tags.collect {|t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+    html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
     return html
   end
 
@@ -112,7 +112,7 @@ class Group < ActiveRecord::Base
     if @tags_list
       tids = []
       @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.','')
+        stripped = tag.strip.downcase.gsub('.', '')
         t = Tag.find_or_create_by_text(stripped)
         tids << t.id
       end
@@ -156,13 +156,13 @@ class Group < ActiveRecord::Base
   end
 
   def after_populate
-    self.default_role.update_attribute(:group_id,self.id)
+    self.default_role.update_attribute(:group_id, self.id)
     ids = self.default_role.action_abilitations.pluck(:id)
     ActionAbilitation.update_all({:group_id => self.id}, {:id => ids})
   end
 
   def destroy
-    self.update_attribute(:partecipation_role_id,nil) && super
+    self.update_attribute(:partecipation_role_id, nil) && super
   end
 
   #return true if the group is private and do not show anything to non-partecipants
@@ -173,10 +173,10 @@ class Group < ActiveRecord::Base
   #utenti che possono votare
   def count_voter_partecipants
     self.partecipants.count(
-    :joins => "join partecipation_roles 
+        :joins => "join partecipation_roles
                on group_partecipations.partecipation_role_id = partecipation_roles.id
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-    :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+        :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
   end
 
   #utenti che possono eseguire un'azione
@@ -185,20 +185,20 @@ class Group < ActiveRecord::Base
         :joins => "join partecipation_roles
                on group_partecipations.partecipation_role_id = partecipation_roles.id
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-        :conditions => ["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)",action_id,self.id,PartecipationRole::PORTAVOCE])
+        :conditions => ["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)", action_id, self.id, PartecipationRole::PORTAVOCE])
   end
-  
+
   #restituisce la lista dei portavoce del gruppo
   def portavoce
     return self.partecipants.where(:conditions => {"group_partecipations.partecipation_role_id" => 2})
   end
-    
+
   def partecipant_tokens=(ids)
     self.partecipant_ids = ids.split(",")
   end
 
-  
-   def image_url
+
+  def image_url
     if self.image.exists?
       return self.image.url
     elsif read_attribute(:image_url) != nil
@@ -206,49 +206,62 @@ class Group < ActiveRecord::Base
     else
       return ""
     end
-   end
-
-
-    
-  
-   def interest_border_tkn
-     return self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
   end
-  
+
+
+  def interest_border_tkn
+    return self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
+  end
+
   def interest_border_tkn=(tkn)
     unless tkn.blank?
-      ftype = tkn[0,1] #tipologia (primo carattere)
-      fid = tkn[2..-1]  #chiave primaria (dal terzo all'ultimo carattere)
-      found = InterestBorder.table_element(tkn)      
-      if found  #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype],fid)
+      ftype = tkn[0, 1] #tipologia (primo carattere)
+      fid = tkn[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      found = InterestBorder.table_element(tkn)
+      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
         puts "New Record!" if (interest_b.new_record?)
         self.interest_border = interest_b
       end
     end
   end
-  
+
   def request_by_vote?
     return true if self.accept_requests == REQ_BY_VOTE
     return false
   end
-  
+
   def request_by_portavoce?
     return true if self.accept_requests == REQ_BY_PORTAVOCE
     return false
   end
-  
+
   def request_by_both?
     return true if self.accept_requests == REQ_BY_BOTH
     return false
   end
 
-  def self.look(search,page=1)
-    search ?
+  def self.look(params)
+    search = params[:search]
+    tag = params[:tag]
+
+    page = params[:page] || 1
+
+    if search.to_s != '' then
       Group.search do
         fulltext search
-      end.results :
-      Group.paginate(:page => page, :per_page => 15, :order => 'group_partecipations_count desc, created_at desc')
+        #with(:interest_border_id, interest_border.id) if interest_border
+        #order_by :group_partecipations_count, :desc
+        #order_by :created_at, :desc
+      end.results
+    elsif params[:interest_border_obj]
+      Group.all(:conditions => {:interest_border_id => params[:interest_border_obj].id}, :order => 'group_partecipations_count desc, created_at desc')
+    elsif tag then
+      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc')
+    else
+      #Group.paginate(:page => page, :per_page => 15, :order => 'group_partecipations_count desc, created_at desc')
+      []
+    end
   end
 
   def to_param
@@ -258,5 +271,8 @@ class Group < ActiveRecord::Base
   searchable do
     text :name, boost: 5
     text :description
+    integer :interest_border_id
+    #integer :group_partecipations_count
+    #time :created_at
   end
 end

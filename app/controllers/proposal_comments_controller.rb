@@ -36,7 +36,7 @@ class ProposalCommentsController < ApplicationController
     if params[:view] == ORDER_RANDOM
       #remove already shown contributes
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
-      left = COMMENTS_PER_PAGE
+      left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
       tmp_comments = []
       #retrieve contributes with alerts TODO
       #alerted = UserAlert.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and user_alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
@@ -88,6 +88,7 @@ class ProposalCommentsController < ApplicationController
   end
 
   def left_list
+    params[:disable_limit] = true
     index
   end
 
@@ -323,7 +324,8 @@ class ProposalCommentsController < ApplicationController
   #check if the user can valutate again a contribute. that can happen only if the contribute received a suggestion after the previous valutation
   def already_ranked
     return true if current_user.can_rank_again_comment?(@proposal_comment)
-    flash[:notice] = t(:error_proposal_comment_already_ranked)
+
+    flash[:notice] = @proposal_comment.proposal.in_valutation? ? t(:error_proposal_comment_already_ranked) : t(:error_proposal_not_valutating)
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}

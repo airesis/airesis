@@ -1,7 +1,7 @@
 <%
    pv = params[:view] ? params[:view].to_i : nil
 %>
-<% if @proposal.comments.count>1 %>
+<% if @proposal.contributes.listable.where(paragraph_id: nil).count>1 %>
     <% if current_user %>
         <span id="random_stack_l">
      <% if !pv || (pv == 1) %>
@@ -36,14 +36,3 @@
         }
     </script>
 <% end %>
-<% if @proposal.contributes.count>1 %>
-
-    <span id="noise_comments" style="float:right">
-      <% if @proposal.users.include? current_user %>
-        <%= link_to t('pages.proposals.show.manage_noise_folder'), manage_noise_proposal_proposal_comments_url(@proposal), :remote => true %>
-      <% else %>
-        <%= link_to t('pages.proposals.show.noise_folder'), noise_proposal_proposal_comments_url(@proposal), :remote => true %>
-      <% end %>
-    </span>
-
-<%end%>

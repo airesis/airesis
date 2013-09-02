@@ -1,0 +1,20 @@
+$('#comment<%=@proposal_comment.id.to_s%>').hide(600);
+$("#flash_messages_comments").html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
+
+
+<% publish_to proposal_path(@proposal) do %>
+if (Airesis.id != <%=current_user.id%>) {
+    <%if @proposal_comment.paragraph_id %>
+    var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
+    var contribute_button = $('.contributeButton'+data_section_id);
+    var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
+    console.log('num:' + num_contributes);
+    contribute_button.attr('data-contributes_num',num_contributes-1);
+
+    if (contribute_button.attr('data-status') != 1) {
+        $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+    }
+    <%end%>
+    $('#comment<%=@proposal_comment.id.to_s%>').hide(600);
+}
+<% end rescue nil%>

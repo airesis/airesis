@@ -1,4 +1,5 @@
 <div id="noise_manage_panel" title="Gestisci i contributi inutili alla discussione">
+  <h3><%= 'Trascina a destra i contributi che vuoi eliminare dalla discussione' %></h3>
   <div style="float:left; width:  400px">
     <h4><%= t('pages.proposals.manage_noise.available') %></h4>
   </div>
@@ -8,7 +9,7 @@
   <div style="clear:both"></div>
   <div style="float:left; width:  400px">
     <div id="active" class="noiseSortable">
-      <% @proposal.contributes.unintegrated.where(['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]).each do |contribute| %>
+      <% @proposal.contributes.unintegrated.removable.each do |contribute| %>
           <div class="noise_element" data-id="<%=contribute.id%>">
             <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
               truncate(text, :length => 15)

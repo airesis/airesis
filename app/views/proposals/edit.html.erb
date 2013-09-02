@@ -359,7 +359,8 @@
             $.ajax({ url: '<%=edit_list_proposal_proposal_comments_url(@proposal) %>',
                 data: {page: currentPage,
                     view: currentView,
-                    contributes: contributes
+                    contributes: contributes,
+                    all: true
                 },
                 type: 'get'});
         } else {

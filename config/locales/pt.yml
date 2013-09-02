@@ -425,7 +425,7 @@ pt:
         reply_button: "Reply"
         reply_placeholder: "Give your suggestion"
         export_pdf: "Print PDF"
-        manage_noise_folder: "Removed contributes"
+        manage_noise_folder: "Removed contributes (%{removable}/%{removed})"
         noise_folder: "Removed contributes"
         what_nickname: "What's that?"
         give_contribute: "Make your contribution"

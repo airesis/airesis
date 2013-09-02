@@ -557,3 +557,29 @@ function secondsToString(seconds) {
 
     return str;
 }
+
+
+function addQueryParam( url, key, val ){
+    var parts = url.match(/([^?#]+)(\?[^#]*)?(\#.*)?/);
+    var url = parts[1];
+    var qs = parts[2] || '';
+    var hash = parts[3] || '';
+
+    if ( !qs ) {
+        return url + '?' + key + '=' + encodeURIComponent( val ) + hash;
+    } else {
+        var qs_parts = qs.substr(1).split("&");
+        var i;
+        for (i=0;i<qs_parts.length;i++) {
+            var qs_pair = qs_parts[i].split("=");
+            if ( qs_pair[0] == key ){
+                qs_parts[ i ] = key + '=' + encodeURIComponent( val );
+                break;
+            }
+        }
+        if ( i == qs_parts.length ){
+            qs_parts.push( key + '=' + encodeURIComponent( val ) );
+        }
+        return url + '?' + qs_parts.join('&') + hash;
+    }
+}

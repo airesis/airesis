@@ -9,6 +9,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
     });
     $('.reply_textarea').attr('placeholder', '<%=t('pages.proposals.show.reply_placeholder')%>');
 
+
     <% publish_to  proposal_path(@proposal) do %>
     if (Airesis.id != <%=current_user.id%>) {
         $("#<%=@proposal_comment.contribute.id%>_new_replies").append('<%=j render partial: 'proposals/reply_others', locals: {reply: @proposal_comment, hide: false}%>');
@@ -34,6 +35,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
         $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment', :locals => {:comment => @proposal_comment}%>');
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
+
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
@@ -41,6 +43,13 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
     <%end%>
 
     $('.proposalComment[data-collapsed=true]').show(600);
+
+    initialize_hidden_menu();
+    $('#delete<%=@proposal_comment.id%>').unbind('click');
+    $('#delete<%=@proposal_comment.id%>').bind('click',function(event) {
+        hiding(event,$(this).data('id'));
+    });
+
     <% publish_to proposal_path(@proposal) do %>
         if (Airesis.id != <%=current_user.id%>) {
             toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');

@@ -1,0 +1,73 @@
+<div class="title">
+  <%= t('pages.home.show.voting_proposals') %>
+</div>
+<% @a = current_user.proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
+<% @b = current_user.partecipating_proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
+<% @c = @a | @b %>
+<% if @c.empty? %>
+    <h4><%= 'Nessuna proposta in votazione al momento' %></h4>
+    <%else%>
+    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+      <table id="votations_table" class="table_list">
+        <thead>
+        <th><%= t('pages.home.show.proposals.title') %></th>
+        <th><%= t('pages.home.show.proposals.last_edit') %></th>
+        <th><%= t('pages.home.show.proposals.notifications') %></th>
+        </thead>
+        <tbody>
+
+        <% @proposals_p = Proposal.current.uniq.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?)', @c], order: 'proposals.updated_at desc') %>
+        <% @proposals_p.each do |proposal| %>
+
+            <tr>
+              <td class="first"><%= link_to_proposal proposal %>
+                <%= user_valutation_image(current_user, proposal, {fetched: true}) %>
+              </td>
+              <td align="center" class="second">
+                <%= l proposal.updated_at %>
+                <br>
+                <% unless proposal.is_polling? %>
+                    <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
+                <% end %>
+              </td>
+              <td align="center" class="second">
+                <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
+                <% if count > 0 %>
+                    <%=link_to count,proposal, class: "alert notify" %>
+                <%else%>
+                    -
+                <% end %>
+              </td>
+
+            </tr>
+        <% end %>
+        </tbody>
+
+      </table>
+    </div>
+
+    <script type="text/javascript">
+        $('#votations_table').dataTable({
+            "oLanguage": {
+                "sLengthMenu": "Mostra _MENU_ proposte per pagina",
+                "sSearch": "<%='Cerca:'%>",
+                "sZeroRecords": "<%='Nessuna proposta, spiacente..'%>",
+                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
+                "sInfoEmpty": "Sto mostrando 0 proposte",
+                "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",
+                "oPaginate": {
+                    "sPrevious": "",
+                    "sNext": ""
+                }
+            },
+            "aaSorting": [],
+            "aoColumns": [null, null],
+            "bInfo": false,
+            "bLengthChange": false,
+            "bPaginate": false
+        });
+
+        $('#proposals_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+
+    </script>
+<% end %>
