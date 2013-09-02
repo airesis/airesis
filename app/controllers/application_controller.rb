@@ -213,15 +213,15 @@ class ApplicationController < ActionController::Base
         if @proposal_comment.paragraph
           @section = @proposal_comment.paragraph.section
           if params[:right]
-            flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
+            flash[:notice] = t('info.proposal.contribute_added')
           else
-            flash[:notice] = t('controllers.proposal_comments.right_contribute_ok_message', {section: @section.title})
+            flash[:notice] = t('info.proposal.contribute_added_right', {section: @section.title})
           end
         else
-          flash[:notice] = t('controllers.proposal_comments.contribute_ok_message')
+          flash[:notice] = t('info.proposal.contribute_added')
         end
       else
-        flash[:notice] = t('controllers.proposal_comments.suggestion_ok_message')
+        flash[:notice] = t('info.proposal.comment_added')
       end
       #if it's lateral show a message, else show show another message
 
@@ -293,7 +293,7 @@ class ApplicationController < ActionController::Base
               #mark as checked all user alerts about this proposal
               @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', @proposal.id.to_s, false])
               if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
-                flash[:info] = t('controllers.proposals.show.available_authors')
+                flash[:info] = t('info.proposal.available_authors')
               end
               @unread.update_all(:checked => true)
             else

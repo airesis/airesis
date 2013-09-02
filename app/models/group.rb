@@ -145,7 +145,7 @@ class Group < ActiveRecord::Base
       copy.save!
       self.group_quorums.build(:quorum_id => copy.id)
     end
-    role = self.partecipation_roles.build({name: self.default_role_name, description: 'Ruolo predefinito del gruppo'})
+    role = self.partecipation_roles.build({name: self.default_role_name, description: t('pages.groups.edit_permissions.default_role')})
     self.default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
       abilitation.save!

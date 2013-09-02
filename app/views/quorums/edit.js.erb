@@ -1,4 +1,4 @@
-$('#edit_quorum_container').html("<div  class='ui-state-highlight'><b>Attenzione! Le modifiche al quorum non influenzeranno le proposte alle quali è già stato assegnato!</b></div><br/><%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => "Aggiorna"}))%>");
+$('#edit_quorum_container').html("<div  class='ui-state-highlight'><b><%=t('pages.groups.edit_quorums.edit_quorum_warning')%></b></div><br/><%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.update')}))%>");
 
 $('#edit_quorum_container').dialog({
     width: 500,

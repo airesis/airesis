@@ -35,15 +35,15 @@ class UsersController < ApplicationController
           auth.save!
         end
         #fine dell'unione
-        flash[:notice] = t('controllers.users.join_accounts.ok_message')
+        flash[:notice] = t('info.user.account_joined')
         sign_in_and_redirect auth, :event => :authentication
       else
-        flash[:error] = t('controllers.users.join_accounts.wrong_password')
+        flash[:error] = t('error.users.join_accounts_password')
         redirect_to confirm_credentials_users_url
       end
     end
   rescue Exception => e
-    flash[:error] = t('controllers.users.ko_message')
+    flash[:error] = t('error.users.join_accounts')
     redirect_to confirm_credentials_users_url
   end
 
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
   def show
     respond_to do |format|
-      flash.now[:info] = t('controllers.users.show.clic_to_change') if (current_user == @user)
+      flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   def alarm_preferences
     @user = current_user
     respond_to do |format|
-      flash.now[:info] = t('controllers.users.show.clic_to_change') if (current_user == @user)
+      flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
                   #format.xml  { render :xml => @user }
     end
@@ -89,8 +89,8 @@ class UsersController < ApplicationController
     current_user.show_tooltips = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('controllers.users.tooltips.enabled') :
-        flash[:notice] = t('controllers.users.tooltips.disabled')
+        flash[:notice] = t('info.user.tooltips_enabled') :
+        flash[:notice] = t('info.user.tooltips_disabled')
 
     respond_to do |format|
       format.js { render :update do |page|
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('controllers.users.tooltips.ko_message')
+      flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -113,8 +113,8 @@ class UsersController < ApplicationController
     current_user.show_urls = params[:active]
     current_user.save!
     params[:active] == 'true' ?
-        flash[:notice] = t('controllers.users.urls.shown') :
-        flash[:notice] = t('controllers.users.urls.hidden')
+        flash[:notice] = t('info.user.url_shown') :
+        flash[:notice] = t('info.user.url_hidden')
 
     respond_to do |format|
       format.js { render :update do |page|
@@ -125,7 +125,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('controllers.users.tooltips.ko_message')
+      flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -151,7 +151,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('controllers.users.tooltips.ko_message')
+      flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -181,7 +181,7 @@ class UsersController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('controllers.users.tooltips.ko_message')
+      flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -197,7 +197,7 @@ class UsersController < ApplicationController
       border.destroy
     end
     update_borders(borders)
-    flash[:notice] = t('controllers.users.interest_borders.ok_message')
+    flash[:notice] = t('info.user.update_border')
     AffinityHelper.calculate_group_affinity(current_user, Group.all)
     redirect_to :back
   end
@@ -230,9 +230,9 @@ class UsersController < ApplicationController
     respond_to do |format|
 
       if @user.update_attributes(params[:user])
-        flash[:notice] = t(:user_updated)
+        flash[:notice] = t('info.user.info_updated')
         if params[:user][:email] && @user.email != params[:user][:email]
-          flash[:notice] += t('controllers.users.update.confirm_email')
+          flash[:notice] += t('info.user.confirm_email')
         end
         format.js do
           render :update do |page|

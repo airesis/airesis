@@ -1,16 +1,14 @@
-<div class="text"><b>Immagine del profilo
-<br />
+<div class="text"><b><%= t('pages.steps.choose_image.title')%><br />
 </b>
 <%if @user.from_identity_provider?%>
-L'immagine che vedi è stata presa dal tuo Identity Provider.
-<br />
-Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis.
+<%= t('pages.steps.choose_image.Identity_provider')%><br />
+<%= t('pages.steps.choose_image.Identity_provider2')%>
 <br />
 <%else%>
-L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato.
+<%= t('pages.steps.choose_image.gravatar')%>
 <br />
 <%end%>
-Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su <b>Modifica l'immagine</b>.
+<%= t('pages.steps.choose_image.edit_image') %><b><%=t('pages.users.show.edit_image')%></b>.
 <div style="clear: both"></div>
 <%= link_to t('pages.steps.next'), complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
 <div style="clear: both"></div>

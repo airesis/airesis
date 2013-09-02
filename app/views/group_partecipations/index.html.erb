@@ -10,7 +10,7 @@
 
           <p>
             <%= f.label :role_id %><br/>
-            <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => 'Scegli un ruolo' %>
+            <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => 'Scegli un ruolo' %>
           </p>
 
           <p>

@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
       else
         build_resource
         clean_up_passwords(resource)
-        flash[:alert] = t('controllers.registrations.create.recaptcha_ko')
+        flash[:alert] = t('error.registration.recaptcha')
         render :new
       end
     else

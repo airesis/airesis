@@ -37,6 +37,7 @@
               <p>I gruppi potranno aderire alle proposte, crearne di interne, creare sondaggi e organizzare i
                 partecipanti
                 secondo ruoli e permessi.</p>
+              <p>É possibile cambiare le regole di questo gruppo tramite le "Impostazioni" del gruppo stesso</p>
               <ul>
                 <li>Partecipazione:</li>
                 <% if @group.request_by_vote? %>
@@ -131,7 +132,7 @@
     <% else %>
         <div class="mybox">
           <p>
-            <%= link_to t('pages.groups.show.ask_partecipate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :class => "btn blue editButton" %>
+            <%= link_to t('pages.groups.show.ask_participate_button'), url_for(:action => "ask_for_partecipation", :controller => "groups", :id => @group.id), :class => "btn blue editButton" %>
           </p>
         </div>
     <% end %>

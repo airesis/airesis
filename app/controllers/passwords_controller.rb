@@ -7,7 +7,7 @@ class PasswordsController < Devise::PasswordsController
         super
       else
         @user = User.new
-        @user.errors.add(:blocked,"Utente non trovato, spiacenti")
+        flash[:error] = t('error.registration.user_not_found')
         render :new
       end
     end

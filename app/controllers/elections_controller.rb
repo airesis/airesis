@@ -60,13 +60,13 @@ class ElectionsController < ApplicationController
     @group = @election.groups.first
     @page_title = @election.event.title + " - Pagina di voto"
     respond_to do |format|
-      flash[:error] = "Hai già votato a questa elezione."
+      flash[:error] = "Hai già votato a questa elezione"
       format.html {
         redirect_to @election
       }
     end if @has_voted
     respond_to do |format|
-      flash[:error] = "Tempo di votazione scaduto."
+      flash[:error] = "Tempo di votazione scaduto"
       format.html {
         redirect_to @election
       }
@@ -154,7 +154,7 @@ class ElectionsController < ApplicationController
       
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = "Errore nella creazione dell'elezione."
+        flash[:error] = "Errore nella creazione dell'elezione"
         format.html { render :action => "new" }                
       end        
     end  

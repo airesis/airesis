@@ -1,19 +1,19 @@
-<h1><%= t('pages.group_areas.index.title_inactive') %></h1>
+<h1><%= t('pages.groups.edit_work_areas.index.not_enabled') %></h1>
 <p>
-<b><%= t('pages.group_areas.index.description_1') %></b>
+<b><%= t('pages.groups.edit_work_areas.index.description') %></b>
 </p>
 <p>
-<b><%= t('pages.group_areas.index.description_2') %></b>
+<b><%= t('pages.groups.edit_work_areas.index.description2') %></b>
 </p>
 <p>
-  <b><%= t('pages.group_areas.index.description_3') %></b>
+  <b><%= t('pages.groups.edit_work_areas.index.description3') %></b>
 </p>
 <p>
-  <b><%=raw "Prima di attivare le aree di lavoro verifica se non puoi gestire gli utenti mediante i #{link_to 'ruoli e permessi', edit_permissions_group_path(@group)}." %></b>
+  <b><%= t('pages.groups.edit_work_areas.index.description4') %><%=raw "#{link_to t('pages.groups.administration_panel.permissions').downcase, edit_permissions_group_path(@group)}." %></b>
 </p>
 
 <div style="margin:auto; text-align: center;">
-<%= link_to t('pages.group_areas.index.enable_button'), enable_areas_group_url(@group), method: :put, class: 'bigButton buttonStyle', style: 'margin:auto' %>
+<%= link_to t('pages.groups.edit_work_areas.index.enable'), enable_areas_group_url(@group), method: :put, class: 'bigButton buttonStyle', style: 'margin:auto' %>
 </div>
 <%= content_for :left_panel do %>
     <%= render :partial => 'groups/administration_panel' %>

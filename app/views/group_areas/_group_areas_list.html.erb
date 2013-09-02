@@ -11,7 +11,7 @@
         <b><%=link_to area.name, edit_group_group_area_url(@group,area), :remote => true %></b>
         <div style="clear:both;"></div>
       </div>
-      <%= link_to t('pages.group_areas.manage.partecipants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
+      <%= link_to t('pages.groups.edit_quorums.participants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
       <div class="areas_list shadow-box">
         <ul>
           <%@partecipants.each do |partecipant|%>
