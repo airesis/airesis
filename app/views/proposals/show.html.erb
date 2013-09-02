@@ -183,6 +183,13 @@
         });
 
 
+        initialize_hidden_menu();
+
+
+    }
+
+
+    function initialize_hidden_menu() {
         $('.hidden_menu')
                 .click(function (event) {
                     event.stopPropagation();
@@ -203,8 +210,6 @@
                     });
                     event.stopPropagation();
                 });
-
-
     }
 
 
@@ -237,7 +242,7 @@
             $('#menu-left').animate({'margin-left': '-300'}, 200);
             $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
         }
-        else if (window.innerWidth < 1800){
+        else if (window.innerWidth < 1800) {
             $('#centerpanelextended').animate({'max-width': '600px'}, 200);
         }
         else {
@@ -247,7 +252,7 @@
         if (window.innerWidth < 1600) {
             fetched.animate({'left': '618px'}, 200);
         }
-        else if (window.innerWidth < 1800){
+        else if (window.innerWidth < 1800) {
             fetched.animate({'left': '908px'}, 200);
         }
         else {
@@ -273,8 +278,7 @@
     }
 
     $(function () {
-
-        $('#centerpanelextended').css('max-width','800px');
+        $('#centerpanelextended').css('max-width', '800px');
 
         <%unless @proposal.voting? %>
         currentPage++;
@@ -297,7 +301,7 @@
         //2 - fetched - closed
 
         console.log('attaching event');
-        $(".contributeButton").click(function () {
+        $(".contributeButton").click(function (event, comment_id) {
             console.log('hi');
             var this_ = $(this);
             var section_id = $(this).attr("data-section_id");
@@ -335,7 +339,7 @@
                     $('#menu-left').animate({'margin-left': '-300'}, 200);
                     $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
                 }
-                else if (window.innerWidth < 1800){
+                else if (window.innerWidth < 1800) {
                     $('#centerpanelextended').animate({'max-width': '600px'}, 200);
 
                 }
@@ -353,7 +357,7 @@
                 if (window.innerWidth < 1600) {
                     fetched.animate({'left': '618px'}, 200);
                 }
-                else if (window.innerWidth < 1800){
+                else if (window.innerWidth < 1800) {
                     fetched.animate({'left': '908px'}, 200);
                 }
                 else {
@@ -368,6 +372,7 @@
 
                 $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
                     data: {
+                        comment_id: comment_id,
                         section_id: section_id,
                         view: <%=current_user ? 1 : 3 %>
                     },
@@ -394,6 +399,10 @@
             }
             return false;
         });
+
+        <%if params[:section_id] %>
+        $('.contributeButton[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
+        <%end%>
 
     });
 </script>

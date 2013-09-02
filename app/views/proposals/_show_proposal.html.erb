@@ -23,8 +23,20 @@
 
 
 <div style="text-align: right;float:right;">
+  <% if @proposal.contributes.count>1 %>
+      <%@removable_count = @proposal.contributes.unintegrated.removable.count%>
+      <%@removed_count = @proposal.contributes.noise.count%>
+      <% if ((is_proprietary? @proposal) || is_admin?) && (@removable_count + @removed_count > 0) %>
+          <%= link_to t('pages.proposals.show.manage_noise_folder', removable: @removable_count, removed: @removed_count), manage_noise_proposal_proposal_comments_url(@proposal), :remote => true, class: 'btn' %>
+      <% else %>
+          <%if @proposal.contributes.noise.count > 0 %>
+          <%= link_to t('pages.proposals.show.noise_folder'), noise_proposal_proposal_comments_url(@proposal), :remote => true, class: 'btn' %>
 
-  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta            %>
+          <%end%>
+      <% end %>
+
+  <% end %>
+  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta             %>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_url(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
       <% else %>
@@ -37,7 +49,8 @@
       <% end %>
       <% if @proposal.in_valutation? %>
           <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
-      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox              %>
+
+      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox               %>
           <div id="wait_date_header_container">
             <%= render :partial => 'proposals/wait_date_header' %>
           </div>
@@ -139,13 +152,13 @@
 
 <div class="blogCommentPostedAt">
 
-  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata   %>
+  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata    %>
       <p>
         <b>
           <%= t('pages.proposals.show.votation_message', from: @proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
         </b>
       </p>
-  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito              %>
+  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito               %>
       <%= t('pages.proposals.show.editing_message_1') %>.<br/>
       <%= @proposal.quorum.explanation %>
 

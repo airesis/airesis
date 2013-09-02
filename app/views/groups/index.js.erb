@@ -1,10 +1,21 @@
 <%if params[:page] %>
-$('#groups_list').append("<%= escape_javascript(render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
-$('#more_groups_container').html("<%= escape_javascript(render :partial => 'more_groups')%>");
+$('#groups_list').append("<%=j (render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+$('#more_groups_container').html("<%=j (render :partial => 'more_groups')%>");
 <%else%>
 $('#groups_list').fadeOut('slow', function () {
-    $('#groups_list').html("<%= escape_javascript(render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+    <% if @groups.count > 0 %>
+    $('#groups_list').html("<%=j (render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+
+    <% else %>
+    $('#groups_list').html("<h2><%=j t('pages.groups.index.no_results') %></h2>");
+    <% end %>
     $('#groups_list').fadeIn();
 })
+<%end%>
+
+<%if params[:back] %>
+    $('#search').val('<%=params[:search]%>');
+<%else%>
+window.history.pushState(null,"",'<%=j raw request.url%>');
 <%end%>
 disegnaBottoni();

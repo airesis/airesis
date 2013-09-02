@@ -48,3 +48,4 @@
 //= require ddslick.min
 //= require toastr
 //= require countdown/index
+//= require jquery.tagcloud

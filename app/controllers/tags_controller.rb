@@ -7,12 +7,12 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
 
   def show
-    @page_title = "Elenco elementi con tag '" + params[:text] + "'"
-    @tag = params[:text]
+    @page_title = "Elenco elementi con tag '" + params[:id] + "'"
+    @tag = params[:id]
     @blog_posts = BlogPost.published.all(:joins => :tags, :conditions => {'tags.text' => @tag}, include: [:blog, :tags, :user])
     @proposals = Proposal.all(:joins => :tags, :conditions => {'tags.text' => @tag}, include: [{:category => :translations}, :quorum, :users, :vote_period, :proposal_type])
 
-    @similars = Tag.find_by_text(params[:text]).nearest
+    @similars = Tag.find_by_text(@tag).nearest
 
     respond_to do |format|
       format.html

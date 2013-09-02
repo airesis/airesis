@@ -1,8 +1,8 @@
 <div class="title">
   <%= t('pages.home.show.your_proposals') %>
 </div>
-<% @a = current_user.proposals.current.pluck('proposals.id') %>
-<% @b = current_user.partecipating_proposals.current.pluck('proposals.id') %>
+<% @a = current_user.proposals.before_votation.pluck('proposals.id') %>
+<% @b = current_user.partecipating_proposals.before_votation.pluck('proposals.id') %>
 <% @c = @a | @b %>
 <% unless @c.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">

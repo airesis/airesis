@@ -39,7 +39,7 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: "[:day, :month, :year ]"
+    order: [:day, :month, :year ]
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
@@ -215,7 +215,8 @@ en:
         open_space_button: "Go to Open Space"
         create_group_button: "Create a new group"
         find_group_label: "Find a group you may be interested in"
-        find_title: "The search occurs in the group name"
+        find_title: "Search in the group name or description"
+        find_button: "Search"
         groups_list: "Group participations"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
@@ -439,7 +440,7 @@ en:
         reply_button: "Reply"
         reply_placeholder: "Give your suggestion"
         export_pdf: "Print PDF"
-        manage_noise_folder: "Removed contributions"
+        manage_noise_folder: "Removed contributions (%{removable}/%{removed})"
         noise_folder: "Removed contributions"
         what_nickname: "What's that?"
         give_contribute: "WRITE AND SHOW CONTRIBUTIONS"

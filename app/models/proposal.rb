@@ -87,7 +87,14 @@ class Proposal < ActiveRecord::Base
 
   #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
+  scope :before_votation, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT]}}
+
   scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
+
+  scope :voting, {:conditions => {:proposal_state_id => ProposalState::VOTING}}
+
+  scope :not_voted_by, lambda { |user_id| {:conditions => ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)',ProposalState::VOTING, user_id]} }
+
   #tutte le proposte accettate
   scope :accepted, {:conditions => {:proposal_state_id => ProposalState::ACCEPTED}}
   #tutte le proposte respinte

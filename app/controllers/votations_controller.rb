@@ -6,12 +6,12 @@ class VotationsController < ApplicationController
 
   before_filter :authenticate_user!
 
-  before_filter :load_proposals, :only => [ :show]
+#  before_filter :load_proposals, :only => [ :show]
 
   
-  def show
-    @page_title = "Sezione votazioni"
-  end
+#  def show
+#    @page_title = "Sezione votazioni"
+#  end
 
   def vote
     Proposal.transaction do

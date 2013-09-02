@@ -1,3 +1,4 @@
+<% @extend=true %>
 <% @page_title = t('pages.groups.index.title') %>
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
 
@@ -72,23 +73,50 @@
 </div>
 -->
 
-<p>
-  <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
-      <%= f.label t('pages.groups.index.find_group_label') %>
-      <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title') %>
-      <%= f.submit t('buttons.search'), :class => 'btn searchButton disable' %>
-  <% end %>
+<h1><%= t('pages.groups.index.find_group_label') %></h1>
+<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">
+  <fieldset style="margin-right:10px;">
+    <legend>Maschera di ricerca</legend>
+    <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
+        <p>
+          <%= f.label t('buttons.search') 'tramite testo libero' %>               <br/>
+          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
+        </p>
 
-</p>
+        <p>
+          <%= f.label :interest_border, 'o confine geografico' %>      <br/>
+          <%= text_field_tag :interest_border, params[:interest_border], :title => t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
+        </p>
+
+        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', disable_with: t('loading') %>
+    <% end %>
+  </fieldset>
+</div>
+<div style="float:left; width: 452px">
+  <fieldset>
+    <legend>Parole chiave</legend>
+    <div id="tag_cloud">
+      <% @tags.each do |tag| %>
+          <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
+      <% end %>
+    </div>
+  </fieldset>
+</div>
+<div class="clearboth"></div>
+
+
 
 <div id="groups_list">
-
+  <%if @groups.count > 0 %>
   <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+      <%else %>
+  <h2><%= 'Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse' %></h2>
+      <%end%>
   <div style="clear: both"></div>
 </div>
 <div class="clearboth"></div>
 <div id="more_groups_container">
-  <%= render :partial => 'more_groups' %>
+  <%#= render :partial => 'more_groups' %>
 </div>
 
 <%= content_for :left_panel do %>
@@ -104,3 +132,44 @@
     </div>
     <%= render :partial => 'users/user_groups_panel' %>
 <% end %>
+
+
+
+<script type="text/javascript">
+    $.fn.tagcloud.defaults = {
+        size: {start: 12, end: 24, unit: 'pt'},
+        color: {start: '#000', end: '#bbb'}
+    };
+
+    $(function () {
+        $('#tag_cloud a').tagcloud();
+
+        $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
+            crossDomain: false,
+            prePopulate: $('#interest_border').data("pre"),
+            hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",
+            noResultsText: "<%='Nessun luogo trovato'%>",
+            searchingText: "<%='Sto cercando...'%>",
+            preventDuplicates: true,
+            tokenLimit: 1,
+            allowTabOut: true
+        });
+
+    });
+
+
+    function checkCharacters() {
+        if (($('#search').val().length > 2) || ($('#interest_border').val() != '')) {
+            return true;
+        }
+        else {
+            alert('<%='Devi inserire almeno tre lettere o un confine geografico'%>');
+            return false;
+        }
+    }
+
+    $(window).bind('popstate', function () {
+        $.getScript(addQueryParam(location.href, 'back', 'true'));
+    });
+
+</script>

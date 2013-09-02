@@ -17,7 +17,19 @@ class GroupsController < ApplicationController
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
   def index
-    @groups = Group.look(params[:search], params[:page])
+    unless request.xhr?
+      @tags = Tag.where(['groups_count > 0']).all
+    end
+
+    interest_border_key = params[:interest_border]
+    if interest_border_key.to_s != ''
+      ftype = interest_border_key[0, 1] #tipologia (primo carattere)
+      fid = interest_border_key[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      @interest_border = InterestBorder.find_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
+    end
+    params[:interest_border_obj] = @interest_border
+
+    @groups = Group.look(params)
     respond_to do |format|
       format.js
       format.html
