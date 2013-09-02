@@ -68,7 +68,7 @@ class AreaRolesController < ApplicationController
 
   def destroy
     @area_role.destroy
-    flash[:notice] = "Ruolo eliminato"
+    flash[:notice] =  t('info.participation_roles.role_deleted')
   end
 
 
@@ -99,7 +99,7 @@ class AreaRolesController < ApplicationController
     gp = @group_area.area_partecipations.find_by_user_id(params[:user_id])
     gp.area_role_id = @area_role.id
     gp.save!
-    flash[:notice] ="Ruolo modificato."
+    flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

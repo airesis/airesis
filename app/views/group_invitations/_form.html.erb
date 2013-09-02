@@ -1,4 +1,4 @@
-<div id="new_invitation" title="Invita i tuoi amici nel gruppo!" style="display: none; font-size: 14px;">
+<div id="new_invitation" title="<%= t('pages.groups.invite_your_friends.title')%>" style="display: none; font-size: 14px;">
 <%= form_for @group_invitation, :html => {:class=>"disableForm"}, :remote => true do |f| %>
 
   <div class="field">
@@ -7,12 +7,12 @@
   </div>
   <div class="field">
     <%= f.label :text %><br />
-    <%= f.text_area :testo, placeholder: "Testo da inviare (opzionale)", style: "width:400px;height:100px;" %>
+    <%= f.text_area :testo, placeholder: t('pages.groups.invite_your_friends.text_to_send'), style: "width:400px;height:100px;" %>
   </div>
 
   <div class="actions">
     <%= f.hidden_field :group_id%>
-    <%= f.submit 'Invita', class: "btn blue inviteButton" %>
+    <%= f.submit t('buttons.send'), class: "btn blue inviteButton" %>
   </div>
 <% end %>
 </div>
@@ -24,9 +24,9 @@
           theme: "facebook",
           crossDomain: false,
           allowFreeTagging: true,
-          hintText: "Digita gli indirizzi email separati da virgola",
-          searchingText: "Digita gli indirizzi email separati da virgola",
-          invalidTokenText: "Indirizzo email non valido",
+          hintText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
+          searchingText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
+          invalidTokenText: "<%=t('pages.groups.invite_your_friends.email_not_valid')%>",
           preventDuplicates: true,
           allowTabOut: true,
           tokenValidation: function(item) {

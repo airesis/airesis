@@ -126,7 +126,7 @@ class Group < ActiveRecord::Base
 
 
   def normalize_blank_values
-    [:default_admin_title].each do |att|
+    [:admin_title].each do |att|
       self[att] = nil if self[att].blank?
     end
   end

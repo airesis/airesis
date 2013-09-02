@@ -95,8 +95,8 @@
         </div>
     <% else %>
         <p>
-          <%= f.label :default_admin_title %> <br/>
-          <%= f.text_field :default_admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
+          <%= f.label :admin_title %> <br/>
+          <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
         <p>
           <%= f.check_box :private %><%= f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>

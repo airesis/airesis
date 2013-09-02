@@ -238,7 +238,7 @@ class GroupsController < ApplicationController
     rescue Exception => e
       puts e
       respond_to do |format|
-        flash[:error] = t('info.groups.group_updated')
+        flash[:error] = t('error.groups.update')
         format.html { render :action => "edit" }
       end
     end

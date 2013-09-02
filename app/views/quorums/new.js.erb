@@ -1,4 +1,4 @@
-$('#new_quorum_container').html("<%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => "Crea"}))%>");
+$('#new_quorum_container').html("<%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.create')}))%>");
 
 $('#new_quorum_container').dialog({
 	width: 500,
