@@ -118,6 +118,19 @@ module GroupsHelper
     end
   end
 
+  def group_search_partecipant_url(group,search_partecipant, options={})
+    if group_in_subdomain? group
+      search_partecipant_url(search_partecipant,options)
+    else
+      if group.certified?
+        options[:subdomain] = group.subdomain
+        search_partecipant_url(search_partecipant,options)
+      else
+        super
+      end
+    end
+  end
+
   def group_blog_post_url(group, blog_post, options={})
     if group_in_subdomain? group
       blog_post_url(blog_post,options)

@@ -224,6 +224,8 @@ Airesis::Application.routes.draw do
       end
     end
 
+    resources :search_partecipants
+
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
