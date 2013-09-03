@@ -21,7 +21,31 @@
             xfbml: true  // parse XFBML tags on this page?
         });
 
-        // Additional initialization code such as adding Event Listeners goes here
+        FB.Event.subscribe('edge.create', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>',
+                    type: 'post'
+                });
+            }
+        });
+        FB.Event.subscribe('edge.remove', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>' + '/' + likeable_id,
+                    type: 'delete'
+                });
+            }
+
+        });
 
     };
 
@@ -87,11 +111,11 @@
 </script>
 
 <% if Rails.env != 'production' %>
-   <style type="text/css">
-    #menu-top {
-        background-color: #3341E5;
-    }
-   </style>
+    <style type="text/css">
+        #menu-top {
+            background-color: #3341E5;
+        }
+    </style>
 
 <% end %>
 
@@ -113,7 +137,7 @@
 
   <div id="tolr"
        <% unless current_user %>class="not_logged"
-  <% end %>>
+       <% end %>>
     <% unless current_user %>
         <div id="inlog">
           <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
@@ -167,13 +191,16 @@
     <%= link_to (image_tag 'cur-love.png'), sostienici_url(subdomain: false), :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
-      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %> <br/>
-      <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), title: t('pages.home.index.videos') %> <br/>
+      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %>
+      <br/>
+      <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), title: t('pages.home.index.videos') %>
+      <br/>
       <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' %>
       <br/>
       <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' %>
       <br/>
-      <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %> <br/>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %>
+      <br/>
       <%= link_to t('pages.home.index.whowe'), chisiamo_url(subdomain: false), title: t('pages.home.index.whowe') %>
     </div>
 

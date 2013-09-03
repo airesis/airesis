@@ -1,5 +1,7 @@
 Airesis::Application.routes.draw do
 
+  resources :user_likes
+
   match 'home', :to => 'home#show'
 
   resources :proposal_nicknames
