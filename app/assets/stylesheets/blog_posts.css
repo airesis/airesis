@@ -1,3 +1,59 @@
 #new_blog_comment .counter {
     float: right;
 }
+
+.blogPostTitle {
+    font-size: 1.4em;
+}
+
+.tag_label {
+    color: #999;
+}
+
+.tags_list a{
+    font-style: italic;
+    color: #666;
+}
+
+.blogPostTags {
+    font-size: 0.87em;
+}
+
+.post_buttons {
+    font-size: 0.8em;
+    color: #666;
+    line-height: 18px;
+    vertical-align: top;
+}
+
+.blogPostFooter {
+    padding-top: 5px;
+    border-top: 1px dotted #ccc;
+    margin-bottom: 40px;
+}
+
+.blogPostPostedAt {
+    font-size: 0.87em;
+    height: 20px;
+
+}
+
+.blogPostPostedAt a img {
+    vertical-align: top;
+}
+
+.blogComments a{
+    color: #666;
+    font-weight: bold;
+}
+
+.posts_container_main {
+    /*max-width: 600px;
+    float:left;
+    position: absolute;*/
+}
+
+.group_infos {
+    position: absolute;
+    right: 0px;
+}

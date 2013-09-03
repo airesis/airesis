@@ -15,7 +15,19 @@ $('#groups_list').fadeOut('slow', function () {
 
 <%if params[:back] %>
     $('#search').val('<%=params[:search]%>');
+    $("#area").switchButton({
+        checked: <%=params[:area] == 'on' %>
+    });
+
+
 <%else%>
-window.history.pushState(null,"",'<%=j raw request.url%>');
+    window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
+    everPushedSomething = 'pushed it real good';
 <%end%>
 disegnaBottoni();
+
+if (window.innerWidth <= 1000) {
+    $('html, body').animate({
+        scrollTop: $('#groups_list').offset().top - (10 + (window.innerWidth < 1000 ? 0 : 90))
+    }, 2000);
+}

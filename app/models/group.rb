@@ -247,17 +247,45 @@ class Group < ActiveRecord::Base
 
     page = params[:page] || 1
 
+    #retrieve all possible interest borders
+    if params[:interest_border_obj]
+      if params[:area]
+        @interest_borders = params[:interest_border_obj].id
+      else
+        @interest_borders = []
+        @interest_borders << params[:interest_border_obj].id
+        if params[:interest_border_obj].territory_type == InterestBorder::CONTINENTE
+          statos = params[:interest_border_obj].territory.statos
+          stato_ids = InterestBorder.where({territory_id: statos.pluck(:id), territory_type: 'Stato'}).pluck(:id)
+          @interest_borders += stato_ids
+
+          regiones = Regione.where(:stato_id => statos.pluck(:id))
+          regione_ids = InterestBorder.where({territory_id: regiones.pluck(:id), territory_type: 'Regione'}).pluck(:id)
+          @interest_borders += regione_ids
+
+          provincias = Provincia.where(:regione_id => regiones.pluck(:id))
+          provincia_ids = InterestBorder.where({territory_id: provincias.pluck(:id), territory_type: 'Provincia'}).pluck(:id)
+          @interest_borders += provincia_ids
+
+          comunes = Comune.where(:provincia_id => provincias.pluck(:id))
+          comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
+          @interest_borders += comune_ids
+        end
+      end
+      params[:interest_border_ids] = @interest_borders
+    end
+
     if search.to_s != '' then
       Group.search do
         fulltext search
-        #with(:interest_border_id, interest_border.id) if interest_border
-        #order_by :group_partecipations_count, :desc
-        #order_by :created_at, :desc
+        with(:interest_border_id, params[:interest_border_ids]) if params[:interest_border_obj]
+        order_by :group_partecipations_count, :desc
+        order_by :created_at, :desc
       end.results
     elsif params[:interest_border_obj]
-      Group.all(:conditions => {:interest_border_id => params[:interest_border_obj].id}, :order => 'group_partecipations_count desc, created_at desc')
+      Group.all(:conditions => {:interest_border_id => @interest_borders}, :order => 'group_partecipations_count desc, created_at desc', limit: 30)
     elsif tag then
-      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc')
+      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
     else
       #Group.paginate(:page => page, :per_page => 15, :order => 'group_partecipations_count desc, created_at desc')
       []
@@ -272,7 +300,7 @@ class Group < ActiveRecord::Base
     text :name, boost: 5
     text :description
     integer :interest_border_id
-    #integer :group_partecipations_count
-    #time :created_at
+    integer :group_partecipations_count
+    time :created_at
   end
 end

@@ -312,6 +312,7 @@ it:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
           button: "Elenco permessi"
         print_all_partecipants: "Stampa elenco partecipanti"
+        last_proposals: "Ultime proposte inserite"
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -640,6 +641,8 @@ it:
         draft: "[Bozza]"
         comments_says: "dice..."
       published_button: "Post pubblicati"
+      view:
+        comments: "Commenti (%{count})"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -992,6 +995,9 @@ it:
       create:
         ok_message: "Hei creato il nuovo ruolo"
         ko_message: "Errore nella creazione del ruolo"
+      update:
+        ok_message: "Ruolo aggiornato correttamente"
+        ko_message: "Errore durante la modifica del ruolo"
     proposals:
       show:
         unauthorized: "Non disponi dei permessi per visualizzare questa proposta"

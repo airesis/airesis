@@ -55,11 +55,11 @@ class AreaRolesController < ApplicationController
       @area_role.save!
     end
 
-    flash[:notice] = t('area_role.confirm.update')
+    flash[:notice] = t('controllers.area_roles.update.ok_message')
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('area_role.errors.update')
+      flash[:error] = t('controllers.area_roles.update.ko_message')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end }

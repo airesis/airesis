@@ -1,11 +1,8 @@
 <div class="blogPost" id="blogPost<%= blog_post.id %>">
-  <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || (@group && (@group.portavoce.include? current_user)) || is_admin?) %>
+  <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
       <div class="hidden_link">
       </div>
       <div class="hidden_menu">
-        <% if @group && ((can? :remove_post, @group) || (can? :edit, blog_post)) %>
-            <%= link_to(t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', :confirm => "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?") %>
-        <% end %>
         <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
               <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %>
               <%= link_to(t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', :confirm => "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo.") %>
@@ -13,33 +10,52 @@
       </div>
   <% end %>
 
-  <div class="blogUserImage">
-    <%= blog_post.user_image_tag %>
-  </div>
   <h3 class="blogPostTitle">
-    <%= link_to(h(blog_post.title), @group ? [@group, blog_post] : [blog_post.blog, blog_post]) %>
+    <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
     <% if !blog_post.published? %>
         [<%= t('pages.blog_posts.drafts') %>]
     <% end %>
   </h3>
 
-
-  <p class="blogPostPostedAt">
-    <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user blog_post.user), date: (l blog_post.updated_at)) %>
-  </p>
-
-
   <div class="blogPostBody">
     <%= blog_post.parsed_body %>
   </div>
 
-  <hr class="blogPostBreak"/>
-  <% unless blog_post.tags.blank? %>
-      <p class="blogPostTags">
-        <b>Tags: </b>
-        <%= raw blog_post.tags_with_links %>
-      </p>
+  <div class="blogPostFooter">
+
+
+    <div class="blogPostPostedAt">
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.updated_at)) %> |
+      <span class="blogComments">
+
+      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments.count),blog_blog_post_url(blog_post.blog,blog_post) %>
+      </span>
+    </div>
+    <% if ::Configuration::socialnetwork_active %>
+        <div class="post_buttons">
+          <g:plusone size="medium" href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>"></g:plusone>
+          |
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
+             data-url="<%= blog_blog_post_url(blog_post.blog, blog_post) %>">Tweet</a>
+         |
+        <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+
+        </div>
   <% end %>
+
+    <% unless blog_post.tags.blank? %>
+        <div class="blogPostTags">
+          <span class="tag_label">Tags: </span>
+          <span class="tags_list"><%= raw blog_post.tags_with_links %></span>
+        </div>
+    <% end %>
+  </div>
+
+
+
 
   <div style="clear: both;"></div>
 </div>

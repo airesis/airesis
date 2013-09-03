@@ -1,3 +1,6 @@
+<%# @extend=true %>
+<% javascript 'endless_page' %>
+
 <%= content_for :head do %>
     <meta property="og:title" content="<%= @group.name %>"/>
     <meta property="og:type" content="airesis:group"/>
@@ -15,15 +18,33 @@
 
     <div class="group_description">
       <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
+    <div class="group_show_page">
+      <div class="posts_container_main">
+        <div id="posts_container">
+          <% if @group_posts.count == 0 %>
+              <div class="blogPost">
+                <p>
+                  <%= t('pages.groups.show.no_blogs_yet') %>
+                </p>
+              </div>
+          <% else %>
+              <%= render :collection => @group_posts, :partial => 'blog_posts/group_blog_post', as: 'blog_post' %>
 
-    <div id="posts_container">
-      <%= render :partial => 'group_posts' %>
+          <% end %>
+        </div>
+        <div id="loading_results" class="post_results">
+          <span><%= t('pages.blogs.show.previous_posts') %></span>
+        </div>
+      </div>
+      <div class="group_infos">
+        <%#= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+      </div>
     </div>
 <% end %>
 
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente   %>
+<% if false #disattivato momentaneamente     %>
     <%= content_for :right_panel do %>
         <% if (can? :view_proposal, @group) %>
             <h4>Proposte interne al gruppo</h4>

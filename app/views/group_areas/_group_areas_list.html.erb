@@ -8,7 +8,10 @@
         </span>
         <div style="width:40px;height: 40px;"></div>
 
-        <b><%=link_to area.name, edit_group_group_area_url(@group,area), :remote => true %></b>
+        <div class="group_area_name">
+          <%=link_to area.name, edit_group_group_area_url(@group,area), :remote => true %>
+          <div class="fade_out"></div>
+        </div>
         <div style="clear:both;"></div>
       </div>
       <%= link_to t('pages.group_areas.manage.partecipants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>

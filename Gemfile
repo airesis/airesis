@@ -56,7 +56,7 @@ gem 'omniauth-openid'
 
 gem 'paperclip'
 
-gem 'jquery-rails', '2.1.4'
+gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 

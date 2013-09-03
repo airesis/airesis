@@ -1,6 +1,6 @@
 <div class="groupListContainer shadow-box">
   <div class="groupUserImage">
-    <%= group.group_image_tag 120 %>
+    <%= link_to (group.group_image_tag 120), group_url(group), title: group.name %>
   </div>
   <div class="groupName">
     <h3>
