@@ -76,15 +76,15 @@
 <h1><%= t('pages.groups.index.find_group_label') %></h1>
 <div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">
   <fieldset style="margin-right:10px;">
-    <legend><%="Maschera di ricerca"%></legend>
+    <legend><%= t('pages.groups.index.search_mask')%></legend>
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
         <p>
-          <%= f.label t('buttons.search'), "tramite testo libero" %>               <br/>
+          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
           <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
         </p>
 
         <p>
-          <%= f.label :interest_border, 'o confine geografico' %>      <br/>
+          <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>      <br/>
           <%= text_field_tag :interest_border, params[:interest_border], :title => t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
         </p>
 
@@ -94,7 +94,7 @@
 </div>
 <div style="float:left; width: 452px">
   <fieldset>
-    <legend>Parole chiave</legend>
+    <legend><%= t('pages.groups.index.tags')%></legend>
     <div id="tag_cloud">
       <% @tags.each do |tag| %>
           <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
@@ -110,7 +110,7 @@
   <%if @groups.count > 0 %>
   <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
       <%else %>
-  <h2><%= 'Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse' %></h2>
+  <h2><%= t('pages.groups.index.search_description') %></h2>
       <%end%>
   <div style="clear: both"></div>
 </div>
@@ -147,9 +147,9 @@
         $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#interest_border').data("pre"),
-            hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",
-            noResultsText: "<%='Nessun luogo trovato'%>",
-            searchingText: "<%='Sto cercando...'%>",
+            hintText: "<%=t('interest_borders.hint')%>",
+            noResultsText: "<%=t('interest_borders.no_place_found')%>",
+            searchingText: "<%=t('interest_borders.searching')%>",
             preventDuplicates: true,
             tokenLimit: 1,
             allowTabOut: true
@@ -163,7 +163,7 @@
             return true;
         }
         else {
-            alert('<%='Devi inserire almeno tre lettere o un confine geografico'%>');
+            alert('<%=t('pages.groups.index.insert_query_or_place')%>');
             return false;
         }
     }

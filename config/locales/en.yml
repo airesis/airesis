@@ -223,6 +223,12 @@ en:
         no_groups_yet: "You don't participate to any %{name} yet"
         open_space_title: "Public events"
         show_more: "Show more groups"
+        search_mask: "Search tool"
+        search_with_query: "using a personalized query"
+        search_with_place: "or geographic border"
+        search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
+        insert_query_or_place: "You must type at least three characters or a geographic border"
+        tags: "Tags"
       new:
         title: 'Create a new group'
         new_group: "New group"

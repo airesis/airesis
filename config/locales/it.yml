@@ -223,6 +223,12 @@ it:
         no_groups_yet: "Non partecipi a nessun %{name} ancora"
         open_space_title: "Eventi pubblici"
         show_more: "Mostra altri gruppi"
+        search_mask: "Maschera di ricerca"
+        search_with_query: "tramite testo libero"
+        search_with_place: "o confine geografico"
+        search_description: "Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse"
+        insert_query_or_place: "Devi inserire almeno tre lettere o un confine geografico"
+        tags: "Parole chiave"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
