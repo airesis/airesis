@@ -1,22 +1,47 @@
-<h2>Elenco proposte con tag: '<%= @tag %>'</h2>
-<% if @proposals.size == 0 %>
-    <div class="Proposal">
-      <p>Non vi sono ancora proposte con questo tag.</p>
-    </div>
-<% else %>
-    <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
-<% end %>
+<div id="tabs">
+  <ul>
+    <li><a href="#proposals"><%= 'Proposte' %></a></li>
+    <li><a href="#posts"><%= 'Post' %></a></li>
+    <li><a href="#groups"><%= 'Gruppi' %></a></li>
+  </ul>
+  <div id="proposals">
+    <h2>Elenco proposte con tag: '<%= @tag %>'</h2>
+    <% if @proposals.size == 0 %>
+        <div class="Proposal">
+          <p>Non vi sono ancora proposte con questo tag.</p>
+        </div>
+    <% else %>
+        <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
+    <% end %>
+  </div>
 
 
+  <div id="posts">
+    <h2>Elenco post con tag: '<%= @tag %>'</h2>
+    <% if @blog_posts.size == 0 %>
+        <div class="blogPost">
+          <p>Non vi sono ancora Post con questo tag.</p>
+        </div>
+    <% else %>
+        <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+    <% end %>
+  </div>
+  <div id="groups">
+    <h2>Elenco gruppi con tag: '<%= @tag %>'</h2>
+    <% if @groups.size == 0 %>
+        <p>Non vi sono gruppi con questo tag.</p>
+    <% else %>
+        <%= render :collection => @groups, :partial => 'groups/group_tag', as: 'group' %>
+        <div class="clearboth"></div>
+    <% end %>
+  </div>
+</div>
 
-<h2>Elenco post con tag: '<%= @tag %>'</h2>
-<% if @blog_posts.size == 0 %>
-    <div class="blogPost">
-      <p>Non vi sono ancora Post con questo tag.</p>
-    </div>
-<% else %>
-    <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
-<% end %>
+<script type="text/javascript">
+    $(function () {
+        $('#tabs').tabs();
+    })
+</script>
 
 
 

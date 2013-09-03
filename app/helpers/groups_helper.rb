@@ -35,6 +35,11 @@ module GroupsHelper
     end
   end
 
+  def reload_storage_size_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/reload_storage_size' :
+        super
+  end
   def edit_permissions_group_url(group, options={})
     (group_in_subdomain? group) ?
         '/edit_permissions' :

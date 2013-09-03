@@ -79,7 +79,7 @@
     <legend>Maschera di ricerca</legend>
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
         <p>
-          <%= f.label t('buttons.search') 'tramite testo libero' %>               <br/>
+          <%= f.label 'tramite testo libero' %>               <br/>
           <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
         </p>
 

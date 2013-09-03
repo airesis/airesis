@@ -12,6 +12,7 @@ class TagsController < ApplicationController
     @blog_posts_ids = BlogPost.published.joins(:tags).where({'tags.text' => @tag}).pluck('blog_posts.id')
     @blog_posts = BlogPost.where(:id => @blog_posts_ids).includes(:blog, :tags, :user).order('created_at desc')
     @proposals = Proposal.all(:joins => :tags, :conditions => {'tags.text' => @tag}, include: [{:category => :translations}, :quorum, :users, :vote_period, :proposal_type])
+    @groups = Group.all(:joins => :tags, :conditions => {'tags.text' => @tag})
 
     @similars = Tag.find_by_text(@tag).nearest
 
