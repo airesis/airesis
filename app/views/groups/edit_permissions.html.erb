@@ -98,22 +98,13 @@
 	}
 	
 	function change_permission_block(el,role_id,action_id){
-    	if (el.checked) {
-    		$.ajax({
-	        	data: "action_id="+action_id+"&role_id="+role_id+"&group_id=<%=@group.id%>&block=false",
-	        	url: "/partecipation_roles/change_group_permission",     
-	            dataType: 'script',
-	        	type: 'post'    
-	        });
-    	}
-    	else {
-	        $.ajax({
-	        	data: "action_id="+action_id+"&role_id="+role_id+"&group_id=<%=@group.id%>&block=true",
-	        	url: "/partecipation_roles/change_group_permission",     
-	            dataType: 'script',
-	        	type: 'post'    
-	        });
-	       }
+        var block_ = !el.checked;
+        $.ajax({
+            data: "action_id="+action_id+"&role_id="+role_id+"&group_id=<%=@group.id%>&block="+block_+"&l=<%=I18n.locale%>",
+            url: "/partecipation_roles/change_group_permission",
+            dataType: 'script',
+            type: 'post'
+        });
     }
     
 	function change_default_role(role_id){
