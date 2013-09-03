@@ -1,13 +1,11 @@
-<div class="text"><b>La barra di gradimento
-<br />
+<div class="text"><b><%= t('pages.steps.rank_bar_explain.title')%><br />
 </b>
-La barra di gradimento è posta nel menu laterale a sinistra.<br />
-La barra indica qual è l'indice di gradimento della proposta tra i partecipanti.<br />
-Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra. 
-L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità
-di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente.<br />
-Il colore della barra indica se la proposta è in grado di passare la fase di valutazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione.<br />
+<%= t('pages.steps.rank_bar_explain.description')%><br />
+<%= t('pages.steps.rank_bar_explain.description2')%><br />
+<%= t('pages.steps.rank_bar_explain.description3')%>
+<%= t('pages.steps.rank_bar_explain.description4')%><br />
+<%= t('pages.steps.rank_bar_explain.description5')%><br />
 <div style="clear: both"></div>
-<%= link_to 'Ok', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue acceptButton', :style => "float:right;" %>
+<%= link_to 'OK', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue acceptButton', :style => "float:right;" %>
 <div style="clear: both"></div>
 </div>

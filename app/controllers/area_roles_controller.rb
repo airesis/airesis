@@ -37,11 +37,11 @@ class AreaRolesController < ApplicationController
       AreaRole.transaction do
         @group_area.area_roles.create(params[:area_role])
       end
-      flash[:notice] = t('controllers.area_roles.create.ok_message')
+      flash[:notice] = t('info.participation_roles.role_created')
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = t('controllers.area_roles.create.ko_message')
+        flash[:error] = t('error.participation_roles.role_created')
         format.html { render :action => "new" }
       end
     end #begin
@@ -55,11 +55,11 @@ class AreaRolesController < ApplicationController
       @area_role.save!
     end
 
-    flash[:notice] = t('controllers.area_roles.update.ok_message')
+    flash[:notice] = t('area_role.confirm.update')
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = t('controllers.area_roles.update.ko_message')
+      flash[:error] = t('error.participation_roles.role_updated')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end }
@@ -68,7 +68,7 @@ class AreaRolesController < ApplicationController
 
   def destroy
     @area_role.destroy
-    flash[:notice] = "Ruolo eliminato"
+    flash[:notice] =  t('info.participation_roles.role_deleted')
   end
 
 
@@ -78,11 +78,11 @@ class AreaRolesController < ApplicationController
         abilitation = @area_role.area_action_abilitations.find_by_group_action_id_and_group_area_id(params[:action_id], params[:group_area_id])
         if (abilitation)
           abilitation.destroy
-          flash[:notice] ="Permessi aggiornati."
+          flash[:notice] =t('info.participation_roles.permissions_updated')
         end
       else #devo abilitare
         abilitation = @area_role.area_action_abilitations.find_or_create_by_group_action_id_and_group_area_id(params[:action_id], params[:group_area_id])
-        flash[:notice] ="Permessi aggiornati."
+        flash[:notice] =t('info.participation_roles.permissions_updated')
       end
     end
 
@@ -99,7 +99,7 @@ class AreaRolesController < ApplicationController
     gp = @group_area.area_partecipations.find_by_user_id(params[:user_id])
     gp.area_role_id = @area_role.id
     gp.save!
-    flash[:notice] ="Ruolo modificato."
+    flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

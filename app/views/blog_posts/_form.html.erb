@@ -69,7 +69,7 @@
 
       <%if @groups.count > 0 %>
 			<p>
-				<%= f.label :groups, 'Il post verrà pubblicato nelle pagine di questi gruppi:' %>
+				<%= f.label :groups, t('pages.blog_posts.new.published_in_groups') %>
 				<br/>
 				<% @groups.each do |group|%>
 				 <div>
@@ -86,7 +86,7 @@
           <%end%>
 			<p>
 				<input  type="hidden" name="group_id" value="<%=params[:group_id]%>"/>
-              <%= link_to 'Annulla', :back, :class=>'btn' %>
+              <%= link_to t('buttons.cancel'), :back, :class=>'btn' %>
               <%= f.submit t('buttons.save'), :class=>'btn blue' %>
 
 			</p>

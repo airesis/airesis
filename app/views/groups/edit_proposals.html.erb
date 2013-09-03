@@ -7,21 +7,21 @@
 <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<%=link_to 'Aggiungi un nuovo quorum', new_group_quorum_url(@group), :remote => true, :class=>"btn blue newButton disable"%>
+<%=link_to t('pages.groups.edit_quorums.add_quorum'), new_group_quorum_url(@group), :remote => true, :class=>"btn blue newButton disable"%>
 
-<div id="new_quorum_container" title="Nuovo quorum" style="display: none; font-size: 14px;">
+<div id="new_quorum_container" title="<%= t('pages.groups.edit_quorums.new_quorum.title')%>" style="display: none; font-size: 14px;">
 </div>
 
-<div id="edit_quorum_container" title="Modifica quorum" style="display: none; font-size: 14px;">
+<div id="edit_quorum_container" title="<%= t('pages.groups.edit_quorums.edit_quorum')%>" style="display: none; font-size: 14px;">
 </div>
 
 <br />
-<h2><%= 'Parametri di configurazione proposte' %></h2>
-<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%><%= 'Anonimato temporaneo attivo' %><br />
-<%=check_box :group, :default_visible_outside, :onclick=>"return change_default_visible_outside(this);"%><%= "Proposte visibili all'esterno" %><br />
-<%=check_box :group, :default_secret_vote, :onclick=>"return change_default_secret_vote(this);"%><%= 'Voto segreto' %><br />
+<h2><%= t('pages.groups.edit_quorums.configure_proposal_parameters') %></h2>
+<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%><%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br />
+<%=check_box :group, :default_visible_outside, :onclick=>"return change_default_visible_outside(this);"%><%= t('pages.groups.edit_quorums.default_private_proposal') %><br />
+<%=check_box :group, :default_secret_vote, :onclick=>"return change_default_secret_vote(this);"%><%= t('pages.groups.edit_quorums.default_secret_vote') %><br />
 <hr>
-<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> <%= 'Permetti ai redattori di scegliere liberamente le opzioni sopraindicate' %><br />
+<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> <%= t('pages.groups.edit_quorums.let_editor_change_settings') %><br />
 
 <script type="text/javascript">
 	function change_default_anonima(el) {

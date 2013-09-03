@@ -117,7 +117,6 @@ class ProposalsController < ApplicationController
     @revision_count = @count_base.revision.count
 
     respond_to do |format|
-      #format.js 
       format.html # index.html.erb
       format.json
     end
@@ -129,10 +128,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html {
         if params[:replace]
-          render :update do |page|
-            #TODO far dipendere l'id della tab dallo stato della proposta non è buona cosa ma mi permette di non sbattermi per trovare una soluzione
-            #accrocchio
-            #render :partial => 'replace_tab_list', :locals => {:proposals => @proposals} 
+          render :update do |page|         
             page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
           end
         else
@@ -155,16 +151,16 @@ class ProposalsController < ApplicationController
     if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
-          flash[:info] = t('controllers.proposals.show.ask_for_partecipation')
+          flash[:info] = t('info.proposal.ask_participation')
         elsif !(can? :partecipate, @proposal) && @proposal.in_valutation?
-          flash[:info] = t('controllers.proposals.show.cant_partecipate')
+          flash[:info] = t('error.proposals.participate')
         end
       else #se è bloccata alla visione di utenti esterni
         if !current_user #se l'utente non è loggato richiedi l'autenticazione
           authenticate_user!
         elsif !(can? :read, @proposal) #se è loggato ma non ha i permessi caccialo fuori
           respond_to do |format|
-            flash[:error] = t('controllers.proposals.show.unauthorized')
+            flash[:error] = t('error.proposals.view_proposal')
             format.html {
               redirect_to group_proposals_path(@group)
             }
@@ -175,12 +171,12 @@ class ProposalsController < ApplicationController
           end
         end
         if !(can? :partecipate, @proposal) && @proposal.in_valutation?
-          flash[:info] = t('controllers.proposals.show.cant_partecipate')
+          flash[:info] = t('error.proposals.participate')
         end
       end
     end
 
-    flash[:info] = t('controllers.proposals.show.visible_outside_warn') if @proposal.visible_outside
+    flash[:info] = t('info.proposal.public_visible') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
@@ -189,9 +185,9 @@ class ProposalsController < ApplicationController
       #format.js
       format.html {
         if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
-          flash.now[:info] = t('controllers.proposals.show.waiting_date')
+          flash.now[:info] = t('info.proposal.waiting_date')
         elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
-          flash.now[:info] = t('controllers.proposals.show.voting')
+          flash.now[:info] = t('info.proposal.voting')
         end
       }
       format.json
@@ -340,7 +336,7 @@ class ProposalsController < ApplicationController
       @saved = true
 
       respond_to do |format|
-        flash[:notice] = t(:proposal_inserted)
+        flash[:notice] = t('info.proposal.proposal_created')
         format.js {
           render :update do |page|
             if request.env['HTTP_REFERER']["back=home"]
@@ -471,7 +467,7 @@ class ProposalsController < ApplicationController
       end
 
       respond_to do |format|
-        flash[:notice] = t(:proposal_updated)
+        flash[:notice] = t('info.proposal.proposal_updated')
         format.html {
           redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
         }
@@ -486,7 +482,7 @@ class ProposalsController < ApplicationController
 
   def set_votation_date
     if @proposal.proposal_state_id != PROP_WAIT_DATE
-      flash[:error] = t(:error_proposal_not_waiting_date)
+      flash[:error] = t('error.proposals.proposal_not_waiting_date')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -503,7 +499,7 @@ class ProposalsController < ApplicationController
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!
       notify_proposal_waiting_for_date(@proposal, @group)
-      flash[:notice] = t(:proposal_date_selected)
+      flash[:notice] = t('info.proposal.date_selected')
       respond_to do |format|
         format.js do
           render :update do |page|
@@ -515,7 +511,7 @@ class ProposalsController < ApplicationController
     end
 
   rescue Exception => boom
-    flash[:error] = t(:error_updating)
+    flash[:error] = t('error.proposals.updating')
     redirect_to :back
   end
 
@@ -526,8 +522,8 @@ class ProposalsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t(:proposal_deleted)
-        redirect_to @group ? group_proposals_url(@group) : proposals_url
+        flash[:notice] = t('info.proposal.proposal_deleted')
+        redirect_to(proposals_url)
       }
       format.xml { head :ok }
     end
@@ -692,7 +688,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
       }
       format.html {
-        flash[:notice] = t(:proposal_deleted)
+        flash[:notice] = t('info.proposal.proposal_deleted')
         redirect_to(@proposal)
       }
     end
@@ -705,7 +701,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
 
-  #query per la ricerca delle proposte 
+  #query per la ricerca delle proposte
   def query_index
     order = ""
     if params[:view] == ORDER_BY_RANK
@@ -808,12 +804,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       respond_to do |format|
         if saved
           load_my_vote
-          flash[:notice] = t(:proposal_rank_registered)
+          flash[:notice] = t('info.proposal.rank_recorderd')
           format.js { render 'rank'
           }
           format.html
         else
-          flash[:notice] = t(:error_on_proposal_rank)
+          flash[:notice] = t('error.proposals.proposal_rank')
           format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
@@ -825,7 +821,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end #transaction
   rescue Exception => e
 #    log_error(e)
-    flash[:notice] = t(:error_on_proposal_rank)
+    flash[:notice] = t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -882,7 +878,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #sia l'autore della proposta il cui id è presente nei parametri
   def check_author
     if !is_proprietary? @proposal and !is_admin?
-      flash[:error] = t(:error_proposal_not_your)
+      flash[:error] = t('error.proposals.proposal_not_your')
       redirect_to proposals_path
     end
   end
@@ -905,7 +901,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def voted_state_required
     unless @proposal.voted?
-      flash[:error] = t(:error_proposal_not_voted)
+      flash[:error] = t('error.proposals.proposal_not_voted')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -920,7 +916,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def valutation_state_required
     if @proposal.proposal_state_id != PROP_VALUT
-      flash[:error] = t(:error_proposal_not_valutating)
+      flash[:error] = t('error.proposals.proposal_not_valuating')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -944,7 +940,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
     if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
         (@proposal.private && @group && !(can? :partecipate, @proposal)))
-      flash[:error] = t(:error_proposal_already_ranked)
+      flash[:error] = t('error.proposals.proposal_already_ranked')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

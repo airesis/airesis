@@ -1,5 +1,5 @@
 <p>
-    <h4><%= @group.admin_title || t('default_admin_title') %></h4>
+    <h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
     
     <%@group.portavoce.includes(:image).each do |user| %>
     	<%=user_tag(user, nil,true,false)%>
@@ -12,7 +12,7 @@
 <%if @group.group_partecipations.count > 0 %>
     <%@partecipants = @group.group_partecipations.includes([{:user => :image}, :partecipation_role]).limit(5) %>
 <p>
-    <h4><%= t('pages.groups.show.partecipants_list') %></h4>
+    <h4><%= t('pages.groups.show.participants_list') %></h4>
 
     <% if (can? :accept_requests, @group) %>
         <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "btn inviteButton disable" %>
@@ -25,7 +25,7 @@
         <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
       <%end%>
       <% if !@partecipation_request %>
-        <%= link_to t('pages.groups.show.ask_partecipate_button'), ask_for_partecipation_group_url(@group), :class=>"btn blue editButton" %>
+        <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class=>"btn blue editButton" %>
       <%end%>
     </p>
 
@@ -45,13 +45,13 @@
 
 
     <%if @group.group_partecipations.count > 5 %>
-        <%=link_to t('pages.groups.show.show_all_partecipants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :remote => true, :class => "btn showAllButton disable"%>
-        <div id="partecipants_list_container" title="<%= t('pages.groups.show.partecipants_full_list')%>"></div>
+        <%=link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :remote => true, :class => "btn showAllButton disable"%>
+        <div id="partecipants_list_container" title="<%= t('pages.groups.show.participants_full_list')%>"></div>
     <%end%>
-    <%=link_to t('pages.groups.show.print_all_partecipants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable"%>
+    <%=link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable"%>
 </p>
 <%else %>
 <p>
-    <b><%= t('pages.groups.show.no_partecipants') %></b>
+    <b><%= t('pages.groups.show.no_participants') %></b>
 </p>
 <%end %>

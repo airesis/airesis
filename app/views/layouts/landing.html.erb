@@ -17,15 +17,15 @@
 
 
     <div id="submenu">
-      <%= link_to "COS'E' AIRESIS?", edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
       <span> ⋅ </span>
-      <%= link_to 'PARTECIPA', partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
+      <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
       <span> ⋅ </span>
-      <%= link_to 'VIDEO GUIDE', videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
+      <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
       <span> ⋅ </span>
-      <%= link_to 'CHI SIAMO', chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
+      <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
       <span> ⋅ </span>
-      <%= link_to 'SOSTIENICI', sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
+      <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
       <span> ⋅ </span>
       <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
       <span> ⋅ </span>

@@ -51,7 +51,7 @@ class GroupAreasController < ApplicationController
 
   def edit
     authorize! :update, @group_area
-    @page_title = t('pages.groups_area.edit.title')
+    @page_title = t('pages.groups.edit_work_areas.manage.title')
   end
 
   def edit_permissions
@@ -71,11 +71,11 @@ class GroupAreasController < ApplicationController
       end
       @group_areas = @group.group_areas.includes(:partecipants)
       @partecipants = @group.partecipants
-      flash[:notice] = t('controllers.group_areas.create.ok_message')
+      flash[:notice] = t('info.groups.work_area.area_created')
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = t('controllers.group_areas.create.ko_message')
+        flash[:error] = t('error.groups.work_area.area_created')
         format.js {
           render :update do |page|
             page.redirect_to group_group_areas_path(@group)
@@ -96,7 +96,7 @@ class GroupAreasController < ApplicationController
 
       respond_to do |format|
         if @group_area.save
-          flash[:notice] = t('groups.confirm.update')
+          flash[:notice] = t('info.groups.group_updated')
           format.html { redirect_to(@group) }
         else
           format.html { render :action => "edit" }
@@ -105,7 +105,7 @@ class GroupAreasController < ApplicationController
     rescue Exception => e
       puts e
       respond_to do |format|
-        flash[:error] = t('groups.errors.update')
+        flash[:error] = t('error.groups.update')
         format.html { render :action => "edit" }
       end
     end

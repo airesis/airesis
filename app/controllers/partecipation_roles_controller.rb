@@ -18,7 +18,7 @@ class PartecipationRolesController < ApplicationController
       end
       
       respond_to do |format|
-          flash[:notice] = 'Hai creato il ruolo.'
+          flash[:notice] = t('info.participation_roles.role_created')
           format.js { render :update do |page|
                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                      page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
@@ -32,7 +32,7 @@ class PartecipationRolesController < ApplicationController
     
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione del ruolo.'
+        flash[:error] = t('error.participation_roles.role_created')
         format.js {  render :update do |page|
                page.alert @role.errors.full_messages.join(";")
         end}
@@ -55,12 +55,12 @@ class PartecipationRolesController < ApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = t('partecipation_role.confirm.update')
+      flash[:notice] = t('info.participation_roles.role_updated')
       format.js
     end
     rescue Exception => e
       respond_to do |format|
-        flash[:error] = t('partecipation_role.errors.update')
+        flash[:error] = t('error.participation_roles.role_updated')
         format.js  {  render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end}
@@ -70,7 +70,7 @@ class PartecipationRolesController < ApplicationController
   
   def destroy
     if @partecipation_role.destroy
-      flash[:notice] = "Ruolo eliminato"
+      flash[:notice] = t('info.participation_roles.role_deleted')
     end
     respond_to do |format|
       format.js { render :update do |page|
@@ -87,11 +87,11 @@ class PartecipationRolesController < ApplicationController
         abilitation = @role.action_abilitations.find_by_group_action_id_and_partecipation_role_id(params[:action_id],params[:role_id])
         if (abilitation)
           abilitation.destroy
-          flash[:notice] ="Permessi aggiornati."
+          flash[:notice] = t('info.participation_roles.permissions_updated')
         end
       else #devo abilitare
         abilitation = @role.action_abilitations.find_or_create_by_group_action_id_and_partecipation_role_id_and_group_id(params[:action_id],params[:role_id],params[:group_id])
-        flash[:notice] ="Permessi aggiornati."    
+        flash[:notice] = t('info.participation_roles.permissions_updated')
       end  
     end
         
@@ -108,7 +108,7 @@ class PartecipationRolesController < ApplicationController
     gp = @group.group_partecipations.find_by_user_id(@user.id)
     gp.partecipation_role_id = @role.id
     gp.save!
-    flash[:notice] ="Ruolo modificato."    
+    flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
       format.js { render :update do |page|
                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

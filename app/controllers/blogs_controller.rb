@@ -11,13 +11,13 @@ class BlogsController < ApplicationController
    def check_author
     @blog = Blog.find(params[:id])
     if !(current_user.is_my_blog? @blog.id) && !is_admin?
-      flash[:notice] = t('controllers.blogs.cant_edit')
+      flash[:notice] = t('error.blog.cannot_edit')
       redirect_to :back
     end
    end
   
   def index
-    @page_title = t('controllers.blogs.index.title')
+    @page_title = t('pages.gs.show.title')
     @blogs = Blog.all
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class BlogsController < ApplicationController
   # GET /blogs/new.xml
   def new
     if current_user.blog
-      flash[:error] = t('controllers.blogs.new.already_one')
+      flash[:error] = t('error.blog.already_have')
       redirect_to root_path
     else
       @user = current_user
@@ -73,7 +73,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.save
-        flash[:notice] = t('controllers.blogs.create.ok_message')
+        flash[:notice] = t('info.blog.blog_created')
         format.html {
           if session[:blog_return_to]
             redirect_to session[:blog_return_to]
@@ -96,7 +96,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
-        flash[:notice] = t('controllers.blogs.update.ok_message')
+        flash[:notice] = t('info.blog.title_updated')
         format.html { redirect_to(@blog) }
         format.xml  { head :ok }
       else

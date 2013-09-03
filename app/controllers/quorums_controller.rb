@@ -30,7 +30,7 @@ class QuorumsController < ApplicationController
       end
 
       respond_to do |format|
-        flash[:notice] = 'Quorum creato correttamente'
+        flash[:notice] = t('info.quorums.quorum_created')
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           page.replace_html "quorum_panel_container", :partial => 'groups/quorums_panel'
@@ -42,7 +42,7 @@ class QuorumsController < ApplicationController
 
     rescue Exception => e
       respond_to do |format|
-        flash[:error] = 'Errore nella creazione del quorum.'
+        flash[:error] = t('error.quorums.quorum_creation')
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
@@ -65,7 +65,7 @@ class QuorumsController < ApplicationController
     end
 
     respond_to do |format|
-      flash[:notice] = 'Quorum aggiornato correttamente'
+      flash[:notice] = t('info.quorums.quorum_updated')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         page.replace_html "quorum_panel_container", :partial => 'groups/quorums_panel'
@@ -77,7 +77,7 @@ class QuorumsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = "Errore nell'aggiornanto del quorum."
+      flash[:error] = t('error.quorums.quorum_modification')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
@@ -90,7 +90,7 @@ class QuorumsController < ApplicationController
   def destroy
     @quorum = @group.quorums.find_by_id(params[:id])
     @quorum.destroy
-    flash[:notice] = 'Quorum eliminato correttamente'
+    flash[:notice] = t('info.quorums.quorum_deleted')
 
     respond_to do |format|
       format.js { render :update do |page|
@@ -107,10 +107,10 @@ class QuorumsController < ApplicationController
       if quorum
         if params[:active] == "true" #devo togliere i permessi
           quorum.active = true
-          flash[:notice] ="Quorum attivato."
+          flash[:notice] =t('info.quorums.quorum_activated')
         else #lo disattivo
           quorum.active = false
-          flash[:notice] ="Quorum disattivato."
+          flash[:notice] =t('info.quorums.quorum_deactivated')
         end
         quorum.save!
       end

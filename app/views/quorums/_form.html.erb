@@ -1,7 +1,7 @@
 	<%=form_for !in_subdomain? ? [@group,@quorum] : @quorum, :validate => true, :remote => true do |e|%>
 		<div id="radio">
-			<%= e.radio_button :form_type, 's', :checked=>"checked" %><%= e.label :form_type_s, 'Semplice' %>
-			<%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, 'Avanzato' %>
+			<%= e.radio_button :form_type, 's', :checked=>"checked" %><%= e.label :form_type_s, t('pages.groups.edit_quorums.new_quorum.simple') %>
+			<%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, t('pages.groups.edit_quorums.new_quorum.advanced') %>
 	        <!--<input type="radio" id="radio1" name="radio" checked="checked" value="s"/><label for="radio1">Semplice</label>
 	        <input type="radio" id="radio2" name="radio" value="a"  /><label for="radio2">Avanzato</label>-->        
 	    </div>
@@ -16,28 +16,28 @@
 			</p>
 			<div id="options">
 				<div>
-					<%= 'Affinche la proposta acceda alla fase di votazione deve restare in dibattito per almeno' %>
+					<%= t('pages.groups.edit_quorums.new_quorum.time_description') %>
                     <%=e.text_field :days_m, :class=> "days", :readonly => true, :style=>"width:35px"%> <%=e.label :days_m%>, <%=e.text_field :hours_m, :class=> "hours", :readonly => true, :style=>"width:25px"%> <%=e.label :hours_m%>, <%=e.text_field :minutes_m, :class=> "minutes", :readonly => true, :style=>"width:25px"%> <%=e.label :minutes_m%>
 					<div style="clear: both;"></div>
 				</div>
 				<div class="advanced" style="padding: 5px 10px 5px 0;">
 
-					<%=e.select :condition, {"o" => "OR", "e" => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
-                  <%= 'deve essere valutata da almeno il' %>
+					<%=e.select :condition, {t('pages.groups.edit_quorums.condition_OR') => "OR", t('pages.groups.edit_quorums.condition_AND') => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')%>
+                  <%= t('pages.groups.edit_quorums.new_quorum.advanced_participation_description') %>
 
 					<%=e.text_field :percentage, :class=> "percentage partecipants", :style=>"width:25px", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true%>
-					% <%= 'degli utenti che dispongono i permessi per farlo' %> (ovvero <span id="partecipants_number">0</span> su <%=@partecipants_count%> attualmente)
+					% <%= t('pages.groups.edit_quorums.new_quorum.advanced_participation_description2') %> <%= t('pages.groups.edit_quorums.new_quorum.advanced_participation_description3') %><span id="partecipants_number">0</span> <%= t('pages.groups.edit_quorums.new_quorum.advanced_participation_description4') %> <%=@partecipants_count%><%= t('pages.groups.edit_quorums.new_quorum.advanced_participation_description5')%>
 				</div>
 				<div class="form_float">
-					<%= 'quindi passa in votazione se il gradimento (valutazioni positive) è superiore al' %>
+					<%= t('pages.groups.edit_quorums.new_quorum.simple_percentage_description') %>
 					<%=e.text_field :good_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true%> %
 				</div>
               <div class="form_float advanced">
-                <%= 'Se invece il gradimento è inferiore al' %>
-                <%=e.text_field :bad_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.bad_score_title'), :readonly => true%>  % <%= 'la proposta viene bocciata senza accedere alla votazione.' %><br/>
+                <%= t('pages.groups.edit_quorums.new_quorum.advanced_percentage_description') %>
+                <%=e.text_field :bad_score, :value => 50, :class=> "percentage", :validate => false, :title => t('activerecord.attributes.quorum.bad_score_title'), :readonly => true%>  % <%= t('pages.groups.edit_quorums.new_quorum.advanced_percentage_description2') %><br/>
               </div>
               <div class="form_float advanced">
-                <%= 'La proposta resta in dibattito fintanto che il gradimento è compreso fra le due soglie.' %>
+                <%= t('pages.groups.edit_quorums.new_quorum.advanced_percentage_description3') %>
               </div>
 				<div style="clear: both;"></div>
 			</div>

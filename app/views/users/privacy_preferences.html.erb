@@ -15,7 +15,7 @@
     <br/>
 <% end %>
 <% if ::Configuration.rotp %>
-    <h2><%= t('pages.users.privacy_preferences.rotp') %></h2>
+    <h2><%= t('pages.users.privacy_preferences.rotp_title') %></h2>
     <%= check_box :user, :rotp_enabled, value: current_user.rotp_enabled, onclick: "return change_rotp_enabled(this);" %> <%= t('pages.users.privacy_preferences.rotp') %>
     <div id="rotp_container">
       <%= render 'users/rotp_code' %>
@@ -121,7 +121,7 @@
 
     function change_rotp_enabled(el) {
         <%if can? :change_rotp_enabled, current_user %>
-        var confirm_msg = el.checked ? 'Sei sicuro di voler attivare il token di sicurezza?' : 'Sei sicuro di voler disattivare il token di sicurezza?';
+        var confirm_msg = el.checked ? "<%=t('pages.users.privacy_preferences.rotp_confirm_enable')%>" : '<%=t('pages.users.privacy_preferences.rotp_confirm_disable')%>';
         if (!confirm(confirm_msg)) {
             return false;
         }

@@ -23,12 +23,12 @@ test:
   host: localhost
   port: 5432
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: DemocracyOnlineProduction
-  pool: 5
-  username: postgres
-  password: postgres  
-  host: localhost
-  port: 5432
+# production:
+#  adapter: postgresql
+# encoding: unicode
+#  database: DemocracyOnlineProduction
+#  pool: 5
+#  username: postgres
+#  password: postgres
+#  host: localhost
+#  port: 5432

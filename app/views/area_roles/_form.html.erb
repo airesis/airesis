@@ -1,4 +1,4 @@
-<div id="new_area_role" title="<%= t('pages.area_roles.new.title')%>" style="display: none; font-size: 14px;">
+<div id="new_area_role" title="<%= t('pages.groups.edit_permissions.new_role_title')%>" style="display: none; font-size: 14px;">
   <%=form_for in_subdomain? ? [@group_area,@area_role] : [@group,@group_area,@area_role] , :remote => true do |f|%>
 
       <p>

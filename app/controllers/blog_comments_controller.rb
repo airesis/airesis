@@ -23,7 +23,7 @@ class BlogCommentsController < ApplicationController
     
     respond_to do |format|
       if @blog_comment.save
-        flash[:notice] = t('controllers.blog_comments.create.ok_message')
+        flash[:notice] = t('info.blog.comment_added')
         @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
         @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
         @saved.collapsed = true
@@ -38,7 +38,7 @@ class BlogCommentsController < ApplicationController
         
         format.xml  { render :xml => @blog_comment, :status => :created, :location => @blog_comment }
       else
-        flash[:notice] = t('controllers.blog_comments.create.ko_message')
+        flash[:notice] = t('error.blog.comment_added')
         format.js   { render :update do |page|
                         page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment}
                       end
@@ -86,7 +86,7 @@ class BlogCommentsController < ApplicationController
    def check_author
     if (current_user.id != @blog_comment.user_id and
         current_user.id != @blog_post.user_id)    
-      flash[:notice] = t(:error_comment_not_your)
+      flash[:notice] = t('info.proposal.comment_not_your')
       redirect_to :back
     end
     

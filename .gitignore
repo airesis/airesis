@@ -20,3 +20,6 @@ script/igraph-0.5.4
 public/assets
 private
 solr/data/
+config/database.yml
+config/initializers/constants.rb
+

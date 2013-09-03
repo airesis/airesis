@@ -1,6 +1,6 @@
 <%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
 	<div id="border_fields">
-		<%= f.label "I tuoi confini geografici di interesse"%>
+		<%= f.label t('pages.users.border_preferences.your_borders')%>
 		<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
 	</div>
 	<div id="loading_borders" style="margin:auto;text-align:center;display:none;">
@@ -15,12 +15,12 @@
 		input.tokenInput("/interest_borders.json", {
 			crossDomain: false,
 			prePopulate: $('#token_interest_borders').data("pre"),
-			hintText: "Digita alcuni caratteri per cercare un luogo",
-			noResultsText: "Nessun luogo trovato",
-			searchingText: "Sto cercando...",
+			hintText: "<%=t('interest_borders.hint')%>",
+			noResultsText: "<%=t('interest_borders.no_place_found')%>",
+			searchingText: "<%=t('interest_borders.searching')%>",
 			preventDuplicates: true
 		});
-		
+
 		$('#submit_borders').click(function() {
 			$(this).hide();
 			$('#border_fields').hide();	

@@ -85,9 +85,9 @@ class GroupsController < ApplicationController
     @group.change_advanced_options = advanced_options
     @group.save
     if (advanced_options == 'true')
-      flash[:notice] = "Gli utenti potranno modificare le impostazioni avanzate."
+      flash[:notice] = t('info.quorums.can_modify_advanced_proposals_settings')
     else
-      flash[:notice] = "Gli utenti non potranno modificare le impostazioni avanzate."
+      flash[:notice] = t('info.quorums.cannot_modify_advanced_proposals_settings')
     end
 
     respond_to do |format|
@@ -99,7 +99,7 @@ class GroupsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -113,9 +113,9 @@ class GroupsController < ApplicationController
     @group.default_anonima = default_anonima
     @group.save
     if (default_anonima == 'true')
-      flash[:notice] = "Le proposte del gruppo saranno anonime di default"
+      flash[:notice] = t('info.quorums.anonymous_proposals')
     else
-      flash[:notice] = "Le proposte del gruppo saranno palesi di default"
+      flash[:notice] = t('info.quorums.non_anonymous_proposals')
     end
 
     respond_to do |format|
@@ -127,7 +127,7 @@ class GroupsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -141,9 +141,9 @@ class GroupsController < ApplicationController
     @group.default_visible_outside = default_visible_outside
     @group.save
     if (default_visible_outside == 'true')
-      flash[:notice] = "Le proposte del gruppo saranno visibili pubblicamente di default"
+      flash[:notice] = t('info.quorums.public_proposals')
     else
-      flash[:notice] = "Le proposte del gruppo non saranno visibili pubblicamente di default"
+      flash[:notice] = t('info.quorums.private_proposals')
     end
 
     respond_to do |format|
@@ -155,7 +155,7 @@ class GroupsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -169,9 +169,9 @@ class GroupsController < ApplicationController
     @group.default_secret_vote = default_secret_vote
     @group.save
     if default_secret_vote == 'true'
-      flash[:notice] = "Le proposte avranno voto segreto di default"
+      flash[:notice] = t('info.quorums.secret_vote')
     else
-      flash[:notice] = "Le proposte avranno voto palese di default"
+      flash[:notice] = t('info.quorums.non_secret_vote')
     end
 
     respond_to do |format|
@@ -183,7 +183,7 @@ class GroupsController < ApplicationController
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella modifica delle opzioni.'
+      flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
@@ -205,14 +205,14 @@ class GroupsController < ApplicationController
         Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
       end
       respond_to do |format|
-        flash[:notice] = t('controllers.groups.create.ok_message')
+        flash[:notice] = t('info.groups.group_created')
         format.html { redirect_to(@group) }
         #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end #respond_to
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
-        flash[:error] = t('controllers.groups.create.ko_message')
+        flash[:error] = t('error.groups.creation')
         format.html { render :action => "new" }
       end
     end #begin
@@ -244,14 +244,14 @@ class GroupsController < ApplicationController
       end
 
       respond_to do |format|
-        flash[:notice] = t('groups.confirm.update')
+        flash[:notice] = t('info.groups.group_updated')
         format.html { render :action => "edit" }
       end
 
     rescue Exception => e
       puts e
       respond_to do |format|
-        flash[:error] = t('groups.errors.update')
+        flash[:error] = t('error.groups.update')
         format.html { render :action => "edit" }
       end
     end
@@ -261,7 +261,7 @@ class GroupsController < ApplicationController
   def destroy
     authorize! :destroy, @group
     @group.destroy
-    flash[:notice] = t('controllers.groups.destroy.ok_message')
+    flash[:notice] = t('info.groups.group_deleted')
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }

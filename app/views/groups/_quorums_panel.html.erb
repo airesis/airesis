@@ -1,12 +1,12 @@
 <table style="text-align: left; font-size: 12px">
   <tr style="background-color: #E3E9F9" valign="top">
-    <td><b><%= 'Attivo' %></b></td>
-    <td><b><%= 'Nome' %></b></td>
-    <td><b><%= 'Partecipanti' %></b></td>
-    <td><b title="Condizione"><%= 'Cond' %></b></td>
-    <td><b><%= 'Tempo' %></b></td>
-    <td><b title="Percentuale Gradimento"><%= '% Grad' %></b></td>
-    <td><b title="Percentuale Respingimento"><%= '% Resp' %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.active') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.name') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.participants') %></b></td>
+    <td><b title="Condizione"><%= t('pages.groups.edit_quorums.condition') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.time') %></b></td>
+    <td><b title="Percentuale Gradimento"><%= t('pages.groups.edit_quorums.good_percentage') %></b></td>
+    <td><b title="Percentuale Respingimento"><%= t('pages.groups.edit_quorums.bad_percentage') %></b></td>
   </tr>
   <tbody>
   <% @group.quorums.all.each do |quorum| %>
@@ -23,7 +23,7 @@
         </td>
         <td> <%= quorum.percentage ? quorum.percentage.to_s + '%' : '-' %>
         </td>
-        <td> <%= (quorum.time && quorum.percentage) ? quorum.or? ? 'o' : 'e' : '-' %>
+        <td> <%= (quorum.time && quorum.percentage) ? quorum.or? ? t('pages.groups.edit_quorums.condition_OR') : t('pages.groups.edit_quorums.condition_AND') : '-' %>
         <td> <%= quorum.time || '-' %>
         </td>
         <td> <%= quorum.good_score %>%
@@ -31,8 +31,8 @@
         <td> <%= (quorum.bad_score != quorum.good_score) ? quorum.bad_score.to_s + '%' : '-' %>
         </td>
         <td>
-            <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => 'Modifica', :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>
-            <%= link_to 'Delete', [@group, quorum], :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare il quorum '"+quorum.name+"'?", :title => 'Elimina', :class => "ui-icon ui-icon-trash", :style=>'float:left' %>
+            <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => t('buttons.edit'), :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>
+            <%= link_to 'Delete', [@group, quorum], :method => :delete, :remote => true, :confirm => t('pages.groups.edit_quorums.confirm_deletion')+quorum.name+"'?", :title => t('buttons.delete'), :class => "ui-icon ui-icon-trash", :style=>'float:left' %>
         </td>
       </tr>
   <% end %>

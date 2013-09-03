@@ -1,4 +1,4 @@
-$('body').append("<div id='new_message_container' title='Invia un nuovo messaggio a <%=@user.fullname%>'></div>");
+$('body').append("<div id='new_message_container' title='<%='Invia un nuovo messaggio a'%> <%=@user.fullname%>'></div>");
 $('#new_message_container').html("<%= escape_javascript(render(:partial => 'users/message'))%>");
 
 $('#new_message_container').dialog({
