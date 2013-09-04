@@ -72,6 +72,11 @@ class Group < ActiveRecord::Base
   has_many :group_tags, :dependent => :destroy
   has_many :tags, :through => :group_tags, :class_name => 'Tag'
 
+
+  #forum
+  has_many :forums, :class_name => 'Frm::Forum', foreign_key: 'group_id'
+  has_many :categories, :class_name => 'Frm::Category', foreign_key: 'group_id'
+
   # Check for paperclip
   has_attached_file :image,
                     :styles => {

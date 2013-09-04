@@ -1,0 +1,35 @@
+module Frm
+  class ForumsController < Frm::ApplicationController
+
+    load_and_authorize_resource :class => 'Frm::Forum', :only => :show
+    helper 'frm/topics'
+
+    layout 'groups'
+
+    def index
+      @categories = @group.categories.all
+    end
+
+    def show
+      register_view
+
+      @topics = if forem_admin_or_moderator?(@forum)
+        @forum.topics
+      else                               documents
+        @forum.topics.visible.approved_or_pending_review_for(current_user)
+      end
+
+      @topics = @topics.by_pinned_or_most_recent_post.page(params[:page]).per(Frm.per_page)
+
+      respond_to do |format|
+        format.html
+        format.atom { render :layout => false }
+      end
+    end
+
+    private
+    def register_view
+      @forum.register_view_by(current_user)
+    end
+  end
+end

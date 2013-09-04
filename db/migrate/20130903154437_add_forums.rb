@@ -4,6 +4,7 @@ class AddForums < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.integer :category_id
+      t.integer :group_id
       t.integer :views_count, default: 0
       t.string :slug
     end
@@ -47,6 +48,7 @@ class AddForums < ActiveRecord::Migration
     create_table :frm_categories do |t|
       t.string :name, :null => false
       t.string :slug
+      t.integer :group_id
       t.timestamps
     end
 
@@ -83,7 +85,6 @@ class AddForums < ActiveRecord::Migration
     add_index :frm_posts, :user_id
     add_index :frm_posts, :reply_to_id
     add_index :frm_views, :user_id
-    add_index :frm_views, :topic_id
     add_index :frm_views, :updated_at
   end
 

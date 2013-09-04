@@ -1,0 +1,46 @@
+<h2><%= t('forem.admin.group.members', :group => forem_emojify(@frm_group.name)) %></h2>
+<%= link_to t('back_to_groups', :scope => "forem.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
+<div class="row">
+  <h3><%= t('pages.frm.admin.groups.show.add_a_new_member') %></h3>
+  <%= form_tag add_group_frm_admin_frm_group_members_url(@group,@frm_group) do %>
+    <p>
+      <%= text_field_tag "frm_user_id" %>
+    </p>
+    <p class="span1">
+      <%= submit_tag t('pages.frm.admin.groups.show.add_member'), :class => "btn blue" %>
+    </p>
+  <% end %>
+</div>
+
+<% if @frm_group.members.any? %>
+  <h3><%= t('pages.frm.admin.groups.show.current_members') %></h3>
+  <div class="row">
+    <ul id='members'>
+      <% @frm_group.members.each do |member| %>
+        <li><%= member.to_s %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<script>
+  $("#frm_user_id").select2({
+      containerCssClass: "user_auto",
+      ajax: {
+      url: "<%= group_user_autocomplete_url(@group) %>",
+      data: function(term, page) {
+        return { "term": term }
+      },
+      results: function(data, page) {
+        return { results: data };
+      }
+    },
+    formatResult: function(result) {
+      return result.identifier;
+    },
+    formatSelection: function(result) {
+      return result.identifier;
+    }
+  });
+</script>

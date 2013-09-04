@@ -273,6 +273,7 @@ it:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
         documents: "DOCUMENTI"
+        forums: "FORUM"
       documents:
         documents_archive: "Archivio documenti"
         storage_size: "Occupazione Spazio di archiviazione"

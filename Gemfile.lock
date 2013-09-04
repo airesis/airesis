@@ -70,6 +70,9 @@ GEM
     bullet (4.5.0)
       uniform_notifier
     cancan (1.6.8)
+    client_side_validations-simple_form (1.5.0)
+      client_side_validations (~> 3.2.0)
+      simple_form (~> 1.5.0)
     cocaine (0.4.2)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -126,6 +129,8 @@ GEM
       tzinfo
     foreigner (1.2.1)
       activerecord (>= 3.0.0)
+    friendly_id (4.0.9)
+    gemoji (1.1.2)
     geocoder (1.1.8)
     globalize3 (0.3.0)
       activemodel (>= 3.0.0)
@@ -150,6 +155,9 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -254,6 +262,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
+    redcarpet (2.0.1)
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
@@ -284,6 +293,12 @@ GEM
       sass (>= 3.1.10)
       tilt (~> 1.3)
     seed_dump (0.4.2)
+    select2-rails (3.4.3)
+      sass-rails
+      thor (~> 0.14)
+    simple_form (1.5.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
@@ -335,7 +350,7 @@ GEM
     websocket-driver (0.2.0)
     wicked_pdf (0.9.6)
       rails
-    will_paginate (3.0.3)
+    workflow (0.8.0)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -347,6 +362,7 @@ DEPENDENCIES
   bullet
   cancan
   client_side_validations!
+  client_side_validations-simple_form
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
   el_finder
@@ -354,12 +370,15 @@ DEPENDENCIES
   exception_notification (= 2.6.1)
   fb_graph
   foreigner
+  friendly_id
+  gemoji
   geocoder
   globalize3
   httparty
   icalendar
   jquery-rails (= 3.0.4)
   jquery-rjs!
+  kaminari (~> 0.14.1)
   maktoub!
   nickname_generator
   omniauth-facebook
@@ -375,6 +394,7 @@ DEPENDENCIES
   rails (= 3.2.1)
   rails_autolink
   recaptcha
+  redcarpet (~> 2.0.1)
   resque
   resque-scheduler
   resque_mailer
@@ -383,6 +403,8 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 3.2.3)
   seed_dump
+  select2-rails (= 3.4.3)
+  simple_form (= 1.5.0)
   sitemap_generator
   sunspot-queue
   sunspot_rails
@@ -396,4 +418,4 @@ DEPENDENCIES
   ultraviolet1x
   vote-schulze!
   wicked_pdf
-  will_paginate
+  workflow

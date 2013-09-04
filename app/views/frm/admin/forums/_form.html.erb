@@ -1,0 +1,9 @@
+<%= simple_form_for  @forum, url: group_frm_admin_forums_url(@group) do |f| %>
+  <%= f.association :category, :include_blank => false %>
+  <%= f.input :title %>
+  <%= f.input :description, :as => :text %>
+
+  <h3><%= t('forem.admin.forum.moderator_groups') %></h3>
+  <%= f.association :moderators, :as => :check_boxes %>
+  <%= f.submit :class => "btn btn-primary" %>
+<% end %>

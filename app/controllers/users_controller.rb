@@ -286,6 +286,14 @@ class UsersController < ApplicationController
     flash[:notice] = t('info.message_sent')
   end
 
+  def autocomplete
+    users = User.forem_autocomplete(params[:term])
+    users = users.map do |u|
+      { :id => u.id, :identifier => u.send('email') }
+    end
+    render :json => users
+  end
+
   protected
 
   def choose_layout

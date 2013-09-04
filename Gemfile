@@ -60,7 +60,7 @@ gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
-gem 'will_paginate'
+#gem 'will_paginate'
 
 gem 'bluecloth', '2.0.7'
 
@@ -143,3 +143,13 @@ gem 'icalendar'
 gem 'private_pub'
 
 gem 'rotp'
+
+#added for forums
+gem 'friendly_id'
+gem 'simple_form', '1.5.0'
+gem 'client_side_validations-simple_form'
+gem 'gemoji'
+gem 'workflow'
+gem 'select2-rails', '3.4.3'
+gem 'redcarpet', '~> 2.0.1'
+gem 'kaminari', '~> 0.14.1'

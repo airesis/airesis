@@ -1,0 +1,18 @@
+<%= render :partial => 'frm/forums/head', :locals => { :forum => @topic.forum } %>
+
+<h2><%= t("forem.post.new") %></h2>
+
+<% if @reply_to_post %>
+  <div class='row'>
+    <%= render 'reply_to_post', :post => @reply_to_post %>
+  </div>
+<% else %>
+  <h3 class='topic_subject'>
+    <%= @topic.subject %>
+  </h3>
+<% end %>
+
+<%= simple_form_for @post, url: group_forum_topic_posts_url(@group,@topic) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <%= f.submit t("forem.post.buttons.reply"), :class => "btn blue" %>
+<% end %>

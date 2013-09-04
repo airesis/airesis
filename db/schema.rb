@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828160428) do
+ActiveRecord::Schema.define(:version => 20130903154437) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -270,6 +270,102 @@ ActiveRecord::Schema.define(:version => 20130828160428) do
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
+
+  create_table "frm_categories", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "slug"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug", :unique => true
+
+  create_table "frm_forums", :force => true do |t|
+    t.string  "name"
+    t.text    "description"
+    t.integer "category_id"
+    t.integer "group_id"
+    t.integer "views_count", :default => 0
+    t.string  "slug"
+  end
+
+  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug", :unique => true
+
+  create_table "frm_groups", :force => true do |t|
+    t.string "name"
+  end
+
+  add_index "frm_groups", ["name"], :name => "index_frm_groups_on_name"
+
+  create_table "frm_memberships", :force => true do |t|
+    t.integer "group_id"
+    t.integer "member_id"
+  end
+
+  add_index "frm_memberships", ["group_id"], :name => "index_frm_memberships_on_group_id"
+
+  create_table "frm_moderator_groups", :force => true do |t|
+    t.integer "forum_id"
+    t.integer "group_id"
+  end
+
+  add_index "frm_moderator_groups", ["forum_id"], :name => "index_frm_moderator_groups_on_forum_id"
+
+  create_table "frm_posts", :force => true do |t|
+    t.integer  "topic_id"
+    t.text     "text"
+    t.integer  "user_id"
+    t.integer  "reply_to_id"
+    t.string   "state",       :default => "pending_review"
+    t.boolean  "notified",    :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "frm_posts", ["reply_to_id"], :name => "index_frm_posts_on_reply_to_id"
+  add_index "frm_posts", ["state"], :name => "index_frm_posts_on_state"
+  add_index "frm_posts", ["topic_id"], :name => "index_frm_posts_on_topic_id"
+  add_index "frm_posts", ["user_id"], :name => "index_frm_posts_on_user_id"
+
+  create_table "frm_subscriptions", :force => true do |t|
+    t.integer "subscriber_id"
+    t.integer "topic_id"
+  end
+
+  create_table "frm_topics", :force => true do |t|
+    t.integer  "forum_id"
+    t.integer  "user_id"
+    t.string   "subject"
+    t.boolean  "locked",       :default => false,            :null => false
+    t.boolean  "pinned",       :default => false,            :null => false
+    t.boolean  "hidden",       :default => false
+    t.string   "state",        :default => "pending_review"
+    t.datetime "last_post_at"
+    t.integer  "views_count",  :default => 0
+    t.string   "slug"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "frm_topics", ["forum_id"], :name => "index_frm_topics_on_forum_id"
+  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug", :unique => true
+  add_index "frm_topics", ["state"], :name => "index_frm_topics_on_state"
+  add_index "frm_topics", ["user_id"], :name => "index_frm_topics_on_user_id"
+
+  create_table "frm_views", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.integer  "count",             :default => 0
+    t.datetime "current_viewed_at"
+    t.datetime "past_viewed_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "frm_views", ["updated_at"], :name => "index_frm_views_on_updated_at"
+  add_index "frm_views", ["user_id"], :name => "index_frm_views_on_user_id"
 
   create_table "generic_borders", :force => true do |t|
     t.string  "description", :null => false
@@ -1099,6 +1195,14 @@ ActiveRecord::Schema.define(:version => 20130828160428) do
 
   add_index "user_follows", ["follower_id", "followed_id"], :name => "user_follows_unique", :unique => true
 
+  create_table "user_likes", :force => true do |t|
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "user_id",       :null => false
+    t.integer  "likeable_id",   :null => false
+    t.string   "likeable_type", :null => false
+  end
+
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
     t.text   "short_name"
@@ -1387,6 +1491,8 @@ ActiveRecord::Schema.define(:version => 20130828160428) do
 
   add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
+
+  add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
 
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"

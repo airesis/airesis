@@ -1,0 +1,13 @@
+
+<div id='forums_container'>
+  <h1 id='forums_title'><%= t('.title') %></h1>
+
+  <%= render @categories %>
+</div>
+
+<br>
+<footer id='admin_link'>
+  <% if is_group_admin? @group %>
+    <%= link_to t("area", :scope => "forem.admin"), group_frm_admin_root_url(@group), class: 'btn' %>
+  <% end %>
+</footer>

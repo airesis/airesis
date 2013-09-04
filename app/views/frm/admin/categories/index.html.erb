@@ -1,0 +1,31 @@
+<h2><%= t("forem.admin.category.index") %></h2>
+<%= link_to t('back_to_admin', :scope => "forem.admin"), group_frm_admin_root_url(@group), class: 'btn' %><br><br>
+<%= link_to t("forem.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue" %><br>
+<br>
+
+<table id='forums' class='forums table-striped table' cellspacing='0'>
+  <thead>
+  <tr>
+
+    <th><%= t('category', :scope => 'forem.admin.categories') %></th>
+    <th><%= t('edit', :scope => 'forem.admin.categories') %></th>
+    <th><%= t('delete', :scope => 'forem.admin.categories') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @category.each do |category| %>
+      <tr class="forum <%= cycle("odd", "even") %>">
+
+        <td>
+          <%= forem_emojify(category.name) %>
+        </td>
+        <td><%= link_to t('edit', :scope => 'forem.admin.categories'), edit_group_frm_admin_category_url(@group, category), :class => "btn editButton" %></td>
+        <td><%= link_to t('delete', :scope => 'forem.admin.categories'), group_frm_admin_category_url(@group, category), :method => :delete,
+                        data: {:confirm => t('delete_confirm')}, :class => "btn trashButton" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('forem.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn' %>
+

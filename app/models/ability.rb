@@ -174,6 +174,43 @@ class Ability
             proposal_nickname.user == user
       end
 
+
+      #forum permissions
+      can :read, Frm::Category do |category|
+        user.can_read_forem_category?(category)
+      end
+
+      can :read, Frm::Topic do |topic|
+        user.can_read_forem_forum?(topic.forum) && user.can_read_forem_topic?(topic)
+      end
+
+      if user.can_read_forem_forums?
+        can :read, Frm::Forum do |forum|
+          user.can_read_forem_category?(forum.category) && user.can_read_forem_forum?(forum)
+        end
+      end
+
+      can :create_topic, Frm::Forum do |forum|
+        can?(:read, forum) && user.can_create_forem_topics?(forum)
+      end
+
+      can :reply, Frm::Topic do |topic|
+        can?(:read, topic.forum) && user.can_reply_to_forem_topic?(topic)
+      end
+
+      can :edit_post, Frm::Forum do |forum|
+        user.can_edit_forem_posts?(forum)
+      end
+
+      can :moderate, Frm::Forum do |forum|
+        user.can_moderate_forem_forum?(forum) || user.forem_admin?
+      end
+
+
+
+
+
+
       if user.moderator?
         can :read, Proposal # can see all the proposals
         can :destroy, ProposalComment do |comment|
