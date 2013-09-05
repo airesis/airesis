@@ -60,7 +60,7 @@ class Group < ActiveRecord::Base
 
   has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
 
-  has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
+  has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
 
   has_many :group_areas, dependent: :destroy
 
@@ -145,7 +145,7 @@ class Group < ActiveRecord::Base
       copy.save!
       self.group_quorums.build(:quorum_id => copy.id)
     end
-    role = self.partecipation_roles.build({name: self.default_role_name, description: t('pages.groups.edit_permissions.default_role')})
+    role = self.partecipation_roles.build({name: self.default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
     self.default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
       abilitation.save!
@@ -162,7 +162,7 @@ class Group < ActiveRecord::Base
   end
 
   def destroy
-    self.update_attribute(:partecipation_role_id, nil) && super
+    self.update_attribute(:partecipation_role_id, 2) && super
   end
 
   #return true if the group is private and do not show anything to non-partecipants
