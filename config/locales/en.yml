@@ -105,6 +105,7 @@ en:
     other: "%{count} minutes"
   ago: "ago"
   open_space: 'Open space'
+  guide: "FAQ"
   hello: 'Hello world'
   pages:
     top_panel:
@@ -230,6 +231,10 @@ en:
         search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
         insert_query_or_place: "You must type at least three characters or a geographic border"
         tags: "Tags"
+		partecipants_number: "Number of partecipants"
+        proposals_number: "Number of proposals"
+        events_number: "Number of events"
+        no_results: "No groups found"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -339,16 +344,15 @@ en:
       submit: 'Send me the instructions'
     password:
       title: 'Have you forgotten your password?'
-      submit: 'Please send instructions to reset password'
+      submit: 'Please send instructions to reset password.'
     registration:
       title: 'Register'
-      email_confirmed: "If you register with that email address you will not be asked to confirm your email address"
+      email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Confirm password"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
-      username_or_email: "Your Username or E-mail"
     proposals:
       index:
         title: 'List of proposals'
@@ -662,6 +666,8 @@ en:
         draft: "[Draft]"
         comments_says: "says..."
       published_button: "Published posts"
+      view:
+        comments: "Commenti (%{count})"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -720,6 +726,25 @@ en:
         title: "Edit blog"
         title_label: "Blog title"
         back_to_blog: "Back to my blog"
+    groups_area:
+      edit:
+        title: "Impostazioni area di lavoro"
+    group_areas:
+      index:
+        create_area_button: "Crea un'area di lavoro"
+        title: "Organizza gli utenti all'interno delle aree di lavoro"
+        switch_area_manage_button: "Passa alla gestione delle singole aree"
+        title_inactive: "Aree di lavoro non abilitate"
+        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
+        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
+        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
+        enable_button: "Abilita le aree di lavoro!"
+      manage:
+        switch_area_index_button: "Passa alla gestione dei partecipanti"
+        partecipants: "Partecipanti"
+        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
+      edit:
+        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "All available quorum"
@@ -844,6 +869,9 @@ en:
       block_user: "Block user"
       blocked_user_list: "List of blocked users"
       block: "Unblock"
+    area_roles:
+      new:
+        title: "New role"
   pl:
     comments:
       zero: "no comment"

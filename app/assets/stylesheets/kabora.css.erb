@@ -142,10 +142,10 @@
 
 #menu-top .group-cont {
     position: relative;
-    height: 130px;
+    height: 141px;
     top: 80px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 12px;
+    padding-bottom: 8px;
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -198,7 +198,7 @@
     margin-right: 10px;
     margin-bottom: 15px;
     float: left;
-    width: 290px;
+    width: 300px;
 }
 
 #menu-top .group-cont .group-tag1 .group-item img {
@@ -213,12 +213,25 @@
 
 #menu-top .group-cont .group-tag1 .group-item .p1 {
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 245px;
+    position: relative;
 }
 
 #menu-top .group-cont .group-tag1 .group-item .p2 {
     margin-top: 3px;
     margin-left: 45px;
     font-size: 9px;
+}
+
+.group_tag_fade {
+    background-image: url('<%=asset_path 'vertical_blue_line.png'%>');
+    height: 20px;
+    position: absolute;
+    width: 20px;
+    right: -3px;
+    top: 0px;
 }
 
 .cont-mess {
@@ -614,7 +627,6 @@
     margin: 0px;
     margin: 5px;
     margin-bottom: 10px;
-    cursor: pointer;
     color: black;
 }
 
@@ -622,6 +634,7 @@
     border-top: 1px dotted gray;
     padding-top: 10px;
     padding-bottom: 10px;
+    word-break: break-word;
 }
 
 #footer {
@@ -974,3 +987,4 @@
     font-size: 0.8em;
     padding: 0.2em 0.8em;
 }
+

@@ -7,6 +7,7 @@ class SearchPartecipantsController < ApplicationController
     flash[:notice] = 'Ricerca eseguita. Risultati aggiornati'
     respond_to do |format|
       format.js
+      format.html
     end
   end
 

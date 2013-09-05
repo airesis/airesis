@@ -1,0 +1,13 @@
+$('#posts_container').append("<%= escape_javascript(render(:partial => 'blog_posts/group_blog_post', :collection => @group_posts, as: 'blog_post'))%>");
+try{
+    FB.XFBML.parse();
+}catch(ex){}
+twttr.widgets.load();
+gapi.plusone.go();
+<%if @group_posts.total_pages > @group_posts.current_page%>
+checkActive = true;
+checkScroll();
+<%else%>
+$('#loading_results').hide();
+<%end%>
+

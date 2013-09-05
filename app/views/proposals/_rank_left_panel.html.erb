@@ -2,17 +2,16 @@
 
     $(function () {
         $('.voteup').bind('ajax:beforeSend', function (n, xhr) {
-            id = $(this).attr('id');
-            num = id.replace('voteup', '');
+            var id = $(this).attr('id');
+            var num = id.replace('voteup', '');
             hideRankPanel2($('.handscontainer'));
         });
 
         $('.votedown').bind('ajax:beforeSend', function (n, xhr) {
-            id = $(this).attr('id');
-            num = id.replace('votedown', '');
+            var id = $(this).attr('id');
+            var num = id.replace('votedown', '');
             hideRankPanel2($('.handscontainer'));
         });
-
     });
 </script>
 

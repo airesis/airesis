@@ -49,3 +49,4 @@
 //= require toastr
 //= require countdown/index
 //= require jquery.tagcloud
+//= require jquery.switchbutton

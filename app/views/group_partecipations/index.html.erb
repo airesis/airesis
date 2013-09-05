@@ -1,9 +1,9 @@
-<h1>Elenco partecipanti</h1>
+<h1><%= 'Elenco partecipanti' %></h1>
 <% if current_user && ((@group.portavoce.include? current_user) || is_admin?) %>
     <fieldset>
       <legend>Ricerca</legend>
 
-      <%= form_for [@group, SearchPartecipant.new], remote: true do |f| %>
+      <%= form_for !in_subdomain? ? [@group, SearchPartecipant.new] : SearchPartecipant.new, remote: true do |f| %>
           <p><%= f.label :keywords %><br/>
             <%= f.text_field :keywords %>
           </p>
@@ -15,9 +15,9 @@
 
           <p>
             <%= f.label :status_id %><br/>
-            <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => 'Scegli uno stato di iscrizione' %>
+            <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => 'Qualsiasi' %>
           </p>
-          <%= f.button 'Filtra', class: 'btn blue' %>
+          <%= f.button 'Filtra', class: 'btn blue', disable_with: t('loading') %>
       <% end %>
 
     </fieldset>
@@ -59,4 +59,25 @@
         $('#email_panel').dialog({'width': '400px'});
         $('#message_receiver_ids').val($('#ids_results').val());
     }
+
+
+     $('#partecipants').dataTable({
+         "oLanguage": {
+             "sLengthMenu": "Mostra _MENU_ utenti per pagina",
+             "sSearch": "<%='Cerca:'%>",
+             "sZeroRecords": "<%='Nessun utente, spiacente..'%>",
+             "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
+             "sInfoEmpty": "Sto mostrando 0 utenti",
+             "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
+             "oPaginate": {
+                 "sPrevious": "",
+                 "sNext": ""
+             }
+         },
+         "aaSorting": [],
+         "aoColumns": [null, null,{"iDataSort": 3},{"bVisible": false},null],
+         "bInfo": false,
+         "bLengthChange": false,
+         "bPaginate": false
+     });
 </script>

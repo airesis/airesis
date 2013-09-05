@@ -35,6 +35,11 @@ module GroupsHelper
     end
   end
 
+  def reload_storage_size_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/reload_storage_size' :
+        super
+  end
   def edit_permissions_group_url(group, options={})
     (group_in_subdomain? group) ?
         '/edit_permissions' :
@@ -112,6 +117,19 @@ module GroupsHelper
       if group.certified?
         options[:subdomain] = group.subdomain
         proposal_url(proposal,options)
+      else
+        super
+      end
+    end
+  end
+
+  def group_search_partecipant_url(group,search_partecipant, options={})
+    if group_in_subdomain? group
+      search_partecipant_url(search_partecipant,options)
+    else
+      if group.certified?
+        options[:subdomain] = group.subdomain
+        search_partecipant_url(search_partecipant,options)
       else
         super
       end

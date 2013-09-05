@@ -1,5 +1,5 @@
 module ProposalsModule
-  include NotificationHelper, ProposalsHelper
+  include GroupsHelper, NotificationHelper, ProposalsHelper
   #verifica se è necessario passare alla fase di votazione
   #una proposta attualmente in fase di valutazione e dibattito
   def check_phase(proposal)

@@ -1,5 +1,5 @@
 class EventsWorker
-  include NotificationHelper, Rails.application.routes.url_helpers
+  include GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers
   @queue = :events
 
   STARTVOTATION='startvotation'

@@ -116,8 +116,7 @@ class ProposalsController < ApplicationController
     @accepted_count = @count_base.voted.count
     @revision_count = @count_base.revision.count
 
-    respond_to do |format|
-      #format.js
+    respond_to do |format| 
       format.html # index.html.erb
       format.json
     end
@@ -129,10 +128,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html {
         if params[:replace]
-          render :update do |page|
-            #TODO far dipendere l'id della tab dallo stato della proposta non è buona cosa ma mi permette di non sbattermi per trovare una soluzione
-            #accrocchio
-            #render :partial => 'replace_tab_list', :locals => {:proposals => @proposals}
+          render :update do |page|         
             page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
           end
         else
@@ -561,7 +557,7 @@ class ProposalsController < ApplicationController
     if tags.empty?
       tags = "''"
     end
-    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
             p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
             p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
             FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
@@ -571,8 +567,8 @@ class ProposalsController < ApplicationController
                WHERE pti.text in (#{tags}))"
     sql_q += " AND (p.private = false OR p.visible_outside = true "
     sql_q += params[:group_id] ? " OR (p.private = true AND gp.group_id = #{@group.id.to_s}))" : ")"
-    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
-p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
+    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
                                       ORDER BY closeness DESC"
     @similars = Proposal.find_by_sql(sql_q)

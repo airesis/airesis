@@ -41,9 +41,10 @@ class GroupsController < ApplicationController
   def show
     @page_title = @group.name
     @partecipants = @group.partecipants
-    @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
 
     respond_to do |format|
+      format.js
       format.html # show.html.erb
       format.xml { render :xml => @group }
     end

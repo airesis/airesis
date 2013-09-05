@@ -205,7 +205,7 @@
         <div style="width:45px;height: 30px; float:left;">
           <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
         </div>
-        <span class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></span>
+        <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
 
         <div class="p2">
           <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
@@ -222,7 +222,10 @@
                     <div style="width:45px;height: 30px; float:left;">
                       <%= group.group_image_tag(30) rescue nil %>
                     </div>
-                    <span class="p1"><%= link_to group.name, group_url(group) %></span>
+                    <div class="p1">
+                      <%= link_to group.name, group_url(group) %>
+                      <div class="group_tag_fade"></div>
+                    </div>
 
                     <div class="p2">
                       <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -

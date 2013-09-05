@@ -1,11 +1,12 @@
 <input type="hidden" id="count_results" value="<%=@partecipants.count%>"/>
 <input type="hidden" id="ids_results" value="<%=@partecipants.map{|p| p.user_id}.join(',')%>"/>
 
-<table style="width:800px;">
+<table style="width:800px;" id="partecipants">
   <thead>
   <th><%= 'Utente' %></th>
   <th><%= 'Ruolo' %></th>
   <th><%= 'Registrato dal' %></th>
+  <th>registered_sortable</th>
   <th><%= 'Inserito da' %></th>
 
   </thead>
@@ -25,6 +26,7 @@
         </td>
         <td><%= (defined? partecipant.partecipation_role) ? partecipant.partecipation_role.name : '' %></td>
         <td><%= l partecipant.created_at if partecipant.created_at %></td>
+        <td><%= partecipant.created_at.to_i if partecipant.created_at %></td>
         <td>
           <% if (defined? partecipant.acceptor) && partecipant.acceptor%>
               <div class="pcontainer">
