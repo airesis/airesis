@@ -231,10 +231,10 @@ en:
         search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
         insert_query_or_place: "You must type at least three characters or a geographic border"
         tags: "Tags"
-		partecipants_number: "Number of partecipants"
+        partecipants_number: "Number of participants"
         proposals_number: "Number of proposals"
         events_number: "Number of events"
-        no_results: "No groups found"
+        no_results: "No group found"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -275,6 +275,7 @@ en:
           title: "List of your permissions inside the group"
           button: "Permissions list"
         print_all_participants: "Print participants list"
+        last_proposals: "Recently added proposals"
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -726,25 +727,6 @@ en:
         title: "Edit blog"
         title_label: "Blog title"
         back_to_blog: "Back to my blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "All available quorum"
@@ -869,9 +851,6 @@ en:
       block_user: "Block user"
       blocked_user_list: "List of blocked users"
       block: "Unblock"
-    area_roles:
-      new:
-        title: "New role"
   pl:
     comments:
       zero: "no comment"

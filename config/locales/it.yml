@@ -231,7 +231,7 @@ it:
         search_description: "Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse"
         insert_query_or_place: "Devi inserire almeno tre lettere o un confine geografico"
         tags: "Parole chiave"
-		partecipants_number: "Numero di partecipanti"
+        partecipants_number: "Numero di partecipanti"
         proposals_number: "Numero di proposte"
         events_number: "Numero di eventi organizzati"
         no_results: "Nessun gruppo trovato"
@@ -354,7 +354,6 @@ it:
       accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
-      username_or_email: "Il tuo Username o la tua Email"
     proposals:
       index:
         title: "Elenco proposte"
