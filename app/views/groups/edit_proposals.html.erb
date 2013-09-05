@@ -27,7 +27,7 @@
 	function change_default_anonima(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",     
             dataType: 'script',
         	type: 'post'    
@@ -37,7 +37,7 @@
 	function change_default_visible_outside(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_default_visible_outside",     
             dataType: 'script',
         	type: 'post'    
@@ -47,7 +47,7 @@
     function change_default_secret_vote(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active="+active,
+            data: "active="+active+"&l=<%=I18n.locale%>",
             url: "/groups/" + <%=@group.id%>  + "/change_default_secret_vote",
             dataType: 'script',
             type: 'post'
@@ -57,7 +57,7 @@
 	function change_advanced_options(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",     
             dataType: 'script',
         	type: 'post'    

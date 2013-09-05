@@ -57,7 +57,7 @@ class GroupPartecipationsController < ApplicationController
         @group_partecipation_request.destroy
         @group_partecipation.destroy
       end
-      flash[:notice] = current_user == @group_partecipation.user ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : "#{@group_partecipation.user.fullname} rimosso correttamente dal gruppo"
+      flash[:notice] = current_user == @group_partecipation.user ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : "#{@group_partecipation.user.fullname} "+t('info.participation_roles.user_removed_from_group') #TODO:il18n
     end
 
     respond_to do |format|

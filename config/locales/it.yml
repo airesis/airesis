@@ -210,6 +210,10 @@ it:
         default_role: "Ruolo predefinito del gruppo"
         confirm_role_deletion: "Sei sicuro di voler eliminare questo ruolo?"
         remove_user: "Rimuovi utente"
+        confirm_role_change1: "Il ruolo dell'utente"
+        confirm_role_change2: "passerà da"
+        confirm_role_change3: "a"
+        confirm_role_change4: "Confermi?"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -468,6 +472,7 @@ it:
         add_comment: "Inserisci un commento"
         add_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta l'autore a migliorare la proposta"
         login_to_comment: "Fai login per inserire un commento"
+        regenerate_nickname: "Rigenera nickname"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -667,6 +672,8 @@ it:
         draft: "[Bozza]"
         comments_says: "dice..."
       published_button: "Post pubblicati"
+      view:
+        comments: "Commenti (%{count})"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -725,25 +732,6 @@ it:
         title: "Modifica blog"
         title_label: "Titolo del blog"
         back_to_blog: "Torna al mio blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco durate disponibili"
@@ -857,9 +845,32 @@ it:
       index:
         title: "History della proposta %{title}"
         back_to_proposal: "Torna alla proposta"
+      title: "History della proposta"
+      loading_revisions: "Caricamento revisione..."
+      editor_name: "Autore della modifica:"
+      revision: "Revisione"
+      date_and_time: "Data e ora"
+      present_life_cycle: "Ciclo di vita attuale"
+      no_revision: "Nessuna revisione"
+      life_cycle: "Ciclo di vita"
+      life_cycle_number: "Ciclo di vita numero"
+      end_date: "Data termine:"
+      score_reached: "Score raggiunto:"
+      evaluation_reached: "Numero di valutazioni:"
+      quorum_used: "Quorum utilizzato:"
+      editors_in_life_cycle: "Autori durante questo ciclo di vita:"
     tags:
       show:
         related_title: "Tag correlati"
+      list_proposals_with_tag: "Elenco proposte con tag:"
+      no_proposals_with_tag: "Non vi sono ancora proposte con questo tag"
+      list_posts_with_tag: "Elenco post con tag:"
+      no_posts_with_tag: "Non vi sono ancora Post con questo tag"
+      list_groups_with_tags: "Elenco gruppi con tag:"
+      no_groups_with_tag: "Non vi sono gruppi con questo tag"
+      proposals_tab: "Proposte"
+      posts_tab: "Post"
+      groups_tab: "Gruppi"
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
@@ -868,9 +879,6 @@ it:
       block_user: "Blocca utente"
       blocked_user_list: "Elenco utenti bloccati"
       block: "Sblocca"
-    area_roles:
-      new:
-        title: "Nuovo ruolo"
   pl:
     comments:
       zero: "nessun commento"
@@ -1206,6 +1214,7 @@ it:
       role_created: "Ruolo creato correttamente"
       role_changed: "Ruolo modificato correttamente"
       role_deleted: "Ruolo eliminato correttamente"
+      user_removed_from_group: "rimosso correttamente dal gruppo"
     user:
       click_to_change: "Fai clic sulle informazioni che desideri modificare"
       info_updated: "Informazioni aggiornate correttamente"

@@ -3,7 +3,7 @@
         function change_notification_block(el) {
             if (el.checked) {
                 $.ajax({
-                    data: "id=" + el.value + "&block=false",
+                    data: "id=" + el.value + "&block=false"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_notification_block",
                     dataType: 'script',
                     type: 'post'
@@ -12,7 +12,7 @@
             }
             else {
                 $.ajax({
-                    data: "id=" + el.value + "&block=true",
+                    data: "id=" + el.value + "&block=true"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_notification_block",
                     dataType: 'script',
                     type: 'post'
@@ -25,7 +25,7 @@
         function change_email_notification_block(el) {
             if (el.checked) {
                 $.ajax({
-                    data: "id=" + el.value + "&block=false",
+                    data: "id=" + el.value + "&block=false"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_email_notification_block",
                     dataType: 'script',
                     type: 'post'
@@ -33,7 +33,7 @@
             }
             else {
                 $.ajax({
-                    data: "id=" + el.value + "&block=true",
+                    data: "id=" + el.value + "&block=true"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_email_notification_block",
                     dataType: 'script',
                     type: 'post'
@@ -44,7 +44,7 @@
         function change_email_block(el) {
             if (el.checked) {
                 $.ajax({
-                    data: "block=false",
+                    data: "block=false"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_email_block",
                     dataType: 'script',
                     type: 'post'
@@ -53,7 +53,7 @@
             }
             else {
                 $.ajax({
-                    data: "block=true",
+                    data: "block=true"+"&l=<%=I18n.locale%>",
                     url: "/notifications/change_email_block",
                     dataType: 'script',
                     type: 'post'
