@@ -208,6 +208,7 @@ it:
         no_users_yet: "Qui potrai gestire i ruoli dei partecipanti quando ve ne saranno."
         default_role: "Ruolo predefinito del gruppo"
         confirm_role_deletion: "Sei sicuro di voler eliminare questo ruolo?"
+        remove_user: "Rimuovi utente"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -771,6 +772,8 @@ it:
           title: "Le notifiche"
         your_contributes: "I tuoi ultimi contributi"
         your_territory: "Il tuo territorio (test)"
+        no_proposals_to_vote_now: "Nessuna proposta in votazione al momento"
+        proposals_now_voting: "Proposte in votazione adesso"
     open_space:
       layout:
         proposals_button: "LE PROPOSTE"
@@ -833,6 +836,14 @@ it:
     tags:
       show:
         related_title: "Tag correlati"
+    footer:
+      for_edemocracy: "per l'e-democracy"
+      go_to_main_site: "Vai al sito principale"
+    moderator_panel:
+      title: "Pannello moderazione"
+      block_user: "Blocca utente"
+      blocked_user_list: "Elenco utenti bloccati"
+      block: "Sblocca"
   pl:
     comments:
       zero: "nessun commento"
@@ -937,7 +948,7 @@ it:
         bad_score: Quorum negativo (percentuale)
         bad_score_title: "Gradimento al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
-        condition_title: "Le condizioni di Durata e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
+        condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
@@ -1186,6 +1197,9 @@ it:
     events:
       event_deleted: "Evento eliminato correttamente"
       event_updated: "Evento aggiornato correttamente"
+    moderator_panel:
+      account_blocked: "Account bloccato"
+      account_unblocked: "Account sbloccato"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

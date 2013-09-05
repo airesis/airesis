@@ -129,7 +129,7 @@ en:
         get_out_of_group_button: "Get out of the group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
-        votations_title: "Votations you participated in"
+        votations_title: "Votes you participated in"
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
@@ -208,6 +208,7 @@ en:
         no_users_yet: "Here you will be able to manage participants roles, when there will be some."
         default_role: "Default role in the group"
         confirm_role_deletion: "Are you sure you want to delete this role?"
+        remove_user: "Remove user"
       edit_proposals:
         title: 'Manage quorum and proposals'
       index:
@@ -217,7 +218,7 @@ en:
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
         find_button: "Search"
-        groups_list: "Group participations"
+        groups_list: "Groups you participate in"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
         no_groups_yet: "You don't participate to any %{name} yet"
@@ -252,13 +253,13 @@ en:
         rules_button: "Rules"
         post_button: "Insert posts"
         blog_button: "Create my Blog"
-        participants_list: "participant list "
+        participants_list: "Participant list "
         invite_button: "Invite your friends!"
         show_all_participants: "Shows all %{count} ..."
         participants_full_list: "Complete list of group members"
         no_participants: "No users participating to this group yet."
         no_blogs_yet: "No blog posts in this group yet, come back soon."
-        waiting_participation_requests: "participation requests waiting for answer"
+        waiting_participation_requests: "Participation requests waiting for answer"
         accept_request_button: "Accept"
         reject_request_button: "Reject"
         ask_participate_button: "Ask to be part of the group"
@@ -771,6 +772,8 @@ en:
           title: "Alerts"
         your_contributes: "Your last contributions"
         your_territory: "Your territory (test)"
+        no_proposals_to_vote_now: "No proposals in the voting phase at the moment"
+        proposals_now_voting: "Proposals to vote in now"
     open_space:
       layout:
         proposals_button: "PROPOSALS"
@@ -833,6 +836,14 @@ en:
     tags:
       show:
         related_title: "Related tags"
+    footer:
+      for_edemocracy: "for e-democracy"
+      go_to_main_site: "Go to main site"
+    moderator_panel:
+      title: "Moderator panel"
+      block_user: "Block user"
+      blocked_user_list: "List of blocked users"
+      block: "Unblock"
   pl:
     comments:
       zero: "no comment"
@@ -933,11 +944,11 @@ en:
         percentage: 'Participants (percentage)'
         percentage_title: 'Minimum number of participants in the discussion as a percentage of the number of participants in the group'
         good_score: 'Quorum (percentage)'
-        good_score_title: 'Rating to be achieved in order to bring a vote on the proposal'
+        good_score_title: 'Rating to be achieved in order to bring the proposal to the voting phase'
         bad_score: 'Bad Quorum (percentage)'
-        bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the quorum is not met'
+        bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met'
         condition: Condition
-        condition_title: 'The conditions of Duration and Participants must be both overcome or just one of them?'
+        condition_title: 'The conditions of Time and Participants must be both overcome or just one of them?'
       search_partecipant:
         role_id: 'Role'
         keywords: 'Name or surname'
@@ -1186,6 +1197,9 @@ en:
     events:
       event_deleted: "Event successfully deleted"
       event_updated: "Event successfully updated"
+    moderator_panel:
+      account_blocked: "Account blocked"
+      account_unblocked: "Account unblocked"
   interest_borders:
       hint: "Type a few characters to search for a place"
       no_place_found: "No place found"
