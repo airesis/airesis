@@ -5,10 +5,10 @@ module Frm
 
       def update
         if @topic.update_attributes(params[:topic], :as => :admin)
-          flash[:notice] = t("forem.topic.updated")
+          flash[:notice] = t("frm.topic.updated")
           redirect_to forum_topic_path(@topic.forum, @topic)
         else
-          flash.alert = t("forem.topic.not_updated")
+          flash.alert = t("frm.topic.not_updated")
           render :action => "edit"
         end
       end
@@ -16,25 +16,25 @@ module Frm
       def destroy
         forum = @topic.forum
         @topic.destroy
-        flash[:notice] = t("forem.topic.deleted")
+        flash[:notice] = t("frm.topic.deleted")
         redirect_to group_forum_topics_url(@group,forum)
       end
 
       def toggle_hide
         @topic.toggle!(:hidden)
-        flash[:notice] = t("forem.topic.hidden.#{@topic.hidden?}")
+        flash[:notice] = t("frm.topic.hidden.#{@topic.hidden?}")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic)
       end
 
       def toggle_lock
         @topic.toggle!(:locked)
-        flash[:notice] = t("forem.topic.locked.#{@topic.locked?}")
+        flash[:notice] = t("frm.topic.locked.#{@topic.locked?}")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic)
       end
 
       def toggle_pin
         @topic.toggle!(:pinned)
-        flash[:notice] = t("forem.topic.pinned.#{@topic.pinned?}")
+        flash[:notice] = t("frm.topic.pinned.#{@topic.pinned?}")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic)
       end
 

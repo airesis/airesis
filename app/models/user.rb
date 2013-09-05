@@ -527,7 +527,7 @@ class User < ActiveRecord::Base
     forum.moderator?(self)
   end
 
-  def self.forem_autocomplete(term)
+  def self.autocomplete(term)
     where("email LIKE ?", "%#{term}%").
         limit(10).
         select("email, id").

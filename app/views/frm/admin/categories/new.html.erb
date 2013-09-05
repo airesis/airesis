@@ -1,3 +1,6 @@
-<h2><%= t('new', :scope => 'forem.admin.category') %></h2>
+<h2><%= t('new', :scope => 'frm.admin.category') %></h2>
 
-<%= render "form" %>
+<%= simple_form_for @category, url: group_frm_admin_categories_url(@group) do |f| %>
+    <%= f.input :name %>
+    <%= f.submit :class => "btn blue" %>
+<% end %>

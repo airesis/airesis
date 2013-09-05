@@ -1,14 +1,14 @@
-<h2><%= t('forem.admin.group.index') %></h2>
-<%= link_to t('back_to_admin', :scope => "forem.admin"), group_frm_admin_root_url(@group), class: 'btn' %><br><br>
-<%= link_to t('forem.admin.group.new'), new_group_frm_admin_group_url(@group), :class => "btn blue" %>
+<h2><%= t('frm.admin.group.index') %></h2>
+<%= link_to t('back_to_admin', :scope => "frm.admin"), group_frm_admin_root_url(@group), class: 'btn' %><br><br>
+<%= link_to t('frm.admin.group.new'), new_group_frm_admin_group_url(@group), :class => "btn blue" %>
 
 <table id='groups' class='index table table-striped' cellspacing='0'>
   <thead>
   <tr>
 
-    <th><%= t('name', :scope => 'forem.admin.groups') %></th>
-    <th><%= t('edit', :scope => 'forem.admin.groups') %></th>
-    <th><%= t('delete', :scope => 'forem.admin.groups') %></th>
+    <th><%= t('name', :scope => 'frm.admin.groups') %></th>
+    <th><%= t('edit', :scope => 'frm.admin.groups') %></th>
+    <th><%= t('delete', :scope => 'frm.admin.groups') %></th>
   </tr>
   </thead>
   <tbody>

@@ -1,17 +1,26 @@
 <div id='forum'>
-  h2><%= link_to t('forem.forum.forums'), group_forums_url(@group) %> &raquo; <%= link_to forem_emojify(forum.category), group_frm_category_url(@group,forum.category) %> &raquo; <%= link_to forem_emojify(forum.title), group_forum_url(@group, forum) %></h2>
-  <span id='description'><%= forem_format(forum.description) %></span>
+  <h2><%= link_to t('frm.forum.forums'), group_forums_url(@group) %> &raquo; <%= link_to forem_emojify(forum.category), group_frm_category_url(@group, forum.category) %> &raquo; <%= link_to forem_emojify(forum.title), group_forum_url(@group, forum) %></h2>
+
+
   <div id='forum_topic_links' class='btn-group'>
     <% unless @topic.try(:new_record?) %>
-      <% if can? :create_topic, @forum %>
-        <%= link_to t('forem.topic.links.new'), new_group_forum_topic_url(@group,forum), :class => "btn blue" %>
-      <% end %>
+        <% if can? :create_topic, @forum %>
+            <%= link_to t('frm.topic.links.new'), new_group_forum_topic_url(@group, forum), :class => "btn blue" %>
+        <% end %>
     <% end %>
-    <% if @topic %>
-      <%= link_to t('forem.topic.links.back_to_topics'), group_forum_url(@group,forum), :class => "btn" %>
-    <% end %>
-    <% if can? :moderate, @forum %>
-      <%= link_to t('forem.forum.moderator_tools'), group_frm_forum_moderator_tools_url(@group,forum), :class => "btn backButton" %>
-    <% end %>
+
+  </div>
+
+  <div class='forum_title'>
+    <h2><%= forem_format(forum.description) %></h2>
   </div>
 </div>
+
+<% content_for :left_panel do %>
+    <% if @topic %>
+        <%= link_to t('frm.topic.links.back_to_topics'), group_forum_url(@group, forum), :class => "btn" %>
+    <% end %>
+    <% if can? :moderate, @forum %>
+        <%= link_to t('frm.forum.moderator_tools'), group_frm_forum_moderator_tools_url(@group, forum), :class => "btn backButton" %>
+    <% end %>
+<% end %>

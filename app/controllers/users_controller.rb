@@ -287,7 +287,7 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    users = User.forem_autocomplete(params[:term])
+    users = User.autocomplete(params[:term])
     users = users.map do |u|
       { :id => u.id, :identifier => u.send('email') }
     end

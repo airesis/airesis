@@ -1,5 +1,5 @@
 it:
-  forem:
+  frm:
     general:
       forum: Forum
       topics: Argomenti
@@ -15,8 +15,9 @@ it:
 
     access_denied: "Non hai il permesso di farlo."
     admin:
-      area: Area Amministratore
+      area: "Area Amministratore"
       welcome: "Benvenuto nell'Area Amministratore di forem."
+      back_to_admin: "Torna all'Area Amministratore"
       forum:
         index: Gestisci Forums
         new: Creo un nuovo forum
@@ -56,6 +57,7 @@ it:
         not_created: Non è stato possibile creare la sezione del forum.
         updated: La sezione del forum è stata aggiornata.
         not_updated: Non è stato possibile aggiornare la sezione del forum.
+        edit: "Modifica categoria %{title}"
       categories:
         edit: Modifica
         delete: Elimina
@@ -89,7 +91,7 @@ it:
         none: Nessuno
     topic:
       headings:
-        topic: Argomento
+        topic: Topic
         latest: Ultimo
         posts: Messaggi
         views: Visite
@@ -97,7 +99,7 @@ it:
         success: L'argomento modificato è stato moderato.
         no_option_selected: Nessuna opzione di moderazione selezionata.
       received_reply: Un argomento a cui sei iscritto ha ricevuto risposta.
-      reply: Rispota
+      reply: Rispondi
       quote: Quota
       delete: Elimina
       created: L'argomento è stato creato.
@@ -112,7 +114,7 @@ it:
       unsubscribed: Non sei più iscritto all'argomento.
       none: Al momento non ci sono argomenti in questo forum.
       links:
-        new: Nuovo argomento
+        new: Nuovo topic
         back_to_topics: Torna agli argomenti
         edit: Modifica argomento
       not_found: Non è stato possibile trovare l'argomento che stavi cercando.
@@ -156,7 +158,6 @@ it:
       deleted: Il tuo messaggio è stato eliminato.
       deleted_with_topic: Unico messaggio nell'argomento eliminato. Anche l'argomento è stato eliminato.
       cannot_delete: Non puoi eliminare un messaggio che non ti appartiene
-      in_reply_to: In risposta a
     posts:
       moderation:
         moderate: Modera
@@ -165,6 +166,9 @@ it:
         success: I messaggi selezionati sono stati moderati.
       post:
         pending_review: Questo messaggio sta aspettando revisione. Solo l'autore e i moderatori possono vederlo.
+        in_reply_to: in risposta a
+      reply_to_post:
+        in_reply_to: "in risposta a"
     moderation:
       title: "Strumenti moderazione per %{forum}"
   helpers:
@@ -197,18 +201,5 @@ it:
   by: da
   started_by: "Iniziato da "
   are_you_sure: Sei sicuro?
-  frm:
-    forums:
-      index:
-        title: "Indice dei forum suddivisi per categoria"
-  delete: "Elimina"
-  edit: "Modifica"
-  delete_confirm: "Sei sicuro di voler eliminare questa categoria?"
-  pages:
-    frm:
-      admin:
-        groups:
-          show:
-            current_members: "Membri del gruppo"
-            add_member: "Aggiungi membro"
-            add_a_new_member: "Aggiungi membri al gruppo"
+  lst_post: "Ultimo messaggio"
+  last_post: "Ultimo topic"

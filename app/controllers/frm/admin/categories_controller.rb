@@ -23,7 +23,7 @@ module Frm
       end
 
       def update
-        if @category.update_attributes(params[:category])
+        if @category.update_attributes(params[:frm_category])
           update_successful
         else
           update_failed
@@ -41,27 +41,27 @@ module Frm
       end
 
       def create_successful
-        flash[:notice] = t("forem.admin.category.created")
+        flash[:notice] = t("frm.admin.category.created")
         redirect_to group_frm_admin_categories_url(@group)
       end
 
       def create_failed
-        flash.now.alert = t("forem.admin.category.not_created")
+        flash.now.alert = t("frm.admin.category.not_created")
         render :action => "new"
       end
 
       def destroy_successful
-        flash[:notice] = t("forem.admin.category.deleted")
+        flash[:notice] = t("frm.admin.category.deleted")
         redirect_to group_frm_admin_categories_url(@group)
       end
 
       def update_successful
-        flash[:notice] = t("forem.admin.category.updated")
+        flash[:notice] = t("frm.admin.category.updated")
         redirect_to group_frm_admin_categories_url(@group)
       end
 
       def update_failed
-        flash.now.alert = t("forem.admin.category.not_updated")
+        flash.now.alert = t("frm.admin.category.not_updated")
         render :action => "edit"
       end
 

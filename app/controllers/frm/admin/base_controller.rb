@@ -15,8 +15,8 @@ module Frm
 
       def authenticate_forem_admin
         if !current_user || !current_user.forem_admin?
-          flash.alert = t("forem.errors.access_denied")
-          redirect_to group_forums_path #TODO: not positive where to redirect here
+          flash.alert = t("frm.errors.access_denied")
+          redirect_to group_forums_url(@group)
         end
       end
     end

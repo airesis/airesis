@@ -1,19 +1,19 @@
-<h2><%= t('forem.admin.group.members', :group => forem_emojify(@frm_group.name)) %></h2>
-<%= link_to t('back_to_groups', :scope => "forem.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
+<h2><%= t('frm.admin.group.members', :group => forem_emojify(@frm_group.name)) %></h2>
+<%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
 <div class="row">
-  <h3><%= t('pages.frm.admin.groups.show.add_a_new_member') %></h3>
+  <h3><%= t('.add_a_new_member') %></h3>
   <%= form_tag add_group_frm_admin_frm_group_members_url(@group,@frm_group) do %>
     <p>
       <%= text_field_tag "frm_user_id" %>
     </p>
     <p class="span1">
-      <%= submit_tag t('pages.frm.admin.groups.show.add_member'), :class => "btn blue" %>
+      <%= submit_tag t('.add_member'), :class => "btn blue" %>
     </p>
   <% end %>
 </div>
 
 <% if @frm_group.members.any? %>
-  <h3><%= t('pages.frm.admin.groups.show.current_members') %></h3>
+  <h3><%= t('.current_members') %></h3>
   <div class="row">
     <ul id='members'>
       <% @frm_group.members.each do |member| %>

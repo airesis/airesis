@@ -1,6 +1,6 @@
 module Frm
   class PostsController < Frm::ApplicationController
-    before_filter :authenticate_forem_user
+    before_filter :authenticate_user!
     before_filter :find_topic
     before_filter :reject_locked_topic!, :only => [:create]
     before_filter :block_spammers, :only => [:new, :create]
@@ -54,39 +54,39 @@ module Frm
     end
 
     def create_successful
-      flash[:notice] = t("forem.post.created")
+      flash[:notice] = t("frm.post.created")
       redirect_to group_forum_topic_url(@group, @topic.forum, @topic, :page => @topic.last_page)
     end
 
     def create_failed
       params[:reply_to_id] = params[:post][:reply_to_id]
-      flash.now.alert = t("forem.post.not_created")
+      flash.now.alert = t("frm.post.not_created")
       render :action => "new"
     end
 
     def destroy_successful
       if @post.topic.posts.count == 0
         @post.topic.destroy
-        flash[:notice] = t("forem.post.deleted_with_topic")
+        flash[:notice] = t("frm.post.deleted_with_topic")
         redirect_to group_forum_url(@group,@topic.forum)
       else
-        flash[:notice] = t("forem.post.deleted")
+        flash[:notice] = t("frm.post.deleted")
         redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
       end
     end
 
     def update_successful
-      redirect_to group_forum_topic_url(@group,@topic.forum, @topic), :notice => t('edited', :scope => 'forem.post')
+      redirect_to group_forum_topic_url(@group,@topic.forum, @topic), :notice => t('edited', :scope => 'frm.post')
     end
 
     def update_failed
-      flash.now.alert = t("forem.post.not_edited")
+      flash.now.alert = t("frm.post.not_edited")
       render :action => "edit"
     end
 
     def ensure_post_ownership!
       unless @post.owner_or_admin? current_user
-        flash[:alert] = t("forem.post.cannot_delete")
+        flash[:alert] = t("frm.post.cannot_delete")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic) and return
       end
     end
@@ -101,15 +101,15 @@ module Frm
 
     def block_spammers
       if current_user.forem_spammer?
-        flash[:alert] = t('forem.general.flagged_for_spam') + ' ' +
-                        t('forem.general.cannot_create_post')
+        flash[:alert] = t('frm.general.flagged_for_spam') + ' ' +
+                        t('frm.general.cannot_create_post')
         redirect_to :back
       end
     end
 
     def reject_locked_topic!
       if @topic.locked?
-        flash.alert = t("forem.post.not_created_topic_locked")
+        flash.alert = t("frm.post.not_created_topic_locked")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic) and return
       end
     end

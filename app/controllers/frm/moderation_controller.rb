@@ -11,7 +11,7 @@ module Frm
 
     def posts
       Frm::Post.moderate!(params[:posts] || [])
-      flash[:notice] = t('forem.posts.moderation.success')
+      flash[:notice] = t('frm.posts.moderation.success')
       redirect_to :back
     end
 
@@ -19,9 +19,9 @@ module Frm
       if params[:topic]
         topic = forum.topics.find(params[:topic_id])
         topic.moderate!(params[:topic][:moderation_option])
-        flash[:notice] = t("forem.topic.moderation.success")
+        flash[:notice] = t("frm.topic.moderation.success")
       else
-        flash[:error] = t("forem.topic.moderation.no_option_selected")
+        flash[:error] = t("frm.topic.moderation.no_option_selected")
       end
       redirect_to :back
     end

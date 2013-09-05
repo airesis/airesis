@@ -1,4 +1,5 @@
+<h2><%= t("frm.forum.edit", :title => forem_emojify(@forum.title)).html_safe %></h2>
 
-  <h2><%= t("forem.forum.edit", :title => forem_emojify(@forum.title)).html_safe %></h2>
-
-  <%= render "form" %>
+<%= simple_form_for  @forum, url: group_frm_admin_forum_url(@group,@forum) do |f| %>
+    <%= render partial: "form", locals: {f: f} %>
+<% end %>

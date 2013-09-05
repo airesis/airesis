@@ -15,17 +15,17 @@ module Frm
       def create
         @frm_group = Frm::Group.new(params[:frm_group])
         if @frm_group.save
-          flash[:notice] = t("forem.admin.group.created")
+          flash[:notice] = t("frm.admin.group.created")
           redirect_to group_frm_admin_group_url(@group,@frm_group)
         else
-          flash[:alert] = t("forem.admin.group.not_created")
+          flash[:alert] = t("frm.admin.group.not_created")
           render :new
         end
       end
 
       def destroy
         @frm_group.destroy
-        flash[:notice] = t("forem.admin.group.deleted")
+        flash[:notice] = t("frm.admin.group.deleted")
         redirect_to group_frm_admin_groups_url(@group)
       end
 

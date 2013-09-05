@@ -1,5 +1,4 @@
 require 'frm/engine'
-require 'frm/autocomplete'
 require 'frm/default_permissions'
 require 'workflow'
 

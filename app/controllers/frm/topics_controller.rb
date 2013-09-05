@@ -2,7 +2,7 @@ module Frm
   class TopicsController < Frm::ApplicationController
 
     helper 'frm/posts'
-    before_filter :authenticate_forem_user, :except => [:show]
+    before_filter :authenticate_user!, :except => [:show]
     before_filter :find_forum
     before_filter :block_spammers, :only => [:new, :create]
 
@@ -56,33 +56,33 @@ module Frm
 
     protected
     def create_successful
-      redirect_to group_forum_topic_url(@group,@forum, @topic), :notice => t("forem.topic.created")
+      redirect_to group_forum_topic_url(@group,@forum, @topic), :notice => t("frm.topic.created")
     end
 
     def create_unsuccessful
-      flash.now.alert = t('forem.topic.not_created')
+      flash.now.alert = t('frm.topic.not_created')
       render :action => 'new'
     end
 
     def destroy_successful
-      flash[:notice] = t("forem.topic.deleted")
+      flash[:notice] = t("frm.topic.deleted")
 
       redirect_to group_forum_url(@group,@topic.forum)
     end
 
     def destroy_unsuccessful
-      flash.alert = t("forem.topic.cannot_delete")
+      flash.alert = t("frm.topic.cannot_delete")
 
       redirect_to group_forum_url(@group,@topic.forum)
     end
 
     def subscribe_successful
-      flash[:notice] = t("forem.topic.subscribed")
+      flash[:notice] = t("frm.topic.subscribed")
       redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
     end
 
     def unsubscribe_successful
-      flash[:notice] = t("forem.topic.unsubscribed")
+      flash[:notice] = t("frm.topic.unsubscribed")
       redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
     end
 
@@ -105,7 +105,7 @@ module Frm
         @topic = forum_topics(@forum, current_user).find(params[:id])
         authorize! :read, @topic
       rescue ActiveRecord::RecordNotFound
-        flash.alert = t("forem.topic.not_found")
+        flash.alert = t("frm.topic.not_found")
         redirect_to group_forum_url(@group,@forum) and return
       end
     end
@@ -116,8 +116,8 @@ module Frm
 
     def block_spammers
       if current_user.forem_spammer?
-        flash[:alert] = t('forem.general.flagged_for_spam') + ' ' +
-                        t('forem.general.cannot_create_topic')
+        flash[:alert] = t('frm.general.flagged_for_spam') + ' ' +
+                        t('frm.general.cannot_create_topic')
         redirect_to :back
       end
     end

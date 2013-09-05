@@ -15,7 +15,7 @@ module Frm
 
       @topics = if forem_admin_or_moderator?(@forum)
         @forum.topics
-      else                               documents
+      else
         @forum.topics.visible.approved_or_pending_review_for(current_user)
       end
 

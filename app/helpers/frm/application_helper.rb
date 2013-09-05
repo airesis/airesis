@@ -10,16 +10,10 @@ module Frm
       as_quoted_text(text)
     end
 
-    def forem_markdown(text, *options)
-      #TODO: delete deprecated method
-      Rails.logger.warn("DEPRECATION: forem_markdown is replaced by forem_format() + forem-markdown_formatter gem, and will be removed")
-      forem_format(text)
-    end
-
     def forem_pages_widget(collection)
       if collection.num_pages > 1
         content_tag :div, :class => 'pages' do
-          (t('forem.common.pages') + ':' + forem_paginate(collection)).html_safe
+          (t('frm.common.pages') + ':' + forem_paginate(collection)).html_safe
         end
       end
     end

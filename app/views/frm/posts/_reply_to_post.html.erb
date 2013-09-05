@@ -1,20 +1,38 @@
-<a name='post-<%= post.id %>'></a>
-<div id='post_<%= post.id %>' class='reply_to_post post <%= cycle('odd', 'even') -%> span10'>
-  <div class='user span2'>
-    <div class='username'>
-      <%= link_to_user post.user %>
-    </div>
-    <div class='icon'><%=post.user.user_image_tag 60 %></div>
-  </div>
+<table class="posts">
+  <tr>
 
-  <div class='contents span7'>
-    <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>
-    <%= forem_format(post.text) %>
+    <td class="user_post" rowspan="2">
+      <a name='post-<%= post.id %>'></a>
 
-    <% if post.reply_to %>
-      <span class='in_reply_to'>
-        <%= link_to "#{t("forem.post.in_reply_to")} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
-      </span>
-    <% end %>
-  </div>
-</div>
+      <div class='user span2'>
+        <div class='username'>
+          <%= link_to_if Frm.user_profile_links, post.user.fullname, post.user %>
+        </div>
+        <div class='icon'><%= post.user.user_image_tag 100 %></div>
+      </div>
+    </td>
+    <td>
+      <div class="post-header">
+        <a href='#post-<%= post.id %>'>
+          <div class="post-when">
+            <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>
+            <% if post.reply_to %>
+            <span class='in-reply-to'>
+              <%= link_to "#{t(".in_reply_to")} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
+            </span>
+            <% end %>
+          </div>
+        </a>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="post-body">
+        <%= forem_format(post.text) %>
+      </div>
+
+    </td>
+  </tr>
+
+</table>

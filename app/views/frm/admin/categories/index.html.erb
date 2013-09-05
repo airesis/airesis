@@ -1,15 +1,12 @@
-<h2><%= t("forem.admin.category.index") %></h2>
-<%= link_to t('back_to_admin', :scope => "forem.admin"), group_frm_admin_root_url(@group), class: 'btn' %><br><br>
-<%= link_to t("forem.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue" %><br>
-<br>
+<h2><%= t("frm.admin.category.index") %></h2>
 
 <table id='forums' class='forums table-striped table' cellspacing='0'>
   <thead>
   <tr>
 
-    <th><%= t('category', :scope => 'forem.admin.categories') %></th>
-    <th><%= t('edit', :scope => 'forem.admin.categories') %></th>
-    <th><%= t('delete', :scope => 'forem.admin.categories') %></th>
+    <th><%= t('category', :scope => 'frm.admin.categories') %></th>
+    <th><%= t('edit', :scope => 'frm.admin.categories') %></th>
+    <th><%= t('delete', :scope => 'frm.admin.categories') %></th>
   </tr>
   </thead>
   <tbody>
@@ -19,13 +16,16 @@
         <td>
           <%= forem_emojify(category.name) %>
         </td>
-        <td><%= link_to t('edit', :scope => 'forem.admin.categories'), edit_group_frm_admin_category_url(@group, category), :class => "btn editButton" %></td>
-        <td><%= link_to t('delete', :scope => 'forem.admin.categories'), group_frm_admin_category_url(@group, category), :method => :delete,
-                        data: {:confirm => t('delete_confirm')}, :class => "btn trashButton" %></td>
+        <td><%= link_to t('edit', :scope => 'frm.admin.categories'), edit_group_frm_admin_category_url(@group, category), :class => "btn editButton" %></td>
+        <td><%= link_to t('delete', :scope => 'frm.admin.categories'), group_frm_admin_category_url(@group, category), :method => :delete,
+                        data: {:confirm => t('delete_confirm', :scope => 'frm.admin.categories')}, :class => "btn trashButton" %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
+<%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue" %><br>
 
-<%= link_to t('forem.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn' %>
-
+<% content_for :left_panel do %>
+    <%= link_to t('back_to_admin', :scope => "frm.admin"), group_frm_admin_root_url(@group), class: 'btn' %>
+    <%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn' %>
+<% end %>
