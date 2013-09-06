@@ -406,9 +406,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA'
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE'
         end
         respond_to do |format|
           format.js

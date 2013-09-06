@@ -27,7 +27,7 @@
 	function change_default_anonima(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",     
             dataType: 'script',
         	type: 'post'    
@@ -37,7 +37,7 @@
 	function change_default_visible_outside(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_default_visible_outside",     
             dataType: 'script',
         	type: 'post'    
@@ -47,7 +47,7 @@
     function change_default_secret_vote(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active="+active,
+            data: "active="+active+"&l=<%=I18n.locale%>",
             url: "/groups/" + <%=@group.id%>  + "/change_default_secret_vote",
             dataType: 'script',
             type: 'post'
@@ -57,7 +57,7 @@
 	function change_advanced_options(el) {
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
-        	data: "active="+active,
+        	data: "active="+active+"&l=<%=I18n.locale%>",
         	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",     
             dataType: 'script',
         	type: 'post'    
@@ -75,23 +75,7 @@
 					$('#new_quorum').dialog('destroy');			
 				}
 			});
-		});		
-			
-		$('#quorum_table').dataTable( {
-	        "oLanguage": {
-	            "sLengthMenu": "Mostra _MENU_ quorum per pagina",
-	             "sSearch": "Cerca:",
-	            "sZeroRecords": "Nessun quorum, spiacente..",
-	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ quorum",
-	            "sInfoEmpty": "Sto mostrando 0 quorum",
-	            "sInfoFiltered": "(filtrati da un totale di _MAX_ quorum)",
-	            "oPaginate": {
-			        "sPrevious": "Pagina precedente",
-			        "sNext": "Pagina successiva"
-			      }
-	        },
-	        "aoColumns": [null,{ "bSortable": false }]  
-	    });
+		});
 	    
 	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");	     
 	});

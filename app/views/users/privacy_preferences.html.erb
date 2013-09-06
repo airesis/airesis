@@ -92,7 +92,7 @@
     function change_show_tooltips(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active +"&l=<%=I18n.locale%>",
             url: "/users/change_show_tooltips",
             dataType: 'script',
             type: 'post'
@@ -102,7 +102,7 @@
     function change_show_urls(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active +"&l=<%=I18n.locale%>",
             url: "/users/change_show_urls",
             dataType: 'script',
             type: 'post'
@@ -112,7 +112,7 @@
     function change_receive_messages(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active +"&l=<%=I18n.locale%>",
             url: "/users/change_receive_messages",
             dataType: 'script',
             type: 'post'
@@ -128,7 +128,7 @@
 
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active +"&l=<%=I18n.locale%>",
             url: "/users/change_rotp_enabled",
             dataType: 'script',
             type: 'post'

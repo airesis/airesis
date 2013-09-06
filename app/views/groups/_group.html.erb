@@ -121,7 +121,8 @@
                 .charCount({
                     counterElement: 'div',
                     allowed: 2000,
-                    warning: 100
+                    warning: 100,
+                    counterText: '<%= t('pages.proposals.show.characters_left')%> '
                 });
 
         $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {

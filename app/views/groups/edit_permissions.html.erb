@@ -55,13 +55,13 @@
 				
 				var currentValue = select.val();
 				var currentLabel = $('option:selected',select).text();
-				if (confirm("Il ruolo dell'utente " + username + " passerà da " + previousLabel + " a " + currentLabel +". Confermi?")) {
+				if (confirm("<%=t('pages.groups.edit_permissions.confirm_role_change1')%> " + username + " <%=t('pages.groups.edit_permissions.confirm_role_change2')%> " + previousLabel + " <%=t('pages.groups.edit_permissions.confirm_role_change3')%> " + currentLabel +". <%=t('pages.groups.edit_permissions.confirm_role_change4')%>")) {
 					previousValue = currentValue;
 					previousLabel = currentLabel;
 					select.disabled = true;
 					//se l'utente conferma invio la richiesta al server
 					$.ajax({
-			        	data: "user_id="+user_id+"&role_id="+currentValue+"&group_id=<%=@group.id%>",
+			        	data: "user_id="+user_id+"&role_id="+currentValue+"&group_id=<%=@group.id%>"+"&l=<%=I18n.locale%>",
 			        	url: "/partecipation_roles/change_user_permission",     
 			            dataType: 'script',
 			        	type: 'post'    
@@ -75,24 +75,7 @@
 				}					
 			})
 		});
-		
-		
-		
-		$('#roles_table').dataTable( {
-	        "oLanguage": {
-	            "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-	             "sSearch": "Cerca:",
-	            "sZeroRecords": "Nessun utente, spiacente..",
-	            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
-	            "sInfoEmpty": "Sto mostrando 0 utenti",
-	            "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
-	            "oPaginate": {
-			        "sPrevious": "Pagina precedente",
-			        "sNext": "Pagina successiva"
-			    }
-	        },
-	        "aoColumns": [null,{ "bSortable": false },{ "bSortable": false }]
-	    });
+
 	    
 	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");
 	}
@@ -109,7 +92,7 @@
     
 	function change_default_role(role_id){
     		$.ajax({
-	        	data: "role_id="+role_id+"&group_id=<%=@group.id%>",
+	        	data: "role_id="+role_id+"&group_id=<%=@group.id%>"+"&l=<%=I18n.locale%>",
 	        	url: "/partecipation_roles/change_default_role",     
 	            dataType: 'script',
 	        	type: 'post'    

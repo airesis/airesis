@@ -1,13 +1,13 @@
 <div class="history">
   <table>
     <thead>
-    <th>Rev</th>
-    <th>Data e ora</th>
+    <th><%= t('pages.proposal_histories.revision')%></th>
+    <th><%= t('pages.proposal_histories.date_and_time')%></th>
     </thead>
     <tbody>
     <% if @proposal.proposal_lives.count > 0 %>
         <tr>
-          <td colspan="2" style="font-weight: bold">Ciclo di vita attuale</td>
+          <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.present_life_cycle')%></td>
           <td>
           </td>
         </tr>
@@ -30,7 +30,7 @@
                 <% end %>
             <% else %>
                 <tr>
-                  <td colspan=3>Nessuna revisione</td>
+                  <td colspan=3><%= t('pages.proposal_histories.no_revision')%></td>
                 </tr>
             <% end %>
         <% else %>
@@ -49,12 +49,12 @@
                 <% end %>
             <% else %>
                 <tr>
-                  <td colspan=3>Nessuna revisione</td>
+                  <td colspan=3><%=t('pages.proposal_histories.no_revision') %></td>
                 </tr>
             <% end %>
             <% lives.each_with_index do |life, i| %>
                 <tr>
-                  <td colspan="2" style="font-weight: bold">Ciclo di vita <%= life.seq %></td>
+                  <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.life_cycle') %> <%= life.seq %></td>
                   <td>
                     <input type="radio" name="new" value="<%= life.id %>" data-life_id="<%= life.id %>" data-is_life="true">
                   </td>
@@ -77,7 +77,7 @@
                     <% end %>
                 <% else %>
                     <tr>
-                      <td colspan=3>Nessuna revisione</td>
+                      <td colspan=3><%=t('pages.proposal_histories.no_revision') %></td>
                     </tr>
                 <% end %>
             <% end %>

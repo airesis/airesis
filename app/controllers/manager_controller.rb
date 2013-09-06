@@ -12,7 +12,7 @@ class ManagerController < ApplicationController
       @user.surname = 'Eliminato'
       @user.save!
     end
-    flash[:notice] = 'Account bloccato'
+    flash[:notice] = t('info.moderator_panel.account_blocked')
     ResqueMailer.blocked(@user.id).deliver
     redirect_to :back
   end
@@ -28,7 +28,7 @@ class ManagerController < ApplicationController
       @user.blocked_surname = nil
       @user.save!
     end
-    flash[:notice] = 'Account sbloccato'
+    flash[:notice] = t('info.moderator_panel.account_unblocked')
     redirect_to :back
   end
 end

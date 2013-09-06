@@ -1,11 +1,11 @@
 <div class="title">
-  <%= t('pages.home.show.voting_proposals') %>
+  <%= t('pages.home.show.proposals_now_voting') %>
 </div>
 <% @a = current_user.proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
 <% @b = current_user.partecipating_proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
 <% @c = @a | @b %>
 <% if @c.empty? %>
-    <h4><%= 'Nessuna proposta in votazione al momento' %></h4>
+    <h4><%= t('pages.home.show.no_proposals_to_vote_now') %></h4>
     <%else%>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
       <table id="votations_table" class="table_list">

@@ -130,7 +130,7 @@ en:
         get_out_of_group_button: "Get out of the group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
-        votations_title: "Votations you participated in"
+        votations_title: "Votes you participated in"
         proposal_column: "Proposal"
         votation_date_column: "Date"
         vote_column: "Vote"
@@ -184,7 +184,7 @@ en:
         rotp_confirm_enable: "Are you sure you want to enable the security token?"
         rotp_confirm_disable: "Are you sure you want to disable the security token?"
       border_preferences:
-        updating: "Please wait while we update your preferences according to your border preferences."
+        updating: "Please wait while we update your preferences according to your border preferences"
         your_borders: "Your geographical borders of interest"
     groups:
       accept_requests:
@@ -209,6 +209,11 @@ en:
         no_users_yet: "Here you will be able to manage participants roles, when there will be some."
         default_role: "Default role in the group"
         confirm_role_deletion: "Are you sure you want to delete this role?"
+        remove_user: "Remove user"
+        confirm_role_change1: "The role of the user"
+        confirm_role_change2: "will change form"
+        confirm_role_change3: "to"
+        confirm_role_change4: "Confirm?"
       edit_proposals:
         title: 'Manage quorum and proposals'
       index:
@@ -218,16 +223,22 @@ en:
         find_group_label: "Find a group you may be interested in"
         find_title: "Search in the group name or description"
         find_button: "Search"
-        groups_list: "Group participations"
+        groups_list: "Groups you participate in"
         groups_registration: "Group Registration"
         groups_list_2: "Groups list"
         no_groups_yet: "You don't participate to any %{name} yet"
         open_space_title: "Public events"
         show_more: "Show more groups"
-        partecipants_number: "Number of partecipants"
+        search_mask: "Search tool"
+        search_with_query: "using a personalized query"
+        search_with_place: "or geographic border"
+        search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
+        insert_query_or_place: "You must type at least three characters or a geographic border"
+        tags: "Tags"
+        partecipants_number: "Number of participants"
         proposals_number: "Number of proposals"
         events_number: "Number of events"
-        no_results: "No groups found"
+        no_results: "No group found"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -251,13 +262,13 @@ en:
         rules_button: "Rules"
         post_button: "Insert posts"
         blog_button: "Create my Blog"
-        participants_list: "participant list "
+        participants_list: "Participant list "
         invite_button: "Invite your friends!"
         show_all_participants: "Shows all %{count} ..."
         participants_full_list: "Complete list of group members"
         no_participants: "No users participating to this group yet."
         no_blogs_yet: "No blog posts in this group yet, come back soon."
-        waiting_participation_requests: "participation requests waiting for answer"
+        waiting_participation_requests: "Participation requests waiting for answer"
         accept_request_button: "Accept"
         reject_request_button: "Reject"
         ask_participate_button: "Ask to be part of the group"
@@ -268,7 +279,7 @@ en:
           title: "List of your permissions inside the group"
           button: "Permissions list"
         print_all_participants: "Print participants list"
-        last_proposals: "Last inserted proposals"
+        last_proposals: "Recently added proposals"
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -338,16 +349,15 @@ en:
       submit: 'Send me the instructions'
     password:
       title: 'Have you forgotten your password?'
-      submit: 'Please send instructions to reset password'
+      submit: 'Please send instructions to reset password.'
     registration:
       title: 'Register'
-      email_confirmed: "If you register with that email address you will not be asked to confirm your email address"
+      email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Confirm password"
       accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
-      username_or_email: "Your Username or E-mail"
     proposals:
       index:
         title: 'List of proposals'
@@ -400,9 +410,9 @@ en:
         loading_contributions: "Loading contributions, please wait..."
         previos_contributes: "Previous contributions..."
         delete_contribute_confirmation: "Are you sure you want to delete this contribution?"
-        delete_suggestion_confirmation: "Are you sure you want to delete this suggestion?"
+        delete_suggestion_confirmation: "Are you sure you want to delete this comment?"
         offered_as_editor_message: "You offered as an editor for this proposal"
-        offer_as_editor_button: "I wanna be editor for this proposal!"
+        offer_as_editor_button: "I wanna be editor of this proposal!"
         available_editors_button: "Available editors"
         editors_list_title: "List of available editors for this proposal"
         attached_documents: "Attached documents"
@@ -441,10 +451,10 @@ en:
         during_debate: "Debate proceeding"
         comment_inserted_by: "Inserted %{when} by %{who}"
         replies:
-          show_all: "Show all %{count} suggestions..."
+          show_all: "Show all %{count} comments..."
           delete: "Delete"
         reply_button: "Reply"
-        reply_placeholder: "Give your suggestion"
+        reply_placeholder: "Give your comment"
         export_pdf: "Print PDF"
         manage_noise_folder: "Removed contributions (%{removable}/%{removed})"
         noise_folder: "Removed contributions"
@@ -462,6 +472,7 @@ en:
         add_comment: "Add a comment"
         add_contribute: "Give your ideas! Propose modifications of the tex and help the editor improve the proposal"
         login_to_comment: "Login to add a comment"
+        regenerate_nickname: "Regenerate nickname"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -662,7 +673,7 @@ en:
         comments_says: "says..."
       published_button: "Published posts"
       view:
-        comments: "Commenti (%{count})"
+        comments: "Comments (%{count})"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -721,25 +732,6 @@ en:
         title: "Edit blog"
         title_label: "Blog title"
         back_to_blog: "Back to my blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "All available quorum"
@@ -792,7 +784,8 @@ en:
           title: "Alerts"
         your_contributes: "Your last contributions"
         your_territory: "Your territory (test)"
-        voting_proposals: "Proposals in votation"
+        no_proposals_to_vote_now: "No proposals in the voting phase at the moment"
+        proposals_now_voting: "Proposals to vote in now"
     open_space:
       layout:
         proposals_button: "PROPOSALS"
@@ -852,12 +845,40 @@ en:
       index:
         title: "%{title} - Revision History"
         back_to_proposal: "Back to proposal"
+      title: "Revision History"
+      loading_revisions: "Loading revisions..."
+      editor_name: "Author of the revision:"
+      revision: "Revision"
+      date_and_time: "Date and time"
+      present_life_cycle: "Present life cycle"
+      no_revision: "No revision"
+      life_cycle: "Life cycle"
+      life_cycle_number: "Life cycle number"
+      end_date: "Date of end:"
+      score_reached: "Rank reached:"
+      evaluation_reached: "Number of evaluations:"
+      quorum_used: "Quorum used:"
+      editors_in_life_cycle: "Authors in this life cycle:"
     tags:
       show:
         related_title: "Related tags"
-    area_roles:
-      new:
-        title: "New role"
+      list_proposals_with_tag: "Proposals with tag:"
+      no_proposals_with_tag: "There are no proposals with this tag yet"
+      list_posts_with_tag: "Posts with tag:"
+      no_posts_with_tag: "There are no posts with this tag"
+      list_groups_with_tags: "Groups with tag:"
+      no_groups_with_tag: "There are no groups with this tag"
+      proposals_tab: "Proposals"
+      posts_tab: "Posts"
+      groups_tab: "Groups"
+    footer:
+      for_edemocracy: "for e-democracy"
+      go_to_main_site: "Go to main site"
+    moderator_panel:
+      title: "Moderator panel"
+      block_user: "Block user"
+      blocked_user_list: "List of blocked users"
+      block: "Unblock"
   pl:
     comments:
       zero: "no comment"
@@ -958,11 +979,11 @@ en:
         percentage: 'Participants (percentage)'
         percentage_title: 'Minimum number of participants in the discussion as a percentage of the number of participants in the group'
         good_score: 'Quorum (percentage)'
-        good_score_title: 'Rating to be achieved in order to bring a vote on the proposal'
+        good_score_title: 'Rating to be achieved in order to bring the proposal to the voting phase'
         bad_score: 'Bad Quorum (percentage)'
-        bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the quorum is not met'
+        bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met'
         condition: Condition
-        condition_title: 'The conditions of Duration and Participants must be both overcome or just one of them?'
+        condition_title: 'The conditions of Time and Participants must be both overcome or just one of them?'
       search_partecipant:
         role_id: 'Role'
         keywords: 'Name or surname'
@@ -1003,9 +1024,9 @@ en:
         confirmation: 'does not match confirmation'
         accepted: 'must be accepted'
         empty: 'can not be blank'
-        blank: 'must be filled'
-        too_long: 'is too long'
-        too_short: 'is too short'
+        blank: 'ust be filled'
+        too_long: 'The text is too long'
+        too_short: 'The text is too short'
         wrong_length: should be% {count} characters)'
         taken: 'is already taken'
         not_a_number: 'is not a number'
@@ -1094,7 +1115,7 @@ en:
     setting_preferences: "Error while setting preferences"
     admin_required: "You must be admin to view this page"
     permissions_required: "You are not allowed to make this operation"
-    portavoce_required: "You must be the spokesman of the group to view this page"
+    portavoce_required: "You must be the admin of the group to view this page"
     blog_required: "In order to do this action you have to create your personal blog"
     not_your_blog: "This action cannot be done on another user's blog"
     role_permission_change: "It is not possible to change this permission"
@@ -1193,16 +1214,17 @@ en:
       role_created: "Role successfully created"
       role_changed: "Role successfully changed"
       role_deleted: "Role successfully deleted"
+      user_removed_from_group: "successfully removed from the group"
     user:
       click_to_change: "Click the information you want to change"
       info_updated: "Information successfully updated"
       account_joined: "Accounts joined successfully!"
       tooltips_enabled: "Tooltips enabled"
       tooltips_disabled: "Tooltips disabled"
-      urls_shown: "URLs visible"
-      urls_hidden: "URLs hidden"
+      url_shown: "URLs visible"
+      url_hidden: "URLs hidden"
       update_border: "Geographical interest borders updated correctly"
-      confirm_email: "You need to confirm the new email address."
+      confirm_email: "You need to confirm the new email address"
       IP_disabled: "Identity Provider removed"
     blog:
       blog_created: "Blog successfully created"
@@ -1211,6 +1233,9 @@ en:
     events:
       event_deleted: "Event successfully deleted"
       event_updated: "Event successfully updated"
+    moderator_panel:
+      account_blocked: "Account blocked"
+      account_unblocked: "Account unblocked"
   interest_borders:
       hint: "Type a few characters to search for a place"
       no_place_found: "No place found"
