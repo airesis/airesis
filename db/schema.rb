@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828160428) do
+ActiveRecord::Schema.define(:version => 20130905161243) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -422,7 +422,7 @@ ActiveRecord::Schema.define(:version => 20130828160428) do
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1
+    t.integer  "partecipation_role_id",                       :default => 1,     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "change_advanced_options",                     :default => true,  :null => false

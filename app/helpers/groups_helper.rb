@@ -4,7 +4,7 @@ module GroupsHelper
     if group.certified?
       root_url(:subdomain => group.subdomain)
     else
-      options[:subdomain] = false
+      options[:subdomain] = false if (defined? request) && (request.subdomain != 'www')
       super
     end
   end
@@ -40,6 +40,7 @@ module GroupsHelper
         '/reload_storage_size' :
         super
   end
+
   def edit_permissions_group_url(group, options={})
     (group_in_subdomain? group) ?
         '/edit_permissions' :
@@ -112,24 +113,24 @@ module GroupsHelper
 
   def group_proposal_url(group, proposal, options={})
     if group_in_subdomain? group
-      proposal_url(proposal,options)
+      proposal_url(proposal, options)
     else
       if group.certified?
         options[:subdomain] = group.subdomain
-        proposal_url(proposal,options)
+        proposal_url(proposal, options)
       else
         super
       end
     end
   end
 
-  def group_search_partecipant_url(group,search_partecipant, options={})
+  def group_search_partecipant_url(group, search_partecipant, options={})
     if group_in_subdomain? group
-      search_partecipant_url(search_partecipant,options)
+      search_partecipant_url(search_partecipant, options)
     else
       if group.certified?
         options[:subdomain] = group.subdomain
-        search_partecipant_url(search_partecipant,options)
+        search_partecipant_url(search_partecipant, options)
       else
         super
       end
@@ -138,11 +139,11 @@ module GroupsHelper
 
   def group_blog_post_url(group, blog_post, options={})
     if group_in_subdomain? group
-      blog_post_url(blog_post,options)
+      blog_post_url(blog_post, options)
     else
       if group.certified?
         options[:subdomain] = group.subdomain
-        blog_post_url(blog_post,options)
+        blog_post_url(blog_post, options)
       else
         super
       end
@@ -155,7 +156,7 @@ module GroupsHelper
         super
   end
 
-  def close_debate_group_proposal_url(group,proposal,options={})
+  def close_debate_group_proposal_url(group, proposal, options={})
     (group_in_subdomain? group) ?
         close_debate_proposal_url(proposal) :
         super

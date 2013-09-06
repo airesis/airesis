@@ -1,4 +1,4 @@
-<%= form_for [@group, @candidate], :validate => false do |f| %>
+<%= form_for !in_subdomain? ? [@group, @candidate] : @candidate , :validate => false do |f| %>
     <h4><%= t('pages.candidates.new.description') %></h4>
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @candidate} %>
 
