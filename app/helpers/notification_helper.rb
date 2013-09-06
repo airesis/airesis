@@ -247,7 +247,7 @@ module NotificationHelper
 
     blog_post.groups.each do |group|
       #TODO followers are not supported anymore
-      #msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
+      msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
       #notifica a chi segue il gruppo
       #notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => group_blog_post_url(group, blog_post))
       #group.followers.each do |user|
