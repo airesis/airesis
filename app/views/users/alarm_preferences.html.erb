@@ -80,7 +80,7 @@
      blocked_emails = @current_user.blocked_email_notifications.all %>
 
 <table>
-  <% NotificationCategory.includes(:translations, {:notification_types => :translations}).order(:seq).each do |category| %>
+  <% NotificationCategory.includes(:notification_types).order(:seq).each do |category| %>
       <tr>
         <td>
           <%= image_tag "notification_categories/#{category.short.downcase}.png" %>

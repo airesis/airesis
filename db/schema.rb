@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905161243) do
+ActiveRecord::Schema.define(:version => 20130906113428) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -241,19 +241,8 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
     t.datetime "updated_at"
   end
 
-  create_table "event_type_translations", :force => true do |t|
-    t.integer  "event_type_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "event_type_translations", ["event_type_id"], :name => "index_event_type_translations_on_event_type_id"
-  add_index "event_type_translations", ["locale"], :name => "index_event_type_translations_on_locale"
-
   create_table "event_types", :force => true do |t|
-    t.string "description", :limit => 200
+    t.string "name"
   end
 
   create_table "events", :force => true do |t|
@@ -287,20 +276,8 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
     t.string  "type",              :limit => 30,  :null => false
   end
 
-  create_table "group_action_translations", :force => true do |t|
-    t.integer  "group_action_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "group_action_translations", ["group_action_id"], :name => "index_group_action_translations_on_group_action_id"
-  add_index "group_action_translations", ["locale"], :name => "index_group_action_translations_on_locale"
-
   create_table "group_actions", :force => true do |t|
     t.string   "name"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "seq"
@@ -486,21 +463,9 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
   end
 
   create_table "notification_categories", :force => true do |t|
-    t.string  "description"
     t.integer "seq"
-    t.string  "short",       :limit => 8
+    t.string  "short", :limit => 8
   end
-
-  create_table "notification_category_translations", :force => true do |t|
-    t.integer  "notification_category_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-  end
-
-  add_index "notification_category_translations", ["locale"], :name => "index_notification_category_translations_on_locale"
-  add_index "notification_category_translations", ["notification_category_id"], :name => "index_479985046a46b6b23a7016957cc72c18e194ee98"
 
   create_table "notification_data", :force => true do |t|
     t.integer "notification_id",                 :null => false
@@ -510,22 +475,9 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
 
   add_index "notification_data", ["notification_id", "name"], :name => "index_notification_data_on_notification_id_and_name", :unique => true
 
-  create_table "notification_type_translations", :force => true do |t|
-    t.integer  "notification_type_id"
-    t.string   "locale"
-    t.string   "description"
-    t.string   "email_subject"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-  end
-
-  add_index "notification_type_translations", ["locale"], :name => "index_notification_type_translations_on_locale"
-  add_index "notification_type_translations", ["notification_type_id"], :name => "index_notification_type_translations_on_notification_type_id"
-
   create_table "notification_types", :force => true do |t|
-    t.string  "description",              :null => false
     t.integer "notification_category_id", :null => false
-    t.string  "email_subject"
+    t.string  "name"
   end
 
   create_table "notifications", :force => true do |t|
@@ -597,19 +549,9 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
 
   create_table "proposal_categories", :force => true do |t|
     t.integer "parent_proposal_category_id"
-    t.string  "description",                 :limit => 200
+    t.string  "name"
+    t.integer "seq"
   end
-
-  create_table "proposal_category_translations", :force => true do |t|
-    t.integer  "proposal_category_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-  end
-
-  add_index "proposal_category_translations", ["locale"], :name => "index_proposal_category_translations_on_locale"
-  add_index "proposal_category_translations", ["proposal_category_id"], :name => "index_proposal_category_translations_on_proposal_category_id"
 
   create_table "proposal_comment_rankings", :force => true do |t|
     t.integer  "proposal_comment_id", :null => false
@@ -1174,19 +1116,8 @@ ActiveRecord::Schema.define(:version => 20130905161243) do
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
 
-  create_table "vote_type_translations", :force => true do |t|
-    t.integer  "vote_type_id"
-    t.string   "locale"
-    t.string   "description"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "vote_type_translations", ["locale"], :name => "index_vote_type_translations_on_locale"
-  add_index "vote_type_translations", ["vote_type_id"], :name => "index_vote_type_translations_on_vote_type_id"
-
   create_table "vote_types", :force => true do |t|
-    t.string "description", :limit => 200, :null => false
+    t.string "short"
   end
 
   add_foreign_key "action_abilitations", "group_actions", :name => "action_abilitations_group_action_id_fk"

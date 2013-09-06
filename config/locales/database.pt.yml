@@ -1,0 +1,106 @@
+pt:
+  db:
+    event_types:
+      meeting:
+        description: encontro
+      vote:
+        description: voto
+      meeting2:
+        description: reunião
+      election:
+        description: eleição
+    group_actions:
+      STREAM_POST:
+        description: Publicar na home page do grupo
+      CREATE_EVENT:
+        description: Criar eventos e voto
+      PROPOSAL:
+        description: Apoiar propostas em nome do grupo
+      REQUEST_ACCEPT:
+        description: Adicionar participantes ao grupo
+      SEND_CANDIDATES:
+        description: Nomear os membros para a eleição
+      PROPOSAL_VIEW:
+        description: Ver propostas privadas
+      PROPOSAL_PARTECIPATION:
+        description: Contribuir as propostas
+      PROPOSAL_INSERT:
+        description: Inserir novas propostas no grupo
+      DOCUMENT_VIEW:
+        description: visualizar os documentos
+      DOCUMENT_MANAGE:
+        description: gerir os documentos
+      PROPOSAL_VOTE:
+        description: Votação das propostas
+    notification_categories:
+      MYPROP:
+      PROP:
+      NEWPROP:
+      NEWEVENT:
+      GROUPS:
+    notification_types:
+      new_public_events:
+      new_events:
+      new_posts_user_follow:
+      new_valutation_mine:
+      new_valutation:
+      available_author:
+      author_accepted:
+      new_authors:
+      unintegrated_contribute:
+      new_contributes:
+      text_update:
+      new_public_proposals:
+      change_status:
+      new_contributes_mine:
+      change_status_mine:
+      new_posts_group_follow:
+      new_posts_group:
+      new_proposals:
+      new_partecipation_request:
+      new_blog_comment:
+    proposal_categories:
+      no_category:
+        description: Sem categoria
+      education:
+        description: Educação, Pesquisa
+      health:
+        description: Saúde, Higiene
+      information:
+        description: Informação, Comunicação
+      commerce:
+        description: Comércio, Finanças, Tributos
+      work:
+        description: Trabalho e Auto-realização
+      security:
+        description: Segurança e Justiça
+      world:
+        description: Mundial, Migração
+      minorities:
+        description: Minorias. Deficientes Físicos,
+      ethics:
+        description: Ética, Solidariedade, Espiritualidade
+      sexuality:
+        description: Sexualidade, Família, Infância
+      culture:
+        description: Arte e Cultura
+      entertainment:
+        description: Social, Desporto, Entretenimento
+      organization:
+        description: Organização interna
+      agricolture:
+        description:  Àgua, Alimentos, Agricultura
+      territory:
+        description: Território, Natureza, Animais
+      mobility:
+        description: Urbanismo, Mobilidade, Construção
+      energy:
+        description: Energia, Clima
+      industry:
+        description: Indústria, Materiais e Resíduos
+      democracy:
+        description: Democracia, Instituições
+    vote_types:
+      favorable:
+      neutral:
+      dissenting:

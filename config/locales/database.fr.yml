@@ -1,0 +1,144 @@
+fr:
+  db:
+    event_types:
+      meeting:
+        description: rendez-vous
+      vote:
+        description: vote
+      meeting2:
+        description: réunion
+      election:
+        description: élections
+    group_actions:
+      STREAM_POST:
+        description: Publier dans la page d'accueil du groupe
+      CREATE_EVENT:
+        description: Créer des événements et des votes
+      PROPOSAL:
+        description: Soutenir les propositions au nom du groupe
+      REQUEST_ACCEPT:
+        description: Ajouter des nouveaux membres au groupe
+      SEND_CANDIDATES:
+        description: Nommer des membres pour l'élection
+      PROPOSAL_VIEW:
+        description: Voir les propositions privées
+      PROPOSAL_PARTECIPATION:
+        description: Contribuer aux propositions
+      PROPOSAL_INSERT:
+        description: Insérer des nouvelles propositions dans le groupe
+      DOCUMENT_VIEW:
+        description: voir les documents
+      DOCUMENT_MANAGE:
+        description: Gérer les documents
+      PROPOSAL_VOTE:
+        description: Vote sur les propositions
+    notification_categories:
+      MYPROP:
+      PROP:
+      NEWPROP:
+      NEWEVENT:
+      GROUPS:
+    notification_types:
+      new_public_events:
+        description: Nouveaux évenements publiques
+        email_subject: Un nouvel évenement a été inséré
+      new_events:
+        description: Nouveaux évenements des groupes auxquels je participe
+        email_subject: Un nouvel évenement a été inséré
+      new_posts_user_follow:
+        description: Nouveau billet d'un utilisateur que je suis
+        email_subject: Un nouveau billet a été inséré
+      new_valutation_mine:
+        description: Nouvelle évaluation à l'une de mes propositions
+        email_subject: Novelle évaluation à l'une de tes propositions
+      new_valutation:
+        description: Nouvelle évaluation à une proposition à laquelle je participe
+        email_subject: Nouvelle évaluation à une proposition
+      available_author:
+        description: Utilisateur disponible à rédiger la synthèse d'une proposition
+        email_subject: Un utilisateur est disponible à rédiger la synthèse d'une proposition
+      author_accepted:
+        description: Acceptation en tant que rédacteur d'une proposition
+        email_subject: Tu as été choisi en tant que rédacteur d'une proposition
+      new_authors:
+        description: Nouveaux rédacteurs de propositions
+        email_subject: Nouveaux rédacteurs pour une proposition 
+      unintegrated_contribute:
+        description: Contributions libérés dans le débat
+        email_subject: Une contribution a été rétabli débat
+      new_contributes:
+        description: Nouvelles contributions et suggestions pour les propositions auxquelles je participe 
+        email_subject: Nouveau commentaire à une proposition
+      text_update:
+        description: Mise à jour du texte d'une proposition à laquelle je participe
+        email_subject: Une proposition a été mise à jour
+      new_public_proposals:
+        description: Nouvelles propositions insérées dans l'espace commun
+        email_subject: Une nouvelle proposition a été insérée
+      change_status:
+        description: Changement de statut d'une proposition à laquelle je participe
+        email_subject: Une proposition a changé de statut
+      new_contributes_mine:
+        description: Nouveaux commentaires à mes propositions
+        email_subject: Nouveaux commentaires à une proposition
+      change_status_mine:
+        description: Changement de statut de mes propositions
+        email_subject: L'une de tes propositions a changé de statut
+      new_posts_group_follow:
+        description: Nouveaux commentaires dans les pages des groupes que je suis
+        email_subject: Il y a un nouveau billet
+      new_posts_group:
+        description: Nouveaux commentaires dans les pages des groupes auxquels je participe
+        email_subject: il y a un nouveau billet
+      new_proposals:
+        description: Nouvelles propositions du groupe
+        email_subject: Une nouvelle proposition a été insérée
+      new_partecipation_request:
+        description: Nouvelle demande de participation
+        email_subject: Nouvelle demande de participation
+      new_blog_comment:
+    proposal_categories:
+      no_category:
+        description: Aucune catégorie
+      education:
+        description: Education, Recherche
+      health:
+        description: Santé, Hygiène
+      information:
+        description: Information, Communication
+      commerce:
+        description: Commerce, Finance, Fisc
+      work:
+        description: Travail et Auto-réalisation
+      security:
+        description: Sécurité et Justice
+      world:
+        description: Monde, Migration
+      minorities:
+        description: Minorités, Handicap
+      ethics:
+        description: Etique, Solidarité,Spiritualité
+      sexuality:
+        description: Sexualité, Famille, Enfants
+      culture:
+        description: Art et Culture
+      entertainment:
+        description: Vie sociale, Sport, Loisirs
+      organization:
+        description: Organisation interne
+      agricolture:
+        description: Eau, Nourriture, Agriculture
+      territory:
+        description: Territoire, Nature, Animaux
+      mobility:
+        description: Urbanisme, Mobilité, Batiment
+      energy:
+        description: Energie, Climat
+      industry:
+        description: Industrie, Matériaux et Déchets
+      democracy:
+        description: Démocratie, Institutions
+    vote_types:
+      favorable:
+      neutral:
+      dissenting:

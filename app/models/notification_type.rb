@@ -1,5 +1,5 @@
 class NotificationType < ActiveRecord::Base
-  translates :description, :email_subject
+  #translates :description, :email_subject
 
 
   NEW_CONTRIBUTES = 1
@@ -17,4 +17,11 @@ class NotificationType < ActiveRecord::Base
   has_many :notifications, :class_name => 'Notification'
   has_many :blockers, :through => :blocked_alerts, :class_name => 'User', :source => :user
 
+  def description
+    I18n.t("db.#{self.class.class_name.tableize}.#{self.short}.description")
+  end
+
+  def email_subject
+    I18n.t("db.#{self.class.class_name.tableize}.#{self.short}.email_subject")
+  end
 end
