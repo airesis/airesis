@@ -39,14 +39,14 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]
-    abbr_day_names: [S, M, T, W, F, T, S]
-    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    day_names: "[Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]"
+    abbr_day_names: "[S, M, T, W, F, T, S]"
+    month_names: "[~, January, February, March, April, May, June, July, August, September, October, November, December]"
+    abbr_month_names: "[~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]"
   time:
     formats:
      default: "%d %b %Y at %H:%M"
