@@ -42,7 +42,7 @@
     vertical-align: top;
 }
 
-.blogComments a{
+.blogPostFooter .blogComments a{
     color: #666;
     font-weight: bold;
 }
