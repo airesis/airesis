@@ -206,7 +206,7 @@ class GroupsController < ApplicationController
       end
       respond_to do |format|
         flash[:notice] = t('info.groups.group_created')
-        format.html { redirect_to(@group) }
+        format.html { redirect_to group_url(@group) }
         #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end #respond_to
 

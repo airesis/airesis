@@ -3,7 +3,8 @@ class CandidatesController < ApplicationController
   include StepHelper
   
   layout "groups"
-    
+
+  before_filter :load_group, :only => [:new, :create]
   before_filter :check_group, :only => [:new, :create]
   before_filter :check_election, :only => [:create,:update]
   before_filter :check_user, :only => [:create,:update]
@@ -26,21 +27,16 @@ class CandidatesController < ApplicationController
      
   def new
      @page_title = "Invia una nuova candidatura"
-     @group = Group.find_by_id(params[:group_id])
      @candidate = Candidate.new
   end
   
   def create
     begin
-      Candidate.transaction do
-          @group = Group.find_by_id(params[:group_id])
-          @candidate =  @group.candidates.build(params[:candidate])
-          @group.save!
-      end
+      @candidate =  @group.candidates.create(params[:candidate])
       
       respond_to do |format|
           flash[:notice] = "Hai candidato l'utente"
-          format.html { redirect_to( group_candidates_path @group) }
+          format.html { redirect_to( group_candidates_url @group) }
           #format.xml  { render :xml => @group, :status => :created, :location => @group }
       end 
       
@@ -71,7 +67,6 @@ class CandidatesController < ApplicationController
   protected
   
   def check_group
-    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     if !(can? :send_candidate, @group)
       flash[:error] = "Non puoi inviare candidati per questo gruppo"
       respond_to do |format|
@@ -108,15 +103,9 @@ class CandidatesController < ApplicationController
   
   def check_user
     @user = User.find_by_id(params[:candidate][:user_id])
-        
-    if !(@group.partecipants.include? @user)
+    unless @group.partecipants.include? @user
       flash[:error] = "Non puoi candidare questo utente"
       respond_to do |format|
-        #format.js { render :update do |page|
-        #    page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        #    page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}          
-        #  end                  
-        #}
         format.html {
           redirect_to @group
         }

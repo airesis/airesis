@@ -176,7 +176,7 @@ Airesis::Application.routes.draw do
     match '/edit', to: 'groups#edit'
     match '/update', to: 'groups#update'
 
-
+    resources :elections
     resources :candidates
 
     resources :quorums do
