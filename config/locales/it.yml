@@ -732,6 +732,25 @@ it:
         title: "Modifica blog"
         title_label: "Titolo del blog"
         back_to_blog: "Torna al mio blog"
+    groups_area:
+      edit:
+        title: "Impostazioni area di lavoro"
+    group_areas:
+      index:
+        create_area_button: "Crea un'area di lavoro"
+        title: "Organizza gli utenti all'interno delle aree di lavoro"
+        switch_area_manage_button: "Passa alla gestione delle singole aree"
+        title_inactive: "Aree di lavoro non abilitate"
+        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
+        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
+        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
+        enable_button: "Abilita le aree di lavoro!"
+      manage:
+        switch_area_index_button: "Passa alla gestione dei partecipanti"
+        partecipants: "Partecipanti"
+        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
+      edit:
+        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco durate disponibili"
