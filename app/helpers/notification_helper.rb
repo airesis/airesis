@@ -217,7 +217,7 @@ module NotificationHelper
   #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
   def notify_user_asked_for_partecipation(group)
     msg = "L'utente <b>#{current_user.fullname}</b> ha richiesto di partecipare al gruppo <b>#{group.name}</b>."
-    data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't', 'extension' => 'rejected'}
+    data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTECIPATION_REQUEST, message: msg, url: group_url(group), data: data)
     notification_a.save
     group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
@@ -234,8 +234,9 @@ module NotificationHelper
     post_user = blog_post.user
     user_followers = post_user.followers #utenti che seguono il blog
     sent_users = []
+    data = {'blog_post_id' => blog_post.id.to_s}
     msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nel proprio blog <b>"+blog_post.title+"</b>!";
-    notification_a = Notification.new(:notification_type_id => 15, :message => msg, :url => blog_blog_post_url(blog_post.blog, blog_post))
+    notification_a = Notification.new(:notification_type_id => 15, :message => msg, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
     notification_a.save
     user_followers.each do |user|
       if (user != post_user) && (!sent_users.include? user)
@@ -247,9 +248,11 @@ module NotificationHelper
 
     blog_post.groups.each do |group|
       #TODO followers are not supported anymore
+      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
+      #TODO msg to remove
       msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nella pagina del gruppo <b>"+group.name+"</b>!";
       #notifica a chi segue il gruppo
-      #notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => group_blog_post_url(group, blog_post))
+      #notification_b = Notification.create(:notification_type_id => 8,:message => msg,:url => group_blog_post_url(group, blog_post), data: data)
       #group.followers.each do |user|
       #  if (user != post_user) && (!sent_users.include?user)
       #    if send_notification_to_user(notification_b,user)
@@ -259,7 +262,7 @@ module NotificationHelper
       #end
 
       #notifica a chi partecipa al gruppo
-      notification_b = Notification.create(:notification_type_id => 9, :message => msg, :url => group_blog_post_url(group, blog_post))
+      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_POST_GROUP, :message => msg, :url => group_blog_post_url(group, blog_post), data: data)
       group.partecipants.each do |user|
         if (user != post_user) && (!sent_users.include? user)
           if send_notification_to_user(notification_b, user)
@@ -274,8 +277,8 @@ module NotificationHelper
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
     msg = "L'utente <b>#{current_user.fullname}</b> si è offerto come redattore della proposta <b>#{proposal.title}</b>."
-    data = {'proposal_id' => proposal.id.to_s}
-    notification_a = Notification.new(:notification_type_id => 22, :message => msg, :url => proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
+    data = {'proposal_id' => proposal.id.to_s, 'user' => current_user.fullname, 'title' => proposal.title, 'i18n' => 't'}
+    notification_a = Notification.new(:notification_type_id => NotificationType::AVAILABLE_AUTHOR, :message => msg, :url => proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if user != current_user
@@ -289,14 +292,16 @@ module NotificationHelper
     msg = "Sei stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>.<br/>
            Ricordati che per essere un buon redattore dovrai recepire i contributi degli altri utenti e migliorare il testo secondo i consigli ricevuti.<br/>
            Buon lavoro! "
-    notification_a = Notification.new(notification_type_id: 23, message: msg, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal))
+    data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
+    notification_a = Notification.new(notification_type_id: NotificationType::AUTHOR_ACCEPTED, message: msg, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     send_notification_to_user(notification_a, user)
 
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id, proposal.id)
     name = (nickname && proposal.is_anonima?) ? nickname.nickname : user.fullname #send nickname if proposal is anonymous
+    data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'user' => name, 'title' => proposal.title, 'i18n' => 't'}
     msg = "L'utente <b>#{name}</b> è stato scelto come redattore alla sintesi della proposta <b>#{proposal.title}</b>."
-    notification_b = Notification.new(notification_type_id: 24, message: msg, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal))
+    notification_b = Notification.new(notification_type_id: NotificationType::NEW_AUTHORS, message: msg, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_b.save
     proposal.partecipants.each do |partecipant|
       unless partecipant == current_user || partecipant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
@@ -310,9 +315,9 @@ module NotificationHelper
   def notify_new_event(event)
     if event.private
       organizer = event.organizers.first
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}"}
+      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't'}
       msg = "E' stato creato un nuovo evento nel gruppo #{organizer.name}!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
-      notification_a = Notification.new(notification_type_id: 14, message: msg, :url => event_url(event), data: data)
+      notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, message: msg, :url => event_url(event), data: data)
       notification_a.save
 
       organizer.partecipants.each do |user|
@@ -321,12 +326,12 @@ module NotificationHelper
         end
       end
     else
-      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento: #{event.title}"}
+      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'event' => event.title, 'i18n' => 't'}
       msg = "E' stato creato un nuovo evento pubblico!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
-      notification_a = Notification.new(notification_type_id: 13, :message => msg, url: event_url(event), data: data)
+      notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, :message => msg, url: event_url(event), data: data)
       notification_a.save
 
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 13").to_sql})").each do |user|
+      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = #{NotificationType::NEW_PUBLIC_EVENTS}").to_sql})").each do |user|
         unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
           send_notification_to_user(notification_a, user)
         end
@@ -340,12 +345,11 @@ module NotificationHelper
     blog_post = blog_comment.blog_post
     user = blog_comment.user
     unless blog_post.user == user #don't send a notification to myself
-      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}"}
+      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}", 'user' => user.fullname, 'title' => blog_post.title, 'i18n' => 't'}
       msg = "#{user.fullname} ha inserito un nuovo commento al tuo post #{blog_post.title}<br/> Vai alla pagina di <b>#{blog_post.title}</b> per visualizzarlo."
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, message: msg, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
       notification_a.save
       send_notification_to_user(notification_a, blog_post.user)
     end
   end
-
 end
