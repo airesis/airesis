@@ -1242,7 +1242,7 @@ it:
       role_created: "Ruolo creato correttamente"
       role_changed: "Ruolo modificato correttamente"
       role_deleted: "Ruolo eliminato correttamente"
-      user_removed_from_group: "rimosso correttamente dal gruppo"
+      user_removed_from_group: "%{name} rimosso correttamente dal gruppo"
     user:
       click_to_change: "Fai clic sulle informazioni che desideri modificare"
       info_updated: "Informazioni aggiornate correttamente"
