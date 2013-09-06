@@ -3,7 +3,7 @@
       <div class="cont">
         <%= cache ["right_menu", I18n.locale] do %>
             <div id="mybox" style="display: block;">
-              <% NotificationCategory.includes(:translations).order(:seq).each do |category| %>
+              <% NotificationCategory.order(:seq).each do |category| %>
                   <div class="box">
                     <div title="<%= category.description %>" class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
                     </div>

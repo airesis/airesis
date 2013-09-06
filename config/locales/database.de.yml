@@ -1,0 +1,144 @@
+de:
+  db:
+    event_types:
+      meeting:
+        description: Treffen
+      vote:
+        description: Abstimmungen
+      meeting2:
+        description: Versammlungen
+      election:
+        description: Wahlen
+    group_actions:
+      STREAM_POST:
+        description: Auf der Internetseite der Gruppe veröffentlichen
+      CREATE_EVENT:
+        description: Veranstaltungen und Abstimmungen erstellen
+      PROPOSAL:
+        description: Unterstützung der Vorschläge im Namen der Gruppe
+      REQUEST_ACCEPT:
+        description: Neue Mitglieder in die Gruppe aufnehmen
+      SEND_CANDIDATES:
+        description: Mitglieder für die Wahlen nominieren
+      PROPOSAL_VIEW:
+        description: Private Vorschläge anzeigen
+      PROPOSAL_PARTECIPATION:
+        description: Zu den Vorschlägen beitragen
+      PROPOSAL_INSERT:
+        description: Neue Vorschläge in die Gruppe eintragen
+      DOCUMENT_VIEW:
+        description: Dokumente anzeigen
+      DOCUMENT_MANAGE:
+        description: Dokumente verwalten
+      PROPOSAL_VOTE:
+        description: Abstimmung über die Vorschläge
+    notification_categories:
+      MYPROP:
+      PROP:
+      NEWPROP:
+      NEWEVENT:
+      GROUPS:
+    notification_types:
+      new_public_events:
+        description: Es gibt eine neue öffentliche Veranstaltung.
+        email_subject: Es gibt eine neue öffentliche Veranstaltung.
+      new_events:
+        description: Es gibt eine neue Veranstaltung in einer Gruppe in die ich involviert bin.
+        email_subject: Es gibt eine neue Veranstaltung.
+      new_posts_user_follow:
+        description: Es gibt ein neues Posting eines Benutzers dem ich folge.
+        email_subject: Es gibt ein neues Posting.
+      new_valutation_mine:
+        description: Es gibt eine neue Bewertung für einen meiner Vorschläge.
+        email_subject: Es gibt einen neue Bewertung für einen Deiner Vorschläge.
+      new_valutation:
+        description: Es gibt eine neue Bewertung für einen Vorschlag in den ich involviert bin.
+        email_subject: Es gibt eine neue Bewertung für einen Deiner Vorschläge.
+      available_author:
+        description: Benutzer verfügbar für eine Zusammenfassung eines Vorschlags.
+        email_subject: Benutzer verfügbar für eine Zusammenfassung eines Vorschlags.
+      author_accepted:
+        description: Akzeptanz als Redakteur eines Vorschlags
+        email_subject: Du wurdest als Redakteur eines Vorschlags ausgesucht.
+      new_authors:
+        description: Neue Redakteure für Vorschläge.
+        email_subject: Neue Redakteure für Vorschläge.
+      unintegrated_contribute:
+        description: Beiträge in der Debatte veröffentlicht
+        email_subject: Ein Beitrag wurde Debatte wieder
+      new_contributes:
+        description: Neue Beiträge und Ideen zu einem Vorschlag in den ich involviert bin.
+        email_subject: Neuer Beitrag zu einem Vorschlag!
+      text_update:
+        description: Textaktualisierung zu einem Vorschlag in den ich involviert bin
+        email_subject: Der Vorschlag wurde aktualisiert.
+      new_public_proposals:
+        description: Es befinden sich neue Vorschläge im Freiraum.
+        email_subject: Neuer Vorschlag vorhanden.
+      change_status:
+        description: Der Status eines Vorschlags in den ich involviert bin hat sich geändert.
+        email_subject: Der Status des Vorschlags wurde verändert.
+      new_contributes_mine:
+        description: Es gibt neue Beiträge zu meinem Vorschlag.
+        email_subject: Es gibt neue Beiträge zu einem Vorschlag.
+      change_status_mine:
+        description: Der Status meines Vorschlags hat sich geändert.
+        email_subject: Der Status eines Deiner Vorschläge hat sich geändert.
+      new_posts_group_follow:
+        description: Es gibt eine neues Posting auf der Seite der Gruppen denen ich folge.
+        email_subject: Es gibt ein neues Posting.
+      new_posts_group:
+        description: Es gibt neue Postings auf den Seiten der Gruppen in denen ich involviert bin.
+        email_subject: Es gibt neue Postings.
+      new_proposals:
+        description: Neue Vorschläge in der Gruppe.
+        email_subject: Es gibt einen neuen Vorschlag.
+      new_partecipation_request:
+        description: Es gibt eine neue Teilnahme-Anfrage.
+        email_subject: Es gibt eine neue Teilnahme-Anfrage.
+      new_blog_comment:
+    proposal_categories:
+      no_category:
+        description: Keine Kategorie
+      education:
+        description: Bildung, Forschung
+      health:
+        description: Gesundheit, Hygiene
+      information:
+        description: Information, Kommunikation
+      commerce:
+        description: Commerce, Finanzen, Steuern
+      work:
+        description: Arbeit und Selbstverwirklichung
+      security:
+        description: Sicherheit und Justiz
+      world:
+        description: Welt, Migration
+      minorities:
+        description: Minderheiten, Handicap
+      ethics:
+        description: Ethik, Solidarität, Spiritualität
+      sexuality:
+        description: Sexualität, Familie, Kinder
+      culture:
+        description: Kunst und Kultur
+      entertainment:
+        description: Social, Sport, Unterhaltung
+      organization:
+        description: Interne Organisation
+      agricolture:
+        description: Wasser, Ernährung, Landwirtschaft
+      territory:
+        description: Territory, Natur, Tiere
+      mobility:
+        description: Städtebau, Mobilität, Bau
+      energy:
+        description: Energie, Klima
+      industry:
+        description: Industrie-und Abfallwirtschaft
+      democracy:
+        description: Demokratie, Institutionen
+    vote_types:
+      favorable:
+      neutral:
+      dissenting:

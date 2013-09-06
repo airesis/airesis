@@ -1,5 +1,5 @@
 class GroupAction < ActiveRecord::Base
-  translates :description
+#  translates :description
   #inserire post nello stream del gruppo
   STREAM_POST = 1
 
@@ -31,4 +31,8 @@ class GroupAction < ActiveRecord::Base
 
 
   scope :for_group_areas, :conditions => {id: DEFAULT_AREA_ACTIONS}
+
+  def description
+    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
+  end
 end

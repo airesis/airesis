@@ -41,11 +41,11 @@ class VotationsController < ApplicationController
       vote.vote_type_id = vote_type unless @proposal.secret_vote
       vote.save!
 
-      if vote_type == POSITIVE_VOTE
+      if vote_type == VoteType::POSITIVE
         @proposal.vote.positive += 1
-      elsif vote_type  == NEUTRAL_VOTE
+      elsif vote_type  == VoteType::NEUTRAL
         @proposal.vote.neutral += 1
-      elsif vote_type  == NEGATIVE_VOTE
+      elsif vote_type  == VoteType::NEGATIVE
         @proposal.vote.negative += 1
       end
       @proposal.vote.save!
@@ -153,7 +153,7 @@ class VotationsController < ApplicationController
     #se la proposta è privata deve avere i permessi per votare in quel gruppo
 
     #estrai tutte le proposte in votazione che non ho ancora votato
-    @proposals_tmp = Proposal.includes({:category => :translations}, :vote_period, {:users => :image}).all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    @proposals_tmp = Proposal.includes(:category, :vote_period, {:users => :image}).all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
     @proposals = []
     @proposals_tmp.each do |proposal|
         @proposals << proposal if can? :vote, proposal

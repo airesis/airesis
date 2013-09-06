@@ -85,7 +85,7 @@
         <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
           <%= t('pages.groups.new.change_permissions_description') %>
           <br/>
-          <% GroupAction.includes(:translations).all.each do |action| %>
+          <% GroupAction.all.each do |action| %>
               <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
               <br/>
           <% end %>

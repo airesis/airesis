@@ -1,0 +1,154 @@
+en:
+  db:
+    event_types:
+      meeting:
+        description: meeting
+      vote:
+        description: vote
+      meeting2:
+        description: meeting
+      election:
+        description: election
+    group_actions:
+      STREAM_POST:
+        description: Post on the group home page
+      CREATE_EVENT:
+        description: Create events and voting
+      PROPOSAL:
+        description: Support proposals on behalf of the group
+      REQUEST_ACCEPT:
+        description: Add new members to the group
+      SEND_CANDIDATES:
+        description: Nominate members for election
+      PROPOSAL_VIEW:
+        description: View private proposals
+      PROPOSAL_PARTECIPATION:
+        description: Contribute to proposals
+      PROPOSAL_INSERT:
+        description: Insert new proposals into the group
+      DOCUMENT_VIEW:
+        description: View documents
+      DOCUMENT_MANAGE:
+        description: Manage documents
+      PROPOSAL_VOTE:
+        description: Vote proposals
+    notification_categories:
+      MYPROP:
+        description: Proposals I write
+      PROP:
+        description: Proposals I take part
+      NEWPROP:
+        description: New proposals
+      NEWEVENT:
+        description: New events
+      GROUPS:
+        description: Groups
+    notification_types:
+      new_public_events:
+        description: There are new public events
+        email_subject: There is a new public event
+      new_events:
+        description: There is a new event within a group I am involved in
+        email_subject: There is a new event
+      new_posts_user_follow:
+        description: There is a new post from a user I am following
+        email_subject: There is a new post
+      new_valutation_mine:
+        description: There is a new evaluation for a proposal of mine
+        email_subject: There is a new evaluation for a proposal of yours
+      new_valutation:
+        description: There is a new evaluation for a proposal I am involved in
+        email_subject: There is a new evaluation for a proposal of mine
+      available_author:
+        description: User available to do a summary for a proposal
+        email_subject: There is a user available to do a summary of a proposal
+      author_accepted:
+        description: Acceptance as editor of a proposal
+        email_subject: You have been chosen as editor of a proposal
+      new_authors:
+        description: New editors for proposals
+        email_subject: New editors for a proposal
+      unintegrated_contribute:
+        description: Contributions are put back into debate
+        email_subject: A contribution has been putted back in debate
+      new_contributes:
+        description: New contributions and ideas to proposals I am involved in
+        email_subject: New comment to proposal
+      text_update:
+        description: Text update about a proposal I am involved in
+        email_subject: The proposal has been updated
+      new_public_proposals:
+        description: There are new proposals in the common space
+        email_subject: There is a new proposal
+      change_status:
+        description: The status of a proposal I am involved in has been changed
+        email_subject: The status of the proposal has been changed
+      new_contributes_mine:
+        description: There are new comments to my proposals
+        email_subject: There are new comments to a proposal
+      change_status_mine:
+        description: The status of my proposals has changed
+        email_subject: The status of one of your proposals has changed
+      new_posts_group_follow:
+        description: There are new posts in the pages of the groups I am following
+        email_subject: There is a new post
+      new_posts_group:
+        description: There are new posts in the pages of the groups I am involved in
+        email_subject: There is a new post
+      new_proposals:
+        description: New proposals within the group
+        email_subject: There is a new proposal
+      new_partecipation_request:
+        description: There is a new participation request
+        email_subject: There is a new participation request
+      new_blog_comment:
+        description: New comment in my blog
+        email_subject: There's a new comment in your blog
+    proposal_categories:
+      no_category:
+        description: Uncategorized
+      education:
+        description: Education, Research
+      health:
+        description: Health, Hygiene
+      information:
+        description: Information, Communication
+      commerce:
+        description: Commerce, Finance, Taxes
+      work:
+        description: Work and Self-realization
+      security:
+        description: Security and Justice
+      world:
+        description: World, Migration
+      minorities:
+        description: Minorities, Handicap
+      ethics:
+        description: Ethics, Solidarity, Spirituality
+      sexuality:
+        description: Sexuality, Family, Children
+      culture:
+        description: Art and Culture
+      entertainment:
+        description: Social, Sport, Entertainment
+      organization:
+        description: Internal organization
+      agricolture:
+        description: Water, Food, Agriculture
+      territory:
+        description: Territory, Nature, Animals
+      mobility:
+        description: Urbanism, Mobility, Construction
+      energy:
+        description: Energy, Climate
+      industry:
+        description: Industry, Materials and Waste
+      democracy:
+        description: Democracy, Institutions
+    vote_types:
+      favorable:
+        description: Favorable
+      neutral:
+        description: Neutral
+      dissenting:
+        description: Dissenting

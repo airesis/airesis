@@ -43,7 +43,7 @@ class ProposalsController < ApplicationController
     my_areas_ids = current_user.scoped_areas(@group.id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
 
     #params[:group_id] = @group.id
-    @search = Proposal.search(:include => [{:category => [:translations]}, :quorum, {:users => [:image]}, :vote_period]) do
+    @search = Proposal.search(:include => [:category, :quorum, {:users => [:image]}, :vote_period]) do
       fulltext params[:search], :minimum_match => params[:or]
       all_of do
         any_of do
