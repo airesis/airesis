@@ -74,6 +74,7 @@ en:
       new_contributes:
         description: New contributions and ideas to proposals I am involved in
         email_subject: New comment to proposal
+        message: "<b>%{name}</b> inserted a new contribute in the proposal <b>%{title}</b>!"
       text_update:
         description: Text update about a proposal I am involved in
         email_subject: The proposal has been updated
@@ -86,6 +87,7 @@ en:
       new_contributes_mine:
         description: There are new comments to my proposals
         email_subject: There are new comments to a proposal
+        message: "<b>%{name}</b> inserted a new contribute in your proposal <b>%{title}</b>!"
       change_status_mine:
         description: The status of my proposals has changed
         email_subject: The status of one of your proposals has changed
@@ -104,6 +106,14 @@ en:
       new_blog_comment:
         description: New comment in my blog
         email_subject: There's a new comment in your blog
+      new_comments_mine:
+        description: New comments in my proposals
+        email_subject: New comment in my proposal
+        message: "<b>%{name}</b> inserted a comment in a discussion in your proposal <b>%{title}</b>!"
+      new_comments:
+        description: New comments in discussions I take part
+        email_subject: New comment in a discussion I take part
+        message: "<b>%{name}</b> inserted a comment in a discussion you are taking part in the proposal <b>%{title}</b>!"
     proposal_categories:
       no_category:
         description: Uncategorized
