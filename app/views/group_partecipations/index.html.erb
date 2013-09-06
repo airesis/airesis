@@ -1,7 +1,7 @@
-<h1><%= 'Elenco partecipanti' %></h1>
+<h1><%= t('pages.groups.participations.list_participations') %></h1>
 <% if current_user && ((@group.portavoce.include? current_user) || is_admin?) %>
     <fieldset>
-      <legend>Ricerca</legend>
+      <legend><%= t('pages.groups.participations.search')%></legend>
 
       <%= form_for !in_subdomain? ? [@group, SearchPartecipant.new] : SearchPartecipant.new, remote: true do |f| %>
           <p><%= f.label :keywords %><br/>
@@ -10,24 +10,24 @@
 
           <p>
             <%= f.label :role_id %><br/>
-            <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => 'Scegli un ruolo' %>
+            <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => t('pages.groups.participations.anything') %>
           </p>
 
           <p>
             <%= f.label :status_id %><br/>
-            <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => 'Qualsiasi' %>
+            <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => t('pages.groups.participations.anything') %>
           </p>
-          <%= f.button 'Filtra', class: 'btn blue', disable_with: t('loading') %>
+          <%= f.button t('pages.groups.participations.filter'), class: 'btn blue', disable_with: t('loading') %>
       <% end %>
 
     </fieldset>
     <br/>
 
     <fieldset>
-      <legend>Operazioni sugli utenti</legend>
-      <%= link_to 'Invia email', '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
+      <legend><%= t('pages.groups.participations.operations_on_user')%></legend>
+      <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
 
-      <div id="email_panel" style="display: none" title="Invio mail massiva">
+      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email')%>">
         <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class=>'disableForm' do |e| %>
             <p>
               <%= e.label t('pages.users.send_message.subject_label') %> <br/>
@@ -64,7 +64,7 @@
      $('#partecipants').dataTable({
          "oLanguage": {
              "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-             "sSearch": "<%='Cerca:'%>",
+             "sSearch": "<%=t('buttons.search')%>:",
              "sZeroRecords": "<%='Nessun utente, spiacente..'%>",
              "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
              "sInfoEmpty": "Sto mostrando 0 utenti",

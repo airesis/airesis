@@ -151,10 +151,11 @@ en:
         load_image: "Load an image"
         max_file_size: "Max size: 2MB"
         what_can_i_do: "What can I do?"
-        what_i_cant_do: "What I can't do?"
+        what_i_cant_do: "What can't I do?"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
+        massive_email: "Sending massive mail"
       left_panel:
         general_info: "General informations"
         alarm_and_notifications: "Alarm and notifications"
@@ -342,6 +343,13 @@ en:
         email_not_valid: "E-mail address not valid"
         text_to_send: "Text to send (optional)"
         title: "Invite your friends in the group!"
+      participations:
+        list_participations: "List of participants"
+        search: "Search"
+        filter: "Filter"
+        anything: "All"
+        operations_on_user: "Operations available on users"
+        send_email: "Send email"
     login:
       title: 'Login'
     confirmation:
@@ -734,7 +742,7 @@ en:
         back_to_blog: "Back to my blog"
     quorums:
       index:
-        title: "All available quorum"
+        title: "All available quorums"
     home:
       index:
         whatis: "WHAT IS AIRESIS"
@@ -1024,7 +1032,7 @@ en:
         confirmation: 'does not match confirmation'
         accepted: 'must be accepted'
         empty: 'can not be blank'
-        blank: 'ust be filled'
+        blank: 'must be filled'
         too_long: 'The text is too long'
         too_short: 'The text is too short'
         wrong_length: should be% {count} characters)'
@@ -1208,6 +1216,7 @@ en:
         area_created: "Work area successfully  created"
       group_deleted: "Group deleted correctly"
       group_created: "Group created correctly"
+      search_participants: "Search completed. Search results updated"
     participation_roles:
       role_updated: "Role successfully updated"
       permissions_updated: "Permissions updated"

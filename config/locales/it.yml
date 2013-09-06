@@ -155,6 +155,7 @@ it:
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
+        massive_email: "Invio mail massiva"
       left_panel:
         general_info: "Informazioni generali"
         alarm_and_notifications: "Allarmi e notifiche"
@@ -342,6 +343,13 @@ it:
         email_not_valid: "Indirizzo email non valido"
         text_to_send: "Testo da inviare (opzionale)"
         title: "Invita i tuoi amici nel gruppo!"
+      participations:
+        list_participations: "Elenco partecipanti"
+        search: "Ricerca"
+        filter: "Filtra"
+        anything: "Qualsiasi"
+        operations_on_user: "Operazioni sugli utenti"
+        send_email: "Invia email"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -1208,6 +1216,7 @@ it:
         area_created: "Area di lavoro creata correttamente"
       group_deleted: "Gruppo eliminato correttamente"
       group_created: "Gruppo creato correttamente"
+      search_participants: "Ricerca eseguita. Risultati aggiornati"
     participation_roles:
       role_updated: "Ruolo aggiornato correttamente"
       permissions_updated: "Permessi aggiornati"

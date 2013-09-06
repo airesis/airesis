@@ -27,7 +27,7 @@ class GroupPartecipationsController < ApplicationController
 
   def build_csv
     CSV.generate do |csv|
-      csv << ['Cognome','Nome','Ruolo','Iscritto dal']
+      csv << ['Cognome','Nome','Ruolo','Iscritto dal']   #TODO:il18n
       @group_partecipations.each do |group_partecipation|
         csv << [group_partecipation.user.surname,group_partecipation.user.name,group_partecipation.partecipation_role.name,group_partecipation.created_at ? (l group_partecipation.created_at) : ' ']
       end
