@@ -263,7 +263,7 @@ class ProposalCommentsController < ApplicationController
   def check_author
     @proposal_comment = ProposalComment.find(params[:id])
     unless current_user.is_mine? @proposal_comment
-      flash[:notice] = t('controllers.proposal_comments.cant_edit')
+      flash[:notice] = t('error.proposals.modify_comments')
       redirect_to :back
     end
   end

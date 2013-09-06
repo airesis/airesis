@@ -116,7 +116,7 @@ class ProposalsController < ApplicationController
     @accepted_count = @count_base.voted.count
     @revision_count = @count_base.revision.count
 
-    respond_to do |format|
+    respond_to do |format| 
       format.html # index.html.erb
       format.json
     end

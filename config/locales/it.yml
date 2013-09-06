@@ -39,14 +39,14 @@ it:
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
-    day_names: [Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]
-    abbr_day_names: [D, L, M, M, G, V, S]
-    month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
-    abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
+    day_names: "[Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]"
+    abbr_day_names: "[D, L, M, M, G, V, S]"
+    month_names: "[~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]"
+    abbr_month_names: "[~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]"
   time:
     formats:
      default: "%d %b %Y alle %H:%M"
@@ -155,6 +155,7 @@ it:
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
+        massive_email: "Invio mail massiva"
       left_panel:
         general_info: "Informazioni generali"
         alarm_and_notifications: "Allarmi e notifiche"
@@ -209,6 +210,11 @@ it:
         no_users_yet: "Qui potrai gestire i ruoli dei partecipanti quando ve ne saranno."
         default_role: "Ruolo predefinito del gruppo"
         confirm_role_deletion: "Sei sicuro di voler eliminare questo ruolo?"
+        remove_user: "Rimuovi utente"
+        confirm_role_change1: "Il ruolo dell'utente"
+        confirm_role_change2: "passerà da"
+        confirm_role_change3: "a"
+        confirm_role_change4: "Confermi?"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -224,6 +230,12 @@ it:
         no_groups_yet: "Non partecipi a nessun %{name} ancora"
         open_space_title: "Eventi pubblici"
         show_more: "Mostra altri gruppi"
+        search_mask: "Maschera di ricerca"
+        search_with_query: "tramite testo libero"
+        search_with_place: "o confine geografico"
+        search_description: "Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse"
+        insert_query_or_place: "Devi inserire almeno tre lettere o un confine geografico"
+        tags: "Parole chiave"
         partecipants_number: "Numero di partecipanti"
         proposals_number: "Numero di proposte"
         events_number: "Numero di eventi organizzati"
@@ -331,6 +343,13 @@ it:
         email_not_valid: "Indirizzo email non valido"
         text_to_send: "Testo da inviare (opzionale)"
         title: "Invita i tuoi amici nel gruppo!"
+      participations:
+        list_participations: "Elenco partecipanti"
+        search: "Ricerca"
+        filter: "Filtra"
+        anything: "Qualsiasi"
+        operations_on_user: "Operazioni sugli utenti"
+        send_email: "Invia email"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -347,7 +366,6 @@ it:
       accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
-      username_or_email: "Il tuo Username o la tua Email"
     proposals:
       index:
         title: "Elenco proposte"
@@ -462,6 +480,7 @@ it:
         add_comment: "Inserisci un commento"
         add_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta l'autore a migliorare la proposta"
         login_to_comment: "Fai login per inserire un commento"
+        regenerate_nickname: "Rigenera nickname"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -721,25 +740,6 @@ it:
         title: "Modifica blog"
         title_label: "Titolo del blog"
         back_to_blog: "Torna al mio blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco durate disponibili"
@@ -792,7 +792,8 @@ it:
           title: "Le notifiche"
         your_contributes: "I tuoi ultimi contributi"
         your_territory: "Il tuo territorio (test)"
-        voting_proposals: "Proposte in votazione"
+        no_proposals_to_vote_now: "Nessuna proposta in votazione al momento"
+        proposals_now_voting: "Proposte in votazione adesso"
     open_space:
       layout:
         proposals_button: "LE PROPOSTE"
@@ -852,12 +853,40 @@ it:
       index:
         title: "History della proposta %{title}"
         back_to_proposal: "Torna alla proposta"
+      title: "History della proposta"
+      loading_revisions: "Caricamento revisione..."
+      editor_name: "Autore della modifica:"
+      revision: "Revisione"
+      date_and_time: "Data e ora"
+      present_life_cycle: "Ciclo di vita attuale"
+      no_revision: "Nessuna revisione"
+      life_cycle: "Ciclo di vita"
+      life_cycle_number: "Ciclo di vita numero"
+      end_date: "Data termine:"
+      score_reached: "Score raggiunto:"
+      evaluation_reached: "Numero di valutazioni:"
+      quorum_used: "Quorum utilizzato:"
+      editors_in_life_cycle: "Autori durante questo ciclo di vita:"
     tags:
       show:
         related_title: "Tag correlati"
-    area_roles:
-      new:
-        title: "Nuovo ruolo"
+      list_proposals_with_tag: "Elenco proposte con tag:"
+      no_proposals_with_tag: "Non vi sono ancora proposte con questo tag"
+      list_posts_with_tag: "Elenco post con tag:"
+      no_posts_with_tag: "Non vi sono ancora Post con questo tag"
+      list_groups_with_tags: "Elenco gruppi con tag:"
+      no_groups_with_tag: "Non vi sono gruppi con questo tag"
+      proposals_tab: "Proposte"
+      posts_tab: "Post"
+      groups_tab: "Gruppi"
+    footer:
+      for_edemocracy: "per l'e-democracy"
+      go_to_main_site: "Vai al sito principale"
+    moderator_panel:
+      title: "Pannello moderazione"
+      block_user: "Blocca utente"
+      blocked_user_list: "Elenco utenti bloccati"
+      block: "Sblocca"
   pl:
     comments:
       zero: "nessun commento"
@@ -962,7 +991,7 @@ it:
         bad_score: Quorum negativo (percentuale)
         bad_score_title: "Gradimento al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
-        condition_title: "Le condizioni di Durata e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
+        condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
@@ -1187,12 +1216,14 @@ it:
         area_created: "Area di lavoro creata correttamente"
       group_deleted: "Gruppo eliminato correttamente"
       group_created: "Gruppo creato correttamente"
+      search_participants: "Ricerca eseguita. Risultati aggiornati"
     participation_roles:
       role_updated: "Ruolo aggiornato correttamente"
       permissions_updated: "Permessi aggiornati"
       role_created: "Ruolo creato correttamente"
       role_changed: "Ruolo modificato correttamente"
       role_deleted: "Ruolo eliminato correttamente"
+      user_removed_from_group: "rimosso correttamente dal gruppo"
     user:
       click_to_change: "Fai clic sulle informazioni che desideri modificare"
       info_updated: "Informazioni aggiornate correttamente"
@@ -1211,6 +1242,9 @@ it:
     events:
       event_deleted: "Evento eliminato correttamente"
       event_updated: "Evento aggiornato correttamente"
+    moderator_panel:
+      account_blocked: "Account bloccato"
+      account_unblocked: "Account sbloccato"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

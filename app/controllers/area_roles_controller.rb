@@ -55,7 +55,7 @@ class AreaRolesController < ApplicationController
       @area_role.save!
     end
 
-    flash[:notice] = t('area_role.confirm.update')
+    flash[:notice] = t('info.participation_roles.role_updated')
 
   rescue Exception => e
     respond_to do |format|
