@@ -7,9 +7,14 @@ class NotificationType < ActiveRecord::Base
   CHANGE_STATUS = 4
   NEW_CONTRIBUTES_MINE = 5
   CHANGE_STATUS_MINE = 6
+  NEW_PARTECIPATION_REQUEST=12
+  NEW_VALUTATION_MINE=20
+  NEW_VALUTATION=21
   AVAILABLE_AUTHOR = 22
   UNINTEGRATED_CONTRIBUTE = 25
   NEW_BLOG_COMMENT = 26
+  NEW_COMMENTS_MINE = 27
+  NEW_COMMENTS = 28
 
 
   belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id
@@ -18,10 +23,10 @@ class NotificationType < ActiveRecord::Base
   has_many :blockers, :through => :blocked_alerts, :class_name => 'User', :source => :user
 
   def description
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.short}.description")
+    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
   end
 
   def email_subject
-    I18n.t("db.#{self.class.class_name.tableize}.#{self.short}.email_subject")
+    I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.email_subject")
   end
 end
