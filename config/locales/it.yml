@@ -10,7 +10,7 @@ it:
         signed_up_but_unconfirmed: 'Clicca sul link che ti è stato inviato all''indirizzo email per completare la registrazione.'
     confirmations:
       user:
-        confirmed: 'Registrazione completata con successo!'             
+        confirmed: 'Registrazione completata con successo!'
         send_instructions:  'Istruzioni inviate all''indirizzo indicato.'
     sessions:
       user:
@@ -114,7 +114,7 @@ it:
       google_login: "Accedi tramite Google"
       twitter_login: "Accedi tramite Twitter"
       meetup_login: "Accedi tramite Meetup"
-      linkedin_login: "Accedi tramite Linkedin"
+      linkedin_login: "Accedi tramite LinkedIn"
       openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
     user:
@@ -124,7 +124,7 @@ it:
       index:
         title: "Elenco utenti"
       show:
-        groups_title: "Gruppi a cui partecipi"
+        groups_title: "I miei gruppi"
         group_column: "Gruppo"
         role_column: "Ruolo"
         get_out_of_group_button: "Abbandona il gruppo"
@@ -281,7 +281,8 @@ it:
           button: "Elenco permessi"
         print_all_participants: "Stampa elenco partecipanti"
         last_proposals: "Ultime proposte inserite"
-        rule_book_html: Le regole sono selezionabili alla creazione di un gruppo.<br/>
+        rule_book_html: |
+          Le regole sono selezionabili alla creazione di un gruppo.<br/>
           <p>Al momento tutti gli utenti possono creare un gruppo.</p>
           <p>Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati nella Bacheca del grupp.</p>
           <p>I gruppi possono sostenere le proposte, crearne di interne, creare sondaggi e organizzare i membri secondo ruoli e permessi.</p>
@@ -361,7 +362,7 @@ it:
         anything: "Qualsiasi"
         operations_on_user: "Operazioni sugli utenti"
         send_email: "Invia email"
-        surname: "COgnome"
+        surname: "Cognome"
         name: "Nome"
         role: "Ruolo"
         member_since: "Iscritto dal"
@@ -624,10 +625,7 @@ it:
         date_time_column: "Data e ora di voto"
       report_contribute:
         mark_title: "Marca il contributo"
-        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene
-                           informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
-                           Se il contributo viene marcato %{num} volte, gli autori della proposta potranno
-                           eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>Se il contributo viene marcato %{num} volte, gli autori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
         report_title: "Segnala il contributo"
         report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
       vote_panel:
@@ -786,16 +784,16 @@ it:
         follw_on_twitter: "Segui @democracyo su Twitter"
         field_1:
           title: "<em>Proponi</em> delle soluzioni"
-          content: "Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa.         Un potente strumento per valorizzare l'intelligenza collettiva."
+          content: "Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa. Un potente strumento per valorizzare l'intelligenza collettiva."
         field_2:
           title: "<em>Partecipa</em> all' e-democracy"
-          content: "Unisciti ai gruppi, scegli chi ti rappresenta e partecipa agli eventi in base ai tuoi interessi. L'unione         fa la forza."
+          content: "Unisciti ai gruppi, scegli chi ti rappresenta e partecipa agli eventi in base ai tuoi interessi. L'unione fa la forza."
         field_3:
           title: "<em>Decidi</em> il tuo futuro"
-          content: "Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto         semplice, che realizza la democrazia diretta e la democrazia liquida."
+          content: "Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto semplice, che realizza la democrazia diretta e la democrazia liquida."
         field_4:
           title: "<em>Collabora</em> nel tuo interesse"
-          content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
+          content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
         feedback: "FEEDBACK"
         FAQ: "FAQ"

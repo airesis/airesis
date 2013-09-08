@@ -114,7 +114,7 @@ en:
       google_login: 'Login with Google'
       twitter_login: "Login with Twitter"
       meetup_login: "Login with Meetup"
-      linkedin_login: "Login with Linkedin"
+      linkedin_login: "Login with LinkedIn"
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
     user:
@@ -124,7 +124,7 @@ en:
       index:
         title: 'User List'
       show:
-        groups_title: "Your groups"
+        groups_title: "My groups"
         group_column: "Group"
         role_column: "Role"
         get_out_of_group_button: "Leave this group"
@@ -145,7 +145,7 @@ en:
         password_label: "Password"
         facebook_url_label: "Facebook URL"
         googleplus_url_label: "Google+ URL"
-        linkedin_url: "Linkedin URL"
+        linkedin_url: "LinkedIn URL"
         username_label: "Username"
         registered_from: "Registered from"
         load_image: "Load an image"
@@ -176,7 +176,7 @@ en:
         join_facebook: "Join your Facebook account"
         join_google: "Join your Google account"
         join_twitter: "Join your Twitter account"
-        join_linkedin: "Join your Linkedin account"
+        join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
         providers_list: "List of activated provider"
         options: "Options"
@@ -281,11 +281,12 @@ en:
           button: "Permissions list"
         print_all_participants: "Print participants list"
         last_proposals: "Recently added proposals"
-        rule_book_html: "The rules can be selected while creating a group.<br/>
+        rule_book_html: |
+          The rules can be selected while creating a group.<br/>
           <p>All users can create a group, as of now.</p>
           <p>When you participate in a group the posts your blog can be shown in the Wall of the group.</p>
           <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
-          <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>"
+          <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -413,7 +414,7 @@ en:
         show_more: "Show more proposals..."
         loading_alt: "Loading"
         choose_model: "Choose a proposal model"
-        search_title: "Search in the proposals of the group"
+        search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
       show:
@@ -509,7 +510,7 @@ en:
         title: "New proposal"
         title_group: " In group %{name}"
         title_synthetic: "(in summary)"
-        title_placeholder: "ex. \"Facilitate bike transport on trains\""
+        title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
         standard:
@@ -624,10 +625,7 @@ en:
         date_time_column: "Vote date and time"
       report_contribute:
         mark_title: "Mark the contribution"
-        mark_description: "You can point out to authors of the proposal that this contribution does not contain
-                           relevant information to find a solution to the proposal.<br/>
-                           If the contribution is marked %{num} times, the authors of the proposal can
-                           delete it from the discussion and place it in the \"noise \" folder. <br/>"
+        mark_description: "You can point out to authors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the authors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
         report_title: "Report the contribution"
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
@@ -778,7 +776,7 @@ en:
         cloud_6: "DEBATE"
         cloud_7: "INVOLVED"
         cloud_8: "VOTE"
-        cloud_9: " CHOOSE"
+        cloud_9: "CHOOSE"
         try_it: "Try it"
         register: "Register"
         login: "Login"
@@ -1035,7 +1033,7 @@ en:
         surname: 'Surname'
         login: 'Username'
         password: 'Password'
-        linkedinpageurl: 'Your page on Linkedin'
+        linkedinpageurl: 'Your page on LinkedIn'
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
         email_alerts: 'Notifications via Email'
