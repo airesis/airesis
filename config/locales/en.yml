@@ -233,7 +233,7 @@ en:
         search_mask: "Search tool"
         search_with_query: "using a personalized query"
         search_with_place: "or geographic border"
-        search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
+        search_description: "Use the search tool or click on a tag to find groups of your interest"
         insert_query_or_place: "You must type at least three characters or a geographic border"
         tags: "Tags"
         partecipants_number: "Number of participants"

@@ -28,9 +28,9 @@ module Airesis
     
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome' 
-    config.i18n.default_locale = :it
+    config.i18n.default_locale = :en
 
-    config.i18n.fallbacks =[:it]
+    config.i18n.fallbacks =[:en]
 
     config.to_prepare do
       Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb

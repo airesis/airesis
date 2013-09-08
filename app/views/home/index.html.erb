@@ -116,11 +116,21 @@
               </dt>
               <dd>
                 <ul>
-                  <li><%= link_to (image_tag 'flags/it.png') + ' Italiano', current_url(:l => (@domain_locale == 'it' ? nil : :it)) %></li>
-                  <li><%= link_to (image_tag 'flags/pt.png') + ' Português', current_url(:l => :pt) %></li>
                   <li><%= link_to (image_tag 'flags/en.png') + ' English', current_url(:l => :en) %></li>
-                  <li><%= link_to (image_tag 'flags/eu.png') + ' European', current_url(:l => (@domain_locale == 'eu' ? nil : :eu)) %></li>
-                  <li><%= link_to (image_tag 'flags/us.png') + ' United States', current_url(:l => (@domain_locale == 'us' ? nil : :us)) %></li>
+                  <li><%= link_to (image_tag 'flags/en-US.png') + ' English (USA)', current_url(:l => (@domain_locale == 'us' ? nil : :"en-US")) %></li>
+                  <li><%= link_to (image_tag 'flags/it-IT.png') + ' Italiano', current_url(:l => (@domain_locale == 'it' ? nil : :"it-IT")) %></li>
+                  <li><%= link_to (image_tag 'flags/pt-PT.png') + ' Português', current_url(:l => :"pt-PT") %></li>
+                  <li><%= link_to (image_tag 'flags/pt-BR.png') + ' Portuguêse: brasileiro', current_url(:l => :"pt-BR") %></li>
+                  <li><%= link_to (image_tag 'flags/es-ES.png') + ' Español', current_url(:l => :"es-ES") %></li>
+                  <li><%= link_to (image_tag 'flags/fr.png') + ' Français', current_url(:l => :"fr") %></li>
+                  <li><%= link_to (image_tag 'flags/de.png') + ' Deutsch', current_url(:l => :"de") %></li>
+                  <li><%= link_to (image_tag 'flags/ar.png') + ' اللغة العربية', current_url(:l => :"ar") %></li>
+                  <li><%= link_to (image_tag 'flags/nl.png') + ' Nederlands', current_url(:l => :"nl") %></li>
+                  <li><%= link_to (image_tag 'flags/el.png') + ' Ελληνικά', current_url(:l => :"el") %></li>
+                  <li><%= link_to (image_tag 'flags/jp.png') + ' 日本語', current_url(:l => :"jp") %></li>
+                  <li><%= link_to (image_tag 'flags/id.png') + ' Bahasa Indonesia', current_url(:l => :"id") %></li>
+
+
                 </ul>
               </dd>
             </dl>
