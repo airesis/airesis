@@ -454,7 +454,7 @@
                         alert_container.addClass(alert.checked ? 'old' : 'new');
 
                         if (!alert.checked) {
-                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="Letto" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
+                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }
 
                         alert_container.append($('<p class="p2">' + alert.created_at + '</p>'));

@@ -243,7 +243,8 @@ class ProposalsController < ApplicationController
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
 
       @title = ''
-      @title += t('pages.proposals.new.title_group', name: @group.name) if @group
+      @title += t('pages.proposals.new.title_group', name: @group.name, ) if @group
+      @title += ' - '
       @title += ProposalType.find_by_short_name(params[:proposal_type_id]).description
 
       respond_to do |format|

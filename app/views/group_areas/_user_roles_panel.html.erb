@@ -1,8 +1,8 @@
 <%if @group_area.area_partecipations.count > 0 %>
 <table id="roles_table">
 	<thead>
-		<th><%= 'Utente' %></th>
-		<th><%= 'Ruolo' %></th>
+		<th><%= t('pages.groups.edit_permissions.user_title') %></th>
+		<th><%= t('pages.groups.edit_permissions.role_title') %></th>
 	</thead>
 	<tbody>
 		<%@group_area.area_partecipations.each do |gp| %>
@@ -19,5 +19,5 @@
 	</tbody>
 </table>
 <%else%>
-    <h4><%= 'Qui potrai gestire i ruoli dei partecipanti quando ve ne saranno' %></h4>
+    <h4><%= t('pages.groups.edit_permissions.no_users_yet') %></h4>
 <%end%>

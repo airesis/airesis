@@ -76,7 +76,7 @@ module NotificationHelper
 
     msg = "Un contributo che avevi integrato è stato rimesso in dibattito"
 
-    data = {'proposal_id' => @proposal.id.to_s, 'subject' => subject, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'i18n' => 't'}
+    data = {'proposal_id' => @proposal.id.to_s, 'subject' => subject, 'comment_id' => proposal_comment.id.to_s, 'title' => proposal.title, 'username' => name, 'i18n' => 't'}
     notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE, :message => msg, :url => @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), :data => data)
     notification_a.save
     @proposal.users.each do |user|
@@ -234,7 +234,7 @@ module NotificationHelper
     post_user = blog_post.user
     user_followers = post_user.followers #utenti che seguono il blog
     sent_users = []
-    data = {'blog_post_id' => blog_post.id.to_s}
+    data = {'blog_post_id' => blog_post.id.to_s,'blog' => blog_post.title, 'user' => post_user.fullname, 'i18n' => 't'}
     msg = "<b>"+ post_user.fullname + "</b> ha inserito un nuovo post nel proprio blog <b>"+blog_post.title+"</b>!";
     notification_a = Notification.new(:notification_type_id => 15, :message => msg, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
     notification_a.save
@@ -315,7 +315,7 @@ module NotificationHelper
   def notify_new_event(event)
     if event.private
       organizer = event.organizers.first
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't', 'eventtype' => event.event_type.description }
       msg = "E' stato creato un nuovo evento nel gruppo #{organizer.name}!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, message: msg, :url => event_url(event), data: data)
       notification_a.save
@@ -326,6 +326,7 @@ module NotificationHelper
         end
       end
     else
+      organizer = event.organizers.first
       data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'event' => event.title, 'i18n' => 't'}
       msg = "E' stato creato un nuovo evento pubblico!<br/> Vai alla pagina di <b>#{event.title}</b> per visualizzarlo."
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, :message => msg, url: event_url(event), data: data)
