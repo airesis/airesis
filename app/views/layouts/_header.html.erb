@@ -166,6 +166,7 @@
 
     <%= link_to (image_tag 'cur-love.png'), sostienici_url(subdomain: false), :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
+    <%= image_tag "flags/#{I18n.locale}.png", :class => 'cur language', title: t('pages.home.index.change_language')%>
     <div id="help_panel" style="display:none;">
       <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %> <br/>
       <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), title: t('pages.home.index.videos') %> <br/>
@@ -176,6 +177,22 @@
       <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %> <br/>
       <%= link_to t('pages.home.index.whowe'), chisiamo_url(subdomain: false), title: t('pages.home.index.whowe') %>
     </div>
+    <div id="language" style="display:none;">
+      <%= link_to (image_tag 'flags/en.png') + ' English', current_url(:l => :en) %><br/>
+      <%= link_to (image_tag 'flags/en-US.png') + ' English (USA)', current_url(:l => (@domain_locale == 'us' ? nil : :"en-US")) %><br/>
+      <%= link_to (image_tag 'flags/it-IT.png') + ' Italiano', current_url(:l => (@domain_locale == 'it' ? nil : :"it-IT")) %><br/>
+      <%= link_to (image_tag 'flags/pt-PT.png') + ' Português', current_url(:l => :"pt-PT") %><br/>
+      <%= link_to (image_tag 'flags/pt-BR.png') + ' Portuguêse: brasileiro', current_url(:l => :"pt-BR") %><br/>
+      <%= link_to (image_tag 'flags/es-ES.png') + ' Español', current_url(:l => :"es-ES") %><br/>
+      <%= link_to (image_tag 'flags/fr.png') + ' Français', current_url(:l => :"fr") %><br/>
+      <%= link_to (image_tag 'flags/de.png') + ' Deutsch', current_url(:l => :"de") %><br/>
+      <%= link_to (image_tag 'flags/ar.png') + ' اللغة العربية', current_url(:l => :"ar") %><br/>
+      <%= link_to (image_tag 'flags/nl.png') + ' Nederlands', current_url(:l => :"nl") %><br/>
+      <%= link_to (image_tag 'flags/el.png') + ' Ελληνικά', current_url(:l => :"el") %><br/>
+      <%= link_to (image_tag 'flags/jp.png') + ' 日本語', current_url(:l => :"jp") %><br/>
+      <%= link_to (image_tag 'flags/id.png') + ' Bahasa Indonesia', current_url(:l => :"id") %><br/>
+    </div>
+
 
 
   </div>
@@ -311,12 +328,39 @@
         },
         style: {
             classes: 'qtip-light qtip-shadow qtip-cur'
+        },
+        show: {
+            solo: true
         }
     });
 
 
     $('#tolr .cur.info').qtip({
         content: $('#help_panel'),
+        position: {
+            at: 'bottom center',
+            my: 'top center',
+            viewport: $(window),
+            effect: false,
+            adjust: {
+                method: 'shift',
+                x: 0, y: 0
+            }
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow qtip-cur'
+        },
+        show: {
+            solo: true
+        },
+        hide: {
+            fixed: true,
+            delay: 500
+        }
+    });
+
+    $('#tolr .cur.language').qtip({
+        content: $('#language'),
         position: {
             at: 'bottom center',
             my: 'top right',
@@ -338,7 +382,6 @@
             delay: 500
         }
     });
-
 
     <%if user_signed_in?%>
 
