@@ -47,9 +47,11 @@ it:
       new_public_events:
         description: Nuovi eventi pubblici
         email_subject: Un nuovo evento è stato inserito
+        message: "E' stato creato un nuovo evento pubblico!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
       new_events:
         description: Nuovi eventi dei gruppi a cui partecipo
         email_subject: Un nuovo evento è stato inserito
+        message: "E' stato creato un nuovo evento nel gruppo %{group}!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
       new_posts_user_follow:
         description: Nuovo post di un utente che seguo
         email_subject: Un nuovo post è stato inserito
@@ -64,12 +66,15 @@ it:
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
         email_subject: Un utente si è reso disponibile a redigere la sintesi di una proposta
+        message: "L'utente <b>%{user}</b> si è offerto come redattore della proposta <b>%{title}</b>."
       author_accepted:
         description: Accettazione come redattore di una proposta
         email_subject: Sei stato scelto come redattore di una proposta
+        message: "Sei stato scelto come redattore alla sintesi della proposta <b>%{title}</b>.<br/>Ricordati che per essere un buon redattore dovrai recepire i contributi degli altri utenti e migliorare il testo secondo i consigli ricevuti.<br/>Buon lavoro!"
       new_authors:
         description: Nuovi redattori per le proposte
         email_subject: Nuovi redattori per una proposta
+        message: "L'utente <b>%{user}</b> è stato scelto come redattore alla sintesi della proposta <b>%{title}</b>."
       unintegrated_contribute:
         description: Contributi rimessi in dibattito
         email_subject: Un contributo è stato rimesso in dibattito
@@ -82,9 +87,6 @@ it:
         description: Aggiornamento del testo di una proposta a cui partecipo
         email_subject: Una proposta è stata aggiornata
         message: "La proposta <b>%{title}</b> è stata aggiornata!"
-      new_public_proposals:
-        description: Nuove proposte inserite nello spazio comune
-        email_subject: Una nuova proposta è stata inserita
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
         email_subject: Nuovo contributo ad una mia proposta
@@ -111,9 +113,15 @@ it:
       new_posts_group:
         description: Nuovi post sulle pagine dei gruppi a cui partecipo
         email_subject: E' presente un nuovo post
+        message: "<b>%{user}</b> ha inserito un nuovo post nella pagina del gruppo <b>%{group}</b>!"
+      new_public_proposals:
+        description: Nuove proposte inserite nello spazio comune
+        email_subject: Una nuova proposta è stata inserita
+        message: "E' stata creata una proposta <b>%{proposal}</b> nello spazio comune"
       new_proposals:
         description: Nuove proposte interne al gruppo
         email_subject: Una nuova proposta è stata inserita
+        message: "E' stata creata una proposta <b>%{proposal}</b> nel gruppo <b>%{group}</b>"
       new_partecipation_request:
         description: Nuova richiesta di partecipazione
         email_subject: Nuova richiesta di partecipazione
@@ -121,6 +129,7 @@ it:
       new_blog_comment:
         description: Nuovo commento nel mio blog
         email_subject: E' stato inserito un nuovo commento nel tuo blog
+        message: "%{user} ha inserito un nuovo commento al tuo post %{title}<br/> Vai alla pagina di <b>%{title}</b> per visualizzarlo."
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta
