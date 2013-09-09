@@ -966,11 +966,11 @@ en:
         description_placeholder: "This message will be on the first page of the group"
         image_url_placeholder: "Group image URL"
         facebook_page_url_placeholder: "Group Facebook page? insert link here."
-        admin_title: "Administrator name"
+        admin_title: "How are the administrators of the group called?"
         private: "Private group"
         rule_book: "Rule book"
         image: "Load image"
-        admin_title_placeholder: "Name of the group admin (default: Administrator)"
+        admin_title_placeholder: "Role name of the group administrators (default: Administrator)"
       blog:
         title: 'Title'
       blog_post:

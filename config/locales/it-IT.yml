@@ -966,11 +966,11 @@ it-IT:
         description_placeholder: "Questo messaggio apparirà nella prima pagina del gruppo"
         image_url_placeholder: "URL dell'immagine del gruppo"
         facebook_page_url_placeholder: "Se il gruppo ha una pagina Facebook, inserisci qui l'indirizzo."
-        admin_title: "Nome amministratore"
+        admin_title: "Come vengono denominati gli amministratori del gruppo?"
         private: "Gruppo chiuso"
         rule_book: "Regolamento"
         image: "Carica immagine"
-        admin_title_placeholder: "Nome ruolo amministratore gruppo (default: Amministratore)"
+        admin_title_placeholder: "Nome ruolo amministratori del gruppo (default: Amministratore)"
       blog:
         title: 'Titolo'
       blog_post:

@@ -11,8 +11,7 @@
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
 
-    <% if ['edit', 'update'].include? params[:action] %>
-        <p>
+            <p>
           <%= f.label :rule_book %><br/>
           <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
         </p>
@@ -34,9 +33,10 @@
                 },
                 paste_auto_cleanup_on_paste: true,
                 theme_advanced_statusbar_location: "none"
+
             });
         </script>
-    <% end %>
+
 
     <% if ::Configuration::socialnetwork_active && false %>
         <p>
@@ -80,6 +80,10 @@
           <%= f.label :default_role_name %>    <br/>
           <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>
           <a href="#" onclick="apri_permessi();return false;"><%= t('pages.groups.new.change_permissions_button') %></a>
+        </p>
+        <p>
+          <%= f.label :admin_title %> <br/>
+          <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
 
         <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
@@ -128,9 +132,9 @@
         $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
-            hintText: "<%='Digita alcuni caratteri per cercare un luogo'%>",
-            noResultsText: "<%='Nessun luogo trovato'%>",
-            searchingText: "<%='Sto cercando...'%>",
+            hintText: "<%=t('interest_borders.hint')%>",
+            noResultsText: "<%=t('interest_borders.no_place_found')%>",
+            searchingText: "<%=t('interest_borders.searching')%>",
             preventDuplicates: true,
             tokenLimit: 1,
             allowTabOut: true
