@@ -35,8 +35,9 @@ class ApplicationController < ActionController::Base
         (Rails.env == :staging ?
             params[:l] || I18n.default_locale :
             params[:l] || @domain_locale || I18n.default_locale)
-    @locale = 'en' if ['us','en','eu'].include? @locale
-    @locale = 'it' if ['it','org','net'].include? @locale
+    @locale = 'en' if ['en','eu'].include? @locale
+    @locale = 'en-US' if ['us'].include? @locale
+    @locale = 'it-IT' if ['it','org','net'].include? @locale
     I18n.locale = @locale
   end
 

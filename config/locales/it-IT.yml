@@ -1,4 +1,4 @@
-it:
+it-IT:
   permissions_required: "Non disponi dei permessi sufficienti"
   test: "Test"
   devise:
@@ -10,7 +10,7 @@ it:
         signed_up_but_unconfirmed: 'Clicca sul link che ti è stato inviato all''indirizzo email per completare la registrazione.'
     confirmations:
       user:
-        confirmed: 'Registrazione completata con successo!'             
+        confirmed: 'Registrazione completata con successo!'
         send_instructions:  'Istruzioni inviate all''indirizzo indicato.'
     sessions:
       user:
@@ -43,10 +43,10 @@ it:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
-    day_names: [Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]
-    abbr_day_names: [D, L, M, M, G, V, S]
-    month_names: [~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]
-    abbr_month_names: [~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]
+    day_names: "[Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]"
+    abbr_day_names: "[D, L, M, M, G, V, S]"
+    month_names: "[~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]"
+    abbr_month_names: "[~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]"
   time:
     formats:
      default: "%d %b %Y alle %H:%M"
@@ -114,7 +114,7 @@ it:
       google_login: "Accedi tramite Google"
       twitter_login: "Accedi tramite Twitter"
       meetup_login: "Accedi tramite Meetup"
-      linkedin_login: "Accedi tramite Linkedin"
+      linkedin_login: "Accedi tramite LinkedIn"
       openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
     user:
@@ -124,7 +124,7 @@ it:
       index:
         title: "Elenco utenti"
       show:
-        groups_title: "Gruppi a cui partecipi"
+        groups_title: "I miei gruppi"
         group_column: "Gruppo"
         role_column: "Ruolo"
         get_out_of_group_button: "Abbandona il gruppo"
@@ -155,6 +155,7 @@ it:
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
+        massive_email: "Invio mail massiva"
       left_panel:
         general_info: "Informazioni generali"
         alarm_and_notifications: "Allarmi e notifiche"
@@ -280,6 +281,12 @@ it:
           button: "Elenco permessi"
         print_all_participants: "Stampa elenco partecipanti"
         last_proposals: "Ultime proposte inserite"
+        rule_book_html: |
+          Le regole sono selezionabili alla creazione di un gruppo.<br/>
+          <p>Al momento tutti gli utenti possono creare un gruppo.</p>
+          <p>Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati nella Bacheca del grupp.</p>
+          <p>I gruppi possono sostenere le proposte, crearne di interne, creare sondaggi e organizzare i membri secondo ruoli e permessi.</p>
+          <p>É possibile cambiare le regole di questo gruppo tramite le <b>Impostazioni</b> del gruppo stesso.</p>
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -310,7 +317,7 @@ it:
         condition: "Condizione"
         good_percentage: "% Gradimento"
         bad_percentage: "% Respingimento"
-        confirm_deletion: "Sei sicuro di voler eliminare il quorum '"
+        confirm_deletion: "Sei sicuro di voler eliminare il quorum '%{quorum}'?"
         add_quorum: "Aggiungi un nuovo quorum"
         edit_quorum: "Modifica quorum"
         configure_proposal_parameters: "Parametri di configurazione proposte"
@@ -335,13 +342,30 @@ it:
           switch_area_participants: "Passa alla gestione dei partecipanti"
           list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi di quell'area"
           title: "Impostazioni area di lavoro"
+          list_participants: "Elenco partecipanti al gruppo. Seleziona per ciascuno le aree di lavoro a cui deve appartenere"
+          switch_area_management: "Passa alla gestione delle aree di lavoro"
+          confirm_deletion: "Sei sicuro di voler rimuovere quest'area di lavoro?"
+          manage_roles_in_area: "Modifica ruoli e permessi nell'area di lavoro %{area}"
         manage_group_areas: "Organizza gli utenti all'interno delle aree di lavoro"
+        form:
+          title: "Nuova area di lavoro"
       default_admin_title: "Amministratore"
       invite_your_friends:
         type_email_addresses: "Digita gli indirizzi email separati da virgola"
         email_not_valid: "Indirizzo email non valido"
         text_to_send: "Testo da inviare (opzionale)"
         title: "Invita i tuoi amici nel gruppo!"
+      participations:
+        list_participations: "Elenco partecipanti"
+        search: "Ricerca"
+        filter: "Filtra"
+        anything: "Qualsiasi"
+        operations_on_user: "Operazioni sugli utenti"
+        send_email: "Invia email"
+        surname: "Cognome"
+        name: "Nome"
+        role: "Ruolo"
+        member_since: "Iscritto dal"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -355,7 +379,8 @@ it:
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
-      accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
+      accept_conditions: |
+        "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
     proposals:
@@ -569,6 +594,9 @@ it:
           solution:
             description: "Descrizione"
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
+        tags_separated_by_comma: "(separate da virgola)"
+        cannot_add_proposal_in_work_area: "Non disponi dei permessi per inserire la proposta in nessuna area"
+        no_work_area_selected: "Nessuna area di lavoro"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
@@ -597,10 +625,7 @@ it:
         date_time_column: "Data e ora di voto"
       report_contribute:
         mark_title: "Marca il contributo"
-        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene
-                           informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>
-                           Se il contributo viene marcato %{num} volte, gli autori della proposta potranno
-                           eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>Se il contributo viene marcato %{num} volte, gli autori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
         report_title: "Segnala il contributo"
         report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
       vote_panel:
@@ -716,10 +741,11 @@ it:
       new_group: "Cerca gruppi"
       support_us: "SOSTIENICI"
       no_alerts: "Nessuna notifica"
+      read: "Letto"
     blogs:
       show:
         no_posts: "Nessun Post"
-        no_posts_long: "Non vi sono ancora Post in questo Blog, torna presto."
+        no_posts_long: "Non vi sono ancora Post in questo Blog, torna presto"
         tag: "Tag"
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
@@ -732,25 +758,6 @@ it:
         title: "Modifica blog"
         title_label: "Titolo del blog"
         back_to_blog: "Torna al mio blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
         title: "Elenco durate disponibili"
@@ -777,16 +784,16 @@ it:
         follw_on_twitter: "Segui @democracyo su Twitter"
         field_1:
           title: "<em>Proponi</em> delle soluzioni"
-          content: "Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa.         Un potente strumento per valorizzare l'intelligenza collettiva."
+          content: "Un luogo in cui segnalare problemi, proporre soluzioni, discutere alternative, elaborare una sintesi condivisa. Un potente strumento per valorizzare l'intelligenza collettiva."
         field_2:
           title: "<em>Partecipa</em> all' e-democracy"
-          content: "Unisciti ai gruppi, scegli chi ti rappresenta e partecipa agli eventi in base ai tuoi interessi. L'unione         fa la forza."
+          content: "Unisciti ai gruppi, scegli chi ti rappresenta e partecipa agli eventi in base ai tuoi interessi. L'unione fa la forza."
         field_3:
           title: "<em>Decidi</em> il tuo futuro"
-          content: "Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto         semplice, che realizza la democrazia diretta e la democrazia liquida."
+          content: "Uno strumento decisionale innovativo per determinare delle scelte all'interno di gruppi. Un sistema di voto semplice, che realizza la democrazia diretta e la democrazia liquida."
         field_4:
           title: "<em>Collabora</em> nel tuo interesse"
-          content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza         le tue idee assieme agli altri."
+          content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
         feedback: "FEEDBACK"
         FAQ: "FAQ"
@@ -842,7 +849,6 @@ it:
         forgot_password: "Hai dimenticato la password?"
         havent_received_email: "Non hai ricevuto l'email per la conferma?"
     steps:
-      next: "Prosegui"
       interest_borders:
         title: "Inizia a partecipare"
         description1: "Definisci i tuoi confini geografici di interesse."
@@ -891,13 +897,23 @@ it:
       posts_tab: "Post"
       groups_tab: "Gruppi"
     footer:
-      for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
+      for_edemocracy_html: "Progetto <a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> per l'e-democracy"
     moderator_panel:
       title: "Pannello moderazione"
       block_user: "Blocca utente"
       blocked_user_list: "Elenco utenti bloccati"
       block: "Sblocca"
+    feedback:
+      send_feedback: "Invia feedback"
+      add_details: "Aggiungi dettagli"
+      view_preview: "Visualizza anteprima"
+      send_succes: "Feedback inviato correttamente. Grazie!"
+      send_error: "Spiacenti ma si è verificato un errore durante l\'invio del feedback"
+      describe_problem: "Scrivi qui il tuo messagio:"
+      highlight_or_blackout: "Evidenzia o oscura le informazioni importanti"
+      blackout: "Evidenzia"
+      highlight: "Oscura"
   pl:
     comments:
       zero: "nessun commento"
@@ -1017,8 +1033,8 @@ it:
         surname: "Cognome"
         login: "Username"
         password: "Password"
-        linkedinpageurl: "Tua pagina su Linkedin"
-        facebookpageurl: "Tua pagina su Facebook"
+        linkedinpageurl: "La tua pagina su Linkedin"
+        facebookpageurl: "La tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
         email_alerts: "Notifiche tramite email"
         blog_image_url: "Indirizzo immagine"
@@ -1026,6 +1042,7 @@ it:
       group_area:
         name: "Nome"
         description: "Descrizione"
+        default_role_name: "Nome ruolo di default"
     errors:
       template:
         header:
@@ -1097,7 +1114,10 @@ it:
     create: "Crea"
     delete: "Elimina"
     search: "Cerca"
+    close: "Chiudi"
     edit: "Modifica"
+    next: "Prosegui"
+    go_back: "Torna indietro"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1227,13 +1247,14 @@ it:
         area_created: "Area di lavoro creata correttamente"
       group_deleted: "Gruppo eliminato correttamente"
       group_created: "Gruppo creato correttamente"
+      search_participants: "Ricerca eseguita. Risultati aggiornati"
     participation_roles:
       role_updated: "Ruolo aggiornato correttamente"
       permissions_updated: "Permessi aggiornati"
       role_created: "Ruolo creato correttamente"
       role_changed: "Ruolo modificato correttamente"
       role_deleted: "Ruolo eliminato correttamente"
-      user_removed_from_group: "rimosso correttamente dal gruppo"
+      user_removed_from_group: "%{name} rimosso correttamente dal gruppo"
     user:
       click_to_change: "Fai clic sulle informazioni che desideri modificare"
       info_updated: "Informazioni aggiornate correttamente"

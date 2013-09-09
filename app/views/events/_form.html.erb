@@ -61,7 +61,7 @@
 			</p> 
 			<p>
                 <a href="#" class="btn" onclick="$('#create_event_dialog').dialog('destroy');"><%= t('buttons.cancel') %></a>
-				<%= f.submit 'Crea evento', :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving')%>
+				<%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving')%>
 			</p></td>
 			<td width="40%"> 
 				<%=f.fields_for :election, @election do |e|%>

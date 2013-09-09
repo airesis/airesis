@@ -1,4 +1,4 @@
-pt:
+pt-PT:
   test: "Teste"
   devise:
     omniauth_callbacks:

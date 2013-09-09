@@ -4,7 +4,7 @@ class SearchPartecipantsController < ApplicationController
 
   def create
     @partecipants = @group.search_partecipants.build(params[:search_partecipant]).results
-    flash[:notice] = 'Ricerca eseguita. Risultati aggiornati'
+    flash[:notice] = t('info.groups.search_participants')
     respond_to do |format|
       format.js
       format.html

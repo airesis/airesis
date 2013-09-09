@@ -1,6 +1,6 @@
 <div id="footer">
     <div class="pull-left">
-      Airesis™ v. <%= VERSION %> - <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %> Project <%= t('pages.footer.for_edemocracy')%>
+      Airesis™ v. <%= VERSION %> - <%= t('pages.footer.for_edemocracy_html')%>
       <%if in_subdomain? %>
        <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false)  %>
       <%end%>

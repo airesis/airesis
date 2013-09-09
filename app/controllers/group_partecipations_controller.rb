@@ -27,7 +27,7 @@ class GroupPartecipationsController < ApplicationController
 
   def build_csv
     CSV.generate do |csv|
-      csv << ['Cognome', 'Nome', 'Ruolo', 'Iscritto dal']
+      csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pag  es.groups.participations.member_since')]   #TODO:il18n
       @group_partecipations.each do |group_partecipation|
         csv << [group_partecipation.user.surname, group_partecipation.user.name, group_partecipation.partecipation_role.name, group_partecipation.created_at ? (l group_partecipation.created_at) : ' ']
       end
@@ -57,7 +57,7 @@ class GroupPartecipationsController < ApplicationController
         @group_partecipation_request.destroy
         @group_partecipation.destroy
       end
-      flash[:notice] = (current_user == @group_partecipation.user) ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : "#{@group_partecipation.user.fullname} "+ I18n.t('info.participation_roles.user_removed_from_group') #TODO:il18n
+      flash[:notice] = current_user == @group_partecipation.user ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : I18n.t('info.participation_roles.user_removed_from_group',name:@group_partecipation.user.fullname) #TODO:il18n
     end
 
     respond_to do |format|

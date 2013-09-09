@@ -32,7 +32,7 @@
         </td>
         <td>
             <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => t('buttons.edit'), :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>
-            <%= link_to 'Delete', [@group, quorum], :method => :delete, :remote => true, :confirm => t('pages.groups.edit_quorums.confirm_deletion')+quorum.name+"'?", :title => t('buttons.delete'), :class => "ui-icon ui-icon-trash", :style=>'float:left' %>
+            <%= link_to 'Delete', [@group, quorum], :method => :delete, :remote => true, :confirm => raw(t('pages.groups.edit_quorums.confirm_deletion', quorum: quorum.name)), :title => t('buttons.delete'), :class => "ui-icon ui-icon-trash", :style=>'float:left' %>
         </td>
       </tr>
   <% end %>

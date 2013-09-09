@@ -1,7 +1,7 @@
 <table class="table_list">
   <thead class="table_header">
-  <th>Ruolo</th>
-  <th>Descrizione</th>
+  <th><%=t('pages.groups.edit_permissions.role_title')%></th>
+  <th><%=t('activerecord.attributes.group_area.description')%></th>
 
   <% GroupAction.for_group_areas.order(:seq).each do |action| %>
       <th><%= action.description %></th>
@@ -28,9 +28,9 @@
 
         <td>
           <% if role.id != @group_area.area_role_id %>
-              <%= link_to "X", [@group,@group_area,role], :method => :delete, :remote => true, :confirm => "Sei sicuro di voler eliminare questo ruolo?" %>
+              <%= link_to t('buttons.delete'), [@group,@group_area,role], :method => :delete, :remote => true, :confirm => t('pages.groups.edit_permissions.confirm_role_deletion') %>
           <% end %>
-          <%= link_to "Modifica", edit_group_group_area_area_role_url(@group,@group_area,role), :remote => true %>
+          <%= link_to t('buttons.edit'), edit_group_group_area_area_role_url(@group,@group_area,role), :remote => true %>
         </td>
       </tr>
   <% end %>

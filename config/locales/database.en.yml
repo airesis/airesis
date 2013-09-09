@@ -11,9 +11,9 @@ en:
         description: election
     group_actions:
       STREAM_POST:
-        description: Post on the group home page
+        description: Post on the Wall of the group
       CREATE_EVENT:
-        description: Create events and voting
+        description: Create events and votes
       PROPOSAL:
         description: Support proposals on behalf of the group
       REQUEST_ACCEPT:
@@ -23,9 +23,9 @@ en:
       PROPOSAL_VIEW:
         description: View private proposals
       PROPOSAL_PARTECIPATION:
-        description: Contribute to proposals
+        description: Contribute to the proposals
       PROPOSAL_INSERT:
-        description: Insert new proposals into the group
+        description: Insert new proposals in the group
       DOCUMENT_VIEW:
         description: View documents
       DOCUMENT_MANAGE:
@@ -36,7 +36,7 @@ en:
       MYPROP:
         description: Proposals I write
       PROP:
-        description: Proposals I take part
+        description: Proposals I participate in
       NEWPROP:
         description: New proposals
       NEWEVENT:
@@ -45,75 +45,100 @@ en:
         description: Groups
     notification_types:
       new_public_events:
-        description: There are new public events
+        description: New public events
         email_subject: There is a new public event
+        message: "New public event: <b>%{event}</b>"
       new_events:
-        description: There is a new event within a group I am involved in
+        description: New events in the groups I participate in
         email_subject: There is a new event
+        message: "New event <b>%{event}</b> in the group <b>%{group}</b>"
       new_posts_user_follow:
-        description: There is a new post from a user I am following
+        description: New posts from a user I am following
         email_subject: There is a new post
+        message: "%{user} added a new post in his blog <b>%{blog}</b>"
       new_valutation_mine:
-        description: There is a new evaluation for a proposal of mine
+        description: New evaluation for a proposal of mine
         email_subject: There is a new evaluation for a proposal of yours
+        message: "Your proposal <b>%{title}</b> has received a new evaluation"
       new_valutation:
-        description: There is a new evaluation for a proposal I am involved in
+        description: New evaluation for a proposal I participate in
         email_subject: There is a new evaluation for a proposal of mine
+        message: "You proposal <b>%{title}</b> has received a new evaluation"
       available_author:
-        description: User available to do a summary for a proposal
-        email_subject: There is a user available to do a summary of a proposal
+        description: User available to become an editor of a proposal
+        email_subject: There is a user available to become an editor of the proposal
+        message: "%{user} is available to become editor of the proposal <b>%{title}</b>"
       author_accepted:
         description: Acceptance as editor of a proposal
-        email_subject: You have been chosen as editor of a proposal
+        email_subject: You have become editor of a proposal
+        message: "You are now editor of the proposal <b>%{title}</b>.<br/>Remember that as an editor, you should listen to to the contributions of other users and improve the text according to them<br/>"
       new_authors:
-        description: New editors for proposals
-        email_subject: New editors for a proposal
+        description: New editors of the proposals
+        email_subject: New editor of a proposal
+        message: "<b>%{user}</b> is an editor of the proposal <b>%{title}</b>"
       unintegrated_contribute:
-        description: Contributions are put back into debate
-        email_subject: A contribution has been putted back in debate
+        description: Contributions are put back in debate
+        email_subject: A contribution has been put back in debate
+        message: "A contribution you integrated in the proposal <b>%{title}</b> has been put back in debate"
       new_contributes:
-        description: New contributions and ideas to proposals I am involved in
-        email_subject: New comment to proposal
-        message: "<b>%{name}</b> inserted a new contribute in the proposal <b>%{title}</b>!"
+        description: New contributions and comments in the proposals I participate in
+        email_subject: New contribution to a proposal
+        message: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
       text_update:
-        description: Text update about a proposal I am involved in
-        email_subject: The proposal has been updated
+        description: Update of the text of a proposal I participate in
+        email_subject: A proposal has been updated
+        message: "The proposal <b>%{title}</b> has been updated"
       new_public_proposals:
-        description: There are new proposals in the common space
+        description: New proposals added in the Open Space
         email_subject: There is a new proposal
-      change_status:
-        description: The status of a proposal I am involved in has been changed
-        email_subject: The status of the proposal has been changed
+        message: "New proposal <b>%{title}</b> added in the Open Space"
       new_contributes_mine:
-        description: There are new comments to my proposals
-        email_subject: There are new comments to a proposal
-        message: "<b>%{name}</b> inserted a new contribute in your proposal <b>%{title}</b>!"
+        description: New contributions in my proposals
+        email_subject: New contributions in a proposal of mine
+        message: "<b>%{name}</b> added a contributions in your proposal <b>%{title}</b>"
+      change_status:
+        description: Change in the status of a proposal I participate in
+        email_subject: A proposal changed its status
+        message:
+          waiting_date: "%{name} has chosen the date of the vote for the proposal<b>%{title}</b>"
+          in_vote: "The proposal <b>%{title}</b> is now being voted!"
+          abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
+          rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
       change_status_mine:
-        description: The status of my proposals has changed
-        email_subject: The status of one of your proposals has changed
+        description: Change in the status of my proposals
+        email_subject: One of your proposals has changed status
+        message:
+          wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"
+          in_vote: "Your proposal <b>%{title}</b> is now being voted!"
+          abandoned: "Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry"
+          rejected: "Your proposal <b>%{title}</b> has been rejected by the participants, sorry"
       new_posts_group_follow:
-        description: There are new posts in the pages of the groups I am following
-        email_subject: There is a new post
+        description: New posts in the Walls of the groups I am following
+        email_subject: New post
       new_posts_group:
-        description: There are new posts in the pages of the groups I am involved in
-        email_subject: There is a new post
+        description: New posts in the Walls of the groups I participate in
+        email_subject: New post
+        message: "<b>%{user}/<b> has added a new post in the group <b>%{group}</b>"
       new_proposals:
         description: New proposals within the group
-        email_subject: There is a new proposal
+        email_subject: New proposal
+        message: "New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>"
       new_partecipation_request:
-        description: There is a new participation request
-        email_subject: There is a new participation request
+        description: New participation request
+        email_subject: New participation request
+        message: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"
       new_blog_comment:
         description: New comment in my blog
-        email_subject: There's a new comment in your blog
+        email_subject: New comment in your blog
+        message: "<b>%{user}</b> commented your post <b>%{title}</b>"
       new_comments_mine:
         description: New comments in my proposals
         email_subject: New comment in my proposal
-        message: "<b>%{name}</b> inserted a comment in a discussion in your proposal <b>%{title}</b>!"
+        message: "<b>%{name}</b> add a comment in a discussion in your proposal <b>%{title}</b>"
       new_comments:
-        description: New comments in discussions I take part
-        email_subject: New comment in a discussion I take part
-        message: "<b>%{name}</b> inserted a comment in a discussion you are taking part in the proposal <b>%{title}</b>!"
+        description: New comments in the discussions I take part in
+        email_subject: New comment in a discussion I take part in
+        message: "<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>"
     proposal_categories:
       no_category:
         description: Uncategorized
