@@ -6,7 +6,7 @@
 
 <p>o visitando il seguente url:</p>
 
-<p><%= link_to user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ) %></p>
+<p><%= link_to user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ), user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ) %></p>
 
 <p>In seguito puoi accedere a <%=APP_SHORT_NAME%> con l'email indicata in fase di registrazione e la password scelta</p>
 
