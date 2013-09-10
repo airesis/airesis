@@ -1,5 +1,39 @@
 it:
   db:
+    sys_locales:
+      it:
+        description: Italiano
+      en:
+        description: Inglese
+      us:
+        description: Americano
+      fr:
+        description: Francese
+      es:
+        description: Spagnolo
+      pt:
+        description: Portoghese
+      de:
+        description: Tedesco
+    proposal_types:
+      STANDARD:
+        description: Proposta standard
+      POLL:
+        description: Sondaggio
+      RULE_BOOK:
+        description: Regolamento
+      PRESS:
+        description: Comunicato Stampa
+      EVENT:
+        description: "Organizzazione evento"
+      ESTIMATE:
+        description: "Preventivo di spesa"
+      AGENDA:
+        description: "Ordine del giorno"
+      CANDIDATES:
+        description: "Scelta di un candidato"
+      SIMPLE:
+        description: "Semplice"
     event_types:
       meeting:
         description: incontro
@@ -81,7 +115,7 @@ it:
         message: "Un contributo che avevi integrato è stato rimesso in dibattito"
       new_contributes:
         description: Nuovi contributi e suggerimenti alle proposte a cui partecipo
-        email_subject: Nuovo contributo ad una proposta
+        email_subject: "%{title} - Nuovo contributo"
         message: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>!"
       text_update:
         description: Aggiornamento del testo di una proposta a cui partecipo

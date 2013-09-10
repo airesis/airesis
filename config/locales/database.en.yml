@@ -1,5 +1,24 @@
 en:
   db:
+    proposal_types:
+      STANDARD:
+        description: Standard Proposal
+      POLL:
+        description: Poll
+      RULE_BOOK:
+        description: Rule Book
+      PRESS:
+        description: Press Release
+      EVENT:
+        description: "Event Organization"
+      ESTIMATE:
+        description: "Cost Estimate"
+      AGENDA:
+        description: "Agenda"
+      CANDIDATES:
+        description: "Choose a candidate"
+      SIMPLE:
+        description: "Simple"
     event_types:
       meeting:
         description: meeting
@@ -73,7 +92,7 @@ en:
         email_subject: A contribution has been putted back in debate
       new_contributes:
         description: New contributions and ideas to proposals I am involved in
-        email_subject: New comment to proposal
+        email_subject: "%{title} - New contribute"
         message: "<b>%{name}</b> inserted a new contribute in the proposal <b>%{title}</b>!"
       text_update:
         description: Text update about a proposal I am involved in
@@ -100,6 +119,7 @@ en:
       new_proposals:
         description: New proposals within the group
         email_subject: There is a new proposal
+        message: "It has been created a new proposal <b>%{proposal}</b> in group <b>%{group}</b>"
       new_partecipation_request:
         description: There is a new participation request
         email_subject: There is a new participation request

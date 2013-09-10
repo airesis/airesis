@@ -1,6 +1,6 @@
-<% @comment = ProposalComment.find(@data['comment_id']) %>
-<% @username = @data['username'] %>
-<% @proposal = Proposal.find(@data['proposal_id']) %>
+<% @comment = ProposalComment.find(@data[:comment_id]) %>
+<% @username = @data[:username] %>
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
 
 <%= @username %> ha inserito un nuovo <%= @comment.is_contribute? ? ' contributo' : 'commento' %> alla proposta.<br/>
 <%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>

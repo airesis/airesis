@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
   has_many :tutorials, :through => :tutorial_assignees, :class_name => 'Tutorial', :source => :user
   has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
 
+  belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
 
   #affinità con i gruppi
   has_many :group_affinities, :class_name => 'GroupAffinity'

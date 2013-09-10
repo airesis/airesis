@@ -1260,3 +1260,11 @@ it:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
     searching: "Ricerca in corso..."
+  mailer:
+    default:
+      follow_twitter: "seguici su Twitter"
+      follow_facebook: "seguici su Facebook"
+      follow_google: "seguici su Google+"
+      footer:
+        registered_at: "Ricevi questa email in quanto sei registrato al sito %{url}."
+      edit_preferences: "modifica preferenze newsletter e notifiche"

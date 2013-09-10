@@ -97,7 +97,7 @@
 
     <div class="choose_model" style="display:none;">
       <% ProposalType.active.order(:seq).each do |proposal_type| %>
-          <div class="proposal_model_option" data-id="<%= proposal_type.short_name %>">
+          <div class="proposal_model_option" data-id="<%= proposal_type.name %>">
             <div class="model_name"><%= proposal_type.description %></div>
           </div>
       <% end %>

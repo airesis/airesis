@@ -336,6 +336,7 @@ en:
           list_title: "List of the work areas. For each of them select the participants, or click the name to manage roles and permissions in that work area"
           title: "Work area settings"
         manage_group_areas: "Manage users inside the work areas"
+        new_area: "Create a work area"
       default_admin_title: "Administrator"
       invite_your_friends:
         type_email_addresses: "Type the e-mail addresses, separated by comma"
@@ -1259,3 +1260,11 @@ en:
       hint: "Type a few characters to search for a place"
       no_place_found: "No place found"
       searching: "Searching, please wait..."
+  mailer:
+    default:
+      follow_twitter: "follow us on Twitter"
+      follow_facebook: "follow us on Facebook"
+      follow_google: "follow us on Google+"
+      footer:
+        registered_at: "You receive this email because you are registered on %{url}."
+      edit_preferences: "edit alarms and notifications preferences"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906154044) do
+ActiveRecord::Schema.define(:version => 20130910150620) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -700,10 +700,9 @@ ActiveRecord::Schema.define(:version => 20130906154044) do
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
   create_table "proposal_types", :force => true do |t|
-    t.string  "short_name",  :limit => 10,                    :null => false
-    t.string  "description",                                  :null => false
-    t.integer "seq",                       :default => 0
-    t.boolean "active",                    :default => false
+    t.string  "name",   :limit => 10,                    :null => false
+    t.integer "seq",                  :default => 0
+    t.boolean "active",               :default => false
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -960,6 +959,10 @@ ActiveRecord::Schema.define(:version => 20130906154044) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "sys_locales", :force => true do |t|
+    t.string "key"
+  end
+
   create_table "sys_movement_types", :force => true do |t|
     t.string   "description", :limit => 20, :null => false
     t.datetime "created_at",                :null => false
@@ -1111,6 +1114,7 @@ ActiveRecord::Schema.define(:version => 20130906154044) do
     t.boolean  "rotp_enabled",                              :default => false
     t.string   "blocked_name"
     t.string   "blocked_surname"
+    t.integer  "sys_locale_id",                             :default => 1,     :null => false
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
