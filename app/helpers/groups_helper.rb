@@ -119,6 +119,7 @@ module GroupsHelper
         options[:subdomain] = group.subdomain
         proposal_url(proposal, options)
       else
+        options[:subdomain] = false
         super
       end
     end
@@ -176,6 +177,20 @@ module GroupsHelper
     (group_in_subdomain? group) ?
         documents_url :
         super
+  end
+
+  def group_group_partecipation_url(group,group_partecipation,options={})
+    if group_in_subdomain? group
+      group_partecipation_url(group_partecipation, options)
+    else
+      if group.certified?
+        options[:subdomain] = group.subdomain
+        group_partecipation_url(group_partecipation, options)
+      else
+        options[:subdomain] = false
+        super
+      end
+    end
   end
 
   def new_group_candidate_url(group, options={})
