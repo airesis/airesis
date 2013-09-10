@@ -32,7 +32,7 @@
           <tr>
             <td><%= link_to partecipation.group.name, partecipation.group %></td>
             <td><span id="partecipation_<%=partecipation.id%>"><%= partecipation.partecipation_role.name %></span></td>
-            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_path(partecipation.group,partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, partecipation %></td>
+            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_url(partecipation.group,partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, partecipation %></td>
           </tr>
       <% end %>
       </tbody>
