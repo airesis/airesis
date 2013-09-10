@@ -177,8 +177,8 @@
             }
 
             // Refresh labels texts
-            this.on_label.html(this.options.on_label);
-            this.off_label.html(this.options.off_label);
+            this.on_label.append(this.options.on_label);
+            this.off_label.append(this.options.off_label);
 
             // Refresh button's dimensions
             this.button_bg.width(this.options.width);

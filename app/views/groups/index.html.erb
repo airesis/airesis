@@ -188,10 +188,23 @@
 
     $("#area").switchButton({
         checked: <%=params[:area] == 'on' %>,
-        on_label: 'FIX',
-        off_label: 'AREA',
-        on_title: 'Ricerca esatta: il gruppo deve avere indicato questo confine di interesse',
-        off_title: 'Ricerca di area: il gruppo deve avere indicato un confine interno a questo'
+        on_label: $('<div class="s_circle"></div>'),
+        off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
+        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico',
+        off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
+    });
+
+    $('.switch-button-label.on, .switch-button-label.off').qtip({
+        prerender: true,
+        position: {
+            at: 'top center',
+            my: 'bottom center',
+            viewport: $(window),
+            effect: false
+        },
+        style: {
+            classes: 'qtip-dark'
+        }
     });
 
 </script>
