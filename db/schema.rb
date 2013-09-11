@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910150620) do
+ActiveRecord::Schema.define(:version => 20130911153751) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -961,6 +961,8 @@ ActiveRecord::Schema.define(:version => 20130910150620) do
 
   create_table "sys_locales", :force => true do |t|
     t.string "key"
+    t.string "host"
+    t.string "lang"
   end
 
   create_table "sys_movement_types", :force => true do |t|

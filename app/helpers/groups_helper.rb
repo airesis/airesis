@@ -267,7 +267,6 @@ module GroupsHelper
         super
   end
 
-
   private
 
   def group_in_subdomain?(group)

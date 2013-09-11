@@ -43,7 +43,7 @@ module NotificationHelper
   #invia le notifiche quando un una proposta viene modificata
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil), 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil), 'title' => proposal.title, 'i18n' => 't'}
     data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
