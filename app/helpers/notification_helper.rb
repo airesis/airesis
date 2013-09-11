@@ -43,11 +43,8 @@ module NotificationHelper
   #invia le notifiche quando un una proposta viene modificata
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal, group=nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
-    subject +="#{proposal.title} - Il testo è stato modificato"
-
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil), 'title' => proposal.title, 'i18n' => 't'}
+    data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
@@ -67,11 +64,8 @@ module NotificationHelper
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
     name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
 
-    subject = ''
-    subject += "[#{@group.name}] " if @group
-    subject +="#{@proposal.title} - Contributo rimesso in dibattito"
-
-    data = {'proposal_id' => @proposal.id.to_s, 'subject' => subject, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'i18n' => 't'}
+    data = {'proposal_id' => @proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => @proposal.title, 'i18n' => 't'}
+    data['group'] = @group.name if @group
     notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE, :url => @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), :data => data)
     notification_a.save
     @proposal.users.each do |user|
@@ -85,13 +79,11 @@ module NotificationHelper
   #invia le notifiche quando viene scelta una data di votazione per la proposta
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_waiting_for_date(proposal, group = nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
-    subject +="#{proposal.title} - è stata scelta la data di votazione"
 
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(current_user.id, proposal.id)
     name = nickname ? nickname.nickname : current_user.fullname
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'waiting_date'}
+    data = {'proposal_id' => proposal.id.to_s, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'waiting_date'}
+    data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
@@ -104,11 +96,8 @@ module NotificationHelper
   #invia le notifiche quando la proposta è pronta per essere messa in votazione
   #le notifiche vengono inviate ai creatori  della proposta
   def notify_proposal_ready_for_vote(proposal, group=nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
-    subject +="#{proposal.title} - scegli la data di votazione!"
-
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'wait'}
+    data['group'] = group.name if group
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
@@ -180,11 +169,9 @@ module NotificationHelper
   #invia le notifiche quando la proposta è stata rigettata
   #le notifiche vengono inviate ai partecipanti
   def notify_proposal_rejected(proposal, group=nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
     subject +="#{proposal.title} è stata respinta"
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'rejected'}
-
+    data['group'] = group.name if group
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.users.each do |user|

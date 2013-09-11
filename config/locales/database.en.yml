@@ -1,5 +1,20 @@
 en:
   db:
+    sys_locales:
+      it:
+        description: Italian
+      en:
+        description: English
+      us:
+        description: American
+      fr:
+        description: French
+      es:
+        description: Spanish
+      pt:
+        description: Portoguese
+      de:
+        description: German
     proposal_types:
       STANDARD:
         description: Standard Proposal

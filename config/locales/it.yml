@@ -1268,3 +1268,7 @@ it:
       footer:
         registered_at: "Ricevi questa email in quanto sei registrato al sito %{url}."
       edit_preferences: "modifica preferenze newsletter e notifiche"
+      click_here: "Clicca qui"
+    new_contribute:
+      title: "%{user} ha inserito un nuovo %{object} alla proposta"
+      view_proposal: "%{click_here} per visualizzare la proposta."
