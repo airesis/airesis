@@ -144,8 +144,6 @@
 
 <% if @event.event_type_id == EventType::VOTAZIONE %>
     <p>
-      Si potrà esprimere il proprio voto su questo stesso sito nella <%= link_to 'pagina dedicata', votation_path %>
-
       <% if @event.proposals.count > 0 %>
         <h3>In queste giornate si voteranno le seguenti proposte</h3>
         <br/>
