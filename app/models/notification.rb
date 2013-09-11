@@ -19,6 +19,13 @@ class Notification < ActiveRecord::Base
     end
   end
 
+
+  def email_subject
+    group = data[:group]
+    subject = group ? "[#{group}] " : ''
+    subject += I18n.t("db.#{self.notification_type.class.class_name.tableize}.#{self.notification_type.name}.email_subject", data)
+  end
+
   def message
     #todo added for back support
     if data[:i18n]

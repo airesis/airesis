@@ -22,9 +22,7 @@ class NotificationProposalCommentCreate < NotificationSender
       url = proposal_url(proposal)
     end
     if comment.is_contribute?
-      subject = proposal.private? ? "[#{group.name}]" : ''
-      subject += " #{proposal.title} - Nuovo contributo"
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name, 'name' => name, 'title' => proposal.title, 'group' => group.name, 'i18n' => 't'}
+      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'group' => group.name, 'i18n' => 't'}
       query = {'comment_id' => comment.id.to_s}
       if comment.paragraph
         query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
@@ -45,9 +43,7 @@ class NotificationProposalCommentCreate < NotificationSender
         end
       end
     else
-      subject = proposal.private? ? "[#{proposal.presentation_groups.first.name}]" : ''
-      subject += " #{proposal.title} - Nuovo commento"
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name, 'name' => name, 'title' => proposal.title, 'i18n' => 't'}
+      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title,'group' => group.name,  'i18n' => 't'}
       query = {'comment_id' => comment.id.to_s}
       if comment.paragraph
         query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id

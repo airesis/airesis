@@ -170,7 +170,7 @@ it:
         message: "<b>%{name}</b> ha inserito un commento in una discussione nella tua proposta <b>%{title}</b>!"
       new_comments:
         description: Nuovi commenti alle proposte a cui partecipo
-        email_subject: Nuovo commento in una proposta a cui partecipo
+        email_subject: "%{title} - Nuovo commento"
         message: "<b>%{name}</b> ha inserito un commento in una discussione a cui partecipi nella proposta <b>%{title}</b>!"
     proposal_categories:
       no_category:
