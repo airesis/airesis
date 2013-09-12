@@ -1,4 +1,4 @@
 <%=@alert.created_at.strftime("%d/%m/%Y %H:%M")%> <br/>
-<a href="<%=SITE + "" + ùurl(@alert, host: @alert.user.locale.host)%>">
+<a href="<%=check_alert_alert_url(@alert, host: @alert.user.locale.host)%>">
     <%=raw @alert.notification.message%>
 </a>
