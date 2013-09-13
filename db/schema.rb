@@ -1137,6 +1137,14 @@ ActiveRecord::Schema.define(:version => 20130906154044) do
 
   add_index "user_follows", ["follower_id", "followed_id"], :name => "user_follows_unique", :unique => true
 
+  create_table "user_likes", :force => true do |t|
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "user_id",       :null => false
+    t.integer  "likeable_id",   :null => false
+    t.string   "likeable_type", :null => false
+  end
+
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
     t.text   "short_name"
@@ -1414,6 +1422,8 @@ ActiveRecord::Schema.define(:version => 20130906154044) do
 
   add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
+
+  add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
 
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"

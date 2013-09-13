@@ -30,7 +30,7 @@ en:
   calendar:
     monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
     monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']"
     dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
     today: 'today'
     month: 'month'
@@ -39,14 +39,50 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: "[:day, :month, :year ]"
+    order:
+    - :day
+    - :month
+    - :year
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-    day_names: "[Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]"
-    abbr_day_names: "[S, M, T, W, F, T, S]"
-    month_names: "[~, January, February, March, April, May, June, July, August, September, October, November, December]"
-    abbr_month_names: "[~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]"
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    abbr_day_names: [S, M, T, W, F, T, S]
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
   time:
     formats:
      default: "%d %b %Y at %H:%M"
@@ -878,7 +914,7 @@ en:
       present_life_cycle: "Present life cycle"
       no_revision: "No revision"
       life_cycle: "Life cycle"
-      life_cycle_number: "Life cycle number"
+      life_cycle_number: "Life cycle number %{life}"
       end_date: "Date of end:"
       score_reached: "Rank reached:"
       evaluation_reached: "Number of evaluations:"

@@ -39,14 +39,50 @@ it-IT:
     firstDay: 1
     timeFormat: 'H:mm{ - H:mm} '
   date:
-    order: "[:day, :month, :year ]"
+    order:
+    - :day
+    - :month
+    - :year
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
-    day_names: "[Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato]"
-    abbr_day_names: "[D, L, M, M, G, V, S]"
-    month_names: "[~, Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre]"
-    abbr_month_names: "[~, Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic]"
+    day_names:
+    - Domenica
+    - Lunedì
+    - Martedì
+    - Mercoledì
+    - Giovedì
+    - Venerdì
+    - Sabato
+    abbr_day_names: [D, L, M, M, G, V, S]
+    month_names:
+     -
+     - Gennaio
+     - Febbraio
+     - Marzo
+     - Aprile
+     - Maggio
+     - Giugno
+     - Luglio
+     - Agosto
+     - Settembre
+     - Ottobre
+     - Novembre
+     - Dicembre
+    abbr_month_names:
+    -
+    - Gen
+    - Feb
+    - Mar
+    - Apr
+    - Mag
+    - Giu
+    - Lug
+    - Ago
+    - Set
+    - Ott
+    - Nov
+    - Dic
   time:
     formats:
      default: "%d %b %Y alle %H:%M"
@@ -878,7 +914,7 @@ it-IT:
       present_life_cycle: "Ciclo di vita attuale"
       no_revision: "Nessuna revisione"
       life_cycle: "Ciclo di vita"
-      life_cycle_number: "Ciclo di vita numero"
+      life_cycle_number: "Ciclo di vita numero %{life}"
       end_date: "Data termine:"
       score_reached: "Score raggiunto:"
       evaluation_reached: "Numero di valutazioni:"
