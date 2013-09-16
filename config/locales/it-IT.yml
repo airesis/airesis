@@ -793,7 +793,7 @@ it-IT:
       edit:
         title: "Modifica blog"
         title_label: "Titolo del blog"
-        back_to_blog: "Torna al mio blog"
+        back_to_blog: "Torna al mio blog"  
     quorums:
       index:
         title: "Elenco durate disponibili"
@@ -885,6 +885,7 @@ it-IT:
         forgot_password: "Hai dimenticato la password?"
         havent_received_email: "Non hai ricevuto l'email per la conferma?"
     steps:
+      next: "Prosegui"
       interest_borders:
         title: "Inizia a partecipare"
         description1: "Definisci i tuoi confini geografici di interesse."
@@ -933,6 +934,7 @@ it-IT:
       posts_tab: "Post"
       groups_tab: "Gruppi"
     footer:
+      for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
       for_edemocracy_html: "Progetto <a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> per l'e-democracy"
     moderator_panel:
@@ -1316,3 +1318,26 @@ it-IT:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
     searching: "Ricerca in corso..."
+  mailer:
+    default:
+      follow_twitter: "seguici su Twitter"
+      follow_facebook: "seguici su Facebook"
+      follow_google: "seguici su Google+"
+      footer:
+        registered_at: "Ricevi questa email in quanto sei registrato al sito %{url}."
+      edit_preferences: "modifica preferenze newsletter e notifiche"
+      click_here: "Clicca qui"
+    new_contribute:
+      title: "%{user} ha inserito un nuovo %{comment} alla proposta"
+      view_proposal: "%{click_here} per visualizzare la proposta."
+    text_update:
+      view_proposal: "La proposta <b>%{proposal}</b> è stata aggiornata!"
+      integrated_contributes: "Complimenti! I seguenti contributi che avevi inserito sono stati integrati dall'autore:"
+      view_proposal_2: "%{click_here} e verifica che il nuovo testo contenga i tuoi suggerimenti.<br/>Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History."
+      connect: "Collegati a %{name}"
+    unintegrated_contribute:
+      view_proposal: "Un contributo che era stato integrato nella proposta <b>%{click_here}</b> è stato rimesso in dibattito dal suo autore."
+      view_proposal_2: "%{click_here} per quale motivo l'autore non ha ritenuto che il suo contributo sia stato integrato adeguatamente."
+      verify: "Verifica"
+  contribute: "contributo"
+  comment: "commento"

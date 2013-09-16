@@ -73,14 +73,14 @@ module ProposalsModule
   def simple_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.simple.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::SIMPLE)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::SIMPLE)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
   def standard_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.standard.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::STANDARD)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::STANDARD)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
@@ -106,7 +106,7 @@ module ProposalsModule
   def agenda_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.agenda.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::AGENDA)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::AGENDA)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
@@ -123,7 +123,7 @@ module ProposalsModule
   def estimate_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.estimate.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::ESTIMATE)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::ESTIMATE)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
@@ -143,7 +143,7 @@ module ProposalsModule
   def event_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.event.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::EVENT)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::EVENT)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
@@ -162,7 +162,7 @@ module ProposalsModule
   def press_new(proposal)
     @problems = proposal.sections.build(title: t('pages.proposals.new.press.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::PRESS)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::PRESS)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 
@@ -180,7 +180,7 @@ module ProposalsModule
     @problems = proposal.sections.build(title: t('proposal_types.rule_book.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
 
-    proposal.proposal_type = ProposalType.find_by_short_name(ProposalType::RULE_BOOK)
+    proposal.proposal_type = ProposalType.find_by_name(ProposalType::RULE_BOOK)
     proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
   end
 

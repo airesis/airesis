@@ -415,8 +415,7 @@ en:
       email_confirmed: "If you register with that email address you will not be asked to confirm your email address."
       choose_password: "Choose a password"
       confirm_password: "Confirm password"
-      accept_conditions: |
-        "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
+      accept_conditions: "Accept the <a href=\"#\" onclick=\"return openModal();\">Terms of Service</a>"
       register_button: "Register"
       identity_provviders_title: "Get in immediately with your favourite account"
     proposals:
@@ -544,7 +543,7 @@ en:
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"
-        title_group: " In group %{name}"
+        title_group: " in group %{name}"
         title_synthetic: "(in summary)"
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
@@ -812,7 +811,7 @@ en:
         cloud_6: "DEBATE"
         cloud_7: "INVOLVED"
         cloud_8: "VOTE"
-        cloud_9: "CHOOSE"
+        cloud_9: " CHOOSE"
         try_it: "Try it"
         register: "Register"
         login: "Login"
@@ -885,6 +884,7 @@ en:
         forgot_password: "Forgot your password?"
         havent_received_email: "Haven't received confirmation email?"
     steps:
+      next: "Continue"
       interest_borders:
         title: "Start participating"
         description1: "Set your geographical interest borders."
@@ -933,6 +933,7 @@ en:
       posts_tab: "Posts"
       groups_tab: "Groups"
     footer:
+      for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
       for_edemocracy_html: "<a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> project for e-democracy"
     moderator_panel:
@@ -1032,7 +1033,7 @@ en:
         objectives: 'Objectives'
         content: 'Text'
         interest_borders_tkn: 'Geographical places of interest'
-        tags_list: "Tags"
+        tags_list: "Tags (separated by commas)"
         quorum_id: "Quorum"
         anonima: "Temporary anonymity"
         visible_outside: "Publicly visible"
@@ -1313,6 +1314,29 @@ en:
       account_blocked: "Account blocked"
       account_unblocked: "Account unblocked"
   interest_borders:
-      hint: "Type a few characters to search for a place"
-      no_place_found: "No place found"
-      searching: "Searching, please wait..."
+    hint: "Type a few characters to search for a place"
+    no_place_found: "No place found"
+    searching: "Searching, please wait..."
+  mailer:
+    default:
+      follow_twitter: "follow us on Twitter"
+      follow_facebook: "follow us on Facebook"
+      follow_google: "follow us on Google+"
+      footer:
+        registered_at: "You receive this email because you are registered on %{url}."
+      edit_preferences: "edit alarms and notifications preferences"
+      click_here: "Click here"
+    new_contribute:
+      title: "%{user} inserted a new %{comment} in the proposal"
+      view_proposal: "%{click_here} to see the proposal."
+    text_update:
+      view_proposal: "The proposal <b>%{proposal}</b> has been uodated!"
+      integrated_contributes: "Congratulations! The following contributions that you had inserted have been integrated by the author:"
+      view_proposal_2: "%{click_here} and verify that the new text contains your suggestions. <br/> If you are not satisfied you can always put your contributions back in debate by pulling them from History."
+      connect: "Log in %{name}"
+    unintegrated_contribute:
+      view_proposal: "A contribution that had been integrated into the proposal <b>%{click_here}</b> has been put back into debate by its author."
+      view_proposal_2: "%{click_here} why the author did not consider that his contribution has been integrated properly."
+      verify: "Check"
+  contribute: "contribute"
+  comment: "comment"

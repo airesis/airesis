@@ -11,6 +11,7 @@
       <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
     </p>
 
+    <% if ['edit', 'update'].include? params[:action] %>
             <p>
           <%= f.label :rule_book %><br/>
           <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
@@ -36,6 +37,7 @@
 
             });
         </script>
+    <% end %>
 
 
     <% if ::Configuration::socialnetwork_active && false %>

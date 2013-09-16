@@ -1,9 +1,9 @@
-<% @proposal = Proposal.find(@data['proposal_id']) %>
-<% @username = @data['username'] %>
-<% @comment = @proposal.contributes.find(@data['comment_id']) %>
-
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
+<% @username = @data[:username] %>
+<% @comment = @proposal.contributes.find(@data[:comment_id]) %>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 <p>
-Un contributo che era stato integrato nella proposta <b> <%=link_to @proposal.title, check_alert_alert_url(@alert)%></b> è stato rimesso in dibattito dal suo autore.
+  <%=raw t('mailer.unintegrated_contribute.view_proposal', click_here: (link_to @proposal.title, @alert_url) ) %>
 </p>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
@@ -32,5 +32,5 @@ Un contributo che era stato integrato nella proposta <b> <%=link_to @proposal.ti
 </div>
 
 <p>
-  <%=link_to 'Verifica', check_alert_alert_url(@alert)%> per quale motivo l'autore non ha ritenuto che il suo contributo sia stato integrato adeguatamente.
+  <%=raw t('mailer.unintegrated_contribute.view_proposal_2', click_here: (link_to t('mailer.unintegrated_contribute.verify'), @alert_url) ) %>
 </p>

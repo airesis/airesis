@@ -239,13 +239,12 @@ class ProposalsController < ApplicationController
       @proposal.proposal_category_id = params[:category]
 
       send(params[:proposal_type_id].downcase + '_new', @proposal)
-      @proposal.proposal_type = ProposalType.find_by_short_name(params[:proposal_type_id])
+      @proposal.proposal_type = ProposalType.find_by_name(params[:proposal_type_id])
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
 
       @title = ''
-      @title += t('pages.proposals.new.title_group', name: @group.name, ) if @group
-      @title += ' - '
-      @title += ProposalType.find_by_short_name(params[:proposal_type_id]).description
+      @title += t('pages.proposals.new.title_group', name: @group.name) if @group
+      @title += ProposalType.find_by_name(params[:proposal_type_id]).description
 
       respond_to do |format|
         format.js
@@ -278,7 +277,7 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
 
         @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
-        send(@proposal_type.short_name.downcase + '_create', @proposal) #execute specific method to build sections
+        send(@proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
 
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group

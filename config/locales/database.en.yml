@@ -1,5 +1,39 @@
 en:
   db:
+    sys_locales:
+      it:
+        description: Italian
+      en:
+        description: English
+      us:
+        description: American
+      fr:
+        description: French
+      es:
+        description: Spanish
+      pt:
+        description: Portoguese
+      de:
+        description: German
+    proposal_types:
+      STANDARD:
+        description: Standard Proposal
+      POLL:
+        description: Poll
+      RULE_BOOK:
+        description: Rule Book
+      PRESS:
+        description: Press Release
+      EVENT:
+        description: "Event Organization"
+      ESTIMATE:
+        description: "Cost Estimate"
+      AGENDA:
+        description: "Agenda"
+      CANDIDATES:
+        description: "Choose a candidate"
+      SIMPLE:
+        description: "Simple"
     event_types:
       meeting:
         description: meeting
@@ -79,10 +113,10 @@ en:
       unintegrated_contribute:
         description: Contributions are put back in debate
         email_subject: A contribution has been put back in debate
-        message: "A contribution you integrated in the proposal <b>%{title}</b> has been put back in debate"
+        message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
         description: New contributions and comments in the proposals I participate in
-        email_subject: New contribution to a proposal
+        email_subject: "%{title} - New contribute"
         message: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
       text_update:
         description: Update of the text of a proposal I participate in
@@ -92,10 +126,6 @@ en:
         description: New proposals added in the Open Space
         email_subject: There is a new proposal
         message: "New proposal <b>%{title}</b> added in the Open Space"
-      new_contributes_mine:
-        description: New contributions in my proposals
-        email_subject: New contributions in a proposal of mine
-        message: "<b>%{name}</b> added a contributions in your proposal <b>%{title}</b>"
       change_status:
         description: Change in the status of a proposal I participate in
         email_subject: A proposal changed its status
@@ -104,6 +134,10 @@ en:
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
           abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
           rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
+      new_contributes_mine:
+        description: New contributions in my proposals
+        email_subject: New contributions in a proposal of mine
+        message: "<b>%{name}</b> added a contributions in your proposal <b>%{title}</b>"
       change_status_mine:
         description: Change in the status of my proposals
         email_subject: One of your proposals has changed status

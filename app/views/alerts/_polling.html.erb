@@ -2,7 +2,7 @@
 <ul class="menu-list">
 	<% @new_user_alerts[0..4].each do |user_alert|%>
 	<li class="new">
-  	<a href="<%=check_alert_alert_path(user_alert)%>">
+  	<a href="<%=check_alert_alert_url(user_alert)%>">
   		<div><%=user_alert.created_at.strftime("%d/%m/%Y %H:%M")%> - <%=raw user_alert.notification.message%>
   		</div>
   	</a>
