@@ -7,7 +7,7 @@
 
         <div style="clear:both;"></div>
       </div>
-      <%= link_to 'Aree di lavoro', '#', class: 'btn areas_button', data: {m_id: partecipant.id} %>
+      <%= link_to t('pages.groups.administration_panel.areas'), '#', class: 'btn areas_button', data: {m_id: partecipant.id} %>
       <div class="areas_list shadow-box">
 
         <ul>
@@ -24,7 +24,7 @@
                   </li>
               <% end %>
           <% else %>
-              <li><%= link_to "Crea un'area di lavoro", new_group_group_area_path(@group), :remote => true %></li>
+              <li><%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_path(@group), :remote => true %></li>
           <% end %>
 
         </ul>

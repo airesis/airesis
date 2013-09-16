@@ -11,9 +11,9 @@
     <p>
       <%= f.label :group_area_id %><br/>
       <% if @available_areas.size > 0 %>
-          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}) %>
       <% else %>
-          <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
+          <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
       <% end %>
     </p>
 <% end %>
@@ -33,7 +33,7 @@
 
 <% if ::Configuration::folksonomy %>
     <p>
-      <%= f.label :tags_list %> <%= '(separate da virgola)' %><br/>
+      <%= f.label :tags_list %> <%= t('pages.proposals.new.tags_separated_by_comma') %><br/>
       <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
     </p>
 <% end %>

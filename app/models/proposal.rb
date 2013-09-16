@@ -63,7 +63,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
   #validation
-  validates_presence_of :title, :message => "obbligatorio"
+  validates_presence_of :title, :message => "obbligatorio"  #TODO:I18n
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, :message => "obbligatorio"
 

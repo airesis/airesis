@@ -42,16 +42,16 @@ it:
       meeting2:
         description: riunione
       election:
-        description: elezioni
+        description: elezione
     group_actions:
       STREAM_POST:
-        description: Pubblicare nella Home Page del gruppo
+        description: Pubblicare nella Bacheca del gruppo
       CREATE_EVENT:
         description: Creare eventi e votazioni
       PROPOSAL:
         description: Sostenere proposte a nome del gruppo
       REQUEST_ACCEPT:
-        description: Aggiungere partecipanti nel gruppo
+        description: Aggiungere membri nel gruppo
       SEND_CANDIDATES:
         description: Candidare utenti alle elezioni
       PROPOSAL_VIEW:
@@ -80,59 +80,60 @@ it:
     notification_types:
       new_public_events:
         description: Nuovi eventi pubblici
-        email_subject: Un nuovo evento è stato inserito
-        message: "E' stato creato un nuovo evento pubblico!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
+        email_subject: Un evento pubblico è stato inserito
+        message: "Nuovo evento pubblico: <b>%{event}</b>"
       new_events:
         description: Nuovi eventi dei gruppi a cui partecipo
         email_subject: Un nuovo evento è stato inserito
-        message: "E' stato creato un nuovo evento nel gruppo %{group}!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
+        message: "Nuovo evento nel gruppo %{group}!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
       new_posts_user_follow:
-        description: Nuovo post di un utente che seguo
+        description: Nuovi post di un utente che seguo
         email_subject: Un nuovo post è stato inserito
+        message: "%{user} ha inserito un nuovo post nel suo blog <b>%{blog}</b>"
       new_valutation_mine:
         description: Nuova valutazione ad una mia proposta
         email_subject: Nuova valutazione ad una tua proposta
-        message: "La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione!"
+        message: "La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione"
       new_valutation:
         description: Nuova valutazione ad una proposta a cui partecipo
         email_subject: Nuova valutazione ad una proposta
-        message: "La proposta <b>%{title}</b> ha ricevuto una nuova valutazione!"
+        message: "La proposta <b>%{title}</b> ha ricevuto una nuova valutazione"
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
         email_subject: Un utente si è reso disponibile a redigere la sintesi di una proposta
-        message: "L'utente <b>%{user}</b> si è offerto come redattore della proposta <b>%{title}</b>."
+        message: "%{user} si è offerto come redattore della proposta <b>%{title}</b>"
       author_accepted:
         description: Accettazione come redattore di una proposta
-        email_subject: Sei stato scelto come redattore di una proposta
-        message: "Sei stato scelto come redattore alla sintesi della proposta <b>%{title}</b>.<br/>Ricordati che per essere un buon redattore dovrai recepire i contributi degli altri utenti e migliorare il testo secondo i consigli ricevuti.<br/>Buon lavoro!"
+        email_subject: Sei diventato redattore di una proposta
+        message: "Ora sei redattore della proposta <b>%{title}</b>.<br/>Ricordati che come redattore dovrai recepire i contributi degli altri utenti e migliorare il testo sulla base di questi<br/>"
       new_authors:
         description: Nuovi redattori per le proposte
-        email_subject: Nuovi redattori per una proposta
-        message: "L'utente <b>%{user}</b> è stato scelto come redattore alla sintesi della proposta <b>%{title}</b>."
+        email_subject: Nuovo redattore per una proposta
+        message: "<b>%{user}</b> è redattore della proposta <b>%{title}</b>"
       unintegrated_contribute:
         description: Contributi rimessi in dibattito
         email_subject: "%{proposal} - Contributo rimesso in dibattito"
-        message: "Un contributo che avevi integrato è stato rimesso in dibattito"
+        message: "Un contributo che avevi integrato nella proposta <b>%{title}</b> è stato rimesso in dibattito"
       new_contributes:
-        description: Nuovi contributi e suggerimenti alle proposte a cui partecipo
+        description: Nuovi contributi e commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo contributo"
-        message: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>!"
+        message: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>"
       text_update:
         description: Aggiornamento del testo di una proposta a cui partecipo
         email_subject: "%{title} - Il testo è stato modificato"
-        message: "La proposta <b>%{title}</b> è stata aggiornata!"
+        message: "La proposta <b>%{title}</b> è stata aggiornata"
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
         email_subject: Nuovo contributo ad una mia proposta
-        message: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>!"
+        message: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
       change_status:
         description: Cambio di stato di una proposta a cui partecipo
         email_subject: Una proposta ha cambiato lo stato
         message:
-          waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>!"
+          waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"
-          abandoned: "La proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata."
-          rejected: "La proposta <b>%{title}</b> è stata respinta dai partecipanti."
+          abandoned: "La proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata"
+          rejected: "La proposta <b>%{title}</b> è stata respinta dai partecipanti"
       change_status_mine:
         description: Cambio di stato delle mie proposte
         email_subject:
@@ -142,42 +143,42 @@ it:
           abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente."
           rejected: "%{title} è stata respinta"
         message:
-          wait: "La proposta <b>%{title}</b> ha passato la fase di valutazione ed è ora in attesa che tu scelga quando votarla."
+          wait: "La proposta <b>%{title}</b> ha passato la fase di discussione ed è ora in attesa che tu scelga quando votarla"
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
-          abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente."
-          rejected: "La tua proposta <b>%{title}</b> è stata respinta dai partecipanti, spiacente."
+          abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente"
+          rejected: "La tua proposta <b>%{title}</b> è stata respinta dai partecipanti, spiacente"
       new_posts_group_follow:
-        description: Nuovi post sulle pagine dei gruppi che seguo
-        email_subject: E' presente un nuovo post
+        description: Nuovi post sulle Bachece dei gruppi che seguo
+        email_subject: Nuovo post
       new_posts_group:
-        description: Nuovi post sulle pagine dei gruppi a cui partecipo
-        email_subject: E' presente un nuovo post
-        message: "<b>%{user}</b> ha inserito un nuovo post nella pagina del gruppo <b>%{group}</b>!"
+        description: Nuovi post sulle Bacheche dei gruppi a cui partecipo
+        email_subject: Nuovo post
+        message: "<b>%{user}</b> ha inserito un post nel gruppo <b>%{group}</b>"
       new_public_proposals:
         description: Nuove proposte inserite nello spazio comune
-        email_subject: "%{proposal}"
-        message: "E' stata creata una proposta <b>%{proposal}</b> nello spazio comune"
+        email_subject: Una nuova proposta è stata inserita
+        message: "Nuova proposta <b>%{title}</b> creata nello Spazio Comune"
       new_proposals:
         description: Nuove proposte interne al gruppo
         email_subject: "%{proposal}"
-        message: "E' stata creata una proposta <b>%{proposal}</b> nel gruppo <b>%{group}</b>"
+        message: "Nuova proposta <b>%{proposal}</b> creata nel gruppo <b>%{group}</b>"
       new_partecipation_request:
         description: Nuova richiesta di partecipazione
         email_subject: Nuova richiesta di partecipazione
-        message: "L'utente <b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>."
+        message: "<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>"
       new_blog_comment:
         description: Nuovo commento nel mio blog
         email_subject: E' stato inserito un nuovo commento nel tuo blog
-        message: "%{user} ha inserito un nuovo commento al tuo post %{title}<br/> Vai alla pagina di <b>%{title}</b> per visualizzarlo."
+        message: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b><br/> Vai alla pagina di <b>%{title}</b> per visualizzarlo"
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta
-        message: "<b>%{name}</b> ha inserito un commento in una discussione nella tua proposta <b>%{title}</b>!"
+        message: "<b>%{name}</b> ha inserito un commento in una discussione nella tua proposta <b>%{title}</b>"
       new_comments:
         description: Nuovi commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo commento"
-        message: "<b>%{name}</b> ha inserito un commento in una discussione a cui partecipi nella proposta <b>%{title}</b>!"
+        message: "<b>%{name}</b> ha inserito un commento in una discussione a cui partecipi nella proposta <b>%{title}</b>"
     proposal_categories:
       no_category:
         description: Nessuna categoria

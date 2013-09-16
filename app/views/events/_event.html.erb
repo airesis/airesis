@@ -43,7 +43,7 @@
 				<%= f.select :frequency, (1..30).to_a %> <span id = "period"></span>
 			</p> 
 			<p>
-				<%= f.submit 'Crea evento', disable_with: t('saving') %>
+				<%= f.submit t('pages.events.new.submit'), disable_with: t('saving') %>
 			</p></td>
 			<td width="40%"> <%=f.fields_for :meeting, @meeting do |m|%>
 			<%=m.fields_for :place, @place do |p|%>

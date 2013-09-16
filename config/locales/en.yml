@@ -15,11 +15,11 @@ en:
     sessions:
       user:
         signed_out: 'You have successfully logged out.  Good-bye'
-        signed_in: 'Welcome! You have completed your registration.'
+        signed_in: 'Welcome! You have completed your registration'
         signed_up: 'You have correctly completed the registration. Welcome!'
     passwords:
       user:
-        updated: 'Password updated correctly.'
+        updated: 'Password updated correctly'
         send_instructions: 'Instructions have been forwarded to your email'        
     failure:
         already_authenticated: 'You are already registered'        
@@ -30,7 +30,7 @@ en:
   calendar:
     monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
     monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']"
     dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
     today: 'today'
     month: 'month'
@@ -39,14 +39,50 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: [:day, :month, :year ]
+    order:
+    - :day
+    - :month
+    - :year
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Friday, Thursday, Saturday]
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
     abbr_day_names: [S, M, T, W, F, T, S]
-    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
   time:
     formats:
      default: "%d %b %Y at %H:%M"
@@ -114,7 +150,7 @@ en:
       google_login: 'Login with Google'
       twitter_login: "Login with Twitter"
       meetup_login: "Login with Meetup"
-      linkedin_login: "Login with Linkedin"
+      linkedin_login: "Login with LinkedIn"
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
     user:
@@ -124,10 +160,10 @@ en:
       index:
         title: 'User List'
       show:
-        groups_title: "Your groups"
+        groups_title: "My groups"
         group_column: "Group"
         role_column: "Role"
-        get_out_of_group_button: "Get out of the group"
+        get_out_of_group_button: "Leave this group"
         get_out_of_group_confermation: "Are you sure?"
         secret_vote: "Secret"
         votations_title: "Votes you participated in"
@@ -145,16 +181,17 @@ en:
         password_label: "Password"
         facebook_url_label: "Facebook URL"
         googleplus_url_label: "Google+ URL"
-        linkedin_url: "Linkedin URL"
+        linkedin_url: "LinkedIn URL"
         username_label: "Username"
         registered_from: "Registered from"
         load_image: "Load an image"
         max_file_size: "Max size: 2MB"
         what_can_i_do: "What can I do?"
-        what_i_cant_do: "What I can't do?"
+        what_i_cant_do: "What can't I do?"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
+        massive_email: "Sending massive mail"
       left_panel:
         general_info: "General informations"
         alarm_and_notifications: "Alarm and notifications"
@@ -175,7 +212,7 @@ en:
         join_facebook: "Join your Facebook account"
         join_google: "Join your Google account"
         join_twitter: "Join your Twitter account"
-        join_linkedin: "Join your Linkedin account"
+        join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
         providers_list: "List of activated provider"
         options: "Options"
@@ -211,7 +248,7 @@ en:
         confirm_role_deletion: "Are you sure you want to delete this role?"
         remove_user: "Remove user"
         confirm_role_change1: "The role of the user"
-        confirm_role_change2: "will change form"
+        confirm_role_change2: "will change from"
         confirm_role_change3: "to"
         confirm_role_change4: "Confirm?"
       edit_proposals:
@@ -232,7 +269,7 @@ en:
         search_mask: "Search tool"
         search_with_query: "using a personalized query"
         search_with_place: "or geographic border"
-        search_description: "To find the groups you are interested in for use the search tool or select one of the tag"
+        search_description: "Use the search tool or click on a tag to find groups of your interest"
         insert_query_or_place: "You must type at least three characters or a geographic border"
         tags: "Tags"
         partecipants_number: "Number of participants"
@@ -280,6 +317,12 @@ en:
           button: "Permissions list"
         print_all_participants: "Print participants list"
         last_proposals: "Recently added proposals"
+        rule_book_html: |
+          The rules can be selected while creating a group.<br/>
+          <p>All users can create a group, as of now.</p>
+          <p>When you participate in a group the posts your blog can be shown in the Wall of the group.</p>
+          <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
+          <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -335,14 +378,30 @@ en:
           switch_area_participants: "Switch to participant management"
           list_title: "List of the work areas. For each of them select the participants, or click the name to manage roles and permissions in that work area"
           title: "Work area settings"
+          list_participants: "List of the group members. Select for each of them the work areas he belongs to."
+          switch_area_management: "Switch to work area management"
+          confirm_deletion: "Are you sure you want to delete this work area?"
+          manage_roles_in_area: "Edit roles and permissions in the work area %{area}"
         manage_group_areas: "Manage users inside the work areas"
-        new_area: "Create a work area"
+        form:
+          title: "New work area"
       default_admin_title: "Administrator"
       invite_your_friends:
         type_email_addresses: "Type the e-mail addresses, separated by comma"
         email_not_valid: "E-mail address not valid"
         text_to_send: "Text to send (optional)"
         title: "Invite your friends in the group!"
+      participations:
+        list_participations: "List of participants"
+        search: "Search"
+        filter: "Filter"
+        anything: "All"
+        operations_on_user: "Operations available on users"
+        send_email: "Send email"
+        surname: "Surname"
+        name: "Name"
+        role: "Role"
+        member_since: "Member since"
     login:
       title: 'Login'
     confirmation:
@@ -396,10 +455,10 @@ en:
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
-        votedown: 'I ​​do not agree'
-        random_stack: 'Smart Sort'
-        most_recent: 'Most Recent'
-        most_ranked: 'Most highly considered'
+        votedown: 'I ​​disagree'
+        random_stack: 'Smart sorting'
+        most_recent: 'Most recent'
+        most_ranked: 'Most evaluated'
         history_button: "History"
         choose_votation_period: "Choose a voting period"
         choose_votation_period_alert: "Are you sure about the voting period? You can't change it later!"
@@ -480,13 +539,13 @@ en:
         step_1: "Initial information"
         step_2: "Similar proposals"
         step_3: "Problems and objectives"
-        step_4: "First proposal"
+        step_4: "Creation of the proposal"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"
         title_group: " in group %{name}"
         title_synthetic: "(in summary)"
-        title_placeholder: "es. \"Facilitate bike transport on trains\""
+        title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert words about your proposal"
         standard:
@@ -555,8 +614,8 @@ en:
             resources: "Necessary resources and how to retrieve them"
             pros: "Pro"
             cons: "Cons"
-        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of others, through a process of shared problem solving."
-        step_2_title: "Maybe someone has already inserted a proposal similar to your: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! By clicking on the title of the proposals will be opened in a new tab."
+        step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
+        step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
         step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
         category_prompt: "--Choose a category--"
         candidates:
@@ -570,6 +629,9 @@ en:
           solution:
             description: "Description"
           problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
+        tags_separated_by_comma: "(separated by comma)"
+        cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"
+        no_work_area_selected: "No work area"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -598,10 +660,7 @@ en:
         date_time_column: "Vote date and time"
       report_contribute:
         mark_title: "Mark the contribution"
-        mark_description: "You can point out to authors of the proposal that this contribution does not contain
-                           relevant information to find a solution to the proposal.<br/>
-                           If the contribution is marked %{num} times, the authors of the proposal can
-                           delete it from the discussion and place it in the \"noise \" folder. <br/>"
+        mark_description: "You can point out to authors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the authors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
         report_title: "Report the contribution"
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
@@ -712,11 +771,12 @@ en:
       groups_title: "GROUPS"
       login: "LOGIN"
       login_placeholder: "Email or username"
-      groups_list: "Your groups"
+      groups_list: "Groups you participate in"
       open_group: "Start a new group"
       new_group: "Find groups"
       support_us: "SUPPORT US"
       no_alerts: "No alerts"
+      read: "Read"
     blogs:
       show:
         no_posts: "No Posts"
@@ -733,28 +793,9 @@ en:
         title: "Edit blog"
         title_label: "Blog title"
         back_to_blog: "Back to my blog"
-    groups_area:
-      edit:
-        title: "Impostazioni area di lavoro"
-    group_areas:
-      index:
-        create_area_button: "Crea un'area di lavoro"
-        title: "Organizza gli utenti all'interno delle aree di lavoro"
-        switch_area_manage_button: "Passa alla gestione delle singole aree"
-        title_inactive: "Aree di lavoro non abilitate"
-        description_1: "Airesis ti permette la gestione di differenti aree di lavoro all\'interno del gruppo."
-        description_2: "Con questa funzionalità potrai organizzare ancora meglio i partecipanti ed i ruoli a loro assegnati."
-        description_3: "Attenzione! Si tratta di una funzionalità avanzata e pensata solo per i gruppi più ampi e gli utenti più esperti."
-        enable_button: "Abilita le aree di lavoro!"
-      manage:
-        switch_area_index_button: "Passa alla gestione dei partecipanti"
-        partecipants: "Partecipanti"
-        list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi specifici"
-      edit:
-        add_role_button: "Aggiungi un nuovo ruolo"
     quorums:
       index:
-        title: "All available quorum"
+        title: "All available quorums"
     home:
       index:
         whatis: "WHAT IS AIRESIS"
@@ -873,7 +914,7 @@ en:
       present_life_cycle: "Present life cycle"
       no_revision: "No revision"
       life_cycle: "Life cycle"
-      life_cycle_number: "Life cycle number"
+      life_cycle_number: "Life cycle number %{life}"
       end_date: "Date of end:"
       score_reached: "Rank reached:"
       evaluation_reached: "Number of evaluations:"
@@ -894,11 +935,22 @@ en:
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
+      for_edemocracy_html: "<a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> project for e-democracy"
     moderator_panel:
       title: "Moderator panel"
       block_user: "Block user"
       blocked_user_list: "List of blocked users"
       block: "Unblock"
+    feedback:
+      send_feedback: "Send feedback"
+      add_details: "Add details"
+      view_preview: "Preview"
+      send_succes: "Feedback successfully sent. Thank you!"
+      send_error: "We are sorry but an error occurred while sending the feedback"
+      describe_problem: "Write here your message:"
+      highlight_or_blackout: "Highlight or blackout important informations"
+      blackout: "Blackout"
+      highlight: "Highlight"
   pl:
     comments:
       zero: "no comment"
@@ -951,11 +1003,11 @@ en:
         description_placeholder: "This message will be on the first page of the group"
         image_url_placeholder: "Group image URL"
         facebook_page_url_placeholder: "Group Facebook page? insert link here."
-        admin_title: "Administrator name"
+        admin_title: "How are the administrators of the group called?"
         private: "Private group"
         rule_book: "Rule book"
         image: "Load image"
-        admin_title_placeholder: "Name of the group admin (default: Administrator)"
+        admin_title_placeholder: "Role name of the group administrators (default: Administrator)"
       blog:
         title: 'Title'
       blog_post:
@@ -973,7 +1025,7 @@ en:
       place:
          address: 'Address'
       proposal:
-        group_area_id: "Workspace"
+        group_area_id: "Work area"
         proposal_category_id: 'Category'
         title: 'Title'
         subtitle: 'Subtitle'
@@ -1018,7 +1070,7 @@ en:
         surname: 'Surname'
         login: 'Username'
         password: 'Password'
-        linkedinpageurl: 'Your page on Linkedin'
+        linkedinpageurl: 'Your page on LinkedIn'
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
         email_alerts: 'Notifications via Email'
@@ -1027,6 +1079,7 @@ en:
       group_area:
         name: "Name"
         description: "Description"
+        default_role_name: "Default role name"
     errors:
       template:
         header:
@@ -1044,7 +1097,7 @@ en:
         confirmation: 'does not match confirmation'
         accepted: 'must be accepted'
         empty: 'can not be blank'
-        blank: 'ust be filled'
+        blank: 'must be filled'
         too_long: 'The text is too long'
         too_short: 'The text is too short'
         wrong_length: should be% {count} characters)'
@@ -1098,7 +1151,10 @@ en:
     create: "Create"
     delete: "Delete"
     search: "Search"
+    close: "Close"
     edit: "Edit"
+    next: "Next"
+    go_back: "Go back"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1228,6 +1284,7 @@ en:
         area_created: "Work area successfully  created"
       group_deleted: "Group deleted correctly"
       group_created: "Group created correctly"
+      search_participants: "Search completed. Search results updated"
     participation_roles:
       role_updated: "Role successfully updated"
       permissions_updated: "Permissions updated"
@@ -1257,7 +1314,7 @@ en:
       account_blocked: "Account blocked"
       account_unblocked: "Account unblocked"
   interest_borders:
-   hint: "Type a few characters to search for a place"
+    hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
     searching: "Searching, please wait..."
   mailer:

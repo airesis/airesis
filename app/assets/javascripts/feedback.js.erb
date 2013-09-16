@@ -652,8 +652,8 @@
                     highlightClose.style.top =  "-50px";
 
                 },
-                blackoutButton = element("a", "Blackout"),
-                highlightButton = element("a", "Highlight"),
+                blackoutButton = element("a", "<%=I18n.t('pages.feedback.blackout')%>"),
+                highlightButton = element("a", "<%=I18n.t('pages.feedback.highlight')%>"),
                 previousElement;
 
 
@@ -677,7 +677,7 @@
 
             var buttonItem = [ highlightButton, blackoutButton ];
 
-            this.dom.appendChild( element("p", "Highlight or blackout important information") );
+            this.dom.appendChild( element("p", "<%=I18n.t('pages.feedback.highlight_or_blackout')%>") );
 
             // add highlight and blackout buttons
             for (var i = 0; i < 2; i++ ) {

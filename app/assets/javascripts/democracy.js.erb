@@ -76,14 +76,14 @@ $(function () {
             Feedback({
                 h2cPath: '/assets/html2canvas.js',
                 url: '/send_feedback',
-                label: 'Invia feedback',       //TODO:Internazionalization
-                header:     'Invia feedback',
-                nextLabel: 'Aggiungi dettagli',
-                reviewLabel: 'Visualizza anteprima',
-                sendLabel: 'Invia',
-                closeLabel: 'Chiudi',
-                messageSuccess: 'Feedback inviato correttamente. Grazie!',
-                messageError: 'Spiacenti ma si è verificato un errore durante l\'invio del feedback',
+                label: '<%=I18n.t('pages.feedback.send_feedback')%>',       //TODO:I18n
+                header:     '<%=I18n.t('pages.feedback.send_feedback')%>',
+                nextLabel: '<%=I18n.t('pages.feedback.add_details')%>',
+                reviewLabel: '<%=I18n.t('pages.feedback.view_preview')%>',
+                sendLabel: '<%=I18n.t('buttons.send')%>',
+                closeLabel: '<%=I18n.t('buttons.close')%>',
+                messageSuccess: '<%=I18n.t('pages.feedback.send_succes')%>',
+                messageError: '<%=I18n.t('pages.feedback.send_error')%>',
                 appendTo: $('#footer .pull-right')[0],
                 btnClass: "feedbackBtn",
                 pages: [
@@ -91,7 +91,7 @@ $(function () {
                         {
                             type: "textarea",
                             name: "message",
-                            label: "Descrivi il problema che stai affrontando",
+                            label: "<%=I18n.t('pages.feedback.describe_problem')%>",
                             required: true
                         },
                         /*{

@@ -10,7 +10,7 @@
 	</style>
 
   <div class="error_dialog shadow-box">
-    <h1><%=raw @title || 'La pagina che cerchi non esiste.'%></h1>
+    <h1><%=raw @title || 'La pagina che cerchi non esiste.'%></h1><!--TODO:I18n-->
     <p><%=raw @message ||'Potresti aver sbagliato indirizzo, oppure la pagina non esiste più.'%></p>
     <%=link_to 'Torna indietro...', :back%>
   </div>
