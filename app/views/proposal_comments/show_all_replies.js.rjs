@@ -1,5 +1,5 @@
 show_id = @proposal_comment.id.to_s + "_show";
 div_id = @proposal_comment.id.to_s + "_replies";
-page.replace_html div_id, :partial => "proposals/reply", :collection => @replies
+page.replace_html div_id, partial: "proposals/reply", collection: @replies, locals: {hide: false}
 page << "$(\"#"+show_id+"\").hide(\"slide\", { direction: \"up\" }, 600);"
 page << "$(\"#"+div_id+"\").show(\"slide\", { direction: \"up\" }, 600);"
