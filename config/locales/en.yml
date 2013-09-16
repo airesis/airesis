@@ -214,7 +214,7 @@ en:
         join_twitter: "Join your Twitter account"
         join_linkedin: "Join your LinkedIn account"
         join_meetup: "Join your Meetup account"
-        providers_list: "List of activated provider"
+        providers_list: "List of activated providers"
         options: "Options"
         rotp: "Enable Security Token"
         rotp_title: "Security Token"
