@@ -2,12 +2,19 @@
 
 <p>Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:</p>
 
-<p><%= link_to 'Conferma account', user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ) %></p>
+<% @host = @resource.locale.host %>
+<% @subdomain = @resource.subdomain %>
+<% if @subdomain %>
+    <% @host = [@subdomain, @host.gsub('http://www', '')].join %>
+<% end %>
+
+<p><%= link_to 'Conferma account', user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.locale.lang) %></p>
 
 <p>o visitando il seguente url:</p>
 
-<p><%= link_to user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ), user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain ) %></p>
+<p><%= link_to user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain), user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain) %></p>
 
-<p>In seguito puoi accedere a <%=APP_SHORT_NAME%> con l'email indicata in fase di registrazione e la password scelta</p>
+<p>In seguito puoi accedere a <%= APP_SHORT_NAME %> con l'email indicata in fase di registrazione e la password
+  scelta</p>
 
-<p> Se hai problemi con la procedura contatta un amministratore: <%=APP_EMAIL_ADDRESS%></p>
+<p> Se hai problemi con la procedura contatta un amministratore: <%= APP_EMAIL_ADDRESS %></p>

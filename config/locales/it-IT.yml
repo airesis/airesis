@@ -199,7 +199,7 @@ it-IT:
         account_and_privacy: "Account e privacy"
         title: "IMPOSTAZIONI E PREFERENZE"
       alarm_preferences:
-        receive_on_address: "Ricevi notifiche e newsletter su %{email}"
+        receive_on_address: "Ricevi newsletter su %{email}"
         alerts: "Ricevi notifica"
         emails: "Ricevi email"
       privacy_preferences:
@@ -1074,7 +1074,7 @@ it-IT:
         linkedinpageurl: "La tua pagina su Linkedin"
         facebookpageurl: "La tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
-        email_alerts: "Notifiche tramite email"
+        receive_newsletter: "Newsletter tramite email"
         blog_image_url: "Indirizzo immagine"
         blocked: "Errore"
       group_area:

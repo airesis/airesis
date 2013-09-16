@@ -5,4 +5,5 @@ class SysLocale < ActiveRecord::Base
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
   end
+
 end

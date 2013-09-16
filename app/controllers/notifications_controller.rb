@@ -43,13 +43,13 @@ class NotificationsController < ApplicationController
     end
   end
 
-  #cambia la ricezione delle email
+  #cambia la ricezione delle newsletter
   def change_email_block
     if params[:block] == "true"
-      current_user.email_alerts = false
+      current_user.receive_newsletter = false
       current_user.save!
     else
-      current_user.email_alerts = true
+      current_user.receive_newsletter = true
       current_user.save!
     end
     flash[:notice] = t('info.setting_preferences')

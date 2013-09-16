@@ -91,7 +91,11 @@ class StepsController < ApplicationController
     assignee = current_user.tutorial_progresses.find_by_step_id(@step.id)
     assignee.update_attribute(:status,TutorialProgress::DONE)
     logger.info "User #{current_user.login} has completed fragment #{@step.fragment}"
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js { render :nothing => true }
+    end
+
   end
   
   #segna come 'skipped' uno step del tutorial
