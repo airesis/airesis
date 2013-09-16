@@ -113,7 +113,7 @@ en:
       unintegrated_contribute:
         description: Contributions are put back in debate
         email_subject: A contribution has been put back in debate
-        message: "A contribution you integrated in the proposal <b>%{title}</b> has been put back in debate"
+        message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
         description: New contributions and comments in the proposals I participate in
         email_subject: "%{title} - New contribute"

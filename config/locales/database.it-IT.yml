@@ -113,7 +113,7 @@ it:
       unintegrated_contribute:
         description: Contributi rimessi in dibattito
         email_subject: "%{proposal} - Contributo rimesso in dibattito"
-        message: "Un contributo che avevi integrato nella proposta <b>%{title}</b> è stato rimesso in dibattito"
+        message: "Un contributo che avevi integrato nella proposta <b>%{proposal}</b> è stato rimesso in dibattito"
       new_contributes:
         description: Nuovi contributi e commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo contributo"
