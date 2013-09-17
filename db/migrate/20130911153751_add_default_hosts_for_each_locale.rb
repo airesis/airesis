@@ -2,6 +2,7 @@ class AddDefaultHostsForEachLocale < ActiveRecord::Migration
   def up
     add_column :sys_locales, :host, :string
     add_column :sys_locales, :lang, :string
+    SysLocale.reset_column_information
     SysLocale.where(key: 'en').first.update_attributes({:host => 'http://www.airesis.eu'})
     SysLocale.where(key: 'us').first.update_attributes({:host => 'http://www.airesis.us'})
     SysLocale.where(key: 'fr').first.update_attributes({:host => 'http://www.airesis.eu', :lang => 'fr'})

@@ -1,5 +1,6 @@
 class UpdatePortugal < ActiveRecord::Migration
   def up
+    SysLocale.reset_column_information
     SysLocale.where(:key => 'pt').first.update_attributes({key: 'pt-PT', lang: 'pt-PT'});
     SysLocale.create(:key => 'pt-BR', :host => 'http://www.airesis.us', lang: 'pt-BR')
     execute "update sys_locales set host = replace(host,'http://','')"
