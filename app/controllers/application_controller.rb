@@ -182,6 +182,7 @@ class ApplicationController < ActionController::Base
     unless (request.xhr? ||
         (!params[:controller]) ||
         (params[:controller].starts_with? "devise/") ||
+        (params[:controller] ==  "passwords") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "polling") ||
         (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
