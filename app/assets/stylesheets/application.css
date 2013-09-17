@@ -40,4 +40,5 @@
  *= require toastr
  *= require jquery.countdown
  *= require jquery.switchbutton
+ *= require introjs.min
 */

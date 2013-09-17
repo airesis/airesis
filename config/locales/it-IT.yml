@@ -199,7 +199,7 @@ it-IT:
         account_and_privacy: "Account e privacy"
         title: "IMPOSTAZIONI E PREFERENZE"
       alarm_preferences:
-        receive_on_address: "Ricevi notifiche e newsletter su %{email}"
+        receive_on_address: "Ricevi newsletter su %{email}"
         alerts: "Ricevi notifica"
         emails: "Ricevi email"
       privacy_preferences:
@@ -415,8 +415,7 @@ it-IT:
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
-      accept_conditions: |
-        "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
+      accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
     proposals:
@@ -903,6 +902,11 @@ it-IT:
         description3: "Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra."
         description4: "L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente."
         description5: "Il colore della barra indica se la proposta è in grado di passare alla fase di votazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione."
+        newdescription2: "La barra indica il gradimento della proposta tra i partecipanti e quanto tempo manca al termine della discussione."
+        newdescription3: "Il colore mostra se la proposta passerà alla fase di votazione mentre la lunghezza indica quanto tempo manca prima che termini la discussione."
+        newdescription4: "Quando ritieni che il dibattito sia terminato e l'autore abbia integrato i contributi degli utenti allora utilizza questo pulsante."
+        newdescription5: "Se ritieni che il dibattito debba proseguire allora utilizza questo pulsante."
+        newdescription6: "Quando il testo della proposta cambia ti verrà data la possibilità di modificare la tua valutazione."
     proposal_histories:
       index:
         title: "History della proposta %{title}"
@@ -1074,7 +1078,7 @@ it-IT:
         linkedinpageurl: "La tua pagina su Linkedin"
         facebookpageurl: "La tua pagina su Facebook"
         accept_conditions: "Condizioni d'uso"
-        email_alerts: "Notifiche tramite email"
+        receive_newsletter: "Newsletter tramite email"
         blog_image_url: "Indirizzo immagine"
         blocked: "Errore"
       group_area:
@@ -1314,10 +1318,16 @@ it-IT:
     moderator_panel:
       account_blocked: "Account bloccato"
       account_unblocked: "Account sbloccato"
+    locale_changed: "Localizzazione cambiata correttamente"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
     searching: "Ricerca in corso..."
+    region: "%{name}  (Regione)"
+    province: "%{name} (Provincia)"
+    town: "%{name}  (Comune)"
+    country: "%{name}  (Stato)"
+    continent: "%{name} (Continente)"
   mailer:
     default:
       follow_twitter: "seguici su Twitter"
@@ -1341,3 +1351,6 @@ it-IT:
       verify: "Verifica"
   contribute: "contributo"
   comment: "commento"
+  users:
+    privacy_preferences:
+      language: "Lingua per la ricezione delle email"

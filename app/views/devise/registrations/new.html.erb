@@ -46,6 +46,8 @@
       <%= f.check_box :accept_conditions %>
     </p>
 
+    <%=f.hidden_field :sys_locale_id %>
+
     <% if ::Configuration.recaptcha %>
       <%= recaptcha_tags :display => {'theme' => 'clean'} %><br /><br />
     <%end%>

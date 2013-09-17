@@ -15,6 +15,30 @@ module GroupsHelper
         super
   end
 
+  def change_default_anonima_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/change_default_anonima' :
+        super
+  end
+
+  def change_default_visible_outside_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/change_default_visible_outside' :
+        super
+  end
+
+  def change_default_secret_vote_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/change_default_secret_vote' :
+        super
+  end
+
+  def change_advanced_options_group_url(group, options={})
+    (group_in_subdomain? group) ?
+        '/change_advanced_options' :
+        super
+  end
+
   def partecipation_request_confirm_group_url(group, options={})
     if (group_in_subdomain? group)
       ret = '/partecipation_request_confirm'
@@ -179,7 +203,7 @@ module GroupsHelper
         super
   end
 
-  def group_group_partecipation_url(group,group_partecipation,options={})
+  def group_group_partecipation_url(group, group_partecipation, options={})
     if group_in_subdomain? group
       group_partecipation_url(group_partecipation, options)
     else

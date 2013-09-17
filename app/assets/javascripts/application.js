@@ -50,3 +50,4 @@
 //= require countdown/index
 //= require jquery.tagcloud
 //= require jquery.switchbutton
+//= require introjs.min

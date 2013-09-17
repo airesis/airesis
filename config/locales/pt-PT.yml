@@ -210,7 +210,7 @@ pt-PT:
         account_and_privacy: "Account and privacy"
         title: "SETTINGS AND PREFERENCES"
       alarm_preferences:
-        receive_on_address: "Get alerts and newsletter on %{email}"
+        receive_on_address: "Get newsletter on %{email}"
         alerts: "Alerts"
         emails: "Emails"
       privacy_preferences:
@@ -874,7 +874,7 @@ pt-PT:
         linkedinpageurl: "A tua página no Linkedin"
         facebookpageurl: "A tua página no Facebook"
         accept_conditions: "Condições de uso"
-        email_alerts: "Notificações por Email"
+        receive_newsletter: "Newletter por Email"
         blog_image_url: "URL da imagem"
       group_area:
         name: "Nome"

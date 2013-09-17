@@ -124,7 +124,7 @@ en:
         message: "The proposal <b>%{title}</b> has been updated"
       new_public_proposals:
         description: New proposals added in the Open Space
-        email_subject: There is a new proposal
+        email_subject: "%{proposal}"
         message: "New proposal <b>%{title}</b> added in the Open Space"
       change_status:
         description: Change in the status of a proposal I participate in
@@ -155,7 +155,7 @@ en:
         message: "<b>%{user}/<b> has added a new post in the group <b>%{group}</b>"
       new_proposals:
         description: New proposals within the group
-        email_subject: New proposal
+        email_subject: "%{proposal}"
         message: "New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>"
       new_partecipation_request:
         description: New participation request

@@ -199,7 +199,7 @@ en:
         account_and_privacy: "Account and privacy"
         title: "SETTINGS AND PREFERENCES"
       alarm_preferences:
-        receive_on_address: "Get alerts and newsletter on %{email}"
+        receive_on_address: "Get newsletter on %{email}"
         alerts: "Alerts"
         emails: "Emails"
       privacy_preferences:
@@ -1073,7 +1073,7 @@ en:
         linkedinpageurl: 'Your page on LinkedIn'
         facebookpageurl: 'Your page on Facebook'
         accept_conditions: 'Terms of Use'
-        email_alerts: 'Notifications via Email'
+        receive_newsletter: 'Newsletter via Email'
         blog_image_url: 'Image address'
         blocked: "Error"
       group_area:
@@ -1313,10 +1313,16 @@ en:
     moderator_panel:
       account_blocked: "Account blocked"
       account_unblocked: "Account unblocked"
+    locale_changed: "Localization changed succesfully"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
     searching: "Searching, please wait..."
+    region: "%{name}  (Region)"
+    province: "%{name} (Province)"
+    town: "%{name}  (Town)"
+    country: "%{name}  (Country)"
+    continent: "%{name} (Continent)"
   mailer:
     default:
       follow_twitter: "follow us on Twitter"
@@ -1340,3 +1346,6 @@ en:
       verify: "Check"
   contribute: "contribute"
   comment: "comment"
+  users:
+    privacy_preferences:
+      language: "Language for emails"

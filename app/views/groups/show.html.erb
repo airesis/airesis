@@ -32,7 +32,7 @@
 
           <% end %>
         </div>
-        <% if @group_posts.count > 0 %>
+        <% if @group_posts.count > COMMENTS_PER_PAGE %>
             <div id="loading_results" class="post_results">
               <span><%= t('pages.blogs.show.previous_posts') %></span>
             </div>

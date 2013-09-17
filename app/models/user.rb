@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
 
   #colonne assegnabili massivamente
-  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :email_alerts, :facebook_page_url, :linkedin_page_url, :google_page_url
+  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id
 
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'
@@ -95,6 +95,7 @@ class User < ActiveRecord::Base
   has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
 
   belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
+  belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
   #affinità con i gruppi
   has_many :group_affinities, :class_name => 'GroupAffinity'
@@ -141,7 +142,7 @@ class User < ActiveRecord::Base
   def init
     self.rank ||= 0 #imposta il rank a zero se non è valorizzato
     self.receive_messages = true
-    self.email_alerts = true
+    self.receive_newsletter = true
   end
 
 
@@ -181,6 +182,8 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
+      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
+
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
       data = fdata["extra"]["raw_info"] if fdata
       if data

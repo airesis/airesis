@@ -25,12 +25,12 @@ class RegistrationsController < Devise::RegistrationsController
       ret = session[:invite][:return]
       ret
     else
-      '/users/sign_in'
+      users_sign_in_path
     end
   end
 
   def after_inactive_sign_up_path_for(resource)
-    '/users/sign_in'
+    users_sign_in_path
   end
 
 

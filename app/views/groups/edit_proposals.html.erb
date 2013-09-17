@@ -1,87 +1,104 @@
-<%@page_title = t("pages.groups.edit_proposals.title")%>     
-<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_proposals.title')} do%>
+<% @page_title = t("pages.groups.edit_proposals.title") %>
+<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_proposals.title')} do %>
 
-<%end%>
+<% end %>
 
 <div id="quorum_panel_container">
-<%= render :partial => 'groups/quorums_panel' %>
+  <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<%=link_to t('pages.groups.edit_quorums.add_quorum'), new_group_quorum_url(@group), :remote => true, :class=>"btn blue newButton disable"%>
+<%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_quorum_url(@group), :remote => true, :class => "btn blue newButton disable" %>
 
-<div id="new_quorum_container" title="<%= t('pages.groups.edit_quorums.new_quorum.title')%>" style="display: none; font-size: 14px;">
+<div id="new_quorum_container" title="<%= t('pages.groups.edit_quorums.new_quorum.title') %>" style="display: none; font-size: 14px;">
 </div>
 
-<div id="edit_quorum_container" title="<%= t('pages.groups.edit_quorums.edit_quorum')%>" style="display: none; font-size: 14px;">
+<div id="edit_quorum_container" title="<%= t('pages.groups.edit_quorums.edit_quorum') %>" style="display: none; font-size: 14px;">
 </div>
 
-<br />
+<br/>
 <h2><%= t('pages.groups.edit_quorums.configure_proposal_parameters') %></h2>
-<%=check_box :group, :default_anonima, :onclick=>"return change_default_anonima(this);"%><%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br />
-<%=check_box :group, :default_visible_outside, :onclick=>"return change_default_visible_outside(this);"%><%= t('pages.groups.edit_quorums.default_private_proposal') %><br />
-<%=check_box :group, :default_secret_vote, :onclick=>"return change_default_secret_vote(this);"%><%= t('pages.groups.edit_quorums.default_secret_vote') %><br />
+<%= check_box :group, :default_anonima, :onclick => "return change_default_anonima(this);" %><%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br />
+<%= check_box :group, :default_visible_outside, :onclick => "return change_default_visible_outside(this);" %><%= t('pages.groups.edit_quorums.default_private_proposal') %><br />
+<%= check_box :group, :default_secret_vote, :onclick => "return change_default_secret_vote(this);" %><%= t('pages.groups.edit_quorums.default_secret_vote') %><br />
 <hr>
-<%=check_box :group, :change_advanced_options, :onclick=>"return change_advanced_options(this);"%> <%= t('pages.groups.edit_quorums.let_editor_change_settings') %><br />
+<%= check_box :group, :change_advanced_options, :onclick => "return change_advanced_options(this);" %> <%= t('pages.groups.edit_quorums.let_editor_change_settings') %><br />
 
 <script type="text/javascript">
-	function change_default_anonima(el) {
-		var active = (el.checked) ? "true" : "false";
-		$.ajax({
-        	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",     
-            dataType: 'script',
-        	type: 'post'    
-        });
-	}
-	
-	function change_default_visible_outside(el) {
-		var active = (el.checked) ? "true" : "false";
-		$.ajax({
-        	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_default_visible_outside",     
-            dataType: 'script',
-        	type: 'post'    
-        });
-	}
-
-    function change_default_secret_vote(el) {
+    function change_default_anonima(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active="+active+"&l=<%=I18n.locale%>",
-            url: "/groups/" + <%=@group.id%>  + "/change_default_secret_vote",
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_anonima_group_url(@group)%>",
             dataType: 'script',
             type: 'post'
         });
     }
 
-	function change_advanced_options(el) {
-		var active = (el.checked) ? "true" : "false";
-		$.ajax({
-        	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",     
+    function change_default_visible_outside(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_visible_outside_group_url(@group)%>",
             dataType: 'script',
-        	type: 'post'    
+            type: 'post'
         });
-	}
-	$(function() {
+    }
 
-		$('#addQuorum').click(function() {
-			$('#new_quorum').dialog({
-				width: 500,
-				height: 'auto',
-				modal : true,
-				resizable: false,
-				close : function(event, ui) {
-					$('#new_quorum').dialog('destroy');			
-				}
-			});
-		});
-	    
-	    $('#roles_table_wrapper label').css("font-weight","normal").css("font-size","12px");	     
-	});
-	
-	function hideNewQuorumPanel() {
-    	console.log('hei');
+    function change_default_secret_vote(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_secret_vote_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+    function change_advanced_options(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_advanced_options_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+    $(function () {
+
+        $('#addQuorum').click(function () {
+            $('#new_quorum').dialog({
+                width: 500,
+                height: 'auto',
+                modal: true,
+                resizable: false,
+                close: function (event, ui) {
+                    $('#new_quorum').dialog('destroy');
+                }
+            });
+        });
+
+        $('#quorum_table').dataTable({
+            "oLanguage": {
+                "sLengthMenu": "Mostra _MENU_ quorum per pagina",
+                "sSearch": "Cerca:",
+                "sZeroRecords": "Nessun quorum, spiacente..",
+                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ quorum",
+                "sInfoEmpty": "Sto mostrando 0 quorum",
+                "sInfoFiltered": "(filtrati da un totale di _MAX_ quorum)",
+                "oPaginate": {
+                    "sPrevious": "Pagina precedente",
+                    "sNext": "Pagina successiva"
+                }
+            },
+            "aoColumns": [null, { "bSortable": false }]
+        });
+
+        $('#roles_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+    });
+
+    function hideNewQuorumPanel() {
+        console.log('hei');
         $('#new_quorum_container').dialog('destroy');
         $('#new_quorum_container').empty();
     }
@@ -93,8 +110,8 @@
     }
 
 </script>
-                
-<%=content_for :left_panel do%>
-	<%= render :partial => 'groups/administration_panel' %>
 
-<%end%>
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+
+<% end %>

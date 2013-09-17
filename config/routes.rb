@@ -130,6 +130,7 @@ Airesis::Application.routes.draw do
       post :change_show_urls
       post :change_receive_messages
       post :change_rotp_enabled
+      post :change_locale
     end
 
     member do
@@ -229,6 +230,7 @@ Airesis::Application.routes.draw do
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
+    post '/:action', controller: 'groups'
 
   end
 
