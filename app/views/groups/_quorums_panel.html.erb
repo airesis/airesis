@@ -41,21 +41,12 @@
 
 <script type="text/javascript">
     function change_quorum_status(el, quorum_id) {
-        if (el.checked) {
-            $.ajax({
-                data: "active=true",
-                url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
-                dataType: 'script',
-                type: 'post'
-            });
-        }
-        else {
-            $.ajax({
-                data: "active=false",
-                url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
-                dataType: 'script',
-                type: 'post'
-            });
-        }
+        var active_ = el.checked;
+        $.ajax({
+            data: "active="+active_+"&l=<%=I18n.locale%>",
+            url: "<%=group_url(@group)%>/quorums/" + quorum_id + "/change_status",
+            dataType: 'script',
+            type: 'post'
+        });
     }
 </script>
