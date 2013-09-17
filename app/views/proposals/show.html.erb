@@ -9,7 +9,7 @@
     <meta property="article:author" content="<%= (@proposal.users.first || @proposal.proposal_lives.first.users.first).fullname %>">
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta name="description" content="<%= @proposal.subtitle %>">
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
 
 <% end %>
 
