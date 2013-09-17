@@ -10,17 +10,17 @@
     </div>
     <br/>
 
-    <h1>Quando <%= 'è stato' if @event.is_past? %>?</h1>
+    <h1><%=@event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %></h1>
     <div class="event_when">
       <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
       <div style="float:left;margin-top: 10px;">
         <b>
-          Da <%= l @event.starttime, :format => :long_date_time %>
+          <%= l @event.starttime, :format => :from_long_date_time %>
         </b>
 
         <div style="margin-top:5px;"></div>
         <b>
-          Fino a <%= I18n.localize(@event.endtime, :format => :long_date_time) %>
+          <%= I18n.localize(@event.endtime, :format => :until_long_date_time) %>
         </b>
       </div>
 
@@ -30,11 +30,11 @@
 
 
     <% if @event.place %>
-        <h1>Dove <%= 'è stato' if @event.is_past? %>?</h1>
+        <h1><%=@event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %></h1>
         <div class="event_where">
           <div style="float:left; margin-right:10px;">
-            <a href="#" onclick="return openModal();" title="Visualizza su mappa">
-              <%= image_tag('maps.png', :alt => "Mappa", :size => "64x64") %>
+            <a href="#" onclick="return openModal();" title="<%= t('pages.events.show.show_on_map')%>">
+              <%= image_tag('maps.png', alt: t('pages.events.show.map'), size: "64x64") %>
             </a>
           </div>
 
@@ -47,7 +47,7 @@
           <div style="clear: both"></div>
         </div>
 
-        <div id="map_modal" title="Luogo dell'evento" style="width:400px;height:400px;display:none">
+        <div id="map_modal" title="<%= t('pages.events.show.event_place')%>" style="width:400px;height:400px;display:none">
           <div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>
         </div>
         <hr/>

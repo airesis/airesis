@@ -88,7 +88,9 @@ en:
      default: "%d %b %Y at %H:%M"
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
-     long_date_time: "%A %d %B %Y ore %H:%M"
+     long_date_time: "%A %d %B %Y at %H:%M"
+     from_long_date_time: "From %A %d %B %Y at %H:%M"
+     until_long_date_time: "Until %A %d %B %Y at %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
@@ -97,39 +99,39 @@ en:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: about one hour
-        other: about %{count} hours
+        one: about one hour ago
+        other: about %{count} hours ago
       about_x_months:
-        one: about a month
-        other: about %{count} months
+        one: about a month ago
+        other: about %{count} months ago
       about_x_years:
-        one: about one year
-        other: about %{count} years
+        one: about one year ago
+        other: about %{count} years ago
       almost_x_years:
-        one: almost one year
-        other: almost %{count} years
-      half_a_minute: half a minute
+        one: almost one year ago
+        other: almost %{count} years ago
+      half_a_minute: half a minute ago
       less_than_x_minutes:
-        one: less then a minute
-        other: less then %{count} minutes
+        one: less then a minute ago
+        other: less then %{count} minutes ago
       less_than_x_seconds:
-        one: less then a second
-        other: less then %{count} seconds
+        one: less then a second ago
+        other: less then %{count} seconds ago
       over_x_years:
-        one: more than one year
-        other: more than %{count} years
+        one: more than one year ago
+        other: more than %{count} years ago
       x_days:
-        one: one day
-        other: ! '%{count} days'
+        one: one day ago
+        other: ! '%{count} days ago'
       x_minutes:
-        one: one minute
-        other: ! '%{count} minutes'
+        one: one minute ago
+        other: ! '%{count} minutes ago'
       x_months:
-        one: one month
-        other: ! '%{count} months'
+        one: one month ago
+        other: ! '%{count} months ago'
       x_seconds:
-        one: one second
-        other: ! '%{count} seconds'
+        one: one second ago
+        other: ! '%{count} seconds ago'
   day:
       one: "%{count} day"
       other: "%{count} days"
@@ -139,7 +141,6 @@ en:
   minute:
     one: "%{count} minute"
     other: "%{count} minutes"
-  ago: "ago"
   open_space: 'Open space'
   guide: "FAQ"
   hello: 'Hello world'
@@ -700,6 +701,28 @@ en:
         private_tooltip: "Only group members can see and participate to the event"
         title: "New Event"
         submit: "Create event"
+      show:
+        map: "Map"
+        event_place: "Event place"
+        when_past: "When was it?"
+        when: "When?"
+        where_past: "Where was it?"
+        where: "Where?"
+        show_on_map: "Show on map"
+        reply: "Reply!"
+        no_answer: "You have not replied to the invitation"
+        yes_partecipated: "You have participated at the event"
+        no_partecipated: "You haven't participated at the event"
+        yes_partecipate: "You will participate at the event"
+        no_partecipate: "You will not participate at the event"
+        with_guests: "with %{field} guests"
+        will_be_in: "Are you attending the event?"
+        partecipants: "Who attended?"
+        will_partecipate: "Who will attend?"
+        no_partecipants: "Did not attend no one"
+        no_partecipants_yet: "Still no participants"
+        non_partecipants: "Who did not attend?"
+        will_non_partecipants: "Who will not attend?"
     votations:
         show:
           vote_positive: 'Positive rating'
@@ -767,6 +790,7 @@ en:
         no_notifications: "No notification"
         sign_has_read: "Sign as read"
         moderator: "MODERATOR PANEL"
+        profile: "PROFILE"
       welcome: "Welcome"
       groups_title: "GROUPS"
       login: "LOGIN"
@@ -830,7 +854,7 @@ en:
           title: "<em>Work</em> in your best interest"
           content: "Share your experiences, improves the proposals of others. Discover new friends who think like you. Realize your ideas with others."
         keep_connected: "Keep session"
-        feedback: "FEEDBACK"
+        feedback: "SEND FEEDBACK"
         FAQ: "FAQ"
         guide: "GUIDE"
         change_language: "Change language"
@@ -902,6 +926,11 @@ en:
         description3: "You can suggest if the text of the proposal is complete or not using the two buttons below the bar."
         description4: "The author of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation."
         description5: "The color of the bar shows if the proposal is ready to go to the voting phase, while the length shows how much time and/or evaluations are left before the discussion ends."
+        newdescription2: "TODO"
+        newdescription3: "TODO"
+        newdescription4: "TODO"
+        newdescription5: "TODO"
+        newdescription6: "TODO"
     proposal_histories:
       index:
         title: "%{title} - Revision History"
@@ -982,10 +1011,10 @@ en:
         frequency: 'Repeat every'
         private: 'Private'
         candidates_end_time: 'Deadline date for candidates entry'
-      meeting:
-        place:
-          address: "Address"
-          comune_id: "City"
+        meeting:
+          place:
+            address: "Address"
+            comune_id: "City"
       group:
         facebook_page_url: 'Facebook page address'
         name: 'Name'
@@ -1349,3 +1378,5 @@ en:
   users:
     privacy_preferences:
       language: "Language for emails"
+  yes: "YES"
+  no: "NO"

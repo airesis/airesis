@@ -21,7 +21,7 @@
 				<div style="float:left;width:50%;">
 				<%= f.label :event_type_id%>
 				<br/>
-				<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+				<%= f.select :event_type_id, EventType.where("name not in ('election','meeting2')").collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
 				</div>
 				
 				<div style="float:left;width:50%;">
@@ -84,7 +84,7 @@
 				<%=f.fields_for :meeting, @meeting do |m|%>
 					<%=m.fields_for :place, @place do |p|%>
 						<p id="luogo">
-							<%= p.label :comune_id %><br />
+							<%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %><br />
 							<%= p.text_field :comune_id, :onchange => "codeAddress('luogo');"%>
 							<%= p.label :address %><br />
 							<%= p.text_field :address, :onchange => "codeAddress('luogo');" %>

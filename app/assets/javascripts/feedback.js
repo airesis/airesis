@@ -12,71 +12,71 @@
 
 // log proxy function
     var log = function( msg ) {
-            window.console.log( msg );
-        },
+                window.console.log( msg );
+            },
 // function to remove elements, input as arrays
-        removeElements = function( remove ) {
-            for (var i = 0, len = remove.length; i < len; i++ ) {
-                var item = Array.prototype.pop.call( remove );
-                if ( item !== undefined ) {
-                    if (item.parentNode !== null ) { // check that the item was actually added to DOM
-                        item.parentNode.removeChild( item );
+            removeElements = function( remove ) {
+                for (var i = 0, len = remove.length; i < len; i++ ) {
+                    var item = Array.prototype.pop.call( remove );
+                    if ( item !== undefined ) {
+                        if (item.parentNode !== null ) { // check that the item was actually added to DOM
+                            item.parentNode.removeChild( item );
+                        }
                     }
                 }
-            }
-        },
-        loader = function() {
-            var div = document.createElement("div"), i = 3;
-            div.className = "feedback-loader";
+            },
+            loader = function() {
+                var div = document.createElement("div"), i = 3;
+                div.className = "feedback-loader";
 
-            while (i--) { div.appendChild( document.createElement( "span" )); }
-            return div;
-        },
-        getBounds = function( el ) {
-            return el.getBoundingClientRect();
-        },
-        emptyElements = function( el ) {
-            var item;
-            while( (( item = el.firstChild ) !== null ? el.removeChild( item ) : false) ) {}
-        },
-        element = function( name, text ) {
-            var el = document.createElement( name );
-            el.appendChild( document.createTextNode( text ) );
-            return el;
-        },
+                while (i--) { div.appendChild( document.createElement( "span" )); }
+                return div;
+            },
+            getBounds = function( el ) {
+                return el.getBoundingClientRect();
+            },
+            emptyElements = function( el ) {
+                var item;
+                while( (( item = el.firstChild ) !== null ? el.removeChild( item ) : false) ) {}
+            },
+            element = function( name, text ) {
+                var el = document.createElement( name );
+                el.appendChild( document.createTextNode( text ) );
+                return el;
+            },
 // script onload function to provide support for IE as well
-        scriptLoader = function( script, func ){
+            scriptLoader = function( script, func ){
 
-            if (script.onload === undefined) {
-                // IE lack of support for script onload
+                if (script.onload === undefined) {
+                    // IE lack of support for script onload
 
-                if( script.onreadystatechange !== undefined ) {
+                    if( script.onreadystatechange !== undefined ) {
 
-                    var intervalFunc = function() {
-                        if (script.readyState !== "loaded" && script.readyState !== "complete") {
-                            window.setTimeout( intervalFunc, 250 );
-                        } else {
-                            // it is loaded
-                            func();
-                        }
-                    };
+                        var intervalFunc = function() {
+                            if (script.readyState !== "loaded" && script.readyState !== "complete") {
+                                window.setTimeout( intervalFunc, 250 );
+                            } else {
+                                // it is loaded
+                                func();
+                            }
+                        };
 
-                    window.setTimeout( intervalFunc, 250 );
+                        window.setTimeout( intervalFunc, 250 );
+
+                    } else {
+                        log("ERROR: We can't track when script is loaded");
+                    }
 
                 } else {
-                    log("ERROR: We can't track when script is loaded");
+                    return func;
                 }
 
-            } else {
-                return func;
-            }
-
-        },
-        nextButton,
-        sendButton,
-        H2C_IGNORE = "data-html2canvas-ignore",
-        currentPage,
-        modalBody = document.createElement("div");
+            },
+            nextButton,
+            sendButton,
+            H2C_IGNORE = "data-html2canvas-ignore",
+            currentPage,
+            modalBody = document.createElement("div");
 
     window.Feedback = function( options ) {
 
@@ -95,6 +95,9 @@
 
         options.messageSuccess = options.messageSuccess || "Your feedback was sent successfully.";
         options.messageError = options.messageError || "There was an error sending your feedback to the server.";
+        options.blackoutButtonMessage = options.blackoutButtonMessage || "Blackout";
+        options.highlightButtonMessage = options.highlightButtonMessage || "Highlight";
+        options.highlightOrBlackout = options.highlightOrBlackout || "Highlight or blackout important information";
 
 
         if (options.pages === undefined ) {
@@ -106,191 +109,191 @@
         }
 
         var button,
-            modal,
-            currentPage,
-            glass = document.createElement("div"),
-            returnMethods = {
+                modal,
+                currentPage,
+                glass = document.createElement("div"),
+                returnMethods = {
 
-                // open send feedback modal window
-                open: function() {
-                    var len = options.pages.length;
-                    currentPage = 0;
-                    for (; currentPage < len; currentPage++) {
-                        // create DOM for each page in the wizard
-                        if ( !(options.pages[ currentPage ] instanceof window.Feedback.Review) ) {
-                            options.pages[ currentPage ].render();
-                        }
-                    }
-
-                    var a = element("a", "×"),
-                        modalHeader = document.createElement("div"),
-                    // modal container
-                        modalFooter = document.createElement("div");
-
-                    modal = document.createElement("div");
-                    document.body.appendChild( glass );
-
-                    // modal close button
-                    a.className =  "feedback-close";
-                    a.onclick = returnMethods.close;
-                    a.href = "#";
-
-                    button.disabled = true;
-
-                    // build header element
-                    modalHeader.appendChild( a );
-                    modalHeader.appendChild( element("h3", options.header ) );
-                    modalHeader.className =  "feedback-header";
-
-                    modalBody.className = "feedback-body";
-
-                    emptyElements( modalBody );
-                    currentPage = 0;
-                    modalBody.appendChild( options.pages[ currentPage++ ].dom );
-
-                    //Send button
-                    sendButton = element("button", options.sendLabel);
-                    sendButton.onclick = function() {
-                        if (currentPage > 0 ) {
-                            if ( options.pages[ currentPage - 1 ].end( modal ) === false ) {
-                                // page failed validation, cancel onclick
-                                return;
-                            }
-                        }
-                        emptyElements( modalBody );
-                        returnMethods.send( options.adapter );
-                    }
-                    sendButton.className =  "feedback-btn";
-
-
-                    // Next button
-                    nextButton = element( "button", options.nextLabel);
-
-                    nextButton.className =  "feedback-btn";
-                    nextButton.onclick = function() {
-
-                        if (currentPage > 0 ) {
-                            if ( options.pages[ currentPage - 1 ].end( modal ) === false ) {
-                                // page failed validation, cancel onclick
-                                return;
+                    // open send feedback modal window
+                    open: function() {
+                        var len = options.pages.length;
+                        currentPage = 0;
+                        for (; currentPage < len; currentPage++) {
+                            // create DOM for each page in the wizard
+                            if ( !(options.pages[ currentPage ] instanceof window.Feedback.Review) ) {
+                                options.pages[ currentPage ].render();
                             }
                         }
 
-                        emptyElements( modalBody );
+                        var a = element("a", "×"),
+                                modalHeader = document.createElement("div"),
+                        // modal container
+                                modalFooter = document.createElement("div");
 
-                        if ( currentPage === len ) {
+                        modal = document.createElement("div");
+                        document.body.appendChild( glass );
+
+                        // modal close button
+                        a.className =  "feedback-close";
+                        a.onclick = returnMethods.close;
+                        a.href = "#";
+
+                        button.disabled = true;
+
+                        // build header element
+                        modalHeader.appendChild( a );
+                        modalHeader.appendChild( element("h3", options.header ) );
+                        modalHeader.className =  "feedback-header";
+
+                        modalBody.className = "feedback-body";
+
+                        emptyElements( modalBody );
+                        currentPage = 0;
+                        modalBody.appendChild( options.pages[ currentPage++ ].dom );
+
+                        //Send button
+                        sendButton = element("button", options.sendLabel);
+                        sendButton.onclick = function() {
+                            if (currentPage > 0 ) {
+                                if ( options.pages[ currentPage - 1 ].end( modal ) === false ) {
+                                    // page failed validation, cancel onclick
+                                    return;
+                                }
+                            }
+                            emptyElements( modalBody );
                             returnMethods.send( options.adapter );
-                        } else {
-
-                            options.pages[ currentPage ].start( modal, modalHeader, modalFooter, nextButton );
-
-                            if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
-                                // create DOM for review page, based on collected data
-                                options.pages[ currentPage ].render( options.pages );
-                            }
-
-                            // add page DOM to modal
-                            modalBody.appendChild( options.pages[ currentPage++ ].dom );
-
-                            // if last page, change button label to send
-                            if ( currentPage === len ) {
-                                nextButton.firstChild.nodeValue = options.sendLabel;
-                            }
-
-                            // if next page is review page, change button label
-                            if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
-                                nextButton.firstChild.nodeValue = options.reviewLabel;
-                                sendButton.style.display = 'none';
-                            }
-
-
                         }
-
-                    };
-
-                    modalFooter.className = "feedback-footer";
-                    modalFooter.appendChild( sendButton );
-                    modalFooter.appendChild( nextButton );
+                        sendButton.className =  "feedback-btn";
 
 
-                    modal.className =  "feedback-modal";
-                    modal.setAttribute(H2C_IGNORE, true); // don't render in html2canvas
+                        // Next button
+                        nextButton = element( "button", options.nextLabel);
 
-
-                    modal.appendChild( modalHeader );
-                    modal.appendChild( modalBody );
-                    modal.appendChild( modalFooter );
-
-                    document.body.appendChild( modal );
-                },
-
-
-                // close modal window
-                close: function() {
-
-                    button.disabled = false;
-
-                    // remove feedback elements
-                    removeElements( [ modal, glass ] );
-
-                    // call end event for current page
-                    if (currentPage > 0 ) {
-                        options.pages[ currentPage - 1 ].end( modal );
-                    }
-
-                    // call close events for all pages
-                    for (var i = 0, len = options.pages.length; i < len; i++) {
-                        options.pages[ i ].close();
-                    }
-
-                    return false;
-
-                },
-
-                // send data
-                send: function( adapter ) {
-
-                    // make sure send adapter is of right prototype
-                    if ( !(adapter instanceof window.Feedback.Send) ) {
-                        throw new Error( "Adapter is not an instance of Feedback.Send" );
-                    }
-
-                    // fetch data from all pages
-                    for (var i = 0, len = options.pages.length, data = [], p = 0, tmp; i < len; i++) {
-                        if ( (tmp = options.pages[ i ].data()) !== false ) {
-                            data[ p++ ] = tmp;
-                        }
-                    }
-
-                    nextButton.disabled = true;
-                    sendButton.style.display = 'none';
-
-                    emptyElements( modalBody );
-                    modalBody.appendChild( loader() );
-
-                    // send data to adapter for processing
-                    adapter.send( data, function( success ) {
-
-                        emptyElements( modalBody );
-                        nextButton.disabled = false;
-
-                        nextButton.firstChild.nodeValue = options.closeLabel;
-
+                        nextButton.className =  "feedback-btn";
                         nextButton.onclick = function() {
-                            returnMethods.close();
-                            return false;
+
+                            if (currentPage > 0 ) {
+                                if ( options.pages[ currentPage - 1 ].end( modal ) === false ) {
+                                    // page failed validation, cancel onclick
+                                    return;
+                                }
+                            }
+
+                            emptyElements( modalBody );
+
+                            if ( currentPage === len ) {
+                                returnMethods.send( options.adapter );
+                            } else {
+
+                                options.pages[ currentPage ].start( modal, modalHeader, modalFooter, nextButton );
+
+                                if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
+                                    // create DOM for review page, based on collected data
+                                    options.pages[ currentPage ].render( options.pages );
+                                }
+
+                                // add page DOM to modal
+                                modalBody.appendChild( options.pages[ currentPage++ ].dom );
+
+                                // if last page, change button label to send
+                                if ( currentPage === len ) {
+                                    nextButton.firstChild.nodeValue = options.sendLabel;
+                                }
+
+                                // if next page is review page, change button label
+                                if ( options.pages[ currentPage ] instanceof window.Feedback.Review ) {
+                                    nextButton.firstChild.nodeValue = options.reviewLabel;
+                                    sendButton.style.display = 'none';
+                                }
+
+
+                            }
+
                         };
 
-                        if ( success === true ) {
-                            modalBody.appendChild( document.createTextNode( options.messageSuccess ) );
-                        } else {
-                            modalBody.appendChild( document.createTextNode( options.messageError ) );
+                        modalFooter.className = "feedback-footer";
+                        modalFooter.appendChild( sendButton );
+                        modalFooter.appendChild( nextButton );
+
+
+                        modal.className =  "feedback-modal";
+                        modal.setAttribute(H2C_IGNORE, true); // don't render in html2canvas
+
+
+                        modal.appendChild( modalHeader );
+                        modal.appendChild( modalBody );
+                        modal.appendChild( modalFooter );
+
+                        document.body.appendChild( modal );
+                    },
+
+
+                    // close modal window
+                    close: function() {
+
+                        button.disabled = false;
+
+                        // remove feedback elements
+                        removeElements( [ modal, glass ] );
+
+                        // call end event for current page
+                        if (currentPage > 0 ) {
+                            options.pages[ currentPage - 1 ].end( modal );
                         }
 
-                    } );
+                        // call close events for all pages
+                        for (var i = 0, len = options.pages.length; i < len; i++) {
+                            options.pages[ i ].close();
+                        }
 
-                }
-            };
+                        return false;
+
+                    },
+
+                    // send data
+                    send: function( adapter ) {
+
+                        // make sure send adapter is of right prototype
+                        if ( !(adapter instanceof window.Feedback.Send) ) {
+                            throw new Error( "Adapter is not an instance of Feedback.Send" );
+                        }
+
+                        // fetch data from all pages
+                        for (var i = 0, len = options.pages.length, data = [], p = 0, tmp; i < len; i++) {
+                            if ( (tmp = options.pages[ i ].data()) !== false ) {
+                                data[ p++ ] = tmp;
+                            }
+                        }
+
+                        nextButton.disabled = true;
+                        sendButton.style.display = 'none';
+
+                        emptyElements( modalBody );
+                        modalBody.appendChild( loader() );
+
+                        // send data to adapter for processing
+                        adapter.send( data, function( success ) {
+
+                            emptyElements( modalBody );
+                            nextButton.disabled = false;
+
+                            nextButton.firstChild.nodeValue = options.closeLabel;
+
+                            nextButton.onclick = function() {
+                                returnMethods.close();
+                                return false;
+                            };
+
+                            if ( success === true ) {
+                                modalBody.appendChild( document.createTextNode( options.messageSuccess ) );
+                            } else {
+                                modalBody.appendChild( document.createTextNode( options.messageError ) );
+                            }
+
+                        } );
+
+                    }
+                };
 
         glass.className = "feedback-glass";
         glass.style.pointerEvents = "none";
@@ -301,7 +304,7 @@
         button = element( "a", options.label );
         /*button.className = "feedback-btn feedback-bottom-right";*/
         if ( options.btnClass !== null ) {
-          button.className = options.btnClass;
+            button.className = options.btnClass;
         }
         button.setAttribute(H2C_IGNORE, true);
 
@@ -499,8 +502,8 @@
             nextButton.disabled = false;
 
             var $this = this,
-                feedbackHighlightElement = "feedback-highlight-element",
-                dataExclude = "data-exclude";
+                    feedbackHighlightElement = "feedback-highlight-element",
+                    dataExclude = "data-exclude";
 
             var action = true;
 
@@ -543,7 +546,7 @@
 
                     timer = window.setTimeout(function(){
                         var bounds = getBounds( previousElement ),
-                            item;
+                                item;
 
                         if ( action === false ) {
                             item = blackoutBox;
@@ -614,47 +617,47 @@
             this.highlightBox = document.createElement( "canvas" );
             this.highlightContainer = document.createElement('div');
             var timer,
-                highlightClose = this.highlightClose,
-                highlightBox = this.highlightBox,
-                blackoutBox = this.blackoutBox,
-                highlightContainer = this.highlightContainer,
-                removeElement,
-                ctx = highlightBox.getContext("2d"),
-                buttonClickFunction = function( e ) {
-                    e.preventDefault();
+                    highlightClose = this.highlightClose,
+                    highlightBox = this.highlightBox,
+                    blackoutBox = this.blackoutBox,
+                    highlightContainer = this.highlightContainer,
+                    removeElement,
+                    ctx = highlightBox.getContext("2d"),
+                    buttonClickFunction = function( e ) {
+                        e.preventDefault();
 
-                    if (blackoutButton.className.indexOf("active") === -1) {
-                        blackoutButton.className += " active";
-                        highlightButton.className = highlightButton.className.replace(/active/g,"");
-                    } else {
-                        highlightButton.className += " active";
-                        blackoutButton.className = blackoutButton.className.replace(/active/g,"");
-                    }
+                        if (blackoutButton.className.indexOf("active") === -1) {
+                            blackoutButton.className += " active";
+                            highlightButton.className = highlightButton.className.replace(/active/g,"");
+                        } else {
+                            highlightButton.className += " active";
+                            blackoutButton.className = blackoutButton.className.replace(/active/g,"");
+                        }
 
-                    action = !action;
-                },
-                clearBox = function() {
+                        action = !action;
+                    },
+                    clearBox = function() {
 
-                    clearBoxEl(blackoutBox);
-                    clearBoxEl(highlightBox);
+                        clearBoxEl(blackoutBox);
+                        clearBoxEl(highlightBox);
 
-                    window.clearTimeout( timer );
-                },
-                clearBoxEl = function( el ) {
-                    el.style.left =  "-5px";
-                    el.style.top =  "-5px";
-                    el.style.width = "0px";
-                    el.style.height = "0px";
-                    el.setAttribute(dataExclude, true);
-                },
-                hideClose = function() {
-                    highlightClose.style.left =  "-50px";
-                    highlightClose.style.top =  "-50px";
+                        window.clearTimeout( timer );
+                    },
+                    clearBoxEl = function( el ) {
+                        el.style.left =  "-5px";
+                        el.style.top =  "-5px";
+                        el.style.width = "0px";
+                        el.style.height = "0px";
+                        el.setAttribute(dataExclude, true);
+                    },
+                    hideClose = function() {
+                        highlightClose.style.left =  "-50px";
+                        highlightClose.style.top =  "-50px";
 
-                },
-                blackoutButton = element("a", "<%=I18n.t('pages.feedback.blackout')%>"),
-                highlightButton = element("a", "<%=I18n.t('pages.feedback.highlight')%>"),
-                previousElement;
+                    },
+                    blackoutButton = element("a", this.options.blackoutButtonMessage),
+                    highlightButton = element("a", this.options.highlightButtonMessage),
+                    previousElement;
 
 
             modal.className += ' feedback-animate-toside';
@@ -677,7 +680,7 @@
 
             var buttonItem = [ highlightButton, blackoutButton ];
 
-            this.dom.appendChild( element("p", "<%=I18n.t('pages.feedback.highlight_or_blackout')%>") );
+            this.dom.appendChild( element("p", this.options.highlightOrBlackout));
 
             // add highlight and blackout buttons
             for (var i = 0; i < 2; i++ ) {
@@ -712,7 +715,7 @@
         } else {
             // still loading html2canvas
             var args = arguments,
-                $this = this;
+                    $this = this;
 
             if ( nextButton.disabled !== true) {
                 this.dom.appendChild( loader() );
@@ -733,24 +736,24 @@
 
         // execute the html2canvas script
         var script,
-            $this = this,
-            options = this.options,
-            runH2c = function(){
-                try {
+                $this = this,
+                options = this.options,
+                runH2c = function(){
+                    try {
 
-                    options.onrendered = options.onrendered || function( canvas ) {
-                        $this.h2cCanvas = canvas;
+                        options.onrendered = options.onrendered || function( canvas ) {
+                            $this.h2cCanvas = canvas;
+                            $this.h2cDone = true;
+                        };
+
+                        window.html2canvas([ document.body ], options);
+
+                    } catch( e ) {
+
                         $this.h2cDone = true;
-                    };
-
-                    window.html2canvas([ document.body ], options);
-
-                } catch( e ) {
-
-                    $this.h2cDone = true;
-                    log("Error in html2canvas: " + e.message);
-                }
-            };
+                        log("Error in html2canvas: " + e.message);
+                    }
+                };
 
         if ( window.html2canvas === undefined && script === undefined ) {
 
@@ -795,9 +798,9 @@
         if ( this.h2cCanvas !== undefined ) {
 
             var ctx = this.h2cCanvas.getContext("2d"),
-                canvasCopy,
-                copyCtx,
-                radius = 5;
+                    canvasCopy,
+                    copyCtx,
+                    radius = 5;
             ctx.fillStyle = "#000";
 
             // draw blackouts
@@ -828,9 +831,9 @@
                 items.forEach( function( item ) {
 
                     var x = parseInt(item.style.left, 10),
-                        y = parseInt(item.style.top, 10),
-                        width = parseInt(item.style.width, 10),
-                        height = parseInt(item.style.height, 10);
+                            y = parseInt(item.style.top, 10),
+                            width = parseInt(item.style.width, 10),
+                            height = parseInt(item.style.height, 10);
 
                     ctx.moveTo(x + radius, y);
                     ctx.lineTo(x + width - radius, y);

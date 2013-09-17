@@ -1015,7 +1015,6 @@ pt-PT:
   no_interest_border: "No place found"
   looking_for_interest_border: "Searching, please wait..."
   digit_tags: "Type the tags you want to insert"
-  ago: "ago"
   buttons:
     cancel: Cancel
     save: "Save"
