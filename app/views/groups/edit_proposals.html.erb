@@ -28,7 +28,7 @@
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
         	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",     
+        	url: "/groups/" + <%=@group.id%>  + "/change_default_anonima",
             dataType: 'script',
         	type: 'post'    
         });
@@ -38,7 +38,7 @@
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
         	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_default_visible_outside",     
+        	url: "/groups/" + <%=@group.id%>  + "/change_default_visible_outside",
             dataType: 'script',
         	type: 'post'    
         });
@@ -58,7 +58,7 @@
 		var active = (el.checked) ? "true" : "false";
 		$.ajax({
         	data: "active="+active+"&l=<%=I18n.locale%>",
-        	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",     
+        	url: "/groups/" + <%=@group.id%>  + "/change_advanced_options",
             dataType: 'script',
         	type: 'post'    
         });
