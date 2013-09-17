@@ -94,6 +94,7 @@ it-IT:
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
+     textfield: "%d/%m/%Y %H:%M"
     am: "am"
     pm: "pm"
   datetime:

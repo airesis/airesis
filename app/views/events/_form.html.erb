@@ -40,12 +40,12 @@
 			<p>
 				<%= f.label :starttime %>
 				<br/>
-				<%= f.text_field :starttime, :class=>"datePicker" %>
+				<%= f.text_field :starttime, value: (l(@event.starttime, format: :textfield)), class: 'datePicker' %>
 			</p>
 			<p>
 				<%= f.label :endtime %>
 				<br/>
-				<%= f.text_field :endtime, :class=>"datePicker" %>
+				<%= f.text_field :endtime, value: (l(@event.endtime, format: :textfield)), :class=>"datePicker" %>
 			</p>
 			<p>
 				<%= f.label :all_day %>

@@ -2,6 +2,8 @@
 		
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag "i18n/jquery.ui.datepicker-#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/jquery-ui-timepicker-#{I18n.locale}" %>
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
@@ -10,6 +12,7 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 
 <script type="text/javascript">
+
   $(function() {
       var feedback_options =
               Feedback({
