@@ -162,7 +162,7 @@
                            :select => "proposal_categories.id, proposal_categories.name, count(proposals.id) as proposals_count",
                            :joins => joins,
                            :conditions => conditions,
-                           :group => "proposal_categories.id, proposal_categories.name",
+                           :group => "proposal_categories.id, proposal_categories.name, proposal_categories.seq",
                            :order => "proposal_categories.seq desc"
                    )
                    #categories = ProposalCategory.all
