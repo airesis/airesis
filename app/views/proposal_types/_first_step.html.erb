@@ -33,7 +33,7 @@
 
 <% if ::Configuration::folksonomy %>
     <p>
-      <%= f.label :tags_list %> <%= t('pages.proposals.new.tags_separated_by_comma') %><br/>
+      <%= f.label :tags_list %><br/>
       <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
     </p>
 <% end %>

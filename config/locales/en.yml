@@ -54,7 +54,14 @@ en:
     - Thursday
     - Friday
     - Saturday
-    abbr_day_names: [S, M, T, W, F, T, S]
+    abbr_day_names:
+    - S
+    - M
+    - T
+    - W
+    - F
+    - T
+    - S
     month_names:
     -
     - January
@@ -220,6 +227,7 @@ en:
         rotp_title: "Security Token"
         rotp_confirm_enable: "Are you sure you want to enable the security token?"
         rotp_confirm_disable: "Are you sure you want to disable the security token?"
+        mail_language: "Language for e-mails"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences"
         your_borders: "Your geographical borders of interest"
@@ -543,7 +551,7 @@ en:
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"
-        title_group: " in group %{name}"
+        title_group: "In group %{name}"
         title_synthetic: "(in summary)"
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
@@ -1336,16 +1344,13 @@ en:
       title: "%{user} inserted a new %{comment} in the proposal"
       view_proposal: "%{click_here} to see the proposal."
     text_update:
-      view_proposal: "The proposal <b>%{proposal}</b> has been uodated!"
-      integrated_contributes: "Congratulations! The following contributions that you had inserted have been integrated by the author:"
+      view_proposal: "The proposal <b>%{proposal}</b> has been updated!"
+      integrated_contributes: "Congratulations! The following contributions that you had inserted have been integrated by the editors:"
       view_proposal_2: "%{click_here} and verify that the new text contains your suggestions. <br/> If you are not satisfied you can always put your contributions back in debate by pulling them from History."
       connect: "Log in %{name}"
     unintegrated_contribute:
       view_proposal: "A contribution that had been integrated into the proposal <b>%{click_here}</b> has been put back into debate by its author."
       view_proposal_2: "%{click_here} why the author did not consider that his contribution has been integrated properly."
       verify: "Check"
-  contribute: "contribute"
+  contribute: "contribution"
   comment: "comment"
-  users:
-    privacy_preferences:
-      language: "Language for emails"

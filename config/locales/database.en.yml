@@ -25,15 +25,15 @@ en:
       PRESS:
         description: Press Release
       EVENT:
-        description: "Event Organization"
+        description: Event Organization
       ESTIMATE:
-        description: "Cost Estimate"
+        description: Cost Estimate
       AGENDA:
-        description: "Agenda"
+        description: Agenda
       CANDIDATES:
-        description: "Choose a candidate"
+        description: Choice of a candidate
       SIMPLE:
-        description: "Simple"
+        description: Simple proposal
     event_types:
       meeting:
         description: meeting

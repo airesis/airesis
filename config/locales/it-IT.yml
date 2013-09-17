@@ -54,7 +54,14 @@ it-IT:
     - Giovedì
     - Venerdì
     - Sabato
-    abbr_day_names: [D, L, M, M, G, V, S]
+    abbr_day_names:
+    - D
+    - L
+    - M
+    - M
+    - G
+    - V
+    - S
     month_names:
      -
      - Gennaio
@@ -220,6 +227,7 @@ it-IT:
         rotp_title: "Token di sicurezza"
         rotp_confirm_enable: "Sei sicuro di voler attivare il token di sicurezza?"
         rotp_confirm_disable: "Sei sicuro di voler disattivare il token di sicurezza?"
+        mail_language: "Lingua per la ricezione delle email"
       border_preferences:
         updating: "Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti"
         your_borders: "I tuoi confini geografici di interesse"
@@ -1351,6 +1359,3 @@ it-IT:
       verify: "Verifica"
   contribute: "contributo"
   comment: "commento"
-  users:
-    privacy_preferences:
-      language: "Lingua per la ricezione delle email"
