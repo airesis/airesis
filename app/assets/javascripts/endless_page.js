@@ -24,12 +24,9 @@ function nearBottomOfPage() {
 }
 
 function scrollDistanceFromBottom(argument) {
-    return pageHeight() - (window.pageYOffset + self.innerHeight);
+    return $(document).height() - ($(window).height() + $(window).scrollTop());
 }
 
-function pageHeight() {
-    return Math.max(document.body.scrollHeight, document.body.offsetHeight);
-}
 
 $(function () {
     checkScroll();

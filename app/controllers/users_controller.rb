@@ -159,6 +159,31 @@ class UsersController < ApplicationController
     end
   end
 
+  #change default user locale
+  def change_locale
+    current_user.locale = SysLocale.find(params[:locale])
+    current_user.save!
+
+    flash[:notice] = t('info.locale_changed')
+
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = t('error.setting_preferences')
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
   #enable or disable rotp feature
   def change_rotp_enabled
     authorize! :change_rotp_enabled, current_user

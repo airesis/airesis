@@ -7,12 +7,13 @@
 <% if @subdomain %>
     <% @host = [@subdomain, @host.gsub('http://www', '')].join %>
 <% end %>
+<% @url = user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.locale.lang) %>
 
-<p><%= link_to 'Conferma account', user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.locale.lang) %></p>
+<p><%= link_to 'Conferma account', @url %></p>
 
 <p>o visitando il seguente url:</p>
 
-<p><%= link_to user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain), user_confirmation_url(:confirmation_token => @resource.confirmation_token, :subdomain => @resource.subdomain) %></p>
+<p><%= link_to @url, @url %></p>
 
 <p>In seguito puoi accedere a <%= APP_SHORT_NAME %> con l'email indicata in fase di registrazione e la password
   scelta</p>

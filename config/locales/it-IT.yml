@@ -415,8 +415,7 @@ it-IT:
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
       choose_password: "Scegli una password"
       confirm_password: "Conferma la password"
-      accept_conditions: |
-        "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
+      accept_conditions: "Accetto le <a href=\"#\" onclick=\"return openModal();\">condizioni d'uso</a>"
       register_button: "Registrati"
       identity_provviders_title: "Entra subito tramite il tuo Identity Provider preferito"
     proposals:
@@ -1314,10 +1313,16 @@ it-IT:
     moderator_panel:
       account_blocked: "Account bloccato"
       account_unblocked: "Account sbloccato"
+    locale_changed: "Localizzazione cambiata correttamente"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
     searching: "Ricerca in corso..."
+    region: "%{name}  (Regione)"
+    province: "%{name} (Provincia)"
+    town: "%{name}  (Comune)"
+    country: "%{name}  (Stato)"
+    continent: "%{name} (Continente)"
   mailer:
     default:
       follow_twitter: "seguici su Twitter"
@@ -1341,3 +1346,6 @@ it-IT:
       verify: "Verifica"
   contribute: "contributo"
   comment: "commento"
+  users:
+    privacy_preferences:
+      language: "Lingua per la ricezione delle email"

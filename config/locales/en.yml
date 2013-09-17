@@ -1313,10 +1313,16 @@ en:
     moderator_panel:
       account_blocked: "Account blocked"
       account_unblocked: "Account unblocked"
+    locale_changed: "Localization changed succesfully"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"
     searching: "Searching, please wait..."
+    region: "%{name}  (Region)"
+    province: "%{name} (Province)"
+    town: "%{name}  (Town)"
+    country: "%{name}  (Country)"
+    continent: "%{name} (Continent)"
   mailer:
     default:
       follow_twitter: "follow us on Twitter"
@@ -1340,3 +1346,6 @@ en:
       verify: "Check"
   contribute: "contribute"
   comment: "comment"
+  users:
+    privacy_preferences:
+      language: "Language for emails"
