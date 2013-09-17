@@ -118,19 +118,26 @@
               <div class="fb-like" data-href="<%= SITE %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true"></div>
             </div>
             <div style="padding-top: 8px; padding-left: 25px; float:left;">
-            <%= image_tag "flags/#{I18n.locale}.png", :class => 'cur language', title: t('pages.home.index.change_language')%>
+              <%= image_tag "flags/#{I18n.locale}.png", :class => 'cur language', title: t('pages.home.index.change_language') %>
             </div>
 
             <div id="language" style="display:none;">
-              <%= link_to (image_tag 'flags/en.png') + ' English', current_url(l: @domain_locale == 'eu' ? nil : :"en") %><br/>
-              <%= link_to (image_tag 'flags/en-US.png') + ' English (USA)', current_url(l: (@domain_locale == 'us' ? nil : :"en-US")) %><br/>
-              <%= link_to (image_tag 'flags/it-IT.png') + ' Italiano', current_url(l: (@domain_locale == 'it' ? nil : :"it-IT")) %><br/>
-              <%= link_to (image_tag 'flags/pt-PT.png') + ' Português', current_url(l: :"pt-PT") %><br/>
-           <!--   <%= link_to (image_tag 'flags/pt-BR.png') + ' Portuguêse: brasileiro', current_url(l: :"pt-BR") %><br/> -->
-              <%= link_to (image_tag 'flags/es-ES.png') + ' Español', current_url(l: :"es-ES") %><br/>
-              <%= link_to (image_tag 'flags/fr.png') + ' Français', current_url(l: :"fr") %><br/>
-              <%= link_to (image_tag 'flags/de.png') + ' Deutsch', current_url(l: :"de") %><br/>
-           <!--   <%= link_to (image_tag 'flags/ar.png') + ' اللغة العربية', current_url(l: :"ar") %><br/>
+              <%= link_to (image_tag 'flags/en.png') + ' English', current_url(l: @domain_locale == 'eu' ? nil : :"en") %>
+              <br/>
+              <%= link_to (image_tag 'flags/en-US.png') + ' English (USA)', current_url(l: (@domain_locale == 'us' ? nil : :"en-US")) %>
+              <br/>
+              <%= link_to (image_tag 'flags/it-IT.png') + ' Italiano', current_url(l: (@domain_locale == 'it' ? nil : :"it-IT")) %>
+              <br/>
+              <%= link_to (image_tag 'flags/pt-PT.png') + ' Português', current_url(l: :"pt-PT") %>
+              <br/>
+              <!--   <%= link_to (image_tag 'flags/pt-BR.png') + ' Portuguêse: brasileiro', current_url(l: :"pt-BR") %><br/> -->
+              <%= link_to (image_tag 'flags/es-ES.png') + ' Español', current_url(l: :"es-ES") %>
+              <br/>
+              <%= link_to (image_tag 'flags/fr.png') + ' Français', current_url(l: :"fr") %>
+              <br/>
+              <%= link_to (image_tag 'flags/de.png') + ' Deutsch', current_url(l: :"de") %>
+              <br/>
+              <!--   <%= link_to (image_tag 'flags/ar.png') + ' اللغة العربية', current_url(l: :"ar") %><br/>
               <%= link_to (image_tag 'flags/nl.png') + ' Nederlands', current_url(l: :"nl") %><br/>
               <%= link_to (image_tag 'flags/el.png') + ' Ελληνικά', current_url(l: :"el") %><br/>
               <%= link_to (image_tag 'flags/jp.png') + ' 日本語', current_url(l: :"jp") %><br/>
@@ -255,7 +262,7 @@
         </div>
       </div>
       <%= render :partial => "layouts/footer" %>
-
+    </div>
     </body>
     </html>
 <% end %>

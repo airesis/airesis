@@ -132,7 +132,7 @@
                       <tr>
                         <td colspan="2" valign="middle" id="utility">
                           <div>
-                            &nbsp;<%= link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(:host => @ruser.original_locale.host.gsub('http://',''), l: @ruser.original_locale.lang), :target => "_blank" %>
+                            &nbsp;<%= link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(:host => @ruser.original_locale.host, l: @ruser.original_locale.lang), :target => "_blank" %>
                           </div>
                         </td>
                       </tr>

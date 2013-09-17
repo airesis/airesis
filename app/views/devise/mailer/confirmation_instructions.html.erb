@@ -2,12 +2,12 @@
 
 <p>Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:</p>
 
-<% @host = @resource.locale.host %>
+<% @host = @resource.original_locale.host %>
 <% @subdomain = @resource.subdomain %>
 <% if @subdomain %>
-    <% @host = [@subdomain, @host.gsub('http://www', '')].join %>
+    <% @host = [@subdomain, @host.gsub('www', '')].join %>
 <% end %>
-<% @url = user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.locale.lang) %>
+<% @url = user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.original_locale.lang) %>
 
 <p><%= link_to 'Conferma account', @url %></p>
 
