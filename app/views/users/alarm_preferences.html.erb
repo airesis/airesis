@@ -1,3 +1,4 @@
+<%@page_title = t('pages.users.left_panel.alarm_and_notifications') %>
 <% if current_user %>
     <script>
         function change_notification_block(el) {
@@ -102,7 +103,7 @@
   <% end %>
   <tr>
     <td>
-
+      <%= image_tag "newsletter.png" %>
     </td>
     <td>
       <h4><%= t('pages.users.alarm_preferences.receive_on_address', email: current_user.email) %></h4>

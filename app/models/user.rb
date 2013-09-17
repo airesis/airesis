@@ -95,6 +95,7 @@ class User < ActiveRecord::Base
   has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
 
   belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
+  belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
   #affinità con i gruppi
   has_many :group_affinities, :class_name => 'GroupAffinity'
@@ -181,7 +182,8 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
-      user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
+      user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
+
       fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
       data = fdata["extra"]["raw_info"] if fdata
       if data

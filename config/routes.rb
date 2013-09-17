@@ -230,6 +230,7 @@ Airesis::Application.routes.draw do
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
+    post '/:action', controller: 'groups'
 
   end
 
