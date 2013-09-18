@@ -32,9 +32,11 @@
 
           <% end %>
         </div>
-        <div id="loading_results" class="post_results">
-          <span><%= t('pages.blogs.show.previous_posts') %></span>
-        </div>
+        <% if @group_posts.count > 0 %>
+            <div id="loading_results" class="post_results">
+              <span><%= t('pages.blogs.show.previous_posts') %></span>
+            </div>
+        <% end %>
       </div>
       <div class="group_infos">
         <%#= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
@@ -44,7 +46,7 @@
 
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente     %>
+<% if false #disattivato momentaneamente      %>
     <%= content_for :right_panel do %>
         <% if (can? :view_proposal, @group) %>
             <h4>Proposte interne al gruppo</h4>

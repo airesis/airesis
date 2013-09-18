@@ -60,7 +60,7 @@ class Group < ActiveRecord::Base
 
   has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
 
-  has_many :invitation_emails, :class_name => 'GroupInvitationEmail'
+  has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
 
   has_many :group_areas, dependent: :destroy
 
@@ -150,7 +150,7 @@ class Group < ActiveRecord::Base
       copy.save!
       self.group_quorums.build(:quorum_id => copy.id)
     end
-    role = self.partecipation_roles.build({name: self.default_role_name, description: t('pages.groups.edit_permissions.default_role')})
+    role = self.partecipation_roles.build({name: self.default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
     self.default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
       abilitation.save!
@@ -167,7 +167,7 @@ class Group < ActiveRecord::Base
   end
 
   def destroy
-    self.update_attribute(:partecipation_role_id, nil) && super
+    self.update_attribute(:partecipation_role_id, 2) && super
   end
 
   #return true if the group is private and do not show anything to non-partecipants
@@ -263,19 +263,19 @@ class Group < ActiveRecord::Base
           statos = params[:interest_border_obj].territory.statos
           stato_ids = InterestBorder.where({territory_id: statos.pluck(:id), territory_type: 'Stato'}).pluck(:id)
           @interest_borders += stato_ids
-
           regiones = Regione.where(:stato_id => statos.pluck(:id))
-          regione_ids = InterestBorder.where({territory_id: regiones.pluck(:id), territory_type: 'Regione'}).pluck(:id)
-          @interest_borders += regione_ids
-
-          provincias = Provincia.where(:regione_id => regiones.pluck(:id))
-          provincia_ids = InterestBorder.where({territory_id: provincias.pluck(:id), territory_type: 'Provincia'}).pluck(:id)
-          @interest_borders += provincia_ids
-
-          comunes = Comune.where(:provincia_id => provincias.pluck(:id))
-          comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
-          @interest_borders += comune_ids
+          @interest_borders += pluck_regiones(regiones)
+        elsif params[:interest_border_obj].territory_type == InterestBorder::STATO
+          regiones = params[:interest_border_obj].territory.regiones
+          @interest_borders += pluck_regiones(regiones)
+        elsif params[:interest_border_obj].territory_type == InterestBorder::REGIONE
+          provincias = params[:interest_border_obj].territory.provincias
+          @interest_borders += pluck_provincias(provincias)
+        elsif params[:interest_border_obj].territory_type == InterestBorder::PROVINCIA
+          comunes = params[:interest_border_obj].territory.comunes
+          @interest_borders += pluck_comunes(comunes)
         end
+
       end
       params[:interest_border_ids] = @interest_borders
     end
@@ -307,5 +307,31 @@ class Group < ActiveRecord::Base
     integer :interest_border_id
     integer :group_partecipations_count
     time :created_at
+  end
+
+
+  private
+
+  def self.pluck_regiones(regiones)
+    interest_borders = []
+    regione_ids = InterestBorder.where({territory_id: regiones.pluck(:id), territory_type: 'Regione'}).pluck(:id)
+    interest_borders += regione_ids
+    provincias = Provincia.where(:regione_id => regiones.pluck(:id))
+    interest_borders += pluck_provincias(provincias)
+  end
+
+  def self.pluck_provincias(provincias)
+    interest_borders = []
+    provincia_ids = InterestBorder.where({territory_id: provincias.pluck(:id), territory_type: 'Provincia'}).pluck(:id)
+    interest_borders += provincia_ids
+
+    comunes = Comune.where(:provincia_id => provincias.pluck(:id))
+    interest_borders += pluck_comunes(comunes)
+  end
+
+  def self.pluck_comunes(comunes)
+    interest_borders = []
+    comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
+    interest_borders += comune_ids
   end
 end

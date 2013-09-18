@@ -326,6 +326,7 @@ it:
           list_title: "Elenco delle aree di lavoro. Seleziona per ciascuna i partecipanti o clicca sul nome per gestire ruoli e permessi di quell'area"
           title: "Impostazioni area di lavoro"
         manage_group_areas: "Organizza gli utenti all'interno delle aree di lavoro"
+        new_area: "Crea un'area di lavoro"
       default_admin_title: "Amministratore"
       invite_your_friends:
         type_email_addresses: "Digita gli indirizzi email separati da virgola"

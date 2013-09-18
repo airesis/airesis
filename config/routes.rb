@@ -176,7 +176,7 @@ Airesis::Application.routes.draw do
     match '/edit', to: 'groups#edit'
     match '/update', to: 'groups#update'
 
-
+    resources :elections
     resources :candidates
 
     resources :quorums do
@@ -229,6 +229,7 @@ Airesis::Application.routes.draw do
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
+    post '/:action', controller: 'groups'
 
   end
 

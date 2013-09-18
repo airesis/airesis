@@ -51,8 +51,8 @@
     <%# end %>
   </div>-->
   <div class="groupFooter">
-    <%= link_to 'Modifica', edit_group_path(group), :class => 'editButton littleText' if (is_admin?) %>
-    <%= link_to 'Cancella', group, :confirm => 'Sei sicuro di voler eliminare questo gruppo?', :method => :delete, :class => 'deleteButton littleText' if (is_admin?) %>
+    <%= link_to 'Modifica', edit_group_url(group), :class => 'editButton littleText' if (is_admin?) %>
+    <%= link_to 'Cancella', group_url(group), :confirm => 'Sei sicuro di voler eliminare questo gruppo?', :method => :delete, :class => 'deleteButton littleText' if (is_admin?) %>
   </div>
   <div style="clear: both"></div>
 </div>

@@ -1,6 +1,6 @@
 <% if @event.event_type_id != EventType::ELEZIONI %>
     <script type="text/javascript"
-            src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
+            src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
     </script>
 
 
@@ -144,8 +144,6 @@
 
 <% if @event.event_type_id == EventType::VOTAZIONE %>
     <p>
-      Si potrà esprimere il proprio voto su questo stesso sito nella <%= link_to 'pagina dedicata', votation_path %>
-
       <% if @event.proposals.count > 0 %>
         <h3>In queste giornate si voteranno le seguenti proposte</h3>
         <br/>
