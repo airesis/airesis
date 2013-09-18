@@ -7,7 +7,7 @@
         <%= link_to_user partecipation.user, :full_name => true %>
         <% if partecipation.guests > 0 %>
 
-            <%= " con #{partecipation.guests} ospiti" %>
+            <%=raw t('pages.events.show.with_guests', field: partecipation.guests) %>
         <% end %>
         <div style="margin-top:5px;"></div>
         <span style="color:darkslategray">"<%= partecipation.comment %>"</span>

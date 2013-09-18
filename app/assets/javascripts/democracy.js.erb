@@ -69,43 +69,6 @@ $(function () {
     $('.group-cont').click(function (event) {
         event.stopPropagation();
     });
-
-
-    var feedback_options =
-
-            Feedback({
-                h2cPath: '/assets/html2canvas.js',
-                url: '/send_feedback',
-                label: '<%=I18n.t('pages.feedback.send_feedback')%>',       //TODO:I18n
-                header:     '<%=I18n.t('pages.feedback.send_feedback')%>',
-                nextLabel: '<%=I18n.t('pages.feedback.add_details')%>',
-                reviewLabel: '<%=I18n.t('pages.feedback.view_preview')%>',
-                sendLabel: '<%=I18n.t('buttons.send')%>',
-                closeLabel: '<%=I18n.t('buttons.close')%>',
-                messageSuccess: '<%=I18n.t('pages.feedback.send_succes')%>',
-                messageError: '<%=I18n.t('pages.feedback.send_error')%>',
-                appendTo: $('#footer .pull-right')[0],
-                btnClass: "feedbackBtn",
-                pages: [
-                    new window.Feedback.Form([
-                        {
-                            type: "textarea",
-                            name: "message",
-                            label: "<%=I18n.t('pages.feedback.describe_problem')%>",
-                            required: true
-                        },
-                        /*{
-                         type: "input",
-                         name: "Email",
-                         label: "Inserisci un'indirizzo email sul quale ricevere risposta",
-                         required: false
-                         }*/
-                    ]
-                    ),
-                    new window.Feedback.Screenshot({h2cPath: '/assets/html2canvas.js'}),
-                    new window.Feedback.Review()
-                ]
-            });
 });
 
 function sticky_relocate() {
@@ -243,10 +206,6 @@ function showDisableGButton(button) {
     button.removeAttr('disabled');
     button.unbind('click.killlink');
 }
-
-$.datepicker.setDefaults($.datepicker.regional[ "it" ]);
-
-
 
 var et = {};
 

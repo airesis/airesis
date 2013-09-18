@@ -22,29 +22,29 @@
 	<% partecipation = @event.meeting.meeting_partecipations.find_by_user_id(current_user.id)%>
 	<%if !partecipation%>
 		<%if !@event.is_past?%>
-			<h1>Parteciperai all'evento?</h1>
+			<h1><%= t('pages.events.show.will_be_in') %></h1>
 			<%=form_for [@event,MeetingPartecipation.new], :remote => true do |f|%>
 			<div style="float: left">
 				<div style="height:14px; position: relative;">
 					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked">
-					SI</input> <span id="guests_number">con <%= f.text_field :guests, :style => "width: 35px;"%> ospiti</span>
+					<%= t('yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;") ) %></span>
 					<br />
 				</div>
 				<div style="height:14px;">
 					<input type="radio" name="meeting_partecipation[response]" value="N">
-					NO</input>
+					<%= t('no') %></input>
 				</div>
                 <br />
 			</div>
 			<%= f.text_area :comment, rows: 4, cols: 10%>
-			<%= f.submit "Rispondi!", style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', disable_with: t('sending')%>
+			<%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', disable_with: t('sending')%>
 			<%end%>
 		<script type="text/javascript">
 			$(function() {
 				$('#meeting_partecipation_comment').charCount({
 					allowed : 255,
 					warning : 10,
-					counterText : 'Caratteri disponibili: '
+					counterText : <%=t('pages.proposals.show.characters_left')%>
 				});
 		
 				$("input[name='meeting_partecipation\[response\]']").change(function() {
@@ -59,20 +59,20 @@
 		
 		</script>
 		<%else%> <!-- è passato e non hai risposto -->
-			<h1>Non hai risposto all'invito</h1>
+			<h1><%= t('pages.events.show.no_answer') %></h1>
 		<%end%>
 	<%else%>	<!--hai risposto all'evento -->
 		<%if @event.is_past?%>
 			<%if partecipation.response == 'Y'%>
-			<h1>Hai partecipato all'evento</h1>
+			<h1><%= t('pages.events.show.yes_partecipated') %></h1>
 			<%else%>
-			<h1>Non hai partecipato all'evento</h1>
+			<h1><%= t('pages.events.show.no_partecipated') %></h1>
 			<%end%>
 		<%else%>
 			<%if partecipation.response == 'Y'%>
-			<h1>Parteciperai all'evento</h1>
+			<h1><%= t('pages.events.show.yes_partecipate')%></h1>
 			<%else%>
-			<h1>Non parteciperai all'evento</h1>
+			<h1><%= t('pages.events.show.no_partecipate')%></h1>
 			<%end%>
 		<%end%>
 	<%end%>

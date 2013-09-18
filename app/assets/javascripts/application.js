@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require timepicker
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require jquery.contextMenu
@@ -17,7 +18,6 @@
 //= require fullcalendar
 //= require gcal
 //= require events
-//= require timepicker
 //= require charCount
 //= require jquery.progressbar
 //= require jquery.dataTables.min
@@ -39,6 +39,7 @@
 //= require jqlplot/jqplot.highlighter
 //= require elfinder.full
 //= require i18n/elfinder.it
+
 //= require elFinderSupportVer1
 //= require jquery.livequery
 //= require proposals

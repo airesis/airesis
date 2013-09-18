@@ -1,18 +1,18 @@
 <%= content_for :head do %>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
 <% end %>
 
 <div class="toast-warning info-panel" >
   <b>ATTENZIONE!</b> <br/>
-  Il modulo elezioni verrà presto abbandonato a favore del nuovo modello di proposta 'Elezione candidati'
+  <b>Funzionalità disattivata</b><br/>
+  Il modulo elezioni verrà abbandonato a favore del nuovo modello di proposta 'Elezione candidati'
 </div>
 
 <%=render :layout => "layouts/page_title", :locals => {:title => "Area candidature"} do%>
 			
 <%end%>
 
-<h4><%=raw t('pages.candidates.index.description') + " #{link_to t('pages.candidates.index.create_election'),  new_group_event_path(@group, type: 'election'), :remote => true}." %>
-</h4>
+
 <table id="candidates">
 	<thead>
 		<th><%= t('pages.candidates.index.user_column') %></th>
@@ -39,10 +39,6 @@
 </table>
 <br />
 
-<div id="create_event_dialog" style="display:none;">
-  <div id="create_event">
-  </div>
-</div>
 
 <script type="text/javascript">
 	$(function() {
@@ -84,6 +80,5 @@
 <% content_for :left_panel do %>
     <div class="mybox">
 	<%= link_to t('pages.candidates.index.send_candidate_button'), new_group_candidate_url(@group),:remote => true, :class=>"btn personButton disable" if (@group.elections.candidates_phase.count != 0) && (can? :send_candidate, @group)%><br />
-    <%= link_to t('pages.candidates.index.create_election_button'), new_group_event_url(@group, type: 'election'), :remote => true, :class => 'btn newButton disable' if can? :create_event, @group%>
     </div>
 <%end%>

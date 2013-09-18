@@ -96,47 +96,50 @@ it-IT:
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
      long_date_time: "%A %d %B %Y ore %H:%M"
+     from_long_date_time: "Da %A %d %B %Y ore %H:%M"
+     until_long_date_time: "Fino a %A %d %B %Y ore %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
+     textfield: "%d/%m/%Y %H:%M"
     am: "am"
     pm: "pm"
   datetime:
     distance_in_words:
       about_x_hours:
-        one: circa 1 ora
-        other: circa %{count} ore
+        one: circa 1 ora fa
+        other: circa %{count} ore fa
       about_x_months:
-        one: circa 1 mese
-        other: circa %{count} mesi
+        one: circa 1 mese fa
+        other: circa %{count} mesi fa
       about_x_years:
-        one: circa 1 anno
-        other: circa %{count} anno
+        one: circa 1 anno fa
+        other: circa %{count} anno fa
       almost_x_years:
-        one: quasi 1 anno
-        other: quasi %{count} anni
-      half_a_minute: mezzo minuto
+        one: quasi 1 anno fa
+        other: quasi %{count} anni fa
+      half_a_minute: mezzo minuto fa
       less_than_x_minutes:
-        one: meno di 1 minuto
-        other: meno di %{count} minuti
+        one: meno di 1 minuto fa
+        other: meno di %{count} minuti fa
       less_than_x_seconds:
-        one: meno di 1 secondo
-        other: meno di %{count} secondi
+        one: meno di 1 secondo fa
+        other: meno di %{count} secondi fa
       over_x_years:
-        one: più di 1 anno
-        other: più di %{count} anni
+        one: più di 1 anno fa
+        other: più di %{count} anni fa
       x_days:
-        one: 1 giorno
-        other: ! '%{count} giorni'
+        one: 1 giorno fa
+        other: ! '%{count} giorni fa'
       x_minutes:
-        one: 1 minuto
-        other: ! '%{count} minuti'
+        one: 1 minuto fa
+        other: ! '%{count} minuti fa'
       x_months:
-        one: 1 mese
-        other: ! '%{count} mesi'
+        one: 1 mese fa
+        other: ! '%{count} mesi fa'
       x_seconds:
-        one: "1 secondo"
-        other: ! '%{count} secondi'
+        one: "1 secondo fa"
+        other: ! '%{count} secondi fa'
   day:
       one: "%{count} giorno"
       other: "%{count} giorni"
@@ -146,7 +149,6 @@ it-IT:
   minute:
       one: "%{count} minuto"
       other: "%{count} minuti"
-  ago: "fa"
   open_space: "Spazio Comune"
   guide: "Guida FAQ"
   hello: "Ciao mondo"  
@@ -708,6 +710,28 @@ it-IT:
         private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
         title: "Nuovo Evento"
         submit: "Crea evento"
+      show:
+        map: "Mappa"
+        event_place: "Luogo dell'evento"
+        when_past: "Quando è stato?"
+        when: "Quando?"
+        where_past: "Dove è stato?"
+        where: "Dove?"
+        show_on_map: "Visualizza su mappa"
+        reply: "Rispondi!"
+        no_answer: "Non hai risposto all'invito"
+        yes_partecipated: "Hai partecipato all'evento"
+        no_partecipated: "Non hai partecipato all'evento"
+        yes_partecipate: "Parteciperai all'evento"
+        no_partecipate: "Non parteciperai all'evento"
+        with_guests: "con %{field} ospiti"
+        will_be_in: "Parteciperai all'evento?"
+        partecipants: "Chi ha partecipato?"
+        will_partecipate: "Chi parteciperà?"
+        no_partecipants: "Non ha partecipato nessuno"
+        no_partecipants_yet: "Ancora nessun partecipante"
+        non_partecipants: "Chi non ha partecipato?"
+        will_non_partecipants: "Chi non parteciperà?"
     votations:
         show:
           vote_positive: "Voto positivo"
@@ -775,6 +799,7 @@ it-IT:
         no_notifications: "Nessuna notifica"
         sign_has_read: "Segna come lette"
         moderator: "PANNELLO MODERATORE"
+        profile: "PROFILO"
       welcome: "Benvenuto"
       groups_title: "GRUPPI"
       login: "ACCEDI"
@@ -838,7 +863,7 @@ it-IT:
           title: "<em>Collabora</em> nel tuo interesse"
           content: "Condividi le tue esperienze, migliora le proposte altrui. Scopri nuovi amici che la pensano come te. Realizza le tue idee assieme agli altri."
         keep_connected: "Resta collegato"
-        feedback: "FEEDBACK"
+        feedback: "INVIA SEGNALAZIONE"
         FAQ: "FAQ"
         guide: "GUIDA"
         change_language: "Cambia lingua"
@@ -995,10 +1020,10 @@ it-IT:
         frequency: "Ripeti ogni"
         private: "Privato"
         candidates_end_time: "Termine iscrizione candidati"
-      meeting:
-        place:
-          address: "Indirizzo"
-          comune_id: "Comune"
+        meeting:
+          place:
+            address: "Indirizzo"
+            comune_id: "Comune"
       group:
         facebook_page_url: "Indirizzo pagina Facebook"
         name: "Nome"
