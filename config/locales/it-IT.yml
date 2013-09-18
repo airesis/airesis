@@ -760,7 +760,8 @@ it-IT:
         published_in_groups: "Il post verrà pubblicato nelle pagine di questi gruppi:"
       new_button: "Inserisci un nuovo post"
       drafts_button: "Post non pubblicati"
-      drafts: title: "%{blog} - post non pubblicati"
+      drafts:
+        title: "%{blog} - post non pubblicati"
       edit_button: "Modifica"
       delete_button: "Cancella"
       comment:
@@ -1417,13 +1418,13 @@ it-IT:
     invite:
       hi_user: "Ciao!"
       invitation: "%{user} ti ha invitato a partecipare al gruppo <b>%{group}</b> su %{app_name} la piattaforma decisionale per la democrazia partecipata e diretta."
-      message_intro: %Q(Ecco il messaggio che ti ha inviato:)
-      accept_or_reject: %Q(Se accetti l'invito clicca su 'Accetto' altrimenti su 'Rifiuta'.)
-      no_more: %Q(Se non desideri più ricevere inviti da parte di %{app_name} clicca su 'Non ricevere più inviti'.)
-      accept: %Q(Accetta)
-      reject: %Q(Rifiuta)
-      greetings: %Q(A presto!)
-      no_more_button: %Q(Non ricevere più inviti)
+      message_intro: "Ecco il messaggio che ti ha inviato:"
+      accept_or_reject: "Se accetti l'invito clicca su 'Accetto' altrimenti su 'Rifiuta'."
+      no_more: "Se non desideri più ricevere inviti da parte di %{app_name} clicca su 'Non ricevere più inviti'."
+      accept: "Accetta"
+      reject: "Rifiuta"
+      greetings: "A presto!"
+      no_more_button: "Non ricevere più inviti"
   contribute: "contributo"
   comment: "commento"
   users:
