@@ -38,8 +38,6 @@
 //= require jqlplot/jqplot.cursor
 //= require jqlplot/jqplot.highlighter
 //= require elfinder.full
-//= require i18n/elfinder.it
-
 //= require elFinderSupportVer1
 //= require jquery.livequery
 //= require proposals

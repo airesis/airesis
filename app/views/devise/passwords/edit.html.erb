@@ -1,18 +1,18 @@
-<%@page_title = "Cambia la tua password"%>
-<h2>Cambia la tua password</h2>
+<%@page_title = t('pages.passwords.edit.title')%>
+<h2><%= @page_tile %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
   
   <%= f.hidden_field :reset_password_token %>
 
-  <div><%= f.label :password, "Nuova password" %><br />
+  <div><%= f.label :password, t('pages.password.edit.new_password') %><br />
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation, "Conferma la nuova password" %><br />
+  <div><%= f.label :password_confirmation, t('pages.password.edit.confirm_password') %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Cambia la mia password", :class=> 'btn blue' %></div>
+  <div><%= f.submit t('pages.password.edit.confirm_button'), :class=> 'btn blue' %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

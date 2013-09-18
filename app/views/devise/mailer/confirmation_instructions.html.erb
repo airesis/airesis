@@ -1,7 +1,3 @@
-<p>Benvenuto <%= @resource.fullname %>!</p>
-
-<p>Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:</p>
-
 <% @host = @resource.original_locale.host %>
 <% @subdomain = @resource.subdomain %>
 <% if @subdomain %>
@@ -9,13 +5,16 @@
 <% end %>
 <% @url = user_confirmation_url(:confirmation_token => @resource.confirmation_token, :host => @host, l: @resource.original_locale.lang) %>
 
-<p><%= link_to 'Conferma account', @url %></p>
+<p><%= t('devise.mailer.confirmation_instructions.welcome', {app_name: APP_SHORT_NAME, user: @resource.fullname}) %></p>
 
-<p>o visitando il seguente url:</p>
+<p><%= t('devise.mailer.confirmation_instructions.follow_link') %></p>
+
+<p><%= link_to t('devise.mailer.confirmation_instructions.confirm_account'), @url %></p>
+
+<p><%= t('devise.mailer.confirmation_instructions.follow_link_2') %></p>
 
 <p><%= link_to @url, @url %></p>
 
-<p>In seguito puoi accedere a <%= APP_SHORT_NAME %> con l'email indicata in fase di registrazione e la password
-  scelta</p>
+<p><%= t('devise.mailer.confirmation_instructions.access_by_email', {app_name: APP_SHORT_NAME}) %></p>
 
-<p> Se hai problemi con la procedura contatta un amministratore: <%= APP_EMAIL_ADDRESS %></p>
+<p><%= t('devise.mailer.confirmation_instructions.contact_assistance', {mail: APP_EMAIL_ADDRESS}) %></p>

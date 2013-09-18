@@ -43,7 +43,7 @@
                     ['help']
                  ]
             },
-            lang: 'it' //TODO:Automatic detection of current locale
+            lang: '<%=I18n.locale.to_s.gsub('-','_')%>' //TODO:Automatic detection of current locale
         }).elfinder('instance');
 
         elf
