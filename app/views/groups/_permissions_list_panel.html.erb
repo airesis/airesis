@@ -1,13 +1,13 @@
 <strong><%= t('pages.users.show.what_can_i_do') %></strong>
 <ul>
   <li>
-    <%= @actions.includes(:translations).order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
+    <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
   </li>
 </ul>
 
 <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
 <ul>
   <li>
-    <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').includes(:translations).order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
+    <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
   </li>
 </ul>

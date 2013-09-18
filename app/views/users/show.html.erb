@@ -39,7 +39,7 @@
     </table>
     <script>
         <%@group_partecipations.each do |partecipation| %>
-            $('#partecipation_<%=partecipation.id%>').qtip({content:"<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.includes(:translations).order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
+            $('#partecipation_<%=partecipation.id%>').qtip({content:"<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
       <%end%>
     </script>
 <% end %>

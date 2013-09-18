@@ -4,3 +4,7 @@
     <%= f.input :name %>
     <%= f.submit :class => "btn blue" %>
 <% end %>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

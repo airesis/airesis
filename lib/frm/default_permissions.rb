@@ -11,12 +11,6 @@ module Frm
         end
       end
 
-      unless method_defined?(:can_read_forem_forums?)
-        def can_read_forem_forums?
-          true
-        end
-      end
-
       unless method_defined?(:can_read_forem_forum?)
         def can_read_forem_forum?(forum)
           true

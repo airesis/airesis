@@ -25,7 +25,7 @@
 </table>
 <%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue" %><br>
 
-<% content_for :left_panel do %>
-    <%= link_to t('back_to_admin', :scope => "frm.admin"), group_frm_admin_root_url(@group), class: 'btn' %>
-    <%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn' %>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
 <% end %>

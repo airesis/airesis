@@ -238,26 +238,9 @@
         _this.parent().find(".tria").show();
         _this.parent().addClass("sel");
         $('.text', _this).text('<%=j t('pages.proposals.show.close_contribute')%>');
-        if (window.innerWidth < 1600) {
-            $('#menu-left').animate({'margin-left': '-300'}, 200);
-            $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-        }
-        else if (window.innerWidth < 1800) {
-            $('#centerpanelextended').animate({'max-width': '600px'}, 200);
-        }
-        else {
-
-        }
+        hideLeftPanel();
         var fetched = $('.suggestion_right[data-section_id=' + section_id + ']');
-        if (window.innerWidth < 1600) {
-            fetched.animate({'left': '618px'}, 200);
-        }
-        else if (window.innerWidth < 1800) {
-            fetched.animate({'left': '908px'}, 200);
-        }
-        else {
-            fetched.animate({'left': '1108px'}, 200);
-        }
+        fitRightMenu(fetched);
         $('.suggestion_right[data-section_id=' + section_id + ']').fadeIn();
         _this.next().show();
 
@@ -335,17 +318,7 @@
                 $(this).parent().find(".tria").show();
                 $(this).parent().addClass("sel");
                 $('.text', this).text('<%=j t('pages.proposals.show.close_contribute')%>');
-                if (window.innerWidth < 1600) {
-                    $('#menu-left').animate({'margin-left': '-300'}, 200);
-                    $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-                }
-                else if (window.innerWidth < 1800) {
-                    $('#centerpanelextended').animate({'max-width': '600px'}, 200);
-
-                }
-                else {
-
-                }
+                hideLeftPanel();
                 var fetched = $('<div data-section_id="' + section_id + '"class="suggestion_right"></div>');
 
 
@@ -353,21 +326,8 @@
 
 
                 $('#centerpanelextended').append(fetched);
+                fitRightMenu(fetched);
 
-                if (window.innerWidth < 1600) {
-                    fetched.animate({'left': '618px'}, 200);
-                }
-                else if (window.innerWidth < 1800) {
-                    fetched.animate({'left': '908px'}, 200);
-                }
-                else {
-                    fetched.animate({'left': '1108px'}, 200);
-                }
-                fetched.height($(window).height() - 110);
-
-                $(window).resize(function () {
-                    fetched.height($(window).height() - 110);
-                });
                 $(this).next().show();
 
                 $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',

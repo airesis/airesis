@@ -43,7 +43,7 @@ class ProposalsController < ApplicationController
     my_areas_ids = current_user.scoped_areas(@group.id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
 
     #params[:group_id] = @group.id
-    @search = Proposal.search(:include => [{:category => [:translations]}, :quorum, {:users => [:image]}, :vote_period]) do
+    @search = Proposal.search(:include => [:category, :quorum, {:users => [:image]}, :vote_period]) do
       fulltext params[:search], :minimum_match => params[:or]
       all_of do
         any_of do
@@ -116,7 +116,7 @@ class ProposalsController < ApplicationController
     @accepted_count = @count_base.voted.count
     @revision_count = @count_base.revision.count
 
-    respond_to do |format|
+    respond_to do |format| 
       format.html # index.html.erb
       format.json
     end
@@ -239,12 +239,12 @@ class ProposalsController < ApplicationController
       @proposal.proposal_category_id = params[:category]
 
       send(params[:proposal_type_id].downcase + '_new', @proposal)
-      @proposal.proposal_type = ProposalType.find_by_short_name(params[:proposal_type_id])
+      @proposal.proposal_type = ProposalType.find_by_name(params[:proposal_type_id])
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
 
       @title = ''
       @title += t('pages.proposals.new.title_group', name: @group.name) if @group
-      @title += ProposalType.find_by_short_name(params[:proposal_type_id]).description
+      @title += ProposalType.find_by_name(params[:proposal_type_id]).description
 
       respond_to do |format|
         format.js
@@ -277,7 +277,7 @@ class ProposalsController < ApplicationController
         @proposal = Proposal.new(prparams)
 
         @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
-        send(@proposal_type.short_name.downcase + '_create', @proposal) #execute specific method to build sections
+        send(@proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
 
         #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
         if @group

@@ -2,6 +2,9 @@ module Frm
   class ForumsController < Frm::ApplicationController
 
     load_and_authorize_resource :class => 'Frm::Forum', :only => :show
+
+    before_filter :check_permissions
+
     helper 'frm/topics'
 
     layout 'groups'
@@ -28,6 +31,11 @@ module Frm
     end
 
     private
+
+    def check_permissions
+      raise CanCan::AccessDenied unless @group.partecipants.include? current_user
+    end
+
     def register_view
       @forum.register_view_by(current_user)
     end

@@ -94,28 +94,31 @@
                               <div mc:edit="std_social">
                                 &nbsp;
                                 <% unless Maktoub.twitter_url.blank? %>
-                                    <%= link_to 'seguici su Twitter', Maktoub.twitter_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_twitter'), Maktoub.twitter_url, :target => "_blank" %>
                                 <% end %>
                                 <% unless Maktoub.facebook_url.blank? %>
                                     |
-                                    <%= link_to 'seguici su Facebook', Maktoub.facebook_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_facebook'), Maktoub.facebook_url, :target => "_blank" %>
                                 <% end %>
                                 <% unless Maktoub.google_plus_url.blank? %>
                                     |
-                                    <%= link_to 'seguici su Google+', Maktoub.google_plus_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_google'), Maktoub.google_plus_url, :target => "_blank" %>
                                 <% end %>
                                 &nbsp;
                               </div>
                             </td>
                           </tr>
                       <% end %>
+                      <%@ruser = @resource || @user || @alert.user %>
+                      <%@url = @ruser.original_locale.host %>
+                      <%@url += "?l=#{@rsuser.original_locale.lang}" if @ruser.original_locale.lang%>
+
                       <tr>
                         <td valign="top" width="350">
                           <div mc:edit="std_footer">
                             <em>Copyright &copy; <%= Time.now.year %> <%= Maktoub.app_name %>.</em>
                             <br/>
-                            <em>Ricevi questa email in quanto sei registrato al
-                              sito <%= link_to Maktoub.home_url, Maktoub.home_url, :target => "_blank" %>.</em>
+                            <em><%=raw t('mailer.default.footer.registered_at', url: (link_to @url, @url, :target => "_blank")) %></em>
                             <br/>
                             <%- unless @archive %>
                                 <%# we are not including mailing addresses %>
@@ -129,11 +132,7 @@
                       <tr>
                         <td colspan="2" valign="middle" id="utility">
                           <div>
-                            &nbsp;<%= link_to 'modifica preferenze newsletter e notifiche', Maktoub.subscription_preferences_url, :target => "_blank" %>&nbsp;
-                            <%- if Maktoub.unsubscribe_method %>
-                                | <%= link_to 'unsubscribe', edit_subscribers_url, :target => "_blank", :rel => "nofollow" %>
-
-                            <% end %>
+                            &nbsp;<%= link_to t('mailer.default.edit_preferences'), alarm_preferences_users_url(:host => @ruser.original_locale.host, l: @ruser.original_locale.lang), :target => "_blank" %>
                           </div>
                         </td>
                       </tr>
@@ -154,5 +153,3 @@
 </center>
 </body>
 </html>
-
-

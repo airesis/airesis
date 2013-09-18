@@ -22,41 +22,38 @@ class NotificationProposalCommentCreate < NotificationSender
       url = proposal_url(proposal)
     end
     if comment.is_contribute?
-      msg = "<b>"+name+"</b> ha inserito un contributo alla tua proposta <b>"+proposal.title+"</b>!";
-      subject = proposal.private? ? "[#{group.name}]" : ''
-      subject += " #{proposal.title} - Nuovo contributo"
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name}
+      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'group' => group.name, 'i18n' => 't'}
       query = {'comment_id' => comment.id.to_s}
       if comment.paragraph
         query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
         query['section_id'] = data['section_id'] = comment.paragraph.section_id
 
       end
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :message => msg, :url => url +"?#{query.to_query}", :data => data)
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
       proposal.users.each do |user|
         if user != comment_user
           send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end
-
-      msg = "<b>"+name+"</b> ha inserito un contributo alla proposta <b>"+proposal.title+"</b>!";
-      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_CONTRIBUTES, :message => msg, :url => url +"#comment"+comment.id.to_s, :data => data)
+      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_CONTRIBUTES, :url => url +"#comment"+comment.id.to_s, :data => data)
       proposal.partecipants.each do |user|
         if (user != comment_user) && (!proposal.users.include? user)
           send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end
     else
-      msg = "<b>"+name+"</b> ha inserito un commento in una discussione nella proposta <b>"+proposal.title+"</b>!";
-      subject = proposal.private? ? "[#{proposal.presentation_groups.first.name}]" : ''
-      subject += " #{proposal.title} - Nuovo commento"
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'subject' => subject, 'username' => name}
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES, :message => msg, :url => url +"#comment"+comment.id.to_s, :data => data)
+      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title,'group' => group.name,  'i18n' => 't'}
+      query = {'comment_id' => comment.id.to_s}
+      if comment.paragraph
+        query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
+        query['section_id'] = data['section_id'] = comment.paragraph.section_id
+      end
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_COMMENTS, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
 
       comment.contribute.partecipants.each do |user|
-        if (user != comment_user)
+        unless user == comment_user
           send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end

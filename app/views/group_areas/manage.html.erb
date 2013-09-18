@@ -1,5 +1,5 @@
 
-<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.group_areas.index.title')} do %>
+<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_work_areas.manage_group_areas')} do %>
     <%= link_to t('pages.groups.edit_work_areas.manage.switch_area_participants'), group_group_areas_url(@group), :class => "btn historyButton", disable_with: t('loading') %><br />
     <%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_url(@group, :manage => true), :remote => true, :class => "btn newButton disable" %>
 <% end %>

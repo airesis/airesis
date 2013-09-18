@@ -1,10 +1,5 @@
 html, body { height: 100%; }
 
-#great_container {
-    height:  auto;
-    min-height: 95%;
-    padding-bottom: 35px;
-}
 
 #footer {
     font-size: 12px;
@@ -12,7 +7,7 @@ html, body { height: 100%; }
     position: relative;
     z-index: 10;
     height: 35px;
-    margin-top: -45px;
+    margin-top: -30px;
     width: 981px;
     margin-left: auto;
     margin-right: auto;
@@ -619,11 +614,17 @@ body {
 }
 
 /* DT styles for sliding doors */
-.dropdown dt a {
+.cur.language {
     background: url(arrow.png) no-repeat scroll right center;
     display: block;
-    padding-right: 15px;
-    color: #336699
+    padding: 3px 20px 3px 0px;
+    color: #336699;
+    cursor: pointer;
+}
+
+#language a {
+    font-size: 1.5em;
+    line-height: 1.5em;
 }
 
 .dropdown dt a span {

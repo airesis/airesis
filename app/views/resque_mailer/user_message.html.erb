@@ -1,6 +1,6 @@
-Ciao <%=@to.fullname %>,<br/>
-<%= @from.fullname %> ti ha inviato il seguente messaggio:<br />
+<%= t('mailer.user_message.hi_user', {user: @to.fullname}) %><br/>
+<%= t('mailer.user_message.user_sent_message', {user: @from.fullname}) %><br />
 <p style="font-style: italic;">
 <%= @body %>
 </p>
-Puoi rispondere a <%=  @from.name %> rispondendo semplicemente a questa email.
+<%= t('mailer.user_message.reply_to_user', {useer: @from.name}) %>

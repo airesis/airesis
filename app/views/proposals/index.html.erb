@@ -97,7 +97,7 @@
 
     <div class="choose_model" style="display:none;">
       <% ProposalType.active.order(:seq).each do |proposal_type| %>
-          <div class="proposal_model_option" data-id="<%= proposal_type.short_name %>">
+          <div class="proposal_model_option" data-id="<%= proposal_type.name %>">
             <div class="model_name"><%= proposal_type.description %></div>
           </div>
       <% end %>
@@ -159,12 +159,11 @@
                      conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
                    end
                    categories = ProposalCategory.all(
-                           :select => "proposal_categories.id, proposal_categories.description, count(proposals.id) as proposals_count",
+                           :select => "proposal_categories.id, proposal_categories.name, count(proposals.id) as proposals_count",
                            :joins => joins,
-                           :include => :translations,
                            :conditions => conditions,
-                           :group => "proposal_categories.id, proposal_categories.description",
-                           :order => "proposal_categories.id desc"
+                           :group => "proposal_categories.id, proposal_categories.name, proposal_categories.seq",
+                           :order => "proposal_categories.seq desc"
                    )
                    #categories = ProposalCategory.all
                    categories.each do |category| %>

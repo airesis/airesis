@@ -1,16 +1,16 @@
-<% @proposal = Proposal.find(@data['proposal_id']) %>
-
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 <p>
-  La proposta <b> <%= link_to @proposal.title, check_alert_alert_url(@alert) %></b> è stata aggiornata!
+  <%=raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url)) %> <br/>
 </p>
 
-<% if @data['revision_id'] %>
-    <% @revision = ProposalRevision.find(@data['revision_id']) %>
+<% if @data[:revision_id] %>
+    <% @revision = ProposalRevision.find(@data[:revision_id]) %>
     <% @contributes = @revision.contributes.all(conditions: ['proposal_comments.user_id = ?', @alert.user.id]) %>
 
     <% if @contributes.count > 0 %>
         <p>
-          Complimenti! I seguenti contributi che evevi inserito sono stati integrati dall'autore:
+          <%= t('mailer.text_update.integrated_contributes')%>
         </p>
 
         <% @contributes.each do |contribute| %>
@@ -36,9 +36,7 @@
             </div>
         <% end %>
         <p>
-          <%= link_to "Collegati a #{APP_SHORT_NAME}", check_alert_alert_url(@alert) %> e verifica che il nuovo testo
-          contenga i tuoi suggerimenti.<br/>
-          Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History.
+          <%=raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect',name: APP_SHORT_NAME), @alert_url)) %>
         </p>
     <% end %>
 <% end %>

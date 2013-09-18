@@ -2,9 +2,56 @@
 		
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
+<%= javascript_include_tag "i18n/jquery.ui.datepicker-#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/jquery-ui-timepicker-#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
 <meta name="author" content="Rodi Alessandro" />
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css' />
 <link rel="shortcut icon" href="/favicon.ico" />
+
+<script type="text/javascript">
+
+  $(function() {
+      var feedback_options =
+              Feedback({
+                  h2cPath: '/assets/html2canvas.js',
+                  url: '/send_feedback',
+                  label: '<%=j t('pages.feedback.send_feedback')%>',       //TODO:I18n
+                  header:     '<%=j t('pages.feedback.send_feedback')%>',
+                  nextLabel: '<%=j t('pages.feedback.add_details')%>',
+                  reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
+                  sendLabel: '<%=j t('buttons.send')%>',
+                  closeLabel: '<%=j t('buttons.close')%>',
+                  messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
+                  messageError: '<%=j t('pages.feedback.send_error')%>',
+                  appendTo: $('#footer .pull-right')[0],
+                  btnClass: "feedbackBtn",
+                  pages: [
+                      new window.Feedback.Form([
+                          {
+                              type: "textarea",
+                              name: "message",
+                              label: "<%=I18n.t('pages.feedback.describe_problem')%>",
+                              required: true
+                          },
+                          /*{
+                           type: "input",
+                           name: "Email",
+                           label: "Inserisci un'indirizzo email sul quale ricevere risposta",
+                           required: false
+                           }*/
+                      ]
+                      ),
+                      new window.Feedback.Screenshot({
+                          h2cPath: '/assets/html2canvas.js',
+                          blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
+                          highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
+                          highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"}),
+                      new window.Feedback.Review()
+                  ]
+              });
+  })
+</script>

@@ -11,9 +11,9 @@
     <p>
       <%= f.label :group_area_id %><br/>
       <% if @available_areas.size > 0 %>
-          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}) %>
       <% else %>
-          <%= 'Non disponi dei permessi per inserire la proposta in nessuna area specifica' %>
+          <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
       <% end %>
     </p>
 <% end %>
@@ -22,7 +22,7 @@
 <% if ::Configuration.proposal_categories %>
     <p>
       <%= f.label :proposal_category_id %> *<br/>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.includes(:translations).all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {class: 'ddslick'} %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {class: 'ddslick'} %>
     </p>
 <% end %>
 
@@ -33,7 +33,7 @@
 
 <% if ::Configuration::folksonomy %>
     <p>
-      <%= f.label :tags_list %> <%= '(separate da virgola)' %><br/>
+      <%= f.label :tags_list %> <%= t('pages.proposals.new.tags_separated_by_comma') %><br/>
       <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
     </p>
 <% end %>

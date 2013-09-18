@@ -1,5 +1,9 @@
 <h2><%= t("frm.forum.new") %></h2>
 
 <%= simple_form_for  @forum, url: group_frm_admin_forums_url(@group) do |f| %>
-<%= render "form" %>
+<%= render partial: "form", locals: {f: f} %>
+<% end %>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
 <% end %>

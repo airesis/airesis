@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
   def show
     @page_title = @group.name
     @partecipants = @group.partecipants
-    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js
@@ -406,9 +406,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA.'
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA'
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE'
         end
         respond_to do |format|
           format.js

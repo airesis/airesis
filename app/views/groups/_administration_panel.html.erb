@@ -27,6 +27,12 @@
       </div>
   <% end %>
 
+  <div class="menu_voice">
+    <span class="Mo ui-icon ui-icon-comment"></span>
+    <%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
 </div>
 
 <% if can? :update, @group %>

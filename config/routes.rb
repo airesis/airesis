@@ -130,6 +130,7 @@ Airesis::Application.routes.draw do
       post :change_show_urls
       post :change_receive_messages
       post :change_rotp_enabled
+      post :change_locale
     end
 
     member do

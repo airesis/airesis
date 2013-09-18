@@ -1,3 +1,10 @@
-<h2><%= t("frm.admin.group.new") %></h2>
+<%@page_title = t("frm.admin.group.new") %>
+<h2><%= @page_title %></h2>
 
 <%= render "form" %>
+
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>
+

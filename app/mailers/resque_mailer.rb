@@ -10,14 +10,16 @@ class ResqueMailer < ActionMailer::Base
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
+    I18n.locale = @alert.user.locale.key || 'it'
     @data = @alert.notification.data
-    to_id = @data['to_id']
-    subject_id = @data['subject']
-    subject = subject_id || @alert.notification.notification_type.email_subject
+    to_id = @data[:to_id]
+    subject_id = @data[:subject]
+    subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
       mail(:to => "discussion+#{to_id}@airesis.it", :bcc => @alert.user.email, :subject => subject, :template_name => template_name)
     else
+
       mail(:to => @alert.user.email, :subject => subject, :template_name => template_name)
     end
   end
@@ -86,4 +88,13 @@ class ResqueMailer < ActionMailer::Base
     @user = User.find(user_id)
     mail(to: @user.email, from: "Airesis <noreply@airesis.it>", subject: 'Cancellazione account')
   end
+
+  def topic_reply(post_id, subscriber_id)
+    # only pass id to make it easier to send emails using resque
+    @post = Frm::Post.find(post_id)
+    @user = User.find(subscriber_id)
+
+    mail(:to => @user.email, :subject => I18n.t('frm.topic.received_reply'))
+  end
+
 end

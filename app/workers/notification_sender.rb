@@ -11,7 +11,7 @@ class NotificationSender
       alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
       alert.save! #invia la notifica
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
-      if user.email_alerts && (!user.blocked_email_notifications.include?notification.notification_type) && user.email
+      if (!user.blocked_email_notifications.include?notification.notification_type) && user.email
         ResqueMailer.notification(alert.id).deliver
       end
     end

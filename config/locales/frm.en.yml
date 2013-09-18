@@ -19,7 +19,6 @@ en:
       back_to_admin: "Back to Admin"
       back_to_forums: "Back to forums"
       back_to_groups: "Back to groups"
-      welcome: "Welcome to forem's Admin Area."
       forum:
         moderator_groups: Moderator groups
         index: Manage Forums
@@ -179,12 +178,14 @@ en:
         title: "Moderation tools for %{forum}"
   helpers:
     submit:
-      forum:
+      frm_forum:
         create: Create Forum
         update: Update Forum
       topic:
         create: Create Topic
         update: Update Topic
+      frm_group:
+        create: Create group
   simple_form:
     labels:
       forum:
@@ -207,3 +208,9 @@ en:
   by: by
   started_by: "Started by "
   are_you_sure: Are you sure?
+  lst_post: "Last post"
+  last_post: "Last topic"
+  back_to_forums: "Back to forum"
+  pages:
+    forum_groups:
+      index:

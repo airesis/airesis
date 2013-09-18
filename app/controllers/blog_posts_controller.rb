@@ -22,7 +22,7 @@ class BlogPostsController < ApplicationController
   before_filter :must_be_my_blog, :only => [:new, :edit, :update, :create, :destroy]
   
   
-  #before_filter :require_admin, :except => [:index, :show, :tag]
+
   before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
 
   before_filter :check_page_alerts, only: :show
@@ -33,7 +33,7 @@ class BlogPostsController < ApplicationController
     @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @blog
     @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @group
     
-    @index_title = 'Blog'
+    @index_title = t('pages.blog_posts.index.title')
     
     respond_to do |format|
       format.html # index.html.erb    
@@ -44,7 +44,7 @@ class BlogPostsController < ApplicationController
   
   
   def drafts
-    @page_title = @blog.title + " - post non pubblicati"
+    @page_title = t('pages.blog_posts.drafts.title', {blog: @blog.title})
     @user = @blog.user
     @blog_posts =  @blog.posts.drafts.paginate(:page => params[:page], :order => 'updated_at DESC')
     
@@ -93,7 +93,6 @@ class BlogPostsController < ApplicationController
       
       saved = @blog_post.save
       
-      
       respond_to do |format|
         if saved
           notify_user_insert_blog_post(@blog_post) if @blog_post.published
@@ -122,7 +121,7 @@ class BlogPostsController < ApplicationController
     
     respond_to do |format|
       if @blog_post.update_attributes(params[:blog_post])
-        flash[:notice] = 'Il tuo post è stato aggiornato correttamente.'
+        flash[:notice] = t('info.blog_post_updated')
         format.html { redirect_to([@blog,@blog_post]) }
         format.xml  { head :ok }
       else
@@ -137,7 +136,7 @@ class BlogPostsController < ApplicationController
     @blog_post = @blog.posts.find(params[:id])
     @blog_post.destroy
     
-    flash[:notice] = 'Il tuo post è stato cancellato correttamente.'
+    flash[:notice] = t('info.blog_post_deleted')
     
     respond_to do |format|
       format.html { redirect_to @blog }
@@ -146,15 +145,7 @@ class BlogPostsController < ApplicationController
   end
   
   private
-  def require_admin
-    if !current_user || !current_user.admin?
-      flash[:error] = 'Devi essere amministratore per visualizzare questa pagina.'
-      redirect_to blog_path(@blog)
-      return false
-    end
-    true
-  end
-  
+
   def choose_layout
     @group ? 'groups' : 'users'
   end
@@ -168,7 +159,7 @@ class BlogPostsController < ApplicationController
   protected
 
   def load_post_groups
-    #posso postare nei gruppi per i quali ho il permesso (numero 1)
+    #can post only on groups where I'm allowed to
     @groups = current_user.groups.all(
     :select => 'distinct groups.*', 
     :joins => "LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id", 
@@ -183,20 +174,17 @@ class BlogPostsController < ApplicationController
          
     @group = (params[:group_id] && !params[:group_id].empty?) ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
     @groups = current_user.groups if current_user
-    #if !@blog
-    #  blog_required
-    #end
   end
 
   def load_blog_post
     @blog_post = BlogPost.find(params[:id])
   end
   
-  #risposta nel caso non sia presente il blog dell'utente
+  #reply if the user blog is not rpesent
   def require_blog
     unless current_user.blog
       respond_to do |format|
-        format.js do        #se era una chiamata ajax, mostra il messaggio
+        format.js do
           flash.now[:error] = t('error.blog_required')
           render :update do |page|
              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -214,13 +202,13 @@ class BlogPostsController < ApplicationController
   def must_be_my_blog
     if @blog != current_user.blog
       respond_to do |format|
-        format.js do        #se era una chiamata ajax, mostra il messaggio
+        format.js do
           flash.now[:error] = t('error.not_your_blog')
           render :update do |page|
              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end  
         end
-        format.html do   #vai alla pagina di ceazione blog          
+        format.html do
           flash[:error] = t('error.not_your_blog')
           if request.env["HTTP_REFERER"]
             redirect_to :back

@@ -69,43 +69,6 @@ $(function () {
     $('.group-cont').click(function (event) {
         event.stopPropagation();
     });
-
-
-    var feedback_options =
-
-            Feedback({
-                h2cPath: '/assets/html2canvas.js',
-                url: '/send_feedback',
-                label: 'Invia feedback',       //TODO:Internazionalization
-                header:     'Invia feedback',
-                nextLabel: 'Aggiungi dettagli',
-                reviewLabel: 'Visualizza anteprima',
-                sendLabel: 'Invia',
-                closeLabel: 'Chiudi',
-                messageSuccess: 'Feedback inviato correttamente. Grazie!',
-                messageError: 'Spiacenti ma si è verificato un errore durante l\'invio del feedback',
-                appendTo: $('#footer .pull-right')[0],
-                btnClass: "feedbackBtn",
-                pages: [
-                    new window.Feedback.Form([
-                        {
-                            type: "textarea",
-                            name: "message",
-                            label: "Descrivi il problema che stai affrontando",
-                            required: true
-                        },
-                        /*{
-                         type: "input",
-                         name: "Email",
-                         label: "Inserisci un'indirizzo email sul quale ricevere risposta",
-                         required: false
-                         }*/
-                    ]
-                    ),
-                    new window.Feedback.Screenshot({h2cPath: '/assets/html2canvas.js'}),
-                    new window.Feedback.Review()
-                ]
-            });
 });
 
 function sticky_relocate() {
@@ -243,10 +206,6 @@ function showDisableGButton(button) {
     button.removeAttr('disabled');
     button.unbind('click.killlink');
 }
-
-$.datepicker.setDefaults($.datepicker.regional[ "it" ]);
-
-
 
 var et = {};
 
@@ -581,4 +540,35 @@ function addQueryParam( url, key, val ){
         }
         return url + '?' + qs_parts.join('&') + hash;
     }
+}
+
+//hide left panel if the window width is not large enough
+function hideLeftPanel() {
+    if (window.innerWidth < 1600) {
+        $('#menu-left').animate({'margin-left': '-300'}, 200);
+        $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
+    }
+    else if (window.innerWidth < 1800) {
+        $('#centerpanelextended').animate({'max-width': '600px'}, 200);
+    }
+    else {
+        //do nothing, large enogh
+    }
+}
+
+function fitRightMenu(fetched) {
+    if (window.innerWidth < 1600) {
+        fetched.animate({'left': '618px'}, 200);
+    }
+    else if (window.innerWidth < 1800) {
+        fetched.animate({'left': '908px'}, 200);
+    }
+    else {
+        fetched.animate({'left': '1108px'}, 200);
+    }
+    fetched.height($(window).height() - 110);
+
+    $(window).resize(function () {
+        fetched.height($(window).height() - 110);
+    });
 }

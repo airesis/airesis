@@ -63,7 +63,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
   #validation
-  validates_presence_of :title, :message => "obbligatorio"
+  validates_presence_of :title, :message => "obbligatorio"  #TODO:I18n
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, :message => "obbligatorio"
 
@@ -156,11 +156,11 @@ class Proposal < ActiveRecord::Base
   end
 
   def is_standard?
-    self.proposal_type.short_name == ProposalType::STANDARD
+    self.proposal_type.name == ProposalType::STANDARD
   end
 
   def is_polling?
-    self.proposal_type.short_name == ProposalType::POLL
+    self.proposal_type.name == ProposalType::POLL
   end
 
   def remove_scheduled_tasks

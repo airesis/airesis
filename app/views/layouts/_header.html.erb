@@ -176,8 +176,6 @@
       <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %> <br/>
       <%= link_to t('pages.home.index.whowe'), chisiamo_url(subdomain: false), title: t('pages.home.index.whowe') %>
     </div>
-
-
   </div>
 
   <% if current_user %>
@@ -311,6 +309,9 @@
         },
         style: {
             classes: 'qtip-light qtip-shadow qtip-cur'
+        },
+        show: {
+            solo: true
         }
     });
 
@@ -319,7 +320,7 @@
         content: $('#help_panel'),
         position: {
             at: 'bottom center',
-            my: 'top right',
+            my: 'top center',
             viewport: $(window),
             effect: false,
             adjust: {
@@ -338,7 +339,6 @@
             delay: 500
         }
     });
-
 
     <%if user_signed_in?%>
 
@@ -454,7 +454,7 @@
                         alert_container.addClass(alert.checked ? 'old' : 'new');
 
                         if (!alert.checked) {
-                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="Letto" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
+                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }
 
                         alert_container.append($('<p class="p2">' + alert.created_at + '</p>'));

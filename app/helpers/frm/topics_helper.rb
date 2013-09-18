@@ -2,7 +2,7 @@ module Frm
   module TopicsHelper
     def link_to_latest_post(topic)
       post = relevant_posts(topic).last
-      text = "#{time_ago_in_words(post.created_at)} #{t("ago_by")} #{post.user}"
+      text = "#{time_ago_in_words(post.created_at)} #{t('by')} #{post.user}"
       link_to text, group_forum_topic_url(post.topic.forum.group,post.topic.forum, post.topic, :anchor => "post-#{post.id}", :page => topic.last_page)
     end
 

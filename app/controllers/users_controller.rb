@@ -159,6 +159,31 @@ class UsersController < ApplicationController
     end
   end
 
+  #change default user locale
+  def change_locale
+    current_user.locale = SysLocale.find(params[:locale])
+    current_user.save!
+
+    flash[:notice] = t('info.locale_changed')
+
+
+    respond_to do |format|
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = t('error.setting_preferences')
+      format.js { render :update do |page|
+        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+      end
+      }
+    end
+  end
+
   #enable or disable rotp feature
   def change_rotp_enabled
     authorize! :change_rotp_enabled, current_user
@@ -287,9 +312,10 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    users = User.autocomplete(params[:term])
+    @group = Group.find(params[:group_id])
+    users = @group.partecipants.autocomplete(params[:term])
     users = users.map do |u|
-      { :id => u.id, :identifier => u.send('email') }
+      { :id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}" }
     end
     render :json => users
   end

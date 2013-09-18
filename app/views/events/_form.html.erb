@@ -21,7 +21,7 @@
 				<div style="float:left;width:50%;">
 				<%= f.label :event_type_id%>
 				<br/>
-				<%= f.select :event_type_id, EventType.all.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
+				<%= f.select :event_type_id, EventType.where("name not in ('election','meeting2')").collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
 				</div>
 				
 				<div style="float:left;width:50%;">
@@ -40,12 +40,12 @@
 			<p>
 				<%= f.label :starttime %>
 				<br/>
-				<%= f.text_field :starttime, :class=>"datePicker" %>
+				<%= f.text_field :starttime, value: (l(@event.starttime, format: :textfield)), class: 'datePicker' %>
 			</p>
 			<p>
 				<%= f.label :endtime %>
 				<br/>
-				<%= f.text_field :endtime, :class=>"datePicker" %>
+				<%= f.text_field :endtime, value: (l(@event.endtime, format: :textfield)), :class=>"datePicker" %>
 			</p>
 			<p>
 				<%= f.label :all_day %>
@@ -61,30 +61,13 @@
 			</p> 
 			<p>
                 <a href="#" class="btn" onclick="$('#create_event_dialog').dialog('destroy');"><%= t('buttons.cancel') %></a>
-				<%= f.submit 'Crea evento', :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving')%>
+				<%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving')%>
 			</p></td>
-			<td width="40%"> 
-				<%=f.fields_for :election, @election do |e|%>
-					<div id="elezione" style="display:none; width:370px;">	
-						<p>
-							<%=raw "Le seguenti date devono essere comprese entro la data inizio e la data fine dell'evento." %><br />
-							<!--<%=raw "La data fine iscrizione candidati deve essere successiva alla data fine iscrizione gruppi."%><br />-->
-						</p>
-						<!--<p>
-						<%= e.label :groups_end_time %><br/>
-						<%= e.text_field :groups_end_time, :class=>"datePicker", :id => "groups_end_time" %>
-						</p>-->
-						<p>
-						<%= e.label :candidates_end_time %><br/>
-						<%= e.text_field :candidates_end_time, :class=>"datePicker", :id => "candidates_end_time" %>
-						</p>						
-					</div>
-				<%end%>				 
-				
+			<td width="40%">
 				<%=f.fields_for :meeting, @meeting do |m|%>
 					<%=m.fields_for :place, @place do |p|%>
 						<p id="luogo">
-							<%= p.label :comune_id %><br />
+							<%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %><br />
 							<%= p.text_field :comune_id, :onchange => "codeAddress('luogo');"%>
 							<%= p.label :address %><br />
 							<%= p.text_field :address, :onchange => "codeAddress('luogo');" %>

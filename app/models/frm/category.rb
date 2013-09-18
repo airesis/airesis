@@ -7,6 +7,8 @@ module Frm
     friendly_id :name, :use => :slugged
 
     has_many :forums
+    belongs_to :group, class_name: '::Group', foreign_key: :group_id
+
     validates :name, :presence => true
     attr_accessible :name
 

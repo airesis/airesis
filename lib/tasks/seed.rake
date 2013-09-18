@@ -82,7 +82,7 @@ namespace :airesis do
           f.puts("ProposalState.create( :description => \"#{state.description}\" ){ |c| c.id = #{state.id} }.save")
         end
         ProposalType.all.each do |type|
-          f.puts("ProposalType.create( :description => \"#{type.description}\", :short_name => \"#{type.short_name}\" ){ |c| c.id = #{type.id} }.save")
+          f.puts("ProposalType.create( :description => \"#{type.description}\", :name => \"#{type.name}\" ){ |c| c.id = #{type.id} }.save")
         end
         RankingType.all.each do |rank|
           f.puts("RankingType.create( :description => \"#{rank.description}\" ){ |c| c.id = #{rank.id} }.save")

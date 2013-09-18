@@ -24,6 +24,10 @@
 
 <br/>
 
+<h2><%= t('.language') %></h2>
+<%= select_tag 'locale', options_from_collection_for_select(SysLocale.all, :id, :key, current_user.sys_locale_id) %>
+
+
 <% if ::Configuration::socialnetwork_active %>
     <h2><%= t('pages.users.privacy_preferences.join_accounts') %></h2>
     <h5>
@@ -92,7 +96,7 @@
     function change_show_tooltips(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active + "&l=<%=I18n.locale%>",
             url: "/users/change_show_tooltips",
             dataType: 'script',
             type: 'post'
@@ -102,7 +106,7 @@
     function change_show_urls(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active + "&l=<%=I18n.locale%>",
             url: "/users/change_show_urls",
             dataType: 'script',
             type: 'post'
@@ -112,7 +116,7 @@
     function change_receive_messages(el) {
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active + "&l=<%=I18n.locale%>",
             url: "/users/change_receive_messages",
             dataType: 'script',
             type: 'post'
@@ -128,7 +132,7 @@
 
         var active = (el.checked) ? "true" : "false";
         $.ajax({
-            data: "active=" + active,
+            data: "active=" + active + "&l=<%=I18n.locale%>",
             url: "/users/change_rotp_enabled",
             dataType: 'script',
             type: 'post'
@@ -138,6 +142,20 @@
         return false;
         <%end%>
     }
+
+    $('#locale').bind("change", function () {
+        var currentValue = $(this).val();
+        var currentLabel = $('option:selected', $(this)).text();
+        $.ajax({
+            data: "locale=" + currentValue + "&l=<%=I18n.locale%>",
+            url: "/users/change_locale",
+            dataType: 'script',
+            type: 'post'
+        });
+        console.log(currentLabel);
+        return true;
+    });
+
 
 </script>
 

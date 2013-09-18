@@ -2,45 +2,46 @@
 <%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
 <div class="row">
   <h3><%= t('.add_a_new_member') %></h3>
-  <%= form_tag add_group_frm_admin_frm_group_members_url(@group,@frm_group) do %>
-    <p>
-      <%= text_field_tag "frm_user_id" %>
-    </p>
-    <p class="span1">
-      <%= submit_tag t('.add_member'), :class => "btn blue" %>
-    </p>
+  <%= form_tag add_group_frm_admin_frm_group_members_url(@group, @frm_group), remote: true do %>
+      <p>
+        <%= text_field_tag "frm_user_id" %>
+      </p>
+
+      <p class="span1">
+        <%= submit_tag t('.add_member'), :class => "btn blue", disable_with: t('loading') %>
+      </p>
   <% end %>
 </div>
 
-<% if @frm_group.members.any? %>
-  <h3><%= t('.current_members') %></h3>
-  <div class="row">
-    <ul id='members'>
-      <% @frm_group.members.each do |member| %>
-        <li><%= member.to_s %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div id="group_members_container">
+  <%= render :partial => 'group_members' %>
+</div>
+
 
 
 <script>
-  $("#frm_user_id").select2({
-      containerCssClass: "user_auto",
-      ajax: {
-      url: "<%= group_user_autocomplete_url(@group) %>",
-      data: function(term, page) {
-        return { "term": term }
-      },
-      results: function(data, page) {
-        return { results: data };
-      }
-    },
-    formatResult: function(result) {
-      return result.identifier;
-    },
-    formatSelection: function(result) {
-      return result.identifier;
+    function format(state) {
+        if (!state.id) return state.text; // optgroup
+        return state.image_path + state.identifier;
     }
-  });
+
+    $("#frm_user_id").select2({
+        containerCssClass: "user_auto",
+        ajax: {
+            url: "<%= group_user_autocomplete_url(@group) %>",
+            data: function (term, page) {
+                return { "term": term }
+            },
+            results: function (data, page) {
+                return { results: data };
+            }
+        },
+        formatResult: format,
+        formatSelection: format
+    });
 </script>
+
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

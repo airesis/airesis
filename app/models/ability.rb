@@ -184,11 +184,11 @@ class Ability
         user.can_read_forem_forum?(topic.forum) && user.can_read_forem_topic?(topic)
       end
 
-      if user.can_read_forem_forums?
-        can :read, Frm::Forum do |forum|
-          user.can_read_forem_category?(forum.category) && user.can_read_forem_forum?(forum)
-        end
+
+      can :read, Frm::Forum do |forum|
+        user.can_read_forem_category?(forum.category) && user.can_read_forem_forum?(forum)
       end
+
 
       can :create_topic, Frm::Forum do |forum|
         can?(:read, forum) && user.can_create_forem_topics?(forum)
@@ -205,9 +205,6 @@ class Ability
       can :moderate, Frm::Forum do |forum|
         user.can_moderate_forem_forum?(forum) || user.forem_admin?
       end
-
-
-
 
 
 

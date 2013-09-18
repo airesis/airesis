@@ -1,9 +1,9 @@
-<% @comment = ProposalComment.find(@data['comment_id']) %>
-<% @username = @data['username'] %>
-<% @proposal = Proposal.find(@data['proposal_id']) %>
-
-<%= @username %> ha inserito un nuovo <%= @comment.is_contribute? ? ' contributo' : 'commento' %> alla proposta.<br/>
-<%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>
+<% @comment = ProposalComment.find(@data[:comment_id]) %>
+<% @username = @data[:username] %>
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<%=raw t('mailer.new_contribute.title', {user: @username, comment: @comment.is_contribute? ? t('contribute') : t('comment'), })%><br/>
+<%=raw t('mailer.new_contribute.view_proposal', click_here: (link_to t('mailer.default.click_here'), @alert_url)) %> <br/>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
   <div style="float: left;margin: 0px 5px 5px 0px;" title="<% if @proposal.is_anonima? %><%= @username %><% end %>">
@@ -29,5 +29,4 @@
     </div>
   </div>
 </div>
-
-<%= link_to 'Clicca qui', check_alert_alert_url(@alert) %> per visualizzare la proposta.<br/>
+<%=raw t('mailer.new_contribute.view_proposal', click_here: (link_to t('mailer.default.click_here'), @alert_url)) %>

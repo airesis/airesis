@@ -50,6 +50,8 @@ $('.legend').hide();
 
 
 $("#new_proposal").quickWizard({
+    prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
+    nextButton: '<button id="form-wizard-next" type="button" class="btn blue forwardButton"><%=j t('buttons.next')%></button>',
     nextCallback: showSimilarProposal,
     prevCallback: skipIfNecessary
 });
