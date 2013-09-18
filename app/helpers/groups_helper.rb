@@ -143,7 +143,7 @@ module GroupsHelper
         options[:subdomain] = group.subdomain
         proposal_url(proposal, options)
       else
-        options[:subdomain] = false
+        #options[:subdomain] = false
         super
       end
     end
