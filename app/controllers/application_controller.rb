@@ -31,10 +31,12 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     @domain_locale = request.host.split('.').last
+    params[:l] = SysLocale.find_by_key(params[:l]) ? params[:l] : nil
     @locale =
         (Rails.env == :staging ?
             params[:l] || I18n.default_locale :
             params[:l] || @domain_locale || I18n.default_locale)
+
     @locale = 'en' if ['en','eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'it-IT' if ['it','org','net'].include? @locale

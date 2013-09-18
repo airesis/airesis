@@ -1,8 +1,7 @@
 <p>
-Ciao <%= "#{@user.blocked_name} #{@user.blocked_surname}" %>,<br/>
-ti informiamo che il tuo account è stato cancellato correttamente da Airesis.
+<%= t('mailer.blocked.hi_user', {user: "#{@user.blocked_name} #{@user.blocked_surname}"}) %> <%=  %>,<br/>
+<%= t('mailer.blocked.deleted_correctly') %>
 </p>
 <p>
-Cordiali saluti,<br/>
-Team Airesis
+<%=raw t('mailer.blocked.greetings') %>
 </p>

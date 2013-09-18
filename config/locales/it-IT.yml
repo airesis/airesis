@@ -27,6 +27,20 @@ it-IT:
         unconfirmed: "L'account non è ancora stato confermato."
         user:
           invalid: "Nome utente o password non validi"
+    mailer:
+      confirmation_instructions:
+        welcome: "Benvenuto su %{app_name} %{user}!"
+        follow_link: "Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:"
+        confirm_account: "Conferma account"
+        follow_link_2: "o visitando il seguente url:"
+        access_by_email: "In seguito puoi accedere a %{app_name} con l'email indicata in fase di registrazione e la password scelta"
+        contact_assistance: "Se hai problemi con la procedura contatta un amministratore: %{mail}"
+      reset_password_instructions:
+        hi_user: "Ciao %{user}!"
+        follow_link: "Puoi cambiare la tua password cliccando sul seguente link:"
+        change_password: "Cambia password"
+        ignore: "Se non hai richiesto un cambio di password ignora questa email."
+        password_will_not_change: "La tua password non cambierà fino a quando non cliccherai sul link sopra riportato."
   calendar:
     monthNames: "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']"
     monthNamesShort: "['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']"
@@ -411,7 +425,11 @@ it-IT:
       submit: "Inviami le istruzioni"  
     password:
       title: "Hai dimenticato la tua password?"
-      submit: "Inviami le istruzioni per resettare la password"  
+      submit: "Inviami le istruzioni per resettare la password"
+      edit:
+        new_password: "Nuova password"
+        confirm_password: "Conferma la nuova password"
+        confirm_button: "Cambia la mia password"
     registration:
       title: "Registrati"
       email_confirmed: "Se ti registri con questo indirizzo email non dovrai confermare l'account."
@@ -702,6 +720,9 @@ it-IT:
         private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
         title: "Nuovo Evento"
         submit: "Crea evento"
+        type_for_town: "Digita alcuni caratteri per cercare un comune"
+        no_town_found: "Nessun comune trovato"
+        town_searching: "Sto cercando..."
       show:
         map: "Mappa"
         event_place: "Luogo dell'evento"
@@ -739,7 +760,7 @@ it-IT:
         published_in_groups: "Il post verrà pubblicato nelle pagine di questi gruppi:"
       new_button: "Inserisci un nuovo post"
       drafts_button: "Post non pubblicati"
-      drafts: "Bozza"
+      drafts: title: "%{blog} - post non pubblicati"
       edit_button: "Modifica"
       delete_button: "Cancella"
       comment:
@@ -758,6 +779,8 @@ it-IT:
       published_button: "Post pubblicati"
       view:
         comments: "Commenti (%{count})"
+      index:
+        title: "Blogs"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -981,6 +1004,9 @@ it-IT:
       highlight_or_blackout: "Evidenzia o oscura le informazioni importanti"
       blackout: "Evidenzia"
       highlight: "Oscura"
+    passwords:
+      edit:
+        title: "Cambia la tua password"
   pl:
     comments:
       zero: "nessun commento"
@@ -1344,6 +1370,8 @@ it-IT:
       account_blocked: "Account bloccato"
       account_unblocked: "Account sbloccato"
     locale_changed: "Localizzazione cambiata correttamente"
+    blog_post_updated: "Il tuo post è stato aggiornato correttamente."
+    blog_post_deleted: "Il tuo post è stato cancellato correttamente."
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
@@ -1374,6 +1402,28 @@ it-IT:
       view_proposal: "Un contributo che era stato integrato nella proposta <b>%{click_here}</b> è stato rimesso in dibattito dal suo autore."
       view_proposal_2: "%{click_here} per quale motivo l'autore non ha ritenuto che il suo contributo sia stato integrato adeguatamente."
       verify: "Verifica"
+    user_message:
+      hi_user: "Ciao %{user},"
+      user_sent_message: "%{user} ti ha inviato il seguente messaggio:"
+      reply_to_user: "Puoi rispondere a %{user} rispondendo semplicemente a questa email."
+    blocked:
+      hi_user: "Ciao %{user},"
+      deleted_correctly: "ti informiamo che il tuo account è stato cancellato correttamente da Airesis."
+      greetings: "Cordiali saluti,<br/> Team Airesis"
+    new_blog_comment:
+      title: "%{user} ha inserito un nuovo commento al tuo post %{post}."
+      click_here: "Clicca qui"
+      view_post: "%{click_here} per visualizzare il post."
+    invite:
+      hi_user: "Ciao!"
+      invitation: "%{user} ti ha invitato a partecipare al gruppo <b>%{group}</b> su %{app_name} la piattaforma decisionale per la democrazia partecipata e diretta."
+      message_intro: %Q(Ecco il messaggio che ti ha inviato:)
+      accept_or_reject: %Q(Se accetti l'invito clicca su 'Accetto' altrimenti su 'Rifiuta'.)
+      no_more: %Q(Se non desideri più ricevere inviti da parte di %{app_name} clicca su 'Non ricevere più inviti'.)
+      accept: %Q(Accetta)
+      reject: %Q(Rifiuta)
+      greetings: %Q(A presto!)
+      no_more_button: %Q(Non ricevere più inviti)
   contribute: "contributo"
   comment: "commento"
   users:

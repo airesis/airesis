@@ -2,8 +2,8 @@
 <% @user = @comment.user %>
 <% @blog_post = @comment.blog_post %>
 <% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
-<%= @user.fullname %> ha inserito un nuovo commento al tuo post <%= @blog_post.title %>.<br/>
-<%= link_to 'Clicca qui', @alert_url %> per visualizzare il post.<br/>
+<%= t('mailer.new_blog_comment.title', {user: @user.fullname, post: @blog_post.title})%><br/>
+<%=raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)})%><br/>
 
 <div id="comment<%= @comment.id %>" style="padding: 20px 0 0;clear: both;">
   <div style="float: left;margin: 0px 5px 5px 0px;">
@@ -24,4 +24,4 @@
   </div>
 </div>
 
-<%= link_to 'Clicca qui', @alert_url %> per visualizzare il post.<br/>
+<%=raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)})%><br/>
