@@ -986,6 +986,8 @@ it-IT:
       proposals_tab: "Proposte"
       posts_tab: "Post"
       groups_tab: "Gruppi"
+      not_found:
+        subtitle: "Ecco le parole chiave maggiormente utilizzate su Airesis"
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
@@ -1293,6 +1295,8 @@ it-IT:
      users:
        join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
        join_accounts_password: "Password errata"
+     group_partecipations:
+       destroy: %Q(Non puoi uscire da un gruppo del quale sei l'unico portavoce)
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1375,6 +1379,8 @@ it-IT:
     locale_changed: "Localizzazione cambiata correttamente"
     blog_post_updated: "Il tuo post è stato aggiornato correttamente."
     blog_post_deleted: "Il tuo post è stato cancellato correttamente."
+    group_partecipations:
+      destroy_ok_1: %Q(Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi)
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

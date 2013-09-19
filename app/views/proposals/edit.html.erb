@@ -91,6 +91,7 @@
                       input.tokenInput("<%=tags_path(format: :json )%>", {
                           theme: "facebook",
                           crossDomain: false,
+                          prePopulate: <%=raw data%>,
                           allowFreeTagging: true,
                           minChars: 3,
                           hintText: "<%=t('digit_tags')%>",
