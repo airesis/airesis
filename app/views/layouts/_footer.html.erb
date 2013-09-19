@@ -8,8 +8,8 @@
     </div>
 
     <div class="pull-right" style="float:right;">
-      <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), :class => "video_faq" %> -
-      <%= link_to t('pages.home.index.support'), sostienici_url(subdomain: false) %> -
+      <%= link_to t('pages.home.index.videos'), videoguide_path, :class => "video_faq" %> -
+      <%= link_to t('pages.home.index.support'), sostienici_path %> -
       <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link' %> -
       <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link' %> -
     </div>
