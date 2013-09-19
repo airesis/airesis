@@ -243,7 +243,7 @@ class ProposalsController < ApplicationController
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
 
       @title = ''
-      @title += t('pages.proposals.new.title_group', name: @group.name) + ' - ' if @group
+      @title += t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
       @title += ProposalType.find_by_name(params[:proposal_type_id]).description
 
       respond_to do |format|
@@ -363,7 +363,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         format.js {
           render :update do |page|
-            page.alert 'Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta'
+            page.alert t('error.proposals.creation')
           end
         }
         format.html { render :action => "new" }
@@ -388,7 +388,7 @@ class ProposalsController < ApplicationController
 
     @proposal.save!
 
-    flash[:notice] = 'La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore.'
+    flash[:notice] = t('info.proposal.back_in_debate')
 
     redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
   end
@@ -623,7 +623,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
     end
 
-    flash[:notice] = "Nuovi redattori aggiunti correttamente!"
+    flash[:notice] = t('info.proposal.editors_added')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -635,7 +635,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
 
   rescue Exception => e
-    flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
+    flash[:error] = t('error.proposals.editors_added')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -681,7 +681,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   rescue Exception => e
     puts e
-    flash[:error] = "Errore durante la chiusura del dibattito"
+    flash[:error] = t('error.proposals.close_debate')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -962,8 +962,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      @title = 'Questa proposta non esiste'
-      @message = 'La proposta che cerchi non esiste o è stata cancellata'
+      @title = t('error.404.proposals.title')
+      @message = t('error.404.proposals.description')
       format.html { render "errors/404", :status => 404, :layout => true }
     end
     true

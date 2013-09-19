@@ -45,7 +45,7 @@ en:
         description: election
     group_actions:
       STREAM_POST:
-        description: Post on the Wall of the group
+        description: Post on the Group Wall
       CREATE_EVENT:
         description: Create events and votes
       PROPOSAL:
@@ -112,7 +112,7 @@ en:
         message: "<b>%{user}</b> is an editor of the proposal <b>%{title}</b>"
       unintegrated_contribute:
         description: Contributions are put back in debate
-        email_subject: A contribution has been put back in debate
+        email_subject: "%{proposal} - Contribution back in debate"
         message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
         description: New contributions and comments in the proposals I participate in
@@ -120,12 +120,12 @@ en:
         message: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
       text_update:
         description: Update of the text of a proposal I participate in
-        email_subject: A proposal has been updated
+        email_subject: "%{title} - The text has been modified"
         message: "The proposal <b>%{title}</b> has been updated"
-      new_public_proposals:
-        description: New proposals added in the Open Space
-        email_subject: "%{proposal}"
-        message: "New proposal <b>%{title}</b> added in the Open Space"
+      new_contributes_mine:
+        description: New contributions in my proposals
+        email_subject: New contributions in a proposal of mine
+        message: "<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>"
       change_status:
         description: Change in the status of a proposal I participate in
         email_subject: A proposal changed its status
@@ -134,15 +134,17 @@ en:
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
           abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
           rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
-      new_contributes_mine:
-        description: New contributions in my proposals
-        email_subject: New contributions in a proposal of mine
-        message: "<b>%{name}</b> added a contributions in your proposal <b>%{title}</b>"
       change_status_mine:
         description: Change in the status of my proposals
-        email_subject: One of your proposals has changed status
+        email_subject:
+          wait: "%{title} - choose the voting date"
+          waiting_date: "%{title} - the voting date has been chosen"
+          in_vote: "Your proposal <b>%{title}</b> is now being voted!"
+          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          rejected: "%{title} has been rejected"
         message:
           wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"
+          waiting_date: "%{name} has chosen the voting date for the proposal <b>%{title}</b>"
           in_vote: "Your proposal <b>%{title}</b> is now being voted!"
           abandoned: "Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry"
           rejected: "Your proposal <b>%{title}</b> has been rejected by the participants, sorry"
@@ -153,6 +155,10 @@ en:
         description: New posts in the Walls of the groups I participate in
         email_subject: New post
         message: "<b>%{user}/<b> has added a new post in the group <b>%{group}</b>"
+      new_public_proposals:
+        description: New proposals added in the Open Space
+        email_subject: "%{proposal}"
+        message: "New proposal <b>%{title}</b> added in the Open Space"
       new_proposals:
         description: New proposals within the group
         email_subject: "%{proposal}"
@@ -168,10 +174,10 @@ en:
       new_comments_mine:
         description: New comments in my proposals
         email_subject: New comment in my proposal
-        message: "<b>%{name}</b> add a comment in a discussion in your proposal <b>%{title}</b>"
+        message: "<b>%{name}</b> added a comment in a discussion in your proposal <b>%{title}</b>"
       new_comments:
         description: New comments in the discussions I take part in
-        email_subject: New comment in a discussion I take part in
+        email_subject: "%{title} - New comment"
         message: "<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>"
     proposal_categories:
       no_category:

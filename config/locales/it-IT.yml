@@ -426,6 +426,9 @@ it-IT:
         name: "Nome"
         role: "Ruolo"
         member_since: "Iscritto dal"
+        participants_html:
+          one: <b>1</b> partecipante
+          other: <b>%{count}</b> partecipanti
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -571,7 +574,7 @@ it-IT:
         step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
-        title_group: "%{name}: "
+        title_group: "%{name}:"
         title_synthetic: "(in estrema sintesi)"
         title_placeholder: "es. \"Facilitare il trasporto bici sui treni\" o \"Organizzare una festa per Luca\""
         interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
@@ -714,9 +717,21 @@ it-IT:
         add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
         add_solution: "Aggiungi un'ulteriore soluzione"
         you_know_what_you_do: "Sai quello che fai?"
-        schulze_title: "Uno soluzione o più soluzioni?"
+        schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
-        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare."
+        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare"
+        more_solutions_explained_html: |
+          <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
+          Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
+          Se la soluzione sarà una, al momento della votazione i partecipanti dovranno semplicemente scegliere se approvare o meno il testo che è stato redatto.<br/>
+          Se le soluzioni sono più di una la votazione avverrà in maniera differente e ciascun utente potrà esprimere la propria votazione su ciascuna soluzione mediante voto di Schulze.<br/>
+          Se stai cercando di redigere la sintesi ad un problema e vuoi costruire un testo condiviso <b>non generare soluzioni alternative</b>!<br/>
+          Se, al contrario, stai creando un sondaggio o vuoi proporre un'alternativa che non è integrabile nella prima soluzione allora procedi.<br/>
+          Ricorda che, prima che termini la fase di dibattito, potrai sempre aggiungere o togliere soluzioni e quindi modificare il tipo di votazione che verrà effettuato.
+        paragraph: "Paragrafo"
+        confirm_paragraph_deletion: "Sei sicuro di voler rimuovere questo paragrafo?"
+        confirm_solution_deletion: "Sei sicuro di voler rimuovere questa soluzione?"
+        press_to_expand: "Clicca sul titolo per espandere questa soluzione"
       manage_noise:
         available: "Contributi che possono essere eliminati"
         removed: "Contributi eliminati dalla discussione"
@@ -944,8 +959,9 @@ it-IT:
       next: "Prosegui"
       interest_borders:
         title: "Inizia a partecipare"
-        description1: "Definisci i tuoi confini geografici di interesse."
-        description2: "Se sappiamo quali sono i territori ai quali sei interessato possiamo consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio."
+        description_html: |
+          Definisci i tuoi confini geografici di interesse.<br />
+          Se Airesis sa quali sono i territori ai quali sei interessato può consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio.<br />
       choose_image:
         title: "Immagine del profilo"
         gravatar: "L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato."
@@ -954,16 +970,29 @@ it-IT:
         Identity_provider2: "Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis."
       rank_bar_explain:
         title: "La barra di gradimento"
-        description: "La barra di gradimento è posta nel menu laterale a sinistra."
-        description2: "La barra indica qual è l'indice di gradimento della proposta tra i partecipanti."
-        description3: "Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra."
-        description4: "L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente."
-        description5: "Il colore della barra indica se la proposta è in grado di passare alla fase di votazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione."
+        description_html: |
+          La barra di gradimento è posta nel menu laterale a sinistra.<br />
+          La barra indica qual è l'indice di gradimento della proposta tra i partecipanti.<br />
+          Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra.<br />
+          L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente.<br />
+          Il colore della barra indica se la proposta è in grado di passare alla fase di votazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione.<br />
         newdescription2: "La barra indica il gradimento della proposta tra i partecipanti e quanto tempo manca al termine della discussione."
         newdescription3: "Il colore mostra se la proposta passerà alla fase di votazione mentre la lunghezza indica quanto tempo manca prima che termini la discussione."
         newdescription4: "Quando ritieni che il dibattito sia terminato e l'autore abbia integrato i contributi degli utenti allora utilizza questo pulsante."
         newdescription5: "Se ritieni che il dibattito debba proseguire allora utilizza questo pulsante."
         newdescription6: "Quando il testo della proposta cambia ti verrà data la possibilità di modificare la tua valutazione."
+      welcome:
+        title_html: <b>Benvenuto su Airesis, %{user}</b><br/>
+        description_html: |
+          Questo breve tutorial ti aiuterà nelle prime scelte all'interno della piattaforma.<br/>
+          Questa che vedi è la tua scrivania: qui troverai tutte le informazioni che ti servono per restare in contatto con il tuo territorio.<br/>
+          Potrai gestire le tue proposte ed i gruppi ai quali partecipi, visualizzare gli eventi organizzati vicino a te ed entrare in contatto con gli altri cittadini.<br/>
+          Migliora Airesis segnalando eventuali anomalie a <a href="mailto:info@airesis.it">info@airesis.it</a>.<br/>
+      choose_follow:
+        description_html: |
+          Ecco i gruppi più attivi nei territori compresi nei tuoi confini di interesse.<br />
+          Scegli quelli a cui vuoi partecipare, in questo modo potrai entrare in contatto con loro e iniziare a partecipare agli eventi ed alle loro proposte.<br />
+          Un clic per selezionare, uno per deselezionare.<br />
     proposal_histories:
       index:
         title: "History della proposta %{title}"
@@ -1220,6 +1249,8 @@ it-IT:
     edit: "Modifica"
     next: "Prosegui"
     go_back: "Torna indietro"
+    chosen: "Ho scelto!"
+    ok: "OK"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1290,6 +1321,9 @@ it-IT:
        proposal_not_valuating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione"
        proposal_already_ranked: "Hai già valutato questa proposta una volta. La proposta non è stata modificata dalla tua ultima valutazione"
        proposal_not_your: "Non puoi modificare proposte che non sono state create da te"
+       creation: "Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta"
+       editors_added: "Errore durante l'aggiunta dei nuovi redattori"
+       close_debate: "Errore durante la chiusura del dibattito"
      registration:
        recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
        user_not_found: "Utente non trovato"
@@ -1300,6 +1334,10 @@ it-IT:
      users:
        join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
        join_accounts_password: "Password errata"
+     404:
+       proposals:
+         title: "Questa proposta non esiste"
+         description: "La proposta che cerchi non esiste o è stata cancellata"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1324,6 +1362,8 @@ it-IT:
       comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento al momento"
       comment_not_your: "Non disponi dei diritti per cancellare il commento"
       login_to_contribute: "Fai login per inserire il tuo contributo"
+      back_in_debate: "La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore"
+      editors_added: "Nuovi redattori aggiunti correttamente!"
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1379,8 +1419,12 @@ it-IT:
       account_blocked: "Account bloccato"
       account_unblocked: "Account sbloccato"
     locale_changed: "Localizzazione cambiata correttamente"
-    blog_post_updated: "Il tuo post è stato aggiornato correttamente."
-    blog_post_deleted: "Il tuo post è stato cancellato correttamente."
+    blog_post_updated: "Il tuo post è stato aggiornato correttamente"
+    blog_post_deleted: "Il tuo post è stato cancellato correttamente"
+    participation_request:
+      multiple_request:
+        one: "Hai richiesto di partecipare a %{count} nuovo gruppo"
+        other: "Hai richiesto di partecipare a %{count} nuovi gruppi"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
@@ -1397,7 +1441,7 @@ it-IT:
       follow_google: "seguici su Google+"
       footer:
         registered_at: "Ricevi questa email in quanto sei registrato al sito %{url}."
-      edit_preferences: "modifica preferenze newsletter e notifiche"
+      edit_preferences: "Modifica preferenze newsletter e notifiche"
       click_here: "Clicca qui"
     new_contribute:
       title: "%{user} ha inserito un nuovo %{comment} alla proposta"

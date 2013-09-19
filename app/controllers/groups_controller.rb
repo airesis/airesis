@@ -359,7 +359,7 @@ class GroupsController < ApplicationController
         end
       end
     end
-    flash[:notice] = "Hai richiesto di partecipare a #{number} nuovi gruppi"
+    flash[:notice] = t('info.participation_request.multiple_request', count: number)
     redirect_to home_path
   end
 
