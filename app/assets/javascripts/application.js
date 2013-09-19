@@ -48,3 +48,5 @@
 //= require jquery.tagcloud
 //= require jquery.switchbutton
 //= require introjs.min
+//= require ckeditor/init
+

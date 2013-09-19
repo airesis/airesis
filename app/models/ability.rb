@@ -174,6 +174,17 @@ class Ability
             proposal_nickname.user == user
       end
 
+      # Always performed
+      can :access, :ckeditor   # needed to access Ckeditor filebrowser
+
+      # Performed checks for actions:
+      can [:read, :create, :destroy], Ckeditor::Picture do |picture|
+        picture.assetable_id == user.id
+      end
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile do |attachment|
+        picture.assetable_id == user.id
+      end
+
       if user.moderator?
         can :read, Proposal # can see all the proposals
         can :destroy, ProposalComment do |comment|

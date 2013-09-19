@@ -1,6 +1,21 @@
 Airesis::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   match 'home', :to => 'home#show'
+  match '/partecipa' => 'home#engage'
+  match '/chisiamo' => 'home#whowe'
+  match '/roadmap' => 'home#roadmap'
+  match '/bugtracking' => 'home#bugtracking'
+  match '/videoguide' => 'home#videoguide'
+  match '/edemocracy' => 'home#whatis'
+  match '/sostienici' => 'home#helpus'
+  match '/press' => 'home#press'
+  match '/privacy' => 'home#privacy'
+  match '/terms' => 'home#terms'
+  match '/send_feedback' => 'home#feedback'
+  match '/statistics' => 'home#statistics'
+  match '/movements' => 'home#movements'
 
   resources :proposal_nicknames
 
@@ -389,19 +404,7 @@ Airesis::Application.routes.draw do
     #match ':proposal_url', :to => 'proposals#index'
     #match ':proposal_url/cat/:category/', :to => 'proposals#index'
 
-    match '/partecipa' => 'home#engage'
-    match '/chisiamo' => 'home#whowe'
-    match '/roadmap' => 'home#roadmap'
-    match '/bugtracking' => 'home#bugtracking'
-    match '/videoguide' => 'home#videoguide'
-    match '/edemocracy' => 'home#whatis'
-    match '/sostienici' => 'home#helpus'
-    match '/press' => 'home#press'
-    match '/privacy' => 'home#privacy'
-    match '/terms' => 'home#terms'
-    match '/send_feedback' => 'home#feedback'
-    match '/statistics' => 'home#statistics'
-    match '/movements' => 'home#movements'
+
 
     admin_required = lambda do |request|
       request.env['warden'].authenticate? and request.env['warden'].user.admin?
