@@ -87,11 +87,11 @@
 </script>
 
 <% if Rails.env != 'production' %>
-   <style type="text/css">
-    #menu-top {
-        background-color: #3341E5;
-    }
-   </style>
+    <style type="text/css">
+        #menu-top {
+            background-color: #3341E5;
+        }
+    </style>
 
 <% end %>
 
@@ -105,15 +105,17 @@
     <%= yield :menu %>
 
   </div>
-  <div id="logo-but" tabindex="2">
-    <span><%= t('pages.header.groups_title') %></span>
-    <br>
-    <%= image_tag 'cur-tria.png' %>
-  </div>
+  <% unless in_subdomain? %>
+      <div id="logo-but" tabindex="2">
+        <span><%= t('pages.header.groups_title') %></span>
+        <br>
+        <%= image_tag 'cur-tria.png' %>
+      </div>
+  <% end %>
 
   <div id="tolr"
        <% unless current_user %>class="not_logged"
-  <% end %>>
+       <% end %>>
     <% unless current_user %>
         <div id="inlog">
           <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
@@ -140,7 +142,7 @@
             <p><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></p>
           </div>
 
-          <% if ::Configuration.socialnetwork_active %>
+          <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
               <%= cache ["social_network_header", I18n.locale] do %>
                   <div class="box more">
                     <div class="more">
@@ -164,20 +166,21 @@
         </div>
     <% end %>
 
-    <%= link_to (image_tag 'cur-love.png'), sostienici_url(subdomain: false), :class => 'cur love', title: t('pages.header.support_us') %>
+    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
-      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %> <br/>
-      <%= link_to t('pages.home.index.videos'), videoguide_url(subdomain: false), title: t('pages.home.index.videos') %> <br/>
+      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %>
+      <br/>
+      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos') %>
+      <br/>
       <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' %>
       <br/>
       <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' %>
       <br/>
-      <%= link_to t('pages.home.index.whatis'), edemocracy_url(subdomain: false), title: t('pages.home.index.whatis') %> <br/>
-      <%= link_to t('pages.home.index.whowe'), chisiamo_url(subdomain: false), title: t('pages.home.index.whowe') %>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis') %>
+      <br/>
+      <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe') %>
     </div>
-
-
   </div>
 
   <% if current_user %>
@@ -188,54 +191,55 @@
         <%= image_tag 'cur-tria.png', class: 'triangle' %>
       </div>
   <% end %>
-
-  <div class="group-cont">
-    <div class="tria"></div>
-    <div class="group-cont-sep"></div>
-    <div class="group-tag">
-      <div class="tag sel"><span><%= t('pages.header.groups_list') %></span>
-
+  <% unless in_subdomain? %>
+      <div class="group-cont">
         <div class="tria"></div>
-      </div>
-      <div class="tag"><%= link_to t('pages.header.open_group'), new_group_url(subdomain: false) %></div>
-      <div class="tag"><%= link_to t('pages.header.new_group'), groups_url(subdomain: false) %></div>
-    </div>
-    <div class="group-tag1">
-      <div class="group-item">
-        <div style="width:45px;height: 30px; float:left;">
-          <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
+        <div class="group-cont-sep"></div>
+        <div class="group-tag">
+          <div class="tag sel"><span><%= t('pages.header.groups_list') %></span>
+
+            <div class="tria"></div>
+          </div>
+          <div class="tag"><%= link_to t('pages.header.open_group'), new_group_url(subdomain: false) %></div>
+          <div class="tag"><%= link_to t('pages.header.new_group'), groups_url(subdomain: false) %></div>
         </div>
-        <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
+        <div class="group-tag1">
+          <div class="group-item">
+            <div style="width:45px;height: 30px; float:left;">
+              <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
+            </div>
+            <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
 
-        <div class="p2">
-          <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
-          <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %></div>
-      </div>
-      <% if user_signed_in? %>
-          <% @groups = current_user.groups %>
-          <% if @groups.empty? %>
-              <%= t('pages.header.no_groups_yet') %>
-              <br/>
-          <% else %>
-              <% @groups.each do |group| %>
-                  <div class="group-item">
-                    <div style="width:45px;height: 30px; float:left;">
-                      <%= group.group_image_tag(30) rescue nil %>
-                    </div>
-                    <div class="p1">
-                      <%= link_to group.name, group_url(group) %>
-                      <div class="group_tag_fade"></div>
-                    </div>
+            <div class="p2">
+              <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
+              <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %></div>
+          </div>
+          <% if user_signed_in? %>
+              <% @groups = current_user.groups %>
+              <% if @groups.empty? %>
+                  <%= t('pages.header.no_groups_yet') %>
+                  <br/>
+              <% else %>
+                  <% @groups.each do |group| %>
+                      <div class="group-item">
+                        <div style="width:45px;height: 30px; float:left;">
+                          <%= group.group_image_tag(30) rescue nil %>
+                        </div>
+                        <div class="p1">
+                          <%= link_to group.name, group_url(group) %>
+                          <div class="group_tag_fade"></div>
+                        </div>
 
-                    <div class="p2">
-                      <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
-                      <%= link_to t('pages.header.groups.events'), group_events_url(group) %></div>
-                  </div>
+                        <div class="p2">
+                          <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
+                          <%= link_to t('pages.header.groups.events'), group_events_url(group) %></div>
+                      </div>
+                  <% end %>
               <% end %>
           <% end %>
-      <% end %>
-    </div>
-  </div>
+        </div>
+      </div>
+  <% end %>
 </div>
 
 

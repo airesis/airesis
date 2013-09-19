@@ -2,7 +2,7 @@
 <% @page_title = t('pages.registration.title') %>
 
 
-<% if ::Configuration.socialnetwork_active %>
+<% if ::Configuration.socialnetwork_active && !in_subdomain?%>
     <h2><%= t('pages.registration.identity_provviders_title') %></h2>
     <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
 

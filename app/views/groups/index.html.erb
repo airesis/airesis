@@ -1,11 +1,6 @@
 <% @extend=true %>
 <% @page_title = t('pages.groups.index.title') %>
 <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
-
-
-
-
-
 <script type="text/javascript">
     var geocoder;
     var map;
@@ -74,7 +69,8 @@
 -->
 
 <h1><%= t('pages.groups.index.find_group_label') %></h1>
-<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">
+<!--<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">-->
+<div style="max-width: 600px;" id="group_search_form">
   <fieldset style="margin-right:10px;">
     <legend>Maschera di ricerca</legend>
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
@@ -98,7 +94,7 @@
     <% end %>
   </fieldset>
 </div>
-<div style="float:left; width: 452px">
+<!--<div style="float:left; width: 452px">
   <fieldset>
     <legend>Parole chiave</legend>
     <div id="tag_cloud">
@@ -109,6 +105,7 @@
   </fieldset>
 </div>
 <div class="clearboth"></div>
+-->
 
 
 
