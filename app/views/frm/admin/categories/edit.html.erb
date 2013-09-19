@@ -1,6 +1,7 @@
 <h2><%= t('frm.admin.category.edit', :title => @category.name) %></h2>
 
-<%= simple_form_for @category, url: group_frm_admin_category_url(@group,@category) do |f| %>
-    <%= f.input :name %>
-    <%= f.submit :class => "btn blue" %>
+<%= render :partial => 'edit', locals: {remote:false} %>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
 <% end %>

@@ -10,20 +10,10 @@
   </tr>
   </thead>
   <tbody>
-  <% @category.each do |category| %>
-      <tr class="forum <%= cycle("odd", "even") %>">
-
-        <td>
-          <%= forem_emojify(category.name) %>
-        </td>
-        <td><%= link_to t('edit', :scope => 'frm.admin.categories'), edit_group_frm_admin_category_url(@group, category), :class => "btn editButton" %></td>
-        <td><%= link_to t('delete', :scope => 'frm.admin.categories'), group_frm_admin_category_url(@group, category), :method => :delete,
-                        data: {:confirm => t('delete_confirm', :scope => 'frm.admin.categories')}, :class => "btn trashButton" %></td>
-      </tr>
-  <% end %>
+  <%= render :partial => 'categories' %>
   </tbody>
 </table>
-<%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue" %><br>
+<%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue", remote: true, disable_with: t('loading') %><br>
 
 
 <%= content_for :left_panel do %>

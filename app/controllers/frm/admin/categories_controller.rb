@@ -5,17 +5,18 @@ module Frm
       before_filter :find_category, :only => [:edit, :update, :destroy]
 
       def index
-        @category = Frm::Category.all
+        @categories = Frm::Category.all
       end
 
       def new
-        @category =  Frm::Category.new
+        @category = Frm::Category.new
       end
 
       def create
         @category = Frm::Category.new(params[:frm_category])
         @category.group_id = @group.id
         if @category.save
+          @categories = @group.categories
           create_successful
         else
           create_failed
@@ -24,6 +25,7 @@ module Frm
 
       def update
         if @category.update_attributes(params[:frm_category])
+          @categories = @group.categories
           update_successful
         else
           update_failed
@@ -32,6 +34,7 @@ module Frm
 
       def destroy
         @category.destroy
+        @categories = @group.categories
         destroy_successful
       end
 
@@ -42,7 +45,13 @@ module Frm
 
       def create_successful
         flash[:notice] = t("frm.admin.category.created")
-        redirect_to group_frm_admin_categories_url(@group)
+        respond_to do |format|
+          format.html {
+            redirect_to group_frm_admin_categories_url(@group)
+          }
+          format.js
+        end
+
       end
 
       def create_failed
@@ -52,12 +61,23 @@ module Frm
 
       def destroy_successful
         flash[:notice] = t("frm.admin.category.deleted")
-        redirect_to group_frm_admin_categories_url(@group)
+        respond_to do |format|
+          format.html {
+            redirect_to group_frm_admin_categories_url(@group)
+          }
+          format.js
+        end
       end
 
       def update_successful
         flash[:notice] = t("frm.admin.category.updated")
-        redirect_to group_frm_admin_categories_url(@group)
+        respond_to do |format|
+          format.html {
+            redirect_to group_frm_admin_categories_url(@group)
+          }
+          format.js
+        end
+
       end
 
       def update_failed

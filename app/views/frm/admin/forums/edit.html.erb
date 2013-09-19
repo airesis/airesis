@@ -3,3 +3,8 @@
 <%= simple_form_for  @forum, url: group_frm_admin_forum_url(@group,@forum) do |f| %>
     <%= render partial: "form", locals: {f: f} %>
 <% end %>
+
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

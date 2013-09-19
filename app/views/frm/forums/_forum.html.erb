@@ -13,7 +13,7 @@
         <% if last_post = forum.last_post_for(current_user) -%>
           <%= link_to(forem_emojify(last_post.topic.subject), group_forum_topic_url(@group,forum, last_post.topic)) -%> <%= t('by') %> <%= last_post.user %>
             <br/>
-            <time datetime="<%= last_post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(last_post.created_at)} #{t("ago")}" %></time>
+            <time datetime="<%= last_post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(last_post.created_at)}" %></time>
         <% else %>
           <%= t('frm.forums.index.none') -%>
         <% end %>
