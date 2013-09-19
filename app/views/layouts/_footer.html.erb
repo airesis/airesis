@@ -2,7 +2,7 @@
     <div class="pull-left">
       Airesis™ v. <%= VERSION %> - Progetto <%= link_to 'Open Source', "https://github.com/coorasse/Airesis", :target => "_blank" %> per l'e-democracy.
       <%if in_subdomain? %>
-       <%= link_to 'Vai al sito principale', root_url(subdomain: false)  %>
+       <%= link_to 'Vai al sito principale', root_url(subdomain: false), target: '_blank'  %>
       <%end%>
 
     </div>
