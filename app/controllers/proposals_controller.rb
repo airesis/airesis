@@ -506,7 +506,7 @@ class ProposalsController < ApplicationController
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
-        format.html { redirect_to proposal_path(params[:id]) }
+        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
       end
     end
 
