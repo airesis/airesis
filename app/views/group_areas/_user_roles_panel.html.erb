@@ -8,7 +8,9 @@
 		<%@group_area.area_partecipations.each do |gp| %>
 		<%if gp.user != current_user%>
 		<tr>	
-			<td><%=gp.user.fullname%>
+			<td>
+              <%= gp.user.user_image_tag 16 %>
+              <%= link_to gp.user.fullname, gp.user %>
 			</td>
 			<td>
 				<%=select_tag "user_role", options_from_collection_for_select(@group_area.area_roles,:id,:name,gp.area_role.id), "data-user_id" => gp.user.id, :class => "user_role_changer" %>
