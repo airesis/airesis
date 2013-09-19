@@ -1282,6 +1282,7 @@ it-IT:
        proposal_not_valuating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione"
        proposal_already_ranked: "Hai già valutato questa proposta una volta. La proposta non è stata modificata dalla tua ultima valutazione"
        proposal_not_your: "Non puoi modificare proposte che non sono state create da te"
+       create: "Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta"
      registration:
        recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
        user_not_found: "Utente non trovato"
@@ -1316,6 +1317,7 @@ it-IT:
       comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento al momento"
       comment_not_your: "Non disponi dei diritti per cancellare il commento"
       login_to_contribute: "Fai login per inserire il tuo contributo"
+      regenerated: "La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore."
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1432,3 +1434,10 @@ it-IT:
       language: "Lingua per la ricezione delle email"
   yes: "SI"
   no: "NO"
+  controllers:
+    blog_posts:
+      404_title: "Questo post non esiste"
+      404_message: "Il post che cerchi non esiste o è stato cancellato"
+    proposals:
+      404_title: "Questa proposta non esiste"
+      404_message: "La proposta che cerchi non esiste o è stata cancellata"
