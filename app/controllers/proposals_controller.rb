@@ -962,8 +962,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      @title = t('error.404.proposals.title')
-      @message = t('error.404.proposals.description')
+      @title = t('error.error_404.proposals.title')
+      @message = t('error.error_404.proposals.description')
       format.html { render "errors/404", :status => 404, :layout => true }
     end
     true

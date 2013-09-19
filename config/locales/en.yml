@@ -540,7 +540,7 @@ en:
         close_debate_button: "Close debate"
         close_debate_proposal_confirmation: "Close debate immediately and go to the next phase?"
         during_debate: "Debate proceeding"
-        comment_inserted_by: "Inserted %{when} by %{who}"
+        comment_inserted_by: "Added %{when} by %{who}"
         replies:
           show_all: "Show all %{count} comments..."
           delete: "Delete"
@@ -564,6 +564,7 @@ en:
         add_contribute: "Give your ideas! Propose modifications of the tex and help the editor improve the proposal"
         login_to_comment: "Login to add a comment"
         regenerate_nickname: "Regenerate nickname"
+        add_contribution_no_paragraph: "No paragraph specified"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -584,31 +585,37 @@ en:
           problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
           objectives_title: "Objectives"
           step_4_title: "You can enter a text of the proposal or write it later based on the input received"
-          first_solution_title: "Text of the proposal"
           solution:
-            title: "Title"
             description: "Description of the solution"
             time: "Times"
             subject: "Supervisor"
             resources: "Necessary resources and how to retrieve them"
             aspects: "Ethical, environmental, social aspects"
             documents: "Documentation"
-            pros: "Pro"
+            pros: "Pros"
             cons: "Cons"
+          suggestion_html: |
+            <div><b>Example:<b/></div>
+            <div>Reduce the usage of drinking water for irrigation.</div>
+            <div>Using drinking water to water public parks and private gardens is a waste and has relevant costs. Moreover the aquifer that supplies the aqueduct is running low</div>
         rule_book:
           problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
-          first_solution_title: "Solution 1"
+          suggestion_html: |
+            <div><b>Example:<b/></div>
+            <div>Rule book to reserve the St. Peter's hall</div>
+            <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
           solution:
-            title: "Title"
             article: "Article %{num}"
-            pros: "Pro"
+            pros: "Pros"
             cons: "Cons"
         press:
           problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
-          first_solution_title: "Title"
           problems_title: "Message to transmit"
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Advertise the release of the version 3.5 of Airesis.</div>
+            <div>We have to advertise the release of the version 3.5 of Airesis, that brings important features for the Public Administrations. It is necessary to explain what Airesis is and captivate the attention of the press, given the recent rumors about the usage of Airesis in the White House.</div>
           solution:
-            title: "Title"
             subtitle: "Subtitle"
             incipit: "Incipit"
             body: "Body"
@@ -617,24 +624,31 @@ en:
         estimate:
           problems_title_label: "What goods or services you wish to purchase? To solve which problems?"
           problems_title: "Problems"
-          first_solution_title: "Solution 1"
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Replacement of the thermal plant in the headquarter of the Association.</div>
+            <div>Because of the failure of the old boiler, our quarter is impractical during winters. Given that it is not possible to fix it, we have to substitute the old thermal plant with a new one, with low energy consumption.</div>
           solution:
-            title: "Title"
             cost: "Amount"
             problems: "Respect of constraints and problems"
             dumentation: "Documentation"
         agenda:
           problems_title: "Type of meeting"
-          first_solution_title: "Solution 1"
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Choose an agenda for our meeting.</div>
+            <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
           solution:
-            title: "Title"
             points: "Agenda items"
             priorities: "Items priorities"
             links: "Insights links"
         event:
           problems_title: "Event scope"
-          first_solution_title: "Solution 1"
           problems_title_label: "Why do you want to organize an event? What are the aims?"
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Organize a low-cost rock concert.</div>
+            <div>In our town there are a lot of young bands that cannot show off and improve their talent, because of a lack of space. In addition to this, there are few events promoted by our Municipality for the next summer, because of a lack of resources.</div>
           solution:
             title: "Title"
             description: "Description of the solution"
@@ -643,15 +657,19 @@ en:
             place: "Place"
             organization: "Event organization"
             resources: "Necessary resources and how to retrieve them"
-            pros: "Pro"
+            pros: "Pros"
             cons: "Cons"
         step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
         step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
         category_prompt: "--Choose a category--"
         candidates:
+          suggestion_html: |
+            <div><b>Example:</b></div>
+            <div>Elect the new referent for the communication group.</div>
+            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have benn members of the group for at least 5 months can be nominated.</div>
           solution:
-            name: "Name and surname"
+            name: "Candidate Name and Surname"
             data: "Personal data"
             curriculum: "Curriculum"
             available: "Availability for the position"
@@ -663,6 +681,8 @@ en:
         tags_separated_by_comma: "(separated by comma)"
         cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"
         no_work_area_selected: "No work area"
+        solution1: "Solution 1"
+        solution: "Solution"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -720,10 +740,25 @@ en:
         schulze_title: "One or more solutions?"
         inserted_contributes: "Sign the contributions you have integrated in this revision"
         tooltip: "When you have finished editing, press button 'Update' to save your work"
+        more_solutions_explained_html: |
+          <b>Why do we ask you if you know what you are doing?</b><br/>
+          Airesis lets you add one or more solutions in a proposal.<br/>
+          If there will be only a solution, in the voting phase participants will have the option to approve or refuse the text that has been drafted.<br/>
+          If there will be more than a solution, the vote will be different and each participant will be able to vote using Schulze method.<br/>
+          If you are trying to draft the summary of a problem and you want a shared text <b>don't create alternative solutions</b>!<br/>
+          If, on the contrary, you are searching for a poll or you want an alternative that is not integrable in the first solution then proceed.<br/>
+          Remember that, before the debate ends, you will be able to add or remove solutions, modifying the method of vote used.
         paragraph: "Paragraph"
+        confirm_paragraph_deletion: "You sure you want to delete this paragraph?"
+        confirm_solution_deletion: "You sure you want to delete this solution?"
+        press_to_expand: "Click on the title to expand this solution"
+        integrated: "Integrated"
+        contribution_valuation: "What do they think?"
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
+      contribution_valuation: "What do you think?"
+      contribution_valuation_again: "Chenged your mind?"
     events:
       index:
         title: 'Calendar'
@@ -780,7 +815,7 @@ en:
         delete_button: "Delete"
         confirm_delete: "Are you sure you want to delete this post?"
       list_elements:
-        inserted: "Inserted by %{name} on %{date}"
+        inserted: "Added by %{name} on %{date}"
       show:
         previous_comments: "Previous comments..."
         tags_title: "Tags:"
@@ -962,14 +997,14 @@ en:
         description_html: |
           The rank bar is situated in the right lateral menu.<br />
           The bar shows the rank of approval of the proposal among the participants.<br />
-          You can suggest if the text of the proposal is complete or not using the two buttons below the bar.
+          You can suggest if the text of the proposal is complete or not using the two buttons below the bar.<br />
           The author of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
           The color of the bar shows if the proposal is ready to go to the voting phase, while the length shows how much time and/or evaluations are left before the discussion ends.<br />
-        newdescription2: "TODO"
-        newdescription3: "TODO"
-        newdescription4: "TODO"
-        newdescription5: "TODO"
-        newdescription6: "TODO"
+        newdescription2: "The bar displays the rank of the proposal among the participants and how much time is left until the end of the debate"
+        newdescription3: "The color displays if the proposal will be able to go to the voting phase, while the length displays how much time is left before the debate ends"
+        newdescription4: "When you think the debate is over and the author integrated the contributions of other users, use this button"
+        newdescription5: "If you think that the debate should continue, use this button"
+        newdescription6: "When the text of the proposal will be updated, you will be able to change your evaluation"
       welcome:
         title_html: <b>Welcome on Airesis, %{user}</b><br/>
         description_html: |
@@ -1239,6 +1274,7 @@ en:
     next: "Next"
     go_back: "Go back"
     chosen: "I have chosen!"
+    ok: "OK"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1309,6 +1345,9 @@ en:
        proposal_not_valuating: "This proposal is not in the voting phase, so you cannot do this action anymore"
        proposal_already_ranked: "You have already evaluated this proposal once. The proposal has not benn modified since your last evaluation"
        proposal_not_your: "You cannot edit proposals that weren't made by you"
+       creation: "We are sorry but there was an error while creating the proposal"
+       editors_added: "Error while adding editors"
+       close_debate: "Error while closing the debate"
     registration:
        recaptcha: "Error in validating captcha. Please type it again"
        user_not_found: "User not found"
@@ -1319,6 +1358,10 @@ en:
     users:
        join_accounts: "Error while joining accounts. This operation is not available at the moment"
        join_accounts_password: "Wrong password"
+    error_404:
+      proposals:
+        title: "This proposal doesn't exist"
+        description: "The proposal you are looking for doesn't exist or has been deleted"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1343,6 +1386,8 @@ en:
       comment_already_ranked: "You have already evaluated this comment. It is not possible to modify the evaluation of a comment yet"
       comment_not_your: "You don't have the required rights to delete the comment"
       login_to_contribute: "Login to add your contribution"
+      back_in_debate: "The proposal is now in debate again. Now you are its editor"
+      editors_added: "New editors successfully added!"
     message_sent: "Message successfully sent"
     private_messages_active: "Other users can send you private messages"
     private_messages_inactive: "Other users cannot send you private messages"

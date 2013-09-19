@@ -40,7 +40,7 @@
         <% end %>
         <span class="rightFloat" style="margin-right:3px"><%= comment.rankings.positives.count %></span>
         <% if can_rank_again %>
-            <span class="rightFloat think"><%= 'Ora cosa ne pensi?' %></span>
+            <span class="rightFloat think"><%= t('pages.proposals.contribution_valuation_again') %></span>
         <% end %>
         <%= image_tag "spinner.gif", :style => 'display: none;', :class => 'rightFloat loading' %>
     <% else %>

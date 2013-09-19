@@ -30,9 +30,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempio' %></div>
-          <div><%= 'Sostituzione dell’impianto termico nella sede dell’Associazione' %></div>
-          <div><%= "A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il gusto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico."%></div>
+          <%=t('pages.proposals.new.estimate.suggestion_html') %>
         </div>
 
       </div>
@@ -43,7 +41,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', :disable_with => t('loading') %>
       </p>
       </div>
 
