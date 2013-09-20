@@ -219,4 +219,16 @@ class BlogPostsController < ApplicationController
       end
     end
   end
+
+  private
+
+  def render_404(exception=nil)
+    log_error(exception) if exception
+    respond_to do |format|
+      @title = t('controllers.blog_posts.404_title')
+      @message = t('controllers.blog_posts.404_message')
+      format.html { render "errors/404", :status => 404, :layout => true }
+    end
+    true
+  end
 end

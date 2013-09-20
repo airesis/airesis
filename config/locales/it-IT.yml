@@ -988,6 +988,8 @@ it-IT:
       proposals_tab: "Proposte"
       posts_tab: "Post"
       groups_tab: "Gruppi"
+      not_found:
+        subtitle: "Ecco le parole chiave maggiormente utilizzate su Airesis"
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
@@ -1284,6 +1286,7 @@ it-IT:
        proposal_not_valuating: "Questa proposta non è in fase di valutazione, pertanto non puoi più eseguire questa azione"
        proposal_already_ranked: "Hai già valutato questa proposta una volta. La proposta non è stata modificata dalla tua ultima valutazione"
        proposal_not_your: "Non puoi modificare proposte che non sono state create da te"
+       create: "Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta"
      registration:
        recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
        user_not_found: "Utente non trovato"
@@ -1294,6 +1297,8 @@ it-IT:
      users:
        join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
        join_accounts_password: "Password errata"
+     group_partecipations:
+       destroy: %Q(Non puoi uscire da un gruppo del quale sei l'unico portavoce)
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1318,6 +1323,7 @@ it-IT:
       comment_already_ranked: "Hai già valutato questo commento. Non è possibile apportare modifiche alla valutazione di un commento al momento"
       comment_not_your: "Non disponi dei diritti per cancellare il commento"
       login_to_contribute: "Fai login per inserire il tuo contributo"
+      regenerated: "La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore."
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1375,6 +1381,8 @@ it-IT:
     locale_changed: "Localizzazione cambiata correttamente"
     blog_post_updated: "Il tuo post è stato aggiornato correttamente."
     blog_post_deleted: "Il tuo post è stato cancellato correttamente."
+    group_partecipations:
+      destroy_ok_1: %Q(Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi)
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
@@ -1434,4 +1442,3 @@ it-IT:
       language: "Lingua per la ricezione delle email"
   yes: "SI"
   no: "NO"
-  by: "da"

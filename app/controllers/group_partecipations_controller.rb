@@ -49,15 +49,16 @@ class GroupPartecipationsController < ApplicationController
 
     @group_partecipation_request = GroupPartecipationRequest.find_by_user_id_and_group_id(@group_partecipation.user_id, @group_partecipation.group_id)
 
-    if @group_partecipation.partecipation_role_id == PartecipationRole::PORTAVOCE &&
-        @group_partecipation.group.portavoce.count == 1
-      flash[:error] = "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
+    if (@group_partecipation.partecipation_role_id == PartecipationRole::PORTAVOCE) &&
+        (@group_partecipation.group.portavoce.count == 1)
+      flash[:error] = t('error.group_partecipations.destroy')
     else
       GroupPartecipation.transaction do
         @group_partecipation_request.destroy
         @group_partecipation.destroy
+        AreaPartecipation.joins(:group_area => :group).where(['groups.id = ? AND area_partecipations.user_id = ?',@group_partecipation.group_id, @group_partecipation.user_id]).readonly(false).destroy_all
       end
-      flash[:notice] = current_user == @group_partecipation.user ? "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi" : I18n.t('info.participation_roles.user_removed_from_group',name:@group_partecipation.user.fullname) #TODO:il18n
+      flash[:notice] = current_user == @group_partecipation.user ? t('info.group_partecipations.destroy_ok_1') : I18n.t('info.participation_roles.user_removed_from_group',name:@group_partecipation.user.fullname) #TODO:il18n
     end
 
     respond_to do |format|

@@ -363,7 +363,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         format.js {
           render :update do |page|
-            page.alert 'Siamo spiacenti ma si è verificato un erorre durante la creazione della proposta'
+            page.alert t('error.proposals.create')
           end
         }
         format.html { render :action => "new" }
@@ -388,7 +388,7 @@ class ProposalsController < ApplicationController
 
     @proposal.save!
 
-    flash[:notice] = 'La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore.'
+    flash[:notice] = t('info.proposal.regenerated')
 
     redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
   end
@@ -488,9 +488,7 @@ class ProposalsController < ApplicationController
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-        format.html {
-          redirect_to proposal_path(params[:id])
-        }
+        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
       end
     else
       vote_period = Event.find(params[:proposal][:vote_period_id])
@@ -506,7 +504,7 @@ class ProposalsController < ApplicationController
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
-        format.html { redirect_to proposal_path(params[:id]) }
+        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
       end
     end
 
@@ -570,7 +568,7 @@ class ProposalsController < ApplicationController
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-                                      ORDER BY closeness DESC"
+                                      ORDER BY closeness DESC LIMIT 10"
     @similars = Proposal.find_by_sql(sql_q)
 
     respond_to do |format|
@@ -962,8 +960,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      @title = 'Questa proposta non esiste'
-      @message = 'La proposta che cerchi non esiste o è stata cancellata'
+      @title = t('controllers.proposals.404_title')
+      @message = t('controllers.proposals.404_message')
       format.html { render "errors/404", :status => 404, :layout => true }
     end
     true

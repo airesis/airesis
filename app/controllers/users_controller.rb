@@ -249,6 +249,21 @@ class UsersController < ApplicationController
         end
       }
     end
+
+  rescue Exception => e
+    @user.errors.full_messages.each do |msg|
+      flash[:error] = msg
+    end
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        end
+      end
+      format.html {
+        redirect_to @user
+      }
+    end
   end
 
   def update
