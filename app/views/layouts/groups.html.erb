@@ -10,7 +10,7 @@
     <% if @group %>
         <%= @group.group_image_tag 60 %>
         <% if @group.id %>
-            <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain))? root_path(:subdomain => @group.subdomain) : @group), class: 'tit' %>
+            <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit' %>
         <% else %>
             <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit' %>
         <% end %>
@@ -20,36 +20,34 @@
     <% end %>
 
     <div id="submenu">
-      <% if @group && @group.id && (can? :view_data, @group)%>
+      <% if @group && @group.id && (can? :view_data, @group) %>
           <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
           <span> ⋅ </span>
-          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals','proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
           <span> ⋅ </span>
           <% if ::Configuration::groups_calendar %>
               <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
-              <span> ⋅ </span>
-          <% end %>
-          <% if ::Configuration::elections_active %>
-              <%= link_to t('pages.groups.header.elections'), group_candidates_url(@group), class: ((['elections','candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
-              <span> ⋅ </span>
-              <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
-              <span> ⋅ </span>
-          <% end %>
-          <% if ::Configuration::documents_active %>
-              <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
 
           <% end %>
-
-
-
-
+          <% unless in_subdomain? %>
+              <% if ::Configuration::elections_active %>
+                  <span> ⋅ </span>
+                  <%= link_to t('pages.groups.header.elections'), group_candidates_url(@group), class: ((['elections', 'candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
+				  <span> ⋅ </span>
+	              <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>         
+              <% end %>
+              <% if ::Configuration::documents_active %>
+                  <span> ⋅ </span>
+                  <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
+              <% end %>
+          <% end %>
           <% if can? :update, @group %>
               <span> ⋅ </span>
-              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
+              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
           <% end %>
       <% end %>
 
-      <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
+      <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
       <div class="tria" style="left: 389px;"></div>
 
 
@@ -67,7 +65,7 @@
       </div>
     </div>
     <div id="centerpanelextended">
-      <div class="centerfloat <%= raw @extend ? 'extended': '' %>">
+      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
         <div id="flash_messages" style="height:20px">
           <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>

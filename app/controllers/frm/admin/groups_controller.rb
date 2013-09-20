@@ -5,18 +5,19 @@ module Frm
       before_filter :find_group, :only => [:show, :destroy]
 
       def index
-        @frm_groups = Frm::Group.all
+        @frm_groups = @group.moderator_groups.all
       end
 
       def new
-        @frm_group = Frm::Group.new
+        @page_title = t("frm.admin.group.new")
+        @frm_group = @group.moderator_groups.build
       end
 
       def create
-        @frm_group = Frm::Group.new(params[:frm_group])
+        @frm_group = @group.moderator_groups.build(params[:frm_group])
         if @frm_group.save
           flash[:notice] = t("frm.admin.group.created")
-          redirect_to group_frm_admin_group_url(@group,@frm_group)
+          redirect_to group_frm_admin_frm_group_url(@group,@frm_group)
         else
           flash[:alert] = t("frm.admin.group.not_created")
           render :new
@@ -26,7 +27,7 @@ module Frm
       def destroy
         @frm_group.destroy
         flash[:notice] = t("frm.admin.group.deleted")
-        redirect_to group_frm_admin_groups_url(@group)
+        redirect_to group_frm_admin_frm_groups_url(@group)
       end
 
       private

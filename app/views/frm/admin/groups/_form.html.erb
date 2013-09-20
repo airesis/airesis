@@ -1,4 +1,4 @@
-<%= simple_form_for  @frm_group, url: group_frm_admin_frm_groups_url(@group) do |f| %>
+<%= simple_form_for  @frm_group, url: group_frm_admin_frm_groups_url(@group), remote: remote do |f| %>
   <%= f.input :name %>
-  <%= f.submit :class => "btn blue" %>
+  <%= f.submit :class => "btn blue", disable_with: t('loading') %>
 <% end %>

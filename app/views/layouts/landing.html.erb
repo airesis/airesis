@@ -12,8 +12,8 @@
 
 
 <% content_for :menu do %>
-        <span class="tit"><%= @page_title %></span>
-        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+    <span class="tit"><%= @page_title %></span>
+    <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
 
 
     <div id="submenu">
@@ -28,9 +28,11 @@
       <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
       <span> ⋅ </span>
       <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
-      <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
+      <% unless in_subdomain? %>
+          <span> ⋅ </span>
+          <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
+      <% end %>
+      <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
       <div class="tria" style="left: 389px;"></div>
     </div>
 <% end %>

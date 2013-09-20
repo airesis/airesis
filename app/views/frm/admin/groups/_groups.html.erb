@@ -1,0 +1,29 @@
+<% if @frm_groups.empty? %>
+    <h4><%= t('pages.forum_groups.index.create_first') %></h4>
+<% else %>
+    <table id='groups' class='index table table-striped' cellspacing='0'>
+      <thead>
+      <tr>
+        <th><%= t('name', :scope => 'frm.admin.groups') %></th>
+        <th><%= t('edit', :scope => 'frm.admin.groups') %></th>
+        <th><%= t('delete', :scope => 'frm.admin.groups') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @frm_groups.each do |group| %>
+          <tr>
+
+            <td>
+              <%= link_to forem_emojify(group.name), group_frm_admin_frm_group_url(@group, group) %>
+            </td>
+            <td>
+              <%= link_to t('edit', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), class: 'btn editButton' %>
+            </td>
+            <td>
+              <%= link_to t('delete', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), :method => :delete, class: 'btn trashButton' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>

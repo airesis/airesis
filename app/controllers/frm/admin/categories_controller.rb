@@ -5,16 +5,15 @@ module Frm
       before_filter :find_category, :only => [:edit, :update, :destroy]
 
       def index
-        @categories = Frm::Category.all
+        @categories = @group.categories.all
       end
 
       def new
-        @category = Frm::Category.new
+        @category = @group.categories.build
       end
 
       def create
-        @category = Frm::Category.new(params[:frm_category])
-        @category.group_id = @group.id
+        @category = @group.categories.build(params[:frm_category])
         if @category.save
           @categories = @group.categories
           create_successful

@@ -76,6 +76,7 @@ class Group < ActiveRecord::Base
   #forum
   has_many :forums, :class_name => 'Frm::Forum', foreign_key: 'group_id'
   has_many :categories, :class_name => 'Frm::Category', foreign_key: 'group_id'
+  has_many :moderator_groups, :class_name => 'Frm::Group', foreign_key: 'group_id'
 
   # Check for paperclip
   has_attached_file :image,

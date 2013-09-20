@@ -1,7 +1,6 @@
-<%@page_title = t("frm.admin.group.new") %>
 <h2><%= @page_title %></h2>
 
-<%= render "form" %>
+<%= render partial: "form", locals: {remote: false} %>
 
 
 <%= content_for :left_panel do %>
