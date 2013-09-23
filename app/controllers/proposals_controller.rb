@@ -474,6 +474,7 @@ class ProposalsController < ApplicationController
       end
 
     rescue ActiveRecord::ActiveRecordError => e
+      flash[:error] = e.record.errors.map{|e,msg| msg}[0].to_s
       respond_to do |format|
         format.html { render :action => "edit" }
       end
