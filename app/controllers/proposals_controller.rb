@@ -74,21 +74,31 @@ class ProposalsController < ApplicationController
   end
 
   def index
-    if params[:category]
-      @category = ProposalCategory.find_by_id(params[:category])
-      #@count_base = @category.proposals
+    @search = SearchProposal.new
+    if params[:category] && !params[:category].empty?
+      @search.proposal_category_id = params[:category]
+    end
+    if params[:type] && !params[:type].empty?
+      @search.proposal_type_id = params[:type]
     end
     if params[:group_area_id]
-      @group_area = GroupArea.find(params[:group_area_id])
-      #@count_base = @category.proposals
+     @group_area = GroupArea.find(params[:group_area_id])
+     @search.group_area_id = params[:group_area_id]
     end
-    @count_base = Proposal.in_category(params[:category])
+    if current_user
+      @search.user_id = current_user.id
+    end
+    if @group
+      @search.group_id = @group.id
+    end
+    if params[:time]
+      @search.created_at_from = params[:time][:start]
+      @search.created_at_to = params[:time][:end]
+      @search.time_type = params[:time][:type]
+    end
 
     if @group
       authorize! :view_data, @group
-      @count_base = @count_base.in_group(@group.id)
-      #@count_base = @count_base.includes([:proposal_supports,:group_proposals])
-      #.where("((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))",params[:group_id],params[:group_id])
 
       unless can? :view_proposal, @group
         flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
@@ -98,23 +108,14 @@ class ProposalsController < ApplicationController
         unless can? :view_proposal, @group_area
           flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
         end
-
-        @count_base = @count_base.in_group_area(@group_area.id)
-      else
-        if current_user
-          @count_base = @count_base.joins('left join area_proposals on proposals.id = area_proposals.proposal_id').where("area_proposals.group_area_id is null or (area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql})  or proposals.visible_outside = 't')")
-        end
       end
-      @count_base = @count_base.where("proposals.private = 'f' or (proposals.private = 't' and proposals.visible_outside = 't')") unless current_user
-    else
-      @count_base = @count_base.public
     end
 
 
-    @in_valutation_count = @count_base.in_valutation.count
-    @in_votation_count = @count_base.in_votation.count
-    @accepted_count = @count_base.voted.count
-    @revision_count = @count_base.revision.count
+    @in_valutation_count =  @search.results.in_valutation.count
+    @in_votation_count =  @search.results.in_votation.count
+    @accepted_count =  @search.results.voted.count
+    @revision_count =  @search.results.revision.count
 
     respond_to do |format| 
       format.html # index.html.erb
@@ -701,70 +702,45 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   #query per la ricerca delle proposte
   def query_index
-    order = ""
-    if params[:view] == ORDER_BY_RANK
-      order << " proposals.rank desc, proposals.created_at desc"
-    elsif params[:view] == ORDER_BY_VOTES
-      order << " proposals.valutations desc, proposals.created_at desc"
-    else
-      order << "proposals.updated_at desc, proposals.created_at desc"
+    @search = SearchProposal.new
+    @search.order_id = params[:view]
+    if current_user
+      @search.user_id = current_user.id
     end
 
-    conditions = "1 = 1"
-    includes = [:proposal_supports, :group_proposals, :area_proposals]
-    if params[:state] == VOTATION_STATE
-      startlist = Proposal.in_votation
+    @search.proposal_state_id = params[:state]
+
+    if params[:type] && !params[:type].empty?
+      @search.proposal_type_id = params[:type]
+    end
+
+    if params[:state] == ProposalState::VOTATION_STATE
       @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
-    elsif params[:state] == ACCEPTED_STATE
-      startlist = Proposal.voted
+    elsif params[:state] == ProposalState::ACCEPTED_STATE
       @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
-    elsif params[:state] == REVISION_STATE
-      startlist = Proposal.revision
+    elsif params[:state] == ProposalState::REVISION_STATE
       @replace_id = t("pages.proposals.index.revision").gsub(' ', '_')
     else
-      startlist = Proposal.in_valutation
       @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
     end
 
-    #se è stata scelta una categoria, filtra per essa
-    #if (params[:category])
-    #  @category = ProposalCategory.find_by_id(params[:category])
-    #  conditions += " and proposal_category_id = #{params[:category]}"
-    #end
-
-    startlist = startlist.in_category(params[:category])
+    @search.proposal_category_id = params[:category]
 
     #applica il filtro per il gruppo
     if params[:group_id]
-      #se l'utente è connesso e dispone dei permessi per visualizzare le proposte interne mostragliele, altrimenti mostragli un emssaggio che lo avverte
-      #che non dispone dei permessi per visualizzare quelle interne
-      conditions += " and ((proposal_supports.group_id = " + @group.id.to_s + " and proposals.private = 'f')"
-      conditions += "      or (group_proposals.group_id = " + @group.id.to_s + " and proposals.visible_outside = 't')"
-      if can? :view_proposal, @group
-        conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
-      end
-      conditions += ")"
-
-
+      @search.group_id = params[:group_id]
       if params[:group_area_id]
-        conditions += " and (area_proposals.group_area_id = " + @group_area.id.to_s + "and ((proposals.visible_outside = 't')"
-        if current_user
-          conditions += " or (proposals.private = 't' and area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}))"
-        end
-        conditions += "))"
-      else
-        if current_user
-          conditions += " and (area_proposals.group_area_id is null or area_proposals.group_area_id in (#{current_user.scoped_areas(@group, GroupAction::PROPOSAL_VIEW).select('group_areas.id').to_sql}) or proposals.visible_outside = 't')"
-        end
+        @search.group_area_id = params[:group_area_id]
       end
-
-
-      #startlist = startlist.private
-    else
-      startlist = startlist.public
     end
 
-    @proposals = startlist.includes(includes).paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE, :conditions => conditions, :order => order)
+    if params[:time]
+      @search.created_at_from = params[:time][:start]
+      @search.created_at_to = params[:time][:end]
+      @search.time_type = params[:time][:type]
+    end
+
+    @proposals = @search.results.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE)
   end
 
   def update_borders(borders)

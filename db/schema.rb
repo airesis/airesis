@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130919134735) do
+ActiveRecord::Schema.define(:version => 20130923085911) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -859,6 +859,21 @@ ActiveRecord::Schema.define(:version => 20130919134735) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "search_proposals", :force => true do |t|
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.integer  "proposal_category_id"
+    t.integer  "group_area_id"
+    t.integer  "proposal_type_id"
+    t.integer  "proposal_state_id"
+    t.integer  "tag_id"
+    t.integer  "interest_border_id"
+    t.datetime "created_at_from"
+    t.datetime "created_at_to"
   end
 
   create_table "section_histories", :force => true do |t|

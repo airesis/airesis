@@ -484,4 +484,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  delegate :can?, :cannot?, :to => :ability
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
 end

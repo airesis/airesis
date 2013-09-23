@@ -14,7 +14,12 @@
 			<%= t('pages.proposals.tabs.most_valutated') %>
 		<%else%>	 
 			<%=link_to t('pages.proposals.tabs.most_valutated'), current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
-		<%end%>
+		<%end%> |
+      <% if (params[:view] == ORDER_BY_END)%>
+          <%= t('pages.proposals.tabs.most_urgent') %>
+      <%else%>
+          <%=link_to t('pages.proposals.tabs.most_urgent'), current_url(:view=>ORDER_BY_END, :replace=>true, :replace_id=>@replace_id), :remote => true%>
+      <%end%>
 	</div>
 <%end%>
 

@@ -86,7 +86,6 @@
     /*cursor: ns-resize;*/
 }
 
-
 .proposal_comment {
     position: relative;
     border: 1px solid #CCCCCC;
@@ -164,31 +163,40 @@
 
 .proposal_list {
     position: relative;
-    border: 1px solid #ccc;
-    -webkit-border-radius: 3px;
+    border-bottom: 1px solid #ccc;
+    /*-webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     background: repeat scroll 0 0 #FFF;
     background: -webkit-gradient(linear, center top, center bottom, color-stop(30%, #FFFFFF), color-stop(70%, #DFEFFC));
-    background: -moz-linear-gradient(center top, #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(center top, #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;*/
     margin-left: 0px;
     margin-bottom: 10px;
     padding: 6px;
 }
 
 .proposal_list .category_icon {
-    float: right;
-    opacity: 0.6;
+    float: left;
+    opacity: 1;
 }
 
 .proposal_list .maintitle {
     line-height: 1.2em;
     font-size: large;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: 4px;
+    left: 70px;
+    right: 140px;
 }
 
 .proposal_list .datetime {
     margin: 5px 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .proposal_content {
@@ -197,6 +205,13 @@
 }
 
 .proposal_list .authors {
+    margin-top: 28px;
+    float: left;
+}
+
+.proposal_list .groups {
+    margin-top: 28px;
+    float: left;
 }
 
 .proposal_list .authors .title {
@@ -374,7 +389,7 @@ h3 .tit1.sol {
 }
 
 .sol_content {
-    padding:  5px;
+    padding: 5px;
 }
 
 .tit1 .tit2 {
@@ -660,7 +675,7 @@ input.edit_label {
 
 .hidden_link {
     float: right;
-    background-image: url("/assets/arrow.png");
+    background: no-repeat url("/assets/arrow.png") right;
     width: 13px;
     height: 13px;
     visibility: hidden;
@@ -669,6 +684,12 @@ input.edit_label {
 .hidden_link:hover {
     background-image: url("/assets/arrow_hover.png");
     cursor: pointer;
+}
+
+.mycont .hidden_link {
+    width: auto;
+    visibility: visible;
+    padding-right: 18px;
 }
 
 .proposal_comment:hover .hidden_link {
@@ -706,6 +727,21 @@ input.edit_label {
 .hidden_menu .menu_item:hover {
     background-color: #eee;
     border-color: #eee;
+}
+
+.hidden_menu .menu_item.checked {
+    background: no-repeat url('<%=asset_path 'checkmark2.png'%>') left;
+}
+
+
+.choose_dates_modal {
+    width: 400px;
+    height: 300px;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
 }
 
 .proposal_comment_area {
@@ -789,7 +825,7 @@ a.spch-bub-inside:hover .point {
     float: left;
     width: 225px;
     height: 150px;
-    border:  1px dotted #ccc;
+    border: 1px dotted #ccc;
     cursor: pointer;
 }
 
@@ -819,7 +855,7 @@ a.spch-bub-inside:hover .point {
 }
 
 #create_proposal form {
-    overflow: hidden    ;
+    overflow: hidden;
 }
 
 #proposals_table td.first {
@@ -857,7 +893,6 @@ a.spch-bub-inside:hover .point {
     position: absolute;
 }
 
-
 .suggest_l .ui-icon.bulb {
     right: -22px;
     top: 0px;
@@ -867,7 +902,6 @@ a.spch-bub-inside:hover .point {
     right: -22px;
     top: 15px;
 }
-
 
 .suggest_l .ui-icon.star {
     right: -22px;
@@ -897,7 +931,6 @@ a.spch-bub-inside:hover .point {
     font-size: 12px;
 }
 
-
 .remove_sol_button {
     position: absolute;
     right: 20px;
@@ -914,9 +947,41 @@ a.spch-bub-inside:hover .point {
 
 .pressed {
     text-align: center;
-    padding:  10px;
+    padding: 10px;
 }
 
 .diffcontainer {
     float: left;
+}
+
+.proposal_list .proposalDescription .count {
+    vertical-align: super;
+}
+
+.proposal_list .proposalDescription {
+    margin-right: 5px;
+    max-width: 100px;
+    overflow: hidden;
+    width: 70px;
+}
+
+
+.proposal_list .territoryDescription {
+    width: 300px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.proposal_list .timeDescription {
+    width: 200px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.proposal_list .proposal_bottom {
+    border-top: 1px dotted #ccc;
+    padding-top: 7px;
+    padding-left: 5px;
 }

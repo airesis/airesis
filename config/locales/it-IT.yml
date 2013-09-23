@@ -470,8 +470,9 @@ it-IT:
         loading_alt: "Caricamento"
         choose_model: "Scegli un modello di proposta"
         search_title: "Cerca tra le proposte del gruppo"
-        search_placeholder: "Inserisci almeno due caratteri per effettuare la ricerca"
+        search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
+        partecipants_number: "Numero partecipanti"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -664,7 +665,7 @@ it-IT:
         votation_finished: "La votazione è terminata il %{date}"
         no_votation: "Non vi è stata alcuna votazione"
         interest_borders: "Confini di interesse"
-        authors: "Autori"
+        authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
       delete_comment: "Cancella"

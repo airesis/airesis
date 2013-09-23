@@ -111,7 +111,7 @@ class Proposal < ActiveRecord::Base
   scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
-  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
+  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if category_id }
 
   #condizione di visualizzazione in un gruppo
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
@@ -303,7 +303,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def short_content
-    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 60)
+    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 25)
   end
 
   def interest_borders_tkn

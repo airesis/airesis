@@ -454,6 +454,7 @@ en:
         search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
+        partecipants_number: ""
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
