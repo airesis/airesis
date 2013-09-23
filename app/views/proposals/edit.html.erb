@@ -127,7 +127,7 @@
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
-                    <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
                   </p>
@@ -180,7 +180,7 @@
                                 <br/>
 
 
-                                <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                                <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                                 <%= p.hidden_field :content %>
 
                                 <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
@@ -403,7 +403,7 @@
     }
 
 
-    tinyMCE.init({
+    /*tinyMCE.init({
         mode: 'textareas',
         theme: 'advanced',
         height: 180,
@@ -426,7 +426,7 @@
             preserveOnPaste: 'p,a[href],i,em,strong'
         },
         body_class: "CT-hide"
-    });
+    });    */
 
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids').val();
@@ -591,23 +591,24 @@
     }
 
 
+
     $(".sections_column").sortable({
         connectWith: ".column",
         cursor: "move",
         axis: "y",
         handle: '.move_button',
         start: function (e, ui) {
-            if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
-                var textarea_ = $('.tinymce', ui.item);
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
-            }
+            var textarea_ = $('.tinymce', ui.item);
+            var tagId = textarea_.attr('id');
+            //CKEDITOR.instances[ tagId ].destroy();
         },
         stop: function (e, ui) {
             var textarea_ = $('.tinymce', ui.item);
-            if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
-            }
-            tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+            var tagId = textarea_.attr('id');
+            CKEDITOR.instances[ tagId ].destroy();
+            CKEDITOR.replace(tagId);
+
+
             var i = 0;
             $(this).find('p').each(function (el) {
                 var id = $(this).find('.tinymce').attr('id');
@@ -626,17 +627,17 @@
             axis: "y",
             handle: '.move_button',
             start: function (e, ui) {
-                if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
-                    var textarea_ = $('.tinymce', ui.item);
-                    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
-                }
+               // if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
+               //     var textarea_ = $('.tinymce', ui.item);
+               //     tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+               // }
             },
             stop: function (e, ui) {
                 var textarea_ = $('.tinymce', ui.item);
-                if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
-                    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
-                }
-                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+                //if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
+                //    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+                //}
+                //tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
                 var i = 0;
                 $(this).find('p').each(function (el) {
                     var id = $(this).find('.tinymce').attr('id');

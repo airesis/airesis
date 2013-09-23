@@ -65,13 +65,13 @@ GEM
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
-    bluecloth (2.0.7)
     builder (3.0.4)
     bullet (4.5.0)
       uniform_notifier
     cancan (1.6.8)
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
     cocaine (0.4.2)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -86,7 +86,6 @@ GEM
       addressable
       rdoc
     daemons (1.1.9)
-    debug_inspector (0.0.2)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -207,7 +206,6 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     pg (0.14.1)
-    plist (3.1.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     premailer (1.7.3)
@@ -307,8 +305,6 @@ GEM
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
     test-unit (2.5.4)
-    textpow1x (1.2.5)
-      plist (>= 3.0.1)
     therubyracer (0.10.1)
       libv8 (~> 3.3.10)
     thin (1.5.1)
@@ -328,8 +324,6 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    ultraviolet1x (0.14.0)
-      textpow1x (>= 0.11.0)
     uniform_notifier (1.2.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -346,10 +340,9 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
-  binding_of_caller
-  bluecloth (= 2.0.7)
   bullet
   cancan
+  ckeditor
   client_side_validations!
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)
@@ -397,7 +390,6 @@ DEPENDENCIES
   tinymce-rails
   turnout
   uglifier (>= 1.0.3)
-  ultraviolet1x
   vote-schulze!
   wicked_pdf
   will_paginate
