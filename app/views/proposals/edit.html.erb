@@ -8,6 +8,7 @@
 <h1><%= @page_title %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
 
     <% if can? :destroy, @proposal %>
         <div style="background: #FFE3A0; padding: 3px; border-radius: 2px;" class="shadow-box">
@@ -222,9 +223,6 @@
     </div>
 
     <p>
-      <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-
-
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
       <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();' %>

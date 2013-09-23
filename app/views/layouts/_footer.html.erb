@@ -2,7 +2,7 @@
     <div class="pull-left">
       Airesis™ v. <%= VERSION %> - <%= t('pages.footer.for_edemocracy_html')%>
       <%if in_subdomain? %>
-       <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false)  %>
+       <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false), target: '_blank'  %>
       <%end%>
 
     </div>
