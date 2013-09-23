@@ -958,7 +958,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   private
 
   def render_404(exception=nil)
-    log_error(exception) if exception
+    #log_error(exception) if exception
     respond_to do |format|
       @title = t('controllers.proposals.404_title')
       @message = t('controllers.proposals.404_message')

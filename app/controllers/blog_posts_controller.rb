@@ -223,7 +223,7 @@ class BlogPostsController < ApplicationController
   private
 
   def render_404(exception=nil)
-    log_error(exception) if exception
+    #log_error(exception) if exception
     respond_to do |format|
       @title = t('controllers.blog_posts.404_title')
       @message = t('controllers.blog_posts.404_message')
