@@ -62,11 +62,13 @@ gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
 gem 'will_paginate'
 
-#gem 'bluecloth', '2.0.7'
+#TODO to remove in 3.0
+gem 'bluecloth', '2.0.7'
 
 #gem 'oniguruma'
 
-#gem 'ultraviolet1x'
+#TODO to remove in 3.0
+gem 'ultraviolet1x'
 
 gem 'devise', '2.0.4'
 
