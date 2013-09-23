@@ -112,7 +112,7 @@
 
             <dl class="dropdown">
               <dt>
-                <a href="#" title="<%= t('pages.home.index.change_language') %>"><span><%= image_tag "flags/#{I18n.locale}.png" %></span></a>
+                <a href="#" title="<%= t('pages.home.index.change_language') %>"><span><%= image_tag "flags/#{I18n.locale.downcase}.png" %></span></a>
               </dt>
               <dd>
                 <ul>
@@ -161,7 +161,7 @@
             <div style="float:left;">
 
               <div style="float:left; margin:5px; padding:0px; margin-left: 20px; font-weight:bold; ">
-                <%= link_to t('pages.home.index.try_it'), groups_path, :class => "btn btn-success btn-large",
+                <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "btn btn-success btn-large",
                             :style => "font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
               </div>
 
