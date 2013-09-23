@@ -14,7 +14,10 @@
           <tr>
 
             <td>
-              <%= link_to forem_emojify(group.name), group_frm_admin_frm_group_url(@group, group) %>
+              <%= link_to group.name, group_frm_admin_frm_group_url(@group, group) %> <br/>
+              <%group.members.each do |member|%>
+                <%= member.user_image_tag 20 %>
+              <%end%>
             </td>
             <td>
               <%= link_to t('edit', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), class: 'btn editButton' %>

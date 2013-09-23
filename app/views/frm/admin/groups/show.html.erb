@@ -1,4 +1,4 @@
-<h2><%= t('frm.admin.group.members', :group => forem_emojify(@frm_group.name)) %></h2>
+<h2><%= t('frm.admin.group.members', :group => @frm_group.name) %></h2>
 <%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
 <div class="row">
   <h3><%= t('.add_a_new_member') %></h3>

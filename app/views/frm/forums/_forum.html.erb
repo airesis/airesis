@@ -1,7 +1,7 @@
 <% if can?(:read, forum) %>
   <tr class="forum <%= cycle("odd", "even") %>">
     <td class="forum-description">
-      <%= link_to forem_emojify(forum.title), group_forum_url(@group,forum), :class => "title" %>
+      <%= link_to forum.title, group_forum_url(@group,forum), :class => "title" %>
       <div class='description'><%= forem_format(forum.description) %></div>
 
     </td>
@@ -11,7 +11,7 @@
     <td class="last-post">
       <span class='last_post'>
         <% if last_post = forum.last_post_for(current_user) -%>
-          <%= link_to(forem_emojify(last_post.topic.subject), group_forum_topic_url(@group,forum, last_post.topic)) -%> <%= t('by') %> <%= last_post.user %>
+          <%= link_to(last_post.topic.subject, group_forum_topic_url(@group,forum, last_post.topic)) -%> <%= t('by') %> <%= last_post.user %>
             <br/>
             <time datetime="<%= last_post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(last_post.created_at)}" %></time>
         <% else %>

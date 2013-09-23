@@ -6,7 +6,7 @@ module Frm
       def update
         if @topic.update_attributes(params[:topic], :as => :admin)
           flash[:notice] = t("frm.topic.updated")
-          redirect_to forum_topic_path(@topic.forum, @topic)
+          redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
         else
           flash.alert = t("frm.topic.not_updated")
           render :action => "edit"

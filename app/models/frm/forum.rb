@@ -2,10 +2,10 @@ require 'friendly_id'
 
 module Frm
   class Forum < Frm::FrmTable
-    include Frm::Concerns::Viewable
+    include Frm::Concerns::Viewable, ::Concerns::Taggable
 
     extend FriendlyId
-    friendly_id :name, :use => :slugged
+    friendly_id :name, :use => :scoped, scope: :group
 
     belongs_to :category
 
@@ -16,13 +16,15 @@ module Frm
     has_many :moderators, :through => :moderator_groups, :source => :frm_group, class_name: 'Frm::Group'
     has_many :moderator_groups
 
+    has_many :forum_tags, :dependent => :destroy, foreign_key: 'frm_forum_id'
+    has_many :tags, :through => :forum_tags, :class_name => 'Tag'
+
     validates :category, :name, :description, :presence => true
 
     attr_accessible :category_id, :title, :name, :description, :moderator_ids
 
     alias_attribute :title, :name
 
-    # Fix for #339
     default_scope order('name ASC')
 
     def last_post_for(forem_user)

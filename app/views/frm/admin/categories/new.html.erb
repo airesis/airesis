@@ -1,9 +1,6 @@
 <h2><%= t('new', :scope => 'frm.admin.category') %></h2>
 
-<%= simple_form_for @category, url: group_frm_admin_categories_url(@group) do |f| %>
-    <%= f.input :name %>
-    <%= f.submit :class => "btn blue" %>
-<% end %>
+<%= render :partial => 'new', locals: {remote: false} %>
 
 <%= content_for :left_panel do %>
     <%= render :partial => 'groups/administration_panel' %>

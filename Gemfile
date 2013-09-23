@@ -28,7 +28,6 @@ gem 'sunspot_rails'
 group :development do
   gem 'sunspot_solr'
   gem "better_errors"
-  gem 'binding_of_caller'
 end
 
 #gem 'rufus-scheduler'

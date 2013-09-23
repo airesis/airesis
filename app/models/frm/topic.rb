@@ -3,7 +3,7 @@ require 'friendly_id'
 module Frm
   class Topic < FrmTable
     include Frm::Concerns::Viewable
-    include Workflow
+    include Workflow, ::Concerns::Taggable
 
     workflow_column :state
     workflow do
@@ -20,7 +20,7 @@ module Frm
     attr_accessor :moderation_option
 
     extend FriendlyId
-    friendly_id :subject, :use => :slugged
+    friendly_id :subject, :use => :scoped, scope: :forum
 
     attr_accessible :subject, :posts_attributes
     attr_accessible :subject, :posts_attributes, :pinned, :locked, :hidden, :forum_id, :as => :admin
@@ -29,6 +29,9 @@ module Frm
     belongs_to :user, :class_name => 'User'
     has_many   :subscriptions
     has_many   :posts, :dependent => :destroy, :order => "frm_posts.created_at ASC"
+
+    has_many :topic_tags, :dependent => :destroy, foreign_key: 'frm_topic_id'
+    has_many :tags, :through => :topic_tags, :class_name => 'Tag'
 
     accepts_nested_attributes_for :posts
 
@@ -39,6 +42,8 @@ module Frm
     after_save   :approve_user_and_posts, :if => :approved?
     after_create :subscribe_poster
     after_create :skip_pending_review, :unless => :moderated?
+
+
 
     class << self
       def visible

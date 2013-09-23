@@ -1,5 +1,5 @@
 var container_ = $('<div id="category_container" style="display:none;" title="Nuova categoria"></div>');
-container_.append('<%=j render :partial => 'new' %>');
+container_.append('<%=j render :partial => 'new', locals: {remote: true} %>');
 $('body').append(container_);
 container_.dialog({
     width: 500,

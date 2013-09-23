@@ -21,7 +21,7 @@ module Frm
       if Frm.formatter.respond_to?(:sanitize)
         Frm.formatter.sanitize(text)
       else
-        sanitize(text, :tags=>%W(p), :attributes=>[])
+        sanitize(text, :tags=>%W(p, img), :attributes=>['src'])
       end
     end
   end

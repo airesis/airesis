@@ -39,7 +39,7 @@ module Frm
 
       private
       def find_category
-        @category = Frm::Category.find(params[:id])
+        @category = @group.categories.find(params[:id])
       end
 
       def create_successful
@@ -50,7 +50,6 @@ module Frm
           }
           format.js
         end
-
       end
 
       def create_failed

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130920132756) do
+ActiveRecord::Schema.define(:version => 20130920170000) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -286,6 +286,20 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
 
   add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug", :unique => true
 
+  create_table "frm_category_tags", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "frm_category_id"
+    t.integer  "tag_id"
+  end
+
+  create_table "frm_forum_tags", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "frm_forum_id"
+    t.integer  "tag_id"
+  end
+
   create_table "frm_forums", :force => true do |t|
     t.string  "name"
     t.text    "description"
@@ -295,7 +309,8 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
     t.string  "slug"
   end
 
-  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug", :unique => true
+  add_index "frm_forums", ["group_id", "slug"], :name => "index_frm_forums_on_group_id_and_slug", :unique => true
+  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug"
 
   create_table "frm_groups", :force => true do |t|
     t.string  "name"
@@ -339,6 +354,13 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
     t.integer "topic_id"
   end
 
+  create_table "frm_topic_tags", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "frm_topic_id"
+    t.integer  "tag_id"
+  end
+
   create_table "frm_topics", :force => true do |t|
     t.integer  "forum_id"
     t.integer  "user_id"
@@ -354,8 +376,9 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
     t.datetime "updated_at",                                 :null => false
   end
 
+  add_index "frm_topics", ["forum_id", "slug"], :name => "index_frm_topics_on_forum_id_and_slug", :unique => true
   add_index "frm_topics", ["forum_id"], :name => "index_frm_topics_on_forum_id"
-  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug", :unique => true
+  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug"
   add_index "frm_topics", ["state"], :name => "index_frm_topics_on_state"
   add_index "frm_topics", ["user_id"], :name => "index_frm_topics_on_user_id"
 
@@ -1096,13 +1119,16 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
   end
 
   create_table "tags", :force => true do |t|
-    t.string   "text",                            :null => false
-    t.integer  "proposals_count",  :default => 0, :null => false
-    t.integer  "blog_posts_count", :default => 0, :null => false
-    t.integer  "blogs_count",      :default => 0, :null => false
+    t.string   "text",                                :null => false
+    t.integer  "proposals_count",      :default => 0, :null => false
+    t.integer  "blog_posts_count",     :default => 0, :null => false
+    t.integer  "blogs_count",          :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_count",     :default => 0, :null => false
+    t.integer  "groups_count",         :default => 0, :null => false
+    t.integer  "frm_categories_count", :default => 0, :null => false
+    t.integer  "frm_forums_count",     :default => 0, :null => false
+    t.integer  "frm_topics_count",     :default => 0, :null => false
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
@@ -1295,6 +1321,15 @@ ActiveRecord::Schema.define(:version => 20130920132756) do
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
+
+  add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
+  add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"
+
+  add_foreign_key "frm_forum_tags", "frm_forums", :name => "frm_forum_tags_frm_forum_id_fk"
+  add_foreign_key "frm_forum_tags", "tags", :name => "frm_forum_tags_tag_id_fk"
+
+  add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
+  add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
 
   add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
   add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"

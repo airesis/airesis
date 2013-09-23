@@ -7,7 +7,6 @@ class  Section < ActiveRecord::Base
 
   has_many :proposal_comments, through: :paragraphs
 
-  #attr_accessible :paragraphs
 
   accepts_nested_attributes_for :paragraphs
 

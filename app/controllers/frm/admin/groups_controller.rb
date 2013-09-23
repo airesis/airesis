@@ -14,10 +14,16 @@ module Frm
       end
 
       def create
-        @frm_group = @group.moderator_groups.build(params[:frm_group])
+        @frm_groups = @group.moderator_groups
+        @frm_group = @frm_groups.build(params[:frm_group])
         if @frm_group.save
           flash[:notice] = t("frm.admin.group.created")
-          redirect_to group_frm_admin_frm_group_url(@group,@frm_group)
+          respond_to do |format|
+            format.html {
+              redirect_to group_frm_admin_frm_group_url(@group, @frm_group)
+            }
+            format.js
+          end
         else
           flash[:alert] = t("frm.admin.group.not_created")
           render :new
@@ -32,9 +38,9 @@ module Frm
 
       private
 
-        def find_group
-          @frm_group = Frm::Group.find(params[:id])
-        end
+      def find_group
+        @frm_group = Frm::Group.find(params[:id])
+      end
     end
   end
 end

@@ -12,7 +12,10 @@ module Frm
       end
 
       def new
-        @forum = Frm::Forum.new
+        @forum = @group.forums.build
+        category = @group.categories.first
+        @forum.category = category
+        @forum.tags = category.tags
       end
 
       def create

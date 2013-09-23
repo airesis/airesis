@@ -20,17 +20,17 @@
       <% end %>
     </div>
     <div class='user span2'>
-      <div class='username'>
-        <%= link_to_if Frm.user_profile_links, post.user.fullname, post.user %>
-      </div>
       <div class='icon'><%= post.user.user_image_tag 100 %></div>
+      <div class='username'>
+        <%= link_to post.user.fullname, post.user %>
+      </div>
     </div>
   </td>
   <td>
     <div class="post-header">
       <a href='#post-<%= post.id %>'>
         <div class="post-when">
-          <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>
+          <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)}" %></time>
           <% if post.reply_to %>
             <span class='in-reply-to'>
               <%= link_to "#{t(".in_reply_to")} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
@@ -59,9 +59,9 @@
   </td>
 </tr>
 <tr>
-  <td>
+  <td class="post_content">
     <div class="post-body">
-      <%= forem_format(post.text) %>
+      <%=sanitize post.text %>
     </div>
 
   </td>

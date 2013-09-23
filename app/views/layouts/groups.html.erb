@@ -43,7 +43,7 @@
           <% end %>
           <% if can? :update, @group %>
               <span> ⋅ </span>
-              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') ? 'sel' : '') %>
+              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
           <% end %>
       <% end %>
 

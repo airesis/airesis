@@ -1,9 +1,9 @@
-<%= simple_form_for @topic, url: group_forum_topics_url(@group,@forum) do |f| %>
-  <%= f.input :subject %>
+<%= simple_form_for @topic, url: group_forum_topics_url(@group, @forum) do |f| %>
+    <%= f.input :subject %>
 
-  <%= f.simple_fields_for :posts do |post| %>
-    <%= render :partial => "frm/posts/form", :locals => { :f => post }%>
-  <% end %>
-  
-  <%= f.submit :class => "btn blue" %>
+    <%= f.simple_fields_for :posts do |post| %>
+        <%= render :partial => "frm/posts/form", :locals => {:f => post} %>
+    <% end %>
+
+    <%= f.submit :class => "btn blue", onclick: 'fillHiddenTextarea();return true;' %>
 <% end %>
