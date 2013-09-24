@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'sanitize'
+#TODO to remove in 3.0
 begin
   require 'bluecloth'
 rescue Exception => e
@@ -16,7 +17,7 @@ rescue Exception => e
 end
 
 module BlogKitModelHelper
-
+  #TODO to remove in 3.0
   def code_highlight_and_markdown(text, markdown_options = {})
     text_pieces = text.split(/(<code>|<code lang="[A-Za-z0-9_-]+">|
       <code lang='[A-Za-z0-9_-]+'>|<\/code>)/)

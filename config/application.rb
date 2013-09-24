@@ -36,7 +36,8 @@ module Airesis
       Devise::Mailer.layout "maktoub/unregistered_mailer" # email.haml or email.erb
     end
 
-    config.action_view.sanitized_allowed_tags = ['u']
+    config.action_view.sanitized_allowed_tags = ['u', 'iframe']
+    config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style']
   #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   #    include ActionView::Helpers::OutputSafetyHelper
   #    raw %(<span class="field_with_errors">#{html_tag}</span>)

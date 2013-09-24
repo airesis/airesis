@@ -69,6 +69,9 @@ class Proposal < ActiveRecord::Base
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
+  validate :one_solution
+
+
   attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :votation
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
@@ -111,7 +114,7 @@ class Proposal < ActiveRecord::Base
   scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
-  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if category_id }
+  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
 
   #condizione di visualizzazione in un gruppo
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
@@ -127,6 +130,10 @@ class Proposal < ActiveRecord::Base
   before_create :populate_fake_url
 
 
+
+  def one_solution
+    self.errors.add(:solutions,'La proposta deve contenere almeno una soluzione') unless self.solutions.size > 0
+  end
 
   def count_notifications(user_id)
     (self.connection.select_all "select count(ua.*)
@@ -242,7 +249,7 @@ class Proposal < ActiveRecord::Base
     end
 
     first_solution = self.solutions.first
-    first_section = first_solution.sections.first || self.sections.first
+    first_section = first_solution ? first_solution.sections.first : self.sections.first
     self.content = truncate_words(first_section.paragraphs.first.content.gsub( %r{</?[^>]+?>}, ''), 60)
 
 

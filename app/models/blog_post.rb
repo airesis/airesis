@@ -100,12 +100,13 @@ class BlogPost < ActiveRecord::Base
 	def show_user?
 		self.user
 	end
-	
+
+  #TODO to remove in 3.0
 	def parsed_body
 		image_parsed_body = self.body.gsub(/[{]blog_image[:]([0-9]+)[:]([a-zA-Z]+)[}]/) do |str|
 			puts "IMAGE ID: #{$1.to_i}"
 			img = Image.find_by_id($1.to_i)
-			
+
 			if img
 				img.image.url($2)
 			else
@@ -115,7 +116,7 @@ class BlogPost < ActiveRecord::Base
 		ret = code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
 		return ret
 	end
-	
+
 	def formatted_updated_at
 		self.updated_at.strftime('%m/%d/%Y alle %I:%M%p')
 	end

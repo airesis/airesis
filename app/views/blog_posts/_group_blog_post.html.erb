@@ -21,7 +21,7 @@
   </h3>
 
   <div class="blogPostBody">
-    <%= blog_post.parsed_body %>
+    <%=sanitize blog_post.body %>
   </div>
 
   <div class="blogPostFooter">

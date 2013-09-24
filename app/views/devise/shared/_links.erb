@@ -1,4 +1,4 @@
-<%if ::Configuration.socialnetwork_active %>
+<%if ::Configuration.socialnetwork_active  && !in_subdomain?%>
 <br />
 
 <%= link_to image_tag('accedi_facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
