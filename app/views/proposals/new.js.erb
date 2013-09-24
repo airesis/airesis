@@ -22,6 +22,12 @@ function showSimilarProposal(activeDiv) {
 
 }
 
+
+function changeStart() {
+    $('#start_preset').hide();
+    $('#start_choose').show();
+}
+
 window.ClientSideValidations.selectors = {
     inputs: ':input:not(button):not([type="submit"])[name]:enabled',
     validate_inputs: ':input:enabled:visible[data-validate]',
@@ -89,16 +95,80 @@ if (input != null) {
 $('#new_proposal').enableClientSideValidations();
 disegnaBottoni();
 
+
+var datePickerOptions = {
+    dateFormat: "dd/mm/yy",
+    buttonImageOnly: true,
+    buttonImage: "<%= asset_path('iconCalendar.png') %>",
+    showOn: "both",
+    changeMonth: false,
+    changeYear: false,
+    yearRange: "c:c+10",
+    maxDate: "+10Y",
+    duration: "",
+    showTime: true,
+    constrainInput: true,
+    stepMinute: 5,
+    stepHour: 1,
+    altTimeField: "alt",
+    time24h: true
+};
+
+$('#proposal_votation_end').datetimepicker($.extend({},datePickerOptions,{
+    onClose: function (date) {
+
+    }
+}));
+$('#proposal_votation_start').datetimepicker($.extend({},datePickerOptions,{
+   onClose: function (date) {
+       var eventStartTime_ = $('#proposal_votation_start').datetimepicker("getDate");
+       $('#proposal_votation_end').datetimepicker("option", "minDate", eventStartTime_);
+   }
+}));
+
+$('#choose_votation .cancel_action').click(function() {
+    $('#start_preset').show();
+    $('#start_choose').hide();
+});
+
 $('.ddslick2').ddslick({
         width: 400,
         onSelected: function(data) {
             var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
-            console.log('selected: ' + exlanation_);
+            var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
+            var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
             if (exlanation_) {
               $('#quorum_explanation').html(exlanation_).show();
             }
             else {
               $('#quorum_explanation').hide();
+            }
+            if (timefixed_) {
+                $('#choose_votation').show();
+                var now_ = new Date();
+                var end_ = addMinutes(now_,parseInt(minutes_));
+
+
+                        var day_ = end_.getDate()
+                        var month_ = end_.getMonth() + 1
+                        var year_ = end_.getFullYear()
+
+                var hours_ = end_.getHours()
+                var minutes_ = end_.getMinutes()
+
+                if (minutes_ < 10)
+                minutes_ = "0" + minutes_
+
+
+                $('#choose_votation .end_time').html(day_ + '/' + month_ + '/' + year_ + ' ' + hours_ + ':' + minutes_);
+
+                $("#proposal_votation_start").datetimepicker("option", "minDate", end_);
+                $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(end_,120));
+                $("#proposal_votation_end").focus();
+            }
+            else {
+                $('#choose_votation').hide();
+
             }
         }
 });

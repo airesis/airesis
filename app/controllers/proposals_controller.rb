@@ -82,8 +82,8 @@ class ProposalsController < ApplicationController
       @search.proposal_type_id = params[:type]
     end
     if params[:group_area_id]
-     @group_area = GroupArea.find(params[:group_area_id])
-     @search.group_area_id = params[:group_area_id]
+      @group_area = GroupArea.find(params[:group_area_id])
+      @search.group_area_id = params[:group_area_id]
     end
     if current_user
       @search.user_id = current_user.id
@@ -112,12 +112,12 @@ class ProposalsController < ApplicationController
     end
 
 
-    @in_valutation_count =  @search.results.in_valutation.count
-    @in_votation_count =  @search.results.in_votation.count
-    @accepted_count =  @search.results.voted.count
-    @revision_count =  @search.results.revision.count
+    @in_valutation_count = @search.results.in_valutation.count
+    @in_votation_count = @search.results.in_votation.count
+    @accepted_count = @search.results.voted.count
+    @revision_count = @search.results.revision.count
 
-    respond_to do |format| 
+    respond_to do |format|
       format.html # index.html.erb
       format.json
     end
@@ -129,7 +129,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html {
         if params[:replace]
-          render :update do |page|         
+          render :update do |page|
             page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
           end
         else
@@ -313,14 +313,41 @@ class ProposalsController < ApplicationController
         update_borders(borders)
 
 
-        @proposal.save!
+
 
         @proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
+        #if is time fixed you can choose immediatly vote period
+        if @copy.time_fixed?
+          if prparams[:votation]
+            event_p = {
+                event_type_id: EventType::VOTAZIONE,
+                title: "Votazione #{@proposal.title}",
+                starttime: @copy.ends_at + 1.minute,
+                endtime: prparams[:votation][:end],
+                description: "Votazione #{@proposal.title}"
+            }
+            if @group
+              @event = @group.events.build(event_p)
+            else
+              @event = Event.new(event_p)
+            end
+            @event.save!
+            @proposal.vote_period = @event
+          end
+
+        end
+
+        @proposal.save!
 
         #fai partire il timer per far scadere la proposta
         if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        end
+        #fai partire il timer per far scadere la proposta fuori dalla transazione
+        if @event && @event.is_votazione?
+          Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+          Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
         end
 
         proposalparams = {
@@ -333,7 +360,7 @@ class ProposalsController < ApplicationController
         generate_nickname(current_user, @proposal)
 
         Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil)
-      end
+      end #end transaction
       @saved = true
 
       respond_to do |format|
@@ -391,7 +418,7 @@ class ProposalsController < ApplicationController
 
     flash[:notice] = t('info.proposal.regenerated')
 
-    redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
+    redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)
   end
 
   def assign_quorum(prparams)
@@ -489,7 +516,7 @@ class ProposalsController < ApplicationController
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
+        format.html { redirect_to @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) }
       end
     else
       vote_period = Event.find(params[:proposal][:vote_period_id])
@@ -505,7 +532,7 @@ class ProposalsController < ApplicationController
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
-        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
+        format.html { redirect_to @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) }
       end
     end
 
@@ -766,7 +793,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @ranking = ProposalRanking.new
       @ranking.user_id = current_user.id
       @ranking.proposal_id = params[:id]
-      notify_user_valutate_proposal(@ranking,@group) #invia notifica per indicare la nuova valutazione
+      notify_user_valutate_proposal(@ranking, @group) #invia notifica per indicare la nuova valutazione
     end
     @ranking.ranking_type_id = rank_type #setta il tipo di valutazione
 

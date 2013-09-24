@@ -48,6 +48,10 @@ class Quorum < ActiveRecord::Base
   def and?
     self.condition && (self.condition.upcase == 'AND')
   end
+
+  def time_fixed?
+    self.minutes && !self.percentage
+  end
     
   def minutes_or_percentage
     if self.days_m.blank? && self.hours_m.blank? && self.minutes_m.blank? && !self.percentage && !self.minutes
