@@ -1,42 +1,4 @@
-<div id="accordion" style="width:80%">
-    <h3><a href="#">Piccola guida</a></h3>
-    <div style="line-height:1;">
-    	<h2>Immagini</h2>				
-				<p>
-					Puoi inserire delle immagini usando il seguente tag:<br />
-					![alt text](image url)
-				</p>
-				
-					<ul>
-						<li>**grassetto**</li>
-						<li>*corsivo*</li>
-						<li>&gt;Testo rientrato</li>
-						<li>&gt;&gt;Testo rientrato innestato</li>
-						<li>* Lista non ordinata di (ul)</li>
-						<li>1. Lista ordinata (ol) </li>
-						<li>[Questo è un link](http://www.example.com/)</li>
-						<li>[Questo è un link](http://www.example.com/ "con un nome")</li>					
-					</ul>
-    </div>    
-</div>
-
-<script type="text/javascript">
-	$('#accordion').accordion({
-			collapsible: true,
-			autoHeight: false, 
-    		active: false 
-		});
-	
-</script>
-
-
 <%= form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
-		
-		<script type="text/javascript">
-			$(function() {
-				$('#blog_post_body').markItUp(mySettings);				
-			});
-		</script>
 
 	<div class="editBlogPost">
 			<% if @blog_post.errors.size > 0 %>
@@ -55,7 +17,7 @@
 			</p>
 			<p>
 				<%= f.label :body %><br />
-				<%= f.text_area :body%>
+				<%= f.cktext_area :body, ckeditor: {toolbar: 'blog'}%>
 			</p>
 			<p>
 				<%= f.label :tags_list, t('pages.groups.new.tags.title') %><br />
@@ -106,7 +68,9 @@
    data += "]"	
    %>
 
+
 <script type="text/javascript">
+
 	$(function() {
 		input = $('#blog_post_tags_list')
 		if (input != null) {

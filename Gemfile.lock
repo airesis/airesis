@@ -65,13 +65,14 @@ GEM
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bluecloth (2.0.7)
     builder (3.0.4)
     bullet (4.5.0)
       uniform_notifier
     cancan (1.6.8)
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
     cocaine (0.4.2)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -86,7 +87,6 @@ GEM
       addressable
       rdoc
     daemons (1.1.9)
-    debug_inspector (0.0.2)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -346,10 +346,10 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
-  binding_of_caller
   bluecloth (= 2.0.7)
   bullet
   cancan
+  ckeditor
   client_side_validations!
   coffee-rails (~> 3.2.1)
   devise (= 2.0.4)

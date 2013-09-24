@@ -7,7 +7,11 @@ class Notification < ActiveRecord::Base
     unless @data
       @data = {}
       self.notification_data.each do |d|
-        @data[d.name.to_sym] = d.value
+        name = d.name.to_sym
+        value = d.value
+        #value = (name == :count) ? d.value.to_i : d.value
+        @data[name] = value
+
       end
     end
     @data

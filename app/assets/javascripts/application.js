@@ -9,8 +9,6 @@
 //= require timepicker
 //= require jquery_ujs
 //= require jquery.tokeninput
-//= require jquery.contextMenu
-//= require jquery.ImageOverlay
 //= require flot/jquery.flot
 //= require democracy
 //= require markdown
@@ -50,3 +48,5 @@
 //= require jquery.tagcloud
 //= require jquery.switchbutton
 //= require introjs.min
+//= require ckeditor/init
+

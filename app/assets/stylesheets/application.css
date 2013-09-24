@@ -7,8 +7,6 @@
  *= require token-input
  *= require token-input-facebook
  *= require blog_kit
- *= require jquery.contextmenu
- *= require ImageOverlay.css
  *= require style_logged
  *= require groups
  *= require markitup/style

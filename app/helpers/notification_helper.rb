@@ -31,7 +31,7 @@ module NotificationHelper
 
       end
     end
-    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_VALUTATION, :message => msg, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_VALUTATION, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     proposal.partecipants.each do |user|
       if (user != proposal_ranking.user) && (!proposal.users.include? user)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
@@ -96,7 +96,7 @@ module NotificationHelper
   #invia le notifiche quando la proposta è pronta per essere messa in votazione
   #le notifiche vengono inviate ai creatori  della proposta
   def notify_proposal_ready_for_vote(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'wait'}
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'wait'}
     data['group'] = group.name if group
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save

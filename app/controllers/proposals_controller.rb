@@ -474,6 +474,7 @@ class ProposalsController < ApplicationController
       end
 
     rescue ActiveRecord::ActiveRecordError => e
+      flash[:error] = e.record.errors.map{|e,msg| msg}[0].to_s
       respond_to do |format|
         format.html { render :action => "edit" }
       end
@@ -488,9 +489,7 @@ class ProposalsController < ApplicationController
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
         }
-        format.html {
-          redirect_to proposal_path(params[:id])
-        }
+        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
       end
     else
       vote_period = Event.find(params[:proposal][:vote_period_id])
@@ -506,7 +505,7 @@ class ProposalsController < ApplicationController
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
         end
-        format.html { redirect_to proposal_path(params[:id]) }
+        format.html { redirect_to @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal) }
       end
     end
 
@@ -570,7 +569,7 @@ class ProposalsController < ApplicationController
     sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
 p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
-                                      ORDER BY closeness DESC"
+                                      ORDER BY closeness DESC LIMIT 10"
     @similars = Proposal.find_by_sql(sql_q)
 
     respond_to do |format|
@@ -623,7 +622,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       end
     end
 
-    flash[:notice] = t('info.proposal.editors_added')
+    flash[:notice] = "Nuovi redattori aggiunti correttamente!"
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -635,7 +634,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
 
   rescue Exception => e
-    flash[:error] = t('error.proposals.editors_added')
+    flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -681,7 +680,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   rescue Exception => e
     puts e
-    flash[:error] = t('error.proposals.close_debate')
+    flash[:error] = "Errore durante la chiusura del dibattito"
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

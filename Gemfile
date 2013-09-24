@@ -28,7 +28,6 @@ gem 'sunspot_rails'
 group :development do
   gem 'sunspot_solr'
   gem "better_errors"
-  gem 'binding_of_caller'
 end
 
 #gem 'rufus-scheduler'
@@ -63,10 +62,12 @@ gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
 gem 'will_paginate'
 
+#TODO to remove in 3.0
 gem 'bluecloth', '2.0.7'
 
 #gem 'oniguruma'
 
+#TODO to remove in 3.0
 gem 'ultraviolet1x'
 
 gem 'devise', '2.0.4'
@@ -144,3 +145,5 @@ gem 'icalendar'
 gem 'private_pub'
 
 gem 'rotp'
+
+gem 'ckeditor'

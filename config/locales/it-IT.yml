@@ -433,7 +433,7 @@ it-IT:
       title: "Esegui l'autenticazione"
     confirmation:
       title: "Re-invio Istruzioni di Conferma"
-      submit: "Inviami le istruzioni"
+      submit: "Inviami le istruzioni"  
     password:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"
@@ -585,7 +585,9 @@ it-IT:
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
           objectives_title: "Obiettivi"
           step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
+          first_solution_title: "Soluzione 1"
           solution:
+            title: "Titolo"
             description: "Descrizione della soluzione"
             time: "Tempistiche"
             subject: "Soggetto attuatore e verifica"
@@ -605,17 +607,20 @@ it-IT:
             <div>Regolamento per prenotare la sala M. Rossi</div>
             <div>Il Comune di Aglaura dispone di una sala conferenze ad oggi utilizzata solo per iniziative promosse dagli 'amici' del Sindaco. Si propone di stabilire una procedura imparziale che consenta a tutti i cittadini e alle associazioni di prenotare la sala per iniziative pubbliche.</div>
           solution:
+            title: "Titolo"
             article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
         press:
           problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
+          first_solution_title: "Titolo"
           problems_title: "Messaggio da trasmettere"
           suggestion_html: |
             <div><b>Esempio:</b></div>
             <div>Comunicare alla stampa il rilascio della versione 3.5 di Airesis.</div>
             <div>Dobbiamo pubblicizzare l’uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce sulle recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca.</div>
           solution:
+            title: "Titolo"
             subtitle: "Sottotitolo/Occhiello"
             incipit: "Incipit"
             body: "Corpo"
@@ -629,6 +634,7 @@ it-IT:
             <div>Sostituzione dell’impianto termico nella sede dell’Associazione.</div>
             <div>A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il guasto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico.</div>
           solution:
+            title: "Titolo"
             cost: "Importo"
             problems: "Rispetto dei vincoli e problemi"
             dumentation: "Documentazione"
@@ -639,11 +645,13 @@ it-IT:
             <div>Stabilire un ordine del giorno per la riunione di coordinamento.</div>
             <div>Riunione di coordinamento ordinaria per lo scambio di esperienze con i referenti dei comitati locali per l'agricoltura biologica del centro Italia.</div>
           solution:
+            title: "Titolo"
             points: "Punti all'ordine del giorno"
             priorities: "Priorità dei punti proposti"
             links: "Link di approfondimento"
         event:
           problems_title: "Scopo dell'evento"
+          first_solution_title: "Soluzione 1"
           problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
           suggestion_html: |
             <div><b>Esempio:</b></div>
@@ -1047,6 +1055,8 @@ it-IT:
       proposals_tab: "Proposte"
       posts_tab: "Post"
       groups_tab: "Gruppi"
+      not_found:
+        subtitle: "Ecco le parole chiave maggiormente utilizzate su Airesis"
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
@@ -1205,7 +1215,7 @@ it-IT:
           other: "%{count} errori non hanno consentito questo %{model} di essere salvato"
           # The variable :count is also available
         body: "Ci sono stati problemi con i seguenti campi:"
-
+        
       # The values :model, :attribute and :value are always available for interpolation
       # The value :count is available when applicable. Can be used for pluralization.
       messages:
@@ -1358,6 +1368,8 @@ it-IT:
     users:
       join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
       join_accounts_password: "Password errata"
+	group_partecipations:
+       destroy: %Q(Non puoi uscire da un gruppo del quale sei l'unico portavoce)
     error_404:
       proposals:
         title: "Questa proposta non esiste"
@@ -1449,6 +1461,8 @@ it-IT:
       multiple_request:
         one: "Hai richiesto di partecipare a %{count} nuovo gruppo"
         other: "Hai richiesto di partecipare a %{count} nuovi gruppi"
+	group_partecipations:
+      destroy_ok_1: %Q(Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi)
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
@@ -1503,3 +1517,8 @@ it-IT:
       no_more_button: "Non ricevere più inviti"
   contribute: "contributo"
   comment: "commento"
+  users:
+    privacy_preferences:
+      language: "Lingua per la ricezione delle email"
+  yes: "SI"
+  no: "NO"
