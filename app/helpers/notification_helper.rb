@@ -31,7 +31,7 @@ module NotificationHelper
 
       end
     end
-    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_VALUTATION, :message => msg, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_VALUTATION, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     proposal.partecipants.each do |user|
       if (user != proposal_ranking.user) && (!proposal.users.include? user)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
