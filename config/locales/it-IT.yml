@@ -1285,6 +1285,8 @@ it-IT:
     go_back: "Torna indietro"
     chosen: "Ho scelto!"
     ok: "OK"
+    yes: 'YES'
+    no: 'NO'
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1368,7 +1370,7 @@ it-IT:
     users:
       join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
       join_accounts_password: "Password errata"
-	group_partecipations:
+    group_partecipations:
        destroy: %Q(Non puoi uscire da un gruppo del quale sei l'unico portavoce)
     error_404:
       proposals:
@@ -1461,7 +1463,7 @@ it-IT:
       multiple_request:
         one: "Hai richiesto di partecipare a %{count} nuovo gruppo"
         other: "Hai richiesto di partecipare a %{count} nuovi gruppi"
-	group_partecipations:
+    group_partecipations:
       destroy_ok_1: %Q(Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi)
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
@@ -1517,8 +1519,3 @@ it-IT:
       no_more_button: "Non ricevere più inviti"
   contribute: "contributo"
   comment: "commento"
-  users:
-    privacy_preferences:
-      language: "Lingua per la ricezione delle email"
-  yes: "SI"
-  no: "NO"

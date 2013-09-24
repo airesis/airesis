@@ -27,12 +27,12 @@
 			<div style="float: left">
 				<div style="height:14px; position: relative;">
 					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked">
-					<%= t('yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;") ) %></span>
+					<%= t('buttons.yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;") ) %></span>
 					<br />
 				</div>
 				<div style="height:14px;">
 					<input type="radio" name="meeting_partecipation[response]" value="N">
-					<%= t('no') %></input>
+					<%= t('buttons.no') %></input>
 				</div>
                 <br />
 			</div>
