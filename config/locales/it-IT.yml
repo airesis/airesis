@@ -6,12 +6,12 @@ it-IT:
       success: 'Hai eseguito l''autenticazione. Benvenuto!'
     registrations:
       user:
-        inactive_signed_up: 'Per completare la registrazione clicca nel link della mail che hai ricevuto.'
+        inactive_signed_up: 'Per completare la registrazione clicca nel link della mail che hai ricevuto'
         signed_up_but_unconfirmed: 'Clicca sul link che ti è stato inviato all''indirizzo email per completare la registrazione.'
     confirmations:
       user:
         confirmed: 'Registrazione completata con successo!'
-        send_instructions:  'Istruzioni inviate all''indirizzo indicato.'
+        send_instructions:  "Istruzioni inviate all'indirizzo indicato"
     sessions:
       user:
         signed_out: 'Hai eseguito logout. Ciao!'
@@ -19,12 +19,12 @@ it-IT:
         signed_up: 'Hai eseguito correttamente la registrazione. Benvenuto!'
     passwords:
       user:
-        updated: 'Password aggiornata correttamente.'
-        send_instructions: 'Istruzioni inviate all''indirizzo indicato.'        
+        updated: 'Password aggiornata correttamente'
+        send_instructions: "Istruzioni inviate all'indirizzo indicato"
     failure:
-        already_authenticated: "Sei già autenticato."
-        unauthenticated: "Esegui il login per visualizzare pagina."
-        unconfirmed: "L'account non è ancora stato confermato."
+        already_authenticated: "Sei già autenticato"
+        unauthenticated: "Esegui il login per visualizzare pagina"
+        unconfirmed: "L'account non è ancora stato confermato"
         user:
           invalid: "Nome utente o password non validi"
     mailer:
@@ -165,7 +165,7 @@ it-IT:
       other: "%{count} minuti"
   open_space: "Spazio Comune"
   guide: "Guida FAQ"
-  hello: "Ciao mondo"  
+  hello: "Ciao mondo"
   pages:
     top_panel:
       login: "Accedi o registrati"
@@ -433,7 +433,7 @@ it-IT:
       title: "Esegui l'autenticazione"
     confirmation:
       title: "Re-invio Istruzioni di Conferma"
-      submit: "Inviami le istruzioni"  
+      submit: "Inviami le istruzioni"
     password:
       title: "Hai dimenticato la tua password?"
       submit: "Inviami le istruzioni per resettare la password"
@@ -888,7 +888,7 @@ it-IT:
       edit:
         title: "Modifica blog"
         title_label: "Titolo del blog"
-        back_to_blog: "Torna al mio blog"  
+        back_to_blog: "Torna al mio blog"
     quorums:
       index:
         title: "Elenco durate disponibili"
@@ -1074,10 +1074,10 @@ it-IT:
       zero: "nessun commento"
       one: "un commento"
       other: "%{count} commenti"
-      
+
   activerecord:
     models:
-      meeting: "Incontro"      
+      meeting: "Incontro"
       places: "Luogo"
     attributes:
       blog_comment:
@@ -1205,7 +1205,7 @@ it-IT:
           other: "%{count} errori non hanno consentito questo %{model} di essere salvato"
           # The variable :count is also available
         body: "Ci sono stati problemi con i seguenti campi:"
-        
+
       # The values :model, :attribute and :value are always available for interpolation
       # The value :count is available when applicable. Can be used for pluralization.
       messages:
