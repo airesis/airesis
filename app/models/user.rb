@@ -493,12 +493,12 @@ class User < ActiveRecord::Base
 
 
   def can_read_forem_category?(category)
-    category.group.partecipants.include? self
+    category.visible_outside || (category.group.partecipants.include? self)
   end
 
 
   def can_read_forem_forum?(forum)
-    forum.group.partecipants.include? self
+    forum.visible_outside || (forum.group.partecipants.include? self)
   end
 
 

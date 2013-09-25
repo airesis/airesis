@@ -11,6 +11,22 @@ class Ability
       can :view_data, Group do |group|
         !group.is_private?
       end
+
+      #forum permissions
+      can :read, Frm::Category do |category|
+        category.visible_outside
+      end
+
+
+      can :read, Frm::Topic do |topic|
+        topic.forum.visible_outside && topic.forum.category.visible_outside
+      end
+
+
+      can :read, Frm::Forum do |forum|
+        forum.visible_outside && forum.category.visible_outside
+      end
+
     else
       #TODO correggere quando più gruppi condivideranno le proposte
       can :read, Proposal do |proposal|

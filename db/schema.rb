@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130920170000) do
+ActiveRecord::Schema.define(:version => 20130925095859) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -277,11 +277,12 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
   create_table "frm_categories", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                              :null => false
     t.string   "slug"
     t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "visible_outside", :default => true
   end
 
   add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug", :unique => true
@@ -305,8 +306,9 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
     t.text    "description"
     t.integer "category_id"
     t.integer "group_id"
-    t.integer "views_count", :default => 0
+    t.integer "views_count",     :default => 0
     t.string  "slug"
+    t.boolean "visible_outside", :default => true
   end
 
   add_index "frm_forums", ["group_id", "slug"], :name => "index_frm_forums_on_group_id_and_slug", :unique => true
@@ -342,10 +344,12 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
     t.boolean  "notified",    :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.string   "token"
   end
 
   add_index "frm_posts", ["reply_to_id"], :name => "index_frm_posts_on_reply_to_id"
   add_index "frm_posts", ["state"], :name => "index_frm_posts_on_state"
+  add_index "frm_posts", ["token"], :name => "index_frm_posts_on_token", :unique => true
   add_index "frm_posts", ["topic_id"], :name => "index_frm_posts_on_topic_id"
   add_index "frm_posts", ["user_id"], :name => "index_frm_posts_on_user_id"
 
@@ -374,12 +378,14 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
     t.string   "slug"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
+    t.string   "token"
   end
 
   add_index "frm_topics", ["forum_id", "slug"], :name => "index_frm_topics_on_forum_id_and_slug", :unique => true
   add_index "frm_topics", ["forum_id"], :name => "index_frm_topics_on_forum_id"
   add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug"
   add_index "frm_topics", ["state"], :name => "index_frm_topics_on_state"
+  add_index "frm_topics", ["token"], :name => "index_frm_topics_on_token", :unique => true
   add_index "frm_topics", ["user_id"], :name => "index_frm_topics_on_user_id"
 
   create_table "frm_views", :force => true do |t|
@@ -932,6 +938,17 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
     t.string "description", :limit => 200, :null => false
   end
 
+  create_table "received_emails", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.string   "from"
+    t.string   "to"
+    t.string   "token"
+    t.boolean  "read",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "regionali_groups", :id => false, :force => true do |t|
     t.integer "id",                                                  :null => false
     t.string  "name",               :limit => 200
@@ -979,6 +996,21 @@ ActiveRecord::Schema.define(:version => 20130920170000) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "search_proposals", :force => true do |t|
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.integer  "proposal_category_id"
+    t.integer  "group_area_id"
+    t.integer  "proposal_type_id"
+    t.integer  "proposal_state_id"
+    t.integer  "tag_id"
+    t.integer  "interest_border_id"
+    t.datetime "created_at_from"
+    t.datetime "created_at_to"
   end
 
   create_table "section_histories", :force => true do |t|

@@ -1,6 +1,7 @@
 <%= simple_form_for @category, url: group_frm_admin_categories_url(@group), remote: remote do |f| %>
     <%= f.input :name %>
     <%= f.input :tags_list %>
+    <%= f.input :visible_outside %>
     <%= f.submit :class => "btn blue" %>
 <% end %>
 

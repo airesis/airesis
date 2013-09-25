@@ -1,5 +1,5 @@
+#encoding: utf-8
 require 'friendly_id'
-
 module Frm
   class Forum < Frm::FrmTable
     include Frm::Concerns::Viewable, ::Concerns::Taggable
@@ -21,7 +21,9 @@ module Frm
 
     validates :category, :name, :description, :presence => true
 
-    attr_accessible :category_id, :title, :name, :description, :moderator_ids
+    validate :visibility
+
+    attr_accessible :category_id, :title, :name, :description, :moderator_ids, :visible_outside
 
     alias_attribute :title, :name
 
@@ -45,6 +47,13 @@ module Frm
 
     def to_s
       name
+    end
+
+
+    protected
+
+    def visibility
+      self.errors.add(:visible_outside,"Un forum non può essere visibile all''esterno se la sezione in cui è contenuto non è visibile") if (self.visible_outside && !self.category.visible_outside)
     end
   end
 end

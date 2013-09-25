@@ -13,12 +13,20 @@ module Frm
     has_many :tags, :through => :category_tags, :class_name => 'Tag'
 
     validates :name, :presence => true
-    attr_accessible :name
+    attr_accessible :name, :visible_outside
+
+    validate :visibility
 
 
     def to_s
       name
     end
 
+
+    protected
+
+    def visibility
+      self.errors.add(:visible_outside,'Impossibile rendere la sezione privata. Contiene forum pubblici') if !self.visible_outside && self.forums.where(:visible_outside => true).exists?
+    end
   end
 end

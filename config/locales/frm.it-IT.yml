@@ -196,6 +196,7 @@ it-IT:
         title: Titolo
         description: Descrizione
         moderators: Moderatori
+        visible_outside: Visibile da parte di chi non partecipa al gruppo
       topic:
         subject: Soggetto
         locked: Bloccato

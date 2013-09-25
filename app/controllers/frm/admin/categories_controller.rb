@@ -80,7 +80,17 @@ module Frm
 
       def update_failed
         flash.now.alert = t("frm.admin.category.not_updated")
-        render :action => "edit"
+        respond_to do |format|
+          format.html {
+            render :action => "edit"
+          }
+          format.js {
+            render :update do |page|
+              page.replace_html 'category_container', :partial => 'edit', locals: {remote: true}
+            end
+          }
+        end
+
       end
 
     end

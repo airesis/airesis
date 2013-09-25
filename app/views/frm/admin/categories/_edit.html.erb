@@ -1,6 +1,8 @@
+
 <%= simple_form_for @category, url: group_frm_admin_category_url(@group,@category), remote: remote do |f| %>
     <%= f.input :name %>
     <%= f.input :tags_list %>
+    <%= f.input :visible_outside %>
     <%= f.submit :class => "btn blue", disable_with: t('loading') %>
 <% end %>
 

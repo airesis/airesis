@@ -23,7 +23,7 @@ module Frm
 
 
     def per_page
-      @@per_page || 20
+      @@per_page || Kaminari.config.default_per_page
     end
 
     def user_class

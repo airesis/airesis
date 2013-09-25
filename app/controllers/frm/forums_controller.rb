@@ -3,7 +3,7 @@ module Frm
 
     load_and_authorize_resource :class => 'Frm::Forum', :only => :show
 
-    before_filter :check_permissions
+    #before_filter :check_permissions
 
     helper 'frm/topics'
 
@@ -32,9 +32,9 @@ module Frm
 
     private
 
-    def check_permissions
-      raise CanCan::AccessDenied unless @group.partecipants.include? current_user
-    end
+    #def check_permissions
+    #  raise CanCan::AccessDenied unless @group.partecipants.include? current_user
+    #end
 
     def register_view
       @forum.register_view_by(current_user)
