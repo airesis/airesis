@@ -585,9 +585,7 @@ it-IT:
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
           objectives_title: "Obiettivi"
           step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
-          first_solution_title: "Soluzione 1"
           solution:
-            title: "Titolo"
             description: "Descrizione della soluzione"
             time: "Tempistiche"
             subject: "Soggetto attuatore e verifica"
@@ -607,20 +605,17 @@ it-IT:
             <div>Regolamento per prenotare la sala M. Rossi</div>
             <div>Il Comune di Aglaura dispone di una sala conferenze ad oggi utilizzata solo per iniziative promosse dagli 'amici' del Sindaco. Si propone di stabilire una procedura imparziale che consenta a tutti i cittadini e alle associazioni di prenotare la sala per iniziative pubbliche.</div>
           solution:
-            title: "Titolo"
             article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
         press:
           problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
-          first_solution_title: "Titolo"
           problems_title: "Messaggio da trasmettere"
           suggestion_html: |
             <div><b>Esempio:</b></div>
             <div>Comunicare alla stampa il rilascio della versione 3.5 di Airesis.</div>
             <div>Dobbiamo pubblicizzare l’uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce sulle recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca.</div>
           solution:
-            title: "Titolo"
             subtitle: "Sottotitolo/Occhiello"
             incipit: "Incipit"
             body: "Corpo"
@@ -634,7 +629,6 @@ it-IT:
             <div>Sostituzione dell’impianto termico nella sede dell’Associazione.</div>
             <div>A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il guasto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico.</div>
           solution:
-            title: "Titolo"
             cost: "Importo"
             problems: "Rispetto dei vincoli e problemi"
             dumentation: "Documentazione"
@@ -645,13 +639,11 @@ it-IT:
             <div>Stabilire un ordine del giorno per la riunione di coordinamento.</div>
             <div>Riunione di coordinamento ordinaria per lo scambio di esperienze con i referenti dei comitati locali per l'agricoltura biologica del centro Italia.</div>
           solution:
-            title: "Titolo"
             points: "Punti all'ordine del giorno"
             priorities: "Priorità dei punti proposti"
             links: "Link di approfondimento"
         event:
           problems_title: "Scopo dell'evento"
-          first_solution_title: "Soluzione 1"
           problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
           suggestion_html: |
             <div><b>Esempio:</b></div>

@@ -377,7 +377,7 @@ en:
         condition: "Condition"
         good_percentage: "% Rank"
         bad_percentage: "% Rejection"
-        confirm_deletion: "Are you sure you want to delete the quorum %{quorum}?'"
+        confirm_deletion: "Are you sure you want to delete the quorum %{quorum}?"
         add_quorum: "Add a new quorum"
         edit_quorum: "Modify quorum"
         configure_proposal_parameters: "Configure proposals parameters"
