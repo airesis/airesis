@@ -7,5 +7,5 @@
 <%= link_to '', {:action => "rankup", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
             remote: true, method: :put,
             data: {id: comment.id}, class: "voteup-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.voteup') %>
-<span class="rightFloat think"><%= 'Cosa ne pensi?' %></span>
+<span class="rightFloat think"><%= t('pages.proposals.contribution_valuation') %></span>
 <%= image_tag "spinner.gif", style: 'display: none;', class: 'rightFloat loading' %>

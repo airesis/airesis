@@ -243,7 +243,7 @@ class ProposalsController < ApplicationController
       @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
 
       @title = ''
-      @title += t('pages.proposals.new.title_group', name: @group.name) if @group
+      @title += t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
       @title += ProposalType.find_by_name(params[:proposal_type_id]).description
 
       respond_to do |format|
@@ -363,7 +363,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         format.js {
           render :update do |page|
-            page.alert t('error.proposals.create')
+            page.alert t('error.proposals.creation')
           end
         }
         format.html { render :action => "new" }
@@ -388,7 +388,7 @@ class ProposalsController < ApplicationController
 
     @proposal.save!
 
-    flash[:notice] = t('info.proposal.regenerated')
+    flash[:notice] = t('info.proposal.back_in_debate')
 
     redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
   end
@@ -961,8 +961,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      @title = t('controllers.proposals.404_title')
-      @message = t('controllers.proposals.404_message')
+      @title = t('error.error_404.proposals.title')
+      @message = t('error.error_404.proposals.description')
       format.html { render "errors/404", :status => 404, :layout => true }
     end
     true

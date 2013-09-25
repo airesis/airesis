@@ -1,8 +1,6 @@
 <div class="text">
-<b>Inizia a partecipare<br /></b>
-	Ecco i gruppi più attivi nei territori compresi nei tuoi confini di interesse. <br />
-	Scegli quelli a cui vuoi partecipare, in questo modo potrai entrare in contatto con loro e iniziare a partecipare agli eventi e votare le proposte. <br />
-	Un clic per selezionare, uno per deselezionare.	<br />
+<b><%=t('pages.steps.interest_borders.title') %><br /></b>
+   <%=t('pages.steps.choose_follow.description_html')%>
 </div>
 	<%current_user.suggested_groups.each do |group|%>
 	
@@ -20,7 +18,7 @@
 	<div style="clear: both"></div>
 	<div class="groupDescription" style="float:left">
 		<div class="" ><%=group.interest_border.description%></div>
-		<b><%=group.partecipants.count%></b> partecipanti
+		<%=t('pages.groups.participations.participants_html', count: group.partecipants.count)%>
 		
 	</div>
 	<div style="clear: both"></div>
@@ -30,7 +28,7 @@
 	<div style="clear: both;"></div>		
 	<%=form_for 'groups', :url => {:controller => 'groups', :action => 'ask_for_multiple_follow'} do |f|%>
 	<%=f.hidden_field 'group_ids'%>	
-	<%=f.button 'Ho scelto!', :class => 'btn blue forwardButton', :style => "float:right;" %>
+	<%=f.button t('buttons.chosen'), :class => 'btn blue forwardButton', :style => "float:right;" %>
 		
 	<%end%>
 	<div style="clear: both;"></div>	
