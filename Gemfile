@@ -153,3 +153,7 @@ gem 'workflow'
 gem 'select2-rails', '3.4.3'
 gem 'redcarpet', '~> 2.0.1'
 gem 'kaminari', '~> 0.14.1'
+
+gem 'mailman', require: false
+
+gem 'email_reply_parser'

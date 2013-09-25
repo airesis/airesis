@@ -150,6 +150,10 @@ module Frm
     def set_first_post_user
       post = posts.first
       post.user = user
+      self.token = loop do
+        random_token = SecureRandom.urlsafe_base64(16, false)
+        break random_token unless Post.where(token: random_token).exists?
+      end
     end
 
     def skip_pending_review

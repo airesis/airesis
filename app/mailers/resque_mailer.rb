@@ -92,9 +92,9 @@ class ResqueMailer < ActionMailer::Base
   def topic_reply(post_id, subscriber_id)
     # only pass id to make it easier to send emails using resque
     @post = Frm::Post.find(post_id)
+    @group = @post.forum.group
     @user = User.find(subscriber_id)
-
-    mail(:to => @user.email, :subject => I18n.t('frm.topic.received_reply'))
+    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", :to => @user.email, :subject => "[#{@group.name}] #{@post.topic.subject}")
   end
 
 end

@@ -1,6 +1,20 @@
-<%= I18n.t('received_reply', :scope => 'frm.topic') %> You can view it here:
+<p>
+  <%= I18n.t('received_reply', :scope => 'frm.topic') %>. You can view it here:
 
-<%= group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%= group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+</p>
 
-To unsubscribe from this topic, use the following link:
-<%= unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+<p>
+<div style="float:left;margin: 0px 5px 5px 0px;">
+  <%=raw @post.user_image_tag(40, true) %>
+</div>
+<div style="float:left;">
+  <%= sanitize @post.text %>
+</div>
+<div style="clear:both;"></div>
+</p>
+
+<p>
+  To unsubscribe from this topic, use the following link:
+  <%= unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+</p>

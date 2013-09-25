@@ -1,6 +1,6 @@
 module Frm
   class Post < FrmTable
-    include Workflow
+    include Workflow, BlogKitModelHelper
 
     workflow_column :state
     workflow do
@@ -35,11 +35,14 @@ module Frm
     after_create :subscribe_replier, :if => :user_auto_subscribe?
     after_create :skip_pending_review
 
+    before_create :populate_token
+
     after_save :approve_user,   :if => :approved?
     after_save :blacklist_user, :if => :spam?
     after_save :email_topic_subscribers, :if => Proc.new { |p| p.approved? && !p.notified? }
 
     class << self
+
       def approved
         where(:state => "approved")
       end
@@ -112,6 +115,13 @@ module Frm
 
     def skip_pending_review
       approve! unless user && user.forem_moderate_posts?
+    end
+
+    def populate_token
+      self.token = loop do
+        random_token = SecureRandom.urlsafe_base64(16, false)
+        break random_token unless Post.where(token: random_token).exists?
+      end
     end
 
     def approve_user
