@@ -75,6 +75,7 @@ class Group < ActiveRecord::Base
 
   #forum
   has_many :forums, :class_name => 'Frm::Forum', foreign_key: 'group_id'
+  has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
   has_many :categories, :class_name => 'Frm::Category', foreign_key: 'group_id'
   has_many :moderator_groups, :class_name => 'Frm::Group', foreign_key: 'group_id'
 

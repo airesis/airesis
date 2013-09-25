@@ -4,7 +4,7 @@ module Frm
   class Category < Frm::FrmTable
     include ::Concerns::Taggable
     extend FriendlyId
-    friendly_id :name, :use => :slugged
+    friendly_id :name, :use => :scoped, scope: :group
 
     has_many :forums
     belongs_to :group, class_name: '::Group', foreign_key: :group_id

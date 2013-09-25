@@ -1,25 +1,6 @@
-<%@extend=true%>
+<% @extend=true %>
 <div id='topic' class='<%= 'un' unless @topic.locked? %>locked'>
   <%= render :partial => 'frm/topics/head', :locals => {:topic => @topic} %>
-
-  <div id='menu'>
-    <div class='btn-group'>
-      <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
-          <%= link_to t(".reply"), new_group_forum_topic_post_url(@group, @forum, @topic), :class => "btn" %>
-      <% end %>
-      <% if @topic.user == current_user || forem_admin? %>
-          <%= link_to t(".delete"), group_forum_topic_url(@group, @forum, @topic), :method => :delete, data: {:confirm => t("are_you_sure")}, :class => "btn btn-danger" %>
-      <% end %>
-      <% if current_user %>
-          <% if !@topic.subscriber?(current_user.id) %>
-              <%= link_to t(".subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-success" %>
-          <% else %>
-              <%= link_to t(".unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-danger" %>
-          <% end %>
-      <% end %>
-    </div>
-
-  </div>
 
   <% if @topic.pending_review? %>
       <div class="moderation alert" id='topic_moderation'>
@@ -39,7 +20,7 @@
   <div id='posts'>
     <table class="posts">
       <tbody>
-    <%= render :partial => "frm/posts/post", :collection => @posts %>
+      <%= render :partial => "frm/posts/post", :collection => @posts %>
       </tbody>
     </table>
   </div>
@@ -48,10 +29,44 @@
 </div>
 
 
-<% if forem_admin? %>
-    <% content_for :left_panel do %>
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <h4><%= t('frm.topic_tools') %></h4>
+
+      <div class='btn-group'>
+        <%= render 'proposals/new_proposal' %>
+
+
+        <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
+            <%= link_to t(".reply"), new_group_forum_topic_post_url(@group, @forum, @topic), :class => "btn" %>
+        <% end %>
+        <% if @topic.user == current_user || forem_admin? %>
+            <%= link_to t(".delete"), group_forum_topic_url(@group, @forum, @topic), :method => :delete, data: {:confirm => t("are_you_sure")}, :class => "btn btn-danger" %>
+        <% end %>
+        <% if current_user %>
+            <% if !@topic.subscriber?(current_user.id) %>
+                <%= link_to t(".subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-success" %>
+            <% else %>
+                <%= link_to t(".unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-danger" %>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @topic.proposals.count > 0 %>
+        <div class="mybox">
+          <h4><%= t('.related_proposals') %></h4>
+          <% @topic.proposals.each do |proposal| %>
+              <%= proposal_tag proposal %>
+          <% end %>
+        </div>
+    <% end %>
+
+
+    <% if forem_admin? %>
         <div class="mybox">
           <h4><%= t('frm.admin_tools') %></h4>
+
           <div class='btn-group'>
             <%= link_to t('frm.topic.links.edit'), edit_group_frm_admin_topic_url(@group, @topic), :class => "btn" %>
             <%= link_to t("frm.topics.show.hide.#{@topic.hidden}"), toggle_hide_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn" %>
@@ -64,5 +79,5 @@
 
 
 <p style="font-size: 0.8em">
-Powered by <%= link_to 'Forem','https://github.com/radar/forem', target: '_blank' %>
+  Powered by <%= link_to 'Forem', 'https://github.com/radar/forem', target: '_blank' %>
 </p>

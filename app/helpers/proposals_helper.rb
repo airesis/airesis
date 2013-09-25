@@ -1,5 +1,14 @@
 module ProposalsHelper
 
+
+
+  def proposal_tag(proposal, options={})
+    ret = "<div class='proposal_tag'>"
+    ret += link_to_proposal(proposal)
+    ret += "</div>"
+    ret.html_safe
+  end
+
   def link_to_proposal(proposal, options={})
     raise "Invalid proposal" unless proposal
     #group proposals

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925095859) do
+ActiveRecord::Schema.define(:version => 20130925125144) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -285,7 +285,8 @@ ActiveRecord::Schema.define(:version => 20130925095859) do
     t.boolean  "visible_outside", :default => true
   end
 
-  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug", :unique => true
+  add_index "frm_categories", ["group_id", "slug"], :name => "index_frm_categories_on_group_id_and_slug", :unique => true
+  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug"
 
   create_table "frm_category_tags", :force => true do |t|
     t.datetime "created_at",      :null => false
@@ -356,6 +357,14 @@ ActiveRecord::Schema.define(:version => 20130925095859) do
   create_table "frm_subscriptions", :force => true do |t|
     t.integer "subscriber_id"
     t.integer "topic_id"
+  end
+
+  create_table "frm_topic_proposals", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "topic_id"
+    t.integer  "proposal_id"
+    t.integer  "user_id"
   end
 
   create_table "frm_topic_tags", :force => true do |t|

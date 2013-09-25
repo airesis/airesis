@@ -88,7 +88,7 @@ module Frm
 
     private
     def find_forum
-      @forum = Frm::Forum.find(params[:forum_id])
+      @forum = @group.forums.find(params[:forum_id])
       authorize! :read, @forum
     end
 

@@ -33,6 +33,10 @@ module Frm
     has_many :topic_tags, :dependent => :destroy, foreign_key: 'frm_topic_id'
     has_many :tags, :through => :topic_tags, :class_name => 'Tag'
 
+    #forum
+    has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'topic_id'
+    has_many :proposals, class_name: '::Proposal', through: :topic_proposals
+
     accepts_nested_attributes_for :posts
 
     validates :subject, :presence => true

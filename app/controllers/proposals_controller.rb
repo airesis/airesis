@@ -229,6 +229,11 @@ class ProposalsController < ApplicationController
           @proposal.group_area_id = params[:group_area_id]
         end
 
+        if params[:topic_id]
+          @topic = @group.topics.find(params[:topic_id])
+          (@proposal.topic_id = params[:topic_id]) if can? :read, @topic
+        end
+
       else
         @proposal.quorum_id = Quorum::STANDARD
         @proposal.anonima = DEFAULT_ANONIMA
@@ -269,7 +274,7 @@ class ProposalsController < ApplicationController
     begin
       max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
       raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
-      @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
+
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
@@ -284,9 +289,16 @@ class ProposalsController < ApplicationController
           @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
           @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
           @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
+
+          @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
           if @group_area
             raise Exception unless current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).include? @group_area #check user permissions for this group area
             @proposal.presentation_areas << @group_area
+          end
+
+          @topic = @group.topics.find(@proposal.topic_id) if @proposal.topic_id
+          if @topic
+            @proposal.topic_proposals.build(:topic_id => @topic.id, :user_id => current_user.id)
           end
         else
           @proposal.anonima = DEFAULT_ANONIMA

@@ -1,9 +1,10 @@
 module Frm
   class ForumsController < Frm::ApplicationController
 
-    load_and_authorize_resource :class => 'Frm::Forum', :only => :show
+    #load_and_authorize_resource :class => 'Frm::Forum', :only => :show
 
     #before_filter :check_permissions
+    before_filter :load_forum, only: :show
 
     helper 'frm/topics'
 
@@ -14,6 +15,7 @@ module Frm
     end
 
     def show
+      authorize! :read, @forum
       register_view
 
       @topics = if forem_admin_or_moderator?(@forum)
@@ -38,6 +40,11 @@ module Frm
 
     def register_view
       @forum.register_view_by(current_user)
+    end
+
+
+    def load_forum
+      @forum = @group.forums.find(params[:id])
     end
   end
 end

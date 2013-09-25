@@ -62,6 +62,10 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
+  #forum
+  has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
+  has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
+
   #validation
   validates_presence_of :title, :message => "obbligatorio"  #TODO:I18n
   validates_uniqueness_of :title
@@ -69,11 +73,11 @@ class Proposal < ActiveRecord::Base
 
   validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
-                  :group_area_id,
+                  :group_area_id, :topic_id,
                   :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids_list
 
   accepts_nested_attributes_for :sections, allow_destroy: true
