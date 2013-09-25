@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
   layout :choose_layout
   #carica il gruppo
-  before_filter :load_group, :except => [:index, :new, :create, :ask_for_multiple_follow]
+  before_filter :load_group, :except => [:index, :new, :create, :ask_for_multiple_follow, :certificates]
 
   ###SICUREZZA###
 
@@ -15,6 +15,8 @@ class GroupsController < ApplicationController
 
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
+
+  before_filter :admin_required, :only => [:certificates]
 
   def index
     unless request.xhr?
@@ -497,6 +499,11 @@ class GroupsController < ApplicationController
   #retrieve the list of permission for the current user in the group
   def permissions_list
     @actions = @group.group_partecipations.find_by_user_id(current_user.id).partecipation_role.group_actions
+  end
+
+
+  def certificates
+
   end
 
   protected

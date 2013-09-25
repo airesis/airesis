@@ -13,7 +13,7 @@ module Frm
       if Frm.formatter && Frm.formatter.respond_to?(:blockquote)
         Frm.formatter.blockquote(as_sanitized_text(text)).html_safe
       else
-         "<blockquote>#{(h(text))}</blockquote>\n\n".html_safe
+         "<p><blockquote>#{(h(text))}</blockquote></p><p></p>".html_safe
       end
     end
 

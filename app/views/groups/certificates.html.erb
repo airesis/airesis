@@ -1,0 +1,5 @@
+<% @extend=true %>
+
+
+
+<%= render :partial => "group_tag", :collection => Group.where(:certified => true), :as => :group %>

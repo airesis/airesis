@@ -33,14 +33,14 @@
               <% if ::Configuration::elections_active %>
                   <span> ⋅ </span>
                   <%= link_to t('pages.groups.header.elections'), group_candidates_url(@group), class: ((['elections', 'candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
-				  <span> ⋅ </span>
-	              <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>         
               <% end %>
               <% if ::Configuration::documents_active %>
                   <span> ⋅ </span>
                   <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
               <% end %>
           <% end %>
+          <span> ⋅ </span>
+          <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
           <% if can? :update, @group %>
               <span> ⋅ </span>
               <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
