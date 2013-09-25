@@ -27,20 +27,6 @@ it-IT:
         unconfirmed: "L'account non è ancora stato confermato."
         user:
           invalid: "Nome utente o password non validi"
-    mailer:
-      confirmation_instructions:
-        welcome: "Benvenuto su %{app_name} %{user}!"
-        follow_link: "Puoi confermare il tuo indirizzo email cliccando sul link qui sotto:"
-        confirm_account: "Conferma account"
-        follow_link_2: "o visitando il seguente url:"
-        access_by_email: "In seguito puoi accedere a %{app_name} con l'email indicata in fase di registrazione e la password scelta"
-        contact_assistance: "Se hai problemi con la procedura contatta un amministratore: %{mail}"
-      reset_password_instructions:
-        hi_user: "Ciao %{user}!"
-        follow_link: "Puoi cambiare la tua password cliccando sul seguente link:"
-        change_password: "Cambia password"
-        ignore: "Se non hai richiesto un cambio di password ignora questa email."
-        password_will_not_change: "La tua password non cambierà fino a quando non cliccherai sul link sopra riportato."
   calendar:
     monthNames: "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']"
     monthNamesShort: "['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']"
@@ -1380,7 +1366,7 @@ it-IT:
     blog_post_updated: "Il tuo post è stato aggiornato correttamente."
     blog_post_deleted: "Il tuo post è stato cancellato correttamente."
     group_partecipations:
-      destroy_ok_1: %Q(Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi)
+      destroy_ok_1: "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
