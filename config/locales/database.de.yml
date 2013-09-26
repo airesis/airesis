@@ -1,23 +1,57 @@
 de:
   db:
+    sys_locales:
+      it:
+        description: Italienisch
+      en:
+        description: Englisch
+      us:
+        description: Amerikanisch
+      fr:
+        description: Französisch
+      es:
+        description: Spanisch
+      pt:
+        description: Portugiesisch
+      de:
+        description: Deutsch
+    proposal_types:
+      STANDARD:
+        description: Standardvorschläge
+      POLL:
+        description: Umfrage
+      RULE_BOOK:
+        description: Rule Book
+      PRESS:
+        description: Press Release
+      EVENT:
+        description: Eventorganisation
+      ESTIMATE:
+        description: Cost Estimate
+      AGENDA:
+        description: Agenda
+      CANDIDATES:
+        description: Auswahl eines Kandidaten
+      SIMPLE:
+        description: Einfacher Vorschlag
     event_types:
       meeting:
         description: Treffen
       vote:
-        description: Abstimmungen
+        description: Abstimmung
       meeting2:
-        description: Versammlungen
+        description: Treffen
       election:
-        description: Wahlen
+        description: Wahl
     group_actions:
       STREAM_POST:
-        description: Auf der Internetseite der Gruppe veröffentlichen
+        description: Post auf der Pinnwand der Gruppe
       CREATE_EVENT:
-        description: Veranstaltungen und Abstimmungen erstellen
+        description: Veranstaltungen erstellen und abstimmen
       PROPOSAL:
-        description: Unterstützung der Vorschläge im Namen der Gruppe
+        description: Vorschläge im Namen der Gruppe unterstützen
       REQUEST_ACCEPT:
-        description: Neue Mitglieder in die Gruppe aufnehmen
+        description: Füge der Gruppe neue Mitglieder hinzu
       SEND_CANDIDATES:
         description: Mitglieder für die Wahlen nominieren
       PROPOSAL_VIEW:
@@ -34,69 +68,117 @@ de:
         description: Abstimmung über die Vorschläge
     notification_categories:
       MYPROP:
+        description: Vorschläge die ich verfasse
       PROP:
+        description: Vorschläge in die ich involviert bin
       NEWPROP:
+        description: Neue Vorschläge
       NEWEVENT:
+        description: Neue Veranstaltungen
       GROUPS:
+        description: Gruppen
     notification_types:
       new_public_events:
-        description: Es gibt eine neue öffentliche Veranstaltung.
-        email_subject: Es gibt eine neue öffentliche Veranstaltung.
+        description: Neue öffentliche Veranstaltungen
+        email_subject: Es gibt eine neue öffentliche Veranstaltung
+        message: 'Neue öffentliche Veranstaltung: <b>%{event}</b>'
       new_events:
-        description: Es gibt eine neue Veranstaltung in einer Gruppe in die ich involviert bin.
-        email_subject: Es gibt eine neue Veranstaltung.
+        description: Neue Veranstaltungen in der Gruppe in die ich involviert bin
+        email_subject: Es gibt eine neue Veranstaltung
+        message: 'Neue Veranstaltung <b>%{event}</b> in der Gruppe <b>%{group}</b>'
       new_posts_user_follow:
-        description: Es gibt ein neues Posting eines Benutzers dem ich folge.
-        email_subject: Es gibt ein neues Posting.
+        description: Neue Posts eines Benutzers dem ich folge
+        email_subject: Es gibt einen neuen Post
+        message: '%{user} hat einen neuen Post in seinem Blog hinzugefügt <b>%{blog}</b>'
       new_valutation_mine:
-        description: Es gibt eine neue Bewertung für einen meiner Vorschläge.
-        email_subject: Es gibt einen neue Bewertung für einen Deiner Vorschläge.
+        description: Neue Bewertung für einen meiner Vorschläge
+        email_subject: Es gibt eine neue Bewertung für einen meiner Vorschläge
+        message: 'Dein Vorschlag <b>%{title}</b> hat eine neue Bewertung erhalten'
       new_valutation:
-        description: Es gibt eine neue Bewertung für einen Vorschlag in den ich involviert bin.
-        email_subject: Es gibt eine neue Bewertung für einen Deiner Vorschläge.
+        description: Neue Bewertung für einen Vorschlag in den ich involviert bin
+        email_subject: Es gibt eine neue Bewertung für einen Vorschlag in den ich involviert bin
+        message: 'Dein Vorschlag <b>%{title}</b> hat eine neue Bewertung erhalten'
       available_author:
-        description: Benutzer verfügbar für eine Zusammenfassung eines Vorschlags.
-        email_subject: Benutzer verfügbar für eine Zusammenfassung eines Vorschlags.
+        description: Benutzer verfügbar als Redakteur eines Vorschlags
+        email_subject: Ein Benutzer ist als Redakteur eines Vorschlags verfügbar
+        message: '%{user} ist als Redakteur des Vorschlags <b>%{title}</b> verfügbar'
       author_accepted:
         description: Akzeptanz als Redakteur eines Vorschlags
-        email_subject: Du wurdest als Redakteur eines Vorschlags ausgesucht.
+        email_subject: Du bist Redakteur eines Vorschlags geworden
+        message: 'Du bist jetzt Redakteur des Vorschlags <b>%{title}</b>.<br/>Denk daran dass du als Redakteur alle Beiträge anderer Benutzer berücksichtigen solltest und den Text eventuel diesen<br/>entsprechend, verbessern'
       new_authors:
-        description: Neue Redakteure für Vorschläge.
-        email_subject: Neue Redakteure für Vorschläge.
+        description: Neue Redakteure der Vorschläge
+        email_subject: Neuer Redakteur eines Vorschlags
+        message: '<b>%{user}</b> ist ein Redakteur des Vorschlags <b>%{title}</b>'
       unintegrated_contribute:
-        description: Beiträge in der Debatte veröffentlicht
-        email_subject: Ein Beitrag wurde Debatte wieder
+        description: Beiträge wurden wieder zur Diskussion gestellt
+        email_subject: '%{proposal} - Beitrag wieder in der Debatte'
+        message: 'A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate'
       new_contributes:
-        description: Neue Beiträge und Ideen zu einem Vorschlag in den ich involviert bin.
-        email_subject: Neuer Beitrag zu einem Vorschlag!
+        description: Neue Beiträge und Kommentare in den Vorschlägen in die ich beteiligt bin
+        email_subject: '%{title} - Neue Beiträge'
+        message: '<b>%{name}</b> hat einen neuen Beitrag in dem Vorschlag <b>%{title}</b>'
       text_update:
-        description: Textaktualisierung zu einem Vorschlag in den ich involviert bin
-        email_subject: Der Vorschlag wurde aktualisiert.
-      new_public_proposals:
-        description: Es befinden sich neue Vorschläge im Freiraum.
-        email_subject: Neuer Vorschlag vorhanden.
-      change_status:
-        description: Der Status eines Vorschlags in den ich involviert bin hat sich geändert.
-        email_subject: Der Status des Vorschlags wurde verändert.
+        description: Aktualisierung des Textes eines Vorschlags, an welchem ich beteiligt bin
+        email_subject: '%{title} - Der Text wurde geändert'
+        message: 'Der Vorschlag <b>%{title}</b> wurde aktualisiert'
       new_contributes_mine:
-        description: Es gibt neue Beiträge zu meinem Vorschlag.
-        email_subject: Es gibt neue Beiträge zu einem Vorschlag.
+        description: Neue Beiträge in meinen Vorschlägen
+        email_subject: Neue Beiträge in einem meiner Vorschläge
+        message: '<b>%{name}</b> hat einen Beitrag in deinen Vorschlag <b>%{title}</b> hinzugefügt'
+      change_status:
+        description: Statusänderung eines Vorschlags in den ich beteiligt bin
+        email_subject: 'Ein Vorschlag  hat seinen Status geändert'
+        message:
+          waiting_date: '%{name} hat das Datum der Abstimmung  für den Vorschlag<b>%{title}</b> ausgewählt'
+          in_vote: 'Es wird gerade für den Vorschlag <b>%{title}</b> abgestimmt!'
+          abandoned: 'Der Vorschlag <b>%{title}</b> hat die Debatte nicht bestanden und wurde augegeben'
+          rejected: 'Der Vorschlag <b>%{title}</b> wurde von den Teilnehmern abgelehnt'
       change_status_mine:
-        description: Der Status meines Vorschlags hat sich geändert.
-        email_subject: Der Status eines Deiner Vorschläge hat sich geändert.
+        description: Statusänderung meines Vorschlags
+        email_subject:
+          wait: '%{title} - wähle das Abstimmungsdatum aus'
+          waiting_date: '%{title} - das Abstimmungsdatum wurde gewählt'
+          in_vote: 'Es wird gerade für Deinen Vorschlag <b>%{title}</b> abgestimmt!'
+          abandoned: 'Dein Vorschlag <b>%{title}</b> hat die Debatte nicht bestanden und wurde aufgegeben. Es tut uns leid.'
+          rejected: '%{title} wurde abgelehnt'
+        message:
+          wait: 'Dein Vorschlag <b>%{title}</b> hat die Diskussionsphase bestanden und wartet darauf dass Du ein Datum für die Abstimmung festlegst'
+          waiting_date: '%{name} hat das Abstimmungsdatum für den Vorschlag <b>%{title}</b> gewählt'
+          in_vote: 'Es wird gerade für Deinen Vorschlag <b>%{title}</b> abgestimmt!'
+          abandoned: 'Es tut uns leid. Dein Vorschlag <b>%{title}</b> hat die Debatte nicht bestanden und wurde aufgegeben'
+          rejected: 'Es tut uns leid. Dein Vorschlag <b>%{title}</b> wurde von den Teilnehmern abgelehnt'
       new_posts_group_follow:
-        description: Es gibt eine neues Posting auf der Seite der Gruppen denen ich folge.
-        email_subject: Es gibt ein neues Posting.
+        description: Neue Posts auf der Pinnwand der Gruppe der ich folge
+        email_subject: Neuer Post
       new_posts_group:
-        description: Es gibt neue Postings auf den Seiten der Gruppen in denen ich involviert bin.
-        email_subject: Es gibt neue Postings.
+        description: Neue Posts auf der Pinnwand der Gruppe in die ich mitwirke
+        email_subject: Neuer Post
+        message: '<b>%{user}/<b> hat einen neuen Post in die Gruppe <b>%{group}</b> hinzugefügt'
+      new_public_proposals:
+        description: Neue Vorschläge wurden im Open Space hinzugefügt
+        email_subject: '%{proposal}'
+        message: 'Neuer Vorschlag <b>%{title}</b> im Open Space hinzugefügt'
       new_proposals:
-        description: Neue Vorschläge in der Gruppe.
-        email_subject: Es gibt einen neuen Vorschlag.
+        description: Neuer Vorschlag innerhalb der Gruppe
+        email_subject: '%{proposal}'
+        message: 'Neuer Vorschlag <b>%{proposal}</b> in die Gruppe <b>%{group}</b> erstellt'
       new_partecipation_request:
-        description: Es gibt eine neue Teilnahme-Anfrage.
-        email_subject: Es gibt eine neue Teilnahme-Anfrage.
+        description: Neue Teilnahme-Anfrage
+        email_subject: Neue Teilnahme-Anfrage
+        message: '<b>%{user}</b> asked to participate in the group <b>%{group}</b>'
       new_blog_comment:
+        description: Neuer Kommentar in meinem Blog
+        email_subject: Neuer Kommentar in Deinem Blog
+        message: '<b>%{user}</b> hat deinen Post <b>%{title}</b> kommentiert'
+      new_comments_mine:
+        description: Neue Kommentare in meinen Vorschlägen
+        email_subject: Neuer Kommentar in meinem Vorschlag
+        message: '<b>%{name}</b> hat einen Kommentar in eine Diskussion in Deinen Vorschlag <b>%{title}</b> hinzugefügt'
+      new_comments:
+        description: Neue Kommentare in den Diskussionen in die ich beteiligt bin
+        email_subject: '%{title} - Neuer Kommentar'
+        message: '<b>%{name}</b> hat einen Kommentar in eine Diskussion an der Du im Vorschlag <b>%{title}</b> beteiligt bist, hinzugefügt'
     proposal_categories:
       no_category:
         description: Keine Kategorie
@@ -140,5 +222,8 @@ de:
         description: Demokratie, Institutionen
     vote_types:
       favorable:
+        description: Dafür
       neutral:
+        description: Neutral
       dissenting:
+        description: Dagegen

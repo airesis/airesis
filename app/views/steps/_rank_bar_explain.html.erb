@@ -1,12 +1,7 @@
-<div class="text"><b><%= t('pages.steps.rank_bar_explain.title')%><br />
-</b>
-<%= t('pages.steps.rank_bar_explain.description')%><br />
-<%= t('pages.steps.rank_bar_explain.description2')%><br />
-<%= t('pages.steps.rank_bar_explain.description3')%>
-<%= t('pages.steps.rank_bar_explain.description4')%><br />
-<%= t('pages.steps.rank_bar_explain.description5')%><br />
+<div class="text"><b><%= t('pages.steps.rank_bar_explain.title')%><br /></b>
+<%= t('pages.steps.rank_bar_explain.description_html')%>
 <div style="clear: both"></div>
-<%= link_to 'OK', complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue acceptButton', :style => "float:right;" %>
+<%= link_to t('buttons.ok'), complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue acceptButton', :style => "float:right;" %>
 <div style="clear: both"></div>
 </div>
 

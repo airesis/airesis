@@ -30,9 +30,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempio' %></div>
-          <div><%= 'Stabilire un ordine del giorno per la riunione di coordinamento' %></div>
-          <div><%= "Riunione di coordinamento ordinaria per lo scambio di esperienze con i referenti dei comitati locali per l'agricoltura biologica del centro Italia."%></div>
+          <%= t('pages.proposals.new.agenda.suggestion_html')%>
         </div>
 
       </div>
@@ -43,7 +41,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', :disable_with => t('loading') %>
       </p>
       </div>
 

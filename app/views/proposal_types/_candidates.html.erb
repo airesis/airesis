@@ -30,9 +30,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempi di compilazione' %></div>
-          <div><%= 'CASO 1 (obiettivo: "Eleggere il nuovo referente per il gruppo comunicazione")' %></div>
-          <div><%= 'Il gruppo comuicazione è appena stato istituito ed è necessario eleggere un referente. Si possono candidare tutti coloro che partecipano al gruppo da almeno 5 mesi.' %></div>
+          <%=t('pages.proposals.new.candidates.suggestion_html') %>
         </div>
 
       </div>
@@ -43,7 +41,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: 'Loading...' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: t('loading') %>
       </p>
       </div>
 

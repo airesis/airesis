@@ -85,7 +85,7 @@ it:
       new_events:
         description: Nuovi eventi dei gruppi a cui partecipo
         email_subject: Un nuovo evento è stato inserito
-        message: "Nuovo evento nel gruppo %{group}!<br/> Vai alla pagina di <b>%{event}</b> per visualizzarlo."
+        message: "Nuovo evento <b>%{event}</b> nel gruppo <b>%{group}</b>."
       new_posts_user_follow:
         description: Nuovi post di un utente che seguo
         email_subject: Un nuovo post è stato inserito

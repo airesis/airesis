@@ -17,7 +17,7 @@
 			</p>
 			<p>
 				<%= f.label :body %><br />
-				<%= f.cktext_area :body, ckeditor: {toolbar: 'blog'}%>
+				<%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale}%>
 			</p>
 			<p>
 				<%= f.label :tags_list, t('pages.groups.new.tags.title') %><br />

@@ -1,5 +1,3 @@
-# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
-
 en:
   errors:
     messages:
@@ -10,7 +8,6 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
-
   devise:
     failure:
       already_authenticated: 'You are already signed in'
@@ -51,7 +48,18 @@ en:
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'
+        welcome: "Welcome on %{app_name} %{user}!"
+        follow_link: "You can confirm your e-mail address by clicking the following link:"
+        confirm_account: "Confirm account"
+        follow_link_2: "or by visiting the following url:"
+        access_by_email: "Then you can log in %{app_name} with the provided e-mail and the chosen password"
+        contact_assistance: "If you have any problem with the procedure contact an administrator: %{mail}"
       reset_password_instructions:
         subject: 'Reset password instructions'
+        hi_user: "Hello %{user}!"
+        follow_link: "You can change your password by clicking the following link:"
+        change_password: "Change password"
+        ignore: "If you didn't asked the change of a password, ignore this e-mail."
+        password_will_not_change: "Your password will not change until you click on the previous link."
       unlock_instructions:
         subject: 'Unlock Instructions'
