@@ -71,6 +71,7 @@ Airesis::Application.routes.draw do
       get :vote_results
       post :close_debate
       put :regenerate
+      get :geocode
     end
   end
 
@@ -431,6 +432,7 @@ Airesis::Application.routes.draw do
         member do
           post :close_debate
           put :regenerate
+          get :geocode
         end
       end
 

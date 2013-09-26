@@ -1,10 +1,13 @@
 <% content_for :head do %>
     <%= javascript_include_tag 'ice/index' %>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false&libraries=drawing">
+    </script>
 <% end %>
 
 
 
-<% @page_title = t('pages.proposals.edit.title',title: @proposal.title) %>
+<% @page_title = t('pages.proposals.edit.title', title: @proposal.title) %>
 <h1><%= @page_title %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
@@ -109,9 +112,17 @@
     <% end %>
 
     <p>
-      <%= f.label :proposal_category_id %><br/>
+    <div style="float:left">
+      <%= f.label :proposal_category_id %>
+      <br/>
       <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick'} %>
+    </div>
+    <div style="float:left;margin-left: 60px;margin-top: 10px;">
+      <%#= link_to image_tag('maps.png', class: 'geocode_proposal'), @group ? geocode_group_proposal_url(@group, @proposal) : geocode_proposal_url(@proposal), remote: true %>
+    </div>
+    <div class="clearboth"></div>
     </p>
+
 
     <div class="sections_column">
       <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
@@ -207,8 +218,8 @@
       <a href="#" onclick="addSolution(this);return false;"><%= t('pages.proposals.edit.add_solution') %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
     </div>
 
-    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title')%>" style="display:none;line-height: 160%">
-      <%=t('pages.proposals.edit.more_solutions_explained_html') %>
+    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title') %>" style="display:none;line-height: 160%">
+      <%= t('pages.proposals.edit.more_solutions_explained_html') %>
     </div>
 
     <p>
@@ -223,38 +234,45 @@
 <%= t('pages.proposals.edit.inserted_contributes') %>
 </span>
 
-<div id="loading_contributes" style="margin:auto;text-align:center;">
-  <%= image_tag 'ajax-loader.gif' %>
-  <br/>
-  <b><%= t('pages.proposals.show.loading_contributions') %></b>
-</div>
-<div id="proposalCommentsContainer">
+  <div id="loading_contributes" style="margin:auto;text-align:center;">
+    <%= image_tag 'ajax-loader.gif' %>
+    <br/>
+    <b><%= t('pages.proposals.show.loading_contributions') %></b>
+  </div>
+  <div id="proposalCommentsContainer">
 
-</div>
+  </div>
 
-<div id="loading_results" style="display:none;">
-  <span><%= t('pages.proposals.show.previos_contributes') %></span>
-</div>
+  <div id="loading_results" style="display:none;">
+    <span><%= t('pages.proposals.show.previos_contributes') %></span>
+  </div>
 </div>
 
 
 
 
 <script type="text/javascript">
+
+
+    function geocode_panel() {
+
+    }
+
+
     hideLeftPanel();
     fitRightMenu($('.suggestion_right'));
     $('.suggestion_right')
-    .bind('mousewheel DOMMouseScroll', function (e) {
-        if (e.originalEvent) e = e.originalEvent;
-        var delta = e.wheelDelta || -e.detail;
-        this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-        e.preventDefault();
-        if (((this.scrollTop + parseInt(this.style.height,10)) > (this.scrollHeight-100)) && checkActive) {
-            checkActive = false;
-            console.log('bottom');
-            fetchContributes();
-        }
-    });
+            .bind('mousewheel DOMMouseScroll', function (e) {
+                if (e.originalEvent) e = e.originalEvent;
+                var delta = e.wheelDelta || -e.detail;
+                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                e.preventDefault();
+                if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
+                    checkActive = false;
+                    console.log('bottom');
+                    fetchContributes();
+                }
+            });
 
     var currentPage = 0;
     var currentView = 3;
@@ -349,20 +367,20 @@
     }
 
     function integrate_contribute(el, id) {
-        var comment_ = $('#comment'+id);
+        var comment_ = $('#comment' + id);
         var inside_ = comment_.find('.proposal_comment');
         if ($(el).is(':checked')) {
             integrated_contributes.push(id);
-            comment_.fadeTo(400,0.3);
-            inside_.attr('data-height',inside_.innerHeight());
-            inside_.css('overflow','hidden');
-            inside_.animate({height:'42px'},400);
+            comment_.fadeTo(400, 0.3);
+            inside_.attr('data-height', inside_.innerHeight());
+            inside_.css('overflow', 'hidden');
+            inside_.animate({height: '42px'}, 400);
         }
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
-            comment_.fadeTo(400,1);
-            inside_.animate({height:inside_.attr('data-height')},400,function(){
-                inside_.css('overflow','auto');
+            comment_.fadeTo(400, 1);
+            inside_.animate({height: inside_.attr('data-height')}, 400, function () {
+                inside_.css('overflow', 'auto');
             });
 
         }

@@ -1,0 +1,16 @@
+<div class="title">
+  <%= t('pages.groups.show.last_topics') %>
+</div>
+<% @c = @group.topics.order('created_at desc').limit(10) %>
+<% unless @c.empty? %>
+    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+      <%= render partial: 'frm/topics/mini_topic', collection: @c, as: 'topic' %>
+    </div>
+
+
+<% end %>
+
+
+<script type="text/javascript">
+
+</script>

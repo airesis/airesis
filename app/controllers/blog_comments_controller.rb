@@ -24,7 +24,7 @@ class BlogCommentsController < ApplicationController
     respond_to do |format|
       if @blog_comment.save
         flash[:notice] = t('info.blog.comment_added')
-        @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE,:order => 'created_at DESC')
+        @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
         @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
         @saved.collapsed = true
         notify_new_blog_post_comment(@blog_comment)
@@ -55,7 +55,7 @@ class BlogCommentsController < ApplicationController
     respond_to do |format|
       format.js {
         render :update do |page|
-          @blog_comments = @blog_post.blog_comments.paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')        
+          @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
           page.replace_html "blogPostCommentsContainer", :partial => "blog_posts/comments"
         end
       }

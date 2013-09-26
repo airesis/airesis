@@ -20,10 +20,10 @@ class ProposalsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :tab_list, :endless_index, :show]
 
   #l'utente deve essere autore della proposta
-  before_filter :check_author, :only => [:set_votation_date, :add_authors]
+  before_filter :check_author, :only => [:set_votation_date, :add_authors, :geocode]
 
   #la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :available_author, :add_authors]
+  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :available_author, :add_authors, :geocode]
 
   #la proposta deve essere in stato 'VOTATA'
   before_filter :voted_state_required, :only => [:vote_results]
@@ -269,6 +269,11 @@ class ProposalsController < ApplicationController
 
   def edit
     authorize! :update, @proposal
+  end
+
+
+  def geocode
+
   end
 
   def create
@@ -780,7 +785,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @search.time_type = params[:time][:type]
     end
 
-    @proposals = @search.results.paginate(:page => params[:page], :per_page => PROPOSALS_PER_PAGE)
+    @proposals = @search.results.page(params[:page]).per(PROPOSALS_PER_PAGE)
   end
 
   def update_borders(borders)

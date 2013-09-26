@@ -46,7 +46,7 @@
 
   </div>
   <% countreplies = comment.replies.count %>
-  <% @lastreplies = comment.replies.paginate(:page => 1, :per_page => 5, :order => 'created_at DESC').reverse! %>
+  <% @lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > 5 %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
         <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true, :method => :post %>

@@ -61,7 +61,7 @@
         js = d.createElement('script');
         js.id = id;
         js.async = true;
-        js.src = "//connect.facebook.net/<%="#{I18n.locale}"%>/all" + (debug ? "/debug" : "") + ".js";
+        js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
     }(document, /*debug*/ false));
 

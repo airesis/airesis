@@ -1,4 +1,4 @@
-<%# @extend=true %>
+<% @extend=true %>
 <% javascript 'endless_page' %>
 
 <%= content_for :head do %>
@@ -38,15 +38,19 @@
             </div>
         <% end %>
       </div>
+
       <div class="group_infos">
-        <%#= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+        <% if can? :view_proposal, @group %>
+            <%= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+        <% end %>
+        <%= render :partial => "groups/portlets/topics", :layout => "layouts/portlet" %>
       </div>
     </div>
 <% end %>
 
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente      %>
+<% if false #disattivato momentaneamente        %>
     <%= content_for :right_panel do %>
         <% if (can? :view_proposal, @group) %>
             <h4>Proposte interne al gruppo</h4>
@@ -87,5 +91,19 @@
                     });
                     event.stopPropagation();
                 });
+
+        $(window).resize(function () {
+            inHomePage();
+        });
+
+        function inHomePage() {
+            console.log(window.innerWidth);
+            if (window.innerWidth < 1280) {
+                $('.posts_container_main, .group_infos').addClass('resized');
+            }
+            else {
+                $('.posts_container_main, .group_infos').removeClass('resized');
+            }
+        }
     });
 </script>

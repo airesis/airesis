@@ -294,7 +294,6 @@ class Group < ActiveRecord::Base
     elsif tag then
       Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
     else
-      #Group.paginate(:page => page, :per_page => 15, :order => 'group_partecipations_count desc, created_at desc')
       []
     end
   end

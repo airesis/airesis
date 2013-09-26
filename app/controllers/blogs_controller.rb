@@ -32,7 +32,7 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @user = @blog.user
     @page_title = @blog.title
-    @blog_posts = @blog.posts.published.includes(:user,:blog,:tags).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+    @blog_posts = @blog.posts.published.includes(:user,:blog,:tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js
