@@ -21,7 +21,31 @@
             xfbml: true  // parse XFBML tags on this page?
         });
 
-        // Additional initialization code such as adding Event Listeners goes here
+        FB.Event.subscribe('edge.create', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>',
+                    type: 'post'
+                });
+            }
+        });
+        FB.Event.subscribe('edge.remove', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>' + '/' + likeable_id,
+                    type: 'delete'
+                });
+            }
+
+        });
 
     };
 

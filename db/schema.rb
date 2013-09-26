@@ -1357,6 +1357,8 @@ ActiveRecord::Schema.define(:version => 20130924072011) do
   add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
 
+  add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
+
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"
 

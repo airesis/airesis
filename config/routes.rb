@@ -17,6 +17,8 @@ Airesis::Application.routes.draw do
   match '/statistics' => 'home#statistics'
   match '/movements' => 'home#movements'
 
+  resources :user_likes
+
   resources :proposal_nicknames
 
   #common routes both for main app and subdomains
@@ -523,7 +525,6 @@ Airesis::Application.routes.draw do
       match ':controller/:action/'
       resources :admin
       match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
-
     end
 
 
