@@ -29,9 +29,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempio' %></div>
-          <div><%= 'Organizzare un festival rock low cost' %></div>
-          <div><%= "Nella nostra città esistono molte band giovanili che non trovano spazi per esibirsi e valorizzare il loro talento. D'altra parte il programma di eventi promosso dal Comune per la prossima estate è molto scarno, a causa di mancanza di fondi."%></div>
+          <%=t('pages.proposals.new.event.suggestion_html') %>
         </div>
 
       </div>
@@ -42,7 +40,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', :disable_with => t('loading')%>
       </p>
       </div>
 

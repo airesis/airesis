@@ -108,13 +108,13 @@
           <%end%>
 
           <div style="float: left">
-            <%= link_to '', '#', :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), onclick: "return send_vote(#{POSITIVE_VOTE});" %>
+            <%= link_to '', '#', :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), onclick: "return send_vote(#{VoteType::POSITIVE});" %>
           </div>
           <div style="float: left">
-            <%= link_to '', '#', :class => "voteyellow votebutton", :title => t('pages.votations.show.vote_neutral'), onclick: "return send_vote(#{NEUTRAL_VOTE});" %>
+            <%= link_to '', '#', :class => "voteyellow votebutton", :title => t('pages.votations.show.vote_neutral'), onclick: "return send_vote(#{VoteType::NEUTRAL});" %>
           </div>
           <div style="float: left">
-            <%= link_to '', '#', :class => "votered votebutton", :title => t('pages.votations.show.vote_negative'), onclick: "return send_vote(#{NEGATIVE_VOTE});" %>
+            <%= link_to '', '#', :class => "votered votebutton", :title => t('pages.votations.show.vote_negative'), onclick: "return send_vote(#{VoteType::NEGATIVE});" %>
           </div>
           <%= image_tag "spinner.gif", :style => 'display: none;', :class => "loading_vote" %>
           <div style="clear: both"></div>
@@ -123,9 +123,9 @@
 
       <script type="text/javascript">
           function send_vote(type) {
-              var message = (type == <%=POSITIVE_VOTE%>) ?
+              var message = (type == <%=VoteType::POSITIVE%>) ?
                       '<%=j t('pages.votations.show.confirm_positive', :name => @proposal.title) %>' :
-                      (type == <%=NEUTRAL_VOTE%>) ?
+                      (type == <%=VoteType::NEUTRAL%>) ?
                           '<%=j t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>' :
                               '<%=j t('pages.votations.show.confirm_negative', :name => @proposal.title) %>';
               if (confirm(message)) {

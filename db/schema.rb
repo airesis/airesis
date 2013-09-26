@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925125144) do
+ActiveRecord::Schema.define(:version => 20130926104555) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -277,47 +277,28 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
   create_table "frm_categories", :force => true do |t|
-    t.string   "name",                              :null => false
+    t.string   "name",       :null => false
     t.string   "slug"
     t.integer  "group_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.boolean  "visible_outside", :default => true
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "frm_categories", ["group_id", "slug"], :name => "index_frm_categories_on_group_id_and_slug", :unique => true
-  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug"
-
-  create_table "frm_category_tags", :force => true do |t|
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "frm_category_id"
-    t.integer  "tag_id"
-  end
-
-  create_table "frm_forum_tags", :force => true do |t|
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "frm_forum_id"
-    t.integer  "tag_id"
-  end
+  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug", :unique => true
 
   create_table "frm_forums", :force => true do |t|
     t.string  "name"
     t.text    "description"
     t.integer "category_id"
     t.integer "group_id"
-    t.integer "views_count",     :default => 0
+    t.integer "views_count", :default => 0
     t.string  "slug"
-    t.boolean "visible_outside", :default => true
   end
 
-  add_index "frm_forums", ["group_id", "slug"], :name => "index_frm_forums_on_group_id_and_slug", :unique => true
-  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug"
+  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug", :unique => true
 
   create_table "frm_groups", :force => true do |t|
-    t.string  "name"
-    t.integer "group_id"
+    t.string "name"
   end
 
   add_index "frm_groups", ["name"], :name => "index_frm_groups_on_name"
@@ -345,33 +326,16 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
     t.boolean  "notified",    :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.string   "token"
   end
 
   add_index "frm_posts", ["reply_to_id"], :name => "index_frm_posts_on_reply_to_id"
   add_index "frm_posts", ["state"], :name => "index_frm_posts_on_state"
-  add_index "frm_posts", ["token"], :name => "index_frm_posts_on_token", :unique => true
   add_index "frm_posts", ["topic_id"], :name => "index_frm_posts_on_topic_id"
   add_index "frm_posts", ["user_id"], :name => "index_frm_posts_on_user_id"
 
   create_table "frm_subscriptions", :force => true do |t|
     t.integer "subscriber_id"
     t.integer "topic_id"
-  end
-
-  create_table "frm_topic_proposals", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "topic_id"
-    t.integer  "proposal_id"
-    t.integer  "user_id"
-  end
-
-  create_table "frm_topic_tags", :force => true do |t|
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "frm_topic_id"
-    t.integer  "tag_id"
   end
 
   create_table "frm_topics", :force => true do |t|
@@ -387,14 +351,11 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
     t.string   "slug"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
-    t.string   "token"
   end
 
-  add_index "frm_topics", ["forum_id", "slug"], :name => "index_frm_topics_on_forum_id_and_slug", :unique => true
   add_index "frm_topics", ["forum_id"], :name => "index_frm_topics_on_forum_id"
-  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug"
+  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug", :unique => true
   add_index "frm_topics", ["state"], :name => "index_frm_topics_on_state"
-  add_index "frm_topics", ["token"], :name => "index_frm_topics_on_token", :unique => true
   add_index "frm_topics", ["user_id"], :name => "index_frm_topics_on_user_id"
 
   create_table "frm_views", :force => true do |t|
@@ -947,17 +908,6 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
     t.string "description", :limit => 200, :null => false
   end
 
-  create_table "received_emails", :force => true do |t|
-    t.string   "subject"
-    t.text     "body"
-    t.string   "from"
-    t.string   "to"
-    t.string   "token"
-    t.boolean  "read",       :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
   create_table "regionali_groups", :id => false, :force => true do |t|
     t.integer "id",                                                  :null => false
     t.string  "name",               :limit => 200
@@ -1005,21 +955,6 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "search_proposals", :force => true do |t|
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.integer  "proposal_category_id"
-    t.integer  "group_area_id"
-    t.integer  "proposal_type_id"
-    t.integer  "proposal_state_id"
-    t.integer  "tag_id"
-    t.integer  "interest_border_id"
-    t.datetime "created_at_from"
-    t.datetime "created_at_to"
   end
 
   create_table "section_histories", :force => true do |t|
@@ -1160,16 +1095,13 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
   end
 
   create_table "tags", :force => true do |t|
-    t.string   "text",                                :null => false
-    t.integer  "proposals_count",      :default => 0, :null => false
-    t.integer  "blog_posts_count",     :default => 0, :null => false
-    t.integer  "blogs_count",          :default => 0, :null => false
+    t.string   "text",                            :null => false
+    t.integer  "proposals_count",  :default => 0, :null => false
+    t.integer  "blog_posts_count", :default => 0, :null => false
+    t.integer  "blogs_count",      :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_count",         :default => 0, :null => false
-    t.integer  "frm_categories_count", :default => 0, :null => false
-    t.integer  "frm_forums_count",     :default => 0, :null => false
-    t.integer  "frm_topics_count",     :default => 0, :null => false
+    t.integer  "groups_count",     :default => 0, :null => false
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
@@ -1362,15 +1294,6 @@ ActiveRecord::Schema.define(:version => 20130925125144) do
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
-
-  add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
-  add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"
-
-  add_foreign_key "frm_forum_tags", "frm_forums", :name => "frm_forum_tags_frm_forum_id_fk"
-  add_foreign_key "frm_forum_tags", "tags", :name => "frm_forum_tags_tag_id_fk"
-
-  add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
-  add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
 
   add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
   add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"

@@ -23,4 +23,4 @@ private
 solr/data/
 config/database.yml
 config/initializers/constants.rb
-
+*.orig

@@ -49,3 +49,4 @@
 //= require jquery.switchbutton
 //= require introjs.min
 //= require select2
+//= require ckeditor/init

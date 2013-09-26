@@ -1,7 +1,7 @@
 #encoding: utf-8
 class InterestBordersController < ApplicationController
 
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
   def index
     hint = params[:q] + "%"

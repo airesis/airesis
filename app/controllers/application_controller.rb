@@ -16,9 +16,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def ckeditor_filebrowser_scope(options = {})
+    options = { :assetable_id => current_user.id, :assetable_type => 'User' }.merge(options)
+    super
+  end
+
 
   def load_group
     if params[:group_id].to_s != ''
+
       @group = Group.find(params[:group_id])
     elsif !['', 'www'].include? request.subdomain
       @group = Group.find_by_subdomain(request.subdomain)

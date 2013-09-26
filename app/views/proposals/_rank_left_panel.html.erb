@@ -49,6 +49,7 @@
       <%= t('pages.proposals.show.updated_at')%>
       </span><br/>
     <%= l @proposal.updated_at %>
+<br/>
 <% end %>
 
 <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>

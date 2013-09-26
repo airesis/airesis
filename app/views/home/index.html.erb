@@ -45,7 +45,7 @@
             }
             js = d.createElement(s);
             js.id = id;
-            js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1&appId=221145254619152";
+            js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all.js#xfbml=1&appId=221145254619152";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
@@ -179,7 +179,7 @@
               <div style="float:left;">
 
                 <div style="float:left; margin:5px; padding:0px; margin-left: 20px; font-weight:bold; ">
-                  <%= link_to t('pages.home.index.try_it'), groups_path, :class => "btn btn-success btn-large",
+                  <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "btn btn-success btn-large",
                               :style => "font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
                 </div>
 
@@ -214,10 +214,6 @@
                         <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
                         <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
                       </div>
-
-                      <!--<div style="float:right; width: 200px;">
-                        Accedi con
-                      </div>-->
                     </div>
                 <% end %>
               </div>

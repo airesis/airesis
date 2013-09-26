@@ -1,5 +1,7 @@
 Airesis::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   match 'home', :to => 'home#show'
   match '/partecipa' => 'home#engage'
   match '/chisiamo' => 'home#whowe'

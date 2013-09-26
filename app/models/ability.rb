@@ -191,7 +191,7 @@ class Ability
       end
 
 
-      #forum permissions
+	  #forum permissions
       can :read, Frm::Category do |category|
         user.can_read_forem_category?(category)
       end
@@ -199,7 +199,6 @@ class Ability
       can :read, Frm::Topic do |topic|
         user.can_read_forem_forum?(topic.forum) && user.can_read_forem_topic?(topic)
       end
-
 
       can :read, Frm::Forum do |forum|
         user.can_read_forem_category?(forum.category) && user.can_read_forem_forum?(forum)
@@ -222,7 +221,16 @@ class Ability
         user.can_moderate_forem_forum?(forum) || user.forem_admin?
       end
 
+      # Always performed
+      can :access, :ckeditor   # needed to access Ckeditor filebrowser
 
+      # Performed checks for actions:
+      can [:read, :create, :destroy], Ckeditor::Picture do |picture|
+        picture.assetable_id == user.id
+      end
+      can [:read, :create, :destroy], Ckeditor::AttachmentFile do |attachment|
+        picture.assetable_id == user.id
+      end
 
       if user.moderator?
         can :read, Proposal # can see all the proposals

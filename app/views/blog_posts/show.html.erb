@@ -28,7 +28,7 @@
   </p>
 
   <div class="blogPostBody" itemprop="description">
-    <%= @blog_post.parsed_body %>
+    <%=sanitize @blog_post.body %>
   </div>
 
   <hr class="blogPostBreak"/>
@@ -51,6 +51,7 @@
 
   <br style="clear: both;"/>
 </div>
+
 
 
 <%= content_for :left_panel do %>

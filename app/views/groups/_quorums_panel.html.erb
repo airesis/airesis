@@ -43,7 +43,7 @@
     function change_quorum_status(el, quorum_id) {
         if (el.checked) {
             $.ajax({
-                data: "active=true",
+                data: "active=true"+"&l=<%=I18n.locale%>",
                 url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
                 dataType: 'script',
                 type: 'post'
@@ -51,7 +51,7 @@
         }
         else {
             $.ajax({
-                data: "active=false",
+                data: "active=false"+"&l=<%=I18n.locale%>",
                 url: "/groups/" + <%=@group.id%> +"/quorums/" + quorum_id + "/change_status",
                 dataType: 'script',
                 type: 'post'

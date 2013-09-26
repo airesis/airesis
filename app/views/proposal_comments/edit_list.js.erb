@@ -2,14 +2,17 @@ $('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial =>
 
 firstCheck = false;
 <%if @total_pages > @current_page%>
-  $('#loading_results').show();
-  if (!firstCheck) {
+$('#loading_results').show();
+if (!firstCheck) {
     checkScroll();
     firstCheck = true;
-  }
-  checkActive = true;
+}
+checkActive = true;
 <%else%>
-  $('#loading_results').hide();
+$('#loading_results').hide();
+<%if @proposal_comments.count == 0 %>
+$('#suggestion_title').remove();
+<%end%>
 <%end%>
 
 $('.reply_textarea').elastic();

@@ -70,6 +70,9 @@ GEM
     bullet (4.5.0)
       uniform_notifier
     cancan (1.6.8)
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
     client_side_validations-simple_form (1.5.0)
       client_side_validations (~> 3.2.0)
       simple_form (~> 1.5.0)
@@ -379,6 +382,7 @@ DEPENDENCIES
   bluecloth (= 2.0.7)
   bullet
   cancan
+  ckeditor
   client_side_validations!
   client_side_validations-simple_form
   coffee-rails (~> 3.2.1)
