@@ -1,5 +1,39 @@
 fr:
   db:
+    sys_locales:
+      it:
+        description: Italien
+      en:
+        description: Anglais
+      us:
+        description: Américain
+      fr:
+        description: Français
+      es:
+        description: Espagnol
+      pt:
+        description: Portugais
+      de:
+        description: Allemand
+    proposal_types:
+      STANDARD:
+        description: Proposition standard
+      POLL:
+        description: Sondage
+      RULE_BOOK:
+        description: Règlement
+      PRESS:
+        description: Press Release
+      EVENT:
+        description: Event Organization
+      ESTIMATE:
+        description: Cost Estimate
+      AGENDA:
+        description: Agenda
+      CANDIDATES:
+        description: Choice of a candidate
+      SIMPLE:
+        description: Simple proposal
     event_types:
       meeting:
         description: rendez-vous
@@ -8,10 +42,10 @@ fr:
       meeting2:
         description: réunion
       election:
-        description: élections
+        description: élection
     group_actions:
       STREAM_POST:
-        description: Publier dans la page d'accueil du groupe
+        description: Post on the Group Wall
       CREATE_EVENT:
         description: Créer des événements et des votes
       PROPOSAL:
@@ -19,7 +53,7 @@ fr:
       REQUEST_ACCEPT:
         description: Ajouter des nouveaux membres au groupe
       SEND_CANDIDATES:
-        description: Nommer des membres pour l'élection
+        description: "Nommer des membres pour l'élection"
       PROPOSAL_VIEW:
         description: Voir les propositions privées
       PROPOSAL_PARTECIPATION:
@@ -34,69 +68,117 @@ fr:
         description: Vote sur les propositions
     notification_categories:
       MYPROP:
+        description: Propositions que je redige
       PROP:
+        description: Propositions auxquelles je participe
       NEWPROP:
+        description: Nouvelles propositions
       NEWEVENT:
+        description: Nouveaux événements
       GROUPS:
+        description: Groupes
     notification_types:
       new_public_events:
         description: Nouveaux évenements publiques
-        email_subject: Un nouvel évenement a été inséré
+        email_subject: Il y a un nouvel événement public
+        message: 'Nouvel événement public: <b>%{event}</b>'
       new_events:
         description: Nouveaux évenements des groupes auxquels je participe
-        email_subject: Un nouvel évenement a été inséré
+        email_subject: Il y a un nouvel événement
+        message: 'Nouvel événement <b>%{event}</b> dans le groupe <b>%{group}</b>'
       new_posts_user_follow:
-        description: Nouveau billet d'un utilisateur que je suis
-        email_subject: Un nouveau billet a été inséré
+        description: "De nouveaux messages d'un utilisateur, que je suis"
+        email_subject: Il y a un nouveau message
+        message: '%{user} a ajouté un nouveau message dans son blog <b>%{blog}</b>'
       new_valutation_mine:
-        description: Nouvelle évaluation à l'une de mes propositions
-        email_subject: Novelle évaluation à l'une de tes propositions
+        description: Nouvelle évaluation à une de mes propositions
+        email_subject: "Il y a une nouvelle évaluation à l'une de mes propositions"
+        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
       new_valutation:
         description: Nouvelle évaluation à une proposition à laquelle je participe
-        email_subject: Nouvelle évaluation à une proposition
+        email_subject: Il y a une nouvelle évaluation à une de mes propositions
+        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
       available_author:
-        description: Utilisateur disponible à rédiger la synthèse d'une proposition
-        email_subject: Un utilisateur est disponible à rédiger la synthèse d'une proposition
+        description: Nouveaux rédacteurs de propositions
+        email_subject: Il y a un utilisateur disponible pour devenir rédacteur de la proposition
+        message: '%{user}  est disponible à rédiger la proposition <b>%{title}</b>'
       author_accepted:
-        description: Acceptation en tant que rédacteur d'une proposition
-        email_subject: Tu as été choisi en tant que rédacteur d'une proposition
+        description: "Acceptation en tant que rédacteur d'une proposition"
+        email_subject: "Tu es devenu rédacteur d'une proposition"
+        message: "Vous êtes maintenant rédacteur en chef de la proposition de <b>%{title}</b>. <br/>N'oubliez pas qu'en tant qu'éditeur, vous devriez écouter aux contributions d'autres utilisateurs et améliorer le texte selon eux <br/>"
       new_authors:
         description: Nouveaux rédacteurs de propositions
-        email_subject: Nouveaux rédacteurs pour une proposition 
+        email_subject: "Nouveau rédacteur d'une proposition"
+        message: '<b>%{user}</b> est un rédacteur de la proposition <b>%{title}</b>'
       unintegrated_contribute:
-        description: Contributions libérés dans le débat
-        email_subject: Une contribution a été rétabli débat
+        description: Des contributions sont remises en débat
+        email_subject: '%{proposal} - Contribution back in debate'
+        message: 'A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate'
       new_contributes:
-        description: Nouvelles contributions et suggestions pour les propositions auxquelles je participe 
-        email_subject: Nouveau commentaire à une proposition
+        description: Nouvelles contributions et commentaires dans les propositions auxquelles je participe
+        email_subject: '%{title} - New contribute'
+        message: '<b>%{name}</b> a ajouté une nouvelle contribution à la proposition de <b>%{title}</b>'
       text_update:
-        description: Mise à jour du texte d'une proposition à laquelle je participe
-        email_subject: Une proposition a été mise à jour
-      new_public_proposals:
-        description: Nouvelles propositions insérées dans l'espace commun
-        email_subject: Une nouvelle proposition a été insérée
-      change_status:
-        description: Changement de statut d'une proposition à laquelle je participe
-        email_subject: Une proposition a changé de statut
+        description: "Mise à jour du texte d'une proposition à laquelle je participe"
+        email_subject: '%{title} - The text has been modified'
+        message: 'La proposition <b>%{title}</b> a été mis à jour'
       new_contributes_mine:
-        description: Nouveaux commentaires à mes propositions
-        email_subject: Nouveaux commentaires à une proposition
+        description: Nouvelles contributions à mes propositions
+        email_subject: "Nouvelles contributions à l'une de mes propositions"
+        message: '<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>'
+      change_status:
+        description: "Changement de statut d'une proposition à laquelle je participe"
+        email_subject: Une proposition a changé son statut
+        message:
+          waiting_date: '%{name} a choisi la date du vote pour la proposition <b>%{title}</b>'
+          in_vote: 'La proposition <b>%{title}</b> est maintenant en votation!'
+          abandoned: "La proposition <b>%{title}</b> n'a pas passé le débat et a été abandonné"
+          rejected: 'La proposition <b>%{title}</b> a été rejetée par les participants'
       change_status_mine:
-        description: Changement de statut de mes propositions
-        email_subject: L'une de tes propositions a changé de statut
+        description: Le statut de mes propositions a changé
+        email_subject:
+          wait: '%{title} - choose the voting date'
+          waiting_date: '%{title} - the voting date has been chosen'
+          in_vote: 'Your proposal <b>%{title}</b> is now being voted!'
+          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          rejected: '%{title} has been rejected'
+        message:
+          wait: 'Votre proposition <b>%{title}</b> a passé la phase de discussion et attend maintenant que vous choisissez la date du vote'
+          waiting_date: '%{name} has chosen the voting date for the proposal <b>%{title}</b>'
+          in_vote: 'Votre proposition <b>%{title}</b> est maintenant en votation!'
+          abandoned: "Votre proposition <b>%{title}</b> n'a pas passé le débat et a été abandonné. Désolé"
+          rejected: 'Votre proposition <b>%{title}</b> a été rejetée par les participants. Désolé'
       new_posts_group_follow:
-        description: Nouveaux commentaires dans les pages des groupes que je suis
-        email_subject: Il y a un nouveau billet
+        description: "Nouveaux messages dans la page d'accueil d'un groupe que je suis"
+        email_subject: Nouveau message
       new_posts_group:
-        description: Nouveaux commentaires dans les pages des groupes auxquels je participe
-        email_subject: il y a un nouveau billet
+        description: "Nouveaux messages dans la page d'accueil d'un groupe auquel je participe"
+        email_subject: Nouveau message
+        message: '<b>%{user}<b>a ajouté un nouveau message dans le groupe <b>%{group}</b>'
+      new_public_proposals:
+        description: "Nouvelles propositions insérées dans l'espace commun"
+        email_subject: '%{proposal}'
+        message: "Nouvelle proposition <b>%{title}</b> insérées dans l'espace commun"
       new_proposals:
-        description: Nouvelles propositions du groupe
-        email_subject: Une nouvelle proposition a été insérée
+        description: Nouvelles propositions dans un groupe
+        email_subject: '%{proposal}'
+        message: 'Nouvelle proposition <b>%{proposal}</b> a été créé dans le groupe <b>%{group}</b>'
       new_partecipation_request:
         description: Nouvelle demande de participation
         email_subject: Nouvelle demande de participation
+        message: '<b>%{user}</b> a demandé de participer au groupe <b>%{group}</b>'
       new_blog_comment:
+        description: Nouveau commentaire dans mon blog
+        email_subject: Nouveau commentaire dans votre blog
+        message: '<b>%{user}</b> a commenté votre post <b>%{title}</b>'
+      new_comments_mine:
+        description: Nouveaux commentaires à mes propositions
+        email_subject: Nouveau commentaire à ma proposition
+        message: '<b>%{name}</b> added a comment in a discussion in your proposal <b>%{title}</b>'
+      new_comments:
+        description: Il y a des nouveaux commentaires dans une discussion à laquelle je participe
+        email_subject: '%{title} - New comment'
+        message: '<b>%{name}</b> a ajouté un commentaire dans une discussion à laquelle vous participez pour la proposition <b>%{title}</b>'
     proposal_categories:
       no_category:
         description: Aucune catégorie
@@ -140,5 +222,8 @@ fr:
         description: Démocratie, Institutions
     vote_types:
       favorable:
+        description: Favorable
       neutral:
+        description: Neutre
       dissenting:
+        description: Contraire
