@@ -30,9 +30,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempio' %></div>
-          <div><%= 'Comunicare alla stampa il rilascio della versione 3.5 di Airesis' %></div>
-          <div><%= "Dobbiamo pubblicizzare l’uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce su le recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca. "%></div>
+          <%= t('pages.proposals.new.press.suggestion_html')%>
         </div>
 
       </div>
@@ -43,7 +41,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', :disable_with => t('loading') %>
       </p>
       </div>
 

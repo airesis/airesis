@@ -31,9 +31,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <div><%= 'Esempio' %></div>
-          <div><%= 'Regolamento per prenotare la sala M. Rossi' %></div>
-          <div><%= "Il Comune di Aglaura dispone di una sala conferenze ad oggi utilizzata solo per iniziative promosse dagli 'amici' del Sindaco. Si propone di stabilire una procedura imparziale che consenta a tutti i cittadini e alle associazioni di prenotare la sala per iniziative pubbliche."%></div>
+          <%=t('pages.proposals.new.rule_book.suggestion_html')%>
         </div>
 
       </div>
@@ -44,7 +42,7 @@
 
       <p>
         <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable' %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', disable_with: t('loading') %>
       </p>
       </div>
 

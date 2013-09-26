@@ -1,6 +1,5 @@
 <div class="text"><b><%= t('pages.steps.interest_borders.title')%><br /></b>
-	<%= t('pages.steps.interest_borders.description1')%><br />
-	<%= t('pages.steps.interest_borders.description2')%><br />
+	<%= t('pages.steps.interest_borders.description_html')%>
 </div>
 	
 	
@@ -10,7 +9,7 @@
 </div>
 <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
 	<%= image_tag 'ajax-loader.gif'%><br />
-	<b>Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti.</b>
+	<b><%=t('pages.users.border_preferences.updating')%></b>
 </div>
 <%= f.button t('buttons.next'), :class => 'btn blue forwardButton', :style => "float:right;", :id => "submit_borders" %>
 <%end%>
