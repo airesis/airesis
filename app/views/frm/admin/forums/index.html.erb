@@ -1,0 +1,58 @@
+<div>
+  <h2><%= t("frm.admin.forum.index") %></h2>
+
+  <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), :class => "btn blue" %>
+
+  <% @forums.group_by(&:category).each do |category, forums| %>
+      <div class="category">
+        <h2><%= category.try(:name) || t('.no_category') %></h2>
+      </div>
+      <table id='forums' class='forums table table-striped' cellspacing='0'>
+        <thead>
+        <tr>
+          <th class="desc"><%= t('forum', :scope => 'frm.general') %></th>
+          <th><%= t('topics', :scope => 'frm.general') %></th>
+          <th><%= t('posts', :scope => 'frm.general') %></th>
+          <th><%= t('edit', :scope => 'frm.admin.forums') %></th>
+          <th><%= t('delete', :scope => 'frm.admin.forums') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% forums.each do |forum| %>
+            <tr class="forum <%= cycle("odd", "even") %>">
+
+              <td>
+                <%= link_to forum.title, group_forum_url(@group, forum) %>
+                <div class='description'><%= forem_format(forum.description) %></div>
+                <%= t('.last_post') %>
+                <% if last_post = forum.posts.last %>
+                    <%= link_to(last_post.topic.subject, group_forum_topic_url(@group, forum, last_post.topic)) -%> <%= t('by') %> <%= last_post.user %> <%= time_ago_in_words(last_post.created_at) -%>
+                <% else %>
+                    <%= t('.none') %>
+                <% end %>
+                <br>
+              <span class='moderators'>
+                <strong><%= t('.moderators') %>:</strong>
+                <% if forum.moderators.exists? %>
+                  <% forum.moderators.map do |moderator| %>
+                    <%= link_to moderator, group_frm_admin_forum_moderator_url(@group, forum, moderator) %>
+                  <% end.to_sentence %>
+                <% else %>
+                  None
+                <% end %>
+              </span>
+              </td>
+              <td><%= forum.topics.count %></td>
+              <td><%= forum.posts.count %></td>
+              <td><%= link_to t('edit', :scope => 'frm.admin.forums'), edit_group_frm_admin_forum_url(@group, forum), :class => "btn editButton" %></td>
+              <td><%= link_to t('delete', :scope => 'frm.admin.forums'), group_frm_admin_forum_url(@group, forum), :method => :delete, data: {confirm: t("delete_confirm", scope: "frm.admin.forums")}, :class => "btn trashButton" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</div>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

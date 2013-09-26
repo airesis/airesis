@@ -72,6 +72,13 @@ class Group < ActiveRecord::Base
   has_many :group_tags, :dependent => :destroy
   has_many :tags, :through => :group_tags, :class_name => 'Tag'
 
+
+  #forum
+  has_many :forums, :class_name => 'Frm::Forum', foreign_key: 'group_id'
+  has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
+  has_many :categories, :class_name => 'Frm::Category', foreign_key: 'group_id'
+  has_many :moderator_groups, :class_name => 'Frm::Group', foreign_key: 'group_id'
+
   # Check for paperclip
   has_attached_file :image,
                     :styles => {
@@ -329,4 +336,12 @@ class Group < ActiveRecord::Base
     comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
     interest_borders += comune_ids
   end
+
+  def self.autocomplete(term)
+    where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
+        order("groups.name asc")
+  end
+
 end

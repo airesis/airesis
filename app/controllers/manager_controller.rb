@@ -1,10 +1,11 @@
 #encoding: utf-8
 
 class ManagerController < ApplicationController
+
   def block
     @user = User.find_by_id(params[:user_id])
     @user = User.find_by_email(params[:user_id]) unless @user
-    if @user
+    if @user && !@user.blocked
       @user.blocked = true
       @user.blocked_name = @user.name
       @user.blocked_surname = @user.surname
@@ -20,7 +21,7 @@ class ManagerController < ApplicationController
   def unblock
     @user = User.find_by_id(params[:user_id])
     @user = User.find_by_email(params[:user_id]) unless @user
-    if @user
+    if @user && @user.blocked
       @user.blocked = false
       @user.name = @user.blocked_name
       @user.surname = @user.blocked_surname

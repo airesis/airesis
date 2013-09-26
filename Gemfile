@@ -60,7 +60,6 @@ gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
-gem 'will_paginate'
 
 #TODO to remove in 3.0
 gem 'bluecloth', '2.0.7'
@@ -147,3 +146,17 @@ gem 'private_pub'
 gem 'rotp'
 
 gem 'ckeditor'
+
+#added for forums
+gem 'friendly_id'
+gem 'simple_form', '1.5.0'
+gem 'client_side_validations-simple_form'
+gem 'gemoji'
+gem 'workflow'
+gem 'select2-rails', '3.4.3'
+gem 'redcarpet', '~> 2.0.1'
+gem 'kaminari', '~> 0.14.1'
+
+gem 'mailman', require: false
+
+gem 'email_reply_parser'

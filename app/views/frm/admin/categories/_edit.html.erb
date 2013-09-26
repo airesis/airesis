@@ -1,0 +1,36 @@
+
+<%= simple_form_for @category, url: group_frm_admin_category_url(@group,@category), remote: remote do |f| %>
+    <%= f.input :name %>
+    <%= f.input :tags_list %>
+    <%= f.input :visible_outside %>
+    <%= f.submit :class => "btn blue", disable_with: t('loading') %>
+<% end %>
+
+<% data = "["
+   @category.tags_list.split(',').each do |l|
+     data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   end
+   data += "]"
+%>
+
+
+<script type="text/javascript">
+    $(function () {
+        var input = $('#frm_category_tags_list')
+        if (input != null) {
+            input.tokenInput("<%=tags_path(format: :json )%>", {
+                theme: "facebook",
+                crossDomain: false,
+                allowFreeTagging: true,
+                minChars: 3,
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
+                prePopulate: <%=raw data%>,
+                preventDuplicates: true,
+                allowTabOut: true,
+                tokenValue: "name",
+                tokenLimit: 5
+            })
+        }
+    });
+</script>

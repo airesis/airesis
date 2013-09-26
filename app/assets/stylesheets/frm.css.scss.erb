@@ -1,0 +1,161 @@
+$title-background: url('<%=asset_path 'yellow_stripe.png'%>');
+//$title-border-color: #9933cc;
+//$title-border-color: #aa66cc;
+$link-color: #aa150e;
+$border-color: #e2e2e2;
+
+.category, .forum_title, .topic_title {
+    h2 {
+        background: $title-background;
+        font-weight: bold;
+        padding: 5px 20px 7px 20px;
+        margin: 0px;
+        color: #000;
+        a {
+            color: #fff;
+        }
+        p {
+            margin: 0px;
+        }
+    }
+}
+
+.forums, .topics, .posts {
+    border: 1px solid $border-color;
+    border-collapse: collapse;
+    width: 100%;
+    thead {
+        th {
+            font-weight: normal;
+            padding: .7em;
+            font-size: .8em;
+            &.desc, &.last-post, &.byline, &.latest-post {
+                text-align: left;
+
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                border: 1px solid $border-color;
+                font-size: 0.9em;
+                padding: 0.5em;
+                &.topics-count, &.posts-count, &.views-count {
+                    text-align: center;
+                }
+                &.forum-description, &.last-post, &.byline {
+                    padding-left: 20px;
+                }
+                .description p {
+                    margin: 0px;
+                }
+                &.user_post {
+                    width: 120px;
+                }
+                .user {
+                    .username {
+                        font-weight: bold;
+                    }
+                }
+                &.post_content {
+                    vertical-align: top;
+                }
+            }
+
+        }
+    }
+    a.title, .subject a {
+        font-weight: bold;
+        text-decoration: underline;
+        color: $link-color;
+    }
+}
+
+.forums .last_post {
+    font-style: italic;
+
+    time {
+        color: #aaa;
+        font-size: 75%;
+    }
+}
+
+#forum {
+    #forum_topic_links {
+        margin-bottom: 10px;
+    }
+}
+
+.post-header {
+
+    .post-when {
+        float: left;
+    }
+
+    .btn-group {
+        float: right;
+        a {
+            margin: 0 5px;
+            text-decoration: underline;
+            color: $link-color;
+        }
+    }
+}
+
+.new_post textarea {
+    width: 50%;
+    min-height: 250px;
+}
+
+.new_topic textarea {
+    width: 50%;
+    min-height: 250px;
+}
+
+#topic #menu {
+    margin-bottom: 10px;
+}
+
+#groups thead th {
+    background: #0088cc;
+    color: white;
+    padding: 10px;
+    border-bottom: 3px solid #232323;
+    font-size: 110%;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.contents.span7 {
+    float: left;
+    min-height: 140px;
+}
+
+.text label.text,
+.string label.string {
+    display: block;
+}
+
+blockquote {
+    border: 1px solid #e2e2e2;
+    font-style: italic;
+    margin: 10px 0px 0px 25px;
+    padding: 10px;
+}
+
+.lock.icon{
+    width: 24px;
+    height: 24px;
+    background: transparent url(<%= asset_path('lock_icon.png') %>) 0 0;
+    display: inline-block;
+}
+
+.pin.icon{
+    width: 9px;
+    height: 15px;
+    background: transparent url(<%= asset_path('pin_icon.png') %>) 0 0;
+    display: inline-block;
+}

@@ -1,0 +1,14 @@
+<table id='forums' class='forums table table-striped' cellspacing='0'>
+  <thead>
+  <tr>
+    <th class="desc"><%= t('forum', :scope => 'forem.general') %></th>
+    <th class="topics-count"><%= t('topics', :scope => 'forem.general') %></th>
+    <th class="posts-count"><%= t('posts', :scope => 'forem.general') %></th>
+    <th class="views-count"><%= t('frm.forums.index.views') %></th>
+    <th class="last-post"><%= t('last_post') %></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render category.forums %>
+  </tbody>
+</table>

@@ -201,7 +201,7 @@
         }
     });
 
-    $(function () {
+    $(function() {
         // grab the url
         var url = document.URL;
         // grab the value of the hash
@@ -213,43 +213,6 @@
             $('#tabs').tabs("option", "active", hashValue);
         }
     });
-
-    function select_model() {
-        var create_proposal_ = $('#create_proposal_container');
-        create_proposal_.empty();
-        create_proposal_.append($('.choose_model').clone().show());
-
-
-        $('.proposal_model_option', create_proposal_).click(function () {
-            var create_proposal_inner_ = $('.choose_model', create_proposal_);
-            var type_id = $(this).data('id');
-            create_proposal_inner_.hide(1000, function () {
-                create_proposal_inner_.remove();
-                create_proposal_.append('<%=j render "fragments/loading"%>');
-                $.ajax({
-                    url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], models: true)%>',
-                    data: 'proposal_type_id=' + type_id,
-                    dataType: 'script'
-                })
-            });
-
-
-        });
-
-
-        create_proposal_.dialog({
-            title: "<%=j t('pages.proposals.index.choose_model') %>",
-            modal: true,
-            width: 940,
-            height: 'auto',
-            close: function (event, ui) {
-                create_proposal_.dialog('destroy');
-                /*create_proposal_.remove();*/
-            }
-        });
-        return false;
-    }
-
 
 </script>
 

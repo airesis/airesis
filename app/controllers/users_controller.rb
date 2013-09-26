@@ -326,6 +326,15 @@ class UsersController < ApplicationController
     flash[:notice] = t('info.message_sent')
   end
 
+  def autocomplete
+    @group = Group.find(params[:group_id])
+    users = @group.partecipants.autocomplete(params[:term])
+    users = users.map do |u|
+      { :id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}" }
+    end
+    render :json => users
+  end
+
   protected
 
   def choose_layout

@@ -490,4 +490,79 @@ class User < ActiveRecord::Base
     @ability ||= Ability.new(self)
   end
 
+
+  #forum methods
+  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
+  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
+  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
+  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
+
+
+  def can_read_forem_category?(category)
+    category.visible_outside || (category.group.partecipants.include? self)
+  end
+
+
+  def can_read_forem_forum?(forum)
+    forum.visible_outside || (forum.group.partecipants.include? self)
+  end
+
+
+  def can_create_forem_topics?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_reply_to_forem_topic?(topic)
+    topic.forum.group.partecipants.include? self
+  end
+
+
+  def can_edit_forem_posts?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_read_forem_topic?(topic)
+    !topic.hidden? || forem_admin?
+  end
+
+
+  def can_moderate_forem_forum?(forum)
+    forum.moderator?(self)
+  end
+
+  def self.autocomplete(term)
+    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email").
+        order("users.surname desc, users.name desc")
+  end
+
+
+  def forem_moderate_posts?
+    Frm.moderate_first_post && !forem_approved_to_post?
+  end
+
+  alias_method :forem_needs_moderation?, :forem_moderate_posts?
+
+  def forem_approved_to_post?
+    #forem_state == 'approved'
+    true
+  end
+
+  def forem_spammer?
+    #forem_state == 'spam'
+    false
+  end
+
+
+  def forem_admin?
+    admin?
+  end
+
+  def to_s
+    fullname
+  end
+
 end

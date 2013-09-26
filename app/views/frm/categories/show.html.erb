@@ -1,0 +1,6 @@
+<%@extend=true%>
+<h2><%= link_to t('frm.forum.forums'), group_forums_url(@group) %> &raquo; <%= link_to @category, group_frm_category_url(@group, @category) %></h2>
+<div class='category'>
+
+  <%= render @category %>
+</div>

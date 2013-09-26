@@ -244,6 +244,7 @@ it-IT:
         permissions: "Ruoli e permessi"
         proposals: "Quorum e proposte"
         areas: "Aree di lavoro"
+        forum: "Gestione forum"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -337,6 +338,7 @@ it-IT:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
         documents: "DOCUMENTI"
+        forums: "FORUM"
       documents:
         documents_archive: "Archivio documenti"
         storage_size: "Occupazione Spazio di archiviazione"

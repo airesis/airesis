@@ -16,6 +16,18 @@ class GroupsController < ApplicationController
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
+  before_filter :admin_required, :only => [:autocomplete]
+
+
+  def autocomplete
+    groups = Group.autocomplete(params[:term])
+    groups = groups.map do |u|
+      { :id => u.id, :identifier => "#{u.name}", :image_path => "#{u.group_image_tag 20}" }
+    end
+    render :json => groups
+  end
+
+
   def index
     unless request.xhr?
       @tags = Tag.where(['groups_count > 0']).all
@@ -41,7 +53,7 @@ class GroupsController < ApplicationController
   def show
     @page_title = @group.name
     @partecipants = @group.partecipants
-    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.js
@@ -498,6 +510,7 @@ class GroupsController < ApplicationController
   def permissions_list
     @actions = @group.group_partecipations.find_by_user_id(current_user.id).partecipation_role.group_actions
   end
+
 
   protected
 

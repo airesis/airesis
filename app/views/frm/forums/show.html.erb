@@ -1,0 +1,24 @@
+<%@extend = true %>
+<div class='forum'>
+  <%= render :partial => 'frm/forums/head', :locals => { :forum => @forum } %>
+
+  <%= forem_pages_widget(@topics) %>
+  <table class='topics table-striped table' cellspacing='0'>
+    <thead>
+      <tr>
+        <th class="icon"></th>
+        <th class="byline"><%= t('frm.topic.headings.topic') -%></th>
+        <th class="posts-count"><%= t('frm.topic.headings.posts') -%></th>
+        <th class="views-count"><%= t('frm.topic.headings.views') -%></th>
+        <th class="latest-post"><%= t('frm.topic.headings.latest') -%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @topics.empty? %>
+        <tr><td colspan='5' align='center'><%= t('frm.topic.none') %></td></tr>
+      <% end %>
+      <%= render @topics %>
+    </tbody>
+  </table>
+  <%= forem_pages_widget(@topics) %>
+</div>

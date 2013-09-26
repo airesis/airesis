@@ -39,4 +39,6 @@
  *= require jquery.countdown
  *= require jquery.switchbutton
  *= require introjs.min
+ *= require select2
+ *= require frm
 */

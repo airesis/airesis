@@ -1,0 +1,21 @@
+<h2><%= t("frm.admin.category.index") %></h2>
+
+<table id='forums' class='forums table-striped table' cellspacing='0'>
+  <thead>
+  <tr>
+
+    <th><%= t('category', :scope => 'frm.admin.categories') %></th>
+    <th><%= t('edit', :scope => 'frm.admin.categories') %></th>
+    <th><%= t('delete', :scope => 'frm.admin.categories') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= render :partial => 'categories' %>
+  </tbody>
+</table>
+<%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), :class => "btn blue", remote: true, disable_with: t('loading') %><br>
+
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>
