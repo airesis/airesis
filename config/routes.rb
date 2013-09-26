@@ -300,6 +300,7 @@ Airesis::Application.routes.draw do
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
+    resources :certifications, only: [:index,:create,:destroy]
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -340,8 +341,6 @@ Airesis::Application.routes.draw do
 
       collection do
         post :ask_for_multiple_follow
-        get :certificates
-        post :add_certificate
         get :autocomplete
       end
 

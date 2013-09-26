@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 
   layout :choose_layout
   #carica il gruppo
-  before_filter :load_group, :except => [:index, :new, :create, :ask_for_multiple_follow, :certificates]
+  before_filter :load_group, :except => [:index, :new, :create, :ask_for_multiple_follow]
 
   ###SICUREZZA###
 
@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
-  before_filter :admin_required, :only => [:certificates, :add_certificate]
+  before_filter :admin_required, :only => [:autocomplete]
 
 
   def autocomplete
@@ -511,14 +511,6 @@ class GroupsController < ApplicationController
     @actions = @group.group_partecipations.find_by_user_id(current_user.id).partecipation_role.group_actions
   end
 
-
-  def certificates
-
-  end
-
-  def add_certificate
-
-  end
 
   protected
 
