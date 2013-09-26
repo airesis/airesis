@@ -15,8 +15,6 @@
       </div>
 
       <div class="step">
-
-
         <%= f.fields_for :sections, @problems do |s| %>
             <%= s.hidden_field :title %>
             <%= s.hidden_field :seq %>

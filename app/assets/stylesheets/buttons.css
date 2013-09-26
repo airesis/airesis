@@ -10,7 +10,7 @@
 */
 
 
-/* Button structure */
+
 
 .zocial,
 a.zocial {
@@ -40,7 +40,10 @@ a.zocial {
   -moz-border-radius: .3em;
   -webkit-border-radius: .3em;
   border-radius: .3em;
+
 }
+
+
 
 .zocial:before {
   content: "";
@@ -470,4 +473,15 @@ button:-moz-focus-inner {
          url('zocial-regular-webfont.svg#zocialregular') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+
+/* Button structure */
+body .zocial {
+    margin: 8px 4px;
+    font-size: 120%;
+}
+
+
+.zocial.icon.vertical {
+    vertical-align: middle;
 }

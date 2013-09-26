@@ -27,20 +27,6 @@ en:
         unconfirmed: "Account has not been confirmed yet"
         user:
           invalid: 'Invalid username or password'
-    mailer:
-      confirmation_instructions:
-        welcome: "Welcome on %{app_name} %{user}!"
-        follow_link: "You can confirm your e-mail address by clicking the following link:"
-        confirm_account: "Confirm account"
-        follow_link_2: "or by visiting the following url:"
-        access_by_email: "Then you can log in %{app_name} with the provided e-mail and the chosen password"
-        contact_assistance: "If you have any problem with the procedure contact an administrator: %{mail}"
-      reset_password_instructions:
-        hi_user: "Hello %{user}!"
-        follow_link: "You can change your password by clicking the following link:"
-        change_password: "Change password"
-        ignore: "If you didn't asked the change of a password, ignore this e-mail."
-        password_will_not_change: "Your password will not change until you click on the previous link."
   calendar:
     monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
     monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
@@ -595,13 +581,13 @@ en:
             pros: "Pros"
             cons: "Cons"
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Reduce the usage of drinking water for irrigation.</div>
             <div>Using drinking water to water public parks and private gardens is a waste and has relevant costs. Moreover the aquifer that supplies the aqueduct is running low</div>
         rule_book:
           problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Rule book to reserve the St. Peter's hall</div>
             <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
           solution:
@@ -1047,6 +1033,8 @@ en:
       proposals_tab: "Proposals"
       posts_tab: "Posts"
       groups_tab: "Groups"
+      not_found:
+        subtitle: "These are the most used keywords on Airesis"
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
@@ -1074,7 +1062,6 @@ en:
       zero: "no comment"
       one: "one comment"
       other: "%{count} comments"
-      
   activerecord:
     models:
       meeting: 'Meeting'     
@@ -1275,6 +1262,8 @@ en:
     go_back: "Go back"
     chosen: "I have chosen!"
     ok: "OK"
+    yes: 'YES'
+    no: 'NO'
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1358,6 +1347,8 @@ en:
     users:
        join_accounts: "Error while joining accounts. This operation is not available at the moment"
        join_accounts_password: "Wrong password"
+    group_partecipations:
+       destroy: "You can not leave a group of which you are the sole spokesperson"
     error_404:
       proposals:
         title: "This proposal doesn't exist"
@@ -1449,6 +1440,8 @@ en:
       multiple_request:
         one: "You asked to participate in %{count} new group"
         other: "You asked to participate in %{count} new groups"
+    group_partecipations:
+      destroy_ok_1: "You have left the group. In the future you can ask to participate again"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

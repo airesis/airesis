@@ -63,19 +63,19 @@ it-IT:
     - V
     - S
     month_names:
-     -
-     - Gennaio
-     - Febbraio
-     - Marzo
-     - Aprile
-     - Maggio
-     - Giugno
-     - Luglio
-     - Agosto
-     - Settembre
-     - Ottobre
-     - Novembre
-     - Dicembre
+    -
+    - Gennaio
+    - Febbraio
+    - Marzo
+    - Aprile
+    - Maggio
+    - Giugno
+    - Luglio
+    - Agosto
+    - Settembre
+    - Ottobre
+    - Novembre
+    - Dicembre
     abbr_month_names:
     -
     - Gen
@@ -581,13 +581,13 @@ it-IT:
             pros: "Pro"
             cons: "Contro"
           suggestion_html: |
-            <div><b>Esempio:<b/></div>
+            <div><b>Esempio:</b></div>
             <div>Ridurre l'uso di acqua potabile per l'irrigazione.</div>
             <div>Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l'acquedotto si sta esaurendo</div>
         rule_book:
           problems_title_label: "Quali sono i problemi da risolvere con l'applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
           suggestion_html: |
-            <div><b>Esempio:<b/></div>
+            <div><b>Esempio:</b></div>
             <div>Regolamento per prenotare la sala M. Rossi</div>
             <div>Il Comune di Aglaura dispone di una sala conferenze ad oggi utilizzata solo per iniziative promosse dagli 'amici' del Sindaco. Si propone di stabilire una procedura imparziale che consenta a tutti i cittadini e alle associazioni di prenotare la sala per iniziative pubbliche.</div>
           solution:
@@ -1062,7 +1062,6 @@ it-IT:
       zero: "nessun commento"
       one: "un commento"
       other: "%{count} commenti"
-
   activerecord:
     models:
       meeting: "Incontro"
@@ -1263,7 +1262,7 @@ it-IT:
     go_back: "Torna indietro"
     chosen: "Ho scelto!"
     ok: "OK"
-    yes: 'YES'
+    yes: 'SI'
     no: 'NO'
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
@@ -1349,7 +1348,7 @@ it-IT:
       join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
       join_accounts_password: "Password errata"
     group_partecipations:
-       destroy: %Q(Non puoi uscire da un gruppo del quale sei l'unico portavoce)
+       destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
     error_404:
       proposals:
         title: "Questa proposta non esiste"

@@ -53,14 +53,14 @@ de:
     firstDay: "0"
     timeFormat: 'h(:mm)t '
   date:
-    order: ""
+    order:
     -  :Tag
     -  :Monat
     -  :Jahr
     formats:
       default: %d-%m-%Y
       short: %b %d
-    day_names: ""
+    day_names:
     -  Sonntag
     -  Montag
     -  Dienstag
@@ -68,7 +68,7 @@ de:
     -  Donnerstag
     -  Freitag
     -  Samstag
-    abbr_day_names: ""
+    abbr_day_names:
     -  S
     -  M
     -  D
@@ -76,7 +76,7 @@ de:
     -  F
     -  D
     -  S
-    month_names: ""
+    month_names:
     -  [ ]
     -  Januar
     -  Februar
@@ -90,7 +90,7 @@ de:
     -  Oktober
     -  November
     -  Dezember
-    abbr_month_names: ""
+    abbr_month_names:
     -  [ ]
     -  Jan
     -  Feb
@@ -595,13 +595,13 @@ de:
             pros: Pros
             cons: Cons
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Reduce the usage of drinking water for irrigation.</div>
             <div>Using drinking water to water public parks and private gardens is a waste and has relevant costs. Moreover the aquifer that supplies the aqueduct is running low</div>
         rule_book:
           problems_title_label: What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?
           suggestion_html: |
-            <div><b>Example:<b/></div>
+            <div><b>Example:</b></div>
             <div>Rule book to reserve the St. Peter's hall</div>
             <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
           solution:
