@@ -16,7 +16,17 @@ class GroupsController < ApplicationController
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
-  before_filter :admin_required, :only => [:certificates]
+  before_filter :admin_required, :only => [:certificates, :add_certificate]
+
+
+  def autocomplete
+    groups = Group.autocomplete(params[:term])
+    groups = groups.map do |u|
+      { :id => u.id, :identifier => "#{u.name}", :image_path => "#{u.group_image_tag 20}" }
+    end
+    render :json => groups
+  end
+
 
   def index
     unless request.xhr?
@@ -503,6 +513,10 @@ class GroupsController < ApplicationController
 
 
   def certificates
+
+  end
+
+  def add_certificate
 
   end
 

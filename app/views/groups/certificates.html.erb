@@ -2,4 +2,36 @@
 
 
 
-<%= render :partial => "group_tag", :collection => Group.where(:certified => true), :as => :group %>
+<%=form_for add_certificate_groups_url do |f| %>
+    <%= text_field_tag "id" %>           <br/>
+    <%= text_field_tag "domain" %>       <br/>
+    <%= submit_tag 'Certifica!' %>
+<%end%>
+
+<script type="text/javascript">
+    function format(state) {
+        if (!state.id) return state.text; // optgroup
+        return state.image_path + state.identifier;
+    }
+
+    $("#id").select2({
+        containerCssClass: "user_auto",
+        ajax: {
+            url: "<%= groups_autocomplete_url %>",
+            data: function (term, page) {
+                return { "term": term }
+            },
+            results: function (data, page) {
+                return { results: data };
+            }
+        },
+        formatResult: format,
+        formatSelection: format
+    });
+</script>
+
+<ul>
+<%Group.where(:certified => true).each do |group| %>
+    <li><%= group.name %></li>
+<%end%>
+</ul>

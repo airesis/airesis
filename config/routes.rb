@@ -288,10 +288,6 @@ Airesis::Application.routes.draw do
       end
     end
 
-    get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
-    #end
-
-
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
     post '/:action', controller: 'groups'
@@ -345,6 +341,8 @@ Airesis::Application.routes.draw do
       collection do
         post :ask_for_multiple_follow
         get :certificates
+        post :add_certificate
+        get :autocomplete
       end
 
 
@@ -397,6 +395,7 @@ Airesis::Application.routes.draw do
       end
 
       get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
+
       #end
 
       resources :events do
@@ -523,6 +522,7 @@ Airesis::Application.routes.draw do
       match ':controller/:action/'
       resources :admin
       match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
+
     end
 
 

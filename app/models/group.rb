@@ -336,4 +336,12 @@ class Group < ActiveRecord::Base
     comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
     interest_borders += comune_ids
   end
+
+  def self.autocomplete(term)
+    where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("groups.name, groups.id, groups.image_id, groups.image_url, groups.image_file_name").
+        order("groups.name asc")
+  end
+
 end
