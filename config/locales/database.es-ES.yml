@@ -1,18 +1,20 @@
 es-ES:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: italiano
       en:
         description: inglés
-      us:
+      en-US:
         description: estadounidense
       fr:
         description: Francés
-      es:
+      es-ES:
         description: Español
-      pt:
+      pt-PT:
         description: Portugués
+      pt-BR:
+        description: Portugués (Brasile)
       de:
         description: Alemán
     proposal_types:
