@@ -128,7 +128,12 @@ fr:
         message: '<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>'
       change_status:
         description: "Changement de statut d'une proposition à laquelle je participe"
-        email_subject: Une proposition a changé son statut
+        email_subject:
+          wait: '%{title} - choose the voting date'
+          waiting_date: '%{title} - the voting date has been chosen'
+          in_vote: 'Your proposal <b>%{title}</b> is now being voted!'
+          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          rejected: '%{title} has been rejected'
         message:
           waiting_date: '%{name} a choisi la date du vote pour la proposition <b>%{title}</b>'
           in_vote: 'La proposition <b>%{title}</b> est maintenant en votation!'

@@ -128,7 +128,12 @@ en:
         message: "<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>"
       change_status:
         description: Change in the status of a proposal I participate in
-        email_subject: A proposal changed its status
+        email_subject:
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title}</b> didn't get through the debate"
+          rejected: "%{title} has been rejected"
         message:
           waiting_date: "%{name} has chosen the date of the vote for the proposal<b>%{title}</b>"
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
@@ -137,10 +142,10 @@ en:
       change_status_mine:
         description: Change in the status of my proposals
         email_subject:
-          wait: "%{title} - choose the voting date"
-          waiting_date: "%{title} - the voting date has been chosen"
-          in_vote: "Your proposal <b>%{title}</b> is now being voted!"
-          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title}</b> didn't get through the debate"
           rejected: "%{title} has been rejected"
         message:
           wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"

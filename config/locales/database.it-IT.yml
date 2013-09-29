@@ -128,7 +128,12 @@ it:
         message: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
       change_status:
         description: Cambio di stato di una proposta a cui partecipo
-        email_subject: Una proposta ha cambiato lo stato
+        email_subject:
+          wait: "%{title} - Scegli la data di votazione"
+          waiting_date: "%{title} - E' stata scelta la data di votazione"
+          in_vote: "%{title} - VIENI A VOTARE!"
+          abandoned: "%{title} non ha superato il dibattito"
+          rejected: "%{title} è stata respinta"
         message:
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"
@@ -137,10 +142,10 @@ it:
       change_status_mine:
         description: Cambio di stato delle mie proposte
         email_subject:
-          wait: "%{title} - scegli la data di votazione"
-          waiting_date: "%{title} - è stata scelta la data di votazione"
-          in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
-          abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente."
+          wait: "%{title} - Scegli la data di votazione"
+          waiting_date: "%{title} - E' stata scelta la data di votazione"
+          in_vote: "%{title} - VIENI A VOTARE!"
+          abandoned: "%{title} non ha superato il dibattito"
           rejected: "%{title} è stata respinta"
         message:
           wait: "La proposta <b>%{title}</b> ha passato la fase di discussione ed è ora in attesa che tu scelga quando votarla"
