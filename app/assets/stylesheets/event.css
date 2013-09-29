@@ -78,3 +78,9 @@
 
 
 div#event_edit, div#create_event_dialog{ font-size: 12px !important;}
+
+.mini_event {
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}

@@ -164,14 +164,7 @@ input.days, input.hours, input.minutes {
     top: 0px;
 }
 
-.group_info .portlet_panel {
-    width: auto;
-    max-width: 398px;
-}
 
-.group_show_page {
-    position:relative;
-}
 
 .s_circle {
     border: 3px solid #888;
@@ -212,17 +205,36 @@ input.days, input.hours, input.minutes {
 }
 
 
+.group_info .portlet_panel {
+    width: auto;
+    max-width: 398px;
+}
+
+.group_show_page {
+    position:relative;
+    display: table;
+}
+
+
 .group_infos {
-    position: absolute;
+    /*position: absolute;
     right: 0px;
     top: 0px;
-    max-width: 500px;
+    max-width: 500px;*/
+    display: table-cell;
+    vertical-align: top;
+    max-width: 472px;
 }
 
 .posts_container_main {
-    max-width: 800px;
-    margin-right: 500px;
+    /*max-width: 800px;
+    margin-right: 500px;*/
+    display: table-cell;
+    vertical-align: top;
 }
+
+
+
 
 .group_infos.resized {
     display: none;

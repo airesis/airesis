@@ -108,6 +108,12 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, :class_name => 'ProposalNickname'
 
+
+  #forum
+  has_many :viewed, :class_name => 'Frm::View'
+  has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
+
   #fake columns
   attr_accessor :image_url, :accept_conditions, :subdomain
 
@@ -312,7 +318,6 @@ class User < ActiveRecord::Base
     return false unless last_suggest
     ranking.updated_at < last_suggest.created_at
   end
-
 
   def admin?
     self.user_type.short_name == 'admin'

@@ -144,6 +144,7 @@ Airesis::Application.routes.draw do
       post :set_interest_borders #cambia i confini di interesse
       post :join_accounts
       get :privacy_preferences
+      get :statistics
       post :change_show_tooltips
       post :change_show_urls
       post :change_receive_messages

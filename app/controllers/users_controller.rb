@@ -84,6 +84,18 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def statistics
+    @user = current_user
+    @integrated_count = @user.proposal_comments.contributes.integrated.count
+    @spam_count = @user.proposal_comments.contributes.spam.count
+    @noisy_count = @user.proposal_comments.contributes.noisy.count
+    @contributes_count = @user.proposal_comments.contributes.count
+    @comments_count = @user.proposal_comments.comments.count
+    @proposals_count = @user.proposals.count
+  end
+
+
+
 
   def change_show_tooltips
     current_user.show_tooltips = params[:active]

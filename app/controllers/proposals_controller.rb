@@ -302,7 +302,7 @@ class ProposalsController < ApplicationController
             @proposal.presentation_areas << @group_area
           end
 
-          @topic = @group.topics.find(@proposal.topic_id) if @proposal.topic_id
+          @topic = @group.topics.find(@proposal.topic_id) if (@proposal.topic_id.to_s != '')
           if @topic
             @proposal.topic_proposals.build(:topic_id => @topic.id, :user_id => current_user.id)
           end
@@ -330,8 +330,6 @@ class ProposalsController < ApplicationController
         update_borders(borders)
 
 
-
-
         @proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
         #if is time fixed you can choose immediatly vote period
@@ -351,8 +349,11 @@ class ProposalsController < ApplicationController
             end
             @event.save!
             @proposal.vote_period = @event
-          end
 
+            #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+            Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+            Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+          end
         end
 
         @proposal.save!
@@ -361,6 +362,7 @@ class ProposalsController < ApplicationController
         if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
+
         #fai partire il timer per far scadere la proposta fuori dalla transazione
         if @event && @event.is_votazione?
           Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
@@ -519,7 +521,7 @@ class ProposalsController < ApplicationController
       end
 
     rescue ActiveRecord::ActiveRecordError => e
-      flash[:error] = e.record.errors.map{|e,msg| msg}[0].to_s
+      flash[:error] = e.record.errors.map { |e, msg| msg }[0].to_s
       respond_to do |format|
         format.html { render :action => "edit" }
       end

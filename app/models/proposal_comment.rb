@@ -25,8 +25,10 @@ class ProposalComment < ActiveRecord::Base
   validate :check_last_comment
 
   scope :contributes, {:conditions => ['parent_proposal_comment_id is null']}
+  scope :comments, {:conditions => ['parent_proposal_comment_id is not null']}
 
   scope :unintegrated, {:conditions => {:integrated => false}}
+  scope :integrated, {:conditions => {:integrated => true}}
 
   scope :noise, {:conditions => {:noise => true}}
 
@@ -35,6 +37,12 @@ class ProposalComment < ActiveRecord::Base
   scope :unread, lambda { |user_id,proposal_id| {:conditions => ["proposal_comments.id not in (select p2.id from proposal_comments p2 join proposal_comment_rankings pr on p2.id = pr.proposal_comment_id where pr.user_id = ? and p2.proposal_id = ?) ", user_id, proposal_id]}}
 
   scope :removable, {:conditions => ['soft_reports_count >= ? and noise = false', CONTRIBUTE_MARKS]}
+
+  #a contribute marked more than three times as spam
+  scope :spam, {:conditions => ['grave_reports_count >= ?',CONTRIBUTE_MARKS]}
+
+  #a contribute marked more than three times as noisy
+  scope :noisy, {:conditions => ['soft_reports_count >= ?',CONTRIBUTE_MARKS]}
 
   attr_accessor :section_id
 
@@ -71,6 +79,22 @@ class ProposalComment < ActiveRecord::Base
   #retrieve all the partecipants to this discussion
   def partecipants
     self.repliers | [self.user]
+  end
+
+  def has_location?
+    !self.paragraph.nil?
+  end
+
+  def location
+    ret = nil
+    unless self.paragraph.nil?
+      section = self.paragraph.section
+      ret = section.title
+      unless section.solution.nil?
+        ret = section.solution.title + " > " + ret
+      end
+    end
+    ret
   end
  
 end

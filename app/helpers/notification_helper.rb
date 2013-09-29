@@ -314,4 +314,30 @@ module NotificationHelper
       send_notification_to_user(notification_a, blog_post.user)
     end
   end
+
+
+  def notify_24_hours_left(proposal)
+    time_left(proposal, '24_hours')
+  end
+
+  def notify_1_hour_left(proposal)
+    time_left(proposal, '1_hour')
+  end
+
+  protected
+
+  def time_left(proposal, type)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
+    group = proposal.private ? proposal.presentation_groups.first : nil
+    data['group'] = group.name if group
+    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a.save!
+    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b.save!
+    proposal.notification_receivers.each do |user|
+      (proposal.users.include? user) ?
+          send_notification_to_user(notification_b, user) :
+          send_notification_to_user(notification_a, user)
+    end
+  end
 end

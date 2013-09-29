@@ -44,11 +44,10 @@
             <%= link_to t(".delete"), group_forum_topic_url(@group, @forum, @topic), :method => :delete, data: {:confirm => t("are_you_sure")}, :class => "btn btn-danger" %>
         <% end %>
         <% if current_user %>
-            <% if !@topic.subscriber?(current_user.id) %>
-                <%= link_to t(".subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-success" %>
-            <% else %>
-                <%= link_to t(".unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), :class => "btn btn-danger" %>
-            <% end %>
+            <div id="subscribe_container">
+              <%= render :partial => 'subscribe_button' %>
+            </div>
+
         <% end %>
       </div>
     </div>

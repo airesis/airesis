@@ -160,3 +160,5 @@ gem 'kaminari', '~> 0.14.1'
 gem 'mailman', require: false
 
 gem 'email_reply_parser'
+
+gem 'activerecord-postgres-array'

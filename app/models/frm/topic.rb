@@ -175,5 +175,7 @@ module Frm
     def moderated?
       user.forem_moderate_posts?
     end
+
+
   end
 end

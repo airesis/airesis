@@ -4,7 +4,9 @@
 <% @c = @group.topics.order('created_at desc').limit(10) %>
 <% unless @c.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+      <div class="topics">
       <%= render partial: 'frm/topics/mini_topic', collection: @c, as: 'topic' %>
+      </div>
     </div>
 
 

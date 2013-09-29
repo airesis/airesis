@@ -24,6 +24,40 @@ $border-color: #e2e2e2;
     border: 1px solid $border-color;
     border-collapse: collapse;
     width: 100%;
+
+    div.topic {
+        padding-top: 10px;
+    }
+
+    .topic {
+        .icon {
+            width: 20px;
+            height: 20px;
+            background: url('<%=asset_path 'frm/topic_read.gif'%>') no-repeat center;
+            &.lock {
+                background-image: url('<%=asset_path 'frm/topic_read_locked.gif'%>');
+            }
+            &.new_posts {
+                background-image: url('<%=asset_path 'frm/topic_unread.gif'%>');
+                &.lock {
+                    background-image: url('<%=asset_path 'frm/topic_unread_locked.gif'%>');
+                }
+            }
+            &.pin {
+                background-image: url('<%=asset_path 'frm/sticky_read.gif'%>');
+                &.lock {
+                    background-image: url('<%=asset_path 'frm/sticky_read_locked.gif'%>');
+                }
+                &.new_posts {
+                    background-image: url('<%=asset_path 'frm/sticky_unread.gif'%>');
+                    &.lock {
+                        background-image: url('<%=asset_path 'frm/sticky_unread_locked.gif'%>');
+                    }
+                }
+            }
+        }
+    }
+
     thead {
         th {
             font-weight: normal;
@@ -35,6 +69,7 @@ $border-color: #e2e2e2;
             }
         }
     }
+
     tbody {
         tr {
             td {
@@ -65,11 +100,13 @@ $border-color: #e2e2e2;
 
         }
     }
+
     a.title, .subject a {
         font-weight: bold;
         text-decoration: underline;
         color: $link-color;
     }
+
 }
 
 .forums .last_post {
@@ -146,14 +183,14 @@ blockquote {
     padding: 10px;
 }
 
-.lock.icon{
+.lock.icon {
     width: 24px;
     height: 24px;
     background: transparent url(<%= asset_path('lock_icon.png') %>) 0 0;
     display: inline-block;
 }
 
-.pin.icon{
+.pin.icon {
     width: 9px;
     height: 15px;
     background: transparent url(<%= asset_path('pin_icon.png') %>) 0 0;

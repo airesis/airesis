@@ -52,6 +52,8 @@ GEM
       activesupport (= 3.2.1)
       arel (~> 3.0.0)
       tzinfo (~> 0.3.29)
+    activerecord-postgres-array (0.0.10)
+      activerecord
     activeresource (3.2.1)
       activemodel (= 3.2.1)
       activesupport (= 3.2.1)
@@ -378,6 +380,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-postgres-array
   better_errors
   bluecloth (= 2.0.7)
   bullet

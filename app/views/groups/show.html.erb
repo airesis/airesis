@@ -40,10 +40,14 @@
       </div>
 
       <div class="group_infos">
+
+
+
         <% if can? :view_proposal, @group %>
             <%= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
         <% end %>
         <%= render :partial => "groups/portlets/topics", :layout => "layouts/portlet" %>
+        <%= render :partial => "groups/portlets/events", :layout => "layouts/portlet" %>
       </div>
     </div>
 <% end %>

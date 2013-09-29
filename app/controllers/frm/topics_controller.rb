@@ -56,7 +56,7 @@ module Frm
 
     protected
     def create_successful
-      redirect_to group_forum_topic_url(@group,@forum, @topic), :notice => t("frm.topic.created")
+      redirect_to group_forum_topic_url(@group, @forum, @topic), :notice => t("frm.topic.created")
     end
 
     def create_unsuccessful
@@ -67,23 +67,38 @@ module Frm
     def destroy_successful
       flash[:notice] = t("frm.topic.deleted")
 
-      redirect_to group_forum_url(@group,@topic.forum)
+      redirect_to group_forum_url(@group, @topic.forum)
     end
 
     def destroy_unsuccessful
       flash.alert = t("frm.topic.cannot_delete")
 
-      redirect_to group_forum_url(@group,@topic.forum)
+      redirect_to group_forum_url(@group, @topic.forum)
     end
 
     def subscribe_successful
       flash[:notice] = t("frm.topic.subscribed")
-      redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
+      respond_to do |format|
+        format.html {
+          redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
+        }
+        format.js {
+          render 'subscribe'
+        }
+      end
+
     end
 
     def unsubscribe_successful
       flash[:notice] = t("frm.topic.unsubscribed")
-      redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
+      respond_to do |format|
+        format.html {
+          redirect_to group_forum_topic_url(@group, @topic.forum, @topic)
+        }
+        format.js {
+          render 'subscribe'
+        }
+      end
     end
 
     private
@@ -106,7 +121,7 @@ module Frm
         authorize! :read, @topic
       rescue ActiveRecord::RecordNotFound
         flash.alert = t("frm.topic.not_found")
-        redirect_to group_forum_url(@group,@forum) and return
+        redirect_to group_forum_url(@group, @forum) and return
       end
     end
 
@@ -117,7 +132,7 @@ module Frm
     def block_spammers
       if current_user.forem_spammer?
         flash[:alert] = t('frm.general.flagged_for_spam') + ' ' +
-                        t('frm.general.cannot_create_topic')
+            t('frm.general.cannot_create_topic')
         redirect_to :back
       end
     end

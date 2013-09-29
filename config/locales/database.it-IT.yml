@@ -142,12 +142,16 @@ it:
           in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
           abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente."
           rejected: "%{title} è stata respinta"
+          24_hours: "Il dibattito su %{title} finisce domani!"
+          1_hour: "Il dibattito su %{title} scade tra un'ora!"
         message:
           wait: "La proposta <b>%{title}</b> ha passato la fase di discussione ed è ora in attesa che tu scelga quando votarla"
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
           abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente"
           rejected: "La tua proposta <b>%{title}</b> è stata respinta dai partecipanti, spiacente"
+          24_hours: "Il dibattito su %{title} finisce domani!"
+          1_hour: "Il dibattito su %{title} scade tra un'ora!"
       new_posts_group_follow:
         description: Nuovi post sulle Bachece dei gruppi che seguo
         email_subject: Nuovo post

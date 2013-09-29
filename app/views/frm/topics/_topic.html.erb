@@ -1,22 +1,9 @@
 <tr class="topic <%= cycle('odd', 'even') %> <%= topic.locked? ? 'locked' : 'unlocked' %>">
-  <td class='icon'>
-    <% if topic.locked? %>
-        <span class='lock icon'></span>
-    <% end %>
-    <% if topic.pinned? %>
-        <span class='pin icon'></span>
-    <% end %>
-    <% if topic.hidden? %>
-        <span class='hidden icon'></span>
-    <% end %>
-    <% if current_user && view = topic.view_for(current_user) %>
-        <% if topic.posts.exists?(["created_at > ?", view.updated_at]) %>
-            <span class='new_posts icon'>new</span>
-        <% end %>
-    <% end %>
+
+  <td class='<%= icon_classes(topic) %>'>
+
   </td>
   <td class='byline'>
-    <%= new_since_last_view_text(topic) %>
     <div class='subject'><%= link_to topic.subject, group_forum_topic_url(@group, @forum, topic) %></div>
     <div class='started-by'><%= t "started_by" %><%= relevant_posts(topic).first.user %></div>
   </td>

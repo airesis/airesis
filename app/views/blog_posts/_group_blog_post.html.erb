@@ -44,7 +44,8 @@
              data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
              data-url="<%= group_blog_post_url(@group, blog_post) %>">Tweet</a>
          |
-        <div class="fb-like" data-href="<%= group_blog_post_url(@group, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+        <div class="fb-like" data-href="<%= group_blog_post_url(@group, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-likeable_type="<%=blog_post.class.class_name%>" data-likeable_id="<%=blog_post.id%>" data-send="true"></div>
+
 
         </div>
   <% end %>
