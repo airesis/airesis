@@ -406,7 +406,12 @@ class ProposalsController < ApplicationController
     #se il numero di valutazioni è definito
     if quorum.percentage
       if @group #calcolo il numero in base ai partecipanti
-        @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
+        #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        if @group_area
+          @copy.valutations = ((quorum.percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor
+        else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
+          @copy.valutations = ((quorum.percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor
+        end
       else #calcolo il numero in base agli utenti del portale (il 10%)
         @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
       end
