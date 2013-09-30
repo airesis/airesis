@@ -15,20 +15,23 @@ class NotificationProposalCommentCreate < NotificationSender
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, proposal.id)
     name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
     url = nil
+
+    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'i18n' => 't'}
+    query = {'comment_id' => comment.id.to_s}
     if proposal.private?
       group = proposal.presentation_groups.first
       url = group_proposal_url(group,proposal)
+      data['group'] = group.name
     else
       url = proposal_url(proposal)
     end
-    if comment.is_contribute?
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'group' => group.name, 'i18n' => 't'}
-      query = {'comment_id' => comment.id.to_s}
-      if comment.paragraph
-        query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
-        query['section_id'] = data['section_id'] = comment.paragraph.section_id
+    if comment.paragraph
+      query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
+      query['section_id'] = data['section_id'] = comment.paragraph.section_id
 
-      end
+    end
+
+    if comment.is_contribute?
       notification_a = Notification.new(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
       proposal.users.each do |user|
@@ -55,12 +58,6 @@ class NotificationProposalCommentCreate < NotificationSender
         end
       end
     else
-      data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title,'group' => group.name,  'i18n' => 't'}
-      query = {'comment_id' => comment.id.to_s}
-      if comment.paragraph
-        query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
-        query['section_id'] = data['section_id'] = comment.paragraph.section_id
-      end
       notification_a = Notification.new(:notification_type_id => NotificationType::NEW_COMMENTS, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
 
