@@ -2,7 +2,10 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
 <%if @is_reply%>
     $("#rankingpanelcontainer<%=@proposal_comment.contribute.id%>").html('<%=j render partial: 'proposal_comments/ranking_panel', locals: {comment: @proposal_comment.contribute}%>');
     $("#<%=@proposal_comment.contribute.id%>_new_replies").append('<%=j render partial: 'proposals/reply', locals: {reply: @proposal_comment, hide: false}%>');
-    $('#<%=@proposal_comment.contribute.id%>_reply_text_area').val('');
+
+    var textarea_ = $('#<%=@proposal_comment.contribute.id%>_reply_text_area');
+    textarea_.textntags('reset');
+    textarea_.val('');
     $('.deleteReplyLink').unbind('click');
     $('.deleteReplyLink').bind('click', function (event) {
         hideAndDeleteReply(event, $(this).data('id'));

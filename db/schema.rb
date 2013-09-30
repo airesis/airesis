@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926104555) do
+ActiveRecord::Schema.define(:version => 20130930114218) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -740,7 +740,7 @@ ActiveRecord::Schema.define(:version => 20130926104555) do
     t.boolean  "deleted",                                    :default => false, :null => false
     t.integer  "deleted_user_id"
     t.datetime "deleted_at"
-    t.string   "content",                    :limit => 2000
+    t.string   "content",                    :limit => 2500
     t.integer  "rank",                                       :default => 0,     :null => false
     t.integer  "valutations",                                :default => 0,     :null => false
     t.integer  "paragraph_id"

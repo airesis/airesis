@@ -1,58 +1,87 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-	
-<div id="proposalNewComment" class="blogNewComment">
+<%= form_for [@proposal, proposal_comment], :remote => true do |f| %>
 
-
-	<%= form_for [@proposal,proposal_comment], :remote => true do |f| %>
-	
-	<p>
-	    <%= f.label :content, t('pages.proposals.show.add_contribute') %>
-        <span id="miglioricontributi">
-          <%=image_tag 'icon_info.gif', :style => 'cursor:pointer'%>
+    <p>
+      <%= f.label :content, t('pages.proposals.show.add_contribute') %>
+      <span id="miglioricontributi">
+          <%= image_tag 'icon_info.gif', :style => 'cursor:pointer' %>
         </span>
 
       <br/>
-      <div class="comment-form-comment">
-        <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
 
-            <%@paragraphs_array = []%>
-            <%@paragraphs_array << ["Paragrafi", @proposal.sections.map{ |section| [section.title, section.id]}]%>
-            <%@proposal.solutions.includes(:sections).order('solutions.seq desc, sections.seq asc').each { |solution| @paragraphs_array << ["Soluzione #{solution.seq}",solution.sections.map { |section| [section.title, section.id] }]}%>
-            <%= f.select :section_id, @paragraphs_array, {include_blank: t('pages.proposals.show.add_contribution_no_paragraph')}, {class: 'paragraph_select'} %>
-	  </div>
-	</p>
-	<p>
-		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
-	</p>
-	<% end %>
-	
-	<script type="text/javascript">
+    <div class="comment-form-comment">
+
+      <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
+
+      <% @paragraphs_array = [] %>
+      <% @paragraphs_array << ["Paragrafi", @proposal.sections.map { |section| [section.title, section.id] }] %>
+      <% @proposal.solutions.includes(:sections).order('solutions.seq desc, sections.seq asc').each { |solution| @paragraphs_array << ["Soluzione #{solution.seq}", solution.sections.map { |section| [section.title, section.id] }] } %>
+      <%= f.select :section_id, @paragraphs_array, {include_blank: t('pages.proposals.show.add_contribution_no_paragraph')}, {class: 'paragraph_select'} %>
+    </div>
+    </p>
+    <p>
+      <%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
+    </p>
+<% end %>
+
+<script type="text/javascript">
 
 
-        $(function() {
-            $('.blogNewCommentField').each(function() {
-                if ($(this).attr('data-initialized') != 1) {
-                    $(this).focus(function() {
-                        $(this).parent().toggleClass("active");
-                    }).focusout(function() {
-                        $(this).parent().toggleClass("active");
-                    });
-                    $(this).charCount({
-                        allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
-                        warning : 100,
-                        counterText : '<%=t('pages.proposals.show.characters_left')%> '
-                    });
-                    $(this).elastic();
-                    $(this).attr('data-initialized',1);
-                }
-            });
-		});
+    $(function () {
+        /*$('.blogNewCommentField').each(function() {
+         if ($(this).attr('data-initialized') != 1) {
+         $(this).focus(function() {
+         $(this).parent().toggleClass("active");
+         }).focusout(function() {
+         $(this).parent().toggleClass("active");
+         });
+         $(this).charCount({
+         allowed :
+        <%=CONTRIBUTE_MAX_LENGTH%>,
+         warning : 100,
+         counterText : '
+        <%=t('pages.proposals.show.characters_left')%> '
+         });
+         $(this).elastic();
+         $(this).attr('data-initialized',1);
+         }
+         });  */
 
-  		$(document).ajaxError(function(e, XHR, options){
-    		if (XHR.status == 401){
-      			window.location.replace("<%= new_user_session_path %>");
-    		}
-  		});
-    </script>
-</div>
+        $('.blogNewCommentField').each(function () {
+            if ($(this).attr('data-initialized') != 1) {
+                $(this).textntags({
+                    triggers: {'@': {uniqueTags: false}},
+                    onDataRequest: function (mode, query, triggerChar, callback) {
+                        var data = nicknames;
+
+                        query = query.toLowerCase();
+                        var found = _.filter(data, function (item) {
+                            return item.name.toLowerCase().indexOf(query) > -1;
+                        });
+
+                        callback.call(this, found);
+                    }
+                });
+                $(this).focus(function () {
+                    $(this).parent().parent().toggleClass("active");
+                }).focusout(function () {
+                            $(this).parent().parent().toggleClass("active");
+                        });
+
+                $(this).charCount({
+                    allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+                    warning: 100,
+                    counterText: '<%=t('pages.proposals.show.characters_left')%> '
+                });
+                $(this).attr('data-initialized', 1);
+            }
+        });
+    });
+
+    $(document).ajaxError(function (e, XHR, options) {
+        if (XHR.status == 401) {
+            window.location.replace("<%= new_user_session_path %>");
+        }
+    });
+</script>
+
 

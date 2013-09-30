@@ -50,3 +50,5 @@
 //= require introjs.min
 //= require select2
 //= require ckeditor/init
+//= require underscore
+//= require jquery.textntags

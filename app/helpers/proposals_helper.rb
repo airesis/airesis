@@ -1,5 +1,18 @@
 module ProposalsHelper
 
+  def parsed_content(proposal_comment,anonimous=true)
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |match|
+      nick = ProposalNickname.find($2)
+      anonimous ?
+          "<span class='cite nickname'>#{nick.nickname}</span>" :
+          "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
+    end
+    scanned
+    auto_link(scanned.gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+      truncate(text, :length => 15)
+    end.html_safe
+  end
+
 
 
   def proposal_tag(proposal, options={})

@@ -18,6 +18,10 @@
 <% end %>
 <% @page_title = @proposal.title %>
 <script type="text/javascript">
+
+
+    var nicknames = <%=raw @proposal.is_anonima? ? @proposal.proposal_nicknames.collect{|n|{name: n.nickname, id: n.id, avatar: n.avatar(16), type: 'nickname'}}.to_json.gsub('"','\'') : [] %>;
+
     $(function () {
         //$('#svgintro').svg({onLoad: drawIntro});
     })
@@ -47,7 +51,9 @@
 <%= render :partial => 'proposals/show_proposal' %>
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
+    <div id="proposalNewComment" class="blogNewComment">
     <%= render :partial => @proposal_comment = ProposalComment.new %>
+    </div>
     <div id="flash_messages_comments" style="height:20px"></div>
 <% else %>
     <div style="height:20px"></div>
