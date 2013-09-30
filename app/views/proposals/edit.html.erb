@@ -225,7 +225,7 @@
     <p>
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();' %>
+      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', disable_with: t('updating') %>
     </p>
 <% end %>
 

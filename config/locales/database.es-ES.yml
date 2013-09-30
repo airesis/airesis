@@ -1,18 +1,20 @@
 es-ES:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: italiano
       en:
         description: inglés
-      us:
+      en-US:
         description: estadounidense
       fr:
         description: Francés
-      es:
+      es-ES:
         description: Español
-      pt:
+      pt-PT:
         description: Portugués
+      pt-BR:
+        description: Portugués (Brasile)
       de:
         description: Alemán
     proposal_types:
@@ -128,7 +130,12 @@ es-ES:
         message: '<b>%{name}</b> agregó una contribución a su propuesta <b>%{title}</b>'
       change_status:
         description: Cambio en el estado de una propuesta en la que participo
-        email_subject: Una propuesta cambió su estado
+        email_subject:
+          wait: '%{title} - elegir la fecha de votación'
+          waiting_date: '%{title} - la fecha de votación ha sido elegida'
+          in_vote: '%{title} - ¡ahora está siendo votada!'
+          abandoned: '%{title} no ha superado el debate.'
+          rejected: '%{title} ha sido rechazada'
         message:
           waiting_date: '%{name} ha elegido la fecha de la votación de la propuesta <b>%{title}</b>'
           in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
@@ -139,8 +146,8 @@ es-ES:
         email_subject:
           wait: '%{title} - elegir la fecha de votación'
           waiting_date: '%{title} - la fecha de votación ha sido elegida'
-          in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
-          abandoned: 'Su propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada, lo sentimos.'
+          in_vote: '%{title} - ¡ahora está siendo votada!'
+          abandoned: '%{title} no ha superado el debate.'
           rejected: '%{title} ha sido rechazada'
         message:
           wait: 'Su propuesta <b>%{title}</b> ha pasado la fase de discusión y ahora está esperando que usted elija cuando votarla'

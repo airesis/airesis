@@ -1,18 +1,20 @@
 it:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: Italiano
       en:
         description: Inglese
-      us:
+      en-US:
         description: Americano
       fr:
         description: Francese
-      es:
+      es-ES:
         description: Spagnolo
-      pt:
+      pt-PT:
         description: Portoghese
+      pt-BR:
+        description: Portoghese (Brasilien)
       de:
         description: Tedesco
     proposal_types:
@@ -92,23 +94,23 @@ it:
         message: "%{user} ha inserito un nuovo post nel suo blog <b>%{blog}</b>"
       new_valutation_mine:
         description: Nuova valutazione ad una mia proposta
-        email_subject: Nuova valutazione ad una tua proposta
+        email_subject: "%{title} - Nuova valutazione"
         message: "La tua proposta <b>%{title}</b> ha ricevuto una nuova valutazione"
       new_valutation:
         description: Nuova valutazione ad una proposta a cui partecipo
-        email_subject: Nuova valutazione ad una proposta
+        email_subject: "%{title} - Nuova valutazione"
         message: "La proposta <b>%{title}</b> ha ricevuto una nuova valutazione"
       available_author:
         description: Utente disponibile a redigere la sintesi di una proposta
-        email_subject: Un utente si è reso disponibile a redigere la sintesi di una proposta
+        email_subject: "%{title} -  Nuovo redattore disponibile"
         message: "%{user} si è offerto come redattore della proposta <b>%{title}</b>"
       author_accepted:
         description: Accettazione come redattore di una proposta
-        email_subject: Sei diventato redattore di una proposta
+        email_subject: "%{title} - Ora ne sei redattore!"
         message: "Ora sei redattore della proposta <b>%{title}</b>.<br/>Ricordati che come redattore dovrai recepire i contributi degli altri utenti e migliorare il testo sulla base di questi<br/>"
       new_authors:
         description: Nuovi redattori per le proposte
-        email_subject: Nuovo redattore per una proposta
+        email_subject: "%{title} - Nuovi redattori"
         message: "<b>%{user}</b> è redattore della proposta <b>%{title}</b>"
       unintegrated_contribute:
         description: Contributi rimessi in dibattito
@@ -124,11 +126,16 @@ it:
         message: "La proposta <b>%{title}</b> è stata aggiornata"
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
-        email_subject: Nuovo contributo ad una mia proposta
+        email_subject: "%{title} - Nuovo contributo"
         message: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
       change_status:
         description: Cambio di stato di una proposta a cui partecipo
-        email_subject: Una proposta ha cambiato lo stato
+        email_subject:
+          wait: "%{title} - Scegli la data di votazione"
+          waiting_date: "%{title} - E' stata scelta la data di votazione"
+          in_vote: "%{title} - VIENI A VOTARE!"
+          abandoned: "%{title} non ha superato il dibattito"
+          rejected: "%{title} è stata respinta"
         message:
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"
@@ -137,10 +144,10 @@ it:
       change_status_mine:
         description: Cambio di stato delle mie proposte
         email_subject:
-          wait: "%{title} - scegli la data di votazione"
-          waiting_date: "%{title} - è stata scelta la data di votazione"
-          in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
-          abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente."
+          wait: "%{title} - Scegli la data di votazione"
+          waiting_date: "%{title} - E' stata scelta la data di votazione"
+          in_vote: "%{title} - VIENI A VOTARE!"
+          abandoned: "%{title} non ha superato il dibattito"
           rejected: "%{title} è stata respinta"
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"

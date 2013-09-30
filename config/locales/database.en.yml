@@ -1,18 +1,20 @@
 en:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: Italian
       en:
         description: English
-      us:
+      en-US:
         description: American
       fr:
         description: French
-      es:
+      es-ES:
         description: Spanish
-      pt:
+      pt-PT:
         description: Portuguese
+      pt-BR:
+        description: Portuguese (Brasil)
       de:
         description: German
     proposal_types:
@@ -92,23 +94,23 @@ en:
         message: "%{user} added a new post in his blog <b>%{blog}</b>"
       new_valutation_mine:
         description: New evaluation for a proposal of mine
-        email_subject: There is a new evaluation for a proposal of yours
+        email_subject: "%{title} - New evaluation"
         message: "Your proposal <b>%{title}</b> has received a new evaluation"
       new_valutation:
         description: New evaluation for a proposal I participate in
-        email_subject: There is a new evaluation for a proposal of mine
+        email_subject: "%{title} - New evaluation"
         message: "You proposal <b>%{title}</b> has received a new evaluation"
       available_author:
         description: User available to become an editor of a proposal
-        email_subject: There is a user available to become an editor of the proposal
+        email_subject: "%{title} - New editors available"
         message: "%{user} is available to become editor of the proposal <b>%{title}</b>"
       author_accepted:
         description: Acceptance as editor of a proposal
-        email_subject: You have become editor of a proposal
+        email_subject: "%{title} - You are now editor of it!"
         message: "You are now editor of the proposal <b>%{title}</b>.<br/>Remember that as an editor, you should listen to to the contributions of other users and improve the text according to them<br/>"
       new_authors:
         description: New editors of the proposals
-        email_subject: New editor of a proposal
+        email_subject: "%{title} - New editors"
         message: "<b>%{user}</b> is an editor of the proposal <b>%{title}</b>"
       unintegrated_contribute:
         description: Contributions are put back in debate
@@ -124,11 +126,16 @@ en:
         message: "The proposal <b>%{title}</b> has been updated"
       new_contributes_mine:
         description: New contributions in my proposals
-        email_subject: New contributions in a proposal of mine
+        email_subject: "%{title} - New contribution"
         message: "<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>"
       change_status:
         description: Change in the status of a proposal I participate in
-        email_subject: A proposal changed its status
+        email_subject:
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title}</b> didn't get through the debate"
+          rejected: "%{title} has been rejected"
         message:
           waiting_date: "%{name} has chosen the date of the vote for the proposal<b>%{title}</b>"
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
@@ -137,10 +144,10 @@ en:
       change_status_mine:
         description: Change in the status of my proposals
         email_subject:
-          wait: "%{title} - choose the voting date"
-          waiting_date: "%{title} - the voting date has been chosen"
-          in_vote: "Your proposal <b>%{title}</b> is now being voted!"
-          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          wait: "%{title} - Choose the voting date"
+          waiting_date: "%{title} - The voting date has been chosen"
+          in_vote: "%{title} - COME AND VOTE!"
+          abandoned: "%{title}</b> didn't get through the debate"
           rejected: "%{title} has been rejected"
         message:
           wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"
