@@ -165,7 +165,7 @@ it:
       new_public_proposals:
         description: Nuove proposte inserite nello spazio comune
         email_subject: "%{proposal}"
-        message: "Nuova proposta <b>%{title}</b> creata nello Spazio Comune"
+        message: "Nuova proposta <b>%{proposal}</b> creata nello Spazio Comune"
       new_proposals:
         description: Nuove proposte interne al gruppo
         email_subject: "%{proposal}"

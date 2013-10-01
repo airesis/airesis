@@ -165,7 +165,7 @@ en:
       new_public_proposals:
         description: New proposals added in the Open Space
         email_subject: "%{proposal}"
-        message: "New proposal <b>%{title}</b> added in the Open Space"
+        message: "New proposal <b>%{proposal}</b> added in the Open Space"
       new_proposals:
         description: New proposals within the group
         email_subject: "%{proposal}"

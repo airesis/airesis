@@ -165,7 +165,7 @@ fr:
       new_public_proposals:
         description: "Nouvelles propositions insérées dans l'espace commun"
         email_subject: '%{proposal}'
-        message: "Nouvelle proposition <b>%{title}</b> insérées dans l'espace commun"
+        message: "Nouvelle proposition <b>%{proposal}</b> insérées dans l'espace commun"
       new_proposals:
         description: Nouvelles propositions dans un groupe
         email_subject: '%{proposal}'
