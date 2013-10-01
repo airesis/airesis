@@ -1,88 +1,100 @@
 <div id="proposal<%= proposal.id %>" class="proposal_list">
   <div class="proposal_cont">
     <div class="left_cont">
-      <div class="model">
-        <%= proposal.proposal_type.description.upcase %>
-      </div>
-      <div class="category_icon">
-        <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+      <div class="inner_cont">
+        <div class="model">
+          <%= proposal.proposal_type.description.upcase %>
+        </div>
+        <div class="category_icon">
+          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+        </div>
+        <div class="status">
+          <% date = (l proposal.updated_at, format: :two_rows) %>
+          <% title = t('pages.proposals.list.last_update', {date: date}) %>
+          <% if proposal.in_valutation? %>
+              <% date = (l proposal.updated_at, format: :two_rows) %>
+              <% title = t('pages.proposals.list.last_update', {date: date}) %>
+          <% elsif proposal.waiting_date? %>
+              <% date = (l proposal.updated_at, format: :two_rows) %>
+              <% title = t('pages.proposals.list.waiting_date', {date: date}) %>
+          <% elsif proposal.waiting? %>
+              <% title = t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime)) %>
+          <% elsif proposal.voting? %>
+              <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+          <% elsif proposal.voted? %>
+              <% if proposal.vote_period %>
+                  <% title = t('pages.proposals.list.votation_finished', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+              <% else %>
+                  <% title = t('pages.proposals.list.no_votation') %>
+              <% end %>
+          <% end %>
+          <%= raw title %>
+        </div>
       </div>
     </div>
     <div class="right_cont">
       <div class="maintitle">
+        <%= user_valutation_image(current_user, proposal) if current_user%>
         <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+
       </div>
 
-      <div class="proposal_content">
+      <div class="text_content">
         <%= raw proposal.short_content %>
       </div>
 
-      <div class="datetime">
-        <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
-      </div>
-
-      <div class="authors">
-        <div class="title"><%= t('pages.proposals.list.authors') %></div>
-        <% if signed_in? && (proposal.users.include? current_user) %>
-            <% proposal.users.each do |user| %>
-                <%= user_tag_mini(user) %>
-            <% end %>
-        <% else %>
-            <% proposal.users.each do |user| %>
-                <%= user_tag_mini(user, proposal) %>
-            <% end %>
-        <% end %>
-        <div style="clear:both;"></div>
-      </div>
-      <% unless proposal.groups.empty? %>
-          <div class="groups">
-            <div class="title"><%= t('pages.proposals.list.support_group') %></div>
-            <% proposal.groups[0..10].each do |group| %>
-                <div class="blogUserImage" title="<%= group.name %>">
-                  <%= group.group_image_tag 20 %>
-                </div>
-            <% end %>
-            <div style="clear:both;"></div>
+      <div class="timeline">
+        <div class="cur start" title="CREAZIONE"></div>
+        <div class="cur stop" title="<%= proposal.quorum.end_desc %>"></div>
+        <div class="time" data-percentage="<%= proposal.percentage %>">
+          <% unless proposal.quorum.time_fixed? %>
+              <div class="cur now" title="<%= "#{proposal.valutations} valutazioni" %>"></div>
+          <% end %>
+          <div class="cur quorum" title="QUORUM <%= proposal.quorum.good_score %>%" data-percentage="<%= proposal.quorum.good_score %>"></div>
+          <% if proposal.quorum.has_bad_score? %>
+              <div class="cur bad quorum" title="BAD QUORUM <%= proposal.quorum.bad_score %>%" data-percentage="<%= proposal.quorum.bad_score %>"></div>
+          <% end %>
+          <div class="good" data-percentage="<%= proposal.rank %>">
 
           </div>
-      <% end %>
+        </div>
+      </div>
+
       <div class="clearboth"></div>
 
 
-
-
-      <% date = (l proposal.updated_at) %>
-      <% title = t('pages.proposals.list.last_update') %>
-      <% if proposal.in_valutation? %>
-          <% date = (l proposal.updated_at) %>
-          <% title = t('pages.proposals.list.last_update') %>
-      <% elsif proposal.waiting_date? %>
-          <% date = (l proposal.updated_at) %>
-          <% title = t('pages.proposals.list.waiting_date') %>
-      <% elsif proposal.waiting? %>
-          <% title = t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime)) %>
-      <% elsif proposal.voting? %>
-          <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime)) %>
-      <% elsif proposal.voted? %>
-          <% if proposal.vote_period %>
-              <% title = t('pages.proposals.list.votation_finished', date: (l proposal.vote_period.endtime)) %>
-          <% else %>
-              <% title = t('pages.proposals.list.no_votation') %>
-          <% end %>
-      <% end %>
-
       <div class="proposal_bottom">
-        <div class="timeDescription" style="float:left">
-          <%= link_to (image_tag 'group_events.png'), '#', title: title %>
-          <span class="count">
-        <%= date %></span>
-        </div>
-        <div class="proposalDescription" style="float:left">
-          <%= image_tag 'group_partecipants.png', title: t('pages.proposals.index.partecipants_number') %>
+        <% if proposal.quorum.time_fixed?&& proposal.in_valutation? %>
+            <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
+              <%= link_to (image_tag 'group_events.png'), '#' %>
+              <span class="count">
+            - <%= proposal.quorum.time_left.upcase %></span>
+            </div>
+        <% end %>
+
+
+
+        <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">
+          <%= image_tag 'group_partecipants.png' %>
           <span class="count"><%= proposal.partecipants.count %></span>
+
+          <div class="authors">
+            <%= t('pages.proposals.index.partecipants_number') %>
+            <div class="title"><%= t('pages.proposals.list.authors') %></div>
+            <% if signed_in? && (proposal.users.include? current_user) %>
+                <% proposal.users.each do |user| %>
+                    <%= user_tag_mini(user) %>
+                <% end %>
+            <% else %>
+                <% proposal.users.each do |user| %>
+                    <%= user_tag_mini(user, proposal) %>
+                <% end %>
+            <% end %>
+            <div style="clear:both;"></div>
+          </div>
         </div>
-        <div class="proposalDescription" style="float:left">
-          <%= link_to (image_tag 'group_proposals.png'), '#', title: t('pages.groups.index.proposals_number') %>
+        <div class="proposalDescription contributes" style="float:left" title="<%= t('pages.groups.index.contributes_number') %>">
+          <%= link_to (image_tag 'group_proposals.png'), '#' %>
           <span class="count"><%= proposal.contributes.count %></span>
         </div>
 
@@ -90,8 +102,29 @@
           <%= proposal.interest_borders[0..5].map { |i| i.description }.join(', ') %>
           <div class="territory_fade"></div>
         </div>
+
+        <div class="alerts_and_vote">
+          <% if current_user %>
+              <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
+              <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
+          <% end %>
+        </div>
+
       </div>
     </div>
+
+    <% unless proposal.groups.empty? %>
+        <div class="groups">
+          <div class="title"><%= t('pages.proposals.list.support_group') %></div>
+          <% proposal.groups[0..10].each do |group| %>
+              <div class="blogUserImage" title="<%= group.name %>">
+                <%= group.group_image_tag 20 %>
+              </div>
+          <% end %>
+          <div style="clear:both;"></div>
+
+        </div>
+    <% end %>
 
     <div class="clearboth"></div>
   </div>

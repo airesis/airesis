@@ -57,6 +57,8 @@
                 nurl += '&group_id='+group
 				$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
 		})
+
+        disegnaProgressBar();
 	})
 </script>
 <%end%>

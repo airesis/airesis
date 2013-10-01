@@ -177,20 +177,3 @@
 .ranking {
 	margin: 0px 0px 5px 0px;
 }
-
-
-.like-mini {
-    background: url('/assets/like-mini.gif') 0 0 no-repeat;
-    width: 19px;
-    height: 18px;
-    display: inline-block;
-    float: right;
-}
-
-.dislike-mini {
-    background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
-    width: 19px;
-    height: 18px;
-    display: inline-block;
-    float: right;
-}

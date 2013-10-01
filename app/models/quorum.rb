@@ -105,6 +105,31 @@ class Quorum < ActiveRecord::Base
     retstr
   end
 
+  def end_desc
+    conds = []
+    conds << (I18n.l self.ends_at) if self.minutes
+    conds << "#{self.valutations} valutazioni" if self.percentage
+    conds.join(or? ? ' o ' : ' e ')
+  end
+
+  def time_left
+    amount = self.ends_at - Time.now #left in seconds
+    left = I18n.t('time.left.seconds',count: amount.to_i)
+    if amount >= 60  #if more or equal than 60 seconds left give me minutes
+      amount_min = amount/60
+      left = I18n.t('time.left.minutes',count: amount_min.to_i)
+      if amount_min >= 60 #if more or equal than 60 minutes left give me hours
+        amount_hour = amount_min/60
+        left = I18n.t('time.left.hours',count: amount_hour.to_i)
+        if amount_hour > 24 #if more than 24 hours left give me days
+          amount_days = amount_hour/24
+          left = I18n.t('time.left.days',count: amount_days.to_i)
+        end
+      end
+    end
+    left
+  end
+
   def explanation
     @explanation ||= explanation_pop
   end
@@ -112,6 +137,10 @@ class Quorum < ActiveRecord::Base
 
   def min_partecipants
     @min_partecipants ||= min_partecipants_pop
+  end
+
+  def has_bad_score?
+    self.bad_score && (self.bad_score != self.good_score)
   end
 
   protected
@@ -148,7 +177,7 @@ class Quorum < ActiveRecord::Base
     end
     ret += "<br/>"
     ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)
-    if self.bad_score && self.bad_score != self.good_score
+    if has_bad_score?
       ret += " "
       ret += I18n.translate('models.quorum.bad_score_condition',bad_score: self.bad_score)
       ret += "<br/>"
@@ -157,4 +186,7 @@ class Quorum < ActiveRecord::Base
     ret += "."
     ret.html_safe
   end
+
+
+
 end

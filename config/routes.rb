@@ -111,6 +111,7 @@ Airesis::Application.routes.draw do
 
     collection do
       get :polling
+      get :proposal
       get :read_alerts
       post :check_all
     end

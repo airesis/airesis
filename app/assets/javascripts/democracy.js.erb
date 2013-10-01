@@ -25,6 +25,8 @@ $(function () {
 
     disegnaBottoni();
 
+    disegnaProgressBar();
+
     if (window.location.hash) {
         setTimeout(function () {
             $(window.location.hash + " #commentcc").effect('highlight', {mode: 'show'}, 3000)
@@ -51,10 +53,10 @@ $(function () {
         }
         event.stopPropagation();
     })
-    .keypress(function (event) {
-        if (event.which === 13)
-            $(this).click();
-    });
+            .keypress(function (event) {
+                if (event.which === 13)
+                    $(this).click();
+            });
 
 
     $('html').click(function () {
@@ -165,8 +167,102 @@ function disegnaBottoni() {
             width: 300
         });
     });
+}
 
 
+function disegnaProgressBar() {
+    $('.timeline').each(function () {
+        if ($(this).attr('data-initialized') == 'true') return;
+        var time_ = $('.time', this);
+        var good_ = $('.good', this);
+        var quorum_ = $('.cur.quorum', this);
+        var badquorum_ = $('.cur.bad.quorum', this);
+        time_.animate({width: time_.data('percentage') + '%'}, 2000);
+        good_.animate({width: good_.data('percentage') + '%'}, 2000);
+        quorum_.css('left', quorum_.data('percentage') + '%');
+        badquorum_.css('left', badquorum_.data('percentage') + '%');
+        $(this).attr('data-initialized', 'true');
+    });
+
+    $('.timeline .cur').qtip({
+        position: {
+            at: 'bottom center',
+            my: 'top center'
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow',
+            tip: {
+                corner: true,
+                width: 5,
+                height: 5
+            }
+        }
+    });
+
+    $('.proposal_bottom .contributes, .proposal_bottom .timeleft').qtip({
+        position: {
+            at: 'bottom center',
+            my: 'top center'
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow',
+            tip: {
+                corner: true,
+                width: 5,
+                height: 5
+            }
+        }
+    });
+
+    $('.alert.notify[data-load="true"]').each(function() {
+        $(this).qtip({
+            content: {
+                text: 'Loading...', // The text to use whilst the AJAX request is loading
+                ajax: {
+                    url: '/alerts/proposal', // URL to the local file
+                    type: 'GET', // POST or GET
+                    data: 'proposal_id='+$(this).data('proposal-id'),
+                    success: function(data, status) {
+
+                        this.set('content.text', data);
+                    }
+                }
+            },
+            position: {
+                my: 'bottom center',
+                at: 'top center',
+                viewport: $(window),
+                effect: false
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow'
+            },
+            hide: {
+                fixed: true,
+                delay: 500
+            }
+        });
+    });
+
+
+
+    $('.proposal_bottom .partecipants').each(function () {
+        $(this).qtip({
+            content: $('.authors', this),
+            position: {
+                at: 'bottom center',
+                my: 'top center'
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow',
+                tip: {
+                    corner: true,
+                    width: 5,
+                    height: 5
+                }
+            }
+        });
+    });
 }
 
 function hideDisableButton(button) {
@@ -517,26 +613,26 @@ function secondsToString(seconds) {
 }
 
 
-function addQueryParam( url, key, val ){
+function addQueryParam(url, key, val) {
     var parts = url.match(/([^?#]+)(\?[^#]*)?(\#.*)?/);
     var url = parts[1];
     var qs = parts[2] || '';
     var hash = parts[3] || '';
 
-    if ( !qs ) {
-        return url + '?' + key + '=' + encodeURIComponent( val ) + hash;
+    if (!qs) {
+        return url + '?' + key + '=' + encodeURIComponent(val) + hash;
     } else {
         var qs_parts = qs.substr(1).split("&");
         var i;
-        for (i=0;i<qs_parts.length;i++) {
+        for (i = 0; i < qs_parts.length; i++) {
             var qs_pair = qs_parts[i].split("=");
-            if ( qs_pair[0] == key ){
-                qs_parts[ i ] = key + '=' + encodeURIComponent( val );
+            if (qs_pair[0] == key) {
+                qs_parts[ i ] = key + '=' + encodeURIComponent(val);
                 break;
             }
         }
-        if ( i == qs_parts.length ){
-            qs_parts.push( key + '=' + encodeURIComponent( val ) );
+        if (i == qs_parts.length) {
+            qs_parts.push(key + '=' + encodeURIComponent(val));
         }
         return url + '?' + qs_parts.join('&') + hash;
     }
@@ -589,14 +685,14 @@ function fitRightMenu(fetched) {
 
 
 
-jQuery.uaMatch = function( ua ) {
+jQuery.uaMatch = function (ua) {
     ua = ua.toLowerCase();
 
-    var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-            /(msie) ([\w.]+)/.exec( ua ) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+    var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+            /(msie) ([\w.]+)/.exec(ua) ||
+            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
             [];
 
     return {
@@ -606,19 +702,19 @@ jQuery.uaMatch = function( ua ) {
 };
 
 // Don't clobber any existing jQuery.browser in case it's different
-if ( !jQuery.browser ) {
-    matched = jQuery.uaMatch( navigator.userAgent );
+if (!jQuery.browser) {
+    matched = jQuery.uaMatch(navigator.userAgent);
     browser = {};
 
-    if ( matched.browser ) {
+    if (matched.browser) {
         browser[ matched.browser ] = true;
         browser.version = matched.version;
     }
 
     // Chrome is Webkit, but Webkit is also Safari.
-    if ( browser.chrome ) {
+    if (browser.chrome) {
         browser.webkit = true;
-    } else if ( browser.webkit ) {
+    } else if (browser.webkit) {
         browser.safari = true;
     }
 

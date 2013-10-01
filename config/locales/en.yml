@@ -286,6 +286,7 @@ en:
         proposals_number: "Number of proposals"
         events_number: "Number of events"
         no_results: "No group found"
+        contributes_number: "CONTRIBUTI"
       new:
         title: 'Create a new group'
         new_group: "New group"

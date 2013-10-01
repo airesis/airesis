@@ -64,6 +64,12 @@ class AlertsController < ApplicationController
     end
   end
 
+  #return notification tooltip for a specific proposal and user
+  def proposal
+    @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', params[:proposal_id], false])
+    render layout: false
+  end
+
   protected
 
 end

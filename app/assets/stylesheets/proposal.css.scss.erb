@@ -124,7 +124,7 @@
     color: #333333;
 }
 
-.proposal_comment_reply .textntags-beautifier  {
+.proposal_comment_reply .textntags-beautifier {
     background: white;
 }
 
@@ -171,54 +171,220 @@
     width: 90%;
 }
 
+.authors {
+    .title {
+        border-top: 1px dotted #ccc;
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+}
+
 .proposal_list {
     position: relative;
     width: 100%;
     display: inline-block;
+
+    .authors, .groups {
+        display: none;
+    }
+
+    .text_content {
+        word-wrap: break-word;
+        word-break: break-word;
+        margin-top: 20px;
+        height: 2.7em;
+        overflow-y: hidden;
+    }
+
+    .category_icon {
+        text-align: center;
+        opacity: 1;
+        border-bottom: 1px dotted black;
+    }
+
+    .model {
+        font-size: 11px;
+        color: #525252;
+        width: 90px;
+        text-align: center;
+        margin-top: 5px;
+        font-weight: bold;
+        height:  32px;
+    }
+
+    .proposal_cont {
+        background-color: #f7f7f7;
+        margin: 5px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        position: relative;
+        display: table;
+        width: 98%;
+        height: 162px;
+        .left_cont, .right_cont {
+            display: table-cell;
+            position: relative;
+            vertical-align: top;
+        }
+        .right_cont {
+            padding: 10px;
+        }
+        .left_cont .inner_cont {
+            border-right: 1px dotted black;
+            padding: 0px 8px;
+            margin: 8px 0px;
+            width: 90px;
+            .status {
+                font-size: 10px;
+                color: gray;
+                width: 90px;
+                font-weight: bold;
+                text-align: center;
+                height:  45px;
+            }
+        }
+    }
+
+    .like-mini {
+        background: url('/assets/like-mini.gif') 0 0 no-repeat;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+
+    .dislike-mini {
+        background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+    }
+
+    .maintitle {
+        line-height: 1.2em;
+        font-size: 1.3em;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        position: absolute;
+        top: 4px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .proposalDescription {
+        margin-right: 5px;
+        max-width: 100px;
+        overflow: hidden;
+        width: 70px;
+    }
+    .territoryDescription {
+        width: 300px;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .timeDescription {
+        width: 125px;
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .proposal_bottom {
+        padding-top: 10px;
+        padding-left: 5px;
+        .count {
+            font-weight: bold;
+            color: #626262;
+            vertical-align: super;
+        }
+
+        .alerts_and_vote {
+            float: right;
+
+
+
+        }
+    }
 }
 
-.twocols .proposal_list {
-    width: 50%;
+.twocols {
+    .proposal_list {
+        width: 50%;
+    }
 }
 
-.proposal_list .category_icon {
-    text-align: center;
-    opacity: 1;
-}
-
-.proposal_list .model {
-    font-size: 11px;
-    color: #525252;
-    width: 90px;
-    text-align: center;
-    margin-top: 5px;
-}
-
-.proposal_list .proposal_cont {
-    background-color: #f7f7f7;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid gray;
-    position: relative;
-    display: table;
-}
-
-.proposal_list .proposal_cont .left_cont,
-.proposal_list .proposal_cont .right_cont{
-    display: table-cell;
-    position: relative;
-}
-
-.proposal_list .maintitle {
-    line-height: 1.2em;
-    font-size: large;
+.timeline {
+    background-color: silver;
+    height: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    position: absolute;
-    top: 4px;
-    left: 0px;
-    right: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px silver;
+    position: relative;
+    opacity: 0.7;
+
+    .cur {
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+        position: absolute;
+        cursor: help;
+        box-shadow: 0px 0px 1px #000;
+        margin-top: -4px;
+        background-color: #e6e6e6;
+        z-index: 1;
+        margin-left: -6px;
+        opacity: 0.9;
+
+        &.stop {
+            left: 100%;
+            background: #e6e6e6 url(/img/icon/prop/clock.png) no-repeat center;
+            background-size: 18px;
+        }
+
+        &.now {
+            left: 100%;
+        }
+
+        &.quorum {
+            margin-top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 15px solid #767676;
+            box-shadow: none;
+            background-color: transparent;
+            margin-left: -13px;
+            &.bad {
+                margin-top: 0px;
+                border-top: none;
+                border-bottom: 15px solid #767676;
+            }
+        }
+
+    }
+
+    .time {
+        background-color: red;
+        height: 100%;
+        width: 0%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        position: relative;
+        .good {
+            background-color: #07c100;
+            height: 100%;
+            width: 0%;
+            margin-left: -1px;
+            float: left;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+    }
 }
 
 .portlet_panel .proposal_list .maintitle {
@@ -391,7 +557,7 @@ ul.blogList li.blogListFirst {
     overflow-x: auto;
 }
 
-    /*pannello history*/
+/*pannello history*/
 #proposal_histories .history {
     float: left;
 }
@@ -402,15 +568,15 @@ ul.blogList li.blogListFirst {
     margin-left: 233px;
 }
 
-    /*.proposalMainContainer {
-        clear: both;
-    }
+/*.proposalMainContainer {
+    clear: both;
+}
 
-    .proposalMainContainer .proposal_content {
-        word-wrap: break-word;
-        margin: 0 10px;
-        letter-spacing: 1px;
-    } */
+.proposalMainContainer .proposal_content {
+    word-wrap: break-word;
+    margin: 0 10px;
+    letter-spacing: 1px;
+} */
 
 .solution_main .proposal_main {
     /*margin:  5px;*/
@@ -576,7 +742,50 @@ h3 .tit1.sol {
 
 .ui-tabs.ui-widget-content,
 .ui-tabs .ui-tabs-panel {
-    border: none;
+    margin-top: -1px;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid silver;
+}
+
+.ui-widget-header .ui-state-default.ui-state-focus {
+    background-color: white;
+}
+
+.ui-tabs {
+    .ui-tabs-nav {
+        li.ui-state-default {
+            background-color: #e6e6e6;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+            border-top: 1px solid #e6e6e6;
+
+            &.ui-state-hover, &.ui-state-focus {
+                background-color: white;
+            }
+            &.ui-tabs-active {
+                background-color: white;
+                color: black;
+                border-left: 1px solid silver;
+                border-right: 1px solid silver;
+                border-top: 1px solid silver;
+                border-bottom: none;
+            }
+            a {
+                color: black;
+            }
+        }
+    }
 }
 
 .ui-tabs ul.ui-widget-header {
@@ -817,7 +1026,7 @@ input.edit_label {
     min-height: 100px;
 }
 
-    /*link ai commenti*/
+/*link ai commenti*/
 .spch-bub-inside {
     position: relative;
 }
@@ -868,7 +1077,7 @@ a.spch-bub-inside:hover .point {
     border-left: 0.5em solid #F00;
 }
 
-    /*proposal models*/
+/*proposal models*/
 
 .proposal_model_option {
     float: left;
@@ -1008,37 +1217,6 @@ a.spch-bub-inside:hover .point {
     padding: 0.3em;
     font-weight: bold;
     margin-bottom: 0.4em;
-}
-
-.proposal_list .proposalDescription .count {
-    vertical-align: super;
-}
-
-.proposal_list .proposalDescription {
-    margin-right: 5px;
-    max-width: 100px;
-    overflow: hidden;
-    width: 70px;
-}
-
-.proposal_list .territoryDescription {
-    width: 300px;
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.proposal_list .timeDescription {
-    width: 200px;
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.proposal_list .proposal_bottom {
-    border-top: 1px dotted #ccc;
-    padding-top: 7px;
-    padding-left: 5px;
 }
 
 .geocode_proposal {

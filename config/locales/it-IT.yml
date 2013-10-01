@@ -98,12 +98,26 @@ it-IT:
      long_date_time: "%A %d %B %Y ore %H:%M"
      from_long_date_time: "Da %A %d %B %Y ore %H:%M"
      until_long_date_time: "Fino a %A %d %B %Y ore %H:%M"
+     two_rows: "%d %b %Y <br/>ore %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
      textfield: "%d/%m/%Y %H:%M"
     am: "am"
     pm: "pm"
+    left:
+      seconds:
+        one: "1 secondo"
+        other: "%{count} secondi"
+      minutes:
+        one: "1 minuto"
+        other: "%{count} minuti"
+      hours:
+        one: "1 ora"
+        other: "%{count} ore"
+      days:
+        one: "1 giorno"
+        other: "%{count} giorni"
   datetime:
     distance_in_words:
       about_x_hours:
@@ -448,10 +462,10 @@ it-IT:
         most_popular: "Più popolari"
         most_valutated: "Più valutate"
         continue_reading: 'continua a leggere la proposta'
-        debate_title: "In dibattito (%{count})"
-        voting_title: "In votazione (%{count})"
-        accepted_title: "Votate (%{count})"
-        revision_title: "Abbandonate (%{count})"
+        debate_title: "In dibattito ⋅ %{count}"
+        voting_title: "In votazione ⋅ %{count}"
+        accepted_title: "Votate ⋅ %{count}"
+        revision_title: "Abbandonate ⋅ %{count}"
         login_with: "oppure accedi con:"
         group_areas_title: "AREE DI LAVORO"
         no_group_areas: "Nessuna area"
@@ -471,7 +485,7 @@ it-IT:
         search_title: "Cerca tra le proposte del gruppo"
         search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
-        partecipants_number: "Numero partecipanti"
+        partecipants_number: "PARTECIPANTI"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -677,11 +691,11 @@ it-IT:
         most_popular: "Più popolari"
         most_valutated: "Più valutate"
       list:
-        last_update: "Ultimo aggiornamento del %{date}"
-        waiting_date: "In attesa che venga stabilita la data di votazione"
-        voting_from_to: "In votazione dal %{from} al %{to}"
-        voting_until: "In votazione adesso fino al %{date}"
-        votation_finished: "La votazione è terminata il %{date}"
+        last_update: "Aggiornata al <br/> %{date}"
+        waiting_date: "In attesa di data"
+        voting_from_to: "Dal %{from} al %{to}"
+        voting_until: "Fino al<br/> %{date}"
+        votation_finished: "Terminata il<br/> %{date}"
         no_votation: "Non vi è stata alcuna votazione"
         interest_borders: "Confini di interesse"
         authors: "Redattori"
