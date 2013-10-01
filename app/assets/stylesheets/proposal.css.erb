@@ -173,21 +173,40 @@
 
 .proposal_list {
     position: relative;
-    border-bottom: 1px solid #ccc;
-    /*-webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    background: repeat scroll 0 0 #FFF;
-    background: -webkit-gradient(linear, center top, center bottom, color-stop(30%, #FFFFFF), color-stop(70%, #DFEFFC));
-    background: -moz-linear-gradient(center top, #FFFFFF 30%, #DFEFFC 70%) repeat scroll 0 0 transparent;*/
-    margin-left: 0px;
-    margin-bottom: 10px;
-    padding: 6px;
+    width: 100%;
+    display: inline-block;
+}
+
+.twocols .proposal_list {
+    width: 50%;
 }
 
 .proposal_list .category_icon {
-    float: left;
+    text-align: center;
     opacity: 1;
+}
+
+.proposal_list .model {
+    font-size: 11px;
+    color: #525252;
+    width: 90px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.proposal_list .proposal_cont {
+    background-color: #f7f7f7;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    position: relative;
+    display: table;
+}
+
+.proposal_list .proposal_cont .left_cont,
+.proposal_list .proposal_cont .right_cont{
+    display: table-cell;
+    position: relative;
 }
 
 .proposal_list .maintitle {
@@ -198,8 +217,8 @@
     white-space: nowrap;
     position: absolute;
     top: 4px;
-    left: 70px;
-    right: 140px;
+    left: 0px;
+    right: 10px;
 }
 
 .portlet_panel .proposal_list .maintitle {

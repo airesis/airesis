@@ -1,3 +1,4 @@
+<% @extend = true %>
 <% @page_head = '' %>
 <% @page_head += @group.name + " - " if @group %>
 <% if @category
@@ -214,6 +215,27 @@
             $('#tabs').tabs("option", "active", hashValue);
         }
     });
+
+
+    $(window).resize(function () {
+        resizeProposal()
+    });
+    resizeProposal();
+
+    function resizeProposal(){
+        if(window.innerWidth>1500){
+            $('#tabs').addClass('twocols');
+        }else{
+            $('#tabs').removeClass('twocols');
+        }
+    }
+
+
+
+
+
+
+
 
 </script>
 
