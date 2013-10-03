@@ -139,7 +139,7 @@
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
-                    <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
                   </p>
@@ -192,7 +192,7 @@
                                 <br/>
 
 
-                                <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                                <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                                 <%= p.hidden_field :content %>
 
                                 <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
@@ -409,30 +409,58 @@
     }
 
 
-    tinyMCE.init({
-        mode: 'textareas',
-        theme: 'advanced',
-        height: 180,
-        theme_advanced_toolbar_location: 'top',
-        theme_advanced_toolbar_align: 'left',
-        theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube,separator,ice_toggleshowchanges',
-        theme_advanced_buttons2: '',
-        theme_advanced_buttons3: '',
-        plugins: 'legacyoutput,media,paste,inlinepopups,youtube,ice',
-        formats: {
-            underline: { inline: 'u' }
-        },
-        paste_auto_cleanup_on_paste: true,
-        theme_advanced_statusbar_location: "none",
-        //valid_elements: "-p",
-        cleanup_on_startup: true,
-        relative_urls: false,
-        ice: {
-            user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
-            preserveOnPaste: 'p,a[href],i,em,strong'
-        },
-        body_class: "CT-hide"
+    var ckedstoogle_ = {};
+
+
+    $(function () {
+
+        for (name in CKEDITOR.instances) {
+            ckedstoogle_[name] = {first: true};
+            var editor = CKEDITOR.instances[name];
+            editor.on('lite:init', function (event) {
+                console.log('init');
+                console.log(ckedstoogle_[event.editor.name]);
+                ckedstoogle_[event.editor.name]['first'] = false;
+                var lite = event.data.lite;
+                lite.toggleShow(false);
+                ckedstoogle_[event.editor.name]['state'] = false;
+                lite.setUserInfo({id: 1, name: 'test'});
+            });
+            editor.on('lite:showHide', function (event) {
+                if (!ckedstoogle_[event.editor.name]['first']) {
+                    ckedstoogle_[event.editor.name]['state'] = event.data.show;
+                    console.log(event.editor.name+':'+event.data.show);
+                }
+            });
+            //editor.addMenuGroup('lite', 3);
+        }
     });
+
+
+    /*tinyMCE.init({
+     mode: 'textareas',
+     theme: 'advanced',
+     height: 180,
+     theme_advanced_toolbar_location: 'top',
+     theme_advanced_toolbar_align: 'left',
+     theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube,separator,ice_toggleshowchanges',
+     theme_advanced_buttons2: '',
+     theme_advanced_buttons3: '',
+     plugins: 'legacyoutput,media,paste,inlinepopups,youtube,ice',
+     formats: {
+     underline: { inline: 'u' }
+     },
+     paste_auto_cleanup_on_paste: true,
+     theme_advanced_statusbar_location: "none",
+     //valid_elements: "-p",
+     cleanup_on_startup: true,
+     relative_urls: false,
+     ice: {
+     user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
+     preserveOnPaste: 'p,a[href],i,em,strong'
+     },
+     body_class: "CT-hide"
+     });*/
 
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids').val();
@@ -487,7 +515,7 @@
         $('.sections_column').append(paragraph_);
         paragraph_.fadeIn();
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+        addEditor(textarea_.attr('id'));
 
         numSections += 1;
     }
@@ -514,7 +542,7 @@
         $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
         paragraph_.fadeIn();
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+        addEditor(textarea_.attr('id'));
 
         numSolutionSections[solutionid] += 1;
     }
@@ -539,7 +567,7 @@
 
 
         paragraph_.find('textarea.tinymce').each(function () {
-            tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
+            addEditor($(this).attr('id'));
         });
 
         paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
@@ -597,30 +625,41 @@
     }
 
 
+    function addEditor(id) {
+        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "it-IT", "customConfig": 'config_lite.js'});
+        editor_.on('lite:init', function (event) {
+            ckedstoogle_[event.editor.name]['first'] = false;
+            var lite = event.data.lite;
+            lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
+            lite.setUserInfo({id: 1, name: 'test'});
+        });
+        editor_.on('lite:showHide', function (event) {
+            if (!ckedstoogle_[event.editor.name]['first']) {
+                ckedstoogle_[event.editor.name]['state'] = event.data.show;
+            }
+        });
+    }
+
+    var ckeConfigs = {};
     $(".sections_column").sortable({
         connectWith: ".column",
         cursor: "move",
         axis: "y",
         handle: '.move_button',
         start: function (e, ui) {
-            if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
-                var textarea_ = $('.tinymce', ui.item);
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            var textareaId = ui.item.find('textarea').attr('id');
+            if (typeof textareaId != 'undefined') {
+                var editorInstance = CKEDITOR.instances[textareaId];
+                editorInstance.destroy();
+                CKEDITOR.remove(textareaId);
             }
         },
         stop: function (e, ui) {
-            var textarea_ = $('.tinymce', ui.item);
-            if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            var textareaId = ui.item.find('textarea').attr('id');
+            if (typeof textareaId != 'undefined') {
+                ckedstoogle_[textareaId]['first'] = true;
+                addEditor(textareaId);
             }
-            tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
-            var i = 0;
-            $(this).find('p').each(function (el) {
-                var id = $(this).find('.tinymce').attr('id');
-                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                console.log(seq_id + ', id: ' + i);
-                $('#' + seq_id).val(i++);
-            });
         }
     });
 

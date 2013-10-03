@@ -43,22 +43,7 @@
         <%= raw proposal.short_content %>
       </div>
 
-      <div class="timeline">
-        <div class="cur start" title="CREAZIONE"></div>
-        <div class="cur stop" title="<%= proposal.quorum.end_desc %>"></div>
-        <div class="time" data-percentage="<%= proposal.percentage %>">
-          <% unless proposal.quorum.time_fixed? %>
-              <div class="cur now" title="<%= "#{proposal.valutations} valutazioni" %>"></div>
-          <% end %>
-          <div class="cur quorum" title="QUORUM <%= proposal.quorum.good_score %>%" data-percentage="<%= proposal.quorum.good_score %>"></div>
-          <% if proposal.quorum.has_bad_score? %>
-              <div class="cur bad quorum" title="BAD QUORUM <%= proposal.quorum.bad_score %>%" data-percentage="<%= proposal.quorum.bad_score %>"></div>
-          <% end %>
-          <div class="good" data-percentage="<%= proposal.rank %>">
-
-          </div>
-        </div>
-      </div>
+      <%= render :partial => 'new_rank_bar', locals: {proposal: proposal} %>
 
       <div class="clearboth"></div>
 

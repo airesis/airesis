@@ -15,6 +15,8 @@ function checkWidth() {
 }
 
 $(function () {
+    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
+
     /*$('#great_container').height($(window).height()-0);*/
     var submenupannel = 0;
 
@@ -161,12 +163,6 @@ function disegnaBottoni() {
             .bind("ajax:complete", function () {
                 showDisableButton($('.disableButton', this));
             });
-
-    $('.ddslick').each(function () {
-        $(this).ddslick({
-            width: 300
-        });
-    });
 }
 
 
@@ -330,6 +326,25 @@ function calculate_event_times() {
 
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes * 60000);
+}
+
+function upperMinutes(date,step) {
+    return addMinutes(date,date.getMinutes()%step);
+}
+
+function dateToString(date) {
+    var day_ = end_.getDate()
+    var month_ = end_.getMonth() + 1
+    var year_ = end_.getFullYear()
+
+    var hours_ = end_.getHours()
+    var minutes_ = end_.getMinutes()
+
+    if (minutes_ < 10)
+        minutes_ = "0" + minutes_
+
+
+    return day_ + '/' + month_ + '/' + year_ + ' ' + hours_ + ':' + minutes_;
 }
 
 function startTimeChanged() {
@@ -535,7 +550,7 @@ function stripScripts(s) {
 
 
 function read_notifica(el) {
-    var parent_ = $(el).parent()
+    var parent_ = $(el).parent();
     parent_.addClass('old').removeClass('new');
     var url_ = parent_.attr('href');
     var type_id = $(el).data('type_id');
@@ -548,6 +563,20 @@ function read_notifica(el) {
     else {
         box_.remove();
     }
+    var proposal_id = parent_.data('proposal-id');
+    if (proposal_id) {
+        $('.alert.notify[data-proposal-id='+proposal_id+']').each(function() {
+            var num_ = parseInt($(this).html());
+            if (num_ > 1) {
+                num_ -= 1;
+                $(this).html(num_);
+            }
+            else {
+                $(this).remove();
+            }
+        });
+    }
+
     $.ajax({
         dataType: 'js',
         type: 'get',
@@ -683,6 +712,20 @@ function fitRightMenu(fetched) {
     });
 }
 
+//custom formatter for categories in select2 dropdown
+function formatCategory(state) {
+    if (!state.id) return state.text; // optgroup
+    return "<img src='/assets/proposal_categories/" + state.id.toLowerCase() + "_s.png'/> " + state.text;
+}
+
+//custom formatter for quora in select2 dropdown
+function formatQuorum(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div> <div class=\"quorum_title\">"+state.text+"</div> <div class=\"quorum_desc\">"+$(element_).data('description')+"</div></div>";
+}
+
+
 
 
 jQuery.uaMatch = function (ua) {
@@ -720,3 +763,4 @@ if (!jQuery.browser) {
 
     jQuery.browser = browser;
 }
+

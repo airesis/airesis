@@ -313,7 +313,7 @@ class Proposal < ActiveRecord::Base
   end
 
   def short_content
-    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 25)
+    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 35)
   end
 
   def interest_borders_tkn

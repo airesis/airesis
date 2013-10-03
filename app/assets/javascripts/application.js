@@ -28,8 +28,6 @@
 //= require jquery.gbutton
 //= require prettydiff/diffview
 //= require simplemodal
-//= require_tree ./rangy-1.2/
-//= require tinymce-jquery
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer
 //= require jqlplot/jqplot.dateAxisRenderer
@@ -42,7 +40,6 @@
 //= require jquery.qtip
 //= require feedback
 //= require private_pub
-//= require ddslick.min
 //= require toastr
 //= require countdown/index
 //= require jquery.tagcloud

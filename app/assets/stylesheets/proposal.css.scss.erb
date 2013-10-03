@@ -171,6 +171,19 @@
     width: 90%;
 }
 
+.order_options {
+    margin: 15px 5px;
+    .order_option {
+        padding: 8px 15px 8px 15px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        &.sel {
+            background-color: rgba(214, 214, 214, 0.5);
+        }
+    }
+}
+
 .authors {
     .title {
         border-top: 1px dotted #ccc;
@@ -192,14 +205,14 @@
         word-wrap: break-word;
         word-break: break-word;
         margin-top: 20px;
-        height: 2.7em;
+        height: 3.7em;
         overflow-y: hidden;
     }
 
     .category_icon {
         text-align: center;
         opacity: 1;
-        border-bottom: 1px dotted black;
+        border-bottom: 1px dotted silver;
     }
 
     .model {
@@ -209,7 +222,7 @@
         text-align: center;
         margin-top: 5px;
         font-weight: bold;
-        height:  32px;
+        height: 32px;
     }
 
     .proposal_cont {
@@ -240,7 +253,7 @@
                 width: 90px;
                 font-weight: bold;
                 text-align: center;
-                height:  45px;
+                height: 45px;
             }
         }
     }
@@ -299,10 +312,9 @@
         }
 
         .alerts_and_vote {
-            float: right;
-
-
-
+            position: absolute;
+            top: 8px;
+            right: 6px;
         }
     }
 }
@@ -316,7 +328,7 @@
 .timeline {
     background-color: silver;
     height: 5px;
-    margin-top: 10px;
+    margin-top: 1px;
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 12px;
@@ -387,27 +399,52 @@
     }
 }
 
-.portlet_panel .proposal_list .maintitle {
-    left: 30px;
-    right: 160px;
-    font-size: 1.1em;
-    top: 6px;
+.portlet_panel {
+    .proposal_list {
+
+        .proposal_cont {
+            height: auto;
+            .left_cont .inner_cont {
+                width: 40px;
+            }
+        }
+        .category_icon {
+            border-bottom: none;
+            img {
+                width: 40px;
+            }
+        }
+        .maintitle {
+            left: 10px;
+            right: 10px;
+            font-size: 1em;
+            top: 6px;
+        }
+
+        .datetime {
+            width: 150px;
+        }
+
+        .timeline {
+            margin-top: 33px;
+        }
+
+        .proposal_bottom {
+            img {
+            }
+        }
+    }
+
 }
 
-.portlet_panel .proposal_bottom img {
-    width: 15px;
-}
-
-.portlet_panel .proposal_list .datetime {
-    width: 150px;
-}
-
-.proposal_list .datetime {
-    margin: 5px 0px;
-    position: absolute;
-    width: 130px;
-    top: 0;
-    right: 0;
+.proposal_list {
+    .datetime {
+        margin: 5px 0px;
+        position: absolute;
+        width: 130px;
+        top: 0;
+        right: 0;
+    }
 }
 
 .proposal_content {
@@ -1112,8 +1149,73 @@ a.spch-bub-inside:hover .point {
     border-left-color: #fff;
 }
 
-#create_proposal form {
-    overflow: hidden;
+#create_proposal {
+    form {
+        overflow: hidden;
+    }
+
+    .bread-crumb {
+        list-style: none outside none;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        height: 47px;
+        li {
+            float: left;
+            position: relative;
+            padding-left: 3px;
+            padding-right: 3px;
+            font-weight: bold;
+            cursor: default;
+
+            div.step_title {
+                color: #CCCCCC;
+                background: #F8F8F8;
+                border: 1px solid #CCC;
+                padding: 5px 30px;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                padding: 3px 20px;
+                border-radius: 5px;
+
+                &.first {
+                    border-left: 1px solid #ccc;
+                }
+
+                &.last {
+                    border-right: 1px solid #ccc;
+                }
+
+                .number {
+                    display: inline-block;
+                    font-size: 2em;
+                    font-family: verdana;
+                }
+
+                .title {
+                    display: inline-block;
+                }
+            }
+
+            &.bread-crumb-completed {
+                /*cursor: pointer;*/
+                div.step_title {
+                    color: #FFF;
+                    background: #8CC63F;
+                    border: 1px solid #8CC63F;
+                }
+            }
+
+            &.bread-crumb-active {
+                div.step_title {
+                    color: #F8F8F8;
+                    background: #EA8511;
+                    border: 1px solid #EA8511;
+                }
+            }
+
+        }
+    }
 }
 
 #proposals_table td.first {

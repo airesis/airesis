@@ -50,7 +50,7 @@ class Quorum < ActiveRecord::Base
   end
 
   def time_fixed?
-    self.minutes && !self.percentage
+    self.minutes && !self.percentage && ((self.good_score == self.bad_score) || !self.bad_score)
   end
     
   def minutes_or_percentage

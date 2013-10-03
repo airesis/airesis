@@ -349,11 +349,10 @@ class ProposalsController < ApplicationController
             end
             @event.save!
             @proposal.vote_period = @event
-
-            #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-            Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-            Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
           end
+          #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+          Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+          Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
         end
 
         @proposal.save!
@@ -545,7 +544,7 @@ class ProposalsController < ApplicationController
       end
     else
       vote_period = Event.find(params[:proposal][:vote_period_id])
-      raise Exception unless vote_period.starttime > (Time.now + 5.seconds) #controllo di sicurezza
+      raise Exception unless vote_period.starttime > (Time.now + 5.seconds) #security check
       @proposal.vote_period_id = params[:proposal][:vote_period_id]
       @proposal.proposal_state_id = PROP_WAIT
       @proposal.save!

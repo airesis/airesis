@@ -81,7 +81,10 @@ class EventsWorker
           proposal.proposal_state_id = ProposalState::REJECTED
         end
       end
-      proposal.save
+      proposal.save!
+      proposal.private ?
+          notify_proposal_voted(proposal, proposal.presentation_groups.first) :
+          notify_proposal_voted(proposal)
     end #end each
     ResqueMailer.admin_message(msg).deliver
   end

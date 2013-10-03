@@ -483,6 +483,10 @@
 
                         alert_container.addClass(alert.checked ? 'old' : 'new');
 
+                        if (alert.proposal_id) {
+                            alert_container.attr('data-proposal-id',alert.proposal_id);
+                        }
+
                         if (!alert.checked) {
                             alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }

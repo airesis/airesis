@@ -23,11 +23,6 @@ function showSimilarProposal(activeDiv) {
 }
 
 
-function changeStart() {
-    $('#start_preset').hide();
-    $('#start_choose').show();
-}
-
 window.ClientSideValidations.selectors = {
     inputs: ':input:not(button):not([type="submit"])[name]:enabled',
     validate_inputs: ':input:enabled:visible[data-validate]',
@@ -90,6 +85,51 @@ if (input != null) {
 }
 
 
+$('#proposal_proposal_category_id').select2({
+    minimumResultsForSearch: -1,
+    formatResult: formatCategory,
+    formatSelection: formatCategory,
+    escapeMarkup: function(m) { return m; }
+});
+
+
+$('#proposal_quorum_id').select2({
+    minimumResultsForSearch: -1,
+    formatResult: formatQuorum,
+    formatSelection: formatQuorum,
+    escapeMarkup: function(m) { return m; }
+});
+
+$('#proposal_quorum_id').on("change", function(e) {
+    var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
+    var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
+    var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
+    if (exlanation_) {
+        $('#quorum_explanation').html(exlanation_).show();
+    }
+    else {
+        $('#quorum_explanation').hide();
+    }
+    if (timefixed_) {
+        $('#choose_votation').show();
+        var now_ = new Date();
+        var end_ = addMinutes(now_,parseInt(minutes_));
+
+
+        $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>'+' ('+dateToString(upperend_)+')');
+        var upperend_ = upperMinutes(end_,5);
+        $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
+        $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
+        $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_,120));
+        $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_,120));
+        $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_,120));
+        //$("#proposal_votation_end").focus();
+    }
+    else {
+        $('#choose_votation').hide();
+
+    }
+});
 
 
 $('#new_proposal').enableClientSideValidations();
@@ -129,49 +169,16 @@ $('#proposal_votation_start').datetimepicker($.extend({},datePickerOptions,{
 $('#choose_votation .cancel_action').click(function() {
     $('#start_preset').show();
     $('#start_choose').hide();
+    $('#proposal_votation_start_edited').val(null);
 });
 
-$('.ddslick2').ddslick({
-        width: 400,
-        onSelected: function(data) {
-            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
-            var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
-            var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
-            if (exlanation_) {
-              $('#quorum_explanation').html(exlanation_).show();
-            }
-            else {
-              $('#quorum_explanation').hide();
-            }
-            if (timefixed_) {
-                $('#choose_votation').show();
-                var now_ = new Date();
-                var end_ = addMinutes(now_,parseInt(minutes_));
 
+function changeStart() {
+    $('#start_preset').hide();
+    $('#start_choose').show();
+    $('#proposal_votation_start_edited').val('true');
+}
 
-                        var day_ = end_.getDate()
-                        var month_ = end_.getMonth() + 1
-                        var year_ = end_.getFullYear()
-
-                var hours_ = end_.getHours()
-                var minutes_ = end_.getMinutes()
-
-                if (minutes_ < 10)
-                minutes_ = "0" + minutes_
-
-
-                $('#choose_votation .end_time').html(day_ + '/' + month_ + '/' + year_ + ' ' + hours_ + ':' + minutes_);
-
-                $("#proposal_votation_start").datetimepicker("option", "minDate", end_);
-                $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(end_,120));
-                $("#proposal_votation_end").focus();
-            }
-            else {
-                $('#choose_votation').hide();
-
-            }
-        }
-});
 
 $('#proposal_quorum_id_container').css('float','left').css('margin-right','5px');
 
@@ -179,7 +186,7 @@ $('#proposal_quorum_id_container').css('float','left').css('margin-right','5px')
 //window.ClientSideValidations.forms['new_proposal'].validators['proposal[sections_attributes][][paragraphs_attributes][][content]']['presence'] = [{'message':'deve essere compilato'}];
 
 
-tinyMCE.init({
+/*tinyMCE.init({
     mode: 'textareas',
     theme: 'advanced',
     theme_advanced_toolbar_location: 'top',
@@ -194,4 +201,4 @@ tinyMCE.init({
     },
     paste_auto_cleanup_on_paste: true,
     theme_advanced_statusbar_location: "none"
-});
+});*/

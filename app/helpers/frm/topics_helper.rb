@@ -45,7 +45,7 @@ module Frm
       if current_user
         topic_view = topic.view_for(current_user)
         forum_view = topic.forum.view_for(current_user)
-        if (topic_view && topic.posts.exists?(["created_at > ?", topic_view.updated_at])) || (forum_view && topic.created_at > forum_view.past_viewed_at)
+        if (topic_view && topic.posts.exists?(["created_at > ?", topic_view.updated_at])) || (forum_view && topic.created_at > forum_view.updated_at)
           classes += " new_posts "
         end
       end
