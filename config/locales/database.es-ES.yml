@@ -165,7 +165,7 @@ es-ES:
       new_public_proposals:
         description: Nuevas propuestas en el Espacio Abierto
         email_subject: '%{proposal}'
-        message: 'Nueva propuesta <b>%{title}</b> añadida en el espacio abierto'
+        message: 'Nueva propuesta <b>%{proposal}</b> añadida en el espacio abierto'
       new_proposals:
         description: Nuevas propuestas dentro del grupo
         email_subject: '%{proposal}'

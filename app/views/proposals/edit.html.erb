@@ -463,7 +463,7 @@
      });*/
 
     function fillCleanFields() {
-        var integrated_ = $('#proposal_integrated_contributes_ids').val();
+        var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
         console.log('integrated: ' + integrated_);
         if (integrated_ == "") {
             if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
@@ -475,14 +475,6 @@
             $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
         });
 
-        <%for i in 0..(@proposal.sections.count-1) %>
-        $('#proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_sections_attributes_<%=i%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-        <%end%>
-        <%for i in 0..(@proposal.solutions.count-1) %>
-        <%for j in 0..(@proposal.solutions[i].sections.count-1) %>
-        $('#proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content').val(tinymce.get('proposal_solutions_attributes_<%=i%>_sections_attributes_<%=j%>_paragraphs_attributes_0_content_dirty').execCommand('icecleanbody'));
-        <%end%>
-        <%end%>
         return true;
     }
 

@@ -19,7 +19,7 @@
 
             <tr>
               <td class="first"><%= link_to_proposal proposal %>
-                <%= user_valutation_image(current_user, proposal, {fetched: true}) %>
+                <%= user_valutation_image(current_user, proposal, {fetched: false}) %>
               </td>
               <td align="center" class="second">
                 <%= l proposal.updated_at %>
