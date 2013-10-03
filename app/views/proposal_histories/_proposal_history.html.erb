@@ -10,7 +10,7 @@
       </h3>
 
       <div class="proposal_content">
-        <%= sanitize(section.paragraphs.first.content) %>
+        <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
       </div>
     </div>
 <% end %>
@@ -28,7 +28,7 @@
                 </div>
               </h3>
               <div class="proposal_content">
-                <%= sanitize(section.paragraphs.first.content) %>
+                <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
               </div>
             </div>
         <% end %>

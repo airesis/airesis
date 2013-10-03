@@ -218,6 +218,15 @@ class User < ActiveRecord::Base
   end
 
 
+  def encoded_id
+    Base64.encode64(self.id)
+  end
+
+  def self.decode_id(id)
+    Base64.decode64(id)
+  end
+
+
   def image_url
     if (self.blog_image_url && !self.blog_image_url.blank?)
       return self.blog_image_url
@@ -569,5 +578,8 @@ class User < ActiveRecord::Base
   def to_s
     fullname
   end
+
+
+
 
 end

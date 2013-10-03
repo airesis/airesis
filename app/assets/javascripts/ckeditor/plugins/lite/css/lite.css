@@ -26,18 +26,6 @@ Written by (David *)Frenkiel - https://github.com/imdfl
 	background-color: #e5ffcd !important;
 }
 
-.ICE-Tracking .ice-ins.ice-cts-1, .ICE-Tracking .ice-ins.ice-cts-1 p  {
-	background-color: #e5ffcd !important;
-}
-
-.ICE-Tracking .ice-ins.ice-cts-2, .ICE-Tracking .ice-ins.ice-cts-2 p  {
-	background-color: #e3ffff !important;
-}
-
-.ICE-Tracking .ice-ins.ice-cts-3, .ICE-Tracking .ice-ins.ice-cts-3 p  {
-	background-color: #d1eeee !important;
-}
-
 
 .ICE-Tracking .ice-del {
 	display: inline;
@@ -45,16 +33,3 @@ Written by (David *)Frenkiel - https://github.com/imdfl
 	color: #555;
 	background-color: #faf1f1 !important;
 }
-
-.ICE-Tracking .ice-del.ice-cts-1 {
-	background-color: #faf1f1 !important;
-}
-
-.ICE-Tracking .ice-del.ice-cts-2 {
-	background-color: #ffe1e1 !important;
-}
-
-.ICE-Tracking .ice-del.ice-cts-3 {
-	background-color: #ffdddd !important;
-}
-

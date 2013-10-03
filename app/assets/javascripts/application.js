@@ -11,8 +11,6 @@
 //= require jquery.tokeninput
 //= require flot/jquery.flot
 //= require democracy
-//= require markdown
-//= require jquery.markitup
 //= require fullcalendar
 //= require gcal
 //= require events
@@ -26,7 +24,6 @@
 //= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.gbutton
-//= require prettydiff/diffview
 //= require simplemodal
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer

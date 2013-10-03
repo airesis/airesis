@@ -92,20 +92,9 @@
     var contributes = [];
     var checkActive = false;
 
-    var $viewport = $('html, body');
-
 
     function scroll_to_vote_panel() {
-        $viewport.animate({
-            scrollTop: $(".vote_panel").offset().top - 100
-        }, 2000);
-
-        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
-        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
-            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
-                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
-            }
-        });
+        scrollToElement($(".vote_panel"));
         return false;
     }
 

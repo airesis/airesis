@@ -1,6 +1,22 @@
 !window.console && (console = { log: function () {
 }});
 
+
+var $viewport = $('html, body');
+function scrollToElement(element) {
+    $viewport.animate({
+        scrollTop: element.offset().top - 100
+    }, 2000);
+
+    // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+    $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+        if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+            $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+        }
+    });
+    return false;
+}
+
 function checkWidth() {
     if (window.innerWidth < 1000) {
         $('#menu-top, #menu-right .cont').css('position', 'absolute');
@@ -210,15 +226,15 @@ function disegnaProgressBar() {
         }
     });
 
-    $('.alert.notify[data-load="true"]').each(function() {
+    $('.alert.notify[data-load="true"]').each(function () {
         $(this).qtip({
             content: {
                 text: 'Loading...', // The text to use whilst the AJAX request is loading
                 ajax: {
                     url: '/alerts/proposal', // URL to the local file
                     type: 'GET', // POST or GET
-                    data: 'proposal_id='+$(this).data('proposal-id'),
-                    success: function(data, status) {
+                    data: 'proposal_id=' + $(this).data('proposal-id'),
+                    success: function (data, status) {
 
                         this.set('content.text', data);
                     }
@@ -239,7 +255,6 @@ function disegnaProgressBar() {
             }
         });
     });
-
 
 
     $('.proposal_bottom .partecipants').each(function () {
@@ -328,8 +343,8 @@ function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes * 60000);
 }
 
-function upperMinutes(date,step) {
-    return addMinutes(date,date.getMinutes()%step);
+function upperMinutes(date, step) {
+    return addMinutes(date, date.getMinutes() % step);
 }
 
 function dateToString(date) {
@@ -565,7 +580,7 @@ function read_notifica(el) {
     }
     var proposal_id = parent_.data('proposal-id');
     if (proposal_id) {
-        $('.alert.notify[data-proposal-id='+proposal_id+']').each(function() {
+        $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
             var num_ = parseInt($(this).html());
             if (num_ > 1) {
                 num_ -= 1;
@@ -722,7 +737,7 @@ function formatCategory(state) {
 function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
-    return "<div> <div class=\"quorum_title\">"+state.text+"</div> <div class=\"quorum_desc\">"+$(element_).data('description')+"</div></div>";
+    return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
 }
 
 

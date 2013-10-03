@@ -130,7 +130,7 @@
               <%= s.hidden_field :seq %>
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                  <p class="section_container">
+                  <p class="section_container" data-section-id="<%= section.id %>">
                     <%= s.text_field :title, class: "edit_label" %>
                     <span class="move_button">
                       <%= image_tag 'move.png' %>
@@ -181,7 +181,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container">
+                              <p class="section_container" data-section-id="<%= section.id %>">
                                 <%= s.text_field :title, class: "edit_label" %>
                                 <span class="move_button">
                               <%= image_tag 'move.png' %>
@@ -227,7 +227,6 @@
 
       <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', disable_with: t('updating') %>
 
-      <input onclick="fillCleanFields()">Test</input>
     </p>
 <% end %>
 
@@ -299,67 +298,70 @@
 
         <%= render :partial => 'show_tooltips' %>
 
-//        toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
-//        toastr.info('<%=raw (j t('pages.proposals.edit.tooltip'))%><br/><input type="button" class="btn" value="<%=t('buttons.update')%>" onclick="$(\'form input:submit\').click();"></input>');
-
         anima();
     });
 
     var integrated_contributes = [];
 
 
-    function anima() {
-        console.log('anima');
+    function compressSolution(element) {
         var toggleMinHeight = 80,
                 duration = 500,
-                easing = 'swing';
+                easing = 'swing',
+                this_ = element,
+                compress_ = element.parent(),
+                curH = compress_.height();
+        if (compress_.is(':animated')) {
+            return false;
+        }
+        else if (compress_.attr('data-compressed') == 'false') {
+            compress_.attr('data-compressed', true);
+            compress_.attr('data-height', compress_.height());
+            $('.sol_content', compress_).hide();
+            $('.tinymce', compress_).each(function () {
+                var editor_id = $(this).attr('id');
+                //tinymce.get(editor_id).hide();
+            })
+            compress_.animate(
+                    {
+                        'height': toggleMinHeight
+                    }, duration, easing, function () {
+                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_expand')%>');
+                        pressed_.hide();
+                        this_.after(pressed_);
+                        pressed_.fadeIn();
+                    });
+
+        }
+        else {
+            compress_.attr('data-compressed', false);
+
+            compress_.animate(
+                    {
+                        'height': compress_.attr('data-height')
+                    }, duration, easing, function () {
+                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_compress') %>');
+                    });
+
+            $('.sol_content', compress_).show();
+            $('.tinymce', compress_).each(function () {
+                var editor_id = $(this).attr('id');
+                //tinymce.get(editor_id).show();
+            })
+        }
+
+    }
+
+    function anima() {
+        console.log('anima');
+
 
         $('.solution_main h3').each(function () {
 
             $(this).parent().attr('data-compressed', false);
         })
                 .click(function () {
-                    var this_ = $(this);
-                    var compress_ = $(this).parent();
-                    var curH = compress_.height();
-                    if (compress_.is(':animated')) {
-                        return false;
-                    }
-                    else if (compress_.attr('data-compressed') == 'false') {
-                        compress_.attr('data-compressed', true);
-                        compress_.attr('data-height', compress_.height());
-                        $('.sol_content', compress_).hide();
-                        $('.tinymce', compress_).each(function () {
-                            var editor_id = $(this).attr('id');
-                            tinymce.get(editor_id).hide();
-                        })
-                        compress_.animate(
-                                {
-                                    'height': toggleMinHeight
-                                }, duration, easing, function () {
-                                    var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_expand')%>');
-                                    pressed_.hide();
-                                    this_.after(pressed_);
-                                    pressed_.fadeIn();
-                                });
-
-                    }
-                    else {
-                        compress_.attr('data-compressed', false);
-
-                        compress_.animate(
-                                {
-                                    'height': compress_.attr('data-height')
-                                }, duration, easing, function () {
-                                    var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_compress') %>');
-                                });
-
-                        $('.sol_content', compress_).show();
-                        $('.tinymce', compress_).each(function () {
-                            var editor_id = $(this).attr('id');
-                            tinymce.get(editor_id).show();
-                        })
-                    }
+                    compressSolution($(this));
                 });
         $('.solution_main h3 input').click(function (event) {
             event.preventDefault();
@@ -420,7 +422,7 @@
             var lite = event.data.lite;
             ckedstoogle_[event.editor.name]['editor'] = lite;
             lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
-            lite.setUserInfo({id: 1, name: 'test'});
+            lite.setUserInfo({id: <%=current_user.encoded_id%>, name: '<%=j current_user.fullname%>'});
         });
         editor_.on('lite:showHide', function (event) {
             if (!ckedstoogle_[event.editor.name]['first']) {
@@ -455,17 +457,17 @@
         }
         for (name in CKEDITOR.instances) {
             var editor = CKEDITOR.instances[name];
-            var textarea_ = $('#'+name);
+            var textarea_ = $('#' + name);
             console.log('parsing:' + name);
             var lite = ckedstoogle_[name]['editor'];
             var clean = lite._tracker.getCleanContent();
             console.log('cleaned:' + clean);
-            var target = $('#'+name.replace('_dirty',''));
+            var target = $('#' + name.replace('_dirty', ''));
             target.val(clean);
             console.log('putting into:' + target.attr('id'));
         }
 
-
+        $('.update2').attr('disabled', 'disabled');
 
         return true;
     }
@@ -609,8 +611,6 @@
     }
 
 
-
-
     var ckeConfigs = {};
     $(".sections_column").sortable({
         connectWith: ".column",
@@ -669,3 +669,87 @@
     make_solution_sortable($(".solutions_column"));
 
 </script>
+
+
+
+
+
+
+
+
+<% content_for :left_panel do %>
+    <div class="edit_proposal_panel">
+      <div class="mybox">
+        <%= link_to 'Aggiorna', '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
+        <%= link_to 'Comprimi soluzioni', '#', onclick: 'return compressSolutions();', data: {other: 'Espandi soluzioni'}, class: 'compress btn' %>
+        <%= link_to 'Nascondi contributi', '#', onclick: 'return hideContributes();', data: {other: 'Mostra contributi'}, class: 'contributes btn' %>
+      </div>
+      <div class="mybox">
+        <h4><%= 'Navigator' %></h4>
+        <ul class="navigator">
+          <% @proposal.sections.each do |section| %>
+              <li><%= link_to section.title, '#', onclick: "scrollToSection(#{section.id});" %></li>
+          <% end %>
+          <% @proposal.solutions.each do |solution| %>
+              <li><%= link_to solution.title, '#', onclick: "scrollToSection(#{solution.id});" %>
+                <ul class="navigator">
+                  <% solution.sections.each do |section| %>
+                      <li><%= link_to section.title, '#', onclick: "scrollToSection(#{section.id});" %></li>
+                  <% end %>
+                </ul>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+        var left_panel_ = $('.edit_proposal_panel');
+        if (left_panel_.height() < ($(window).height() - 100)) {
+            left_panel_.addClass('sticky');
+        }
+
+
+        function switchText(button) {
+            var other_ = button.data('other');
+            var text_ = button.text();
+            button.data('other', text_);
+            button.text(other_);
+        }
+
+
+        function updateProposal() {
+            if ($('.update2').attr('disabled') != 'disabled') {
+                $('form input:submit').click();
+            }
+            return false;
+        }
+
+        function scrollToSection(number) {
+            scrollToElement($(".section_container[data-section-id=" + number + "]"));
+            return false;
+        }
+
+        function hideContributes() {
+            $('.suggestion_right').toggle();
+            var contributesButton = $('.contributes');
+            switchText(contributesButton);
+            return false;
+        }
+
+        function compressSolutions() {
+            $('.solution_main h3').each(function () {
+                compressSolution($(this));
+            });
+            var compressButton = $('.compress');
+            switchText(compressButton);
+
+            return false;
+        }
+
+
+    </script>
+
+
+<% end %>
