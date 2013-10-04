@@ -1,6 +1,8 @@
-<% collection = Event.public.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } %>
+
 <% if @group %>
-    <% collection += Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } %>
+    <% collection = Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } %>
+<%else%>
+    <% collection = Event.public.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } %>
 <% end %>
 <% if collection.size > 0 %>
     <%= form_for @proposal, :url => set_votation_date_proposal_url(@proposal, :group_id => params[:group_id]) do |f| %>

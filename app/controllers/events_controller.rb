@@ -31,7 +31,7 @@ class EventsController < ApplicationController
 
 
   def show
-    authorize! :view_data, @group
+    authorize! :view_data, @group if @group
     @page_title = @event.title
     respond_to do |format|
       format.js
