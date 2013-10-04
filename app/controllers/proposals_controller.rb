@@ -576,7 +576,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html {
         flash[:notice] = t('info.proposal.proposal_deleted')
-        redirect_to(proposals_url)
+        redirect_to @group ? group_proposals_url(@group) : proposals_url
       }
       format.xml { head :ok }
     end

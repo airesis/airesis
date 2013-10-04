@@ -449,12 +449,13 @@
 
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
-        console.log('integrated: ' + integrated_);
+        <%if @proposal.contributes.count > 0%>
         if (integrated_ == "") {
             if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
                 return false;
             }
         }
+        <%end%>
         for (name in CKEDITOR.instances) {
             var editor = CKEDITOR.instances[name];
             var textarea_ = $('#' + name);
@@ -750,6 +751,4 @@
 
 
     </script>
-
-
 <% end %>
