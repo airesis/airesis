@@ -303,7 +303,7 @@ it-IT:
         modify_group: "Modifica il gruppo"
       layout:
         home_button: "BACHECA"
-        proposals_button: "LE PROPOSTE"
+        proposals_button: "PROPOSTE"
         calendar: "CALENDARIO"
       show:
         rules_button: "Regolamento"
@@ -931,7 +931,7 @@ it-IT:
         proposals_now_voting: "Proposte in votazione adesso"
     open_space:
       layout:
-        proposals_button: "LE PROPOSTE"
+        proposals_button: "PROPOSTE"
         calendar_button: "CALENDARIO"
         map_button: "MAPPA"
     proposal_supports:
