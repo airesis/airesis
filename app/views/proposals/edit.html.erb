@@ -418,12 +418,14 @@
 
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
-        console.log('integrated: ' + integrated_);
+
+        <%if @proposal.contributes.count > 0%>
         if (integrated_ == "") {
             if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
                 return false;
             }
         }
+        <%end%>
         $('textarea.tinymce').each(function () {
             var id = $(this).attr('id');
             $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
