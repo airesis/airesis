@@ -1,48 +1,54 @@
 module ProposalsModule
   include GroupsHelper, NotificationHelper, ProposalsHelper
-  #verifica se è necessario passare alla fase di votazione
-  #una proposta attualmente in fase di valutazione e dibattito
+
+
+  #check if we have to close the dabate and pass to votation phase
   def check_phase(proposal)
     return unless proposal.in_valutation? #if the proposal already passed this phase skip this check
     quorum = proposal.quorum
     passed = false
     timepassed = (!quorum.ends_at || Time.now > quorum.ends_at)
     vpassed = (!quorum.valutations || proposal.valutations >= quorum.valutations)
-    #se erano definiti entrambi i parametri
+    #if both parameters were defined
     if quorum.ends_at && quorum.valutations
-
       if quorum.or?
         passed = (timepassed || vpassed)
       else quorum.and?
         passed = (timepassed && vpassed)
       end
-    else #altrimenti era definito solo uno dei due, una delle due variabili
+    else #we just need one of two (one will be certainly true)
       passed = (timepassed && vpassed)
     end
 
+    if passed #if we have to move one
+      if proposal.rank >= quorum.good_score #and we passed the debate quorum
+        if proposal.vote_period #the user already choosed the votation period! that's great, we can just sit along the river waiting for it to begin
+          proposal.proposal_state_id = ProposalState::WAIT
+        else
+          proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
+          proposal.private? ?
+              notify_proposal_ready_for_vote(proposal,proposal.presentation_groups.first) :
+              notify_proposal_ready_for_vote(proposal)
 
-    if passed
-      if proposal.rank >= quorum.good_score
-        proposal.proposal_state_id = ProposalState::WAIT_DATE #metti la proposta in attesa di una data per la votazione
-        proposal.private? ?
-          notify_proposal_ready_for_vote(proposal,proposal.presentation_groups.first) :
-          notify_proposal_ready_for_vote(proposal)
+        end
 
-        #elimina il timer se vi è ancora associato
+        #remove the timer if is still there
         if quorum.minutes
           Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
         end
-      elsif proposal.rank < quorum.bad_score
+      elsif proposal.rank < quorum.bad_score #if we have not passed the debate quorum abandon it
         abandon(proposal)
 
         proposal.private? ?
           notify_proposal_abandoned(proposal,proposal.presentation_groups.first) :
           notify_proposal_abandoned(proposal)
 
-        #elimina il timer se vi è ancora associato
+        #remove the timer if is still there
         if quorum.minutes
           Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
         end
+      else #if we are between bad and good score just do nothing...continue the debate
+
       end
 
       proposal.save

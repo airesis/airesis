@@ -21,12 +21,12 @@ class AlertsController < ApplicationController
 
     @map = []
     NotificationCategory.all.each do |category|
-      unread = current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => :notification, :conditions => ['user_alerts.checked = false and notification_categories.id = ?', category.id])
+      unread = current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = false and notification_categories.id = ?', category.id])
       numunread = unread.size
       if numunread < 10
-        unread += current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => :notification, :conditions => ['user_alerts.checked = true and notification_categories.id = ?', category.id], :limit => (10 - numunread))
+        unread += current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = true and notification_categories.id = ?', category.id], :limit => (10 - numunread))
       end
-      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => unread.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message} }}
+      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => unread.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
     end
   end
 
@@ -62,6 +62,12 @@ class AlertsController < ApplicationController
     respond_to do |format|
       format.js { render :nothing => true }
     end
+  end
+
+  #return notification tooltip for a specific proposal and user
+  def proposal
+    @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', params[:proposal_id], false])
+    render layout: false
   end
 
   protected

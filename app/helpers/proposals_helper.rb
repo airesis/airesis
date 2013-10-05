@@ -1,4 +1,34 @@
+#encoding: utf-8
 module ProposalsHelper
+
+  #return a parsed paragraph
+  def parsed_paragraph(content)
+    sanitize(content).gsub(/<.{1,3}>/,'').blank? ?
+        "<p><span class=\"fake_content\">#{'Questo paragrafo non è ancora stato compilato. Contribuisci inserendo un contributo!'}</span></p>".html_safe :
+        sanitize(content)
+  end
+
+
+  def parsed_content(proposal_comment, anonimous=true)
+    scanned = CGI.escapeHTML(proposal_comment.content).gsub(/(@)\[\[(\d+):([\w\s\.\-]+):([\w\s@\.,-\/#!$%\^&\*;:{}=\-_`~()]+)\]\]/) do |match|
+      nick = ProposalNickname.find($2)
+      anonimous ?
+          "<span class='cite nickname'>#{nick.nickname}</span>" :
+          "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
+    end
+    scanned
+    auto_link(scanned.gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
+      truncate(text, :length => 15)
+    end.html_safe
+  end
+
+
+  def proposal_tag(proposal, options={})
+    ret = "<div class='proposal_tag'>"
+    ret += link_to_proposal(proposal)
+    ret += "</div>"
+    ret.html_safe
+  end
 
   def link_to_proposal(proposal, options={})
     raise "Invalid proposal" unless proposal

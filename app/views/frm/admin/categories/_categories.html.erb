@@ -1,0 +1,10 @@
+<% @categories.each do |category| %>
+    <tr class="forum <%= cycle("odd", "even") %>">
+
+      <td>
+        <%= category.name %>
+      </td>
+      <td><%= link_to t('edit', scope: 'frm.admin.categories'), edit_group_frm_admin_category_url(@group, category), class: "btn editButton", remote: true, disable_with: t('loading') %></td>
+      <td><%= link_to t('delete', scope: 'frm.admin.categories'), group_frm_admin_category_url(@group, category), method: :delete, data: {confirm: t('delete_confirm', scope: 'frm.admin.categories')}, remote: true, class: "btn trashButton" %></td>
+    </tr>
+<% end %>

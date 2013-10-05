@@ -122,7 +122,7 @@
                  data-count="vertical"
                  data-text="C'è un nuovo evento su #<%= APP_SHORT_NAME %>">Tweet</a>
               <g:plusone size="tall"></g:plusone>
-              <%= raw facebook_like %>
+              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%=@event.class.class_name%>" data-likeable_id="<%=@event.id%>"></div>
             </div>
         <% end %>
 

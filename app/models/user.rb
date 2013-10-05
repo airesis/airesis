@@ -108,6 +108,12 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, :class_name => 'ProposalNickname'
 
+
+  #forum
+  has_many :viewed, :class_name => 'Frm::View'
+  has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
+
   #fake columns
   attr_accessor :image_url, :accept_conditions, :subdomain
 
@@ -212,6 +218,15 @@ class User < ActiveRecord::Base
   end
 
 
+  def encoded_id
+    Base64.encode64(self.id)
+  end
+
+  def self.decode_id(id)
+    Base64.decode64(id)
+  end
+
+
   def image_url
     if (self.blog_image_url && !self.blog_image_url.blank?)
       return self.blog_image_url
@@ -312,7 +327,6 @@ class User < ActiveRecord::Base
     return false unless last_suggest
     ranking.updated_at < last_suggest.created_at
   end
-
 
   def admin?
     self.user_type.short_name == 'admin'
@@ -483,5 +497,89 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  delegate :can?, :cannot?, :to => :ability
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
+
+  #forum methods
+  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
+  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
+  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
+  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
+
+
+  def can_read_forem_category?(category)
+    category.visible_outside || (category.group.partecipants.include? self)
+  end
+
+
+  def can_read_forem_forum?(forum)
+    forum.visible_outside || (forum.group.partecipants.include? self)
+  end
+
+
+  def can_create_forem_topics?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_reply_to_forem_topic?(topic)
+    topic.forum.group.partecipants.include? self
+  end
+
+
+  def can_edit_forem_posts?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_read_forem_topic?(topic)
+    !topic.hidden? || forem_admin?
+  end
+
+
+  def can_moderate_forem_forum?(forum)
+    forum.moderator?(self)
+  end
+
+  def self.autocomplete(term)
+    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email").
+        order("users.surname desc, users.name desc")
+  end
+
+
+  def forem_moderate_posts?
+    Frm.moderate_first_post && !forem_approved_to_post?
+  end
+
+  alias_method :forem_needs_moderation?, :forem_moderate_posts?
+
+  def forem_approved_to_post?
+    #forem_state == 'approved'
+    true
+  end
+
+  def forem_spammer?
+    #forem_state == 'spam'
+    false
+  end
+
+
+  def forem_admin?
+    admin?
+  end
+
+  def to_s
+    fullname
+  end
+
+
+
 
 end

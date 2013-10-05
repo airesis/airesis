@@ -1,0 +1,6 @@
+<% if can?(:read, category) %>
+  <div id='category_<%= category.id %>' class='category'>
+    <h2><%= link_to category.name, group_frm_category_url(@group,category) %></h2>
+    <%= render "/frm/forums/listing", :category => category %>
+  </div>
+<% end %>

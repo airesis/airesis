@@ -288,7 +288,8 @@ en:
         proposals_number: "Number of proposals"
         events_number: "Number of events"
         no_results: "No group found"
-        limit_reached: "You can create at most a group per day"
+        contributes_number: "CONTRIBUTI"
+		limit_reached: "You can create at most a group per day"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -468,6 +469,7 @@ en:
         search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
+        partecipants_number: ""
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"

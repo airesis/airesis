@@ -29,7 +29,7 @@ class RequestVotesController < ApplicationController
   
   def show
     @partecipants = @group.partecipants
-    @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC')
+    @group_posts = @group.posts.published.order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
       format.html # show.html.erb

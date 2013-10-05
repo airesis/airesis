@@ -1,0 +1,14 @@
+<div class="title">
+  <%= t('pages.groups.show.next_events') %>
+</div>
+<% @c = @group.events.next.order('starttime asc').limit(4) %>
+<% unless @c.empty? %>
+<div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+  <%= render partial: 'events/mini_event', collection: @c, as: 'event' %>
+</div>
+<% end %>
+
+
+<script type="text/javascript">
+
+</script>

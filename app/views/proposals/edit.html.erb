@@ -1,10 +1,13 @@
 <% content_for :head do %>
     <%= javascript_include_tag 'ice/index' %>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false&libraries=drawing">
+    </script>
 <% end %>
 
 
 
-<% @page_title = t('pages.proposals.edit.title',title: @proposal.title) %>
+<% @page_title = t('pages.proposals.edit.title', title: @proposal.title) %>
 <h1><%= @page_title %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
@@ -109,9 +112,17 @@
     <% end %>
 
     <p>
-      <%= f.label :proposal_category_id %><br/>
+    <div style="float:left">
+      <%= f.label :proposal_category_id %>
+      <br/>
       <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {class: 'ddslick'} %>
+    </div>
+    <div style="float:left;margin-left: 60px;margin-top: 10px;">
+      <%#= link_to image_tag('maps.png', class: 'geocode_proposal'), @group ? geocode_group_proposal_url(@group, @proposal) : geocode_proposal_url(@proposal), remote: true %>
+    </div>
+    <div class="clearboth"></div>
     </p>
+
 
     <div class="sections_column">
       <% @proposal.sections.includes(:paragraphs).each_with_index do |section, i| %>
@@ -119,7 +130,7 @@
               <%= s.hidden_field :seq %>
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                  <p class="section_container">
+                  <p class="section_container" data-section-id="<%= section.id %>">
                     <%= s.text_field :title, class: "edit_label" %>
                     <span class="move_button">
                       <%= image_tag 'move.png' %>
@@ -128,7 +139,7 @@
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
-                    <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
                   </p>
@@ -170,7 +181,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container">
+                              <p class="section_container" data-section-id="<%= section.id %>">
                                 <%= s.text_field :title, class: "edit_label" %>
                                 <span class="move_button">
                               <%= image_tag 'move.png' %>
@@ -181,7 +192,7 @@
                                 <br/>
 
 
-                                <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
+                                <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                                 <%= p.hidden_field :content %>
 
                                 <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
@@ -207,14 +218,15 @@
       <a href="#" onclick="addSolution(this);return false;"><%= t('pages.proposals.edit.add_solution') %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
     </div>
 
-    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title')%>" style="display:none;line-height: 160%">
-      <%=t('pages.proposals.edit.more_solutions_explained_html') %>
+    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title') %>" style="display:none;line-height: 160%">
+      <%= t('pages.proposals.edit.more_solutions_explained_html') %>
     </div>
 
     <p>
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
       <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', disable_with: t('updating') %>
+
     </p>
 <% end %>
 
@@ -223,38 +235,45 @@
 <%= t('pages.proposals.edit.inserted_contributes') %>
 </span>
 
-<div id="loading_contributes" style="margin:auto;text-align:center;">
-  <%= image_tag 'ajax-loader.gif' %>
-  <br/>
-  <b><%= t('pages.proposals.show.loading_contributions') %></b>
-</div>
-<div id="proposalCommentsContainer">
+  <div id="loading_contributes" style="margin:auto;text-align:center;">
+    <%= image_tag 'ajax-loader.gif' %>
+    <br/>
+    <b><%= t('pages.proposals.show.loading_contributions') %></b>
+  </div>
+  <div id="proposalCommentsContainer">
 
-</div>
+  </div>
 
-<div id="loading_results" style="display:none;">
-  <span><%= t('pages.proposals.show.previos_contributes') %></span>
-</div>
+  <div id="loading_results" style="display:none;">
+    <span><%= t('pages.proposals.show.previos_contributes') %></span>
+  </div>
 </div>
 
 
 
 
 <script type="text/javascript">
+
+
+    function geocode_panel() {
+
+    }
+
+
     hideLeftPanel();
     fitRightMenu($('.suggestion_right'));
     $('.suggestion_right')
-    .bind('mousewheel DOMMouseScroll', function (e) {
-        if (e.originalEvent) e = e.originalEvent;
-        var delta = e.wheelDelta || -e.detail;
-        this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-        e.preventDefault();
-        if (((this.scrollTop + parseInt(this.style.height,10)) > (this.scrollHeight-100)) && checkActive) {
-            checkActive = false;
-            console.log('bottom');
-            fetchContributes();
-        }
-    });
+            .bind('mousewheel DOMMouseScroll', function (e) {
+                if (e.originalEvent) e = e.originalEvent;
+                var delta = e.wheelDelta || -e.detail;
+                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                e.preventDefault();
+                if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
+                    checkActive = false;
+                    console.log('bottom');
+                    fetchContributes();
+                }
+            });
 
     var currentPage = 0;
     var currentView = 3;
@@ -279,67 +298,70 @@
 
         <%= render :partial => 'show_tooltips' %>
 
-//        toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};
-//        toastr.info('<%=raw (j t('pages.proposals.edit.tooltip'))%><br/><input type="button" class="btn" value="<%=t('buttons.update')%>" onclick="$(\'form input:submit\').click();"></input>');
-
         anima();
     });
 
     var integrated_contributes = [];
 
 
-    function anima() {
-        console.log('anima');
+    function compressSolution(element) {
         var toggleMinHeight = 80,
                 duration = 500,
-                easing = 'swing';
+                easing = 'swing',
+                this_ = element,
+                compress_ = element.parent(),
+                curH = compress_.height();
+        if (compress_.is(':animated')) {
+            return false;
+        }
+        else if (compress_.attr('data-compressed') == 'false') {
+            compress_.attr('data-compressed', true);
+            compress_.attr('data-height', compress_.height());
+            $('.sol_content', compress_).hide();
+            $('.tinymce', compress_).each(function () {
+                var editor_id = $(this).attr('id');
+                //tinymce.get(editor_id).hide();
+            })
+            compress_.animate(
+                    {
+                        'height': toggleMinHeight
+                    }, duration, easing, function () {
+                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_expand')%>');
+                        pressed_.hide();
+                        this_.after(pressed_);
+                        pressed_.fadeIn();
+                    });
+
+        }
+        else {
+            compress_.attr('data-compressed', false);
+
+            compress_.animate(
+                    {
+                        'height': compress_.attr('data-height')
+                    }, duration, easing, function () {
+                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_compress') %>');
+                    });
+
+            $('.sol_content', compress_).show();
+            $('.tinymce', compress_).each(function () {
+                var editor_id = $(this).attr('id');
+                //tinymce.get(editor_id).show();
+            })
+        }
+
+    }
+
+    function anima() {
+        console.log('anima');
+
 
         $('.solution_main h3').each(function () {
 
             $(this).parent().attr('data-compressed', false);
         })
                 .click(function () {
-                    var this_ = $(this);
-                    var compress_ = $(this).parent();
-                    var curH = compress_.height();
-                    if (compress_.is(':animated')) {
-                        return false;
-                    }
-                    else if (compress_.attr('data-compressed') == 'false') {
-                        compress_.attr('data-compressed', true);
-                        compress_.attr('data-height', compress_.height());
-                        $('.sol_content', compress_).hide();
-                        $('.tinymce', compress_).each(function () {
-                            var editor_id = $(this).attr('id');
-                            tinymce.get(editor_id).hide();
-                        })
-                        compress_.animate(
-                                {
-                                    'height': toggleMinHeight
-                                }, duration, easing, function () {
-                                    var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_expand')%>');
-                                    pressed_.hide();
-                                    this_.after(pressed_);
-                                    pressed_.fadeIn();
-                                });
-
-                    }
-                    else {
-                        compress_.attr('data-compressed', false);
-
-                        compress_.animate(
-                                {
-                                    'height': compress_.attr('data-height')
-                                }, duration, easing, function () {
-                                    var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_compress') %>');
-                                });
-
-                        $('.sol_content', compress_).show();
-                        $('.tinymce', compress_).each(function () {
-                            var editor_id = $(this).attr('id');
-                            tinymce.get(editor_id).show();
-                        })
-                    }
+                    compressSolution($(this));
                 });
         $('.solution_main h3 input').click(function (event) {
             event.preventDefault();
@@ -349,20 +371,20 @@
     }
 
     function integrate_contribute(el, id) {
-        var comment_ = $('#comment'+id);
+        var comment_ = $('#comment' + id);
         var inside_ = comment_.find('.proposal_comment');
         if ($(el).is(':checked')) {
             integrated_contributes.push(id);
-            comment_.fadeTo(400,0.3);
-            inside_.attr('data-height',inside_.innerHeight());
-            inside_.css('overflow','hidden');
-            inside_.animate({height:'42px'},400);
+            comment_.fadeTo(400, 0.3);
+            inside_.attr('data-height', inside_.innerHeight());
+            inside_.css('overflow', 'hidden');
+            inside_.animate({height: '42px'}, 400);
         }
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
-            comment_.fadeTo(400,1);
-            inside_.animate({height:inside_.attr('data-height')},400,function(){
-                inside_.css('overflow','auto');
+            comment_.fadeTo(400, 1);
+            inside_.animate({height: inside_.attr('data-height')}, 400, function () {
+                inside_.css('overflow', 'auto');
             });
 
         }
@@ -391,34 +413,42 @@
     }
 
 
-    tinyMCE.init({
-        mode: 'textareas',
-        theme: 'advanced',
-        height: 180,
-        theme_advanced_toolbar_location: 'top',
-        theme_advanced_toolbar_align: 'left',
-        theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube,separator,ice_toggleshowchanges',
-        theme_advanced_buttons2: '',
-        theme_advanced_buttons3: '',
-        plugins: 'legacyoutput,media,paste,inlinepopups,youtube,ice',
-        formats: {
-            underline: { inline: 'u' }
-        },
-        paste_auto_cleanup_on_paste: true,
-        theme_advanced_statusbar_location: "none",
-        //valid_elements: "-p",
-        cleanup_on_startup: true,
-        relative_urls: false,
-        ice: {
-            user: { name: '<%=current_user.fullname%>', id: <%=current_user.id%>},
-            preserveOnPaste: 'p,a[href],i,em,strong'
-        },
-        body_class: "CT-hide"
+    var ckedstoogle_ = {};
+
+
+    function addEditorEvents(editor_) {
+        editor_.on('lite:init', function (event) {
+            ckedstoogle_[event.editor.name]['first'] = false;
+            var lite = event.data.lite;
+            ckedstoogle_[event.editor.name]['editor'] = lite;
+            lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
+            lite.setUserInfo({id: <%=current_user.encoded_id%>, name: '<%=j current_user.fullname%>'});
+        });
+        editor_.on('lite:showHide', function (event) {
+            if (!ckedstoogle_[event.editor.name]['first']) {
+                ckedstoogle_[event.editor.name]['state'] = event.data.show;
+            }
+        });
+    }
+
+    function addEditor(id) {
+        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "it-IT", "customConfig": 'config_lite.js'});
+        addEditorEvents(editor_);
+    }
+
+
+    $(function () {
+        for (name in CKEDITOR.instances) {
+            ckedstoogle_[name] = {first: true};
+            var editor = CKEDITOR.instances[name];
+            addEditorEvents(editor);
+            //editor.addMenuGroup('lite', 3);
+        }
     });
+
 
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
-
         <%if @proposal.contributes.count > 0%>
         if (integrated_ == "") {
             if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
@@ -426,10 +456,19 @@
             }
         }
         <%end%>
-        $('textarea.tinymce').each(function () {
-            var id = $(this).attr('id');
-            $(this).next().next().val(tinymce.get(id).execCommand('icecleanbody'))
-        });
+        for (name in CKEDITOR.instances) {
+            var editor = CKEDITOR.instances[name];
+            var textarea_ = $('#' + name);
+            console.log('parsing:' + name);
+            var lite = ckedstoogle_[name]['editor'];
+            var clean = lite._tracker.getCleanContent();
+            console.log('cleaned:' + clean);
+            var target = $('#' + name.replace('_dirty', ''));
+            target.val(clean);
+            console.log('putting into:' + target.attr('id'));
+        }
+
+        $('.update2').attr('disabled', 'disabled');
 
         return true;
     }
@@ -463,7 +502,7 @@
         $('.sections_column').append(paragraph_);
         paragraph_.fadeIn();
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+        addEditor(textarea_.attr('id'));
 
         numSections += 1;
     }
@@ -490,7 +529,7 @@
         $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
         paragraph_.fadeIn();
 
-        tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
+        addEditor(textarea_.attr('id'));
 
         numSolutionSections[solutionid] += 1;
     }
@@ -515,7 +554,7 @@
 
 
         paragraph_.find('textarea.tinymce').each(function () {
-            tinyMCE.execCommand("mceAddControl", false, $(this).attr('id'));
+            addEditor($(this).attr('id'));
         });
 
         paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
@@ -573,30 +612,26 @@
     }
 
 
+    var ckeConfigs = {};
     $(".sections_column").sortable({
         connectWith: ".column",
         cursor: "move",
         axis: "y",
         handle: '.move_button',
         start: function (e, ui) {
-            if ($.browser.mozilla && (parseInt($.browser.version) >= 21)) {
-                var textarea_ = $('.tinymce', ui.item);
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            var textareaId = ui.item.find('textarea').attr('id');
+            if (typeof textareaId != 'undefined') {
+                var editorInstance = CKEDITOR.instances[textareaId];
+                editorInstance.destroy();
+                CKEDITOR.remove(textareaId);
             }
         },
         stop: function (e, ui) {
-            var textarea_ = $('.tinymce', ui.item);
-            if (!($.browser.mozilla && (parseInt($.browser.version) >= 21))) {
-                tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+            var textareaId = ui.item.find('textarea').attr('id');
+            if (typeof textareaId != 'undefined') {
+                ckedstoogle_[textareaId]['first'] = true;
+                addEditor(textareaId);
             }
-            tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
-            var i = 0;
-            $(this).find('p').each(function (el) {
-                var id = $(this).find('.tinymce').attr('id');
-                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                console.log(seq_id + ', id: ' + i);
-                $('#' + seq_id).val(i++);
-            });
         }
     });
 

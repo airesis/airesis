@@ -4,7 +4,7 @@ module ImageHelper
     if self.respond_to?(:group)
       group = self.group
     else
-      group = self;
+      group = self
     end
     
     if group && !group.image_url.blank?

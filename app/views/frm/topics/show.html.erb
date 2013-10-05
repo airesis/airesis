@@ -1,0 +1,80 @@
+<% @extend=true %>
+<div id='topic' class='<%= 'un' unless @topic.locked? %>locked'>
+  <%= render :partial => 'frm/topics/head', :locals => {:topic => @topic} %>
+
+  <% if @topic.pending_review? %>
+      <div class="moderation alert" id='topic_moderation'>
+        <%= t("frm.topics.show.pending_review") %>
+        <% if forem_admin_or_moderator?(@topic.forum) %>
+            <%= form_for @topic, :url => group_frm_moderate_forum_topic_url(@topic.forum, @topic), :method => :put do |f| %>
+                <%= render "/frm/moderation/options", :f => f %>
+            <% end %>
+        <% end %>
+      </div>
+  <% end %>
+
+  <%= forem_pages_widget(@posts) %>
+  <div class="topic_title">
+    <h2><%= @topic.subject %></h2>
+  </div>
+  <div id='posts'>
+    <table class="posts">
+      <tbody>
+      <%= render :partial => "frm/posts/post", :collection => @posts %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= forem_pages_widget(@posts) %>
+</div>
+
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <h4><%= t('frm.topic_tools') %></h4>
+
+      <div class='btn-group'>
+        <%= render 'proposals/new_proposal' %>
+
+
+        <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
+            <%= link_to t(".reply"), new_group_forum_topic_post_url(@group, @forum, @topic), :class => "btn" %>
+        <% end %>
+        <% if @topic.user == current_user || forem_admin? %>
+            <%= link_to t(".delete"), group_forum_topic_url(@group, @forum, @topic), :method => :delete, data: {:confirm => t("are_you_sure")}, :class => "btn btn-danger" %>
+        <% end %>
+        <% if current_user %>
+            <div id="subscribe_container">
+              <%= render :partial => 'subscribe_button' %>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+
+    <% if @topic.proposals.count > 0 %>
+        <div class="mybox">
+          <h4><%= t('.related_proposals') %></h4>
+          <% @topic.proposals.each do |proposal| %>
+              <%= proposal_tag proposal %>
+          <% end %>
+        </div>
+    <% end %>
+
+
+    <% if forem_admin? %>
+        <div class="mybox">
+          <h4><%= t('frm.admin_tools') %></h4>
+
+          <div class='btn-group'>
+            <%= link_to t('frm.topic.links.edit'), edit_group_frm_admin_topic_url(@group, @topic), :class => "btn" %>
+            <%= link_to t("frm.topics.show.hide.#{@topic.hidden}"), toggle_hide_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn" %>
+            <%= link_to t("frm.topics.show.lock.#{@topic.locked}"), toggle_lock_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn" %>
+            <%= link_to t("frm.topics.show.pin.#{@topic.pinned}"), toggle_pin_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn" %>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
+
+<%= render :partial => 'forem_footer' %>

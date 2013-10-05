@@ -70,7 +70,7 @@ class ProposalCommentsController < ApplicationController
       else
         order << "proposal_comments.created_at desc"
       end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
+      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end

@@ -22,5 +22,25 @@
         $('.deleteReplyLink').bind('click',function(event) {
             hideAndDeleteReply(event,$(this).data('id'));
         });
+
+
+        $('.reply_textarea').each(function () {
+            if ($(this).attr('data-initialized') != 1) {
+                $(this).textntags({
+                    triggers: {'@': {uniqueTags: false}},
+                    onDataRequest: function (mode, query, triggerChar, callback) {
+                        var data = nicknames;
+
+                        query = query.toLowerCase();
+                        var found = _.filter(data, function (item) {
+                            return item.name.toLowerCase().indexOf(query) > -1;
+                        });
+
+                        callback.call(this, found);
+                    }
+                });
+                $(this).attr('data-initialized', 1);
+            }
+        });
 	});
 </script>

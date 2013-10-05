@@ -14,4 +14,10 @@ class ProposalState < ActiveRecord::Base
   TAB_VOTATION = 2
   TAB_VOTED = 3
   TAB_REVISION = 4
+
+
+  VALUTATION_STATE="1"
+  VOTATION_STATE="2"
+  ACCEPTED_STATE="3"
+  REVISION_STATE="4"
 end

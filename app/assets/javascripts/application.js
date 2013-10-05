@@ -11,8 +11,6 @@
 //= require jquery.tokeninput
 //= require flot/jquery.flot
 //= require democracy
-//= require markdown
-//= require jquery.markitup
 //= require fullcalendar
 //= require gcal
 //= require events
@@ -26,10 +24,7 @@
 //= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.gbutton
-//= require prettydiff/diffview
 //= require simplemodal
-//= require_tree ./rangy-1.2/
-//= require tinymce-jquery
 //= require jqlplot/jquery.jqplot
 //= require jqlplot/jqplot.pieRenderer
 //= require jqlplot/jqplot.dateAxisRenderer
@@ -42,11 +37,12 @@
 //= require jquery.qtip
 //= require feedback
 //= require private_pub
-//= require ddslick.min
 //= require toastr
 //= require countdown/index
 //= require jquery.tagcloud
 //= require jquery.switchbutton
 //= require introjs.min
+//= require select2
 //= require ckeditor/init
-
+//= require underscore
+//= require jquery.textntags

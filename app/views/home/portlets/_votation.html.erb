@@ -33,7 +33,7 @@
               <td align="center" class="second">
                 <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
                 <% if count > 0 %>
-                    <%=link_to count,proposal, class: "alert notify" %>
+                    <%=link_to count,proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} %>
                 <%else%>
                     -
                 <% end %>

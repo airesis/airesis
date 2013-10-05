@@ -1,58 +1,91 @@
-<%unless @proposals.empty? || !::Configuration.phases_active%>
-	<div class="order_options">
-		<%if (!params[:view] || (params[:view] == ORDER_BY_DATE))%>
+<% unless @proposals.empty? || !::Configuration.phases_active %>
+    <div class="order_options">
+
+      <% if (!params[:view] || (params[:view] == ORDER_BY_DATE)) %>
+          <span class="order_option sel">
 			<%= t('pages.proposals.tabs.last_inserted') %>
-		<%else%>
-			<%=link_to t('pages.proposals.tabs.last_inserted'), current_url(:view=>ORDER_BY_DATE, :replace=>true, :replace_id=>@replace_id), :remote => true %>
-		<%end%> | 		
-		<% if (params[:view] == ORDER_BY_RANK)%>
+      <% else %>
+          <span class="order_option">
+			<%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => ORDER_BY_DATE, :replace => true, :replace_id => @replace_id), :remote => true %>
+      <% end %>
+      </span>
+      <span class="order_separator">
+        |
+      </span>
+
+      <% if (params[:view] == ORDER_BY_RANK) %>
+          <span class="order_option sel">
 			<%= t('pages.proposals.tabs.most_popular') %>
-		<%else%>
-			<%=link_to t('pages.proposals.tabs.most_popular'), current_url(:view=>ORDER_BY_RANK, :replace=>true, :replace_id=>@replace_id), :remote => true %>
-		<%end%> | 
-		<% if (params[:view] == ORDER_BY_VOTES)%>
+      <% else %>
+          <span class="order_option">
+			<%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => ORDER_BY_RANK, :replace => true, :replace_id => @replace_id), :remote => true %>
+      <% end %>
+      </span>
+      <span class="order_separator">
+        |
+        </span>
+
+      <% if (params[:view] == ORDER_BY_VOTES) %>
+          <span class="order_option sel">
 			<%= t('pages.proposals.tabs.most_valutated') %>
-		<%else%>	 
-			<%=link_to t('pages.proposals.tabs.most_valutated'), current_url(:view=>ORDER_BY_VOTES, :replace=>true, :replace_id=>@replace_id), :remote => true%>
-		<%end%>
-	</div>
-<%end%>
+      <% else %>
+          <span class="order_option">
+			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %>
+      <% end %>
+      </span>
+      <span class="order_separator">
+        |
+      </span>
 
-<div id="proposalsListContainer<%=params[:state] || params[:view]%>">
-<%= render :partial => 'list', :locals => {:proposals => @proposals} %>
-</div>
-<%if @proposals.total_pages > @proposals.current_page%>
-<div id="loading_proposals<%=params[:state] || params[:view]%>" class="loading_proposals">
-	<span><%= t('pages.proposals.index.show_more') %></span>
-</div>
-<div id="loading_proposals<%=params[:state] || params[:view]%>_2" class="loading_proposals" style="display:none">
-  <div class="waitDiv"><%=image_tag "facebook-loader.gif", :alt => "loading..."%> </div>
-</div>
+      <% if (params[:view] == ORDER_BY_END) %>
+          <span class="order_option sel">
+          <%= t('pages.proposals.tabs.most_urgent') %>
+      <% else %>
+          <span class="order_option">
+          <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id), :remote => true %>
+      <% end %>
+      </span>
 
-<script type="text/javascript">
-	$(function() {
-		var currentPage = 1;
-		$('#loading_proposals<%=params[:state] || params[:view]%>').click(function() {
-			$(this).hide();
-            $(this).next().show();
+    </div>
+<% end %>
 
-			currentPage++;
-            var cat = <%=params[:category] || 'null'%>;
-            var view = <%=params[:view] || 'null'%>;
-            var state = <%=params[:state] || 'null'%>;
-            var group = <%=params[:group_id] || 'null'%>;
-            var nurl = '/proposals/endless_index?scroll=true'
-		    if (cat != null && cat != 'null')
-		    	nurl += '&category='+cat
-		    if (view != null && view != 'null')
-		    	nurl += '&view='+view
-		    if (state != null && state != 'null')
-		    	nurl += '&state='+state
-            if (group != null && group != 'null')
-                nurl += '&group_id='+group
-				$.ajax({ url: nurl +'&page=' + currentPage, type:'get'});
-		})
-	})
-</script>
-<%end%>
+<div id="proposalsListContainer<%= params[:state] || params[:view] %>">
+  <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+</div>
+<% if @proposals.total_pages > @proposals.current_page %>
+    <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals">
+      <span><%= t('pages.proposals.index.show_more') %></span>
+    </div>
+    <div id="loading_proposals<%= params[:state] || params[:view] %>_2" class="loading_proposals" style="display:none">
+      <div class="waitDiv"><%= image_tag "facebook-loader.gif", :alt => "loading..." %> </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            var currentPage = 1;
+            $('#loading_proposals<%=params[:state] || params[:view]%>').click(function () {
+                $(this).hide();
+                $(this).next().show();
+
+                currentPage++;
+                var cat = <%=params[:category] || 'null'%>;
+                var view = <%=params[:view] || 'null'%>;
+                var state = <%=params[:state] || 'null'%>;
+                var group = <%=params[:group_id] || 'null'%>;
+                var nurl = '/proposals/endless_index?scroll=true'
+                if (cat != null && cat != 'null')
+                    nurl += '&category=' + cat
+                if (view != null && view != 'null')
+                    nurl += '&view=' + view
+                if (state != null && state != 'null')
+                    nurl += '&state=' + state
+                if (group != null && group != 'null')
+                    nurl += '&group_id=' + group
+                $.ajax({ url: nurl + '&page=' + currentPage, type: 'get'});
+            })
+
+            disegnaProgressBar();
+        })
+    </script>
+<% end %>
 

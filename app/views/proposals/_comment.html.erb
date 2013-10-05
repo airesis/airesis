@@ -37,9 +37,7 @@
         </div>
       </div>
       <div class="baloon-content">
-        <%= raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-          truncate(text, :length => 15)
-        end %>
+        <%= parsed_content(comment,@proposal.is_anonima?) %>
       </div>
       <div class="baloon-footer">
         <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
@@ -55,7 +53,7 @@
 
   </div>
   <% countreplies = comment.replies.count %>
-  <% @lastreplies = comment.replies.paginate(:page => 1, :per_page => 5, :order => 'created_at DESC').reverse! %>
+  <% @lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > 5 %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
         <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true, :method => :post, disable_with: t('loading') %>
@@ -74,7 +72,7 @@
       <div class="proposal_comment_reply">
         <div class="baloon-triangle"></div>
         <div id="<%= comment.id %>_reply_area_msg"></div>
-        <%= form_for [@proposal, ProposalComment.new], :html => {:class => "disableForm"}, :remote => true do |f| %>
+        <%= form_for [@proposal, ProposalComment.new], :remote => true do |f| %>
 
             <div class="reply_area">
               <%= f.hidden_field :parent_proposal_comment_id, :value => comment.id %>

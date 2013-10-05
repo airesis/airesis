@@ -30,8 +30,8 @@ class BlogPostsController < ApplicationController
   layout :choose_layout
   
   def index    
-    @blog_posts = @blog.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @blog
-    @group_posts = @group.posts.published.paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => 'published_at DESC') if @group
+    @blog_posts = @blog.posts.published.order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE) if @blog
+    @group_posts = @group.posts.published.order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE) if @group
     
     @index_title = t('pages.blog_posts.index.title')
     
@@ -46,7 +46,7 @@ class BlogPostsController < ApplicationController
   def drafts
     @page_title = t('pages.blog_posts.drafts.title', {blog: @blog.title})
     @user = @blog.user
-    @blog_posts =  @blog.posts.drafts.paginate(:page => params[:page], :order => 'updated_at DESC')
+    @blog_posts =  @blog.posts.drafts.order('updated_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,7 @@ class BlogPostsController < ApplicationController
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.includes(:user).paginate(:page => params[:page],:per_page => COMMENTS_PER_PAGE, :order => 'created_at DESC')
+    @blog_comments = @blog_post.blog_comments.includes(:user).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.js
       format.html
@@ -223,7 +223,7 @@ class BlogPostsController < ApplicationController
   private
 
   def render_404(exception=nil)
-    log_error(exception) if exception
+    #log_error(exception) if exception
     respond_to do |format|
       @title = t('controllers.blog_posts.404_title')
       @message = t('controllers.blog_posts.404_message')

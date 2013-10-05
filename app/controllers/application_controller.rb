@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def ckeditor_filebrowser_scope(options = {})
-    options = { :assetable_id => current_user.id, :assetable_type => 'User' }.merge(options)
+    options = {:assetable_id => current_user.id, :assetable_type => 'User'}.merge(options)
     super
   end
 
@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
             params[:l] || I18n.default_locale :
             params[:l] || @domain_locale || I18n.default_locale)
 
-    @locale = 'en' if ['en','eu'].include? @locale
+    @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
-    @locale = 'it-IT' if ['it','org','net'].include? @locale
+    @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
 
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
   end
 
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?
 
 
   def log_error(exception)
@@ -94,6 +94,11 @@ class ApplicationController < ActionController::Base
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
   def is_admin?
     user_signed_in? && current_user.admin?
+  end
+
+  #helper method per determinare se l'utente attualmente collegato è amministratore di gruppo
+  def is_group_admin?(group)
+    (current_user && (group.portavoce.include? current_user)) || is_admin?
   end
 
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
@@ -191,7 +196,7 @@ class ApplicationController < ActionController::Base
     unless (request.xhr? ||
         (!params[:controller]) ||
         (params[:controller].starts_with? "devise/") ||
-        (params[:controller] ==  "passwords") ||
+        (params[:controller] == "passwords") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "polling") ||
         (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
@@ -321,8 +326,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
+
+  def forem_admin?
+    current_user && current_user.forem_admin?
+  end
+
+  helper_method :forem_admin?
+
+  def forem_admin_or_moderator?(forum)
+    current_user && (current_user.forem_admin? || forum.moderator?(current_user))
+  end
+
+  helper_method :forem_admin_or_moderator?
 
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]

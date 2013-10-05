@@ -9,8 +9,6 @@
  *= require blog_kit
  *= require style_logged
  *= require groups
- *= require markitup/style
- *= require markdown
  *= require syntax/mac_classic
  *= require fullcalendar
  *= require dialog
@@ -26,7 +24,6 @@
  *= require notifications
  *= require quorums
  *= require redmond/custom
- *= require prettydiff/diffview
  *= require jqplot/jquery.jqplot
  *= require elfinder.min
  *= require theme
@@ -39,4 +36,7 @@
  *= require jquery.countdown
  *= require jquery.switchbutton
  *= require introjs.min
+ *= require select2
+ *= require frm
+ *= require jquery.textntags
 */

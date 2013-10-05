@@ -1,0 +1,27 @@
+.help {
+  .left_panel {
+    float: left;
+    width: 150px;
+    border-right: 1px solid #ccc;
+    padding-right: 10px;
+    ul {
+      margin-top: 0;
+      padding-left: 5px;
+    }
+  }
+  hr {
+    color: #ccc;
+  }
+  .right_panel {
+    float: left;
+    width: 370px;
+    padding-left: 10px;
+  }
+  h4 {
+    margin-top: 0px;
+  }
+}
+
+.quorum_title {
+  font-weight: bold;
+}

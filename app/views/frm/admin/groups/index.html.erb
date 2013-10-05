@@ -1,0 +1,12 @@
+<h2><%= t('frm.admin.group.index') %></h2>
+
+<%= link_to t('frm.admin.group.new'), new_group_frm_admin_frm_group_url(@group), :class => "btn blue", remote: true, disable_with: t('loading') %>
+
+<div id="groups_table">
+<%= render :partial => 'groups' %>
+</div>
+
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

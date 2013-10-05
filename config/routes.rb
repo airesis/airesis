@@ -17,6 +17,8 @@ Airesis::Application.routes.draw do
   match '/statistics' => 'home#statistics'
   match '/movements' => 'home#movements'
 
+  resources :user_likes
+
   resources :proposal_nicknames
 
   #common routes both for main app and subdomains
@@ -69,6 +71,7 @@ Airesis::Application.routes.draw do
       get :vote_results
       post :close_debate
       put :regenerate
+      get :geocode
     end
   end
 
@@ -108,6 +111,7 @@ Airesis::Application.routes.draw do
 
     collection do
       get :polling
+      get :proposal
       get :read_alerts
       post :check_all
     end
@@ -141,6 +145,7 @@ Airesis::Application.routes.draw do
       post :set_interest_borders #cambia i confini di interesse
       post :join_accounts
       get :privacy_preferences
+      get :statistics
       post :change_show_tooltips
       post :change_show_urls
       post :change_receive_messages
@@ -242,6 +247,53 @@ Airesis::Application.routes.draw do
 
     resources :search_partecipants
 
+    resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+      resources :topics, controller: 'frm/topics' do
+        member do
+          get :subscribe
+          get :unsubscribe
+        end
+      end
+
+
+      resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+        resources :posts, controller: 'frm/posts'
+      end
+
+
+    end
+
+    namespace :frm do
+      get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+      # For mass moderation of posts
+      put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+      # Moderation of a single topic
+      put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
+      resources :categories, :only => [:index, :show]
+      namespace :admin do
+        root :to => "base#index"
+        resources :groups, as: 'frm_groups' do
+          resources :members do
+            collection do
+              post :add
+            end
+          end
+        end
+
+        resources :forums do
+          resources :moderators
+        end
+
+        resources :categories
+        resources :topics do
+          member do
+            put :toggle_hide
+            put :toggle_lock
+            put :toggle_pin
+          end
+        end
+      end
+    end
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
@@ -255,11 +307,11 @@ Airesis::Application.routes.draw do
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
+    resources :certifications, only: [:index,:create,:destroy]
 
     resources :proposal_categories do
       get :index, scope: :collection
     end
-
 
 
     resources :events do
@@ -272,9 +324,6 @@ Airesis::Application.routes.draw do
         get :list
       end
     end
-
-
-
 
     resources :groups do
       member do
@@ -299,7 +348,61 @@ Airesis::Application.routes.draw do
 
       collection do
         post :ask_for_multiple_follow
+        get :autocomplete
       end
+
+
+      resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+        resources :topics, controller: 'frm/topics' do
+          member do
+            get :subscribe
+            get :unsubscribe
+          end
+        end
+
+
+        resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+          resources :posts, controller: 'frm/posts'
+        end
+
+
+      end
+
+      namespace :frm do
+        get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+        # For mass moderation of posts
+        put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+        # Moderation of a single topic
+        put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
+        resources :categories, :only => [:index, :show]
+        namespace :admin do
+          root :to => "base#index"
+          resources :groups, as: 'frm_groups' do
+            resources :members do
+              collection do
+                post :add
+              end
+            end
+          end
+
+          resources :forums do
+            resources :moderators
+          end
+
+          resources :categories
+          resources :topics do
+            member do
+              put :toggle_hide
+              put :toggle_lock
+              put :toggle_pin
+            end
+          end
+        end
+      end
+
+      get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
+
+      #end
 
       resources :events do
         resources :meeting_partecipations
@@ -331,6 +434,7 @@ Airesis::Application.routes.draw do
         member do
           post :close_debate
           put :regenerate
+          get :geocode
         end
       end
 
@@ -391,7 +495,6 @@ Airesis::Application.routes.draw do
     end
 
 
-
     match ':controller/:action/:id'
 
     match ':controller/:action/:id.:format'
@@ -432,8 +535,8 @@ Airesis::Application.routes.draw do
     resources :tokens, :only => [:create, :destroy]
 
   end
-  #authenticate :admin do
-  #  mount Resque::Server, :at => "/resque_admin"
-  #end
+#authenticate :admin do
+#  mount Resque::Server, :at => "/resque_admin"
+#end
 
 end

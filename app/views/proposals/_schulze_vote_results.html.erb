@@ -1,45 +1,73 @@
 <div>
-  <b><%= t('pages.proposals.results.total', count: @proposal.schulze_votes.sum(:count)) %> </b>
+  <div id="vote_tabs">
+    <ul>
+      <li><%= link_to 'Risultati', '#results' %></li>
+      <li><%= link_to 'Voti', '#votes' %></li>
+    </ul>
+    <div id="results">
+      <b><%= t('pages.proposals.results.total', count: @proposal.schulze_votes.sum(:count)) %> </b>
 
-
-  <table>
-    <thead>
-    <th><%= 'Soluzione' %></th>
-    <th><%= 'Punteggio' %></th>
-    </thead>
-    <tbody>
-    <% Solution.where(:proposal_id => @proposal.id).order('schulze_score desc').each do |solution| %>
-        <tr>
-          <td><%= solution.title %></td>
-          <td style="text-align: center"><%= solution.schulze_score %></td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-</div>
-<hr/>
-<table id="votes_table">
-  <thead>
-  <th><%= t('pages.proposals.results.name_surname_column') %></th>
-  <th><%= t('pages.proposals.results.date_time_column') %></th>
-  <% unless @proposal.secret_vote %>
-      <th><%= t('pages.proposals.results.vote_column') %></th>
-  <% end %>
-  </thead>
-  <% @proposal.user_votes.each do |user_vote| %>
-      <tr>
-        <td><%= user_vote.user.fullname %></td>
-        <td><%= l user_vote.created_at %></td>
-        <% unless @proposal.secret_vote %>
-            <td><%= @proposal.is_schulze? ? user_vote.desc_vote_schulze : user_vote.vote_type.description %></td>
+      <table>
+        <thead>
+        <th><%= 'Soluzione' %></th>
+        <th><%= 'Punteggio' %></th>
+        </thead>
+        <tbody>
+        <% Solution.where(:proposal_id => @proposal.id).order('schulze_score desc').each do |solution| %>
+            <tr>
+              <td><%= solution.title %></td>
+              <td style="text-align: center"><%= solution.schulze_score %></td>
+            </tr>
         <% end %>
-      </tr>
-  <% end %>
-</table>
+        </tbody>
+      </table>
+
+
+      <hr/>
+      <table id="votes_table">
+        <thead>
+        <th><%= t('pages.proposals.results.name_surname_column') %></th>
+        <th><%= t('pages.proposals.results.date_time_column') %></th>
+        <% unless @proposal.secret_vote %>
+            <th><%= t('pages.proposals.results.vote_column') %></th>
+        <% end %>
+        </thead>
+        <% @proposal.user_votes.each do |user_vote| %>
+            <tr>
+              <td><%= user_vote.user.fullname %></td>
+              <td><%= l user_vote.created_at %></td>
+              <% unless @proposal.secret_vote %>
+                  <td><%= @proposal.is_schulze? ? user_vote.desc_vote_schulze : user_vote.vote_type.description %></td>
+              <% end %>
+            </tr>
+        <% end %>
+      </table>
+      <div class="clearboth"></div>
+    </div>
+    <div id="votes">
+      <b><%= 'Voti espressi in ordine casuale' %></b>
+      <table id="cast_table">
+        <thead>
+        <th><%= 'Numero di votanti' %></th>
+        <th><%= 'Voto espresso' %></th>
+        </thead>
+        <tbody>
+        <% @proposal.schulze_votes.each do |vote| %>
+            <tr>
+              <td><%= vote.count %></td>
+              <td><%= vote.description %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</div>
 
 <script type="text/javascript">
     $(function () {
+        $('#vote_tabs').tabs();
         generateTable();
 
     });
@@ -62,5 +90,24 @@
         });
 
         $('#votes_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
+
+        $('#cast_table').dataTable({
+            "oLanguage": {
+                "sLengthMenu": "Mostra _MENU_ voti per pagina",
+                "sSearch": "Cerca:",
+                "sZeroRecords": "Nessun voto, spiacente..",
+                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ voti",
+                "sInfoEmpty": "Sto mostrando 0 voti",
+                "sInfoFiltered": "(filtrati da un totale di _MAX_ voti)",
+                "oPaginate": {
+                    "sPrevious": "Pagina precedente",
+                    "sNext": "Pagina successiva"
+                }
+            },
+            "bFilter": false
+            //"aoColumns": [null,{ "bSortable": false }]
+        });
+
+        $('#cast_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
     }
 </script>

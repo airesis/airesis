@@ -1,19 +1,14 @@
-<%if can? :view_proposal, @group%>
-<fieldset>
-  <legend><%= t('pages.proposals.index.search_title') %></legend>
-
-  <%= form_tag search_group_proposals_path(@group), method: :get do %>
-      <p>
-        <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 40 %><br />
-        <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br />
-        <%= submit_tag t('buttons.search'), onclick: 'return checkCharacters();', class: 'btn' %>
-      </p>
-  <% end %>
-</fieldset>
+<%= form_tag search_group_proposals_path(@group), method: :get do %>
+    <p>
+      <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30 %>
+      <br/>
+      <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br/>
+      <%= submit_tag t('buttons.search'), onclick: 'return checkCharacters();', class: 'btn' %>
+    </p>
+<% end %>
 
 <script type="text/javascript">
-  function checkCharacters() {
-      return $('#search').val().length > 1
-  }
+    function checkCharacters() {
+        return $('#search').val().length > 1
+    }
 </script>
-<%end%>
