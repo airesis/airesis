@@ -1,0 +1,20 @@
+require 'spec_helper'
+
+describe Proposal do
+  before(:each) do
+    @proposal= Proposal.new(:id=>2500,:proposal_category_id=> 19,:title=>"one",:content=>"",:vote_period_id=>nil,:subtitle=>"",:problems=>"",:objectives=>"",:private=>true,:quorum_id=>9517,:anonima=>false,:visible_outside=>false,:secret_vote=>false,:proposal_type_id=>9,:proposal_votation_type_id=>1)
+    @solution = Solution.create(:proposal_id=>2500,:seq=>1,:title=>"Soluzione")
+  end 
+
+it "should save tags before saving a proposal" do   
+   @proposal.should_receive(:sections)
+   @proposal.save
+    #@coupon.coupon_code = nil
+    #@coupon.should_not be_valid
+    #@coupon.errors.on(:coupon_code).should eql("can't be blank")
+    #@coupon.coupon_code = "abc"
+    #@coupon.should be_valid
+  end
+
+
+end
