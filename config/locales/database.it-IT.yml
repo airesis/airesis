@@ -6,7 +6,7 @@ it:
       en:
         description: Inglese
       en-US:
-        description: Americano
+        description: Inglese (US)
       fr:
         description: Francese
       es-ES:
