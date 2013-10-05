@@ -43,7 +43,7 @@
                     ['help']
                  ]
             },
-            lang: '<%=I18n.locale.to_s.gsub('-','_')%>' //TODO:Automatic detection of current locale
+            lang: '<%=I18n.locale.to_s.gsub('-','_')%>'
         }).elfinder('instance');
 
         elf
@@ -65,5 +65,5 @@
 </script>
     <%else%>
     <br />
-    <b><%= 'Non disponi dei permessi necessari alla visualizzazione dei documenti. Contatta l\'amministratore del gruppo.' %></b>
+    <b><%= t('pages.groups.documents.not_authorized') %></b>
 <%end%>

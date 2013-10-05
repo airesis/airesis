@@ -49,7 +49,7 @@ class AlertsController < ApplicationController
 
 
     rescue Exception => e
-      @title = 'Impossibile recuperare la notifica'
+      @title = 'Impossibile recuperare la notifica' #TODO:I18n
       @message = "Probabilmente hai più di un account su Airesis e non sei autenticato con quello a cui è destinata la notifica<br/>Esci ed entra con l'account corretto."
       render template: "/errors/404", status: 404, layout: true
     end

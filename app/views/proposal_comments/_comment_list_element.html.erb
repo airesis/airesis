@@ -31,7 +31,7 @@
 				end%>
             </div>
             <div class="baloon-footer">
-            	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span>
+            	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span><!--TODO:I18n-->
 	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
     	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
         	    </div>

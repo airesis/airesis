@@ -284,9 +284,9 @@ class GroupsController < ApplicationController
         request.group_partecipation_request_status_id = 3 #accettata, dati corretti
         saved = request.save
         if (!saved)
-          flash[:notice] = 'Errore nella richiesta di partecipazione. Ma fai già parte di questo gruppo!'
+          flash[:notice] = t('error.group_partecipations.already_member')
         else
-          flash[:error] = 'Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti.'
+          flash[:error] = t('error.group_partecipations.request_not_registered')
         end
       else
         #inoltra la richiesta di partecipazione con stato IN ATTESA
@@ -296,14 +296,14 @@ class GroupsController < ApplicationController
         request.group_partecipation_request_status_id = 1 #in attesa...
         saved = request.save
         if (!saved)
-          flash[:error] = 'Errore nella richiesta di partecipazione.'
+          flash[:error] = t('error.group_partecipations.request_sent')
         else
-          flash[:notice] = 'Richiesta di partecipazione inviata correttamente.'
+          flash[:notice] = t('info.group_partecipations.request_sent')
           notify_user_asked_for_partecipation(@group) #invia notifica ai portavoce
         end
       end
     else
-      flash[:notice] = 'Hai già effettuato una richiesta di partecipazione a questo gruppo.'
+      flash[:notice] = t('info.group_partecipations.request_alredy_sent')
 
     end
     redirect_to group_url(@group)
@@ -322,10 +322,10 @@ class GroupsController < ApplicationController
       if (!saved)
         flash[:error] = 'Errore nella procedura per seguire il gruppo. Spiacenti!'
       else
-        flash[:notice] = 'Ora segui questo gruppo.'
+        flash[:notice] = 'Ora segui questo gruppo'
       end
     else
-      flash[:error] = 'Stai già seguendo questo gruppo.'
+      flash[:error] = 'Stai già seguendo questo gruppo'
     end
     redirect_to group_url(@group)
   end
@@ -370,7 +370,7 @@ class GroupsController < ApplicationController
     authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if !request
-      flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
+      flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -394,7 +394,7 @@ class GroupsController < ApplicationController
       end
       saved = request.save
       if !saved
-        flash[:error] = "Errore durante l'operazione. Impossibile procedere."
+        flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -406,9 +406,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: ACCETTATA'
+          flash[:notice] = t('info.group_partecipations.status_accepted')
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE'
+          flash[:notice] = t('info.group_partecipations.status_voting')
         end
         respond_to do |format|
           format.js
@@ -424,7 +424,7 @@ class GroupsController < ApplicationController
     authorize! :accept_requests, @group
     request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
     if !request
-      flash[:error] = 'Richiesta non trovata. Errore durante l' 'operazione'
+      flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -442,7 +442,7 @@ class GroupsController < ApplicationController
       end
       saved = request.save
       if !saved
-        flash[:error] = 'Errore durante l' 'operazione. Impossibile procedere.'
+        flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -454,9 +454,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: DECLINATA.'
+          flash[:notice] = t('info.group_partecipations.status_declined')
         else
-          flash[:notice] = 'La richiesta di partecipazione è passata in stato: IN VOTAZIONE.'
+          flash[:notice] = t('info.group_partecipations.status_voting')
         end
         respond_to do |format|
           format.js
@@ -482,11 +482,11 @@ class GroupsController < ApplicationController
     raise Exception unless (can? :remove_post, @group) || (can? :edit, BlogPost.find(params[:post_id]))
     @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
     @publishing.destroy
-    flash[:notice] = 'Il post è stato rimosso dalla bacheca del gruppo'
+    flash[:notice] = t('info.groups.post_removed')
 
   rescue Exception => e
     respond_to do |format|
-      flash[:error] = 'Errore nella rimozione del post dal gruppo'
+      flash[:error] = t('error.groups.post_removed')
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end

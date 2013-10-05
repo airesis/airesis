@@ -85,15 +85,8 @@
 
 <%end%>
 <%unless @proposal.is_polling?%>
-    <%conditions = [] %>
-    <%if @proposal.quorum.minutes%>
-        <%conditions << t('tooltips.quorum_minutes', date: @proposal.quorum.ends_at.strftime("%d/%m/%Y"), time: @proposal.quorum.ends_at.strftime(" alle %H:%M")) %>
-    <%end%>
-    <%if @proposal.quorum.valutations%>
-        <%conditions << t('tooltips.quorum_valutations', valutations: @proposal.quorum.valutations) %>
-    <%end%>
     $('#suffgrad, #pb<%=@proposal.id%>').qtip({
-        content: "<%=raw t('tooltips.quorum_description', conditions: conditions.join(@proposal.quorum.or? ? ' oppure ' : ' e '), good_score: @proposal.quorum.good_score)%>",
+        content: "<%=@proposal.quorum.explanation%>",
         style: {
           classes: 'qtip-yellow qtip-shadow'
         }

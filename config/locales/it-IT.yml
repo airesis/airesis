@@ -96,58 +96,60 @@ it-IT:
      long: "%A %d %B %Y %H:%M"
      long_date: "%A %d %B %Y"
      long_date_time: "%A %d %B %Y ore %H:%M"
-     from_long_date_time: "Da %A %d %B %Y ore %H:%M"
-     until_long_date_time: "Fino a %A %d %B %Y ore %H:%M"
+     from_long_date_time: "Da %A %d %B %Y alle %H:%M"
+     until_long_date_time: "Fino a %A %d %B %Y alle %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
+     hour: "%H:%M"
      textfield: "%d/%m/%Y %H:%M"
     am: "am"
     pm: "pm"
   datetime:
+    added_on: "il %{date}"
     distance_in_words:
       about_x_hours:
-        one: circa 1 ora fa
+        one: circa un ora fa
         other: circa %{count} ore fa
       about_x_months:
-        one: circa 1 mese fa
+        one: circa un mese fa
         other: circa %{count} mesi fa
       about_x_years:
-        one: circa 1 anno fa
+        one: circa un anno fa
         other: circa %{count} anno fa
       almost_x_years:
-        one: quasi 1 anno fa
+        one: quasi un anno fa
         other: quasi %{count} anni fa
       half_a_minute: mezzo minuto fa
       less_than_x_minutes:
-        one: meno di 1 minuto fa
+        one: meno di un minuto fa
         other: meno di %{count} minuti fa
       less_than_x_seconds:
-        one: meno di 1 secondo fa
+        one: meno di un secondo fa
         other: meno di %{count} secondi fa
       over_x_years:
-        one: più di 1 anno fa
+        one: più di un anno fa
         other: più di %{count} anni fa
       x_days:
-        one: 1 giorno fa
+        one: un giorno fa
         other: ! '%{count} giorni fa'
       x_minutes:
-        one: 1 minuto fa
+        one: un minuto fa
         other: ! '%{count} minuti fa'
       x_months:
-        one: 1 mese fa
+        one: un mese fa
         other: ! '%{count} mesi fa'
       x_seconds:
-        one: "1 secondo fa"
+        one: "un secondo fa"
         other: ! '%{count} secondi fa'
   day:
-      one: "%{count} giorno"
+      one: "1 giorno"
       other: "%{count} giorni"
   hour:
-      one: "%{count} ora"
+      one: "1 ora"
       other: "%{count} ore"
   minute:
-      one: "%{count} minuto"
+      one: "1 minuto"
       other: "%{count} minuti"
   open_space: "Spazio Comune"
   guide: "Guida FAQ"
@@ -286,6 +288,7 @@ it-IT:
         proposals_number: "Numero di proposte"
         events_number: "Numero di eventi organizzati"
         no_results: "Nessun gruppo trovato"
+        limit_reached: "Puoi creare al massimo un gruppo al giorno"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
@@ -303,7 +306,7 @@ it-IT:
         modify_group: "Modifica il gruppo"
       layout:
         home_button: "BACHECA"
-        proposals_button: "LE PROPOSTE"
+        proposals_button: "PROPOSTE"
         calendar: "CALENDARIO"
       show:
         rules_button: "Regolamento"
@@ -342,20 +345,16 @@ it-IT:
         storage_size: "Occupazione Spazio di archiviazione"
         max_storage_size: "Spazio massimo consentito"
         current_storage_usage: "Spazio attualmente occupato"
+        not_authorized: "Non disponi dei permessi necessari alla visualizzazione dei documenti. Contatta l'amministratore del gruppo"
       edit_quorums:
         new_quorum:
           title: "Nuovo quorum"
           simple: "Semplice"
           advanced: "Avanzato"
-          time_description: "Affinché la proposta acceda alla fase di votazione deve restare in dibattito per almeno"
-          simple_percentage_description: "Quindi passa in votazione se il gradimento (valutazioni positive) è superiore al"
-          advanced_participation_description: "deve essere valutata da almeno il"
-          advanced_participation_description2: "degli utenti che dispongono i permessi per farlo"
-          advanced_participation_description3: "(ovvero "
-          advanced_participation_description4: "su"
-          advanced_participation_description5: " attualmente)."
-          advanced_percentage_description: "Se invece il gradimento è inferiore al"
-          advanced_percentage_description2: "la proposta viene bocciata senza accedere alla votazione."
+          time_description: "Affinché la proposta acceda alla fase di votazione deve restare in dibattito per almeno %{days}  %{hours}  %{minutes}"
+          simple_percentage_description: "Quindi passa in votazione se il gradimento è superiore al %{good_score}%."
+          advanced_participation_description: "%{and_or} deve essere valutata da almeno il %{participants_percentage}% degli utenti che dispongono i permessi per farlo (ovvero %{current_number} su %{total_number} attualmente)."
+          advanced_percentage_description: "Se invece il gradimento è inferiore al %{bad_score}% la proposta viene abbandonata."
           advanced_percentage_description3: "La proposta resta in dibattito fintanto che il gradimento è compreso fra le due soglie."
         active: "Attivo"
         name: "Nome"
@@ -489,8 +488,9 @@ it-IT:
         delete_contribute_confirmation: "Sei sicuro di voler cancellare questo contributo?"
         delete_suggestion_confirmation: "Sei sicuro di voler cancellare questo commento?"
         offered_as_editor_message: "Ti sei offerto per redigere la sintesi della proposta"
-        offer_as_editor_button: "Voglio redigere la proposta!"
+        offer_as_editor_button: "Voglio redigere la sintesi della proposta!"
         available_editors_button: "Redattori disponibili (%{count})"
+        confirm_editors_button: "Vuoi offrirti come redattore di questa proposta?"
         editors_list_title: "Elenco utenti disponibili a redigere la sintesi della proposta"
         attached_documents: "Documenti collegati"
         no_document_attached: "Nessun documento allegato alla proposta"
@@ -511,11 +511,11 @@ it-IT:
         characters_left: "Caratteri disponibili:"
         score: "Valutazioni"
         rank: "Gradimento"
-        created_at: "Proposta creata il"
-        updated_at: "Ultima modifica del"
+        created_at_html: "Proposta creata %{time_ago}:<br/><b>%{date}</b>"
+        updated_at_html: "Ultima modifica %{time_ago}:<br/><b>%{date}</b>"
         votation_results: "Risultati"
         votation_results_title: "Risultati della votazione"
-        in_votation: "In votazione"
+        in_votation_html: "In votazione dal: <br/><b>%{start}</b><br/> al: <br/><b>%{end}</b>"
         in_votation_now: "In votazione ora!"
         anonimity_active: "Anonimato temporaneo attivo"
         your_nickname_is: "Il tuo nickname è"
@@ -594,6 +594,11 @@ it-IT:
             article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
+          problems_title: "Problematica"
+          paragraph:
+            inspire: "Regolamenti a cui ispirarsi"
+            requirements: "Requisiti da rispettare"
+          stakeholders: "Stakeholders (persone coinvolte)"
         press:
           problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
           problems_title: "Messaggio da trasmettere"
@@ -607,6 +612,8 @@ it-IT:
             body: "Corpo"
             conclusion: "Conclusioni"
             deep: "Approfondimenti"
+          paragraph:
+            target: "Destinatari/Target"
         estimate:
           problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
           problems_title: "Problematica"
@@ -618,6 +625,12 @@ it-IT:
             cost: "Importo"
             problems: "Rispetto dei vincoli e problemi"
             dumentation: "Documentazione"
+          paragraph:
+            technical_constrains: "Vincoli tecnici"
+            temporal_constrains: "Vincoli temporali"
+            other_constrains: "Vincoli ambientali, etici, normativi"
+            budget: "Spesa massima"
+            recipient_budget: "Destinatari richiesta di preventivo"
         agenda:
           problems_title: "Tipologia di incontro"
           suggestion_html: |
@@ -628,6 +641,9 @@ it-IT:
             points: "Punti all'ordine del giorno"
             priorities: "Priorità dei punti proposti"
             links: "Link di approfondimento"
+          paragraph:
+            date_time: "Data e orario"
+            place: "Luogo"
         event:
           problems_title: "Scopo dell'evento"
           problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
@@ -645,9 +661,17 @@ it-IT:
             resources: "Risorse necessarie e loro reperimento"
             pros: "Pro"
             cons: "Contro"
+          paragraph:
+            similar_experiences: "Esperienze simili"
+            stakeholders: "Stakeholders (persone coinvolte)"
+            desired_characteristics: "Caratteristiche desiderate"
         step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
         step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
+        step_4_footer_html: |
+          Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
+          Se non lo farai la tua proposta non andrà in votazione.<br/>
+          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.
         category_prompt: "--Seleziona una categoria--"
         candidates:
           suggestion_html: |
@@ -659,6 +683,8 @@ it-IT:
             data: "Dati anagrafici"
             curriculum: "Curriculum"
             available: "Disponibilità a ricoprire la carica"
+          paragraph:
+            election_type: "Descrizione del tipo di elezione:"
         simple:
           problems_title: "Problematica"
           solution:
@@ -677,7 +703,7 @@ it-IT:
         last_update: "Ultimo aggiornamento del %{date}"
         waiting_date: "In attesa che venga stabilita la data di votazione"
         voting_from_to: "In votazione dal %{from} al %{to}"
-        voting_until: "In votazione adesso fino al %{date}"
+        voting_until: "In votazione adesso fino al <b>%{date}</b>"
         votation_finished: "La votazione è terminata il %{date}"
         no_votation: "Non vi è stata alcuna votazione"
         interest_borders: "Confini di interesse"
@@ -800,6 +826,7 @@ it-IT:
       comment:
         delete_button: "Cancella"
         confirm_delete: "Sei sicuro di voler cancellare questo commento?"
+        inserted_when: "Aggiunto %{when}"
       list_elements:
         inserted: "Inserito da %{name} il %{date}"
       show:
@@ -878,6 +905,7 @@ it-IT:
     quorums:
       index:
         title: "Elenco durate disponibili"
+        how_read: "Come si legge il quorum?"
     home:
       index:
         whatis: "COS'E' AIRESIS"
@@ -1003,6 +1031,12 @@ it-IT:
           Ecco i gruppi più attivi nei territori compresi nei tuoi confini di interesse.<br />
           Scegli quelli a cui vuoi partecipare, in questo modo potrai entrare in contatto con loro e iniziare a partecipare agli eventi ed alle loro proposte.<br />
           Un clic per selezionare, uno per deselezionare.<br />
+      first_proposal_html: |
+        <b>Il tuo primo contributo<br /></b>
+        E' ora di dire la tua!<br />
+        Inserisci una proposta, un'idea o una segnalazione dal territorio. <br />
+        Contribuisci alla discussione e fatti conoscere dagli altri utenti. <br/>
+        La tua proposta verrà inserita nello %{proposal} e potrebbe essere supportata dai gruppi sul tuo territorio!
     proposal_histories:
       index:
         title: "History della proposta %{title}"
@@ -1217,8 +1251,7 @@ it-IT:
         even: "deve essere dispari"
         record_invalid: "Validazione fallita: %{errors}"
         not_found: " non trovato."
-        # Append your own errors here or at the model/attributes scope.
-
+        TOS: "E' necessario accettare le condizioni d'uso"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -1231,13 +1264,30 @@ it-IT:
             required: "Devi scegliere un portavoce"
   models:
     quorum:
-      or_condition_1: "Il dibattito proseguirà finchè non avranno partecipato il %{percentage}% degli aventi diritto e, in ogni caso, al massimo per %{time}."
-      and_condition_1: "Il dibattito durerà %{time} ma proseguirà se non avrà partecipato almeno il %{percentage}% degli aventi diritto."
-      time_condition_1: "Il dibattito durerà esattamente %{time}."
-      participants_condition_1: "Il dibattito proseguirà finchè non avranno partecipato il %{percentage}% degli aventi diritto."
-      good_score_condition: "Andrà in votazione se supererà il %{good_score}% del gradimento"
-      bad_score_condition: "e verrà abbandonata se sarà sotto il %{bad_score}%."
-      bad_score_explain: "Il dibattito continuerà se il gradimento rimarrà tra queste due soglie indipendentemente dal tempo o dal numero di valutazioni"
+      participants:
+        one: '<b>1</b> partecipante'
+        other: '<b>%{count}</b> partecipanti'
+      or_condition_1: "Il dibattito proseguirà finchè non avrà partecipato il <b>%{percentage}%</b> degli aventi diritto (ovvero %{participants_num}) e, in ogni caso, al massimo per <b>%{time}</b>."
+      and_condition_1: "Il dibattito durerà %{time} ma proseguirà se non avrà partecipato almeno il <b>%{percentage}%</b> degli aventi diritto, ovvero %{participants_num}."
+      time_condition_1: "Il dibattito durerà esattamente <b>%{time}</b>."
+      participants_condition_1: "Il dibattito proseguirà finchè non avrà partecipato il <b>%{percentage}%</b> degli aventi diritto, ovvero %{participants_num}."
+      good_score_condition: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
+      bad_score_explain: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà un gradimento inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè il gradimento rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
+      until_date: "(fino al <b>%{date}</b> alle %{time})"
+      help_content:
+        description_html: |
+          <h3>Cos'è il quorum?</h3>
+          Il quorum è il parametro che determina quando termina la fase di discussione della proposta e si procede alla votazione.<br />
+          Quando crei una nuova proposta scegli uno dei quorum a disposizione nello Spazio Comune o uno tra quelli messi a disposizione dal tuo gruppo.<br />
+          In questa finestra puoi selezionare i diversi quorum e vederne le caratteristiche: troverai la descrizione del quorum e l'elenco dei parametri impostati.<br />
+        participants: "Numero minimo di partecipanti:"
+        not_specified: "Non indicato"
+        time_discussion: "Tempo di discussione:"
+        condition: "Condizione superamento:"
+        at_least_one: "Almeno una"
+        both: "Entrambe"
+        good_score: "Gradimento:"
+        bad_score: "Respingimento:"
   terms_of_service: "Condizioni"
   privacy_policy: "Privacy"
   proposals:
@@ -1281,17 +1331,6 @@ it-IT:
     quorum_valutations: "finché non sarà valutata da <b>almeno %{valutations} persone</b>"
     quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
   group: "gruppo"
-  proposal_types:
-    problems_title: "Problematica"
-    rule_book:
-      problems_title: "Problematica"
-      sections:
-        inspire: "Regolamenti a cui ispirarsi"
-        stackeholders: "Stakeholders (persone coinvolte)"
-        requisiti: "Requisiti da rispettare"
-    candidates:
-      sections:
-        description: "Descrizione del tipo di elezione:"
   saving: "Salvataggio..."
   sending: "Invio..."
   updating: "Aggiornamento..."
@@ -1321,6 +1360,7 @@ it-IT:
       work_area:
         area_created: "Errore nella creazione dell'area di lavoro"
         creation: "Errore durante la creazione del gruppo"
+      post_removed: "Errore nella rimozione del post dal gruppo"
     proposals:
       view_proposal: "Non disponi dei permessi necessari per visualizzare questa proposta"
       participate: "Non disponi dei permessi per partecipare attivamente a questa proposta. Contatta l'amministratore del gruppo"
@@ -1349,10 +1389,20 @@ it-IT:
       join_accounts_password: "Password errata"
     group_partecipations:
        destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
+       already_member: "Errore nella richiesta di partecipazione. Fai già parte di questo gruppo!"
+       request_not_registered: "Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti"
+       request_sent: "Errore nella richiesta di partecipazione"
+       request_not_found: "Richiesta non trovata. Errore durante l'operazione"
+       error_saving: "Errore durante l'operazione. Impossibile procedere"
     error_404:
       proposals:
         title: "Questa proposta non esiste"
         description: "La proposta che cerchi non esiste o è stata cancellata"
+      title: "La pagina che cerchi non esiste"
+      description: "Potresti aver sbagliato indirizzo, oppure la pagina non esiste più"
+    error_500:
+      title: "Oops...errore nostro"
+      description: "E' stata inviata una segnalazione e l'errore verrà risolto quanto prima."
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1379,6 +1429,7 @@ it-IT:
       login_to_contribute: "Fai login per inserire il tuo contributo"
       back_in_debate: "La proposta è stata rimessa in dibattito. Ora ne sei tu il redattore"
       editors_added: "Nuovi redattori aggiunti correttamente!"
+      offered_editor: "Ti sei reso disponibile per redigere la sintesi della proposta!"
     message_sent: "Messaggio inviato correttamente"
     private_messages_active: "Gli altri utenti potranno inviarti messaggi privati"
     private_messages_inactive: "Gli altri utenti non potranno inviarti messaggi privati"
@@ -1405,6 +1456,7 @@ it-IT:
       group_deleted: "Gruppo eliminato correttamente"
       group_created: "Gruppo creato correttamente"
       search_participants: "Ricerca eseguita. Risultati aggiornati"
+      post_removed: "Il post è stato rimosso dalla bacheca del gruppo"
     participation_roles:
       role_updated: "Ruolo aggiornato correttamente"
       permissions_updated: "Permessi aggiornati"
@@ -1442,6 +1494,11 @@ it-IT:
         other: "Hai richiesto di partecipare a %{count} nuovi gruppi"
     group_partecipations:
       destroy_ok_1: "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi"
+      request_sent: "Richiesta di partecipazione inviata correttamente"
+      request_alredy_sent: "Hai già effettuato una richiesta di partecipazione a questo gruppo"
+      status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
+      status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
+      status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

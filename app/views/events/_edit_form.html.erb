@@ -37,13 +37,13 @@
             <p>
               <%= f.label :starttime %>
               <br/>
-              <%= f.text_field :starttime, :value => @event.starttime, :class => "datePicker" %>
+              <%= f.text_field :starttime, :value => (l(@event.starttime, format: :textfield)), :class => "datePicker" %>
             </p>
 
             <p>
               <%= f.label :endtime %>
               <br/>
-              <%= f.text_field :endtime, :value => @event.endtime, :class => "datePicker" %>
+              <%= f.text_field :endtime, :value => (l(@event.endtime, format: :textfield)), :class => "datePicker" %>
             </p>
 
             <p>

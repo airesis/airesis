@@ -585,14 +585,14 @@
         axis: "y",
         handle: '.move_button',
         start: function (e, ui) {
-            if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
+            if ($.browser.mozilla && (parseInt($.browser.version) >= 21)) {
                 var textarea_ = $('.tinymce', ui.item);
                 tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
             }
         },
         stop: function (e, ui) {
             var textarea_ = $('.tinymce', ui.item);
-            if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
+            if (!($.browser.mozilla && (parseInt($.browser.version) >= 21))) {
                 tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
             }
             tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
@@ -614,14 +614,14 @@
             axis: "y",
             handle: '.move_button',
             start: function (e, ui) {
-                if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
+                if ($.browser.mozilla && (parseInt($.browser.version) >= 21)) {
                     var textarea_ = $('.tinymce', ui.item);
                     tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
                 }
             },
             stop: function (e, ui) {
                 var textarea_ = $('.tinymce', ui.item);
-                if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
+                if (!($.browser.mozilla && (parseInt($.browser.version) >= 21))) {
                     tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
                 }
                 tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));

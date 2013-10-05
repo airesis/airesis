@@ -130,7 +130,7 @@
       <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
       <% else %>
-          <%= 'Puoi creare al massimo un gruppo al giorno' %>  <!--TODO:I18n-->
+          <%= t('pages.groups.index.limit_reached') %>
       <% end %>
     </div>
     <%= render :partial => 'users/user_groups_panel' %>

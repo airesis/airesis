@@ -152,9 +152,7 @@
 
   <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata    %>
       <p>
-        <b>
-          <%= t('pages.proposals.show.votation_message', from: @proposal.vote_period.starttime.strftime("%d/%m/%Y %H:%M"), to: @proposal.vote_period.endtime.strftime("%d/%m/%Y %H:%M")) %>
-        </b>
+        <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
       </p>
   <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito               %>
       <%= t('pages.proposals.show.editing_message_1') %>.<br/>
