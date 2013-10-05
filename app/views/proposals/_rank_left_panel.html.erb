@@ -53,7 +53,7 @@
 <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
     <span><%= t('pages.proposals.show.in_votation_html', start:(l @proposal.vote_period.starttime), end:(l @proposal.vote_period.endtime)) %></span><br/>
 <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
-    <span><%= t('pages.proposals.list.voting_until', date: (l @proposal.vote_period.endtime)) %></span><br/>
+    <span><%= t('pages.proposals.show.in_votation_until_html', date: (l @proposal.vote_period.endtime)) %></span><br/>
 <% end %>
 
 <% if @proposal.is_anonima? %>

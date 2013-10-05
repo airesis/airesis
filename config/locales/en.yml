@@ -289,7 +289,7 @@ en:
         events_number: "Number of events"
         no_results: "No group found"
         contributes_number: "CONTRIBUTI"
-		limit_reached: "You can create at most a group per day"
+        limit_reached: "You can create at most a group per day"
       new:
         title: 'Create a new group'
         new_group: "New group"
