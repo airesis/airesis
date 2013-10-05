@@ -290,7 +290,7 @@ module NotificationHelper
         end
       end
     else
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'event' => event.title, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'i18n' => 't'}
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
       notification_a.save
 

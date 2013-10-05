@@ -1,18 +1,20 @@
 de:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: Italienisch
       en:
         description: Englisch
-      us:
+      en-US:
         description: Amerikanisch
       fr:
         description: Französisch
-      es:
+      es-ES:
         description: Spanisch
-      pt:
+      pt-PT:
         description: Portugiesisch
+      pt-BR:
+        description: Portugiesisch (Brazil)
       de:
         description: Deutsch
     proposal_types:
@@ -128,7 +130,6 @@ de:
         message: '<b>%{name}</b> hat einen Beitrag in deinen Vorschlag <b>%{title}</b> hinzugefügt'
       change_status:
         description: Statusänderung eines Vorschlags in den ich beteiligt bin
-        email_subject: 'Ein Vorschlag  hat seinen Status geändert'
         message:
           waiting_date: '%{name} hat das Datum der Abstimmung  für den Vorschlag<b>%{title}</b> ausgewählt'
           in_vote: 'Es wird gerade für den Vorschlag <b>%{title}</b> abgestimmt!'
@@ -158,7 +159,7 @@ de:
       new_public_proposals:
         description: Neue Vorschläge wurden im Open Space hinzugefügt
         email_subject: '%{proposal}'
-        message: 'Neuer Vorschlag <b>%{title}</b> im Open Space hinzugefügt'
+        message: 'Neuer Vorschlag <b>%{proposal}</b> im Open Space hinzugefügt'
       new_proposals:
         description: Neuer Vorschlag innerhalb der Gruppe
         email_subject: '%{proposal}'

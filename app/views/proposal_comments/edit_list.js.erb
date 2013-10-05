@@ -11,7 +11,9 @@ checkActive = true;
 <%else%>
 $('#loading_results').hide();
 <%if @proposal_comments.count == 0 %>
-$('#suggestion_title').remove();
+    $('#suggestion_title').remove();
+    $('.suggestion_right').remove();
+    showLeftPanel();
 <%end%>
 <%end%>
 

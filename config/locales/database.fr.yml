@@ -1,18 +1,20 @@
 fr:
   db:
     sys_locales:
-      it:
+      it-IT:
         description: Italien
       en:
         description: Anglais
-      us:
+      en-US:
         description: Américain
       fr:
         description: Français
-      es:
+      es-ES:
         description: Espagnol
-      pt:
+      pt-PT:
         description: Portugais
+      pt-BR:
+        description: Portugais (Brésil)
       de:
         description: Allemand
     proposal_types:
@@ -128,7 +130,12 @@ fr:
         message: '<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>'
       change_status:
         description: "Changement de statut d'une proposition à laquelle je participe"
-        email_subject: Une proposition a changé son statut
+        email_subject:
+          wait: '%{title} - choose the voting date'
+          waiting_date: '%{title} - the voting date has been chosen'
+          in_vote: 'Your proposal <b>%{title}</b> is now being voted!'
+          abandoned: "Your proposal <b>%{title}</b> didn't get through the debate and has been abandoned, sorry."
+          rejected: '%{title} has been rejected'
         message:
           waiting_date: '%{name} a choisi la date du vote pour la proposition <b>%{title}</b>'
           in_vote: 'La proposition <b>%{title}</b> est maintenant en votation!'
@@ -158,7 +165,7 @@ fr:
       new_public_proposals:
         description: "Nouvelles propositions insérées dans l'espace commun"
         email_subject: '%{proposal}'
-        message: "Nouvelle proposition <b>%{title}</b> insérées dans l'espace commun"
+        message: "Nouvelle proposition <b>%{proposal}</b> insérées dans l'espace commun"
       new_proposals:
         description: Nouvelles propositions dans un groupe
         email_subject: '%{proposal}'
