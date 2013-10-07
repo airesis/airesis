@@ -32,15 +32,14 @@ class AlertsController < ApplicationController
 
   #imposta tutte fle notifiche come lette
   def read_alerts
-    @new_user_alerts = current_user.user_alerts.update_all("checked = true", "checked = false")
+    @new_user_alerts = current_user.unread_alerts.check_all
   end
 
   #marca come 'letta' una notifica e redirige verso l'url indicato
   def check_alert
     begin
       @user_alert = current_user.admin? ? UserAlert.find(params[:id]) : current_user.user_alerts.find_by_id(params[:id])
-      @user_alert.checked = true
-      @user_alert.save
+      @user_alert.check!
 
       respond_to do |format|
         format.js { render :nothing => true }
@@ -58,7 +57,7 @@ class AlertsController < ApplicationController
 
   #check all notifications in a specific category
   def check_all
-    current_user.user_alerts.joins(:notification => :notification_type).where(['notification_category_id = ?', params[:id].to_i]).update_all(:checked => true)
+    current_user.user_alerts.joins(:notification => :notification_type).where(['notification_category_id = ? and user_alerts.checked = ?', params[:id].to_i, false]).check_all
     respond_to do |format|
       format.js { render :nothing => true }
     end

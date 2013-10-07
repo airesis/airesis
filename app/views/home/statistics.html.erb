@@ -13,6 +13,7 @@
 <hr>
 <h4><%= 'Numero di utenti:' %></h4> <%= User.count %>
 <h4><%= "Numero di utenti che hanno fatto login nell'ultimo mese:" %></h4> <%= User.where(['last_sign_in_at > ?',Time.now - 1.month]).count %>
+<h4><%= 'Numero di gruppi per utente (tra utenti registrati almeno a un gruppo)' %></h4>   <%=  User.joins(:groups).where()%>
 <hr>
 <h4><%= 'Numero di gruppi:' %></h4> <%= Group.count %>
 

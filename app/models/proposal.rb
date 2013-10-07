@@ -66,6 +66,8 @@ class Proposal < ActiveRecord::Base
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
+  has_many :proposal_alerts, :class_name => 'ProposalAlert'
+
   #validation
   validates_presence_of :title, :message => "obbligatorio" #TODO:I18n
   validates_uniqueness_of :title
@@ -137,6 +139,28 @@ class Proposal < ActiveRecord::Base
   def one_solution
     self.errors.add(:solutions, 'La proposta deve contenere almeno una soluzione') unless self.solutions.size > 0
   end
+
+
+  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  def self.home_portlet(user)
+    @list_a = user.proposals.before_votation.pluck('proposals.id')
+    @list_b = user.partecipating_proposals.before_votation.pluck('proposals.id')
+    @list_c = @list_a | @list_b
+    if @list_c.empty?
+      return []
+    else
+      return self.current.select('distinct proposals.*, proposal_alerts.count as alerts_count').includes([:quorum, {:users => :image}, :proposal_type, :rankings]).joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c]).order('proposals.updated_at desc')
+    end
+  end
+
+  #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
+  def self.group_portlet(group,user)
+    query = group.internal_proposals.includes([:quorum, {:users => :image}, :proposal_type, :rankings]).order('created_at desc').limit(10)
+    query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count').joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}") if (user)
+  end
+
+
+
 
   def count_notifications(user_id)
     (self.connection.select_all "select count(ua.*)

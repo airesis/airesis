@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130930114218) do
+ActiveRecord::Schema.define(:version => 20131004134131) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -688,6 +688,12 @@ ActiveRecord::Schema.define(:version => 20130930114218) do
   create_table "post_publishings", :force => true do |t|
     t.integer "blog_post_id"
     t.integer "group_id"
+  end
+
+  create_table "proposal_alerts", :force => true do |t|
+    t.integer "proposal_id",                :null => false
+    t.integer "user_id",                    :null => false
+    t.integer "count",       :default => 0, :null => false
   end
 
   create_table "proposal_borders", :force => true do |t|

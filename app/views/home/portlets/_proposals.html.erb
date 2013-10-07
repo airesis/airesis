@@ -1,71 +1,10 @@
 <div class="title">
   <%= t('pages.home.show.your_proposals') %>
 </div>
-<% @a = current_user.proposals.before_votation.pluck('proposals.id') %>
-<% @b = current_user.partecipating_proposals.before_votation.pluck('proposals.id') %>
-<% @c = @a | @b %>
-<% unless @c.empty? %>
+
+<% @proposals_p = Proposal.home_portlet(current_user) %>
+   <% unless @proposals_p.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
-      <table id="proposals_table" class="table_list">
-        <thead>
-        <th><%= t('pages.home.show.proposals.title') %></th>
-        <th><%= t('pages.home.show.proposals.last_edit') %></th>
-        <th><%= t('pages.home.show.proposals.notifications') %></th>
-        </thead>
-        <tbody>
-
-        <% @proposals_p = Proposal.current.uniq.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?)', @c], order: 'proposals.updated_at desc') %>
-        <% @proposals_p.each do |proposal| %>
-
-            <tr>
-              <td class="first"><%= link_to_proposal proposal %>
-                <%= user_valutation_image(current_user, proposal, {fetched: false}) %>
-              </td>
-              <td align="center" class="second">
-                <%= l proposal.updated_at %>
-                <br>
-                <% unless proposal.is_polling? %>
-                    <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %>
-                <% end %>
-              </td>
-              <td align="center" class="second">
-                <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
-                <% if count > 0 %>
-                    <%=link_to count,proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} %>
-                    <%else%>
-                -
-                <% end %>
-              </td>
-
-            </tr>
-        <% end %>
-        </tbody>
-
-      </table>
+      <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
     </div>
-
-    <script type="text/javascript">
-        $('#proposals_table').dataTable({
-            "oLanguage": {
-                "sLengthMenu": "Mostra _MENU_ proposte per pagina",
-                "sSearch": "<%='Cerca:'%>",
-                "sZeroRecords": "<%='Nessuna proposta, spiacente..'%>",
-                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ proposte",
-                "sInfoEmpty": "Sto mostrando 0 proposte",
-                "sInfoFiltered": "(filtrate da un totale di _MAX_ proposte)",
-                "oPaginate": {
-                    "sPrevious": "",
-                    "sNext": ""
-                }
-            },
-            "aaSorting": [],
-            "aoColumns": [null, null],
-            "bInfo": false,
-            "bLengthChange": false,
-            "bPaginate": false
-        });
-
-        $('#proposals_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
-
-    </script>
 <% end %>

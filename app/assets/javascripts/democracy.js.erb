@@ -2,7 +2,8 @@
 }});
 
 
-var $viewport = $('html, body');
+
+
 function scrollToElement(element) {
     $viewport.animate({
         scrollTop: element.offset().top - 100
@@ -616,9 +617,24 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            $('#alert_cont_' + id + ' .mess.new').removeClass('new');
             var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
             box_.remove();
+            $('#alert_cont_' + id + ' .mess.new').each(function() {
+                $(this).removeClass('new');
+                var proposal_id = $(this).data('proposal-id');
+                if (proposal_id) {
+                    $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
+                        var num_ = parseInt($(this).html());
+                        if (num_ > 1) {
+                            num_ -= 1;
+                            $(this).html(num_);
+                        }
+                        else {
+                            $(this).remove();
+                        }
+                    });
+                }
+            });
         }
     });
 }

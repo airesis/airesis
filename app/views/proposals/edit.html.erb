@@ -1,5 +1,4 @@
 <% content_for :head do %>
-    <%= javascript_include_tag 'ice/index' %>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false&libraries=drawing">
     </script>
@@ -139,8 +138,8 @@
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
-                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                    <%= p.hidden_field :content %>
+                    <%= p.cktext_area :content_dirty, placeholder: 'Compilami!', :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
+                    <%= p.text_area :content %>
                     <%= p.hidden_field :seq %>
                   </p>
               <% end %>
@@ -193,7 +192,7 @@
 
 
                                 <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                                <%= p.hidden_field :content %>
+                                <%= p.text_area :content %>
 
                                 <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
 
@@ -227,8 +226,11 @@
 
       <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', disable_with: t('updating') %>
 
+
     </p>
 <% end %>
+
+<div onclick="fillCleanFields();">Test</div>
 
 <div class="suggestion_right">
 <span id="suggestion_title">
@@ -254,11 +256,9 @@
 
 <script type="text/javascript">
 
-
     function geocode_panel() {
 
     }
-
 
     hideLeftPanel();
     fitRightMenu($('.suggestion_right'));
@@ -318,10 +318,6 @@
             compress_.attr('data-compressed', true);
             compress_.attr('data-height', compress_.height());
             $('.sol_content', compress_).hide();
-            $('.tinymce', compress_).each(function () {
-                var editor_id = $(this).attr('id');
-                //tinymce.get(editor_id).hide();
-            })
             compress_.animate(
                     {
                         'height': toggleMinHeight
@@ -344,10 +340,6 @@
                     });
 
             $('.sol_content', compress_).show();
-            $('.tinymce', compress_).each(function () {
-                var editor_id = $(this).attr('id');
-                //tinymce.get(editor_id).show();
-            })
         }
 
     }
@@ -422,7 +414,7 @@
             var lite = event.data.lite;
             ckedstoogle_[event.editor.name]['editor'] = lite;
             lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
-            lite.setUserInfo({id: <%=current_user.encoded_id%>, name: '<%=j current_user.fullname%>'});
+            lite.setUserInfo({id: <%=current_user.id%>, name: '<%=j current_user.fullname%>'});
         });
         editor_.on('lite:showHide', function (event) {
             if (!ckedstoogle_[event.editor.name]['first']) {
@@ -433,12 +425,19 @@
 
     function addEditor(id) {
         var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "it-IT", "customConfig": 'config_lite.js'});
+        ckedstoogle_[id] = {first: true};
         addEditorEvents(editor_);
+    }
+
+    function readableName(name) {
+        return $('#'+name).parent().find('.edit_label').val();
     }
 
 
     $(function () {
         for (name in CKEDITOR.instances) {
+            console.log(name);
+            console.log('init:' + readableName(name));
             ckedstoogle_[name] = {first: true};
             var editor = CKEDITOR.instances[name];
             addEditorEvents(editor);
@@ -456,16 +455,21 @@
             }
         }
         <%end%>
-        for (name in CKEDITOR.instances) {
-            var editor = CKEDITOR.instances[name];
-            var textarea_ = $('#' + name);
-            console.log('parsing:' + name);
-            var lite = ckedstoogle_[name]['editor'];
+        try {
+        for (id in CKEDITOR.instances) {
+            var editor = CKEDITOR.instances[id];
+            var textarea_ = $('#' + id);
+            console.log('parsing:' + id);
+            var lite = ckedstoogle_[id]['editor'];
             var clean = lite._tracker.getCleanContent();
             console.log('cleaned:' + clean);
-            var target = $('#' + name.replace('_dirty', ''));
+            var name_ = textarea_.attr('name').replace('_dirty','').replace(/\[/g,'\\[').replace(/\]/g,'\\]');
+            var target = $('[name=' + name_ + ']');
             target.val(clean);
             console.log('putting into:' + target.attr('id'));
+        }
+        } catch(err) {
+          console.error('error in parsing' + name);
         }
 
         $('.update2').attr('disabled', 'disabled');
@@ -476,6 +480,7 @@
     var numSolution = <%=@proposal.solutions.count%>;
     var numSections = <%=@proposal.sections.count%>;
 
+    //register the number of current sections for each solution
     var numSolutionSections = {};
 
     <%@proposal.solutions.each_with_index do |sol,i|%>
@@ -492,7 +497,7 @@
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
         paragraph_.append('<br />');
-        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+        var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
         paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
         var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
@@ -519,7 +524,7 @@
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolutionSection(this,false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
         paragraph_.append('<br />');
-        var textarea_ = $('<textarea class=\'tinymce\' cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
+        var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
         paragraph_.append('<input type=\'hidden\' name=\'' + paragraphname + '[content]\'></input>');
         var seq_ = $('<input type=\'hidden\' name=\'' + sectionname + '][seq]\' id=\'' + sectionid + '_seq\'></input>');
@@ -529,7 +534,7 @@
         $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
         paragraph_.fadeIn();
 
-        addEditor(textarea_.attr('id'));
+        //addEditor(textarea_.attr('id'));
 
         numSolutionSections[solutionid] += 1;
     }
@@ -543,6 +548,8 @@
         paragraph_.fadeIn();
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution));
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
+        paragraph_.find(".add_section").attr('data-solution_id',numSolution);
+        paragraph_.find(".solutions_column").attr('data-solution_id',numSolution);
         paragraph_.find("textarea[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var id_ = $(this).attr('id');
             $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + numSolution));
@@ -558,6 +565,8 @@
         });
 
         paragraph_.find('.remove_section').attr('data-solution_id', numSolution);
+
+        numSolutionSections[numSolution] = 1;
 
         make_solution_sortable($(".solutions_column", paragraph_));
 
@@ -643,20 +652,22 @@
             axis: "y",
             handle: '.move_button',
             start: function (e, ui) {
-                if ($.browser.mozilla && (parseInt($.browser.version) == 21)) {
-                    var textarea_ = $('.tinymce', ui.item);
-                    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+                var textareaId = ui.item.find('textarea').attr('id');
+                if (typeof textareaId != 'undefined') {
+                    var editorInstance = CKEDITOR.instances[textareaId];
+                    editorInstance.destroy();
+                    CKEDITOR.remove(textareaId);
                 }
             },
             stop: function (e, ui) {
-                var textarea_ = $('.tinymce', ui.item);
-                if (!($.browser.mozilla && (parseInt($.browser.version) == 21))) {
-                    tinyMCE.execCommand("mceRemoveControl", false, textarea_.attr('id'));
+                var textareaId = ui.item.find('textarea').attr('id');
+                if (typeof textareaId != 'undefined') {
+                    ckedstoogle_[textareaId]['first'] = true;
+                    addEditor(textareaId);
                 }
-                tinyMCE.execCommand("mceAddControl", false, textarea_.attr('id'));
                 var i = 0;
                 $(this).find('p').each(function (el) {
-                    var id = $(this).find('.tinymce').attr('id');
+                    var id = $(this).find('textarea').attr('id');
                     var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
                     console.log(seq_id + ', id: ' + i);
                     $('#' + seq_id).val(i++)
@@ -689,13 +700,13 @@
         <h4><%= 'Navigator' %></h4>
         <ul class="navigator">
           <% @proposal.sections.each do |section| %>
-              <li><%= link_to section.title, '#', onclick: "scrollToSection(#{section.id});" %></li>
+              <li><%= link_to section.title, '#', onclick: "return scrollToSection(#{section.id});" %></li>
           <% end %>
           <% @proposal.solutions.each do |solution| %>
-              <li><%= link_to solution.title, '#', onclick: "scrollToSection(#{solution.id});" %>
+              <li><%= solution.title %>
                 <ul class="navigator">
                   <% solution.sections.each do |section| %>
-                      <li><%= link_to section.title, '#', onclick: "scrollToSection(#{section.id});" %></li>
+                      <li><%= link_to section.title, '#', onclick: "return scrollToSection(#{section.id});" %></li>
                   <% end %>
                 </ul>
               </li>
@@ -728,6 +739,7 @@
         }
 
         function scrollToSection(number) {
+            console.log('scroll to' + ".section_container[data-section-id=" + number + "]");
             scrollToElement($(".section_container[data-section-id=" + number + "]"));
             return false;
         }
