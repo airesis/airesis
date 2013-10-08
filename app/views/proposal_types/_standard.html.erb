@@ -18,7 +18,7 @@
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
                   <%= p.label :content, t('pages.proposals.new.standard.problems_title_label') %> *<br/>
-                  <%= p.cktext_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true}, ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
+                  <%= p.cktext_area :content, :rows => 5, :style => "width:98%;", ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
                   <%= p.hidden_field :seq %>
                 </p>
             <% end %>

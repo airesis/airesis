@@ -1,8 +1,7 @@
 <%= render :partial => 'frm/forums/head', :locals => { :forum => @topic.forum } %>
 
-<h2><%= t("frm.post.new") %></h2>
-
 <% if @reply_to_post %>
+<h2><%= t("frm.post.new") %></h2>
   <div class='row'>
     <%= render 'reply_to_post', :post => @reply_to_post %>
   </div>

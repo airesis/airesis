@@ -1,6 +1,6 @@
 <%= simple_form_for @topic, url: group_frm_admin_topic_url(@group,@topic) do |f| %>
-  <%= f.input :subject %>
-  <%= f.association :forum , :label => "Forum" %>
+  <%= f.input :subject, label:t('simple_form.labels.topic.subject')%>
+  <%= f.association :forum , :label => "Forum" %> <!--TODO:I18n-->
   <%= f.label :locked %>
   <%= f.check_box :locked %>
   <%= f.label :pinned %>
@@ -9,5 +9,5 @@
   <%= f.check_box :hidden %>
 
   <br />
-  <%= f.submit :class => "btn btn-primary" %>
+  <%= f.submit t('update', scope:'helpers.submit.topic'), :class => "btn btn-primary" %>
 <% end %>

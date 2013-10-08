@@ -94,8 +94,8 @@
             pickerTimeSuffix: null,
             showTimepicker: true,
             timezoneList: null,
-            addSliderAccess: false,
-            sliderAccessArgs: null,
+            addSliderAccess: true,
+            sliderAccessArgs: { touchonly: false },
             controlType: 'slider',
             defaultValue: null,
             parse: 'strict'

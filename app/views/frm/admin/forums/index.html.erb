@@ -1,7 +1,7 @@
 <div>
   <h2><%= t("frm.admin.forum.index") %></h2>
 
-  <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), :class => "btn blue" %>
+  <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), :class => "btn blue newButton" %>
 
   <% @forums.group_by(&:category).each do |category, forums| %>
       <div class="category">

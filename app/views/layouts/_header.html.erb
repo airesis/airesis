@@ -193,17 +193,17 @@
     <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
-      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %>
+      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class:'btn feedbackButton'%>
       <br/>
-      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos') %>
+      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class:'btn videoButton' %>
       <br/>
-      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' %>
+      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class:'btn bookmarkButton' %>
       <br/>
-      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' %>
+      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class:'btn help' %>
       <br/>
-      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis') %>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class:'btn infoButton' %>
       <br/>
-      <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe') %>
+      <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'btn contactButton' %>
     </div>
   </div>
 

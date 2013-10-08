@@ -93,7 +93,7 @@ it-IT:
   time:
     formats:
      default: "%d %b %Y alle %H:%M"
-     long: "%A %d %B %Y %H:%M"
+     long: "%A %d %B %Y alle %H:%M"
      long_date: "%A %d %B %Y"
      long_date_time: "%A %d %B %Y ore %H:%M"
      from_long_date_time: "Da %A %d %B %Y alle %H:%M"
@@ -260,7 +260,7 @@ it-IT:
         permissions: "Ruoli e permessi"
         proposals: "Quorum e proposte"
         areas: "Aree di lavoro"
-        forum: "Gestione forum"
+        forum: "Amministrazione forum"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -1237,6 +1237,7 @@ it-IT:
         name: "Nome"
         description: "Descrizione"
         default_role_name: "Nome ruolo di default"
+
     errors:
       template:
         header:
@@ -1291,7 +1292,7 @@ it-IT:
       participants_condition_1: "Il dibattito proseguirà finchè non avrà partecipato il <b>%{percentage}%</b> degli aventi diritto, ovvero %{participants_num}."
       good_score_condition: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
       bad_score_explain: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà un gradimento inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè il gradimento rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
-      until_date: "(fino al <b>%{date}</b> alle %{time})"
+      until_date: "(fino a <b>%{date}</b> alle %{time})"
       help_content:
         description_html: |
           <h3>Cos'è il quorum?</h3>

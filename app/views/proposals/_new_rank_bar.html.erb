@@ -1,5 +1,5 @@
 <div class="timeline">
-  <div class="cur start" title="<%=raw "CREAZIONE:<br/>#{(l proposal.created_at).upcase}"%>"></div>
+  <div class="cur start" title="<%=raw ("CREAZIONE: "+time_ago_in_words(proposal.created_at)+"<br/>"+(l proposal.created_at, format: :long).upcase)%>"></div>
   <div class="cur stop" title="<%=raw "TERMINE:<br/>#{proposal.quorum.end_desc.upcase}"%>"></div>
   <div class="time" data-percentage="<%= proposal.percentage %>">
     <% unless proposal.quorum.time_fixed? %>

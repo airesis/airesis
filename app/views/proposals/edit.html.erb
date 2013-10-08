@@ -422,7 +422,7 @@
             var lite = event.data.lite;
             ckedstoogle_[event.editor.name]['editor'] = lite;
             lite.toggleShow(ckedstoogle_[event.editor.name]['state']);
-            lite.setUserInfo({id: <%=current_user.encoded_id%>, name: '<%=j current_user.fullname%>'});
+            lite.setUserInfo({id: <%=current_user.id%>, name: '<%=j current_user.fullname%>'});
         });
         editor_.on('lite:showHide', function (event) {
             if (!ckedstoogle_[event.editor.name]['first']) {
@@ -432,7 +432,7 @@
     }
 
     function addEditor(id) {
-        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "it-IT", "customConfig": 'config_lite.js'});
+        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "<%=I18n.locale%>", "customConfig": 'config_lite.js'});
         addEditorEvents(editor_);
     }
 

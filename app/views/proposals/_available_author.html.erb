@@ -3,7 +3,7 @@
         <%= t('pages.proposals.show.offered_as_editor_message') %>
     <%else%>
         <%if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
-            <span id="voglioredigere"><%=link_to t('pages.proposals.show.offer_as_editor_button'),  {:controller => "proposals", :action => "available_author", :group_id => params[:group_id]}, :remote => true, :method => :post, :class=> 'btn editButton disable', :confirm => t('pages.proposals.show.confirm_editors_button')%></span>
+            <span id="voglioredigere"><%=link_to t('pages.proposals.show.offer_as_editor_button'),  {:controller => "proposals", :action => "available_author", :group_id => params[:group_id]}, :remote => true, :method => :post, :class=> 'btn contactButton disable', :confirm => t('pages.proposals.show.confirm_editors_button')%></span>
         <%end%>
 	<%end%>
 <%end%>

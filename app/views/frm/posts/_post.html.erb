@@ -47,7 +47,7 @@
               <% end %>
               <% if post.owner_or_admin?(current_user) %>
                   <% if can?(:edit_post, post.topic.forum) %>
-                      <%= link_to t('edit', :scope => 'frm.post'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
+                      <%= link_to t('edit', :scope => 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
                   <% end %>
                   <%= link_to t('delete', :scope => 'frm.topic'), group_forum_topic_post_url(@group, post.topic.forum, post.topic, post), :method => :delete, data: {:confirm => t("are_you_sure")} %>
               <% end %>

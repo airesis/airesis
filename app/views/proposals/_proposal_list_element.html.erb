@@ -53,7 +53,7 @@
             <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
               <%= link_to (image_tag 'group_events.png'), '#' %>
               <span class="count">
-            - <%= proposal.quorum.time_left.upcase %></span>
+            <%=proposal.quorum.time_left.upcase %></span>
             </div>
         <% end %>
 
@@ -65,7 +65,7 @@
 
           <div class="authors">
             <%= t('pages.proposals.index.partecipants_number') %>
-            <div class="title"><%= t('pages.proposals.list.authors') %></div>
+            <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
             <% if signed_in? && (proposal.users.include? current_user) %>
                 <% proposal.users.each do |user| %>
                     <%= user_tag_mini(user) %>
