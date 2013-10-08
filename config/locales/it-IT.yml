@@ -1353,6 +1353,12 @@ it-IT:
       proposals:
         title: "Questa proposta non esiste"
         description: "La proposta che cerchi non esiste o è stata cancellata"
+      blog_posts:
+        title: "Questo post non esiste"
+        description: "Il post che cerchi non esiste o è stato cancellato"
+      events:
+        title: "Questo evento non esiste"
+        description: "L'evento che cerchi non esiste o è stato cancellato"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"

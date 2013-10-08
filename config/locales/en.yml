@@ -1353,6 +1353,12 @@ en:
       proposals:
         title: "This proposal doesn't exist"
         description: "The proposal you are looking for doesn't exist or has been deleted"
+      blog_posts:
+        title: "This post doesn't exist"
+        description: "The post you are looking for doesn't exist or has been deleted"
+      events:
+        title: "This event doesn't exist"
+        description: "The event you are looking for doesn't exist or has been deleted"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
