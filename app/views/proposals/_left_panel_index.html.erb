@@ -150,7 +150,7 @@
 
       <div class="hidden_menu">
         <%= link_to 'Quasiasi data', current_url(:time => nil), class: 'menu_item', data: {type: 'w'} %>
-        <%= link_to 'Ultima ora', current_url({'time[start]' => (Time.now - 1.hour), 'time[end]' => Time.now, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
+        <%= link_to 'Ultima ora', current_url({'time[start]' => (Time.now - 1.hour).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
         <%= link_to 'Ultime 24 ore', current_url({'time[start]' => (Time.now - 24.hours).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '24h'}), class: 'menu_item', data: {type: '24h'} %>
         <%= link_to 'Ultima settimana', current_url({'time[start]' => (Time.now - 7.days).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '7d'}), class: 'menu_item', data: {type: '7d'} %>
         <%= link_to 'Ultimo mese', current_url({'time[start]' => (Time.now - 1.month).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1m'}), class: 'menu_item', data: {type: '1m'} %>

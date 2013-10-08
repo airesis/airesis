@@ -349,12 +349,12 @@ function upperMinutes(date, step) {
 }
 
 function dateToString(date) {
-    var day_ = end_.getDate()
-    var month_ = end_.getMonth() + 1
-    var year_ = end_.getFullYear()
+    var day_ = date.getDate()
+    var month_ = date.getMonth() + 1
+    var year_ = date.getFullYear()
 
-    var hours_ = end_.getHours()
-    var minutes_ = end_.getMinutes()
+    var hours_ = date.getHours()
+    var minutes_ = date.getMinutes()
 
     if (minutes_ < 10)
         minutes_ = "0" + minutes_

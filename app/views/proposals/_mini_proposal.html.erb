@@ -34,7 +34,7 @@
     <% unless proposal.groups.empty? %>
         <div class="groups">
           <div class="title"><%= t('pages.proposals.list.support_group') %></div>
-          <% proposal.groups[0..10].each do |group| %>
+          <% proposal.groups.each do |group| %>
               <div class="blogUserImage" title="<%= group.name %>">
                 <%= group.group_image_tag 20 %>
               </div>

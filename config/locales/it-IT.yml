@@ -482,7 +482,7 @@ it-IT:
         show_more: "Mostra altre proposte..."
         loading_alt: "Caricamento"
         choose_model: "Scegli un modello di proposta"
-        search_title: "Cerca tra le proposte del gruppo"
+        search_title: "Testo contenuto"
         search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
         partecipants_number: "PARTECIPANTI"

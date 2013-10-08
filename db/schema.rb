@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131004134131) do
+ActiveRecord::Schema.define(:version => 20131007142558) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1214,6 +1214,9 @@ ActiveRecord::Schema.define(:version => 20131004134131) do
     t.datetime "updated_at"
     t.datetime "checked_at"
   end
+
+  add_index "user_alerts", ["checked"], :name => "index_user_alerts_on_checked"
+  add_index "user_alerts", ["user_id"], :name => "index_user_alerts_on_user_id"
 
   create_table "user_borders", :force => true do |t|
     t.integer "user_id",            :null => false

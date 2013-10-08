@@ -52,7 +52,7 @@
 <div id="proposalsListContainer<%= params[:state] || params[:view] %>">
   <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
 </div>
-<% if @proposals.total_pages > @proposals.current_page %>
+<% unless @proposals.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals">
       <span><%= t('pages.proposals.index.show_more') %></span>
     </div>

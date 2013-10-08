@@ -14,20 +14,25 @@ class AlertsController < ApplicationController
   end
 
   def polling
-    @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
-    if @new_user_alerts.size < 5
-      @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true', :limit => (5 - @new_user_alerts.size))
+    @map = []
+
+    current_user.user_alerts.includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = false']).group_by{|a| a.notification.notification_type.notification_category}.each do |category,alerts|
+      numunread = alerts.size
+      if numunread < 10
+        alerts += current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = true and notification_categories.id = ?', category.id], :limit => (10 - numunread))
+      end
+      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => alerts.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
     end
 
-    @map = []
-    NotificationCategory.all.each do |category|
-      unread = current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = false and notification_categories.id = ?', category.id])
-      numunread = unread.size
-      if numunread < 10
-        unread += current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = true and notification_categories.id = ?', category.id], :limit => (10 - numunread))
-      end
-      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => unread.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
-    end
+#    NotificationCategory.all.each do |category|
+#      logger.info "category #{category.description}"
+#      unread = current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = false and notification_categories.id = ?', category.id])
+#      numunread = unread.size
+#      if numunread < 10
+#        unread += current_user.user_alerts.all(:joins => {:notification => {:notification_type => :notification_category}}, :include => {:notification => :notification_data}, :conditions => ['user_alerts.checked = true and notification_categories.id = ?', category.id], :limit => (10 - numunread))
+#      end
+#      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => unread.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
+#    end
   end
 
   #imposta tutte fle notifiche come lette

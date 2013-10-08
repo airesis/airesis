@@ -1,5 +1,5 @@
 module UsersHelper
-  
+
   #
   # Use this to wrap view elements that the user can't access.
   # !! Note: this is an *interface*, not *security* feature !!
@@ -50,51 +50,51 @@ module UsersHelper
     if options[:full_name]
       content_text = "#{user.name} #{user.surname}"
       options[:title] ||= content_text
-    end 
-    content_text    ||= options.delete(:content_text)
-    content_text    ||= user.send(options.delete(:content_method))
+    end
+    content_text ||= options.delete(:content_text)
+    content_text ||= user.send(options.delete(:content_method))
     options[:title] ||= user.send(options.delete(:title_method))
     link_to h(content_text), user_path(user), options
   end
-  
+
   #show a small tag with the user image followed by the nickname
   #if fullname is true the user name and surname is written instead of the nickname
   #if a proposal is passed as argument are checked few things,
   #if the proposal is_current? and the user has a nickname associated to it
   #then the user real name and image are hidden and replaced by the proposal nickname ones.  
-  def user_tag(user,proposal=nil,full_name=true,show_rank=false)
+  def user_tag(user, proposal=nil, full_name=true, show_rank=false)
     raise "Invalid User" unless user
     if proposal && proposal.is_anonima?
       u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
-    end 
+    end
     ret = "<div class=\"pcontainer\">
           <div class=\"MoImg24\">"
     if u_nick
-     ret += "<img src=\"http://www.gravatar.com/avatar/"
-     ret += Digest::MD5.hexdigest(u_nick.nickname)
-     ret += "?s=24&d=identicon&r=PG\"/>"
+      ret += "<img src=\"http://www.gravatar.com/avatar/"
+      ret += Digest::MD5.hexdigest(u_nick.nickname)
+      ret += "?s=24&d=identicon&r=PG\"/>"
     else
-     ret += user.user_image_tag(24)
+      ret += user.user_image_tag(24)
     end
-     ret +="</div>"
-     ret += "<div class=\"Mo\">"
-     if u_nick
-       ret += u_nick.nickname
-     else
-       ret += link_to_user(user, :full_name => full_name)        
-       ret += " (#{user.rank})" if show_rank 
-     end
-     ret += "</div>
+    ret +="</div>"
+    ret += "<div class=\"Mo\">"
+    if u_nick
+      ret += u_nick.nickname
+    else
+      ret += link_to_user(user, :full_name => full_name)
+      ret += " (#{user.rank})" if show_rank
+    end
+    ret += "</div>
           <div style=\"clear: both;\"></div>
       </div>"
-      return ret.html_safe
+    return ret.html_safe
   end
-  
-  def user_tag_mini(user,proposal=nil,full_name=true)
+
+  def user_tag_mini(user, proposal=nil, full_name=true)
     raise "Invalid User" unless user
     if proposal && proposal.is_anonima? && (user != current_user)
-        u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
-    end 
+      u_nick = user.proposal_nicknames.find_by_proposal_id(proposal.id)
+    end
     ret = "<div class=\"blogUserImage\" title=\""
     if u_nick
       ret += u_nick.nickname
@@ -106,7 +106,7 @@ module UsersHelper
       end
     end
     ret += "\">"
-    if u_nick                    
+    if u_nick
       ret += "<img src=\"http://www.gravatar.com/avatar/"
       ret += Digest::MD5.hexdigest(u_nick.nickname)
       ret += "?s=24&d=identicon&r=PG\"/>"
@@ -116,22 +116,20 @@ module UsersHelper
     ret += "</div>"
     ret.html_safe
   end
-  
-  def user_valutation_image(user,proposal,options={})
-    if options[:fetched]
-      val = proposal.rankings[0].ranking_type_id rescue nil
+
+  def user_valutation_image(user, proposal, options={})
+    if proposal.respond_to? :ranking
+      val = proposal.ranking.to_i
     else
       val = proposal.rankings.find_by_user_id(user.id).ranking_type_id rescue nil
     end
-      if val == 1
-        return "<div class=\"like-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
-      elsif val == 3
-        return "<div class=\"dislike-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
-      end
-
+    if val == 1
+      "<div class=\"like-mini\" style=\"display:inline-block;\" title=\"Hai valutato positivamente questa proposta\"></div>".html_safe
+    elsif val == 3
+      "<div class=\"dislike-mini\" style=\"display:inline-block;\" title=\"Hai valutato negativamente questa proposta\"></div>".html_safe
+    end
   end
-  
-  
+
 
   #
   # Link to login page using remote ip address as link content
@@ -146,8 +144,8 @@ module UsersHelper
   #   # => <a href="/login" title="169.69.69.69">not signed in</a>
   #
   def link_to_login_with_IP(content_text=nil, options={})
-    ip_addr           = request.remote_ip
-    content_text    ||= ip_addr
+    ip_addr = request.remote_ip
+    content_text ||= ip_addr
     options.reverse_merge! :title => ip_addr
     if tag = options.delete(:tag)
       content_tag tag, h(content_text), options
@@ -166,7 +164,7 @@ module UsersHelper
     else
       content_text = options.delete(:content_text) || 'not signed in'
       # kill ignored options from link_to_user
-      [:content_method, :title_method].each{|opt| options.delete(opt)} 
+      [:content_method, :title_method].each { |opt| options.delete(opt) }
       link_to_login_with_IP content_text, options
     end
   end

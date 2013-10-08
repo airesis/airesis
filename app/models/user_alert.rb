@@ -27,7 +27,8 @@ class UserAlert < ActiveRecord::Base
     self.update_all({checked: true, checked_at: Time.now})
     self.all.each do |alert|
       if (proposal_id = alert.notification.data[:proposal_id])
-        ProposalAlert.find_by_proposal_id_and_user_id(proposal_id.to_i, alert.user_id).decrement!(:count)
+        alert = ProposalAlert.find_by_proposal_id_and_user_id(proposal_id.to_i, alert.user_id)
+        alert.decrement!(:count) if alert
       end
     end
   end
