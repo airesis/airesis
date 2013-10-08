@@ -39,7 +39,7 @@ en:
     firstDay: 0
     timeFormat: 'h(:mm)t '
   date:
-    order: [:day, :month, :year ]
+    order: "[:day, :month, :year ]"
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
@@ -98,7 +98,7 @@ en:
       one: "%{count} day"
       other: "%{count} days"
   hour:
-    one: %{count} hour
+    one: "%{count} hour"
     other: "%{count} hours"
   minute:
     one: "%{count} minute"

@@ -765,8 +765,7 @@ pt:
     comments:
       zero: nenhum comentário
       one: um comentário
-      other: %{count} comentários
-      
+      other: "%{count} comentários"
   activerecord:
     models:
       meeting: "Encontro"      
@@ -886,7 +885,6 @@ pt:
           other: "%{count} um não permiti que este%{model} fosse salvo"
           # The variable :count is also available
         body: "Houve problemas com os seguintes campos:"
-        
       # The values :model, :attribute and :value are always available for interpolation
       # The value :count is available when applicable. Can be used for pluralization.
       messages:
