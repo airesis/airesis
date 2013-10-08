@@ -1,4 +1,8 @@
 it-IT:
+  unauthorized:
+    default: "Non disponi dei permessi per eseguire l'azione"
+    create:
+      group: "Non puoi creare più di un gruppo al giorno"
   permissions_required: "Non disponi dei permessi sufficienti"
   test: "Test"
   devise:
@@ -1316,7 +1320,6 @@ it-IT:
   error:
     setting_preferences: "Errore durante l'impostazione delle preferenze"
     admin_required: "Devi essere amministratore per visualizzare la pagina"
-    permissions_required: "Non disponi dei permessi per eseguire l'azione"
     portavoce_required: "Devi essere portavoce del gruppo per visualizzare la pagina"
     blog_required: "Prima di eseguire quest'azione devi creare un tuo blog personale"
     not_your_blog: "Questa azione non può essere effettuata su un blog altrui"
@@ -1370,6 +1373,12 @@ it-IT:
       proposals:
         title: "Questa proposta non esiste"
         description: "La proposta che cerchi non esiste o è stata cancellata"
+      blog_posts:
+        title: "Questo post non esiste"
+        description: "Il post che cerchi non esiste o è stato cancellato"
+      events:
+        title: "Questo evento non esiste"
+        description: "L'evento che cerchi non esiste o è stato cancellato"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"

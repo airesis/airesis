@@ -167,17 +167,17 @@ class ApplicationController < ActionController::Base
   end
 
   #risposta generica nel caso non si abbiano i privilegi per eseguire l'operazione
-  def permissions_denied
+  def permissions_denied(exception=nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:error] = t('error.permissions_required')
+        flash.now[:error] =  exception.message
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
         store_location
-        flash[:error] = t('error.permissions_required')
+        flash[:error] = exception.message
         if request.env["HTTP_REFERER"]
           redirect_to :back
         else
@@ -293,7 +293,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    permissions_denied
+    permissions_denied(exception)
   end
 
   #check as rode all the alerts of the page.

@@ -108,9 +108,7 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la proposta è in votazione
-  def notify_proposal_in_vote(proposal, group=nil)
-
-
+  def notify_proposal_in_vote(proposal, group=nil, group_area=nil)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
@@ -125,7 +123,9 @@ module NotificationHelper
     notification_b.save
 
     users = group ?
-        group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
         proposal.partecipants
 
     users.each do |user|
@@ -140,8 +140,8 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la votazione è terminata
-  def notify_proposal_voted(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s,'title' => proposal.title, 'i18n' => 't', 'extension' => 'voted'}
+  def notify_proposal_voted(proposal, group=nil, group_area=nil)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'voted'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
 
@@ -155,7 +155,9 @@ module NotificationHelper
     notification_b.save
 
     users = group ?
-        group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
         proposal.partecipants
 
     users.each do |user|
@@ -168,7 +170,6 @@ module NotificationHelper
 
 
   end
-
 
 
   #invia le notifiche quando la proposta è stata abbandonata

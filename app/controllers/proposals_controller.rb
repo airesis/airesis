@@ -329,7 +329,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil)
+        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil, @group_area ? @group_area.id : nil)
       end #end transaction
       @saved = true
 
@@ -839,7 +839,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def can_view
     unless can? :read, @proposal
-      flash[:error] = t('error.permissions_required')
+      flash[:error] = t('unauthorized.default')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
