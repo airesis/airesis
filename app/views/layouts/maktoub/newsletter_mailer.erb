@@ -109,7 +109,7 @@
                             </td>
                           </tr>
                       <% end %>
-                      <%@ruser = @resource || @user || @alert.user %>
+                      <%@ruser = @resource || @user || @to || @alert.user %>
                       <%@url = @ruser.original_locale.host %>
                       <%@url += "?l=#{@rsuser.original_locale.lang}" if @ruser.original_locale.lang%>
 
