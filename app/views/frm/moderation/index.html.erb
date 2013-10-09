@@ -1,6 +1,6 @@
 <h2><%= t('.title', :forum => forum) %></h2>
 
-<h3><%= t('posts_count', :count => @posts.count, :scope => 'forem.general') %></h3>
+<h3><%= t('posts_count', :count => @posts.count, :scope => 'frm.general') %></h3>
 
 <%= form_tag group_frm_forum_moderate_posts_url(@group,forum), :method => :put do %>
   <div id='posts'>
@@ -9,5 +9,5 @@
       <%= render posts, :mass_moderation => true %>
     <% end %>
   </div>
-  <%= submit_tag "Moderate", :class => "btn btn-primary" %>
+  <%= submit_tag t('frm.posts.moderation.moderate'), :class => "btn btn-primary" %>
 <% end %>

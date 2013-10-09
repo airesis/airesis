@@ -16,8 +16,7 @@
 <% if can? :view_data, @group %>
     <% javascript 'endless_page' %>
 
-    <div class="group_description">
-      <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
+    <div><%= raw (@group.description)%></div>
     <div class="group_show_page">
       <div class="posts_container_main">
         <div id="posts_container">

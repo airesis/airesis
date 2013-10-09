@@ -30,7 +30,7 @@
 			<%= t('pages.proposals.tabs.most_valutated') %>
       <% else %>
           <span class="order_option">
-			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %>
+			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %> <!--TODO: add :title, :disable_with-->
       <% end %>
       </span>
       <span class="order_separator">

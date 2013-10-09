@@ -93,11 +93,12 @@ en:
   time:
     formats:
      default: "%d %b %Y at %I:%M %p"
-     long: "%A %d %B %Y %I:%M %p"
+     long: "%A %d %B %Y at %I:%M %p"
      long_date: "%A %d %B %Y"
      long_date_time: "%A %d %B %Y at %I:%M %p"
      from_long_date_time: "From %A %d %B %Y at %I:%M %p"
      until_long_date_time: "To %A %d %B %Y at %I:%M %p"
+     two_rows: "%d %b %Y <br/> %I:%M %p"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
@@ -105,6 +106,19 @@ en:
      textfield: "%d/%m/%Y %I:%M %p"
     am: "am"
     pm: "pm"
+    left:
+      seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      hours:
+        one: "1 hour"
+        other: "%{count} hours"
+      days:
+        one: "1 day"
+        other: "%{count} days"
   datetime:
     added_on: "on %{date}"
     distance_in_words:
@@ -156,7 +170,7 @@ en:
   hello: 'Hello world'
   pages:
     top_panel:
-      login: 'Login or register'
+      login: 'Login or sign up'
       facebook_login: 'Login with Facebook'
       google_login: 'Login with Google'
       twitter_login: "Login with Twitter"
@@ -246,6 +260,7 @@ en:
         permissions: 'Roles and Permissions'
         proposals: 'Quorum and proposals'
         areas: "Work areas"
+        forum: "Forum administration"
       edit_events:
         title: 'Manage group events'
       edit_permissions:
@@ -288,7 +303,6 @@ en:
         proposals_number: "Number of proposals"
         events_number: "Number of events"
         no_results: "No group found"
-        contributes_number: "CONTRIBUTIONS"
         limit_reached: "You can create at most a group per day"
       new:
         title: 'Create a new group'
@@ -331,6 +345,8 @@ en:
           button: "Permissions list"
         print_all_participants: "Print participants list"
         last_proposals: "Recently added proposals"
+        last_topics: "Last topic created"
+        next_events: "Next events"
         rule_book_html: |
           The rules can be selected while creating a group.<br/>
           <p>All users can create a group, as of now.</p>
@@ -341,6 +357,7 @@ en:
         settings: "SETTINGS"
         elections: "ELECTIONS"
         documents: "DOCUMENTS"
+        forums: "FORUM"
       documents:
         documents_archive: "Documents archive"
         storage_size: "Storage size occupied"
@@ -438,18 +455,18 @@ en:
     proposals:
       index:
         title: 'List of proposals'
-        debate: 'All proposals are in review'
-        voting: 'All proposals currently pending vote ' 
-        accepted: 'List of proposals shared and accepted by the users'
-        revision: 'All proposals that have been implemented and for which we are collecting feedback'
+        debate: 'All proposals in review being debated'
+        voting: 'All proposals currently pending vote or in the voting phase'
+        accepted: 'All proposals that finished the voting phase'
+        revision: 'All proposals that did not pass the quorum and can be put back in debate'
         last: "Last added"
         most_popular: "Most popular"
         most_valutated: "Most evaluated"
         continue_reading: 'Continue reading the proposal'
-        debate_title: "In debate (%{count})"
-        voting_title: "Voting (%{count})"
-        accepted_title: "Voted (%{count})"
-        revision_title: "Abandoned (%{count})"
+        debate_title: "In debate ⋅ %{count}"
+        voting_title: "Voting ⋅ %{count}"
+        accepted_title: "Voted ⋅ %{count}"
+        revision_title: "Abandoned ⋅ %{count}"
         login_with: "or login with:"
         group_areas_title: "Working areas"
         no_group_areas: "No area"
@@ -469,7 +486,8 @@ en:
         search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
-        partecipants_number: ""
+        partecipants_number: "PARTICIPANTS"
+        contributes_number: "CONTRIBUTIONS"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -519,6 +537,7 @@ en:
         votation_results_title: "Vote results"
         in_votation_html: "Voting from: <br/><b>%{start}</b><br/> to: <br/><b>%{end}</b>"
         in_votation_now: "Voting right now!"
+        in_votation_until_html: "In votation until: <br/><b>%{date}</b>"
         anonimity_active: "Temporary anonymity active"
         your_nickname_is: "Your nickname is"
         editors_title: "Editors"
@@ -701,15 +720,16 @@ en:
         last_inserted: "Last updated"
         most_popular: "Most popular"
         most_valutated: "Most ranked"
+        most_urgent: "Most urgent"
       list:
-        last_update: "Last update of %{date}"
-        waiting_date: "Waiting for the authors to choose a voting date"
+        last_update: "Updated<br/>%{time_ago}<br/>%{date}"
+        waiting_date: "Waiting for a date"
         voting_from_to: "Voting from %{from} to %{to}"
         voting_until: "Voting now until %{date}"
-        votation_finished: "Voting ended on %{date}"
+        votation_finished: "Vote ended<br/>%{time_ago}<br/>%{date}"
         no_votation: "There has not been any vote"
         interest_borders: "Geographic boundaries"
-        authors: "Authors"
+        authors: "Editors"
         support_group: "Support groups"
         no_proposals: "No proposals yet"
       delete_comment: "Delete"
@@ -725,7 +745,7 @@ en:
         date_time_column: "Vote date and time"
       report_contribute:
         mark_title: "Mark the contribution"
-        mark_description: "You can point out to authors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the authors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
+        mark_description: "You can point out to the editors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the editors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
         report_title: "Report the contribution"
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
@@ -745,7 +765,6 @@ en:
         no_participants: "You are allowed to edit these fields only if nobody has participated!"
         remove_section: "Remove section"
         add_paragraph: "Add a new paragraph"
-        edit_proposal: "Edit and update the text of the proposal"
         remove_solution: "Remove solution"
         press_to_compress: "Click on the title to compress this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
@@ -753,7 +772,6 @@ en:
         you_know_what_you_do: "Do you know what are you going to do?"
         schulze_title: "One or more solutions?"
         inserted_contributes: "Sign the contributions you have integrated in this revision"
-        tooltip: "When you have finished editing, press button 'Update' to save your work"
         more_solutions_explained_html: |
           <b>Why do we ask you if you know what you are doing?</b><br/>
           Airesis lets you add one or more solutions in a proposal.<br/>
@@ -773,6 +791,12 @@ en:
         removed: "Contributions removed from discussion"
       contribution_valuation: "What do you think?"
       contribution_valuation_again: "Changed your mind?"
+      new_rank_bar:
+        creation: "CREATION: %{time_ago}<br/>%{date}"
+        end: "END DEBATE:<br/> %{date}"
+        valutations: "%{num} EVALUATIONS"
+        good_score: "POSITIVE QUORUM %{score}%"
+        bad_score: "NEGATIVE QUORUM %{score}%"
     events:
       index:
         title: 'Calendar'
@@ -844,6 +868,8 @@ en:
         comments: "Comments (%{count})"
       index:
         title: "Blogs"
+      edit:
+        title: "Edit the post"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -896,6 +922,7 @@ en:
         previous_posts: "Previous Posts..."
         edit_button: "Edit blog"
         title: "Blogs list"
+        no_unpublished_posts: "There are no unpublished posts at the moment"
       new:
         title: "Create your personal blog!"
         cancel_button: "No, thanks!"
@@ -951,7 +978,7 @@ en:
         proposals:
           title: "Title"
           last_edit: "Last edit"
-          authors: "Authors"
+          authors: "Editors"
           notifications: "Notifications"
         notifications:
           title: "Alerts"
@@ -1014,11 +1041,11 @@ en:
           The rank bar is situated in the right lateral menu.<br />
           The bar shows the rank of approval of the proposal among the participants.<br />
           You can suggest if the text of the proposal is complete or not using the two buttons below the bar.<br />
-          The author of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
+          The editor of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
           The color of the bar shows if the proposal is ready to go to the voting phase, while the length shows how much time and/or evaluations are left before the discussion ends.<br />
         newdescription2: "The bar displays the rank of the proposal among the participants and how much time is left until the end of the debate"
         newdescription3: "The color displays if the proposal will be able to go to the voting phase, while the length displays how much time is left before the debate ends"
-        newdescription4: "When you think the debate is over and the author integrated the contributions of other users, use this button"
+        newdescription4: "When you think the debate is over and the editors integrated the contributions of other users, use this button"
         newdescription5: "If you think that the debate should continue, use this button"
         newdescription6: "When the text of the proposal will be updated, you will be able to change your evaluation"
       welcome:
@@ -1056,7 +1083,7 @@ en:
       score_reached: "Rank reached:"
       evaluation_reached: "Number of evaluations:"
       quorum_used: "Quorum used:"
-      editors_in_life_cycle: "Authors in this life cycle:"
+      editors_in_life_cycle: "Editors in this life cycle:"
     tags:
       show:
         related_title: "Related tags"
@@ -1221,6 +1248,7 @@ en:
         name: "Name"
         description: "Description"
         default_role_name: "Default role name"
+
     errors:
       template:
         header:
@@ -1328,7 +1356,7 @@ en:
     gradimento: "percentage of positive evaluations on the total"
     nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
     manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
-    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal"
+    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
     quorum_minutes: "until <b>%{date}</b> at %{time}"
     quorum_valutations: "until it will be rated by at <b>least %{valutations} people</b>"
     quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase only if its <b>rank</b> is greater than <b>%{good_score}%</b>."

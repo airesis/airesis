@@ -107,9 +107,9 @@ class Quorum < ActiveRecord::Base
 
   def end_desc
     conds = []
-    conds << (I18n.l self.ends_at) if self.minutes
-    conds << "#{self.valutations} valutazioni" if self.percentage
-    conds.join(or? ? ' o ' : ' e ')
+    conds << (I18n.l self.ends_at)+"  " if self.minutes
+    conds << " "+I18n.t('pages.proposals.new_rank_bar.valutations', num:self.valutations) if self.percentage
+    conds.join(or? ? I18n.t('pages.groups.edit_quorums.condition_OR') : I18n.t('pages.groups.edit_quorums.condition_AND'))
   end
 
   def time_left

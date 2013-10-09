@@ -8,7 +8,7 @@
 
     <p>
       <%= f.label :description %><br/>
-      <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;'%>
+      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600}%>
     </p>
 
     <% if ['edit', 'update'].include? params[:action] %>

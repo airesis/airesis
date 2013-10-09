@@ -98,7 +98,7 @@ it-IT:
      long_date_time: "%A %d %B %Y ore %H:%M"
      from_long_date_time: "Da %A %d %B %Y alle %H:%M"
      until_long_date_time: "Fino a %A %d %B %Y alle %H:%M"
-     two_rows: "%d %b %Y <br/>ore %H:%M"
+     two_rows: "%d %b %Y <br/> %H:%M"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
@@ -123,38 +123,38 @@ it-IT:
     added_on: "il %{date}"
     distance_in_words:
       about_x_hours:
-        one: circa un ora fa
+        one: circa 1 ora fa
         other: circa %{count} ore fa
       about_x_months:
-        one: circa un mese fa
+        one: circa 1 mese fa
         other: circa %{count} mesi fa
       about_x_years:
-        one: circa un anno fa
+        one: circa 1 anno fa
         other: circa %{count} anno fa
       almost_x_years:
-        one: quasi un anno fa
+        one: quasi 1 anno fa
         other: quasi %{count} anni fa
       half_a_minute: mezzo minuto fa
       less_than_x_minutes:
-        one: meno di un minuto fa
+        one: meno di 1 minuto fa
         other: meno di %{count} minuti fa
       less_than_x_seconds:
-        one: meno di un secondo fa
+        one: meno di 1 secondo fa
         other: meno di %{count} secondi fa
       over_x_years:
-        one: più di un anno fa
+        one: più di 1 anno fa
         other: più di %{count} anni fa
       x_days:
-        one: un giorno fa
+        one: 1 giorno fa
         other: ! '%{count} giorni fa'
       x_minutes:
-        one: un minuto fa
+        one: 1 minuto fa
         other: ! '%{count} minuti fa'
       x_months:
-        one: un mese fa
+        one: 1 mese fa
         other: ! '%{count} mesi fa'
       x_seconds:
-        one: "un secondo fa"
+        one: "1 secondo fa"
         other: ! '%{count} secondi fa'
   day:
       one: "1 giorno"
@@ -345,6 +345,8 @@ it-IT:
           button: "Elenco permessi"
         print_all_participants: "Stampa elenco partecipanti"
         last_proposals: "Ultime proposte inserite"
+        last_topics: "Ultimi topic creati"
+        next_events: "Prossimi eventi"
         rule_book_html: |
           Le regole sono selezionabili alla creazione di un gruppo.<br/>
           <p>Al momento tutti gli utenti possono creare un gruppo.</p>
@@ -455,8 +457,8 @@ it-IT:
         title: "Elenco proposte"
         debate: "Tutte le proposte da costruire che sono in fase di dibattito"
         voting: 'Tutte le proposte in attesa di votazione o attualmente in votazione'
-        accepted: 'Lista delle proposte condivise e accettate dagli utenti del portale'
-        revision: 'Tutte le proposte che sono state attuate e per le quali si stanno raccogliendo i feedback'
+        accepted: 'Tutte le proposte che hanno concluso la votazione'
+        revision: 'Tutte le proposte che non hanno superato il quorum e che possono essere rimesse in dibattito'
         last: "Ultime inserite"
         most_popular: "Più popolari"
         most_valutated: "Più valutate"
@@ -485,6 +487,7 @@ it-IT:
         search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
         partecipants_number: "PARTECIPANTI"
+        contributes_number: "CONTRIBUTI"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -565,7 +568,7 @@ it-IT:
         close_contribute: "CHIUDI CONTRIBUTI"
         contributes_list: "Elenco contributi in '%{section}'"
         add_comment: "Inserisci un commento"
-        add_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta l'autore a migliorare la proposta"
+        add_contribute: "Di la tua! Proponi delle modifiche al testo e aiuta il redattore a migliorare la proposta"
         login_to_comment: "Fai login per inserire un commento"
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
@@ -717,12 +720,13 @@ it-IT:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
         most_valutated: "Più valutate"
+        most_urgent: "Più urgenti"
       list:
-        last_update: "Aggiornata al <br/> %{date}"
+        last_update: "Aggiornata<br/>%{time_ago}<br/>%{date}"
         waiting_date: "In attesa di data"
         voting_from_to: "Dal %{from} al %{to}"
         voting_until: "Fino al<br/> %{date}"
-        votation_finished: "Terminata il<br/> %{date}"
+        votation_finished: "Terminata<br/>%{time_ago}<br/>%{date}"
         no_votation: "Non vi è stata alcuna votazione"
         interest_borders: "Confini di interesse"
         authors: "Redattori"
@@ -741,7 +745,7 @@ it-IT:
         date_time_column: "Data e ora di voto"
       report_contribute:
         mark_title: "Marca il contributo"
-        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>Se il contributo viene marcato %{num} volte, gli autori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
+        mark_description: "Puoi indicare ai redattori della proposta che questo contributo non contiene informazioni rilevanti o un sostegno per trovare una soluzione alla proposta.<br/>Se il contributo viene marcato %{num} volte, i redattori della proposta potranno eliminarlo dalla discussione ed inserirlo nella cartella dei contributi \"rumorosi\".<br/>"
         report_title: "Segnala il contributo"
         report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
       vote_panel:
@@ -761,7 +765,6 @@ it-IT:
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
         remove_section: "Rimuovi sezione"
         add_paragraph: "Aggiungi un nuovo paragrafo"
-        edit_proposal: "Modifica e aggiorna il testo della proposta!"
         remove_solution: "Rimuovi soluzione"
         press_to_compress: "Clicca sul titolo per comprimere questa soluzione"
         add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
@@ -769,7 +772,6 @@ it-IT:
         you_know_what_you_do: "Sai quello che fai?"
         schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
-        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare"
         more_solutions_explained_html: |
           <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
           Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
@@ -789,6 +791,12 @@ it-IT:
         removed: "Contributi eliminati dalla discussione"
       contribution_valuation: "Cosa ne pensi?"
       contribution_valuation_again: "Hai cambiato opinione?"
+      new_rank_bar:
+        creation: "CREAZIONE: %{time_ago}<br/>%{date}"
+        end: "TERMINE DIBATTITO:<br/> %{date}"
+        valutations: "%{num} VALUTAZIONI"
+        good_score: "QUORUM POSITIVO %{score}%"
+        bad_score: "QUORUM NEGATIVO %{score}%"
     events:
       index:
         title: "Calendario"
@@ -860,6 +868,8 @@ it-IT:
         comments: "Commenti (%{count})"
       index:
         title: "Blogs"
+      edit:
+        title: "Modifica il post"
     alerts:
       polling:
         show_all: "Mostra tutte le notifiche"
@@ -912,12 +922,13 @@ it-IT:
         previous_posts: "Post precedenti..."
         edit_button: "Modifica blog"
         title: "Elenco blog"
+        no_unpublished_posts: "Non ci sono post da pubblicare al momento"
       new:
         title: "Crea il tuo blog personale!"
         cancel_button: "No, grazie!"
         create_button: "Crea"
       edit:
-        title: "Modifica blog"
+        title: "Modifica blog %{title}"
         title_label: "Titolo del blog"
         back_to_blog: "Torna al mio blog"
     quorums:
@@ -967,7 +978,7 @@ it-IT:
         proposals:
           title: "Titolo"
           last_edit: "Ultima modifica"
-          authors: "Autori"
+          authors: "Redattori"
           notifications: "Notifiche"
         notifications:
           title: "Le notifiche"
@@ -1030,11 +1041,11 @@ it-IT:
           La barra di gradimento è posta nel menu laterale a sinistra.<br />
           La barra indica qual è l'indice di gradimento della proposta tra i partecipanti.<br />
           Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra.<br />
-          L'autore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente.<br />
+          Il redattore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente.<br />
           Il colore della barra indica se la proposta è in grado di passare alla fase di votazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione.<br />
         newdescription2: "La barra indica il gradimento della proposta tra i partecipanti e quanto tempo manca al termine della discussione"
         newdescription3: "Il colore mostra se la proposta passerà alla fase di votazione mentre la lunghezza indica quanto tempo manca prima che termini la discussione"
-        newdescription4: "Quando ritieni che il dibattito sia terminato e l'autore abbia integrato i contributi degli utenti allora utilizza questo pulsante"
+        newdescription4: "Quando ritieni che il dibattito sia terminato e il redattore abbia integrato i contributi degli utenti allora utilizza questo pulsante"
         newdescription5: "Se ritieni che il dibattito debba proseguire allora utilizza questo pulsante"
         newdescription6: "Quando il testo della proposta cambia ti verrà data la possibilità di modificare la tua valutazione"
       welcome:
@@ -1072,7 +1083,7 @@ it-IT:
       score_reached: "Score raggiunto:"
       evaluation_reached: "Numero di valutazioni:"
       quorum_used: "Quorum utilizzato:"
-      editors_in_life_cycle: "Autori durante questo ciclo di vita:"
+      editors_in_life_cycle: "Redattori durante questo ciclo di vita:"
     tags:
       show:
         related_title: "Tag correlati"
@@ -1345,7 +1356,7 @@ it-IT:
     gradimento: "percentuale di valutazioni positive sul totale"
     nickname: "<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!"
     manage_noise: "<strong>Gestisci i contributi inutili</strong><br />I partecipanti ti segnaleranno quali contributi sono inutili alla discussione. Attraverso questo pannello potrai eliminarli e metterli nella cartella Contributi Eliminati"
-    view_noise: "<strong>Visualizza i contributi inutili</strong><br />Qui dentro potrai trovare tutti i contributi che sono stati ritenuti inutili alla discussione e rimossi dagli autori della proposta"
+    view_noise: "<strong>Visualizza i contributi inutili</strong><br />Qui dentro potrai trovare tutti i contributi che sono stati ritenuti inutili alla discussione e rimossi dai redattori della proposta"
     quorum_minutes: "fino al <b>%{date}</b> %{time}"
     quorum_valutations: "finché non sarà valutata da <b>almeno %{valutations} persone</b>"
     quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
@@ -1541,7 +1552,7 @@ it-IT:
       view_proposal: "%{click_here} per visualizzare la proposta."
     text_update:
       view_proposal: "La proposta <b>%{proposal}</b> è stata aggiornata!"
-      integrated_contributes: "Complimenti! I seguenti contributi che avevi inserito sono stati integrati dall'autore:"
+      integrated_contributes: "Complimenti! I seguenti contributi che avevi inserito sono stati integrati dal redattore:"
       view_proposal_2: "%{click_here} e verifica che il nuovo testo contenga i tuoi suggerimenti.<br/>Se non sei soddisfatto potrai sempre rimettere i tuoi contributi in dibattito estraendoli dalla History."
       connect: "Collegati a %{name}"
     unintegrated_contribute:

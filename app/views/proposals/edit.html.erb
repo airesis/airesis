@@ -153,7 +153,6 @@
     </div>
 
     <hr/>
-    <h4><%= t('pages.proposals.edit.edit_proposal') %></h4>
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
@@ -681,7 +680,7 @@
 <% content_for :left_panel do %>
     <div class="edit_proposal_panel">
       <div class="mybox">
-        <%= link_to 'Aggiorna', '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
+        <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
         <%= link_to 'Comprimi soluzioni', '#', onclick: 'return compressSolutions();', data: {other: 'Espandi soluzioni'}, class: 'compress btn' %>
         <%= link_to 'Nascondi contributi', '#', onclick: 'return hideContributes();', data: {other: 'Mostra contributi'}, class: 'contributes btn' %>
       </div>

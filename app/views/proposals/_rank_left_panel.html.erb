@@ -44,8 +44,7 @@
 <br/>
 <% if @proposal.updated_at != @proposal.created_at %>
     <span>
-      <%= t('pages.proposals.show.updated_at_html',time_ago:time_ago_in_words(@proposal.updated_at), date:(l @proposal.updated_at))
-      %>
+      <%= t('pages.proposals.show.updated_at_html',time_ago:time_ago_in_words(@proposal.updated_at), date:(l @proposal.updated_at))%>
     </span>
 <br/>
 <% end %>

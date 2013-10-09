@@ -31,7 +31,7 @@
 
 <% content_for :left_panel do %>
     <div class="mybox">
-      <h4><%= t('frm.topic_tools') %></h4> <!--TODO:I18n-->
+      <h4><%= t('frm.forum.topic_tools') %></h4>
 
       <div class='btn-group'>
         <%= render 'proposals/new_proposal' %>
@@ -64,10 +64,10 @@
 
     <% if forem_admin? %>
         <div class="mybox">
-          <h4><%= t('frm.admin_tools') %></h4> <!--TODO:I18n-->
+          <h4><%= t('frm.forum.admin_tools') %></h4>
 
           <div class='btn-group'>
-            <%= link_to t('frm.topic.links.edit'), edit_group_frm_admin_topic_url(@group, @topic), :class => "btn draftsButton" %>
+            <%= link_to t('frm.topic.links.edit'), edit_group_frm_admin_topic_url(@group, @topic), :class => "btn editButton" %>
             <%= link_to t("frm.topics.show.hide.#{@topic.hidden}"), toggle_hide_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn hideButton", disable_with:t('loading') %>
             <%= link_to t("frm.topics.show.lock.#{@topic.locked}"), toggle_lock_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn lockButton", disable_with:t('loading')  %>
             <%= link_to t("frm.topics.show.pin.#{@topic.pinned}"), toggle_pin_group_frm_admin_topic_url(@group, @topic), :method => :put, :class => "btn pinButton", disable_with:t('loading')  %>

@@ -42,9 +42,9 @@ it-IT:
       group:
         index: Gestisci Gruppi di Moderatori
         new: Crea un nuovo Gruppo di moderatori
-        created: Il gruppo di moderatori è stato creato.
-        not_created: Non è stato possibile creare il gruppo di moderatori.
-        deleted: Il gruppo di moderatori selezionato è stato eliminato.
+        created: Il gruppo di moderatori è stato creato
+        not_created: Non è stato possibile creare il gruppo di moderatori
+        deleted: Il gruppo di moderatori selezionato è stato eliminato
         members: "Membri del gruppo %{group}"
       groups:
         show:
@@ -59,11 +59,11 @@ it-IT:
         new: Crea una nuova Sezione Forum
         edit: "Modifica sezione %{title}"
         new_link: Nuova Sezione Forum
-        deleted: La sezione del forum selezionata è stata cancellata.
-        created: La sezione del forum è stata creata.
-        not_created: Non è stato possibile creare la sezione del forum.
-        updated: La sezione del forum è stata aggiornata.
-        not_updated: Non è stato possibile aggiornare la sezione del forum.
+        deleted: La sezione del forum selezionata è stata cancellata
+        created: La sezione del forum è stata creata
+        not_created: Non è stato possibile creare la sezione del forum
+        updated: La sezione del forum è stata aggiornata
+        not_updated: Non è stato possibile aggiornare la sezione del forum
       categories:
         edit: Modifica
         delete: Elimina
@@ -72,7 +72,7 @@ it-IT:
     common:
       pages: Pagine
     errors:
-      not_signed_in: Devi fare il login.
+      not_signed_in: Devi fare il login
       access_denied: Accesso negato.
     forum:
       header: "Stai vedendo %{title}"
@@ -88,6 +88,8 @@ it-IT:
         one: 1 messaggio
         other: "%{count} messaggi"
       moderator_tools: "Strumenti Moderazione"
+      topic_tools: "Strumenti Topic"
+      admin_tools: "Strumenti di amministrazione"
     forums:
       index:
         title: Forums
@@ -102,9 +104,9 @@ it-IT:
         posts: Messaggi
         views: Visite
       moderation:
-        success: Il topic modificato è stato moderato.
-        no_option_selected: Nessuna opzione di moderazione selezionata.
-      received_reply: Un topic a cui sei iscritto ha ricevuto risposta.
+        success: Il topic modificato è stato moderato
+        no_option_selected: Nessuna opzione di moderazione selezionata
+      received_reply: Un topic a cui sei iscritto ha ricevuto risposta
       reply: Rispondi
       quote: Quota
       delete: Elimina
@@ -115,7 +117,7 @@ it-IT:
       deleted: Il tuo topic è stato eliminato
       cannot_delete: Non puoi eliminare topic che non ti appartengono
       updated: Il topic è stato aggiornato
-      not_updated: Non è stato possibile aggiornare il topic              de
+      not_updated: Non è stato possibile aggiornare il topic
       subscribed: Ti sei iscritto al topic
       unsubscribed: Non sei più iscritto al topic
       none: Al momento non ci sono topic in questo forum
@@ -154,8 +156,8 @@ it-IT:
       buttons:
         reply: Rispondi
         edit: Modifica
-      created: La tua risposta è stata inviata.
-      new: Invia risposta a
+      created: La tua risposta è stata inviata
+      new: Risposta a
       edit: Modifica post
       not_created: Non è stato possibile inviare la tua risposta
       not_created_topic_locked: Non puoi rispondere a un topic bloccato
@@ -173,10 +175,9 @@ it-IT:
       post:
         pending_review: Questo messaggio sta aspettando revisione. Solo l'autore e i moderatori possono vederlo.
         in_reply_to: in risposta a
-      reply_to_post:
-        in_reply_to: "in risposta a"
     moderation:
-      title: "Strumenti moderazione per %{forum}"
+      index:
+        title: "Strumenti moderazione per %{forum}"
   helpers:
     submit:
       frm_forum:
@@ -227,4 +228,4 @@ it-IT:
         create_first: Non è stato ancora definito nessun gruppo di moderatori. Crea il primo!
   info:
     members:
-      ok_message: %Q(Utene aggiunto al gruppo correttamente)
+      ok_message: Utente aggiunto al gruppo correttamente

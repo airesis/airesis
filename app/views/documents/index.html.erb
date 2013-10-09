@@ -5,13 +5,12 @@
 
 <% end %>
 
-<div id="storage_size_container">
-  <%= render :partial => 'storage_size' %>
-</div>
-
 
 <%if can? :view_documents, @group %>
-<div id="elfinder"></div>
+    <div id="storage_size_container">
+    <%= render :partial => 'storage_size' %>
+    </div>
+    <div id="elfinder"></div>
 
 <script type="text/javascript" charset="utf-8">
     $(function () {

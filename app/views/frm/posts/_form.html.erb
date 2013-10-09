@@ -1,5 +1,4 @@
 <p>
-  <label><%=t('simple_form.labels.post.text') %></label>
 <%= f.cktext_area :text, ckeditor: {toolbar: 'forum', language: I18n.locale}%>
 <% if params[:reply_to_id] %>
   <%= f.hidden_field :reply_to_id, :value => params[:reply_to_id] %>
