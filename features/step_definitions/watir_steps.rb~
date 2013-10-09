@@ -1,0 +1,93 @@
+require 'rubygems'
+require 'watir-webdriver'
+
+browser = Watir::Browser.new
+
+Given(/^I am on the root page$/) do
+  browser.goto 'http://localhost:3000'
+  #pending # express the regexp above with the code you wish you had
+end
+
+Given(/^I type in email and password$/) do
+  browser.text_field(:id => 'user_login').set 'fakeemailaddress+55@fake.fake'
+  browser.text_field(:id => 'user_password').set 'rakesh123'
+  #pending # express the regexp above with the code you wish you had
+end
+
+Given(/^I click on login button "(.*?)"$/) do |arg1|
+  browser.button(:class => 'btn btn-success btn-large').click
+  #pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should be on the home page$/) do
+  browser.url.should == "http://localhost:3000/home"
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^I click on link Groups$/) do  
+  browser.span(:text=>"GROUPS").click
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^I click on link PROPOSALS$/) do
+  browser.div(:class=>"p2").link(:text=>"PROPOSALS").click
+  #pending # express the regexp above with the code you wish you had
+end
+
+
+Then(/^I should be on the proposals page$/) do
+  browser.url.should ==  'http://localhost:3000/proposals'
+  #pending # express the regexp above with the code you wish you had
+end
+
+
+When(/^I click on button Create a proposal$/) do
+  browser.div(:id=>"menu-left").link(:id=>"nuova_proposta").click  
+  #pending # express the regexp above with the code you wish you had
+end
+
+Then(/^Initial information tab must be active on pop up$/) do
+  browser.li(:class=>"bread-crumb-active").div(:class=>"first step_title").exists?
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^I Provide Title$/) do
+  browser.text_field(:id=>"proposal_title").set "#{(0...8).map { (65 + rand(26)).chr }.join}"
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^I select a category$/) do
+  browser.link(:class=>"dd-selected").label(:class=>"dd-selected-text").click
+  browser.label(:text=>"Uncategorized").click   
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^click button Next$/) do
+  browser.button(:id=>"form-wizard-next").click
+  #pending # express the regexp above with the code you wish you had
+end
+
+Then(/^Problems and objectives tab must be active on pop up$/) do  
+  browser.li(:class=>"bread-crumb-active").div(:text=>"Problems and objectives").exists?
+  #pending # express the regexp above with the code you wish you had
+end
+
+When(/^I Type into the text editor$/) do
+browser.frame(:id,'proposal_sections_attributes_0_paragraphs_attributes_0_content_ifr').send_keys "testing"
+  #pending # express the regexp above with the code you wish you had
+end
+
+Then(/^Creation of the proposal tab must be active$/) do
+  browser.li(:class=>"bread-crumb-active").div(:text=>"Creation of the proposal").exists?
+  #pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I click on Create the proposal button$/) do
+  debugger
+  browser.div(:id=>"proposal_quorum_id_container").click  
+  browser.ul(:class=>"dd-options dd-click-off-close").li[0]
+  browser.input(:value=>"Create the proposal").click
+  pending # express the regexp above with the code you wish you had
+end
+
+
