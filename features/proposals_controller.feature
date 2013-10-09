@@ -1,0 +1,32 @@
+  @javascript
+  Feature: Proposal controller
+    In order to test Proposal controller functionality
+    as an user
+    I want various following scenarios.
+
+ Scenario: To check if user is logged in.
+    Given I am on the root page
+    And I type in email and password
+    And I click on login button "btn btn-success btn-large"
+    Then I should be on the home page
+
+
+  Scenario: To check if proposal page is opened after logging in.    
+    When I click on link Groups
+    And I click on link PROPOSALS
+    Then I should be on the proposals page
+
+  Scenario: To check if proposal is created.    
+    When I click on button Create a proposal
+    Then Initial information tab must be active on pop up
+    When I Provide Title
+    And I select a category
+    And click button Next
+    Then Problems and objectives tab must be active on pop up
+    When I Type into the text editor
+    And click button Next
+    Then Creation of the proposal tab must be active
+    Then I click on select a quorum drop down
+    Then I click on Create the proposal button
+    Then I should be asked to update the proposal
+    And I should see the new proposal

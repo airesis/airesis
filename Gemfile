@@ -130,10 +130,13 @@ gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-group :test, :development do
+group :test do
   gem "rspec-rails", "~> 2.4"
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem "watir-rails"
 end
 
 gem 'globalize3'
