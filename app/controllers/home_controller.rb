@@ -73,30 +73,31 @@ class HomeController < ApplicationController
   end
 
   def feedback
-    feedback = JSON.parse(params[:data])
-    data = feedback[1][22..-1] if feedback[1]#get the feedback image data
-
-
-    feedback = SentFeedback.new(message: feedback[0]['message'])
-
-    feedback.email = current_user.email if current_user #save user email if is logged in
-
-    if data
-      temp_file = Tempfile.new(['tmp','.png'], encoding: 'ascii-8bit')
-      begin
-        temp_file.write(Base64.decode64(data))
-        feedback.image = temp_file
-      ensure
-        temp_file.close
-        temp_file.unlink
-      end
-    end
-    feedback.save!
-
-    ResqueMailer.feedback(feedback.id).deliver
     respond_to do |format|
       format.html {render :nothing => true}
-      format.js {}
+      format.js {
+        feedback = JSON.parse(params[:data])
+        data = feedback[1][22..-1] if feedback[1]#get the feedback image data
+
+
+        feedback = SentFeedback.new(message: feedback[0]['message'])
+
+        feedback.email = current_user.email if current_user #save user email if is logged in
+
+        if data
+          temp_file = Tempfile.new(['tmp','.png'], encoding: 'ascii-8bit')
+          begin
+            temp_file.write(Base64.decode64(data))
+            feedback.image = temp_file
+          ensure
+            temp_file.close
+            temp_file.unlink
+          end
+        end
+        feedback.save!
+
+        ResqueMailer.feedback(feedback.id).deliver
+      }
     end
   end
 

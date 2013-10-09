@@ -2,9 +2,10 @@
 <div id="fb-root"></div>
 <script>
 
-    var Airesis = {}
+    var Airesis = {};
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
 
+    var $viewport = $('html, body');
 
     $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, {
         style: {

@@ -7,8 +7,10 @@ module NotificationHelper
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
-      alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
-      alert.save! #invia la notifica
+      UserAlert.transaction do #we need to close the transaction before scheduling the email because sometimes the worker starts before the transaction has been commited and can't find the alert throwing an error.
+        alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
+        alert.save! #invia la notifica
+      end
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
       if (!user.blocked_email_notifications.include? notification.notification_type) && user.email
         ResqueMailer.notification(alert.id).deliver
@@ -43,7 +45,7 @@ module NotificationHelper
   #invia le notifiche quando un una proposta viene modificata
   #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
   def notify_proposal_has_been_updated(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil), 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title, 'i18n' => 't'}
     data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
@@ -108,9 +110,7 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la proposta è in votazione
-  def notify_proposal_in_vote(proposal, group=nil)
-
-
+  def notify_proposal_in_vote(proposal, group=nil, group_area=nil)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
@@ -125,7 +125,9 @@ module NotificationHelper
     notification_b.save
 
     users = group ?
-        group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
         proposal.partecipants
 
     users.each do |user|
@@ -140,8 +142,8 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la votazione è terminata
-  def notify_proposal_voted(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s,'title' => proposal.title, 'i18n' => 't', 'extension' => 'voted'}
+  def notify_proposal_voted(proposal, group=nil, group_area=nil)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'voted'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
 
@@ -155,7 +157,9 @@ module NotificationHelper
     notification_b.save
 
     users = group ?
-        group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
         proposal.partecipants
 
     users.each do |user|
@@ -168,7 +172,6 @@ module NotificationHelper
 
 
   end
-
 
 
   #invia le notifiche quando la proposta è stata abbandonata

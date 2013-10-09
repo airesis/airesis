@@ -243,8 +243,9 @@ class EventsController < ApplicationController
   end  
 
   def load_event 
-    @event = Event.find_by_id(params[:id])
+    @event = Event.find(params[:id])
     @group = @event.meeting_organizations.first.group rescue nil
+
   end
 
   def check_events_permissions
@@ -254,5 +255,17 @@ class EventsController < ApplicationController
     permissions_denied if (cannot? :create_event, @group)
   end
 
+
+  private
+
+  def render_404(exception=nil)
+    log_error(exception) if exception
+    respond_to do |format|
+      @title = t('error.error_404.events.title')
+      @message = t('error.error_404.events.description')
+      format.html { render "errors/404", :status => 404, :layout => true }
+    end
+    true
+  end
 
 end

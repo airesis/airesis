@@ -72,6 +72,8 @@ class User < ActiveRecord::Base
   has_many :interest_borders, :through => :user_borders, :class_name => 'InterestBorder'
 
   has_many :user_alerts, :class_name => 'UserAlert', :order => 'user_alerts.created_at DESC'
+  has_many :unread_alerts, :class_name => 'UserAlert', conditions: 'user_alerts.checked = false'
+
   has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
   has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
 
@@ -239,7 +241,7 @@ class User < ActiveRecord::Base
 
 
   def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
+    write_attribute :login, (value.try(:downcase))
   end
 
   #determina se un oggetto appartiene all'utente verificando che 

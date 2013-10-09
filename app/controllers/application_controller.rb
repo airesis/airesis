@@ -167,17 +167,17 @@ class ApplicationController < ActionController::Base
   end
 
   #risposta generica nel caso non si abbiano i privilegi per eseguire l'operazione
-  def permissions_denied
+  def permissions_denied(exception=nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:error] = t('error.permissions_required')
+        flash.now[:error] =  exception.message
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
         store_location
-        flash[:error] = t('error.permissions_required')
+        flash[:error] = exception.message
         if request.env["HTTP_REFERER"]
           redirect_to :back
         else
@@ -293,7 +293,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    permissions_denied
+    permissions_denied(exception)
   end
 
   #check as rode all the alerts of the page.
@@ -310,7 +310,7 @@ class ApplicationController < ActionController::Base
               if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
                 flash[:info] = t('info.proposal.available_authors')
               end
-              @unread.update_all(:checked => true)
+              @unread.check_all
             else
           end
         when 'blog_posts'
@@ -318,7 +318,7 @@ class ApplicationController < ActionController::Base
             when 'show'
               #mark as checked all user alerts about this proposal
               @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'blog_post_id', @blog_post.id.to_s, false])
-              @unread.update_all(:checked => true)
+              @unread.check_all
             else
           end
         else

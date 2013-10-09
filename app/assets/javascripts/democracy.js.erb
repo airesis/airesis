@@ -2,7 +2,8 @@
 }});
 
 
-var $viewport = $('html, body');
+
+
 function scrollToElement(element) {
     $viewport.animate({
         scrollTop: element.offset().top - 100
@@ -359,12 +360,12 @@ function upperMinutes(date, step) {
 }
 
 function dateToString(date) {
-    var day_ = end_.getDate()
-    var month_ = end_.getMonth() + 1
-    var year_ = end_.getFullYear()
+    var day_ = date.getDate()
+    var month_ = date.getMonth() + 1
+    var year_ = date.getFullYear()
 
-    var hours_ = end_.getHours()
-    var minutes_ = end_.getMinutes()
+    var hours_ = date.getHours()
+    var minutes_ = date.getMinutes()
 
     if (minutes_ < 10)
         minutes_ = "0" + minutes_
@@ -627,9 +628,24 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            $('#alert_cont_' + id + ' .mess.new').removeClass('new');
             var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
             box_.remove();
+            $('#alert_cont_' + id + ' .mess.new').each(function() {
+                $(this).removeClass('new');
+                var proposal_id = $(this).data('proposal-id');
+                if (proposal_id) {
+                    $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
+                        var num_ = parseInt($(this).html());
+                        if (num_ > 1) {
+                            num_ -= 1;
+                            $(this).html(num_);
+                        }
+                        else {
+                            $(this).remove();
+                        }
+                    });
+                }
+            });
         }
     });
 }

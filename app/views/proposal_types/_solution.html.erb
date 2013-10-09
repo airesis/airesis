@@ -16,7 +16,7 @@
                 </div>
               </h3>
               <div class="sol_content">
-                <div class="solutions_column">
+                <div class="solutions_column" data-solution_id="">
 
                   <%= sol.hidden_field :seq %>
                   <%= sol.check_box '_destroy', style: 'display:none' %>
@@ -45,7 +45,7 @@
 
 
                   <div class="new_section">
-                    <a href="#" onclick="addSolutionSection(this);return false;" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+                    <a href="#" onclick="addSolutionSection(this);return false;"  data-solution_id="" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
                   </div>
 
                 </div>

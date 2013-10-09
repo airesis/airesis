@@ -988,7 +988,7 @@ it-IT:
         proposals_now_voting: "Proposte in votazione adesso"
     open_space:
       layout:
-        proposals_button: "LE PROPOSTE"
+        proposals_button: "PROPOSTE"
         calendar_button: "CALENDARIO"
         map_button: "MAPPA"
     proposal_supports:
@@ -1428,6 +1428,12 @@ it-IT:
       proposals:
         title: "Questa proposta non esiste"
         description: "La proposta che cerchi non esiste o è stata cancellata"
+	  blog_posts:
+        title: "Questo post non esiste"
+        description: "Il post che cerchi non esiste o è stato cancellato"
+      events:
+        title: "Questo evento non esiste"
+        description: "L'evento che cerchi non esiste o è stato cancellato"
       title: "La pagina che cerchi non esiste"
       description: "Potresti aver sbagliato indirizzo, oppure la pagina non esiste più"
     error_500:

@@ -1,7 +1,7 @@
 <div class="title">
   <%= t('pages.groups.show.last_proposals') %>
 </div>
-<% @c = @group.internal_proposals.order('created_at desc').limit(10) %>
+<% @c = Proposal.group_portlet(@group,current_user) %>
 <% unless @c.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
       <%= render partial: 'proposals/mini_proposal', collection: @c, as: 'proposal' %>

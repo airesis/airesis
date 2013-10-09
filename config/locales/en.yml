@@ -1430,6 +1430,12 @@ en:
         description: "The proposal you are looking for doesn't exist or has been deleted"
       title: "The page you are looking for doesn't exist"
       description: "Your address might be wrong, or this page does no longer exist"
+	  blog_posts:
+       title: "This post doesn't exist"
+       description: "The post you are looking for doesn't exist or has been deleted"
+      events:
+       title: "This event doesn't exist"
+       description: "The event you are looking for doesn't exist or has been deleted"
     error_500:
       title: "Oops...our mistake"
       description: "A  report has been sent and the problem will be fixed as soon as possible."

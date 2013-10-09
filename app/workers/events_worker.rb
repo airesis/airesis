@@ -36,7 +36,7 @@ class EventsWorker
         vote_data.save!
       end
       proposal.private ?
-          notify_proposal_in_vote(proposal, proposal.presentation_groups.first) :
+          notify_proposal_in_vote(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_in_vote(proposal)
 
     end #end each
@@ -83,7 +83,7 @@ class EventsWorker
       end
       proposal.save!
       proposal.private ?
-          notify_proposal_voted(proposal, proposal.presentation_groups.first) :
+          notify_proposal_voted(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_voted(proposal)
     end #end each
     ResqueMailer.admin_message(msg).deliver

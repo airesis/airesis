@@ -250,51 +250,41 @@ class Group < ActiveRecord::Base
 
   def self.look(params)
     search = params[:search]
+    params[:minimum] = params[:and] ? nil : 1
+
     tag = params[:tag]
 
     page = params[:page] || 1
 
-    #retrieve all possible interest borders
-    if params[:interest_border_obj]
-      if params[:area]
-        @interest_borders = params[:interest_border_obj].id
-      else
-        @interest_borders = []
-        @interest_borders << params[:interest_border_obj].id
-        if params[:interest_border_obj].territory_type == InterestBorder::CONTINENTE
-          statos = params[:interest_border_obj].territory.statos
-          stato_ids = InterestBorder.where({territory_id: statos.pluck(:id), territory_type: 'Stato'}).pluck(:id)
-          @interest_borders += stato_ids
-          regiones = Regione.where(:stato_id => statos.pluck(:id))
-          @interest_borders += pluck_regiones(regiones)
-        elsif params[:interest_border_obj].territory_type == InterestBorder::STATO
-          regiones = params[:interest_border_obj].territory.regiones
-          @interest_borders += pluck_regiones(regiones)
-        elsif params[:interest_border_obj].territory_type == InterestBorder::REGIONE
-          provincias = params[:interest_border_obj].territory.provincias
-          @interest_borders += pluck_provincias(provincias)
-        elsif params[:interest_border_obj].territory_type == InterestBorder::PROVINCIA
-          comunes = params[:interest_border_obj].territory.comunes
-          @interest_borders += pluck_comunes(comunes)
-        end
-
-      end
-      params[:interest_border_ids] = @interest_borders
-    end
-
-    if search.to_s != '' then
+    if tag then
+      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
+    else
       Group.search do
-        fulltext search
-        with(:interest_border_id, params[:interest_border_ids]) if params[:interest_border_obj]
+        fulltext search, :minimum_match => params[:minimum] if search
+        #retrieve all possible interest borders
+        if params[:interest_border_obj]
+          border = params[:interest_border_obj]
+          if params[:area]
+            with(:interest_border_id,border.id)
+          else
+          if border.is_continente?
+            with(:continente_id, border.territory.id)
+          elsif border.is_stato?
+            with(:stato_id, border.territory.id)
+          elsif border.is_regione?
+            with(:regione_id, border.territory.id)
+          elsif border.is_provincia?
+            with(:provincia_id, border.territory.id)
+          elsif border.is_comune?
+            with(:comune_id, border.territory.id)
+          elsif border.is_circoscrizione?
+            with(:circoscrizione_id, border.territory.id)
+          end
+          end
+        end
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
       end.results
-    elsif params[:interest_border_obj]
-      Group.all(:conditions => {:interest_border_id => @interest_borders}, :order => 'group_partecipations_count desc, created_at desc', limit: 30)
-    elsif tag then
-      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
-    else
-      []
     end
   end
 
@@ -308,33 +298,28 @@ class Group < ActiveRecord::Base
     integer :interest_border_id
     integer :group_partecipations_count
     time :created_at
+    integer :continente_id do
+      self.interest_border.continente.try(:id)
+    end
+    integer :stato_id do
+      self.interest_border.stato.try(:id)
+    end
+    integer :regione_id do
+      self.interest_border.regione.try(:id)
+    end
+    integer :provincia_id do
+      self.interest_border.provincia.try(:id)
+    end
+    integer :comune_id do
+      self.interest_border.comune.try(:id)
+    end
+    integer :circoscrizione_id do
+      self.interest_border.circoscrizione.try(:id)
+    end
   end
 
 
   private
-
-  def self.pluck_regiones(regiones)
-    interest_borders = []
-    regione_ids = InterestBorder.where({territory_id: regiones.pluck(:id), territory_type: 'Regione'}).pluck(:id)
-    interest_borders += regione_ids
-    provincias = Provincia.where(:regione_id => regiones.pluck(:id))
-    interest_borders += pluck_provincias(provincias)
-  end
-
-  def self.pluck_provincias(provincias)
-    interest_borders = []
-    provincia_ids = InterestBorder.where({territory_id: provincias.pluck(:id), territory_type: 'Provincia'}).pluck(:id)
-    interest_borders += provincia_ids
-
-    comunes = Comune.where(:provincia_id => provincias.pluck(:id))
-    interest_borders += pluck_comunes(comunes)
-  end
-
-  def self.pluck_comunes(comunes)
-    interest_borders = []
-    comune_ids = InterestBorder.where({territory_id: comunes.pluck(:id), territory_type: 'Comune'}).pluck(:id)
-    interest_borders += comune_ids
-  end
 
   def self.autocomplete(term)
     where("lower(groups.name) LIKE :term", {term: "%#{term.downcase}%"}).

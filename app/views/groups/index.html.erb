@@ -68,17 +68,24 @@
 </div>
 -->
 
-<h1><%= t('pages.groups.index.find_group_label') %></h1>
+<h1 xmlns="http://www.w3.org/1999/html"><%= t('pages.groups.index.find_group_label') %></h1>
 <!--<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">-->
 <div style="max-width: 600px;" id="group_search_form">
   <fieldset style="margin-right:10px;">
-    <legend><%= t('pages.groups.index.search_mask')%></legend>
+    <legend><%= t('pages.groups.index.search_mask') %></legend>
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
         <p>
-          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
-          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
-        </p>
 
+          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
+
+        <div style="float:left">
+          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
+        </div>
+        <div style="float:left;margin-left:10px;">
+          <%= check_box_tag :and, params[:and], :title => "Scegli se cercare tutte le parole o almeno una" %>
+        </div>
+        </p>
+        <div class="clearboth"></div>
         <p>
           <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>      <br/>
 
@@ -96,11 +103,11 @@
 </div>
 <!--<div style="float:left; width: 452px">
   <fieldset>
-    <legend><%= t('pages.groups.index.tags')%></legend>
+    <legend><%= t('pages.groups.index.tags') %></legend>
     <div id="tag_cloud">
       <% @tags.each do |tag| %>
-          <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
-      <% end %>
+    <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
+<% end %>
     </div>
   </fieldset>
 </div>
@@ -110,11 +117,11 @@
 
 
 <div id="groups_list">
-  <%if @groups.count > 0 %>
-  <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
-      <%else %>
-  <h2><%= t('pages.groups.index.search_description') %></h2>
-      <%end%>
+  <% if @groups.count > 0 %>
+      <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+  <% else %>
+      <h2><%= t('pages.groups.index.search_description') %></h2>
+  <% end %>
   <div style="clear: both"></div>
 </div>
 <div class="clearboth"></div>
@@ -189,6 +196,14 @@
         off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
         on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico',
         off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
+    });
+
+    $("#and").switchButton({
+        checked: <%=params[:and] == 'on' %>,
+        on_label: $('<div>&</div>'),
+        off_label: $('<div>||</div>'),
+        on_title: 'Tutti i gruppi che contengono entrambe le parole',
+        off_title: 'Tutti i gruppi che contengono almeno una parola'
     });
 
     $('.switch-button-label.on, .switch-button-label.off').qtip({

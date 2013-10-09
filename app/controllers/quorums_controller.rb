@@ -142,7 +142,7 @@ class QuorumsController < ApplicationController
   private
   def check_permissions
     return  if current_user.admin? || (@group.portavoce.include? current_user)
-    flash[:error] = t(:permissions_required)
+    flash[:error] = t('unauthorized.default')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

@@ -37,65 +37,9 @@ class ProposalsController < ApplicationController
 
   before_filter :check_page_alerts, only: :show
 
-  def search
-    authorize! :view_proposal, @group
-
-    my_areas_ids = current_user.scoped_areas(@group.id, GroupAction::PROPOSAL_VIEW).pluck('group_areas.id')
-
-    #params[:group_id] = @group.id
-    @search = Proposal.search(:include => [:category, :quorum, {:users => [:image]}, :vote_period]) do
-      fulltext params[:search], :minimum_match => params[:or]
-      all_of do
-        any_of do
-          with(:presentation_group_ids, params[:group_id])
-          with(:group_ids, params[:group_id])
-        end
-        any_of do
-          with(:visible_outside, true)
-          with(:presentation_area_ids, nil)
-          with(:presentation_area_ids, my_areas_ids) unless my_areas_ids.empty?
-        end
-      end
-    end
-
-    #conditions += " and ((proposal_supports.group_id = " + @group.id.to_s + " and proposals.private = 'f')"
-    #conditions += "      or (group_proposals.group_id = " + @group.id.to_s + " and proposals.visible_outside = 't')"
-    #if can? :view_proposal, @group
-    #  conditions += " or (group_proposals.group_id = " + @group.id.to_s + " and proposals.private = 't')"
-    #end
-    #conditions += ")"
-
-    @proposals = @search.results
-
-  rescue Exception => e
-    log_error e
-    @proposals = []
-    flash[:error] = 'Servizio di indicizzazione non attivo. Spiacenti.'
-  end
 
   def index
-    @search = SearchProposal.new
-    if params[:category] && !params[:category].empty?
-      @search.proposal_category_id = params[:category]
-    end
-    if params[:type] && !params[:type].empty?
-      @search.proposal_type_id = params[:type]
-    end
-    if params[:group_area_id]
-      @group_area = GroupArea.find(params[:group_area_id])
-      @search.group_area_id = params[:group_area_id]
-    end
-    if current_user
-      @search.user_id = current_user.id
-    end
-    if @group
-      @search.group_id = @group.id
-    end
-    if params[:time]
-      @search.created_at_from = params[:time][:start]
-      @search.created_at_to = params[:time][:end]
-      @search.time_type = params[:time][:type]
-    end
+    populate_search
 
     if @group
       authorize! :view_data, @group
@@ -112,10 +56,15 @@ class ProposalsController < ApplicationController
     end
 
 
-    @in_valutation_count = @search.results.in_valutation.count
-    @in_votation_count = @search.results.in_votation.count
-    @accepted_count = @search.results.voted.count
-    @revision_count = @search.results.revision.count
+
+    @search.proposal_state_id = ProposalState::TAB_DEBATE
+    @in_valutation_count = @search.results.total_entries
+    @search.proposal_state_id = ProposalState::TAB_VOTATION
+    @in_votation_count = @search.results.total_entries
+    @search.proposal_state_id = ProposalState::TAB_VOTED
+    @accepted_count = @search.results.total_entries
+    @search.proposal_state_id = ProposalState::TAB_REVISION
+    @revision_count = @search.results.total_entries
 
     respond_to do |format|
       format.html # index.html.erb
@@ -380,7 +329,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group ? @group.id : nil)
+        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
       end #end transaction
       @saved = true
 
@@ -576,7 +525,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.html {
         flash[:notice] = I18n.t('info.proposal.proposal_deleted')
-        redirect_to(proposals_url)
+        redirect_to @group ? group_proposals_url(@group) : proposals_url
       }
       format.xml { head :ok }
     end
@@ -756,17 +705,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   #query per la ricerca delle proposte
   def query_index
-    @search = SearchProposal.new
-    @search.order_id = params[:view]
-    if current_user
-      @search.user_id = current_user.id
-    end
-
-    @search.proposal_state_id = params[:state]
-
-    if params[:type] && !params[:type].empty?
-      @search.proposal_type_id = params[:type]
-    end
+    populate_search
 
     if params[:state] == ProposalState::VOTATION_STATE
       @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
@@ -778,23 +717,10 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
     end
 
-    @search.proposal_category_id = params[:category]
 
-    #applica il filtro per il gruppo
-    if params[:group_id]
-      @search.group_id = params[:group_id]
-      if params[:group_area_id]
-        @search.group_area_id = params[:group_area_id]
-      end
-    end
 
-    if params[:time]
-      @search.created_at_from = params[:time][:start]
-      @search.created_at_to = params[:time][:end]
-      @search.time_type = params[:time][:type]
-    end
 
-    @proposals = @search.results.page(params[:page]).per(PROPOSALS_PER_PAGE)
+    @proposals = @search.results
   end
 
   def update_borders(borders)
@@ -913,7 +839,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def can_view
     unless can? :read, @proposal
-      flash[:error] = I18n.t('error.permissions_required')
+      flash[:error] = t('unauthorized.default')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
@@ -982,6 +908,42 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     else
       return true
     end
+  end
+
+
+  def populate_search
+    @search = SearchProposal.new
+    @search.order_id = params[:view]
+
+    if current_user
+      @search.user_id = current_user.id
+    end
+
+    @search.proposal_type_id = params[:type]
+
+    @search.proposal_state_id = params[:state]
+
+    @search.proposal_category_id = params[:category]
+
+    #applica il filtro per il gruppo
+    if params[:group_id]
+      @search.group_id = params[:group_id]
+      if params[:group_area_id]
+        @group_area = GroupArea.find(params[:group_area_id])
+        @search.group_area_id = params[:group_area_id]
+      end
+    end
+
+    if params[:time]
+      @search.created_at_from = Time.at(params[:time][:start].to_i) if params[:time][:start]
+      @search.created_at_to = Time.at(params[:time][:end].to_i) if params[:time][:end]
+      @search.time_type = params[:time][:type]
+    end
+    @search.text = params[:search]
+    @search.or = params[:or]
+
+    @search.page = params[:page] || 1
+    @search.per_page = PROPOSALS_PER_PAGE
   end
 
 

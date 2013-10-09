@@ -61,7 +61,7 @@
 
         <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">
           <%= image_tag 'group_partecipants.png' %>
-          <span class="count"><%= proposal.partecipants.count %></span>
+          <span class="count"><%= proposal.partecipants_count %></span>
 
           <div class="authors">
             <%= t('pages.proposals.index.partecipants_number') %>
@@ -90,7 +90,7 @@
 
         <div class="alerts_and_vote">
           <% if current_user %>
-              <% count = proposal.count_notifications(current_user.id)['count'].to_i %>
+              <% count = proposal.count_notifications(current_user.id) %>
               <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
           <% end %>
         </div>
