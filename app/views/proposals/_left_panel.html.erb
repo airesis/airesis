@@ -98,7 +98,7 @@
     </div>
 <% end %>
 
-<% unless @proposal.closest(@group ? @group.id : nil).empty? %>
+<% unless @proposal.closest(@group.try(:id)).empty? %>
     <div class="mybox">
       <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
 

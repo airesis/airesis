@@ -6,6 +6,7 @@ class InterestBorder < ActiveRecord::Base
 
   belongs_to :territory, :polymorphic => true
 
+  CIRCOSCRIZIONE = 'Circoscrizione'
   COMUNE = 'Comune'
   PROVINCIA = 'Provincia'
   REGIONE = 'Regione'
@@ -21,9 +22,95 @@ class InterestBorder < ActiveRecord::Base
   TYPE_MAP = {COMUNE => SHORT_COMUNE, REGIONE => SHORT_REGIONE, PROVINCIA => SHORT_PROVINCIA, STATO => SHORT_STATO, CONTINENTE => SHORT_CONTINENTE, GENERIC => SHORT_GENERIC}
   I_TYPE_MAP = {SHORT_COMUNE => COMUNE, SHORT_REGIONE => REGIONE, SHORT_PROVINCIA => PROVINCIA, SHORT_STATO => STATO, SHORT_CONTINENTE => CONTINENTE, SHORT_GENERIC => GENERIC}
 
+  #retrieve the comune in wich is the interest border. nil if it's not inside a comune
+  def circoscrizione
+    if self.is_circoscrizione?
+      self.territory
+    else
+      nil
+    end
+  end
+
+  def comune
+    if self.is_comune?
+      self.territory
+    elsif self.territory.respond_to? :comune
+      self.territory.comune
+    else
+      nil
+    end
+  end
+
+  def provincia
+    if self.is_provincia?
+      self.territory
+    elsif self.territory.respond_to? :provincia
+      self.territory.provincia
+    else
+      nil
+    end
+  end
+
+  def regione
+    if self.is_regione?
+      self.territory
+    elsif self.territory.respond_to? :regione
+      self.territory.regione
+    else
+      nil
+    end
+  end
+
+  def stato
+    if self.is_stato?
+      self.territory
+    elsif self.territory.respond_to? :stato
+      self.territory.stato
+    else
+      nil
+    end
+  end
+
+  def continente
+    if self.is_continente?
+      self.territory
+    elsif self.territory.respond_to? :continente
+      self.territory.continente
+    else
+      nil
+    end
+  end
+
+  def is_circoscrizione?
+    self.territory_type == CIRCOSCRIZIONE
+  end
+
+  def is_comune?
+    self.territory_type == COMUNE
+  end
+
+  def is_provincia?
+    self.territory_type == PROVINCIA
+  end
+
+  def is_regione?
+    self.territory_type == REGIONE
+  end
+
+  def is_stato?
+    self.territory_type == STATO
+  end
+
+  def is_continente?
+    self.territory_type == CONTINENTE
+  end
+
+  def is_generic?
+    self.territory_type == GENERIC
+  end
 
   def description
-    return territory.description + ' (' + (territory_type == GENERIC ? territory.name : territory_type) + ')'
+    return territory.description + ' (' + (self.is_generic? ? territory.name : territory_type) + ')'
   end
 
 

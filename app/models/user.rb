@@ -241,7 +241,7 @@ class User < ActiveRecord::Base
 
 
   def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
+    write_attribute :login, (value.try(:downcase))
   end
 
   #determina se un oggetto appartiene all'utente verificando che 
