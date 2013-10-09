@@ -94,6 +94,6 @@ class ResqueMailer < ActionMailer::Base
   protected
 
   def choose_layout
-    (['invite','admin_message'].include? action_name) ? 'maktoub/unregistered_mailer' : 'maktoub/newsletter_mailer'
+    (['invite','admin_message','feedback'].include? action_name) ? 'maktoub/unregistered_mailer' : 'maktoub/newsletter_mailer'
   end
 end
