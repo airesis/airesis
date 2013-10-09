@@ -9,9 +9,7 @@ class UserAlert < ActiveRecord::Base
 
 
   def email_subject
-    group = self.notification.data[:group]
-    subject = group ? "[#{group}] " : ''
-    subject += I18n.t("db.notification_types.#{self.notification.notification_type.name}.email_subject", self.notification.data)
+    self.notification.email_subject
   end
 
 

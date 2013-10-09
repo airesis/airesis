@@ -250,6 +250,8 @@ class Group < ActiveRecord::Base
 
   def self.look(params)
     search = params[:search]
+    params[:minimum] = params[:and] ? nil : 1
+
     tag = params[:tag]
 
     page = params[:page] || 1
@@ -258,7 +260,7 @@ class Group < ActiveRecord::Base
       Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
     else
       Group.search do
-        fulltext search if search
+        fulltext search, :minimum_match => params[:minimum] if search
         #retrieve all possible interest borders
         if params[:interest_border_obj]
           border = params[:interest_border_obj]

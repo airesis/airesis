@@ -3,7 +3,7 @@ class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
   default from: "Airesis <info@airesis.it>"
 
-  layout 'maktoub/newsletter_mailer'
+  layout :choose_layout
 
   #specific templates for notification types
   TEMPLATES = { 5 => 'new_contribute', 1 => 'new_contribute', 2 => 'text_update', NotificationType::UNINTEGRATED_CONTRIBUTE => 'unintegrated_contribute', NotificationType::NEW_BLOG_COMMENT => 'new_blog_comment'}
@@ -43,6 +43,7 @@ class ResqueMailer < ActionMailer::Base
   #invia un invito ad iscriversi al gruppo
   def invite(group_invitation_id)
     @group_invitation = GroupInvitation.find(group_invitation_id)
+    I18n.locale = @group_invitation.inviter.locale.key
     @group_invitation_email = @group_invitation.group_invitation_email
     @group = @group_invitation_email.group
     mail(:to => @group_invitation_email.email, :subject => "Invito ad iscriversi a #{@group.name}")
@@ -97,4 +98,9 @@ class ResqueMailer < ActionMailer::Base
     mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", :to => @user.email, :subject => "[#{@group.name}] #{@post.topic.subject}")
   end
 
+  protected
+
+  def choose_layout
+    (['invite','admin_message','feedback'].include? action_name) ? 'maktoub/unregistered_mailer' : 'maktoub/newsletter_mailer'
+  end
 end
