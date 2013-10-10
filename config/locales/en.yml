@@ -246,6 +246,7 @@ en:
         rotp_confirm_enable: "Are you sure you want to enable the security token?"
         rotp_confirm_disable: "Are you sure you want to disable the security token?"
         mail_language: "Language for e-mails"
+        time_zone: "Time Zone"
       border_preferences:
         updating: "Please wait while we update your preferences according to your border preferences"
         your_borders: "Your geographical borders of interest"
@@ -1511,6 +1512,7 @@ en:
       update_border: "Geographical interest borders updated correctly"
       confirm_email: "You need to confirm the new email address"
       IP_disabled: "Identity Provider removed"
+      time_zone_changed: "Time zone saved"
     blog:
       blog_created: "Blog successfully created"
       title_updated: "The title of the blog has benn successfully updated"

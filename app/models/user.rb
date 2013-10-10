@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :accept_conditions, :message => I18n.t('activerecord.errors.messages.TOS')
 
   #colonne assegnabili massivamente
-  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id
+  attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id, :time_zone
 
   #relations
   has_many :proposal_presentations, :class_name => 'ProposalPresentation'

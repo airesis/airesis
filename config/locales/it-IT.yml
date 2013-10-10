@@ -246,6 +246,7 @@ it-IT:
         rotp_confirm_enable: "Sei sicuro di voler attivare il token di sicurezza?"
         rotp_confirm_disable: "Sei sicuro di voler disattivare il token di sicurezza?"
         mail_language: "Lingua per la ricezione delle email"
+        time_zone: "Fuso orario"
       border_preferences:
         updating: "Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti"
         your_borders: "I tuoi confini geografici di interesse"
@@ -1511,6 +1512,7 @@ it-IT:
       update_border: "Confini di interesse aggiornati correttamente"
       confirm_email: "Devi confermare il nuovo indirizzo email"
       IP_disabled: "Identity Provider scollegato"
+      time_zone_changed: "Fuso orario salvato"
     blog:
       blog_created: "Blog creato con successo"
       title_updated: "Il titolo del blog è stato aggiornato correttamente"
