@@ -46,9 +46,6 @@
       <%= f.check_box :accept_conditions %>
     </p>
 
-    <p>
-      <%= f.collection_select :time_zone, ActiveSupport::TimeZone.all, :name, :to_s %>
-    </p>
     <%=f.hidden_field :sys_locale_id %>
 
     <% if ::Configuration.recaptcha %>
