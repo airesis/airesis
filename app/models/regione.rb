@@ -1,4 +1,8 @@
 class Regione < ActiveRecord::Base
-  has_many :provincias, :class_name => 'Provincia'
-  #has_many :regionali_groups, :class_name => 'RegionaliGroup'
+  has_many :circoscriziones
+  has_many :comunes
+  has_many :provincias
+
+  belongs_to :stato
+  belongs_to :continente
 end

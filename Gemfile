@@ -147,3 +147,6 @@ gem 'private_pub'
 gem 'rotp'
 
 gem 'ckeditor'
+
+
+gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'

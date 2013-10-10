@@ -1,4 +1,7 @@
 class Circoscrizione < ActiveRecord::Base
-  belongs_to :comunes, :class_name => 'Comune', :foreign_key => :comune_id
-  #has_many :circoscrizioni_groups, :class_name => 'CircoscrizioniGroup'
+  belongs_to :comune
+  belongs_to :provincia
+  belongs_to :regione
+  belongs_to :stato
+  belongs_to :continente
 end
