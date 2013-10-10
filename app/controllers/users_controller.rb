@@ -188,7 +188,7 @@ class UsersController < ApplicationController
     current_user.time_zone = params[:time_zone]
     current_user.save!
 
-    flash[:notice] = "time zone changed"
+    flash[:notice] = t('info.user.time_zone_changed')
 
 
     respond_to do |format|
