@@ -146,6 +146,7 @@ Airesis::Application.routes.draw do
       post :change_receive_messages
       post :change_rotp_enabled
       post :change_locale
+      post :change_time_zone
     end
 
     member do
