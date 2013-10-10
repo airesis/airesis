@@ -202,8 +202,8 @@
         checked: <%=params[:and] == 'on' %>,
         on_label: $('<div>&</div>'),
         off_label: $('<div>||</div>'),
-        on_title: 'Tutti i gruppi che contengono entrambe le parole',
-        off_title: 'Tutti i gruppi che contengono almeno una parola'
+        on_title: 'Cerca i gruppi che contengono tutte queste parole',
+        off_title: 'Cerca i gruppi che contengono almeno una tra queste parole'
     });
 
     $('.switch-button-label.on, .switch-button-label.off').qtip({

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007142558) do
+ActiveRecord::Schema.define(:version => 20131008131715) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1263,7 +1263,7 @@ ActiveRecord::Schema.define(:version => 20131007142558) do
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
 
   create_table "users", :force => true do |t|
-    t.integer  "user_type_id",                              :default => 3,     :null => false
+    t.integer  "user_type_id",                              :default => 3,      :null => false
     t.integer  "residenza_id"
     t.integer  "nascita_id"
     t.string   "name",                      :limit => 100
@@ -1281,9 +1281,9 @@ ActiveRecord::Schema.define(:version => 20131007142558) do
     t.datetime "deleted_at"
     t.text     "state"
     t.string   "reset_password_token"
-    t.string   "encrypted_password",        :limit => 128,                     :null => false
-    t.boolean  "activist",                                  :default => false, :null => false
-    t.boolean  "elected",                                   :default => false, :null => false
+    t.string   "encrypted_password",        :limit => 128,                      :null => false
+    t.boolean  "activist",                                  :default => false,  :null => false
+    t.boolean  "elected",                                   :default => false,  :null => false
     t.string   "blog_image_url",            :limit => 1000
     t.integer  "image_id"
     t.integer  "rank"
@@ -1297,8 +1297,8 @@ ActiveRecord::Schema.define(:version => 20131007142558) do
     t.string   "account_type"
     t.datetime "remember_created_at"
     t.datetime "confirmation_sent_at"
-    t.boolean  "banned",                                    :default => false, :null => false
-    t.boolean  "receive_newsletter",                        :default => false, :null => false
+    t.boolean  "banned",                                    :default => false,  :null => false
+    t.boolean  "receive_newsletter",                        :default => false,  :null => false
     t.datetime "reset_password_sent_at"
     t.string   "facebook_page_url"
     t.string   "linkedin_page_url"
@@ -1307,14 +1307,15 @@ ActiveRecord::Schema.define(:version => 20131007142558) do
     t.string   "google_page_url"
     t.boolean  "show_tooltips",                             :default => true
     t.boolean  "show_urls",                                 :default => true
-    t.boolean  "receive_messages",                          :default => true,  :null => false
+    t.boolean  "receive_messages",                          :default => true,   :null => false
     t.string   "authentication_token"
     t.string   "rotp_secret",               :limit => 16
     t.boolean  "rotp_enabled",                              :default => false
     t.string   "blocked_name"
     t.string   "blocked_surname"
-    t.integer  "sys_locale_id",                             :default => 1,     :null => false
-    t.integer  "original_sys_locale_id",                    :default => 1,     :null => false
+    t.integer  "sys_locale_id",                             :default => 1,      :null => false
+    t.integer  "original_sys_locale_id",                    :default => 1,      :null => false
+    t.string   "time_zone",                                 :default => "Rome"
   end
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true

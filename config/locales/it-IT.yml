@@ -1428,7 +1428,7 @@ it-IT:
       proposals:
         title: "Questa proposta non esiste"
         description: "La proposta che cerchi non esiste o è stata cancellata"
-	  blog_posts:
+      blog_posts:
         title: "Questo post non esiste"
         description: "Il post che cerchi non esiste o è stato cancellato"
       events:
