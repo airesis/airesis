@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_location #store the address where you come from
   before_filter :set_locale
-  before_filter :set_timezone
+  around_filter :user_time_zone, :if => :current_user
   before_filter :prepare_for_mobile
 
 
@@ -49,8 +49,8 @@ class ApplicationController < ActionController::Base
     I18n.locale = @locale
   end
 
-  def set_timezone
-    Time.zone = current_user.time_zone if current_user
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 
   def default_url_options(options={})
