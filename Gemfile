@@ -147,6 +147,10 @@ gem 'rotp'
 
 gem 'ckeditor'
 
+
+gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'
+
+
 #added for forums
 gem 'friendly_id'
 gem 'simple_form', '1.5.0'
