@@ -195,6 +195,7 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
+      user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
 
