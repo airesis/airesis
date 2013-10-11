@@ -25,8 +25,8 @@ namespace :airesis do
       print "Press ENTER when you are ready to proceed and take a coffee"
       STDIN.gets
 
- #     sh "rake db:setup"
- #     sh "mkdir -p private/elfinder"
+      sh "rake db:setup"
+      sh "mkdir -p private/elfinder"
       Timeout::timeout(1) do
 	STDIN.gets
       end rescue nil
