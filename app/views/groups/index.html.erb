@@ -194,7 +194,7 @@
         checked: <%=params[:area] == 'on' %>,
         on_label: $('<div class="s_circle"></div>'),
         off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
-        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico',
+        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico', //TODO:I18n
         off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
     });
 
@@ -202,7 +202,7 @@
         checked: <%=params[:and] == 'on' %>,
         on_label: $('<div>&</div>'),
         off_label: $('<div>||</div>'),
-        on_title: 'Cerca i gruppi che contengono tutte queste parole',
+        on_title: 'Cerca i gruppi che contengono tutte queste parole', //TODO:I18n
         off_title: 'Cerca i gruppi che contengono almeno una tra queste parole'
     });
 

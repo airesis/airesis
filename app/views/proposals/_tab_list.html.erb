@@ -6,7 +6,7 @@
 			<%= t('pages.proposals.tabs.last_inserted') %>
       <% else %>
           <span class="order_option">
-			<%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => ORDER_BY_DATE, :replace => true, :replace_id => @replace_id), :remote => true %>
+			<%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => ORDER_BY_DATE, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per data di aggiornamento", :remote => true, disable_with: t('loading') %>
       <% end %>
       </span>
       <span class="order_separator">
@@ -18,7 +18,7 @@
 			<%= t('pages.proposals.tabs.most_popular') %>
       <% else %>
           <span class="order_option">
-			<%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => ORDER_BY_RANK, :replace => true, :replace_id => @replace_id), :remote => true %>
+			<%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => ORDER_BY_RANK, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per gradimento", :remote => true, disable_with: t('loading') %>
       <% end %>
       </span>
       <span class="order_separator">
@@ -30,7 +30,7 @@
 			<%= t('pages.proposals.tabs.most_valutated') %>
       <% else %>
           <span class="order_option">
-			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %> <!--TODO: add :title, :disable_with-->
+			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per numero di valutazioni ricevute", :remote => true, disable_with: t('loading')%> <!--TODO:I18n -->
       <% end %>
       </span>
       <span class="order_separator">
@@ -42,7 +42,7 @@
           <%= t('pages.proposals.tabs.most_urgent') %>
       <% else %>
           <span class="order_option">
-          <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id), :remote => true %>
+          <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per data di fine dibattito", :remote => true, disable_with: t('loading') %>
       <% end %>
       </span>
 

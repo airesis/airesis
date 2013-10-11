@@ -159,7 +159,7 @@
         <%= link_to 'Intervallo di date', '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
 
       </div>
-      <div id="choose_dates" style="display:none" title="Scegli intervallo di date" class="choose_dates_modal">  <!--TODO:I18n-->
+      <div id="choose_dates" style="display:none" title="<%="Scegli intervallo di date"%>" class="choose_dates_modal">  <!--TODO:I18n-->
         <h4><%= 'Indica un intervallo di date' %></h4>
         <%= form_for 'time', {url: current_url, method: :get} do |f| %>
             <p>
