@@ -229,5 +229,13 @@ class OtherStates < ActiveRecord::Migration
   end
 
   def down
+    I18n.locale = 'en'
+    Continente.find_by_description('Africa').statos.destroy_all
+    Continente.find_by_description('Asia').statos.destroy_all
+    Continente.find_by_description('Oceania').statos.destroy_all
+    Continente.find_by_description('America').statos.destroy_all
+    @ant = Continente.find_by_description('Antarctica')
+    @ant.statos.destroy_all
+    @ant.destroy
   end
 end
