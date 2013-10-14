@@ -914,6 +914,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def populate_search
     @search = SearchProposal.new
     @search.order_id = params[:view]
+    @search.order_dir = params[:order]
 
     if current_user
       @search.user_id = current_user.id

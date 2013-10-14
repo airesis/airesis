@@ -3,49 +3,59 @@
 
       <% if (!params[:view] || (params[:view] == ORDER_BY_DATE)) %>
           <span class="order_option sel">
-			<%= t('pages.proposals.tabs.last_inserted') %>
+            <%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => ORDER_BY_DATE, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), :remote => true %>
+            <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+           </span>
       <% else %>
           <span class="order_option">
 			<%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => ORDER_BY_DATE, :replace => true, :replace_id => @replace_id), :remote => true %>
+              </span>
       <% end %>
-      </span>
+
       <span class="order_separator">
         |
       </span>
 
       <% if (params[:view] == ORDER_BY_RANK) %>
           <span class="order_option sel">
-			<%= t('pages.proposals.tabs.most_popular') %>
+            <%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => ORDER_BY_RANK, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), :remote => true %>
+			<%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+      </span>
       <% else %>
           <span class="order_option">
 			<%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => ORDER_BY_RANK, :replace => true, :replace_id => @replace_id), :remote => true %>
+              </span>
       <% end %>
-      </span>
+
       <span class="order_separator">
         |
         </span>
 
       <% if (params[:view] == ORDER_BY_VOTES) %>
           <span class="order_option sel">
-			<%= t('pages.proposals.tabs.most_valutated') %>
+            <%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), :remote => true %>
+            <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+          </span>
       <% else %>
           <span class="order_option">
 			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %>
+          </span>
       <% end %>
-      </span>
+
       <span class="order_separator">
         |
       </span>
 
       <% if (params[:view] == ORDER_BY_END) %>
           <span class="order_option sel">
-          <%= t('pages.proposals.tabs.most_urgent') %>
+            <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), :remote => true %>
+            <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+          </span>
       <% else %>
           <span class="order_option">
-          <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id), :remote => true %>
+            <%= link_to t('pages.proposals.tabs.most_urgent'), current_url(:view => ORDER_BY_END, :replace => true, :replace_id => @replace_id), :remote => true %>
+          </span>
       <% end %>
-      </span>
-
     </div>
 <% end %>
 

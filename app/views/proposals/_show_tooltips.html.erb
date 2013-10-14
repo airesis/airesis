@@ -84,7 +84,7 @@
     <%end%>
 
 <%end%>
-<%unless @proposal.is_polling?%>
+<%if @proposal.in_valutation?%>
     <%conditions = [] %>
     <%if @proposal.quorum.minutes%>
         <%conditions << t('tooltips.quorum_minutes', date: @proposal.quorum.ends_at.strftime("%d/%m/%Y"), time: @proposal.quorum.ends_at.strftime(" alle %H:%M")) %>
