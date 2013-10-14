@@ -14,20 +14,21 @@ class Tag < ActiveRecord::Base
   end
 
   def nearest
-   Tag.find_by_sql "select tt3.id, tt3.text
+   query =  ActiveRecord::Base.send(:sanitize_sql_array, ["select tt3.id, tt3.text
                 from tags tt3 where
                 tt3.id in (
                 SELECT t2p2.tag_id
                 FROM (SELECT proposal_id FROM tags t1
                   JOIN proposal_tags
                   ON t1.id = proposal_tags.tag_id
-                  WHERE t1.text = '#{self.text}' LIMIT 10
+                  WHERE t1.text = ? LIMIT 10
                   ) AS t2p1
                 JOIN proposal_tags t2p2
                 ON t2p1.proposal_id = t2p2.proposal_id
                 JOIN tags t2
                 ON t2p2.tag_id = t2.id
                 GROUP BY t2p2.tag_id LIMIT 11)
-                and tt3.text != '#{self.text}'"
+                and tt3.text != ?", self.text,self.text])
+    Tag.find_by_sql query
   end
 end
