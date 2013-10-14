@@ -1,22 +1,8 @@
-#Maktoub.from = "Airesis Newsletter <noreply@airesis.it>" # the email the newsletter is sent from
-Maktoub.from = "Coorasse <coorasse@gmail.com>" # the email the newsletter is sent from
-Maktoub.twitter_url = "http://twitter.com/#!/democracyo" # your twitter page
-Maktoub.facebook_url = "https://www.facebook.com/democracyonline" # your facebook oage
-Maktoub.google_plus_url = "https://plus.google.com/b/108270340723482080584/108270340723482080584" # your facebook oage
-Maktoub.subscription_preferences_url = "http://www.airesis.it/users/alarm_preferences" #subscribers management url
+Maktoub.from = NEWSLETTER_FROM_ADDRESS # the email the newsletter is sent from
+Maktoub.twitter_url = NEWSLETTER_TWITTER_URL # your twitter page
+Maktoub.facebook_url = NEWSLETTER_FACEBOOK_URL # your facebook oage
+Maktoub.google_plus_url = NEWSLETTER_GOOGLEPLUS_URL # your facebook oage
+Maktoub.subscription_preferences_url = NEWSLETTER_PREFERENCES_URL #subscribers management url
 Maktoub.logo = "logo120.png" # path to your logo asset
-Maktoub.home_domain = "www.airesis.it" # your domain
- Maktoub.app_name = "Airesis - Scegli di partecipare" # your app name
-#Maktoub.unsubscribe_method = "unsubscribe" # method to call from unsubscribe link (doesn't include link by default)
-
-# pass a block to subscribers_extractor that returns an object that  reponds to :name and :email
-# (fields can be configured as shown below)
-
-# require "ostruct"
- Maktoub.subscribers_extractor do
-     users = User.all
- end
-
-# uncomment lines below to change subscriber fields that contain email and
-# Maktoub.email_field = :address
-# Maktoub.name_field = :nickname
+Maktoub.home_domain = NEWSLETTER_HOME_URL # your domain
+Maktoub.app_name = APP_LONG_NAME # your app name
