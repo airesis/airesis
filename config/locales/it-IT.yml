@@ -40,9 +40,9 @@ it-IT:
     timeFormat: 'H:mm{ - H:mm} '
   date:
     order:
-    - :day
-    - :month
-    - :year
+      - :day
+      - :month
+      - :year
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
