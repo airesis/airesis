@@ -27,6 +27,7 @@ Airesis::Application.configure do
 # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  config.i18n.fallbacks = true
 
   # Do not compress assets
   config.assets.compress = false
@@ -68,6 +69,8 @@ Airesis::Application.configure do
   GROUPS_TIME_LIMIT=24.hours
 
   ROTP_DRIFT = 20
+
+  ENCRYPT_WORD="airesis"
   
   #config.gem 'resque-mongo', :lib => 'resque'
 
