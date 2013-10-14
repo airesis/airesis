@@ -14,7 +14,7 @@ de:
       pt-PT:
         description: Portugiesisch
       pt-BR:
-        description: Portugiesisch (Brazil)
+        description: Portugiesisch (Brasilien)
       de:
         description: Deutsch
     proposal_types:
@@ -23,13 +23,13 @@ de:
       POLL:
         description: Umfrage
       RULE_BOOK:
-        description: Rule Book
+        description: Geltende Regeln
       PRESS:
-        description: Press Release
+        description: Pressemitteilung
       EVENT:
         description: Eventorganisation
       ESTIMATE:
-        description: Cost Estimate
+        description: Kostenkalkulation
       AGENDA:
         description: Agenda
       CANDIDATES:
@@ -94,28 +94,28 @@ de:
         message: '%{user} hat einen neuen Post in seinem Blog hinzugefügt <b>%{blog}</b>'
       new_valutation_mine:
         description: Neue Bewertung für einen meiner Vorschläge
-        email_subject: Es gibt eine neue Bewertung für einen meiner Vorschläge
+        email_subject: '%{title} - Neue Evaluation'
         message: 'Dein Vorschlag <b>%{title}</b> hat eine neue Bewertung erhalten'
       new_valutation:
         description: Neue Bewertung für einen Vorschlag in den ich involviert bin
-        email_subject: Es gibt eine neue Bewertung für einen Vorschlag in den ich involviert bin
+        email_subject: '%{title} - Neue Evaluation'
         message: 'Dein Vorschlag <b>%{title}</b> hat eine neue Bewertung erhalten'
       available_author:
         description: Benutzer verfügbar als Redakteur eines Vorschlags
-        email_subject: Ein Benutzer ist als Redakteur eines Vorschlags verfügbar
+        email_subject: '%{title} - Neue  Redakteure verfügbar'
         message: '%{user} ist als Redakteur des Vorschlags <b>%{title}</b> verfügbar'
       author_accepted:
         description: Akzeptanz als Redakteur eines Vorschlags
-        email_subject: Du bist Redakteur eines Vorschlags geworden
+        email_subject: '%{title} - Hier bist du jetzt Redakteur!'
         message: 'Du bist jetzt Redakteur des Vorschlags <b>%{title}</b>.<br/>Denk daran dass du als Redakteur alle Beiträge anderer Benutzer berücksichtigen solltest und den Text eventuel diesen<br/>entsprechend, verbessern'
       new_authors:
         description: Neue Redakteure der Vorschläge
-        email_subject: Neuer Redakteur eines Vorschlags
+        email_subject: '%{title} - Neue Redakteure'
         message: '<b>%{user}</b> ist ein Redakteur des Vorschlags <b>%{title}</b>'
       unintegrated_contribute:
         description: Beiträge wurden wieder zur Diskussion gestellt
         email_subject: '%{proposal} - Beitrag wieder in der Debatte'
-        message: 'A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate'
+        message: 'Einen Beitrag den Du in den Vorschlag <b>%{proposal}</b> integriert hast, wurde wieder in der Debatte aufgenommen'
       new_contributes:
         description: Neue Beiträge und Kommentare in den Vorschlägen in die ich beteiligt bin
         email_subject: '%{title} - Neue Beiträge'
@@ -126,10 +126,16 @@ de:
         message: 'Der Vorschlag <b>%{title}</b> wurde aktualisiert'
       new_contributes_mine:
         description: Neue Beiträge in meinen Vorschlägen
-        email_subject: Neue Beiträge in einem meiner Vorschläge
+        email_subject: '%{Titel} – Neuer Beitrag'
         message: '<b>%{name}</b> hat einen Beitrag in deinen Vorschlag <b>%{title}</b> hinzugefügt'
       change_status:
         description: Statusänderung eines Vorschlags in den ich beteiligt bin
+        email_subject:
+          wait: '%{Titel} – Wählen Sie das Abstimmungsdatum'
+          waiting_date: '%{Titel} – Das Abstimmungsdatum wurde festgelegt'
+          in_vote: '%{title} - KOMME UND STIMME AB!'
+          abandoned: '%{title}</b> ist durch die Debatte nicht durchgekommen'
+          rejected: '%{title} wurde abgelehnt'
         message:
           waiting_date: '%{name} hat das Datum der Abstimmung  für den Vorschlag<b>%{title}</b> ausgewählt'
           in_vote: 'Es wird gerade für den Vorschlag <b>%{title}</b> abgestimmt!'
@@ -138,10 +144,10 @@ de:
       change_status_mine:
         description: Statusänderung meines Vorschlags
         email_subject:
-          wait: '%{title} - wähle das Abstimmungsdatum aus'
-          waiting_date: '%{title} - das Abstimmungsdatum wurde gewählt'
-          in_vote: 'Es wird gerade für Deinen Vorschlag <b>%{title}</b> abgestimmt!'
-          abandoned: 'Dein Vorschlag <b>%{title}</b> hat die Debatte nicht bestanden und wurde aufgegeben. Es tut uns leid.'
+          wait: '%{title} - Wähle das Abstimmungsdatum aus'
+          waiting_date: '%{title} - Das Abstimmungsdatum wurde ausgewählt'
+          in_vote: '%{title} - KOMME UND STIMME AB!'
+          abandoned: '%{title}</b> ist durch die Debatte nicht durchgekommen'
           rejected: '%{title} wurde abgelehnt'
         message:
           wait: 'Dein Vorschlag <b>%{title}</b> hat die Diskussionsphase bestanden und wartet darauf dass Du ein Datum für die Abstimmung festlegst'
@@ -159,7 +165,7 @@ de:
       new_public_proposals:
         description: Neue Vorschläge wurden im Open Space hinzugefügt
         email_subject: '%{proposal}'
-        message: 'Neuer Vorschlag <b>%{proposal}</b> im Open Space hinzugefügt'
+        message: 'Neuer Vorschlag<b>%{proposal}</b> in Open Space hinzugefügt'
       new_proposals:
         description: Neuer Vorschlag innerhalb der Gruppe
         email_subject: '%{proposal}'
@@ -167,7 +173,7 @@ de:
       new_partecipation_request:
         description: Neue Teilnahme-Anfrage
         email_subject: Neue Teilnahme-Anfrage
-        message: '<b>%{user}</b> asked to participate in the group <b>%{group}</b>'
+        message: '<b>%{user}</b> möchte gerne der Gruppe <b>%{group}</b> beitreten'
       new_blog_comment:
         description: Neuer Kommentar in meinem Blog
         email_subject: Neuer Kommentar in Deinem Blog

@@ -6,7 +6,7 @@ es-EC:
       en:
         description: inglés
       en-US:
-        description: estadounidense
+        description: Inglés (Estados Unidos)
       fr:
         description: Francés
       es-ES:
@@ -14,7 +14,7 @@ es-EC:
       pt-PT:
         description: Portugués
       pt-BR:
-        description: Portugués (Brasile)
+        description: Portugués (Brasil)
       de:
         description: Alemán
     proposal_types:
@@ -29,7 +29,7 @@ es-EC:
       EVENT:
         description: Organización de eventos
       ESTIMATE:
-        description: Estimaciones de gastos
+        description: Estimación de gastos
       AGENDA:
         description: Agenda
       CANDIDATES:
@@ -40,22 +40,22 @@ es-EC:
       meeting:
         description: reunión
       vote:
-        description: vota
+        description: voto
       meeting2:
         description: reunión
       election:
-        description: elecciones
+        description: elección
     group_actions:
       STREAM_POST:
         description: Publicar en el muro del grupo
       CREATE_EVENT:
         description: Crear eventos y votos
       PROPOSAL:
-        description: Apoya propuestas en nombre del grupo
+        description: Apoya las propuestas en nombre del grupo
       REQUEST_ACCEPT:
-        description: Añadir a nuevos miembros al grupo
+        description: Añadir nuevos miembros al grupo
       SEND_CANDIDATES:
-        description: Designar a los miembros para la elección
+        description: Nominar miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
       PROPOSAL_PARTECIPATION:
@@ -65,14 +65,14 @@ es-EC:
       DOCUMENT_VIEW:
         description: Ver documentos
       DOCUMENT_MANAGE:
-        description: Gestione documentos
+        description: Administrar documentos
       PROPOSAL_VOTE:
-        description: Vota las propuestas
+        description: Votar las propuestas
     notification_categories:
       MYPROP:
         description: Las propuestas que escribo
       PROP:
-        description: Propuestas en la que participo
+        description: Propuestas en las que participo
       NEWPROP:
         description: Nuevas propuestas
       NEWEVENT:
@@ -90,30 +90,30 @@ es-EC:
         message: 'Nuevo evento <b>%{event}</b> en el grupo <b>%{group}</b>'
       new_posts_user_follow:
         description: Nuevos mensajes de un usuario que estoy siguiendo
-        email_subject: Hay un nuevo post
-        message: '%{user} añadió un nuevo post en su blog <b>%{blog}</b>'
+        email_subject: Hay una nueva publicación
+        message: '%{user} añadió una nueva publicación en su blog <b>%{blog}</b>'
       new_valutation_mine:
-        description: Nueva evaluación de una propuesta mía
-        email_subject: Hay una nueva evaluación de una propuesta suya
+        description: Nueva evaluación de una de mis propuestas
+        email_subject: '%{title} - Nueva evaluación'
         message: 'Su propuesta <b>%{title}</b> ha recibido una nueva evaluación'
       new_valutation:
-        description: Nueva evaluación para una propuesta
-        email_subject: Hay una nueva evaluación de una propuesta mía
+        description: Nueva evaluación de una propuesta en la que participo
+        email_subject: '%{title} - Nueva evaluación'
         message: 'Su propuesta <b>%{title}</b> ha recibido una nueva evaluación'
       available_author:
         description: Usuario disponible para convertirse en editor de una propuesta
-        email_subject: Hay un usuario disponible para convertirse en editor de la propuesta
-        message: '%{user} está disponible para convertirse en redactor de la propuesta <b>%{title}</b>'
+        email_subject: '%{title} - Nuevos editores disponibles'
+        message: '%{user} está disponible para convertirse en editor de la propuesta <b>%{title}</b>'
       author_accepted:
-        description: Aceptación como redactor de una propuesta
-        email_subject: Te has convertido en editor de una propuesta
-        message: 'Ahora eres redactor de la propuesta <b>%{title}</b>. <br/>Recuerda que como redactor, debe escuchar a las aportaciones de otros usuarios y mejorar el texto según ellos<br/>'
+        description: Aceptación como editor de una propuesta
+        email_subject: '%{title} - ¡Ahora eres su editor!'
+        message: 'Ahora eres editor de la propuesta <b>%{title}</b>. <br/>Recuerda que como editor, debes escuchar las aportaciones de otros usuarios y mejorar el texto de acuerdo a ellas<br/>'
       new_authors:
-        description: Nuevos redactores de las propuestas
-        email_subject: Nuevo redactor de una propuesta
-        message: '<b>%{user}</b> es un redactor de la propuesta <b>%{title}</b>'
+        description: Nuevos editores de las propuestas
+        email_subject: '%{title} - Nuevos editores'
+        message: '<b>%{user}</b> es un editor de la propuesta <b>%{title}</b>'
       unintegrated_contribute:
-        description: Las contribuciones se vuelvan a colocar en debate
+        description: Las contribuciones se vuelven a colocar en debate
         email_subject: '%{proposal} - Retroalimentación al debate'
         message: 'Una contribución que has integrado en la propuesta <b>%{proposal}</b> se ha puesto de nuevo en debate'
       new_contributes:
@@ -126,46 +126,46 @@ es-EC:
         message: 'Se ha actualizado la propuesta <b>%{title}</b>'
       new_contributes_mine:
         description: Nuevas aportaciones en mis propuestas
-        email_subject: Nuevas aportaciones en una de mis propuestas
-        message: '<b>%{name}</b> agregó una contribución a su propuesta <b>%{title}</b>'
+        email_subject: '%{title} - Nueva contribución'
+        message: '<b>%{name}</b> agregó una contribución a tu propuesta <b>%{title}</b>'
       change_status:
         description: Cambio en el estado de una propuesta en la que participo
         email_subject:
-          wait: '%{title} - elegir la fecha de votación'
-          waiting_date: '%{title} - la fecha de votación ha sido elegida'
-          in_vote: '%{title} - ¡ahora está siendo votada!'
-          abandoned: '%{title} no ha superado el debate.'
+          wait: '%{title} - Elegir la fecha de votación'
+          waiting_date: '%{title} - La fecha de votación ha sido elegida'
+          in_vote: '%{title} -¡VEN Y VOTA!'
+          abandoned: '%{title}</b> no ha superado el debate'
           rejected: '%{title} ha sido rechazada'
         message:
           waiting_date: '%{name} ha elegido la fecha de la votación de la propuesta <b>%{title}</b>'
-          in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
+          in_vote: '¡Tu propuesta <b>%{title}</b> ahora está siendo votada!'
           abandoned: 'La propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada'
           rejected: 'La propuesta <b>%{title}</b> ha sido rechazada por los participantes'
       change_status_mine:
         description: Cambio en el estado de mis propuestas
         email_subject:
-          wait: '%{title} - elegir la fecha de votación'
-          waiting_date: '%{title} - la fecha de votación ha sido elegida'
-          in_vote: '%{title} - ¡ahora está siendo votada!'
-          abandoned: '%{title} no ha superado el debate.'
+          wait: '%{title} - Elegir la fecha de votación'
+          waiting_date: '%{title} - La fecha de votación ha sido elegida'
+          in_vote: '%{title} -¡VEN Y VOTA!'
+          abandoned: '%{title}</b> no ha superado el debate'
           rejected: '%{title} ha sido rechazada'
         message:
           wait: 'Su propuesta <b>%{title}</b> ha pasado la fase de discusión y ahora está esperando que usted elija cuando votarla'
           waiting_date: '%{name} ha elegido la fecha de votación de la propuesta <b>%{title}</b>'
-          in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
-          abandoned: 'Su propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada, lo sentimos'
-          rejected: 'Su propuesta <b>%{title}</b> ha sido rechazada por los participantes, lo sentimos'
+          in_vote: '¡Tu propuesta <b>%{title}</b> ahora está siendo votada!'
+          abandoned: 'Tu propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada, lo sentimos'
+          rejected: 'Tu propuesta <b>%{title}</b> ha sido rechazada por los participantes, lo sentimos'
       new_posts_group_follow:
-        description: Nuevos posts en los muros de los grupos estoy siguiendo
+        description: Nuevas publicaciones en los muros de los grupos estoy siguiendo
         email_subject: Nueva publicación
       new_posts_group:
-        description: Nuevos posts en los muros de los grupos en los que participo
+        description: Nuevas publicaciones en los muros de los grupos en los que participo
         email_subject: Nueva publicación
-        message: '<b>%{user}</b>ha añadido un nuevo post en el grupo <b>%{group}</b>'
+        message: '<b>%{user}</b>ha añadido una nueva publicación en el grupo <b>%{group}</b>'
       new_public_proposals:
         description: Nuevas propuestas en el Espacio Abierto
         email_subject: '%{proposal}'
-        message: 'Nueva propuesta <b>%{proposal}</b> añadida en el espacio abierto'
+        message: 'Nueva propuesta <b>%{proposal}</b> añadida al Espacio Abierto'
       new_proposals:
         description: Nuevas propuestas dentro del grupo
         email_subject: '%{proposal}'
@@ -173,22 +173,22 @@ es-EC:
       new_partecipation_request:
         description: Nueva solicitud de participación
         email_subject: Nueva solicitud de participación
-        message: '<b>%{user}</b> pidió participar en el grupo <b>%{group}</b>'
+        message: '<b>%{user}</b> solicitó participar en el grupo <b>%{group}</b>'
       new_blog_comment:
         description: Nuevo comentario en mi blog
         email_subject: Nuevo comentario en su blog
-        message: '<b>%{user}</b> comentó tu post <b>%{title}</b>'
+        message: '<b>%{user}</b> comentó tu publicación <b>%{title}</b>'
       new_comments_mine:
         description: Nuevos comentarios en mis propuestas
         email_subject: Nuevo comentario en mi propuesta
-        message: '<b>%{name}</b> ha añadido un comentario en una discusión sobre su propuesta <b>%{title}</b>'
+        message: '<b>%{name}</b> ha añadido un comentario en una discusión sobre tu propuesta <b>%{title}</b>'
       new_comments:
         description: Nuevos comentarios en los debates en los que participo
         email_subject: '%{title} - Nuevo comentario'
-        message: '<b>%{name}</b> ha añadido un comentario en una discusión que está tomando parte en la propuesta <b>%{title}</b>'
+        message: '<b>%{name}</b> ha añadido un comentario en una discusión de la que participas en la propuesta <b>%{title}</b>'
     proposal_categories:
       no_category:
-        description: Ninguna Categoría
+        description: No categorizado
       education:
         description: Educación, Investigación
       health:
@@ -198,15 +198,15 @@ es-EC:
       commerce:
         description: Comercio, Finanzas, Impuestos
       work:
-        description: Trabajo y Realización Personal
+        description: Trabajo y Autorrealización
       security:
         description: Seguridad y Justicia
       world:
         description: Mundo, Migraciones
       minorities:
-        description: Minorías, Handicap
+        description: Minorías, Hándicap
       ethics:
-        description: Ètica, Solidaridad, Espiritualidad
+        description: Ética, Solidaridad, Espiritualidad
       sexuality:
         description: Sexualidad, Familia, Niños
       culture:
@@ -220,7 +220,7 @@ es-EC:
       territory:
         description: Territorio, Naturaleza, Animales
       mobility:
-        description: Urbanismo, Movilidad, Obras
+        description: Urbanismo, Movilidad, Construcción
       energy:
         description: Energía, Clima
       industry:
