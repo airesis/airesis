@@ -20,7 +20,7 @@ en:
     passwords:
       user:
         updated: 'Password updated correctly'
-        send_instructions: 'Instructions have been forwarded to your email'        
+        send_instructions: 'Instructions have been forwarded to your email address'
     failure:
         already_authenticated: 'You are already registered'        
         unauthenticated: 'Log-in required to access this page.  Please log-in.'
