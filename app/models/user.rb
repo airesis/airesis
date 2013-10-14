@@ -145,6 +145,8 @@ class User < ActiveRecord::Base
     self.blocked_alerts.create(:notification_type_id => 21)
     self.blocked_alerts.create(:notification_type_id => 13)
     self.blocked_alerts.create(:notification_type_id => 3)
+
+    Resque.enqueue_in(5,GeocodeUser,self.id)
   end
 
   def init
@@ -152,6 +154,18 @@ class User < ActiveRecord::Base
     self.receive_messages = true
     self.receive_newsletter = true
   end
+
+
+  #geocode user setting his default time zone
+  def geocode
+    @search = Geocoder.search(self.last_sign_in_ip)
+    unless @search.empty? #continue only if we found latitude and longitude
+      @latlon = [@search[0].latitude, @search[0].longitude]
+      @zone = Timezone::Zone.new :latlon => @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
+      self.update_attribute(:time_zone,@zone.active_support_time_zone) if @zone #update zone if found
+    end
+  end
+
 
 
   #restituisce l'elencod ei gruppi nei quali sono portavoce
@@ -189,6 +203,7 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
+      user.last_sign_in_ip = session[:remote_ip]
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
 

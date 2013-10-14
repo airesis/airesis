@@ -23,6 +23,12 @@ GIT
       rails (>= 3.1.1)
 
 GIT
+  remote: https://github.com/coorasse/timezone.git
+  revision: e0f42830c80f72eae319279ffe9f6d6128b26ad8
+  specs:
+    timezone (0.2.2)
+
+GIT
   remote: https://github.com/coorasse/vote-schulze.git
   revision: 0f47cbbe6c1e0020369fb6071a1a73bf93bbf7f7
   specs:
@@ -439,6 +445,7 @@ DEPENDENCIES
   test-unit
   therubyracer (= 0.10.1)
   thin
+  timezone!
   tinymce-rails
   turnout
   uglifier (>= 1.0.3)

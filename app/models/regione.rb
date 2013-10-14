@@ -1,7 +1,10 @@
 class Regione < ActiveRecord::Base
-  has_many :provincias, class_name: 'Provincia'
-  belongs_to :stato, class_name: 'Stato'
-  has_one :continente, class_name: 'Continente', through: :stato
+  has_many :circoscriziones
+  has_many :comunes
+  has_many :provincias
+
+  belongs_to :stato
+  belongs_to :continente
 
   def parent
     self.stato

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131008131715) do
+ActiveRecord::Schema.define(:version => 20131010164441) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -171,8 +171,17 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
 
   create_table "circoscriziones", :force => true do |t|
     t.integer "comune_id"
-    t.string  "description", :limit => 100
+    t.string  "description",   :limit => 100
+    t.integer "provincia_id"
+    t.integer "regione_id"
+    t.integer "stato_id"
+    t.integer "continente_id"
   end
+
+  add_index "circoscriziones", ["continente_id"], :name => "index_circoscriziones_on_continente_id"
+  add_index "circoscriziones", ["provincia_id"], :name => "index_circoscriziones_on_provincia_id"
+  add_index "circoscriziones", ["regione_id"], :name => "index_circoscriziones_on_regione_id"
+  add_index "circoscriziones", ["stato_id"], :name => "index_circoscriziones_on_stato_id"
 
   create_table "circoscrizioni_groups", :id => false, :force => true do |t|
     t.integer "id",                                                  :null => false
@@ -209,18 +218,35 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   end
 
   create_table "comunes", :force => true do |t|
-    t.string  "description",  :limit => 100, :null => false
-    t.integer "provincia_id",                :null => false
-    t.integer "regione_id",                  :null => false
+    t.string  "description",   :limit => 100, :null => false
+    t.integer "provincia_id",                 :null => false
+    t.integer "regione_id",                   :null => false
     t.integer "population"
-    t.string  "codistat",     :limit => 4
-    t.string  "cap",          :limit => 5
+    t.string  "codistat",      :limit => 4
+    t.string  "cap",           :limit => 5
+    t.integer "stato_id"
+    t.integer "continente_id"
   end
+
+  add_index "comunes", ["continente_id"], :name => "index_comunes_on_continente_id"
+  add_index "comunes", ["regione_id"], :name => "index_comunes_on_regione_id"
+  add_index "comunes", ["stato_id"], :name => "index_comunes_on_stato_id"
 
   create_table "configurations", :force => true do |t|
     t.string "name",  :limit => 100, :null => false
     t.string "value",                :null => false
   end
+
+  create_table "continente_translations", :force => true do |t|
+    t.integer  "continente_id"
+    t.string   "locale"
+    t.string   "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "continente_translations", ["continente_id"], :name => "index_continente_translations_on_continente_id"
+  add_index "continente_translations", ["locale"], :name => "index_continente_translations_on_locale"
 
   create_table "continentes", :force => true do |t|
     t.string "description", :null => false
@@ -925,10 +951,16 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   end
 
   create_table "provincias", :force => true do |t|
-    t.string  "description", :limit => 100
-    t.integer "regione_id",                 :null => false
-    t.string  "sigla",       :limit => 5
+    t.string  "description",   :limit => 100
+    t.integer "regione_id",                   :null => false
+    t.string  "sigla",         :limit => 5
+    t.integer "stato_id"
+    t.integer "population"
+    t.integer "continente_id"
   end
+
+  add_index "provincias", ["continente_id"], :name => "index_provincias_on_continente_id"
+  add_index "provincias", ["stato_id"], :name => "index_provincias_on_stato_id"
 
   create_table "quorums", :force => true do |t|
     t.string   "name",        :limit => 100,                     :null => false
@@ -974,9 +1006,12 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   end
 
   create_table "regiones", :force => true do |t|
-    t.string  "description", :limit => 100
-    t.integer "stato_id",                   :null => false
+    t.string  "description",   :limit => 100
+    t.integer "stato_id",                     :null => false
+    t.integer "continente_id"
   end
+
+  add_index "regiones", ["continente_id"], :name => "index_regiones_on_continente_id"
 
   create_table "request_vote_types", :force => true do |t|
     t.string "description", :limit => 10, :null => false
@@ -1143,9 +1178,11 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   end
 
   create_table "sys_locales", :force => true do |t|
-    t.string "key"
-    t.string "host"
-    t.string "lang"
+    t.string  "key"
+    t.string  "host"
+    t.string  "lang"
+    t.string  "territory_type"
+    t.integer "territory_id"
   end
 
   create_table "sys_movement_types", :force => true do |t|
@@ -1374,6 +1411,15 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   add_foreign_key "candidates", "elections", :name => "candidates_election_id_fk"
   add_foreign_key "candidates", "users", :name => "candidates_user_id_fk"
 
+  add_foreign_key "circoscriziones", "continentes", :name => "circoscriziones_continente_id_fk"
+  add_foreign_key "circoscriziones", "provincias", :name => "circoscriziones_provincia_id_fk"
+  add_foreign_key "circoscriziones", "regiones", :name => "circoscriziones_regione_id_fk"
+  add_foreign_key "circoscriziones", "statos", :name => "circoscriziones_stato_id_fk"
+
+  add_foreign_key "comunes", "continentes", :name => "comunes_continente_id_fk"
+  add_foreign_key "comunes", "regiones", :name => "comunes_regione_id_fk"
+  add_foreign_key "comunes", "statos", :name => "comunes_stato_id_fk"
+
   add_foreign_key "election_votes", "elections", :name => "election_votes_election_id_fk"
   add_foreign_key "election_votes", "users", :name => "election_votes_user_id_fk"
 
@@ -1496,8 +1542,12 @@ ActiveRecord::Schema.define(:version => 20131008131715) do
   add_foreign_key "proposals", "proposal_votation_types", :name => "proposals_proposal_votation_type_id_fk"
   add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
 
+  add_foreign_key "provincias", "continentes", :name => "provincias_continente_id_fk"
+  add_foreign_key "provincias", "statos", :name => "provincias_stato_id_fk"
+
   add_foreign_key "quorums", "quorums", :name => "quorums_quorum_id_fk"
 
+  add_foreign_key "regiones", "continentes", :name => "regiones_continente_id_fk"
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
 
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
