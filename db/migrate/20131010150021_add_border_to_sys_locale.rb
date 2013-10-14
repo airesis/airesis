@@ -38,6 +38,8 @@ class AddBorderToSysLocale < ActiveRecord::Migration
     add_column :sys_locales, :territory_type, :string
     add_column :sys_locales, :territory_id, :integer
 
+    SysLocale.reset_column_information
+
     @sys = SysLocale.where(key: 'it-IT').first
     @sys.territory = Stato.find_by_sigla('IT')
     @sys.save!

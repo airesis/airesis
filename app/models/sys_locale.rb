@@ -8,4 +8,10 @@ class SysLocale < ActiveRecord::Base
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
   end
 
+  def url
+    url_ = 'http://' + self.host
+    url_ += "?l=#{self.lang}" if self.lang
+    url_
+  end
+
 end

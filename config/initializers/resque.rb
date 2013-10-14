@@ -14,6 +14,6 @@ end
 
 Resque::Failure::Notifier2.configure do |config|
   config.smtp = {:address => EMAIL_ADDRESS, :port => 587, :user => EMAIL_USERNAME,:secret => EMAIL_PASSWORD}
-  config.sender =  "coorasse+notifier@gmail.com"
-  config.recipients = ["coorasse+exceptions@gmail.com"]
+  config.sender =  ERROR_SENDER
+  config.recipients = [ERROR_RECEIVER]
 end

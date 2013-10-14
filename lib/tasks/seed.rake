@@ -7,19 +7,19 @@ namespace :airesis do
       File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
         f.puts("#encoding: utf-8")
         Continente.all.each do |continente|
-          f.puts("a = Continente.create(:description => \"#{continente.description}\")")
+          f.puts("a#{continente.id} = Continente.create(:description => \"#{continente.description}\")")
+          continente.translations.each do |trans|
+            f.puts("  a#{continente.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
+          end
           continente.statos.each do |stato|
-            f.puts(" s#{stato.id} = Stato.create( :description => \"#{stato.description}\", :continente_id => a.id, sigla: \"#{stato.sigla}\", sigla_ext: \"#{stato.sigla_ext}\")")
+            f.puts(" s#{stato.id} = Stato.create( :description => \"#{stato.description}\", :continente_id => a#{continente.id}.id, sigla: \"#{stato.sigla}\", sigla_ext: \"#{stato.sigla_ext}\")")
             stato.translations.each do |trans|
               f.puts("  s#{stato.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
             end
             stato.regiones.each do |regione|
-              f.puts("  r#{regione.id} = Regione.create(:description => \"#{regione.description}\", :stato_id => s#{stato.id}.id)")
+              f.puts("  r#{regione.id} = Regione.create(:description => \"#{regione.description}\", stato_id: s#{stato.id}.id, continente_id: a#{continente.id}.id)")
               regione.provincias.each do |provincia|
-                f.puts("   Provincia.create(:description => \"#{provincia.description}\", :regione_id => r#{regione.id}.id, :sigla => \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
-                #provincia.comunes.each do |comune|
-                #  f.puts("    Comune.create(:description => \"#{comune.description}\", :provincia_id => p#{provincia.id}.id, :regione_id => r#{regione.id}.id, :population => #{comune.population})")
-                #end
+                f.puts("   Provincia.create(:description => \"#{provincia.description}\", :regione_id => r#{regione.id}.id, stato_id: s#{stato.id}.id, continente_id: a#{continente.id}.id, :sigla => \"#{provincia.sigla}\"){ |c| c.id = #{provincia.id}}.save")
               end
             end
           end
@@ -31,7 +31,7 @@ namespace :airesis do
         File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
           f.puts("#encoding: utf-8")
           provincia.comunes.each do |comune|
-            f.puts("Comune.create(:description => \"#{comune.description}\", :provincia_id => #{provincia.id}, :regione_id => #{provincia.regione.id}" + (comune.population ? ", :population => #{comune.population}" : "") + ")")
+            f.puts("Comune.create(:description => \"#{comune.description}\", :provincia_id => #{provincia.id}, :regione_id => #{provincia.regione.id}, stato_id: #{provincia.stato.id}, continente_id: #{provincia.continente.id} " + (comune.population ? ", :population => #{comune.population}" : "") + ")")
           end
         end
       end
@@ -42,47 +42,30 @@ namespace :airesis do
       File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
         f.puts("#encoding: utf-8")
         EventType.all.each do |type|
-            f.puts(" EventType.create( :description => \"#{type.description}\"){ |c| c.id = #{type.id}}.save")
-            f.puts(" et#{type.id} = EventType.find(#{type.id})")
-            type.translations.each do |trans|
-              f.puts(" et#{type.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
-            end
+            f.puts(" EventType.create( :name => \"#{type.name}\"){ |c| c.id = #{type.id}}.save")
         end
         GroupAction.all.each do |action|
-          f.puts(" ga#{action.id} = GroupAction.create(name: \"#{action.name}\", description: \"#{action.description}\", seq: #{action.seq})")
-          action.translations.each do |trans|
-            f.puts(" ga#{action.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
-          end
+          f.puts("GroupAction.create(name: \"#{action.name}\")")
         end
         GroupPartecipationRequestStatus.all.each do |status|
           f.puts("GroupPartecipationRequestStatus.create( :description => \"#{status.description}\" ){ |c| c.id = #{status.id}}.save")
         end
 
         NotificationCategory.all.each do |category|
-          f.puts("nc#{category.id} = NotificationCategory.create(description: \"#{category.description}\", seq: #{category.seq}, short: \"#{category.short}\")")
-          category.translations.each do |trans|
-            f.puts(" nc#{category.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
-          end
+          f.puts("nc#{category.id} = NotificationCategory.create(seq: #{category.seq}, short: \"#{category.short}\")")
+
           category.notification_types.each do |type|
-            f.puts(" NotificationType.create( :description => \"#{type.description}\", :notification_category_id => nc#{category.id}.id ){ |c| c.id = #{type.id }}.save")
-            f.puts(" nt#{type.id} = NotificationType.find(#{type.id})")
-            type.translations.each do |trans|
-              f.puts(" nt#{type.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes({description: \"#{trans.description}\", email_subject: \"#{trans.email_subject}\"})")
-            end
+            f.puts("NotificationType.create( :name => \"#{type.name}\", :notification_category_id => nc#{category.id}.id ){ |c| c.id = #{type.id }}.save")
           end
         end
         ProposalCategory.all.each do |category|
-          f.puts(" pc#{category.id} = ProposalCategory.create(:description => \"#{category.description}\" ){ |c| c.id = #{category.id} }.save")
-          f.puts(" pc#{category.id} = ProposalCategory.find(#{category.id})")
-          category.translations.each do |trans|
-            f.puts(" pc#{category.id}.translations.where(locale: \"#{trans.locale}\").first_or_create.update_attributes(description: \"#{trans.description}\")")
-          end
+          f.puts("ProposalCategory.create(:name => \"#{category.name}\", seq: #{category.seq} ){ |c| c.id = #{category.id} }.save")
         end
         ProposalState.all.each do |state|
           f.puts("ProposalState.create( :description => \"#{state.description}\" ){ |c| c.id = #{state.id} }.save")
         end
         ProposalType.all.each do |type|
-          f.puts("ProposalType.create( :description => \"#{type.description}\", :name => \"#{type.name}\" ){ |c| c.id = #{type.id} }.save")
+          f.puts("ProposalType.create( :active => \"#{type.active}\", :name => \"#{type.name}\" ){ |c| c.id = #{type.id} }.save")
         end
         RankingType.all.each do |rank|
           f.puts("RankingType.create( :description => \"#{rank.description}\" ){ |c| c.id = #{rank.id} }.save")
@@ -106,12 +89,40 @@ namespace :airesis do
         f.puts("PartecipationRole.create(:name => \"amministratore\", :description => \"Amministratore\"){ |c| c.id = 2 }.save")
 
         VoteType.all.each do |votetype|
-          f.puts("VoteType.create( :description => \"#{votetype.description}\"){ |c| c.id = #{votetype.id} }.save")
+          f.puts("VoteType.create( :short => \"#{votetype.short}\"){ |c| c.id = #{votetype.id} }.save")
+        end
+
+        ProposalVotationType.all.each do |votetype|
+          f.puts("ProposalVotationType.create( :short_name => \"#{votetype.short_name}\", description: \"#{votetype.description}\"){ |c| c.id = #{votetype.id} }.save")
         end
 
         Configuration.all.each do |configuration|
           f.puts("Configuration.create(name: \"#{configuration.name}\", value: 1)")
         end
+
+        SysCurrency.all.each do |currency|
+          f.puts("SysCurrency.create(description: \"#{currency.description}\")")
+        end
+
+        SysCurrency.all.each do |currency|
+          f.puts("SysCurrency.create(description: \"#{currency.description}\")")
+        end
+
+        SysLocale.all.each do |locale|
+          f.puts("SysLocale.create(key: \"#{locale.key}\", host: \"#{locale.host}\", territory_type: \"#{locale.territory_type}\", territory_id: \"#{locale.territory_id}\"" + (locale.lang ? ", lang: \"#{locale.lang}\"" : "") +")")
+        end
+
+        SysMovementType.all.each do |currency|
+          f.puts("SysMovementType.create(description: \"#{currency.description}\")")
+        end
+
+
+        f.puts("User.create()")
+
+
+
+
+
       end
 
 

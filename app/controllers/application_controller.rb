@@ -60,6 +60,11 @@ class ApplicationController < ActionController::Base
     (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
   end
 
+  #for devise. that a shit! why it doesn not use the other method?
+  def self.default_url_options(options={})
+    {:l => I18n.locale }
+  end
+
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?
 
 
