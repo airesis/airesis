@@ -27,24 +27,10 @@ de:
       unconfirmed: Der Account wurde noch nicht bestätigt
       user:
         invalid: Benutzername oder Passwort ungültig
-    mailer:
-      confirmation_instructions:
-        welcome: 'Welcome on %{app_name} %{user}!'
-        follow_link: 'You can confirm your e-mail address by clicking the following link:'
-        confirm_account: Confirm account
-        follow_link_2: 'or by visiting the following url:'
-        access_by_email: 'Then you can log in %{app_name} with the provided e-mail and the chosen password'
-        contact_assistance: 'If you have any problem with the procedure contact an administrator: %{mail}'
-      reset_password_instructions:
-        hi_user: 'Hello %{user}!'
-        follow_link: 'You can change your password by clicking the following link:'
-        change_password: Change password
-        ignore: "If you didn't asked the change of a password, ignore this e-mail."
-        password_will_not_change: Your password will not change until you click on the previous link.
   calendar:
     monthNames: "['Januar','Februar','März','April','Mai','Juni','Juli','August','September','October','November','Dezember']"
     monthNamesShort: "['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dez']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']"
+    dayNames: "['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag',,'Freitag','Samstag']"
     dayNamesShort: "['Son','Mon','Die','Mit','Don','Fre','Sam']"
     today: Heute
     month: Monat
@@ -54,64 +40,64 @@ de:
     timeFormat: 'h(:mm)t '
   date:
     order:
-    -  :Tag
-    -  :Monat
-    -  :Jahr
+      - :day
+      - :month
+      - :year
     formats:
       default: %d-%m-%Y
       short: %b %d
     day_names:
-    -  Sonntag
-    -  Montag
-    -  Dienstag
-    -  Mittwoch
-    -  Donnerstag
-    -  Freitag
-    -  Samstag
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
     abbr_day_names:
-    -  S
-    -  M
-    -  D
-    -  M
-    -  F
-    -  D
-    -  S
+      - S
+      - M
+      - D
+      - M
+      - F
+      - D
+      - S
     month_names:
-    -  [ ]
-    -  Januar
-    -  Februar
-    -  März
-    -  April
-    -  Mai
-    -  Juni
-    -  Juli
-    -  August
-    -  September
-    -  Oktober
-    -  November
-    -  Dezember
+      -
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
     abbr_month_names:
-    -  [ ]
-    -  Jan
-    -  Feb
-    -  Mär
-    -  Apr
-    -  Mai
-    -  Jun
-    -  Jul
-    -  Aug
-    -  Sep
-    -  Oct
-    -  Nov
-    -  Dec
+      -
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
   time:
     formats:
       default: %d %b %Y at %H:%M
       long: %A %d %B %Y %H:%M
       long_date: %A %d %B %Y
-      long_date_time: %A %d %B %Y at %H:%M
-      from_long_date_time: From %A %d %B %Y at %H:%M
-      until_long_date_time: Until %A %d %B %Y at %H:%M
+      long_date_time: %A %d %B %Y um %H:%M
+      from_long_date_time: Von %A %d %B %Y um %H:%M
+      until_long_date_time: Bis %A %d %B %Y um %H:%M
       weekday: %A
       month: %B
       dayandmonth: %d/%m
@@ -121,39 +107,39 @@ de:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: about one hour ago
-        other: 'about %{count} hours ago'
+        one: ungefähr vor einer Stunde
+        other: 'ungefähr vor %{count} Stunden'
       about_x_months:
-        one: about a month ago
-        other: 'about %{count} months ago'
+        one: ungefähr vor einem Monat
+        other: 'ungefähr vor %{count} Monate'
       about_x_years:
-        one: about one year ago
-        other: 'about %{count} years ago'
+        one: vor ungefähr einem Jahr
+        other: 'ungefähr vor %{count} Jahren'
       almost_x_years:
-        one: almost one year ago
-        other: 'almost %{count} years ago'
-      half_a_minute: half a minute ago
+        one: vor fast einem Jahr
+        other: 'vor fast %{count} Jahren'
+      half_a_minute: vor einer Halben Minute
       less_than_x_minutes:
-        one: less than a minute ago
-        other: 'less than %{count} minutes ago'
+        one: vor weniger als einer Minute
+        other: 'vor weniger als %{count} Minuten'
       less_than_x_seconds:
-        one: less than a second ago
-        other: 'less than %{count} seconds ago'
+        one: vor weniger als einer Sekunde
+        other: 'vor weniger als %{count} Sekunden'
       over_x_years:
-        one: more than one year ago
-        other: 'more than %{count} years ago'
+        one: vor mehr als einem Jahr
+        other: 'vor mehr als %{count} Jahren'
       x_days:
-        one: one day ago
-        other: "! '%{count} days ago'"
+        one: vor einem Tag
+        other: "! 'vor %{count} Tagen'"
       x_minutes:
-        one: one minute ago
-        other: "! '%{count} minutes ago'"
+        one: vor einer Minute
+        other: "! 'vor %{count} Minuten'"
       x_months:
-        one: one month ago
-        other: "! '%{count} months ago'"
+        one: vor einem Monat
+        other: "! 'vor %{count} Monaten'"
       x_seconds:
-        one: one second ago
-        other: "! '%{count} seconds ago'"
+        one: vor einer Sekunde
+        other: "! 'vor %{count} Sekunden'"
   day:
     one: '%{count} Tag'
     other: '%{count} Tage'
@@ -200,7 +186,7 @@ de:
         surname_label: Nachname
         email_label: E-Mail
         edit_image: Bild bearbeiten
-        to_be_confirmed: to be confirmed
+        to_be_confirmed: zum Bestätigen
         password_label: Optionen
         facebook_url_label: Facebook URL
         googleplus_url_label: Google+ URL
@@ -212,9 +198,9 @@ de:
         what_can_i_do: Was kann ich machen?
         what_i_cant_do: Was kann ich nicht machen?
       send_message:
-        subject_label: Subject
+        subject_label: Betreff
         body_label: Inhalt
-        massive_email: Sending massive mail
+        massive_email: Massen-eMail versenden
       left_panel:
         general_info: Allgemeine Informationen
         alarm_and_notifications: Hinweise und Benachrichtigungen
@@ -222,28 +208,29 @@ de:
         account_and_privacy: Konto und Privatsphäre
         title: Einstellungen und Favoriten
       alarm_preferences:
-        receive_on_address: 'Get newsletter on %{email}'
+        receive_on_address: 'Newsletter erhalten unter %{email}'
         alerts: Benachrichtigungen
         emails: E-Mails
       privacy_preferences:
         tooltips: Tooltips anzeigen
-        show_urls: Show Facebook, Google+ and LinkedIn URLs to users
+        show_urls: Facebook-, Google+-und Linkedin-Urls den Benutzern anzeigen
         private_messages: Erhalte private Nachrichten von anderen Benutzern
         join_accounts: Einem anderen Account beitreten
         join_accounts_description: 'Mit Airesis hast Du die Möglichkeit alle Deine sozialen Netzwerke in einem einzigen Account zu verbinden. <br/> Wähle den Provider aus um dich anzumelden, so kannst Du Dich jederzeit über Facebook, Google, Twitter und vielen weiteren sozialen Netzwerken einloggen.'
         joined_all: Danke! Du bist bereits allen verfügbaren Providern beigetreten!
-        join_facebook: Join your Facebook account
-        join_google: Join your Google account
-        join_twitter: Join your Twitter account
-        join_linkedin: Join your LinkedIn account
-        join_meetup: Join your Meetup account
-        providers_list: List of activated providers
+        join_facebook: Logge dich mit Facebook ein
+        join_google: Logge dich mit deinem Google-Account ein
+        join_twitter: Logge dich mit deinem Twitter-Account ein
+        join_linkedin: Logge dich mit deinem LinkedIn-Account ein
+        join_meetup: Verbinde dich mit deinem Meetup-Account
+        providers_list: Liste der aktivierten Provider
         options: Optionen
-        rotp: Enable Security Token
-        rotp_title: Security Token
-        rotp_confirm_enable: Are you sure you want to enable the security token?
-        rotp_confirm_disable: Are you sure you want to disable the security token?
-        mail_language: Language for e-mails
+        rotp: Security-Token aktivieren
+        rotp_title: Security-Token
+        rotp_confirm_enable: Bist Du sicher das Security-Token aktivieren zu wollen?
+        rotp_confirm_disable: Bist Du sicher das Security-Token deaktivieren zu wollen?
+        mail_language: Sprache der e-Mails
+        time_zone: Zeitzone
       border_preferences:
         updating: Please wait while we update your preferences according to your border preferences
         your_borders: Your geographical borders of interest
@@ -259,12 +246,12 @@ de:
         proposals: Quorum und Vorschläge
         areas: Arbeitsbereiche
       edit_events:
-        title: Manage group events
+        title: Verwalten von Gruppenveranstaltungen
       edit_permissions:
-        title: Manage roles and permissions
-        new_role: Add a new role
-        edit_role_title: Edit role
-        new_role_title: New role
+        title: Rollen und Berechtigungen verwalten
+        new_role: Neue Rolle hinzufügen
+        edit_role_title: Rolle bearbeiten
+        new_role_title: Neue Rolle
         user_title: Benutzer
         role_title: Rolle
         no_users_yet: Wenn vorhanden, kannst du hier Teilnehmerrollen verwalten.
@@ -284,17 +271,17 @@ de:
         find_group_label: Finde eine Gruppe die dich interessieren könnte
         find_title: Suche in der Gruppe Name oder Beschreibung
         find_button: Suche
-        groups_list: Groups you participate in
-        groups_registration: Group Registration
+        groups_list: Gruppen, an denen Sie beteiligt sind
+        groups_registration: Gruppen-Anmeldung
         groups_list_2: Gruppenliste
-        no_groups_yet: "You don't participate to any %{name} yet"
+        no_groups_yet: 'Sie nehmen noch nicht an einer %{name} teil'
         open_space_title: Öffentliche Veranstaltungen
         show_more: Weitere Gruppen anzeigen
         search_mask: Search tool
-        search_with_query: using a personalized query
+        search_with_query: eine personalisierte Suchabfrage benutzen
         search_with_place: or geographic border
         search_description: Use the search tool or click on a tag to find groups of your interest
-        insert_query_or_place: You must type at least three characters or a geographic border
+        insert_query_or_place: Sie müssen mindestens drei Buchstaben oder eine geographische Grenze eingeben
         tags: Tags
         partecipants_number: Anzahl Teilnehmer
         proposals_number: Anzahl Vorschläge
@@ -304,17 +291,17 @@ de:
         title: Erstelle eine neue Gruppe
         new_group: Neue Gruppe
         create_button: Gruppe erstellen!
-        change_permissions_button: Do you want to change the standard permissions ?
-        change_permissions_title: Change the standard permissions of new users
+        change_permissions_button: Willst Du die Standardberechtigungen ändern?
+        change_permissions_title: Standardberechtigungen der neuen Benutzer ändern
         change_permissions_description: 'These are the actions that new users can perform within the group: remember that you can always modify them and create new roles!'
-        errors_title: "Sorry, but the post can't be inserted:"
+        errors_title: 'Es tut uns Leid, der Post kann nicht eingefügt werden:'
         tags:
-          title: Tags (separated by comma)
+          title: Tags (durch Komma getrennt)
       edit:
         title: Edit Group Settings
         change_permissions: In Roles and Permissions Settings you can always change the members permissions.
-        remove_user_confirm: 'Are you sure you want to remove %{name} from the group?'
-        modify_group: Modify the group
+        remove_user_confirm: 'Bist Du sicher %{name} von der Gruppe entfernen zu wollen?'
+        modify_group: Gruppe ändern
       layout:
         home_button: HOME PAGE
         proposals_button: VORSCHLÄGE
@@ -325,19 +312,19 @@ de:
         blog_button: Create my Blog
         participants_list: 'Teilnehmerliste '
         invite_button: Lade deine Freunde ein!
-        show_all_participants: 'Shows all %{count} ...'
-        participants_full_list: Complete list of group members
-        no_participants: No users participating to this group yet.
+        show_all_participants: 'Alle anzeigen %{count} ...'
+        participants_full_list: Vollständige Liste der Gruppenmitglieder
+        no_participants: Noch kein Benutzer nimmt an dieser Gruppe teil.
         no_blogs_yet: No blog posts in this group yet, come back soon.
         waiting_participation_requests: Participation requests waiting for answer
-        accept_request_button: Accept
-        reject_request_button: Reject
+        accept_request_button: Akzeptieren
+        reject_request_button: Ablehnen
         ask_participate_button: Ask to be part of the group
-        remove_post: Remove from the group board
+        remove_post: Aus der Gruppen-Pinnwand entfernen
         destroy_button: Gruppe entfernen
-        confirm_destroy: YOU ARE DELETING THE GROUP!!! Are you sure you want to do that?
+        confirm_destroy: Du bist dabei die Gruppe zu löschen!!! Bist Du sicher dass Du das tun möchtest?
         list_permissions:
-          title: List of your permissions inside the group
+          title: Liste Deiner Berechtigungen innerhalb der Gruppe
           button: Berechtigungsliste
         print_all_participants: Teilnehmerliste drucken
         last_proposals: Kürzlich hinzugefügte Vorschläge
@@ -352,22 +339,22 @@ de:
         elections: WAHLEN
         documents: DOKUMENTEN
       documents:
-        documents_archive: Documents archive
+        documents_archive: Dokumenten-Archiv
         storage_size: Storage size occupied
         max_storage_size: Maximum storage size available
         current_storage_usage: Storage size usage
       edit_quorums:
         new_quorum:
-          title: New quorum
-          simple: Simple
-          advanced: Advanced
-          time_description: For the proposal to go to the voting phase, it must remain in debate for at least
+          title: Neues Quorum
+          simple: Einfach
+          advanced: Erweitert
+          time_description: Damit der Vorschlag in die Abstimmungsphase übergeht, muss er in der Debatte bleiben für mindestens
           simple_percentage_description: Then it goes to the voting phase if its rank (positive evaluations) is superior to
           advanced_participation_description: it must be evaluated by almost
           advanced_participation_description2: of the members that have the right to do so
           advanced_participation_description3: '(das ist '
           advanced_participation_description4: out of
-          advanced_participation_description5: ' at the moment).'
+          advanced_participation_description5: ' im Moment).'
           advanced_percentage_description: If however the rank is inferior to
           advanced_percentage_description2: the proposal is rejected without going to the voting phase.
           advanced_percentage_description3: The proposal remains in debate until the rank is between the two thresholds.
@@ -375,45 +362,45 @@ de:
         name: Name
         participants: Teilnehmer
         condition: Bedingung
-        good_percentage: % Rank
-        bad_percentage: % Rejection
-        confirm_deletion: 'Are you sure you want to delete the quorum %{quorum}?'
-        add_quorum: Add a new quorum
+        good_percentage: % Rang
+        bad_percentage: % Ablehnung
+        confirm_deletion: 'Bist Du sicher das Quorum %{quorum} löschen zu wollen?'
+        add_quorum: Ein neues Quorum hinzufügen
         edit_quorum: Quorum ändern
         configure_proposal_parameters: Vorschlagsparameter konfigurieren
         default_anonymous_proposal: Temporary anonymity active
         default_private_proposal: Proposals visible outside of the group
-        default_secret_vote: Secret vote
-        let_editor_change_settings: Editors can freely choose the above options
+        default_secret_vote: Geheime Abstimmung
+        let_editor_change_settings: Redakteure können die oben genannten Optionen frei wählen
         condition_OR: oder
         condition_AND: und
         time: Zeit
         edit_quorum_warning: "Warning! Modifications to this quorum won't affect the proposals already using it!"
       edit_work_areas:
         index:
-          not_enabled: Work areas not enabled
-          description: Airesis lets you manage different work areas inside the group.
-          description2: With this feature you can better manage the participants and their roles.
+          not_enabled: Arbeitsbereiche nicht aktiviert
+          description: Bei Airesis können Sie unterschiedliche Arbeitsbereiche innerhalb der Gruppe zu verwalten.
+          description2: Mit dieser Funktion können Sie die Teilnehmer und ihre Rollen besser verwalten.
           description3: Be careful! This is an advanced feature, designed only for bigger groups and expert users.
-          enable: Enable work areas!
+          enable: Arbeitsbereiche aktivieren!
           description4: 'Before activating work areas, check if you can manage groups members directly using '
         manage:
-          new_area: Create a work area
-          switch_area_participants: Switch to participant management
-          list_title: List of the work areas. For each of them select the participants, or click the name to manage roles and permissions in that work area
-          title: Work area settings
-          list_participants: List of the group members. Select for each of them the work areas he belongs to.
-          switch_area_management: Switch to work area management
-          confirm_deletion: Are you sure you want to delete this work area?
-          manage_roles_in_area: 'Edit roles and permissions in the work area %{area}'
-        manage_group_areas: Manage users inside the work areas
+          new_area: Erstellen Sie einen Arbeitsbereich
+          switch_area_participants: Wechseln Sie zur Teilnehmerverwaltung
+          list_title: Liste der Arbeitsbereiche. Wählen Sie für jeden von ihnen die Teilnehmer, oder klicken Sie auf den Namen, um die Rollen und Berechtigungen in diesem Arbeitsbereich zu verwalten
+          title: Einstellungen für den Arbeitsbereich
+          list_participants: Liste der Gruppenmitglieder. Wählen Sie für jeden von ihnen die Arbeitsbereiche, zu denen er gehört.
+          switch_area_management: Wechseln Sie in die Verwaltung des Arbeitsbereichs
+          confirm_deletion: Sind Sie sicher, dass Sie diesen Arbeitsbereich löschen möchten?
+          manage_roles_in_area: 'Bearbeiten von Rollen und Berechtigungen im Arbeitsbereich %{area}'
+        manage_group_areas: Benutzer innerhalb der Arbeitsbereiche verwalten
         form:
-          title: New work area
+          title: Neuer Arbeitsbereich
       default_admin_title: Administrator
       invite_your_friends:
         type_email_addresses: Tippe die E-Mail-Adressen, durch Komma getrennt
         email_not_valid: E-Mail-Adresse ungültig
-        text_to_send: Text to send (optional)
+        text_to_send: Text zum Senden (optional)
         title: Invite your friends to join the group!
       participations:
         list_participations: Teilnehmerliste
@@ -424,73 +411,73 @@ de:
         send_email: E-Mail senden
         surname: Nachname
         name: Name
-        role: Role
-        member_since: Member since
+        role: Rolle
+        member_since: Mitglied seit
         participants_html:
-          one: '<b>1</b> participant'
-          other: '<b>%{count}</b> participants'
+          one: '<b>1</b> Teilnehmer'
+          other: '<b>%{count}</b> Teilnehmer'
     login:
       title: Login
     confirmation:
-      title: Re-send Confirmation Instructions
-      submit: Send me the instructions
+      title: Bestätigungsanweisungen erneut senden
+      submit: Senden Sie mir die Anweisungen
     password:
-      title: Have you forgotten your password?
-      submit: Please send me the instructions to reset the password
+      title: Haben Sie Ihr Passwort vergessen?
+      submit: Bitte senden Sie mir die Anweisungen zum Zurücksetzen des Kennworts
       edit:
-        new_password: New password
-        confirm_password: Confirm the new password
-        confirm_button: Change my password
+        new_password: Neues Passwort
+        confirm_password: Neues Passwort bestätigen
+        confirm_button: Mein Passwort ändern
     registration:
-      title: Register
-      email_confirmed: If you register with that email address you will not be asked to confirm your email address.
-      choose_password: Choose a password
-      confirm_password: Confirm password
-      accept_conditions: 'Accept the <a href="#" onclick="return openModal();">Terms of Service</a>'
-      register_button: Register
-      identity_provviders_title: Get in immediately with your favourite account
+      title: Registrieren
+      email_confirmed: Wenn Du Dich mit dieser e-Mail-Adresse registrierst, wirst Du nicht aufgefordert, Deine e-Mail-Adresse zu bestätigen.
+      choose_password: Passwort auswählen
+      confirm_password: Passwort bestätigen
+      accept_conditions: 'Die <a href="#" onclick="return openModal();"> Nutzungsbedingungen</a> akzeptieren'
+      register_button: Registrieren
+      identity_provviders_title: Sofort mit Deinem Lieblingskonto anmelden
     proposals:
       index:
         title: Liste der Vorschläge
-        debate: All proposals are in review
-        voting: 'All proposals currently pending vote '
-        accepted: List of proposals shared and accepted by the users
+        debate: Alle Vorschläge werden geprüft
+        voting: 'Alle Vorschläge stehen derzeit zur Abstimmung an '
+        accepted: Liste der geteilten und von den Benutzern akzeptierten Vorschläge
         revision: All proposals that have been implemented and for which we are collecting feedback
         last: Zuletzt hinzugefügt
         most_popular: Most popular
-        most_valutated: Most evaluated
+        most_valutated: Am meisten bewertet
         continue_reading: Continue reading the proposal
-        debate_title: 'In debate (%{count})'
-        voting_title: 'Voting (%{count})'
-        accepted_title: 'Voted (%{count})'
-        revision_title: 'Abandoned (%{count})'
-        login_with: 'or login with:'
-        group_areas_title: Working areas
-        no_group_areas: No area
-        all_areas: All the areas
+        debate_title: 'In der Debatte (%{count})'
+        voting_title: 'Abstimmung (%{count})'
+        accepted_title: 'Abgestimmt (%{count})'
+        revision_title: 'Verlassene (%{count})'
+        login_with: 'oder einloggen mit:'
+        group_areas_title: Arbeitsbereiche
+        no_group_areas: Kein Bereich
+        all_areas: Alle Bereiche
         categories_title: Kategorien
         all_categories: Alle Kategorien
-        loading_proposals: Loading proposals, please wait...
-        title_with_category: 'Proposals in category %{category}'
-        all_categories_title: Proposals in all categories
-        in_group_area_title: in working area
-        last_title: Last inserted (TODO)
-        most_popular_title: Most popular (TODO)
+        loading_proposals: Die Vorschläge werden geladen, bitte warten...
+        title_with_category: 'Vorschläge in der Kategorie %{category}'
+        all_categories_title: Vorschläge in allen Kategorien
+        in_group_area_title: in Arbeitsbereich
+        last_title: Zuletzt eingefügt (TODO)
+        most_popular_title: Die beliebtesten (TODO)
         most_voted_title: Most ranked (TODO)
-        show_more: Show more proposals...
-        loading_alt: Loading
-        choose_model: Choose a proposal model
-        search_title: Search in group proposals
-        search_placeholder: Insert at least two characters to search
-        search_words: Any words
+        show_more: Mehr Vorschläge anzeigen...
+        loading_alt: Laden
+        choose_model: Einen Vorschlagsmodel auswählen
+        search_title: Suche in den Vorschlägen der Gruppe
+        search_placeholder: Für die Suche füge mindestens zwei Zeichen ein
+        search_words: Mindestens ein Wort
       show:
         voteup: Ich bin einverstanden
         votenil: Ich weiß es nicht / Ich verstehe es nicht
-        votedown: I ​​disagree
-        random_stack: Smart sorting
-        most_recent: Most recent
+        votedown: Ich bin nicht einverstanden
+        random_stack: Intelligente Sortierung
+        most_recent: Die letzten
         most_ranked: Most evaluated
-        history_button: History
+        history_button: Verlauf
         choose_votation_period: Choose a voting period
         choose_votation_period_alert: "Are you sure about the voting period? You can't change it later!"
         choose_votation_period_button: I chose!
@@ -540,60 +527,60 @@ de:
         close_debate_button: Close debate
         close_debate_proposal_confirmation: Close debate immediately and go to the next phase?
         during_debate: Debate proceeding
-        comment_inserted_by: 'Added %{when} by %{who}'
+        comment_inserted_by: 'Hinzugefügt %{when} von %{who}'
         replies:
-          show_all: 'Show all %{count} comments...'
-          delete: Delete
-        reply_button: Reply
-        reply_placeholder: Give your comment
-        export_pdf: Print PDF
-        manage_noise_folder: 'Removed contributions (%{removable}/%{removed})'
-        noise_folder: Removed contributions
-        what_nickname: "What's that?"
-        give_contribute: WRITE AND SHOW CONTRIBUTIONS
-        no_contributes: While voting contributions are not shown
-        new_valutation_message: The proposal has received a new evaluation
-        old_editors_title: Old editors
-        back_debate_button: Put back in debate
-        new_quorum_title: Choose a new quorum
-        enable_alerts: Enable alerts
-        disable_alerts: Disable alerts
-        close_contribute: CLOSE CONTRIBUTIONS
-        contributes_list: "List of contributions in '%{section}'"
-        add_comment: Add a comment
+          show_all: 'Alle %{count} Kommentare anzeigen...'
+          delete: Löschen
+        reply_button: Antworten
+        reply_placeholder: Gib Deinen Kommentar
+        export_pdf: PDF drucken
+        manage_noise_folder: 'Entfernte Beiträge (%{removable}/%{removed})'
+        noise_folder: Entfernte Beiträge
+        what_nickname: Was ist das?
+        give_contribute: BEITRÄGE SCHREIBEN UND ANZEIGEN
+        no_contributes: Während der Abstimmung werden die Beiträge nicht angezeigt
+        new_valutation_message: Der Vorschlag hat eine neue Bewertung erhalten
+        old_editors_title: Alte Redakteure
+        back_debate_button: In die Dabatte zurückstellen
+        new_quorum_title: Neues Quorum auswählen
+        enable_alerts: Warnungen aktivieren
+        disable_alerts: Warnungen deaktivieren
+        close_contribute: BEITRÄGE SCHLIEßEN
+        contributes_list: "Liste der Beiträge in '%{section}'"
+        add_comment: Einen Kommentar hinzufügen
         add_contribute: Give your ideas! Propose modifications of the tex and help the editor improve the proposal
-        login_to_comment: Login to add a comment
-        regenerate_nickname: Regenerate nickname
+        login_to_comment: Logge Dich ein um einen Kommentar hinzuzufügen
+        regenerate_nickname: Nickname neu erstellen
         add_contribution_no_paragraph: No paragraph specified
       new:
-        quorum_prompt: Select quorum
-        quorum_help: "I don't get this!"
-        step_1: Initial information
-        step_2: Similar proposals
-        step_3: Problems and objectives
-        step_4: Creation of the proposal
+        quorum_prompt: Quorum auswählen
+        quorum_help: Ich verstehe es nicht!
+        step_1: Erstinformation
+        step_2: Ähnliche Vorschläge
+        step_3: Probleme und Ziele
+        step_4: Erstellung des Vorschlags
         step_3_title: Describe comprehensively the problems that you face and what goals the proposal wants to achieve
-        create_button: Create the proposal
-        title: New proposal
+        create_button: Den Vorschlag erstellen
+        title: Neuer Vorschlag
         title_group: '%{name}:'
-        title_synthetic: (in summary)
-        title_placeholder: "ex. 'Facilitate bike transport on trains'"
+        title_synthetic: (zusammenfassend)
+        title_placeholder: Beisp. "Bike-Transport in den Zügen erleichtern"
         interest_borders_tkn_placeholder: Cities, Regions or States interested by the proposal
         tags_list_placeholder: Insert some tags for your proposal
         standard:
-          problems_title: Problems
+          problems_title: Probleme
           problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
-          objectives_title: Objectives
+          objectives_title: Ziele
           step_4_title: You can enter a text of the proposal or write it later based on the input received
           solution:
-            description: Description of the solution
+            description: Beschreibung der Lösung
             time: Times
             subject: Supervisor
             resources: Necessary resources and how to retrieve them
-            aspects: Ethical, environmental, social aspects
-            documents: Documentation
-            pros: Pros
-            cons: Cons
+            aspects: Ethische, ökologische und soziale Aspekte
+            documents: Dokumentation
+            pros: Vorteile
+            cons: Nachteile
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Reduce the usage of drinking water for irrigation.</div>
@@ -605,7 +592,7 @@ de:
             <div>Rule book to reserve the St. Peter's hall</div>
             <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
           solution:
-            article: 'Article %{num}'
+            article: 'Artikel %{num}'
             pros: Pros
             cons: Cons
         press:
@@ -616,14 +603,14 @@ de:
             <div>Advertise the release of the version 3.5 of Airesis.</div>
             <div>We have to advertise the release of the version 3.5 of Airesis, that brings important features for the Public Administrations. It is necessary to explain what Airesis is and captivate the attention of the press, given the recent rumors about the usage of Airesis in the White House.</div>
           solution:
-            subtitle: Subtitle
+            subtitle: Untertitel
             incipit: Incipit
             body: Body
             conclusion: Conclusions
             deep: Insights
         estimate:
           problems_title_label: What goods or services you wish to purchase? To solve which problems?
-          problems_title: Problems
+          problems_title: Probleme
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Replacement of the thermal plant in the headquarter of the Association.</div>
@@ -650,7 +637,7 @@ de:
             <div>Organize a low-cost rock concert.</div>
             <div>In our town there are a lot of young bands that cannot show off and improve their talent, because of a lack of space. In addition to this, there are few events promoted by our Municipality for the next summer, because of a lack of resources.</div>
           solution:
-            title: Title
+            title: Titel
             description: Description of the solution
             program: Date, time and plan
             body: place
@@ -672,61 +659,61 @@ de:
             name: Candidate Name and Surname
             data: Personal data
             curriculum: Curriculum
-            available: Availability for the position
+            available: Verfügbarkeit für die Position
         simple:
           problems_title: Problem
           solution:
-            description: Description
+            description: Beschreibung
           problems_title_label: What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?
-        tags_separated_by_comma: (separated by comma)
+        tags_separated_by_comma: (durch Komma getrennt)
         cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"
         no_work_area_selected: No work area
-        solution1: Solution 1
-        solution: Solution
+        solution1: Lösung 1
+        solution: Lösung
       tabs:
-        last_inserted: Last updated
+        last_inserted: Zuletzt aktualisiert
         most_popular: Most popular
         most_valutated: Most ranked
       list:
-        last_update: 'Last update of %{date}'
+        last_update: 'Letzte Aktualisierung vom %{date}'
         waiting_date: Waiting for the authors to choose a voting date
-        voting_from_to: 'Voting from %{from} to %{to}'
-        voting_until: 'Voting now until %{date}'
-        votation_finished: 'Voting ended on %{date}'
-        no_votation: There has not been any vote
-        interest_borders: Geographic boundaries
-        authors: Authors
+        voting_from_to: 'Abstimmung vom %{from} bis zum %{to}'
+        voting_until: 'Abstimmung jetzt bis zum %{date}'
+        votation_finished: 'Abstimmung beendet am %{date}'
+        no_votation: Es hat keine Abstimmung stattgefunden
+        interest_borders: Geografische Grenzen
+        authors: Autoren
         support_group: Support groups
-        no_proposals: No proposals yet
-      delete_comment: Delete
+        no_proposals: Noch keine Vorschläge
+      delete_comment: Löschen
       results:
-        total: 'Total voters: %{count}'
+        total: 'Stimmen gesamt: %{count}'
         vote_column: Vote
-        number_column: Number
-        percentage_column: Percentage
-        positive: Favorable
-        negative: Contrary
-        neutral: Neutrals
-        name_surname_column: Name and surname
-        date_time_column: Vote date and time
+        number_column: Anzahl
+        percentage_column: Prozentsatz
+        positive: Dafür
+        negative: Dagegen
+        neutral: Neutral
+        name_surname_column: 'Vor- und Nachname'
+        date_time_column: Datum und Uhrzeit der Abstimmung
       report_contribute:
-        mark_title: Mark the contribution
+        mark_title: Beitrag markieren
         mark_description: 'You can point out to authors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the authors of the proposal can delete it from the discussion and place it in the "noise" folder.<br/>'
         report_title: Report the contribution
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
-        title: Make your vote!
-        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to %{max} (I really like)"
+        title: Gib Deine Stimme ab!
+        schulze_title: 'Für diesen Vorschlag gibt es mehrere Lösungen.<br/>Ordne sie nach Deinen Präferenzen indem Du die Shulze-Methode verwendest<br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
         secret_vote: Your vote is secret and you will not be able to recover or change it once expressed.
         clear_vote: Your vote is recorded and will therefore be verifiable.
         single_title: In this proposal there is only one solution. Make your point!
-        results_time: 'You expressed your vote on %{when}'
-        hidden_vote: "The vote was secret so it can't be shown."
+        results_time: 'Du hast Deine Stimme am %{when} abgegeben'
+        hidden_vote: Die Abstimmung war geheim und kann nicht angezeigt werden.
         preferences_order: 'Your preferences order was:'
-        expressed_vote: 'You expressed %{vote} vote'
+        expressed_vote: 'Du hast %{vote} Stimmen abgegeben'
       edit:
         title: "Edit the proposal '%{title}'"
-        hurry_up: Hurry up!
+        hurry_up: Beeil dich!
         last_minutes: 'You are allowed to edit these fields only for %{minutes} minutes.'
         no_participants: You are allowed to edit these fields only if nobody has participated!
         remove_section: Remove section
@@ -758,7 +745,7 @@ de:
         available: Contributions eligible for deletion
         removed: Contributions removed from discussion
       contribution_valuation: What do you think?
-      contribution_valuation_again: Chenged your mind?
+      contribution_valuation_again: Changed your mind?
     events:
       index:
         title: Calendar
@@ -803,68 +790,68 @@ de:
         confirm_schulze: 'Confirm your vote on the proposal %{name}? Once you have voted it cannot be modified.'
     blog_posts:
       new:
-        title: Add a new post
-        published_in_groups: 'The post will be published in the following groups:'
-      new_button: Add a new post
-      drafts_button: Unpublished posts
+        title: Neuen Post hinzufügen
+        published_in_groups: 'Der Post wird in die folgenden Gruppen veröffentlicht:'
+      new_button: Neuen Post hinzufügen
+      drafts_button: Unveröffentlichte Posts
       drafts:
-        title: '%{blog} - unpublished posts'
-      edit_button: Modify
-      delete_button: Delete
+        title: '%{blog} - unveröffentlichte Posts'
+      edit_button: Ändern
+      delete_button: Löschen
       comment:
-        delete_button: Delete
-        confirm_delete: Are you sure you want to delete this post?
+        delete_button: Löschen
+        confirm_delete: Bist du sicher, dass du diesen Post löschen möchtest?
       list_elements:
-        inserted: 'Added by %{name} on %{date}'
+        inserted: 'Hinzugefügt von %{name} am %{date}'
       show:
-        previous_comments: Previous comments...
+        previous_comments: Vorherigen Kommentare...
         tags_title: 'Tags:'
-        edit_button: Edit
-        delete_button: Delete
-        delete_button_confirm: Are you sure you want to delete this post?
-        draft: '[Draft]'
-        comments_says: says...
-      published_button: Published posts
+        edit_button: Bearbeiten
+        delete_button: Löschen
+        delete_button_confirm: Bist du sicher, dass du diesen Post löschen möchtest?
+        draft: '[Entwurf]'
+        comments_says: sagt...
+      published_button: Veröffentlichte Posts
       view:
-        comments: 'Comments (%{count})'
+        comments: 'Kommentare (%{count})'
       index:
         title: Blogs
     alerts:
       polling:
-        show_all: Show all notifications
+        show_all: Alle Benachrichtigungen anzeigen
       index:
-        new_not_read: New unread notifications
-        no_new: No new notification
-        old_not_read: Old notifications already read
-        no_old: No notification
+        new_not_read: Neue ungelesene Benachrichtigungen
+        no_new: Keine neue Benachrichtigung
+        old_not_read: Alte Mitteilungen bereits gelesen
+        no_old: Keine Benachrichtigung
     blog_comments:
       new:
-        insert_comment: Insert comment
+        insert_comment: Kommentar einfügen
     header:
       groups:
-        events: EVENTS
-        proposals: PROPOSALS
-      no_groups_yet: You are not in any group yet
+        events: VERANSTALTUNGEN
+        proposals: VORSCHLÄGE
+      no_groups_yet: Du bist noch in keiner Gruppe
       menu:
-        my_page: MY HOMEPAGE
-        my_blog: MY BLOG
-        create_blog: CREATE YOUR BLOG
+        my_page: MEINE HOMEPAGE
+        my_blog: MEIN BLOG
+        create_blog: EIGENES BLOG ERSTELLEN
         preferences: PREFERENCES
-        administration: ADMINISTRATION
+        administration: VERWALTUNG
         logout: LOGOUT
         become_user: Become a user
-        become_user_button: Go!
-        remember_me: Remember me on this computer
+        become_user_button: Los!
+        remember_me: Auf diesem Computer merken
         login_button: Login
         registration_button: JOIN US
-        forgot_password_button: Forgot password?
-        resend_email_button: "Haven't you received a confirmation email?"
-        no_notifications: No notification
-        sign_has_read: Sign as read
+        forgot_password_button: Passwort vergessen?
+        resend_email_button: Hast Du keine Bestätigungs-eMail erhalten?
+        no_notifications: Keine Benachrichtigung
+        sign_has_read: Als gelesen markieren
         moderator: MODERATOR PANEL
-        profile: PROFILE
-      welcome: Welcome
-      groups_title: GROUPS
+        profile: PROFIL
+      welcome: Willkommen
+      groups_title: GRUPPEN
       login: LOGIN
       login_placeholder: Email or username
       groups_list: Groups you participate in
@@ -952,23 +939,23 @@ de:
       new:
         panel_title: Confirm proposal support
         no_available_groups: 'You are not allowed to support this proposal by any group '
-      confirm_button: Confirm
+      confirm_button: Bestätigen
     calendar:
       create_event_button: Create new event
     candidates:
       new:
-        title: '%{name} : New candidature'
+        title: '%{name} : Neue Kandidatur'
         description: Choose one of the group participants and send him as candidate for one of the available elections.
-        send_button: Send the candidature
+        send_button: Kandidatur senden
       index:
         description: 'On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must '
         create_election: hold an election
-        user_column: User
-        election_column: Election
+        user_column: Benutzer
+        election_column: Wahl
         state_column: State
         candidates_phase: user candidatures
         voting_phase: voting phase
-        terminated_phase: terminated
+        terminated_phase: beendet
         send_candidate_button: Candidate a user
         create_election_button: Create a new election
     sessions:
@@ -1030,9 +1017,9 @@ de:
       no_revision: No revision
       life_cycle: Life cycle
       life_cycle_number: 'Life cycle number %{life}'
-      end_date: 'Date of end:'
-      score_reached: 'Rank reached:'
-      evaluation_reached: 'Number of evaluations:'
+      end_date: 'Enddatum:'
+      score_reached: 'Rang erreicht:'
+      evaluation_reached: 'Anzahl der Bewertungen:'
       quorum_used: 'Quorum used:'
       editors_in_life_cycle: 'Authors in this life cycle:'
     tags:
@@ -1047,20 +1034,22 @@ de:
       proposals_tab: Vorschläge
       posts_tab: Beiträge
       groups_tab: Gruppen
+      not_found:
+        subtitle: These are the most used keywords on Airesis
     footer:
-      for_edemocracy: for e-democracy
+      for_edemocracy: für e-Demokratie
       go_to_main_site: Go to main site
       for_edemocracy_html: '<a href="https://github.com/coorasse/Airesis" target="_blank">Open Source</a> project for e-democracy'
     moderator_panel:
       title: Moderator panel
-      block_user: Block user
-      blocked_user_list: List of blocked users
-      block: Unblock
+      block_user: Nutzer blockieren
+      blocked_user_list: Liste der gesperrten Nutzer
+      block: Entsperren
     feedback:
-      send_feedback: Send feedback
-      add_details: Add details
-      view_preview: Preview
-      send_succes: Feedback successfully sent. Thank you!
+      send_feedback: Feedback senden
+      add_details: Details hinzufügen
+      view_preview: Vorschau
+      send_succes: Feedback erfolgreich gesendet. Vielen Dank!
       send_error: We are sorry but an error occurred while sending the feedback
       describe_problem: 'Write here your message:'
       highlight_or_blackout: Highlight or blackout important information
@@ -1068,51 +1057,51 @@ de:
       highlight: Highlight
     passwords:
       edit:
-        title: Change your password
+        title: Passwort ändern
   pl:
     comments:
-      zero: no comment
-      one: one comment
-      other: '%{count} comments'
+      zero: Kein Kommentar
+      one: ein Kommentar
+      other: '%{count} Kommentare'
   activerecord:
     models:
       meeting: Meeting
-      places: Place
+      places: Ort
     attributes:
       blog_comment:
-        body: Comment
+        body: Kommentar
         created_at: AntiSpam
       candidate:
-        user: Candidate
-        election: Election
+        user: Kandidat
+        election: Wahl
       election:
         groups_end_time: Deadline date for group entry
         candidates_end_time: Deadline date for candidates entry
       event:
-        title: Event title
-        description: Description
-        event_type_id: Event Type
-        starttime: Start Date
-        endtime: End Date
-        all_day: All Day
-        period: Repeat
+        title: Titel der Veranstaltung
+        description: Beschreibung
+        event_type_id: Art der Veranstaltung
+        starttime: Start Datum
+        endtime: Enddatum
+        all_day: Den ganzen Tag
+        period: Wiederholen
         frequency: Repeat every
-        private: Private
+        private: Privat
         candidates_end_time: Deadline date for candidates entry
         meeting:
           place:
-            address: Address
-            comune_id: City
+            address: Adresse
+            comune_id: Stadt
       group:
-        facebook_page_url: Facebook page address
+        facebook_page_url: Adresse der Facebook-Seite
         name: Name
-        title_bar: Title Bar
-        description: Description
+        title_bar: Titelleiste
+        description: Beschreibung
         accept_requests: Request for Participation
         porta_id: Administrator
         interest_border_tkn: Geographical place of interest
         interest_border_id: Geographical place of interest
-        image_url: Image Address
+        image_url: Bild-Adresse
         default_role_name: "What's the name for new users?"
         default_role_name_placeholder: 'Eg: Users, Members, Activists, Pirates'
         name_placeholder: Choose a name related to the group identity and/or location.
@@ -1154,48 +1143,48 @@ de:
         quorum_id: Quorum
         anonima: Temporary anonymity
         visible_outside: Publicly visible
-        secret_vote: Secret vote
+        secret_vote: Geheime Abstimmung
       proposal_comment:
-        content: Content
+        content: Inhalt
       quorum:
-        name: Name of the quorum
-        name_title: Please enter a short, explanatory title
-        description: Description / Brief explanation
-        description_title: A description to understand the purpose of this quorum
-        days_m: Days
-        hours_m: hours
-        minutes_m: Minutes
-        percentage: Participants (percentage)
-        percentage_title: Minimum number of participants in the discussion as a percentage of the number of participants in the group
-        good_score: Quorum (percentage)
-        good_score_title: Rating to be achieved in order to bring the proposal to the voting phase
-        bad_score: Bad Quorum (percentage)
+        name: Name des Quorums
+        name_title: Bitte geben Sie einen kurzen, erklärenden Titel
+        description: Beschreibung / kurze Erläuterung
+        description_title: Eine Beschreibung um den Zweck dieses Quorum zu verstehen
+        days_m: Tage
+        hours_m: Stunden
+        minutes_m: Minuten
+        percentage: Teilnehmer (in Prozent)
+        percentage_title: Mindestanzahl der Teilnehmer in der Diskussion als Prozentsatz der Anzahl der Teilnehmer in der Gruppe
+        good_score: Quorum (in Prozent)
+        good_score_title: Bewertung die erzielt werden muss, um den Vorschlag in die Abstimmungsphase zu bringen
+        bad_score: Schlechte Quorum (in Prozent)
         bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
-        condition: Condition
+        condition: Bedingung
         condition_title: The conditions of Time and Participants must be both overcome or just one of them?
       search_partecipant:
-        role_id: Role
-        keywords: Name or surname
+        role_id: Rolle
+        keywords: Vorname oder Name
       sys_movement:
-        sys_movement_type_id: Type
+        sys_movement_type_id: Typ
         made_on: Made on
-        amount: Amount
-        sys_currency_id: Currency
+        amount: Betrag
+        sys_currency_id: Währung
       user:
-        name: Name
-        email: Email address
-        surname: Surname
-        login: Username
-        password: Password
-        linkedinpageurl: Your page on LinkedIn
-        facebookpageurl: Your page on Facebook
-        accept_conditions: Terms of Use
-        receive_newsletter: Newsletter via Email
-        blog_image_url: Image address
-        blocked: Error
+        name: Vorname
+        email: E-Mail-Adresse
+        surname: Nachname
+        login: Benutzername
+        password: Passwort
+        linkedinpageurl: Deine Seite auf LinkedIn
+        facebookpageurl: Deine Seite auf Facebook
+        accept_conditions: Nutzungsbedingungen
+        receive_newsletter: Newsletter per E-Mail
+        blog_image_url: Bild-Adresse
+        blocked: Fehler
       group_area:
-        name: Name
-        description: Description
+        name: Vorname
+        description: Beschreibung
         default_role_name: Default role name
     errors:
       template:
@@ -1204,70 +1193,72 @@ de:
           other: '%{count} errors did not allow this %{model} from being saved'
         body: There were problems with the following fields
       messages:
-        inclusion: is not included in the list
-        exclusion: is reserved
-        invalid: is invalid
+        inclusion: ist in der Liste nicht enthalten
+        exclusion: ist reserviert
+        invalid: ist ungültig
         confirmation: does not match confirmation
-        accepted: must be accepted
-        empty: can not be blank
-        blank: must be filled
-        too_long: The text is too long
-        too_short: The text is too short
-        wrong_length: "should be% {count} characters)'"
+        accepted: muss akzeptiert werden
+        empty: darf nicht leer sein
+        blank: muss ausgefüllt sein
+        too_long: Der Text ist zu lang
+        too_short: Der Text ist zu kurz
+        wrong_length: "sollte% {count} Zeichen)' sein"
         taken: is already taken
-        not_a_number: is not a number
-        greater_than: 'must be greater than %{count}'
-        greater_than_or_equal_to: 'must be greater than or equal of %{count}'
-        equal_to: 'must be equal to %{count}'
-        less_than: 'must be less than %{count}'
-        less_than_or_equal_to: 'must be less than or equal to %{count}'
-        odd: must be even
-        even: must be odd
-        record_invalid: 'Validation failed %{errors}'
-        not_found: not found.
+        not_a_number: ist keine Zahl
+        greater_than: 'muss größer als %{count} sein'
+        greater_than_or_equal_to: 'muss größer als oder gleich %{count} sein'
+        equal_to: 'muss gleich %{count} sein'
+        less_than: 'muss kleiner als %{count} sein'
+        less_than_or_equal_to: 'muss kleiner als oder gleich %{count} sein'
+        odd: muss gerade sein
+        even: muss ungerade sein
+        record_invalid: 'Validierung fehlgeschlagen %{errors}'
+        not_found: nicht gefunden.
       full_messages:
         format: '%{attribute} %{message}'
       models:
         user:
           attributes:
             email:
-              already_confirmed: This e-mail address is already registered
+              already_confirmed: Diese E-mail-Adresse ist bereits registriert
         group:
           portavoce:
-            required: You must choose a spokesman
+            required: Du musst einen Sprecher wählen
   models:
     quorum:
       or_condition_1: 'The debate will continue until they have participated in the %{percentage}% of those eligible, and in any case for a maximum of %{time}'
       and_condition_1: 'The debate will last %{time}, but will continue unless he has attended at least %{percentage}% of those eligible.'
-      time_condition_1: 'The debate will last exactly %{time}.'
+      time_condition_1: 'Die Debatte wird genau %{time} dauern.'
       participants_condition_1: 'The debate will continue until they have participated in the %{percentage}% of those eligible.'
       good_score_condition: 'It will go to the voting phase if it gets a rank of over %{good_score}%'
       bad_score_condition: 'and will be abandoned if it gets a rank of under %{bad_score}%.'
       bad_score_explain: The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of evaluations
-  terms_of_service: Terms of service
-  privacy_policy: Privacy Policy
+  terms_of_service: Nutzungsbedingungen
+  privacy_policy: Datenschutzerklärung
   proposals:
-    create_button: Create a proposal
+    create_button: Einen Vorschlag erstellen
     show:
       ready_for_vote: Ready for vote
       keep_discuss: Keep the discussion
-    regenerate_button: Put back in debate
+    regenerate_button: In die Debatte zurückstellen
   digit_tags: Type the tags you want to add
   buttons:
-    cancel: Cancel
-    save: Save
-    report: Report
+    cancel: Abbrechen
+    save: Speichern
+    report: Bericht
     update: Update
-    send: Send
-    create: Create
-    delete: Delete
-    search: Search
-    close: Close
-    edit: Edit
-    next: Next
-    go_back: Go back
+    send: Senden
+    create: Erstellen
+    delete: Löschen
+    search: Suchen
+    close: Schließen
+    edit: Bearbeiten
+    next: Nächste
+    go_back: Zurück
     chosen: I have chosen!
     ok: OK
+    yes: JA
+    no: NEIN
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: '<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent'
@@ -1281,14 +1272,14 @@ de:
     nickname: '<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!'
     manage_noise: '<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder.'
     view_noise: 'View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal'
-    quorum_minutes: 'until <b>%{date}</b> %{time}'
+    quorum_minutes: 'bis <b>%{date}</b>%{time}'
     quorum_valutations: 'until it will be rated good by <b>least %{valutations} people</b>'
     quorum_description: 'The proposal will be in debate %{conditions}. It will go to the voting phase if it obtains a <b>rank</b> (positive evaluations) grater than <b>%{good_score}%</b> of the total number of evaluations.'
-  group: group
+  group: Gruppe
   proposal_types:
-    problems_title: Problems
+    problems_title: Probleme
     rule_book:
-      problems_title: Problems
+      problems_title: Probleme
       sections:
         inspire: Rules from which get example
         stackeholders: Stakeholders
@@ -1297,41 +1288,41 @@ de:
       sections:
         description: Description of the kind of election
   saving: Saving...
-  sending: Sending...
-  updating: Updating...
-  loading: Loading...
+  sending: Wird gesendet...
+  updating: Aktualisiert...
+  loading: Wird geladen...
   error:
-    setting_preferences: Error while setting preferences
+    setting_preferences: Fehler beim Festlegen von Einstellungen
     admin_required: You must be admin to view this page
     permissions_required: You are not allowed to make this operation
     portavoce_required: You must be the admin of the group to view this page
     blog_required: In order to do this action you have to create your personal blog
     not_your_blog: "This action cannot be done on another user's blog"
-    role_permission_change: It is not possible to change this permission
+    role_permission_change: Es ist nicht möglich, diese Berechtigung zu ändern
     event_answer: Error while sending the answer
     event_already_answered: You have already answered to this event
-    event_past: The event has ended
-    configuration_required: Module not enabled
-    areas_required: It is necessary to enable work areas
+    event_past: Das Ereignis ist beendet
+    configuration_required: Modul nicht aktiviert
+    areas_required: Es ist notwendig, die Arbeitsbereiche zu aktivieren
     quorums:
       quorum_creation: Error while creating quorum
       quorum_modification: Error while updating quorum
-      advanced_proposals_settings: Error while setting preferences
+      advanced_proposals_settings: Fehler beim Festlegen von Einstellungen
     participation_roles:
       role_updated: Error while updating role
       role_created: Error while creating role
     groups:
-      update: Error while updating the group
+      update: Fehler beim Aktualisieren der Gruppe
       work_area:
-        area_created: Error while creating work area
-      creation: Error while creating the group
+        area_created: Fehler beim Erstellen des Arbeitsbereichs
+      creation: Fehler beim Erstellen der Gruppe
     proposals:
       view_proposal: "You don't have the required permissions to view this proposal"
       participate: "You don't have the required permissions to actively participate in this proposal. Please contact the group admin"
       modify_comments: "You can't edit comments that don't belong to you"
-      insert_comment: Error while adding comment
+      insert_comment: Fehler beim Hinzufügen des Kommentars
       contribute_report: Error while reporting the contribution
-      updating: Error while updating
+      updating: Fehler beim Aktualisieren
       proposal_rank: Error while recording your evaluation. We are sorry for the inconvenient. Please try again later. Thank you
       proposal_not_waiting_date: This proposal is not waiting for a date to be voted on
       proposal_not_voted: This proposal has not finished the voting phase, so you cannot do this action anymore
@@ -1343,27 +1334,35 @@ de:
       close_debate: Error while closing the debate
     registration:
       recaptcha: Error in validating captcha. Please type it again
-      user_not_found: User not found
+      user_not_found: Benutzer nicht gefunden
     blog:
       cannot_edit: You cannot edit a blog that is not yours
       already_have: Sorry. You already have a blog
       comment_added: Error while adding the comment
     users:
       join_accounts: Error while joining accounts. This operation is not available at the moment
-      join_accounts_password: Wrong password
+      join_accounts_password: Falsches Passwort
+    group_partecipations:
+      destroy: You can not leave a group of which you are the sole spokesperson
     error_404:
       proposals:
-        title: "This proposal doesn't exist"
+        title: Dieser Vorschlag existiert nicht
         description: "The proposal you are looking for doesn't exist or has been deleted"
+      blog_posts:
+        title: Dieser Beitrag existiert nicht
+        description: "The post you are looking for doesn't exist or has been deleted"
+      events:
+        title: Dieses Ereignis ist nicht vorhanden
+        description: "The event you are looking for doesn't exist or has been deleted"
   info:
     setting_preferences: Settings changed successfully
-    blog_created: Post successfully created
+    blog_created: Beitrag erfolgreich erstellt
     proposal:
       can_change_valutation: The proposal has been modified since you evaluated it. If you want, you can change your evaluation!
       waiting_date: The proposal has gone trough the discussion phase and it is now waiting of a date for the vote
       voting: The proposal is in the voting phase
       ask_participation: Ask to become a member of the group to evaluate and contribute to this proposal
-      public_visible: This proposal is publicly visible
+      public_visible: Dieser Vorschlag ist öffentlich sichtbar
       available_authors: There are new editors available for the proposal
       updated_comment: Your comment has been successfully updated
       comment_deleted: The comment has benn successfully deleted
@@ -1425,6 +1424,7 @@ de:
       update_border: Geographical interest borders updated correctly
       confirm_email: You need to confirm the new email address
       IP_disabled: Identity Provider removed
+      time_zone_changed: Time zone saved
     blog:
       blog_created: Blog successfully created
       title_updated: The title of the blog has benn successfully updated
@@ -1442,6 +1442,8 @@ de:
       multiple_request:
         one: 'You asked to participate in %{count} new group'
         other: 'You asked to participate in %{count} new groups'
+    group_partecipations:
+      destroy_ok_1: You have left the group. In the future you can ask to participate again
   interest_borders:
     hint: Type a few characters to search for a place
     no_place_found: No place found
@@ -1473,26 +1475,26 @@ de:
       view_proposal_2: '%{click_here} why the author did not consider that his contribution has been integrated properly.'
       verify: Check
     user_message:
-      hi_user: 'Hi %{user},'
+      hi_user: 'Hallo %{user},'
       user_sent_message: '%{user} sent you the following message:'
       reply_to_user: 'You can reply to %{user} simply by replying to this e-mail.'
     blocked:
-      hi_user: 'Hi %{user},'
+      hi_user: 'Hallo %{user},'
       deleted_correctly: we inform you that your account has been successfully deleted from Airesis.
-      greetings: 'Greetings,<br/> Airesis Team'
+      greetings: 'Viele Grüße, <br/> Airesis Team'
     new_blog_comment:
       title: '%{user} added a new comment to your post %{post}.'
       click_here: Click here
       view_post: '%{click_here} to view the post.'
     invite:
-      hi_user: Hello!
+      hi_user: Hallo!
       invitation: '%{user} invited you to participate in the group <b>%{group}</b> on %{app_name}, the e-democracy platform for the direct and participatory democracy.'
       message_intro: 'Here is the message he sent you:'
       accept_or_reject: "If you accept the invite click on 'Accept', otherwise on 'Refuse'."
       no_more: "If you don't want to receive invitations from %{app_name} click on 'No further invitations'."
-      accept: Accept
-      reject: Refuse
-      greetings: Greetings!
-      no_more_button: No further invitations
-  contribute: contribution
-  comment: comment
+      accept: Akzeptieren
+      reject: Ablehnen
+      greetings: Viele Grüße!
+      no_more_button: Keine weiteren Einladungen
+  contribute: Beitrag
+  comment: Kommentar

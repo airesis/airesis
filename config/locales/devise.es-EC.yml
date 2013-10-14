@@ -1,7 +1,7 @@
 es-EC:
   errors:
     messages:
-      expired: ha expirado, solicite una nueva
+      expired: ha caducado, por favor solicite una nueva
       not_found: no encontrado
       already_confirmed: ya ha sido confirmado. Por favor, intente iniciar sesión de nuevo
       not_locked: no estaba bloqueado
@@ -10,12 +10,12 @@ es-EC:
         other: '%{count} errores prohíben guardar este %{resource}:'
   devise:
     failure:
-      already_authenticated: Ya ha iniciado sesión
-      unauthenticated: Debe iniciar sesión o registrarse antes de continuar
-      unconfirmed: Debe confirmar su cuenta antes de continuar
-      locked: Su cuenta está bloqueada
-      invalid: Correo electrónico o contraseña inválidas
-      invalid_token: Identificador de autenticación inválida
+      already_authenticated: Ya has iniciado sesión
+      unauthenticated: Debes iniciar sesión o registrarte antes de continuar
+      unconfirmed: Debes confirmar tu cuenta antes de continuar
+      locked: Tu cuenta está bloqueada
+      invalid: Correo electrónico o contraseña no válidos
+      invalid_token: Token de autenticación no válido
       timeout: Su sesión ha exiprado. Por favor inicie sesión de nuevo para continuar
       inactive: Su cuenta no ha sido activada todavia
     sessions:
@@ -23,32 +23,43 @@ es-EC:
       signed_out: Ha cerrado la sesión correctamente
     passwords:
       send_instructions: En breve recibirá un correo electrónico con las instrucciones sobre cómo restablecer su contraseña
-      updated: Su contraseña se ha cambiado con éxito. Ahora ha iniciado sesión
+      updated: Tu contraseña se ha cambiado con éxito. Ahora has iniciado sesión
       updated_not_active: Su contraseña se ha cambiado con éxito
-      send_paranoid_instructions: Si tu email existe en nuestra base de datos, usted recibirá un enlace de recuperación de contraseña en su bandeja de entrada
+      send_paranoid_instructions: Si tu correo electrónico existe en nuestra base de datos, recibirás un enlace de recuperación de contraseña en tu bandeja de entrada
     confirmations:
-      send_instructions: En breve recibirá un correo electrónico con las instrucciones sobre cómo confirmar su cuenta
-      send_paranoid_instructions: Si tu email existe en nuestra base de datos, usted recibirá un correo electrónico con instrucciones su compo confirmar tu cuenta en pocos minutos
-      confirmed: Su cuenta ha sido confirmada. Ahora ha iniciado sesión
+      send_instructions: En breve recibirás un correo electrónico con las instrucciones sobre cómo confirmar tu cuenta
+      send_paranoid_instructions: Si tu correo electrónico existe en nuestra base de datos, recibirás un correo electrónico con instrucciones sobre cómo confirmar tu cuenta en unos pocos minutos
+      confirmed: Tu cuenta ha sido confirmada. Ahora has iniciado sesión
     registrations:
-      signed_up: ¡Bienvenido! Se ha registrado correctamente
-      signed_up_but_unconfirmed: Hemos enviado un mensaje con el vínculo de confirmación a su dirección de correo electrónico. Abra el vínculo para activar su cuenta
-      signed_up_but_inactive: Se ha registrado correctamente. Pero no puede iniciar la sesión hasta que haya activado su cuenta
-      signed_up_but_locked: Se ha registrado correctamente. Pero no puede iniciar sesión porque su cuenta está bloqueada.
-      updated: Ha actualizado su cuenta correctamente
-      update_needs_confirmation: Ha actualizado tu cuenta con éxito, pero tenemos que verificar tu dirección de correo electrónico nuevo. Por favor revise su correo electrónico y haga clic en el enlace de confirmación para finalizar confirmando su nueva dirección de correo electrónico
-      destroyed: ¡Adiós! Su cuenta fue cerrada con éxito. Esperamos verte pronto
+      signed_up: ¡Bienvenid@! Te has registrado correctamente
+      signed_up_but_unconfirmed: Hemos enviado un mensaje con el vínculo de confirmación a tu dirección de correo electrónico. Abre el vínculo para activar tu cuenta
+      signed_up_but_inactive: Te has registrado correctamente. Pero no puedes iniciar sesión hasta que hayas activado tu cuenta
+      signed_up_but_locked: Te has registrado correctamente. Pero no puedes iniciar sesión porque tu cuenta está bloqueada.
+      updated: Has actualizado tu cuenta correctamente
+      update_needs_confirmation: Has actualizado tu cuenta con éxito, pero tenemos que verificar tu nueva dirección de correo electrónico. Por favor revisa tu correo electrónico y haz clic en el enlace de confirmación para finalizar la confirmación de tu nueva dirección de correo electrónico
+      destroyed: ¡Adiós! Su cuenta fue cancelada con éxito. Esperamos verte pronto
     unlocks:
-      send_instructions: En breve recibirá un correo electrónico con las instrucciones sobre cómo abrir su cuenta
-      unlocked: Su cuenta ha sido desbloqueada con éxito. Inicie sesión para continuar
-      send_paranoid_instructions: Si su cuenta existe, en breve recibirá un correo electrónico con las instrucciones sobre cómo desbloquearla
+      send_instructions: En breve recibirás un correo electrónico con las instrucciones sobre cómo abrir tu cuenta
+      unlocked: Tu cuenta ha sido desbloqueada con éxito. Inicia sesión para continuar
+      send_paranoid_instructions: Si su cuenta existe, en breve recibirás un correo electrónico con las instrucciones sobre cómo desbloquearla
     omniauth_callbacks:
-      success: 'Autorizado de %{kind} cuenta con éxito'
-      failure: 'No fue  autorizado de %{kind} porque "%{reason}"'
+      success: 'Autorización de %{kind} cuenta exitosa'
+      failure: 'No se puedo autorizar su %{kind} debido a "%{reason}"'
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación
+        welcome: '¡Bienvenido a %{app_name} %{user}!'
+        follow_link: 'Puede confirmar su dirección de correo electrónico haciendo clic en el siguiente enlace:'
+        confirm_account: Confirme su cuenta
+        follow_link_2: 'o visitando la siguiente url:'
+        access_by_email: 'Entonces podrás iniciar sesión en %{app_name} con el correo electrónico proporcionado y la contraseña elegida'
+        contact_assistance: 'Si usted tiene cualquier problema con el procedimiento póngase en contacto con el administrador: %{mail}'
       reset_password_instructions:
         subject: Instrucciones para restablecer la contraseña
+        hi_user: '¡Hola %{user}!'
+        follow_link: 'Puedes cambiar tu contraseña haciendo clic en el siguiente enlace:'
+        change_password: Cambiar contraseña
+        ignore: Si usted no solicitó cambiar su contraseña, ignore este correo.
+        password_will_not_change: Su contraseña no cambiará hasta que haga clic en el enlace anterior.
       unlock_instructions:
         subject: Instrucciones para desbloquear
