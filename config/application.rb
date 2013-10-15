@@ -27,7 +27,7 @@ module Airesis
     config.assets.version = '1.0'
     
     config.autoload_paths << "#{Rails.root}/lib"
-    config.time_zone = 'Rome' 
+    config.time_zone = 'Rome'
     config.i18n.default_locale = :en
 
     config.i18n.fallbacks =[:en]

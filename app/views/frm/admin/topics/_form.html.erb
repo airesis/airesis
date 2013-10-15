@@ -1,13 +1,13 @@
 <%= simple_form_for @topic, url: group_frm_admin_topic_url(@group,@topic) do |f| %>
-  <%= f.input :subject %>
-  <%= f.association :forum , :label => "Forum" %>
-  <%= f.label :locked %>
-  <%= f.check_box :locked %>
-  <%= f.label :pinned %>
-  <%= f.check_box :pinned %>
-  <%= f.label :hidden %>
+  <%= f.input :subject, label:t('simple_form.labels.topic.subject')%>
+  <%= f.association :forum , :label => t('frm.general.forum') %> <!--TODO:I18n-->
+  <%= f.label :locked, label: t('simple_form.labels.topic.locked') %>
+  <%= f.check_box :locked %> <br/>
+  <%= f.label :pinned, label: t('simple_form.labels.topic.pinned') %>
+  <%= f.check_box :pinned %> <br/>
+  <%= f.label :hidden, label: t('simple_form.labels.topic.hidden')%>
   <%= f.check_box :hidden %>
 
   <br />
-  <%= f.submit :class => "btn btn-primary" %>
+  <%= f.submit t('update', scope:'helpers.submit.topic'), :class => "btn btn-primary" %>
 <% end %>

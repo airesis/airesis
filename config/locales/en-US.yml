@@ -1,0 +1,26 @@
+en-US:
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: '%m-%d-%Y'
+      long: '%B %d, %Y'
+      short: '%b %d'
+  time:
+    formats:
+      default: "%b %d %Y at %H:%M"
+      long: "%A %d %B %Y at %H:%M"
+      long_date: "%A %d %B %Y"
+      long_date_time: "%A %d %B %Y at %H:%M"
+      from_long_date_time: "From %A %d %B %Y at %H:%M"
+      until_long_date_time: "To %A %d %B %Y at %H:%M"
+      two_rows: "%d %b %Y <br/> %H:%M"
+      weekday: "%A"
+      month: "%B"
+      dayandmonth: "%d/%m"
+      hour: "%H:%M"
+      textfield: "%d/%m/%Y %H:%M"
+      am: "am"
+      pm: "pm"

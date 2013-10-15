@@ -13,10 +13,9 @@
       <img src="/assets/allbroken128.png" style="margin: auto;display: block;">
     </div>
     <div style="float:left; text-align: center;">
-      <h1>Oops...errore nostro</h1><!--TODO:I18n-->
-      <p>E' stata inviata una segnalazione e l'errore verrà risolto quanto prima.
-      </p>
-      <%=link_to 'Torna indietro, grazie...', :back%>
+      <h1><%= t('error.error_500.title')%></h1>
+      <p><%= t('error.error_500.description')%></p>
+      <%=link_to t('buttons.go_back'), :back%>
     </div>
       <div style="clear: both;"></div>
   </div>

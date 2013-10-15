@@ -24,11 +24,11 @@ en:
         index: Manage Forums
         new: Creating a new forum
         new_link: New Forum
-        deleted: The selected forum has been deleted.
+        deleted: The selected forum has been deleted
         created: This forum has been created.
-        not_created: This forum could not be created.
+        not_created: This forum could not be created
         updated: That forum has been updated.
-        not_updated: This forum could not be updated.
+        not_updated: This forum could not be updated
       forums:
         edit: Edit
         delete: Delete
@@ -42,9 +42,9 @@ en:
       group:
         index: Manage Groups
         new: New Group
-        created: The group was successfully created.
-        not_created: Group could not be created.
-        deleted: The selected group has been deleted.
+        created: The group was successfully created
+        not_created: Group could not be created
+        deleted: The selected group has been deleted
         members: "Members in %{group}"
       groups:
         show:
@@ -59,11 +59,11 @@ en:
         new: Creating a new Forum Category
         edit: "Editing the %{title} category"
         new_link: New Forum Category
-        deleted: The selected forum category has been deleted.
-        created: This forum category has been created.
-        not_created: This forum category could not be created.
-        updated: That forum category has been updated.
-        not_updated: This forum category could not be updated.
+        deleted: The selected forum category has been deleted
+        created: This forum category has been created
+        not_created: This forum category could not be created
+        updated: That forum category has been updated
+        not_updated: This forum category could not be updated
       categories:
         edit: Edit
         delete: Delete
@@ -72,7 +72,7 @@ en:
     common:
       pages: Pages
     errors:
-      not_signed_in: You must sign in first.
+      not_signed_in: You must sign in first
       access_denied: Access denied.
     forum:
       header: "Viewing %{title}"
@@ -87,7 +87,9 @@ en:
         zero: 0 posts
         one: 1 post
         other: "%{count} posts"
-      moderator_tools: "Moderation Tools"
+      moderator_tools: "Moderation tools"
+      topic_tools: "Topic tools"
+      admin_tools: "Administration tools"
     forums:
       index:
         title: Forums
@@ -102,37 +104,37 @@ en:
         posts: Posts
         views: Views
       moderation:
-        success: The selected topic has been moderated.
-        no_option_selected: No moderation option was selected.
-      received_reply: A topic you have subscribed to has received a reply.
+        success: The selected topic has been moderated
+        no_option_selected: No moderation option was selected
+      received_reply: A topic you have subscribed to has received a reply
       reply: Reply
       quote: Quote
       delete: Delete
-      created: This topic has been created.
+      created: This topic has been created
       new: Creating a new topic
       edit: Editing topic
-      not_created: This topic could not be created.
-      deleted: Your topic has been deleted.
-      cannot_delete: You cannot delete a topic you do not own.
-      updated: This topic has been updated.
-      not_updated: This topic could not be updated.
-      subscribed: You have subscribed to this topic.
-      unsubscribed: You have unsubscribed from this topic.
-      none: There are no topics in this forum currently.
+      not_created: This topic could not be created
+      deleted: Your topic has been deleted
+      cannot_delete: You cannot delete a topic you do not own
+      updated: This topic has been updated
+      not_updated: This topic could not be updated
+      subscribed: You have subscribed to this topic
+      unsubscribed: You have unsubscribed from this topic
+      none: There are no topics in this forum currently
       links:
         new: New topic
         back_to_topics: Back to topics
         edit: Edit topic
-      not_found: The topic you are looking for could not be found.
+      not_found: The topic you are looking for could not be found
       hidden:
-        'true': This topic is now hidden.
-        'false': This topic is now visible.
+        'true': This topic is now hidden
+        'false': This topic is now visible
       locked:
-        'true': This topic is now locked.
-        'false': This topic is now unlocked.
+        'true': This topic is now locked
+        'false': This topic is now unlocked
       pinned:
-        'true': This topic is now pinned.
-        'false': This topic is now unpinned.
+        'true': This topic is now pinned
+        'false': This topic is now unpinned
     topics:
       show:
         reply: Reply
@@ -154,25 +156,25 @@ en:
       buttons:
         reply: Post Reply
         edit: Edit
-      created: Your reply has been posted.
+      created: Your reply has been posted
       new: Post reply to
       edit: Edit
-      not_created: Your reply could not be posted.
-      not_created_topic_locked: You cannot reply to a locked topic.
-      edited: Your post has been edited.
-      not_edited: Your post could not be edited.
-      deleted: Your post has been deleted.
-      deleted_with_topic: Only post in topic deleted. Topic also deleted.
-      cannot_delete: You cannot delete a post you do not own.
+      not_created: Your reply could not be posted
+      not_created_topic_locked: You cannot reply to a locked topic
+      edited: Your post has been edited
+      not_edited: Your post could not be edited
+      deleted: Your post has been deleted
+      deleted_with_topic: Only post in topic deleted. Topic also deleted
+      cannot_delete: You cannot delete a post you do not own
     posts:
       moderation:
         moderate: Moderate
         approve: Approve
         spam: Spam
-        success: The selected posts have been moderated.
+        success: The selected posts have been moderated
       post:
         pending_review: This post is currently pending review. Only the user who posted it and moderators can view it.
-        in_reply_to: In reply to
+        in_reply_to: in reply to
     moderation:
       index:
         title: "Moderation tools for %{forum}"
@@ -186,11 +188,16 @@ en:
         update: Update Topic
       frm_group:
         create: Create group
+      frm_category:
+        create: Create category
   simple_form:
     labels:
-      forum:
+      frm_forum:
+        category: Category
         title: Title
         description: Description
+        moderators: Moderators
+        visible_outside: Visible outside of the group
       topic:
         subject: Subject
         locked: Locked
@@ -198,8 +205,12 @@ en:
         hidden: Hidden
         posts:
           text: Text
+      frm_category:
+        name: Name
       post:
         text: Text
+      frm_group:
+        name: Name
 
   # General stuff
   time_ago_in_words: "%{time} ago"
@@ -214,3 +225,7 @@ en:
   pages:
     forum_groups:
       index:
+        create_first: There are no groups of moderators yet. Create the first one!
+  info:
+    members:
+      ok_message: User successfully added to the group
