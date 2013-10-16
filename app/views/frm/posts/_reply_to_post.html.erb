@@ -18,7 +18,7 @@
             <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>
             <% if post.reply_to %>
             <span class='in-reply-to'>
-              <%= link_to "#{t(".in_reply_to")} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
+              <%= link_to "#{t('frm.posts.post.in_reply_to')} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
             </span>
             <% end %>
           </div>

@@ -101,15 +101,15 @@ class Quorum < ActiveRecord::Base
     ar << I18n.t('day',count: days) if (days && days > 0)
     ar << I18n.t('hour',count: hours) if (hours && hours > 0)
     ar << I18n.t('minute',count: min) if (min && min > 0)
-    retstr = ar.join(" e ")    
+    retstr = ar.join(" "+I18n.t('pages.groups.edit_quorums.condition_AND')+" ")
     retstr
   end
 
   def end_desc
     conds = []
-    conds << (I18n.l self.ends_at) if self.minutes
-    conds << "#{self.valutations} valutazioni" if self.percentage
-    conds.join(or? ? ' o ' : ' e ')
+    conds << (I18n.l self.ends_at)+"  " if self.minutes
+    conds << " "+I18n.t('pages.proposals.new_rank_bar.valutations', num:self.valutations) if self.percentage
+    conds.join(or? ? I18n.t('pages.groups.edit_quorums.condition_OR') : I18n.t('pages.groups.edit_quorums.condition_AND'))
   end
 
   def time_left
@@ -179,26 +179,33 @@ class Quorum < ActiveRecord::Base
   def explanation_pop
     conditions = []
     ret = ""
+    participants = I18n.t('models.quorum.participants', count: ((self.valutations == nil)? self.min_partecipants : self.valutations))
     if self.minutes
       if self.percentage
         if self.condition == 'OR'
-          ret = I18n.translate('models.quorum.or_condition_1',percentage: self.percentage, time: self.time)
+          ret = I18n.translate('models.quorum.or_condition_1',
+                               percentage: self.percentage,
+                               time:((self.ends_at == nil)? "<b>"+self.time+"</b>" : "<b>"+self.time+"</b> "+I18n.t('models.quorum.until_date',date: I18n.l(self.ends_at, format: :long_date), time: I18n.l(self.ends_at, format: :hour))),
+                               participants_num: participants)
         else
-          ret = I18n.translate('models.quorum.and_condition_1',percentage: self.percentage, time: self.time)
+          ret = I18n.translate('models.quorum.and_condition_1',
+                               percentage: self.percentage,
+                               time:((self.ends_at == nil)? "<b>"+self.time+"</b>" : "<b>"+self.time+"</b> "+I18n.t('models.quorum.until_date',date: I18n.l(self.ends_at, format: :long_date), time: I18n.l(self.ends_at, format: :hour))),
+                               participants_num: participants)
         end
       else
-        ret = I18n.translate('models.quorum.time_condition_1',time: self.time)
+        ret = I18n.translate('models.quorum.time_condition_1',
+                             time: ((self.ends_at == nil)? "<b>"+self.time+"</b>" : "<b>"+self.time+"</b> "+I18n.t('models.quorum.until_date',date: I18n.l(self.ends_at, format: :long_date),time: I18n.l(self.ends_at, format: :hour))))
       end
     elsif self.percentage
-      ret = I18n.translate('models.quorum.participants_condition_1',percentage: self.percentage)
+      ret = I18n.translate('models.quorum.participants_condition_1',percentage: self.percentage, participants_num: participants)
     end
-    ret += "<br/>"
-    ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)
-    if has_bad_score?
-      ret += " "
-      ret += I18n.translate('models.quorum.bad_score_condition',bad_score: self.bad_score)
-      ret += "<br/>"
-      ret += I18n.translate('models.quorum.bad_score_explain')
+    if self.bad_score && (self.bad_score != self.good_score)
+        ret += "<br/>"
+        ret += I18n.translate('models.quorum.bad_score_explain', good_score: self.good_score, bad_score: self.bad_score)
+    elsif self.good_score = self.bad_score
+        ret += "<br/>"
+        ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)
     end
     ret += "."
     ret.html_safe

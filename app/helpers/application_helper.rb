@@ -33,7 +33,7 @@ module ApplicationHelper
 
   def time_in_words(from_time, include_seconds=false)
     diff = Time.now - from_time
-    diff > 23.hours ? "il " + from_time.strftime("%d/%m/%Y %H:%M") : time_ago_in_words(from_time,include_seconds)
+    diff > 23.hours ? I18n.t('datetime.added_on', date:I18n.l(from_time)) : time_ago_in_words(from_time,include_seconds)
   end
 
   def google_authenticator_qrcode(user)

@@ -3,10 +3,10 @@
     <td><b><%= t('pages.groups.edit_quorums.active') %></b></td>
     <td><b><%= t('pages.groups.edit_quorums.name') %></b></td>
     <td><b><%= t('pages.groups.edit_quorums.participants') %></b></td>
-    <td><b title="Condizione"><%= t('pages.groups.edit_quorums.condition') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.condition') %></b></td>
     <td><b><%= t('pages.groups.edit_quorums.time') %></b></td>
-    <td><b title="Percentuale Gradimento"><%= t('pages.groups.edit_quorums.good_percentage') %></b></td>
-    <td><b title="Percentuale Respingimento"><%= t('pages.groups.edit_quorums.bad_percentage') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.good_percentage') %></b></td>
+    <td><b><%= t('pages.groups.edit_quorums.bad_percentage') %></b></td>
   </tr>
   <tbody>
   <% @group.quorums.all.each do |quorum| %>
@@ -28,7 +28,7 @@
         </td>
         <td> <%= quorum.good_score %>%
         </td>
-        <td> <%= (quorum.bad_score != quorum.good_score) ? quorum.bad_score.to_s + '%' : '-' %>
+        <td> <%= quorum.percentage ? quorum.bad_score.to_s + '%' : '-'%>
         </td>
         <td>
             <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => t('buttons.edit'), :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>

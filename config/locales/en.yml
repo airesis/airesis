@@ -20,7 +20,7 @@ en:
     passwords:
       user:
         updated: 'Password updated correctly'
-        send_instructions: 'Instructions have been forwarded to your email'        
+        send_instructions: 'Instructions have been forwarded to your email address'
     failure:
         already_authenticated: 'You are already registered'        
         unauthenticated: 'Log-in required to access this page.  Please log-in.'
@@ -92,19 +92,35 @@ en:
       - Dec
   time:
     formats:
-     default: "%d %b %Y at %H:%M"
-     long: "%A %d %B %Y %H:%M"
+     default: "%d %b %Y at %I:%M %p"
+     long: "%A %d %B %Y at %I:%M %p"
      long_date: "%A %d %B %Y"
-     long_date_time: "%A %d %B %Y at %H:%M"
-     from_long_date_time: "From %A %d %B %Y at %H:%M"
-     until_long_date_time: "Until %A %d %B %Y at %H:%M"
+     long_date_time: "%A %d %B %Y at %I:%M %p"
+     from_long_date_time: "From %A %d %B %Y at %I:%M %p"
+     until_long_date_time: "To %A %d %B %Y at %I:%M %p"
+     two_rows: "%d %b %Y <br/> %I:%M %p"
      weekday: "%A"
      month: "%B"
      dayandmonth: "%d/%m"
-     textfield: "%d/%m/%Y %H:%M"
+     hour: "%I:%M %p"
+     textfield: "%d/%m/%Y %I:%M %p"
     am: "am"
     pm: "pm"
+    left:
+      seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      hours:
+        one: "1 hour"
+        other: "%{count} hours"
+      days:
+        one: "1 day"
+        other: "%{count} days"
   datetime:
+    added_on: "on %{date}"
     distance_in_words:
       about_x_hours:
         one: about one hour ago
@@ -141,20 +157,20 @@ en:
         one: one second ago
         other: ! '%{count} seconds ago'
   day:
-      one: "%{count} day"
+      one: "1 day"
       other: "%{count} days"
   hour:
-    one: %{count} hour
+    one: "1 hour"
     other: "%{count} hours"
   minute:
-    one: "%{count} minute"
+    one: "1 minute"
     other: "%{count} minutes"
   open_space: 'Open space'
   guide: "FAQ"
   hello: 'Hello world'
   pages:
     top_panel:
-      login: 'Login or register'
+      login: 'Login or sign up'
       facebook_login: 'Login with Facebook'
       google_login: 'Login with Google'
       twitter_login: "Login with Twitter"
@@ -245,6 +261,7 @@ en:
         permissions: 'Roles and Permissions'
         proposals: 'Quorum and proposals'
         areas: "Work areas"
+        forum: "Forum administration"
       edit_events:
         title: 'Manage group events'
       edit_permissions:
@@ -287,7 +304,7 @@ en:
         proposals_number: "Number of proposals"
         events_number: "Number of events"
         no_results: "No group found"
-        contributes_number: "CONTRIBUTI"
+        limit_reached: "You can create at most a group per day"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -304,12 +321,12 @@ en:
         remove_user_confirm: "Are you sure you want to remove %{name} from the group?"
         modify_group: "Modify the group"
       layout:
-        home_button: "HOME PAGE"
+        home_button: "WALL"
         proposals_button: "PROPOSALS"
         calendar: "CALENDAR"
       show:
         rules_button: "Rules"
-        post_button: "Insert posts"
+        post_button: "Post on the group wall"
         blog_button: "Create my Blog"
         participants_list: "Participant list "
         invite_button: "Invite your friends!"
@@ -329,6 +346,8 @@ en:
           button: "Permissions list"
         print_all_participants: "Print participants list"
         last_proposals: "Recently added proposals"
+        last_topics: "Last topic created"
+        next_events: "Next events"
         rule_book_html: |
           The rules can be selected while creating a group.<br/>
           <p>All users can create a group, as of now.</p>
@@ -339,25 +358,22 @@ en:
         settings: "SETTINGS"
         elections: "ELECTIONS"
         documents: "DOCUMENTS"
+        forums: "FORUM"
       documents:
         documents_archive: "Documents archive"
         storage_size: "Storage size occupied"
         max_storage_size: "Maximum storage size available"
         current_storage_usage: "Storage size usage"
+        not_authorized: "You don't have the required permissions to view the documents. Please contact the group administrator"
       edit_quorums:
         new_quorum:
           title: "New quorum"
           simple: "Simple"
           advanced: "Advanced"
-          time_description: "For the proposal to go to the voting phase, it must remain in debate for at least"
-          simple_percentage_description: "Then it goes to the voting phase if its rank (positive evaluations) is superior to"
-          advanced_participation_description: "it must be evaluated by almost"
-          advanced_participation_description2: "of the members that have the right to do so"
-          advanced_participation_description3: "(that is "
-          advanced_participation_description4: "out of"
-          advanced_participation_description5: " at the moment)."
-          advanced_percentage_description: "If however the rank is inferior to"
-          advanced_percentage_description2: "the proposal is rejected without going to the voting phase."
+          time_description: "For the proposal to go to the voting phase, it must remain in debate for at least %{days} %{hours} %{minutes}"
+          simple_percentage_description: "Then it goes to the voting phase if its rank is superior to %{good_score}%."
+          advanced_participation_description: "%{and_or} it must be evaluated by almost %{participants_percentage}% of the members that have the right to do so (that is %{current_number} out of %{total_number} at the moment)."
+          advanced_percentage_description: "If however the rank is inferior to %{bad_score}% the proposal is abandoned."
           advanced_percentage_description3: "The proposal remains in debate until the rank is between the two thresholds."
         active: "Active"
         name: "Name"
@@ -440,18 +456,18 @@ en:
     proposals:
       index:
         title: 'List of proposals'
-        debate: 'All proposals are in review'
-        voting: 'All proposals currently pending vote ' 
-        accepted: 'List of proposals shared and accepted by the users'
-        revision: 'All proposals that have been implemented and for which we are collecting feedback'
+        debate: 'All proposals in review being debated'
+        voting: 'All proposals currently pending vote or in the voting phase'
+        accepted: 'All proposals that finished the voting phase'
+        revision: 'All proposals that did not pass the quorum and can be put back in debate'
         last: "Last added"
         most_popular: "Most popular"
         most_valutated: "Most evaluated"
         continue_reading: 'Continue reading the proposal'
-        debate_title: "In debate (%{count})"
-        voting_title: "Voting (%{count})"
-        accepted_title: "Voted (%{count})"
-        revision_title: "Abandoned (%{count})"
+        debate_title: "In debate ⋅ %{count}"
+        voting_title: "Voting ⋅ %{count}"
+        accepted_title: "Voted ⋅ %{count}"
+        revision_title: "Abandoned ⋅ %{count}"
         login_with: "or login with:"
         group_areas_title: "Working areas"
         no_group_areas: "No area"
@@ -471,7 +487,8 @@ en:
         search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
-        partecipants_number: ""
+        partecipants_number: "PARTICIPANTS"
+        contributes_number: "CONTRIBUTIONS"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -494,6 +511,7 @@ en:
         offered_as_editor_message: "You offered as an editor for this proposal"
         offer_as_editor_button: "I wanna be editor of this proposal!"
         available_editors_button: "Available editors"
+        confirm_editors_button: "Do you want to offer as an editor of this proposal?"
         editors_list_title: "List of available editors for this proposal"
         attached_documents: "Attached documents"
         no_document_attached: "No documents attached"
@@ -512,14 +530,15 @@ en:
         vote_button: "Vote!"
         send_contribute_button: "Send"
         characters_left: "Characters left:"
-        score: "Score"
+        score: "Evaluations"
         rank: "Rank"
-        created_at: "Proposal created on"
-        updated_at: "Last update of"
+        created_at_html: "Created %{time_ago}:<br/><b>%{date}</b>"
+        updated_at_html: "Updated %{time_ago}:<br/><b>%{date}</b>"
         votation_results: "Results"
         votation_results_title: "Vote results"
-        in_votation: "Voting"
+        in_votation_html: "Voting from: <br/><b>%{start}</b><br/> to: <br/><b>%{end}</b>"
         in_votation_now: "Voting right now!"
+        in_votation_until_html: "In votation until: <br/><b>%{date}</b>"
         anonimity_active: "Temporary anonymity active"
         your_nickname_is: "Your nickname is"
         editors_title: "Editors"
@@ -557,10 +576,10 @@ en:
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
-        step_1: "Initial information"
+        step_1: "Classification"
         step_2: "Similar proposals"
-        step_3: "Problems and objectives"
-        step_4: "Creation of the proposal"
+        step_3: "Problems/Obstacles"
+        step_4: "Proposal creation"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"
@@ -597,6 +616,11 @@ en:
             article: "Article %{num}"
             pros: "Pros"
             cons: "Cons"
+          problems_title: "Problems"
+          paragraph:
+            inspire: "Regulation to inspire from"
+            requirements: "Requirements to meet"
+          stakeholders: "Stakeholders (involved people)"
         press:
           problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
           problems_title: "Message to transmit"
@@ -610,6 +634,8 @@ en:
             body: "Body"
             conclusion: "Conclusions"
             deep: "Insights"
+          paragraph:
+            target: "Recipients/Target"
         estimate:
           problems_title_label: "What goods or services you wish to purchase? To solve which problems?"
           problems_title: "Problems"
@@ -621,6 +647,12 @@ en:
             cost: "Amount"
             problems: "Respect of constraints and problems"
             dumentation: "Documentation"
+          paragraph:
+            technical_constrains: "Technical  constrains"
+            temporal_constrains: "Temporal constrains"
+            other_constrains: "Environmental, ethical, regulatory constrains"
+            budget: "Maximum budget"
+            recipient_budget: "Recipients of the request for quotation"
         agenda:
           problems_title: "Type of meeting"
           suggestion_html: |
@@ -631,6 +663,9 @@ en:
             points: "Agenda items"
             priorities: "Items priorities"
             links: "Insights links"
+          paragraph:
+            date_time: "Date and time"
+            place: "Place"
         event:
           problems_title: "Event scope"
           problems_title_label: "Why do you want to organize an event? What are the aims?"
@@ -648,9 +683,17 @@ en:
             resources: "Necessary resources and how to retrieve them"
             pros: "Pros"
             cons: "Cons"
+          paragraph:
+            similar_experiences: "Similar experiences"
+            stakeholders: "Stakeholders (involved people)"
+            desired_characteristics: "Desired characteristics"
         step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
         step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
+        step_4_footer_html: |
+          Airesis will help you to reach your goal throught shared problem solving: users will suggest modifications and contributions to your text and <b>it is up to you</b> to integrate the most liked.<br/>
+          If you don't do it, your proposal won't go to the voting phase.<br/>
+          Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
         candidates:
           suggestion_html: |
@@ -662,6 +705,8 @@ en:
             data: "Personal data"
             curriculum: "Curriculum"
             available: "Availability for the position"
+          paragraph:
+            election_type: "Description of the type of election:"
         simple:
           problems_title: "Problem"
           solution:
@@ -676,15 +721,16 @@ en:
         last_inserted: "Last updated"
         most_popular: "Most popular"
         most_valutated: "Most ranked"
+        most_urgent: "Most urgent"
       list:
-        last_update: "Last update of %{date}"
-        waiting_date: "Waiting for the authors to choose a voting date"
+        last_update: "Updated<br/>%{time_ago}<br/>%{date}"
+        waiting_date: "Waiting for a date"
         voting_from_to: "Voting from %{from} to %{to}"
         voting_until: "Voting now until %{date}"
-        votation_finished: "Voting ended on %{date}"
+        votation_finished: "Vote ended<br/>%{time_ago}<br/>%{date}"
         no_votation: "There has not been any vote"
         interest_borders: "Geographic boundaries"
-        authors: "Authors"
+        authors: "Editors"
         support_group: "Support groups"
         no_proposals: "No proposals yet"
       delete_comment: "Delete"
@@ -700,7 +746,7 @@ en:
         date_time_column: "Vote date and time"
       report_contribute:
         mark_title: "Mark the contribution"
-        mark_description: "You can point out to authors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the authors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
+        mark_description: "You can point out to the editors of the proposal that this contribution does not contain relevant information to find a solution to the proposal.<br/> If the contribution is marked %{num} times, the editors of the proposal can delete it from the discussion and place it in the \"noise\" folder.<br/>"
         report_title: "Report the contribution"
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
@@ -720,7 +766,6 @@ en:
         no_participants: "You are allowed to edit these fields only if nobody has participated!"
         remove_section: "Remove section"
         add_paragraph: "Add a new paragraph"
-        edit_proposal: "Edit and update the text of the proposal"
         remove_solution: "Remove solution"
         press_to_compress: "Click on the title to compress this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
@@ -728,7 +773,6 @@ en:
         you_know_what_you_do: "Do you know what are you going to do?"
         schulze_title: "One or more solutions?"
         inserted_contributes: "Sign the contributions you have integrated in this revision"
-        tooltip: "When you have finished editing, press button 'Update' to save your work"
         more_solutions_explained_html: |
           <b>Why do we ask you if you know what you are doing?</b><br/>
           Airesis lets you add one or more solutions in a proposal.<br/>
@@ -747,7 +791,13 @@ en:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
       contribution_valuation: "What do you think?"
-      contribution_valuation_again: "Chenged your mind?"
+      contribution_valuation_again: "Changed your mind?"
+      new_rank_bar:
+        creation: "CREATION: %{time_ago}<br/>%{date}"
+        end: "END DEBATE:<br/> %{date}"
+        valutations: "%{num} EVALUATIONS"
+        good_score: "POSITIVE QUORUM %{score}%"
+        bad_score: "NEGATIVE QUORUM %{score}%"
     events:
       index:
         title: 'Calendar'
@@ -803,6 +853,7 @@ en:
       comment:
         delete_button: "Delete"
         confirm_delete: "Are you sure you want to delete this post?"
+        inserted_when: "Added %{when}"
       list_elements:
         inserted: "Added by %{name} on %{date}"
       show:
@@ -818,6 +869,8 @@ en:
         comments: "Comments (%{count})"
       index:
         title: "Blogs"
+      edit:
+        title: "Edit the post"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -846,7 +899,7 @@ en:
         remember_me: "Remember me on this computer"
         login_button: "Login"
         registration_button: "JOIN US"
-        forgot_password_button: "Forgot password?"
+        forgot_password_button: "Forgotten password?"
         resend_email_button: "Haven't you received a confirmation email?"
         no_notifications: "No notification"
         sign_has_read: "Sign as read"
@@ -870,6 +923,7 @@ en:
         previous_posts: "Previous Posts..."
         edit_button: "Edit blog"
         title: "Blogs list"
+        no_unpublished_posts: "There are no unpublished posts at the moment"
       new:
         title: "Create your personal blog!"
         cancel_button: "No, thanks!"
@@ -881,6 +935,7 @@ en:
     quorums:
       index:
         title: "All available quorums"
+        how_read: "What is the quorum?"
     home:
       index:
         whatis: "WHAT IS AIRESIS"
@@ -924,7 +979,7 @@ en:
         proposals:
           title: "Title"
           last_edit: "Last edit"
-          authors: "Authors"
+          authors: "Editors"
           notifications: "Notifications"
         notifications:
           title: "Alerts"
@@ -987,11 +1042,11 @@ en:
           The rank bar is situated in the right lateral menu.<br />
           The bar shows the rank of approval of the proposal among the participants.<br />
           You can suggest if the text of the proposal is complete or not using the two buttons below the bar.<br />
-          The author of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
+          The editor of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
           The color of the bar shows if the proposal is ready to go to the voting phase, while the length shows how much time and/or evaluations are left before the discussion ends.<br />
         newdescription2: "The bar displays the rank of the proposal among the participants and how much time is left until the end of the debate"
         newdescription3: "The color displays if the proposal will be able to go to the voting phase, while the length displays how much time is left before the debate ends"
-        newdescription4: "When you think the debate is over and the author integrated the contributions of other users, use this button"
+        newdescription4: "When you think the debate is over and the editors integrated the contributions of other users, use this button"
         newdescription5: "If you think that the debate should continue, use this button"
         newdescription6: "When the text of the proposal will be updated, you will be able to change your evaluation"
       welcome:
@@ -1006,6 +1061,12 @@ en:
           Here you are the most active groups in the territories inside your interest borders.<br />
           Choose the ones you want to participate in, so you will be able to get in touch with them and participate in their events and proposals.<br />
           A click to select, a second one to deselect.<br />
+      first_proposal_html: |
+        <b>Your first contribution<br /></b>
+        It's time to give your opinion!<br />
+        Add a proposal, an idea or a feedback from the territory. <br />
+        Contriute to the discussion and let other users know you. <br/>
+        Your proposal will be added in the %{proposal} and may be supported by the groups on your territory!
     proposal_histories:
       index:
         title: "%{title} - Revision History"
@@ -1023,7 +1084,7 @@ en:
       score_reached: "Rank reached:"
       evaluation_reached: "Number of evaluations:"
       quorum_used: "Quorum used:"
-      editors_in_life_cycle: "Authors in this life cycle:"
+      editors_in_life_cycle: "Editors in this life cycle:"
     tags:
       show:
         related_title: "Related tags"
@@ -1188,12 +1249,17 @@ en:
         name: "Name"
         description: "Description"
         default_role_name: "Default role name"
+
     errors:
       template:
         header:
           one: 'an error did not allow this %{model} from being saved'
           other: '%{count} errors did not allow this %{model} from being saved'
+          # The variable :count is also available
         body: 'There were problems with the following fields'
+        
+      # The values :model, :attribute and :value are always available for interpolation
+      # The value :count is available when applicable. Can be used for pluralization.
       messages:
         inclusion: 'is not included in the list'
         exclusion: 'is reserved'
@@ -1216,6 +1282,7 @@ en:
         even: 'must be odd'
         record_invalid: 'Validation failed %{errors}'
         not_found: 'not found.'
+        TOS: "It is required to accept the TOS"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -1228,13 +1295,30 @@ en:
             required: 'You must choose a spokesman'
   models:
     quorum:
-      or_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible, and in any case for a maximum of %{time}"
-      and_condition_1: "The debate will last %{time}, but will continue unless he has attended at least %{percentage}% of those eligible."
-      time_condition_1: "The debate will last exactly %{time}."
-      participants_condition_1: "The debate will continue until they have participated in the %{percentage}% of those eligible."
-      good_score_condition: "It will go to the voting phase if it gets a rank of over %{good_score}%"
-      bad_score_condition: "and will be abandoned if it gets a rank of under %{bad_score}%."
-      bad_score_explain: "The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of evaluations"
+      participants:
+        one: '<b>1</b> participant'
+        other: '<b>%{count}</b> participants'
+      or_condition_1: "The debate will continue until it has participated <b>%{percentage}%</b> of those eligible (that is %{participants_num}) and, in any case, for a maximum of %{time}."
+      and_condition_1: "The debate will last %{time}, but will continue unless it has participated <b>%{percentage}%</b> of those eligible, that is %{participants_num}."
+      time_condition_1: "The debate will last exactly <b>%{time}</b>."
+      participants_condition_1: "The debate will continue until it has participated the <b>%{percentage}%</b> of those eligible, that is %{participants_num}."
+      good_score_condition: "If it gets a rank over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
+      bad_score_explain: "If if gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of evaluations"
+      until_date: "(until <b>%{date}</b> at %{time})"
+      help_content:
+        description_html: |
+          <h3>What is a quorum?</h3>
+          A quorum is the parameter that determines when the debate of the proposal ends and the voting phase starts.<br />
+          When you create a new proposal you choose one of the quorum available in the Open Space or one among the quorums available in your group.<br />
+          In this window you can click the different quorums in order to view its characteristics: you will find the description and the list of the parameters chosen.<br />
+        participants: "Minimum number of participant:"
+        not_specified: "Not specified"
+        time_discussion: "Period of discussion:"
+        condition: "Condition of passage:"
+        at_least_one: "At least one"
+        both: "Both"
+        good_score: "Rank:"
+        bad_score: "Rejection:"
   terms_of_service: "Terms of service"
   privacy_policy: "Privacy Policy"
   proposals:
@@ -1273,22 +1357,11 @@ en:
     gradimento: "percentage of positive evaluations on the total"
     nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
     manage_noise: "<strong> Manage useless contributions</ strong> <br /> Participants will advise you what contributions are useless to the discussion. With this panel you can remove and put them in the Deleted Contributions folder."
-    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the authors of the proposal"
-    quorum_minutes: "until <b>%{date}</b> %{time}"
-    quorum_valutations: "until it will be rated good by <b>least %{valutations} people</b>"
-    quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase if it obtains a <b>rank</b> (positive evaluations) grater than <b>%{good_score}%</b> of the total number of evaluations."
+    view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
+    quorum_minutes: "until <b>%{date}</b> at %{time}"
+    quorum_valutations: "until it will be rated by at <b>least %{valutations} people</b>"
+    quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase only if its <b>rank</b> is greater than <b>%{good_score}%</b>."
   group: "group"
-  proposal_types:
-    problems_title: "Problems"
-    rule_book:
-      problems_title: "Problems"
-      sections:
-        inspire: "Rules from which get example"
-        stackeholders: "Stakeholders"
-        requisiti: "Requirements to be met"
-    candidates:
-      sections:
-        description: "Description of the kind of election"
   saving: "Saving..."
   sending: "Sending..."
   updating: "Updating..."
@@ -1318,6 +1391,7 @@ en:
       work_area:
         area_created: "Error while creating work area"
       creation: "Error while creating the group"
+      post_removed: "Error while removing the post from the group"
     proposals:
       view_proposal: "You don't have the required permissions to view this proposal"
       participate: "You don't have the required permissions to actively participate in this proposal. Please contact the group admin"
@@ -1346,16 +1420,26 @@ en:
       join_accounts_password: "Wrong password"
     group_partecipations:
        destroy: "You can not leave a group of which you are the sole spokesperson"
+       already_member: "Error while creating the participation request. You are already member of this group!"
+       request_not_registered: "You are already member of this groups but your participation request has not been registered. Valid data"
+       request_sent: "Error while creating the participation request"
+       request_not_found: "Request not found. Operation error"
+       error_saving: "Error in the procedure. Unable to continue"
     error_404:
       proposals:
         title: "This proposal doesn't exist"
         description: "The proposal you are looking for doesn't exist or has been deleted"
+      title: "The page you are looking for doesn't exist"
+      description: "Your address might be wrong, or this page does no longer exist"
       blog_posts:
-        title: "This post doesn't exist"
-        description: "The post you are looking for doesn't exist or has been deleted"
+       title: "This post doesn't exist"
+       description: "The post you are looking for doesn't exist or has been deleted"
       events:
-        title: "This event doesn't exist"
-        description: "The event you are looking for doesn't exist or has been deleted"
+       title: "This event doesn't exist"
+       description: "The event you are looking for doesn't exist or has been deleted"
+    error_500:
+      title: "Oops...our mistake"
+      description: "A  report has been sent and the problem will be fixed as soon as possible."
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1382,6 +1466,7 @@ en:
       login_to_contribute: "Login to add your contribution"
       back_in_debate: "The proposal is now in debate again. Now you are its editor"
       editors_added: "New editors successfully added!"
+      offered_editor: "You offered yourself to write up this proposal!"
     message_sent: "Message successfully sent"
     private_messages_active: "Other users can send you private messages"
     private_messages_inactive: "Other users cannot send you private messages"
@@ -1408,13 +1493,14 @@ en:
       group_deleted: "Group deleted correctly"
       group_created: "Group created correctly"
       search_participants: "Search completed. Search results updated"
+      post_removed: "The post has been removed from the group Wall"
     participation_roles:
       role_updated: "Role successfully updated"
       permissions_updated: "Permissions updated"
       role_created: "Role successfully created"
       role_changed: "Role successfully changed"
       role_deleted: "Role successfully deleted"
-      user_removed_from_group: "successfully removed from the group"
+      user_removed_from_group: "%{name} successfully removed from the group"
     user:
       click_to_change: "Click the information you want to change"
       info_updated: "Information successfully updated"
@@ -1446,6 +1532,11 @@ en:
         other: "You asked to participate in %{count} new groups"
     group_partecipations:
       destroy_ok_1: "You have left the group. In the future you can ask to participate again"
+      request_sent: "Participation request successfully sent"
+      request_alredy_sent: "You have already sent a participation request for this group"
+      status_accepted: "The participation request is now in the status: ACCEPTED"
+      status_voting: "The participation request is now in the status: VOTING"
+      status_declined: "The participation request is now in the status: DECLINED"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

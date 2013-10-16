@@ -11,7 +11,7 @@
 	</div>
 	<div class="blog-comment-footer">
 			<p>
-			Inserito il <span class="blogPostDate"><%= time_in_words(comment.created_at)%></span>
+			<%= t('pages.blog_posts.comment.inserted_when',when:time_in_words(comment.created_at))%>
 			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id) %>
 					<%= link_to t('pages.blog_posts.comment.delete_button'), {:controller => "blog_comments", :action => "delete",  :blog_post_id => @blog_post.id, :id => comment.id},
 					:remote => "true",

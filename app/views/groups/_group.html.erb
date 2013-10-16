@@ -8,13 +8,13 @@
 
     <p>
       <%= f.label :description %><br/>
-      <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
+      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600}%>
     </p>
 
     <% if ['edit', 'update'].include? params[:action] %>
             <p>
           <%= f.label :rule_book %><br/>
-          <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
+          <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600} %>
         </p>
 
         <script type="text/javascript">
@@ -105,7 +105,7 @@
           <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
         <p>
-          <%= f.check_box :private %><%= f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>
+          <%= f.check_box :private %><%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" %>
           <br/>
           <% if @group.is_private? %>
             <p class="toast-info info-panel">

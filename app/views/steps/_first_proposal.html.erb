@@ -1,9 +1,5 @@
 <div class="text">
-<b>Il tuo primo contributo<br /></b> <!--TODO:i18n-->
-E' ora di dire la tua! <br />
-Inserisci una proposta, un'idea o una segnalazione dal territorio. <br />
-Contribuisci alla discussione e fatti conoscere dagli altri utenti. <br/>
-La tua proposta verrà inserita nello <%=link_to 'spazio comune', proposals_path%> e potrebbe essere supportata dai gruppi sul tuo territorio!
+<%=t('pages.steps.first_proposal_html', proposal:(link_to t('open_space'), proposals_path, html_options = {target:"_blank"})) %>
 <div style="margin:auto; text-align: center;">
 
   <%= link_to 'Inserisci una proposta', new_proposal_path(:back => 'home', proposal_type_id: ProposalType::STANDARD), :remote => true, :class=> "btn blue disable newButton" %>

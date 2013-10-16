@@ -3,13 +3,13 @@
 
 <br/>
 
-<%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn blue' %>
 <%= link_to t('frm.admin.category.index'), group_frm_admin_categories_url(@group), class: 'btn blue' %>
+<%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group), class: 'btn blue' %>
 <%= link_to t('frm.admin.group.index'), group_frm_admin_frm_groups_url(@group), class: 'btn blue' %> <br/>
 
 <hr/>
 <footer id='admin_link'>
-  <%= link_to t('back_to_forums'), group_forums_url(@group), class: 'btn' %>
+  <%= link_to t('back_to_forums'), group_forums_url(@group), class: 'btn forwardButton' %>
 </footer>
 
 

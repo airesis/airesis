@@ -145,7 +145,7 @@
 <% if @event.event_type_id == EventType::VOTAZIONE %>
     <p>
       <% if @event.proposals.count > 0 %>
-        <h3>In queste giornate si voteranno le seguenti proposte</h3>
+        <h3>In queste giornate si voteranno le seguenti proposte</h3> <!-- TODO:I18n-->
         <br/>
         <% @event.proposals.each do |proposal| %>
             <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
