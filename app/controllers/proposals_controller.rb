@@ -287,20 +287,23 @@ class ProposalsController < ApplicationController
         #if is time fixed you can choose immediatly vote period
         if @copy.time_fixed?
           if prparams[:votation]
-            event_p = {
-                event_type_id: EventType::VOTAZIONE,
-                title: "Votazione #{@proposal.title}",
-                starttime: @copy.ends_at + 1.minute,
-                endtime: prparams[:votation][:end],
-                description: "Votazione #{@proposal.title}"
-            }
-            if @group
-              @event = @group.events.build(event_p)
-            else
-              @event = Event.new(event_p)
-            end
-            @event.save!
-            @proposal.vote_period = @event
+            @proposal.vote_starts_at = @copy.ends_at + 1.minute
+            @proposal.vote_ends_at = prparams[:votation][:end]
+            @proposal.vote_defined = true
+            #event_p = {
+            #    event_type_id: EventType::VOTAZIONE,
+            #    title: "Votazione #{@proposal.title}",
+            #    starttime: @copy.ends_at + 1.minute,
+            #    endtime: prparams[:votation][:end],
+            #    description: "Votazione #{@proposal.title}"
+            #}
+            #if @group
+            #  @event = @group.events.build(event_p)
+            #else
+            #  @event = Event.new(event_p)
+            #end
+            #@event.save!
+            #@proposal.vote_period = @event
           end
           #if the time is fixed we schedule notifications 24h and 1h before the end of debate
           Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
@@ -314,11 +317,7 @@ class ProposalsController < ApplicationController
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
 
-        #fai partire il timer per far scadere la proposta fuori dalla transazione
-        if @event && @event.is_votazione?
-          Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-          Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
-        end
+
 
         proposalparams = {
             :proposal_id => @proposal.id,
@@ -659,25 +658,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     authorize! :close_debate, @proposal
 
     Proposal.transaction do
-      if @proposal.rank >= @proposal.quorum.good_score
-        @proposal.proposal_state_id = ProposalState::WAIT_DATE #metti la proposta in attesa di una data per la votazione
-        notify_proposal_ready_for_vote(@proposal, @group)
-
-        #elimina il timer se vi è ancora associato
-        if @proposal.quorum.minutes
-          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-        end
-
-      elsif @proposal.rank < @proposal.quorum.bad_score
-        abandon(@proposal)
-        notify_proposal_abandoned(@proposal, @group)
-
-        #elimina il timer se vi è ancora associato
-        if @proposal.quorum.minutes
-          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-        end
-      end
-      @proposal.save!
+      check_phase(@proposal,true)
     end
     redirect_to @proposal
 

@@ -158,6 +158,22 @@ class Proposal < ActiveRecord::Base
     end
   end
 
+  def self.votation_portlet(user)
+    @list_a = user.proposals.voting.not_voted_by(user.id).pluck('proposals.id')
+    @list_b = user.partecipating_proposals.voting.not_voted_by(user.id).pluck('proposals.id')
+    @list_c = @list_a | @list_b
+     if @list_c.empty?
+       return []
+     else
+       return self.current
+       .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
+       .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+       .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
+       .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
+       .order('proposals.updated_at desc')
+     end
+  end
+
   #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
   def self.group_portlet(group,user)
     query = group.internal_proposals.includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
@@ -349,6 +365,21 @@ class Proposal < ActiveRecord::Base
 
   end
 
+
+  #retrieve the number of users that can vote this proposal
+  def eligible_voters_count
+    if self.private?
+      if self.presentation_areas.size > 0 #if we are in a working area
+        self.presentation_areas.first.count_voter_partecipants
+      else
+        self.presentation_groups.first.count_voter_partecipants
+      end
+    else
+      User.confirmed.unblocked.count #if it's public everyone can vote
+    end
+  end
+
+
   #count without fetching, for the list. this number may be different from partecipants because doesn't look if the partecipants are still in the group
   def partecipants_count
     a = User.joins({:proposal_rankings => [:proposal]}).where(["proposals.id = ?", self.id]).count
@@ -376,6 +407,19 @@ class Proposal < ActiveRecord::Base
 
   #all users that will receive a notification that asks them to check or give their valutation to the proposal
   def notification_receivers
+    #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
+    users = self.partecipants
+    res = []
+    users.each do |user|
+      #user ranking to the proposal
+      ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
+      res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
+    end
+  end
+
+
+  #all users that will receive a notification that asks them to vote the proposal
+  def vote_notification_receivers
     #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
     users = self.partecipants
     res = []
@@ -429,6 +473,14 @@ class Proposal < ActiveRecord::Base
     double  :rank
     time    :quorum_ends_at do
       self.quorum.ends_at
+    end
+
+    #two infos only when is in vote
+    integer :votes do
+      self.user_votes.count if voting? || voted?
+    end
+    time :votation_ends_at do
+      self.vote_period.endtime if voting? || voted?
     end
   end
 

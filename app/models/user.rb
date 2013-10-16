@@ -124,6 +124,7 @@ class User < ActiveRecord::Base
   after_create :assign_tutorials
 
   scope :blocked, {:conditions => {:blocked => true}}
+  scope :unblocked, {:conditions => {:blocked => false}}
   scope :confirmed, {:conditions => 'confirmed_at is not null'}
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 

@@ -3,8 +3,8 @@ class NotificationProposalCreate < NotificationSender
 
   @queue = :notifications
 
-  def self.perform(current_user_id,proposal_id,group_id = nil)
-    NotificationProposalCreate.new.elaborate(current_user_id,proposal_id,group_id)
+  def self.perform(current_user_id,proposal_id,group_id = nil,group_area_id=nil)
+    NotificationProposalCreate.new.elaborate(current_user_id,proposal_id,group_id,group_area_id)
 
   end
 

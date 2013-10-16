@@ -1,4 +1,8 @@
 it-IT:
+  unauthorized:
+    default: "Non disponi dei permessi per eseguire l'azione"
+    create:
+      group: "Non puoi creare più di un gruppo al giorno"
   permissions_required: "Non disponi dei permessi sufficienti"
   test: "Test"
   devise:
@@ -484,7 +488,7 @@ it-IT:
         show_more: "Mostra altre proposte..."
         loading_alt: "Caricamento"
         choose_model: "Scegli un modello di proposta"
-        search_title: "Cerca tra le proposte del gruppo"
+        search_title: "Testo contenuto"
         search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
         partecipants_number: "PARTECIPANTI"
@@ -728,6 +732,8 @@ it-IT:
         voting_from_to: "Dal %{from} al %{to}"
         voting_until: "Fino al<br/> %{date}"
         votation_finished: "Terminata<br/>%{time_ago}<br/>%{date}"
+        votation_finished_rejected: "Respinta<br/> %{date}"
+        votation_finished_approved: "Approvata<br/> %{date}"
         no_votation: "Non vi è stata alcuna votazione"
         interest_borders: "Confini di interesse"
         authors: "Redattori"
@@ -766,6 +772,7 @@ it-IT:
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
         remove_section: "Rimuovi sezione"
         add_paragraph: "Aggiungi un nuovo paragrafo"
+        edit_proposal: "Modifica e aggiorna il testo della proposta!"
         remove_solution: "Rimuovi soluzione"
         press_to_compress: "Clicca sul titolo per comprimere questa soluzione"
         add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
@@ -773,6 +780,7 @@ it-IT:
         you_know_what_you_do: "Sai quello che fai?"
         schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
+        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare"
         more_solutions_explained_html: |
           <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
           Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
@@ -1249,7 +1257,6 @@ it-IT:
         name: "Nome"
         description: "Descrizione"
         default_role_name: "Nome ruolo di default"
-
     errors:
       template:
         header:

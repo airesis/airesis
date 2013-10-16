@@ -8,12 +8,12 @@ module NotificationHelper
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
       UserAlert.transaction do #we need to close the transaction before scheduling the email because sometimes the worker starts before the transaction has been commited and can't find the alert throwing an error.
-        alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
-        alert.save! #invia la notifica
+        @alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
+        @alert.save! #invia la notifica
       end
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
       if (!user.blocked_email_notifications.include? notification.notification_type) && user.email
-        ResqueMailer.notification(alert.id).deliver
+        ResqueMailer.notification(@alert.id).deliver
       end
     end
     true
@@ -356,6 +356,15 @@ module NotificationHelper
     time_left(proposal, '1_hour')
   end
 
+
+  def notify_24_hours_left_to_vote(proposal)
+    time_left_vote(proposal, '24_hours_vote')
+  end
+
+  def notify_1_hour_left_to_vote(proposal)
+    time_left_vote(proposal, '1_hour_vote')
+  end
+
   protected
 
   def time_left(proposal, type)
@@ -370,6 +379,39 @@ module NotificationHelper
       (proposal.users.include? user) ?
           send_notification_to_user(notification_b, user) :
           send_notification_to_user(notification_a, user)
+    end
+  end
+
+
+  def time_left_vote(proposal, type)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
+    group = proposal.private ? proposal.presentation_groups.first : nil
+    data['group'] = group.name if group
+
+    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a.save!
+
+    proposal.users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        send_notification_to_user(notification_a, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
+      end
+    end
+
+    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b.save!
+
+    users = group ?
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        proposal.partecipants
+
+    users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        unless proposal.users.include? user
+          send_notification_to_user(notification_b, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
+        end
+      end
     end
   end
 end
