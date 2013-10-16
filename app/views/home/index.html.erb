@@ -21,9 +21,24 @@
       <%= stylesheet_link_tag 'jquery.qtip' %>
       <%= stylesheet_link_tag 'redmond/custom' %>
 
+
+      <%= stylesheet_link_tag "foundation" %>
+      <%= stylesheet_link_tag "foundation_and_override" %>
+      <%= stylesheet_link_tag 'foundation_merge' %>
+      <%= javascript_include_tag 'foundation' %>
+
+      <script type="text/javascript">
+          $(function () {
+              $(document).foundation();
+          });
+      </script>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
       <link rel="shortcut icon" type="image/x-icon" href="">
     </head>
-    <body data-spy="scroll" data-target="#t1" class="frontpage">
+    <body class="frontpage">
 
     <script type="text/javascript">
         window.___gcfg = {
@@ -95,9 +110,9 @@
     <div id="fb-root"></div>
 
     <div id="great_container">
-      <div class="container">
-        <div class="row"><!-- Menù navigatore-->
 
+      <div class="row full-width top-bar"><!-- Menù navigatore-->
+        <div class="row centered">
 
           <ul class="navbar" style="float: left; margin-left: 5px;">
             <li><%= link_to t('pages.home.index.whatis'), edemocracy_path %></li>
@@ -150,115 +165,128 @@
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="container">
-          <div id="f_main" class="row" style="height: 450px;">
-            <!-- Logo principale-->
-            <%= image_tag 'logo_main.png', :style => 'position: absolute; margin-top: 0px; right: 58%;', :alt => "Airesis - Scegli di partecipare" %>
+      <div class="row full-width medium-bar" style="height:335px"><!-- Menù navigatore-->
+        <div class="row centered">
+          <!-- Logo principale-->
+          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare" %>
 
-            <div
-            style="position: absolute;  left: 52%;">
-              <div style=" width:387px;font-family:Arial; text-align:center;">
-                <div style="margin:5px; line-height:26px;">
-                  <%= link_to t('pages.home.index.cloud_1'), proposals_path, :style => 'font-size:37px;text-decoration:none; color: #87A800; ' %>
-                  <%= link_to t('pages.home.index.cloud_2'), groups_path, :style => 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
-                  <br/>
-                  <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', :target => '_blank', :style => 'font-size:32px;text-decoration:none; color: #039FAF;' %>
-                  <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #FF7600;' %>
-                  <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', :target => '_blank', :style => 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>
-                  <%= link_to t('pages.home.index.cloud_6'), 'http://it.wikipedia.org/wiki/Forum_(Internet)', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #87A800;' %>
-                  <%= link_to t('pages.home.index.cloud_7'), partecipa_path, :style => 'font-size:40px;text-decoration:none; color: #DE2159;' %>
-                  <%= link_to t('pages.home.index.cloud_8'), 'http://it.wikipedia.org/wiki/Votazione_elettronica', :style => 'font-size:40px;text-decoration:none; color: #039FAF;' %>
-                  <%= link_to t('pages.home.index.cloud_9'), 'http://www.doodle.com/', :style => 'font-size:23px;text-decoration:none; color: #87A800;' %>
-                </div>
+          <div style="float:right" class="show-for-medium-up">
+            <div style=" width:387px;font-family:Arial; text-align:center;">
+              <div style="margin:5px; line-height:26px;">
+                <%= link_to t('pages.home.index.cloud_1'), proposals_path, :style => 'font-size:37px;text-decoration:none; color: #87A800; ' %>
+                <%= link_to t('pages.home.index.cloud_2'), groups_path, :style => 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
+                <br/>
+                <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', :target => '_blank', :style => 'font-size:32px;text-decoration:none; color: #039FAF;' %>
+                <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #FF7600;' %>
+                <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', :target => '_blank', :style => 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>
+                <%= link_to t('pages.home.index.cloud_6'), 'http://it.wikipedia.org/wiki/Forum_(Internet)', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #87A800;' %>
+                <%= link_to t('pages.home.index.cloud_7'), partecipa_path, :style => 'font-size:40px;text-decoration:none; color: #DE2159;' %>
+                <%= link_to t('pages.home.index.cloud_8'), 'http://it.wikipedia.org/wiki/Votazione_elettronica', :style => 'font-size:40px;text-decoration:none; color: #039FAF;' %>
+                <%= link_to t('pages.home.index.cloud_9'), 'http://www.doodle.com/', :style => 'font-size:23px;text-decoration:none; color: #87A800;' %>
               </div>
-            </div>
-            <!--Slogan-->
-            <div id="slogan" style="position:absolute;margin-top:325px;">
-
-              <div style="float:left;">
-
-                <div style="float:left; margin:5px; padding:0px; margin-left: 20px; font-weight:bold; ">
-                  <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "btn btn-success btn-large",
-                              :style => "font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px; " %>
-                </div>
-
-                <div style="float:left;margin:5px; padding:0px; margin-left: 20px; font-weight:bold">
-                  <%= link_to t('pages.home.index.register'), new_user_registration_path, :class => "btn btn-success btn-large",
-                              :style => "font-size: 38px; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold;  padding:5px; padding-left:10px; padding-right:10px;", :id => 'signup' %>
-                </div>
-
-              </div>
-              <div style="float:right; ">
-                <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-                    <div style="float:left; font-size:14px">
-                      <%= f.submit t('pages.home.index.login'), :style => "width:120px;margin-left: 10px; padding-top:4px; padding-bottom:4px; margin-bottom:0px;cursor:pointer; font-size: 30px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; float:right", :class => "btn btn-success btn-large" %>
-                      <%= f.text_field :login, :style => "width:170px;", placeholder: 'Username o email' %> <br/>
-                      <%= f.password_field :password, :style => "width:170px;", placeholder: 'Password' %>
-
-                      <div class="littleText" style="font-weight: normal; font-size: 12px; ">
-                        <div style="float: left;margin-top: 4px;"><%= link_to t('pages.home.index.forgot_password'), new_password_path(resource_name) %></div>
-                        <div style="float: left; margin-top: 3px; ">
-                          <%= f.check_box :remember_me, :checked => true, :style => 'margin-left:55px; font-size:12px' %>
-                        </div>
-                        <div style="float: left; margin-top: 3px;"><%= t('pages.home.index.keep_connected') %></div>
-                      </div>
-                    </div>
-                    <div style="  width: 180px; float: right; font-size: 14px;  text-align: center; color: #778899; line-height: 0px;">
-                      <%= t('pages.proposals.index.login_with') %>
-                      <div style="margin-top: 10px;">
-                        <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-                        <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                        <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
-                        <br/>
-                        <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-                        <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-                      </div>
-                    </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <!--Sottoblocchi informativi-->
-          <div class="row">
-            <div class="span4">
-              <h3><%= raw t('pages.home.index.field_1.title') %></h3>
-
-              <p><%= t('pages.home.index.field_1.content') %></p>
-
-              <h3><%= raw t('pages.home.index.field_2.title') %></h3>
-
-              <p><%= t('pages.home.index.field_2.content') %> </p>
-            </div>
-            <div class="span4">
-              <h3><%= raw t('pages.home.index.field_3.title') %></h3>
-
-              <p><%= t('pages.home.index.field_3.content') %></p>
-
-              <h3><%= raw t('pages.home.index.field_4.title') %></h3>
-
-              <p><%= t('pages.home.index.field_4.content') %></p>
-            </div>
-            <!-- Blocchi news-->
-            <div id="news_block" class="span4" style="margin-top: -25px;">
-              <div class="well"
-                   style="margin-bottom: 2px; background: -moz-linear-gradient(center top , #FFFFFF 0pt, #DDDDDD 100%) repeat scroll 0 0 #FFFFFF; text-align: center;">
-
-
-                <div class="fb-like-box" data-href="http://www.facebook.com/airesisit"
-                     data-width="300" data-height="260" data-show-faces="false" data-show-likes="false" data-stream="true" data-header="false" data-border-color="white">
-                </div>
-                <div style="position: relative; top:-227;">
-                  <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">
-                    <%= t('pages.home.index.follw_on_twitter') %></a></div>
-              </div>
-
             </div>
           </div>
         </div>
       </div>
-      <%= render :partial => "layouts/footer" %>
+      <div class="row full-width sub-bar">
+        <!--Slogan-->
+        <div class="row centered" style="margin-top:25px;">
+
+          <div class="columns large-6">
+            <div class="row">
+              <div class="columns large-6 small-6">
+
+                <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
+              </div>
+
+              <div class="columns large-6 small-6">
+                <%= link_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
+              </div>
+
+            </div>
+          </div>
+          <div class="columns large-6">
+            <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+                <div class="row">
+                  <div class="columns large-4">
+
+                    <%= f.text_field :login, placeholder: 'Email' %> <br/>
+                    <%= f.password_field :password, placeholder: 'Password' %>
+                  </div>
+                  <div class="columns large-4 small-6">
+                    <%= f.submit t('pages.home.index.login'), :class => "homepageButton" %>
+                    <div style="margin-top: 3px; font-size: 12px ">
+                      <%= f.check_box :remember_me, :checked => true %>
+                      <%= t('pages.home.index.keep_connected') %>
+                    </div>
+                  </div>
+
+
+                  <div class="columns large-4 small-6">
+                    <%= t('pages.proposals.index.login_with') %>
+                    <div style="margin-top: 10px;">
+                      <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
+                      <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
+                      <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                      <br/>
+                      <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
+                      <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row littleText" style="font-weight: normal; font-size: 12px; ">
+                  <div style="float: left;margin-top: 4px;"><%= link_to t('pages.home.index.forgot_password'), new_password_path(resource_name) %></div>
+
+                </div>
+
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!--Sottoblocchi informativi-->
+      <div class="row full-width last-bar">
+        <div class="row centered">
+          <div class="columns large-7">
+            <div class="row">
+              <div class="columns large-6">
+                <h3><%= raw t('pages.home.index.field_1.title') %></h3>
+
+                <p><%= t('pages.home.index.field_1.content') %></p>
+
+                <h3><%= raw t('pages.home.index.field_2.title') %></h3>
+
+                <p><%= t('pages.home.index.field_2.content') %> </p>
+              </div>
+              <div class="columns large-6">
+                <h3><%= raw t('pages.home.index.field_3.title') %></h3>
+
+                <p><%= t('pages.home.index.field_3.content') %></p>
+
+                <h3><%= raw t('pages.home.index.field_4.title') %></h3>
+
+                <p><%= t('pages.home.index.field_4.content') %></p>
+              </div>
+            </div>
+          </div>
+          <div class="columns large-4">
+            <div style="height:10px;"></div>
+            <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">
+              <%= t('pages.home.index.follw_on_twitter') %></a>
+            <div style="height:20px;"></div>
+            <div class="fb-like-box" data-href="http://www.facebook.com/airesisit"
+                 data-width="300" data-height="260" data-show-faces="false" data-show-likes="false" data-stream="true" data-header="false" data-border-color="white">
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
+    <%= render :partial => "layouts/new_footer" %>
     </body>
     </html>
 <% end %>

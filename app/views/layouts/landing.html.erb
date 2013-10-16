@@ -22,6 +22,7 @@
 
 
 <% content_for :menu do %>
+
     <span class="tit"><%= @page_title %></span>
     <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
 
@@ -49,28 +50,20 @@
 
 <%= render :partial => "layouts/header" %>
 
-<div id="main" style="right:0px;">
-  <!-- ##### Main Copy ##### -->
+<div id="main">
   <div id="main-copy">
-    <div id="menu-left">
-      <div class="menu2">
+      <div class="full-width">
+
         <%= yield :left_panel %>
 
-
-      </div>
-    </div>
-    <div id="centerpanelextended" style="font-size: 16px; line-height: 22px;">
-      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
         <%= yield :layout %>
+
       </div>
 
-      <%= render :partial => "layouts/menu_right" %>
-      <div class="clearboth"></div>
-    </div>
-    <div style="clear: both; height: 0; overflow: hidden;"></div>
-    <%= render :partial => "layouts/footer" %>
+  <%= render :partial => "layouts/new_footer" %>
+      </div>
   </div>
-</div>
+
 
 </body>
 </html>

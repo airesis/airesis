@@ -90,6 +90,13 @@ $(function () {
     $('.group-cont').click(function (event) {
         event.stopPropagation();
     });
+
+
+    $('.sub-nav a').click(function() {
+      $('.sub-nav dd').removeClass('active');
+      $(this).parent().addClass('active');
+    });
+
 });
 
 function sticky_relocate() {
@@ -803,4 +810,6 @@ if (!jQuery.browser) {
 
     jQuery.browser = browser;
 }
+
+
 

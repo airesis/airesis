@@ -24,6 +24,7 @@
     background-color: #33b5e5;
     box-shadow: 0px 2px 3px #797979;
     z-index: 1000;
+    min-width:1000px;
 }
 
 #menu-left {
@@ -45,7 +46,7 @@
 }
 
 #logo-airesis {
-    position: absolute;
+    float:left;
     cursor: pointer;
 }
 
@@ -53,15 +54,13 @@
     /*background: -webkit-gradient(linear, left top, left bottom, from(#74d1f0), to(#2fbeed));*/
 }
 
-#logo-airesis img {
+.logo1 {
     height: 100%;
 }
 
 #menu-top .sep1 {
-    position: absolute;
-    left: 280px;
-    top: 8px;
-    height: 65px;
+    float: left;
+    height: 80px;
     border-left: 1px dotted rgba(255, 255, 255, 0.5);
 }
 
@@ -117,9 +116,9 @@
 }
 
 #logo-but {
-    position: absolute;
-    top: 20px;
-    left: 204px;
+    float: left;
+    margin-top: 20px;
+    margin-left: 10px;
     color: white;
     font-weight: bold;
     font-size: 13px;
@@ -666,7 +665,7 @@
 
 }
 
-#footer {
+#footer, footer {
     position: absolute;
     bottom: 0px;
     right: 0px;
@@ -679,20 +678,21 @@
     z-index: 998;
 }
 
-#footer a {
+
+#footer a, footer a {
     color: white;
     text-decoration: none;
 }
 
-#footer a:hover {
+#footer a:hover, footer a:hover {
     text-decoration: underline;
 }
 
-#footer .pull-left {
+#footer .pull-left, footer .pull-left {
     float: left;
 }
 
-#footer .pull-right {
+#footer .pull-right, footer .pull-right {
     float: right;
 }
 
