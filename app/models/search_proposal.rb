@@ -11,6 +11,17 @@ class SearchProposal < ActiveRecord::Base
   attr_accessor :order_id, :time_type, :order_dir, :page, :per_page, :text, :or
 
 
+  ORDER_RANDOM="1"
+  ORDER_BY_DATE="2"
+  ORDER_BY_RANK="3"
+  ORDER_BY_VOTES="4" #order by number of valutations
+  ORDER_BY_END="5"
+  ORDER_BY_VOTATION_END="6"
+  ORDER_BY_VOTES_NUMBER="7" #orde by number of votes
+  ORDER_ASC="a"
+  ORDER_DESC="d"
+
+
   def results
     @search = Proposal.search(:include => [:category, :quorum, {:users => [:image]}, :vote_period, :groups, :presentation_groups, :interest_borders]) do
 
@@ -80,6 +91,12 @@ class SearchProposal < ActiveRecord::Base
       elsif self.order_id == ORDER_BY_END
         order_by :quorum_ends_at, dir
         order_by :valutations, dir
+      elsif self.order_id == ORDER_BY_VOTATION_END
+        order_by :votation_ends_at, dir
+        order_by :votes, dir
+      elsif self.order_id == ORDER_BY_VOTES_NUMBER
+        order_by :votes, dir
+        order_by :votation_ends_at, dir
       else
         order_by :updated_at, dir
         order_by :created_at, dir

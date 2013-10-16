@@ -3,7 +3,8 @@ module ProposalsModule
 
 
   #check if we have to close the dabate and pass to votation phase
-  def check_phase(proposal)
+  #accept to parameters: the proposal and a force end parameter to close the debate in any case
+  def check_phase(proposal,force_end=false)
     return unless proposal.in_valutation? #if the proposal already passed this phase skip this check
     quorum = proposal.quorum
     passed = false
@@ -19,11 +20,29 @@ module ProposalsModule
     else #we just need one of two (one will be certainly true)
       passed = (timepassed && vpassed)
     end
+    passed = passed || force_end #maybe we want to force the end of the proposal
 
     if passed #if we have to move one
       if proposal.rank >= quorum.good_score #and we passed the debate quorum
-        if proposal.vote_period #the user already choosed the votation period! that's great, we can just sit along the river waiting for it to begin
+        if proposal.vote_defined #the user already choosed the votation period! that's great, we can just sit along the river waiting for it to begin
           proposal.proposal_state_id = ProposalState::WAIT
+          #automatically create
+          event_p = {
+              event_type_id: EventType::VOTAZIONE,
+              title: "Votazione #{proposal.title}",
+              starttime: proposal.vote_starts_at,
+              endtime: proposal.vote_ends_at,
+              description: "Votazione #{proposal.title}"
+          }
+          if proposal.private?
+            @event = proposal.presentation_groups.first.events.create!(event_p)
+          else
+            @event = Event.create!(event_p)
+          end
+          #fai partire il timer per far scadere la proposta
+          Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+          Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+          proposal.vote_period = @event
         else
           proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
           proposal.private? ?

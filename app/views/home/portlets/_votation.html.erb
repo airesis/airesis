@@ -1,14 +1,9 @@
 <div class="title">
   <%= t('pages.home.show.proposals_now_voting') %>
 </div>
-<% @a = current_user.proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
-<% @b = current_user.partecipating_proposals.voting.not_voted_by(current_user.id).pluck('proposals.id') %>
-<% @c = @a | @b %>
-<% if @c.empty? %>
-    <h4><%= t('pages.home.show.no_proposals_to_vote_now') %></h4>
-<% else %>
+<% @proposals_p = Proposal.votation_portlet(current_user) %>
+<% unless @proposals_p.empty? %>
     <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
-      <% @proposals_p = Proposal.current.uniq.all(include: [:quorum, {:users => :image}, :proposal_type, :rankings], conditions: ['proposals.id in (?)', @c], order: 'proposals.updated_at desc') %>
       <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
     </div>
 <% end %>

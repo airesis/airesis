@@ -113,21 +113,38 @@ class Quorum < ActiveRecord::Base
   end
 
   def time_left
-    amount = self.ends_at - Time.now #left in seconds
-    left = I18n.t('time.left.seconds',count: amount.to_i)
-    if amount >= 60  #if more or equal than 60 seconds left give me minutes
-      amount_min = amount/60
-      left = I18n.t('time.left.minutes',count: amount_min.to_i)
-      if amount_min >= 60 #if more or equal than 60 minutes left give me hours
-        amount_hour = amount_min/60
-        left = I18n.t('time.left.hours',count: amount_hour.to_i)
-        if amount_hour > 24 #if more than 24 hours left give me days
-          amount_days = amount_hour/24
-          left = I18n.t('time.left.days',count: amount_days.to_i)
+    ret = []
+    if self.minutes
+      amount = self.ends_at - Time.now #left in seconds
+      if amount > 0
+        left = I18n.t('time.left.seconds',count: amount.to_i)                     #todo:i18n
+        if amount >= 60  #if more or equal than 60 seconds left give me minutes
+          amount_min = amount/60
+          left = I18n.t('time.left.minutes',count: amount_min.to_i)                    #todo:i18n
+          if amount_min >= 60 #if more or equal than 60 minutes left give me hours
+            amount_hour = amount_min/60
+            left = I18n.t('time.left.hours',count: amount_hour.to_i)                               #todo:i18n
+            if amount_hour > 24 #if more than 24 hours left give me days
+              amount_days = amount_hour/24
+              left = I18n.t('time.left.days',count: amount_days.to_i)                                    #todo:i18n
+            end
+          end
         end
+        ret << left
       end
     end
-    left
+    if self.percentage
+      valutations = self.valutations - self.proposal.valutations
+      if valutations > 0
+        ret << "#{valutations} VALUTAZIONI" #todo:i18n
+      end
+    end
+    if ret.size > 0
+      ret.join(or? ? ' O ' : ' E ')
+    else
+      "IN STALLO" #todo:i18n
+    end
+
   end
 
   def explanation

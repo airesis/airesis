@@ -22,11 +22,17 @@
           <% elsif proposal.voting? %>
               <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
           <% elsif proposal.voted? %>
-              <% if proposal.vote_period %>
+              <% if proposal.is_schulze? %>
                   <% title = t('pages.proposals.list.votation_finished', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
-              <% else %>
-                  <% title = t('pages.proposals.list.no_votation') %>
+              <%else%>
+                  <%if proposal.rejected? %>
+                      <% title = t('pages.proposals.list.votation_finished_rejected', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+                  <% else %>
+                      <% title = t('pages.proposals.list.votation_finished_approved', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+                  <%end%>
               <% end %>
+          <% elsif proposal.abandoned? %>
+              <% title = t('pages.proposals.list.no_votation', date: (l proposal.updated_at, format: :two_rows)) %>
           <% end %>
           <%= raw title %>
         </div>
@@ -42,19 +48,29 @@
       <div class="text_content">
         <%= raw proposal.short_content %>
       </div>
-
-      <%= render :partial => 'new_rank_bar', locals: {proposal: proposal} %>
+      <%if proposal.voting? || proposal.voted? %>
+       <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+      <%else%>
+      <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+      <%end%>
 
       <div class="clearboth"></div>
 
 
       <div class="proposal_bottom">
-        <% if proposal.quorum.time_fixed?&& proposal.in_valutation? %>
+        <% if proposal.in_valutation? %>
             <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
               <%= link_to (image_tag 'group_events.png'), '#' %>
               <span class="count">
-            - <%= proposal.quorum.time_left.upcase %></span>
+              <%= proposal.quorum.time_left.upcase %></span>
             </div>
+        <% elsif proposal.voting? %>
+            <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
+              <%= link_to (image_tag 'group_events.png'), '#' %>
+              <span class="count">
+              <%= proposal.vote_period.time_left.upcase %></span>
+            </div>
+
         <% end %>
 
 
@@ -90,6 +106,9 @@
 
         <div class="alerts_and_vote">
           <% if current_user %>
+              <%if can? :vote, proposal %>
+                <%= link_to 'VOTA', proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue'  %>
+              <%end%>
               <% count = proposal.count_notifications(current_user.id) %>
               <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
           <% end %>

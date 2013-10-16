@@ -701,11 +701,14 @@ it-IT:
         voting_from_to: "Dal %{from} al %{to}"
         voting_until: "Fino al<br/> %{date}"
         votation_finished: "Terminata il<br/> %{date}"
-        no_votation: "Non vi è stata alcuna votazione"
+        votation_finished_rejected: "Respinta il<br/> %{date}"
+        votation_finished_approved: "Approvata il<br/> %{date}"
+        no_votation: "Abbandonata il %{date}"
         interest_borders: "Confini di interesse"
         authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
+
       delete_comment: "Cancella"
       results:
         total: "Totale votanti: %{count}"

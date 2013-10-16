@@ -117,30 +117,40 @@ en:
         email_subject: "%{proposal} - Contribution back in debate"
         message: "A contribution you integrated in the proposal <b>%{proposal}</b> has been put back in debate"
       new_contributes:
-        description: New contributions and comments in the proposals I participate in
+        description: "New contributions and comments in the proposals I participate in"
         email_subject: "%{title} - New contribute"
         message: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
       text_update:
-        description: Update of the text of a proposal I participate in
+        description: "Update of the text of a proposal I participate in"
         email_subject: "%{title} - The text has been modified"
         message: "The proposal <b>%{title}</b> has been updated"
       new_contributes_mine:
-        description: New contributions in my proposals
+        description: "New contributions in my proposals"
         email_subject: "%{title} - New contribution"
         message: "<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>"
       change_status:
-        description: Change in the status of a proposal I participate in
+        description: "Change in the status of a proposal I participate in"
         email_subject:
           wait: "%{title} - Choose the voting date"
           waiting_date: "%{title} - The voting date has been chosen"
           in_vote: "%{title} - COME AND VOTE!"
-          abandoned: "%{title}</b> didn't get through the debate"
+          abandoned: "%{title} didn't get through the debate"
           rejected: "%{title} has been rejected"
+          voted: "%{title} - Votation has terminated"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
         message:
           waiting_date: "%{name} has chosen the date of the vote for the proposal<b>%{title}</b>"
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
           abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
           rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
+          voted: "%{title} - Votation has terminated"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
       change_status_mine:
         description: Change in the status of my proposals
         email_subject:
@@ -149,12 +159,22 @@ en:
           in_vote: "%{title} - COME AND VOTE!"
           abandoned: "%{title}</b> didn't get through the debate"
           rejected: "%{title} has been rejected"
+          voted: "%{title} - Votation has terminated"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
         message:
           wait: "Your proposal <b>%{title}</b> has passed the discussion phase and is now waiting that you choose when to vote it"
           waiting_date: "%{name} has chosen the voting date for the proposal <b>%{title}</b>"
           in_vote: "Your proposal <b>%{title}</b> is now being voted!"
           abandoned: "Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry"
           rejected: "Your proposal <b>%{title}</b> has been rejected by the participants, sorry"
+          voted: "%{title} - Votation has terminated"
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
       new_posts_group_follow:
         description: New posts in the Walls of the groups I am following
         email_subject: New post

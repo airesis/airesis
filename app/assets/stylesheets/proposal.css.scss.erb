@@ -302,7 +302,7 @@
         overflow: hidden;
     }
     .timeDescription {
-        width: 125px;
+        margin-right: 20px;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
@@ -320,6 +320,10 @@
             position: absolute;
             top: 8px;
             right: 6px;
+            .btn {
+                padding: 3px 8px;
+                margin: 0px 5px;
+            }
         }
     }
 }
@@ -404,7 +408,18 @@
         }
 
     }
+
+    &.vote {
+        .time {
+            background-color: white;
+            border: 1px solid silver;
+            .good {
+                background-color: blue;
+            }
+        }
+    }
 }
+
 
 .portlet_panel {
     .proposal_list {

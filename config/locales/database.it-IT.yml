@@ -139,6 +139,8 @@ it:
           voted: "%{title} - La votazione è terminata"
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"
+          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
+          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
         message:
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"
@@ -147,6 +149,8 @@ it:
           voted: "La votazione <b>%{title}</b> è terminata"
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"
+          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
+          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
       change_status_mine:
         description: Cambio di stato delle mie proposte
         email_subject:
@@ -158,6 +162,8 @@ it:
           voted: "%{title} - La votazione è terminata"
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"
+          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
+          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
         message:
           wait: "La proposta <b>%{title}</b> ha passato la fase di discussione ed è ora in attesa che tu scelga quando votarla"
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
@@ -167,6 +173,8 @@ it:
           voted: "La votazione <b>%{title}</b> è terminata"
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"
+          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
+          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
       new_posts_group_follow:
         description: Nuovi post sulle Bachece dei gruppi che seguo
         email_subject: Nuovo post

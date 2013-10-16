@@ -20,13 +20,10 @@ class EventsWorker
 
   #fa partire la votazione di una proposta
   def start_votation(event_id)
-    msg = "Inizia la votazione con id #{event_id}<br/>"
     counter = 0
     event = Event.find(event_id)
     proposals = event.proposals
-    msg += "All'evento sono legate #{proposals.count} proposte<br/>"
     proposals.each do |proposal|
-      msg += "La proposta #{proposal.id} passa in votazione<br/>"
       proposal.proposal_state_id = ProposalState::VOTING
       counter+=1
       proposal.save!
@@ -39,19 +36,17 @@ class EventsWorker
           notify_proposal_in_vote(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_in_vote(proposal)
 
+      Resque.enqueue_at(event.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24VOTE, :proposal_id => @proposal.id}) if (event.duration/60) > 1440
+      Resque.enqueue_at(event.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1VOTE, :proposal_id => @proposal.id}) if (event.duration/60) > 60
+
     end #end each
-    ResqueMailer.admin_message(msg).deliver
   end
 
   #terminate proposal votation
   def end_votation(event_id)
-    msg = "Termina la votazione con id #{event_id}<br/>"
     event = Event.find(event_id)
     proposals = event.proposals
-    msg += "All'evento sono legate #{proposals.count} proposte<br/>"
     proposals.each do |proposal|
-      msg += "La proposta #{proposal.id} termina la votazione<br/>"
-
       if proposal.is_schulze?
         vote_data_schulze = proposal.schulze_votes
         Proposal.transaction do
@@ -86,7 +81,6 @@ class EventsWorker
           notify_proposal_voted(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_voted(proposal)
     end #end each
-    ResqueMailer.admin_message(msg).deliver
   end
 
 
