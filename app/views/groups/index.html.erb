@@ -137,7 +137,7 @@
       <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
       <% else %>
-          <%= 'Puoi creare al massimo un gruppo al giorno' %>  <!--TODO:I18n-->
+          <%= t('pages.groups.index.limit_reached') %>
       <% end %>
     </div>
     <%= render :partial => 'users/user_groups_panel' %>
@@ -194,7 +194,7 @@
         checked: <%=params[:area] == 'on' %>,
         on_label: $('<div class="s_circle"></div>'),
         off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
-        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico',
+        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico', //TODO:I18n
         off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
     });
 
@@ -202,8 +202,8 @@
         checked: <%=params[:and] == 'on' %>,
         on_label: $('<div>&</div>'),
         off_label: $('<div>||</div>'),
-        on_title: 'Tutti i gruppi che contengono entrambe le parole',
-        off_title: 'Tutti i gruppi che contengono almeno una parola'
+        on_title: 'Cerca i gruppi che contengono tutte queste parole', //TODO:I18n
+        off_title: 'Cerca i gruppi che contengono almeno una tra queste parole'
     });
 
     $('.switch-button-label.on, .switch-button-label.off').qtip({

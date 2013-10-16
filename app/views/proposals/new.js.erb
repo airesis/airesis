@@ -137,7 +137,6 @@ disegnaBottoni();
 
 
 var datePickerOptions = {
-    dateFormat: "dd/mm/yy",
     buttonImageOnly: true,
     buttonImage: "<%= asset_path('iconCalendar.png') %>",
     showOn: "both",
@@ -151,7 +150,6 @@ var datePickerOptions = {
     stepMinute: 5,
     stepHour: 1,
     altTimeField: "alt",
-    time24h: true
 };
 
 $('#proposal_votation_end').datetimepicker($.extend({},datePickerOptions,{

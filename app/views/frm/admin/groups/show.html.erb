@@ -1,5 +1,5 @@
 <h2><%= t('frm.admin.group.members', :group => @frm_group.name) %></h2>
-<%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn' %>
+<%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn historyButton' %>
 <div class="row">
   <h3><%= t('.add_a_new_member') %></h3>
   <%= form_tag add_group_frm_admin_frm_group_members_url(@group, @frm_group), remote: true do %>

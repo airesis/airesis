@@ -138,8 +138,8 @@
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
                     <br/>
-                    <%= p.cktext_area :content_dirty, placeholder: 'Compilami!', :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                    <%= p.text_area :content %>
+                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
+                    <!-- <%= p.text_area :content %> -->
                     <%= p.hidden_field :seq %>
                   </p>
               <% end %>
@@ -424,7 +424,7 @@
     }
 
     function addEditor(id) {
-        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "it-IT", "customConfig": 'config_lite.js'});
+        var editor_ = CKEDITOR.replace(id, {"toolbar": "proposal", "language": "<%=I18n.locale%>", "customConfig": 'config_lite.js'});
         ckedstoogle_[id] = {first: true};
         addEditorEvents(editor_);
     }
@@ -692,7 +692,7 @@
 <% content_for :left_panel do %>
     <div class="edit_proposal_panel">
       <div class="mybox">
-        <%= link_to 'Aggiorna', '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
+        <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
         <%= link_to 'Comprimi soluzioni', '#', onclick: 'return compressSolutions();', data: {other: 'Espandi soluzioni'}, class: 'compress btn' %>
         <%= link_to 'Nascondi contributi', '#', onclick: 'return hideContributes();', data: {other: 'Mostra contributi'}, class: 'contributes btn' %>
       </div>

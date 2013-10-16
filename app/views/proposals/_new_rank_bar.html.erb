@@ -1,13 +1,13 @@
 <div class="timeline">
-  <div class="cur start" title="<%=raw "CREAZIONE:<br/>#{(l proposal.created_at).upcase}"%>"></div>
-  <div class="cur stop" title="<%=raw "TERMINE:<br/>#{proposal.quorum.end_desc.upcase}"%>"></div>
+  <div class="cur start" title="<%=raw (t('pages.proposals.new_rank_bar.creation', time_ago:time_ago_in_words(proposal.created_at).upcase, date:(l proposal.created_at, format: :long).upcase))%>"></div>
+  <div class="cur stop" title="<%=raw (t('pages.proposals.new_rank_bar.end', date:proposal.quorum.end_desc.upcase))%>"></div>
   <div class="time" data-percentage="<%= proposal.percentage %>">
     <% unless proposal.quorum.time_fixed? %>
-        <div class="cur now" title="<%=raw  "#{proposal.valutations} VALUTAZIONI" %>"></div>
+        <div class="cur now" title="<%=raw t('pages.proposals.new_rank_bar.valutations', num:proposal.valutations)%>"></div>
     <% end %>
-    <div class="cur quorum" title="<%=raw "QUORUM #{proposal.quorum.good_score}"  %>%" data-percentage="<%= proposal.quorum.good_score %>"></div>
+    <div class="cur quorum" title="<%=raw t('pages.proposals.new_rank_bar.good_score', score:proposal.quorum.good_score)%>" data-percentage="<%= proposal.quorum.good_score %>"></div>
     <% if proposal.quorum.has_bad_score? %>
-        <div class="cur bad quorum" title="<%=raw "QUORUM NEGATIVO #{proposal.quorum.bad_score}" %>%" data-percentage="<%= proposal.quorum.bad_score %>"></div>
+        <div class="cur bad quorum" title="<%=raw t('pages.proposals.new_rank_bar.bad_score', score:proposal.quorum.bad_score)%>" data-percentage="<%= proposal.quorum.bad_score %>"></div>
     <% end %>
     <div class="good" data-percentage="<%= proposal.rank %>">
 

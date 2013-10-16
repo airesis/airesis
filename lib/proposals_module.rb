@@ -137,8 +137,8 @@ module ProposalsModule
 
   def agenda_create(proposal)
     seq = 1
-    proposal.sections.build(title: 'Data e orario', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    proposal.sections.build(title: 'Luogo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.agenda.paragraph.date_time'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.agenda.paragraph.place'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
     solution = agenda_solution
     solution.seq = 1
@@ -154,11 +154,11 @@ module ProposalsModule
 
   def estimate_create(proposal)
     seq = 1
-    proposal.sections.build(title: 'Vincoli tecnici', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    proposal.sections.build(title: 'Vincoli temporali', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    proposal.sections.build(title: 'Vincoli ambientali, etici, normativi', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    proposal.sections.build(title: 'Spesa massima', seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    proposal.sections.build(title: 'Destinatari richiesta di preventivo', seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.estimate.paragraph.technical_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.estimate.paragraph.temporal_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.estimate.paragraph.other_constrains'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.estimate.paragraph.budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    proposal.sections.build(title: t('pages.proposals.new.estimate.paragraph.recipient_budget'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
 
     solution = estimate_solution
     solution.seq = 1
@@ -175,9 +175,9 @@ module ProposalsModule
 
   def event_create(proposal)
     seq = 1
-    proposal.sections.build(title: 'Esperienze simili', seq: seq+=1).paragraphs.build(content:'', seq:1)
-    proposal.sections.build(title: 'Stakeholders (persone coinvolte)', seq: seq+=1).paragraphs.build(content:'', seq:1)
-    proposal.sections.build(title: 'Caratteristiche desiderate', seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.event.paragraph.similar_experiences'), seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.event.paragraph.stakeholders'), seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.event.paragraph.desired_characteristics'), seq: seq+=1).paragraphs.build(content:'', seq:1)
 
     solution = event_solution
     solution.seq = 1
@@ -193,7 +193,7 @@ module ProposalsModule
 
   def press_create(proposal)
     seq = 1
-    proposal.sections.build(title: 'Destinatari/Target', seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.press.paragraph.target'), seq: seq+=1).paragraphs.build(content:'', seq:1)
 
     solution = press_solution
     solution.seq = 1
@@ -202,7 +202,7 @@ module ProposalsModule
 
 
   def rule_book_new(proposal)
-    @problems = proposal.sections.build(title: t('proposal_types.rule_book.problems_title'), seq: 1)
+    @problems = proposal.sections.build(title: t('pages.proposals.new.rule_book.problems_title'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
 
     proposal.proposal_type = ProposalType.find_by_name(ProposalType::RULE_BOOK)
@@ -211,9 +211,9 @@ module ProposalsModule
 
   def rule_book_create(proposal)
     seq = 1
-    proposal.sections.build(title: t('proposal_types.rule_book.sections.inspire'), seq: seq+=1).paragraphs.build(content:'', seq:1)
-    proposal.sections.build(title: t('proposal_types.rule_book.sections.stackeholders'), seq: seq+=1).paragraphs.build(content:'', seq:1)
-    proposal.sections.build(title: t('proposal_types.rule_book.sections.requisiti'), seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.rule_book.paragraph.inspire'), seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.rule_book.stakeholders'), seq: seq+=1).paragraphs.build(content:'', seq:1)
+    proposal.sections.build(title: t('pages.proposals.new.rule_book.paragraph.requirements'), seq: seq+=1).paragraphs.build(content:'', seq:1)
 
     solution = rule_book_solution
     solution.seq = 1
@@ -237,7 +237,7 @@ module ProposalsModule
 
 
   def candidates_new(proposal)
-    @problems = proposal.sections.build(title: t('proposal_types.candidates.sections.description'), seq: 1)
+    @problems = proposal.sections.build(title: t('pages.proposals.new.candidates.paragraph.election_type'), seq: 1)
     @problems.paragraphs.build(content:'', seq:1)
   end
 

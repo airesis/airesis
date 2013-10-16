@@ -1,5 +1,5 @@
 <% if !@topic.subscriber?(current_user.id) %>
-    <%= link_to t(".subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), :remote => true, :class => "btn btn-success" %>
+    <%= link_to t("frm.topics.show.subscribe"), subscribe_group_forum_topic_url(@group, @forum, @topic), :remote => true, :class => "btn signalButton" %>
 <% else %>
-    <%= link_to t(".unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), :remote => true, :class => "btn btn-danger" %>
+    <%= link_to t("frm.topics.show.unsubscribe"), unsubscribe_group_forum_topic_url(@group, @forum, @topic), :remote => true, :class => "btn signalButton" %>
 <% end %>
