@@ -8,6 +8,7 @@
 //= require jquery-ui
 //= require timepicker
 //= require jquery_ujs
+
 //= require jquery.tokeninput
 //= require flot/jquery.flot
 //= require democracy
@@ -46,3 +47,5 @@
 //= require ckeditor/init
 //= require underscore
 //= require jquery.textntags
+
+

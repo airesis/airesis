@@ -1,3 +1,4 @@
+<% @extend=true %>
 <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
 
 <% @page_title = "Chi siamo" %>
@@ -16,44 +17,57 @@
 <p>Se anche tu condividi il nostro obiettivo <a href="/partecipa">puoi contribuire</a> contattando i nostri volontari:
 </p>
 
+
+
+<%= render partial: '/home/volunteers/rodi_alessandro', :layout => "layouts/card", locals: {image: "volunteers/rodi_alessandro.jpg"}  %>
+
+
 <h2>Area Sviluppo</h2>
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
+<div class="slide red">
+  <div class="row full-width">
+    <div class="large-3 columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
+      </div>
+      <div>
+        <a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br/>
+        <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+          <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
+          <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
+          <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+        </a><br/>
+        <a href="mailto:coorasse@gmail.com">
+          <%= image_tag "gmail_icon.gif" %>
+          coorasse@gmail.com
+        </a>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Alessandro Rodi</h3>
+        <h4>Referente per la programmazione e webmaster</h4>
 
-    <a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br/>
-    <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
-      <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
-      <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
-      <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
-    </a><br/>
-    <a href="mailto:coorasse@gmail.com">
-      <%= image_tag "gmail_icon.gif" %>
-      coorasse@gmail.com
-    </a>
+        <p>
+          Ho <%= age(Date.new(1986, 8, 19)) %> anni e vivo a Zurigo dove lavoro come sviluppatore Java e Ruby On Rails.
+          Coltivo la passione per la programmazione da molti anni e nel 2009 ho completato il mio percorso di studi
+          laureandomi in Scienze dell'Informazione a Bologna.
+          Appassionato di politica e tecnologie digitali, a Luglio 2011 mi sono avvicinato a Ruby On Rails e ho iniziato
+          a
+          gettare le basi del codice di Airesis, con in mente un progetto ambizioso: la creazione di un software per la
+          democrazia partecipata.
+          Affascinato da come la politica stia cambiando in questi anni e dal fatto che dovrà presto fare i conti con la
+          rete, mi sono reso conto che uno strumento simile non è mai stato messo a disposizione dei cittadini e
+          quindi....eccomi quà!
+          All'interno del progetto mi occupo di coordinare le attività di sviluppo e della programmazione vera e
+          propria;
+          sono di supporto agli altri programmatori e fungo da supervisore alla qualità del codice. Aiuto inoltre
+          nell'elaborazione delle logiche e nella definizione delle tempistiche necessarie al loro completamento. </p>
+      </div>
+    </div>
   </div>
-  <div class="descrizione_volontario">
-    <h3>Alessandro Rodi</h3>
-    <h4>Referente per la programmazione e webmaster</h4>
-
-    <p>
-      Ho <%= age(Date.new(1986, 8, 19)) %> anni e vivo a Zurigo dove lavoro come sviluppatore Java e Ruby On Rails.
-      Coltivo la passione per la programmazione da molti anni e nel 2009 ho completato il mio percorso di studi
-      laureandomi in Scienze dell'Informazione a Bologna.
-      Appassionato di politica e tecnologie digitali, a Luglio 2011 mi sono avvicinato a Ruby On Rails e ho iniziato a
-      gettare le basi del codice di Airesis, con in mente un progetto ambizioso: la creazione di un software per la
-      democrazia partecipata.
-      Affascinato da come la politica stia cambiando in questi anni e dal fatto che dovrà presto fare i conti con la
-      rete, mi sono reso conto che uno strumento simile non è mai stato messo a disposizione dei cittadini e
-      quindi....eccomi quà!
-      All'interno del progetto mi occupo di coordinare le attività di sviluppo e della programmazione vera e propria;
-      sono di supporto agli altri programmatori e fungo da supervisore alla qualità del codice. Aiuto inoltre
-      nell'elaborazione delle logiche e nella definizione delle tempistiche necessarie al loro completamento. </p>
-  </div>
-  <div style="clear:both;"></div>
 </div>
 
-<div class="scheda_volontario">
+<div class="slide yellow">
   <div class="image_volontario">
     <%= image_tag "volunteers/tilatti_marino.png", :width => 150 %>
     <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
@@ -150,13 +164,18 @@
     <h4>Grafico</h4>
 
     <p>
-      Sono un ragazzo capace e dinamico in cerca di un lavoro dove sviluppare le mie capacita accumulate in questi ultimi anni di lavoro, in particolare, nella costruzione di siti web, applicazioni, loghi,
+      Sono un ragazzo capace e dinamico in cerca di un lavoro dove sviluppare le mie capacita accumulate in questi
+      ultimi anni di lavoro, in particolare, nella costruzione di siti web, applicazioni, loghi,
       cataloghi e volantini.
-      So utilizzare molti programmi di grafica e linguaggi informatici e cerco sempre tenermi aggiornato sui nuovi sviluppi informatici.
-      Mi piace lavorare in gruppo ma anche da solo, se il caso lo richiede, sono molto attento ai dettagli e so risolvere problemi attraverso ricerche specifiche.
+      So utilizzare molti programmi di grafica e linguaggi informatici e cerco sempre tenermi aggiornato sui nuovi
+      sviluppi informatici.
+      Mi piace lavorare in gruppo ma anche da solo, se il caso lo richiede, sono molto attento ai dettagli e so
+      risolvere problemi attraverso ricerche specifiche.
       So gestire lo stress molto bene ed ho buone capacità di comunicazione.
-      Negli ultimi due anni ho lavorato a diversi progetti a distanza, creato un forte comunicazione e ho sempre raggiunto gli obiettivi concordati in termini di efficacia e tempistica.
-      Per vedere il mio curriculum e i miei ultimi lavori vi invito a visitare il mio portale - <%= link_to 'www.marcellokabora.com', 'http://www.marcellokabora.com', target: '_blank' %>.
+      Negli ultimi due anni ho lavorato a diversi progetti a distanza, creato un forte comunicazione e ho sempre
+      raggiunto gli obiettivi concordati in termini di efficacia e tempistica.
+      Per vedere il mio curriculum e i miei ultimi lavori vi invito a visitare il mio portale
+      - <%= link_to 'www.marcellokabora.com', 'http://www.marcellokabora.com', target: '_blank' %>.
     </p>
   </div>
   <div style="clear:both;"></div>
@@ -203,12 +222,15 @@
 
     <p>
       Sono uno studente che sta completando il primo ciclo di istruzione.
-      Ho scoperto da poco la mia passione per l'informatica e ho intenzione di continuare i miei studi universitari per approfondire questa scienza.
+      Ho scoperto da poco la mia passione per l'informatica e ho intenzione di continuare i miei studi universitari per
+      approfondire questa scienza.
       Ne sono affascinato perché ha rivoluzionato le nostre vite e continua ad evolvere giorno dopo giorno.<br/>
-      Ho imparato che alcuni intellettuali immaginavano una democrazia in cui fosse possibile prendere decisioni condivise dai cittadini attraverso la partecipazione degli stessi.
+      Ho imparato che alcuni intellettuali immaginavano una democrazia in cui fosse possibile prendere decisioni
+      condivise dai cittadini attraverso la partecipazione degli stessi.
       Credo che Airesis renda possibile ciò e per questo ho dato la mia disponibilità per aiutarne lo sviluppo.<br/>
       Faccio parte del gruppo di testing, che ha lo scopo di verificare il corretto funzionamento di Airesis.
-      Raccolgo i feedback degli utenti e segnalo eventuali anomalie e problemi riscontrati, perché siano prontamente risolti dagli sviluppatori.
+      Raccolgo i feedback degli utenti e segnalo eventuali anomalie e problemi riscontrati, perché siano prontamente
+      risolti dagli sviluppatori.
       Mi occupo anche di testare le ultime novità introdotte nella piattaforma prima che siano rilasciate al pubblico.
     </p>
   </div>
@@ -237,12 +259,15 @@
 
 <h2>Hanno contribuito</h2>
 <p>Hanno messo il loro tempo libero a disposizione del progetto anche (in ordine alfabetico): Alessandro Socciarello,
-  Andrea Papini, Aramis amantini, Danilo Mezgec, Enrico Mengotti, Fabio Alemagna, Fabrizio Traboni, Fatima Foudal, Francesco Ercavalierenero,Gabriella Creti, Gianmarco
-  Barel, Heba Saied, Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri, Riccardo Leone, Rui Martins, Simone
+  Andrea Papini, Aramis amantini, Danilo Mezgec, Enrico Mengotti, Fabio Alemagna, Fabrizio Traboni, Fatima Foudal,
+  Francesco Ercavalierenero,Gabriella Creti, Gianmarco
+  Barel, Heba Saied, Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri,
+  Riccardo Leone, Rui Martins, Simone
   D'Errico, Veit Ladurner...</p>
 <h2>Uno speciale ringraziamento a</h2>
 <ul>
-  <li><a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5 Stelle</a> che supporta il
+  <li><a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5
+    Stelle</a> che supporta il
     progetto e ha finanziato le spese per l'hosting per tutto il 2013
   </li>
   <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave; necessarie
@@ -259,8 +284,10 @@
     <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e
     realizzazione dei test
   </li>
-  <li>Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente l'abbonamento
-    <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby On Rails
+  <li>Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente
+    l'abbonamento
+    <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby
+    On Rails
   </li>
 </ul>
 <a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
@@ -273,3 +300,13 @@
   <img src="http://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" height="32px"/>
 </a>
 
+
+
+<%= content_for :left_panel do %>
+    <ul class="side-nav">
+      <li class="active"><a href="#">Link 1</a></li>
+      <li><a href="#">Link 2</a></li>
+      <li><a href="#">Link 3</a></li>
+      <li><a href="#">Link 4</a></li>
+    </ul>
+<% end %>

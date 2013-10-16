@@ -4,11 +4,21 @@
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
 
   <%= render :partial => "layouts/head" %>
-  <%= stylesheet_link_tag 'menu_left' %>
+
+  <%= stylesheet_link_tag "foundation" %>
+  <%= stylesheet_link_tag "foundation_and_override" %>
+  <%= stylesheet_link_tag 'foundation_merge' %>
+  <%= javascript_include_tag 'foundation' %>
+
+  <script type="text/javascript">
+      $(function(){ $(document).foundation(); });
+  </script>
+
   <meta name="description" content="<%= (@page_descr) %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
-<body style="min-width:1000px;">
+<body>
 
 
 <% content_for :menu do %>
@@ -39,12 +49,14 @@
 
 <%= render :partial => "layouts/header" %>
 
-<div id="main" style="right:0px;min-width:1000px;">
+<div id="main" style="right:0px;">
   <!-- ##### Main Copy ##### -->
   <div id="main-copy">
     <div id="menu-left">
       <div class="menu2">
         <%= yield :left_panel %>
+
+
       </div>
     </div>
     <div id="centerpanelextended" style="font-size: 16px; line-height: 22px;">
