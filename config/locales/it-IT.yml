@@ -727,11 +727,11 @@ it-IT:
         most_valutated: "Più valutate"
         most_urgent: "Più urgenti"
       list:
-        last_update: "Aggiornata<br/>%{time_ago}<br/>%{date}"
+        last_update: "Aggiornata<br/>%{time_ago}<br/>"
         waiting_date: "In attesa di data"
         voting_from_to: "Dal %{from} al %{to}"
         voting_until: "Fino al<br/> %{date}"
-        votation_finished: "Terminata<br/>%{time_ago}<br/>%{date}"
+        votation_finished: "Terminata<br/>%{time_ago}<br/>"
         votation_finished_rejected: "Respinta<br/> %{date}"
         votation_finished_approved: "Approvata<br/> %{date}"
         no_votation: "Non vi è stata alcuna votazione"

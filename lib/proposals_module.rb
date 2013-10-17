@@ -76,6 +76,43 @@ module ProposalsModule
   end
 
 
+  def close_vote_phase(proposal)
+    if proposal.is_schulze?
+      vote_data_schulze = proposal.schulze_votes
+      Proposal.transaction do
+        votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
+        vote_data_schulze.each do |vote|
+          #in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
+          vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
+        end
+        num_solutions = proposal.solutions.count
+        vs = SchulzeBasic.do votesstring, num_solutions
+        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
+        solutions_sorted.each_with_index do |c, i|
+          c.schulze_score = vs.ranks[i].to_i
+          c.save!
+        end
+        proposal.proposal_state_id = ProposalState::ACCEPTED
+      end #fine transazione
+    else
+      vote_data = proposal.vote
+      positive = vote_data.positive
+      negative = vote_data.negative
+      neutral = vote_data.neutral
+      votes = positive + negative + neutral
+      if positive > negative #se ha avuto più voti positivi allora diventa ACCETTATA
+        proposal.proposal_state_id = ProposalState::ACCEPTED
+      elsif positive <= negative #se ne ha di più negativi allora diventa RESPINTA
+        proposal.proposal_state_id = ProposalState::REJECTED
+      end
+    end
+    proposal.save!
+    proposal.private ?
+        notify_proposal_voted(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
+        notify_proposal_voted(proposal)
+  end
+
+
   def abandon(proposal)
     proposal.proposal_state_id = ProposalState::ABANDONED
     life = proposal.proposal_lives.create(quorum_id: proposal.quorum_id, valutations: proposal.valutations, rank: proposal.rank, seq: ((proposal.proposal_lives.maximum(:seq) || 0) + 1))

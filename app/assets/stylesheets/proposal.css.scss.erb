@@ -290,19 +290,23 @@
     }
 
     .proposalDescription {
-        margin-right: 5px;
-        max-width: 100px;
+        margin: 0px 10px;
         overflow: hidden;
-        width: 70px;
+
+        &.partecipants, &.contributes {
+            max-width: 15%;
+        }
     }
     .territoryDescription {
-        width: 300px;
+        max-width: 30%;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
+        margin:  0px 10px;
     }
     .timeDescription {
-        margin-right: 20px;
+        max-width: 50%;
+        margin-right: 10px;
         position: relative;
         white-space: nowrap;
         overflow: hidden;

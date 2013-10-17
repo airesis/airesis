@@ -10,10 +10,10 @@
         </div>
         <div class="status">
           <% date = (l proposal.updated_at, format: :two_rows) %>
-          <% title = t('pages.proposals.list.last_update', time_ago: time_ago_in_words(proposal.updated_at), date: date) %>
+          <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% if proposal.in_valutation? %>
               <% date = (l proposal.updated_at, format: :two_rows) %>
-              <% title = t('pages.proposals.list.last_update', time_ago: time_ago_in_words(proposal.updated_at), date:date)%>
+              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% elsif proposal.waiting_date? %>
               <% date = (l proposal.updated_at, format: :two_rows) %>
               <% title = t('pages.proposals.list.waiting_date', {date: date}) %>
@@ -23,13 +23,13 @@
               <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
           <% elsif proposal.voted? %>
               <% if proposal.is_schulze? %>
-                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %><!--TODO:I18n -->
-              <%else%>
-                  <%if proposal.rejected? %>
+                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime)) %><!--TODO:I18n -->
+              <% else %>
+                  <% if proposal.rejected? %>
                       <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %><!--TODO:I18n -->
                   <% else %>
                       <% title = t('pages.proposals.list.votation_finished_approved', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %><!--TODO:I18n -->
-                  <%end%>
+                  <% end %>
               <% end %>
           <% elsif proposal.abandoned? %>
               <% title = t('pages.proposals.list.no_votation', date: (l proposal.updated_at, format: :two_rows)) %>
@@ -40,7 +40,7 @@
     </div>
     <div class="right_cont">
       <div class="maintitle">
-        <%= user_valutation_image(current_user, proposal) if current_user%>
+        <%= user_valutation_image(current_user, proposal) if current_user %>
         <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
 
       </div>
@@ -48,11 +48,11 @@
       <div class="text_content">
         <%= raw proposal.short_content %>
       </div>
-      <%if proposal.voting? || proposal.voted? %>
-       <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
-      <%else%>
-      <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
-      <%end%>
+      <% if proposal.voting? || proposal.voted? %>
+          <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+      <% else %>
+          <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+      <% end %>
 
       <div class="clearboth"></div>
 
@@ -60,55 +60,68 @@
       <div class="proposal_bottom">
         <% if proposal.in_valutation? %>
             <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
-              <%= link_to (image_tag 'group_events.png'), '#' %>
+              <%= image_tag 'group_events.png' %>
               <span class="count">
               <%= proposal.quorum.time_left.upcase %></span>
             </div>
         <% elsif proposal.voting? %>
             <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
-              <%= link_to (image_tag 'group_events.png'), '#' %>
+              <%= image_tag 'group_events.png' %>
               <span class="count">
               <%= proposal.vote_period.time_left.upcase %></span>
             </div>
 
         <% end %>
 
+        <% if proposal.voting? || proposal.voted? %>
+            <div class="proposalDescription votersDescription" style="float:left" title="<%= t('pages.proposals.index.voters') %>">
+              <%= image_tag 'group_partecipants.png' %>
+              <span class="count"><%= "#{proposal.user_votes.count}/#{proposal.eligible_voters_count}" %></span>
+            </div>
+        <% else %>
+            <div class="proposalDescription rankDescription" style="float:left" title="<%= t('pages.proposals.index.rank') %>">
+              <%= image_tag 'group_proposals.png' %>
+              <span class="count"><%= proposal.rank %>%</span>
+            </div>
+            <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">
+              <%= image_tag 'group_partecipants.png' %>
+              <span class="count"><%= proposal.partecipants_count %></span>
 
-
-        <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">
-          <%= image_tag 'group_partecipants.png' %>
-          <span class="count"><%= proposal.partecipants_count %></span>
-
-          <div class="authors">
-            <%= t('pages.proposals.index.partecipants_number') %>
-            <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
-            <% if signed_in? && (proposal.users.include? current_user) %>
-                <% proposal.users.each do |user| %>
-                    <%= user_tag_mini(user) %>
+              <div class="authors">
+                <%= t('pages.proposals.index.partecipants_number') %>
+                <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
+                <% if signed_in? && (proposal.users.include? current_user) %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user) %>
+                    <% end %>
+                <% else %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user, proposal) %>
+                    <% end %>
                 <% end %>
-            <% else %>
-                <% proposal.users.each do |user| %>
-                    <%= user_tag_mini(user, proposal) %>
-                <% end %>
-            <% end %>
-            <div style="clear:both;"></div>
-          </div>
-        </div>
+                <div style="clear:both;"></div>
+              </div>
+            </div>
+        <% end %>
+
+
         <div class="proposalDescription contributes" style="float:left" title="<%= t('pages.proposals.index.contributes_number') %>">
-          <%= link_to (image_tag 'group_proposals.png'), '#' %>
+          <%= image_tag 'group_proposals.png' %>
           <span class="count"><%= proposal.contributes.count %></span>
         </div>
 
-        <div class="territoryDescription" style="float:left">
-          <%= proposal.interest_borders[0..5].map { |i| i.description }.join(', ') %>
-          <div class="territory_fade"></div>
-        </div>
+        <% if proposal.interest_borders.count > 0 %>
+            <div class="territoryDescription" style="float:left">
+              <%= image_tag 'place.png' %>
+              <span class="count"><%= proposal.interest_borders.first.territory.description %></span>
+            </div>
+        <% end %>
 
         <div class="alerts_and_vote">
           <% if current_user %>
-              <%if can? :vote, proposal %>
-                <%= link_to 'VOTA', proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue'  %>
-              <%end%>  <!--TODO:I18n-->
+              <% if can? :vote, proposal %>
+                  <%= link_to 'VOTA', proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
+              <% end %>  <!--TODO:I18n-->
               <% count = proposal.count_notifications(current_user.id) %>
               <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
           <% end %>

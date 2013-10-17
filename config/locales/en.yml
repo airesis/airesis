@@ -489,6 +489,8 @@ en:
         search_words: "Any words"
         partecipants_number: "PARTICIPANTS"
         contributes_number: "CONTRIBUTIONS"
+        rank: "RANK"
+        voters: "VOTERS"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
