@@ -63,11 +63,11 @@ class Proposal < ActiveRecord::Base
   belongs_to :proposal_type, :class_name => 'ProposalType'
 
   #validation
-  validates_presence_of :title, :message => "obbligatorio"  #TODO:I18n
+  validates_presence_of :title, :message => "obbligatorio" #TODO:I18n
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, :message => "obbligatorio"
 
-  validates_presence_of :quorum_id#, :if => :is_standard? #todo bug in client_side_validation
+  validates_presence_of :quorum_id #, :if => :is_standard? #todo bug in client_side_validation
 
   validate :one_solution
 
@@ -96,7 +96,7 @@ class Proposal < ActiveRecord::Base
 
   scope :voting, {:conditions => {:proposal_state_id => ProposalState::VOTING}}
 
-  scope :not_voted_by, lambda { |user_id| {:conditions => ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)',ProposalState::VOTING, user_id]} }
+  scope :not_voted_by, lambda { |user_id| {:conditions => ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
 
   #tutte le proposte accettate
   scope :accepted, {:conditions => {:proposal_state_id => ProposalState::ACCEPTED}}
@@ -111,7 +111,7 @@ class Proposal < ActiveRecord::Base
   scope :revision, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
 
   scope :public, {:conditions => {:private => false}}
-  scope :private, {:conditions => {:private => true}}   #proposte interne ai gruppi
+  scope :private, {:conditions => {:private => true}} #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
   scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
@@ -120,7 +120,7 @@ class Proposal < ActiveRecord::Base
   scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
 
   #condizione di visualizzazione in area di lavoro
-  scope :in_group_area, lambda { |group_area_id| {:include => [:area_proposals], :conditions => ["((area_proposals.group_area_id = ? and proposals.private = 't'))",group_area_id]} if group_area_id}
+  scope :in_group_area, lambda { |group_area_id| {:include => [:area_proposals], :conditions => ["((area_proposals.group_area_id = ? and proposals.private = 't'))", group_area_id]} if group_area_id }
 
 
   before_update :save_proposal_history
@@ -130,9 +130,8 @@ class Proposal < ActiveRecord::Base
   before_create :populate_fake_url
 
 
-
   def one_solution
-    self.errors.add(:solutions,'La proposta deve contenere almeno una soluzione') unless self.solutions.size > 0
+    self.errors.add(:solutions, 'La proposta deve contenere almeno una soluzione') unless self.solutions.size > 0
   end
 
   def count_notifications(user_id)
@@ -249,8 +248,13 @@ class Proposal < ActiveRecord::Base
     end
 
     first_solution = self.solutions.first
-    first_section = first_solution ? first_solution.sections.first : self.sections.first
-    self.content = truncate_words(first_section.paragraphs.first.content.gsub( %r{</?[^>]+?>}, ''), 60)
+    first_section =
+        if first_solution && first_solution.sections.first
+          first_solution.sections.first
+        else
+          self.sections.first
+        end
+    self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
 
 
   end
@@ -326,8 +330,8 @@ class Proposal < ActiveRecord::Base
     b = User.all(:joins => {:proposal_comments => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
     c = (a | b)
     if self.private
-      d = self.presentation_groups.map{|group| group.partecipants}.flatten
-      e = self.groups.map {|group| group.partecipants}.flatten
+      d = self.presentation_groups.map { |group| group.partecipants }.flatten
+      e = self.groups.map { |group| group.partecipants }.flatten
       f = d | e
       c = c & f
     end
@@ -402,7 +406,7 @@ class Proposal < ActiveRecord::Base
 
   def users_j
     self.is_anonima? ?
-    self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
-    self.users.as_json(:only => [:id], :methods => [:fullname])
+        self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
+        self.users.as_json(:only => [:id], :methods => [:fullname])
   end
 end
