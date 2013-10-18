@@ -1,0 +1,153 @@
+<p>
+  <%= f.label :quorum_id %>
+  *  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
+  <br/>
+  <% if @group %>
+      <% @quorum_collection = @group.quorums.active %>
+  <% else %>
+      <% @quorum_collection = Quorum.public.order('seq nulls last') %>
+  <% end %>
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
+<div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+</div>
+</p>
+<div class="clearboth"></div>
+<p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
+
+</p>
+
+<% if !@group || (@group && (can? :choose_proposal_date, @group)) %>
+    <div id="choose_votation" class="toast-info info-panel" style="display:none">
+
+      <h2 style="color:#fff; float:left;"><%= 'Scegli subito la data della votazione:' %></h2>
+
+      <div class="inner">
+        <div class="clearboth"></div>
+        <%= f.fields_for 'votation' do |v| %>
+            <%= v.hidden_field 'later' %>
+            <p>
+
+            <div id="start_preset" style="display: block;">
+              <%= v.label 'start', 'Inizio' %>
+              <span class="start_vot" ondblclick="changeStart();"></span>
+            </div>
+            <div id="start_choose" style="display:none">
+              <%= v.label 'start', 'Inizio' %>
+              <%= v.text_field 'start' %>
+              <%= v.hidden_field 'start_edited' %>
+              <span class="cancel_action">X</span>
+            </div>
+            </p>
+            <p>
+              <%= v.label 'end', 'Fine' %>
+              <%= v.text_field 'end' %>
+            </p>
+        <% end %>
+      </div>
+      <%= link_to 'No thanks. I will choose it later', '#', class: 'btn later', id: 'later', data: {other: 'I want to choose it now'} %>
+      <div class="clearboth"></div>
+    </div>
+<% end %>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#proposal_quorum_id').select2({
+            minimumResultsForSearch: -1,
+            formatResult: formatQuorum,
+            formatSelection: formatQuorum,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+
+        $('#proposal_quorum_id').on("change", function (e) {
+            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
+            var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
+            var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
+            if (exlanation_) {
+                $('#quorum_explanation').html(exlanation_).show();
+            }
+            else {
+                $('#quorum_explanation').hide();
+            }
+            if (timefixed_) {
+                $('#choose_votation').show();
+                var now_ = new Date();
+                var end_ = addMinutes(now_, parseInt(minutes_));
+
+
+                var upperend_ = upperMinutes(end_, 5);
+                $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
+                $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
+                $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));
+                $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_, 120));
+                $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_, 120));
+                //$("#proposal_votation_end").focus();
+            }
+            else {
+                $('#choose_votation').hide();
+
+            }
+        });
+
+
+        var datePickerOptions = {
+            buttonImageOnly: true,
+            buttonImage: "<%= asset_path('iconCalendar.png') %>",
+            showOn: "both",
+            changeMonth: false,
+            changeYear: false,
+            yearRange: "c:c+10",
+            maxDate: "+10Y",
+            duration: "",
+            showTime: true,
+            constrainInput: true,
+            stepMinute: 5,
+            stepHour: 1,
+            altTimeField: "alt"
+        };
+
+        $('#proposal_votation_end').datetimepicker($.extend({}, datePickerOptions, {
+            onClose: function (date) {
+
+            }
+        }));
+        $('#proposal_votation_start').datetimepicker($.extend({}, datePickerOptions, {
+            onClose: function (date) {
+                var eventStartTime_ = $('#proposal_votation_start').datetimepicker("getDate");
+                $('#proposal_votation_end').datetimepicker("option", "minDate", eventStartTime_);
+            }
+        }));
+
+        $('#choose_votation .cancel_action').click(function () {
+            $('#start_preset').show();
+            $('#start_choose').hide();
+            $('#proposal_votation_start_edited').val(null);
+        });
+
+
+        function changeStart() {
+            $('#start_preset').hide();
+            $('#start_choose').show();
+            $('#proposal_votation_start_edited').val('true');
+        }
+
+
+        $('#later').click(function () {
+            var later_ = $('#proposal_votation_later');
+            if (later_.val() == 'true') {
+                $('#choose_votation .inner').show();
+                later_.val('false');
+            }
+            else {
+                $('#choose_votation .inner').hide();
+                later_.val('true')
+            }
+            switchText($(this));
+            return false;
+        })
+    })
+</script>

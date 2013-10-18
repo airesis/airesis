@@ -3,6 +3,13 @@
 
 
 
+function switchText(button) {
+    var other_ = button.data('other');
+    var text_ = button.text();
+    button.data('other', text_);
+    button.text(other_);
+}
+
 
 function scrollToElement(element) {
     $viewport.animate({
@@ -763,6 +770,13 @@ function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
+}
+
+//custom formatter for vote period in select2 dropdown
+function formatPeriod(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div> <div class=\"period_title\">" + state.text + "</div> <div class=\"period_desc\">" + $(element_).data('title') + "</div></div>";
 }
 
 

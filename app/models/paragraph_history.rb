@@ -1,19 +1,23 @@
-class  ParagraphHistory < ActiveRecord::Base
+class ParagraphHistory < ActiveRecord::Base
   belongs_to :section, class_name: 'SectionHistory'
 
 
   #we remove title and username
   def parsed_content(anonimous=true)
-    #parsed = self.content.gsub(/data-username="([^".]+)"/) do |match| #.gsub(/title="[^".]+"/,'')
-    #  anonimous ?
-    #  "data-username=\"anonimo\"" :
-    #  match
-    #end
-    self.content.gsub(/title="([^".]+)"/) do |match| #
-      #id = User.decode_id($1)
-      anonimous ?
-          "title=\"anonimo\"" :
-          match
+    if anonimous
+      users = []
+      self.content.gsub(/data-userid="([^".]+)"/) do |match| #
+        users << User.find($1) rescue nil
+        match
+      end
+      ret = self.content
+      users.each do |user|
+        fullname = user.fullname
+        nickname = ProposalNickname.where({proposal_id: self.proposal_id, user_id: user.id}).first.nickname
+        ret = ret.gsub(fullname, nickname)
+      end
+      return ret
     end
+    self.content
   end
 end

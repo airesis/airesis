@@ -5,7 +5,7 @@ class UserAlert < ActiveRecord::Base
 
   after_create :increase_counter
 
-
+  after_commit :send_email, on: :create
 
 
   def email_subject
@@ -37,5 +37,12 @@ class UserAlert < ActiveRecord::Base
   def increase_counter
     @pa = ProposalAlert.find_or_create_by_proposal_id_and_user_id(self.notification.data[:proposal_id].to_i, self.user_id)
     @pa.increment!(:count)
+  end
+
+
+  def send_email
+    if (!self.user.blocked_email_notifications.include? self.notification.notification_type) && self.user.email
+      ResqueMailer.notification(self.id).deliver
+    end
   end
 end

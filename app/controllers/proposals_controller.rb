@@ -56,7 +56,6 @@ class ProposalsController < ApplicationController
     end
 
 
-
     @search.proposal_state_id = ProposalState::TAB_DEBATE
     @in_valutation_count = @search.results.total_entries
     @search.proposal_state_id = ProposalState::TAB_VOTATION
@@ -130,8 +129,6 @@ class ProposalsController < ApplicationController
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-
-
 
 
     respond_to do |format|
@@ -284,31 +281,6 @@ class ProposalsController < ApplicationController
 
         @proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
-        #if is time fixed you can choose immediatly vote period
-        if @copy.time_fixed?
-          if prparams[:votation]
-            @proposal.vote_starts_at = @copy.ends_at + 1.minute
-            @proposal.vote_ends_at = prparams[:votation][:end]
-            @proposal.vote_defined = true
-            #event_p = {
-            #    event_type_id: EventType::VOTAZIONE,
-            #    title: "Votazione #{@proposal.title}",
-            #    starttime: @copy.ends_at + 1.minute,
-            #    endtime: prparams[:votation][:end],
-            #    description: "Votazione #{@proposal.title}"
-            #}
-            #if @group
-            #  @event = @group.events.build(event_p)
-            #else
-            #  @event = Event.new(event_p)
-            #end
-            #@event.save!
-            #@proposal.vote_period = @event
-          end
-          #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-          Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-          Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
-        end
 
         @proposal.save!
 
@@ -316,7 +288,6 @@ class ProposalsController < ApplicationController
         if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
         end
-
 
 
         proposalparams = {
@@ -371,23 +342,30 @@ class ProposalsController < ApplicationController
   #put back in debate a proposal
   def regenerate
     authorize! :regenerate, @proposal
+    Proposal.transaction do
+      @proposal.proposal_state_id = ProposalState::VALUTATION
+      @proposal.users << current_user
 
-    @proposal.proposal_state_id = ProposalState::VALUTATION
-    @proposal.users << current_user
+      quorum = assign_quorum(params[:proposal])
+      #fai partire il timer per far scadere la proposta
+      if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+        Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+      end
 
-    quorum = assign_quorum(params[:proposal])
-    #fai partire il timer per far scadere la proposta
-    if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-      Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+      generate_nickname(current_user, @proposal)
+
+      @proposal.save!
     end
-
-    generate_nickname(current_user, @proposal)
-
-    @proposal.save!
 
     flash[:notice] = I18n.t('info.proposal.back_in_debate')
 
     redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)
+
+  rescue Exception => e
+    flash[:error] = 'Error during the update of the proposal' #TODO:I18n
+    respond_to do |format|
+      format.html { render :action => "show" }
+    end
   end
 
   def assign_quorum(prparams)
@@ -418,7 +396,21 @@ class ProposalsController < ApplicationController
     @copy.public = false
     @copy.save!
     @proposal.quorum_id = @copy.id
+
+
+    #if is time fixed you can choose immediatly vote period
+    if @copy.time_fixed?
+      if prparams[:votation] && (prparams[:votation][:later] != 'true')
+        @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
+        @proposal.vote_ends_at = prparams[:votation][:end]
+        @proposal.vote_defined = true
+      end
+      #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+      Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+      Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+    end
     quorum
+
   end
 
   def update
@@ -658,7 +650,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     authorize! :close_debate, @proposal
 
     Proposal.transaction do
-      check_phase(@proposal,true)
+      check_phase(@proposal, true)
     end
     redirect_to @proposal
 
@@ -697,8 +689,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     else
       @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
     end
-
-
 
 
     @proposals = @search.results

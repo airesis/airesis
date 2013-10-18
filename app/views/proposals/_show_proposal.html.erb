@@ -33,101 +33,31 @@
       <% end %>
 
   <% end %>
-  <% if (is_proprietary? @proposal) || is_admin? #se sono autorizzato a modificare la proposta              %>
+  <% if can? :update, @proposal %>
       <% if @group %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_group_proposal_url(@group, @proposal), :class => 'btn editButton' if can? :update, @proposal %>
-      <% else %>
-          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), :class => 'btn editButton' if can? :update, @proposal %>
-      <% end %>
-      <% if @group %>
           <%= link_to t('pages.proposals.show.delete_button'), group_proposal_url(@group, @proposal), method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
       <% else %>
+          <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), :class => 'btn editButton' if can? :update, @proposal %>
           <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
-      <% end %>
-      <% if @proposal.in_valutation? %>
-          <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
-
-      <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                %>
-          <div id="wait_date_header_container">
-            <%= render :partial => 'proposals/wait_date_header' %>
-          </div>
-
-          <div id="create_event_dialog" style="display:none;">
-            <div id="create_event">
-            </div>
-          </div>
-      <% elsif @proposal.voting? %>
-          <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>
-
       <% end %>
   <% end %>
 
-  <% if @proposal.abandoned? %>
-      <% if @group %>
-          <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-      <% else %>
-          <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' %>
-      <% end %>
-
-      <div id="regenerate_container" title="<%= t('pages.proposals.show.new_quorum_title') %>" style="display:none">
-        <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true do |f| %>
-            <p>
-              <%= f.label :quorum_id %> *<br/>
-              <% if @group %>
-                  <% @quorum_collection = @group.quorums.active %>
-              <% else %>
-                  <% @quorum_collection = Quorum.public.order('seq nulls last') %>
-              <% end %>
-              <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
-              <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
-
-
-            <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
-            </div>
-            </p>
-            <div class="clearboth"></div>
-            <p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
-
-            </p>
-            <a href="#" class="btn" onclick="$('#regenerate_container').dialog('destroy');"><%= t('buttons.cancel') %></a>
-            <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', disable_with: t('loading'), onclick: 'return check_quorum();' %>
-        <% end %>
+  <% if @proposal.in_valutation? %>
+      <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, confirm: t('pages.proposals.show.close_debate_proposal_confirmation'), class: 'btn closeButton' if can? :close_debate, @proposal %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                 %>
+      <div id="wait_date_header_container">
+        <%= render :partial => 'proposals/wait_date_header' %>
       </div>
 
-      <script type="text/javascript">
-
-
-          function check_quorum() {
-              var ddclick2_ = $('#proposal_quorum_id_container');
-              var val2_ = $('#proposal_quorum_id').val();
-              if (val2_ != '') {
-                  if (ddclick2_.parent().hasClass('field_with_errors')) {
-                      ddclick2_.parent().children('.message').remove();
-                      ddclick2_.unwrap();
-                  }
-                  return true;
-              }
-              else {
-                  if (!ddclick2_.parent().hasClass('field_with_errors')) {
-                      var wrap2_ = $('<div class="field_with_errors"></div>');
-                      ddclick2_.wrap(wrap2_);
-                      ddclick2_.after($('<label class="message">obbligatorio</label>'));
-                  }
-                  return false;
-              }
-          }
-
-          function regenerate() {
-              $('#regenerate_container').dialog({
-                  width: 500,
-                  height: 'auto'
-              });
-          }
-
-
-          $('#proposal_quorum_id_container').css('float', 'left').css('margin-right', '5px');
-      </script>
-
+      <div id="create_event_dialog" style="display:none;">
+        <div id="create_event">
+        </div>
+      </div>
+  <% elsif @proposal.voting? %>
+      <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>     <!--TODO:I18n -->
+  <% elsif @proposal.abandoned? %>
+      <%= render :partial => 'proposals/abandoned_header' %>
   <% end %>
 
 </div>
@@ -136,15 +66,12 @@
 
 <div class="blogCommentPostedAt">
 
-  <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata     %>
+  <% if @proposal.waiting? #waitinf for the vote period %>
       <p>
         <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
       </p>
-  <% elsif @proposal.proposal_state_id == ProposalState::VALUTATION #in dibattito                %>
-      <%= t('pages.proposals.show.editing_message_1') %>.<br/>
+  <% elsif @proposal.in_valutation?  %>
       <%= @proposal.quorum.explanation %>
-
-
   <% end %>
   <br/>
 </div>
