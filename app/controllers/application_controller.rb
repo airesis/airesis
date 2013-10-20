@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
 
     @locale = 'en' if ['en','eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
+    @locale = 'zh' if ['cn'].include? @locale
     @locale = 'it-IT' if ['it','org','net'].include? @locale
     I18n.locale = @locale
   end
