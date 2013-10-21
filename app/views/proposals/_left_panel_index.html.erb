@@ -115,7 +115,7 @@
                 <tr>
                   <td style="vertical-align: middle;">
                     <% if params[:type] == type.id.to_s %>
-                        <%= image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
+                        <%#= image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
                         </td>
                         <td><%= type.description %>
                     <% else %>
