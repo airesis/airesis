@@ -309,6 +309,11 @@ it-IT:
         events_number: "Numero di eventi organizzati"
         no_results: "Nessun gruppo trovato"
         limit_reached: "Puoi creare al massimo un gruppo al giorno"
+        switchButton:
+          exact_border: "Ricerca esatta: cerca tutti i gruppi che hanno indicato questo esatto confine geografico"
+          area_border: "Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico"
+          all_words: "Cerca i gruppi che contengono tutte queste parole"
+          one_word: "Cerca i gruppi che contengono almeno una tra queste parole"
       new:
         title: "Crea un nuovo gruppo"
         new_group: "Nuovo gruppo"
@@ -806,6 +811,16 @@ it-IT:
         valutations: "%{num} VALUTAZIONI"
         good_score: "QUORUM POSITIVO %{score}%"
         bad_score: "QUORUM NEGATIVO %{score}%"
+      left_panel:
+        creation_date: "Data di creazione"
+        any_date: "Quasiasi data"
+        choose_creation_date: "Indica un intervallo di date"
+        last_hour: "Ultima ora"
+        last_24_hour: "Ultime 24 ore"
+        last_week: "Ultima settimana"
+        last_month: "Ultimo mese"
+        last_year: "Ultimo anno"
+        date_range: "Intervallo di date"
     events:
       index:
         title: "Calendario"
@@ -839,6 +854,8 @@ it-IT:
         no_partecipants_yet: "Ancora nessun partecipante"
         non_partecipants: "Chi non ha partecipato?"
         will_non_partecipants: "Chi non parteciperà?"
+        voting_proposals: "In queste giornate si voteranno le seguenti proposte"
+        no_voting_proposals: "Ancora nessuna proposta in votazione durante queste giornate"
     votations:
         show:
           vote_positive: "Voto positivo"

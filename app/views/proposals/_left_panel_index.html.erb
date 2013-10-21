@@ -139,7 +139,7 @@
 
 <div id="creation_date">
   <div class="mybox">
-    <h4><%= 'Data di creazione' %></h4>
+    <h4><%= t('pages.proposals.left_panel.creation_date') %></h4>
 
     <div class="button"></div>
     <div class="mycont">
@@ -149,18 +149,18 @@
       </div>
 
       <div class="hidden_menu">
-        <%= link_to 'Quasiasi data', current_url(:time => nil), class: 'menu_item', data: {type: 'w'} %>
-        <%= link_to 'Ultima ora', current_url({'time[start]' => (Time.now - 1.hour).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
-        <%= link_to 'Ultime 24 ore', current_url({'time[start]' => (Time.now - 24.hours).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '24h'}), class: 'menu_item', data: {type: '24h'} %>
-        <%= link_to 'Ultima settimana', current_url({'time[start]' => (Time.now - 7.days).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '7d'}), class: 'menu_item', data: {type: '7d'} %>
-        <%= link_to 'Ultimo mese', current_url({'time[start]' => (Time.now - 1.month).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1m'}), class: 'menu_item', data: {type: '1m'} %>
-        <%= link_to 'Ultimo anno', current_url({'time[start]' => (Time.now - 1.year).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1y'}), class: 'menu_item', data: {type: '1y'} %>
+        <%= link_to t('pages.proposals.left_panel.any_date'), current_url(:time => nil), class: 'menu_item', data: {type: 'w'} %>
+        <%= link_to t('pages.proposals.left_panel.last_hour'), current_url({'time[start]' => (Time.now - 1.hour).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
+        <%= link_to t('pages.proposals.left_panel.last_24_hour'), current_url({'time[start]' => (Time.now - 24.hours).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '24h'}), class: 'menu_item', data: {type: '24h'} %>
+        <%= link_to t('pages.proposals.left_panel.last_week'), current_url({'time[start]' => (Time.now - 7.days).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '7d'}), class: 'menu_item', data: {type: '7d'} %>
+        <%= link_to t('pages.proposals.left_panel.last_month'), current_url({'time[start]' => (Time.now - 1.month).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1m'}), class: 'menu_item', data: {type: '1m'} %>
+        <%= link_to t('pages.proposals.left_panel.last_year'), current_url({'time[start]' => (Time.now - 1.year).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1y'}), class: 'menu_item', data: {type: '1y'} %>
         <span class="separator"></span>
-        <%= link_to 'Intervallo di date', '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
+        <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
 
       </div>
-      <div id="choose_dates" style="display:none" title="<%="Scegli intervallo di date"%>" class="choose_dates_modal">  <!--TODO:I18n-->
-        <h4><%= 'Indica un intervallo di date' %></h4>
+      <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">  <!--TODO:I18n-->
+        <h4><%= t('pages.proposals.left_panel.choose_creation_date') %></h4>
         <%= form_for 'time', {url: current_url, method: :get} do |f| %>
             <p>
               <%= f.label :start, 'Da' %>

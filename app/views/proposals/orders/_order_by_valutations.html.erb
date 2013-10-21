@@ -1,10 +1,10 @@
 <% if (params[:view] == SearchProposal::ORDER_BY_VOTES) %>
     <span class="order_option sel">
-            <%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => SearchProposal::ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), :remote => true %>
+            <%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => SearchProposal::ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), title:"Ordina le proposte per numero di valutazioni ricevute", :remote => true, disable_with: t('loading')%>
       <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
           </span>
 <% else %>
     <span class="order_option">
-			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => SearchProposal::ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), :remote => true %>
+			<%= link_to t('pages.proposals.tabs.most_valutated'), current_url(:view => SearchProposal::ORDER_BY_VOTES, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per numero di valutazioni ricevute", :remote => true, disable_with: t('loading')%>
           </span>
 <% end %>
