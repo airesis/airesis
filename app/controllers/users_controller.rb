@@ -258,7 +258,6 @@ class UsersController < ApplicationController
     end
     update_borders(borders)
     flash[:notice] = t('info.user.update_border')
-    AffinityHelper.calculate_group_affinity(current_user, Group.all)
     redirect_to :back
   end
 

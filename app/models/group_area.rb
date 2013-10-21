@@ -63,7 +63,7 @@ class GroupArea < ActiveRecord::Base
         :joins => "join area_roles
                on area_partecipations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        :conditions => ["(area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?) or (partecipation_roles.id = ?)", action_id, self.id, PartecipationRole::PORTAVOCE])
+        :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id])
   end
 
   def to_param

@@ -25,9 +25,13 @@ class GroupAction < ActiveRecord::Base
 
   #vote proposals
   PROPOSAL_VOTE =11
+
+  #choose date for proposals
+  PROPOSAL_DATE =12
   
   
-  has_many :action_abilitations, :class_name => 'ActionAbilitation'
+  has_many :action_abilitations, :class_name => 'ActionAbilitation', dependent: :destroy
+  has_many :area_action_abilitations, :class_name => 'AreaActionAbilitation', dependent: :destroy
 
 
   scope :for_group_areas, :conditions => {id: DEFAULT_AREA_ACTIONS}

@@ -290,19 +290,23 @@
     }
 
     .proposalDescription {
-        margin-right: 5px;
-        max-width: 100px;
+        margin: 0px 10px;
         overflow: hidden;
-        width: 70px;
+
+        &.partecipants, &.contributes {
+            max-width: 15%;
+        }
     }
     .territoryDescription {
-        width: 300px;
+        max-width: 30%;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
+        margin:  0px 10px;
     }
     .timeDescription {
-        margin-right: 20px;
+        max-width: 50%;
+        margin-right: 10px;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
@@ -703,27 +707,24 @@ h3 .tit1.sol {
 }
 
 .rankleftpanel .voteup {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .votedown {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .votedup {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .voteddown {
-    float: left;
     margin-right: 5px;
 }
 
 .vote_container {
-    margin-bottmo: 5px;
+    margin: 5px auto;
+    display: table;
 }
 
 .vote_description {
@@ -736,6 +737,7 @@ h3 .tit1.sol {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .baloon {
@@ -1158,9 +1160,15 @@ a.spch-bub-inside:hover .point {
     border-left-color: #fff;
 }
 
+.btn.later {
+    float:right;
+}
+
 #create_proposal {
     form {
         overflow: hidden;
+
+
     }
 
     .bread-crumb {

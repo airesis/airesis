@@ -3,6 +3,13 @@
 
 
 
+function switchText(button) {
+    var other_ = button.data('other');
+    var text_ = button.text();
+    button.data('other', text_);
+    button.text(other_);
+}
+
 
 function scrollToElement(element) {
     $viewport.animate({
@@ -18,29 +25,12 @@ function scrollToElement(element) {
     return false;
 }
 
-function checkWidth() {
-    if (window.innerWidth < 1000) {
-        $('#menu-top, #menu-right .cont').css('position', 'absolute');
-        $('#submenu .borx').hide();
-        $('#submenu .tria').hide();
-    }
-    else {
-        $('#menu-top, #menu-right .cont').css('position', 'fixed');
-        $('#submenu .borx').show();
-        $('#submenu .tria').show();
-    }
-}
 
 $(function () {
     ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
 
     /*$('#great_container').height($(window).height()-0);*/
     var submenupannel = 0;
-
-    checkWidth();
-    $(window).resize(function () {
-        checkWidth();
-    });
 
     disegnaBottoni();
 
@@ -223,7 +213,7 @@ function disegnaProgressBar() {
         }
     });
 
-    $('.proposal_bottom .contributes, .proposal_bottom .timeleft').qtip({
+    $('.proposal_bottom .contributes, .proposal_bottom .timeleft, .proposal_bottom .rankDescription').qtip({
         position: {
             at: 'bottom center',
             my: 'top center'
@@ -763,6 +753,13 @@ function formatQuorum(state) {
     var element_ = state.element;
     if (!state.id) return state.text; // optgroup
     return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
+}
+
+//custom formatter for vote period in select2 dropdown
+function formatPeriod(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div> <div class=\"period_title\">" + state.text + "</div> <div class=\"period_desc\">" + $(element_).data('title') + "</div></div>";
 }
 
 

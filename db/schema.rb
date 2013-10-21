@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014155529) do
+ActiveRecord::Schema.define(:version => 20131021125639) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -676,7 +676,10 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "section_history_id",                  :null => false
     t.string  "content",            :limit => 40000
     t.integer "seq",                                 :null => false
+    t.integer "proposal_id",                         :null => false
   end
+
+  add_index "paragraph_histories", ["proposal_id"], :name => "index_paragraph_histories_on_proposal_id"
 
   create_table "paragraphs", :force => true do |t|
     t.integer "section_id",                  :null => false
@@ -846,6 +849,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "proposal_revisions", ["proposal_id"], :name => "index_proposal_revisions_on_proposal_id"
 
   create_table "proposal_schulze_votes", :force => true do |t|
     t.integer  "proposal_id",                :null => false
@@ -1032,6 +1037,9 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "section_history_id",   :null => false
   end
 
+  add_index "revision_section_histories", ["proposal_revision_id"], :name => "index_revision_section_histories_on_proposal_revision_id"
+  add_index "revision_section_histories", ["section_history_id"], :name => "index_revision_section_histories_on_section_history_id"
+
   create_table "schulze_votes", :force => true do |t|
     t.integer  "election_id",                :null => false
     t.string   "preferences",                :null => false
@@ -1101,10 +1109,15 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "seq",                  :null => false
   end
 
+  add_index "solution_histories", ["proposal_revision_id"], :name => "index_solution_histories_on_proposal_revision_id"
+
   create_table "solution_section_histories", :force => true do |t|
     t.integer "solution_history_id", :null => false
     t.integer "section_history_id",  :null => false
   end
+
+  add_index "solution_section_histories", ["section_history_id"], :name => "index_solution_section_histories_on_section_history_id"
+  add_index "solution_section_histories", ["solution_history_id"], :name => "index_solution_section_histories_on_solution_history_id"
 
   create_table "solution_sections", :force => true do |t|
     t.integer "solution_id", :null => false
@@ -1155,14 +1168,15 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   end
 
   create_table "steps", :force => true do |t|
-    t.integer  "tutorial_id",                    :null => false
-    t.integer  "index",       :default => 0,     :null => false
+    t.integer  "tutorial_id",                     :null => false
+    t.integer  "index",       :default => 0,      :null => false
     t.string   "title"
     t.text     "content"
     t.boolean  "required",    :default => false
     t.text     "fragment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "format",      :default => "html"
   end
 
   create_table "supporters", :force => true do |t|
@@ -1239,9 +1253,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
 
   create_table "tutorials", :force => true do |t|
     t.string   "action"
-    t.string   "controller",  :null => false
+    t.string   "controller", :null => false
     t.string   "name"
-    t.text     "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1489,6 +1502,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "old_proposal_presentations", "proposal_lives", :name => "old_proposal_presentations_proposal_life_id_fk"
   add_foreign_key "old_proposal_presentations", "users", :name => "old_proposal_presentations_user_id_fk"
 
+  add_foreign_key "paragraph_histories", "proposals", :name => "paragraph_histories_proposal_id_fk"
+
   add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
 
   add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
@@ -1525,6 +1540,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
   add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
 
+  add_foreign_key "proposal_revisions", "proposals", :name => "proposal_revisions_proposal_id_fk"
+
   add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
 
   add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
@@ -1553,9 +1570,17 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "regiones", "continentes", :name => "regiones_continente_id_fk"
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
 
+  add_foreign_key "revision_section_histories", "proposal_revisions", :name => "revision_section_histories_proposal_revision_id_fk"
+  add_foreign_key "revision_section_histories", "section_histories", :name => "revision_section_histories_section_history_id_fk"
+
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
 
   add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
+
+  add_foreign_key "solution_histories", "proposal_revisions", :name => "solution_histories_proposal_revision_id_fk"
+
+  add_foreign_key "solution_section_histories", "section_histories", :name => "solution_section_histories_section_history_id_fk"
+  add_foreign_key "solution_section_histories", "solution_histories", :name => "solution_section_histories_solution_history_id_fk"
 
   add_foreign_key "solution_sections", "sections", :name => "solution_sections_section_id_fk"
   add_foreign_key "solution_sections", "solutions", :name => "solution_sections_solution_id_fk"

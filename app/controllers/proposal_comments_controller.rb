@@ -33,7 +33,7 @@ class ProposalCommentsController < ApplicationController
       conditions += " AND proposal_comments.paragraph_id is null"
     end
 
-    if params[:view] == ORDER_RANDOM
+    if params[:view] == SearchProposal::ORDER_RANDOM
       #remove already shown contributes
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
       left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
@@ -65,7 +65,7 @@ class ProposalCommentsController < ApplicationController
       @total_pages = (@proposal.contributes.listable.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
       @current_page = (params[:page] || 1).to_i
     else
-      if params[:view] == ORDER_BY_RANK
+      if params[:view] == SearchProposal::ORDER_BY_RANK
         order << " proposal_comments.j_value desc, proposal_comments.id desc"
       else
         order << "proposal_comments.created_at desc"

@@ -293,7 +293,12 @@ class Proposal < ActiveRecord::Base
     end
 
     first_solution = self.solutions.first
-    first_section = first_solution ? first_solution.sections.first : self.sections.first
+    first_section =
+        if first_solution && first_solution.sections.first
+          first_solution.sections.first
+        else
+          self.sections.first
+        end
     self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
 
 
@@ -314,7 +319,7 @@ class Proposal < ActiveRecord::Base
       if paragraph.content_changed?
         something = true
         section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
     self.solutions.each do |solution|
@@ -326,7 +331,7 @@ class Proposal < ActiveRecord::Base
           something = true
           something_solution = true
           section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
+          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
         end
       end
       solution_history.destroy unless something_solution

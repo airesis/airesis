@@ -46,7 +46,9 @@ class EventsController < ApplicationController
   end
   
   
-   def new 
+   def new
+    @event_types = EventType.where("name not in ('election','meeting2')")
+
     @event = Event.new(starttime: Time.now + 10.minutes, endtime: 1.day.from_now + 10.minutes, period: "Non ripetere")
     @meeting = @event.build_meeting
     @election = @event.build_election
@@ -65,6 +67,7 @@ class EventsController < ApplicationController
     end
     if params[:group_id]
       @group = Group.find(params[:group_id])
+      @event_types = @event_types.where("name not in ('vote')") unless can? :choose_proposal_date, @group
       @event.private = true
       respond_to do |format|     
         format.js
@@ -112,7 +115,7 @@ class EventsController < ApplicationController
         Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
       end
 
-      notify_new_event(@event)
+      Resque.enqueue_in(1, NotificationEventCreate, current_user.id, @event.id)
     end
 
     if @event.proposal_id && !@event.proposal_id.empty?

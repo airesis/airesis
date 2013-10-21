@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
   def autocomplete
     groups = Group.autocomplete(params[:term])
     groups = groups.map do |u|
-      { :id => u.id, :identifier => "#{u.name}", :image_path => "#{u.group_image_tag 20}" }
+      {:id => u.id, :identifier => "#{u.name}", :image_path => "#{u.group_image_tag 20}"}
     end
     render :json => groups
   end
@@ -344,35 +344,37 @@ class GroupsController < ApplicationController
 
   #fa partire una richiesta di partecipazione a ciascun gruppo
   def ask_for_multiple_follow
-    groups = params[:groups][:group_ids].split(';')
-
-    number = 0
-    groups.each do |group_id|
-      group = Group.find(group_id)
-      request = current_user.group_partecipation_requests.find_by_group_id(group.id)
-      unless request #se non l'ha mai fatta
-        partecipation = current_user.groups.find_by_id(group.id)
-        if partecipation #verifica se per caso non fa già parte del gruppo
-                         #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-          request = GroupPartecipationRequest.new
-          request.user_id = current_user.id
-          request.group_id = group.id
-          request.group_partecipation_request_status_id = 3 #accettata, dati corretti
-          saved = request.save!
-        else
-          #inoltra la richiesta di partecipazione con stato IN ATTESA
-          request = GroupPartecipationRequest.new
-          request.user_id = current_user.id
-          request.group_id = group.id
-          request.group_partecipation_request_status_id = 1 #in attesa...
-          saved = request.save!
-          notify_user_asked_for_partecipation(group) #invia notifica ai portavoce
-          number += 1
+    Group.transaction do
+      groups = params[:groupsi][:group_ids].split(';')
+      number = 0
+      groups.each do |group_id|
+        group = Group.find(group_id)
+        request = current_user.group_partecipation_requests.find_by_group_id(group.id)
+        unless request #se non l'ha mai fatta
+          partecipation = current_user.groups.find_by_id(group.id)
+          if partecipation #verifica se per caso non fa già parte del gruppo
+                           #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+            request = GroupPartecipationRequest.new
+            request.user_id = current_user.id
+            request.group_id = group.id
+            request.group_partecipation_request_status_id = 3 #accettata, dati corretti
+            request.save!
+          else
+            #inoltra la richiesta di partecipazione con stato IN ATTESA
+            request = GroupPartecipationRequest.new
+            request.user_id = current_user.id
+            request.group_id = group.id
+            request.group_partecipation_request_status_id = 1 #in attesa...
+            request.save!
+            notify_user_asked_for_partecipation(group) #invia notifica ai portavoce
+            number += 1
+          end
         end
       end
+      flash[:notice] = t('info.participation_request.multiple_request', count: number)
+      redirect_to home_path
     end
-    flash[:notice] = t('info.participation_request.multiple_request', count: number)
-    redirect_to home_path
+
   end
 
 

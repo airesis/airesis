@@ -30,10 +30,6 @@
 
           <% end %>
           <% unless in_subdomain? %>
-              <% if ::Configuration::elections_active %>
-                  <span> ⋅ </span>
-                  <%= link_to t('pages.groups.header.elections'), group_candidates_url(@group), class: ((['elections', 'candidates'].include? params[:controller]) ? 'sel' : '') if current_user %>
-              <% end %>
               <% if ::Configuration::documents_active %>
                   <span> ⋅ </span>
                   <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
@@ -66,6 +62,7 @@
     </div>
     <div id="centerpanelextended">
       <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+        <%= render :partial => 'layouts/tutorials' %>
         <div id="flash_messages" style="height:20px">
           <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>

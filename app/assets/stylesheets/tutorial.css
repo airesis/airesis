@@ -19,13 +19,10 @@
 
 
 .tutorial_panel .groupListContainer {
-    width: 232px;
     cursor: pointer;
 }
 
-.tutorial_panel .groupUserImage {	
-	height: 45px;
-	width: 45px;
+.tutorial_panel .groupUserImage {
 }
 
 .tutorial_panel .groupName {

@@ -1,0 +1,68 @@
+@media (max-width: 1200px) {
+  #homecont .portlet_panel {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  #homecont .portlet_panel {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1601px) {
+  #homecont .portlet_panel {
+    width: 33%;
+  }
+}
+
+#notification-portlet {
+  overflow: auto;
+  height: 260px;
+}
+
+#group_portlet {
+  overflow: auto;
+  height: 260px;
+}
+
+#homecont {
+  position: relative;
+  .portlet_panel {
+    float: left;
+
+    .inner {
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: #fff;
+      height: 400px;
+
+      box-shadow: 0px 2px 3px #797979;
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .title {
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 5px;
+      }
+    }
+  }
+}

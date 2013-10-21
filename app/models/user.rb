@@ -100,9 +100,10 @@ class User < ActiveRecord::Base
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
   #affinità con i gruppi
+  #todo remove
   has_many :group_affinities, :class_name => 'GroupAffinity'
 
-  has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
+  #has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
 
 
   #candidature
@@ -129,6 +130,16 @@ class User < ActiveRecord::Base
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 
 
+  def suggested_groups
+    border = self.interest_borders.first
+    params = {}
+    params[:interest_border_obj] = border
+    params[:limit] = 12
+    Group.look(params)
+
+  end
+
+
   def email_required?
     super && !(has_provider('twitter') || has_provider('linkedin'))
   end
@@ -136,12 +147,9 @@ class User < ActiveRecord::Base
   #dopo aver creato un nuovo utente gli assegno il primo tutorial e
   #disattivo le notifiche standard
   def assign_tutorials
-    tutorial = Tutorial.find_by_name("Welcome Tutorial")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("First Proposal")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("Rank Bar")
-    assign_tutorial(self, tutorial)
+    Tutorial.all.each do |tutorial|
+      assign_tutorial(self, tutorial)
+    end
     self.blocked_alerts.create(:notification_type_id => 20)
     self.blocked_alerts.create(:notification_type_id => 21)
     self.blocked_alerts.create(:notification_type_id => 13)
