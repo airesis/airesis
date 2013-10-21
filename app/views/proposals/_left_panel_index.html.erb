@@ -58,7 +58,7 @@
                  joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
                  conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
                end
-               categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id')
+               categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id,  proposal_categories.parent_proposal_category_id, proposal_categories.name, proposal_categories.seq')
 
                #categories = ProposalCategory.all
                categories.each do |category| %>
