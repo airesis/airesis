@@ -2,31 +2,12 @@
 <b><%=t('pages.steps.interest_borders.title') %><br /></b>
    <%=t('pages.steps.choose_follow.description_html')%>
 </div>
-	<%current_user.suggested_groups.each do |group|%>
+
+    <%= render :partial => "/groups/group_tag", :collection => current_user.suggested_groups, :as => :group %>
 	
-	<div class="groupListContainer shadow-box">
-		
-		<input type="hidden" class="groupId" value="<%=group.id%>" />
-		
-	<div class="groupUserImage">
-		<%= group.group_image_tag 45%>		
-	</div>
-	<div class="groupName">
-		<h3><%=group.name%></h3>
-	</div>
-	
-	<div style="clear: both"></div>
-	<div class="groupDescription" style="float:left">
-		<div class="" ><%=group.interest_border.description%></div>
-		<%=t('pages.groups.participations.participants_html', count: group.partecipants.count)%>
-		
-	</div>
-	<div style="clear: both"></div>
-</div>
-	
-	<%end%>
+
 	<div style="clear: both;"></div>		
-	<%=form_for 'groups', :url => {:controller => 'groups', :action => 'ask_for_multiple_follow'} do |f|%>
+	<%=form_for 'groupsi', :url => {:controller => 'groups', :action => 'ask_for_multiple_follow'} do |f|%>
 	<%=f.hidden_field 'group_ids'%>	
 	<%=f.button t('buttons.chosen'), :class => 'btn blue forwardButton', :style => "float:right;" %>
 		
@@ -39,9 +20,10 @@
 	$(function() {
 		$('.groupListContainer').click(function() {
 			$(this).toggleClass('highlighted');
-			text = $('.groupListContainer.highlighted .groupId').map(function() {return $(this).val()}).get().join(';');
+			var text = $('.groupListContainer.highlighted').map(function() {return $(this).data('id')}).get().join(';');
 			console.log(text);
-			$('#groups_group_ids').val(text);
+			$('#groupsi_group_ids').val(text);
+            return false;
 		})
 	});
 </script>

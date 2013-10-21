@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131018081137) do
+ActiveRecord::Schema.define(:version => 20131021125639) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1168,14 +1168,15 @@ ActiveRecord::Schema.define(:version => 20131018081137) do
   end
 
   create_table "steps", :force => true do |t|
-    t.integer  "tutorial_id",                    :null => false
-    t.integer  "index",       :default => 0,     :null => false
+    t.integer  "tutorial_id",                     :null => false
+    t.integer  "index",       :default => 0,      :null => false
     t.string   "title"
     t.text     "content"
     t.boolean  "required",    :default => false
     t.text     "fragment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "format",      :default => "html"
   end
 
   create_table "supporters", :force => true do |t|
@@ -1252,9 +1253,8 @@ ActiveRecord::Schema.define(:version => 20131018081137) do
 
   create_table "tutorials", :force => true do |t|
     t.string   "action"
-    t.string   "controller",  :null => false
+    t.string   "controller", :null => false
     t.string   "name"
-    t.text     "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

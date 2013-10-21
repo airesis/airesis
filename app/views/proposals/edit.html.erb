@@ -139,7 +139,7 @@
                     </span>
                     <br/>
                     <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                    <!-- <%= p.text_area :content %> -->
+                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
                   </p>
               <% end %>
@@ -192,9 +192,7 @@
 
 
                                 <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
-                                <%= p.text_area :content %>
-
-                                <!--    <%= p.text_field :content, :style => "width:80%;" %> -->
+                                <%= p.hidden_field :content %>
 
                                 <%= p.hidden_field :seq %>
                               </p>

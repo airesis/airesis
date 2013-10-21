@@ -26,6 +26,7 @@
     z-index: 1000;
 }
 
+
 #menu-left {
     float: left;
     width: 280px;
@@ -785,7 +786,7 @@
     outline: medium none;
 }
 
-.btn:disabled, a[disabled=disabled] {
+.btn:disabled, a[disabled=disabled], .btn.disabled {
     opacity: 0.5;
 }
 
@@ -1022,5 +1023,31 @@
     font-size: 0.8em;
     padding: 0.2em 0.8em;
 }
+
+
+
+@media (max-width:999px) {
+    #menu-top {
+        position: absolute;
+    }
+
+    #menu-right .cont {
+        position:  absolute;
+    }
+
+    #submenu .borx {
+        display: none;
+    }
+    #submenu .tria {
+        display: none;
+    }
+}
+
+
+#menu-top.introjs-fixParent {
+    z-index: 1 !important;
+    position: absolute;
+}
+
 
 

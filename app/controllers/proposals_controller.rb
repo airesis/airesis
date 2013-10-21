@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ProposalsController < ApplicationController
-  include NotificationHelper, StepHelper, ProposalsModule, GroupsHelper
+  include NotificationHelper, ProposalsModule, GroupsHelper
 
   #load_and_authorize_resource
 

@@ -25,29 +25,12 @@ function scrollToElement(element) {
     return false;
 }
 
-function checkWidth() {
-    if (window.innerWidth < 1000) {
-        $('#menu-top, #menu-right .cont').css('position', 'absolute');
-        $('#submenu .borx').hide();
-        $('#submenu .tria').hide();
-    }
-    else {
-        $('#menu-top, #menu-right .cont').css('position', 'fixed');
-        $('#submenu .borx').show();
-        $('#submenu .tria').show();
-    }
-}
 
 $(function () {
     ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
 
     /*$('#great_container').height($(window).height()-0);*/
     var submenupannel = 0;
-
-    checkWidth();
-    $(window).resize(function () {
-        checkWidth();
-    });
 
     disegnaBottoni();
 

@@ -32,6 +32,7 @@
 				<%= yield :left_panel%>
 			</div>
 			<div id="centerpanelextended">
+              <%= render :partial => 'layouts/tutorials' %>
 				<div id="flash_messages" style="height:20px">
 					<%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
 				</div>

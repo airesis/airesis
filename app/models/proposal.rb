@@ -293,7 +293,12 @@ class Proposal < ActiveRecord::Base
     end
 
     first_solution = self.solutions.first
-    first_section = first_solution ? first_solution.sections.first : self.sections.first
+    first_section =
+        if first_solution && first_solution.sections.first
+          first_solution.sections.first
+        else
+          self.sections.first
+        end
     self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
 
 

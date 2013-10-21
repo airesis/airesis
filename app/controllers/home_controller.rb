@@ -8,7 +8,6 @@
 #You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
 
 class HomeController < ApplicationController
-  include StepHelper
 
   layout :choose_layout
 
@@ -67,7 +66,6 @@ class HomeController < ApplicationController
   end
 
   def show
-    @step = get_next_step(current_user)
     @user = current_user
     @page_title = @user.fullname
   end

@@ -1,34 +1,28 @@
 #encoding: utf-8
 module StepHelper
   
-  #dato un utente, verifica se deve seguire un tutorial
-  #per il controller e l'action corrente restituisce,
+  #check if there are tutorials to do for the current user
+  #the tutorials are assigned to a controller and an action
   #eventualmente, lo step da mostrare 
   def get_next_step(user=current_user)
     tutorial_assignee = current_user.todo_tutorial_assignees.first(:joins => :tutorial, :conditions => "tutorials.action = '#{params[:action]}' and tutorials.controller = '#{params[:controller]}'", :readonly => false)
-    return check_tutorial_status(tutorial_assignee) if tutorial_assignee
-    
+    check_tutorial_status(tutorial_assignee) if tutorial_assignee
   end
   
   def check_tutorial_status(tutorial_assignee)
     tutorial = tutorial_assignee.tutorial
     user = tutorial_assignee.user
-    puts "Check stato tutorial #{tutorial.name} per l'utente #{user.login}"
     steps = tutorial.steps
     next_step = nil
     steps.each do |step|
-      puts "Check stato step #{step.fragment} per l'utente #{user.login}"
-
-      if (!check_step_condition(step,user))
+      unless check_step_condition(step,user)
         next_step = step
         break
-      else
-        
       end
     end #each step
     tutorial_assignee.update_attribute(:completed,true) unless next_step #completo se non ci sono step da fare
     session[:next_step_id] = next_step.id if next_step #salvo in sessione l'id dello step attualmente mostrato all'utente
-    return next_step
+    next_step
   end
   
   #ritorna true se lo step è già stato fatto dall'utente e può essere saltato 
@@ -74,8 +68,6 @@ module StepHelper
         return (user.group_partecipations.count > 0 || user.group_partecipation_requests.count > 0)
       when 3
         return (user.proposals.count > 0)
-      when 4
-        return (user.blog_image_url != nil)
       else
         logger.error "Impossibile trovare tutorial_id: " + step.tutotial_id.to_s + ", step_index: " + step.index.to_s 
         return false

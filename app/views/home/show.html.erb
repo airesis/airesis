@@ -1,8 +1,7 @@
 <%@extend = true %>
 <!--Scrivania dell'utente -->
 
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
-
+<div id="homecont">
 <%= render :partial => "home/portlets/proposals", :layout => "layouts/portlet"%>
 <%= render :partial => "home/portlets/votation", :layout => "layouts/portlet"%>
 <!--<%#= render :partial => "home/portlets/notifications", :layout => "layouts/portlet"%>
@@ -11,51 +10,10 @@
 <%#= render :partial => "home/portlets/last_contributes", :layout => "layouts/portlet"%>-->
 <%= render :partial => "home/portlets/topics", :layout => "layouts/portlet"%>
 <%= render :partial => "home/portlets/territory", :layout => "layouts/portlet"%>
-
-<br />
-
-<div id="img_modal" class="edit_modal">
-	<form  action="/users/<%=@user.id%>" id="upload_form" method="post" enctype="multipart/form-data">
-   		<h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%="URL dell'immagine"%></h2>
-        <div style="padding-left:150px">
-            <input name="user[blog_image_url]" value="<%=@user.blog_image_url%>"/>
-            <input type="hidden" name="back" value="home"/>
-            <br/>
-        </div>
-		oppure
-        <div style="float:left">
-            <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
-            <div style="padding-left:150px">
-                <input type="file" name="image" />
-                <br/>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" /><input type="hidden" value="put" name="_method">
-                <div style="margin-top:8px">
-                    <input type="submit" name="commit" value="<%=t('buttons.save')%>"/>
-                    <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();"/>
-                </div>
-            </div>
-        </div>
-	</form>
+<div class="clearboth"></div>
 </div>
 
-<script>
-    
-    $(function(){
-        $.modal.close();
-        
-        $('.image_container img, .caption').mouseover(function(){
-            $('.caption').show();
-        });
-        
-        $('.image_container img').mouseout(function(){
-            $('.caption').hide();
-        });
-        
-        $('.image_container div a').click(function(){
-            doModal($("#img_modal"));
-        });
-    });
-</script>
+
 <%=content_for :left_panel do%>    
 	<%=render :partial => 'users/user_groups_panel'%>
 

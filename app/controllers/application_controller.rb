@@ -3,7 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include GroupsHelper, NotificationHelper
+  include GroupsHelper, NotificationHelper, StepHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   after_filter :discard_flash_if_xhr
@@ -13,8 +13,16 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   before_filter :prepare_for_mobile
 
+  before_filter :load_tutorial
+
+
+
 
   protected
+
+  def load_tutorial
+    @step = get_next_step(current_user)  if current_user
+  end
 
   def ckeditor_filebrowser_scope(options = {})
     options = {:assetable_id => current_user.id, :assetable_type => 'User'}.merge(options)
@@ -45,6 +53,7 @@ class ApplicationController < ActionController::Base
 
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
+	@locale = 'zh' if ['cn'].include? @locale
     @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
