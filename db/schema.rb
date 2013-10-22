@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021125639) do
+ActiveRecord::Schema.define(:version => 20131022065334) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -458,15 +458,6 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "seq"
-  end
-
-  create_table "group_affinities", :force => true do |t|
-    t.integer  "group_id",                       :null => false
-    t.integer  "user_id",                        :null => false
-    t.integer  "value"
-    t.boolean  "recalculate", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "group_areas", :force => true do |t|
@@ -1451,9 +1442,6 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
 
   add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
-
-  add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
-  add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
 
   add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"

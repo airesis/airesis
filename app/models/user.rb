@@ -99,12 +99,6 @@ class User < ActiveRecord::Base
   belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
-  #affinità con i gruppi
-  #todo remove
-  has_many :group_affinities, :class_name => 'GroupAffinity'
-
-  #has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
-
 
   #candidature
   has_many :candidates, :class_name => 'Candidate'

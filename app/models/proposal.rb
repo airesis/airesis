@@ -12,7 +12,6 @@ class Proposal < ActiveRecord::Base
 
   has_many :revisions, class_name: 'ProposalRevision'
 
-
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote', dependent: :destroy
 
