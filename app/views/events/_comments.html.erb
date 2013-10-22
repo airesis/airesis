@@ -1,0 +1,31 @@
+<div class="eventComments" id="eventComments">
+	<% @event_comments.each do |comment| %>
+		<%= render :partial => 'events/comment', :locals => {:comment => comment} %>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	var retval = false;
+	var clicked;
+	function hiding(event,id) {
+		if (!retval) {
+			clicked = $('#delete'+id);
+			console.log(clicked);
+			if (confirm('<%=t('pages.blog_posts.comment.confirm_delete')%>')) {
+				$('#comment'+id).hide(600,function() {
+					retval = true;
+					clicked.click();
+				});
+				event.stopPropagation();
+				return false;
+			}
+			event.stopPropagation();
+			return false;
+		}
+		else {
+			retval = false;
+			return true;
+		}
+		
+	}
+</script>

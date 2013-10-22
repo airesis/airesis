@@ -9,6 +9,7 @@ class EventType < ActiveRecord::Base
   has_many :events, :class_name => 'Event'
 
 
+  scope :active, conditions: {id: [1,2]}
 
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")

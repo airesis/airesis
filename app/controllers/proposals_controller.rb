@@ -163,7 +163,6 @@ class ProposalsController < ApplicationController
         end
       end
 
-      @step = get_next_step(current_user)
       @proposal = Proposal.new
 
       if params[:group_id]

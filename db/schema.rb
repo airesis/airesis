@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022065334) do
+ActiveRecord::Schema.define(:version => 20131022131909) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -272,6 +272,33 @@ ActiveRecord::Schema.define(:version => 20131022065334) do
     t.datetime "updated_at"
     t.boolean  "score_calculated",    :default => false
   end
+
+  create_table "event_comment_likes", :force => true do |t|
+    t.integer  "event_comment_id", :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "event_comment_likes", ["event_comment_id", "user_id"], :name => "index_event_comment_likes_on_event_comment_id_and_user_id", :unique => true
+  add_index "event_comment_likes", ["event_comment_id"], :name => "index_event_comment_likes_on_event_comment_id"
+  add_index "event_comment_likes", ["user_id"], :name => "index_event_comment_likes_on_user_id"
+
+  create_table "event_comments", :force => true do |t|
+    t.integer  "parent_event_comment_id"
+    t.integer  "event_id",                                :null => false
+    t.integer  "user_id",                                 :null => false
+    t.integer  "user_ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.string   "body",                    :limit => 2500, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "event_comments", ["event_id"], :name => "index_event_comments_on_event_id"
+  add_index "event_comments", ["parent_event_comment_id"], :name => "index_event_comments_on_parent_event_comment_id"
+  add_index "event_comments", ["user_id"], :name => "index_event_comments_on_user_id"
 
   create_table "event_series", :force => true do |t|
     t.integer  "frequency",  :default => 1
@@ -1431,6 +1458,13 @@ ActiveRecord::Schema.define(:version => 20131022065334) do
   add_foreign_key "election_votes", "users", :name => "election_votes_user_id_fk"
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
+
+  add_foreign_key "event_comment_likes", "event_comments", :name => "event_comment_likes_event_comment_id_fk"
+  add_foreign_key "event_comment_likes", "users", :name => "event_comment_likes_user_id_fk"
+
+  add_foreign_key "event_comments", "event_comments", :name => "event_comments_parent_event_comment_id_fk", :column => "parent_event_comment_id"
+  add_foreign_key "event_comments", "events", :name => "event_comments_event_id_fk"
+  add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
 
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
 

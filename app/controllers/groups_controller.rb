@@ -493,7 +493,7 @@ class GroupsController < ApplicationController
   end
 
   def remove_post
-    raise Exception unless (can? :remove_post, @group) || (can? :edit, BlogPost.find(params[:post_id]))
+    raise Exception unless (can? :remove_post, @group) || (can? :update, BlogPost.find(params[:post_id]))
     @publishing = @group.post_publishings.find_by_blog_post_id(params[:post_id])
     @publishing.destroy
     flash[:notice] = t('info.groups.post_removed')

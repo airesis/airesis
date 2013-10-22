@@ -216,6 +216,12 @@ Airesis::Application.routes.draw do
 
     resources :events do
       resources :meeting_partecipations
+
+      resources :event_comments do
+        member do
+          post :like
+        end
+      end
       member do
         post :move
         post :resize
@@ -317,6 +323,13 @@ Airesis::Application.routes.draw do
 
     resources :events do
       resources :meeting_partecipations
+
+      resources :event_comments do
+        member do
+          post :like
+        end
+      end
+
       member do
         post :move
         post :resize
@@ -407,6 +420,7 @@ Airesis::Application.routes.draw do
 
       resources :events do
         resources :meeting_partecipations
+
         member do
           post :move
           post :resize

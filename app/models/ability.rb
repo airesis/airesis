@@ -183,7 +183,7 @@ class Ability
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
       end
 
-      can :edit, BlogPost do |blog_post|
+      can :update, BlogPost do |blog_post|
         blog_post.user == user
       end
 

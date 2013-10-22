@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%=I18n.locale%>" xmlns:fb="http://ogp.me/ns/fb#" lang="<%=I18n.locale%>"  <%= yield :html_options %>>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
   <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
   <%= render :partial => "layouts/head" %>
@@ -63,7 +63,7 @@
     <div id="centerpanelextended">
       <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
         <%= render :partial => 'layouts/tutorials' %>
-        <div id="flash_messages" style="height:20px">
+        <div id="flash_messages">
           <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>
         <%= yield :layout %>

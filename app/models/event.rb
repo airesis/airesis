@@ -15,6 +15,10 @@ class Event < ActiveRecord::Base
   has_many :organizers, :through => :meeting_organizations, :class_name => 'Group', :source => :group
 
   has_one :election, :class_name => 'Election', :dependent => :destroy
+
+  has_many :comments, class_name: 'EventComment', foreign_key: :event_id
+
+
   accepts_nested_attributes_for :meeting, :election
 
   scope :public, {:conditions => {private: false}}

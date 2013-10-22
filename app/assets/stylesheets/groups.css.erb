@@ -110,7 +110,6 @@ input.minutes {
     width: 70px;
 }
 
-
 .territoryDescription {
     width: 75px;
     position: relative;
@@ -134,7 +133,7 @@ input.minutes {
     position: relative;
 }
 
-.groupListContainer .group_tag_desc .fade_out{
+.groupListContainer .group_tag_desc .fade_out {
     position: absolute;
     bottom: 0px;
     height: 30px;
@@ -145,7 +144,6 @@ input.minutes {
     background-image: linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
     background-image: -ms-linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
 }
-
 
 .groupListContainer .groupName {
     float: left;
@@ -164,7 +162,6 @@ input.minutes {
     top: 0px;
 }
 
-
 .territory_fade {
     background-image: url('<%=asset_path 'vertical_line.png'%>');
     height: 20px;
@@ -174,35 +171,30 @@ input.minutes {
     top: 0px;
 }
 
-
-
 .s_circle {
     border: 3px solid #888;
     border-radius: 50%;
-    width:  11px;
+    width: 11px;
     height: 11px;
 }
 
 .on .s_circle {
-    border-color:  #888;
+    border-color: #888;
 }
-
 
 .off .s_circle {
-    border-color:  #ccc;
+    border-color: #ccc;
 }
 
-.on .s_circle .i_circle{
-    border-color:  #888;
+.on .s_circle .i_circle {
+    border-color: #888;
     background-color: #888;
 }
 
-
 .off .s_circle .i_circle {
-    border-color:  #ccc;
+    border-color: #ccc;
     background-color: #ccc;
 }
-
 
 .s_circle .i_circle {
     border: 2px solid #888;
@@ -214,17 +206,15 @@ input.minutes {
     background-color: #888;
 }
 
-
 .group_info .portlet_panel {
     width: auto;
     max-width: 398px;
 }
 
 .group_show_page {
-    position:relative;
+    position: relative;
     display: table;
 }
-
 
 .group_infos {
     /*position: absolute;
@@ -237,20 +227,19 @@ input.minutes {
 }
 
 .posts_container_main {
-    /*max-width: 800px;
-    margin-right: 500px;*/
+    max-width: 800px;
+    /*margin-right: 500px;*/
     display: table-cell;
     vertical-align: top;
 }
 
-
-
-
-.group_infos.resized {
-    display: none;
+@media (max-width: 1200px) {
+    .group_infos {
+        display: none;
+    }
+    .posts_container_main {
+        max-width: 100%;
+        margin-right: 0px;
+    }
 }
 
-.posts_container_main.resized {
-    max-width: 100%;
-    margin-right: 0px;
-}

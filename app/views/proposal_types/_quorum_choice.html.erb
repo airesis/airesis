@@ -51,6 +51,12 @@
 
 
 <script type="text/javascript">
+    function changeStart() {
+        $('#start_preset').hide();
+        $('#start_choose').show();
+        $('#proposal_votation_start_edited').val('true');
+    }
+
     $(function () {
         $('#proposal_quorum_id').select2({
             minimumResultsForSearch: -1,
@@ -129,11 +135,7 @@
         });
 
 
-        function changeStart() {
-            $('#start_preset').hide();
-            $('#start_choose').show();
-            $('#proposal_votation_start_edited').val('true');
-        }
+
 
 
         $('#later').click(function () {

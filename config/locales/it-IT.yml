@@ -337,7 +337,7 @@ it-IT:
         show_all_participants: "Mostra tutti %{count} ..."
         participants_full_list: "Elenco completo dei partecipanti al gruppo"
         no_participants: "Nessun utente partecipa ancora a questo gruppo."
-        no_blogs_yet: "Non vi sono ancora Post in questo Gruppo, torna presto."
+        no_blogs_yet: "Non vi sono ancora Post in questo Gruppo"
         waiting_participation_requests: "Elenco delle richieste di partecipazione in attesa di risposta"
         accept_request_button: "Accetta"
         reject_request_button: "Declina"

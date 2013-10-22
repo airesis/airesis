@@ -164,20 +164,7 @@
     });
 
 
-    var menu2show = 1;
-    $(".mybox .button").click(function () {
-        if ($(this).data('menu2show') == 0) {
-            $(this).data('menu2show', 1);
-            $(this).parent().find('.mycont').slideDown();
-            $(this).removeClass('close');
 
-        } else {
-            $(this).data('menu2show', 0);
-            $(this).parent().find('.mycont').slideUp();
-            $(this).addClass('close');
-        }
-
-    });
 
 
     $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
