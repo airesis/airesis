@@ -81,8 +81,8 @@ class ResqueMailer < ActionMailer::Base
   def feedback(feedback_id)
     @feedback = SentFeedback.find(feedback_id)
     @feedback.email ?
-    mail(to: 'info@airesis.it', from: "Feedback <feedback@airesis.it>", reply_to: @feedback.email, subject: 'Nuova segnalazione') :
-    mail(to: 'info@airesis.it', from: "Feedback <feedback@airesis.it>", subject: 'Nuova segnalazione')
+    mail(to: 'help@airesis.it', from: @feedback.email, subject: 'Nuova segnalazione') : #todo extract this email address
+    mail(to: 'help@airesis.it', from: "Feedback <feedback@airesis.it>", subject: 'Nuova segnalazione')  #todo extract this email address
   end
 
   def blocked(user_id)

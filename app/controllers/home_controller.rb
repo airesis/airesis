@@ -74,7 +74,7 @@ class HomeController < ApplicationController
 
   def feedback
     respond_to do |format|
-      format.html {render :nothing => true}
+
       format.js {
         feedback = JSON.parse(params[:data])
         data = feedback[1][22..-1] if feedback[1]#get the feedback image data
@@ -97,7 +97,9 @@ class HomeController < ApplicationController
         feedback.save!
 
         ResqueMailer.feedback(feedback.id).deliver
+        render :nothing => true
       }
+      format.html {render :nothing => true}
     end
   end
 
