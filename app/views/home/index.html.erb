@@ -124,21 +124,23 @@
             <div id="language" style="display:none;">
               <%= link_to (image_tag 'flags/en.png') + ' Europe', SysLocale.find_by_key('en').url %>
               <br/>
-              <%= link_to (image_tag 'flags/en-US.png') + ' America', SysLocale.find_by_key('en-US').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/it-IT.png') + ' Italy', SysLocale.find_by_key('it-IT').url %>
+              <%= link_to (image_tag 'flags/it-IT.png') + ' Italia', SysLocale.find_by_key('it-IT').url %>
               <br/>
               <%= link_to (image_tag 'flags/pt-PT.png') + ' Portugal', SysLocale.find_by_key('pt-PT').url %>
               <br/>
-              <%= link_to (image_tag 'flags/pt-BR.png') + ' Brasìl', SysLocale.find_by_key('pt-BR').url %>
-              <br/>
               <%= link_to (image_tag 'flags/es-ES.png') + ' Spain', SysLocale.find_by_key('es-ES').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/es-EC.png') + ' Ecuador', SysLocale.find_by_key('es-EC').url %>
               <br/>
               <%= link_to (image_tag 'flags/fr.png') + ' France', SysLocale.find_by_key('fr').url %>
               <br/>
               <%= link_to (image_tag 'flags/de.png') + ' Germany', SysLocale.find_by_key('de').url %>
+              <br/>
+              <%= link_to (image_tag 'flags/ro-RO.png') + ' România', SysLocale.find_by_key('ro-RO').url %>
+              <br/>
+              <%= link_to (image_tag 'flags/en-US.png') + ' America', SysLocale.find_by_key('en-US').url %>
+              <br/>
+              <%= link_to (image_tag 'flags/pt-BR.png') + ' Brasìl', SysLocale.find_by_key('pt-BR').url %>
+              <br/>
+              <%= link_to (image_tag 'flags/es-EC.png') + ' Ecuador', SysLocale.find_by_key('es-EC').url %>
               <br/>
               <%= link_to (image_tag 'flags/zh.png') + ' China', SysLocale.find_by_key('zh').url %>
               <br/>
@@ -192,7 +194,7 @@
               <div style="float:right; ">
                 <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
                     <div style="float:left; font-size:14px">
-                      <%= f.submit t('pages.home.index.login'), :style => "width:120px;margin-left: 10px; padding-top:4px; padding-bottom:4px; margin-bottom:0px;cursor:pointer; font-size: 30px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; float:right", :class => "btn btn-success btn-large" %>
+                      <%= f.submit t('pages.home.index.login'), :style => "margin-left: 10px; padding-top:4px; padding-bottom:4px; margin-bottom:0px;cursor:pointer; font-size: 30px;font-weight:bold; font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif; float:right", :class => "btn btn-success btn-large" %>
                       <%= f.text_field :login, :style => "width:170px;", placeholder: 'Username o email' %> <br/>
                       <%= f.password_field :password, :style => "width:170px;", placeholder: 'Password' %>
 

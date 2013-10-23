@@ -4,7 +4,7 @@
  * and Ionut G. Stan (ionut.g.stan@gmail.com)
  */
 jQuery(function($){
-	$.datepicker.regional['ro'] = {
+	$.datepicker.regional['ro-RO'] = {
 		closeText: 'Închide',
 		prevText: '&laquo; Luna precedentă',
 		nextText: 'Luna următoare &raquo;',
@@ -22,5 +22,5 @@ jQuery(function($){
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};
-	$.datepicker.setDefaults($.datepicker.regional['ro']);
+	$.datepicker.setDefaults($.datepicker.regional['ro-RO']);
 });

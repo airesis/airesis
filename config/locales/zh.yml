@@ -445,7 +445,7 @@ zh:
         edit_button: "編輯"
         delete_button: "刪除"
         delete_proposal_confirmation: "確定要刪除這個提案？"
-        votation_message: "這個提案將從 %{form} 到 %{to} 進行投票"
+        votation_message: "這個提案將從 %{from} 到 %{to} 進行投票"
         editing_message_1: "感謝所有對此提案的討論與貢獻，提案人與編輯將會發展此提案。"
         editing_message_2: "進行投票前，排行必須先達到至少"
         editing_message_3: "最小 Rank"
@@ -596,7 +596,7 @@ zh:
       list:
         last_update: "最後更新為 %{date}"
         waiting_date: "等待提案者選擇投票日期"
-        voting_from_to: "這個提案將從 %{form} 到 %{to} 進行投票"
+        voting_from_to: "這個提案將從 %{from} 到 %{to} 進行投票"
         voting_until: "投票中，截止日期為 %{date}"
         votation_finished: "投票已於 %{date} 結束"
         no_votation: "尚未有任何得票"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014101703) do
+ActiveRecord::Schema.define(:version => 20131023072928) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -273,6 +273,33 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.boolean  "score_calculated",    :default => false
   end
 
+  create_table "event_comment_likes", :force => true do |t|
+    t.integer  "event_comment_id", :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "event_comment_likes", ["event_comment_id", "user_id"], :name => "index_event_comment_likes_on_event_comment_id_and_user_id", :unique => true
+  add_index "event_comment_likes", ["event_comment_id"], :name => "index_event_comment_likes_on_event_comment_id"
+  add_index "event_comment_likes", ["user_id"], :name => "index_event_comment_likes_on_user_id"
+
+  create_table "event_comments", :force => true do |t|
+    t.integer  "parent_event_comment_id"
+    t.integer  "event_id",                                :null => false
+    t.integer  "user_id",                                 :null => false
+    t.integer  "user_ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.string   "body",                    :limit => 2500, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "event_comments", ["event_id"], :name => "index_event_comments_on_event_id"
+  add_index "event_comments", ["parent_event_comment_id"], :name => "index_event_comments_on_parent_event_comment_id"
+  add_index "event_comments", ["user_id"], :name => "index_event_comments_on_user_id"
+
   create_table "event_series", :force => true do |t|
     t.integer  "frequency",  :default => 1
     t.string   "period",     :default => "months"
@@ -302,6 +329,141 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
+  create_table "frm_categories", :force => true do |t|
+    t.string   "name",                              :null => false
+    t.string   "slug"
+    t.integer  "group_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "visible_outside", :default => true
+  end
+
+  add_index "frm_categories", ["group_id", "slug"], :name => "index_frm_categories_on_group_id_and_slug", :unique => true
+  add_index "frm_categories", ["slug"], :name => "index_frm_categories_on_slug"
+
+  create_table "frm_category_tags", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "frm_category_id"
+    t.integer  "tag_id"
+  end
+
+  create_table "frm_forum_tags", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "frm_forum_id"
+    t.integer  "tag_id"
+  end
+
+  create_table "frm_forums", :force => true do |t|
+    t.string  "name"
+    t.text    "description"
+    t.integer "category_id"
+    t.integer "group_id"
+    t.integer "views_count",     :default => 0
+    t.string  "slug"
+    t.boolean "visible_outside", :default => true
+  end
+
+  add_index "frm_forums", ["group_id", "slug"], :name => "index_frm_forums_on_group_id_and_slug", :unique => true
+  add_index "frm_forums", ["slug"], :name => "index_frm_forums_on_slug"
+
+  create_table "frm_groups", :force => true do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
+
+  add_index "frm_groups", ["name"], :name => "index_frm_groups_on_name"
+
+  create_table "frm_memberships", :force => true do |t|
+    t.integer "group_id"
+    t.integer "member_id"
+  end
+
+  add_index "frm_memberships", ["group_id"], :name => "index_frm_memberships_on_group_id"
+
+  create_table "frm_moderator_groups", :force => true do |t|
+    t.integer "forum_id"
+    t.integer "group_id"
+  end
+
+  add_index "frm_moderator_groups", ["forum_id"], :name => "index_frm_moderator_groups_on_forum_id"
+
+  create_table "frm_posts", :force => true do |t|
+    t.integer  "topic_id"
+    t.text     "text"
+    t.integer  "user_id"
+    t.integer  "reply_to_id"
+    t.string   "state",       :default => "pending_review"
+    t.boolean  "notified",    :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "token"
+  end
+
+  add_index "frm_posts", ["reply_to_id"], :name => "index_frm_posts_on_reply_to_id"
+  add_index "frm_posts", ["state"], :name => "index_frm_posts_on_state"
+  add_index "frm_posts", ["token"], :name => "index_frm_posts_on_token", :unique => true
+  add_index "frm_posts", ["topic_id"], :name => "index_frm_posts_on_topic_id"
+  add_index "frm_posts", ["user_id"], :name => "index_frm_posts_on_user_id"
+
+  create_table "frm_subscriptions", :force => true do |t|
+    t.integer "subscriber_id"
+    t.integer "topic_id"
+  end
+
+  create_table "frm_topic_proposals", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "topic_id"
+    t.integer  "proposal_id"
+    t.integer  "user_id"
+  end
+
+  create_table "frm_topic_tags", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "frm_topic_id"
+    t.integer  "tag_id"
+  end
+
+  create_table "frm_topics", :force => true do |t|
+    t.integer  "forum_id"
+    t.integer  "user_id"
+    t.string   "subject"
+    t.boolean  "locked",       :default => false,            :null => false
+    t.boolean  "pinned",       :default => false,            :null => false
+    t.boolean  "hidden",       :default => false
+    t.string   "state",        :default => "pending_review"
+    t.datetime "last_post_at"
+    t.integer  "views_count",  :default => 0
+    t.string   "slug"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "token"
+  end
+
+  add_index "frm_topics", ["forum_id", "slug"], :name => "index_frm_topics_on_forum_id_and_slug", :unique => true
+  add_index "frm_topics", ["forum_id"], :name => "index_frm_topics_on_forum_id"
+  add_index "frm_topics", ["slug"], :name => "index_frm_topics_on_slug"
+  add_index "frm_topics", ["state"], :name => "index_frm_topics_on_state"
+  add_index "frm_topics", ["token"], :name => "index_frm_topics_on_token", :unique => true
+  add_index "frm_topics", ["user_id"], :name => "index_frm_topics_on_user_id"
+
+  create_table "frm_views", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.integer  "count",             :default => 0
+    t.datetime "current_viewed_at"
+    t.datetime "past_viewed_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "frm_views", ["updated_at"], :name => "index_frm_views_on_updated_at"
+  add_index "frm_views", ["user_id"], :name => "index_frm_views_on_user_id"
+
   create_table "generic_borders", :force => true do |t|
     t.string  "description", :null => false
     t.string  "name",        :null => false
@@ -323,15 +485,6 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "seq"
-  end
-
-  create_table "group_affinities", :force => true do |t|
-    t.integer  "group_id",                       :null => false
-    t.integer  "user_id",                        :null => false
-    t.integer  "value"
-    t.boolean  "recalculate", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "group_areas", :force => true do |t|
@@ -541,7 +694,10 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.integer "section_history_id",                  :null => false
     t.string  "content",            :limit => 40000
     t.integer "seq",                                 :null => false
+    t.integer "proposal_id",                         :null => false
   end
+
+  add_index "paragraph_histories", ["proposal_id"], :name => "index_paragraph_histories_on_proposal_id"
 
   create_table "paragraphs", :force => true do |t|
     t.integer "section_id",                  :null => false
@@ -579,6 +735,12 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   create_table "post_publishings", :force => true do |t|
     t.integer "blog_post_id"
     t.integer "group_id"
+  end
+
+  create_table "proposal_alerts", :force => true do |t|
+    t.integer "proposal_id",                :null => false
+    t.integer "user_id",                    :null => false
+    t.integer "count",       :default => 0, :null => false
   end
 
   create_table "proposal_borders", :force => true do |t|
@@ -631,7 +793,7 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.boolean  "deleted",                                    :default => false, :null => false
     t.integer  "deleted_user_id"
     t.datetime "deleted_at"
-    t.string   "content",                    :limit => 2000
+    t.string   "content",                    :limit => 2500
     t.integer  "rank",                                       :default => 0,     :null => false
     t.integer  "valutations",                                :default => 0,     :null => false
     t.integer  "paragraph_id"
@@ -705,6 +867,8 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "proposal_revisions", ["proposal_id"], :name => "index_proposal_revisions_on_proposal_id"
 
   create_table "proposal_schulze_votes", :force => true do |t|
     t.integer  "proposal_id",                :null => false
@@ -792,6 +956,9 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.integer  "proposal_type_id",                           :default => 1,     :null => false
     t.integer  "proposal_votation_type_id",                  :default => 1,     :null => false
     t.string   "url",                                                           :null => false
+    t.boolean  "vote_defined",                               :default => false
+    t.datetime "vote_starts_at"
+    t.datetime "vote_ends_at"
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -844,6 +1011,17 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.string "description", :limit => 200, :null => false
   end
 
+  create_table "received_emails", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.string   "from"
+    t.string   "to"
+    t.string   "token"
+    t.boolean  "read",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "regionali_groups", :id => false, :force => true do |t|
     t.integer "id",                                                  :null => false
     t.string  "name",               :limit => 200
@@ -877,6 +1055,9 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.integer "section_history_id",   :null => false
   end
 
+  add_index "revision_section_histories", ["proposal_revision_id"], :name => "index_revision_section_histories_on_proposal_revision_id"
+  add_index "revision_section_histories", ["section_history_id"], :name => "index_revision_section_histories_on_section_history_id"
+
   create_table "schulze_votes", :force => true do |t|
     t.integer  "election_id",                :null => false
     t.string   "preferences",                :null => false
@@ -894,6 +1075,21 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "search_proposals", :force => true do |t|
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.integer  "proposal_category_id"
+    t.integer  "group_area_id"
+    t.integer  "proposal_type_id"
+    t.integer  "proposal_state_id"
+    t.integer  "tag_id"
+    t.integer  "interest_border_id"
+    t.datetime "created_at_from"
+    t.datetime "created_at_to"
   end
 
   create_table "section_histories", :force => true do |t|
@@ -931,10 +1127,15 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.integer "seq",                  :null => false
   end
 
+  add_index "solution_histories", ["proposal_revision_id"], :name => "index_solution_histories_on_proposal_revision_id"
+
   create_table "solution_section_histories", :force => true do |t|
     t.integer "solution_history_id", :null => false
     t.integer "section_history_id",  :null => false
   end
+
+  add_index "solution_section_histories", ["section_history_id"], :name => "index_solution_section_histories_on_section_history_id"
+  add_index "solution_section_histories", ["solution_history_id"], :name => "index_solution_section_histories_on_solution_history_id"
 
   create_table "solution_sections", :force => true do |t|
     t.integer "solution_id", :null => false
@@ -985,14 +1186,15 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   end
 
   create_table "steps", :force => true do |t|
-    t.integer  "tutorial_id",                    :null => false
-    t.integer  "index",       :default => 0,     :null => false
+    t.integer  "tutorial_id",                     :null => false
+    t.integer  "index",       :default => 0,      :null => false
     t.string   "title"
     t.text     "content"
     t.boolean  "required",    :default => false
     t.text     "fragment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "format",      :default => "html"
   end
 
   create_table "supporters", :force => true do |t|
@@ -1036,13 +1238,16 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   end
 
   create_table "tags", :force => true do |t|
-    t.string   "text",                            :null => false
-    t.integer  "proposals_count",  :default => 0, :null => false
-    t.integer  "blog_posts_count", :default => 0, :null => false
-    t.integer  "blogs_count",      :default => 0, :null => false
+    t.string   "text",                                :null => false
+    t.integer  "proposals_count",      :default => 0, :null => false
+    t.integer  "blog_posts_count",     :default => 0, :null => false
+    t.integer  "blogs_count",          :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_count",     :default => 0, :null => false
+    t.integer  "groups_count",         :default => 0, :null => false
+    t.integer  "frm_categories_count", :default => 0, :null => false
+    t.integer  "frm_forums_count",     :default => 0, :null => false
+    t.integer  "frm_topics_count",     :default => 0, :null => false
   end
 
   add_index "tags", ["text"], :name => "index_tags_on_text", :unique => true
@@ -1066,9 +1271,8 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
 
   create_table "tutorials", :force => true do |t|
     t.string   "action"
-    t.string   "controller",  :null => false
+    t.string   "controller", :null => false
     t.string   "name"
-    t.text     "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1081,6 +1285,9 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
     t.datetime "updated_at"
     t.datetime "checked_at"
   end
+
+  add_index "user_alerts", ["checked"], :name => "index_user_alerts_on_checked"
+  add_index "user_alerts", ["user_id"], :name => "index_user_alerts_on_user_id"
 
   create_table "user_borders", :force => true do |t|
     t.integer "user_id",            :null => false
@@ -1098,6 +1305,14 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   end
 
   add_index "user_follows", ["follower_id", "followed_id"], :name => "user_follows_unique", :unique => true
+
+  create_table "user_likes", :force => true do |t|
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "user_id",       :null => false
+    t.integer  "likeable_id",   :null => false
+    t.string   "likeable_type", :null => false
+  end
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
@@ -1244,10 +1459,23 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
+  add_foreign_key "event_comment_likes", "event_comments", :name => "event_comment_likes_event_comment_id_fk"
+  add_foreign_key "event_comment_likes", "users", :name => "event_comment_likes_user_id_fk"
+
+  add_foreign_key "event_comments", "event_comments", :name => "event_comments_parent_event_comment_id_fk", :column => "parent_event_comment_id"
+  add_foreign_key "event_comments", "events", :name => "event_comments_event_id_fk"
+  add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
+
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
 
-  add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
-  add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
+  add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
+  add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"
+
+  add_foreign_key "frm_forum_tags", "frm_forums", :name => "frm_forum_tags_frm_forum_id_fk"
+  add_foreign_key "frm_forum_tags", "tags", :name => "frm_forum_tags_tag_id_fk"
+
+  add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
+  add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
 
   add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"
@@ -1296,6 +1524,8 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   add_foreign_key "old_proposal_presentations", "proposal_lives", :name => "old_proposal_presentations_proposal_life_id_fk"
   add_foreign_key "old_proposal_presentations", "users", :name => "old_proposal_presentations_user_id_fk"
 
+  add_foreign_key "paragraph_histories", "proposals", :name => "paragraph_histories_proposal_id_fk"
+
   add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
 
   add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
@@ -1332,6 +1562,8 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
   add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
 
+  add_foreign_key "proposal_revisions", "proposals", :name => "proposal_revisions_proposal_id_fk"
+
   add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
 
   add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
@@ -1360,9 +1592,17 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
   add_foreign_key "regiones", "continentes", :name => "regiones_continente_id_fk"
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
 
+  add_foreign_key "revision_section_histories", "proposal_revisions", :name => "revision_section_histories_proposal_revision_id_fk"
+  add_foreign_key "revision_section_histories", "section_histories", :name => "revision_section_histories_section_history_id_fk"
+
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
 
   add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
+
+  add_foreign_key "solution_histories", "proposal_revisions", :name => "solution_histories_proposal_revision_id_fk"
+
+  add_foreign_key "solution_section_histories", "section_histories", :name => "solution_section_histories_section_history_id_fk"
+  add_foreign_key "solution_section_histories", "solution_histories", :name => "solution_section_histories_solution_history_id_fk"
 
   add_foreign_key "solution_sections", "sections", :name => "solution_sections_section_id_fk"
   add_foreign_key "solution_sections", "solutions", :name => "solution_sections_solution_id_fk"
@@ -1392,6 +1632,8 @@ ActiveRecord::Schema.define(:version => 20131014101703) do
 
   add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
+
+  add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
 
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"

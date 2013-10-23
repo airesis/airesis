@@ -555,7 +555,7 @@ body {
     font-size: 18px;
     position: absolute;
     margin-top: 335px;
-    width: 1000px;
+    min-width: 1000px;
 }
 
 #sub-slogan {
