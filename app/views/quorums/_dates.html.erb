@@ -1,0 +1,22 @@
+<div class="clearboth"></div>
+<%= form_for 'proposal' do |f| %>
+    <%= f.fields_for 'votation' do |v| %>
+        <p>
+
+        <div id="start_preset" style="display: block;">
+          <%= v.label 'start', 'Inizio' %>
+          <span class="start_vot" ondblclick="changeStart();"></span>
+        </div>
+        <div id="start_choose" style="display:none">
+          <%= v.label 'start', 'Inizio' %>
+          <%= v.text_field 'start' %>
+          <%= v.hidden_field 'start_edited' %>
+          <span class="cancel_action">X</span>
+        </div>
+        </p>
+        <p>
+          <%= v.label 'end', 'Fine' %>
+          <%= v.text_field 'end' %>
+        </p>
+    <% end %>
+<% end %>

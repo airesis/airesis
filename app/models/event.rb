@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
 
   scope :public, {:conditions => {private: false}}
   scope :private, {:conditions => {private: true}}
-  scope :vote_period, lambda { where(['event_type_id = ? AND starttime > ?', 2, Time.now]).order('starttime asc') }
+  scope :vote_period, lambda { |starttime| where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
   scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ['groups.id = ?', group_id]} if group_id }
 
   scope :next, {:conditions => ['starttime > ?', Time.now]}

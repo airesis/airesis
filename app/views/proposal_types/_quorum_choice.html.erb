@@ -16,37 +16,21 @@
 
 </p>
 
+<div id="choose_votation" class="" style="display:none">
+  <h2 style="float:left;"><%= 'Scegli subito la data della votazione:' %></h2>
 
-    <div id="choose_votation" class="toast-info info-panel" style="display:none">
+  <%= form_for 'proposal' do |f| %>
+      <%= f.fields_for 'votation' do |v| %>
+          <%= v.hidden_field 'later' %>
+      <% end %>
+  <% end %>
 
-      <h2 style="color:#fff; float:left;"><%= 'Scegli subito la data della votazione:' %></h2>
+  <div class="inner">
 
-      <div class="inner">
-        <div class="clearboth"></div>
-        <%= f.fields_for 'votation' do |v| %>
-            <%= v.hidden_field 'later' %>
-            <p>
-
-            <div id="start_preset" style="display: block;">
-              <%= v.label 'start', 'Inizio' %>
-              <span class="start_vot" ondblclick="changeStart();"></span>
-            </div>
-            <div id="start_choose" style="display:none">
-              <%= v.label 'start', 'Inizio' %>
-              <%= v.text_field 'start' %>
-              <%= v.hidden_field 'start_edited' %>
-              <span class="cancel_action">X</span>
-            </div>
-            </p>
-            <p>
-              <%= v.label 'end', 'Fine' %>
-              <%= v.text_field 'end' %>
-            </p>
-        <% end %>
-      </div>
-      <%= link_to 'No thanks. I will choose it later', '#', class: 'btn later', id: 'later', data: {other: 'I want to choose it now'} %>
-      <div class="clearboth"></div>
-    </div>
+  </div>
+  <%= link_to 'No thanks. I will choose it later', '#', class: 'btn later', id: 'later', data: {other: 'I want to choose it now'} %>
+  <div class="clearboth"></div>
+</div>
 
 
 
@@ -72,6 +56,7 @@
             var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
             var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
             var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
+            var id_ = $('#proposal_quorum_id option:selected').val();
             if (exlanation_) {
                 $('#quorum_explanation').html(exlanation_).show();
             }
@@ -79,23 +64,28 @@
                 $('#quorum_explanation').hide();
             }
             if (timefixed_) {
-                $('#choose_votation').show();
-                var now_ = new Date();
-                var end_ = addMinutes(now_, parseInt(minutes_));
+                $.ajax({
+                    url: '<%=dates_quorums_url%>',
+                    data: 'id=' + id_,
+                    success: function () {
+                        $('#choose_votation').show();
+                        var now_ = new Date();
+                        var end_ = addMinutes(now_, parseInt(minutes_));
 
+                        var upperend_ = upperMinutes(end_, 5);
+                        $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                        $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
+                        $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
+                        $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));
+                        $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_, 120));
+                        $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_, 120));
+                        //$("#proposal_votation_end").focus();
+                    }
+                });
 
-                var upperend_ = upperMinutes(end_, 5);
-                $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
-                $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
-                $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
-                $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));
-                $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_, 120));
-                $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_, 120));
-                //$("#proposal_votation_end").focus();
             }
             else {
                 $('#choose_votation').hide();
-
             }
         });
 
@@ -133,9 +123,6 @@
             $('#start_choose').hide();
             $('#proposal_votation_start_edited').val(null);
         });
-
-
-
 
 
         $('#later').click(function () {

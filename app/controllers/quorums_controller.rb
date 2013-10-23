@@ -4,7 +4,7 @@ class QuorumsController < ApplicationController
 
   #load group
   before_filter :load_group, :except => :help
-  before_filter :load_quorum, :only => [:edit, :update, :destroy]
+  before_filter :load_quorum, :only => [:edit, :update, :destroy, :dates]
 
   #security controls
   before_filter :authenticate_user!
@@ -135,6 +135,16 @@ class QuorumsController < ApplicationController
     respond_to do |format|
       format.js
       format.html
+    end
+  end
+
+  #retrieve a list of votation dates compatibles with that quorum
+  def dates
+    starttime = Time.now + @quorum.minutes + 10.minutes
+    if @group
+      @dates = Event.in_group(@group.id).private.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] }
+    else
+      @dates = Event.public.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] }
     end
   end
 

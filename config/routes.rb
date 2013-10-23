@@ -22,6 +22,13 @@ Airesis::Application.routes.draw do
   resources :proposal_nicknames
 
   #common routes both for main app and subdomains
+
+  resources :quorums do
+    collection do
+      get :dates
+    end
+  end
+
   resources :proposals do
     collection do
       get :endless_index
@@ -314,7 +321,7 @@ Airesis::Application.routes.draw do
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
-    resources :certifications, only: [:index,:create,:destroy]
+    resources :certifications, only: [:index, :create, :destroy]
 
     resources :proposal_categories do
       get :index, scope: :collection
@@ -521,7 +528,6 @@ Airesis::Application.routes.draw do
     #match ':proposal_url/:id', :to => 'proposals#show'
     #match ':proposal_url', :to => 'proposals#index'
     #match ':proposal_url/cat/:category/', :to => 'proposals#index'
-
 
 
     admin_required = lambda do |request|
