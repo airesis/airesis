@@ -16,7 +16,7 @@
 
 </p>
 
-<% if !@group || (@group && (can? :choose_proposal_date, @group)) %>
+
     <div id="choose_votation" class="toast-info info-panel" style="display:none">
 
       <h2 style="color:#fff; float:left;"><%= 'Scegli subito la data della votazione:' %></h2>
@@ -47,7 +47,7 @@
       <%= link_to 'No thanks. I will choose it later', '#', class: 'btn later', id: 'later', data: {other: 'I want to choose it now'} %>
       <div class="clearboth"></div>
     </div>
-<% end %>
+
 
 
 <script type="text/javascript">

@@ -5,12 +5,12 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC', :dependent => :destroy
+  has_many :proposal_presentations, :class_name => 'ProposalPresentation', order: 'id DESC', dependent: :destroy
 
-  has_many :proposal_borders, :class_name => 'ProposalBorder', :dependent => :destroy
+  has_many :proposal_borders, :class_name => 'ProposalBorder', dependent: :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
 
-  has_many :revisions, class_name: 'ProposalRevision'
+  has_many :revisions, class_name: 'ProposalRevision', dependent: :destroy
 
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote', dependent: :destroy

@@ -41,14 +41,14 @@ class Ability
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
-      can :choose_date, Proposal do |proposal|
-        if proposal.private?
-          group = proposal.presentation_groups.first
-          (can? :choose_proposal_date, group) && (user.is_mine? proposal)
-        else
-          user.is_mine? proposal
-        end
-      end
+      #can :choose_date, Proposal do |proposal|
+      #  if proposal.private?
+      #    group = proposal.presentation_groups.first
+      #    (can? :choose_proposal_date, group) && (user.is_mine? proposal)
+      #  else
+      #    user.is_mine? proposal
+      #  end
+      #end
       can :regenerate, Proposal do |proposal|
         can_regenerate_proposal?(user, proposal)
       end
@@ -117,7 +117,7 @@ class Ability
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
       end
-      can :choose_proposal_date, Group do |group|
+      can :create_date, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE)
       end
@@ -259,7 +259,7 @@ class Ability
 
         can :update, Proposal #can edit them
         can :partecipate, Proposal #can partecipate
-        can :choose_date, Proposal #can edit them
+        #can :choose_date, Proposal #can edit them
         can :destroy, Proposal #can destroy one
         can :destroy, ProposalComment
         can :manage, Group

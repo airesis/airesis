@@ -64,9 +64,6 @@ class Group < ActiveRecord::Base
 
   has_many :group_areas, dependent: :destroy
 
-  has_many :group_affinities, dependent: :destroy
-
-
   has_many :search_partecipants
 
   has_many :group_tags, :dependent => :destroy

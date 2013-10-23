@@ -15,7 +15,7 @@
 <% else %>
     <% if @group %>
         <p>
-          <% if (can? :choose_date, @proposal)%>
+          <% if current_user.is_mine? @proposal%>
               <b><%= t('pages.proposals.show.create_votation_period') %></b>
           <% else %>
               <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>
@@ -27,8 +27,8 @@
         </p>
     <% end %>
 <% end %>
-<% if @group && (can? :choose_date, @proposal) %>
-    <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, type: 'votation', proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
+<% if @group && (can? :create_date, @group) %>
+    <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
 
 <% end %>
 
