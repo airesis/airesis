@@ -1,7 +1,7 @@
 /* Romanian translation for the jQuery Timepicker Addon */
 /* Written by Romeo Adrian Cioaba */
 (function($) {
-	$.timepicker.regional['ro'] = {
+	$.timepicker.regional['ro-RO'] = {
 		timeOnlyTitle: 'Alegeţi o oră',
 		timeText: 'Timp',
 		hourText: 'Ore',
@@ -17,5 +17,5 @@
 		pmNames: ['PM', 'P'],
 		isRTL: false
 	};
-	$.timepicker.setDefaults($.timepicker.regional['ro']);
+	$.timepicker.setDefaults($.timepicker.regional['ro-RO']);
 })(jQuery);

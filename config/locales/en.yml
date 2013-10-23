@@ -702,7 +702,7 @@ en:
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have benn members of the group for at least 5 months can be nominated.</div>
+            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
           solution:
             name: "Candidate Name and Surname"
             data: "Personal data"
@@ -1416,7 +1416,7 @@ en:
       proposal_not_waiting_date: "This proposal is not waiting for a date to be voted on"
       proposal_not_voted: "This proposal has not finished the voting phase, so you cannot do this action anymore"
       proposal_not_valuating: "This proposal is not in the voting phase, so you cannot do this action anymore"
-      proposal_already_ranked: "You have already evaluated this proposal once. The proposal has not benn modified since your last evaluation"
+      proposal_already_ranked: "You have already evaluated this proposal once. The proposal has not been modified since your last evaluation"
       proposal_not_your: "You cannot edit proposals that weren't made by you"
       creation: "We are sorry but there was an error while creating the proposal"
       editors_added: "Error while adding editors"
@@ -1466,7 +1466,7 @@ en:
       public_visible: "This proposal is publicly visible"
       available_authors: "There are new editors available for the proposal"
       updated_comment: "Your comment has been successfully updated"
-      comment_deleted: "The comment has benn successfully deleted"
+      comment_deleted: "The comment has been successfully deleted"
       contribute_reported: "Contribution successfully reported"
       contribute_added: "Contribution successfully added"
       comment_added: "Comment successfully added"
@@ -1530,7 +1530,7 @@ en:
       time_zone_changed: "Time zone saved"
     blog:
       blog_created: "Blog successfully created"
-      title_updated: "The title of the blog has benn successfully updated"
+      title_updated: "The title of the blog has been successfully updated"
       comment_added: "Comment successfully updated"
     events:
       event_deleted: "Event successfully deleted"
