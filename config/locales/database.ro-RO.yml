@@ -87,11 +87,11 @@ ro-RO:
       new_events:
         description: Evenimente noi în grupurile mele
         email_subject: Exista un eveniment nou
-        message: 'Eveniment nou <b>%{eveniment}</b> in Grupa <b>%{Grupa}</b>'
+        message: 'Eveniment nou <b>%{eveniment}</b> in Grupa <b>%{group}</b>'
       new_posts_user_follow:
         description: Postări noi ale unui utilizator pe care îl urmăresc
         email_subject: Există un post nou
-        message: '%{utilizator} a adăugat un nou post în blogul său <b>%{blog}</b>'
+        message: '%{user} a adăugat un nou post în blogul său <b>%{blog}</b>'
       new_valutation_mine:
         description: O evaluare nouă a propunerii mele
         email_subject: '%{title} - evaluare nouă'
@@ -103,7 +103,7 @@ ro-RO:
       available_author:
         description: Utilizatorul disponibil pentru a deveni un editorul unei propuneri
         email_subject: '%{title} - noi editori disponibili'
-        message: '%{utilizator} este disponibil pentru a deveni editor al unei propuneri <b>%{title}</b>'
+        message: '%{user} este disponibil pentru a deveni editor al unei propuneri <b>%{title}</b>'
       author_accepted:
         description: Acceptat ca editor al unei propuneri
         email_subject: '%{title} - acum sunteţi editor!'
@@ -111,11 +111,11 @@ ro-RO:
       new_authors:
         description: Noi editori de propuneri
         email_subject: '%{title} - Noi editori'
-        message: '<b>%{utilizator}</b> este un editor al propunerii <b>%{title}</b>'
+        message: '<b>%{user}</b> este un editor al propunerii <b>%{title}</b>'
       unintegrated_contribute:
         description: Contribuţiile sunt puse din nou în dezbatere
-        email_subject: '%{propunerea} - contribuţie înapoi în dezbatere'
-        message: 'O contribuţie inclusă în propunerea <b>%{propunerea}</b> a fost pusă înapoi în dezbatere'
+        email_subject: '%{proposal} - contribuţie înapoi în dezbatere'
+        message: 'O contribuţie inclusă în propunerea <b>%{proposal}</b> a fost pusă înapoi în dezbatere'
       new_contributes:
         description: Noi contribuţii şi comentarii la propunerile la care particip
         email_subject: '%{title} - contribuție nouă'
@@ -161,15 +161,15 @@ ro-RO:
       new_posts_group:
         description: Postări noi în grupuri la care particip
         email_subject: Postare nouă
-        message: '<b>%{user}/ <b>a adăugat o postare noua în grupul <b>%{Grupa}</b>'
+        message: '<b>%{user}/ <b>a adăugat o postare noua în grupul <b>%{group}</b>'
       new_public_proposals:
         description: Propuneri noi adăugate în spaţiul deschis
-        email_subject: '%{propunerea}'
-        message: 'Propunere nouă <b>%{propunerea}</b> adăugată în spaţiul deschis'
+        email_subject: '%{proposal}'
+        message: 'Propunere nouă <b>%{proposal}</b> adăugată în spaţiul deschis'
       new_proposals:
         description: Noi propuneri în cadrul grupului
-        email_subject: '%{propunerea}'
-        message: 'Propunere nouă <b>%{proposal}</b> creată in grupul <b>%{Group}</b>'
+        email_subject: '%{proposal}'
+        message: 'Propunere nouă <b>%{proposal}</b> creată in grupul <b>%{group}</b>'
       new_partecipation_request:
         description: Cerere de participare nouă
         email_subject: Cerere de participare nouă
@@ -177,7 +177,7 @@ ro-RO:
       new_blog_comment:
         description: Comentariu nou în blog-ul meu
         email_subject: Comentariu nou în blog-ul tău
-        message: '<b>%{utilizator}</b> a comentat postarea dumneavoastră <b>%{title}</b>'
+        message: '<b>%{user}</b> a comentat postarea dumneavoastră <b>%{title}</b>'
       new_comments_mine:
         description: Noi Comentarii la propunerile mele
         email_subject: Comentariu nou la propunerea mea

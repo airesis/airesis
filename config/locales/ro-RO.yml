@@ -63,7 +63,7 @@ ro-RO:
       - Joi
       - Sâm
     month_names:
-      - [ ]
+      -
       - Ianuarie
       - Februarie
       - Martie
@@ -77,7 +77,7 @@ ro-RO:
       - Noiembrie
       - Decembrie
     abbr_month_names:
-      - [ ]
+      -
       - Ian
       - Feb
       - Mar
@@ -101,10 +101,7 @@ ro-RO:
       weekday: %A
       month: %B
       dayandmonth: %d/%m
-      textfield: |
-        |
-
-                %d/%m/%Y %H:%M
+      textfield: "%d/%m/%Y %H:%M"
     am: am
     pm: pm
   datetime:
@@ -997,7 +994,7 @@ ro-RO:
       present_life_cycle: Ciclul de viaţă prezent
       no_revision: Nici o revizuire
       life_cycle: Ciclul de viaţă
-      life_cycle_number: ' Numarul ciclului de viaţă %{viaţă}'
+      life_cycle_number: ' Numarul ciclului de viaţă %{life}'
       end_date: 'Data de sfârşit:'
       score_reached: 'Data de sfârşit:'
       evaluation_reached: 'Numărul de evaluări:'
@@ -1043,7 +1040,7 @@ ro-RO:
     comments:
       zero: fără comentarii
       one: un comentariu
-      other: 'Comentarii %{numarati}'
+      other: 'Comentarii %{count}'
   activerecord:
     models:
       meeting: Întâlnire
@@ -1196,7 +1193,7 @@ ro-RO:
         record_invalid: 'Validare eșuată %{errors}'
         not_found: nu a fost găsit.
       full_messages:
-        format: '% %{atribut} {mesaj}'
+        format: '%{attribute} %{message}'
       models:
         user:
           attributes:
