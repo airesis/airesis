@@ -83,11 +83,11 @@ ro-RO:
       new_public_events:
         description: Evenimente publice noi
         email_subject: Exista un eveniment public nou
-        message: 'Eveniment public nou: <b>%{eveniment}</b>'
+        message: 'Eveniment public nou: <b>%{event}</b>'
       new_events:
         description: Evenimente noi în grupurile mele
         email_subject: Exista un eveniment nou
-        message: 'Eveniment nou <b>%{eveniment}</b> in Grupa <b>%{group}</b>'
+        message: 'Eveniment nou <b>%{event}</b> in Grupa <b>%{group}</b>'
       new_posts_user_follow:
         description: Postări noi ale unui utilizator pe care îl urmăresc
         email_subject: Există un post nou
