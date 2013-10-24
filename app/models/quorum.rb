@@ -87,21 +87,29 @@ class Quorum < ActiveRecord::Base
   end
   
   def time
-    min = self.minutes
-    return nil if !min
+    min = (self.ends_at - Time.now).to_i/60
     if min > 59
       hours = min/60
       min = min%60
       if hours > 23
         days = hours/24
         hours = hours%24
+        min = 0
+          if days > 30
+            months = days/30
+            days = days%30
+            min = 0
+          end
       end
-    end
     ar = []
-    ar << I18n.t('day',count: days) if (days && days > 0)
-    ar << I18n.t('hour',count: hours) if (hours && hours > 0)
-    ar << I18n.t('minute',count: min) if (min && min > 0)
+    ar << t('time.left.months') if (months && months > 0)
+    ar << I18n.t('time.left.days',count: days) if (days && days > 0)
+    ar << I18n.t('time.left.hours',count: hours) if (hours && hours > 0)
+    ar << I18n.t('time.left.minutes',count: min) if (min && min > 0)
     retstr = ar.join(" "+I18n.t('pages.groups.edit_quorums.condition_AND')+" ")
+    else
+    retstr = nil
+    end
     retstr
   end
 
@@ -117,16 +125,16 @@ class Quorum < ActiveRecord::Base
     if self.minutes
       amount = self.ends_at - Time.now #left in seconds
       if amount > 0
-        left = I18n.t('time.left.seconds',count: amount.to_i)                     #todo:i18n
+        left = I18n.t('time.left.seconds',count: amount.to_i)
         if amount >= 60  #if more or equal than 60 seconds left give me minutes
           amount_min = amount/60
-          left = I18n.t('time.left.minutes',count: amount_min.to_i)                    #todo:i18n
+          left = I18n.t('time.left.minutes',count: amount_min.to_i)
           if amount_min >= 60 #if more or equal than 60 minutes left give me hours
             amount_hour = amount_min/60
-            left = I18n.t('time.left.hours',count: amount_hour.to_i)                               #todo:i18n
+            left = I18n.t('time.left.hours',count: amount_hour.to_i)
             if amount_hour > 24 #if more than 24 hours left give me days
               amount_days = amount_hour/24
-              left = I18n.t('time.left.days',count: amount_days.to_i)                                    #todo:i18n
+              left = I18n.t('time.left.days',count: amount_days.to_i)
             end
           end
         end
@@ -136,11 +144,11 @@ class Quorum < ActiveRecord::Base
     if self.percentage
       valutations = self.valutations - self.proposal.valutations
       if valutations > 0
-        ret << "#{valutations} VALUTAZIONI" #todo:i18n
+        ret << I18n.t('pages.proposals.new_rank_bar.valutations', num:valutations) #todo:i18n
       end
     end
     if ret.size > 0
-      ret.join(or? ? ' O ' : ' E ')
+      ret.join(or? ? ' '+I18n.t('pages.groups.edit_quorums.condition_AND').upcase+' ' : ' '+I18n.t('pages.groups.edit_quorums.condition_OR').upcase+' ')
     else
       "IN STALLO" #todo:i18n
     end
@@ -204,7 +212,7 @@ class Quorum < ActiveRecord::Base
     if self.bad_score && (self.bad_score != self.good_score)
         ret += "<br/>"
         ret += I18n.translate('models.quorum.bad_score_explain', good_score: self.good_score, bad_score: self.bad_score)
-    elsif self.good_score = self.bad_score
+    elsif self.good_score == self.bad_score
         ret += "<br/>"
         ret += I18n.translate('models.quorum.good_score_condition',good_score: self.good_score)
     end

@@ -701,7 +701,7 @@ en:
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have benn members of the group for at least 5 months can be nominated.</div>
+            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
           solution:
             name: "Candidate Name and Surname"
             data: "Personal data"

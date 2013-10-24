@@ -123,6 +123,9 @@ it-IT:
       days:
         one: "1 giorno"
         other: "%{count} giorni"
+      months:
+        one: "1 mese"
+        other: "%{count} months"
   datetime:
     added_on: "il %{date}"
     distance_in_words:
@@ -160,15 +163,6 @@ it-IT:
       x_seconds:
         one: "1 secondo fa"
         other: ! '%{count} secondi fa'
-  day:
-      one: "1 giorno"
-      other: "%{count} giorni"
-  hour:
-      one: "1 ora"
-      other: "%{count} ore"
-  minute:
-      one: "1 minuto"
-      other: "%{count} minuti"
   open_space: "Spazio Comune"
   guide: "Guida FAQ"
   hello: "Ciao mondo"
@@ -582,6 +576,8 @@ it-IT:
         login_to_comment: "Fai login per inserire un commento"
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
+        debate_ends_html: "Fine dibattito tra:<br/><b>%{time}</b>"
+        debate_ends_valutations_html: "Termine dibattito con:<br/><b>%{num}</b>"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -744,6 +740,8 @@ it-IT:
         authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
+        time_left: "Tempo rimanente"
+        vote: "VOTA"
       delete_comment: "Cancella"
       results:
         total: "Totale votanti: %{count}"

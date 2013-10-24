@@ -31,6 +31,19 @@
     </span>
 <br/>
 <% end %>
+  <% if @proposal.in_valutation?%>
+      <span>
+        <% if @proposal.quorum.time && !@proposal.quorum.and?%>
+            <%= t('pages.proposals.show.debate_ends_html', time:@proposal.quorum.time)%>
+
+        <%elsif !@proposal.quorum.time_fixed?%>
+            <%=t('pages.proposals.show.debate_ends_valutations_html', num:@proposal.quorum.time_left.downcase)%>
+
+        <%elsif @proposal.quorum.and?%>
+
+       <%end%>
+      </span>
+  <%end%>
 </div>
 
 <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>

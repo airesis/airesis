@@ -61,7 +61,7 @@ Airesis::Application.configure do
   COMMENTS_TIME_LIMIT=30.seconds
 
   #limita il numero di proposte
-  LIMIT_PROPOSALS=true
+  LIMIT_PROPOSALS=false
   PROPOSALS_TIME_LIMIT=1.minute
 
   #limita il numero di gruppi
