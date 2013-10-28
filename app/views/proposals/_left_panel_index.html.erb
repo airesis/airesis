@@ -109,7 +109,7 @@
                types = ProposalType.all(
                        :joins => joins,
                        :conditions => conditions,
-                       :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active'
+                       :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active, proposal_types.color'
                )
                types.each do |type| %>
                 <tr>
