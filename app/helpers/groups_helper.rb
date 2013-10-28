@@ -308,7 +308,7 @@ module GroupsHelper
       define_method("#{name}_url") do |group,*args|
         (group_in_subdomain? group) ?
             send("#{name.gsub('group_', '')}_url", *args) :
-            super
+            super(group,*args)
       end
       #self.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
       #def #{name}_url(group,*args)
