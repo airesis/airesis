@@ -302,7 +302,7 @@ module GroupsHelper
       (group_in_subdomain? group) ?
         #{name.gsub('group_', '')}_url(*args) :
         super
-    end if !(defined? #{name})
+    end
     END_EVAL
   end
 

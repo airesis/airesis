@@ -4,6 +4,9 @@ class Group < ActiveRecord::Base
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
 
+  STATUS_ACTIVE = 'active'
+  STATUS_FEW_USERS_A = 'few_users_a'
+
   validates_presence_of :name
   validates_length_of :name, :within => 3..60
   validates_uniqueness_of :name

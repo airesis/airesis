@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028105534) do
+ActiveRecord::Schema.define(:version => 20131028134218) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -588,23 +588,23 @@ ActiveRecord::Schema.define(:version => 20131028105534) do
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
     t.string   "description",                :limit => 2000
-    t.string   "accept_requests",                             :default => "p",   :null => false
+    t.string   "accept_requests",                             :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1,     :null => false
+    t.integer  "partecipation_role_id",                       :default => 1,        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                     :default => true,  :null => false
-    t.boolean  "default_anonima",                             :default => true,  :null => false
-    t.boolean  "default_visible_outside",                     :default => false, :null => false
-    t.boolean  "default_secret_vote",                         :default => true,  :null => false
-    t.integer  "max_storage_size",                            :default => 51200, :null => false
-    t.integer  "actual_storage_size",                         :default => 0,     :null => false
-    t.boolean  "enable_areas",                                :default => false, :null => false
-    t.integer  "group_partecipations_count",                  :default => 1,     :null => false
+    t.boolean  "change_advanced_options",                     :default => true,     :null => false
+    t.boolean  "default_anonima",                             :default => true,     :null => false
+    t.boolean  "default_visible_outside",                     :default => false,    :null => false
+    t.boolean  "default_secret_vote",                         :default => true,     :null => false
+    t.integer  "max_storage_size",                            :default => 51200,    :null => false
+    t.integer  "actual_storage_size",                         :default => 0,        :null => false
+    t.boolean  "enable_areas",                                :default => false,    :null => false
+    t.integer  "group_partecipations_count",                  :default => 1,        :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -613,7 +613,9 @@ ActiveRecord::Schema.define(:version => 20131028105534) do
     t.boolean  "private",                                     :default => false
     t.string   "rule_book",                  :limit => 40000
     t.string   "subdomain",                  :limit => 100
-    t.boolean  "certified",                                   :default => false, :null => false
+    t.boolean  "certified",                                   :default => false,    :null => false
+    t.string   "status",                                      :default => "active", :null => false
+    t.datetime "status_changed_at"
   end
 
   add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
