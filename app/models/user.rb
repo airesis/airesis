@@ -568,7 +568,7 @@ class User < ActiveRecord::Base
     !topic.hidden? || forem_admin?
   end
 
-  def forem_auto_subscribe?
+  def auto_subscribe?
     true
   end
 

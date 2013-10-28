@@ -87,7 +87,7 @@ module Frm
     end
 
     def user_auto_subscribe?
-      user && user.respond_to?(:forem_auto_subscribe) && user.forem_auto_subscribe?
+      user && user.auto_subscribe?
     end
 
     def owner_or_admin?(other_user)
