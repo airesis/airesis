@@ -568,6 +568,10 @@ class User < ActiveRecord::Base
     !topic.hidden? || forem_admin?
   end
 
+  def forem_auto_subscribe?
+    true
+  end
+
 
   def can_moderate_forem_forum?(forum)
     forum.moderator?(self)
