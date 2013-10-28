@@ -52,7 +52,7 @@ it:
         description: Creare eventi e votazioni
       PROPOSAL:
         description: Sostenere proposte a nome del gruppo
-      REQUEST_ACCEPT:
+      REQUEST_ACCEPT:                                                                                        -
         description: Aggiungere membri nel gruppo
       SEND_CANDIDATES:
         description: Candidare utenti alle elezioni

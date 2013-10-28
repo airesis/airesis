@@ -29,7 +29,7 @@
 
 
     <div class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.updated_at)) %> |
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %> |
       <span class="blogComments">
 
       <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments.count),group_blog_post_url(@group,blog_post) %>

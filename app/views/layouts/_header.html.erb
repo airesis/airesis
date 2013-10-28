@@ -75,6 +75,7 @@
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-34897773-1']);
     _gaq.push(['_trackPageview']);
+    _gaq.push(['_setDomainName', '<%= request.domain %>']);
 
     (function () {
         var ga = document.createElement('script');
