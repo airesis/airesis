@@ -93,7 +93,7 @@ class Ability
         can_do_on_group?(user, group, 1)
       end
       can :create_event, Group do |group|
-        can_do_on_group?(user, group, 2)
+        can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
       end
       can :support_proposal, Group do |group|
         can_do_on_group?(user, group, 3)
@@ -120,6 +120,14 @@ class Ability
       can :create_date, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE)
+      end
+      can :create_both_events, Group do |group|
+        can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE) && can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
+
+      end
+      can :create_any_event, Group do |group|
+        can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE) || can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
+
       end
       can :view_data, Group do |group|
         !group.is_private? || (group.partecipants.include? user) #todo remove first condition
@@ -292,7 +300,7 @@ class Ability
         c1 = user.admin?
       end
       c1 &&
-      ((event.is_votazione? && event.proposals.count == 0) ||
+      ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count = 0) ||
           (event.is_elezione? && event.election.candidates.count == 0) ||
           (event.is_incontro? || event.is_riunione?))
     end

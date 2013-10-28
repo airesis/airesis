@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   belongs_to :event_series
   belongs_to :event_type
   has_many :proposals, :class_name => 'Proposal', :foreign_key => 'vote_period_id'
+  has_many :possible_proposals, :class_name => 'Proposal', :foreign_key => 'vote_event_id'
   has_one :meeting, :class_name => 'Meeting', :dependent => :destroy
   has_one :place, :through => :meeting, :class_name => 'Place'
   has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'event_id', :dependent => :destroy
@@ -23,7 +24,9 @@ class Event < ActiveRecord::Base
 
   scope :public, {:conditions => {private: false}}
   scope :private, {:conditions => {private: true}}
-  scope :vote_period, lambda { |starttime| where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc') }
+  scope :vote_period, lambda { |*starttime|
+    where(['event_type_id = ? AND starttime > ?', 2, starttime.empty? ? Time.now : starttime]).order('starttime asc')
+  }
   scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ['groups.id = ?', group_id]} if group_id }
 
   scope :next, {:conditions => ['starttime > ?', Time.now]}

@@ -14,7 +14,7 @@
 
 <div class="choose_model" style="display:none;">
   <% ProposalType.active.order(:seq).each do |proposal_type| %>
-      <div class="proposal_model_option" data-id="<%= proposal_type.name %>">
+      <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%=proposal_type.color%>">
         <div class="model_name"><%= proposal_type.description %></div>
       </div>
   <% end %>
@@ -47,7 +47,7 @@
         create_proposal_.dialog({
             title: "<%=j t('pages.proposals.index.choose_model') %>",
             modal: true,
-            width: 940,
+            width: 980,
             height: 'auto',
             close: function (event, ui) {
                 create_proposal_.dialog('destroy');

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022131909) do
+ActiveRecord::Schema.define(:version => 20131028105534) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -909,6 +909,7 @@ ActiveRecord::Schema.define(:version => 20131022131909) do
     t.string  "name",   :limit => 10,                    :null => false
     t.integer "seq",                  :default => 0
     t.boolean "active",               :default => false
+    t.string  "color",  :limit => 10
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -959,6 +960,7 @@ ActiveRecord::Schema.define(:version => 20131022131909) do
     t.boolean  "vote_defined",                               :default => false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
+    t.integer  "vote_event_id"
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -1577,6 +1579,7 @@ ActiveRecord::Schema.define(:version => 20131022131909) do
 
   add_foreign_key "proposal_votes", "proposals", :name => "proposal_votes_proposal_id_fk"
 
+  add_foreign_key "proposals", "events", :name => "proposals_vote_event_id_fk", :column => "vote_event_id"
   add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
   add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
   add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"

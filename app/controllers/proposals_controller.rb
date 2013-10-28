@@ -400,8 +400,13 @@ class ProposalsController < ApplicationController
     #if is time fixed you can choose immediatly vote period
     if @copy.time_fixed?
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
-        @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
-        @proposal.vote_ends_at = prparams[:votation][:end]
+        if prparams[:votation][:choise] == 'new'
+          @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
+          @proposal.vote_ends_at = prparams[:votation][:end]
+        else
+          @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+        end
+
         @proposal.vote_defined = true
       end
       #if the time is fixed we schedule notifications 24h and 1h before the end of debate

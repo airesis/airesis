@@ -22,12 +22,11 @@
           </div>
       <% end %>
 
-      <%= f.hidden_field :proposal_id %>
-      <%= f.hidden_field :event_type_id %>
-      <%= f.hidden_field :private %>
 
 
-      <div class="step">
+
+
+      <div class="step root root">
         <p>
           <%= f.label :title %>
           <br/>
@@ -40,11 +39,19 @@
           <%= f.text_area :description, :rows => 4, :cols => 30 %>
         </p>
 
-        <p>
-          <%= f.label :private %>
-          <br/>
-          <%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
-        </p>
+        <% if @event.is_votazione? %>
+            <%= f.hidden_field :private %>
+        <% else %>
+            <p>
+              <%= f.label :private %>
+              <br/>
+              <%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
+            </p>
+        <% end %>
+
+        <%= f.hidden_field :proposal_id %>
+        <%= f.hidden_field :event_type_id %>
+
       </div>
       <div class="step">
 

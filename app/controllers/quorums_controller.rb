@@ -140,7 +140,7 @@ class QuorumsController < ApplicationController
 
   #retrieve a list of votation dates compatibles with that quorum
   def dates
-    starttime = Time.now + @quorum.minutes + 10.minutes
+    starttime = Time.now + @quorum.minutes.minutes + 10.minutes
     if @group
       @dates = Event.in_group(@group.id).private.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] }
     else

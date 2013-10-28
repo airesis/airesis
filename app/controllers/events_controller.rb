@@ -4,15 +4,13 @@ class EventsController < ApplicationController
 
   layout :choose_layout
 
-  before_filter :check_events_permissions, :only => [:new, :create]
 
-  before_filter :load_group, :only => [:index, :list]
+  before_filter :load_group, :only => [:index, :list, :new, :create]
   before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
 
   def index
     authorize! :view_data, @group if @group
     @page_title = @group ? t('pages.events.index.title') + " - " + @group.name : t('pages.events.index.title')
-    @can_edit_events = @group ? (can? :create_event, @group) : is_admin?
     respond_to do |format|
       format.html
       format.ics do
@@ -49,18 +47,28 @@ class EventsController < ApplicationController
 
 
   def new
+    @title = @group ? "#{@group.name}" : ''
+    if @group
+      if params[:event_type_id] == EventType::VOTAZIONE.to_s
+        authorize! :create_date, @group
+      else
+        authorize! :create_event, @group
+      end
+    else
+      return unless admin_required
+    end
 
+    if params[:event_type_id] == EventType::VOTAZIONE.to_s
+      @title += "- #{t('pages.events.new.title_event')}"
+    else
+      @title += "- #{t('pages.events.new.title_meeting')}"
+    end
 
     @event = Event.new(starttime: Time.now + 10.minutes, endtime: 1.day.from_now + 10.minutes, period: "Non ripetere", event_type_id: params[:event_type_id])
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")
-    @title = @group ? "#{@group.name}" : ''
-    if params[:event_type_id] == EventType::VOTAZIONE.to_s
-     @title += "- #{t('pages.events.new.title_event')}"
-    else
-      @title += "- #{t('pages.events.new.title_meeting')}"
-    end
+
     if params[:proposal_id]
       @event.proposal_id = params[:proposal_id]
     end
@@ -76,17 +84,18 @@ class EventsController < ApplicationController
 
   def create
     #se è una votazione ignora tutto ciò che riguarda il luogo e le elezioni
-    if params[:event][:event_type_id] == "2"
-      params[:event].delete(:meeting_attributes)
-      params[:event].delete(:election_attributes)
-      #se è un'elezione ignora tutto ciò che riguarda il luogo
-    elsif params[:event][:event_type_id] == EventType::ELEZIONI.to_s
-      params[:event].delete(:meeting_attributes)
-      params[:event][:election_attributes][:name] = params[:event][:title]
-      params[:event][:election_attributes][:description] = params[:event][:description]
-      #altrimenti elimina tutto ciò che riguarda l'elezione
+    if @group
+      if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
+        authorize! :create_date, @group
+      else
+        authorize! :create_event, @group
+      end
     else
-      params[:event].delete(:election_attributes)
+      return unless admin_required
+    end
+
+    if params[:event][:event_type_id] == EventType::VOTAZIONE.to_s
+      params[:event].delete(:meeting_attributes)
     end
 
     Event.transaction do
@@ -247,14 +256,6 @@ class EventsController < ApplicationController
     @group = @event.meeting_organizations.first.group rescue nil
 
   end
-
-  def check_events_permissions
-    @group = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
-    return if is_admin?
-    permissions_denied if !@group
-    permissions_denied if (cannot? :create_event, @group)
-  end
-
 
   private
 
