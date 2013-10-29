@@ -1,0 +1,1 @@
+<%= link_to t('proposals.show.ready_for_vote'), {action: 'rankup', controller: 'proposals', id: @proposal.id, group_id: @group.try(:id)}, remote: true, id: 'voteup', class: 'btn  blue voteup', disable_with: t('loading') %>

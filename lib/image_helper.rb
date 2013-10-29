@@ -6,14 +6,11 @@ module ImageHelper
     else
       group = self
     end
-    
-    if group && !group.image_url.blank?
-      # Load image from model
-      ret = "<img src=\"#{group.image_url}\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"\" onerror=\"deleteMe(this);\" />"
-    else
-      ret = "<img src=\"/assets/gruppo-anonimo.png\"  style=\"width:#{size}px;height:#{size}px;\" alt=\"\" onerror=\"deleteMe(this);\" />"
-    end
-    return ret.html_safe
+
+    src = (group.image_url.blank?) ? '/assets/gruppo-anonimo.png' : group.image_url
+    style = size ? "width:#{size}px;height:#{size}px;" : ""
+    ret = "<img src=\"#{src}\"  style=\"#{style}\" alt=\"#{group.name}\" onerror=\"deleteMe(this);\" />"
+    ret.html_safe
   end
     
 end

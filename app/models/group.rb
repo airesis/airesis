@@ -4,6 +4,9 @@ class Group < ActiveRecord::Base
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
 
+  STATUS_ACTIVE = 'active'
+  STATUS_FEW_USERS_A = 'few_users_a'
+
   validates_presence_of :name
   validates_length_of :name, :within => 3..60
   validates_uniqueness_of :name
@@ -63,9 +66,6 @@ class Group < ActiveRecord::Base
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
 
   has_many :group_areas, dependent: :destroy
-
-  has_many :group_affinities, dependent: :destroy
-
 
   has_many :search_partecipants
 
@@ -284,6 +284,9 @@ class Group < ActiveRecord::Base
         end
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
+
+        paginate :page => 1, :per_page => params[:limit] || 30
+
       end.results
     end
   end

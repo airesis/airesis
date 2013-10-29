@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014155529) do
+ActiveRecord::Schema.define(:version => 20131028134218) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -273,6 +273,33 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.boolean  "score_calculated",    :default => false
   end
 
+  create_table "event_comment_likes", :force => true do |t|
+    t.integer  "event_comment_id", :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "event_comment_likes", ["event_comment_id", "user_id"], :name => "index_event_comment_likes_on_event_comment_id_and_user_id", :unique => true
+  add_index "event_comment_likes", ["event_comment_id"], :name => "index_event_comment_likes_on_event_comment_id"
+  add_index "event_comment_likes", ["user_id"], :name => "index_event_comment_likes_on_user_id"
+
+  create_table "event_comments", :force => true do |t|
+    t.integer  "parent_event_comment_id"
+    t.integer  "event_id",                                :null => false
+    t.integer  "user_id",                                 :null => false
+    t.integer  "user_ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.string   "body",                    :limit => 2500, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "event_comments", ["event_id"], :name => "index_event_comments_on_event_id"
+  add_index "event_comments", ["parent_event_comment_id"], :name => "index_event_comments_on_parent_event_comment_id"
+  add_index "event_comments", ["user_id"], :name => "index_event_comments_on_user_id"
+
   create_table "event_series", :force => true do |t|
     t.integer  "frequency",  :default => 1
     t.string   "period",     :default => "months"
@@ -460,15 +487,6 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer  "seq"
   end
 
-  create_table "group_affinities", :force => true do |t|
-    t.integer  "group_id",                       :null => false
-    t.integer  "user_id",                        :null => false
-    t.integer  "value"
-    t.boolean  "recalculate", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "group_areas", :force => true do |t|
     t.integer  "group_id",                           :null => false
     t.string   "name",                               :null => false
@@ -570,23 +588,23 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
     t.string   "description",                :limit => 2000
-    t.string   "accept_requests",                             :default => "p",   :null => false
+    t.string   "accept_requests",                             :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1,     :null => false
+    t.integer  "partecipation_role_id",                       :default => 1,        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                     :default => true,  :null => false
-    t.boolean  "default_anonima",                             :default => true,  :null => false
-    t.boolean  "default_visible_outside",                     :default => false, :null => false
-    t.boolean  "default_secret_vote",                         :default => true,  :null => false
-    t.integer  "max_storage_size",                            :default => 51200, :null => false
-    t.integer  "actual_storage_size",                         :default => 0,     :null => false
-    t.boolean  "enable_areas",                                :default => false, :null => false
-    t.integer  "group_partecipations_count",                  :default => 1,     :null => false
+    t.boolean  "change_advanced_options",                     :default => true,     :null => false
+    t.boolean  "default_anonima",                             :default => true,     :null => false
+    t.boolean  "default_visible_outside",                     :default => false,    :null => false
+    t.boolean  "default_secret_vote",                         :default => true,     :null => false
+    t.integer  "max_storage_size",                            :default => 51200,    :null => false
+    t.integer  "actual_storage_size",                         :default => 0,        :null => false
+    t.boolean  "enable_areas",                                :default => false,    :null => false
+    t.integer  "group_partecipations_count",                  :default => 1,        :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -595,7 +613,9 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.boolean  "private",                                     :default => false
     t.string   "rule_book",                  :limit => 40000
     t.string   "subdomain",                  :limit => 100
-    t.boolean  "certified",                                   :default => false, :null => false
+    t.boolean  "certified",                                   :default => false,    :null => false
+    t.string   "status",                                      :default => "active", :null => false
+    t.datetime "status_changed_at"
   end
 
   add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
@@ -676,7 +696,10 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "section_history_id",                  :null => false
     t.string  "content",            :limit => 40000
     t.integer "seq",                                 :null => false
+    t.integer "proposal_id",                         :null => false
   end
+
+  add_index "paragraph_histories", ["proposal_id"], :name => "index_paragraph_histories_on_proposal_id"
 
   create_table "paragraphs", :force => true do |t|
     t.integer "section_id",                  :null => false
@@ -847,6 +870,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "proposal_revisions", ["proposal_id"], :name => "index_proposal_revisions_on_proposal_id"
+
   create_table "proposal_schulze_votes", :force => true do |t|
     t.integer  "proposal_id",                :null => false
     t.string   "preferences",                :null => false
@@ -886,6 +911,7 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.string  "name",   :limit => 10,                    :null => false
     t.integer "seq",                  :default => 0
     t.boolean "active",               :default => false
+    t.string  "color",  :limit => 10
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -936,6 +962,7 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.boolean  "vote_defined",                               :default => false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
+    t.integer  "vote_event_id"
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -1032,6 +1059,9 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "section_history_id",   :null => false
   end
 
+  add_index "revision_section_histories", ["proposal_revision_id"], :name => "index_revision_section_histories_on_proposal_revision_id"
+  add_index "revision_section_histories", ["section_history_id"], :name => "index_revision_section_histories_on_section_history_id"
+
   create_table "schulze_votes", :force => true do |t|
     t.integer  "election_id",                :null => false
     t.string   "preferences",                :null => false
@@ -1101,10 +1131,15 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
     t.integer "seq",                  :null => false
   end
 
+  add_index "solution_histories", ["proposal_revision_id"], :name => "index_solution_histories_on_proposal_revision_id"
+
   create_table "solution_section_histories", :force => true do |t|
     t.integer "solution_history_id", :null => false
     t.integer "section_history_id",  :null => false
   end
+
+  add_index "solution_section_histories", ["section_history_id"], :name => "index_solution_section_histories_on_section_history_id"
+  add_index "solution_section_histories", ["solution_history_id"], :name => "index_solution_section_histories_on_solution_history_id"
 
   create_table "solution_sections", :force => true do |t|
     t.integer "solution_id", :null => false
@@ -1155,14 +1190,15 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   end
 
   create_table "steps", :force => true do |t|
-    t.integer  "tutorial_id",                    :null => false
-    t.integer  "index",       :default => 0,     :null => false
+    t.integer  "tutorial_id",                     :null => false
+    t.integer  "index",       :default => 0,      :null => false
     t.string   "title"
     t.text     "content"
     t.boolean  "required",    :default => false
     t.text     "fragment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "format",      :default => "html"
   end
 
   create_table "supporters", :force => true do |t|
@@ -1239,9 +1275,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
 
   create_table "tutorials", :force => true do |t|
     t.string   "action"
-    t.string   "controller",  :null => false
+    t.string   "controller", :null => false
     t.string   "name"
-    t.text     "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1428,6 +1463,13 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
+  add_foreign_key "event_comment_likes", "event_comments", :name => "event_comment_likes_event_comment_id_fk"
+  add_foreign_key "event_comment_likes", "users", :name => "event_comment_likes_user_id_fk"
+
+  add_foreign_key "event_comments", "event_comments", :name => "event_comments_parent_event_comment_id_fk", :column => "parent_event_comment_id"
+  add_foreign_key "event_comments", "events", :name => "event_comments_event_id_fk"
+  add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
+
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
 
   add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
@@ -1438,9 +1480,6 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
 
   add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
-
-  add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
-  add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
 
   add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"
@@ -1489,6 +1528,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "old_proposal_presentations", "proposal_lives", :name => "old_proposal_presentations_proposal_life_id_fk"
   add_foreign_key "old_proposal_presentations", "users", :name => "old_proposal_presentations_user_id_fk"
 
+  add_foreign_key "paragraph_histories", "proposals", :name => "paragraph_histories_proposal_id_fk"
+
   add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
 
   add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
@@ -1525,6 +1566,8 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
   add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
 
+  add_foreign_key "proposal_revisions", "proposals", :name => "proposal_revisions_proposal_id_fk"
+
   add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
 
   add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
@@ -1538,6 +1581,7 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
 
   add_foreign_key "proposal_votes", "proposals", :name => "proposal_votes_proposal_id_fk"
 
+  add_foreign_key "proposals", "events", :name => "proposals_vote_event_id_fk", :column => "vote_event_id"
   add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
   add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
   add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"
@@ -1553,9 +1597,17 @@ ActiveRecord::Schema.define(:version => 20131014155529) do
   add_foreign_key "regiones", "continentes", :name => "regiones_continente_id_fk"
   add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
 
+  add_foreign_key "revision_section_histories", "proposal_revisions", :name => "revision_section_histories_proposal_revision_id_fk"
+  add_foreign_key "revision_section_histories", "section_histories", :name => "revision_section_histories_section_history_id_fk"
+
   add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
 
   add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
+
+  add_foreign_key "solution_histories", "proposal_revisions", :name => "solution_histories_proposal_revision_id_fk"
+
+  add_foreign_key "solution_section_histories", "section_histories", :name => "solution_section_histories_section_history_id_fk"
+  add_foreign_key "solution_section_histories", "solution_histories", :name => "solution_section_histories_solution_history_id_fk"
 
   add_foreign_key "solution_sections", "sections", :name => "solution_sections_section_id_fk"
   add_foreign_key "solution_sections", "solutions", :name => "solution_sections_solution_id_fk"

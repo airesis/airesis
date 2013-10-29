@@ -4,6 +4,7 @@ class CandidatesController < ApplicationController
   
   layout "groups"
 
+  before_filter :admin_required
   before_filter :load_group, :only => [:new, :create]
   before_filter :check_group, :only => [:new, :create]
   before_filter :check_election, :only => [:create,:update]

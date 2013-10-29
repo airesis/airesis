@@ -27,6 +27,7 @@
     min-width:1000px;
 }
 
+
 #menu-left {
     float: left;
     width: 280px;
@@ -36,10 +37,10 @@
 }
 
 #centerpanelextended {
+    padding-top: 95px;
     padding-left: 20px;
     border-left: 1px dotted gray;
     display: inherit;
-    padding-top: 95px;
     padding-bottom: 40px;
     margin-left: 280px;
     margin-right: 90px;
@@ -68,27 +69,20 @@
     color: white;
     font-size: 13px;
     font-weight: bold;
-    position: absolute;
-    left: 280px;
-    margin-left: 10px;
-    top: 10px;
+    float: left;
+    margin-top: 6px;
     padding: 6px;
-    right: 90px;
 }
 
 #menu-group img {
     height: 60px;
     width: 60px;
-    position: absolute;
-    margin-left: 0px;
-    margin-top: -5px;
 }
 
 #menu-group .tit {
-    position: absolute;
-    margin-top: 2px;
-    margin-left: 70px;
-    font-size: 18px;
+    margin-top: 10px;
+
+    font-size: 20px;
 }
 
 #menu-top a {
@@ -97,12 +91,12 @@
 }
 
 #submenu {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 10px;
     color: white;
     font-weight: bold;
-    margin-top: 33px;
-    margin-left: 70px;
+    margin-top: 40px;
+
 }
 
 #submenu a.sel {
@@ -119,6 +113,7 @@
     float: left;
     margin-top: 20px;
     margin-left: 10px;
+    margin-right: 9px;
     color: white;
     font-weight: bold;
     font-size: 13px;
@@ -140,7 +135,7 @@
 }
 
 #menu-top .group-cont {
-    position: relative;
+    position: fixed;
     height: 141px;
     top: 80px;
     padding-top: 12px;
@@ -611,58 +606,56 @@
     border: 0px;
 }
 
-#menu-left .menu2 .mybox {
-    padding: 10px;
-    padding-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0px 0px 1px #000;
-    border-radius: 3px;
-    margin: 0px;
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: #333;
-    position: relative;
-}
+#menu-left .menu2 {
+    .mybox {
+        padding: 10px;
+        padding-bottom: 5px;
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: 0px 0px 1px #000;
+        border-radius: 3px;
+        margin: 0px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #333;
+        position: relative;
 
-.mybox .button {
-    position: absolute;
-    right: 9px;
-    top: 13px;
-    width: 16px;
-    height: 16px;
-    background-image: url('<%=asset_path 'menu_open.png'%>');
-    cursor: pointer;
-}
+        &.socialnetwork {
+            padding: 8px;
+        }
 
+        .mybox_button {
+            position: absolute;
+            right: 9px;
+            top: 13px;
+            width: 16px;
+            height: 16px;
+            background-image: url('<%=asset_path 'menu_open.png'%>');
+            cursor: pointer;
+            &.close {
+                background-image: url('<%=asset_path 'menu_close.png'%>');
+            }
+        }
+        .separator {
+            width: 100%;
+            border-top: 1px solid #bebebe;
+            display: block;
+        }
 
-.mybox .separator {
-    width: 100%;
-    border-top: 1px solid #bebebe;
-    display: block;
-}
+    }
+    h4 {
+        padding: 0px;
+        margin: 0px;
+        margin: 5px;
+        margin-bottom: 10px;
+        color: black;
+    }
+    .mycont {
+        border-top: 1px dotted gray;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        word-break: break-word;
 
-.mybox .button.close {
-    background-image: url('<%=asset_path 'menu_close.png'%>');
-}
-
-#menu-left .menu2 .mybox.socialnetwork {
-    padding: 8px;
-}
-
-#menu-left .menu2 h4 {
-    padding: 0px;
-    margin: 0px;
-    margin: 5px;
-    margin-bottom: 10px;
-    color: black;
-}
-
-#menu-left .menu2 .mycont {
-    border-top: 1px dotted gray;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    word-break: break-word;
-
+    }
 }
 
 #footer, footer {
@@ -699,6 +692,7 @@
 .centerfloat {
     float: left;
     max-width: 800px;
+    width:  100%;
     position: relative;
 }
 
@@ -785,7 +779,7 @@
     outline: medium none;
 }
 
-.btn:disabled, a[disabled=disabled] {
+.btn:disabled, a[disabled=disabled], .btn.disabled {
     opacity: 0.5;
 }
 
@@ -1022,5 +1016,34 @@
     font-size: 0.8em;
     padding: 0.2em 0.8em;
 }
+
+
+
+@media (max-width:999px) {
+    #menu-top {
+        position: absolute;
+        .group-cont {
+            position:  absolute;
+        }
+    }
+
+    #menu-right .cont {
+        position:  absolute;
+    }
+
+    #submenu .borx {
+        display: none;
+    }
+    #submenu .tria {
+        display: none;
+    }
+}
+
+
+#menu-top.introjs-fixParent {
+    z-index: 1 !important;
+    position: absolute;
+}
+
 
 

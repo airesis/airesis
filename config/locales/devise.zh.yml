@@ -6,6 +6,7 @@ zh:
       already_confirmed: "已經確認，請試著直接登入"
       not_locked: "沒有被鎖定"
       not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} 個錯誤不允許這 %{resource} 存檔:"
   devise:
     failure:

@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :blocked_emails, :class_name => 'BlockedEmail'
 
+  has_many :event_comments, :class_name => 'EventComment'
+  has_many :likes, :class_name => 'EventCommentLike'
+
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :groups, :through => :group_partecipations, :class_name => 'Group'
 
@@ -99,11 +102,6 @@ class User < ActiveRecord::Base
   belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
-  #affinità con i gruppi
-  has_many :group_affinities, :class_name => 'GroupAffinity'
-
-  has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
-
 
   #candidature
   has_many :candidates, :class_name => 'Candidate'
@@ -129,6 +127,16 @@ class User < ActiveRecord::Base
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
 
 
+  def suggested_groups
+    border = self.interest_borders.first
+    params = {}
+    params[:interest_border_obj] = border
+    params[:limit] = 12
+    Group.look(params)
+
+  end
+
+
   def email_required?
     super && !(has_provider('twitter') || has_provider('linkedin'))
   end
@@ -136,18 +144,15 @@ class User < ActiveRecord::Base
   #dopo aver creato un nuovo utente gli assegno il primo tutorial e
   #disattivo le notifiche standard
   def assign_tutorials
-    tutorial = Tutorial.find_by_name("Welcome Tutorial")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("First Proposal")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("Rank Bar")
-    assign_tutorial(self, tutorial)
+    Tutorial.all.each do |tutorial|
+      assign_tutorial(self, tutorial)
+    end
     self.blocked_alerts.create(:notification_type_id => 20)
     self.blocked_alerts.create(:notification_type_id => 21)
     self.blocked_alerts.create(:notification_type_id => 13)
     self.blocked_alerts.create(:notification_type_id => 3)
 
-    Resque.enqueue_in(5,GeocodeUser,self.id)
+    Resque.enqueue_in(5, GeocodeUser, self.id)
   end
 
   def init
@@ -163,10 +168,9 @@ class User < ActiveRecord::Base
     unless @search.empty? #continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
       @zone = Timezone::Zone.new :latlon => @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
-      self.update_attribute(:time_zone,@zone.active_support_time_zone) if @zone #update zone if found
+      self.update_attribute(:time_zone, @zone.active_support_time_zone) if @zone #update zone if found
     end
   end
-
 
 
   #restituisce l'elencod ei gruppi nei quali sono portavoce
@@ -195,11 +199,16 @@ class User < ActiveRecord::Base
     excluded_groups ? ret - excluded_groups : ret
   end
 
-  #return all group area partecipations of a particular group where the user can do a particular action
-  def scoped_areas(group_id, abilitation_id)
-    self.group_areas
-    .joins({:area_roles => :area_action_abilitations})
-    .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+  #return all group area partecipations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
+  def scoped_areas(group_id, abilitation_id=nil)
+    query = self.group_areas
+    if abilitation_id
+      query = query.joins({:area_roles => :area_action_abilitations})
+      .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+    else
+      query = query.joins(:area_roles)
+      .where(['group_areas.group_id = ?', group_id])
+    end
   end
 
   def self.new_with_session(params, session)
@@ -559,6 +568,10 @@ class User < ActiveRecord::Base
     !topic.hidden? || forem_admin?
   end
 
+  def auto_subscribe?
+    true
+  end
+
 
   def can_moderate_forem_forum?(forum)
     forum.moderator?(self)
@@ -596,8 +609,6 @@ class User < ActiveRecord::Base
   def to_s
     fullname
   end
-
-
 
 
 end

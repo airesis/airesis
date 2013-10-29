@@ -1,15 +1,18 @@
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step%>
 <h1>Inserisci una nuova proposta</h1>
 
 <%= render :partial => @proposal, :locals => { :button_name => "Crea", :remote => false } %>
 
-<%= link_to 'Indietro', :back, :class=>'buttonStyle' %>
+
 
 <script type="text/javascript">
-		$('#accordion').accordion({
-				collapsible: true,
-				autoHeight: false, 
-	    		active: false 
-			});
-		disegnaBottoni();
+
+    $(function() {
+    window.ClientSideValidations.selectors = {
+        inputs: ':input:not(button):not([type="submit"])[name]:enabled',
+        validate_inputs: ':input:enabled:visible[data-validate]',
+        forms: 'form[data-validate]'
+    };
+    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
+    $('#new_proposal').enableClientSideValidations();
+    });
 </script>

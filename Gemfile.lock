@@ -358,8 +358,6 @@ GEM
       rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.4.1)
-    tinymce-rails (3.5.8)
-      railties (>= 3.1.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -448,7 +446,6 @@ DEPENDENCIES
   therubyracer (= 0.10.1)
   thin
   timezone!
-  tinymce-rails
   turnout
   uglifier (>= 1.0.3)
   ultraviolet1x

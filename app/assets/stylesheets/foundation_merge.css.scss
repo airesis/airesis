@@ -249,11 +249,6 @@
   border: none;
 }
 
-#centerpanelextended {
-  padding-left: 0px;
-  margin-right: 70px;
-}
-
 .slide {
   padding: 20px;
   position: relative;
@@ -286,11 +281,7 @@
 }
 
 #main {
-  top: 100px;
-  position: absolute;
-  bottom: initial;
-  display: inherit;
-  min-width: initial;
+
 }
 
 #main-copy {
@@ -393,4 +384,8 @@ body {
 .homepageButton:hover {
   color: #fff;
   background-color: #4B6EB7;
+}
+
+.topbar-menu-icon {
+  background: no-repeat url(/assets/top-menu.png);
 }

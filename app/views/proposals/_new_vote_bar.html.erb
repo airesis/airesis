@@ -1,11 +1,15 @@
 <div class="vote timeline">
-  <div class="cur start" title="<%=raw "INIZIO VOTAZIONE:<br/>#{(l proposal.vote_period.starttime).upcase}"%>"></div> <!--TODO:I18n-->
-  <div class="cur stop" title="<%=raw "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase%>"></div>
-  <div class="time" data-percentage="<%= [((Time.now - proposal.vote_period.starttime)/proposal.vote_period.duration.to_f)*100,100].min %>">
+  <div class="cur start" title="<%= raw "INIZIO VOTAZIONE:<br/>#{(l proposal.vote_period.starttime).upcase}" %>"></div>
+  <!--TODO:I18n-->
+  <div class="cur stop" title="<%= raw "TERMINE VOTAZIONE:<br/>#{proposal.vote_period.endtime}".upcase %>"></div>
+  <% percentage = [((Time.now - proposal.vote_period.starttime)/proposal.vote_period.duration.to_f)*100, 100].min %>
 
-    <%unless proposal.voted? %>
-    <div class="cur now" title="<%=l Time.now %>"></div>
-    <%end%>
+  <div class="time" data-percentage="<%= percentage %>">
+
+
+    <% unless proposal.voted? %>
+        <div class="cur now" title="<%= l Time.now %>"></div>
+    <% end %>
 
 
     <div class="good" data-percentage="<%= (proposal.user_votes.count.to_f/proposal.eligible_voters_count.to_f)*100 %>">

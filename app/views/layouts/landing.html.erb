@@ -1,17 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>">
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
 
   <%= render :partial => "layouts/head" %>
 
-  <%= stylesheet_link_tag "foundation" %>
+
   <%= stylesheet_link_tag "foundation_and_override" %>
   <%= stylesheet_link_tag 'foundation_merge' %>
   <%= javascript_include_tag 'foundation' %>
 
   <script type="text/javascript">
-      $(function(){ $(document).foundation(); });
+      $(function () {
+          $(document).foundation();
+      });
   </script>
 
   <meta name="description" content="<%= (@page_descr) %>">
@@ -22,29 +24,32 @@
 
 
 <% content_for :menu do %>
+    <div class="left">
+      <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+    </div>
+    <div class="left">
+      <div class="tit left"><%= @page_title %></div>
+      <div class="topbar-menu-icon left"></div>
 
-    <span class="tit"><%= @page_title %></span>
-    <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-
-
-    <div id="submenu">
-      <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
-      <span> ⋅ </span>
-      <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
-      <% unless in_subdomain? %>
-          <span> ⋅ </span>
-          <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
-      <% end %>
-      <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
-      <div class="tria" style="left: 389px;"></div>
+      <div id="submenu">
+        <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
+        <span> ⋅ </span>
+        <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
+        <% unless in_subdomain? %>
+            <span> ⋅ </span>
+            <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
+        <% end %>
+        <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
+        <div class="tria" style="left: 389px;"></div>
+      </div>
     </div>
 <% end %>
 
@@ -52,17 +57,17 @@
 
 <div id="main">
   <div id="main-copy">
-      <div class="full-width">
+    <div class="full-width">
 
-        <%= yield :left_panel %>
+      <%= yield :left_panel %>
 
-        <%= yield :layout %>
+      <%= yield :layout %>
 
-      </div>
+    </div>
 
-  <%= render :partial => "layouts/new_footer" %>
-      </div>
+    <%= render :partial => "layouts/new_footer" %>
   </div>
+</div>
 
 
 </body>

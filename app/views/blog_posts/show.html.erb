@@ -28,7 +28,8 @@
   </p>
 
   <div class="blogPostBody" itemprop="description">
-    <%=sanitize @blog_post.body %>
+    <%= sanitize @blog_post.body %>
+    <div class="clearboth"></div>
   </div>
 
   <hr class="blogPostBreak"/>
@@ -55,10 +56,12 @@
 
 
 <%= content_for :left_panel do %>
-    <div class="mybox">
-      <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %>
-      <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
-    </div>
+    <% if can? :update, @blog_post %>
+        <div class="mybox">
+          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' %>
+          <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' %>
+        </div>
+    <% end %>
     <% if ::Configuration.socialnetwork_active %>
         <div class="mybox">
           <a href="https://twitter.com/share"

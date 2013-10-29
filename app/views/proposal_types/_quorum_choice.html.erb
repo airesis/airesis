@@ -1,0 +1,76 @@
+<p>
+  <%= f.label :quorum_id %>
+  *  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
+  <br/>
+  <% if @group %>
+      <% @quorum_collection = @group.quorums.active %>
+  <% else %>
+      <% @quorum_collection = Quorum.public.order('seq nulls last') %>
+  <% end %>
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
+<div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
+</div>
+</p>
+<div class="clearboth"></div>
+<p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
+
+</p>
+
+<div id="choose_votation" class="" style="display:none">
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(function () {
+        $('#proposal_quorum_id').select2({
+            minimumResultsForSearch: -1,
+            formatResult: formatQuorum,
+            formatSelection: formatQuorum,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+
+        $('#proposal_quorum_id').on("change", function (e) {
+            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
+            var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
+            var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
+            var id_ = $('#proposal_quorum_id option:selected').val();
+            if (exlanation_) {
+                $('#quorum_explanation').html(exlanation_).show();
+            }
+            else {
+                $('#quorum_explanation').hide();
+            }
+            if (timefixed_) {
+                $.ajax({
+                    url: '<%=dates_quorums_url%>',
+                    data: 'id=' + id_ + '&group_id=' + <%=@group.id%>,
+                    success: function () {
+                        $('#choose_votation').show();
+                        var now_ = new Date();
+                        var end_ = addMinutes(now_, parseInt(minutes_));
+
+                        var upperend_ = upperMinutes(end_, 5);
+                        $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                        $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
+                        $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
+                        $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));
+                        $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_, 120));
+                        $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_, 120));
+                        //$("#proposal_votation_end").focus();
+                    }
+                });
+
+            }
+            else {
+                $('#choose_votation').hide();
+            }
+        });
+    })
+</script>

@@ -3,6 +3,7 @@ class AreaRole < ActiveRecord::Base
   has_many :area_partecipations, :class_name => 'AreaPartecipation'
   has_many :users,:through => :area_partecipations, :class_name => 'User'
   has_many :area_action_abilitations, :class_name => 'AreaActionAbilitation', :dependent => :destroy
+  has_many :area_actions, class_name: 'GroupAction', through: :area_action_abilitations, source: :group_action
 
   belongs_to :group_area, :class_name => 'GroupArea', :foreign_key => :group_area_id
 

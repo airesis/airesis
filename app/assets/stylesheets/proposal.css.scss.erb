@@ -251,7 +251,7 @@
             border-right: 1px dotted black;
             padding: 0px 8px;
             margin: 8px 0px;
-            width: 90px;
+            width: 107px;
             .status {
                 font-size: 10px;
                 color: gray;
@@ -290,19 +290,23 @@
     }
 
     .proposalDescription {
-        margin-right: 5px;
-        max-width: 100px;
+        margin: 0px 10px;
         overflow: hidden;
-        width: 70px;
+
+        &.partecipants, &.contributes {
+            max-width: 15%;
+        }
     }
     .territoryDescription {
-        width: 300px;
+        max-width: 30%;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
+        margin:  0px 10px;
     }
     .timeDescription {
-        margin-right: 20px;
+        max-width: 50%;
+        margin-right: 10px;
         position: relative;
         white-space: nowrap;
         overflow: hidden;
@@ -335,7 +339,7 @@
 }
 
 .timeline {
-    background-color: silver;
+    background: url(<%=asset_path 'plist/timeline_bg.png'%>);
     height: 5px;
     margin-top: 18px;
     margin-bottom: 5px;
@@ -349,30 +353,46 @@
     margin-right: 15px;
 
     .cur {
-        height: 13px;
+       /* height: 13px;
         width: 13px;
-        border-radius: 50%;
+        border-radius: 50%;*/
         position: absolute;
         cursor: help;
-        box-shadow: 0px 0px 1px #000;
+        /*box-shadow: 0px 0px 1px #000;*/
         margin-top: -4px;
         background-color: #e6e6e6;
         z-index: 1;
         margin-left: -6px;
         opacity: 0.9;
 
+        &.start {
+            background: no-repeat url(<%= asset_path 'plist/start.png' %>);
+            height: 25px;
+            width: 7px;
+            margin-top: -10px;
+        }
+
         &.stop {
-            left: 100%;
-            background: #e6e6e6 url(/img/icon/prop/clock.png) no-repeat center;
+            right: -22px;
+            background: url(<%=asset_path 'plist/traguardo.png'%>) no-repeat center;
             background-size: 18px;
+            height: 20px;
+            width: 16px;
+            margin-top: -12px;
         }
 
         &.now {
+            background: no-repeat url(<%=asset_path 'plist/freccia_dx.png'%>);
             left: 100%;
+            height: 16px;
+            width: 14px;
+            margin-left: 0px;
+            margin-top: -5px;
         }
 
         &.quorum {
-            margin-top: -8px;
+            margin-top: -11px;
+            border-radius: 50%;
             width: 0;
             height: 0;
             border-left: 12px solid transparent;
@@ -401,7 +421,6 @@
             background-color: #07c100;
             height: 100%;
             width: 0%;
-            margin-left: -1px;
             float: left;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -703,27 +722,24 @@ h3 .tit1.sol {
 }
 
 .rankleftpanel .voteup {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .votedown {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .votedup {
-    float: left;
     margin-right: 5px;
 }
 
 .rankleftpanel .voteddown {
-    float: left;
     margin-right: 5px;
 }
 
 .vote_container {
-    margin-bottmo: 5px;
+    margin: 5px auto;
+    display: table;
 }
 
 .vote_description {
@@ -736,6 +752,7 @@ h3 .tit1.sol {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .baloon {
@@ -1131,10 +1148,11 @@ a.spch-bub-inside:hover .point {
     height: 150px;
     border: 1px dotted #ccc;
     cursor: pointer;
+    margin: 5px;
 }
 
 .proposal_model_option:hover {
-    background-color: #DFEFFC;
+    opacity: 0.8;
 }
 
 .proposal_model_option .model_name {
@@ -1158,11 +1176,16 @@ a.spch-bub-inside:hover .point {
     border-left-color: #fff;
 }
 
-#create_proposal {
+.btn.later {
+    float:right;
+}
+
+#create_proposal, #create_event {
     form {
         overflow: hidden;
-    }
 
+
+    }
     .bread-crumb {
         list-style: none outside none;
         padding: 0;

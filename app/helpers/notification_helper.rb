@@ -7,14 +7,9 @@ module NotificationHelper
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
-      UserAlert.transaction do #we need to close the transaction before scheduling the email because sometimes the worker starts before the transaction has been commited and can't find the alert throwing an error.
-        @alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
-        @alert.save! #invia la notifica
-      end
+      @alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
+      @alert.save! #invia la notifica
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
-      if (!user.blocked_email_notifications.include? notification.notification_type) && user.email
-        ResqueMailer.notification(@alert.id).deliver
-      end
     end
     true
   end
@@ -308,33 +303,6 @@ module NotificationHelper
   end
 
 
-  #invia una notifica agli utenti che è stato creato un nuovo evento
-  def notify_new_event(event)
-    if event.private
-      organizer = event.organizers.first
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't'}
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, :url => event_url(event), data: data)
-      notification_a.save
-
-      organizer.partecipants.each do |user|
-        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
-          send_notification_to_user(notification_a, user)
-        end
-      end
-    else
-      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'i18n' => 't'}
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
-      notification_a.save
-
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = #{NotificationType::NEW_PUBLIC_EVENTS}").to_sql})").each do |user|
-        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
-          send_notification_to_user(notification_a, user)
-        end
-      end
-    end
-  end
-
-
   #send an alert to the author that there is a new comments in his blog
   def notify_new_blog_post_comment(blog_comment)
     blog_post = blog_comment.blog_post
@@ -346,6 +314,20 @@ module NotificationHelper
       send_notification_to_user(notification_a, blog_post.user)
     end
   end
+
+  #send an alert to partecipants that there is a new comment in the event
+  def notify_new_event_comment(event_comment)
+#    blog_post = blog_comment.blog_post
+#    user = blog_comment.user
+#    unless blog_post.user == user #don't send a notification to myself
+#      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}", 'user' => user.fullname, 'title' => blog_post.title, 'i18n' => 't'}
+#      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
+#      notification_a.save
+#      send_notification_to_user(notification_a, blog_post.user)
+#    end
+    #TODO
+  end
+
 
 
   def notify_24_hours_left(proposal)

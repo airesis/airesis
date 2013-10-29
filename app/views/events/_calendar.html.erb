@@ -2,7 +2,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
 </script>
 
-<% if can_edit_events %>
+<% if (@group ? (can? :create_event, @group) : is_admin?) %>
     <style type="text/css">
         .fc-widget-content {
             cursor: pointer;
@@ -17,113 +17,161 @@
         }
     </style>
 <% end %>
-<div class="wrapper">
-  <div class="subPageContent">
-    <div class="aplicationContent">
-      <div class="appRightContent">
-        <p>
-          <%= content_for :left_panel do %>
-            <div class="menu2">
-              <% if @group %>
-                  <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group), :remote => true, :class => 'btn blue newButton disable' if can_edit_events %>
-              <% else %>
-                  <%= link_to t('pages.calendar.create_event_button'), {:controller => :events, :action => :new}, :remote => true, :class => 'btn blue newButton disable' if can_edit_events %>
-              <% end %>
-            </div>
-        <% end %>
-        </p>
-
-        <script type="text/javascript">
 
 
-            $(function () {
-                $('#calendar').fullCalendar({
-                    editable: true,
-                    <%if !can_edit_events %>
-                    disableDragging: true,
-                    disableResizing: true,
-                    <%end%>
-
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    defaultView: 'month',
-                    height: 600,
-                    aspectRatio: 1,
-                    slotMinutes: 15,
-                    firstDay: <%=t('calendar.firstDay')%>,
-                    monthNames: <%=t('calendar.monthNames')%>,
-                    monthNamesShort: <%=t('calendar.monthNamesShort')%>,
-                    dayNames: <%=t('calendar.dayNames')%>,
-                    dayNamesShort: <%=t('calendar.dayNamesShort')%>,
-                    buttonText: {
-                        prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
-                        next: "<span class='fc-text-arrow'>&rsaquo;</span>",
-                        prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
-                        nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
-                        today: '<%=t('calendar.today')%>',
-                        month: '<%=t('calendar.month')%>',
-                        week: '<%=t('calendar.week')%>',
-                        day: '<%=t('calendar.day')%>'
-                    },
-                    <%if @group %>
-                    events: '<%=list_events_url(:group_id => @group)%>',
-                    <%else%>
-                    events: '<%=list_events_url%>',
-                    <%end%>
-                    timeFormat: '<%=t('calendar.timeFormat')%>',
-                    dragOpacity: "0.5",
-                    eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-                        moveEvent(event, dayDelta, minuteDelta, allDay);
-                    },
-
-                    eventResize: function (event, dayDelta, minuteDelta, revertFunc) {
-                        resizeEvent(event, dayDelta, minuteDelta);
-                    },
-
-                    eventClick: function (event, jsEvent, view) {
-                        goEventPage(event);
-                    },
-
-                    eventRender: function (event, element) {
-                        if (event.editable) {
-                            element.css('cursor', 'pointer');
-                        }
-                    }
-
-                });
-
-                <%if params[:new_event] == 'true' %>
-                $.ajax({
-                    url: '<%=new_event_url(:group_id=> params[:group_id], :type => params[:type]) %>'
-                });
-                /*$('.newButton').click();*/
-                <%end%>
-
-            });
-        </script>
-        <div>
-          <div id='calendar'>
-          </div>
-        </div>
-        <div id="desc_dialog" style="display:none;">
-          <div id="event_desc">
-          </div>
-          <br/>
-          <br/>
-
-          <div id="event_actions">
-            <span id="edit_event"></span>
-            <span id="delete_event"></span>
-          </div>
-        </div>
-        <div id="create_event_dialog" style="display:none;">
-          <div id="create_event">
-          </div>
-        </div>
-      </div>
-    </div>
+<div>
+  <div id='calendar'>
   </div>
 </div>
+<div id="desc_dialog" style="display:none;">
+  <div id="event_desc">
+  </div>
+  <br/>
+  <br/>
+
+  <div id="event_actions">
+    <span id="edit_event"></span>
+    <span id="delete_event"></span>
+  </div>
+</div>
+
+<div id="create_event_dialog" style="display:none;">
+
+</div>
+
+
+
+<%= content_for :left_panel do %>
+    <div class="menu2">
+      <% if @group %>
+          <% if (can? :create_both_events, @group) %>
+              <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>
+          <%elsif can? :create_event, @group %>
+              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::INCONTRO), remote: true, class: 'btn blue newButton', disable_with: t('loading') %>
+          <%elsif can? :create_date, @group %>
+              <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE), remote: true, class: 'btn blue newButton', disable_with: t('loading') %>
+          <% end %>
+      <% else %>
+          <% if is_admin? %>
+              <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton disable' %>
+          <% end %>
+      <% end %>
+    </div>
+
+
+    <div class="choose_event_type" style="display:none;">
+      <% EventType.active.each do |event_type| %>
+          <div class="proposal_model_option" data-id="<%= event_type.id %>">
+            <div class="model_name"><%= event_type.description.upcase %></div>
+          </div>
+      <% end %>
+    </div>
+
+<% end %>
+
+
+<script type="text/javascript">
+    function chooseEventType() {
+        var create_event_ = $('#create_event_dialog');
+        create_event_.empty();
+        create_event_.append($('.choose_event_type').clone().show());
+
+
+        $('.proposal_model_option', create_event_).click(function () {
+            var create_event_inner_ = $('.choose_event_type', create_event_);
+            var type_id = $(this).data('id');
+            create_event_inner_.hide(1000, function () {
+                create_event_inner_.remove();
+                create_event_.append('<%=j render "fragments/loading"%>');
+                $.ajax({
+                    url: '<%=new_event_path(group_id: (@group.id if @group), models: true)%>',
+                    data: 'event_type_id=' + type_id,
+                    dataType: 'script'
+                })
+            });
+
+
+        });
+
+
+        create_event_.dialog({
+            title: "<%=j t('pages.events.index.choose_type') %>",
+            modal: true,
+            width: 500,
+            height: 'auto',
+            close: function (event, ui) {
+                create_proposal_.dialog('destroy');
+            }
+        });
+        return false;
+    }
+
+
+    $(function () {
+        $('#calendar').fullCalendar({
+            editable: true,
+            <%if (@group ? (can? :create_event, @group) : is_admin?) %>
+            disableDragging: true,
+            disableResizing: true,
+            <%end%>
+
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultView: 'month',
+            height: 600,
+            aspectRatio: 1,
+            slotMinutes: 15,
+            firstDay: <%=t('calendar.firstDay')%>,
+            monthNames: <%=t('calendar.monthNames')%>,
+            monthNamesShort: <%=t('calendar.monthNamesShort')%>,
+            dayNames: <%=t('calendar.dayNames')%>,
+            dayNamesShort: <%=t('calendar.dayNamesShort')%>,
+            buttonText: {
+                prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
+                next: "<span class='fc-text-arrow'>&rsaquo;</span>",
+                prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
+                nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
+                today: '<%=t('calendar.today')%>',
+                month: '<%=t('calendar.month')%>',
+                week: '<%=t('calendar.week')%>',
+                day: '<%=t('calendar.day')%>'
+            },
+            <%if @group %>
+            events: '<%=list_events_url(:group_id => @group)%>',
+            <%else%>
+            events: '<%=list_events_url%>',
+            <%end%>
+            timeFormat: '<%=t('calendar.timeFormat')%>',
+            dragOpacity: "0.5",
+            eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
+                moveEvent(event, dayDelta, minuteDelta, allDay);
+            },
+
+            eventResize: function (event, dayDelta, minuteDelta, revertFunc) {
+                resizeEvent(event, dayDelta, minuteDelta);
+            },
+
+            eventClick: function (event, jsEvent, view) {
+                goEventPage(event);
+            },
+
+            eventRender: function (event, element) {
+                if (event.editable) {
+                    element.css('cursor', 'pointer');
+                }
+            }
+
+        });
+
+        <%if params[:new_event] == 'true' %>
+        $.ajax({
+            url: '<%=new_event_url(:group_id=> @group.id, :type => params[:type]) %>'
+        });
+        /*$('.newButton').click();*/
+        <%end%>
+
+    });
+</script>

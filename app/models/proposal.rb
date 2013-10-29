@@ -5,13 +5,12 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation', :order => 'id DESC', :dependent => :destroy
+  has_many :proposal_presentations, :class_name => 'ProposalPresentation', order: 'id DESC', dependent: :destroy
 
-  has_many :proposal_borders, :class_name => 'ProposalBorder', :dependent => :destroy
+  has_many :proposal_borders, :class_name => 'ProposalBorder', dependent: :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
 
-  has_many :revisions, class_name: 'ProposalRevision'
-
+  has_many :revisions, class_name: 'ProposalRevision', dependent: :destroy
 
   #  has_many :proposal_watches, :class_name => 'ProposalWatch'
   has_one :vote, :class_name => 'ProposalVote', dependent: :destroy
@@ -293,7 +292,12 @@ class Proposal < ActiveRecord::Base
     end
 
     first_solution = self.solutions.first
-    first_section = first_solution ? first_solution.sections.first : self.sections.first
+    first_section =
+        if first_solution && first_solution.sections.first
+          first_solution.sections.first
+        else
+          self.sections.first
+        end
     self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
 
 
@@ -314,7 +318,7 @@ class Proposal < ActiveRecord::Base
       if paragraph.content_changed?
         something = true
         section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
     self.solutions.each do |solution|
@@ -326,7 +330,7 @@ class Proposal < ActiveRecord::Base
           something = true
           something_solution = true
           section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1)
+          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
         end
       end
       solution_history.destroy unless something_solution

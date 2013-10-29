@@ -291,19 +291,33 @@ module GroupsHelper
         super
   end
 
+  #def group_forums_url(group,option={})
+  #  forums_url
+  #end
+
+
   #forum
   #all routes concerning forums
   #we write them dynamically to avoid writing every single method.
   #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
-  names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
-  names.each do |name|
-    self.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
-    def #{name}_url(group,*args)
-      (group_in_subdomain? group) ?
-        #{name.gsub('group_', '')}_url(*args) :
-        super
-    end if !(defined? #{name})
-    END_EVAL
+  #Airesis::Application.reload_routes!
+  def self.init
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
+    names.each do |name|
+      Rails.logger.info "defining: #{name}_url"
+      define_method("#{name}_url") do |group,*args|
+        (group_in_subdomain? group) ?
+            send("#{name.gsub('group_', '')}_url", *args) :
+            super(group,*args)
+      end
+      #self.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
+      #def #{name}_url(group,*args)
+      #  (group_in_subdomain? group) ?
+      #    #{name.gsub('group_', '')}_url(*args) :
+      #    super
+      #end
+      #END_EVAL
+    end
   end
 
 

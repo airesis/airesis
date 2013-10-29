@@ -28,3 +28,10 @@ elaborate_emails:
   class: ElaborateEmails
   queue: cron
   description: "Elaborate received emails"
+
+#this job check the groups status and update it if necessary sending appropriate emails
+#check_groups:
+#  cron: "* * * * *"
+#  class: CheckGroups
+#  queue: cron
+#  description: "Check status of the groups"

@@ -49,7 +49,7 @@ it:
       STREAM_POST:
         description: Pubblicare nella Bacheca del gruppo
       CREATE_EVENT:
-        description: Creare eventi e votazioni
+        description: Creare eventi meetup
       PROPOSAL:
         description: Sostenere proposte a nome del gruppo
       REQUEST_ACCEPT:
@@ -68,6 +68,8 @@ it:
         description: Gestire i documenti
       PROPOSAL_VOTE:
         description: Votare le proposte
+      PROPOSAL_DATE:
+        description: Creare eventi di votazione
     notification_categories:
       MYPROP:
         description: Proposte che redigo
@@ -82,11 +84,11 @@ it:
     notification_types:
       new_public_events:
         description: Nuovi eventi pubblici
-        email_subject: Un evento pubblico è stato inserito
+        email_subject: "Nuovo evento pubblico: %{event}"
         message: "Nuovo evento pubblico: <b>%{event}</b>"
       new_events:
         description: Nuovi eventi dei gruppi a cui partecipo
-        email_subject: Un nuovo evento è stato inserito
+        email_subject: "Nuovo evento: %{event}"
         message: "Nuovo evento <b>%{event}</b> nel gruppo <b>%{group}</b>."
       new_posts_user_follow:
         description: Nuovi post di un utente che seguo

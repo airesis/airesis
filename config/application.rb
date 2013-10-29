@@ -25,7 +25,7 @@ module Airesis
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     config.autoload_paths << "#{Rails.root}/lib"
     config.time_zone = 'Rome'
     config.i18n.default_locale = :en
@@ -37,10 +37,14 @@ module Airesis
     end
 
     config.action_view.sanitized_allowed_tags = ['u', 'iframe']
-    config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style','data-cke-realelement']
-  #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
-  #    include ActionView::Helpers::OutputSafetyHelper
-  #    raw %(<span class="field_with_errors">#{html_tag}</span>)
-  #  end 
+    config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style', 'data-cke-realelement']
+    #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+    #    include ActionView::Helpers::OutputSafetyHelper
+    #    raw %(<span class="field_with_errors">#{html_tag}</span>)
+    #  end
+
+    config.after_initialize do
+      GroupsHelper.init
+    end
   end
 end

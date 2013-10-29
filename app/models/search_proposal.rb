@@ -82,19 +82,19 @@ class SearchProposal < ActiveRecord::Base
       end
 
       dir = (self.order_dir == 'a') ? :asc : :desc
-      if self.order_id == ORDER_BY_RANK
+      if self.order_id == SearchProposal::ORDER_BY_RANK
         order_by :rank, dir
         order_by :created_at, dir
-      elsif self.order_id == ORDER_BY_VOTES
+      elsif self.order_id == SearchProposal::ORDER_BY_VOTES
         order_by :valutations, dir
         order_by :created_at, dir
-      elsif self.order_id == ORDER_BY_END
+      elsif self.order_id == SearchProposal::ORDER_BY_END
         order_by :quorum_ends_at, dir
         order_by :valutations, dir
-      elsif self.order_id == ORDER_BY_VOTATION_END
+      elsif self.order_id == SearchProposal::ORDER_BY_VOTATION_END
         order_by :votation_ends_at, dir
         order_by :votes, dir
-      elsif self.order_id == ORDER_BY_VOTES_NUMBER
+      elsif self.order_id == SearchProposal::ORDER_BY_VOTES_NUMBER
         order_by :votes, dir
         order_by :votation_ends_at, dir
       else
@@ -167,11 +167,11 @@ class SearchProposal < ActiveRecord::Base
   def order
     order_s = ""
     dir = (self.order_dir == 'a') ? 'asc' : 'desc'
-    if self.order_id == ORDER_BY_RANK
+    if self.order_id == SearchProposal::ORDER_BY_RANK
       order_s << " proposals.rank #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == ORDER_BY_VOTES
+    elsif self.order_id == SearchProposal::ORDER_BY_VOTES
       order_s << " proposals.valutations #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == ORDER_BY_END
+    elsif self.order_id == SearchProposal::ORDER_BY_END
       order_s << " quorums.ends_at #{dir}, proposals.valutations #{dir}"
     else
       order_s << "proposals.updated_at #{dir}, proposals.created_at #{dir}"
@@ -182,11 +182,11 @@ class SearchProposal < ActiveRecord::Base
   def old_order
     order_s = ""
     dir = (self.order_dir == 'a') ? 'asc' : 'desc'
-    if self.order_id == ORDER_BY_RANK
+    if self.order_id == SearchProposal::ORDER_BY_RANK
       order_s << " proposals.rank #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == ORDER_BY_VOTES
+    elsif self.order_id == SearchProposal::ORDER_BY_VOTES
       order_s << " proposals.valutations #{dir}, proposals.created_at #{dir}"
-    elsif self.order_id == ORDER_BY_END
+    elsif self.order_id == SearchProposal::ORDER_BY_END
       order_s << " quorums.ends_at #{dir}, proposals.valutations #{dir}"
     else
       order_s << "proposals.updated_at #{dir}, proposals.created_at #{dir}"

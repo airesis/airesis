@@ -4,4 +4,4 @@
 <%else%>
 <h1><%= t('pages.groups.index.open_space_title') %></h1>
 <%end%>
-<%=render :partial => "calendar", :locals => {:can_edit_events => @can_edit_events, :group => @group} %>
+<%=render :partial => "calendar", :locals => {:group => @group} %>

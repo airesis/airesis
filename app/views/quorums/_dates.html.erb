@@ -1,0 +1,156 @@
+<h2 style="float:left;"><%= t('pages.proposals.show.choose_votation_period') %></h2>
+
+<div class="inner">
+
+  <div class="clearboth"></div>
+  <%= fields_for 'proposal' do |f| %>
+      <%= f.fields_for 'votation' do |v| %>
+          <%= v.hidden_field 'later' %>
+          <div class="choise_a">
+            <% if @group && (can? :create_date, @group) && !@dates.empty? %>
+                <%= v.radio_button 'choise', 'preset', checked: true %>
+            <% end %>
+
+              <% unless @dates.empty? %>
+                  <%= v.label 'choise_preset', 'periodi già creati', class: 'radiolabel' %> <br/>
+                <div class="inner">
+                  <%= v.select :vote_period_id, options_for_select(@dates), {style: 'width:400px'} %>
+                </div>
+              <% end %>
+
+          </div>
+          <% if @group && (can? :create_date, @group) %>
+              <div class="choise_b">
+                <% unless @dates.empty? %>
+                    <%= v.radio_button 'choise', 'new' %>
+                <% end %>
+
+                <%= v.label 'choise_new','Crea un nuovo periodo di votazione', class: 'radiolabel' %>     <br/>
+
+                <div class="inner" style="opacity: <%= @dates.empty? ? 1 : 0.6 %>">
+                  <div style="float:left">
+                    <div id="start_preset" style="display: block;">
+                      <%= v.label 'start', 'da ' %>
+                      <span class="start_vot" ondblclick="changeStart();"></span>
+                    </div>
+                    <div id="start_choose" style="display:none">
+                      <%= v.label 'start', 'da ' %>
+                      <%= v.text_field 'start' %>
+                      <%= v.hidden_field 'start_edited' %>
+                      <span class="cancel_action">X</span>
+                    </div>
+                  </div>
+                  <div style="float:left">
+                    <%= v.label 'end', ' a ' %>
+                    <%= v.text_field 'end' %>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+          <div class="clearboth"></div>
+      <% end %>
+  <% end %>
+
+
+</div>
+<%= link_to 'No thanks. I will choose it later', '#', class: 'btn later', id: 'later', data: {other: 'I want to choose it now'} %>
+<div class="clearboth"></div>
+
+<script type="text/javascript">
+
+
+    function changeStart() {
+        $('#start_preset').hide();
+        $('#start_choose').show();
+        $('#proposal_votation_start_edited').val('true');
+    }
+
+
+
+
+    $(function () {
+        $('[name="proposal[votation][choise]"]').change(function () {
+            console.log($(this).val());
+            if ($(this).val() == 'preset') {
+                $('.choise_b .inner').css('opacity', 0.6);
+                $('.choise_a .inner').css('opacity', 1);
+            }
+            else {
+                $('.choise_b .inner').css('opacity', 1);
+                $('.choise_a .inner').css('opacity', 0.6);
+            }
+        });
+
+
+        $('.radiolabel').click(function() {
+           $('#'+$(this).attr('for')).click();
+        });
+
+
+        $('#proposal_votation_vote_period_id').select2({
+            minimumResultsForSearch: -1,
+            formatResult: formatPeriod,
+            formatSelection: formatPeriod,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+
+        $('#proposal_votation_vote_period_id').on("select2-focus", function (e) {
+            console.log('click');
+            $('#proposal_votation_choise_preset').click();
+        });
+
+        var datePickerOptions = {
+            buttonImageOnly: true,
+            buttonImage: "<%= asset_path('iconCalendar.png') %>",
+            showOn: "both",
+            changeMonth: false,
+            changeYear: false,
+            yearRange: "c:c+10",
+            maxDate: "+10Y",
+            duration: "",
+            showTime: true,
+            constrainInput: true,
+            stepMinute: 5,
+            stepHour: 1,
+            altTimeField: "alt"
+        };
+
+        $('#proposal_votation_end').datetimepicker($.extend({}, datePickerOptions, {
+            onClose: function (date) {
+                $('#proposal_votation_choise_new').click();
+            }
+        }));
+        $('#proposal_votation_start').datetimepicker($.extend({}, datePickerOptions, {
+            onClose: function (date) {
+                var eventStartTime_ = $('#proposal_votation_start').datetimepicker("getDate");
+                $('#proposal_votation_end').datetimepicker("option", "minDate", eventStartTime_);
+                $('#proposal_votation_choise_new').click();
+            }
+        }));
+
+        $('#choose_votation .cancel_action').click(function () {
+            $('#start_preset').show();
+            $('#start_choose').hide();
+            $('#proposal_votation_start_edited').val(null);
+        });
+
+
+        $('#later').click(function () {
+            var later_ = $('#proposal_votation_later');
+            if (later_.val() == 'true') {
+                $('#choose_votation .inner').show();
+                later_.val('false');
+            }
+            else {
+                $('#choose_votation .inner').hide();
+                later_.val('true')
+            }
+            switchText($(this));
+            return false;
+        });
+
+    });
+</script>

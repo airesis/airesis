@@ -68,6 +68,8 @@ en:
         description: Manage documents
       PROPOSAL_VOTE:
         description: Vote proposals
+      PROPOSAL_DATE:
+        description: Choose proposals votation period
     notification_categories:
       MYPROP:
         description: Proposals I write
@@ -82,11 +84,11 @@ en:
     notification_types:
       new_public_events:
         description: New public events
-        email_subject: There is a new public event
+        email_subject: "New public event: %{event}"
         message: "New public event: <b>%{event}</b>"
       new_events:
         description: New events in the groups I participate in
-        email_subject: There is a new event
+        email_subject: "New event: %{event}"
         message: "New event <b>%{event}</b> in the group <b>%{group}</b>"
       new_posts_user_follow:
         description: New posts from a user I am following

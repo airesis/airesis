@@ -1,0 +1,6 @@
+<%if !@dates.empty? || (can? :create_date, @group)%>
+$('#choose_votation').html('<%=j render '/quorums/dates'%>');
+
+<%else%>
+$('#choose_votation').html('');
+<%end%>

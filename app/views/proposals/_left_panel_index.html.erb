@@ -8,7 +8,7 @@
       <div id="group_areas">
         <h4><%= t('pages.proposals.index.group_areas_title') %></h4>
 
-        <div class="button"></div>
+        <div class="mybox_button"></div>
         <div class="mycont">
           <% if params[:group_area_id] %>
               <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
@@ -42,7 +42,7 @@
         <% else %>
             <h4><%= t('pages.proposals.index.categories_title') %></h4>
         <% end %>
-        <div class="button"></div>
+        <div class="mybox_button"></div>
 
         <div class="mycont">
           <% if params[:category] %>
@@ -58,7 +58,7 @@
                  joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
                  conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
                end
-               categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id')
+               categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id,  proposal_categories.parent_proposal_category_id, proposal_categories.name, proposal_categories.seq')
 
                #categories = ProposalCategory.all
                categories.each do |category| %>
@@ -93,7 +93,7 @@
         <% else %>
             <h4><%= t('pages.proposals.index.proposal_types_title') %></h4>
         <% end %>
-        <div class="button"></div>
+        <div class="mybox_button"></div>
 
         <div class="mycont">
           <% if params[:type] %>
@@ -109,17 +109,17 @@
                types = ProposalType.all(
                        :joins => joins,
                        :conditions => conditions,
-                       :group => 'proposal_types.id'
+                       :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active, proposal_types.color'
                )
                types.each do |type| %>
                 <tr>
                   <td style="vertical-align: middle;">
                     <% if params[:type] == type.id.to_s %>
-                        <%= image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
+                        <%#= image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
                         </td>
                         <td><%= type.description %>
                     <% else %>
-                        <%= link_to image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :style => "width:22px;padding-right:2px;"), current_url(:type => type.id) %>
+                        <%#= link_to image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :style => "width:22px;padding-right:2px;"), current_url(:type => type.id) %>
                         </td>
                         <td>
                           <a href="<%= current_url(:type => type.id) %>">
@@ -141,7 +141,7 @@
   <div class="mybox">
     <h4><%= 'Data di creazione' %></h4>
 
-    <div class="button"></div>
+    <div class="mybox_button"></div>
     <div class="mycont">
 
       <div class="hidden_link">
@@ -189,7 +189,7 @@
 <% if @group && (can? :view_proposal, @group)%>
     <div class="mybox">
       <h4><%= t('pages.proposals.index.search_title') %></h4>
-      <div class="button"></div>
+      <div class="mybox_button"></div>
       <div class="mycont">
         <%= render :partial => 'search_form' %>
       </div>

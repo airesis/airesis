@@ -41,6 +41,14 @@ class Ability
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
+      #can :choose_date, Proposal do |proposal|
+      #  if proposal.private?
+      #    group = proposal.presentation_groups.first
+      #    (can? :choose_proposal_date, group) && (user.is_mine? proposal)
+      #  else
+      #    user.is_mine? proposal
+      #  end
+      #end
       can :regenerate, Proposal do |proposal|
         can_regenerate_proposal?(user, proposal)
       end
@@ -85,7 +93,7 @@ class Ability
         can_do_on_group?(user, group, 1)
       end
       can :create_event, Group do |group|
-        can_do_on_group?(user, group, 2)
+        can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
       end
       can :support_proposal, Group do |group|
         can_do_on_group?(user, group, 3)
@@ -108,6 +116,18 @@ class Ability
       can :insert_proposal, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
+      end
+      can :create_date, Group do |group|
+        #can_do_on_group?(user,group,4)
+        can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE)
+      end
+      can :create_both_events, Group do |group|
+        can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE) && can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
+
+      end
+      can :create_any_event, Group do |group|
+        can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE) || can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
+
       end
       can :view_data, Group do |group|
         !group.is_private? || (group.partecipants.include? user) #todo remove first condition
@@ -171,7 +191,7 @@ class Ability
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
       end
 
-      can :edit, BlogPost do |blog_post|
+      can :update, BlogPost do |blog_post|
         blog_post.user == user
       end
 
@@ -247,6 +267,7 @@ class Ability
 
         can :update, Proposal #can edit them
         can :partecipate, Proposal #can partecipate
+        #can :choose_date, Proposal #can edit them
         can :destroy, Proposal #can destroy one
         can :destroy, ProposalComment
         can :manage, Group
@@ -279,7 +300,7 @@ class Ability
         c1 = user.admin?
       end
       c1 &&
-      ((event.is_votazione? && event.proposals.count == 0) ||
+      ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count = 0) ||
           (event.is_elezione? && event.election.candidates.count == 0) ||
           (event.is_incontro? || event.is_riunione?))
     end
