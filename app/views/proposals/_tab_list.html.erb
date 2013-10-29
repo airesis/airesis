@@ -35,10 +35,15 @@
                 if (group != null && group != 'null')
                     nurl += '&group_id=' + group
                 $.ajax({ url: nurl + '&page=' + currentPage, type: 'get'});
-            })
-
-            disegnaProgressBar();
+            });
         })
     </script>
 <% end %>
+
+
+<script type="text/javascript">
+    $(function () {
+        disegnaProgressBar();
+    });
+</script>
 
