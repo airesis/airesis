@@ -2,12 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" xmlns:fb="http://ogp.me/ns/fb#" lang="<%= I18n.locale %>"  <%= yield :html_options %>>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
   <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
+
+
   <%= render :partial => "layouts/head" %>
-
-
   <%= stylesheet_link_tag "foundation_and_overrides" %>
   <%= stylesheet_link_tag 'foundation_merge' %>
   <%= javascript_include_tag 'foundation' %>
+
+
 
   <script type="text/javascript">
       $(function () {

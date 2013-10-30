@@ -105,7 +105,11 @@
           <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
         <p>
-          <%= f.check_box :private %><%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" %>
+
+          <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do%>
+               <%= f.check_box :private %>
+               <%=t('activerecord.attributes.group.private')%>
+           <%end%>
           <br/>
           <% if @group.is_private? %>
             <p class="toast-info info-panel">
@@ -113,13 +117,14 @@
             </p>
         <% end %>
         </p>
-        <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
+
     <% end %>
 
     <p>
       <%= f.submit button_name, :class => 'btn blue', disable_with: t('saving') %>
     </p>
 <% end %>
+<%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
 <script type="text/javascript">
     $(function () {

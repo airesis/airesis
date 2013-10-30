@@ -27,50 +27,7 @@ $("#create_event_dialog #event_meeting_attributes_place_attributes_comune_id").t
     allowTabOut: true
 });
 
-<%unless @event.is_votazione? %>
-if (!geocoder){
-    geocoder = new google.maps.Geocoder();}
 
-var latlng = new google.maps.LatLng(42.407235,14.260254);
-
-var myOptions = {
-	zoom : 5,
-	center: latlng,
-	mapTypeId : google.maps.MapTypeId.ROADMAP,
-	panControl : true,
-	streetViewControl : true,
-	mapTypeControl : false
-};
-
-
-map = new google.maps.Map(document.getElementById('create_map_canvas'), myOptions);
-<%if params[:type] == 'votation' %>
-    showPlace('2');
-<%end%>
-
-var panoramaOptions = {
-	position : latlng,
-	pov : {
-		heading : 34,
-		pitch : 10,
-		zoom : 1
-	}
-};
-marker = new google.maps.Marker({
-	map : map,
-	draggable : true
-});
-
-google.maps.event.addListener(marker, 'dragend', listenMarkerPosition);
-google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
-google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
-
-
-/*var panorama = new  google.maps.StreetViewPanorama(document.getElementById("panorama_canvas"),panoramaOptions);
- map.setStreetView(panorama);*/
-
-putMarker("Italy");	//inizializza il marcatore sull'Italia
-<%end%>
 disegnaDatePicker();   
 
 
@@ -81,7 +38,7 @@ $('.legend').hide();
 $("#new_event").quickWizard({
     prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
     nextButton: '<button id="form-wizard-next" type="button" class="btn blue forwardButton"><%=j t('buttons.next')%></button>',
-    nextCallback: function() {},
+    nextCallback: function() {setTimeout(function() {google.maps.event.trigger(map, 'resize');},1000); },
     prevCallback: function() {}
 });
 
@@ -99,3 +56,45 @@ $('#new_event').enableClientSideValidations();
 disegnaBottoni();
 
 $('#create_event_dialog').dialog('option', 'position', 'center');
+
+<%unless @event.is_votazione? %>
+if (!geocoder){
+    geocoder = new google.maps.Geocoder();}
+
+var latlng = new google.maps.LatLng(42.407235,14.260254);
+
+var myOptions = {
+    zoom : 5,
+    center: latlng,
+    mapTypeId : google.maps.MapTypeId.ROADMAP,
+    panControl : true,
+    streetViewControl : true,
+    mapTypeControl : false
+};
+
+
+map = new google.maps.Map(document.getElementById('create_map_canvas'), myOptions);
+
+var panoramaOptions = {
+    position : latlng,
+    pov : {
+        heading : 34,
+        pitch : 10,
+        zoom : 1
+    }
+};
+marker = new google.maps.Marker({
+    map : map,
+    draggable : true
+});
+
+google.maps.event.addListener(marker, 'dragend', listenMarkerPosition);
+google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
+google.maps.event.addListener(map, 'zoom_changed', listenZoomChanged);
+
+
+/*var panorama = new  google.maps.StreetViewPanorama(document.getElementById("panorama_canvas"),panoramaOptions);
+ map.setStreetView(panorama);*/
+
+putMarker("Italy");	//inizializza il marcatore sull'Italia
+<%end%>

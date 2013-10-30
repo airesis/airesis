@@ -492,6 +492,7 @@ en:
         contributes_number: "CONTRIBUTIONS"
         rank: "RANK"
         voters: "VOTERS"
+        date_range: "created between %{start} and %{end}"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"

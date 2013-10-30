@@ -1,5 +1,10 @@
 <% if current_user %>
-    <div id="menu-right" class="slim">
+    <div id="menu-right" class="slim show-for-large-up">
+
+      <div class="show-for-large-down">
+        <%= render :partial => 'layouts/personal_menu' %>
+      </div>
+
       <div class="cont">
         <%= cache ["right_menu", I18n.locale] do %>
             <div id="mybox" style="display: block;">

@@ -14,8 +14,15 @@
 
 <div class="choose_model" style="display:none;">
   <% ProposalType.active.order(:seq).each do |proposal_type| %>
-      <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%=proposal_type.color%>">
-        <div class="model_name"><%= proposal_type.description %></div>
+      <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
+        <div class="model_name">
+          <div class="name">
+            <%= proposal_type.description %>
+          </div>
+          <div class="icon">
+            <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", :align => 'middle', :alt => proposal_type.description, :title => proposal_type.description) %>
+          </div>
+        </div>
       </div>
   <% end %>
 </div>
@@ -47,18 +54,18 @@
         create_proposal_.dialog({
             title: "<%=j t('pages.proposals.index.choose_model') %>",
             modal: true,
-            width: 980,
+            width: 1000,
             height: 'auto',
             close: function (event, ui) {
                 create_proposal_.dialog('destroy');
                 /*create_proposal_.remove();*/
             }
             /*create: function(event, ui) {
-                $("body").css({ overflow: 'hidden' })
-            },
-            beforeClose: function(event, ui) {
-                $("body").css({ overflow: 'inherit' })
-            } */
+             $("body").css({ overflow: 'hidden' })
+             },
+             beforeClose: function(event, ui) {
+             $("body").css({ overflow: 'inherit' })
+             } */
         });
         return false;
     }

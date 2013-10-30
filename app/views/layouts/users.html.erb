@@ -1,51 +1,67 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%=I18n.locale%>" lang="<%=I18n.locale%>" <%= yield :html_options %>>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
   <%= render :partial => "layouts/head" %>
   <% if @user && @user.google_page_url %>
       <link href="<%= @user.google_page_url %>" rel="author"/>
   <% end %>
-</head>
-<body style="min-width:1000px;">
-<div id="great_container">
+  <%= stylesheet_link_tag "foundation_and_overrides" %>
+  <%= stylesheet_link_tag 'foundation_merge' %>
+  <%= javascript_include_tag 'foundation' %>
 
+
+
+  <script type="text/javascript">
+      $(function () {
+          $(document).foundation();
+      });
+  </script>
+
+  <meta name="description" content="<%= (@page_descr) %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<div id="great_container">
   <% content_for :menu do %>
       <% if @user %>
-          <span class="tit"><%= @user.fullname %></span>
-          <%= @user.user_image_tag 60 %>
+          <div class="left">
+            <%= @user.user_image_tag 60 %>
+          </div>
+          <div class="left topmenu">
+            <span class="tit left"><%= @user.fullname %></span>
 
-
-          <div id="submenu">
-            <% if current_user && (@user == current_user) %>
-                <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
-                <span> ⋅ </span>
-                <% if @user.blog %>
-                    <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
-                <% else %>
-                    <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
-                <% end %>
-                <span> ⋅ </span>
-                <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
-            <% end %>
-            <% if @user != current_user %>
-                <% unless @user.new_record? %>
-                    <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
-                <% end %>
-                <% if @user.blog %>
-                    <span> ⋅ </span>
-                    <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
-                <% end %>
-            <% end %>
-            <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
-            <div class="tria" style="left: 389px;"></div>
+            <div id="submenu">
+              <% if current_user && (@user == current_user) %>
+                  <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
+                  <span> ⋅ </span>
+                  <% if @user.blog %>
+                      <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                  <% else %>
+                      <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
+                  <% end %>
+                  <span> ⋅ </span>
+                  <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
+              <% end %>
+              <% if @user != current_user %>
+                  <% unless @user.new_record? %>
+                      <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
+                  <% end %>
+                  <% if @user.blog %>
+                      <span> ⋅ </span>
+                      <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                  <% end %>
+              <% end %>
+              <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
+              <div class="tria" style="left: 389px;"></div>
+            </div>
           </div>
       <% end %>
   <% end %>
 
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="right:0px;min-width:1000px;">
-    <!-- ##### Main Copy ##### -->
+  <div id="main" style="right:0px;">
     <div id="main-copy">
       <div id="menu-left">
         <div class="menu2">
@@ -55,21 +71,16 @@
       <div id="centerpanelextended">
         <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
           <%= render :partial => 'layouts/tutorials' %>
-
-
-
           <div id="flash_messages">
             <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
           </div>
           <%= yield :layout %>
         </div>
 
-
         <%= render :partial => "layouts/menu_right" %>
-
         <div class="clearboth"></div>
       </div>
-      <%= render :partial => "layouts/footer" %>
+      <%= render :partial => "layouts/new_footer" %>
     </div>
   </div>
 </div>

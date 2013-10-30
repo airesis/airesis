@@ -15,7 +15,7 @@
       <meta property="og:description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"/>
       <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
       <meta name="author" content="Tecnologie Democratiche">
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico"/>
 
 
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
@@ -75,6 +75,23 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }
         }(document, "script", "twitter-wjs");
+
+        //google analytics
+        <%if Rails.env == 'production'%>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34897773-1']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_setDomainName', '<%= request.domain %>']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        <%end%>
 
 
         $(function () {
@@ -285,6 +302,7 @@
             <div style="height:10px;"></div>
             <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">
               <%= t('pages.home.index.follw_on_twitter') %></a>
+
             <div style="height:20px;"></div>
             <div class="fb-like-box" data-href="http://www.facebook.com/airesisit"
                  data-width="300" data-height="260" data-show-faces="false" data-show-likes="false" data-stream="true" data-header="false" data-border-color="white">

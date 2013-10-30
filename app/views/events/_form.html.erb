@@ -55,32 +55,41 @@
       </div>
       <div class="step">
 
-        <p>
-          <%= f.label :starttime %>
-          <br/>
-          <%= f.text_field :starttime, class: 'datePicker' %>
-        </p>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :starttime %>
+            <%= f.text_field :starttime, :value => (l(@event.starttime, format: :textfield)), class: 'datePicker' %>
+          </div>
+        </div>
 
-        <p>
-          <%= f.label :endtime %>
-          <br/>
-          <%= f.text_field :endtime, :class => "datePicker" %>
-        </p>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :endtime %>
+            <%= f.text_field :endtime, :value => (l(@event.starttime, format: :textfield)), :class => "datePicker" %>
+          </div>
+        </div>
 
-        <p>
-          <%= f.label :all_day %>
-          <%= f.check_box :all_day %>
-        </p>
+        <div class="row">
+          <div class="large-4 columns">
+            <%= f.label :all_day %>
+            <%= f.check_box :all_day %>
+          </div>
+        </div>
 
-        <p style="display:none">
-          <%= f.label :period %>
-          <%= f.select :period, Event::REPEATS, {}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true, :title => "Opzione non ancora disponibile" %>
-        </p>
 
-        <p id="frequency" style="display:none;">
-          <%= f.label :frequency %>
-          <%= f.select :frequency, (1..30).to_a %> <span id="period"></span>
-        </p>
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :period %>
+            <%= f.select :period, Event::REPEATS, {}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true, :title => "Opzione non ancora disponibile" %>
+          </div>
+        </div>
+
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :frequency %>
+            <%= f.select :frequency, (1..30).to_a %> <span id="period"></span>
+          </div>
+        </div>
       </div>
 
       <% unless @event.is_votazione? %>
@@ -89,20 +98,30 @@
 
             <%= f.fields_for :meeting, @meeting do |m| %>
                 <%= m.fields_for :place, @place do |p| %>
-                    <p id="luogo">
-                      <%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %><br/>
-                      <%= p.text_field :comune_id, :onchange => "codeAddress('luogo');" %>
-                      <%= p.label :address %><br/>
-                      <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
-                      <%= p.hidden_field :latitude_original %>
-                      <%= p.hidden_field :longitude_original %>
-                      <%= p.hidden_field :latitude_center %>
-                      <%= p.hidden_field :longitude_center %>
-                      <%= p.hidden_field :zoom %>
+                    <div id="luogo">
+                      <div class="row">
+                        <div class="large-6 columns">
+                          <%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %>
+                          <%= p.text_field :comune_id, :onchange => "codeAddress('luogo');" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="large-6 columns">
+                        <%= p.label :address %>
+                        <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <%= p.hidden_field :latitude_original %>
+                        <%= p.hidden_field :longitude_original %>
+                        <%= p.hidden_field :latitude_center %>
+                        <%= p.hidden_field :longitude_center %>
+                        <%= p.hidden_field :zoom %>
 
-                    <div id="create_map_canvas" style="width: 100%; height: 300px;"></div>
-                    <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-                    </p>
+                        <div id="create_map_canvas" style="width: 100%; height: 300px;"></div>
+                      </div>
+                      <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+                    </div>
                 <% end %>
             <% end %>
           </div>

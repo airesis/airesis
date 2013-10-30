@@ -4,29 +4,45 @@
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
 
   <%= render :partial => "layouts/head" %>
+
+  <%= stylesheet_link_tag "foundation_and_overrides" %>
+  <%= stylesheet_link_tag 'foundation_merge' %>
+  <%= javascript_include_tag 'foundation' %>
+
+
+
+  <script type="text/javascript">
+      $(function () {
+          $(document).foundation();
+      });
+  </script>
+
+  <meta name="description" content="<%= (@page_descr) %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
-<body style="min-width:1000px;">
+<body>
 <div id="great_container">
-
   <% content_for :menu do %>
+      <div class="left">
       <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-      <span class="tit"><%= t('open_space') %></span>
+        </div>
+      <div class="left topmenu">
+        <span class="tit left"><%= t('open_space') %></span>
 
-      <div id="submenu">
-        <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
-        <span> ⋅ </span>
-        <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+          <div id="submenu">
+            <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
 
-        <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
-        <div class="tria" style="left: 389px;"></div>
+            <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
+            <div class="tria" style="left: 389px;"></div>
+          </div>
       </div>
-
-
   <% end %>
 
-
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="right:0px;min-width:1000px;">
+  <div id="main" style="right:0px;">
     <!-- ##### Main Copy ##### -->
     <div id="main-copy">
       <div id="menu-left">
@@ -46,7 +62,7 @@
         <%= render :partial => "layouts/menu_right" %>
         <div class="clearboth"></div>
       </div>
-      <%= render :partial => "layouts/footer" %>
+      <%= render :partial => "layouts/new_footer" %>
     </div>
   </div>
 </div>

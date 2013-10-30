@@ -46,9 +46,9 @@
       <% if @group %>
           <% if (can? :create_both_events, @group) %>
               <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>
-          <%elsif can? :create_event, @group %>
+          <% elsif can? :create_event, @group %>
               <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::INCONTRO), remote: true, class: 'btn blue newButton', disable_with: t('loading') %>
-          <%elsif can? :create_date, @group %>
+          <% elsif can? :create_date, @group %>
               <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE), remote: true, class: 'btn blue newButton', disable_with: t('loading') %>
           <% end %>
       <% else %>
@@ -62,7 +62,12 @@
     <div class="choose_event_type" style="display:none;">
       <% EventType.active.each do |event_type| %>
           <div class="proposal_model_option" data-id="<%= event_type.id %>">
-            <div class="model_name"><%= event_type.description.upcase %></div>
+            <div class="model_name">
+              <div class="name"><%= event_type.description.upcase %></div>
+              <div class="icon">
+                <%= image_tag("event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description) %>
+              </div>
+            </div>
           </div>
       <% end %>
     </div>

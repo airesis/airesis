@@ -1,25 +1,25 @@
 #encoding: utf-8
 class Quorum < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
-  
-  STANDARD = 2 
-  
+
+  STANDARD = 2
+
   validates :good_score, :presence => true
   validates :name, :presence => true
-  
+
   validate :minutes_or_percentage
-  
-  validates :condition, :inclusion => {:in => ['OR','AND']}
-  
+
+  validates :condition, :inclusion => {:in => ['OR', 'AND']}
+
   has_one :group_quorum, :class_name => 'GroupQuorum', :dependent => :destroy
   has_one :group, :through => :group_quorum, :class_name => 'Group'
   has_one :proposal, :class_name => 'Proposal'
-  
-  scope :public, { :conditions => ["public = ?",true]}
-  scope :active, { :conditions => ["active = ?",true]}
-  
+
+  scope :public, {:conditions => ["public = ?", true]}
+  scope :active, {:conditions => ["active = ?", true]}
+
   attr_accessor :days_m, :hours_m, :minutes_m, :form_type
-  
+
   before_save :populate
 
   before_update :populate!
@@ -44,7 +44,7 @@ class Quorum < ActiveRecord::Base
   def or?
     self.condition && (self.condition.upcase == 'OR')
   end
-  
+
   def and?
     self.condition && (self.condition.upcase == 'AND')
   end
@@ -52,13 +52,13 @@ class Quorum < ActiveRecord::Base
   def time_fixed?
     self.minutes && !self.percentage && ((self.good_score == self.bad_score) || !self.bad_score)
   end
-    
+
   def minutes_or_percentage
     if self.days_m.blank? && self.hours_m.blank? && self.minutes_m.blank? && !self.percentage && !self.minutes
       self.errors.add(:minutes, "Devi indicare la durata della proposta o il numero minimo di partecipanti")
     end
   end
-  
+
   #se i minuti non vengono definiti direttamente (come in caso di copia) allora calcolali dai dati di input
   def populate
     if !self.minutes
@@ -75,8 +75,8 @@ class Quorum < ActiveRecord::Base
   end
 
   def populate!
-      self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
-      self.minutes = nil if (self.minutes == 0)
+    self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
+    self.minutes = nil if (self.minutes == 0)
 
     #se il form compilato è semplice tolgo tutti i possibili parametri che sono stati
     #impostati e non servono più
@@ -85,7 +85,7 @@ class Quorum < ActiveRecord::Base
       self.percentage = nil
     end
   end
-  
+
   def time
     min = self.minutes
     return nil if !min
@@ -98,9 +98,9 @@ class Quorum < ActiveRecord::Base
       end
     end
     ar = []
-    ar << I18n.t('day',count: days) if (days && days > 0)
-    ar << I18n.t('hour',count: hours) if (hours && hours > 0)
-    ar << I18n.t('minute',count: min) if (min && min > 0)
+    ar << I18n.t('day', count: days) if (days && days > 0)
+    ar << I18n.t('hour', count: hours) if (hours && hours > 0)
+    ar << I18n.t('minute', count: min) if (min && min > 0)
     retstr = ar.join(" "+I18n.t('pages.groups.edit_quorums.condition_AND')+" ")
     retstr
   end
@@ -108,7 +108,7 @@ class Quorum < ActiveRecord::Base
   def end_desc
     conds = []
     conds << (I18n.l self.ends_at)+"  " if self.minutes
-    conds << " "+I18n.t('pages.proposals.new_rank_bar.valutations', num:self.valutations) if self.percentage
+    conds << " "+I18n.t('pages.proposals.new_rank_bar.valutations', num: self.valutations) if self.percentage
     conds.join(or? ? I18n.t('pages.groups.edit_quorums.condition_OR') : I18n.t('pages.groups.edit_quorums.condition_AND'))
   end
 
@@ -117,16 +117,16 @@ class Quorum < ActiveRecord::Base
     if self.minutes
       amount = self.ends_at - Time.now #left in seconds
       if amount > 0
-        left = I18n.t('time.left.seconds',count: amount.to_i)                     #todo:i18n
-        if amount >= 60  #if more or equal than 60 seconds left give me minutes
+        left = I18n.t('time.left.seconds', count: amount.to_i) #todo:i18n
+        if amount >= 60 #if more or equal than 60 seconds left give me minutes
           amount_min = amount/60
-          left = I18n.t('time.left.minutes',count: amount_min.to_i)                    #todo:i18n
+          left = I18n.t('time.left.minutes', count: amount_min.to_i) #todo:i18n
           if amount_min >= 60 #if more or equal than 60 minutes left give me hours
             amount_hour = amount_min/60
-            left = I18n.t('time.left.hours',count: amount_hour.to_i)                               #todo:i18n
+            left = I18n.t('time.left.hours', count: amount_hour.to_i) #todo:i18n
             if amount_hour > 24 #if more than 24 hours left give me days
               amount_days = amount_hour/24
-              left = I18n.t('time.left.days',count: amount_days.to_i)                                    #todo:i18n
+              left = I18n.t('time.left.days', count: amount_days.to_i) #todo:i18n
             end
           end
         end
@@ -167,10 +167,10 @@ class Quorum < ActiveRecord::Base
     if self.percentage
       if self.group
         count = (self.percentage.to_f * 0.01 * self.group.count_voter_partecipants)
-			else
+      else
         count = (self.percentage.to_f * 0.001 * User.count)
-		  end
-      [count,1].max.floor
+      end
+      [count, 1].max.floor
     else
       nil
     end
@@ -179,10 +179,10 @@ class Quorum < ActiveRecord::Base
   def explanation_pop
     conditions = []
     ret = ""
-    participants = I18n.t('models.quorum.participants', count: ((self.valutations == nil)? self.min_partecipants : self.valutations))
+    participants = I18n.t('models.quorum.participants', count: ((self.valutations == nil) ? self.min_partecipants : self.valutations))
     if self.minutes
       time = "<b>"+self.time+"</b>"
-      time += I18n.t('models.quorum.until_date',date: I18n.l(self.ends_at, format: :long_date), time: I18n.l(self.ends_at, format: :hour)) if self.ends_at
+      time += I18n.t('models.quorum.until_date', date: I18n.l(self.ends_at, format: :long_date), time: I18n.l(self.ends_at, format: :hour)) if self.ends_at
       if self.percentage
         if self.condition == 'OR'
           ret = I18n.translate('models.quorum.or_condition_1',
@@ -205,19 +205,18 @@ class Quorum < ActiveRecord::Base
                            participants_num: participants)
     end
     if self.bad_score && (self.bad_score != self.good_score)
-        ret += "<br/>"
-        ret += I18n.translate('models.quorum.bad_score_explain',
-                              good_score: self.good_score,
-                              bad_score: self.bad_score)
+      ret += "<br/>"
+      ret += I18n.translate('models.quorum.bad_score_explain',
+                            good_score: self.good_score,
+                            bad_score: self.bad_score)
     elsif self.good_score == self.bad_score
-        ret += "<br/>"
-        ret += I18n.translate('models.quorum.good_score_condition',
-                              good_score: self.good_score)
+      ret += "<br/>"
+      ret += I18n.translate('models.quorum.good_score_condition',
+                            good_score: self.good_score)
     end
     ret += "."
     ret.html_safe
   end
-
 
 
 end

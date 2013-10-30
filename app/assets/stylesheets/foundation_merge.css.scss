@@ -1,5 +1,20 @@
 @charset 'UTF-8';
-/* Starter CSS for Flyout Menu */
+
+ul, ol {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.label {
+  background-color: #2ba6cb;
+  a {
+    color: #fff;
+  }
+
+  &.tag {
+    margin:  5px;
+  }
+}
 
 #cssmenu {
   padding: 0;
@@ -236,8 +251,7 @@
 #logo-but img {
   height: 18px;
   width: 20px;
-  margin-left: 17px;
-  margin-top: 3px;
+  margin: auto;
 }
 
 #tolr img {
@@ -388,4 +402,29 @@ body {
 
 .topbar-menu-icon {
   background: no-repeat url(/assets/top-menu.png);
+}
+
+.mycont {
+  .row {
+    margin: 4px 0px;
+    .columns img {
+      max-width: none;
+    }
+  }
+}
+
+select.resize {
+  width:  auto;
+}
+
+.dataTables_length select {
+  width: auto;
+}
+
+input.ui-spinner-input {
+  border: none;
+  margin: 0;
+  width: 35px;
+  padding: 0.3em;
+  height:  2em;
 }

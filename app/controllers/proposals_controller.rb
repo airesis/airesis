@@ -911,8 +911,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
 
     if params[:time]
-      @search.created_at_from = Time.at(params[:time][:start].to_i) if params[:time][:start]
-      @search.created_at_to = Time.at(params[:time][:end].to_i) if params[:time][:end]
+      @search.created_at_from = Time.at(params[:time][:start].to_i/1000) if params[:time][:start]
+      @search.created_at_to = Time.at(params[:time][:end].to_i/1000) if params[:time][:end]
       @search.time_type = params[:time][:type]
     end
     @search.text = params[:search]

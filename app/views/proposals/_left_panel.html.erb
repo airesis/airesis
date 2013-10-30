@@ -99,9 +99,9 @@
 
       <div class="mycont">
         <% @proposal.tags.each do |tag| %>
-            <div style="margin:5px;">
-              <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-              x <%= tag.proposals_count %></div>
+            <div class="label round tag">
+              <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            </div>
         <% end %>
       </div>
     </div>

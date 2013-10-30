@@ -10,25 +10,30 @@
 
         <div class="mybox_button"></div>
         <div class="mycont">
-          <% if params[:group_area_id] %>
-              <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
-          <% else %>
-              <%= t('pages.proposals.index.all_areas') %>
-          <% end %>
-          <table>
-            <% @group.group_areas.each do |area| %>
-                <tr>
-                  <td>
-                    <% if params[:group_area_id] == area.id.to_s %>
-                        <%= area.name %>
-                    <% else %>
-                        <%= link_to area.name, current_url(:group_area_id => area.id) %>
-                    <% end %>
-                  </td>
+          <div class="row">
+            <div class="columns">
+              <% if params[:group_area_id] %>
+                  <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
+              <% else %>
+                  <%= t('pages.proposals.index.all_areas') %>
+              <% end %>
+            </div>
 
-                </tr>
-            <% end %>
-          </table>
+          </div>
+
+          <% @group.group_areas.each do |area| %>
+              <div class="row">
+                <div class="columns">
+                  <% if params[:group_area_id] == area.id.to_s %>
+                      <%= area.name %>
+                  <% else %>
+                      <%= link_to area.name, current_url(:group_area_id => area.id) %>
+                  <% end %>
+                </div>
+
+              </div>
+          <% end %>
+
         </div>
       </div>
     </div>
@@ -45,41 +50,46 @@
         <div class="mybox_button"></div>
 
         <div class="mycont">
-          <% if params[:category] %>
-              <a href="<%= current_url(:category => nil) %>" style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></a>
-          <% else %>
-              <span style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></span>
-          <% end %>
-          <table>
-            <%
-               conditions = "1 = 1"
-               joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id"
-               if @group
-                 joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-                 conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-               end
-               categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id,  proposal_categories.parent_proposal_category_id, proposal_categories.name, proposal_categories.seq')
+          <div class="row">
+            <div class="columns large-2"></div>
+            <div class="columns large-10">
+              <% if params[:category] %>
+                  <a href="<%= current_url(:category => nil) %>"><%= t('pages.proposals.index.all_categories') %></a>
+              <% else %>
+                  <span><%= t('pages.proposals.index.all_categories') %></span>
+              <% end %>
+            </div>
+          </div>
 
-               #categories = ProposalCategory.all
-               categories.each do |category| %>
-                <tr>
-                  <td style="vertical-align: middle;">
-                    <% if params[:category] == category.id.to_s %>
-                        <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
-                        </td>
-                        <td><%= category.description %>
-                    <% else %>
-                        <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
-                        </td>
-                        <td>
-                          <a href="<%= current_url(:category => category.id) %>">
-                            <%= category.description %>
-                          </a>
-                    <% end %>
-                    </td>
-                    </tr>
-            <% end %>
-          </table>
+          <%
+             conditions = "1 = 1"
+             joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id"
+             if @group
+               joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
+               conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
+             end
+             categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id,  proposal_categories.parent_proposal_category_id, proposal_categories.name, proposal_categories.seq')
+
+             #categories = ProposalCategory.all
+             categories.each do |category| %>
+              <div class="row">
+                <% if params[:category] == category.id.to_s %>
+                    <div class="columns large-2">
+                      <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+                    </div>
+                    <div class="columns large-10"><%= category.description %></div>
+                <% else %>
+                    <div class="columns large-2">
+                      <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
+                    </div>
+                    <div class="columns large-10">
+                      <%= link_to category.description, current_url(:category => category.id) %>
+                    </div>
+                <% end %>
+
+              </div>
+          <% end %>
+
         </div>
       </div>
     </div>
@@ -96,40 +106,46 @@
         <div class="mybox_button"></div>
 
         <div class="mycont">
-          <% if params[:type] %>
-              <a href="<%= current_url(:type => nil) %>" style="margin-left:31px;"><%= t('pages.proposals.index.all_proposal_types') %></a>
-          <% else %>
-              <span style="margin-left:31px;"><%= t('pages.proposals.index.all_proposal_types') %></span>
-          <% end %>
-          <table>
-            <%
-               joins = "join proposals on proposals.proposal_type_id = proposal_types.id
+          <div class="row">
+            <div class="columns large-2">
+            </div>
+            <div class="columns large-10">
+              <% if params[:type] %>
+                  <a href="<%= current_url(:type => nil) %>"><%= t('pages.proposals.index.all_proposal_types') %></a>
+              <% else %>
+                  <span><%= t('pages.proposals.index.all_proposal_types') %></span>
+              <% end %>
+            </div>
+          </div>
+
+          <%
+             joins = "join proposals on proposals.proposal_type_id = proposal_types.id
                             join group_proposals on proposals.id = group_proposals.proposal_id"
-               conditions = " group_proposals.group_id = #{@group.id} and proposals.private = 't'"
-               types = ProposalType.all(
-                       :joins => joins,
-                       :conditions => conditions,
-                       :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active, proposal_types.color'
-               )
-               types.each do |type| %>
-                <tr>
-                  <td style="vertical-align: middle;">
-                    <% if params[:type] == type.id.to_s %>
-                        <%#= image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
-                        </td>
-                        <td><%= type.description %>
-                    <% else %>
-                        <%#= link_to image_tag("proposal_categories/"+type.id.to_s + "_s.png", :align => 'middle', :alt => type.description, :style => "width:22px;padding-right:2px;"), current_url(:type => type.id) %>
-                        </td>
-                        <td>
-                          <a href="<%= current_url(:type => type.id) %>">
-                            <%= type.description %>
-                          </a>
-                    <% end %>
-                    </td>
-                    </tr>
-            <% end %>
-          </table>
+             conditions = " group_proposals.group_id = #{@group.id} and proposals.private = 't'"
+             types = ProposalType.all(
+                     :joins => joins,
+                     :conditions => conditions,
+                     :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active, proposal_types.color'
+             )
+             types.each do |type| %>
+              <div class="row">
+
+                <% if params[:type] == type.id.to_s %>
+                    <div class="columns large-2">
+                      <%= image_tag("proposal_types/#{type.name.downcase}_ico.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
+                    </div>
+                    <div class="columns large-10"><%= type.description %></div>
+                <% else %>
+                    <div class="columns large-2">
+                      <%= link_to image_tag("proposal_types/#{type.name.downcase}_ico.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;"), current_url(:type => type.id) %>
+                    </div>
+                    <div class="columns large-10">
+                      <%= link_to type.description, current_url(:type => type.id) %>
+                    </div>
+                <% end %>
+              </div>
+          <% end %>
+
         </div>
 
       </div>
@@ -150,26 +166,28 @@
 
       <div class="hidden_menu">
         <%= link_to 'Quasiasi data', current_url(:time => nil), class: 'menu_item', data: {type: 'w'} %>
-        <%= link_to 'Ultima ora', current_url({'time[start]' => (Time.now - 1.hour).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
-        <%= link_to 'Ultime 24 ore', current_url({'time[start]' => (Time.now - 24.hours).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '24h'}), class: 'menu_item', data: {type: '24h'} %>
-        <%= link_to 'Ultima settimana', current_url({'time[start]' => (Time.now - 7.days).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '7d'}), class: 'menu_item', data: {type: '7d'} %>
-        <%= link_to 'Ultimo mese', current_url({'time[start]' => (Time.now - 1.month).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1m'}), class: 'menu_item', data: {type: '1m'} %>
-        <%= link_to 'Ultimo anno', current_url({'time[start]' => (Time.now - 1.year).to_i, 'time[end]' => Time.now.to_i, 'time[type]' => '1y'}), class: 'menu_item', data: {type: '1y'} %>
+        <%= link_to 'Ultima ora', current_url({'time[start]' => (Time.now - 1.hour).to_i * 1000, 'time[end]' => Time.now.to_i * 1000, 'time[type]' => '1h'}), class: 'menu_item', data: {type: '1h'} %>
+        <%= link_to 'Ultime 24 ore', current_url({'time[start]' => (Time.now - 24.hours).to_i * 1000, 'time[end]' => Time.now.to_i * 1000, 'time[type]' => '24h'}), class: 'menu_item', data: {type: '24h'} %>
+        <%= link_to 'Ultima settimana', current_url({'time[start]' => (Time.now - 7.days).to_i * 1000, 'time[end]' => Time.now.to_i * 1000, 'time[type]' => '7d'}), class: 'menu_item', data: {type: '7d'} %>
+        <%= link_to 'Ultimo mese', current_url({'time[start]' => (Time.now - 1.month).to_i * 1000, 'time[end]' => Time.now.to_i * 1000, 'time[type]' => '1m'}), class: 'menu_item', data: {type: '1m'} %>
+        <%= link_to 'Ultimo anno', current_url({'time[start]' => (Time.now - 1.year).to_i * 1000, 'time[end]' => Time.now.to_i * 1000, 'time[type]' => '1y'}), class: 'menu_item', data: {type: '1y'} %>
         <span class="separator"></span>
         <%= link_to 'Intervallo di date', '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
 
       </div>
-      <div id="choose_dates" style="display:none" title="<%="Scegli intervallo di date"%>" class="choose_dates_modal">  <!--TODO:I18n-->
+      <div id="choose_dates" style="display:none" title="<%= "Scegli intervallo di date" %>" class="choose_dates_modal">  <!--TODO:I18n-->
         <h4><%= 'Indica un intervallo di date' %></h4>
-        <%= form_for 'time', {url: current_url, method: :get} do |f| %>
+        <%= form_for 'time', {url: current_url(time: {start_w: nil, end_w: nil}), method: :get} do |f| %>
             <p>
-              <%= f.label :start, 'Da' %>
-              <%= f.text_field :start, class: 'datePicker' %>
+              <%= f.label :start_w, 'Da' %>
+              <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.hidden_field :start, value: (params[:time][:start] if params[:time]) %>
             </p>
 
             <p>
-              <%= f.label :end, 'A' %>
-              <%= f.text_field :end, class: 'datePicker' %>
+              <%= f.label :end_w, 'A' %>
+              <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
+              <%= f.hidden_field :end, value: (params[:time][:end] if params[:time]) %>
             </p>
 
             <%= f.hidden_field :type, value: 'f' %>
@@ -186,9 +204,10 @@
   </div>
 </div>
 
-<% if @group && (can? :view_proposal, @group)%>
+<% if @group && (can? :view_proposal, @group) %>
     <div class="mybox">
       <h4><%= t('pages.proposals.index.search_title') %></h4>
+
       <div class="mybox_button"></div>
       <div class="mycont">
         <%= render :partial => 'search_form' %>

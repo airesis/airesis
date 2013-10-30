@@ -874,7 +874,7 @@ h3 .tit1.sol {
 }
 
 form .counter {
-    font-size: 10px;
+    font-size: 0.8em;
     font-weight: bold;
     color: #333333;
 }
@@ -893,7 +893,7 @@ form .exceeded {
 
 #new_proposal_comment .counter {
     float: right;
-    padding-top: 5px;
+    padding-top: 20px;
 }
 
 .ice .cts-1 {
@@ -1145,21 +1145,26 @@ a.spch-bub-inside:hover .point {
 .proposal_model_option {
     float: left;
     width: 225px;
-    height: 150px;
+    height: 180px;
     border: 1px dotted #ccc;
     cursor: pointer;
     margin: 5px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    .model_name {
+        font-size: 2em;
+        text-align: center;
+        margin-top: 10px;
+
+        .name {
+            height: 80px;
+        }
+    }
 }
 
-.proposal_model_option:hover {
-    opacity: 0.8;
-}
-
-.proposal_model_option .model_name {
-    font-size: 2em;
-    text-align: center;
-    margin-top: 37px;
-}
 
 .arrow_right {
     width: 0;

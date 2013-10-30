@@ -321,7 +321,7 @@ it-IT:
           title: "Parole chiave (separate da virgola)"
       edit:
         title: "Modifica impostazioni gruppo"
-        change_permissions: "Nelle Impostazioni Ruoli e permessi potrai modificare le azioni che possono compiere gli iscritti"
+        change_permissions: "Nelle Impostazioni Ruoli e permessi puoi modificare le azioni che possono compiere gli iscritti"
         remove_user_confirm: "Sei sicuro di voler rimuovere %{name} dal gruppo?"
         modify_group: "Modifica il gruppo"
       layout:
