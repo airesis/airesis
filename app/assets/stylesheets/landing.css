@@ -231,22 +231,7 @@ p small {
     visibility: hidden
 }
 
-/* frontpage */
-body {
-    padding-top: 60px;
-}
 
-.dashboard {
-    padding-top: 0px;
-}
-
-.customization {
-    padding-top: 90px;
-}
-
-.frontpage {
-    padding-top: 0px;
-}
 
 /* Footer
 -------------------------------------------------- */

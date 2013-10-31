@@ -37,9 +37,29 @@ $large-screen: 1440px;
     padding-top: 95px;
 }
 
-@media (max-width: $medium-screen) {
+@media (max-width: $small-screen) {
+    #menu-left {
+        display: none;
+    }
     #centerpanelextended {
         margin-right: 10px;
+        margin-left: 10px;
+        border-left: none;
+    }
+}
+
+@media (max-width: $medium-screen) {
+    #centerpanelextended {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (min-width: $small-screen) {
+    #centerpanelextended {
+        margin-left: 280px;
+        padding-left: 20px;
+        border-left: 1px dotted gray;
     }
 }
 
@@ -51,11 +71,8 @@ $large-screen: 1440px;
 
 #centerpanelextended {
     padding-top: 95px;
-    padding-left: 20px;
-    border-left: 1px dotted gray;
-    display: inherit;
     padding-bottom: 40px;
-    margin-left: 280px;
+
 }
 
 #logo-airesis {
@@ -95,7 +112,6 @@ $large-screen: 1440px;
     }
 }
 
-
 #menu-top {
     a {
         color: white;
@@ -120,6 +136,8 @@ $large-screen: 1440px;
         border-top: 1px dotted rgba(255, 255, 255, 0.2);
         box-shadow: 0px 2px 3px #797979;
         margin-right: 90px;
+        right: 90px;
+        left: 0px;
         .tria {
             position: absolute;
             top: -10px;
@@ -149,21 +167,6 @@ $large-screen: 1440px;
         }
     }
 }
-
-#submenu {
-    font-size: 13px;
-    margin-top: 10px;
-    color: white;
-    font-weight: bold;
-    margin-top: 40px;
-    a.sel {
-        border-radius: 20px;
-        background-color: rgba(255, 255, 255, 0.3);
-        padding: 3px 10px 3px 10px;
-    }
-}
-
-
 
 #logo-but {
     float: left;
@@ -284,7 +287,6 @@ $large-screen: 1440px;
     text-align: right;
 }
 
-
 #logo-but:hover, #logo-but.sel {
     background-color: rgba(255, 255, 255, 0.2);
 }
@@ -296,13 +298,30 @@ $large-screen: 1440px;
     bottom: 50px;
     width: 90px;
     border-left: 1px dotted gray;
-    z-index: 998;
+    z-index: 999;
 }
 
 @media (max-width: $medium-screen) {
     #menu-right.small-show {
         display: block !important;
         background-color: #ccc;
+        width: 200px;
+        padding-top: 15px;
+    }
+}
+
+@media (max-width: $small-screen) {
+    #menu-left.small-show {
+        display: block !important;
+        background-color: #ccc;
+        position: absolute;
+        z-index: 20;
+        height: 100%;
+    }
+
+    #menu-top .group-cont {
+        margin-right: 0px;
+        right: 0px;
     }
 }
 
@@ -580,74 +599,84 @@ $large-screen: 1440px;
     margin-right: 20px;
 }
 
-#submenu .tria {
-    position: fixed;
-    top: 72px;
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 15px solid #fff;
+.submenu {
+    font-size: 13px;
+    margin-top: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+    a.sel {
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 3px 10px 3px 10px;
+    }
+
+    .tria {
+        position: fixed;
+        top: 72px;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 15px solid #fff;
+    }
+    .borx {
+        position: fixed;
+        top: 82px;
+        left: 0px;
+        right: 92px;
+        height: 10px;
+        background: #fff;
+
+        &.expandb {
+            right: 0px;
+        }
+    }
 }
 
-#submenu .borx {
-    position: fixed;
-    top: 82px;
-    left: 0px;
-    right: 92px;
-    height: 10px;
-    background: #fff;
-}
-
-#submenu .borx.expandb {
-    right: 0px;
-}
-
-#menu-left .menu2 {
+.mybox {
+    padding: 10px;
+    padding-bottom: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 1px #000;
+    border-radius: 3px;
+    margin: 0px;
     margin-bottom: 10px;
-    background-color: rgba(255, 255, 255, 1);
+    font-size: 0.8em;
+    color: #333;
+    position: relative;
+
+    &.socialnetwork {
+        padding: 8px;
+    }
+
+    .mybox_button {
+        position: absolute;
+        right: 9px;
+        top: 13px;
+        width: 16px;
+        height: 16px;
+        background-image: url('<%=asset_path 'menu_open.png'%>');
+        cursor: pointer;
+        &.close {
+            background-image: url('<%=asset_path 'menu_close.png'%>');
+        }
+    }
+    .separator {
+        width: 100%;
+        border-top: 1px solid #bebebe;
+        display: block;
+    }
+
+}
+
+.menu2 {
+    margin-bottom: 10px;
     margin-right: 20px;
     margin-left: 20px;
     padding: 0px;
     border: 0px;
-}
 
-#menu-left .menu2 {
-    .mybox {
-        padding: 10px;
-        padding-bottom: 5px;
-        background-color: rgba(255, 255, 255, 0.7);
-        box-shadow: 0px 0px 1px #000;
-        border-radius: 3px;
-        margin: 0px;
-        margin-bottom: 10px;
-        font-size: 0.8em;
-        color: #333;
-        position: relative;
-
-        &.socialnetwork {
-            padding: 8px;
-        }
-
-        .mybox_button {
-            position: absolute;
-            right: 9px;
-            top: 13px;
-            width: 16px;
-            height: 16px;
-            background-image: url('<%=asset_path 'menu_open.png'%>');
-            cursor: pointer;
-            &.close {
-                background-image: url('<%=asset_path 'menu_close.png'%>');
-            }
-        }
-        .separator {
-            width: 100%;
-            border-top: 1px solid #bebebe;
-            display: block;
-        }
-
-    }
     h4 {
         padding: 0px;
         margin: 0px;
@@ -661,6 +690,35 @@ $large-screen: 1440px;
         padding-top: 10px;
         padding-bottom: 10px;
         word-break: break-word;
+
+    }
+
+    .left {
+        float: none !important;
+    }
+
+    .topmenu {
+        &.left {
+            float: none !important
+        }
+        .tit.left {
+            float: none !important;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .submenu {
+            margin-top: 0px;
+            color: #ccc;
+            a {
+                display: block;
+                &.sel {
+                    border-radius: none;
+                    background-color: transparent;
+                    padding:  0px;
+                }
+            }
+        }
 
     }
 }
@@ -1034,10 +1092,10 @@ $large-screen: 1440px;
         position: absolute;
     }
 
-    #submenu .borx {
+    .submenu .borx {
         display: none;
     }
-    #submenu .tria {
+    .submenu .tria {
         display: none;
     }
 }

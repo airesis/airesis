@@ -332,6 +332,8 @@ body {
 
 
 
+
+
 @media only screen and (max-width: 767px) {
   .row.centered {
     width: auto;
@@ -380,8 +382,6 @@ body {
 
 
 .homepageButton {
-  font-size: 38px;
-  font-family: 'Droid Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
   font-weight:bold;
   padding:5px;
   padding-left:10px;
@@ -428,3 +428,6 @@ input.ui-spinner-input {
   padding: 0.3em;
   height:  2em;
 }
+
+
+

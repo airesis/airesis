@@ -1,7 +1,7 @@
 <div id="menu-top">
   <div id="logo-airesis">
-    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path, tabindex: 1 %>
-    <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small"), root_path, tabindex: 1 %>
+    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path , tabindex: 1 %>
+    <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small"), '#', tabindex: 1, id: 'logo1mini' %>
   </div>
 
   <% unless in_subdomain? %>
@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="sep1"></div>
-  <div id="menu-group" class="title-area">
+  <div id="menu-group" class="title-area hide-for-small">
     <%= yield :menu %>
 
   </div>
@@ -24,7 +24,8 @@
        <% end %>>
     <% unless current_user %>
         <div id="inlog">
-          <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
+          <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
+          <%= link_to t('pages.header.login'), '/users/sign_in', :class=>"show-for-small" %>
           -
           <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
         </div>
@@ -35,7 +36,10 @@
               <%= f.text_field :login, placeholder: t('pages.header.login_placeholder') %>
 
               <%= f.password_field :password, placeholder: 'Password' %>         <br/>
-              <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
+              <%= f.label :remember_me do %>
+                  <%= f.check_box :remember_me %>
+                  <%= t('pages.header.menu.remember_me') %>
+              <% end %>
 
               <%= f.button t('pages.header.menu.login_button'), :class => "btn blue loginButton" %>
 
@@ -75,15 +79,15 @@
     <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
     <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
-      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class:'btn feedbackButton'%>
+      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class: 'btn feedbackButton' %>
       <br/>
-      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class:'btn videoButton' %>
+      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class: 'btn videoButton' %>
       <br/>
-      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class:'btn bookmarkButton' %>
+      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class: 'btn bookmarkButton' %>
       <br/>
-      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class:'btn help' %>
+      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class: 'btn help' %>
       <br/>
-      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class:'btn infoButton' %>
+      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class: 'btn infoButton' %>
       <br/>
       <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'btn contactButton' %>
     </div>

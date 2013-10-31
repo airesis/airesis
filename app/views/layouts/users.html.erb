@@ -32,7 +32,7 @@
           <div class="left topmenu">
             <span class="tit left"><%= @user.fullname %></span>
 
-            <div id="submenu">
+            <div class="submenu mycont">
               <% if current_user && (@user == current_user) %>
                   <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
                   <span> ⋅ </span>
@@ -63,8 +63,11 @@
   <%= render :partial => "layouts/header" %>
   <div id="main" style="right:0px;">
     <div id="main-copy">
-      <div id="menu-left">
+      <div id="menu-left" class="show-for-medium-up">
         <div class="menu2">
+          <div class="mybox show-for-small">
+            <%= yield :menu %>
+          </div>
           <%= yield :left_panel %>
         </div>
       </div>

@@ -31,7 +31,7 @@
       <div class="tit left"><%= @page_title %></div>
       <div class="topbar-menu-icon left"></div>
 
-      <div id="submenu">
+      <div class="submenu">
         <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
         <span> ⋅ </span>
         <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>

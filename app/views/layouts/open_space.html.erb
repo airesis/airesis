@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%=I18n.locale%>" lang="<%=I18n.locale%>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>">
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
-
   <%= render :partial => "layouts/head" %>
+
 
   <%= stylesheet_link_tag "foundation_and_overrides" %>
   <%= stylesheet_link_tag 'foundation_merge' %>
@@ -25,19 +25,19 @@
 <div id="great_container">
   <% content_for :menu do %>
       <div class="left">
-      <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-        </div>
+        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+      </div>
       <div class="left topmenu">
         <span class="tit left"><%= t('open_space') %></span>
 
-          <div id="submenu">
-            <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
-            <span> ⋅ </span>
-            <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+        <div class="submenu mycont">
+          <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+          <span> ⋅ </span>
+          <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
 
-            <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
-            <div class="tria" style="left: 389px;"></div>
-          </div>
+          <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
+          <div class="tria" style="left: 389px;"></div>
+        </div>
       </div>
   <% end %>
 
@@ -45,8 +45,11 @@
   <div id="main" style="right:0px;">
     <!-- ##### Main Copy ##### -->
     <div id="main-copy">
-      <div id="menu-left">
+      <div id="menu-left" class="show-for-medium-up">
         <div class="menu2">
+          <div class="mybox show-for-small">
+            <%= yield :menu %>
+          </div>
           <%= yield :left_panel %>
         </div>
       </div>

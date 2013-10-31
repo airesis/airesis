@@ -23,7 +23,6 @@
 </head>
 <body>
 
-
 <% content_for :menu do %>
     <div class="left">
       <%= @group ? (@group.group_image_tag 60) : (image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME)  %>
@@ -40,7 +39,7 @@
           <%= link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
       <% end %>
 
-      <div id="submenu">
+      <div class="submenu">
         <% if @group && @group.id && (can? :view_data, @group) %>
             <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
             <span> ⋅ </span>

@@ -19,13 +19,13 @@
 
 
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
+
       <%= stylesheet_link_tag 'landing.css' %>
       <%= stylesheet_link_tag 'jquery.qtip' %>
       <%= stylesheet_link_tag 'redmond/custom' %>
 
 
-      <%= stylesheet_link_tag "foundation" %>
-      <%= stylesheet_link_tag "foundation_and_override" %>
+      <%= stylesheet_link_tag "foundation_and_overrides" %>
       <%= stylesheet_link_tag 'foundation_merge' %>
       <%= javascript_include_tag 'foundation' %>
 
@@ -40,7 +40,7 @@
 
       <link rel="shortcut icon" type="image/x-icon" href="">
     </head>
-    <body class="frontpage">
+    <body>
 
     <script type="text/javascript">
         window.___gcfg = {
@@ -192,8 +192,8 @@
         </div>
       </div>
 
-      <div class="row full-width medium-bar" style="height:335px"><!-- Menù navigatore-->
-        <div class="row centered">
+      <div class="row full-width medium-bar"><!-- Menù navigatore-->
+        <div class="row centered" style="margin-top: 10px">
           <!-- Logo principale-->
           <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare" %>
 
@@ -217,27 +217,28 @@
       </div>
       <div class="row full-width sub-bar">
         <!--Slogan-->
-        <div class="row centered" style="margin-top:25px;">
+        <div class="row centered" style="margin-top:15px;">
 
-          <div class="columns large-6">
+          <div class="columns large-5">
             <div class="row">
-              <div class="columns large-6 small-6">
-
-                <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
+              <div class="columns large-5 small-5">
+                <div>
+                <%= button_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
+                </div>
               </div>
 
-              <div class="columns large-6 small-6">
-                <%= link_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
+              <div class="columns large-7 small-7">
+                <%= button_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
               </div>
 
             </div>
           </div>
-          <div class="columns large-6">
+          <div class="columns large-7">
             <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
                 <div class="row">
                   <div class="columns large-4">
 
-                    <%= f.text_field :login, placeholder: 'Email' %> <br/>
+                    <%= f.text_field :login, placeholder: 'Email' %>
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-4 small-6">
@@ -298,7 +299,7 @@
               </div>
             </div>
           </div>
-          <div class="columns large-4">
+          <div class="columns large-5">
             <div style="height:10px;"></div>
             <a href="https://twitter.com/democracyo" class="twitter-follow-button" data-show-count="false" data-size="large">
               <%= t('pages.home.index.follw_on_twitter') %></a>
