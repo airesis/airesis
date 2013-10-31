@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028134218) do
+ActiveRecord::Schema.define(:version => 20131030174756) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1216,6 +1216,15 @@ ActiveRecord::Schema.define(:version => 20131028134218) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "sys_features", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.float    "amount_required"
+    t.float    "amount_received"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "sys_locales", :force => true do |t|
     t.string  "key"
     t.string  "host"
@@ -1239,6 +1248,15 @@ ActiveRecord::Schema.define(:version => 20131028134218) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.string   "description",          :limit => 10000
+  end
+
+  create_table "sys_payment_notifications", :force => true do |t|
+    t.text     "params"
+    t.integer  "sys_feature_id"
+    t.string   "status"
+    t.string   "transaction_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "tags", :force => true do |t|

@@ -47,5 +47,5 @@
 //= require ckeditor/init
 //= require underscore
 //= require jquery.textntags
-
+//= require paypal-button.min
 

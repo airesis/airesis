@@ -1,57 +1,57 @@
-<div id="tabs">
-  <ul>
-    <li><a href="#proposals"><%= t('pages.tags.proposals_tab')%></a></li>
-    <li><a href="#posts"><%= t('pages.tags.posts_tab') %></a></li>
-    <li><a href="#groups"><%= t('pages.tags.groups_tab') %></a></li>
-  </ul>
-  <div id="proposals">
-    <h2><%= t('pages.tags.list_proposals_with_tag') %> '<%= @tag %>'</h2>
-    <% if @proposals.size == 0 %>
-        <div class="Proposal">
-          <p><%= t('pages.tags.no_proposals_with_tag')%></p>
-        </div>
-    <% else %>
-        <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
-    <% end %>
-  </div>
+<div class="section-container tabs" data-section="tabs">
 
+  <section class="active">
+    <p class="title" data-section-title><a href="#"><%= t('pages.tags.proposals_tab') %></a></p>
 
-  <div id="posts">
-    <h2><%= t('pages.tags.list_posts_with_tag') %> '<%= @tag %>'</h2>
-    <% if @blog_posts.size == 0 %>
-        <div class="blogPost">
-          <p><%= t('pages.tags.no_posts_with_tag')%></p>
-        </div>
-    <% else %>
-        <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
-    <% end %>
-  </div>
-  <div id="groups">
-    <h2><%= t('pages.tags.list_groups_with_tags') %> '<%= @tag %>'</h2>
-    <% if @groups.size == 0 %>
-        <p><%= t('pages.tags.no_groups_with_tag')%></p>
-    <% else %>
-        <%= render :collection => @groups, :partial => 'groups/group_tag', as: 'group' %>
-        <div class="clearboth"></div>
-    <% end %>
-  </div>
+    <div class="content" data-section-content id="proposals">
+      <h2><%= t('pages.tags.list_proposals_with_tag') %> '<%= @tag %>'</h2>
+      <% if @proposals.size == 0 %>
+          <div class="Proposal">
+            <p><%= t('pages.tags.no_proposals_with_tag') %></p>
+          </div>
+      <% else %>
+          <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
+      <% end %>
+    </div>
+  </section>
+  <section>
+    <p class="title" data-section-title><a href="#posts"><%= t('pages.tags.posts_tab') %></a></p>
+
+    <div class="content" data-section-content id="posts">
+      <h2><%= t('pages.tags.list_posts_with_tag') %> '<%= @tag %>'</h2>
+      <% if @blog_posts.size == 0 %>
+          <div class="blogPost">
+            <p><%= t('pages.tags.no_posts_with_tag') %></p>
+          </div>
+      <% else %>
+          <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+      <% end %>
+    </div>
+  </section>
+  <section>
+    <p class="title" data-section-title><a href="#groups"><%= t('pages.tags.groups_tab') %></a></p>
+
+    <div class="content" data-section-content id="groups">
+      <h2><%= t('pages.tags.list_groups_with_tags') %> '<%= @tag %>'</h2>
+      <% if @groups.size == 0 %>
+          <p><%= t('pages.tags.no_groups_with_tag') %></p>
+      <% else %>
+          <%= render :collection => @groups, :partial => 'groups/group_tag', as: 'group' %>
+          <div class="clearboth"></div>
+      <% end %>
+    </div>
+  </section>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#tabs').tabs();
-    })
-</script>
-
-
-
 <% content_for :left_panel do %>
     <div class="mybox">
       <h4><%= t('pages.tags.show.related_title') %></h4>
-      <% @similars.each do |tag| %>
-          <div style="margin:5px;">
-            <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-          </div>
-      <% end %>
+
+      <div class="mycont">
+        <% @similars.each do |tag| %>
+            <div class="round label tag">
+              <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            </div>
+        <% end %>
+      </div>
     </div>
 <% end %>

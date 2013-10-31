@@ -1,5 +1,9 @@
 Airesis::Application.routes.draw do
 
+  resources :sys_payment_notifications
+
+  resources :sys_features
+
   mount Ckeditor::Engine => '/ckeditor'
 
   match 'home', :to => 'home#show'
