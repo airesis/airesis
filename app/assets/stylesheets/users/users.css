@@ -60,12 +60,11 @@
     min-width: 600px;
 }
 .profile_element, .profile_element_no_click {
-	height: 18px;
-	padding: 10px;
+	padding: 7px;
 	margin: 5px auto;
 	width: 95%;	 
 }
-.profile_element_hover {
+.profile_element:hover {
 	background: #DFEFFC;
 }
 
