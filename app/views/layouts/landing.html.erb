@@ -41,15 +41,17 @@
 
 <div id="main">
   <div id="main-copy">
-    <div class="full-width">
+    <div id="pulldown">
+      <div class="full-width">
 
-      <%= yield :left_panel %>
+        <%= yield :left_panel %>
 
-      <%= yield :layout %>
+        <%= yield :layout %>
 
+      </div>
+
+      <%= render :partial => "layouts/new_footer" %>
     </div>
-
-    <%= render :partial => "layouts/new_footer" %>
   </div>
 </div>
 
