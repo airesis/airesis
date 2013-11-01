@@ -1,26 +1,28 @@
 <% if current_user %>
     <div id="menu-right" class="slim show-for-large-up">
 
-      <div class="show-for-large-down">
-        <div class="menu2">
+
+      <div class="menu2">
+        <div class="show-for-medium-down">
           <div class="mybox">
             <%= render :partial => 'layouts/personal_menu' %>
           </div>
         </div>
-      </div>
 
-      <div class="cont">
-        <%= cache ["right_menu", I18n.locale] do %>
-            <div id="mybox" style="display: block;">
-              <% NotificationCategory.order(:seq).each do |category| %>
-                  <div class="box">
-                    <div title="<%= category.description %>" class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
-                    </div>
-                  </div>
-              <% end %>
-            </div>
-        <% end %>
-
+        <div class="mybox">
+          <div class="cont">
+            <%= cache ["right_menu", I18n.locale] do %>
+                <div id="mybox" style="display: block;">
+                  <% NotificationCategory.order(:seq).each do |category| %>
+                      <div class="box">
+                        <div title="<%= category.description %>" class="alert_box logo" data-id="<%= category.id %>" style="background: transparent url(<%=asset_path 'notification_categories/' + category.short.downcase + '.png'%>) center; background-size:cover;">
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -8,6 +8,9 @@ class CreateSysPaymentNotifications < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :sys_payment_notifications, :transaction_id, unique: true
+    add_foreign_key :sys_payment_notifications, :sys_features
   end
 
 

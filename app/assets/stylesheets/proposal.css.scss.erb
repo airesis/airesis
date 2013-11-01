@@ -1,3 +1,7 @@
+$small-screen: 768px;
+$medium-screen: 1280px;
+$large-screen: 1440px;
+
 .order_options {
     margin-bottom: 5px;
 }
@@ -1259,10 +1263,21 @@ a.spch-bub-inside:hover .point {
     width: 40%;
 }
 
+@media (min-width: $medium-screen) {
+    .suggestion_right {
+        right: 90px;
+    }
+}
+
+@media (max-width: $medium-screen) {
+    .suggestion_right {
+        right: 20px;
+    }
+}
+
 .suggestion_right {
     position: fixed;
     top: 92px;
-    right: 90px;
     left: 1110px;
     background-color: #fff;
     overflow: auto;

@@ -50,7 +50,7 @@ body div.token-input-dropdown {
 }
 
 #menu-left h4 {
-    margin: 20px 0 5px;
+    margin: 5px 0px 10px 0px;
 }
 
 .face-login-button {
@@ -971,9 +971,20 @@ ul.dd-options {
     cursor: pointer;
 }
 
+@media (max-width: '1280px') {
+    #toast-container {
+        right: 0px;
+    }
+}
+
+@media (min-width: '1280px') {
+    #toast-container {
+        right: 100px;
+    }
+}
+
 #toast-container {
     top: 100px;
-    right: 100px;
     z-index: 10000 !important;
 }
 

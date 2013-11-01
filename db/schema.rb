@@ -1259,6 +1259,8 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true
+
   create_table "tags", :force => true do |t|
     t.string   "text",                                :null => false
     t.integer  "proposals_count",      :default => 0, :null => false
@@ -1640,6 +1642,8 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
   add_foreign_key "sys_movements", "sys_currencies", :name => "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", :name => "sys_movements_sys_movement_type_id_fk"
   add_foreign_key "sys_movements", "users", :name => "sys_movements_user_id_fk"
+
+  add_foreign_key "sys_payment_notifications", "sys_features", :name => "sys_payment_notifications_sys_feature_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"

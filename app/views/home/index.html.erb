@@ -280,20 +280,34 @@
           <div class="columns large-7">
             <div class="row">
               <div class="columns large-6">
-                <h3><%= raw t('pages.home.index.field_1.title') %></h3>
+
+
+                <h5><%= raw t('pages.home.index.field_1.title') %></h5>
 
                 <p><%= t('pages.home.index.field_1.content') %></p>
 
-                <h3><%= raw t('pages.home.index.field_2.title') %></h3>
+
+              </div>
+              <div class="columns large-6">
+                <h5><%= raw t('pages.home.index.field_3.title') %></h5>
+
+                <p><%= t('pages.home.index.field_3.content') %></p>
+
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="columns large-6">
+
+
+                <h5><%= raw t('pages.home.index.field_2.title') %></h5>
 
                 <p><%= t('pages.home.index.field_2.content') %> </p>
               </div>
               <div class="columns large-6">
-                <h3><%= raw t('pages.home.index.field_3.title') %></h3>
 
-                <p><%= t('pages.home.index.field_3.content') %></p>
 
-                <h3><%= raw t('pages.home.index.field_4.title') %></h3>
+                <h5><%= raw t('pages.home.index.field_4.title') %></h5>
 
                 <p><%= t('pages.home.index.field_4.content') %></p>
               </div>
@@ -310,10 +324,14 @@
             </div>
 
           </div>
+
         </div>
+
+      </div>
+      <div class="row">
+      <%= render :partial => "layouts/new_footer" %>
       </div>
     </div>
-    <%= render :partial => "layouts/new_footer" %>
     </body>
     </html>
 <% end %>

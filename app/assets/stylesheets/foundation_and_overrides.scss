@@ -191,7 +191,7 @@ $large-screen: 1440px;
 // Control header font sizes
 
 $h1-font-size: em-calc(30);
-// $h2-font-size: em-calc(37);
+$h2-font-size: em-calc(27);
 // $h3-font-size: em-calc(27);
 // $h4-font-size: em-calc(23);
 // $h5-font-size: em-calc(18);
@@ -215,7 +215,7 @@ $h1-font-size: em-calc(30);
 // $paragraph-font-family: inherit;
 // $paragraph-font-weight: normal;
 // $paragraph-font-size: 1em;
-$paragraph-line-height: 1;
+$paragraph-line-height: 1.6;
 // $paragraph-margin-bottom: em-calc(20);
 // $paragraph-aside-font-size: em-calc(14);
 // $paragraph-aside-line-height: 1.35;
@@ -1345,6 +1345,14 @@ $table-border-style: none;
 
 .homepageButton {
   font-size: 2.4em;
+}
+
+
+
+@media (min-width: 0) and (max-width: "400px") {
+  .homepageButton {
+    font-size: 1.8em;
+  }
 }
 
 @media (min-width: $small-screen) and (max-width: "1000px") {

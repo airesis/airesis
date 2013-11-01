@@ -111,8 +111,7 @@ class Group < ActiveRecord::Base
   end
 
   def tags_with_links
-    html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-    return html
+    self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
   def save_tags

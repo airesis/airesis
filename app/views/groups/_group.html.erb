@@ -47,16 +47,6 @@
         </p>
     <% end %>
 
-    <!--
-    <p>
-      <%= f.label :accept_requests %><br/>
-      <%= f.radio_button :accept_requests, 'p' %>
-    <%= t('pages.groups.accept_requests.portavoce') %><br/>
-      <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-      <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
-    </p>
-    -->
-
 
     <p>
       <%= f.label :tags_list, t('pages.groups.new.tags.title') %>
@@ -89,22 +79,23 @@
         </p>
 
         <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
-          <%= t('pages.groups.new.change_permissions_description') %>
-          <br/>
+          <p><%= t('pages.groups.new.change_permissions_description') %>
+          </p>
           <% GroupAction.all.each do |action| %>
-              <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
-              <br/>
+              <%= f.label action.description do%>
+                  <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %>
+                  <%= action.description %>
+              <%end%>
+
           <% end %>
 
           <a href="#" onclick="return default_action();" class="btn">Default</a>
           <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
         </div>
     <% else %>
-        <p>
+
           <%= f.label :admin_title %>
           <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
-        </p>
-        <p>
 
           <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do%>
                <%= f.check_box :private %>
@@ -116,7 +107,8 @@
               <%= raw "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
             </p>
         <% end %>
-        </p>
+
+        <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
     <% end %>
 
@@ -124,7 +116,6 @@
       <%= f.submit button_name, :class => 'btn blue', disable_with: t('saving') %>
     </p>
 <% end %>
-<%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
 <script type="text/javascript">
     $(function () {
@@ -169,9 +160,11 @@
     }
 
     function default_action() {
-        $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
+        $("input[name=group\\[default_role_actions\\]\\[\\]]").prop('checked', false);
         <%@group.default_role_actions.each do |id|%>
-        $('#group_default_role_actions_<%=id%>').attr('checked', true);
+        console.log('checking');
+        console.log($('#group_default_role_actions_<%=id%>'));
+        $('#group_default_role_actions_<%=id%>').prop('checked', true);
         <%end%>
         return false;
     }

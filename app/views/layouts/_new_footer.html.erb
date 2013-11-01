@@ -1,5 +1,5 @@
-<footer>
-    <div class="pull-left">
+<footer class="hide-for-small">
+    <div class="left">
       Airesis™ v. <%= VERSION %> <span class="show-for-medium-up">- <%= t('pages.footer.for_edemocracy_html')%></span>
       <%if in_subdomain? %>
        <%= link_to t('pages.footer.go_to_main_site'), root_url(subdomain: false), target: '_blank'  %>
@@ -7,7 +7,7 @@
 
     </div>
 
-    <div class="pull-right" style="float:right;">
+    <div class="right">
       <%= link_to t('pages.home.index.support'), sostienici_path %> -
       <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link' %> -
       <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link' %> -

@@ -300,7 +300,7 @@ class Ability
         c1 = user.admin?
       end
       c1 &&
-      ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count = 0) ||
+      ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
           (event.is_elezione? && event.election.candidates.count == 0) ||
           (event.is_incontro? || event.is_riunione?))
     end

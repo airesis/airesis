@@ -1,5 +1,5 @@
 class SysPaymentNotificationsController < ApplicationController
-
+  protect_from_forgery except: :create
   #def index
   #  @sys_payment_notifications = SysPaymentNotification.all
 
@@ -39,7 +39,14 @@ class SysPaymentNotificationsController < ApplicationController
   # POST /sys_payment_notifications
   # POST /sys_payment_notifications.json
   def create
-    SysPaymentNotification.create!(:params => params, :sys_feature_id => params[:invoice], :status => params[:payment_status], :transaction_id => params[:txn_id])
+    response = validate_IPN_notification(request.raw_post)
+    case response
+      when "VERIFIED"
+        SysPaymentNotification.create!(:params => params, :sys_feature_id => params[:invoice], :status => params[:payment_status], :transaction_id => params[:txn_id])
+      when "INVALID"
+      else
+        # error
+    end
     render nothing: true
   end
 
@@ -70,4 +77,18 @@ class SysPaymentNotificationsController < ApplicationController
   #    format.json { head :no_content }
   #  end
   #end
+
+  protected
+  def validate_IPN_notification(raw)
+    uri = URI.parse("#{PAYPAL['paypal_url']}?cmd=_notify-validate")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.open_timeout = 60
+    http.read_timeout = 60
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    http.use_ssl = true
+    response = http.post(uri.request_uri, raw,
+                         'Content-Length' => "#{raw.size}",
+                         'User-Agent' => "My custom user agent"
+    ).body
+  end
 end

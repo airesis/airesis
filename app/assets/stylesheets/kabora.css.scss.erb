@@ -172,7 +172,7 @@ $large-screen: 1440px;
     float: left;
     margin-top: 20px;
     margin-left: 10px;
-    margin-right: 9px;
+    margin-right: 13px;
     color: white;
     font-weight: bold;
     font-size: 0.8em;
@@ -304,19 +304,40 @@ $large-screen: 1440px;
 @media (max-width: $medium-screen) {
     #menu-right.small-show {
         display: block !important;
-        background-color: #ccc;
+        background-color: #333;
         width: 200px;
         padding-top: 15px;
+        z-index: 1000;
+        bottom: inherit;
+        .personal_cont {
+            h2 {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+            li {
+                list-style-type: none;
+                padding: 4px;
+                a {
+                    color: #000;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $medium-screen) {
+    #menu-right .mybox {
+        box-shadow: none;
     }
 }
 
 @media (max-width: $small-screen) {
     #menu-left.small-show {
         display: block !important;
-        background-color: #ccc;
+        background-color: #333;
         position: absolute;
         z-index: 20;
-        height: 100%;
+        min-height: 100%;
     }
 
     #menu-top .group-cont {
@@ -329,6 +350,13 @@ $large-screen: 1440px;
     position: fixed;
     width: 77px;
     right: 7px;
+}
+
+@media (max-width: $medium-screen) {
+    #menu-right .cont {
+        position: relative;
+        margin: auto;
+    }
 }
 
 #account, #account-small {
@@ -715,7 +743,7 @@ $large-screen: 1440px;
                 &.sel {
                     border-radius: none;
                     background-color: transparent;
-                    padding:  0px;
+                    padding: 0px;
                 }
             }
         }
@@ -734,23 +762,14 @@ $large-screen: 1440px;
     box-shadow: 0px -1px 1px #333;
     font-size: 0.9em;
     z-index: 998;
-}
+    a {
+        color: white;
+        text-decoration: none;
 
-#footer a, footer a {
-    color: white;
-    text-decoration: none;
-}
-
-#footer a:hover, footer a:hover {
-    text-decoration: underline;
-}
-
-#footer .pull-left, footer .pull-left {
-    float: left;
-}
-
-#footer .pull-right, footer .pull-right {
-    float: right;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .centerfloat {
@@ -1086,10 +1105,6 @@ $large-screen: 1440px;
         .group-cont {
             position: absolute;
         }
-    }
-
-    #menu-right .cont {
-        position: absolute;
     }
 
     .submenu .borx {
