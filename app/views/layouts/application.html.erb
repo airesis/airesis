@@ -2,24 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 <head>
   <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
-
   <%= render :partial => "layouts/head" %>
-
-  <%= stylesheet_link_tag "foundation_and_overrides" %>
-  <%= stylesheet_link_tag 'foundation_merge' %>
-  <%= javascript_include_tag 'foundation' %>
-
-
-
-  <script type="text/javascript">
-      $(function () {
-          $(document).foundation();
-      });
-  </script>
-
-  <meta name="description" content="<%= (@page_descr) %>">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
 

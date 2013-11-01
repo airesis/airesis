@@ -48,4 +48,5 @@
 //= require underscore
 //= require jquery.textntags
 //= require paypal-button.min
+//= require foundation
 

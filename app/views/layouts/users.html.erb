@@ -6,21 +6,6 @@
   <% if @user && @user.google_page_url %>
       <link href="<%= @user.google_page_url %>" rel="author"/>
   <% end %>
-  <%= stylesheet_link_tag "foundation_and_overrides" %>
-  <%= stylesheet_link_tag 'foundation_merge' %>
-  <%= javascript_include_tag 'foundation' %>
-
-
-
-  <script type="text/javascript">
-      $(function () {
-          $(document).foundation();
-      });
-  </script>
-
-  <meta name="description" content="<%= (@page_descr) %>">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
 <div id="great_container">

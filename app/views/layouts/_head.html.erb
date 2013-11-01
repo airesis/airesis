@@ -8,12 +8,19 @@
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
+
+
+<meta name="description" content="<%= (@page_descr) %>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="author" content="Tecnologie Democratiche" />
 <link rel="shortcut icon" href="/favicon.ico" />
 
 <script type="text/javascript">
 
   $(function() {
+      $(document).foundation();
+
       var feedback_options =
               Feedback({
                   h2cPath: '/assets/html2canvas.js',
