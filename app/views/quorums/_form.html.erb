@@ -28,7 +28,7 @@
       </div>
       <div class="advanced" style="padding: 5px 10px 5px 0;">
         <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                  :and_or => (e.select :condition, {t('pages.groups.edit_quorums.condition_OR') => "OR", t('pages.groups.edit_quorums.condition_AND') => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')),
+                  :and_or => (e.select :condition, {t('words.or') => "OR", t('words.and') => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')),
                   :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants",:style => "width:25px", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
                   :current_number=> "<span id=\"partecipants_number\">0</span>", :total_number => @partecipants_count))
         %>

@@ -1,2 +1,9 @@
 //= require ./jquery.countdown.min
-//= require ./jquery.countdown-it
+//= require ./jquery.countdown-it-IT
+//= require ./jquery.countdown-en
+//= require ./jquery.countdown-en-US
+//= require ./jquery.countdown-es-ES
+//= require ./jquery.countdown-fr
+//= require ./jquery.countdown-pt-BR
+//= require ./jquery.countdown-ro
+//= require ./jquery.countdown-de

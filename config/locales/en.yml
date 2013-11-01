@@ -1,4 +1,8 @@
 en:
+  unauthorized:
+    default: "You don't have the required permissions to execute this action"
+    create:
+      group: "You cannot create more than a group a day"
   permissions_required: "You are not allowed to make this operation"
   test: "Test"
   devise:
@@ -119,54 +123,47 @@ en:
       days:
         one: "1 day"
         other: "%{count} days"
+      months:
+        one: "1 month"
+        other: "%{count} months"
   datetime:
     added_on: "on %{date}"
     distance_in_words:
       about_x_hours:
-        one: about one hour ago
+        one: about 1 hour ago
         other: about %{count} hours ago
       about_x_months:
-        one: about a month ago
+        one: about 1 month ago
         other: about %{count} months ago
       about_x_years:
-        one: about one year ago
+        one: about 1 year ago
         other: about %{count} years ago
       almost_x_years:
-        one: almost one year ago
+        one: almost 1 year ago
         other: almost %{count} years ago
       half_a_minute: half a minute ago
       less_than_x_minutes:
-        one: less than a minute ago
+        one: less than 1 minute ago
         other: less than %{count} minutes ago
       less_than_x_seconds:
-        one: less than a second ago
+        one: less than 1 second ago
         other: less than %{count} seconds ago
       over_x_years:
-        one: more than one year ago
+        one: more than 1 year ago
         other: more than %{count} years ago
       x_days:
-        one: one day ago
+        one: 1 day ago
         other: ! '%{count} days ago'
       x_minutes:
-        one: one minute ago
+        one: 1 minute ago
         other: ! '%{count} minutes ago'
       x_months:
-        one: one month ago
+        one: 1 month ago
         other: ! '%{count} months ago'
       x_seconds:
-        one: one second ago
-        other: ! '%{count} seconds ago'
-  day:
-      one: "1 day"
-      other: "%{count} days"
-  hour:
-    one: "1 hour"
-    other: "%{count} hours"
-  minute:
-    one: "1 minute"
-    other: "%{count} minutes"
+        one: "1 second ago"
+        other: ! "%{count} seconds ago"
   open_space: 'Open space'
-  guide: "FAQ"
   hello: 'Hello world'
   pages:
     top_panel:
@@ -305,6 +302,11 @@ en:
         events_number: "Number of events"
         no_results: "No group found"
         limit_reached: "You can create at most a group per day"
+        switchButton:
+          exact_border: "Exact search: search all the groups that use this exact geographical border"
+          area_border: "Area search: search all the groups inside this geographical border"
+          all_words: "Search all the groups that have all these words"
+          one_word: "Search all the groups that have at least one of these words"
       new:
         title: 'Create a new group'
         new_group: "New group"
@@ -389,8 +391,6 @@ en:
         default_private_proposal: "Proposals visible outside of the group"
         default_secret_vote: "Secret vote"
         let_editor_change_settings: "Editors can freely choose the above options"
-        condition_OR: "or"
-        condition_AND: "and"
         time: "Time"
         edit_quorum_warning: "Warning! Modifications to this quorum won't affect the proposals already using it!"
       edit_work_areas:
@@ -534,20 +534,20 @@ en:
         characters_left: "Characters left:"
         score: "Evaluations"
         rank: "Rank"
-        created_at_html: "Created %{time_ago}:<br/><b>%{date}</b>"
-        updated_at_html: "Updated %{time_ago}:<br/><b>%{date}</b>"
+        created_at_html: "Created %{time} ago:<br/><b>%{date}</b>"
+        updated_at_html: "Updated %{time} ago:<br/><b>%{date}</b>"
         votation_results: "Results"
         votation_results_title: "Vote results"
         in_votation_html: "Voting from: <br/><b>%{start}</b><br/> to: <br/><b>%{end}</b>"
         in_votation_now: "Voting right now!"
-        in_votation_until_html: "In votation until: <br/><b>%{date}</b>"
+        in_votation_until_html: "End of vote in:<br/><b>%{date}</b>"
         anonimity_active: "Temporary anonymity active"
         your_nickname_is: "Your nickname is"
         editors_title: "Editors"
-        supporting_group: "Support groups"
-        no_supporting_group: "No group support this proposal"
+        supporting_group: "Supporting groups"
+        no_supporting_group: "No group supporting this proposal"
         support_proposal_button: "Support this proposal..."
-        close_debate_button: "Close debate"
+        close_debate_button: "Close the debate"
         close_debate_proposal_confirmation: "Close debate immediately and go to the next phase?"
         during_debate: "Debate proceeding"
         comment_inserted_by: "Added %{when} by %{who}"
@@ -575,6 +575,10 @@ en:
         login_to_comment: "Login to add a comment"
         regenerate_nickname: "Regenerate nickname"
         add_contribution_no_paragraph: "No paragraph specified"
+        debate_ends_html: "End of debate in:<br/><b>%{time}</b>"
+        debate_ends_valutations_or_html: "End of debate in:<br/><b>%{num}</b> or with:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_and_html: "End of debate in:<br/><b>%{num}</b> and with:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_html: "End of debate with:<br/><b>%{evaluations_left}</b>"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "I don't get this!"
@@ -725,16 +729,20 @@ en:
         most_valutated: "Most ranked"
         most_urgent: "Most urgent"
       list:
-        last_update: "Updated<br/>%{time_ago}<br/>%{date}"
+        last_update: "Updated<br/>%{time_ago}<br/>"
         waiting_date: "Waiting for a date"
-        voting_from_to: "Voting from %{from} to %{to}"
-        voting_until: "Voting now until %{date}"
-        votation_finished: "Vote ended<br/>%{time_ago}<br/>%{date}"
+        voting_from_to: "From %{from} to %{to}"
+        voting_until: "Until <br/>%{date}"
+        votation_finished: "Ended<br/>%{time_ago}<br/>%"
+        no_votation: "Rejected<br/> %{date}"
+        votation_finished_approved: "Approved<br/> %{date}"
         no_votation: "There has not been any vote"
         interest_borders: "Geographic boundaries"
         authors: "Editors"
         support_group: "Support groups"
         no_proposals: "No proposals yet"
+        time_left: "Condition to end the debate"
+        vote: "VOTE"
       delete_comment: "Delete"
       results:
         total: "Total voters: %{count}"
@@ -768,6 +776,7 @@ en:
         no_participants: "You are allowed to edit these fields only if nobody has participated!"
         remove_section: "Remove section"
         add_paragraph: "Add a new paragraph"
+        edit_proposal: "Modify and update the text of the proposal!"
         remove_solution: "Remove solution"
         press_to_compress: "Click on the title to compress this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
@@ -797,9 +806,21 @@ en:
       new_rank_bar:
         creation: "CREATION: %{time_ago}<br/>%{date}"
         end: "END DEBATE:<br/> %{date}"
-        valutations: "%{num} EVALUATIONS"
+        valutations:
+          one: "%{count} EVALUATION"
+          other: "%{count} EVALUATIONS"
         good_score: "POSITIVE QUORUM %{score}%"
         bad_score: "NEGATIVE QUORUM %{score}%"
+      left_panel:
+        creation_date: "Date of creation"
+        any_date: "Any date"
+        choose_creation_date: "Choose a time interval"
+        last_hour: "Last hour"
+        last_24_hour: "Last 24 hours"
+        last_week: "Last week"
+        last_month: "Last month"
+        last_year: "Last year"
+        date_range: "Time interval"
     events:
       index:
         title: 'Calendar'
@@ -833,6 +854,8 @@ en:
         no_partecipants_yet: "Still no participants"
         non_partecipants: "Who did not attend?"
         will_non_partecipants: "Who will not attend?"
+        voting_proposals: "During these days these proposals will be voted"
+        no_voting_proposals: "No proposal being voted during these days"
     votations:
         show:
           vote_positive: 'Positive rating'
@@ -1251,7 +1274,6 @@ en:
         name: "Name"
         description: "Description"
         default_role_name: "Default role name"
-
     errors:
       template:
         header:
@@ -1298,15 +1320,15 @@ en:
   models:
     quorum:
       participants:
-        one: '<b>1</b> participant'
-        other: '<b>%{count}</b> participants'
-      or_condition_1: "The debate will continue until it has participated <b>%{percentage}%</b> of those eligible (that is %{participants_num}) and, in any case, for a maximum of %{time}."
-      and_condition_1: "The debate will last %{time}, but will continue unless it has participated <b>%{percentage}%</b> of those eligible, that is %{participants_num}."
-      time_condition_1: "The debate will last exactly <b>%{time}</b>."
-      participants_condition_1: "The debate will continue until it has participated the <b>%{percentage}%</b> of those eligible, that is %{participants_num}."
+        one: 'it has participated <b>1</b> person'
+        other: 'it has participated <b>%{count}</b> people'
+      or_condition_1: "The debate will continue until %{participants_num} and, in any case, for a maximum of %{time}.<br/>"
+      and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}.<br/>"
+      time_condition_1: "The debate will end in <b>%{time}</b>.<br/>"
+      participants_condition_1: "The debate will continue until %{participants_num}.<br/>"
       good_score_condition: "If it gets a rank over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
-      bad_score_explain: "If if gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank will remain between these two thresholds, regardless of time or the number of evaluations"
-      until_date: "(until <b>%{date}</b> at %{time})"
+      bad_score_explain: "If if gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
+      until_date: "(%{date} at %{time})"
       help_content:
         description_html: |
           <h3>What is a quorum?</h3>
@@ -1321,13 +1343,11 @@ en:
         both: "Both"
         good_score: "Rank:"
         bad_score: "Rejection:"
-  terms_of_service: "Terms of service"
-  privacy_policy: "Privacy Policy"
   proposals:
     create_button: "Create a proposal"
     show:
       ready_for_vote: "Ready for vote"
-      keep_discuss: "Keep the discussion"
+      keep_discuss: "Continue the discussion"
     regenerate_button: "Put back in debate"
   digit_tags: "Type the tags you want to add"
   buttons:
@@ -1431,14 +1451,14 @@ en:
       proposals:
         title: "This proposal doesn't exist"
         description: "The proposal you are looking for doesn't exist or has been deleted"
+      blog_posts:
+        title: "This post doesn't exist"
+        description: "The post you are looking for doesn't exist or has been deleted"
+      events:
+        title: "This event doesn't exist"
+        description: "The event you are looking for doesn't exist or has been deleted"
       title: "The page you are looking for doesn't exist"
       description: "Your address might be wrong, or this page does no longer exist"
-      blog_posts:
-       title: "This post doesn't exist"
-       description: "The post you are looking for doesn't exist or has been deleted"
-      events:
-       title: "This event doesn't exist"
-       description: "The event you are looking for doesn't exist or has been deleted"
     error_500:
       title: "Oops...our mistake"
       description: "A  report has been sent and the problem will be fixed as soon as possible."
@@ -1591,5 +1611,11 @@ en:
       reject: "Refuse"
       greetings: "Greetings!"
       no_more_button: "No further invitations"
-  contribute: "contribution"
-  comment: "comment"
+  words:
+    contribute: "contribution"
+    comment: "comment"
+    or: "or"
+    and: "and"
+    terms_of_service: "Terms of Service"
+    privacy_policy: "Privacy"
+    guide: "FAQ"

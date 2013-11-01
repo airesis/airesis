@@ -148,20 +148,20 @@ en:
           in_vote: "The proposal <b>%{title}</b> is now being voted!"
           abandoned: "The proposal <b>%{title}</b> has not passed the debate and has been abandoned"
           rejected: "The proposal <b>%{title}</b> has been rejected by the participants"
-          voted: "%{title} - Votation has terminated"
-          24_hours: "The debate on %{title} ends tomorrow!"
-          1_hour: "The debate on %{title} ends in an hour!"
-          24_hours_vote: "The vote on %{title} ends tomorrow!"
-          1_hour_vote: "The vote on %{title} ends in an hour!"
+          voted: "%{title} - Vote ended"
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
       change_status_mine:
         description: Change in the status of my proposals
         email_subject:
           wait: "%{title} - Choose the voting date"
           waiting_date: "%{title} - The voting date has been chosen"
           in_vote: "%{title} - COME AND VOTE!"
-          abandoned: "%{title}</b> didn't get through the debate"
+          abandoned: "%{title} didn't get through the debate"
           rejected: "%{title} has been rejected"
-          voted: "%{title} - Votation has terminated"
+          voted: "%{title} - Vote ended"
           24_hours: "The debate on %{title} ends tomorrow!"
           1_hour: "The debate on %{title} ends in an hour!"
           24_hours_vote: "The vote on %{title} ends tomorrow!"
@@ -172,18 +172,18 @@ en:
           in_vote: "Your proposal <b>%{title}</b> is now being voted!"
           abandoned: "Your proposal <b>%{title}</b> has not passed the debate and has been abandoned, sorry"
           rejected: "Your proposal <b>%{title}</b> has been rejected by the participants, sorry"
-          voted: "%{title} - Votation has terminated"
-          24_hours: "The debate on %{title} ends tomorrow!"
-          1_hour: "The debate on %{title} ends in an hour!"
-          24_hours_vote: "The vote on %{title} ends tomorrow!"
-          1_hour_vote: "The vote on %{title} ends in an hour!"
+          voted: "<b>%{title}</b> - Vote has terminated"
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
       new_posts_group_follow:
         description: New posts in the Walls of the groups I am following
         email_subject: New post
       new_posts_group:
         description: New posts in the Walls of the groups I participate in
         email_subject: New post
-        message: "<b>%{user}/<b> has added a new post in the group <b>%{group}</b>"
+        message: "<b>%{user}</b> has added a new post in the group <b>%{group}</b>"
       new_public_proposals:
         description: New proposals added in the Open Space
         email_subject: "%{proposal}"

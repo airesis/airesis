@@ -164,7 +164,6 @@ it-IT:
         one: "1 secondo fa"
         other: ! '%{count} secondi fa'
   open_space: "Spazio Comune"
-  guide: "Guida FAQ"
   hello: "Ciao mondo"
   pages:
     top_panel:
@@ -392,8 +391,6 @@ it-IT:
         default_private_proposal: "Proposte visibili all'esterno del gruppo"
         default_secret_vote: "Voto segreto"
         let_editor_change_settings: "Permetti ai redattori di scegliere liberamente le opzioni sopraindicate"
-        condition_OR: "o"
-        condition_AND: "e"
         time: "Tempo"
         edit_quorum_warning: "Attenzione! Le modifiche a questo quorum non saranno applicate alle proposte che lo stanno già usando!"
       edit_work_areas:
@@ -492,6 +489,8 @@ it-IT:
         search_words: "Almeno una parola"
         partecipants_number: "PARTECIPANTI"
         contributes_number: "CONTRIBUTI"
+        rank: "MATURITA'"
+        voters: "VOTANTI"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -535,16 +534,16 @@ it-IT:
         characters_left: "Caratteri disponibili:"
         score: "Valutazioni"
         rank: "Gradimento"
-        created_at_html: "Creata %{time_ago}:<br/><b>%{date}</b>"
-        updated_at_html: "Aggiornata %{time_ago}:<br/><b>%{date}</b>"
+        created_at_html: "Creata %{time} fa:<br/><b>%{date}</b>"
+        updated_at_html: "Aggiornata %{time} fa:<br/><b>%{date}</b>"
         votation_results: "Risultati"
         votation_results_title: "Risultati della votazione"
         in_votation_html: "In votazione dal: <br/><b>%{start}</b><br/> al: <br/><b>%{end}</b>"
         in_votation_now: "In votazione ora!"
-        in_votation_until_html: "In votazione fino al: <br/><b>%{date}</b>"
+        in_votation_until_html: "Termine votazione tra:<br/><b>%{date}</b>"
         anonimity_active: "Anonimato temporaneo attivo"
         your_nickname_is: "Il tuo nickname è"
-        editors_title: "Redigono la proposta"
+        editors_title: "Redattori"
         supporting_group: "Gruppi in sostegno"
         no_supporting_group: "Nessun gruppo sostiene la proposta"
         support_proposal_button: "Sostieni la proposta..."
@@ -576,8 +575,10 @@ it-IT:
         login_to_comment: "Fai login per inserire un commento"
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
-        debate_ends_html: "Fine dibattito tra:<br/><b>%{time}</b>"
-        debate_ends_valutations_html: "Termine dibattito con:<br/><b>%{num}</b>"
+        debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
+        debate_ends_valutations_or_html: "Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_and_html: "Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_html: "Termine dibattito con:<br/><b>%{evaluations_left}</b>"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -740,7 +741,7 @@ it-IT:
         authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
-        time_left: "Tempo rimanente"
+        time_left: "Condizione per terminare il dibattito"
         vote: "VOTA"
       delete_comment: "Cancella"
       results:
@@ -783,7 +784,6 @@ it-IT:
         you_know_what_you_do: "Sai quello che fai?"
         schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
-        tooltip: "Quando hai terminato le modifiche clicca sul pulsante 'Aggiorna' per salvare"
         more_solutions_explained_html: |
           <b>Come mai ti chiediamo se sai quello che fai?</b> <br/>
           Airesis permette di inserire una o più soluzioni ad una proposta.<br/>
@@ -806,7 +806,9 @@ it-IT:
       new_rank_bar:
         creation: "CREAZIONE: %{time_ago}<br/>%{date}"
         end: "TERMINE DIBATTITO:<br/> %{date}"
-        valutations: "%{num} VALUTAZIONI"
+        valutations:
+          one: "%{count} VALUTAZIONE"
+          other: "%{count} VALUTAZIONI"
         good_score: "QUORUM POSITIVO %{score}%"
         bad_score: "QUORUM NEGATIVO %{score}%"
       left_panel:
@@ -1318,15 +1320,15 @@ it-IT:
   models:
     quorum:
       participants:
-        one: '<b>1</b> partecipante'
-        other: '<b>%{count}</b> partecipanti'
-      or_condition_1: "Il dibattito proseguirà finchè non avrà partecipato il <b>%{percentage}%</b> degli aventi diritto (ovvero %{participants_num}) e, in ogni caso, al massimo per <b>%{time}</b>."
-      and_condition_1: "Il dibattito durerà %{time} ma proseguirà se non avrà partecipato almeno il <b>%{percentage}%</b> degli aventi diritto, ovvero %{participants_num}."
-      time_condition_1: "Il dibattito durerà esattamente <b>%{time}</b>."
-      participants_condition_1: "Il dibattito proseguirà finchè non avrà partecipato il <b>%{percentage}%</b> degli aventi diritto, ovvero %{participants_num}."
+        one: 'non avrà partecipato <b>1</b> persona'
+        other: 'non avranno partecipato <b>%{count}</b> persone'
+      or_condition_1: "Il dibattito proseguirà finchè %{participants_num} e, in ogni caso, per un massimo di %{time}."
+      and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà se %{participants_num}."
+      time_condition_1: "Il dibattito terminerà tra %{time}."
+      participants_condition_1: "Il dibattito proseguirà finchè %{participants_num}."
       good_score_condition: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
       bad_score_explain: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà un gradimento inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè il gradimento rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
-      until_date: "(fino a <b>%{date}</b> alle %{time})"
+      until_date: "(%{date} alle %{time})"
       help_content:
         description_html: |
           <h3>Cos'è il quorum?</h3>
@@ -1341,8 +1343,6 @@ it-IT:
         both: "Entrambe"
         good_score: "Gradimento:"
         bad_score: "Respingimento:"
-  terms_of_service: "Condizioni"
-  privacy_policy: "Privacy"
   proposals:
     create_button: "Crea una proposta"
     show:
@@ -1611,5 +1611,11 @@ it-IT:
       reject: "Rifiuta"
       greetings: "A presto!"
       no_more_button: "Non ricevere più inviti"
-  contribute: "contributo"
-  comment: "commento"
+  words:
+    contribution: "contributo"
+    comment: "commento"
+    or: "o"
+    and: "e"
+    terms_of_service: "Condizioni"
+    privacy_policy: "Privacy"
+    guide: "Guida FAQ"

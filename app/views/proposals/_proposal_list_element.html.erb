@@ -32,7 +32,7 @@
                   <% end %>
               <% end %>
           <% elsif proposal.abandoned? %>
-              <% title = t('pages.proposals.list.no_votation', date: (l proposal.updated_at, format: :two_rows)) %>
+              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% end %>
           <%= raw title %>
         </div>

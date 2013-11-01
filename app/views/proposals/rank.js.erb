@@ -4,9 +4,16 @@ $('#rankleftpanel .rank').html('<%=j render 'proposals/rank_left_panel'%>');
 disegnaBottoni();
 $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
 
+$('#dates').html('<%=j render 'proposals/dates'%>');
+
 <% publish_to  proposal_path(@proposal) do %>
 if (Airesis.id != <%=current_user.id%>) {
-  $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
+
+    $('#rankleftpanel .rank').html('<%=j render 'proposals/rank_left_panel'%>');
+    disegnaBottoni();
+    $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
+
+    $('#dates').html('<%=j render 'proposals/dates'%>');
   toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
 }
 <% end rescue nil%>

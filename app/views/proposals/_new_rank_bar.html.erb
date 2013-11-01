@@ -3,7 +3,7 @@
   <div class="cur stop" title="<%=raw (t('pages.proposals.new_rank_bar.end', date:proposal.quorum.end_desc.upcase))%>"></div>
   <div class="time" data-percentage="<%= proposal.percentage %>">
     <% unless proposal.quorum.time_fixed? %>
-        <div class="cur now" title="<%=raw t('pages.proposals.new_rank_bar.valutations', num:proposal.valutations)%>"></div>
+        <div class="cur now" title="<%=raw t('pages.proposals.new_rank_bar.valutations', count:proposal.valutations)%>"></div>
     <% end %>
     <div class="cur quorum" title="<%=raw t('pages.proposals.new_rank_bar.good_score', score:proposal.quorum.good_score)%>" data-percentage="<%= proposal.quorum.good_score %>"></div>
     <% if proposal.quorum.has_bad_score? %>
