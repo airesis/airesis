@@ -2904,12 +2904,13 @@
     ;;
 
     setDefaults({
-        allDaySlot: true,
+        allDaySlot: false,
         allDayText: 'all-day',
         firstHour: 6,
         slotMinutes: 30,
         defaultEventMinutes: 120,
-        axisFormat: 'h(:mm)tt',
+        axisFormat: 'H' +
+            '(:mm) tt',
         timeFormat: {
             agenda: 'h:mm{ - h:mm}'
         },

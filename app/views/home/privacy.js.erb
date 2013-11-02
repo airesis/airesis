@@ -1,4 +1,4 @@
-var _privacy_container = $('<div id="privacy_modal" title="<%=escape_javascript t('privacy_policy') %>"></div>');
+var _privacy_container = $('<div id="privacy_modal" title="<%=escape_javascript t('words.privacy_policy') %>"></div>');
 _privacy_container.html("<%= escape_javascript(render(:partial => 'devise/registrations/privacy'))%>");
 $('body').append(_privacy_container);
 _privacy_container.dialog({ height: 250, width: 450, modal: true});

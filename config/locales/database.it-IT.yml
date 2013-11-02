@@ -89,7 +89,7 @@ it:
       new_events:
         description: Nuovi eventi dei gruppi a cui partecipo
         email_subject: "Nuovo evento: %{event}"
-        message: "Nuovo evento <b>%{event}</b> nel gruppo <b>%{group}</b>."
+        message: "Nuovo evento <b>%{event}</b> nel gruppo <b>%{group}</b>"
       new_posts_user_follow:
         description: Nuovi post di un utente che seguo
         email_subject: Un nuovo post è stato inserito
@@ -148,11 +148,11 @@ it:
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"
           abandoned: "La proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata"
           rejected: "La proposta <b>%{title}</b> è stata respinta dai partecipanti"
-          voted: "La votazione <b>%{title}</b> è terminata"
-          24_hours: "Il dibattito su %{title} finisce domani!"
-          1_hour: "Il dibattito su %{title} scade tra un'ora!"
-          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
-          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
+          voted: "La votazione di <b>%{title}</b> è terminata"
+          24_hours: "Il dibattito su <b>%{title}</b> finisce domani!"
+          1_hour: "Il dibattito su <b>%{title}</b> scade tra un'ora!"
+          24_hours_vote: "Puoi votare <b>%{title}</b> solo fino a domani!"
+          1_hour_vote: "La votazione di <b>%{title}</b> scade tra un'ora!"
       change_status_mine:
         description: Cambio di stato delle mie proposte
         email_subject:
@@ -172,11 +172,11 @@ it:
           in_vote: "La tua proposta <b>%{title}</b> è in votazione da adesso!"
           abandoned: "La tua proposta <b>%{title}</b> non ha superato il dibattito ed è stata abbandonata, spiacente"
           rejected: "La tua proposta <b>%{title}</b> è stata respinta dai partecipanti, spiacente"
-          voted: "La votazione <b>%{title}</b> è terminata"
-          24_hours: "Il dibattito su %{title} finisce domani!"
-          1_hour: "Il dibattito su %{title} scade tra un'ora!"
-          24_hours_vote: "Puoi votare %{title} solo fino a domani!"
-          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
+          voted: "La votazione di <b>%{title}</b> è terminata"
+          24_hours: "Il dibattito su <b>%{title}</b> finisce domani!"
+          1_hour: "Il dibattito su <b>%{title}</b> scade tra un'ora!"
+          24_hours_vote: "Puoi votare <b>%{title}</b> solo fino a domani!"
+          1_hour_vote: "La votazione di <b>%{title}</b> scade tra un'ora!"
       new_posts_group_follow:
         description: Nuovi post sulle Bachece dei gruppi che seguo
         email_subject: Nuovo post
@@ -199,7 +199,7 @@ it:
       new_blog_comment:
         description: Nuovo commento nel mio blog
         email_subject: E' stato inserito un nuovo commento nel tuo blog
-        message: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b><br/> Vai alla pagina di <b>%{title}</b> per visualizzarlo"
+        message: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>"
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta

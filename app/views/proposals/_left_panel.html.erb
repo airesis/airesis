@@ -11,6 +11,11 @@
         <%= render :partial => 'blocked_proposal_alerts/block_alerts_panel' %>
       </div>
     </div>
+
+    <div id="dates" class="mybox" style="text-align:center">
+      <%= render :partial => 'proposals/dates' %>
+    </div>
+
 <% end %>
 
 <% if ::Configuration.socialnetwork_active %>
@@ -68,7 +73,6 @@
     </div>
 <% end %>
 
-<br/>
 
 <% if ::Configuration.proposal_support && !@proposal.private %>
     <div id="support_left_panel_container">
