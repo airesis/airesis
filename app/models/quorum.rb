@@ -143,7 +143,7 @@ class Quorum < ActiveRecord::Base
             end
           end
         end
-        ret << left
+        ret << left.upcase
       end
     end
     if self.percentage
@@ -162,8 +162,8 @@ class Quorum < ActiveRecord::Base
 
 def valutations_left
   ret = []
-  valutations = self.valutations - self.proposal.valutations
-  if valutations > 0
+  valutations = self.valutations - self.proposal.valutations if self.valutations
+  if valutations && valutations > 0
     ret << I18n.t('pages.proposals.new_rank_bar.valutations', count:valutations)
     ret.join
   end
