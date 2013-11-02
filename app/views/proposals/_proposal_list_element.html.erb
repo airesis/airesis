@@ -60,13 +60,13 @@
       <div class="proposal_bottom">
         <% if proposal.in_valutation? %>
             <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
-              <%= image_tag 'group_events.png' %>
+              <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.quorum.time_left.upcase %></span>
             </div>
         <% elsif proposal.voting? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%=  t('pages.proposals.list.time_left')  %>">
-              <%= image_tag 'group_events.png' %>
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
+              <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.vote_period.time_left.upcase %></span>
             </div>
@@ -80,7 +80,7 @@
             </div>
         <% else %>
             <div class="proposalDescription rankDescription" style="float:left" title="<%= t('pages.proposals.index.rank') %>">
-              <%= image_tag 'group_proposals.png' %>
+              <%= image_tag 'plist/gradimento.png' %>
               <span class="count"><%= proposal.rank %>%</span>
             </div>
             <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">

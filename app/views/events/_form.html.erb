@@ -1,90 +1,131 @@
-<%=form_for (@group && !in_subdomain?) ? [@group,@event] : @event, :html => {:class=>"disableForm"}, :remote => true, :validate => true do |f| %>
+<div id="create_event">
+  <%= form_for (@group && !in_subdomain?) ? [@group, @event] : @event, :html => {:class => "disableForm"}, :remote => true, :validate => true do |f| %>
 
-<%= f.hidden_field :proposal_id %>
-<div>
-	<table>
-		<tr>
-			<td width="60%">
-			<p>
-				<%= f.label :title %>
-				<br/>
-				<%= f.text_field :title %>
-			</p>
-			<p>
-				<%= f.label :description %>
-				<br/>
-				<%= f.text_area :description, :rows => 4, :cols => 30 %>
-			</p>
+      <div class="legend">
+        <div class="number">1</div>
+        <div class="title">
+          <%= t('pages.events.new.step_2') %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number">2</div>
+        <div class="title">
+          <%= t('pages.events.new.step_3') %>
+        </div>
+      </div>
+      <% unless @event.is_votazione? %>
+          <div class="legend last">
+            <div class="number">3</div>
+            <div class="title">
+              <%= t('pages.events.new.step_4') %>
+            </div>
+          </div>
+      <% end %>
 
-            <%if @change_type  %>
+
+
+
+
+      <div class="step root root">
+        <p>
+          <%= f.label :title %>
+          <br/>
+          <%= f.text_field :title %>
+        </p>
+
+        <p>
+          <%= f.label :description %>
+          <br/>
+          <%= f.text_area :description, :rows => 4, :cols => 30 %>
+        </p>
+
+        <% if @event.is_votazione? %>
+            <%= f.hidden_field :private %>
+        <% else %>
             <p>
-				<div style="float:left;width:50%;">
-				<%= f.label :event_type_id%>
-				<br/>
-				<%= f.select :event_type_id, @event_types.collect {|p| [ p.description, p.id ] },{}, :onchange => "showPlace(this.value);" %>
-				</div>
-				
-				<div style="float:left;width:50%;">
-				<%= f.label :private%>
-				<br/>
-				<%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
-				</div>
-				<div style="clear: both;" />
-			</p>
-            <%else%>
-              <%= f.hidden_field :event_type_id %>
-              <%= f.hidden_field :private %>
-              <%=hidden_field_tag 'type', params[:type] %>
-            <%end%>
-			
-			<p>
-				<%= f.label :starttime %>
-				<br/>
-				<%= f.text_field :starttime, value: (l(@event.starttime, format: :textfield)), class: 'datePicker' %>
-			</p>
-			<p>
-				<%= f.label :endtime %>
-				<br/>
-				<%= f.text_field :endtime, value: (l(@event.endtime, format: :textfield)), :class=>"datePicker" %>
-			</p>
-			<p>
-				<%= f.label :all_day %>
-				<%= f.check_box :all_day %>
-			</p>
-			<p>
-				<%= f.label :period %>
-				<%= f.select :period, Event::REPEATS,{}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true, :title=> "Opzione non ancora disponibile" %>
-			</p>
-			<p id = "frequency" style = "display:none;">
-				<%= f.label :frequency %>
-				<%= f.select :frequency, (1..30).to_a %> <span id = "period"></span>
-			</p> 
-			<p>
-                <a href="#" class="btn" onclick="$('#create_event_dialog').dialog('destroy');"><%= t('buttons.cancel') %></a>
-				<%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving')%>
-			</p></td>
-			<td width="40%">
-				<%=f.fields_for :meeting, @meeting do |m|%>
-					<%=m.fields_for :place, @place do |p|%>
-						<p id="luogo">
-							<%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %><br />
-							<%= p.text_field :comune_id, :onchange => "codeAddress('luogo');"%>
-							<%= p.label :address %><br />
-							<%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
-							<%= p.hidden_field :latitude_original %>
-							<%= p.hidden_field :longitude_original %>
-							<%= p.hidden_field :latitude_center %>
-							<%= p.hidden_field :longitude_center %>
-							<%= p.hidden_field :zoom %>				
-							<div id="create_map_canvas" style="width: 320px; height: 320px;"></div>
-							<!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-						</p>
-					<%end%>
-				<%end%>
-				
-			
-			</td>
-		</tr>
-	</table>
+              <%= f.label :private %>
+              <br/>
+              <%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
+            </p>
+        <% end %>
+
+        <%= f.hidden_field :proposal_id %>
+        <%= f.hidden_field :event_type_id %>
+
+      </div>
+      <div class="step">
+
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :starttime %>
+            <%= f.text_field :starttime, :value => (l(@event.starttime, format: :textfield)), class: 'datePicker' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :endtime %>
+            <%= f.text_field :endtime, :value => (l(@event.starttime, format: :textfield)), :class => "datePicker" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-4 columns">
+            <%= f.label :all_day %>
+            <%= f.check_box :all_day %>
+          </div>
+        </div>
+
+
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :period %>
+            <%= f.select :period, Event::REPEATS, {}, :onchange => "showPeriodAndFrequency(this.value);", :disabled => true, :title => "Opzione non ancora disponibile" %>
+          </div>
+        </div>
+
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :frequency %>
+            <%= f.select :frequency, (1..30).to_a %> <span id="period"></span>
+          </div>
+        </div>
+      </div>
+
+      <% unless @event.is_votazione? %>
+          <div class="step">
+
+
+            <%= f.fields_for :meeting, @meeting do |m| %>
+                <%= m.fields_for :place, @place do |p| %>
+                    <div id="luogo">
+                      <div class="row">
+                        <div class="large-6 columns">
+                          <%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %>
+                          <%= p.text_field :comune_id, :onchange => "codeAddress('luogo');" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="large-6 columns">
+                        <%= p.label :address %>
+                        <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <%= p.hidden_field :latitude_original %>
+                        <%= p.hidden_field :longitude_original %>
+                        <%= p.hidden_field :latitude_center %>
+                        <%= p.hidden_field :longitude_center %>
+                        <%= p.hidden_field :zoom %>
+
+                        <div id="create_map_canvas" style="width: 100%; height: 300px;"></div>
+                      </div>
+                      <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+                    </div>
+                <% end %>
+            <% end %>
+          </div>
+      <% end %>
+      <%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving') %>
+  <% end %>
 </div>
-<%end %>

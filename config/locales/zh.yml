@@ -107,33 +107,47 @@ zh:
   datetime:
     distance_in_words:
       about_x_hours:
+        one: about one hour ago
         other: 大約 %{count} 個小時
       about_x_months:
+        one: about a month ago
         other: 大約 %{count} 個月
       about_x_years:
+        one: about one year ago
         other: 大約 %{count} 年
       almost_x_years:
+        one: almost one year ago
         other: 將近 %{count} 年
       half_a_minute: 半分鐘
       less_than_x_minutes:
+        one: less than a minute ago
         other: 少於 %{count} 分鐘
       less_than_x_seconds:
+        one: less than a second ago
         other: 少於 %{count} 秒
       over_x_years:
+        one: more than one year ago
         other: 超過 %{count} 年
       x_days:
+        one: one day ago
         other: '%{count} 天'
       x_minutes:
+        one: one minute ago
         other: '%{count} 分'
       x_months:
+        one: one month ago
         other: '%{count} 個月'
       x_seconds:
+        one: one second ago
         other: '%{count} 秒'
   day:
+    one: "%{count} day"
     other: "%{count} 天"
   hour:
+    one: %{count} hour
     other: "%{count} 小時"
   minute:
+    one: "%{count} minute"
     other: "%{count} 分鐘"
   open_space: 'Open Space'
   guide: "FAQ"
@@ -445,7 +459,7 @@ zh:
         edit_button: "編輯"
         delete_button: "刪除"
         delete_proposal_confirmation: "確定要刪除這個提案？"
-        votation_message: "這個提案將從 %{form} 到 %{to} 進行投票"
+        votation_message: "這個提案將從 %{from} 到 %{to} 進行投票"
         editing_message_1: "感謝所有對此提案的討論與貢獻，提案人與編輯將會發展此提案。"
         editing_message_2: "進行投票前，排行必須先達到至少"
         editing_message_3: "最小 Rank"
@@ -596,7 +610,7 @@ zh:
       list:
         last_update: "最後更新為 %{date}"
         waiting_date: "等待提案者選擇投票日期"
-        voting_from_to: "這個提案將從 %{form} 到 %{to} 進行投票"
+        voting_from_to: "這個提案將從 %{from} 到 %{to} 進行投票"
         voting_until: "投票中，截止日期為 %{date}"
         votation_finished: "投票已於 %{date} 結束"
         no_votation: "尚未有任何得票"
@@ -997,6 +1011,7 @@ zh:
     errors:
       template:
         header:
+          one: 'an error did not allow this %{model} from being saved'
           other: '%{count} 個錯誤不允許這 %{model} 存檔'
         body: '有些欄位沒有填妥：'
       messages:

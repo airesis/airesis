@@ -16,9 +16,10 @@
 <% if can? :view_data, @group %>
     <% javascript 'endless_page' %>
 
-    <div><%= raw (@group.description)%></div>
-    <div class="group_show_page">
-      <div class="posts_container_main">
+
+    <div class="row full-width">
+      <div class="column large-8">
+        <div><%= raw (@group.description)%></div>
         <div id="posts_container">
           <% if @group_posts.count == 0 %>
               <div class="blogPost">
@@ -38,7 +39,7 @@
         <% end %>
       </div>
 
-      <div class="group_infos">
+      <div id="homegroup" class="columns large-4 show-for-large-up">
 
 
 
@@ -53,23 +54,6 @@
 
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente        %>
-    <%= content_for :right_panel do %>
-        <% if (can? :view_proposal, @group) %>
-            <h4>Proposte interne al gruppo</h4>
-            <% @group.internal_proposals.each do |proposal| %>
-                <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
-            <% end %>
-            <%= "Al momento non ci sono proposte" if @group.internal_proposals.empty? %>
-        <% end %>
-
-        <h4>Proposte sostenute dal gruppo</h4>
-        <% @group.proposals.each do |proposal| %>
-            <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
-        <% end %>
-        <%= "Al momento non ci sono proposte" if @group.proposals.empty? %>
-    <% end %>
-<% end %>
 
 
 <script type="text/javascript">
@@ -94,19 +78,5 @@
                     });
                     event.stopPropagation();
                 });
-
-        $(window).resize(function () {
-            inHomePage();
-        });
-
-        function inHomePage() {
-            console.log(window.innerWidth);
-            if (window.innerWidth < 1280) {
-                $('.posts_container_main, .group_infos').addClass('resized');
-            }
-            else {
-                $('.posts_container_main, .group_infos').removeClass('resized');
-            }
-        }
     });
 </script>

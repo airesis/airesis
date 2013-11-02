@@ -1,0 +1,14 @@
+<%= simple_form_for(@sys_payment_notification) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :params %>
+    <%= f.input :cart_id %>
+    <%= f.input :status %>
+    <%= f.input :transaction_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

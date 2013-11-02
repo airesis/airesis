@@ -163,7 +163,6 @@ class ProposalsController < ApplicationController
         end
       end
 
-      @step = get_next_step(current_user)
       @proposal = Proposal.new
 
       if params[:group_id]
@@ -401,8 +400,13 @@ class ProposalsController < ApplicationController
     #if is time fixed you can choose immediatly vote period
     if @copy.time_fixed?
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
-        @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
-        @proposal.vote_ends_at = prparams[:votation][:end]
+        if prparams[:votation][:choise] == 'new'
+          @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
+          @proposal.vote_ends_at = prparams[:votation][:end]
+        else
+          @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+        end
+
         @proposal.vote_defined = true
       end
       #if the time is fixed we schedule notifications 24h and 1h before the end of debate
@@ -908,8 +912,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
 
     if params[:time]
-      @search.created_at_from = Time.at(params[:time][:start].to_i) if params[:time][:start]
-      @search.created_at_to = Time.at(params[:time][:end].to_i) if params[:time][:end]
+      @search.created_at_from = Time.at(params[:time][:start].to_i/1000) if params[:time][:start]
+      @search.created_at_to = Time.at(params[:time][:end].to_i/1000) if params[:time][:end]
       @search.time_type = params[:time][:type]
     end
     @search.text = params[:search]

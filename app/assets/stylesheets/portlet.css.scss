@@ -26,7 +26,11 @@
   height: 260px;
 }
 
-#homecont {
+#homegroup .portlet_panel {
+  width:  100%;
+}
+
+#homecont, #homegroup {
   position: relative;
   .portlet_panel {
     float: left;

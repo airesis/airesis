@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021125639) do
+ActiveRecord::Schema.define(:version => 20131030174756) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -273,6 +273,33 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.boolean  "score_calculated",    :default => false
   end
 
+  create_table "event_comment_likes", :force => true do |t|
+    t.integer  "event_comment_id", :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "event_comment_likes", ["event_comment_id", "user_id"], :name => "index_event_comment_likes_on_event_comment_id_and_user_id", :unique => true
+  add_index "event_comment_likes", ["event_comment_id"], :name => "index_event_comment_likes_on_event_comment_id"
+  add_index "event_comment_likes", ["user_id"], :name => "index_event_comment_likes_on_user_id"
+
+  create_table "event_comments", :force => true do |t|
+    t.integer  "parent_event_comment_id"
+    t.integer  "event_id",                                :null => false
+    t.integer  "user_id",                                 :null => false
+    t.integer  "user_ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.string   "body",                    :limit => 2500, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
+
+  add_index "event_comments", ["event_id"], :name => "index_event_comments_on_event_id"
+  add_index "event_comments", ["parent_event_comment_id"], :name => "index_event_comments_on_parent_event_comment_id"
+  add_index "event_comments", ["user_id"], :name => "index_event_comments_on_user_id"
+
   create_table "event_series", :force => true do |t|
     t.integer  "frequency",  :default => 1
     t.string   "period",     :default => "months"
@@ -460,15 +487,6 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.integer  "seq"
   end
 
-  create_table "group_affinities", :force => true do |t|
-    t.integer  "group_id",                       :null => false
-    t.integer  "user_id",                        :null => false
-    t.integer  "value"
-    t.boolean  "recalculate", :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "group_areas", :force => true do |t|
     t.integer  "group_id",                           :null => false
     t.string   "name",                               :null => false
@@ -570,23 +588,23 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
     t.string   "description",                :limit => 2000
-    t.string   "accept_requests",                             :default => "p",   :null => false
+    t.string   "accept_requests",                             :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1,     :null => false
+    t.integer  "partecipation_role_id",                       :default => 1,        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                     :default => true,  :null => false
-    t.boolean  "default_anonima",                             :default => true,  :null => false
-    t.boolean  "default_visible_outside",                     :default => false, :null => false
-    t.boolean  "default_secret_vote",                         :default => true,  :null => false
-    t.integer  "max_storage_size",                            :default => 51200, :null => false
-    t.integer  "actual_storage_size",                         :default => 0,     :null => false
-    t.boolean  "enable_areas",                                :default => false, :null => false
-    t.integer  "group_partecipations_count",                  :default => 1,     :null => false
+    t.boolean  "change_advanced_options",                     :default => true,     :null => false
+    t.boolean  "default_anonima",                             :default => true,     :null => false
+    t.boolean  "default_visible_outside",                     :default => false,    :null => false
+    t.boolean  "default_secret_vote",                         :default => true,     :null => false
+    t.integer  "max_storage_size",                            :default => 51200,    :null => false
+    t.integer  "actual_storage_size",                         :default => 0,        :null => false
+    t.boolean  "enable_areas",                                :default => false,    :null => false
+    t.integer  "group_partecipations_count",                  :default => 1,        :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -595,7 +613,9 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.boolean  "private",                                     :default => false
     t.string   "rule_book",                  :limit => 40000
     t.string   "subdomain",                  :limit => 100
-    t.boolean  "certified",                                   :default => false, :null => false
+    t.boolean  "certified",                                   :default => false,    :null => false
+    t.string   "status",                                      :default => "active", :null => false
+    t.datetime "status_changed_at"
   end
 
   add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
@@ -891,6 +911,7 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.string  "name",   :limit => 10,                    :null => false
     t.integer "seq",                  :default => 0
     t.boolean "active",               :default => false
+    t.string  "color",  :limit => 10
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -941,6 +962,7 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.boolean  "vote_defined",                               :default => false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
+    t.integer  "vote_event_id"
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"
@@ -1194,6 +1216,15 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "sys_features", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.float    "amount_required"
+    t.float    "amount_received"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "sys_locales", :force => true do |t|
     t.string  "key"
     t.string  "host"
@@ -1218,6 +1249,17 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
     t.datetime "updated_at",                            :null => false
     t.string   "description",          :limit => 10000
   end
+
+  create_table "sys_payment_notifications", :force => true do |t|
+    t.text     "params"
+    t.integer  "sys_feature_id"
+    t.string   "status"
+    t.string   "transaction_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true
 
   create_table "tags", :force => true do |t|
     t.string   "text",                                :null => false
@@ -1441,6 +1483,13 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
 
   add_foreign_key "elections", "events", :name => "elections_event_id_fk"
 
+  add_foreign_key "event_comment_likes", "event_comments", :name => "event_comment_likes_event_comment_id_fk"
+  add_foreign_key "event_comment_likes", "users", :name => "event_comment_likes_user_id_fk"
+
+  add_foreign_key "event_comments", "event_comments", :name => "event_comments_parent_event_comment_id_fk", :column => "parent_event_comment_id"
+  add_foreign_key "event_comments", "events", :name => "event_comments_event_id_fk"
+  add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
+
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
 
   add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
@@ -1451,9 +1500,6 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
 
   add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
-
-  add_foreign_key "group_affinities", "groups", :name => "group_affinities_group_id_fk"
-  add_foreign_key "group_affinities", "users", :name => "group_affinities_user_id_fk"
 
   add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
   add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"
@@ -1555,6 +1601,7 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
 
   add_foreign_key "proposal_votes", "proposals", :name => "proposal_votes_proposal_id_fk"
 
+  add_foreign_key "proposals", "events", :name => "proposals_vote_event_id_fk", :column => "vote_event_id"
   add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
   add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
   add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"
@@ -1595,6 +1642,8 @@ ActiveRecord::Schema.define(:version => 20131021125639) do
   add_foreign_key "sys_movements", "sys_currencies", :name => "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", :name => "sys_movements_sys_movement_type_id_fk"
   add_foreign_key "sys_movements", "users", :name => "sys_movements_user_id_fk"
+
+  add_foreign_key "sys_payment_notifications", "sys_features", :name => "sys_payment_notifications_sys_feature_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"

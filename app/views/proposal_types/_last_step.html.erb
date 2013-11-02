@@ -1,4 +1,4 @@
-<h4><%= t('pages.proposals.new.step_4_title') %></h4>
+<h4><%= t('pages.proposals.new.step_4_title') if request.xhr?%></h4>
 
 <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
 

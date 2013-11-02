@@ -1,52 +1,54 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#" lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" xmlns:fb="http://ogp.me/ns/fb#" lang="<%= I18n.locale %>"  <%= yield :html_options %>>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
   <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
   <%= render :partial => "layouts/head" %>
 </head>
-<body style="margin:0px;padding: 0px;">
+<body>
 
 <% content_for :menu do %>
-    <% if @group %>
-        <%= @group.group_image_tag 60 %>
-        <% if @group.id %>
-            <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit' %>
-        <% else %>
-            <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit' %>
-        <% end %>
-    <% else %>
-        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-        <%= link_to t('pages.groups.index.title'), groups_path, class: 'tit' %>
-    <% end %>
+    <div class="left">
+      <%= @group ? (@group.group_image_tag 60) : (image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME)  %>
 
-    <div id="submenu">
-      <% if @group && @group.id && (can? :view_data, @group) %>
-          <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
-          <span> ⋅ </span>
-          <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
-          <span> ⋅ </span>
-          <% if ::Configuration::groups_calendar %>
-              <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
-
+    </div>
+    <div class="left topmenu">
+      <% if @group %>
+          <% if @group.id %>
+              <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit left' %>
+          <% else %>
+              <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit left' %>
           <% end %>
-          <% unless in_subdomain? %>
-              <% if ::Configuration::documents_active %>
-                  <span> ⋅ </span>
-                  <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
-              <% end %>
-          <% end %>
-          <span> ⋅ </span>
-          <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
-          <% if can? :update, @group %>
-              <span> ⋅ </span>
-              <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
-          <% end %>
+      <% else %>
+          <%= link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
       <% end %>
 
-      <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
-      <div class="tria" style="left: 389px;"></div>
+      <div class="submenu">
+        <% if @group && @group.id && (can? :view_data, @group) %>
+            <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+            <span> ⋅ </span>
+            <% if ::Configuration::groups_calendar %>
+                <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
 
+            <% end %>
+            <% unless in_subdomain? %>
+                <% if ::Configuration::documents_active %>
+                    <span> ⋅ </span>
+                    <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
+                <% end %>
+            <% end %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
+            <% if can? :update, @group %>
+                <span> ⋅ </span>
+                <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
+            <% end %>
+        <% end %>
 
+        <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
+        <div class="tria" style="left: 389px;"></div>
+      </div>
     </div>
 <% end %>
 
@@ -63,7 +65,7 @@
     <div id="centerpanelextended">
       <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
         <%= render :partial => 'layouts/tutorials' %>
-        <div id="flash_messages" style="height:20px">
+        <div id="flash_messages">
           <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>
         <%= yield :layout %>
@@ -73,7 +75,7 @@
       <div class="clearboth"></div>
     </div>
     <div style="clear: both; height: 0; overflow: hidden;"></div>
-    <%= render :partial => "layouts/footer" %>
+    <%= render :partial => "layouts/new_footer" %>
   </div>
 </div>
 

@@ -1,7 +1,9 @@
 class UserSettings < ActiveRecord::Migration
   include TutorialAssigneesHelper
   def up
+    Step.reset_column_information
     remove_column :tutorials, :description
+    Tutorial.reset_column_information
     t = Tutorial.create(:action => 'show', controller: 'users', name: 'Setting Tutorial - Personal Info')
     t.steps.create(index: 0, title: 'Settings', required: false, fragment: 'users_show', format: 'js')
     User.all.each do |user|

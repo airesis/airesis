@@ -4,6 +4,9 @@ class Group < ActiveRecord::Base
   REQ_BY_VOTE = 'v'
   REQ_BY_BOTH = 'b'
 
+  STATUS_ACTIVE = 'active'
+  STATUS_FEW_USERS_A = 'few_users_a'
+
   validates_presence_of :name
   validates_length_of :name, :within => 3..60
   validates_uniqueness_of :name
@@ -64,9 +67,6 @@ class Group < ActiveRecord::Base
 
   has_many :group_areas, dependent: :destroy
 
-  has_many :group_affinities, dependent: :destroy
-
-
   has_many :search_partecipants
 
   has_many :group_tags, :dependent => :destroy
@@ -111,8 +111,7 @@ class Group < ActiveRecord::Base
   end
 
   def tags_with_links
-    html = self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-    return html
+    self.tags.collect { |t| "<a href=\"/tags/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
   end
 
   def save_tags

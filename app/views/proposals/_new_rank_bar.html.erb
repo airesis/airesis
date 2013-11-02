@@ -1,16 +1,21 @@
 <div class="timeline">
-  <div class="cur start" title="<%=raw (t('pages.proposals.new_rank_bar.creation', time_ago:time_ago_in_words(proposal.created_at).upcase, date:(l proposal.created_at, format: :long).upcase))%>"></div>
-  <div class="cur stop" title="<%=raw (t('pages.proposals.new_rank_bar.end', date:proposal.quorum.end_desc.upcase))%>"></div>
-  <div class="time" data-percentage="<%= proposal.percentage %>">
-    <% unless proposal.quorum.time_fixed? %>
-        <div class="cur now" title="<%=raw t('pages.proposals.new_rank_bar.valutations', count:proposal.valutations)%>"></div>
-    <% end %>
-    <div class="cur quorum" title="<%=raw t('pages.proposals.new_rank_bar.good_score', score:proposal.quorum.good_score)%>" data-percentage="<%= proposal.quorum.good_score %>"></div>
-    <% if proposal.quorum.has_bad_score? %>
-        <div class="cur bad quorum" title="<%=raw t('pages.proposals.new_rank_bar.bad_score', score:proposal.quorum.bad_score)%>" data-percentage="<%= proposal.quorum.bad_score %>"></div>
-    <% end %>
-    <div class="good" data-percentage="<%= proposal.rank %>">
-
-    </div>
+  <div class="cur start" title="<%= raw (t('pages.proposals.new_rank_bar.creation', time_ago: time_ago_in_words(proposal.created_at).upcase, date: (l proposal.created_at, format: :long).upcase)) %>">
   </div>
+  <div class="cur stop" title="<%= raw (t('pages.proposals.new_rank_bar.end', date: proposal.quorum.end_desc.upcase)) %>"></div>
+  <% unless proposal.percentage < 1 %>
+      <div class="time" data-percentage="<%= proposal.percentage %>">
+
+        <% unless proposal.percentage > 98 %>
+            <div class="cur now" title="<%= proposal.quorum.time_left %>"></div>
+        <% end %>
+
+        <div class="cur quorum" title="<%= raw t('pages.proposals.new_rank_bar.good_score', score: proposal.quorum.good_score) %>" data-percentage="<%= proposal.quorum.good_score %>"></div>
+        <% if proposal.quorum.has_bad_score? %>
+            <div class="cur bad quorum" title="<%= raw t('pages.proposals.new_rank_bar.bad_score', score: proposal.quorum.bad_score) %>" data-percentage="<%= proposal.quorum.bad_score %>"></div>
+        <% end %>
+        <div class="good" data-percentage="<%= proposal.rank %>">
+
+        </div>
+      </div>
+  <% end %>
 </div>

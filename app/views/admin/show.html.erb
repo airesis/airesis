@@ -9,6 +9,8 @@
     <%= link_to 'Movements', sys_movements_path, :class => 'btn blue' %>
     <%= link_to 'Pannello Resque', '/resque_admin', :class => 'btn blue' %>
 
+    <%= link_to 'Funziononi', sys_features_path, :class => 'btn blue' %>
+
     <%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking" }, :class => 'btn' %>
 	<%= link_to 'Ricalcola stato proposte', {:action => "change_proposals_state", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Verifica validità Gruppi', {:action => "validate_groups", :controller => "admin"}, :class => 'btn' %>
@@ -32,7 +34,6 @@
 		<%=group.name%> - <%=role.name%><br/>
 		<%end%>	
 	</p>
-
 
     <p>
       <%=form_tag "/admin/block/" do %>

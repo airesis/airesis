@@ -20,16 +20,16 @@
     <div id="options">
       <div>
         <%= raw(t('pages.groups.edit_quorums.new_quorum.time_description',
-                  :days => (e.text_field :days_m, :class => "days",:readonly => true)+(e.label :days_m),
-                  :hours => (e.text_field :hours_m, :class => "hours",:readonly => true)+(e.label :hours_m),
-                  :minutes =>(e.text_field :minutes_m, :class => "minutes", :readonly => true)+(e.label :minutes_m)))
+                  :days => (e.text_field :days_m, :class => "days",:readonly => true)+(t 'activerecord.attributes.quorum.days_m'),
+                  :hours => (e.text_field :hours_m, :class => "hours",:readonly => true)+(t 'activerecord.attributes.quorum.hours_m'),
+                  :minutes =>(e.text_field :minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m')))
         %>
         <div style="clear: both;"></div>
       </div>
       <div class="advanced" style="padding: 5px 10px 5px 0;">
         <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                  :and_or => (e.select :condition, {t('words.or') => "OR", t('words.and') => "AND"}, :title => t('activerecord.attributes.quorum.condition_title')),
-                  :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants",:style => "width:25px", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
+                  :and_or => (e.select :condition, {t('words.or') => "OR", t('words.and') => "AND"}, {}, {title: t('activerecord.attributes.quorum.condition_title'), class: 'resize'}),
+                  :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
                   :current_number=> "<span id=\"partecipants_number\">0</span>", :total_number => @partecipants_count))
         %>
 

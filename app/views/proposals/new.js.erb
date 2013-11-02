@@ -57,43 +57,5 @@ $("#new_proposal").quickWizard({
     prevCallback: skipIfNecessary
 });
 
-input = $('#proposal_interest_borders_tkn')
-input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
-    crossDomain: false,
-    prePopulate: input.data("pre"),
-    hintText: "<%=t('interest_borders.hint')%>",
-    noResultsText: "<%=t('interest_borders.no_place_found')%>",
-    searchingText: "<%=t('interest_borders.searching')%>",
-    preventDuplicates: true,
-    allowTabOut: true
-});
-
-
-input = $('#proposal_tags_list')
-if (input != null) {
-    input.tokenInput("<%=tags_path(format: :json )%>", {
-        theme: "facebook",
-        crossDomain: false,
-        allowFreeTagging: true,
-        minChars: 3,
-        hintText: "<%=t('digit_tags')%>",
-        searchingText: "<%=t('digit_tags')%>",
-        preventDuplicates: true,
-        allowTabOut: true,
-        tokenValue: "name"
-    })
-}
-
-
-$('#proposal_proposal_category_id').select2({
-    minimumResultsForSearch: -1,
-    formatResult: formatCategory,
-    formatSelection: formatCategory,
-    escapeMarkup: function(m) { return m; }
-});
-
-
-
-
 $('#new_proposal').enableClientSideValidations();
 disegnaBottoni();

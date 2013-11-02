@@ -108,6 +108,7 @@ en:
      dayandmonth: "%d/%m"
      hour: "%I:%M %p"
      textfield: "%d/%m/%Y %I:%M %p"
+     rich: "%Y-%m-%dT%H:%M"
     am: "am"
     pm: "pm"
     left:
@@ -491,6 +492,7 @@ en:
         contributes_number: "CONTRIBUTIONS"
         rank: "RANK"
         voters: "VOTERS"
+        date_range: "created between %{start} and %{end}"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -825,6 +827,7 @@ en:
       index:
         title: 'Calendar'
         group_title: "Events calendar"
+        choose_type: "SELECT EVENT TYPE"
       new:
         private_tooltip: "Only group members can see and participate to the event"
         title: "New Event"
@@ -832,6 +835,12 @@ en:
         type_for_town: "Type some characters to search for a town"
         no_town_found: "No town found"
         town_searching: "Searching"
+        step_1: "Tipo di evento"
+        step_2: "Description"
+        step_3: "When"
+        step_4: "Where"
+        title_event: "NEW VOTATION EVENT"
+        title_meeting: "NEW MEETUP EVENT"
       show:
         map: "Map"
         event_place: "Event place"
@@ -1146,6 +1155,9 @@ en:
     passwords:
       edit:
         title: "Change your password"
+    event_comments:
+      new:
+        insert_comment: "Insert a comment"
   pl:
     comments:
       zero: "no comment"
@@ -1425,7 +1437,7 @@ en:
       proposal_not_waiting_date: "This proposal is not waiting for a date to be voted on"
       proposal_not_voted: "This proposal has not finished the voting phase, so you cannot do this action anymore"
       proposal_not_valuating: "This proposal is not in the voting phase, so you cannot do this action anymore"
-      proposal_already_ranked: "You have already evaluated this proposal once. The proposal has not benn modified since your last evaluation"
+      proposal_already_ranked: "You have already evaluated this proposal once. The proposal has not been modified since your last evaluation"
       proposal_not_your: "You cannot edit proposals that weren't made by you"
       creation: "We are sorry but there was an error while creating the proposal"
       editors_added: "Error while adding editors"
@@ -1462,6 +1474,8 @@ en:
     error_500:
       title: "Oops...our mistake"
       description: "A  report has been sent and the problem will be fixed as soon as possible."
+    event:
+      comment_added: "Errore durante l'inserimento del commento"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1473,7 +1487,7 @@ en:
       public_visible: "This proposal is publicly visible"
       available_authors: "There are new editors available for the proposal"
       updated_comment: "Your comment has been successfully updated"
-      comment_deleted: "The comment has benn successfully deleted"
+      comment_deleted: "The comment has been successfully deleted"
       contribute_reported: "Contribution successfully reported"
       contribute_added: "Contribution successfully added"
       comment_added: "Comment successfully added"
@@ -1537,7 +1551,7 @@ en:
       time_zone_changed: "Time zone saved"
     blog:
       blog_created: "Blog successfully created"
-      title_updated: "The title of the blog has benn successfully updated"
+      title_updated: "The title of the blog has been successfully updated"
       comment_added: "Comment successfully updated"
     events:
       event_deleted: "Event successfully deleted"
@@ -1559,6 +1573,8 @@ en:
       status_accepted: "The participation request is now in the status: ACCEPTED"
       status_voting: "The participation request is now in the status: VOTING"
       status_declined: "The participation request is now in the status: DECLINED"
+    event:
+      comment_added: "Commento inserito correttamente"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

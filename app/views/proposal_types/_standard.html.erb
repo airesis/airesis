@@ -1,7 +1,7 @@
 <div id="create_proposal">
   <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
-      <%= render :partial => 'proposal_types/wizard_steps' %>
-
+      <%= render :partial => 'proposal_types/wizard_steps' if request.xhr?%>
+      <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} unless request.xhr?%>
 
       <div class="step root root">
         <%= render 'proposal_types/first_step', {:f => f} %>
@@ -35,7 +35,8 @@
       </div>
 
       <p>
-        <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+
+        <%= link_to t('buttons.cancel'), :back, :class=>'btn' unless request.xhr?%>
         <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: t('loading') %>
       </p>
       </div>

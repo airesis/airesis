@@ -7,6 +7,11 @@
      @page_head += t('pages.proposals.index.title')
    end %>
 <% @page_head += " #{t('pages.proposals.index.in_group_area_title')} #{@group_area.name}" if @group_area %>
+<% if params[:time] %>
+    <% if params[:time][:type] == 'f' %>
+        <% @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}" %>
+    <% end %>
+<% end %>
 
 <% @page_title = @page_head %>
 
@@ -76,7 +81,7 @@
 </div>
 <% content_for :left_panel do %>
 
-<%= render 'left_panel_index' %>
+    <%= render 'left_panel_index' %>
 
 <% end %>
 
@@ -95,9 +100,6 @@
 
 
         var datePickerOptions = {
-            buttonImageOnly: true,
-            buttonImage: "<%= asset_path('iconCalendar.png') %>",
-            showOn: "both",
             changeMonth: false,
             changeYear: false,
             yearRange: "c:c+10",
@@ -112,14 +114,19 @@
         }
 
 
-        $('#time_start').datepicker($.extend({}, datePickerOptions, {
-            onClose: function () {
-                $('#time_end').focus();
+        $('#time_start_w').datepicker($.extend({
+                    altField: "#time_start",
+                    altFormat: "@"},
+                datePickerOptions, {
+                    onClose: function () {
+                        $('#time_end_w').focus();
 
-            }
-        }));
+                    }
+                }));
 
-        $('#time_end').datepicker($.extend({}, datePickerOptions, {
+        $('#time_end_w').datepicker($.extend({
+            altField: "#time_end",
+            altFormat: "@"}, datePickerOptions, {
             onClose: function () {
                 $(this).form().find('button[name=button]').focus();
 
@@ -130,7 +137,7 @@
         <%if params[:time] && params[:time][:type]%>
         var selected_ = $('#creation_date .hidden_menu a[data-type=<%=params[:time][:type]%>]');
         <%if params[:time][:type] == 'f'%>
-        $('#creation_date .hidden_link b').text("<%=params[:time][:start]%>" + " - <%=params[:time][:end]%>");
+        $('#creation_date .hidden_link b').text("<%=params[:time][:start_w]%>" + " - <%=params[:time][:end_w]%>");
         <%else%>
         $('#creation_date .hidden_link b').text(selected_.text());
         <%end%>
@@ -164,22 +171,6 @@
     });
 
 
-    var menu2show = 1;
-    $(".mybox .button").click(function () {
-        if ($(this).data('menu2show') == 0) {
-            $(this).data('menu2show', 1);
-            $(this).parent().find('.mycont').slideDown();
-            $(this).removeClass('close');
-
-        } else {
-            $(this).data('menu2show', 0);
-            $(this).parent().find('.mycont').slideUp();
-            $(this).addClass('close');
-        }
-
-    });
-
-
     $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
         if (data.status == 401) {
             window.location = "/users/sign_in?l=<%=I18n.locale%>"
@@ -202,7 +193,7 @@
         }
     });
 
-    $(function() {
+    $(function () {
         // grab the url
         var url = document.URL;
         // grab the value of the hash
@@ -221,10 +212,10 @@
     });
     resizeProposal();
 
-    function resizeProposal(){
-        if(window.innerWidth>1500){
+    function resizeProposal() {
+        if (window.innerWidth > 1500) {
             $('#tabs').addClass('twocols');
-        }else{
+        } else {
             $('#tabs').removeClass('twocols');
         }
     }

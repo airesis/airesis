@@ -1,0 +1,22 @@
+<%@extend = true %>
+<h1><%= @page_title %></h1>
+<h4><%= t('pages.tags.not_found.subtitle') %></h4>
+
+<div id="tag_cloud">
+  <p>
+  <% @tags.each do |tag| %>
+      <%= link_to tag.text, tag_path(tag.text), rel: tag.groups_count %>
+  <% end %>
+  </p>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $.fn.tagcloud.defaults = {
+        size: {start: 12, end: 24, unit: 'pt'},
+        color: {start: '#000', end: '#bbb'}
+    };
+    $('#tag_cloud a').tagcloud();
+</script>

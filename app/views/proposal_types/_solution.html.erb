@@ -8,7 +8,7 @@
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
-                    <%=sol.text_field :title %>
+                    <%= sol.text_field :title %>
                   </div>
                   <span class="remove_sol_button">
                     <a href="#" onclick="removeSolution(this,false);return false;"> <%= 'Rimuovi soluzione' %></a>
@@ -27,14 +27,13 @@
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                               <p class="section_container">
-                                <%= s.text_field :title, class: "edit_label" %>
                                 <span class="move_button">
-                              <%= image_tag 'move.png' %>
-                            </span>
-                             <span class="remove_button">
-                              <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= 'Rimuovi sezione' %></a>
-                            </span>
-                                <br/>
+                                    <%= image_tag 'move.png' %>
+                                </span>
+                                <span class="remove_button">
+                                    <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= 'Rimuovi sezione' %></a>
+                                </span>
+                                <%= s.text_field :title, class: "edit_label" %>
                                 <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                                 <%= p.hidden_field :content %>
                                 <%= p.hidden_field :seq %>
@@ -45,7 +44,7 @@
 
 
                   <div class="new_section">
-                    <a href="#" onclick="addSolutionSection(this);return false;"  data-solution_id="" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+                    <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
                   </div>
 
                 </div>

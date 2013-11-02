@@ -5,7 +5,6 @@
  *= require proposal
  *= require users/users
  *= require token-input
- *= require token-input-facebook
  *= require blog_kit
  *= require style_logged
  *= require groups
@@ -39,4 +38,6 @@
  *= require select2
  *= require frm
  *= require jquery.textntags
+ *= require foundation_and_overrides
+ *= require foundation_merge
 */

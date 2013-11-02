@@ -8,11 +8,10 @@
 
       <br/>
 
-    <div class="comment-form-comment">
 
       <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
 
-    </div>
+
     </p>
     <p>
       <%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
@@ -23,24 +22,6 @@
 
 
     $(function () {
-        /*$('.blogNewCommentField').each(function() {
-         if ($(this).attr('data-initialized') != 1) {
-         $(this).focus(function() {
-         $(this).parent().toggleClass("active");
-         }).focusout(function() {
-         $(this).parent().toggleClass("active");
-         });
-         $(this).charCount({
-         allowed :
-        <%=CONTRIBUTE_MAX_LENGTH%>,
-         warning : 100,
-         counterText : '
-        <%=t('pages.proposals.show.characters_left')%> '
-         });
-         $(this).elastic();
-         $(this).attr('data-initialized',1);
-         }
-         });  */
 
         $('.blogNewCommentField').each(function () {
             if ($(this).attr('data-initialized') != 1) {
@@ -57,11 +38,6 @@
                         callback.call(this, found);
                     }
                 });
-                $(this).focus(function () {
-                    $(this).parent().parent().toggleClass("active");
-                }).focusout(function () {
-                            $(this).parent().parent().toggleClass("active");
-                        });
 
                 $(this).charCount({
                     allowed: <%=CONTRIBUTE_MAX_LENGTH%>,

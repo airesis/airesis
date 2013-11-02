@@ -49,7 +49,7 @@ it:
       STREAM_POST:
         description: Pubblicare nella Bacheca del gruppo
       CREATE_EVENT:
-        description: Creare eventi e votazioni
+        description: Creare eventi meetup
       PROPOSAL:
         description: Sostenere proposte a nome del gruppo
       REQUEST_ACCEPT:
@@ -69,7 +69,7 @@ it:
       PROPOSAL_VOTE:
         description: Votare le proposte
       PROPOSAL_DATE:
-        description: Mettere le proposte in votazione
+        description: Creare eventi di votazione
     notification_categories:
       MYPROP:
         description: Proposte che redigo

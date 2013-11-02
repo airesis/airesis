@@ -8,12 +8,19 @@
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
-<meta name="author" content="Rodi Alessandro" />
+
+
+<meta name="description" content="<%= (@page_descr) %>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="author" content="Tecnologie Democratiche" />
 <link rel="shortcut icon" href="/favicon.ico" />
 
 <script type="text/javascript">
 
   $(function() {
+      $(document).foundation();
+
       var feedback_options =
               Feedback({
                   h2cPath: '/assets/html2canvas.js',
@@ -26,7 +33,7 @@
                   closeLabel: '<%=j t('buttons.close')%>',
                   messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
                   messageError: '<%=j t('pages.feedback.send_error')%>',
-                  appendTo: $('#footer .pull-right')[0],
+                  appendTo: $('.pull-right')[0],
                   btnClass: "feedbackBtn",
                   pages: [
                       new window.Feedback.Form([

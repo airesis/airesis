@@ -28,7 +28,6 @@
       <% else %>
           <% if @proposal.contributes.noise.count > 0 %>
               <%= link_to t('pages.proposals.show.noise_folder'), noise_proposal_proposal_comments_url(@proposal), :remote => true, class: 'btn' %>
-
           <% end %>
       <% end %>
 

@@ -2,42 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
 <head>
   <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
-
   <%= render :partial => "layouts/head" %>
-
 </head>
-<body style="min-width:1000px;">
-<div id="great_container">
+<body>
 
-  <% content_for :menu do %>
-
+<% content_for :menu do %>
+    <div class="left">
       <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+    </div>
+    <div class="left topmenu">
       <span class="tit"><%= @page_title %></span>
+    </div>
+<% end %>
 
-  <% end %>
+<%= render :partial => "layouts/header" %>
+<div id="main" style="<%= current_user ? 'right:80px;' : 'right:0px;' %>">
+  <!-- ##### Main Copy ##### -->
+  <div id="main-copy" class="application">
 
-  <%= render :partial => "layouts/header" %>
-  <div id="main" style="<%= current_user ? 'right:80px;min-width:920px;' : 'right:0px;min-width:1000px;' %>">
-    <!-- ##### Main Copy ##### -->
-    <div id="main-copy">
-      <div id="menu-left">
-        <div class="menu2">
+    <div class="row">
+      <div class="columns large-12">
           <%= yield :left_panel %>
-        </div>
-      </div>
-      <div id="centerpanelextended">
-        <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
           <%= render :partial => 'layouts/tutorials' %>
           <div id="flash_messages" style="height:20px">
             <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
           </div>
           <%= yield :layout %>
-        </div>
-        <div class="clearboth"></div>
       </div>
-      <div style="clear: both; height: 0; overflow: hidden;"></div>
-      <%= render :partial => "layouts/footer" %>
     </div>
+    <%= render :partial => "layouts/new_footer" %>
   </div>
 </div>
 </body>
