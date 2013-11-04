@@ -135,7 +135,6 @@
     function hideAndDeleteReply(event, id) {
         if (!retval) {
             clicked = $('#delete' + id);
-            console.log(clicked);
             if (confirm('<%= t('pages.proposals.show.delete_suggestion_confirmation')%>')) {
                 $('#replys' + id).hide(600, function () {
                     retval = true;
@@ -276,10 +275,7 @@
         //0 - not fetched - closed
         //1 - fetched - open
         //2 - fetched - closed
-
-        console.log('attaching event');
         $(".contributeButton").click(function (event, comment_id) {
-            console.log('hi');
             var this_ = $(this);
             var section_id = $(this).attr("data-section_id");
             var this_status = $(this).attr("data-status");

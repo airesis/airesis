@@ -17,7 +17,6 @@
             <div id="change_nick"></div> <%= ')' %></div>
           <script type="text/javascript">
               var endsDate = new Date(<%=(@my_nickname.created_at + 10.minutes).utc.to_i * 1000%>);
-              console.log('endDate: ' + endsDate);
               $('#change_nick').countdown($.extend({until: endsDate, compact: true, onExpiry: removeButton}, $.countdown.regional['it']));
 
               function removeButton() {

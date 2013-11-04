@@ -8,9 +8,6 @@
 <%end%>
 
 contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
-//console.log('contributi mostrati:' + contributes);
-//console.log('total pages: <%=@total_pages%>');
-//console.log('current page: <%=@current_page%>');
 
 firstCheck = false;
 <%if @total_pages > @current_page%>

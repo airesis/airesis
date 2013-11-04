@@ -258,7 +258,6 @@
                 e.preventDefault();
                 if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
                     checkActive = false;
-                    console.log('bottom');
                     fetchContributes();
                 }
             });
@@ -333,16 +332,12 @@
     }
 
     function anima() {
-        console.log('anima');
-
-
         $('.solution_main h3').each(function () {
-
             $(this).parent().attr('data-compressed', false);
         })
-                .click(function () {
-                    compressSolution($(this));
-                });
+        .click(function () {
+            compressSolution($(this));
+        });
         $('.solution_main h3 input').click(function (event) {
             event.preventDefault();
             return false;
@@ -424,12 +419,9 @@
 
     $(function () {
         for (name in CKEDITOR.instances) {
-            console.log(name);
-            console.log('init:' + readableName(name));
             ckedstoogle_[name] = {first: true};
             var editor = CKEDITOR.instances[name];
             addEditorEvents(editor);
-            //editor.addMenuGroup('lite', 3);
         }
     });
 
@@ -447,14 +439,11 @@
             for (id in CKEDITOR.instances) {
                 var editor = CKEDITOR.instances[id];
                 var textarea_ = $('#' + id);
-                console.log('parsing:' + id);
                 var lite = ckedstoogle_[id]['editor'];
                 var clean = lite._tracker.getCleanContent();
-                console.log('cleaned:' + clean);
                 var name_ = textarea_.attr('name').replace('_dirty', '').replace(/\[/g, '\\[').replace(/\]/g, '\\]');
                 var target = $('[name=' + name_ + ']');
                 target.val(clean);
-                console.log('putting into:' + target.attr('id'));
             }
         } catch (err) {
             console.error('error in parsing' + name);
@@ -657,9 +646,7 @@
                 $(this).find('p').each(function (el) {
                     var id = $(this).find('textarea').attr('id');
                     var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                    console.log(seq_id + ', id: ' + i);
                     $('#' + seq_id).val(i++)
-                    console.log($('#' + id.replace(/paragraphs_attributes.*/, 'title')).val() + ': ' + (i - 1));
                 });
             }
         });
@@ -719,7 +706,6 @@
         }
 
         function scrollToSection(number) {
-            console.log('scroll to' + ".section_container[data-section-id=" + number + "]");
             scrollToElement($(".section_container[data-section-id=" + number + "]"));
             return false;
         }

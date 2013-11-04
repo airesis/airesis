@@ -55,7 +55,6 @@
                   });
 
                   $(".slideNumber").change(function () {
-                      console.log('change');
                       $(this).next().slider("value", this.selectedIndex + 1);
                   });
               });
@@ -68,7 +67,6 @@
                   vote = [];
                   $('#solutions_table tr').each(function (panel) {
                       var val = $('.slideNumber', this).val();
-                      console.log(val);
                       if (!val || val == '') val = "0";
                       vote.push([$(this).data('id'), val])
                   })
@@ -89,7 +87,6 @@
                   }
 
                   $('#data_votes').val(votestring);
-                  console.log('data_votes: ' + votestring);
                   return true;
               }
 

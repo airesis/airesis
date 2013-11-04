@@ -5,7 +5,6 @@
     $(function () {
         $('img.cke_iframe').each(function () {
             var realelement = $(this).data('cke-realelement');
-            console.log('realelement:' + realelement);
             $(this).after($(unescape(realelement)));
             $(this).remove();
         });

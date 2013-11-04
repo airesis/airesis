@@ -109,8 +109,6 @@
 
         $('#data_votes').val(array2dToJson(vote, 'candidates', ' '));
         $('#data_string').val(votestring);
-        console.log('data_string: ' + votestring);
-        console.log('data_votes: ' + array2dToJson(vote, 'candidates', ' '));
         return true;
     }
 
@@ -121,13 +119,11 @@
             max: <%=candidates_num%>+1,
             range: "min",
             slide: function (event, ui) {
-                console.log("sliding")
                 $(this).prev()[0].selectedIndex = ui.value - 1;
             }
         });
 
         $(".slideNumber").change(function () {
-            console.log('change');
             $(this).next().slider("value", this.selectedIndex + 1);
         });
     });

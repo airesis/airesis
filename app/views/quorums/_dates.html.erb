@@ -70,7 +70,6 @@
 
     $(function () {
         $('[name="proposal[votation][choise]"]').change(function () {
-            console.log($(this).val());
             if ($(this).val() == 'preset') {
                 $('.choise_b .inner').css('opacity', 0.6);
                 $('.choise_a .inner').css('opacity', 1);
@@ -98,7 +97,6 @@
 
 
         $('#proposal_votation_vote_period_id').on("select2-focus", function (e) {
-            console.log('click');
             $('#proposal_votation_choise_preset').click();
         });
 

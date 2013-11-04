@@ -27,7 +27,6 @@
 
         $('.blogNewCommentField').each(function () {
             if ($(this).attr('data-initialized') != 1) {
-                console.log('init: ' + $(this));
                 $(this).textntags({
                     triggers: {'@': {uniqueTags: false}},
                     onDataRequest: function (mode, query, triggerChar, callback) {

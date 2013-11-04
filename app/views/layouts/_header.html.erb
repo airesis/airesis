@@ -240,7 +240,6 @@
                 _this.removeClass('active');
                 _this.data('show', false);
             } else {
-                console.log($('.hidden_panel', _this));
                 $('.hidden_panel', _this).show().position({
                     my: "right top",
                     at: "right bottom",
@@ -293,13 +292,11 @@
                     });
                     $('.cont-mess').remove();
 
-                    console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         var obj = data[i];
                         if (obj.count > 0) {
                             $('.alert_box.logo[data-id=' + obj.id + ']').append($('<button class="alert notify boxed">').append(obj.count));
                         }
-                        console.log('add container');
                         var n_container = $('<div id="alert_cont_' + obj.id + '" class="cont-mess" style="display:none">');
                         var tool_container = $('<div class="tool">');
                         var img_container = $('<img class="logo" src="/assets/notification_categories/' + obj.short + '.png">');
@@ -402,10 +399,7 @@
                     $('.cont1')
                             .bind('mousewheel DOMMouseScroll', function (e) {
                                 if (e.originalEvent) e = e.originalEvent;
-                                console.log('scrolling');
-                                console.log(e);
                                 var delta = e.wheelDelta || -e.detail;
-                                console.log('delta: ' + delta);
                                 this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
                                 e.preventDefault();
                             });
