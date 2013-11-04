@@ -152,7 +152,7 @@
               <ol>
                 <% vote.vote_schulze.split(";").each do |s_v| %>
                     <li>
-                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).sections.first.title }.join(' o ') %>
+                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).title }.join(' o ') %>
                     </li>
                 <% end %>
               </ol>
