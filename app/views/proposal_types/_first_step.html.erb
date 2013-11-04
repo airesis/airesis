@@ -1,7 +1,7 @@
 <h4><%= t('pages.proposals.new.step_1_title') %></h4>
 
 <p>
-  <%= f.label :title %> * <%= t('pages.proposals.new.title_synthetic') %><br/>
+  <%= f.label :title, t('pages.proposals.new.title_synthetic') %>
   <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), :style => "width:500px" %>
 </p>
 
@@ -9,7 +9,7 @@
 <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
 <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
     <p>
-      <%= f.label :group_area_id %><br/>
+      <%= f.label :group_area_id %>
       <% if @available_areas.size > 0 %>
           <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}) %>
       <% else %>
@@ -21,19 +21,19 @@
 
 <% if ::Configuration.proposal_categories %>
     <p>
-      <%= f.label :proposal_category_id %> *<br/>
+      <%= f.label :proposal_category_id %>
       <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {style: 'width:300px'} %>
     </p>
 <% end %>
 
 <p>
-  <%= f.label :interest_borders_tkn %><br/>
+  <%= f.label :interest_borders_tkn %>
   <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder') %>
 </p>
 
 <% if ::Configuration::folksonomy %>
     <p>
-      <%= f.label :tags_list %><br/>
+      <%= f.label :tags_list %>
       <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
     </p>
 <% end %>
@@ -63,7 +63,6 @@
             allowTabOut: true
         });
 
-
         input = $('#proposal_tags_list')
         if (input != null) {
             input.tokenInput("<%=tags_path(format: :json )%>", {
@@ -86,5 +85,7 @@
             formatSelection: formatCategory,
             escapeMarkup: function(m) { return m; }
         });
+        console.log('first step');
+
     });
 </script>

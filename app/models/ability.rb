@@ -293,16 +293,18 @@ class Ability
     #if it's election should be no candidate yet
     def can_edit_event?(user, event)
       group = event.organizers.first
+      #can edit the event only if has permissions in the group
       c1 = false
       if group
         c1 = (group.scoped_partecipants(GroupAction::CREATE_EVENT).include? user)
       else
         c1 = user.admin?
       end
-      c1 &&
+      #can edit the event only if the user created it or if it's the admin of the group
+      c2 = event.user ?  ((user == event.user) || (group.portavoce.include? user)) : true
+      c1 && c2 &&
       ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
-          (event.is_elezione? && event.election.candidates.count == 0) ||
-          (event.is_incontro? || event.is_riunione?))
+       (event.is_incontro? || event.is_riunione?))
     end
 
 
@@ -313,7 +315,7 @@ class Ability
       role = partecipation.partecipation_role
       return true if (role.id == PartecipationRole::PORTAVOCE)
       roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => ["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id])
-      return roles.include? role
+      roles.include? role
     end
 
 
@@ -327,7 +329,7 @@ class Ability
       return false unless area_partecipation
       role = area_partecipation.area_role
       roles = group_area.area_roles.all(:joins => :area_action_abilitations, :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action, group_area.id])
-      return roles.include? role
+      roles.include? role
     end
 
 
@@ -340,7 +342,7 @@ class Ability
           return can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_VIEW) #todo when a proposal will be presented by more groups
         end
       else
-        return true
+        true
       end
 
     end

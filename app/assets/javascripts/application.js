@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require jquery.sliderAccess
 //= require timepicker
 //= require jquery_ujs
 

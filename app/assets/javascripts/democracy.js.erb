@@ -89,6 +89,12 @@ $(function () {
     });
 
 
+    mybox_animate();
+
+});
+
+
+function mybox_animate() {
     $(".mybox .mybox_button").click(function () {
         if ($(this).data('menu2show') == 0) {
             $(this).data('menu2show', 1);
@@ -101,8 +107,7 @@ $(function () {
             $(this).addClass('close');
         }
     });
-
-});
+}
 
 function sticky_relocate() {
     var window_top = $(window).scrollTop();

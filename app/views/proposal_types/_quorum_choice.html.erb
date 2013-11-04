@@ -1,13 +1,12 @@
 <p>
   <%= f.label :quorum_id %>
-  *  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
-  <br/>
   <% if @group %>
       <% @quorum_collection = @group.quorums.active %>
   <% else %>
       <% @quorum_collection = Quorum.public.order('seq nulls last') %>
   <% end %>
   <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
+  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
 <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
 </div>
 </p>
@@ -23,8 +22,6 @@
 
 
 <script type="text/javascript">
-
-
     $(function () {
         $('#proposal_quorum_id').select2({
             minimumResultsForSearch: -1,
@@ -34,7 +31,6 @@
                 return m;
             }
         });
-
 
         $('#proposal_quorum_id').on("change", function (e) {
             var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
@@ -50,7 +46,7 @@
             if (timefixed_) {
                 $.ajax({
                     url: '<%=dates_quorums_url%>',
-                    data: 'id=' + id_ + '&group_id=' + <%=@group.id%>,
+                    data: 'id=' + id_ + '&group_id=<%=@group.try(:id)%>',
                     success: function () {
                         $('#choose_votation').show();
                         var now_ = new Date();

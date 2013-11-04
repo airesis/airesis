@@ -1,48 +1,45 @@
-<% if @group %>
-    <% collection = Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
-<% else %>
-    <% collection = Event.public.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } %>
-<% end %>
-<% if collection.size > 0 %>
-    <%= form_for @proposal, :url => set_votation_date_proposal_url(@proposal, :group_id => params[:group_id]) do |f| %>
-        <p>
-
-          <b><%= t('pages.proposals.show.choose_votation_period') %></b>
-          <%= f.select :vote_period_id, options_for_select(collection), {style: 'width:400px'} %>
-
-          <%= f.submit t('pages.proposals.show.choose_votation_period_button'), :confirm => t('pages.proposals.show.choose_votation_period_alert'), :class => 'btn blue' %>
-        </p>
-    <% end %>
-<% else %>
+<% if (current_user.is_mine? @proposal) || is_admin? %>
     <% if @group %>
-        <p>
-          <% if (current_user.is_mine? @proposal) || is_admin?%>
-              <b><%= t('pages.proposals.show.create_votation_period') %></b>
-          <% else %>
-              <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>
-          <% end %>
-        </p>
+        <% collection = Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
     <% else %>
-        <p>
-          <b><%= raw t('pages.proposals.show.no_periods_contact_admin', :email => (mail_to EMAIL_USERNAME)) %></b>
-        </p>
+        <% collection = Event.public.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
     <% end %>
-<% end %>
-<% if @group && (can? :create_date, @group) %>
-    <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
 
+
+    <% if collection.size > 0 %>
+        <%= form_for @proposal, :url => set_votation_date_proposal_url(@proposal, :group_id => params[:group_id]) do |f| %>
+            <p>
+
+              <b><%= t('pages.proposals.show.choose_votation_period') %></b>
+              <%= f.select :vote_period_id, options_for_select(collection), {style: 'width:400px'} %>
+
+              <%= f.submit t('pages.proposals.show.choose_votation_period_button'), :confirm => t('pages.proposals.show.choose_votation_period_alert'), :class => 'btn blue' %>
+            </p>
+        <% end %>
+    <% else %>
+        <% if @group %>
+            <b><%= t('pages.proposals.show.create_votation_period') %></b>
+        <% else %>
+            <b><%= raw t('pages.proposals.show.no_periods_contact_admin', :email => (mail_to EMAIL_USERNAME)) %></b>
+        <% end %>
+    <% end %>
+    <% if @group && (can? :create_date, @group) %>
+        <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
+    <% end %>
+<% else %>
+    <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>
 <% end %>
 
 
 <script type="text/javascript">
-  $(function() {
-      $('#proposal_vote_period_id').select2({
-          minimumResultsForSearch: -1,
-          formatResult: formatPeriod,
-          formatSelection: formatPeriod,
-          escapeMarkup: function (m) {
-              return m;
-          }
-      });
-  })
+    $(function () {
+        $('#proposal_vote_period_id').select2({
+            minimumResultsForSearch: -1,
+            formatResult: formatPeriod,
+            formatSelection: formatPeriod,
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+    })
 </script>

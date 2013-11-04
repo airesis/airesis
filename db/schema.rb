@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030174756) do
+ActiveRecord::Schema.define(:version => 20131101150100) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
 
   create_table "event_types", :force => true do |t|
     t.string "name"
+    t.string "color", :limit => 10
   end
 
   create_table "events", :force => true do |t|
@@ -325,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
     t.integer  "event_series_id"
     t.integer  "event_type_id"
     t.boolean  "private",         :default => false, :null => false
+    t.integer  "user_id"
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
@@ -1491,6 +1493,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
   add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
 
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
+  add_foreign_key "events", "users", :name => "events_user_id_fk"
 
   add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
   add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"

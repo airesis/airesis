@@ -61,11 +61,11 @@
 
     <div class="choose_event_type" style="display:none;">
       <% EventType.active.each do |event_type| %>
-          <div class="proposal_model_option" data-id="<%= event_type.id %>">
+          <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
             <div class="model_name">
               <div class="name"><%= event_type.description.upcase %></div>
               <div class="icon">
-                <%= image_tag("event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description) %>
+                <%= image_tag"event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description, style: 'width:160px' %>
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@
         create_event_.append($('.choose_event_type').clone().show());
 
 
-        $('.proposal_model_option', create_event_).click(function () {
+        $('.event_model_option', create_event_).click(function () {
             var create_event_inner_ = $('.choose_event_type', create_event_);
             var type_id = $(this).data('id');
             create_event_inner_.hide(1000, function () {
@@ -102,10 +102,10 @@
         create_event_.dialog({
             title: "<%=j t('pages.events.index.choose_type') %>",
             modal: true,
-            width: 500,
+            width: 600,
             height: 'auto',
             close: function (event, ui) {
-                create_proposal_.dialog('destroy');
+                create_event_.dialog('destroy');
             }
         });
         return false;

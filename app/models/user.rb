@@ -103,6 +103,8 @@ class User < ActiveRecord::Base
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
 
+  has_many :events
+
   #candidature
   has_many :candidates, :class_name => 'Candidate'
 

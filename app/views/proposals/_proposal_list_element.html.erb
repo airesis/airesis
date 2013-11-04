@@ -23,12 +23,12 @@
               <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
           <% elsif proposal.voted? %>
               <% if proposal.is_schulze? %>
-                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime)) %><!--TODO:I18n -->
+                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime)) %>
               <% else %>
                   <% if proposal.rejected? %>
-                      <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %><!--TODO:I18n -->
+                      <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
                   <% else %>
-                      <% title = t('pages.proposals.list.votation_finished_approved', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %><!--TODO:I18n -->
+                      <% title = t('pages.proposals.list.votation_finished_approved', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
                   <% end %>
               <% end %>
           <% elsif proposal.abandoned? %>
@@ -39,14 +39,18 @@
       </div>
     </div>
     <div class="right_cont">
-      <div class="maintitle">
-        <%= user_valutation_image(current_user, proposal) if current_user %>
-        <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+      <div style="position: relative">
+        <div class="maintitle">
+          <%= user_valutation_image(current_user, proposal) if current_user %>
+          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
 
+        </div>
       </div>
 
       <div class="text_content">
+        <p>
         <%= raw proposal.short_content %>
+        </p>
       </div>
       <% if proposal.voting? || proposal.voted? %>
           <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
