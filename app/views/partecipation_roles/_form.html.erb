@@ -1,14 +1,13 @@
 <%=form_for @partecipation_role, :remote => true do |f|%>
     <%=f.hidden_field :group_id%>
-    <p>
-      <%=f.label :name%>	<br />
+      <%=f.label :name%>
       <%=f.text_field :name%>
-    </p>
+
     <%unless @group.partecipation_role_id == @partecipation_role.id %>
-      <p>
-        <%=f.label :description%>	<br />
-        <%=f.text_area :description, style: "width: 300px;height:150px;"%>
-      </p>
+
+        <%=f.label :description%>
+        <%=f.text_area :description%>
+
     <%end%>
     <a href="#" class="btn" onclick="$('#<%=params[:action] == 'edit' ? 'edit_role' : 'new_role'%>').dialog('destroy');"><%= t('buttons.cancel') %></a>
     <%=f.button button_name, :class => 'btn blue saveButton'%>

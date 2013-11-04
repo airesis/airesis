@@ -381,6 +381,8 @@ class ProposalsController < ApplicationController
     end
   end
 
+  # @param [Hash] prparams
+  # @return [Object]
   def assign_quorum(prparams)
     quorum = Quorum.find(prparams[:quorum_id])
     @copy = quorum.dup
@@ -414,11 +416,13 @@ class ProposalsController < ApplicationController
     #if is time fixed you can choose immediatly vote period
     if @copy.time_fixed?
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
-        if prparams[:votation][:choise] == 'new'
-          @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
-          @proposal.vote_ends_at = prparams[:votation][:end]
-        else
+        if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
           @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+        else
+          start = prparams[:votation][:start] || (@copy.ends_at + 1.minute)
+          raise Exception 'error' unless prparams[:votation][:end].to_s != ''
+          @proposal.vote_starts_at = start
+          @proposal.vote_ends_at = prparams[:votation][:end]          
         end
 
         @proposal.vote_defined = true
@@ -445,22 +449,6 @@ class ProposalsController < ApplicationController
         unless can? :destroy, @proposal
           params[:proposal] = params[:proposal].except(:title, :subtitle, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
         end
-
-
-        #if params[:proposal][:quorum_id]
-        #  Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-
-        #  @old_quorum = @proposal.quorum
-
-        #  quorum = assign_quorum(params[:proposal])
-
-        #fai partire il timer per far scadere la proposta
-        #  if quorum.minutes && @proposal.proposal_type_id.to_s == ProposalType::STANDARD.to_s
-        #    Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-        #  end
-        #  params[:proposal][:quorum_id] = @copy.id
-
-        #end
 
         @proposal.attributes = params[:proposal]
 

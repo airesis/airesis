@@ -32,7 +32,7 @@ module Frm
 
     def destroy
       @topic = @forum.topics.find(params[:id])
-      if current_user == @topic.user || current_user.forem_admin?
+      if current_user == @topic.user || current_user.forem_admin?(@group)
         @topic.destroy
         destroy_successful
       else

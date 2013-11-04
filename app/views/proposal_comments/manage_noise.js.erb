@@ -1,7 +1,7 @@
 $('body').append('<%= escape_javascript(render(:partial => 'manage_noise'))%>');
 $('#noise_manage_panel').dialog({
     modal: true,
-    width: 840,
+    width: 844,
     close : function(event, ui) {
         $('#noise_manage_panel').dialog('destroy');
         $('#noise_manage_panel').remove();

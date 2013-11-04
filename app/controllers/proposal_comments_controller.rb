@@ -324,7 +324,7 @@ class ProposalCommentsController < ApplicationController
   def already_ranked
     return true if current_user.can_rank_again_comment?(@proposal_comment)
 
-    flash[:notice] = @proposal_comment.proposal.in_valutation? ? t('info.proposal.comment_already_ranked') : t('error.proposals.proposal_not_valuating')
+    flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}

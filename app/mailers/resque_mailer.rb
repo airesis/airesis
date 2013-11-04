@@ -60,6 +60,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @group = Group.find(group_id)
+    @user = @from
     @to = @group.partecipants.where('users.id in (?)',to_ids.split(','))
     mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
   end

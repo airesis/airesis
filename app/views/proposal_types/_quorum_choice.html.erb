@@ -53,7 +53,7 @@
                         var end_ = addMinutes(now_, parseInt(minutes_));
 
                         var upperend_ = upperMinutes(end_, 5);
-                        $('#choose_votation .start_vot').html('<%='al termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                        $('#choose_votation .start_vot').html('<%='termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
                         $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
                         $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
                         $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));

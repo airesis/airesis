@@ -67,11 +67,11 @@
     <% if can? :view_data, @group %>
 
         <div id="partecipants_container" class="mybox">
-          <%= render :partial => 'partecipants_panel' %>
+          <%= render :partial => 'groups/partecipants_panel' %>
         </div>
 
         <div id="partecipation_requests_container">
-        <%= render :partial => 'partecipation_requests_panel' %>
+        <%= render :partial => 'groups/partecipation_requests_panel' %>
         </div>
 
         <% voting = @group.partecipation_requests.voting

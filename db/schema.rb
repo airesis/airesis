@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131101150100) do
+ActiveRecord::Schema.define(:version => 20131104165523) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1257,8 +1257,12 @@ ActiveRecord::Schema.define(:version => 20131101150100) do
     t.integer  "sys_feature_id"
     t.string   "status"
     t.string   "transaction_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.decimal  "payment_fee"
+    t.decimal  "payment_gross"
+    t.string   "first_name",     :limit => 4000
+    t.string   "last_name",      :limit => 4000
   end
 
   add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true

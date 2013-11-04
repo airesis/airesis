@@ -238,7 +238,7 @@ class Ability
       end
 
       can :moderate, Frm::Forum do |forum|
-        user.can_moderate_forem_forum?(forum) || user.forem_admin?
+        user.can_moderate_forem_forum?(forum) || user.forem_admin?(forum.group)
       end
 
       # Always performed

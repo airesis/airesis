@@ -266,6 +266,7 @@ it-IT:
         proposals: "Quorum e proposte"
         areas: "Aree di lavoro"
         forum: "Amministrazione forum"
+        users: "Gestione utenti"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:

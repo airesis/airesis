@@ -30,6 +30,7 @@ Airesis::Application.routes.draw do
   resources :quorums do
     collection do
       get :dates
+      get :help
     end
   end
 
@@ -506,11 +507,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :quorums do
-      collection do
-        get :help
-      end
-    end
+
 
     resources :elections do
       member do

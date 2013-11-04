@@ -24,7 +24,7 @@
 
       <div class="submenu">
         <% if @group && @group.id && (can? :view_data, @group) %>
-            <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
+            <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '' %>
             <span> ⋅ </span>
             <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
             <span> ⋅ </span>
@@ -42,7 +42,7 @@
             <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
             <% if can? :update, @group %>
                 <span> ⋅ </span>
-                <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
+                <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (['group_areas','group_partecipations','search_partecipants'].include? params[:controller]) || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
             <% end %>
         <% end %>
 

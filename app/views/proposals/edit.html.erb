@@ -103,7 +103,7 @@
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
-            <div class="solution_main">
+            <div class="solution_main" data-solution_id="<%= i %>">
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
@@ -509,6 +509,7 @@
         paragraph_.append(seq_);
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
         $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
+        $('.solution_main[data-solution_id='+solutionid+']').css('height','');
         paragraph_.fadeIn();
 
         addEditor(textarea_.attr('id'));

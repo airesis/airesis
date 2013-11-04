@@ -40,7 +40,7 @@
         <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
             <%= link_to t(".reply"), new_group_forum_topic_post_url(@group, @forum, @topic), :class => "btn disable commentButton", disable_with: t('loading') %>
         <% end %>
-        <% if @topic.user == current_user || forem_admin? %>
+        <% if @topic.user == current_user || forem_admin?(@group) %>
             <%= link_to t(".delete"), group_forum_topic_url(@group, @forum, @topic), :method => :delete, data: {:confirm => t("are_you_sure")}, :class => "btn trashButton" %>
         <% end %>
         <% if current_user %>
@@ -62,7 +62,7 @@
     <% end %>
 
 
-    <% if forem_admin? %>
+    <% if forem_admin?(@group) %>
         <div class="mybox">
           <h4><%= t('frm.forum.admin_tools') %></h4>
 

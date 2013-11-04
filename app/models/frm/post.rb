@@ -91,7 +91,7 @@ module Frm
     end
 
     def owner_or_admin?(other_user)
-      user == other_user || other_user.forem_admin?
+      user == other_user || other_user.forem_admin?(post.forum.group)
     end
 
     protected

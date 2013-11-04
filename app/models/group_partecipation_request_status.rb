@@ -5,5 +5,9 @@ class GroupPartecipationRequestStatus < ActiveRecord::Base
   REJECTED=4
 
   has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequests'
-  
+
+  def self.active
+      where(['id != ?',VOTING])
+  end
+
 end

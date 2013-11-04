@@ -35,7 +35,7 @@ module Frm
     helper_method :forum
 
     def ensure_moderator_or_admin
-      unless forem_admin? || forum.moderator?(current_user)
+      unless forem_admin?(@group) || forum.moderator?(current_user)
         raise CanCan::AccessDenied
       end
     end
