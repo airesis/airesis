@@ -22,20 +22,21 @@
 <h2 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h2><!--TODO:I18n-->
 
 <div class="dates">
-<span><%=t('pages.proposals.show.created_at_html', time_ago:time_ago_in_words(@proposal.created_at), date:(l @proposal.created_at))%>
+<span><%= t('pages.proposals.show.created_at_html', time_ago: time_ago_in_words(@proposal.created_at), date: (l @proposal.created_at)) %>
 </span>
-<br/>
-<% if @proposal.updated_at != @proposal.created_at %>
+  <br/>
+  <% if @proposal.updated_at != @proposal.created_at %>
     <span>
-      <%= t('pages.proposals.show.updated_at_html',time_ago:time_ago_in_words(@proposal.updated_at), date:(l @proposal.updated_at))%>
+      <%= t('pages.proposals.show.updated_at_html', time_ago: time_ago_in_words(@proposal.updated_at), date: (l @proposal.updated_at)) %>
     </span>
-<br/>
-<% end %>
+      <br/>
+  <% end %>
 </div>
 
-<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
-    <span><%= t('pages.proposals.show.in_votation_html', start:(l @proposal.vote_period.starttime), end:(l @proposal.vote_period.endtime)) %></span><br/>
-<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
+<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata   %>
+    <span><%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %></span>
+    <br/>
+<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione   %>
     <span><%= t('pages.proposals.show.in_votation_until_html', date: (l @proposal.vote_period.endtime)) %></span><br/>
 <% end %>
 
@@ -46,20 +47,24 @@
 <% if signed_in? %>
     <div style="margin: 5px;">
       <% if @proposal.revisions.count > 0 %>
-          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class => 'btn scriptButton disable', :disable_with => t('loading') %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), :remote => true, :class => 'btn scriptButton disable', :disable_with => t('loading') %>
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <% if @proposal.vote %>
-            <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
-            <br/><br/>
+        <% if params[:action] == 'show' %>
+            <% if @proposal.vote %>
+                <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_url(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
+                <br/><br/>
+            <% end %>
+            <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
+            <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#resultsButton').click();
+                });
+            </script>
+        <%else%>
+            <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal), class: 'btn blue' %>
         <% end %>
-        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
-        <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
-        <script type="text/javascript">
-            $(function () {
-                $('#resultsButton').click();
-            });
-        </script>
     <% end %>
 <% end %>

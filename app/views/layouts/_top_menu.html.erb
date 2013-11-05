@@ -1,6 +1,6 @@
 <div id="menu-top">
   <div id="logo-airesis">
-    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path , tabindex: 1 %>
+    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path, tabindex: 1 %>
     <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small"), '#', tabindex: 1, id: 'logo1mini' %>
   </div>
 
@@ -14,10 +14,7 @@
 
   <div class="sep1"></div>
   <div style="position:relative">
-  <div id="menu-group" class="title-area hide-for-small">
-    <%= yield :menu %>
-
-  </div>
+      <%= yield :menu %>
   </div>
 
 
@@ -27,7 +24,7 @@
     <% unless current_user %>
         <div id="inlog">
           <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
-          <%= link_to t('pages.header.login'), '/users/sign_in', :class=>"show-for-small" %>
+          <%= link_to t('pages.header.login'), '/users/sign_in', :class => "show-for-small" %>
           -
           <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
         </div>
@@ -78,8 +75,8 @@
         </div>
     <% end %>
 
-    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
-    <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
+    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love hide-for-small', title: t('pages.header.support_us') %>
+    <%= image_tag 'cur-info.png', :class => 'cur info hide-for-small', title: 'TUTORIAL' %>
     <div id="help_panel" style="display:none;">
       <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class: 'btn feedbackButton' %>
       <br/>

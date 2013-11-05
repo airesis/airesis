@@ -645,6 +645,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def vote_results
     respond_to do |format|
       format.js
+      format.html
     end
   end
 

@@ -189,17 +189,7 @@
         });
 
 
-        $('#logo1mini').click(function () {
-            var menu_ = $('#menu-left');
-            if (menu_.attr('data-expshow') == 'true') {
-                menu_.removeClass('small-show');
-                menu_.attr('data-expshow', false);
-            }
-            else {
-                menu_.addClass('small-show');
-                menu_.attr('data-expshow', true);
-            }
-        });
+
 
         <%if user_signed_in?%>
 
