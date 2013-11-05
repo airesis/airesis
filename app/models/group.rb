@@ -279,6 +279,7 @@ class Group < ActiveRecord::Base
       Group.search do
         fulltext search
         with(:interest_border_id, params[:interest_border_ids]) if params[:interest_border_obj]
+        order_by :score, :desc
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
       end.results

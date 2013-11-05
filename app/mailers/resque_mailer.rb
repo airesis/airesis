@@ -66,12 +66,12 @@ class ResqueMailer < ActionMailer::Base
 
 
   def publish(params)
-    user = User.find_by_id(params['user_id'])
+    @user = User.find_by_id(params['user_id'])
     mail_fields = {
       subject: params['subject'],
-      to: user.email
+      to: @user.email
     }
-    @name = user.fullname
+    @name = @user.fullname
 
     mail(mail_fields) do |format|
       format.html { render("maktoub/newsletters/#{params['newsletter']}") }
