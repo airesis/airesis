@@ -14,7 +14,7 @@
     <div class="baloon-triangle"></div>
     <div class="reply_content">
       <%= parsed_content(reply,@proposal.is_anonima?) %>
-      <div class="reply-footer">
+      <div class="reply-footer" title='<%=l(reply.created_at)%>'>
         <% who = (comment_nickname && @proposal.is_anonima? && !(reply.user == current_user)) ? comment_nickname.nickname : reply.user.fullname %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(reply.created_at), who: who) %>
 

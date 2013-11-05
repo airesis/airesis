@@ -86,6 +86,8 @@ class Quorum < ActiveRecord::Base
     end
   end
 
+  #used to describe the remaining time left for the discussion.
+  #When total_time=true, it shows the total time of the discussion
   def time(total_time=false)
     min = self.minutes
     if !total_time
@@ -120,7 +122,7 @@ class Quorum < ActiveRecord::Base
 
   def end_desc
     conds = []
-    conds << "#{(I18n.l self.ends_at)} " if self.minutes
+    conds << "#{I18n.l self.ends_at} " if self.minutes
     conds << " #{I18n.t('pages.proposals.new_rank_bar.valutations', count:self.valutations)}" if self.percentage
     conds.join(or? ? I18n.t('words.or') : I18n.t('words.and'))
   end
@@ -170,7 +172,7 @@ def valutations_left
 end
 
 
-  def explanation(proposal_lives=false)
+  def explanation(proposal_lives=false) #set this to true when using method "description" in proposal history, when there are more than one life cycle
     @explanation ||= explanation_pop(proposal_lives)
   end
 

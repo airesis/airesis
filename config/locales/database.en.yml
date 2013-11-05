@@ -49,7 +49,7 @@ en:
       STREAM_POST:
         description: Post on the Group Wall
       CREATE_EVENT:
-        description: Create events and votes
+        description: Create meetup events
       PROPOSAL:
         description: Support proposals on behalf of the group
       REQUEST_ACCEPT:
@@ -69,7 +69,7 @@ en:
       PROPOSAL_VOTE:
         description: Vote proposals
       PROPOSAL_DATE:
-        description: Choose proposals votation period
+        description: Create vote events
     notification_categories:
       MYPROP:
         description: Proposals I write

@@ -59,13 +59,13 @@ en:
       - Friday
       - Saturday
     abbr_day_names:
-      - S
-      - M
-      - T
-      - W
-      - F
-      - T
-      - S
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Fri
+      - Thu
+      - Sat
     month_names:
       -
       - January
@@ -102,8 +102,9 @@ en:
      long_date_time: "%A %d %B %Y at %I:%M %p"
      from_long_date_time: "From %A %d %B %Y at %I:%M %p"
      until_long_date_time: "To %A %d %B %Y at %I:%M %p"
+     short: "%d %b %Y"
      two_rows: "%d %b %Y <br/> %I:%M %p"
-     weekday: "%A"
+     weekday: "%a %I:%M %p"
      month: "%B"
      dayandmonth: "%d/%m"
      hour: "%I:%M %p"
@@ -552,7 +553,7 @@ en:
         close_debate_button: "Close the debate"
         close_debate_proposal_confirmation: "Close debate immediately and go to the next phase?"
         during_debate: "Debate proceeding"
-        comment_inserted_by: "Added %{when} by %{who}"
+        comment_inserted_by: "%{who} - %{when}"
         replies:
           show_all: "Show all %{count} comments..."
           delete: "Delete"
@@ -1338,8 +1339,8 @@ en:
       and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}.<br/>"
       time_condition_1: "The debate will end in <b>%{time}</b>.<br/>"
       participants_condition_1: "The debate will continue until %{participants_num}.<br/>"
-      good_score_condition: "If it gets a rank over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
-      bad_score_explain: "If if gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
+      good_score_condition: "If the proposal gets a rank over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
+      bad_score_explain: "If the proposal gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
       until_date: "(%{date} at %{time})"
       help_content:
         description_html: |

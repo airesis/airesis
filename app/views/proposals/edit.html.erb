@@ -534,7 +534,7 @@
 
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution));
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution)); //TODO:I18n
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
         paragraph_.find(".add_section").attr('data-solution_id', numSolution);
         paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);

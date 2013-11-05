@@ -33,8 +33,24 @@ module ApplicationHelper
 
   def time_in_words(from_time, include_seconds=false)
     diff = Time.now - from_time
-    diff > 23.hours ? I18n.t('datetime.added_on', date:I18n.l(from_time)) : time_ago_in_words(from_time,include_seconds)
+    if diff > 24.hours
+      if diff < 7.days && (from_time.wday <= Time.now.wday)
+        if (Time.now.day - from_time.day) == 1
+          ret = "Yesterday at #{I18n.l(from_time, format: :hour)}" if Time.now.day != from_time.day
+        else
+          ret = I18n.l(from_time, format: :weekday)
+        end
+      else
+        ret = I18n.l(from_time, format: :short)
+      end
+    elsif diff > 1.hours
+        ret = I18n.l(from_time, format: :hour)
+    else
+      ret = "<div data-countdown data-time='#{(from_time).to_i * 1000}' style='display:inline'></div>".html_safe
+    end
+    ret
   end
+
 
   def google_authenticator_qrcode(user)
     data = "otpauth://totp/#{user.email}?secret=#{user.rotp_secret}"

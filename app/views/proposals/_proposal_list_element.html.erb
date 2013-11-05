@@ -9,7 +9,6 @@
           <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
         </div>
         <div class="status">
-          <% date = (l proposal.updated_at, format: :two_rows) %>
           <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% if proposal.in_valutation? %>
               <% date = (l proposal.updated_at, format: :two_rows) %>

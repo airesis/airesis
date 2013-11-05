@@ -25,6 +25,7 @@
                       :remote => "true",
                       :onclick => "return false;",
                       :class => "deleteCommentLink",
+                      :style => "float:right",
                       :id => "delete#{comment.id}" %>
       <% end %>
     </p>
@@ -39,7 +40,7 @@
       $('#delete<%= comment.id%>').click(function (event) {
           hiding(event, <%= comment.id%>);
       });
-
+      disegnaCountdown();
 
   </script>
   <div style="clear:both;"></div>

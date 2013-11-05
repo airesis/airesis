@@ -2909,8 +2909,7 @@
         firstHour: 6,
         slotMinutes: 30,
         defaultEventMinutes: 120,
-        axisFormat: 'H' +
-            '(:mm) tt',
+        axisFormat: 'h(:mm) tt',
         timeFormat: {
             agenda: 'h:mm{ - h:mm}'
         },
