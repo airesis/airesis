@@ -1,40 +1,48 @@
 <div class="history">
   <table>
     <thead>
-    <th><%= t('pages.proposal_histories.revision')%></th>
-    <th><%= t('pages.proposal_histories.date_and_time')%></th>
+    <th><%= t('pages.proposal_histories.revision') %></th>
+    <th><%= t('pages.proposal_histories.date_and_time') %></th>
     </thead>
     <tbody>
-    <% if @proposal.proposal_lives.count > 0 %>
+    <% if @proposal.proposal_lives.count > 0 #if we have more life cycles  %>
         <tr>
-          <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.present_life_cycle')%></td>
+          <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.present_life_cycle') %></td>
           <td>
           </td>
         </tr>
 
         <% lives = @proposal.proposal_lives.order('seq desc') %>
-        <% if lives.count == 0 %>
-            <% revisions = @proposal.revisions %>
 
-            <% if revisions.count > 0 %>
-                <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
-                    <tr>
-                      <td><%= revision.seq %></td>
-                      <td>
-                        <%= l revision.created_at %>
-                      </td>
-                      <td><input type="radio" name="new" value="<%= revision.id %>"
-                                 <% if i == 0 %>checked="checked"
-                                 <% end %>/></td>
-                    </tr>
-                <% end %>
-            <% else %>
+        <% revisions = @proposal.revisions.where(['created_at > ?', lives.first.created_at]) %>
+        <% if revisions.count > 0 %>
+            <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
                 <tr>
-                  <td colspan=3><%= t('pages.proposal_histories.no_revision')%></td>
+                  <td><%= revision.seq %></td>
+                  <td>
+                    <%= l revision.created_at %>
+                  </td>
+                  <td><input type="radio" name="new" value="<%= revision.id %>"
+                             <% if i == 0 %>checked="checked"
+                             <% end %>/></td>
                 </tr>
             <% end %>
         <% else %>
-            <% revisions = @proposal.revisions.where(['created_at > ?', lives.first.created_at]) %>
+            <tr>
+              <td colspan=3><%= t('pages.proposal_histories.no_revision') %></td>
+            </tr>
+        <% end %>
+        <% lives.each_with_index do |life, i| %>
+            <tr>
+              <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.life_cycle') %> <%= life.seq %></td>
+              <td>
+                <input type="radio" name="new" value="<%= life.id %>" data-life_id="<%= life.id %>" data-is_life="true">
+              </td>
+            </tr>
+            <% revisions = @proposal.revisions.where(['created_at <= ?', life.created_at]) %>
+            <% if (i < (@proposal.proposal_lives.count - 1)) %>
+                <% revisions = revisions.where(['created_at > ?', lives[i+1].created_at]) %>
+            <% end %>
             <% if revisions.count > 0 %>
                 <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
                     <tr>
@@ -43,43 +51,14 @@
                         <%= l revision.created_at %>
                       </td>
                       <td><input type="radio" name="new" value="<%= revision.id %>"
-                                 <% if i == 0 %>checked="checked"
+                                 <% if (i == 0) && (revisions.count == 0) %>checked="checked"
                                  <% end %>/></td>
                     </tr>
                 <% end %>
             <% else %>
                 <tr>
-                  <td colspan=3><%=t('pages.proposal_histories.no_revision') %></td>
+                  <td colspan=3><%= t('pages.proposal_histories.no_revision') %></td>
                 </tr>
-            <% end %>
-            <% lives.each_with_index do |life, i| %>
-                <tr>
-                  <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.life_cycle') %> <%= life.seq %></td>
-                  <td>
-                    <input type="radio" name="new" value="<%= life.id %>" data-life_id="<%= life.id %>" data-is_life="true">
-                  </td>
-                </tr>
-                <% revisions = @proposal.revisions.where(['created_at <= ?', life.created_at]) %>
-                <% if (i < (@proposal.proposal_lives.count - 1)) %>
-                    <% revisions = revisions.where(['created_at > ?', lives[i+1].created_at]) %>
-                <% end %>
-                <% if revisions.count > 0 %>
-                    <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
-                        <tr>
-                          <td><%= revision.seq %></td>
-                          <td>
-                            <%= l revision.created_at %>
-                          </td>
-                          <td><input type="radio" name="new" value="<%= revision.id %>"
-                                     <% if i == 0 %>checked="checked"
-                                     <% end %>/></td>
-                        </tr>
-                    <% end %>
-                <% else %>
-                    <tr>
-                      <td colspan=3><%=t('pages.proposal_histories.no_revision') %></td>
-                    </tr>
-                <% end %>
             <% end %>
         <% end %>
     <% else %>

@@ -143,7 +143,7 @@ module GroupsHelper
         options[:subdomain] = group.subdomain
         proposal_url(proposal, options)
       else
-        #options[:subdomain] = false
+        options[:subdomain] = false      #activated for proposal link when u r in subdomain (like in tags page)...i think there is something wrong here...
         super
       end
     end

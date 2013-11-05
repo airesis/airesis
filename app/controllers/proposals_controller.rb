@@ -306,8 +306,10 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
+
       end #end transaction
+      Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
+
       @saved = true
 
       respond_to do |format|
@@ -458,10 +460,8 @@ class ProposalsController < ApplicationController
 
         @proposal.save!
 
-        #@old_quorum.destroy if @old_quorum
-
-        notify_proposal_has_been_updated(@proposal, @group)
       end
+      Resque.enqueue_in(1, NotificationProposalUpdate, current_user.id, @proposal.id, @group.try(:id))
 
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_updated')

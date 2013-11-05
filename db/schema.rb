@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131104165523) do
+ActiveRecord::Schema.define(:version => 20131105112850) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1102,6 +1102,8 @@ ActiveRecord::Schema.define(:version => 20131104165523) do
     t.integer "section_id"
     t.string  "title",      :limit => 100, :null => false
     t.integer "seq",                       :null => false
+    t.boolean "added"
+    t.boolean "removed"
   end
 
   create_table "sections", :force => true do |t|
@@ -1131,6 +1133,9 @@ ActiveRecord::Schema.define(:version => 20131104165523) do
   create_table "solution_histories", :force => true do |t|
     t.integer "proposal_revision_id", :null => false
     t.integer "seq",                  :null => false
+    t.string  "title"
+    t.boolean "added"
+    t.boolean "removed"
   end
 
   add_index "solution_histories", ["proposal_revision_id"], :name => "index_solution_histories_on_proposal_revision_id"

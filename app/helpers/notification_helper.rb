@@ -34,32 +34,14 @@ module NotificationHelper
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
     end
-
   end
-
-  #invia le notifiche quando un una proposta viene modificata
-  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def notify_proposal_has_been_updated(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title, 'i18n' => 't'}
-    data['group'] = group.name if group
-    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
-    notification_a.save
-    proposal.partecipants.each do |user|
-      if user != current_user
-        #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
-        another = Notification.first(:joins => [:notification_data, :user_alerts => [:user]], :conditions => ['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false', 'proposal_id', proposal.id.to_s, 2, user.id.to_s])
-        send_notification_to_user(notification_a, user) unless (another || BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id))
-      end
-    end
-  end
-
 
   def notify_user_unintegrated_contribute(proposal_comment)
     @proposal = proposal_comment.proposal
     @group = @proposal.private ? @proposal.presentation_groups.first : nil
     comment_user = proposal_comment.user
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
-    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
+    name = @proposal.is_anonima? ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
 
     data = {'proposal_id' => @proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => @proposal.title, 'i18n' => 't'}
     data['group'] = @group.name if @group
@@ -78,7 +60,7 @@ module NotificationHelper
   def notify_proposal_waiting_for_date(proposal, group = nil)
 
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(current_user.id, proposal.id)
-    name = nickname ? nickname.nickname : current_user.fullname
+    name = proposal.is_anonima? ? nickname.nickname : current_user.fullname
     data = {'proposal_id' => proposal.id.to_s, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'waiting_date'}
     data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
