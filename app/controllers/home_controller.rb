@@ -115,7 +115,9 @@ class HomeController < ApplicationController
   private
 
   def choose_layout
-    if ['show'].include? action_name
+    if ['index'].include? action_name
+      nil
+    elsif ['show'].include? action_name
       'users'
     else
       'landing'
