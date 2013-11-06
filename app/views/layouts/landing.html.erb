@@ -17,15 +17,15 @@
         <div class="topbar-menu-icon left"></div>
 
         <div class="submenu mycont hide-for-small">
-          <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: (params[:action] == 'whatis' ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: ((['whatis','intro'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: (params[:action] == 'engage' ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: ((['engage'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: (params[:action] == 'videoguide' ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: ((['videoguide'].include? params[:action])  ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: (params[:action] == 'whowe' ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: ((['whowe','story'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: (params[:action] == 'helpus' ? 'sel' : '') %>
+          <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: ((['helpus'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
           <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
           <% unless in_subdomain? %>

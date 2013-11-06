@@ -29,6 +29,9 @@ class HomeController < ApplicationController
   def whatis
   end
 
+  def intro
+  end
+
   def roadmap
   end
 
@@ -44,6 +47,9 @@ class HomeController < ApplicationController
   end
 
   def whowe
+  end
+
+  def story
   end
 
   def helpus
@@ -111,10 +117,8 @@ class HomeController < ApplicationController
   def choose_layout
     if ['show'].include? action_name
       'users'
-    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press','statistics','movements'].include? action_name
-      'landing'
     else
-      nil
+      'landing'
     end
   end
 
