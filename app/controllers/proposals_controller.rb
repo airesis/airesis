@@ -738,7 +738,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
           }
           format.html
         else
-          flash[:notice] = I18n.t('error.proposals.proposal_rank')
+          flash[:error] = I18n.t('error.proposals.proposal_rank')
           format.js { render :update do |page|
             page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           end
@@ -750,11 +750,12 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end #transaction
   rescue Exception => e
 #    log_error(e)
-    flash[:notice] = I18n.t('error.proposals.proposal_rank')
+    flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
+        page.replace_html "dates", :partial => 'proposals/dates'
 
       end
       }

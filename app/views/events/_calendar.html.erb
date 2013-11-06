@@ -153,6 +153,17 @@
             events: '<%=list_events_url%>',
             <%end%>
             timeFormat: '<%=t('calendar.timeFormat')%>',
+			columnFormat: {
+                        month: 'ddd',
+                        week: 'ddd M/d',
+                        day: 'dddd M/d'
+                    },
+                    titleFormat: {                                          //TODO:I18n
+                        month: 'MMMM yyyy',
+                        week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
+                        day: 'dddd, MMM d, yyyy'
+                    },
+                    axisFormat: 'H:mm',
             dragOpacity: "0.5",
             eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                 moveEvent(event, dayDelta, minuteDelta, allDay);

@@ -23,7 +23,7 @@
         </td>
         <td> <%= quorum.percentage ? quorum.percentage.to_s + '%' : '-' %>
         </td>
-        <td> <%= (quorum.time && quorum.percentage) ? quorum.or? ? t('pages.groups.edit_quorums.condition_OR') : t('pages.groups.edit_quorums.condition_AND') : '-' %>
+        <td> <%= (quorum.time && quorum.percentage) ? quorum.or? ? t('words.or') : t('words.and') : '-' %>
         <td> <%= quorum.time || '-' %>
         </td>
         <td> <%= quorum.good_score %>%

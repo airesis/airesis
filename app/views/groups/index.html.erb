@@ -194,16 +194,16 @@
         checked: <%=params[:area] == 'on' %>,
         on_label: $('<div class="s_circle"></div>'),
         off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
-        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico', //TODO:I18n
-        off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
+        on_title: '<%=t('pages.groups.index.switchButton.exact_border')%>',
+        off_title: '<%=t('pages.groups.index.switchButton.area_border')%>'
     });
 
     $("#and").switchButton({
         checked: <%=params[:and] == 'on' %>,
         on_label: $('<div>&</div>'),
         off_label: $('<div>||</div>'),
-        on_title: 'Cerca i gruppi che contengono tutte queste parole', //TODO:I18n
-        off_title: 'Cerca i gruppi che contengono almeno una tra queste parole'
+        on_title: '<%=t('pages.groups.index.switchButton.all_words')%>',
+        off_title: '<%=t('pages.groups.index.switchButton.one_word')%>'
     });
 
     $('.switch-button-label.on, .switch-button-label.off').qtip({

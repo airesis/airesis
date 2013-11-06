@@ -186,9 +186,9 @@
             <div class="tit1">
               <div class="tit2">
                 <% if @event.proposals.count > 0 %>
-                    <%= 'In queste giornate si voteranno le seguenti proposte' %><!-- TODO:I18n-->
+                    <%= t('pages.events.show.voting_proposals') %>
                 <% else %>
-                    <%= 'Ancora nessuna proposta in votazione durante queste giornate' %> <!-- TODO:I18n-->
+                    <%= t('pages.events.show.no_voting_proposals')%>
                 <% end %>
               </div>
             </div>

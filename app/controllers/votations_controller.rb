@@ -24,7 +24,7 @@ class VotationsController < ApplicationController
       #check if user has rotp enabled and check the code
       if current_user.rotp_enabled && ::Configuration.rotp
         unless check_token(current_user, params[:data][:token])
-          flash[:error] = 'Token di sicurezza non valido'
+          flash[:error] = 'Token di sicurezza non valido'  #TODO:I18n
           respond_to do |format|
             format.js   { render :update do |page|
               page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

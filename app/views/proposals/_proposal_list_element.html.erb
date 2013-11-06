@@ -9,7 +9,6 @@
           <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
         </div>
         <div class="status">
-          <% date = (l proposal.updated_at, format: :two_rows) %>
           <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% if proposal.in_valutation? %>
               <% date = (l proposal.updated_at, format: :two_rows) %>
@@ -32,7 +31,7 @@
                   <% end %>
               <% end %>
           <% elsif proposal.abandoned? %>
-              <% title = t('pages.proposals.list.no_votation', date: (l proposal.updated_at, format: :two_rows)) %>
+              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% end %>
           <%= raw title %>
         </div>
@@ -63,13 +62,13 @@
 
       <div class="proposal_bottom">
         <% if proposal.in_valutation? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
               <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.quorum.time_left.upcase %></span>
             </div>
         <% elsif proposal.voting? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%= 'Tempo rimanente' %>">
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
               <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.vote_period.time_left.upcase %></span>
@@ -124,8 +123,8 @@
         <div class="alerts_and_vote">
           <% if current_user %>
               <% if can? :vote, proposal %>
-                  <%= link_to 'VOTA', proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
-              <% end %>  <!--TODO:I18n-->
+                  <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
+              <% end %>
               <% count = proposal.count_notifications(current_user.id) %>
               <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
           <% end %>

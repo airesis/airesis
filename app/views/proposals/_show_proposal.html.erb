@@ -63,7 +63,7 @@
 
 
 <div class="status_description">
-  <p>
+
   <% if @proposal.waiting? #waitinf for the vote period %>
       <p>
         <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
@@ -71,7 +71,7 @@
   <% elsif @proposal.in_valutation?  %>
       <%= @proposal.quorum.explanation %>
   <% end %>
-  </p>
+  <br/>
 </div>
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>

@@ -119,15 +119,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#group_description')
-                .charCount({
-                    counterElement: 'div',
-                    allowed: 2000,
-                    warning: 100,
-                    counterText: '<%= t('pages.proposals.show.characters_left')%> '
-                });
-
-        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
+            $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
             hintText: "<%=t('interest_borders.hint')%>",

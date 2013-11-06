@@ -1,6 +1,6 @@
 <%= simple_form_for @topic, url: group_frm_admin_topic_url(@group,@topic) do |f| %>
   <%= f.input :subject, label:t('simple_form.labels.topic.subject')%>
-  <%= f.association :forum , :label => t('frm.general.forum') %> <!--TODO:I18n-->
+  <%= f.association :forum , :label => t('frm.general.forum') %>
   <%= f.label :locked, label: t('simple_form.labels.topic.locked') %>
   <%= f.check_box :locked %> <br/>
   <%= f.label :pinned, label: t('simple_form.labels.topic.pinned') %>
