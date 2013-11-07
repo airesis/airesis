@@ -69,7 +69,8 @@
         <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
       </p>
   <% elsif @proposal.in_valutation?  %>
-      <%= @proposal.quorum.explanation %>
+      <p><%= @proposal.quorum.explanation %>
+      </p>
   <% end %>
   <br/>
 </div>
@@ -90,9 +91,6 @@
 
                 <div class="suggest_l" style="display: none;">
                   <img class="tria" src="/assets/suggest.png">
-                  <!--<span class="ui-icon ui-icon-lightbulb bulb"></span>
-                  <span class="ui-icon ui-icon-clock clock"></span>
-                  <span class="ui-icon ui-icon-star star"></span>-->
                 </div>
               </div>
           <% end %>

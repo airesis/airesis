@@ -16,7 +16,7 @@
     </div>
     <div class="columns large-9">
       <h2><%= t('.paragraph_2.title') %></h2>
-      <%= t('.paragraph_2.content_html') %>
+      <%= t('.paragraph_2.content_html', groups: Group.count) %>
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@
     </div>
     <div class="columns large-9">
       <h2><%= t('.paragraph_4.title') %></h2>
-      <%= t('.paragraph_4.content_html') %>
+      <%= t('.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %>
     </div>
   </div>
 </div>
@@ -76,7 +76,7 @@
 
     <div class="columns large-9">
       <h2><%= t('.paragraph_7.title') %></h2>
-      <%= t('.paragraph_7.content_html') %>
+      <%= t('.paragraph_7.content_html', topics: Frm::Topic.count) %>
     </div>
     <div class="columns large-3">
       <%= image_tag 'presentation/forum.png', class: 'presentation' %>
@@ -90,7 +90,7 @@
     </div>
     <div class="columns large-9">
       <h2><%= t('.paragraph_8.title') %></h2>
-      <%= t('.paragraph_8.content_html') %>
+      <%= t('.paragraph_8.content_html', intro_page: (link_to t('.paragraph_8.link'), epartecipation_path)) %>
     </div>
   </div>
 </div>

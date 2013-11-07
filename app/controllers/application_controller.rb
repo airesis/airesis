@@ -16,8 +16,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_tutorial
 
 
-
-
   protected
 
   def load_tutorial

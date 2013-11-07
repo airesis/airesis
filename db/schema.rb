@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105112850) do
+ActiveRecord::Schema.define(:version => 20131107090910) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1225,11 +1225,15 @@ ActiveRecord::Schema.define(:version => 20131105112850) do
 
   create_table "sys_features", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.string   "description",        :limit => 40000
     t.float    "amount_required"
     t.float    "amount_received"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "sys_locales", :force => true do |t|

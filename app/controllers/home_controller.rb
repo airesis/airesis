@@ -35,6 +35,11 @@ class HomeController < ApplicationController
   def roadmap
   end
 
+  def donations
+    @features = SysFeature.all
+    @colors = ['red','yellow','blue','violet','green']
+  end
+
   def press
   end
 

@@ -298,7 +298,7 @@ it-IT:
           <p>
             Che siate un'associazione, un'azienda, una scuola o un partito, Airesis è lo strumento che fa per voi!<br/>
             Create in pochi minuti il vostro gruppo e iniziate subito a provare gli strumenti che avrete a disposizione.<br/>
-            La creazione di un gruppo è gratuita, facile e veloce e ben <%= Group.count %> gruppi si sono già attivati.<br/>
+            La creazione di un gruppo è gratuita, facile e veloce e ben %{groups} gruppi si sono già attivati.<br/>
             Leggete i nostri documenti sulle policy per scoprire come organizzarlo al meglio e scoprite quanto è facile
             organizzare il vostro gruppo con Airesis e mettere a disposizione strumenti di edemocracy!
           </p>
@@ -318,7 +318,7 @@ it-IT:
             Il cuore pulsante di Airesis sono le proposte: avrete a disposizione diversi modelli con cui coinvolgere le persone nel gruppo e sentire la loro opinione.<br/>
             Potrete dibattere su singoli argomenti, costruire un Ordine del Giorno in maniera condivisa e votare dei candidati in maniera democratica.<br/>
             Lo strumento Proposte di Airesis è oggi il più sofisticato e completo sistema deliberativo di massa disponibile online!<br/>
-            In questo preciso momento <%= User.count.to_s %> utenti stanno discutendo su  <%= Proposal.count %> proposte.
+            In questo preciso momento %{users} utenti stanno discutendo su  %{proposals} proposte.
           </p>
       paragraph_5:
         title: "Organizza i tuoi eventi, aumenta la partecipazione"
@@ -352,15 +352,16 @@ it-IT:
             Potrete avere discussioni pubbliche e aperte a tutti, e discussioni private e riservate ai partecipanti del
             gruppo.
             Organizzate i forum in sezioni e create gruppi di moderatori! E' tutto nelle vostre mani e ci sono
-            già <%= Frm::Topic.count %> discussioni attive su Airesis!
+            già %{topics} discussioni attive su Airesis!
           </p>
       paragraph_8:
         title: "Molto, molto altro ancora"
         content_html: |
           <p>
             Le funzioni di Airesis non si esauriscono qui!<br/>
-            Guarda la nostra <%= link_to 'pagina di introduzione', epartecipation_path %> per scoprire le decine di
+            Guarda la nostra %{intro_page} per scoprire le decine di
             strumenti e opzioni a disposizione per il tuo gruppo.<br/>
             Scopri la miriade di funzionalità che ti aiuteranno nella gestione del tuo gruppo e che ti permetteranno di
             organizzarlo al meglio: se hai una necessità, sicuramente Airesis ti permetterà di soddisfarla!
           </p>
+        link: 'pagina di introduzione'

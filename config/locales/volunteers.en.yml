@@ -69,23 +69,18 @@ en:
           </p>
       i18n_area: "Internationalization Area"
       tolja_jacopo:
-        title: "Responsabile reclutamento traduttori e coordinamento"
+        title: "Responsible for the recruiting and coordination of the translators"
         content_html: |
           <p>
-             Ho 50 anni, sono un disilluso, ma ho trovato in Airesis una ragione per rimettermi in gioco e la speranza di
-             sviluppare una società migliore per me, ma soprattutto per i miei figli e anche per te, che sei arrivato fin
-             qui e stai leggendo questa frase.
-             Nella vita ho fatto di tutto, viaggi, avventure, tentativi d'impresa e porto la mia esperienza di cittadino
-             del mondo per far si che Airesis
-             venga utilizzata dal più ampio numero di persone in ogni più sperduto angolo del mondo.
-             Aiuto nel coordinare l'<a href="https://crowdin.net/project/airesis" target="blank_">internazionalizzazione di
-             Airesis</a> e mi interessa sviluppare in
-             Airesis l'interfaccia utente più semplice ed intuitiva che ci sia sul web!
-             Ho un grande difetto, sono poco democratico e quindi, qui ci sto bene, sono l'eccezione che, conferma la
-             regola!
-             I membri di questo gruppo mi hanno fatto sentire come e più che in famiglia e so di poter contare su degli
-             amici.
-           </p>
+             I am 50 years old, are a disillusioned, but I found in Airesis a reason to get back into the game and hope to
+              develop a better society for me, but especially for my children and also for you that you get up to this point
+              and here you are reading this sentence.
+              I did everything during my life, travels, adventures, attempts of exploit and bring my experience as a citizen of
+              the world to ensure that Airesis is used by the most large number of people in each most remote corner of the world.
+             I give my help in coordinating the'<a href="https://crowdin.net/project/airesis" target="blank_">Airesis internationalization and localization process</a> and I'm interested in developing for the Airesis website the simplest and the most intuitive user interface existent on the web!
+              I have a big flaw, I am undemocratic and thus, here I'm fine, I'm the exception confirming the rule!
+              The members of this group have made me feel like that and more than in the family and I know I can count on them as I can count on true friends.
+          </p>
       communication_area: "Communication Area"
       curini_simone:
         title: "Spreading of the project and contacts with Meetup"
@@ -104,18 +99,16 @@ en:
             I participate in the testing group, which has the aim to verify the proper operation of Airesis. I collect user feedback and point out any anomalies and problems that they may be readily solved by the developers. I 'm also testing the latest innovations introduced in the platform before they are released to the public .
           </p>
       zanellato_luca:
-        title: "Tester ed analista"
+        title: "Tester ed analyst"
         content_html: |
           <p>
-            Ho 47 anni e sono un perito elettronico.
-            Come cittadino mi chiedevo se poteva esserci un altro modo di vivere la politica, o più in generale,
-            collaborare con gli altri.
-            Mi sono avvicinato ai temi della democrazia diretta e partecipata, e ho scoperto le possibilità della rete e
-            dell' e-democracy.
-            Ritengo che partendo da queste tematiche si possa sviluppare una nuova forma di collaborazione, non limitata
-            agli aspetti politici e di gestione della cosa pubblica,
-            ma più in generale della soluzione di problematiche tramite il confronto e lo scambio tra comunità di persone,
-            anche molto ampie e trasversali.
-            Questo gruppo mi ha dato la possibilità di collaborare a quello che ritengo sarà una delle prossime frontiere
-            della socialità.
+            I'm 47 and I'm an electronics.
+             As a citizen I was wondering if there might be another way of living the politics, or more in general, to collaborate with others.
+             I approached the issues of direct and participatory democracy, and I discovered the possibilities of the network and
+             of the e-democracy.
+
+           I believe that starting from these issues it will be possible to develop a new form of collaboration, not limited to
+             the political aspects and related to the management of the public affairs, but more in general concerning the solution of problems by means of discussion and exchange between communities of people,
+             also very large and transversals.
+             This group has given me the opportunity to collaborate on what I believe will be one of the next frontiers of sociability.
           </p>

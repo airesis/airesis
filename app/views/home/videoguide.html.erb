@@ -1,54 +1,5 @@
 <% @page_title = "Video guide e tutorial " %>
 <% @page_descr = "Il nostro percorso per realizzare un nuovo software, una idea nata con internet capace di far evolvere la democrazia. " %>
-<% video_width=200
-   video_height=200 %>
-<% @page_descr = "Il nostro percorso per realizzare un nuovo software, una idea nata con internet capace di far evolvere la democrazia. " %>
-<% content_for :left_panel do %>
-
-    <!--  <div class="sticky-anchor"></div>
-      <div class="sticky">
-        <div id='cssmenu'>
-          <ul style="border-bottom: none ;">
-            <li class='has-sub'><a href='#Funzioni_base'><span>Funzioni base</span></a>
-              <ul>
-                <li > <a href="#registrazione">Registrarsi ad Airesis</a></li>
-                <li ><a href="#spazio">Spazio comune e spazio dei gruppi</a></li>
-                <li ><a href="#notifiche">Ricezione di notifiche</a></li>
-                <li ><a href="#elezioni">L’area candidati per le  elezioni</a></li>
-                <li ><a href="#calendario">Il calendario e la gestione degli eventi</a></li>
-
-              </ul>
-            </li>
-            <li class='has-sub last'><a href='#Gruppi'><span>Gruppi</span></a>
-              <ul>
-                <li ><a href="#gruppo">La creazione di un gruppo</a></li>
-                <li ><a href="#gestione">La gestione di un gruppo</a></li>
-              </ul>
-            </li>
-            <li class='has-sub'><a href='#Proposte'><span>Proposte</span></a>
-              <ul>
-                <li > <a href="#meccanismo">Sostegno di una proposta</a></li>
-                <li ><a href="#autore">Compito dell’autore di una proposta</a></li>
-                <li ><a href="#valutare">Valutare una proposta per la votazione</a></li>
-                <li ><a href="#commento">Valutare un commento</a></li>
-                <li ><a href="#history">History di una proposta</a></li>
-                <li ><a href="#anonimato">L'anonimato temporaneo</a></li>
-                <li ><a href="#redazione">Redazione della sintesi a più mani</a></li>
-              </ul>
-            </li>
-            <li class='has-sub'><a href='#Votazioni'><span>Votazioni</span></a>
-              <ul>
-                <li ><a href="#quorum">Requisiti per la votazione</a></li>
-                <li ><a href="#votopropria">Mettere in votazione una proposta</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-      </div>
-        -->
-
-<% end %>
 
 <div class="slide red">
   <div class="row centered two-cols">
@@ -63,7 +14,9 @@
           oppure inserendo i propri dati personali e quindi confermando la registrazione attraverso un link inviato alla
           propria casella di posta elettronica.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/P9n3ENZg2tE?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/P9n3ENZg2tE?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
 
@@ -72,9 +25,11 @@
 
         <p>Lo “spazio comune” è uno spazio in cui tutti i cittadini possono inserire proposte e discuterle senza la
           necessità di far parte di alcun gruppo.
-          Lo spazio dei gruppi è uno spazio che ciascun gruppo può autogestire autonomamente.</p>
+          Lo spazio dei gruppi è uno spazio che ciascun utente può autogestire autonomamente.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/n_ZruAcNkVk?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/n_ZruAcNkVk?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -85,7 +40,9 @@
           e
           rimanere aggiornati su eventi di interesse che hanno luogo in Airesis.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/KxoLVoxvpZc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/KxoLVoxvpZc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="columns large-6">
@@ -97,7 +54,9 @@
           condivise
           anche nel calendario dello spazio comune.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/fOMt1CKR3LU?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/fOMt1CKR3LU?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -117,7 +76,9 @@
           con
           una procedura semplice e veloce.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/KiwC5zSS2uc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/KiwC5zSS2uc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="columns large-6">
@@ -134,7 +95,9 @@
           una
           categoria all’altra.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/tZq4GWiX8II?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/tZq4GWiX8II?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -153,8 +116,9 @@
           significa condividere tali proposte anche nello spazio del gruppo, ponendole in visibilità trai suoi
           membri.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/vheZH-1V-sQ?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
-
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/vheZH-1V-sQ?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="columns large-6">
@@ -166,7 +130,9 @@
           proposta
           sulla base dei commenti e dei suggerimenti degli altri utenti.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/y5EiSp558NM?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/y5EiSp558NM?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -177,7 +143,9 @@
           sufficientemente
           positivo dagli utenti che sono più interessati ad essa e che si occupano della sua elaborazione.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/1dHktniyh7s?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/1dHktniyh7s?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="columns large-6">
@@ -190,7 +158,9 @@
           loro
           proposta.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/pS_l7YoO2pM?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/pS_l7YoO2pM?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -200,7 +170,10 @@
         <p> scoprire facilmente quali modifiche sono state effettuate al testo di una proposta è possibile far click
           sul
           tasto “HISTORY”, posizionato in alto a destra nella pagina relativa alla proposta.</p>
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/lN1KLJh5kfg?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/lN1KLJh5kfg?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div class="columns large-6">
@@ -212,7 +185,9 @@
           persone, nonché di dibattere in modo più costruttivo, liberi da pregiudizi. Qualora vi sia la necessità di
           disattivare l’anonimato, lo si può fare a livello di gruppo o a livello di singola proposta.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/9wtUkDmDwTc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/9wtUkDmDwTc?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -223,7 +198,9 @@
           utenti, può
           farsi aiutare nel suo compito da altre persone che danno la loro disponibilità.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/VZmIXgtDsbs?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/VZmIXgtDsbs?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -245,7 +222,9 @@
           possono essere
           personalizzati da ogni gruppo, ed entro certi limiti anche da chi inserisce una proposta.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/zNgucXxSxhA?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/zNgucXxSxhA?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
 
       </div>
 
@@ -258,7 +237,9 @@
           periodo di
           votazione da un elenco, oppure creare un nuovo periodo di votazione.</p>
 
-        <iframe width="<%= video_width %>" height="<%= video_height %>" src="http://www.youtube.com/embed/3I42i7cf3Xs?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <div class="flex-video widescreen">
+          <iframe src="http://www.youtube.com/embed/3I42i7cf3Xs?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
 
       </div>
     </div>

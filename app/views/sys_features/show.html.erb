@@ -19,7 +19,10 @@
   <b>Amount received:</b>
   <%= @sys_feature.amount_received_calc %>
 </p>
-
+<p>
+  <b>Image:</b>
+  <%= image_tag @sys_feature.image.url(:medium) %>
+</p>
 <%= @sys_feature.paypal_url(sys_feature_url(@sys_feature),sys_payment_notifications_url) %>|
 <%= link_to 'Edit', edit_sys_feature_path(@sys_feature) %> |
 <%= link_to 'Back', sys_features_path %>
