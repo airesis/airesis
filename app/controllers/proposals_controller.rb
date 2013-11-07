@@ -283,6 +283,14 @@ class ProposalsController < ApplicationController
 
         @proposal.save!
 
+
+        #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+        if @copy.time_fixed?
+          Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+          Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+        end
+
+
         #fai partire il timer per far scadere la proposta
         if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
           Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
@@ -298,8 +306,10 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
 
-        Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
+
       end #end transaction
+      Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
+
       @saved = true
 
       respond_to do |format|
@@ -354,6 +364,12 @@ class ProposalsController < ApplicationController
       generate_nickname(current_user, @proposal)
 
       @proposal.save!
+
+      #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+      if @copy.time_fixed?
+        Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+        Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+      end
     end
 
     flash[:notice] = I18n.t('info.proposal.back_in_debate')
@@ -367,6 +383,8 @@ class ProposalsController < ApplicationController
     end
   end
 
+  # @param [Hash] prparams
+  # @return [Object]
   def assign_quorum(prparams)
     quorum = Quorum.find(prparams[:quorum_id])
     @copy = quorum.dup
@@ -400,18 +418,17 @@ class ProposalsController < ApplicationController
     #if is time fixed you can choose immediatly vote period
     if @copy.time_fixed?
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
-        if prparams[:votation][:choise] == 'new'
-          @proposal.vote_starts_at = (@copy.ends_at + 1.minute)
-          @proposal.vote_ends_at = prparams[:votation][:end]
-        else
+        if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
           @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+        else
+          start = prparams[:votation][:start] || (@copy.ends_at + 1.minute)
+          raise Exception 'error' unless prparams[:votation][:end].to_s != ''
+          @proposal.vote_starts_at = start
+          @proposal.vote_ends_at = prparams[:votation][:end]          
         end
 
         @proposal.vote_defined = true
       end
-      #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-      Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-      Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
     end
     quorum
 
@@ -435,22 +452,6 @@ class ProposalsController < ApplicationController
           params[:proposal] = params[:proposal].except(:title, :subtitle, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
         end
 
-
-        #if params[:proposal][:quorum_id]
-        #  Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-
-        #  @old_quorum = @proposal.quorum
-
-        #  quorum = assign_quorum(params[:proposal])
-
-        #fai partire il timer per far scadere la proposta
-        #  if quorum.minutes && @proposal.proposal_type_id.to_s == ProposalType::STANDARD.to_s
-        #    Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
-        #  end
-        #  params[:proposal][:quorum_id] = @copy.id
-
-        #end
-
         @proposal.attributes = params[:proposal]
 
         if @proposal.title_changed?
@@ -459,10 +460,8 @@ class ProposalsController < ApplicationController
 
         @proposal.save!
 
-        #@old_quorum.destroy if @old_quorum
-
-        notify_proposal_has_been_updated(@proposal, @group)
       end
+      Resque.enqueue_in(1, NotificationProposalUpdate, current_user.id, @proposal.id, @group.try(:id))
 
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_updated')
@@ -646,6 +645,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   def vote_results
     respond_to do |format|
       format.js
+      format.html
     end
   end
 

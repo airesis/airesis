@@ -60,18 +60,19 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @group = Group.find(group_id)
+    @user = @from
     @to = @group.partecipants.where('users.id in (?)',to_ids.split(','))
     mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
   end
 
 
   def publish(params)
-    user = User.find_by_id(params['user_id'])
+    @user = User.find_by_id(params['user_id'])
     mail_fields = {
       subject: params['subject'],
-      to: user.email
+      to: @user.email
     }
-    @name = user.fullname
+    @name = @user.fullname
 
     mail(mail_fields) do |format|
       format.html { render("maktoub/newsletters/#{params['newsletter']}") }

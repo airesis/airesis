@@ -19,6 +19,7 @@ class Event < ActiveRecord::Base
 
   has_many :comments, class_name: 'EventComment', foreign_key: :event_id
 
+  belongs_to :user
 
   accepts_nested_attributes_for :meeting, :election
 

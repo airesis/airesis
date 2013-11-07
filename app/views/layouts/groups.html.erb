@@ -7,49 +7,52 @@
 <body>
 
 <% content_for :menu do %>
-    <div class="left">
-      <%= @group ? (@group.group_image_tag 60) : (image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME)  %>
+    <div id="menu-group" class="title-area">
+      <div class="topimage hide-for-small">
+        <%= @group ? (@group.group_image_tag 60) : (image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME) %>
 
-    </div>
-    <div class="left topmenu">
-      <% if @group %>
-          <% if @group.id %>
-              <%= link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit left' %>
-          <% else %>
-              <%= link_to t('pages.groups.new.title'), new_group_path, class: 'tit left' %>
-          <% end %>
-      <% else %>
-          <%= link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
-      <% end %>
-
-      <div class="submenu">
-        <% if @group && @group.id && (can? :view_data, @group) %>
-            <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts')) ? 'sel' : '' %>
-            <span> ⋅ </span>
-            <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
-            <span> ⋅ </span>
-            <% if ::Configuration::groups_calendar %>
-                <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
-
+      </div>
+      <div class="topmenu">
+        <% if @group %>
+            <% if @group.id %>
+                <%= @top_title = link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit left' %>
+            <% else %>
+                <%= @top_title = link_to t('pages.groups.new.title'), new_group_path, class: 'tit left' %>
             <% end %>
-            <% unless in_subdomain? %>
-                <% if ::Configuration::documents_active %>
-                    <span> ⋅ </span>
-                    <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
-                <% end %>
-            <% end %>
-            <span> ⋅ </span>
-            <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
-            <% if can? :update, @group %>
-                <span> ⋅ </span>
-                <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (params[:controller] == 'group_areas') || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
-            <% end %>
+        <% else %>
+            <%= @top_title = link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
         <% end %>
 
-        <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
-        <div class="tria" style="left: 389px;"></div>
+        <div class="submenu mycont hide-for-small">
+          <% if @group && @group.id && (can? :view_data, @group) %>
+              <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '' %>
+              <span> ⋅ </span>
+              <%= link_to t('pages.groups.layout.proposals_button'), group_proposals_url(@group), class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+              <span> ⋅ </span>
+              <% if ::Configuration::groups_calendar %>
+                  <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
+
+              <% end %>
+              <% unless in_subdomain? %>
+                  <% if ::Configuration::documents_active %>
+                      <span> ⋅ </span>
+                      <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>
+                  <% end %>
+              <% end %>
+              <span> ⋅ </span>
+              <%= link_to t('pages.groups.header.forums'), group_forums_url(@group), class: (((params[:controller].start_with? 'frm/') && !(params[:controller].start_with? 'frm/admin')) ? 'sel' : '') %>
+              <% if can? :update, @group %>
+                  <span> ⋅ </span>
+                  <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (['group_areas', 'group_partecipations', 'search_partecipants'].include? params[:controller]) || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
+              <% end %>
+          <% end %>
+
+          <div class="borx show-for-large-up <%= current_user ? '' : 'expandb' %>"></div>
+          <div class="tria" style="left: 389px;"></div>
+        </div>
       </div>
     </div>
+
 <% end %>
 
 <%= render :partial => "layouts/header" %>
@@ -59,6 +62,9 @@
   <div id="main-copy">
     <div id="menu-left">
       <div class="menu2">
+        <div class="mybox show-for-small">
+          <%= yield :menu %>
+        </div>
         <%= yield :left_panel %>
       </div>
     </div>

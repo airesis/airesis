@@ -1,10 +1,10 @@
-<input type="hidden" id="count_results" value="<%=@partecipants.count%>"/>
-<input type="hidden" id="ids_results" value="<%=@partecipants.map{|p| p.user_id}.join(',')%>"/>
+<input type="hidden" id="count_results" value="<%= @partecipants.count %>"/>
+<input type="hidden" id="ids_results" value="<%= @partecipants.map { |p| p.user_id }.join(',') %>"/>
 
 <table style="width:800px;" id="partecipants">
   <thead>
   <th><%= t('pages.groups.edit_permissions.user_title') %></th>
-  <th><%= t('pages.groups.edit_permissions.user_title') %></th>
+  <th><%= t('pages.groups.edit_permissions.role_title') %></th>
   <th><%= t('pages.users.show.registered_from') %></th>
   <th>registered_sortable</th>
   <th><%= t('pages.groups.participations.added_by') %></th>
@@ -13,7 +13,7 @@
   <tbody>
   <% @partecipants.each do |partecipant| %>
       <tr>
-        <td>
+        <td data-fullname="<%= partecipant.user.fullname %>">
           <div class="pcontainer">
             <div class="MoImg24">
               <%= partecipant.user_image_tag(24) %>
@@ -24,11 +24,20 @@
             <div style="clear:both;"></div>
           </div>
         </td>
-        <td><%= (defined? partecipant.partecipation_role) ? partecipant.partecipation_role.name : '' %></td>
+        <td>
+          <% if (defined? partecipant.partecipation_role) %>
+
+              <%if can? :update, @group %>
+                  <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, partecipant.partecipation_role.id), "data-user_id" => partecipant.user.id, :class => "user_role_changer" %>
+              <%else%>
+                  <%= partecipant.partecipation_role.name %>
+              <%end%>
+          <% end %>
+        </td>
         <td><%= l partecipant.created_at if partecipant.created_at %></td>
         <td><%= partecipant.created_at.to_i if partecipant.created_at %></td>
         <td>
-          <% if (defined? partecipant.acceptor) && partecipant.acceptor%>
+          <% if (defined? partecipant.acceptor) && partecipant.acceptor %>
               <div class="pcontainer">
                 <div class="MoImg24">
                   <%= partecipant.acceptor.user_image_tag(24) %>
@@ -44,3 +53,58 @@
   <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+    $('.user_role_changer').each(function(i,el) {
+        var select = $(el);
+        var username  = select.parent().prev().data('fullname');
+        var user_id = select.data("user_id");
+        //memorizzo il ruolo di ciascun utente
+        var previousValue = select.val();
+        var previousLabel = $('option:selected',select).text();
+        //quando viene cambiato il ruolo, chiedo conferma all'utente
+        select.bind("change",function() {
+            var currentValue = select.val();
+            var currentLabel = $('option:selected',select).text();
+            if (confirm("<%=t('pages.groups.edit_permissions.confirm_role_change1')%> " + username + " <%=t('pages.groups.edit_permissions.confirm_role_change2')%> " + previousLabel + " <%=t('pages.groups.edit_permissions.confirm_role_change3')%> " + currentLabel +". <%=t('pages.groups.edit_permissions.confirm_role_change4')%>")) {
+                previousValue = currentValue;
+                previousLabel = currentLabel;
+                select.disabled = true;
+                //se l'utente conferma invio la richiesta al server
+                $.ajax({
+                    data: "user_id="+user_id+"&role_id="+currentValue+"&group_id=<%=@group.id%>"+"&l=<%=I18n.locale%>",
+                    url: "/partecipation_roles/change_user_permission",
+                    dataType: 'script',
+                    type: 'post'
+                });
+                return true;
+            }
+            else {
+                //altrimenti cambio il ruolo dell'utente e gli assegno nuovamente quello che aveva in precedenza.
+                select.val(previousValue);
+                return false;
+            }
+        })
+    });
+
+
+    $('#partecipants').dataTable({
+        "oLanguage": {
+            "sLengthMenu": "Mostra _MENU_ utenti per pagina",
+            "sSearch": "<%=t('buttons.search')%>:",
+            "sZeroRecords": "<%='Nessun utente, spiacente..'%>",
+            "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
+            "sInfoEmpty": "Sto mostrando 0 utenti",
+            "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
+            "oPaginate": {
+                "sPrevious": "",
+                "sNext": ""
+            }
+        },
+        "aaSorting": [],
+        "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null],
+        "bInfo": false,
+        "bLengthChange": false,
+        "bPaginate": false
+    });
+</script>

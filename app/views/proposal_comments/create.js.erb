@@ -58,11 +58,8 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
             toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');
             <%if @proposal_comment.paragraph_id %>
                 var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
-                console.log('data-section_id:' + data_section_id);
                 var contribute_button = $('.contributeButton'+data_section_id);
-                console.log('button:' + contribute_button);
                 var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
-                console.log('num:' + num_contributes);
                 contribute_button.attr('data-contributes_num',num_contributes+1);
                 var new_contributes = parseInt($('.contributeButton'+data_section_id).attr('data-unread_contributes_num'));
                 $('.contributeButton'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);

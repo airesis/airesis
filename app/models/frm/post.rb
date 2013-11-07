@@ -27,9 +27,11 @@ module Frm
                        :foreign_key => "reply_to_id",
                        :dependent   => :nullify
 
-    validates :text, :presence => true
+    validates :text, presence: true
 
-    delegate :forum, :to => :topic
+    delegate :forum, to: :topic
+
+    delegate :group, to: :forum
 
     after_create :set_topic_last_post_at
     after_create :subscribe_replier, :if => :user_auto_subscribe?
@@ -91,7 +93,7 @@ module Frm
     end
 
     def owner_or_admin?(other_user)
-      user == other_user || other_user.forem_admin?
+      user == other_user || other_user.forem_admin?(self.group)
     end
 
     protected

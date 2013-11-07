@@ -372,7 +372,7 @@ class UsersController < ApplicationController
   protected
 
   def choose_layout
-    (['index'].include? action_name) ? 'settings' : 'users'
+    (['index'].include? action_name) ? 'open_space' : 'users'
   end
 
   def load_user

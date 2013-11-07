@@ -16,8 +16,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_tutorial
 
 
-
-
   protected
 
   def load_tutorial
@@ -346,14 +344,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def forem_admin?
-    current_user && current_user.forem_admin?
+  def forem_admin?(group)
+    can? :update, group
   end
 
   helper_method :forem_admin?
 
-  def forem_admin_or_moderator?(forum)
-    current_user && (current_user.forem_admin? || forum.moderator?(current_user))
+  def forem_admin_or_moderator?( forum)
+    can? :update, forum.group || forum.moderator?(current_user)
   end
 
   helper_method :forem_admin_or_moderator?

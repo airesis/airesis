@@ -22,7 +22,6 @@ class PartecipationRolesController < ApplicationController
           format.js { render :update do |page|
                      page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
                      page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
-                     page.replace_html "roles_table_container", :partial => 'groups/user_roles_panel'
                      page.call "hideNewRolePanel"
                      page.call "generateTable"
                   end

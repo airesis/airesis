@@ -1777,3 +1777,8 @@ body .ui-tooltip {
     -webkit-border-radius: 8px;
     border-radius: 8px;
 }
+
+
+td .ui-state-default {
+    border: 1px solid white;
+}

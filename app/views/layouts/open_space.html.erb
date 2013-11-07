@@ -7,19 +7,21 @@
 <body>
 <div id="great_container">
   <% content_for :menu do %>
-      <div class="left">
-        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-      </div>
-      <div class="left topmenu">
-        <span class="tit left"><%= t('open_space') %></span>
+      <div id="menu-group" class="title-area hide-for-small">
+        <div class="topimage hide-for-small">
+          <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+        </div>
+        <div class="topmenu">
+          <span class="tit left"><%= t('open_space') %></span>
 
-        <div class="submenu mycont">
-          <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
-          <span> ⋅ </span>
-          <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+          <div class="submenu mycont hide-for-small">
+            <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+            <span> ⋅ </span>
+            <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
 
-          <div class="borx <%= current_user ? '' : 'expandb' %>"></div>
-          <div class="tria" style="left: 389px;"></div>
+            <div class="borx  show-for-large-up <%= current_user ? '' : 'expandb' %>"></div>
+            <div class="tria" style="left: 389px;"></div>
+          </div>
         </div>
       </div>
   <% end %>

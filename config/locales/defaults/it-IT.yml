@@ -259,6 +259,7 @@ it-IT:
         proposals: "Quorum e proposte"
         areas: "Aree di lavoro"
         forum: "Amministrazione forum"
+        users: "Gestione utenti"
       edit_events:
         title: "Gestisci gli eventi del gruppo"
       edit_permissions:
@@ -502,7 +503,7 @@ it-IT:
         choose_votation_period: "Scegli un periodo per la votazione"
         choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
         choose_votation_period_button: "Ho scelto!"
-        create_votation_period: "Non vi sono date disponibili per la votazione, creane una"
+        create_votation_period: "Non vi sono date disponibili per la votazione"
         no_periods_contact_group: "Questa proposta è in attesa che venga stabilita la data di votazione. Solo gli utenti autorizzati possono scegliere tale data"
         no_periods_contact_admin: "Non vi sono date disponibili per la votazione al momento. E' necessario attendere che vengano create. Contattare %{email} in caso di necessità"
         choose_new_votation_period_button: "Crea una nuova data per la votazione"
@@ -590,7 +591,7 @@ it-IT:
         create_button: "Crea la proposta"
         title: "Nuova proposta"
         title_group: "%{name}:"
-        title_synthetic: "(in estrema sintesi)"
+        title_synthetic: "Obiettivo (in estrema sintesi)"
         title_placeholder: "es. \"Facilitare il trasporto bici sui treni\" o \"Organizzare una festa per Luca\""
         interest_borders_tkn_placeholder: "Comuni, province o regioni interessate dalla proposta"
         tags_list_placeholder: "Inserisci delle parole attinenti alla tua proposta"

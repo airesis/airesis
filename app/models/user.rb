@@ -103,6 +103,8 @@ class User < ActiveRecord::Base
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
 
+  has_many :events
+
   #candidature
   has_many :candidates, :class_name => 'Candidate'
 
@@ -347,7 +349,7 @@ class User < ActiveRecord::Base
   #restituisce true se l'utente ha valutato un contributo
   #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo
   def can_rank_again_comment?(comment)
-    return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
+    #return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
     ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
     return true unless ranking
     last_suggest = comment.replies.first(:order => 'created_at desc')
@@ -565,7 +567,7 @@ class User < ActiveRecord::Base
 
 
   def can_read_forem_topic?(topic)
-    !topic.hidden? || forem_admin?
+    !topic.hidden? || forem_admin?(topic.forum.group)
   end
 
   def auto_subscribe?
@@ -602,8 +604,8 @@ class User < ActiveRecord::Base
   end
 
 
-  def forem_admin?
-    admin?
+  def forem_admin?(group)
+    self.can? :update, @group
   end
 
   def to_s

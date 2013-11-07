@@ -38,14 +38,18 @@
       </div>
     </div>
     <div class="right_cont">
-      <div class="maintitle">
-        <%= user_valutation_image(current_user, proposal) if current_user %>
-        <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+      <div style="position: relative">
+        <div class="maintitle">
+          <%= user_valutation_image(current_user, proposal) if current_user %>
+          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
 
+        </div>
       </div>
 
       <div class="text_content">
+        <p>
         <%= raw proposal.short_content %>
+        </p>
       </div>
       <% if proposal.voting? || proposal.voted? %>
           <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>

@@ -21,7 +21,6 @@
 		$('.groupListContainer').click(function() {
 			$(this).toggleClass('highlighted');
 			var text = $('.groupListContainer.highlighted').map(function() {return $(this).data('id')}).get().join(';');
-			console.log(text);
 			$('#groupsi_group_ids').val(text);
             return false;
 		})

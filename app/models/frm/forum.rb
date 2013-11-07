@@ -30,7 +30,7 @@ module Frm
     default_scope order('name ASC')
 
     def last_post_for(forem_user)
-      if forem_user && (forem_user.forem_admin? || moderator?(forem_user))
+      if forem_user && (forem_user.forem_admin?(group) || moderator?(forem_user))
         posts.last
       else
         last_visible_post(forem_user)

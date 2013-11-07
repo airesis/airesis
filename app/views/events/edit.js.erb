@@ -38,7 +38,6 @@ var latlng = new google.maps.LatLng(42.407235, 14.260254);
 var center = latlng;
 var zoom = 5;
 <%end%>
-console.log('b');
 
 
 var map_canvas = $('#edit_map_canvas')[0];
@@ -83,7 +82,6 @@ if (map_canvas) {
 
 
 disegnaDatePicker();
-console.log('c');
 <%if @event.is_elezione? %>
 showPlace('4');
 <%elsif @event.is_votazione? %>

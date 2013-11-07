@@ -36,8 +36,8 @@ class EventsWorker
           notify_proposal_in_vote(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_in_vote(proposal)
 
-      Resque.enqueue_at(event.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24VOTE, :proposal_id => @proposal.id}) if (event.duration/60) > 1440
-      Resque.enqueue_at(event.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1VOTE, :proposal_id => @proposal.id}) if (event.duration/60) > 60
+      Resque.enqueue_at(event.endtime - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 1440
+      Resque.enqueue_at(event.endtime - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 60
 
     end #end each
   end

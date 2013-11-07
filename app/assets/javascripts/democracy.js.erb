@@ -89,6 +89,25 @@ $(function () {
     });
 
 
+    $('#logo1mini').click(function () {
+        var menu_ = $('#menu-left');
+        if (menu_.attr('data-expshow') == 'true') {
+            menu_.removeClass('small-show');
+            menu_.attr('data-expshow', false);
+        }
+        else {
+            menu_.addClass('small-show');
+            menu_.attr('data-expshow', true);
+        }
+    });
+
+
+    mybox_animate();
+
+});
+
+
+function mybox_animate() {
     $(".mybox .mybox_button").click(function () {
         if ($(this).data('menu2show') == 0) {
             $(this).data('menu2show', 1);
@@ -101,8 +120,7 @@ $(function () {
             $(this).addClass('close');
         }
     });
-
-});
+}
 
 function sticky_relocate() {
     var window_top = $(window).scrollTop();
@@ -359,12 +377,12 @@ function calculate_event_times() {
     et.candidatesTime = et.cet.datetimepicker("getDate");
     et.groupDate = new Date(et.groupTime);
     et.candidatesDate = new Date(et.candidatesTime);
-    console.log('endate: ' + et.eventEndDate);
-    console.log('startdate: ' + et.eventStartDate);
-    console.log('candidatedate: ' + et.candidatesDate);
-    console.log('entime: ' + et.eventEndTime / 1000);
-    console.log('startime: ' + et.eventStartTime / 1000);
-    console.log('candidatetime: ' + et.candidatesTime / 1000);
+    //console.log('endate: ' + et.eventEndDate);
+    //console.log('startdate: ' + et.eventStartDate);
+    //console.log('candidatedate: ' + et.candidatesDate);
+    //console.log('entime: ' + et.eventEndTime / 1000);
+    //console.log('startime: ' + et.eventStartTime / 1000);
+    //console.log('candidatetime: ' + et.candidatesTime / 1000);
 }
 
 function addMinutes(date, minutes) {
@@ -722,16 +740,9 @@ function addQueryParam(url, key, val) {
 
 //hide left panel if the window width is not large enough
 function hideLeftPanel() {
-    if (window.innerWidth < 1600) {
-        $('#menu-left').animate({'margin-left': '-300'}, 200);
-        $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-    }
-    else if (window.innerWidth < 1800) {
-        $('#centerpanelextended').animate({'max-width': '600px'}, 200);
-    }
-    else {
-        //do nothing, large enogh
-    }
+    $('#menu-left').addClass('contributes_shown')
+    $('#centerpanelextended').addClass('contributes_shown')
+
 }
 
 //hide left panel if the window width is not large enough
@@ -749,15 +760,9 @@ function showLeftPanel() {
 }
 
 function fitRightMenu(fetched) {
-    if (window.innerWidth < 1600) {
-        fetched.animate({'left': '618px'}, 200);
-    }
-    else if (window.innerWidth < 1800) {
-        fetched.animate({'left': '908px'}, 200);
-    }
-    else {
-        fetched.animate({'left': '1108px'}, 200);
-    }
+    fetched.addClass('contributes_shown');
+    fetched.css('display','');
+
     fetched.height($(window).height() - 110);
 
     $(window).resize(function () {

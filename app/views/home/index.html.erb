@@ -17,23 +17,14 @@
       <meta name="author" content="Tecnologie Democratiche">
       <link rel="shortcut icon" href="/favicon.ico"/>
 
-
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
 
       <%= stylesheet_link_tag 'landing.css' %>
       <%= stylesheet_link_tag 'jquery.qtip' %>
       <%= stylesheet_link_tag 'redmond/custom' %>
 
-
       <%= stylesheet_link_tag "foundation_and_overrides" %>
       <%= stylesheet_link_tag 'foundation_merge' %>
-      <%= javascript_include_tag 'foundation' %>
-
-      <script type="text/javascript">
-          $(function () {
-              $(document).foundation();
-          });
-      </script>
 
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -183,11 +174,6 @@
               <%= link_to (image_tag 'flags/zh.png') + ' China', SysLocale.find_by_key('zh').url %>
               <br/>
             </div>
-            <!-- Login -->
-            <div id="sigin_popup" class="popBlock"></div>
-            <ul style="margin-bottom: 0px;"
-                class="nav nav-pills pull-right navbar-uw">
-            </ul>
           </div>
         </div>
       </div>
@@ -223,12 +209,12 @@
             <div class="row">
               <div class="columns large-5 small-5">
                 <div>
-                <%= button_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
+                <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
                 </div>
               </div>
 
               <div class="columns large-7 small-7">
-                <%= button_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
+                <%= link_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
               </div>
 
             </div>

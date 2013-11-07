@@ -11,12 +11,13 @@
                 <%= v.radio_button 'choise', 'preset', checked: true %>
             <% end %>
 
-              <% unless @dates.empty? %>
-                  <%= v.label 'choise_preset', 'periodi già creati', class: 'radiolabel' %> <br/>
+            <% unless @dates.empty? %>
+                <%= v.label 'choise_preset', 'periodi già creati', class: 'radiolabel' %> <br/>
+
                 <div class="inner">
                   <%= v.select :vote_period_id, options_for_select(@dates), {style: 'width:400px'} %>
                 </div>
-              <% end %>
+            <% end %>
 
           </div>
           <% if @group && (can? :create_date, @group) %>
@@ -25,24 +26,25 @@
                     <%= v.radio_button 'choise', 'new' %>
                 <% end %>
 
-                <%= v.label 'choise_new','Crea un nuovo periodo di votazione', class: 'radiolabel' %>     <br/>
+                <%= v.label 'choise_new', 'Crea un nuovo periodo di votazione', class: 'radiolabel' %>     <br/>
 
                 <div class="inner" style="opacity: <%= @dates.empty? ? 1 : 0.6 %>">
-                  <div style="float:left">
-                    <div id="start_preset" style="display: block;">
-                      <%= v.label 'start', 'da ' %>
+
+                  <div class="row">
+                    <div id="start_preset" class="columns large-5" style="display: block;">
+                      <%= v.label 'start', 'dal ' %>
                       <span class="start_vot" ondblclick="changeStart();"></span>
                     </div>
-                    <div id="start_choose" style="display:none">
-                      <%= v.label 'start', 'da ' %>
+                    <div id="start_choose" class="columns large-5" style="display:none">
+                      <%= v.label 'start', 'dal ' %>
                       <%= v.text_field 'start' %>
                       <%= v.hidden_field 'start_edited' %>
                       <span class="cancel_action">X</span>
                     </div>
-                  </div>
-                  <div style="float:left">
-                    <%= v.label 'end', ' a ' %>
-                    <%= v.text_field 'end' %>
+                    <div class="columns large-5 left">
+                      <%= v.label 'end', ' al ' %>
+                      <%= v.text_field 'end' %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -66,11 +68,8 @@
     }
 
 
-
-
     $(function () {
         $('[name="proposal[votation][choise]"]').change(function () {
-            console.log($(this).val());
             if ($(this).val() == 'preset') {
                 $('.choise_b .inner').css('opacity', 0.6);
                 $('.choise_a .inner').css('opacity', 1);
@@ -82,8 +81,8 @@
         });
 
 
-        $('.radiolabel').click(function() {
-           $('#'+$(this).attr('for')).click();
+        $('.radiolabel').click(function () {
+            $('#' + $(this).attr('for')).click();
         });
 
 
@@ -98,14 +97,10 @@
 
 
         $('#proposal_votation_vote_period_id').on("select2-focus", function (e) {
-            console.log('click');
             $('#proposal_votation_choise_preset').click();
         });
 
         var datePickerOptions = {
-            buttonImageOnly: true,
-            buttonImage: "<%= asset_path('iconCalendar.png') %>",
-            showOn: "both",
             changeMonth: false,
             changeYear: false,
             yearRange: "c:c+10",

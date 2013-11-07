@@ -26,19 +26,24 @@
 <% if signed_in? %>
     <div style="margin: 5px;">
       <% if @proposal.revisions.count > 0 %>
-          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_path(@proposal), :remote => true, :class => 'btn scriptButton disable', :disable_with => t('loading') %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), :remote => true, :class => 'btn scriptButton disable', :disable_with => t('loading') %>
       <% end %>
     </div>
     <% if @proposal.voted? %>
-        <% if @proposal.vote %>
-            <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_path(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
+        <% if params[:action] == 'show' %>
+            <% if @proposal.vote %>
+                <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_url(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
+                <br/><br/>
+            <% end %>
+            <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
+            <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#resultsButton').click();
+                });
+            </script>
+        <%else%>
+            <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal), class: 'btn blue' %>
         <% end %>
-        <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
-        <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
-        <script type="text/javascript">
-            $(function () {
-                $('#resultsButton').click();
-            });
-        </script>
     <% end %>
 <% end %>

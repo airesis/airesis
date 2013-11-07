@@ -121,7 +121,7 @@ class BlogsController < ApplicationController
   protected
   
   def choose_layout
-    params[:action] == 'index' ? 'settings' : 'users'
+    params[:action] == 'index' ? 'open_space' : 'users'
   end
   
   

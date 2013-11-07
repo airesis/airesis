@@ -101,6 +101,7 @@ class EventsController < ApplicationController
     Event.transaction do
       if (!params[:event][:period]) || (params[:event][:period] == "Non ripetere")
         @event = Event.new(params[:event])
+        @event.user_id = current_user.id
         @event.save!
 
 

@@ -13,7 +13,10 @@ Airesis::Application.routes.draw do
   match '/bugtracking' => 'home#bugtracking'
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
+  match '/epartecipation' => 'home#intro'
+  match '/story' => 'home#story'
   match '/sostienici' => 'home#helpus'
+  match '/donations' => 'home#donations'
   match '/press' => 'home#press'
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
@@ -30,6 +33,7 @@ Airesis::Application.routes.draw do
   resources :quorums do
     collection do
       get :dates
+      get :help
     end
   end
 
@@ -506,11 +510,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :quorums do
-      collection do
-        get :help
-      end
-    end
+
 
     resources :elections do
       member do

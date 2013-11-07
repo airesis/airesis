@@ -5,7 +5,6 @@
     $(function () {
         $('img.cke_iframe').each(function () {
             var realelement = $(this).data('cke-realelement');
-            console.log('realelement:' + realelement);
             $(this).after($(unescape(realelement)));
             $(this).remove();
         });
@@ -63,15 +62,18 @@
 <div style="clear: both;"></div>
 
 
+<div class="status_description">
+
   <% if @proposal.waiting? #waitinf for the vote period %>
-      <div class="status-description">
+      <p>
         <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
-      </div>
+      </p>
   <% elsif @proposal.in_valutation?  %>
-      <div class="status-description">
-        <%= @proposal.quorum.explanation %>
-      </div>
+      <p><%= @proposal.quorum.explanation %>
+      </p>
   <% end %>
+  <br/>
+</div>
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>
     <div class="proposal_main">
@@ -89,9 +91,6 @@
 
                 <div class="suggest_l" style="display: none;">
                   <img class="tria" src="/assets/suggest.png">
-                  <!--<span class="ui-icon ui-icon-lightbulb bulb"></span>
-                  <span class="ui-icon ui-icon-clock clock"></span>
-                  <span class="ui-icon ui-icon-star star"></span>-->
                 </div>
               </div>
           <% end %>

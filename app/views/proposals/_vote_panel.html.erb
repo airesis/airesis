@@ -55,7 +55,6 @@
                   });
 
                   $(".slideNumber").change(function () {
-                      console.log('change');
                       $(this).next().slider("value", this.selectedIndex + 1);
                   });
               });
@@ -68,7 +67,6 @@
                   vote = [];
                   $('#solutions_table tr').each(function (panel) {
                       var val = $('.slideNumber', this).val();
-                      console.log(val);
                       if (!val || val == '') val = "0";
                       vote.push([$(this).data('id'), val])
                   })
@@ -89,7 +87,6 @@
                   }
 
                   $('#data_votes').val(votestring);
-                  console.log('data_votes: ' + votestring);
                   return true;
               }
 
@@ -155,7 +152,7 @@
               <ol>
                 <% vote.vote_schulze.split(";").each do |s_v| %>
                     <li>
-                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).sections.first.title }.join(' o ') %>
+                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).title }.join(' o ') %>
                     </li>
                 <% end %>
               </ol>

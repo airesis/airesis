@@ -27,7 +27,7 @@
 			<div style="float: left">
 				<div style="height:14px; position: relative;">
 					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked">
-					<%= t('buttons.yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;") ) %></span>
+					<%= t('buttons.yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;display:inline;height:19px") ) %></span>
 					<br />
 				</div>
 				<div style="height:14px;">
@@ -44,7 +44,7 @@
 				$('#meeting_partecipation_comment').charCount({
 					allowed : 255,
 					warning : 10,
-					counterText : <%=t('pages.proposals.show.characters_left')%>
+					counterText : '<%=j t('pages.proposals.show.characters_left')%>'
 				});
 		
 				$("input[name='meeting_partecipation\[response\]']").change(function() {

@@ -1,0 +1,345 @@
+en:
+  home:
+    intro:
+      title: "The first Social network for E-Democracy in the world"
+      description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
+      paragraph_1:
+        title: "The Social Network for E-Democracy"
+        content_html: |
+          <p>Airesis is a <a href="http://en.wikipedia.org/wiki/Free_software">free software platform</a>, built
+          by a team of Italian developers and contributors, to enable communities and groups to organize themselves in a productive manner according to the principles
+          of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.</p>
+
+          <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
+          help the development of a community, in particular tools of a "social " and deliberative orientation.</p>
+
+          <p>Among the social tools Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
+          Among <strong>deliberative tools</strong> it includes areas for the collection and deliberation of proposals and initiatives,
+          and a voting system aimed to the election of candidates. The platform also allows you to create groups with access regulations policies and customizable permissions.
+          Since the goal of Airesis is to stimulate participation, great attention has been spent in order to maximize the intuitiveness of the whole platform.
+          The development philosophy is focused on continuous improvement, a kind of evolutionary process based on users feedback.
+          The development team is available to meet the needs of the communities which want to use the software according with the spirit of direct democracy.</p>
+      paragraph_3:
+        title: "Principles and core values"
+        content_html: |
+          <p>Airesis is an open source decision-making tool for e-democracy,
+          strongly oriented to problem-solving and designed to maximize the immense evolutionary power
+          of <a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">collective intelligence</a>.</p>
+          <p>Entirely developed by volunteers according to non-profit principles, Airesis was born to make faster, more informed and participated, any kind of shared by communities proposals.
+          It is based on the following principles:</p>
+          <ul>
+          <li><b>Participation</b> <br/>
+          Involving citizens means having more energy and points of view available.
+          Only through direct participation is possible to investigate the problems and understand what people really want. Participation is the essence of democratic decisions.
+          </li>
+
+          <li><b>Transparency and Security</b><br/>
+          Without transparency, rules can be easily circumvented and democracy can quickly degenerate.
+          Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users to view the contents of the site.
+          Transparent is also the source code of the software, entirely open source.</li>
+
+          <li><b>Constructive dialogue</b><br/>
+          No one owns all the right answers. By means of appropriate tools,  elaborating ideas proposed by many people can be  more productive than doing it by yourself.</li>
+
+          <li><b>Equal opportunities</b><br/>
+          To be intended as how effective equality, in terms of offered possibilities, can be pursued by the system.
+          </li>
+
+          <li><b>Flexibility</b><br/>
+          </li>
+      paragraph_4:
+        title: "Our goal: direct and participative democracy"
+        content_html: |
+          <p>Structured as a social network, allows to engage people according to their interests and to exploit
+          the qualities of each in order to decide by consensus on any type of proposal.
+          The architecture and its core values ​​allow the platform to pursue goals of social and constructive debate
+          on issues that may involve the territory, social sector policies and consequently to bring out the best ideas.</p>
+          <p>Airesis provides tools for:
+          <ul>
+                <li>promoting ideas and experiences of individual members</li>
+                <li>informing on the initiatives / proposals and presenting them to the individual community</li>
+                <li>providing tools for debating on the various initiatives</li>
+                <li>promoting shared editing of proposals</li>
+                <li>managing the voting of the various initiatives and proposals;</li>
+                <li>promoting generic events or meetings</li>
+                <li>managing the candidates applications and the adjoining voting operations</li>
+                <li>managing restricted groups, governed by regulations and permissions, but with all the tools provided by the platform available</li>
+          </ul>
+          </p>
+      paragraph_5:
+        title: "Features and Functions"
+        content_html: |
+          <p>The Airesis development team builds all the functions and tools
+          according to the needs of the groups which take benefit from the platform.
+          The same development group is present on Airesis and decides future implementations by consensus.
+          The current structure allows the registered user to belong to a common area,
+          to join one of the groups already present or to establish a new one.
+          Either within group, either within the common area, you can publish initiatives / proposals, evaluate them, and then produce a
+          summary that can be voted.
+          Always in the same fields you can create the events concerning meetings, voting and elections.
+          </p>
+      paragraph_6:
+        title: "Basic Functions"
+        content_html: |
+          <ul>
+            <li><b>Subscription to the platform</b> <br>
+              Facebook, Google +, Meetup, Twitter or Linkedin
+            </li>
+            <li><b>Presence of a public or private area within groups</b> <br>
+              (<a href="http://youtu.be/n_ZruAcNkVk">http://youtu.be/n_ZruAcNkVk </a>): <br>
+              Registration process enables you to belong to a common area, to join one of the groups already present or to establish a new one.
+            </li>
+            <li><b>Creation of proposals and debates</b>
+
+
+            </li>
+            <li><b>Quorum and voting proposals</b> <br>
+              For each proposal is assigned a quorum. Voting shall be by preference according to the Schultze method.
+            </li>
+            <li><b>Events\calendar management</b> <br>
+              It's possible to schedule events concerning meetings, voting, elections of candidates within groups or in the common area.
+            </li>
+            <li><b>Newsletter</b> of events and news about the platform</li>
+            <li><b>Messaging service</b> and <strong>e-mail notifications</strong> (customizable)
+            </li>
+            <li><b>Uploading and managing of documents</b> and attachments to the proposals (feature currently disabled)
+            </li>
+            <li><b>Polls</b> both internal and external, by the Schulze voting method.</li>
+            <li><b>Mobile App</b></li>
+          </ul>
+      paragraph_7:
+        title: "Proposals and debates tool"
+        content_html: |
+          The core of the software is focused on the <b>deliberative tool</b> which allows you to participate in the drafting of a proposal to set a common goal,
+          to contribute to the search for alternative solutions and to bring to the vote the result of this work so that the proposal can receive the most
+          possible consensus making in the manner that the best and the most shared solution become able to emerge.
+          <p>The process involves 3 steps:</p>
+          <ul>
+            <li><b>The author creates the proposal</b> following a wizard as a result of which the system publishes the text in the section <b>in debate</b>.
+            During this period, the proposal may be modified by the authors on the basis of assessments made and reported by contributors</li>
+            <li>when the quorum is reached, the proposal goes to the section / state "voting"
+            and during this time the text of the proposal cannot be changed, the author chooses an "event for voting" (voting period)
+            among those already planned or may create a new one by the calendar,
+            all those eligible (according to the rules established by the group), can vote during the defined period</li>
+            <li>at the end of the voting period, the system calculates the votes and places the proposal in the "approved" section or, in the case of a negative outcome, rejects it;
+            proposals may be subsequently revised and reintroduced in decision-making from step one
+            </li>
+          </ul>
+          <p>Particularly interesting is the adoption of a discussion area for each published proposal that allows the proposal itself to be modified by the author (like a wiki)
+          according to the consensus obtained by the individual contributions.
+          The discussion area is two-levels indented, the first is designed to collect contributions , the second is intended for personal considerations on the latter.
+          The first level implements a mechanism to collect valuable content by means of the incorporation in the proposal of the most appreciated contributions</p>
+          <ul>
+            <li><strong>valutations</strong>, defined as the number of people who have stated a choice (positive or negative liking);
+            </li>
+            <li><strong>discussion time</strong>, minimum discussion period (starting from the submission of the proposal);
+            </li>
+            <li><strong>rank</strong>,  defined as the percentage of "participants" who claim to accept the proposal
+            </li>
+            <li><strong>minimum threshold</strong> to be overcome so that the proposal is not rejected</li>
+          </ul>
+          <p>The evaluation of "liking" (or not) of a proposal is a formal act of the members of the community (stated during the discussion period), through which it’s expressed the suitability of text and solutions to achieve the voting phase.</p>
+          <p>There are different types of quorum: Depending on the complexity of the topic, the parameters (participation, liking and time) vary in consistency.
+          For proposals published within the Common area, quorums are defined by the system administrator,
+          while the quorum of the proposals published in the individual groups area can be freely selected by the groups administrators.
+          </p>
+          <p>The proposals are organized, sorted and searchable, in three ways:</p>
+          <ul>
+            <li>depending on their status ("In debate," "Voting", "Voted", "Abandoned")</li>
+            <li>according to pre-defined categories ("Work", "Health", "Education", etc.)</li>
+            <li>depending on the type of proposal: standard, regulation, estimate, statement, technical decision, etc ...
+            </li>
+            <li>by free tags, which can be entered in the text of the proposal.</li>
+          </ul>
+      paragraph_8:
+        title: "Schulze voting method and Direct Democracy"
+        content_html: |
+          <p>When a sufficient number of people agree on the degree of maturity and completeness of the proposal and / or the minimum time set for the debate has expired, the proposal may go to the voting stage .
+             At this point the proposal is frozen and the proposer will have to choose a time window when the group will vote on the proposal. The 'voting' event is recorded on the group calendar and is notified on several occasions to all involved members .
+             At this point, each participant may order the various solutions according to their preference thereby allowing the processing of the Schulze method , which will determine the solution preferred by the group.
+             The solution thus defined will assume the status of "voted ", a condition where it can be resurrected (along with the proposal to which it relates ) for future needs aimed to revision and re-introduction into decision making workflow.</p>
+      paragraph_9:
+        title: "Promotion of shared proposals and Participatory Democracy"
+        content_html: |
+          <p>Airesis was developed to promote the sharing of ideas and opinions within the community. To achieve this, the platform offers various tools and features:</p>
+          <ul>
+            <li>the <b>proposal is public by default</b>
+            </li>
+            <li>publication of proposals on social networks, the Common area of Airesis or on external blogs and forums;
+            </li>
+            <li>the personal blog in which community members can interact
+            </li>
+            <li>the possibility of organizing meetings dedicated to the members of a group or public for all
+            </li>
+            <li>the presence of a discussion board attached to each proposal
+            </li>
+            <li>reputation system that rewards participation, constructive and clarity, encouraging problem solving
+            </li>
+            <li>the opportunity to invite their contacts to join the discussion
+            </li>
+            <li>the opportunity to apply to become co-editors of a proposal;</li>
+            <li>the resolution on the proposals through the vote of the certified members.
+            </li>
+          </ul>
+      paragraph_10:
+        title: "Temporarary anonymity, secret ballot and auditable voting"
+        content_html: |
+          <p>One of the peculiarities of Airesis is that <b>groups can choose if the proposals debate will be anonymous or not</b>.</p>
+
+          <p>If anonymity is enabled, authors and commentators of the proposals are indicated by means of a pseudonym.
+          This feature allows you to evaluate the proposals, criticisms and suggestions according on their content only, impartially,
+          without the "name" of the authors and the dynamics of interpersonal liking/disliking influence the debate.
+          </p>
+
+          <p>In any case , at the end of the debate , and after the vote , the participants will be displayed with their real names so that it will be possible to verify the interventions of each of them.</p>
+
+          <p>This option is also applicable to the voting stage, so it’s possible to choose if this will take place by open or secret ballot.
+             Important, especially in the case of a secret ballot, is the ability to verify the registration of his vote and the absence of fraud. This is possible through the system of auditable voting implemented by Airesis .
+          </p>
+      paragraph_11:
+        title: "Managing groups and user roles"
+        content_html: |
+          <p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può
+            disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
+          <ul>
+            <li>Visualizzare le proposte private</li>
+            <li>Contribuire alle proposte</li>
+            <li>Inserire nuove proposte nel gruppo</li>
+            <li>Pubblicare nella Home Page del gruppo</li>
+            <li>Creare eventi e votazioni</li>
+            <li>Sostenere proposte a nome del gruppo</li>
+            <li>Aggiungere partecipanti nel gruppo</li>
+            <li>Candidare utenti alle elezioni</li>
+          </ul>
+          <p>Airesis consente ai gruppi che ne fanno uso di scegliere le
+            <strong>impostazioni che meglio si adattano alle loro esigenze</strong> e ai loro regolamenti interni. Risulta
+            possibile, ad esempio, consentire l’accesso ad alcune funzioni solo agli
+            <strong>utenti attivi e/o certificati</strong>, oppure a coloro che hanno un <strong>particolare ruolo</strong>.
+            Vi è ampia libertà anche sulla gestione dei requisiti che le proposte devono raggiungere per accedere alla votazione.
+          </p>
+
+          <p>Un’altra importante funzionalità è la <strong>suddivisione in aree/gruppi di lavoro</strong> grazie alla quale è
+            possibile creare delle aree all’interno dei gruppi e poter imputare a ciascuna area dei partecipanti che potranno
+            discutere delle proposte inerenti quella particolare area. A ciascun partecipante potranno essere assegnati
+            <strong>ruoli particolari per ciascuna area</strong> in modo da rendere ancora più flessibile lo strumento. </p>
+      paragraph_12:
+        title: "I Gruppi"
+        content_html: |
+          L'accesso ai "Gruppi" può avvenire o premendo su ‘cerca gruppi’ dalla barra in alto o dalla colonna di sinistra della home page personale.
+          <p>Cliccando sul nome di un gruppo, si apre la relativa home-page (presentazione + news/blog). Nell’area delle
+            proposte
+            sono visualizzate quelle che il gruppo ha deciso di rendere pubbliche, mentre per visualizzare quelle interne
+            (proposte ed eventi privati), bisogna chiedere all'amministratore locale l'ammissione al gruppo. </p>
+
+          <p>L'area proposte è divisa in quattro schede ("In dibattito","In votazione", "Votate", ”Abbandonate”), in cui sono
+            elencate le proposte a seconda del loro stato. Cliccando sul titolo di una proposta, questa si apre,
+            visualizzandone
+            il testo e l’area dei contributi. Le proposte possono essere ulteriormente filtrate selezionando le Categorie o i
+            Tag,
+            in modo da visualizzare solo le proposte degli argomenti che interessano.</p>
+
+          <p>Ogni membro della comunità può promuovere una nuova proposta: per far ciò basta cliccare sul pulsante "Crea nuova
+            proposta", e apparirà la form da compilare.</p>
+
+          <p>Accedendo all'interno di una proposta in discussione, i membri della comunità possono interagire con essa secondo
+            le loro capacità, competenze e opinioni.</p>
+
+
+          <h3 id="Spazio_comune">Spazio comune</h3>
+
+          <p>Cliccando su "Spazio comune" si accede all'area destinata alla gestione delle proposte che possono essere di
+            comune interesse.</p>
+
+          <p>L'area delle proposte del gruppo si presenta simile a quella dei Gruppi; inoltre è presente anche un "calendario
+            privato" che visualizza tutti gli eventi pubblici, più quelli privati relativi al gruppo.</p>
+
+          <p>Nello Spazio comune è presente anche una scheda "calendario", su cui sono evidenziati gli eventi destinati a
+            tutta la
+            comunità (segnalazione eventi, riunioni, votazioni). Cliccando su una nota, si apre la pagina relativa all'evento
+            e, a seconda del tipo, si può interagire con esso (es. partecipando ad una votazione o segnalando la volontà di
+            partecipare ad una riunione).</p>
+    whatis:
+      title: "The first Social network for E-Democracy in the world"
+      description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
+      paragraph_1:
+        title: "The Social Network for E-Democracy"
+        content_html: |
+          <p>Airesis is a <a href="http://en.wikipedia.org/wiki/Free_software">free software platform</a>, built
+          by a team of Italian developers and contributors, to enable communities and groups to organize themselves in a productive manner according to the principles
+          of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.</p>
+
+          <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
+          help the development of a community, in particular tools of a "social " and deliberative orientation.</p>
+      paragraph_2:
+        title: "Build your group"
+        content_html: |
+          <p>
+            Che siate un'associazione, un'azienda, una scuola o un partito, Airesis è lo strumento che fa per voi!<br/>
+            Create in pochi minuti il vostro gruppo e iniziate subito a provare gli strumenti che avrete a disposizione.<br/>
+            La creazione di un gruppo è gratuita, facile e veloce e ben %{groups} gruppi si sono già attivati.<br/>
+            Leggete i nostri documenti sulle policy per scoprire come organizzarlo al meglio e scoprite quanto è facile
+            organizzare il vostro gruppo con Airesis e mettere a disposizione strumenti di edemocracy!
+          </p>
+      paragraph_3:
+        title: "Organize partecipants"
+        content_html: |
+          <p>
+            Un potente meccanismo di gestione dei <b>ruoli e dei permessi</b> vi consentirà di dare al vostro gruppo la forma che preferite:
+            potrete avere utenti con più permessi e utenti con meno permessi a seconda del loro ruolo, organizzare gerarchicamente i partecipanti
+            o fornire a tutti uguali diritti e doveri.</br>
+            E' per questo che Airesis si adatta perfettamente alle esigenze di un'<b>Azienda</b>, così come di un <b>Movimento Democratico</b> o di una <b>Associazione</b>.
+          </p>
+      paragraph_4:
+        title: "Propose and deliberate"
+        content_html: |
+          <p>
+            Il cuore pulsante di Airesis sono le proposte: avrete a disposizione diversi modelli con cui coinvolgere le persone nel gruppo e sentire la loro opinione.<br/>
+            Potrete dibattere su singoli argomenti, costruire un Ordine del Giorno in maniera condivisa e votare dei candidati in maniera democratica.<br/>
+            Lo strumento Proposte di Airesis è oggi il più sofisticato e completo sistema deliberativo di massa disponibile online!<br/>
+            In questo preciso momento %{users} utenti stanno discutendo su  %{proposals} proposte.
+          </p>
+      paragraph_5:
+        title: "Organize your events, increase partecipation"
+        content_html: |
+          <p>
+            Un sistema completo di calendarizzazione degli eventi vi permette di organizzare al meglio le attività del vostro gruppo.<br/>
+            I partecipanti al gruppo saranno avvisati dei prossimi eventi organizzati e potranno sincronizzare il proprio calendario con quello del gruppo.<br/>
+            Ciascun partecipante può infine specificare se parteciperà o meno, permettendo agli organizzatori una gestione migliore dell'evento.
+          </p>
+      paragraph_6:
+        title: "A shared documents archive"
+        content_html: |
+          <p>
+            Il vostro gruppo avrà a disposizione un utilissimo e completo Archivio Documenti che potrà organizzare in
+            cartelle e sottocartelle per mettere a disposizione dei partecipanti
+            tutto il materiale necessario.<br/>
+            La semplicità d'uso dell'Archivio Documenti su Airesis è senza paragoni: potrete caricare i file sul server
+            semplicemente trascinandoli nel browser dal vostro computer.<br/>
+            Pochi secondi e l'upload sarà completo! Chiedete al nostro team come aumentare lo spazio di archiviazione a
+            vostra disposizione e caricare fino ad 1GB di documenti.
+          </p>
+      paragraph_7:
+        title: "A space to chat"
+        content_html: |
+          <p>
+            Le idee migliori nascono dal dialogo: è per questo che Airesis ha deciso di mettere a disposizione un forum per
+            ciascun gruppo dove gli utenti possano scambairsi idee, suggerimenti o semplicemente fare quattro chiacchiere in
+            libertà.<br/>
+            Il forum a disposizione è moderno e completo, totalmente configurabile e ampliabile dal gruppo per organizzarlo
+            secondo le proprie esigenze.
+            Potrete avere discussioni pubbliche e aperte a tutti, e discussioni private e riservate ai partecipanti del
+            gruppo.
+            Organizzate i forum in sezioni e create gruppi di moderatori! E' tutto nelle vostre mani e ci sono
+            già %{topics} discussioni attive su Airesis!
+          </p>
+      paragraph_8:
+        title: "Much, much more"
+        content_html: |
+          <p>
+            Le funzioni di Airesis non si esauriscono qui!<br/>
+            Guarda la nostra %{intro_page} per scoprire le decine di
+            strumenti e opzioni a disposizione per il tuo gruppo.<br/>
+            Scopri la miriade di funzionalità che ti aiuteranno nella gestione del tuo gruppo e che ti permetteranno di
+            organizzarlo al meglio: se hai una necessità, sicuramente Airesis ti permetterà di soddisfarla!
+          </p>
+        link: 'pagina di introduzione'

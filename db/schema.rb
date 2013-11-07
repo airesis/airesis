@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030174756) do
+ActiveRecord::Schema.define(:version => 20131107090910) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -312,6 +312,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
 
   create_table "event_types", :force => true do |t|
     t.string "name"
+    t.string "color", :limit => 10
   end
 
   create_table "events", :force => true do |t|
@@ -325,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
     t.integer  "event_series_id"
     t.integer  "event_type_id"
     t.boolean  "private",         :default => false, :null => false
+    t.integer  "user_id"
   end
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
@@ -1100,6 +1102,8 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
     t.integer "section_id"
     t.string  "title",      :limit => 100, :null => false
     t.integer "seq",                       :null => false
+    t.boolean "added"
+    t.boolean "removed"
   end
 
   create_table "sections", :force => true do |t|
@@ -1129,6 +1133,9 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
   create_table "solution_histories", :force => true do |t|
     t.integer "proposal_revision_id", :null => false
     t.integer "seq",                  :null => false
+    t.string  "title"
+    t.boolean "added"
+    t.boolean "removed"
   end
 
   add_index "solution_histories", ["proposal_revision_id"], :name => "index_solution_histories_on_proposal_revision_id"
@@ -1218,11 +1225,15 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
 
   create_table "sys_features", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.string   "description",        :limit => 40000
     t.float    "amount_required"
     t.float    "amount_received"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "sys_locales", :force => true do |t|
@@ -1255,8 +1266,12 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
     t.integer  "sys_feature_id"
     t.string   "status"
     t.string   "transaction_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.decimal  "payment_fee"
+    t.decimal  "payment_gross"
+    t.string   "first_name",     :limit => 4000
+    t.string   "last_name",      :limit => 4000
   end
 
   add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true
@@ -1491,6 +1506,7 @@ ActiveRecord::Schema.define(:version => 20131030174756) do
   add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
 
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
+  add_foreign_key "events", "users", :name => "events_user_id_fk"
 
   add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
   add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"

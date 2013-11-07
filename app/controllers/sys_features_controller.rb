@@ -1,7 +1,7 @@
 class SysFeaturesController < ApplicationController
   layout 'open_space'
 
-  before_filter :moderator_required
+  before_filter :moderator_required, except: [:index,:show]
 
   def index
     @sys_features = SysFeature.all

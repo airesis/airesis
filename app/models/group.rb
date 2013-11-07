@@ -281,6 +281,7 @@ class Group < ActiveRecord::Base
           end
           end
         end
+        order_by :score, :desc
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
 

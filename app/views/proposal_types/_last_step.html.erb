@@ -1,15 +1,24 @@
-<h4><%= t('pages.proposals.new.step_4_title') if request.xhr?%></h4>
+<h4><%= t('pages.proposals.new.step_4_title') if request.xhr? %></h4>
 
 <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
 
 <p>
   <% if @change_advanced_options %>
-      <%= f.check_box :anonima %>
-      <%= f.label :anonima %><br/>
-      <%= f.check_box :visible_outside %>
-      <%= f.label :visible_outside %><br/>
-      <%= f.check_box :secret_vote %>
-      <%= f.label :secret_vote %><br/>
+
+      <%= f.label :anonima do %>
+          <%= f.check_box :anonima %>
+          <%= t('activerecord.attributes.proposal.anonima') %>
+      <% end %>
+
+      <%= f.label :visible_outside do %>
+          <%= f.check_box :visible_outside %>
+          <%= t('activerecord.attributes.proposal.visible_outside') %>
+      <% end %>
+
+      <%= f.label :secret_vote do %>
+          <%= f.check_box :secret_vote %>
+          <%= t('activerecord.attributes.proposal.secret_vote') %>
+      <% end %>
   <% end %>
   <%= f.hidden_field :topic_id %>
 </p>
@@ -18,3 +27,12 @@
   <%= t('pages.proposals.new.step_4_footer_html') %>
 </div>
 
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.formSubmit').click(function (e) {
+
+        });
+    })
+</script>

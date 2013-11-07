@@ -52,9 +52,7 @@
     top: -16px;
     left: -16px;
     z-index: 9999999999 !important;
-    padding: 2px;
-    font-family: Arial, verdana, tahoma;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: white;
     text-align: center;
@@ -66,8 +64,8 @@
     background: -ms-linear-gradient(top, #ff3019 0, #cf0404 100%);
     background: -o-linear-gradient(top, #ff3019 0, #cf0404 100%);
     background: linear-gradient(to bottom, #ff3019 0, #cf0404 100%);
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     line-height: 20px;
     border: 3px solid white;
     border-radius: 50%;

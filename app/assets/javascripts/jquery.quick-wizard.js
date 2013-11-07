@@ -246,14 +246,26 @@ function validElement() {
         }
     });
 
-    var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
-    if (content_.is(':visible')) {
-        var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
-        if (escapedcontent_ == '') {
-            return false;
+    //var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
+    //if (content_.is(':visible')) {
+    //    var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
+    //    if (escapedcontent_ == '') {
+    //        return false;
+    //    }
+    //}
+
+
+    var choise_ = $('[name="proposal[votation][choise]"]:checked').val();
+    console.log('choise: ' + choise_);
+    if (choise_ == 'new') {
+        var end_ = $('#proposal_votation_end').val();
+        console.log('end: ' + end_);
+        if (end_ == '') {
+            alert('Devi impostare la data fine votazione');
+            e.preventDefault();
+            valid = false;
         }
     }
-
 
     // if any of the inputs are invalid we want to disrupt the click event
     return valid;

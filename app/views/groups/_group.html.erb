@@ -154,8 +154,6 @@
     function default_action() {
         $("input[name=group\\[default_role_actions\\]\\[\\]]").prop('checked', false);
         <%@group.default_role_actions.each do |id|%>
-        console.log('checking');
-        console.log($('#group_default_role_actions_<%=id%>'));
         $('#group_default_role_actions_<%=id%>').prop('checked', true);
         <%end%>
         return false;

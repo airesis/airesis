@@ -1,7 +1,7 @@
 <h1><%= @page_title = t('pages.proposal_histories.index.title', title: @proposal.title) %></h1>
 
 <% content_for :left_panel do %>
-    <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @proposal, class: 'btn blue' %>
+    <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal), class: 'btn blue' %>
 
     <div class="mybox">
       <%= render :partial => 'panel_menu' %>

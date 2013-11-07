@@ -37,7 +37,7 @@ module Frm
 
       unless method_defined?(:can_read_forem_topic?)
         def can_read_forem_topic?(topic)
-          !topic.hidden? || forem_admin?
+          !topic.hidden? || forem_admin?(topic.forum.group)
         end
       end
 

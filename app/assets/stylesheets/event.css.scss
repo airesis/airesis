@@ -98,3 +98,28 @@ div#event_edit, div#create_event_dialog{ font-size: 12px !important;}
     padding: 10px;
   }
 }
+
+
+/*proposal models*/
+
+.event_model_option {
+  float: left;
+  width: 260px;
+  height: 250px;
+  border: 1px dotted #ccc;
+  cursor: pointer;
+  margin: 5px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .model_name {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 10px;
+    .name {
+      height: 50px;
+    }
+  }
+}

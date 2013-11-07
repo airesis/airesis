@@ -7,11 +7,13 @@
 <body>
 
 <% content_for :menu do %>
-    <div class="left">
+    <div id="menu-group" class="title-area hide-for-small">
+    <div class="topimage hide-for-small">
       <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
     </div>
-    <div class="left topmenu">
+    <div class="topmenu">
       <span class="tit"><%= @page_title %></span>
+    </div>
     </div>
 <% end %>
 

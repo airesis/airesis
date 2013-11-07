@@ -1,72 +1,41 @@
 <div class="mybox" id="setting_menu">
   <h4><%= t('pages.groups.administration_panel.title') %></h4>
 
-  <div class="menu_voice">
+  <div class="menu_voice" id="m_group_info">
     <span class="Mo ui-icon ui-icon-gear"></span>
     <%= link_to t('pages.groups.administration_panel.info'), edit_group_url(@group), :class => 'Mo' %>
     <div style="clear:both"></div>
   </div>
 
-  <div class="menu_voice">
-    <span class="Mo ui-icon ui-icon-person"></span>
+  <div class="menu_voice" id="m_group_roles">
+    <span class="Mo ui-icon ui-icon-comment"></span>
     <%= link_to t('pages.groups.administration_panel.permissions'), edit_permissions_group_url(@group), :class => 'Mo' %>
     <div style="clear:both"></div>
   </div>
 
-  <div class="menu_voice">
+  <div class="menu_voice" id="m_group_users">
+    <span class="Mo ui-icon ui-icon-person"></span>
+    <%= link_to t('pages.groups.administration_panel.users'), group_group_partecipations_url(@group), :class => 'Mo' %>
+    <div style="clear:both"></div>
+  </div>
+
+  <div class="menu_voice" id="m_group_proposals">
     <span class="Mo ui-icon ui-icon-comment"></span>
     <%= link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_url(@group), :class => 'Mo' %>
     <div style="clear:both"></div>
   </div>
 
   <% if ::Configuration::group_areas %>
-      <div class="menu_voice">
+      <div class="menu_voice" id="m_group_areas">
         <span class="Mo ui-icon ui-icon-clipboard"></span>
         <%= link_to t('pages.groups.administration_panel.areas'), group_group_areas_url(@group), :class => 'Mo' %>
         <div style="clear:both"></div>
       </div>
   <% end %>
 
-  <div class="menu_voice">
+  <div class="menu_voice" id="m_group_forum">
     <span class="Mo ui-icon ui-icon-contact"></span>
     <%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group), :class => 'Mo' %>
     <div style="clear:both"></div>
   </div>
-
 </div>
-
-<% if can? :update, @group %>
-    <div id="img_modal" class="edit_modal">
-      <%=form_for @group, :html => {:multipart => true} do |f|%>
-        <div>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Carica un'immagine</h2>
-          <div style="padding-left:150px">
-            <%=f.file_field :image %>
-            <br/>
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-            <div style="margin-top:8px">
-              <%=f.submit t('buttons.save')%>
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();"/>
-            </div>
-          </div>
-          <div><h4><%= 'Dimensione massima: 2MB' %></h4></div>
-        </div>
-      <%end%>
-    </div>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.image_container img').mouseout(function () {
-                $('.caption').hide();
-            });
-
-            $('.image_container div a').click(function () {
-                doModal($("#img_modal"));
-            });
-
-        });
-        $('.image_container img, .caption').mouseover(function () {
-            $('.caption').show();
-        });
-    </script>
-<% end %>

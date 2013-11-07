@@ -131,6 +131,10 @@ ul.token-input-list-facebook {
   background-color: #fff;
   list-style-type: none;
   clear: left;
+
+  &.token-input-focused-facebook {
+    box-shadow: 0 0 5px #999999;
+  }
   li input {
     border: 0;
     width: 100px;

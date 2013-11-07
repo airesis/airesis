@@ -29,7 +29,15 @@ class HomeController < ApplicationController
   def whatis
   end
 
+  def intro
+  end
+
   def roadmap
+  end
+
+  def donations
+    @features = SysFeature.all
+    @colors = ['red','yellow','blue','violet','green']
   end
 
   def press
@@ -44,6 +52,9 @@ class HomeController < ApplicationController
   end
 
   def whowe
+  end
+
+  def story
   end
 
   def helpus
@@ -109,12 +120,12 @@ class HomeController < ApplicationController
   private
 
   def choose_layout
-    if ['show'].include? action_name
-      'users'
-    elsif ['privacy', 'terms', 'engage', 'whatis', 'roadmap', 'whowe', 'helpus', 'videoguide','press','statistics','movements'].include? action_name
-      'landing'
-    else
+    if ['index'].include? action_name
       nil
+    elsif ['show'].include? action_name
+      'users'
+    else
+      'landing'
     end
   end
 
