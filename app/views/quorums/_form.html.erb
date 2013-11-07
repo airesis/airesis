@@ -1,15 +1,14 @@
 <%= form_for !in_subdomain? ? [@group, @quorum] : @quorum, :validate => true, :remote => true do |e| %>
     <div id="radio">
       <%= e.radio_button :form_type, 's', :checked => "checked" %><%= e.label :form_type_s, t('pages.groups.edit_quorums.new_quorum.simple') %>
-      <%= e.radio_button :form_type, 'a' %><%= e.label :form_type_a, t('pages.groups.edit_quorums.new_quorum.advanced') %>
+      <%= e.radio_button :form_type, 'a'%><%= e.label :form_type_a, t('pages.groups.edit_quorums.new_quorum.advanced') %>
       <!--<input type="radio" id="radio1" name="radio" checked="checked" value="s"/><label for="radio1">Semplice</label>
       <input type="radio" id="radio2" name="radio" value="a"  /><label for="radio2">Avanzato</label>-->
     </div>
 
     <p>
       <%= e.label :name, t('activerecord.attributes.quorum.name') %>
-      <span id="name_title"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer' %></span>
-      <br/>
+      <span id="name_title"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer',:title => t('activerecord.attributes.quorum.name_title') %></span>
       <%= e.text_field :name, :title => t('activerecord.attributes.quorum.name_title') %>
     </p>
     <p>

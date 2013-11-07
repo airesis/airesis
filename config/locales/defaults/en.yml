@@ -461,7 +461,7 @@ en:
         debate: 'All proposals in review being debated'
         voting: 'All proposals currently pending vote or in the voting phase'
         accepted: 'All proposals that finished the voting phase'
-        revision: 'All proposals that did not pass the quorum and can be put back in debate'
+        revision: 'All proposals that did not pass the debate and can be put back in debate'
         last: "Last added"
         most_popular: "Most popular"
         most_valutated: "Most evaluated"
@@ -584,7 +584,7 @@ en:
         debate_ends_valutations_html: "End of debate with:<br/><b>%{evaluations_left}</b>"
       new:
         quorum_prompt: "Select quorum"
-        quorum_help: "I don't get this!"
+        quorum_help: "Help"
         step_1: "Classification"
         step_2: "Similar proposals"
         step_3: "Problems/Obstacles"
@@ -807,8 +807,8 @@ en:
       contribution_valuation: "What do you think?"
       contribution_valuation_again: "Changed your mind?"
       new_rank_bar:
-        creation: "CREATION: %{time_ago}<br/>%{date}"
-        end: "END DEBATE:<br/> %{date}"
+        creation: "<b>CREATION</b>: %{time_ago}<br/>%{date}"
+        end: "<b>END DEBATE</b>:<br/> %{date}"
         valutations:
           one: "%{count} EVALUATION"
           other: "%{count} EVALUATIONS"

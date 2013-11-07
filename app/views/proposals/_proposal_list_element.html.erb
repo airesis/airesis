@@ -58,13 +58,13 @@
 
       <div class="proposal_bottom">
         <% if proposal.in_valutation? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left').upcase %>">
               <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.quorum.time_left.upcase %></span>
             </div>
         <% elsif proposal.voting? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left') %>">
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left').upcase %>">
               <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.vote_period.time_left.upcase %></span>
