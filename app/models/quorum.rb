@@ -89,11 +89,11 @@ class Quorum < ActiveRecord::Base
   #used to describe the remaining time left for the discussion.
   #When total_time=true, it shows the total time of the discussion
   def time(total_time=false)
-    min = self.minutes
+    min = self.minutes if self.minutes
     if !total_time
       min = (self.ends_at - Time.now).to_i/60  if self.ends_at
     end
-    if min > 0
+    if min && min > 0
       if min > 59
         hours = min/60
         min = min%60
@@ -109,7 +109,7 @@ class Quorum < ActiveRecord::Base
         end
       end
     ar = []
-    ar << I18n.t('time.left.months') if (months && months > 0)
+    ar << I18n.t('time.left.months', count:months) if (months && months > 0)
     ar << I18n.t('time.left.days',count: days) if (days && days > 0)
     ar << I18n.t('time.left.hours',count: hours) if (hours && hours > 0)
     ar << I18n.t('time.left.minutes',count: min) if (min && min > 0)

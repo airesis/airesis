@@ -19,7 +19,7 @@
         <%end%><br />
         <label><%= t('models.quorum.help_content.time_discussion')%> </label>
         <%if quorum.minutes%>
-            <b><%=quorum.time%></b>
+            <b><%=quorum.time(true)%></b>
         <%else%>
             <b><%= t('models.quorum.help_content.not_specified')%></b>
         <%end%><br />

@@ -50,6 +50,7 @@
 .blogComment {
     padding: 20px 0 0;
     border-bottom: 1px dashed #CCC;
+    border-top: 1px dashed #CCC;
     clear: both;
     color: #333333;
 }
@@ -88,4 +89,6 @@
 
 .blog-comment-footer {
     font-size: 0.9em;
+    display: inline;
+    margin-top: 0.9em;
 }

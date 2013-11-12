@@ -1,0 +1,9 @@
+en:
+  tutorial:
+    proposals_index:
+      welcome_open_space: "Welcome in the open space of Airesis! The open space is a very particular group in which every users participate. Here you find a list of the the proposals freely added by the users of the application and you can even add your own ones"
+      welcome_group: "This is the list of the proposals of the group <b>%{group_name}</b>. Here you find a list of the the proposals added by the members of the group and you can even add your own ones, given that you are allowed to"
+      new_proposal: "In the right lateral menu you will find a button to create new proposals..."
+      filters: "... and different filters to find the proposals you are interested in"
+      tabs: "Proposals in Airesis follow a defined path that is made of four main statuses. Let's discover them!"
+      tab_debate: "New proposals start in the debate phase and all users or members of a group can participate in, debating and elaborating the proposal, in order to make it mature for vote"
