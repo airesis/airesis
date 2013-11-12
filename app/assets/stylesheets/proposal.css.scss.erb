@@ -220,6 +220,7 @@ $large-screen: 1440px;
         text-align: center;
         opacity: 1;
         border-bottom: 1px dotted silver;
+        padding-bottom: 4px;
     }
 
     .model {
@@ -263,6 +264,7 @@ $large-screen: 1440px;
                 font-weight: bold;
                 text-align: center;
                 height: 45px;
+                margin-top: 4px;
             }
         }
     }
@@ -602,14 +604,12 @@ ul.blogList li.blogListFirst {
     border-left: none;
 }
 
-
 /*pannello history*/
 #proposal_histories {
     .history {
-        float: left;
     }
     .diffview {
-        margin-left: 233px;
+
     }
 }
 
@@ -1318,9 +1318,11 @@ ul.navigator {
     padding-left: 20px;
 }
 
-.edit_proposal_panel.sticky {
-    position: fixed;
-    width: 236px;
+@media (min-width: $small-screen) {
+    .edit_proposal_panel.sticky {
+        position: fixed;
+        width: 236px;
+    }
 }
 
 .radiolabel {
@@ -1334,19 +1336,19 @@ ul.navigator {
 .date_creation {
     display: inline;
 }
+
 .date_update {
     display: inline;
 }
 
 .status_description {
     padding: 10px;
-    padding-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0px 0px 1px #000;
     border-radius: 3px;
     margin: 0px;
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 0.8em;
     color: #333;
     position: relative;
 }

@@ -1,0 +1,68 @@
+pt-PT:
+  calendar:
+    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
+    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
+    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
+    today: 'today'
+    month: 'month'
+    week: 'week'
+    day: 'day'
+    firstDay: 0
+    timeFormat: 'h(:mm)t '
+  date:
+    order: "[:day, :month, :year ]"
+    formats:
+      default: "%d %b %Y todos %H:%M"
+      short: "%b %d"
+    day_names: [domingo, segunda-feira, terça-feira, quarta-feira, quinta-feira, sexta-feira, sábado]
+    abbr_day_names: [D, 2, 3, 4, 5, 6, S]
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mar, Jun, Jul, Ago, Set, Out, Nov, Dec]
+  time:
+    formats:
+     default: "%d %b %Y todos %H:%M"
+     long: "%A %d %B %Y %H:%M"
+     long_date: "%A %d %B %Y"
+     long_date_time: "%A %d %B %Y horas %H:%M"
+     weekday: "%A"
+     month: "%B"
+     dayandmonth: "%d/%m"
+    am: "am"
+    pm: "pm"
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: circa 1 ora
+        other: circa %{count} ore
+      about_x_months:
+        one: circa 1 mese
+        other: circa %{count} mesi
+      about_x_years:
+        one: circa 1 anno
+        other: circa %{count} anno
+      almost_x_years:
+        one: quasi 1 anno
+        other: quasi %{count} anni
+      half_a_minute: mezzo minuto
+      less_than_x_minutes:
+        one: meno di 1 minuto
+        other: meno di %{count} minuti
+      less_than_x_seconds:
+        one: meno di 1 secondo
+        other: meno di %{count} secondi
+      over_x_years:
+        one: più di 1 anno
+        other: più di %{count} anni
+      x_days:
+        one: 1 giorno
+        other: ! '%{count} dias'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mese
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 secondo
+        other: ! '%{count} segundos'

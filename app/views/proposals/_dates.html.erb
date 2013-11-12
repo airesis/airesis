@@ -1,4 +1,4 @@
-<div>
+<div style="padding-bottom: 10px;">
   <%=t('pages.proposals.show.created_at_html', time:raw("<div class='date_creation'></div>"), date:(l @proposal.created_at))%>
 </div>
 <% if @proposal.updated_at != @proposal.created_at %>

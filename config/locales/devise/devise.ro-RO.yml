@@ -10,26 +10,38 @@ ro-RO:
         other: '%{count} erori au împiedicat salvarea %{resource}:'
   devise:
     failure:
-      already_authenticated: Sunteţi deja autentificat(ă)
-      unauthenticated: Înainte de a continua, trebuie să vă conectaţi sau să vă înregistraţi
-      unconfirmed: Înainte de a continua, trebuie să confirmaţi crearea contului
       locked: Contul dvs. este blocat
       invalid: Adresă de e-mail sau parolă incorectă
       invalid_token: Semn de autentificare incorect
       timeout: Sesiunea a expirat, reconectaţi-vă pentru a putea continua
       inactive: Contul dvs. nu a fost activat încă
+      already_authenticated: Sunteți deja înregistrat
+      unauthenticated: 'Trebuie să vă logați pentru a accesa această pagină.  Vă rugăm să vă logați.'
+      unconfirmed: Contul nu este confirmat încă
+      user:
+        invalid: Utilizator sau parolă invalide
     sessions:
       signed_in: Autentificare reușită
       signed_out: Deconectare reuşită
+      user:
+        signed_out: 'V-aţi deconectat cu succes.  La revedere'
+        signed_in: Bun venit! V-ați înregistrat
+        signed_up: Sunteți corect înregistrat. Bun venit!
     passwords:
       send_instructions: Veţi primi în scurt timp un e-mail cu instrucţiunile privind resetarea parolei
       updated: Parola dvs. a fost schimbată cu succes. Sunteţi conectat(ă)
       updated_not_active: Parola dvs. a fost schimbată cu succes
       send_paranoid_instructions: Daca adresa de email exista în baza noastră de date, veţi primi in Inbox un link de recuperare a parolei
+      user:
+        updated: Parolă actualizată
+        send_instructions: Instrucţiunile au fost trimise pe e-mail
     confirmations:
       send_instructions: Veţi primi în scurt timp un e-mail cu instrucţiunile privind confirmarea contului
       send_paranoid_instructions: Daca adresa de email exista pe baza noastră de date, vei primi în câteva minute un email cu instrucţiuni despre cum să confirmi contul tău
       confirmed: Contul dvs. a fost confirmat. Sunteţi conectat(ă)
+      user:
+        confirmed: Înregistrarea a fost finalizată cu succes
+        send_instructions: Instrucţiunile au fost trimise la e-mailul desemnat
     registrations:
       signed_up: Bine aţi venit! Înregistrarea dvs. a fost finalizată
       signed_up_but_unconfirmed: Mesajul cu linkul de confirmare a fost trimis la adresa dvs. de e-mail. Pentru activarea contului, vă rugăm să accesaţi linkul
@@ -38,12 +50,15 @@ ro-RO:
       updated: Actualizarea contului dvs. a fost finalizată
       update_needs_confirmation: Actualizarea contului dvs. a fost finalizată, dar trebuie sa verificăm noua adresă de email. Vă rugăm să verificaţi email-ul şi să faceţi clic pe linkul de confirmare pentru a finaliza confirmarea noii adrese de email
       destroyed: La revedere! Contul a fost anulat cu succes. Sperăm să te revedem curând
+      user:
+        inactive_signed_up: Pentru a finaliza înregistrarea dumneavoastră vă rugăm să faceți clic pe link-ul din e-mail primit
+        signed_up_but_unconfirmed: Faceţi clic pe linkul din e-mail trimis la adresa dumneavoastră pentru a finaliza procesul de înregistrare
     unlocks:
       send_instructions: Veţi primi în scurt timp un e-mail cu instrucţiunile privind confirmarea contului
       unlocked: Contul dvs. a fost deblocat. Pentru a continua, trebuie să vă conectaţi
       send_paranoid_instructions: În cazul în care contul dvs. există, veţi primi în scurt timp un e-mail cu instrucţiunile privind deblocarea acestuia
     omniauth_callbacks:
-      success: 'Autorizat cu succes din contul %{kind}'
+      success: Inregistrarea dvs. a fost finalizată. Bun venit!
       failure: 'Nu te putem autoriza la %{kind} pentru că "%{reason}"'
     mailer:
       confirmation_instructions:

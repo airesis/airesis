@@ -1,0 +1,76 @@
+pt-PT:
+  pages:
+    proposals:
+      new:
+        standard:
+          problems_title: "Problems"
+          problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
+          objectives_title: "Objectives"
+          step_4_title: "You can enter a text of the proposal or write it later based on the input received"
+          first_solution_title: "Text of the proposal"
+          solution:
+            title: "Title"
+            description: "Description of the solution"
+            time: "Times"
+            subject: "Supervisor"
+            resources: "Necessary resources and how to retrieve them"
+            aspects: "Ethical, environmental, social aspects"
+            documents: "Documentation"
+            pros: "Pro"
+            cons: "Cons"
+        rule_book:
+          problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            article: "Article %{num}"
+            pros: "Pro"
+            cons: "Cons"
+        press:
+          problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
+          first_solution_title: "Title"
+          problems_title: "Message to transmit"
+          solution:
+            title: "Title"
+            subtitle: "Subtitle"
+            incipit: "Incipit"
+            body: "Body"
+            conclusion: "Conclusions"
+            deep: "Insights"
+        estimate:
+          problems_title_label: "What goods or services you wish to purchase? To solve which problems?"
+          problems_title: "Problems"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            cost: "Amount"
+            problems: "Rispect of constraints and problems"
+            dumentation: "Documentation"
+        agenda:
+          problems_title: "Type of meeting"
+          first_solution_title: "Solution 1"
+          solution:
+            title: "Title"
+            points: "Agenda items"
+            priorities: "Items priorities"
+            links: "Insights links"
+        event:
+          problems_title: "Evento scope"
+          first_solution_title: "Solution 1"
+          problems_title_label: "Why do you want to organize an event? What are the aims?"
+          solution:
+            title: "Title"
+            description: "Description of the solution"
+            program: "Date, time and plan"
+            body: "place"
+            place: "Place"
+            organization: "Event organization"
+            resources: "Necessary resources and how to retrieve them"
+            pros: "Pro"
+            cons: "Cons"
+        candidates:
+          solution:
+            name: "Name and surname"
+            data: "Personal data"
+            curriculum: "Curriculum"
+            available: "Availability for the position"

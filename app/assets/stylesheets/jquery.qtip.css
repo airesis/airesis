@@ -3,13 +3,10 @@
     left: -28000px;
     top: -28000px;
     display: none;
-
     max-width: 280px;
     min-width: 50px;
-
-    font-size: 10.5px;
+    font-size: 0.75em;
     line-height: 12px;
-
     direction: ltr;
 }
 

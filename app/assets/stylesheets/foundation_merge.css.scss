@@ -13,6 +13,8 @@ ul, ol {
 
   &.tag {
     margin:  5px;
+    max-width: 200px;
+    overflow: hidden;
   }
 }
 

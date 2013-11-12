@@ -10,26 +10,38 @@ es-EC:
         other: '%{count} errores prohíben guardar este %{resource}:'
   devise:
     failure:
-      already_authenticated: Ya has iniciado sesión
-      unauthenticated: Debes iniciar sesión o registrarte antes de continuar
-      unconfirmed: Debes confirmar tu cuenta antes de continuar
       locked: Tu cuenta está bloqueada
       invalid: Correo electrónico o contraseña no válidos
       invalid_token: Token de autenticación no válido
       timeout: Su sesión ha exiprado. Por favor inicie sesión de nuevo para continuar
       inactive: Su cuenta no ha sido activada todavia
+      already_authenticated: Ya estás registrado
+      unauthenticated: Para acceder a la pagina es necesario identificarse. Por favor inicia sesión.
+      unconfirmed: La cuenta aún no ha sido confirmada
+      user:
+        invalid: Nombre de usuario o clave no válidos
     sessions:
       signed_in: Has entrado con éxito
       signed_out: Ha cerrado la sesión correctamente
+      user:
+        signed_out: Has cerrado tu sesión exitosamente. Adiós
+        signed_in: Has completado tu registro ¡Bienvenid@!
+        signed_up: Has completado correctamente la inscripción. ¡Bienvenid@!
     passwords:
       send_instructions: En breve recibirá un correo electrónico con las instrucciones sobre cómo restablecer su contraseña
       updated: Tu contraseña se ha cambiado con éxito. Ahora has iniciado sesión
       updated_not_active: Su contraseña se ha cambiado con éxito
       send_paranoid_instructions: Si tu correo electrónico existe en nuestra base de datos, recibirás un enlace de recuperación de contraseña en tu bandeja de entrada
+      user:
+        updated: La contraseña fue actualizada correctamente
+        send_instructions: Las instrucciones se han enviado a tu correo electrónico
     confirmations:
       send_instructions: En breve recibirás un correo electrónico con las instrucciones sobre cómo confirmar tu cuenta
       send_paranoid_instructions: Si tu correo electrónico existe en nuestra base de datos, recibirás un correo electrónico con instrucciones sobre cómo confirmar tu cuenta en unos pocos minutos
       confirmed: Tu cuenta ha sido confirmada. Ahora has iniciado sesión
+      user:
+        confirmed: Su registro ha sido completado con éxito
+        send_instructions: Las instrucciones han sido enviadas a tu correo electrónico designado
     registrations:
       signed_up: ¡Bienvenid@! Te has registrado correctamente
       signed_up_but_unconfirmed: Hemos enviado un mensaje con el vínculo de confirmación a tu dirección de correo electrónico. Abre el vínculo para activar tu cuenta
@@ -38,12 +50,15 @@ es-EC:
       updated: Has actualizado tu cuenta correctamente
       update_needs_confirmation: Has actualizado tu cuenta con éxito, pero tenemos que verificar tu nueva dirección de correo electrónico. Por favor revisa tu correo electrónico y haz clic en el enlace de confirmación para finalizar la confirmación de tu nueva dirección de correo electrónico
       destroyed: ¡Adiós! Su cuenta fue cancelada con éxito. Esperamos verte pronto
+      user:
+        inactive_signed_up: Para completar su registro, haga clic en el enlace en el correo electrónico que recibió
+        signed_up_but_unconfirmed: Haga clic en el enlace en el correo electrónico enviado a su dirección para completar el proceso de registro
     unlocks:
       send_instructions: En breve recibirás un correo electrónico con las instrucciones sobre cómo abrir tu cuenta
       unlocked: Tu cuenta ha sido desbloqueada con éxito. Inicia sesión para continuar
       send_paranoid_instructions: Si su cuenta existe, en breve recibirás un correo electrónico con las instrucciones sobre cómo desbloquearla
     omniauth_callbacks:
-      success: 'Autorización de %{kind} cuenta exitosa'
+      success: Su registro ha sido completado. ¡Bienvenid@!
       failure: 'No se puedo autorizar su %{kind} debido a "%{reason}"'
     mailer:
       confirmation_instructions:

@@ -1,0 +1,135 @@
+it-IT:
+  calendar:
+    monthNames: "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']"
+    monthNamesShort: "['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']"
+    dayNames: "['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato']"
+    dayNamesShort: "['Dom','Lun','Mar','Mer','Gio','Ven','Sab']"
+    today: 'oggi'
+    month: 'mese'
+    week: 'settimana'
+    day: 'giorno'
+    firstDay: 1
+    timeFormat: 'H:mm{ - H:mm} '
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: "%d %b %Y alle %H:%M"
+      short: "%b %d"
+    day_names:
+      - Domenica
+      - Lunedì
+      - Martedì
+      - Mercoledì
+      - Giovedì
+      - Venerdì
+      - Sabato
+    abbr_day_names:
+      - D
+      - L
+      - M
+      - M
+      - G
+      - V
+      - S
+    month_names:
+      -
+      - Gennaio
+      - Febbraio
+      - Marzo
+      - Aprile
+      - Maggio
+      - Giugno
+      - Luglio
+      - Agosto
+      - Settembre
+      - Ottobre
+      - Novembre
+      - Dicembre
+    abbr_month_names:
+      -
+      - Gen
+      - Feb
+      - Mar
+      - Apr
+      - Mag
+      - Giu
+      - Lug
+      - Ago
+      - Set
+      - Ott
+      - Nov
+      - Dic
+  time:
+    formats:
+     default: "%d %b %Y alle %H:%M"
+     long: "%A %d %B %Y alle %H:%M"
+     long_date: "%A %d %B %Y"
+     long_date_time: "%A %d %B %Y ore %H:%M"
+     from_long_date_time: "Da %A %d %B %Y alle %H:%M"
+     until_long_date_time: "Fino a %A %d %B %Y alle %H:%M"
+     short: "%d %b %Y"
+     two_rows: "%d %b %Y <br/> %H:%M"
+     weekday: "%A"
+     month: "%B"
+     dayandmonth: "%d/%m"
+     hour: "%H:%M"
+     textfield: "%d/%m/%Y %H:%M"
+     rich: "%Y-%m-%dT%H:%M"
+    am: "am"
+    pm: "pm"
+    left:
+      seconds:
+        one: "1 secondo"
+        other: "%{count} secondi"
+      minutes:
+        one: "1 minuto"
+        other: "%{count} minuti"
+      hours:
+        one: "1 ora"
+        other: "%{count} ore"
+      days:
+        one: "1 giorno"
+        other: "%{count} giorni"
+      months:
+        one: "1 mese"
+        other: "%{count} months"
+  datetime:
+    added_on: "il %{date}"
+    distance_in_words:
+      about_x_hours:
+        one: circa 1 ora fa
+        other: circa %{count} ore fa
+      about_x_months:
+        one: circa 1 mese fa
+        other: circa %{count} mesi fa
+      about_x_years:
+        one: circa 1 anno fa
+        other: circa %{count} anno fa
+      almost_x_years:
+        one: quasi 1 anno fa
+        other: quasi %{count} anni fa
+      half_a_minute: mezzo minuto fa
+      less_than_x_minutes:
+        one: meno di 1 minuto fa
+        other: meno di %{count} minuti fa
+      less_than_x_seconds:
+        one: meno di 1 secondo fa
+        other: meno di %{count} secondi fa
+      over_x_years:
+        one: più di 1 anno fa
+        other: più di %{count} anni fa
+      x_days:
+        one: 1 giorno fa
+        other: ! '%{count} giorni fa'
+      x_minutes:
+        one: 1 minuto fa
+        other: ! '%{count} minuti fa'
+      x_months:
+        one: 1 mese fa
+        other: ! '%{count} mesi fa'
+      x_seconds:
+        one: "1 secondo fa"
+        other: ! '%{count} secondi fa'

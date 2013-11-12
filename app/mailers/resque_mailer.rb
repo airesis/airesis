@@ -20,7 +20,7 @@ class ResqueMailer < ActionMailer::Base
       mail(:to => "discussion+#{to_id}@airesis.it", :bcc => @alert.user.email, :subject => subject, :template_name => template_name)
     else
 
-      mail(:to => @alert.user.email, :subject => subject, :template_name => template_name)
+      mail(:to => @alert.user.email, from: "Airesis <noreply@airesis.it>", :subject => subject, :template_name => template_name)
     end
   end
   

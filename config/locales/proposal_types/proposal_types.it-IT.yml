@@ -1,0 +1,121 @@
+it-IT:
+  pages:
+    proposals:
+      new:
+        standard:
+          problems_title: "Problema e/o ostacoli"
+          problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
+          objectives_title: "Obiettivi"
+          step_4_title: "Puoi inserire una proposta iniziale o scriverla successivamente in base ai contributi ricevuti"
+          solution:
+            description: "Descrizione della soluzione"
+            time: "Tempistiche"
+            subject: "Soggetto attuatore e verifica"
+            resources: "Risorse necessarie e loro reperimento"
+            aspects: "Aspetti etici, ambientali, sociali"
+            documents: "Documentazione"
+            pros: "Pro"
+            cons: "Contro"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Ridurre l'uso di acqua potabile per l'irrigazione.</div>
+            <div>Usare acqua potabile per annaffiare parchi pubblici e giardini privati è uno spreeco ed ha un costo rilevante. Inoltre la falda acquifera che rifornisce l'acquedotto si sta esaurendo</div>
+        rule_book:
+          problems_title_label: "Quali sono i problemi da risolvere con l'applicazione di questo regolamento? Quali sono le questioni da regolamentare? Perchè?"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Regolamento per prenotare la sala M. Rossi</div>
+            <div>Il Comune di Aglaura dispone di una sala conferenze ad oggi utilizzata solo per iniziative promosse dagli 'amici' del Sindaco. Si propone di stabilire una procedura imparziale che consenta a tutti i cittadini e alle associazioni di prenotare la sala per iniziative pubbliche.</div>
+          solution:
+            article: "Articolo %{num}"
+            pros: "Pro"
+            cons: "Contro"
+          problems_title: "Problematica"
+          paragraph:
+            inspire: "Regolamenti a cui ispirarsi"
+            requirements: "Requisiti da rispettare"
+          stakeholders: "Stakeholders (persone coinvolte)"
+        press:
+          problems_title_label: "Qual'è il messaggio che si vuole trasmettere? Quali ostacoli si prevedono alla sua corretta comprensione e diffusione? Vi sono articoli o notizie recenti a cui si vuole replicare o a cui si vuole fornire una rettifica?"
+          problems_title: "Messaggio da trasmettere"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Comunicare alla stampa il rilascio della versione 3.5 di Airesis.</div>
+            <div>Dobbiamo pubblicizzare l’uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce sulle recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca.</div>
+          solution:
+            subtitle: "Sottotitolo/Occhiello"
+            incipit: "Incipit"
+            body: "Corpo"
+            conclusion: "Conclusioni"
+            deep: "Approfondimenti"
+          paragraph:
+            target: "Destinatari/Target"
+        estimate:
+          problems_title_label: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
+          problems_title: "Problematica"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Sostituzione dell’impianto termico nella sede dell’Associazione.</div>
+            <div>A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il guasto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico.</div>
+          solution:
+            cost: "Importo"
+            problems: "Rispetto dei vincoli e problemi"
+            dumentation: "Documentazione"
+          paragraph:
+            technical_constrains: "Vincoli tecnici"
+            temporal_constrains: "Vincoli temporali"
+            other_constrains: "Vincoli ambientali, etici, normativi"
+            budget: "Spesa massima"
+            recipient_budget: "Destinatari richiesta di preventivo"
+        agenda:
+          problems_title: "Tipologia di incontro"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Stabilire un ordine del giorno per la riunione di coordinamento.</div>
+            <div>Riunione di coordinamento ordinaria per lo scambio di esperienze con i referenti dei comitati locali per l'agricoltura biologica del centro Italia.</div>
+          solution:
+            priorities: "Priorità del punto proposto"
+            links: "Link di approfondimento"
+            description: "Descrizione del tema"
+            estimated_time: "Tempo richiesto di discussione"
+          paragraph:
+            date_time: "Data e orario"
+            place: "Luogo"
+        event:
+          problems_title: "Scopo dell'evento"
+          problems_title_label: "Perché si desidera organizzare un evento? Quali sono le finalità?"
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Organizzare un festival rock low cost.</div>
+            <div>Nella nostra città esistono molte band giovanili che non trovano spazi per esibirsi e valorizzare il loro talento. D'altra parte il programma di eventi promosso dal Comune per la prossima estate è molto scarno, a causa di mancanza di fondi.</div>
+          solution:
+            title: "Titolo"
+            description: "Descrizione della soluzione"
+            program: "Data, orario e programma"
+            body: "place"
+            place: "Luogo"
+            organization: "Organizzazione dell'evento"
+            resources: "Risorse necessarie e loro reperimento"
+            pros: "Pro"
+            cons: "Contro"
+          paragraph:
+            similar_experiences: "Esperienze simili"
+            stakeholders: "Stakeholders (persone coinvolte)"
+            desired_characteristics: "Caratteristiche desiderate"
+        candidates:
+          suggestion_html: |
+            <div><b>Esempio:</b></div>
+            <div>Eleggere il nuovo referente per il gruppo comunicazione.</div>
+            <div>Il gruppo comuicazione è appena stato istituito ed è necessario eleggere un referente. Si possono candidare tutti coloro che partecipano al gruppo da almeno 5 mesi.</div>
+          solution:
+            name: "Nome e Cognome candidato"
+            data: "Dati anagrafici"
+            curriculum: "Curriculum"
+            available: "Disponibilità a ricoprire la carica"
+          paragraph:
+            election_type: "Descrizione del tipo di elezione:"
+        simple:
+          problems_title: "Problematica"
+          solution:
+            description: "Descrizione"
+          problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"

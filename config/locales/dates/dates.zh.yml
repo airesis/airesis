@@ -1,0 +1,123 @@
+zh:
+  calendar:
+    monthNames: "['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']"
+    monthNamesShort: "['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']"
+    dayNames: "['星期日','星期一','星期二','星期三','星期四','星期五','星期六']"
+    dayNamesShort: "['日','一','二','三','四','五','六']"
+    today: '今天'
+    month: '月'
+    week: '週'
+    day: '日'
+    firstDay: 1
+    timeFormat: 'h(:mm)t'
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d "
+    day_names:
+      - 星期日
+      - 星期一
+      - 星期二
+      - 星期三
+      - 星期四
+      - 星期五
+      - 星期六]
+    abbr_day_names:
+      - 日
+      - 一
+      - 二
+      - 三
+      - 四
+      - 五
+      - 六
+    month_names:
+      -
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+    abbr_month_names:
+      -
+      - 一月
+      - 二月
+      - 三月
+      - 四月
+      - 五月
+      - 六月
+      - 七月
+      - 八月
+      - 九月
+      - 十月
+      - 十一月
+      - 十二月
+  time:
+    formats:
+     default: "%Y %b %d @ %H:%M"
+     long: "%Y %B %d %A %H:%M"
+     long_date: "%Y %B %d %A"
+     long_date_time: "%Y %B %d %A @ %H:%M"
+     from_long_date_time: "Da %A %d %B %Y ore %H:%M"
+     until_long_date_time: "Fino a %A %d %B %Y ore %H:%M"
+     weekday: "%A"
+     month: "%B"
+     dayandmonth: "%m/%d"
+     textfield: "%m/%d/%Y %H:%M"
+    am: "am"
+    pm: "pm"
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about one hour ago
+        other: 大約 %{count} 個小時
+      about_x_months:
+        one: about a month ago
+        other: 大約 %{count} 個月
+      about_x_years:
+        one: about one year ago
+        other: 大約 %{count} 年
+      almost_x_years:
+        one: almost one year ago
+        other: 將近 %{count} 年
+      half_a_minute: 半分鐘
+      less_than_x_minutes:
+        one: less than a minute ago
+        other: 少於 %{count} 分鐘
+      less_than_x_seconds:
+        one: less than a second ago
+        other: 少於 %{count} 秒
+      over_x_years:
+        one: more than one year ago
+        other: 超過 %{count} 年
+      x_days:
+        one: one day ago
+        other: '%{count} 天'
+      x_minutes:
+        one: one minute ago
+        other: '%{count} 分'
+      x_months:
+        one: one month ago
+        other: '%{count} 個月'
+      x_seconds:
+        one: one second ago
+        other: '%{count} 秒'
+  day:
+    one: "%{count} day"
+    other: "%{count} 天"
+  hour:
+    one: %{count} hour
+    other: "%{count} 小時"
+  minute:
+    one: "%{count} minute"
+    other: "%{count} 分鐘"

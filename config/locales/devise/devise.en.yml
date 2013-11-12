@@ -10,26 +10,38 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   devise:
     failure:
-      already_authenticated: 'You are already signed in'
-      unauthenticated: 'You need to sign in or sign up before continuing'
-      unconfirmed: 'You have to confirm your account before continuing'
       locked: 'Your account is locked'
       invalid: 'Invalid email or password'
       invalid_token: 'Invalid authentication token'
       timeout: 'Your session expired, please sign in again to continue'
       inactive: 'Your account has not been activated yet'
+      already_authenticated: 'You are already registered'
+      unauthenticated: 'Log-in required to access this page.  Please log-in.'
+      unconfirmed: "Account has not been confirmed yet"
+      user:
+        invalid: 'Invalid username or password'
     sessions:
       signed_in: 'Signed in successfully'
       signed_out: 'Signed out successfully'
+      user:
+        signed_out: 'You have successfully logged out.  Good-bye'
+        signed_in: 'Welcome! You have completed your registration'
+        signed_up: 'You have correctly completed the registration. Welcome!'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes'
       updated: 'Your password was changed successfully. You are now signed in'
       updated_not_active: 'Your password was changed successfully'
       send_paranoid_instructions: "If your email exists on our database, you will receive a password recovery link on your inbox"
+      user:
+        updated: 'Password updated correctly'
+        send_instructions: 'Instructions have been forwarded to your email address'
     confirmations:
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes'
       send_paranoid_instructions: 'If your email exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes'
       confirmed: 'Your account was successfully confirmed. You are now signed in'
+      user:
+        confirmed: 'Your registration has been successfully completed'
+        send_instructions: 'Instructions have been sent to your designated email'
     registrations:
       signed_up: 'Welcome! You have signed up successfully'
       signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account'
@@ -38,12 +50,15 @@ en:
       updated: 'You updated your account successfully'
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address"
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon'
+      user:
+        inactive_signed_up: 'To complete your registration please click on the link in the email you received'
+        signed_up_but_unconfirmed: 'Click on the link in the email sent to your address to complete the registration process'
     unlocks:
       send_instructions: 'You will receive an email with instructions about on how to unlock your account in a few minutes'
       unlocked: 'Your account has been unlocked successfully. Please sign in to continue'
       send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes'
     omniauth_callbacks:
-      success: 'Successfully authorized from %{kind} account'
+      success: 'Your registration has been completed. Welcome!'
       failure: 'Could not authorize you from %{kind} because "%{reason}"'
     mailer:
       confirmation_instructions:

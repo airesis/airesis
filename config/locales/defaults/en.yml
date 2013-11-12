@@ -5,166 +5,6 @@ en:
       group: "You cannot create more than a group a day"
   permissions_required: "You are not allowed to make this operation"
   test: "Test"
-  devise:
-    omniauth_callbacks:
-      success: 'Your registration has been completed. Welcome!'
-    registrations:
-      user:
-        inactive_signed_up: 'To complete your registration please click on the link in the email you received'
-        signed_up_but_unconfirmed: 'Click on the link in the email sent to your address to complete the registration process'
-    confirmations:
-      user:
-        confirmed: 'Your registration has been successfully completed'            
-        send_instructions: 'Instructions have been sent to your designated email'
-    sessions:
-      user:
-        signed_out: 'You have successfully logged out.  Good-bye'
-        signed_in: 'Welcome! You have completed your registration'
-        signed_up: 'You have correctly completed the registration. Welcome!'
-    passwords:
-      user:
-        updated: 'Password updated correctly'
-        send_instructions: 'Instructions have been forwarded to your email address'
-    failure:
-        already_authenticated: 'You are already registered'        
-        unauthenticated: 'Log-in required to access this page.  Please log-in.'
-        unconfirmed: "Account has not been confirmed yet"
-        user:
-          invalid: 'Invalid username or password'
-  calendar:
-    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
-    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']"
-    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
-    today: 'today'
-    month: 'month'
-    week: 'week'
-    day: 'day'
-    firstDay: 0
-    timeFormat: 'h(:mm)t '
-  date:
-    order:
-      - :day
-      - :month
-      - :year
-    formats:
-      default: "%d-%m-%Y"
-      short: "%b %d"
-    day_names:
-      - Sunday
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-    abbr_day_names:
-      - Sun
-      - Mon
-      - Tue
-      - Wed
-      - Fri
-      - Thu
-      - Sat
-    month_names:
-      -
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - October
-      - November
-      - December
-    abbr_month_names:
-      -
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - May
-      - Jun
-      - Jul
-      - Aug
-      - Sep
-      - Oct
-      - Nov
-      - Dec
-  time:
-    formats:
-     default: "%d %b %Y at %I:%M %p"
-     long: "%A %d %B %Y at %I:%M %p"
-     long_date: "%A %d %B %Y"
-     long_date_time: "%A %d %B %Y at %I:%M %p"
-     from_long_date_time: "From %A %d %B %Y at %I:%M %p"
-     until_long_date_time: "To %A %d %B %Y at %I:%M %p"
-     short: "%d %b %Y"
-     two_rows: "%d %b %Y <br/> %I:%M %p"
-     weekday: "%a %I:%M %p"
-     month: "%B"
-     dayandmonth: "%d/%m"
-     hour: "%I:%M %p"
-     textfield: "%d/%m/%Y %I:%M %p"
-     rich: "%Y-%m-%dT%H:%M"
-    am: "am"
-    pm: "pm"
-    left:
-      seconds:
-        one: "1 second"
-        other: "%{count} seconds"
-      minutes:
-        one: "1 minute"
-        other: "%{count} minutes"
-      hours:
-        one: "1 hour"
-        other: "%{count} hours"
-      days:
-        one: "1 day"
-        other: "%{count} days"
-      months:
-        one: "1 month"
-        other: "%{count} months"
-  datetime:
-    added_on: "on %{date}"
-    distance_in_words:
-      about_x_hours:
-        one: about 1 hour ago
-        other: about %{count} hours ago
-      about_x_months:
-        one: about 1 month ago
-        other: about %{count} months ago
-      about_x_years:
-        one: about 1 year ago
-        other: about %{count} years ago
-      almost_x_years:
-        one: almost 1 year ago
-        other: almost %{count} years ago
-      half_a_minute: half a minute ago
-      less_than_x_minutes:
-        one: less than 1 minute ago
-        other: less than %{count} minutes ago
-      less_than_x_seconds:
-        one: less than 1 second ago
-        other: less than %{count} seconds ago
-      over_x_years:
-        one: more than 1 year ago
-        other: more than %{count} years ago
-      x_days:
-        one: 1 day ago
-        other: ! '%{count} days ago'
-      x_minutes:
-        one: 1 minute ago
-        other: ! '%{count} minutes ago'
-      x_months:
-        one: 1 month ago
-        other: ! '%{count} months ago'
-      x_seconds:
-        one: "1 second ago"
-        other: ! "%{count} seconds ago"
   open_space: 'Open space'
   hello: 'Hello world'
   pages:
@@ -599,105 +439,6 @@ en:
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert some tags for your proposal"
-        standard:
-          problems_title: "Problems"
-          problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
-          objectives_title: "Objectives"
-          step_4_title: "You can enter a text of the proposal or write it later based on the input received"
-          solution:
-            description: "Description of the solution"
-            time: "Times"
-            subject: "Supervisor"
-            resources: "Necessary resources and how to retrieve them"
-            aspects: "Ethical, environmental, social aspects"
-            documents: "Documentation"
-            pros: "Pros"
-            cons: "Cons"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Reduce the usage of drinking water for irrigation.</div>
-            <div>Using drinking water to water public parks and private gardens is a waste and has relevant costs. Moreover the aquifer that supplies the aqueduct is running low</div>
-        rule_book:
-          problems_title_label: "What are the problems to be solved with the application of this regulation? What are the issues to be regulated? Why?"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Rule book to reserve the St. Peter's hall</div>
-            <div>The town of  Silverham has a conference room that nowadays is used only by the Mayor's "fellows". It is time to choose an impartial procedure to grant all citizens and public associations the right to book the room for public events.</div>
-          solution:
-            article: "Article %{num}"
-            pros: "Pros"
-            cons: "Cons"
-          problems_title: "Problems"
-          paragraph:
-            inspire: "Regulation to inspire from"
-            requirements: "Requirements to meet"
-          stakeholders: "Stakeholders (involved people)"
-        press:
-          problems_title_label: "What is the message you want to convey? What obstacles are expected to its proper understanding and streams? There are articles or recent news that you want to replicate or to which you want to provide an adjustment?"
-          problems_title: "Message to transmit"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Advertise the release of the version 3.5 of Airesis.</div>
-            <div>We have to advertise the release of the version 3.5 of Airesis, that brings important features for the Public Administrations. It is necessary to explain what Airesis is and captivate the attention of the press, given the recent rumors about the usage of Airesis in the White House.</div>
-          solution:
-            subtitle: "Subtitle"
-            incipit: "Incipit"
-            body: "Body"
-            conclusion: "Conclusions"
-            deep: "Insights"
-          paragraph:
-            target: "Recipients/Target"
-        estimate:
-          problems_title_label: "What goods or services you wish to purchase? To solve which problems?"
-          problems_title: "Problems"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Replacement of the thermal plant in the headquarter of the Association.</div>
-            <div>Because of the failure of the old boiler, our quarter is impractical during winters. Given that it is not possible to fix it, we have to substitute the old thermal plant with a new one, with low energy consumption.</div>
-          solution:
-            cost: "Amount"
-            problems: "Respect of constraints and problems"
-            dumentation: "Documentation"
-          paragraph:
-            technical_constrains: "Technical  constrains"
-            temporal_constrains: "Temporal constrains"
-            other_constrains: "Environmental, ethical, regulatory constrains"
-            budget: "Maximum budget"
-            recipient_budget: "Recipients of the request for quotation"
-        agenda:
-          problems_title: "Type of meeting"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Choose an agenda for our meeting.</div>
-            <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
-          solution:
-            points: "Agenda items"
-            priorities: "Items priorities"
-            links: "Insights links"
-          paragraph:
-            date_time: "Date and time"
-            place: "Place"
-        event:
-          problems_title: "Event scope"
-          problems_title_label: "Why do you want to organize an event? What are the aims?"
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Organize a low-cost rock concert.</div>
-            <div>In our town there are a lot of young bands that cannot show off and improve their talent, because of a lack of space. In addition to this, there are few events promoted by our Municipality for the next summer, because of a lack of resources.</div>
-          solution:
-            title: "Title"
-            description: "Description of the solution"
-            program: "Date, time and plan"
-            body: "place"
-            place: "Place"
-            organization: "Event organization"
-            resources: "Necessary resources and how to retrieve them"
-            pros: "Pros"
-            cons: "Cons"
-          paragraph:
-            similar_experiences: "Similar experiences"
-            stakeholders: "Stakeholders (involved people)"
-            desired_characteristics: "Desired characteristics"
         step_1_title: "You can pose a problem to solve, an idea to improve, an initiative to organize ... The important thing is to have a clear goal: Airesis will help you achieve it with the help of other people, through a process of shared problem solving."
         step_2_title: "Maybe someone has already created a similar proposal: check below and eventually stop your creation to avoid duplication. Joining forces gives strength to your ideas! Clicking on the title the proposals will be opened in a new tab."
         step_4_title: "Perfect! Choose your options and click 'Create the proposal' to complete the guide. Your proposal will be included in Airesis and you will be able to fill it out when you want with more information."
@@ -706,28 +447,11 @@ en:
           If you don't do it, your proposal won't go to the voting phase.<br/>
           Good luck and don't get scared: you can be helped by other people in your task.
         category_prompt: "--Choose a category--"
-        candidates:
-          suggestion_html: |
-            <div><b>Example:</b></div>
-            <div>Elect the new referent for the communication group.</div>
-            <div>The communication group has just been established and it is necessary to elect a referent. All the people that have been members of the group for at least 5 months can be nominated.</div>
-          solution:
-            name: "Candidate Name and Surname"
-            data: "Personal data"
-            curriculum: "Curriculum"
-            available: "Availability for the position"
-          paragraph:
-            election_type: "Description of the type of election:"
-        simple:
-          problems_title: "Problem"
-          solution:
-            description: "Description"
-          problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"
         tags_separated_by_comma: "(separated by comma)"
         cannot_add_proposal_in_work_area: "You dont' have the required permissions to add the proposal in any area"
         no_work_area_selected: "No work area"
-        solution1: "Solution 1"
-        solution: "Solution"
+        solution1: "Agenda Item"
+        solution: "Agenda Item"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -785,7 +509,6 @@ en:
         remove_solution: "Remove solution"
         press_to_compress: "Click on the title to compress this solution"
         add_paragraph_to_solution: "Add a paragraph to the solution"
-        add_solution: "Add another solution"
         you_know_what_you_do: "Do you know what are you going to do?"
         schulze_title: "One or more solutions?"
         inserted_contributes: "Sign the contributions you have integrated in this revision"
@@ -803,6 +526,16 @@ en:
         press_to_expand: "Click on the title to expand this solution"
         integrated: "Integrated"
         contribution_valuation: "What do they think?"
+        add_solution:
+          standard: "Add another solution"
+          poll: "Add another solution"
+          rule_book: "Add another solution"
+          press: "Add another solution"
+          event: "Add another solution"
+          estimate: "Add another solution"
+          agenda: "Add another solution"
+          candidates: "Add another solution"
+          simple: "Add another solution"
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"

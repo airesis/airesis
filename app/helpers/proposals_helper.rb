@@ -89,6 +89,7 @@ module ProposalsHelper
   def press_solution
     seq = 0
     solution = Solution.new(title: t('pages.proposals.new.solution1'))
+    solution.sections.build(title: t('pages.proposals.new.press.solution.title'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.press.solution.subtitle'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.press.solution.incipit'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.press.solution.body'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
@@ -122,9 +123,10 @@ module ProposalsHelper
   def agenda_solution
     seq = 0
     solution = Solution.new(title: t('pages.proposals.new.solution1'))
-    solution.sections.build(title: t('pages.proposals.new.agenda.solution.points'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
-    solution.sections.build(title: t('pages.proposals.new.agenda.solution.priorities'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: t('pages.proposals.new.agenda.solution.description'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.agenda.solution.links'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: t('pages.proposals.new.agenda.solution.priorities'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
+    solution.sections.build(title: t('pages.proposals.new.agenda.solution.estimated_time'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution
   end
 

@@ -156,7 +156,7 @@
 
 
     <div class="new_section">
-      <a href="#" onclick="addSolution(this);return false;"><%= t('pages.proposals.edit.add_solution') %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
+      <a href="#" onclick="addSolution(this);return false;"><%= t("pages.proposals.edit.add_solution.#{@proposal.proposal_type.name.downcase}") %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
     </div>
 
     <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title') %>" style="display:none;line-height: 160%">
@@ -248,7 +248,7 @@
 
     }
 
-    hideLeftPanel();
+
     fitRightMenu($('.suggestion_right'));
     $('.suggestion_right')
             .bind('mousewheel DOMMouseScroll', function (e) {
@@ -335,9 +335,9 @@
         $('.solution_main h3').each(function () {
             $(this).parent().attr('data-compressed', false);
         })
-        .click(function () {
-            compressSolution($(this));
-        });
+                .click(function () {
+                    compressSolution($(this));
+                });
         $('.solution_main h3 input').click(function (event) {
             event.preventDefault();
             return false;
@@ -436,6 +436,7 @@
         }
         <%end%>
         try {
+            var id;
             for (id in CKEDITOR.instances) {
                 var editor = CKEDITOR.instances[id];
                 var textarea_ = $('#' + id);
@@ -509,7 +510,7 @@
         paragraph_.append(seq_);
         paragraph_.append('<input type=\'hidden\' value=\'1\' name=\'' + paragraphname + '[seq]\'></input>');
         $('.solutions_column[data-solution_id=' + solutionid + ']').append(paragraph_);
-        $('.solution_main[data-solution_id='+solutionid+']').css('height','');
+        $('.solution_main[data-solution_id=' + solutionid + ']').css('height', '');
         paragraph_.fadeIn();
 
         addEditor(textarea_.attr('id'));
@@ -712,7 +713,17 @@
         }
 
         function hideContributes() {
-            $('.suggestion_right').toggle();
+            var right_ = $('.suggestion_right');
+            if (right_.hasClass('contributes_shown')) {
+                right_.removeClass('contributes_shown');
+                right_.hide();
+                $('#centerpanelextended').removeClass('contributes_shown');
+            }
+            else {
+                right_.addClass('contributes_shown');
+                right_.show();
+                $('#centerpanelextended').addClass('contributes_shown');
+            }
             var contributesButton = $('.contributes');
             switchText(contributesButton);
             return false;
