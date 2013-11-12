@@ -23,7 +23,8 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#proposal_quorum_id').select2({
+        var quorum_ = $('#proposal_quorum_id');
+        quorum_.select2({
             minimumResultsForSearch: -1,
             formatResult: formatQuorum,
             formatSelection: formatQuorum,
@@ -32,40 +33,48 @@
             }
         });
 
-        $('#proposal_quorum_id').on("change", function (e) {
-            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
-            var timefixed_ = $('#proposal_quorum_id option:selected').data('time_fixed');
-            var minutes_ = $('#proposal_quorum_id option:selected').data('minutes');
-            var id_ = $('#proposal_quorum_id option:selected').val();
+        quorum_.on("change", function (e) {
+            var selected_ = quorum_.find('option:selected');
+            var exlanation_ = selected_.data('explanation');
+            var timefixed_ = selected_.data('time_fixed');
+            var minutes_ = selected_.data('minutes');
+            var id_ = selected_.val();
             if (exlanation_) {
                 $('#quorum_explanation').html(exlanation_).show();
             }
             else {
                 $('#quorum_explanation').hide();
             }
+            var choose_vote = $('#choose_votation');
             if (timefixed_) {
                 $.ajax({
                     url: '<%=dates_quorums_url%>',
                     data: 'id=' + id_ + '&group_id=<%=@group.try(:id)%>',
                     success: function () {
-                        $('#choose_votation').show();
+                        choose_vote.show();
                         var now_ = new Date();
                         var end_ = addMinutes(now_, parseInt(minutes_));
 
                         var upperend_ = upperMinutes(end_, 5);
-                        $('#choose_votation .start_vot').html('<%='termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
-                        $("#proposal_votation_start").datetimepicker("option", "minDateTime", upperend_);
-                        $("#proposal_votation_start").datetimepicker("option", "minDate", upperend_);
-                        $("#proposal_votation_end").datetimepicker("option", "minDateTime", addMinutes(upperend_, 120));
-                        $("#proposal_votation_end").datetimepicker("option", "minDate", addMinutes(upperend_, 120));
-                        $("#proposal_votation_end").datetimepicker("setDate", addMinutes(upperend_, 120));
+                        var votation_end_ = addMinutes(upperend_, 2880);
+
+                        var start_field = $("#proposal_votation_start");
+                        var end_field = $("#proposal_votation_end");
+
+                        choose_vote.find('.start_vot').html('<%='termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                        start_field.datetimepicker("option", "minDateTime", upperend_);
+                        start_field.datetimepicker("option", "minDate", upperend_);
+
+                        end_field.datetimepicker("option", "minDateTime", votation_end_);
+                        end_field.datetimepicker("option", "minDate", votation_end_);
+                        end_field.datetimepicker("setDate", votation_end_);
                         //$("#proposal_votation_end").focus();
                     }
                 });
 
             }
             else {
-                $('#choose_votation').hide();
+                choose_vote.hide();
             }
         });
     })

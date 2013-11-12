@@ -874,12 +874,41 @@ img.presentation {
 }
 
 form.paypal-button {
-    width:  400px;
-    display:inline;
+    width: 400px;
+    display: inline;
 }
 
 .sys_title {
     margin-top: 4px;
     float: left;
     margin-right: 30px;
+}
+
+#user-panel {
+    background-color: white;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    color: #294145;
+    display: block;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    width: 235px;
+    z-index: 5;
+    ul.menu-list {
+        float: left;
+        list-style-type: none;
+        margin-left: 8px;
+        margin-top: 2px;
+        padding: 0 0 0;
+        li {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            &:hover {
+                opacity: 0.5;
+
+            }
+        }
+    }
 }

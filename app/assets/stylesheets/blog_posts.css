@@ -46,3 +46,46 @@
     color: #666;
     font-weight: bold;
 }
+
+.blogComment {
+    padding: 20px 0 0;
+    border-bottom: 1px dashed #CCC;
+    clear: both;
+    color: #333333;
+}
+
+.blogCommentPostedAt {
+    margin-bottom:10px;
+}
+
+.blogNewComment {
+    margin-top: 5px;
+    clear: both;
+}
+
+.blogPoster {
+    font-style: italic;
+}
+
+.blogCommentAdmin {
+    background-color: #EBE0BF;
+}
+
+.blogFooter a {
+    margin-right: 5px;
+}
+
+.blogUserImage {
+    float: left;
+    margin: 0px 5px 5px 0px;
+}
+
+.blog-comment-content {
+    word-wrap: break-word;
+    margin: 5px 0px;
+}
+
+
+.blog-comment-footer {
+    font-size: 0.9em;
+}

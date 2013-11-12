@@ -31,13 +31,19 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find(params[:id])
     @user = @blog.user
-    @page_title = @blog.title
+
     @blog_posts = @blog.posts.published.includes(:user,:blog,:tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.js
-      format.html # show.html.erb
-      #format.xml  { render :xml => @blog }
+      format.js {
+        @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+      }
+      format.html {
+        @page_title = @blog.title
+        @blog_posts = @blog_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+      }
+      format.atom
+      format.json
     end
   end
 

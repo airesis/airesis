@@ -11,7 +11,6 @@
 //= require jquery_ujs
 
 //= require jquery.tokeninput
-//= require flot/jquery.flot
 //= require democracy
 //= require fullcalendar
 //= require gcal

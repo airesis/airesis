@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+    <%= auto_discovery_link_tag(:atom, blog_url(@blog, format: 'atom')) %>
+<% end %>
+
 <% javascript 'endless_page' %>
 
 <%= render :layout => "layouts/page_title", :locals => {:title => @blog.title} do %>

@@ -51,14 +51,18 @@ class GroupsController < ApplicationController
 
 
   def show
-    @page_title = @group.name
-    @partecipants = @group.partecipants
-    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-
+    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
     respond_to do |format|
-      format.js
-      format.html # show.html.erb
-      format.xml { render :xml => @group }
+      format.js {
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+      }
+      format.html {
+        @page_title = @group.name
+        @partecipants = @group.partecipants
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+      }
+      format.atom
+      format.json
     end
   end
 

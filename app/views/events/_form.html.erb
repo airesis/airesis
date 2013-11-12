@@ -27,25 +27,25 @@
 
 
       <div class="step root root">
-        <p>
-          <%= f.label :title %>
-          <br/>
-          <%= f.text_field :title %>
-        </p>
 
-        <p>
-          <%= f.label :description %>
-          <br/>
-          <%= f.text_area :description, :rows => 4, :cols => 30 %>
-        </p>
+        <%= f.label :title %>
+
+        <%= f.text_field :title %>
+
+        <%= f.label :description %>
+
+        <%= f.text_area :description, :rows => 4, :cols => 30 %>
 
         <% if @event.is_votazione? %>
-            <%= f.hidden_field :private %>
+            <%= f.hidden_field :private, value: true %>
         <% else %>
-            <p>
-              <%= f.label :private %>
-              <%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
-            </p>
+
+              <%= f.label :private do %>
+                  <%= f.check_box :private, :title => t('pages.events.new.private_tooltip') %>
+                  <%= t('activerecord.attributes.event.private') %>
+              <% end %>
+
+
         <% end %>
 
         <%= f.hidden_field :proposal_id %>
@@ -106,8 +106,8 @@
                       </div>
                       <div class="row">
                         <div class="large-6 columns">
-                        <%= p.label :address %>
-                        <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
+                          <%= p.label :address %>
+                          <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
                         </div>
                       </div>
                       <div class="row">

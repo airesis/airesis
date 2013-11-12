@@ -50,8 +50,13 @@ module Frm
 
 
     class << self
-      def visible
-        where(:hidden => false)
+      def visible(user=nil)
+        if user
+          where('hidden = false or user_id = ?',user.id)
+        else
+          where(:hidden => false)
+        end
+
       end
 
       def by_pinned

@@ -1576,6 +1576,8 @@ en:
       status_declined: "The participation request is now in the status: DECLINED"
     event:
       comment_added: "Commento inserito correttamente"
+    topic:
+      hidden: "This topic is hidden"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

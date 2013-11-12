@@ -11,6 +11,7 @@
                                            end %>"/>
     <meta property="og:description" content="<%= @group.description %>"/>
     <meta name="description" content="<%= @group.description %>">
+    <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
 <% end %>
 
 <% if can? :view_data, @group %>

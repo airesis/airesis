@@ -1,7 +1,7 @@
 <p>
   <%= I18n.t('received_reply', :scope => 'frm.topic') %>. You can view it here:
 
-  <%= group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%=link_to group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
 </p>
 
 <p>
@@ -16,5 +16,5 @@
 
 <p>
   To unsubscribe from this topic, use the following link:
-  <%= unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
+  <%=link_to  unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic), unsubscribe_group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
 </p>

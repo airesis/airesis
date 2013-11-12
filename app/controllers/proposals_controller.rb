@@ -206,6 +206,7 @@ class ProposalsController < ApplicationController
         format.xml { render :xml => @proposal }
       end
     rescue Exception => e
+      log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
           page.alert "Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora #{((PROPOSALS_TIME_LIMIT - elapsed)/60).floor} minuti e #{((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)} secondi."
@@ -903,8 +904,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @search.proposal_category_id = params[:category]
 
     #applica il filtro per il gruppo
-    if params[:group_id]
-      @search.group_id = params[:group_id]
+    if @group
+      @search.group_id = @group.id
       if params[:group_area_id]
         @group_area = GroupArea.find(params[:group_area_id])
         @search.group_area_id = params[:group_area_id]

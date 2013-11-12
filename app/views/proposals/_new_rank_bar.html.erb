@@ -6,7 +6,7 @@
       <div class="time" data-percentage="<%= proposal.percentage %>">
 
         <% unless proposal.percentage > 98 %>
-            <div class="cur now" title="<%= proposal.quorum.time_left %>"></div>
+            <div class="cur now" title="<%= t('pages.proposals.new_rank_bar.now',left: proposal.quorum.time_left) %>"></div>
         <% end %>
 
         <div class="cur quorum" title="<%= raw t('pages.proposals.new_rank_bar.good_score', score: proposal.quorum.good_score) %>" data-percentage="<%= proposal.quorum.good_score %>"></div>

@@ -109,7 +109,7 @@ class Quorum < ActiveRecord::Base
         end
       end
     ar = []
-    ar << t('time.left.months') if (months && months > 0)
+    ar << I18n.t('time.left.months') if (months && months > 0)
     ar << I18n.t('time.left.days',count: days) if (days && days > 0)
     ar << I18n.t('time.left.hours',count: hours) if (hours && hours > 0)
     ar << I18n.t('time.left.minutes',count: min) if (min && min > 0)

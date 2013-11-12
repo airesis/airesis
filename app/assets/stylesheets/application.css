@@ -5,10 +5,7 @@
  *= require proposal
  *= require users/users
  *= require token-input
- *= require blog_kit
- *= require style_logged
  *= require groups
- *= require syntax/mac_classic
  *= require fullcalendar
  *= require dialog
  *= require event

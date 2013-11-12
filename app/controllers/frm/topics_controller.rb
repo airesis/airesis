@@ -8,6 +8,7 @@ module Frm
 
     def show
       if find_topic
+        flash[:warn] = t('info.topic.hidden') if @topic.hidden
         register_view(@topic, current_user)
         @posts = find_posts(@topic).page(params[:page]).per(Frm.per_page)
       end
@@ -141,7 +142,7 @@ module Frm
       if forem_admin_or_moderator?(forum)
         forum.topics
       else
-        forum.topics.visible.approved_or_pending_review_for(user)
+        forum.topics.visible(user).approved_or_pending_review_for(user)
       end
     end
   end

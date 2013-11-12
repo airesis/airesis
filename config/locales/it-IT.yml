@@ -812,6 +812,7 @@ it-IT:
           other: "%{count} VALUTAZIONI"
         good_score: "QUORUM POSITIVO %{score}%"
         bad_score: "QUORUM NEGATIVO %{score}%"
+        now: "Mancano %{left}"
       left_panel:
         creation_date: "Data di creazione"
         any_date: "Quasiasi data"

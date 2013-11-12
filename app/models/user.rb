@@ -567,7 +567,7 @@ class User < ActiveRecord::Base
 
 
   def can_read_forem_topic?(topic)
-    !topic.hidden? || forem_admin?(topic.forum.group)
+    !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
   end
 
   def auto_subscribe?
