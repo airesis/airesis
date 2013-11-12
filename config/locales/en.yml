@@ -494,6 +494,8 @@ en:
         rank: "RANK"
         voters: "VOTERS"
         date_range: "created between %{start} and %{end}"
+        proposal_types_title: "MODELS"
+        all_proposal_types: "All models"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"

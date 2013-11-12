@@ -492,6 +492,8 @@ it-IT:
         contributes_number: "CONTRIBUTI"
         rank: "MATURITA'"
         voters: "VOTANTI"
+        proposal_types_title: "MODELLI"
+        all_proposal_types: "Tutti i modelli"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
