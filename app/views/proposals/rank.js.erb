@@ -14,6 +14,7 @@ if (Airesis.id != <%=current_user.id%>) {
     $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
 
     $('#dates').html('<%=j render 'proposals/dates'%>');
+    disegnaCountdown();
   toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
 }
 <% end rescue nil%>
