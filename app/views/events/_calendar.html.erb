@@ -181,13 +181,19 @@
                 if (event.editable) {
                     element.css('cursor', 'pointer');
                 }
+            },
+            dayClick: function(date, allDay, jsEvent, view) {
+                $.ajax({
+                    data: 'starttime=' + date.getTime(),
+                    url: '<%=new_event_url(:group_id=> @group.try(:id)) %>'
+                });
             }
 
         });
 
         <%if params[:new_event] == 'true' %>
         $.ajax({
-            url: '<%=new_event_url(:group_id=> @group.id, :type => params[:type]) %>'
+            url: '<%=new_event_url(:group_id=> @group.try(:id), :type => params[:type]) %>'
         });
         /*$('.newButton').click();*/
         <%end%>

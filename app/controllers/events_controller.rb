@@ -64,7 +64,10 @@ class EventsController < ApplicationController
       @title += "- #{t('pages.events.new.title_meeting')}"
     end
 
-    @event = Event.new(starttime: Time.now + 10.minutes, endtime: 1.day.from_now + 10.minutes, period: "Non ripetere", event_type_id: params[:event_type_id])
+    @starttime = params[:starttime] ? Time.at(params[:starttime].to_i / 1000) : Time.now + 10.minutes
+    @endtime = @starttime + 1.days
+
+    @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
     @meeting = @event.build_meeting
     @election = @event.build_election
     @place = @meeting.build_place(:comune_id => "1330")

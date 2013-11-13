@@ -22,10 +22,6 @@
           </div>
       <% end %>
 
-
-
-
-
       <div class="step root root">
 
         <%= f.label :title %>
@@ -64,7 +60,7 @@
         <div class="row">
           <div class="large-6 columns">
             <%= f.label :endtime %>
-            <%= f.text_field :endtime, :value => (l(@event.starttime, format: :textfield)), :class => "datePicker" %>
+            <%= f.text_field :endtime, :value => (l(@event.endtime, format: :textfield)), :class => "datePicker" %>
           </div>
         </div>
 

@@ -97,6 +97,26 @@
     </div>
 <% end %>
 
+
+<% if ::Configuration.proposal_categories %>
+    <div class="mybox category">
+      <h4><%= t('pages.proposals.show.category_title') %></h4>
+
+      <div class="mycont">
+        <table>
+          <tr>
+            <td style="vertical-align: middle;">
+              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+            <td>
+              <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+<% end %>
+
 <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
     <div class="mybox">
       <h4><%= t('pages.proposals.show.tags_title') %></h4>
@@ -117,28 +137,10 @@
 
       <div class="mycont">
         <% @proposal.closest.each do |p| %>
+            <div class="panel">
             <%= link_to_proposal p %>
-            <br/>
+            </div>
         <% end %>
-      </div>
-    </div>
-<% end %>
-
-<% if ::Configuration.proposal_categories %>
-    <div class="mybox category">
-      <h4><%= t('pages.proposals.show.category_title') %></h4>
-
-      <div class="mycont">
-        <table>
-          <tr>
-            <td style="vertical-align: middle;">
-              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-            <td>
-              <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-          </tr>
-        </table>
       </div>
     </div>
 <% end %>
