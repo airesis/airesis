@@ -216,15 +216,15 @@ it-IT:
           simple: "Semplice"
           advanced: "Avanzato"
           time_description: "Affinché la proposta acceda alla fase di votazione deve restare in dibattito per almeno %{days}  %{hours}  %{minutes}"
-          simple_percentage_description: "Quindi passa in votazione se il gradimento è superiore al %{good_score}%."
+          simple_percentage_description: "Quindi passa in votazione se la maturità è superiore al %{good_score}%."
           advanced_participation_description: "%{and_or} deve essere valutata da almeno il %{participants_percentage}% degli utenti che dispongono i permessi per farlo (ovvero %{current_number} su %{total_number} attualmente)."
-          advanced_percentage_description: "Se invece il gradimento è inferiore al %{bad_score}% la proposta viene abbandonata."
-          advanced_percentage_description3: "La proposta resta in dibattito fintanto che il gradimento è compreso fra le due soglie."
+          advanced_percentage_description: "Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata."
+          advanced_percentage_description3: "La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie."
         active: "Attivo"
         name: "Nome"
         participants: "Partecipanti"
         condition: "Condizione"
-        good_percentage: "% Gradimento"
+        good_percentage: "% maturità"
         bad_percentage: "% Respingimento"
         confirm_deletion: "Sei sicuro di voler eliminare il quorum '%{quorum}'?"
         add_quorum: "Aggiungi un nuovo quorum"
@@ -384,7 +384,7 @@ it-IT:
         send_contribute_button: "Invia"
         characters_left: "Caratteri disponibili:"
         score: "Valutazioni"
-        rank: "Gradimento"
+        rank: "Maturità"
         created_at_html: "Creata %{time} fa:<br/><b>%{date}</b>"
         updated_at_html: "Aggiornata %{time} fa:<br/><b>%{date}</b>"
         votation_results: "Risultati"
@@ -802,14 +802,14 @@ it-IT:
         Identity_provider: "L'immagine che vedi è stata presa dal tuo Identity Provider."
         Identity_provider2: "Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis."
       rank_bar_explain:
-        title: "La barra di gradimento"
+        title: "La barra della maturità"
         description_html: |
-          La barra di gradimento è posta nel menu laterale a sinistra.<br />
-          La barra indica qual è l'indice di gradimento della proposta tra i partecipanti.<br />
+          La barra della maturità è posta nel menu laterale a sinistra.<br />
+          La barra indica qual è l'indice di maturità della proposta tra i partecipanti.<br />
           Puoi indicare se il testo della proposta è, a tuo parere, completo o meno utilizzando i due pulsanti posti sotto la barra.<br />
           Il redattore della proposta deve costruire il testo basandosi sui contributi forniti dagli utenti. Quando il testo della proposta cambia ti verrà data la possibilità di indicare se gradisci o meno il nuovo testo e, di conseguenza, modificare la tua valutazione precedente.<br />
           Il colore della barra indica se la proposta è in grado di passare alla fase di votazione mentre la lunghezza indica quanto tempo e/o valutazioni mancano prima che termini la discussione.<br />
-        newdescription2: "La barra indica il gradimento della proposta tra i partecipanti e quanto tempo manca al termine della discussione"
+        newdescription2: "La barra indica la maturità della proposta tra i partecipanti e quanto tempo manca al termine della discussione"
         newdescription3: "Il colore mostra se la proposta passerà alla fase di votazione mentre la lunghezza indica quanto tempo manca prima che termini la discussione"
         newdescription4: "Quando ritieni che il dibattito sia terminato e il redattore abbia integrato i contributi degli utenti allora utilizza questo pulsante"
         newdescription5: "Se ritieni che il dibattito debba proseguire allora utilizza questo pulsante"
@@ -988,9 +988,9 @@ it-IT:
         percentage: Partecipanti (percentuale)
         percentage_title: "Numero minimo di partecipanti alla discussione in percentuale rispetto al numero di partecipanti al gruppo"
         good_score: Quorum (percentuale)
-        good_score_title: "Gradimento da raggiungere per portare in votazione la proposta"
+        good_score_title: "Maturità da raggiungere per portare in votazione la proposta"
         bad_score: Quorum negativo (percentuale)
-        bad_score_title: "Gradimento al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
+        bad_score_title: "Maturità al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
         condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
       search_partecipant:
@@ -1069,8 +1069,8 @@ it-IT:
       and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà se %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
       participants_condition_1: "Il dibattito proseguirà finchè %{participants_num}."
-      good_score_condition: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
-      bad_score_explain: "Se avrà un gradimento superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà un gradimento inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè il gradimento rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
+      good_score_condition: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
+      bad_score_explain: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà una maturità inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
       until_date: "(%{date} alle %{time})"
       help_content:
         description_html: |
@@ -1084,7 +1084,7 @@ it-IT:
         condition: "Condizione superamento:"
         at_least_one: "Almeno una"
         both: "Entrambe"
-        good_score: "Gradimento:"
+        good_score: "Maturità:"
         bad_score: "Respingimento:"
   proposals:
     create_button: "Crea una proposta"
@@ -1111,9 +1111,9 @@ it-IT:
     yes: 'SI'
     no: 'NO'
   tooltips:
-    random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
+    random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
-    random_stack_3: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
+    random_stack_3: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     miglioricontributi: "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!"
     voglioredigere: "Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti."
     voteup: "<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)"
@@ -1125,7 +1125,7 @@ it-IT:
     view_noise: "<strong>Visualizza i contributi inutili</strong><br />Qui dentro potrai trovare tutti i contributi che sono stati ritenuti inutili alla discussione e rimossi dai redattori della proposta"
     quorum_minutes: "fino al <b>%{date}</b> %{time}"
     quorum_valutations: "finché non sarà valutata da <b>almeno %{valutations} persone</b>"
-    quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà un <b>gradimento</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
+    quorum_description: "La proposta rimarrà in dibattito %{conditions}. Passerà in votazione se  otterrà una <b>maturità</b> (valutazioni positive) superiore al <b>%{good_score}%</b> del totale delle valutazioni."
   group: "gruppo"
   saving: "Salvataggio..."
   sending: "Invio..."

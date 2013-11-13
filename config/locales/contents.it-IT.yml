@@ -128,22 +128,22 @@ it-IT:
           <p> Particolarmente interessante è l'adozione di un' <strong>area di discussione</strong> per ogni proposta
             pubblicata che permette alla proposta stessa di essere modificata dall'autore (come un <a href="http://it.wikipedia.org/wiki/Wiki">wiki</a>) in base al <strong>consenso</strong> ottenuto dai singoli contributi.
             Lo spazio di discussione è indentato a due livelli, il primo destinato a raccogliere contributi, il secondo le considerazioni personali su questi ultimi.
-            Il primo livello implementa un meccanismo di raccolta di gradimento mediante l'<strong>accorpamento nella proposta dei contributi</strong> più condivisi.</p>
+            Il primo livello implementa un meccanismo di miglioramento della maturità mediante l'<strong>accorpamento nella proposta dei contributi</strong> più condivisi.</p>
           <p>Il <strong>quorum</strong> , necessario per far passare una proposta alla fase di votazione, si ottiene al soddisfacimento di tre diversi parametri:</p>
           <ul>
-            <li><strong>valutazioni</strong>, definito come numero di persone che ne hanno dichiarato un gradimento (positivo o negativo);
+            <li><strong>valutazioni</strong>, definito come numero di persone che ne hanno dichiarato la maturità;
             </li>
             <li><strong>tempo di discussione</strong>, minimo periodo di discussione (a partire dalla presentazione della proposta);
             </li>
-            <li><strong>gradimento</strong>, definito come percentuale di "partecipanti" che dichiarano di gradire la proposta.
+            <li><strong>maturità</strong>, definito come percentuale di "partecipanti" che dichiarano di gradire la proposta.
             </li>
             <li><strong>soglia minima</strong> da superare affinchè la proposta non sia respinta</li>
           </ul>
-          <p>La valutazione di "<strong>gradimento</strong> " (o meno) di una proposta, è un atto formale dei membri della
+          <p>La valutazione della "<strong>maturità</strong> " di una proposta è un atto formale dei membri della
             comunità (fatto durante il periodo di "discussione"), con la quale esprimono l’<strong>idoneità</strong> del testo
             e delle soluzioni <strong>alla successiva fase di votazione</strong> .</p>
           <p>Sono ovviamente <strong>previsti diversi tipi di quorum</strong> : a seconda della "pesantezza" dell'argomento
-            trattato, i parametri (partecipazione, tempo e gradimento) variano di consistenza. Per le "proposte comuni", i
+            trattato, i parametri (partecipazione, tempo e maturità) variano di consistenza. Per le "proposte comuni", i
             quorum sono definiti dall'amministratore di sistema; mentre <strong>i quorum delle proposte dei gruppi, sono liberamente definibili degli amministratori dei gruppi</strong> .
           </p>
           <p>Le proposte sono <strong>organizzate</strong>, <strong>ordinate</strong> e <strong>ricercabili</strong>, secondo tre modalità:</p>

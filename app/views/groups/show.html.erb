@@ -20,7 +20,7 @@
 
     <div class="row full-width">
       <div class="column large-8">
-        <div><%= raw (@group.description)%></div>
+        <div class="group_description"><%= raw (@group.description)%></div>
         <div id="posts_container">
           <% if @group_posts.count == 0 %>
               <div class="blogPost">
