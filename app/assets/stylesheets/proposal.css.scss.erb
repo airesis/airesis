@@ -31,20 +31,15 @@ $large-screen: 1440px;
     color: #3366CC;
     font-weight: bold;
     width: 98%;
-}
-
-.new_section:hover {
-    background-color: #F4F4F4;
-    text-decoration: none;
+    &:hover {
+        background-color: #F4F4F4;
+        text-decoration: none;
+    }
 }
 
 .proposalComment {
     padding: 20px 0 0;
     clear: both;
-}
-
-.proposalCommentPostedAt {
-    /*margin-bottom:16px;*/
 }
 
 .proposalNewComment {
@@ -126,48 +121,41 @@ $large-screen: 1440px;
     border-radius: 0px 0px 3px 3px;
     margin-left: 97px;
     color: #333333;
-}
-
-.proposal_comment_reply .textntags-beautifier {
-    background: white;
-}
-
-.proposal_comment_reply form {
-    margin-top: 10px;
+    .reply_area {
+        margin-right: 140px;
+        margin-left: 10px;
+        margin-bottom: 24px;
+        textarea {
+            width: 100%;
+            height: 32px;
+        }
+    }
+    .reply_button {
+        bottom: 5px;
+        position: absolute;
+        right: 20px;
+    }
+    .reply_content {
+        padding: 5px;
+        word-break: break-word;
+    }
+    textarea {
+        border: 1px solid #BDC7D8;
+        margin: 5px;
+        resize: none;
+        width: 80%;
+    }
+    .textntags-beautifier {
+        background: white;
+    }
+    form {
+        margin-top: 10px;
+    }
 }
 
 .reply_img {
     margin: 5px 5px 0px 55px;
     float: left;
-}
-
-.proposal_comment_reply .reply_area {
-    margin-right: 140px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-
-.proposal_comment_reply .reply_area textarea {
-    width: 100%;
-    height: 32px;
-}
-
-.proposal_comment_reply .reply_button {
-    bottom: 5px;
-    position: absolute;
-    right: 20px;
-}
-
-.proposal_comment_reply .reply_content {
-    padding: 5px;
-    word-break: break-word;
-}
-
-.proposal_comment_reply textarea {
-    border: 1px solid #BDC7D8;
-    margin: 5px;
-    resize: none;
-    width: 80%;
 }
 
 .vote_proposal .proposal_list {
@@ -753,7 +741,7 @@ h3 {
     top: 7px;
 }
 
-#tabs {
+#tabs, #vote_tabs {
     border: none;
 
 }
@@ -1351,4 +1339,8 @@ ul.navigator {
     font-size: 0.8em;
     color: #333;
     position: relative;
+}
+
+.choise_b .inner {
+    margin-top: 10px;
 }
