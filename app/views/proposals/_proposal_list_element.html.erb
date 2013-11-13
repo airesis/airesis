@@ -62,7 +62,7 @@
 
       <div class="proposal_bottom">
         <% if proposal.in_valutation? %>
-            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left').upcase %>">
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.condition_left').upcase %>">
               <%= image_tag 'plist/stopwatch.png' %>
               <span class="count">
               <%= proposal.quorum.time_left.upcase %></span>
