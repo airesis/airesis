@@ -74,8 +74,7 @@ class Proposal < ActiveRecord::Base
 
   validates_presence_of :quorum_id #, :if => :is_standard? #todo bug in client_side_validation
 
-  validate :one_solution
-
+  validates_with AtLeastOneValidator, associations: [:solutions]
 
   attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation
 
@@ -133,11 +132,6 @@ class Proposal < ActiveRecord::Base
   before_save :save_tags
   after_destroy :remove_scheduled_tasks
   before_create :populate_fake_url
-
-
-  def one_solution
-    self.errors.add(:solutions, 'La proposta deve contenere almeno una soluzione') unless self.solutions.size > 0
-  end
 
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal

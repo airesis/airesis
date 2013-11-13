@@ -1,5 +1,5 @@
 $('#vote_results_container').html("<%=escape_javascript(render(:partial => @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results'))%>");
-$('#vote_results_container').dialog({ width: 500, height: 'auto', modal: true});
+$('#vote_results_container').dialog({ width: 800, height: 'auto', modal: true});
 disegnaBottoni();
 $('#resultsButton').click(function(e) {
 

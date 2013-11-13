@@ -29,7 +29,7 @@ module Frm
     private
 
     def forum
-      @forum = Frm::Forum.find(params[:forum_id])
+      @forum = @group.forums.find(params[:forum_id])
     end
 
     helper_method :forum

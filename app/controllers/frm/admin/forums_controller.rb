@@ -44,7 +44,7 @@ module Frm
       private
 
       def find_forum
-        @forum = Frm::Forum.find(params[:id])
+        @forum = @group.forums.find(params[:id])
       end
 
       def create_successful

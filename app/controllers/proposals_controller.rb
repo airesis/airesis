@@ -65,8 +65,43 @@ class ProposalsController < ApplicationController
     @search.proposal_state_id = ProposalState::TAB_REVISION
     @revision_count = @search.results.total_entries
 
+
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        @page_head = ''
+
+        if params[:category]
+          @page_head += t('pages.proposals.index.title_with_category', :category => ProposalCategory.find(params[:category]).description)
+        else
+          @page_head += t('pages.proposals.index.title')
+        end
+
+        if params[:type]
+          @page_head += " #{t('pages.propsoals.index.type', type: ProposalType.find(params[:type]).description)}"
+        end
+
+        if params[:time]
+          if params[:time][:type] == 'f'
+            @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}"
+          elsif params[:time][:type] == '1h'
+            @page_head += " #{t('pages.proposals.index.last_1h')}"
+          elsif params[:time][:type] == '24h'
+            @page_head += " #{t('pages.proposals.index.last_24h')}"
+          elsif params[:time][:type] == '7d'
+            @page_head += " #{t('pages.proposals.index.last_7d')}"
+          elsif params[:time][:type] == '1m'
+            @page_head += " #{t('pages.proposals.index.last_1m')}"
+          elsif params[:time][:type] == '1y'
+            @page_head += " #{t('pages.proposals.index.last_1y')}"
+          end
+        end
+        if params[:search]
+          @page_head += " #{t('pages.proposals.index.with_text', text: params[:search])}"
+        end
+        @page_head += " #{t('pages.proposals.index.in_group_area_title')} '#{@group_area.name}'" if @group_area
+
+        @page_title = @page_head
+      }
       format.json
     end
   end
@@ -425,7 +460,7 @@ class ProposalsController < ApplicationController
           start = prparams[:votation][:start] || (@copy.ends_at + 1.minute)
           raise Exception 'error' unless prparams[:votation][:end].to_s != ''
           @proposal.vote_starts_at = start
-          @proposal.vote_ends_at = prparams[:votation][:end]          
+          @proposal.vote_ends_at = prparams[:votation][:end]
         end
 
         @proposal.vote_defined = true

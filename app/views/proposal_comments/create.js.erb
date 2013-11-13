@@ -39,15 +39,19 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
+
+
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
+
     $('.proposalComment[data-collapsed=true]').show(600);
 
     initialize_hidden_menu();
+    initTextAreaTag();
     $('#delete<%=@proposal_comment.id%>').unbind('click');
     $('#delete<%=@proposal_comment.id%>').bind('click',function(event) {
         hiding(event,$(this).data('id'));
@@ -75,6 +79,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
                 $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment_others', :locals => {:comment => @proposal_comment} %>');
             <%end%>
             hide_vote_controls();
+            initTextAreaTag();
         }
     <% end rescue nil%>
 

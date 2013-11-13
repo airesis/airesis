@@ -1,19 +1,4 @@
 <% @extend = true %>
-<% @page_head = '' %>
-<% @page_head += @group.name + " - " if @group %>
-<% if @category
-     @page_head += t('pages.proposals.index.title_with_category', :category => @category.description)
-   else
-     @page_head += t('pages.proposals.index.title')
-   end %>
-<% @page_head += " #{t('pages.proposals.index.in_group_area_title')} #{@group_area.name}" if @group_area %>
-<% if params[:time] %>
-    <% if params[:time][:type] == 'f' %>
-        <% @page_head += " #{t('pages.proposals.index.date_range', start: params[:time][:start_w], end: params[:time][:end_w])}" %>
-    <% end %>
-<% end %>
-
-<% @page_title = @page_head %>
 
 <% if @group %>
     <%= content_for :head do %>

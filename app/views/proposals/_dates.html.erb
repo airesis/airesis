@@ -1,57 +1,77 @@
 <div style="padding-bottom: 10px;">
-  <%=t('pages.proposals.show.created_at_html', time:raw("<div class='date_creation'></div>"), date:(l @proposal.created_at))%>
+  <%= t('pages.proposals.show.created_at_html', time: raw("<div class='date_creation'></div>"), date: (l @proposal.created_at)) %>
 </div>
 <% if @proposal.updated_at != @proposal.created_at %>
     <div class="mycont">
-      <%= t('pages.proposals.show.updated_at_html',time:raw("<div class='date_update'></div>"), date:(l @proposal.updated_at))%>
+      <%= t('pages.proposals.show.updated_at_html', time: raw("<div class='date_update'></div>"), date: (l @proposal.updated_at)) %>
     </div>
 <% end %>
-<% if @proposal.in_valutation?%>
+<% if @proposal.in_valutation? %>
     <div class="mycont">
-        <%if @proposal.quorum.and?%>
-            <%if @proposal.quorum.time && @proposal.quorum.valutations_left%>
-                <%=t('pages.proposals.show.debate_ends_valutations_and_html', num:raw("<div id=end_debate></div>"), evaluations_left:@proposal.quorum.valutations_left)%><br/>
-            <%elsif @proposal.quorum.valutations_left%>
-                <%=t('pages.proposals.show.debate_ends_valutations_html', evaluations_left:@proposal.quorum.valutations_left)%>
-            <%elsif @proposal.quorum.time %>
-                <%= t('pages.proposals.show.debate_ends_html', time:raw("<div id=end_debate></div>"))%>
-            <%else%>
-             End of debate:<br/>rank superior to <b><%=@proposal.quorum.good_score%>%</b><br/> <!--TODO:I18n-->
-             Abandoned:<br/>rank inferior to <b><%=@proposal.quorum.bad_score%>%</b>
-            <%end%>
-        <%elsif @proposal.quorum.or?%>
-            <%=t('pages.proposals.show.debate_ends_valutations_or_html', num:raw("<div id=end_debate></div>"), evaluations_left:@proposal.quorum.valutations_left)%><br/>
-        <%elsif @proposal.quorum.time%>
-            <%= t('pages.proposals.show.debate_ends_html', time:raw("<div id=end_debate></div>"))%>
-        <%else%>
-            <%=t('pages.proposals.show.debate_ends_valutations_html', evaluations_left:@proposal.quorum.valutations_left)%>
-        <%end%>
-      </div>
-<%end%>
+      <% if @proposal.quorum.and? %>
+          <% if @proposal.quorum.time && @proposal.quorum.valutations_left %>
+              <%= t('pages.proposals.show.debate_ends_valutations_and_html', num: raw("<div id=end_debate></div>"), evaluations_left: @proposal.quorum.valutations_left) %>
+              <br/>
+          <% elsif @proposal.quorum.valutations_left %>
+              <%= t('pages.proposals.show.debate_ends_valutations_html', evaluations_left: @proposal.quorum.valutations_left) %>
+          <% elsif @proposal.quorum.time %>
+              <%= t('pages.proposals.show.debate_ends_html', time: raw("<div id=end_debate></div>")) %>
+          <% else %>
+              End of debate:<br/>rank superior to <b><%= @proposal.quorum.good_score %>%</b><br/> <!--TODO:I18n-->
+              Abandoned:<br/>rank inferior to <b><%= @proposal.quorum.bad_score %>%</b>
+          <% end %>
+      <% elsif @proposal.quorum.or? %>
+          <%= t('pages.proposals.show.debate_ends_valutations_or_html', num: raw("<div id=end_debate></div>"), evaluations_left: @proposal.quorum.valutations_left) %>
+          <br/>
+      <% elsif @proposal.quorum.time %>
+          <%= t('pages.proposals.show.debate_ends_html', time: raw("<div id=end_debate></div>")) %>
+      <% else %>
+          <%= t('pages.proposals.show.debate_ends_valutations_html', evaluations_left: @proposal.quorum.valutations_left) %>
+      <% end %>
+    </div>
+<% end %>
 
 
-<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata  %>
+<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata      %>
     <div class="mycont">
-      <%= t('pages.proposals.show.in_votation_html', start:(l @proposal.vote_period.starttime), end:(l @proposal.vote_period.endtime)) %>
+      <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %>
     </div><br/>
-<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione  %>
+<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione      %>
     <div class="mycont">
-      <%= t('pages.proposals.show.in_votation_until_html', date:raw("<div class='end_vote'></div>")) %>
+      <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end_vote'></div>")) %>
     </div>
 <% end %>
 
 
 <script type="text/javascript">
     var creationDate = new Date(<%=(@proposal.created_at).to_i * 1000%>);
-    $('.date_creation').countdown($.extend({since: creationDate, significant:1, format:'yodhms',layout:'{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'}, $.countdown.regional['<%=I18n.locale%>']));
+    $('.date_creation').countdown($.extend({
+                since: creationDate,
+                significant: 1,
+                format: 'yodhms',
+                layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
+            $.countdown.regional['<%=I18n.locale%>']));
 
     var updateDate = new Date(<%=(@proposal.updated_at).to_i * 1000%>);
-    $('.date_update').countdown($.extend({since: updateDate, significant:1, format:'yodhms',layout:'{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'}, $.countdown.regional['<%=I18n.locale%>']));
+    $('.date_update').countdown($.extend({
+                since: updateDate,
+                significant: 1,
+                format: 'yodhms',
+                layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
+            $.countdown.regional['<%=I18n.locale%>']));
 
     var endsDate = new Date(<%=(@proposal.quorum.ends_at).to_i * 1000%>);
-    $('#end_debate').countdown($.extend({until: endsDate, significant:3, description:'<%=l @proposal.quorum.ends_at%>'}, $.countdown.regional['<%=I18n.locale%>']));
-<%if @proposal.proposal_state_id == ProposalState::VOTING%>
+    $('#end_debate').countdown($.extend({
+                until: endsDate,
+                significant: 3,
+                description: '<%=l @proposal.quorum.ends_at%>'},
+            $.countdown.regional['<%=I18n.locale%>']));
+    <%if @proposal.proposal_state_id == ProposalState::VOTING%>
     var endsVote = new Date(<%=(@proposal.vote_period.endtime).to_i * 1000%>);
-    $('.end_vote').countdown($.extend({until: endsVote, significant:3, description:'<%=l @proposal.vote_period.endtime%>'}, $.countdown.regional['<%=I18n.locale%>']));
-<%end%>
+    $('.end_vote').countdown($.extend({
+                until: endsVote,
+                significant: 3,
+                description: '<%=l @proposal.vote_period.endtime%>'},
+            $.countdown.regional['<%=I18n.locale%>']));
+    <%end%>
 </script>

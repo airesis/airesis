@@ -35,7 +35,7 @@
                 <strong><%= t('.moderators') %>:</strong>
                 <% if forum.moderators.exists? %>
                   <% forum.moderators.map do |moderator| %>
-                    <%= link_to moderator, group_frm_admin_forum_moderator_url(@group, forum, moderator) %>
+                    <%= link_to moderator, group_frm_admin_frm_group_url(@group, moderator) %>
                   <% end.to_sentence %>
                 <% else %>
                   None
@@ -52,6 +52,7 @@
       </table>
   <% end %>
 </div>
+<%= render :partial => 'forem_footer' %>
 
 <%= content_for :left_panel do %>
     <%= render :partial => 'groups/administration_panel' %>

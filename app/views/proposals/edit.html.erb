@@ -9,8 +9,6 @@
 <h1><%= @page_title %></h1>
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
-    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-
     <% if can? :destroy, @proposal %>
         <div style="background: #FFE3A0; padding: 3px; border-radius: 2px;" class="shadow-box">
           <p>
@@ -674,7 +672,7 @@
         <%= link_to 'Nascondi contributi', '#', onclick: 'return hideContributes();', data: {other: 'Mostra contributi'}, class: 'contributes btn' %>
       </div>
       <div class="mybox">
-        <h4><%= 'Navigator' %></h4>
+        <h4><%= t('pages.proposals.edit.navigator') %></h4>
         <ul class="navigator">
           <% @proposal.sections.each do |section| %>
               <li><%= link_to section.title, '#', onclick: "return scrollToSection(#{section.id});" %></li>
