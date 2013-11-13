@@ -324,6 +324,12 @@
                     type: 'get',
                     complete: function () {
                         $(".loading", fetched).hide();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        $(".loading", fetched).hide();
+                        if (xhr.status == '404') {
+                            $(fetched).html('<%=t('pages.proposals.show.error_loading_paragraph')%>');
+                        }
                     }
                 });
 

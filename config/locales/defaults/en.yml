@@ -431,6 +431,7 @@ en:
         debate_ends_valutations_or_html: "End of debate in:<br/><b>%{num}</b> or with:<br/><b>%{evaluations_left}</b>"
         debate_ends_valutations_and_html: "End of debate in:<br/><b>%{num}</b> and with:<br/><b>%{evaluations_left}</b>"
         debate_ends_valutations_html: "End of debate with:<br/><b>%{evaluations_left}</b>"
+        error_loading_paragraph: "This paragraph has been removed. Reload the page to view the updated proposal"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"

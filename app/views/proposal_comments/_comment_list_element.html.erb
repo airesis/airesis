@@ -26,9 +26,7 @@
             </div>
 	  </div>
             <div class="baloon-content">
-                <%=raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => { :target => '_blank' }, :sanitize => false) do |text|
-				  truncate(text, :length => 15)
-				end%>
+                <%=parsed_content(comment,@proposal.is_anonima?) %>
             </div>
             <div class="baloon-footer">
             	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span><!--TODO:I18n-->

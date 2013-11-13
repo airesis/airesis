@@ -116,6 +116,8 @@ class User < ActiveRecord::Base
   has_many :viewed, :class_name => 'Frm::View'
   has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
+  has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
+  has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
 
   #fake columns
   attr_accessor :image_url, :accept_conditions, :subdomain

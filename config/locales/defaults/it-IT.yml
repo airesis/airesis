@@ -433,6 +433,7 @@ it-IT:
           Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
         debate_ends_valutations_html: |
           Termine dibattito con:<br/><b>%{evaluations_left}</b>"
+        error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -1302,6 +1303,8 @@ it-IT:
       status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
       status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
       status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
+    topic:
+      hidden: "Il topic è nascosto"
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

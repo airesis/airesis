@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113083725) do
+ActiveRecord::Schema.define(:version => 20131113160536) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -589,7 +589,7 @@ ActiveRecord::Schema.define(:version => 20131113083725) do
 
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
-    t.string   "description",                :limit => 2000
+    t.string   "description",                :limit => 2500
     t.string   "accept_requests",                             :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"

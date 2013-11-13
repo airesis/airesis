@@ -12,9 +12,7 @@
   <div style="border: 1px solid #CCCCCC;border-radius: 3px 3px 0px 0px;margin-left: 50px;color: #333333;">
     <div>
       <div style="word-wrap: break-word;margin: 5px;">
-        <%= raw auto_link((h(@comment.body)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-          truncate(text, :length => 15)
-        end %>
+        <%= parsed_content(@comment,@comment.proposal.is_anonima?)  %>
       </div>
       <div style="font-size: 0.9em;margin-top: 5px;margin-left: 5px;margin-bottom: 2px;color: #999999;float: left;">
         <%= raw t('pages.proposals.show.comment_inserted_by', when: (l @comment.created_at), who: @user.fullname) %>
