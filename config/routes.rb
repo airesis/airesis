@@ -330,6 +330,11 @@ Airesis::Application.routes.draw do
 
     #match ':controller/:action/:id'
     resources :certifications, only: [:index, :create, :destroy]
+    resources :user_sensitives do
+      member do
+        get :document
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection

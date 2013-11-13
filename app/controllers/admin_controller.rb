@@ -5,7 +5,7 @@ require 'rake'
 
 class AdminController < ManagerController
   include ProposalsModule
-  before_filter :admin_required#, :only => [:new, :create, :destroy]
+  before_filter :admin_required
 
   layout 'users'
 
@@ -133,6 +133,8 @@ class AdminController < ManagerController
     sign_in User.find(params[:user_id]), :bypass => true
     redirect_to root_url # or user_root_url
   end
+
+
 
   def write_sitemap
     Rake::Task["sitemap:refresh"].invoke

@@ -110,6 +110,7 @@ class User < ActiveRecord::Base
 
   has_many :proposal_nicknames, :class_name => 'ProposalNickname'
 
+  has_one :certification, :class_name => 'UserSensitive', foreign_key: :user_id
 
   #forum
   has_many :viewed, :class_name => 'Frm::View'
@@ -123,10 +124,22 @@ class User < ActiveRecord::Base
 
   after_create :assign_tutorials
 
+  validate :check_uncertified
+
   scope :blocked, {:conditions => {:blocked => true}}
   scope :unblocked, {:conditions => {:blocked => false}}
   scope :confirmed, {:conditions => 'confirmed_at is not null'}
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
+  scope :certified, {:conditions => {user_type_id: UserType::CERTIFIED}}
+
+
+  def check_uncertified
+    if certified?
+      if self.name_changed? || self.surname_changed?
+        self.errors.add(:user_type_id, "Non puoi modificare questi dati in quanto il tuo utente è certificato")
+      end
+    end
+  end
 
 
   def suggested_groups
@@ -357,6 +370,11 @@ class User < ActiveRecord::Base
     ranking.updated_at < last_suggest.created_at
   end
 
+
+  def certified?
+    self.user_type.short_name == 'certified'
+  end
+
   def admin?
     self.user_type.short_name == 'admin'
   end
@@ -582,7 +600,7 @@ class User < ActiveRecord::Base
   def self.autocomplete(term)
     where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
         limit(10).
-        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email").
+        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email, users.user_type_id").
         order("users.surname desc, users.name desc")
   end
 

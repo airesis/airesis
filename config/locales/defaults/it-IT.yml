@@ -336,6 +336,12 @@ it-IT:
         voters: "VOTANTI"
         proposal_types_title: "MODELLI"
         all_proposal_types: "Tutti i modelli"
+        with_text: "contenenti '%{text}'"
+        last_24h: "create nelle ultime 24 ore"
+        last_1h: "create nell'ultima ora"
+        last_7d: "create nell'ultima settimana"
+        last_1m: "create nell'ultimo mese"
+        last_1y: "create nell'ultimo anno"
       show:
         voteup: 'Concordo'
         votenil: "Non so/non ho capito"
@@ -421,9 +427,12 @@ it-IT:
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
         debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
-        debate_ends_valutations_or_html: "Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_and_html: "Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_html: "Termine dibattito con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_or_html: |
+          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_and_html: |
+          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_valutations_html: |
+          Termine dibattito con:<br/><b>%{evaluations_left}</b>"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -527,6 +536,7 @@ it-IT:
         press_to_expand: "Clicca sul titolo per espandere questa soluzione"
         integrated: "Integrato"
         contribution_valuation: "Come la pensano?"
+        navigator: "Navigatore"
       manage_noise:
         available: "Contributi che possono essere eliminati"
         removed: "Contributi eliminati dalla discussione"
@@ -876,6 +886,9 @@ it-IT:
     passwords:
       edit:
         title: "Cambia la tua password"
+    propsoals:
+      index:
+        type: "di tipo %{type}"
   pl:
     comments:
       zero: "nessun commento"

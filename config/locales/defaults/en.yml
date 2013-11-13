@@ -52,6 +52,7 @@ en:
         max_file_size: "Max size: 2MB"
         what_can_i_do: "What can I do?"
         what_i_cant_do: "What can't I do?"
+        certified_from: "Certified from"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -336,6 +337,12 @@ en:
         date_range: "created between %{start} and %{end}"
         proposal_types_title: "MODELS"
         all_proposal_types: "All models"
+        with_text: "containing '%{text}'"
+        last_24h: "created in the last 24 hours"
+        last_1h: "created in the last hour"
+        last_7d: "created in the last week"
+        last_1m: "created in the last month"
+        last_1y: "created in the last year"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -536,6 +543,7 @@ en:
           agenda: "Add another solution"
           candidates: "Add another solution"
           simple: "Add another solution"
+        navigator: %Q(Navigator)
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
@@ -894,6 +902,9 @@ en:
     event_comments:
       new:
         insert_comment: "Insert a comment"
+    propsoals:
+      index:
+        type: "of type %{type}"
   pl:
     comments:
       zero: "no comment"

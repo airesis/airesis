@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107090910) do
+ActiveRecord::Schema.define(:version => 20131113083725) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1223,6 +1223,10 @@ ActiveRecord::Schema.define(:version => 20131107090910) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "sys_document_types", :force => true do |t|
+    t.string "description"
+  end
+
   create_table "sys_features", :force => true do |t|
     t.string   "title"
     t.string   "description",        :limit => 40000
@@ -1352,6 +1356,28 @@ ActiveRecord::Schema.define(:version => 20131107090910) do
     t.integer  "likeable_id",   :null => false
     t.string   "likeable_type", :null => false
   end
+
+  create_table "user_sensitives", :force => true do |t|
+    t.integer  "user_id",               :null => false
+    t.string   "name",                  :null => false
+    t.string   "surname",               :null => false
+    t.datetime "birth_date"
+    t.integer  "birth_place_id"
+    t.integer  "residence_place_id"
+    t.integer  "home_place_id"
+    t.string   "tax_code",              :null => false
+    t.string   "document_id"
+    t.integer  "sys_document_type_id"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "user_sensitives", ["tax_code"], :name => "index_user_sensitives_on_tax_code", :unique => true
+  add_index "user_sensitives", ["user_id"], :name => "index_user_sensitives_on_user_id", :unique => true
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
@@ -1677,6 +1703,12 @@ ActiveRecord::Schema.define(:version => 20131107090910) do
   add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
 
   add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
+
+  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_birth_place_id_fk", :column => "birth_place_id"
+  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_home_place_id_fk", :column => "home_place_id"
+  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_residence_place_id_fk", :column => "residence_place_id"
+  add_foreign_key "user_sensitives", "sys_document_types", :name => "user_sensitives_sys_document_type_id_fk"
+  add_foreign_key "user_sensitives", "users", :name => "user_sensitives_user_id_fk"
 
   add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
   add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"

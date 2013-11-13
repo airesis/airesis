@@ -32,4 +32,13 @@ class ManagerController < ApplicationController
     flash[:notice] = t('info.moderator_panel.account_unblocked')
     redirect_to :back
   end
+
+  #admin user autocomplete
+  def user_autocomplete
+    users = User.autocomplete(params[:term])
+    users = users.map do |u|
+      { :id => u.id, :identifier => "#{u.surname} #{u.name}", :name => "#{u.name}", surname: "#{u.surname}", :image_path => "#{u.user_image_tag 20}" }
+    end
+    render :json => users
+  end
 end

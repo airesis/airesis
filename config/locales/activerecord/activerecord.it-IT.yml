@@ -118,6 +118,7 @@ it-IT:
         receive_newsletter: "Newsletter tramite email"
         blog_image_url: "Indirizzo immagine"
         blocked: "Errore"
+        user_type_id: "Tipologia di utente"
       group_area:
         name: "Nome"
         description: "Descrizione"

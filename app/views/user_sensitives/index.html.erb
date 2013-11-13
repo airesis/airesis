@@ -1,29 +1,33 @@
-<h1>Listing sys_features</h1>
+<h1>Listing Certified Users</h1>
 
 <table>
   <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Amount required</th>
-    <th>Amount received</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>User Id</th>
+    <th>Certification Id</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th>Certified at</th>
+
+
   </tr>
 
-<% @sys_features.each do |sys_feature| %>
+<% @user_sensitives.each do |user_sensitive| %>
   <tr>
-    <td><%= sys_feature.title %></td>
-    <td><%= sys_feature.description %></td>
-    <td><%= sys_feature.amount_required %></td>
-    <td><%= sys_feature.amount_received_calc %></td>
-    <td><%= link_to 'Show', sys_feature %></td>
-    <td><%= link_to 'Edit', edit_sys_feature_path(sys_feature) %></td>
-    <td><%= link_to 'Destroy', sys_feature, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= user_sensitive.user.id%></td>
+    <td><%= user_sensitive.id %></td>
+    <td><%= user_sensitive.name %></td>
+    <td><%= user_sensitive.surname %></td>
+    <td><%= user_sensitive.user.email %></td>
+    <td><%= user_sensitive.created_at %></td>
+    <td><%= link_to 'Show', user_sensitive %></td>
+    <td><%= link_to 'User Page', user_sensitive.user %></td>
+    <td><%= link_to 'Edit', edit_user_sensitive_path(user_sensitive) %></td>
+    <td><%= link_to 'Destroy', user_sensitive, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Sys feature', new_sys_feature_path %>
+<%= link_to 'Certify a new user', new_user_sensitive_path %>

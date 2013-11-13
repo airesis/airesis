@@ -95,13 +95,13 @@
   <% if current_user %>
       <div id="account" class="show-for-large-up">
           <span class="avatar">
-          <%= current_user.user_image_tag 60 %>
+          <%= current_user.user_image_tag 60, false, false %>
           </span>
         <%= image_tag 'cur-tria.png', class: 'triangle' %>
       </div>
       <div id="account-small" class="show-for-large-down">
           <span class="avatar">
-          <%= current_user.user_image_tag 60 %>
+          <%= current_user.user_image_tag 60, false, false %>
           </span>
         <%= image_tag 'cur-tria.png', class: 'triangle' %>
       </div>
