@@ -152,7 +152,7 @@ module Frm
     end
 
     def last_page
-      (self.posts.count.to_f / Frm.per_page.to_f).ceil
+      (self.posts.count.to_f / TOPICS_PER_PAGE.to_f).ceil
     end
 
     protected

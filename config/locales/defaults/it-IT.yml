@@ -1109,8 +1109,8 @@ it-IT:
     go_back: "Torna indietro"
     chosen: "Ho scelto!"
     ok: "OK"
-    yes: 'SI'
-    no: 'NO'
+    yes_word: 'SI'
+    no_word: 'NO'
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di gradimento.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."

@@ -277,6 +277,7 @@ class Ability
         can :manage, Election
         can :manage, Event
         can :manage, Frm::Topic
+        can :create_topic, Frm::Forum
 
         #cannot :show_tooltips
         #can :vote, Proposal do |proposal|

@@ -24,7 +24,7 @@ module Frm
       if forem_admin_or_moderator?(topic.forum)
         posts
       elsif topic.user == current_user
-        posts.visible.approved_or_pending_review_for(topic.user)
+        posts.visible(current_user).approved_or_pending_review_for(topic.user)
       else
         posts.approved
       end

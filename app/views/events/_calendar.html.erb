@@ -183,10 +183,12 @@
                 }
             },
             dayClick: function(date, allDay, jsEvent, view) {
+                <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
                     data: 'starttime=' + date.getTime(),
                     url: '<%=new_event_url(:group_id=> @group.try(:id)) %>'
                 });
+                <%end%>
             }
 
         });

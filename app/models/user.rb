@@ -625,7 +625,7 @@ class User < ActiveRecord::Base
 
 
   def forem_admin?(group)
-    self.can? :update, @group
+    self.can? :update, group
   end
 
   def to_s

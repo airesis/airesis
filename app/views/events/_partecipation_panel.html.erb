@@ -24,15 +24,14 @@
 		<%if !@event.is_past?%>
 			<h1><%= t('pages.events.show.will_be_in') %></h1>
 			<%=form_for [@event,MeetingPartecipation.new], :remote => true do |f|%>
-			<div style="float: left">
+			<div>
 				<div style="height:14px; position: relative;">
-					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked">
-					<%= t('buttons.yes') %></input> <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;display:inline;height:19px") ) %></span>
+					<input type="radio" name="meeting_partecipation[response]" value="Y" checked="checked" id="yes_response"/><label for="yes_response" style="display:inline"><%= t('buttons.yes_word') %></label>
+                    <span id="guests_number"><%=raw t('pages.events.show.with_guests', field: (f.text_field :guests, :style => "width: 35px;display:inline;height:21px") ) %></span>
 					<br />
 				</div>
 				<div style="height:14px;">
-					<input type="radio" name="meeting_partecipation[response]" value="N">
-					<%= t('buttons.no') %></input>
+					<input type="radio" name="meeting_partecipation[response]" value="N"  id="no_response"/><label for="no_response" style="display:inline"><%= t('buttons.no_word') %></label>
 				</div>
                 <br />
 			</div>

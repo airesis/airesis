@@ -1,7 +1,6 @@
 de:
   permissions_required: Du bist nicht berechtigt diese Operation durchzuführen
   test: Test
-
   open_space: Open space
   guide: FAQ
   hello: Hallo Welt
@@ -1110,8 +1109,8 @@ de:
     go_back: Zurück
     chosen: I have chosen!
     ok: OK
-    yes: JA
-    no: NEIN
+    yes_word: JA
+    no_word: NEIN
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: '<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent'

@@ -1,5 +1,4 @@
 require 'frm/engine'
-require 'frm/default_permissions'
 require 'workflow'
 
 module Frm
@@ -11,9 +10,6 @@ module Frm
 
 
   class << self
-
-
-
 
     def moderate_first_post
       # Default it to true
