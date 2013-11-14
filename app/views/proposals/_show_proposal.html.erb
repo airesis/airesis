@@ -80,7 +80,6 @@
             <%= section.title %>
           </div>
           <% unless @proposal.voting? %>
-
               <% contributes_num = section.proposal_comments.listable.count %>
               <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
               <div class="suggest">
@@ -93,7 +92,6 @@
           <% end %>
         </div>
       </h3>
-
 
       <div class="proposal_content">
         <%= parsed_paragraph(section.paragraphs.first.content) %>

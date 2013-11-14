@@ -568,7 +568,7 @@ de:
         hurry_up: Beeil dich!
         last_minutes: 'You are allowed to edit these fields only for %{minutes} minutes.'
         no_participants: You are allowed to edit these fields only if nobody has participated!
-        remove_section: Remove section
+        remove_section: Remove paragraph
         add_paragraph: Add a new paragraph
         edit_proposal: Edit and update the text of the proposal
         remove_solution: Remove solution

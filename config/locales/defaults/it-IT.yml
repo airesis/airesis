@@ -513,7 +513,7 @@ it-IT:
         hurry_up: "Affrettati!"
         last_minutes: "Potrai modificare questi dati ancora per %{minutes} minuti."
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
-        remove_section: "Rimuovi sezione"
+        remove_section: "Rimuovi paragrafo"
         add_paragraph: "Aggiungi un nuovo paragrafo"
         edit_proposal: "Modifica e aggiorna il testo della proposta!"
         remove_solution: "Rimuovi soluzione"
@@ -851,6 +851,12 @@ it-IT:
       evaluation_reached: "Numero di valutazioni:"
       quorum_used: "Quorum utilizzato:"
       editors_in_life_cycle: "Redattori durante questo ciclo di vita:"
+      solutions:
+        added: "NUOVA SOLUZIONE"
+        removed: "SOLUZIONE ELIMINATA"
+      sections:
+        added: "NUOVO PARAGRAFO"
+        removed: "PARAGRAFO ELIMINATO"
     tags:
       show:
         related_title: "Tag correlati"

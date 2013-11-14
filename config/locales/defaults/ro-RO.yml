@@ -474,7 +474,7 @@ ro-RO:
         hurry_up: Grăbiți-vă!
         last_minutes: 'Vi se permite să editaţi aceste cîmpuri doar pentru %{minutes} minute.'
         no_participants: Puteți edita aceste câmpuri, doar în cazul în care nimeni nu a participat!
-        remove_section: Elimină secţiunea
+        remove_section: Elimină paragraf
         add_paragraph: Adauga un paragraf nou
         edit_proposal: Editați şi actualizaţi textul propunerii
         remove_solution: Elimină soluţia

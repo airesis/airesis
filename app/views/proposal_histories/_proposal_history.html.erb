@@ -1,15 +1,19 @@
-<h4 style="float:left"><%= t('pages.proposal_histories.editor_name') %> </h4> <div style="float:left;margin-top: 20px;margin-left: 15px;"><%= user_tag(@revision.user, @revision.proposal) %></div><div class="clearboth"></div>
+<h4 style="float:left"><%= t('pages.proposal_histories.editor_name') %> </h4>
+<div style="float:left;margin-top: 4px;margin-left: 15px;"><%= user_tag(@revision.user, @revision.proposal) %></div>
+<div class="clearboth"></div>
 <% @revision.section_histories.each do |section| %>
     <div class="proposal_main">
       <h3>
         <div class="tit1">
           <div class="tit2">
+            <%= "#{t('pages.proposal_histories.sections.added')}: " if section.added %>
+            <%= "#{t('pages.proposal_histories.sections.removed')}: " if section.removed %>
             <%= section.title %>
           </div>
         </div>
       </h3>
 
-      <div class="proposal_content">
+      <div class="proposal_content <%= section.removed ? 'ice-del' : ''%> <%= section.added ? 'ice-ins' : ''%>">
         <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
       </div>
     </div>
@@ -17,21 +21,36 @@
 
 <% if @revision.solution_histories.size > 0 %>
 
-    <% @revision.solution_histories.each do |solution| %>
-        <% solution.section_histories.each do |section| %>
-            <div class="proposal_main">
-              <h3>
-                <div class="tit1">
-                  <div class="tit2">
-                    <%= section.title %>
-                  </div>
-                </div>
-              </h3>
-              <div class="proposal_content">
-                <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
+    <% @revision.solution_histories.includes(:section_histories => :paragraphs).order('section_histories.seq').each do |solution| %>
+        <div class="solution_main">
+          <h3>
+            <div class="tit1 sol">
+              <div class="tit2">
+                <%= "#{t('pages.proposal_histories.solutions.added')}: " if solution.added %>
+                <%= "#{t('pages.proposal_histories.solutions.removed')}: " if solution.removed %>
+                <%= "#{solution.title}" %>
               </div>
             </div>
-        <% end %>
+          </h3>
+          <div class="sol_content">
+            <% solution.section_histories.each do |section| %>
+                <div class="proposal_main">
+                  <h3>
+                    <div class="tit1">
+                      <div class="tit2">
+                        <%= "#{t('pages.proposal_histories.sections.added')}: " if section.added %>
+                        <%= "#{t('pages.proposal_histories.sections.removed')}: " if section.removed %>
+                        <%= section.title %>
+                      </div>
+                    </div>
+                  </h3>
+                  <div class="proposal_content <%= section.removed ? 'ice-del' : ''%> <%= section.added ? 'ice-ins' : ''%>">
+                    <%= sanitize(section.paragraphs.first.parsed_content(@proposal.is_anonima?)) %>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
     <% end %>
 <% end %>
 
