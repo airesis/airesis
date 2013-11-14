@@ -27,7 +27,7 @@ class GroupPartecipationsController < ApplicationController
 
   def build_csv
     CSV.generate do |csv|
-      csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pag  es.groups.participations.member_since')]   #TODO:il18n
+      csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pages.groups.participations.member_since')]
       @group_partecipations.each do |group_partecipation|
         csv << [group_partecipation.user.surname, group_partecipation.user.name, group_partecipation.partecipation_role.name, group_partecipation.created_at ? (l group_partecipation.created_at) : ' ']
       end
@@ -58,7 +58,7 @@ class GroupPartecipationsController < ApplicationController
         @group_partecipation.destroy
         AreaPartecipation.joins(:group_area => :group).where(['groups.id = ? AND area_partecipations.user_id = ?',@group_partecipation.group_id, @group_partecipation.user_id]).readonly(false).destroy_all
       end
-      flash[:notice] = current_user == @group_partecipation.user ? t('info.group_partecipations.destroy_ok_1') : I18n.t('info.participation_roles.user_removed_from_group',name:@group_partecipation.user.fullname) #TODO:il18n
+      flash[:notice] = current_user == @group_partecipation.user ? t('info.group_partecipations.destroy_ok_1') : I18n.t('info.participation_roles.user_removed_from_group',name:@group_partecipation.user.fullname)
     end
 
     respond_to do |format|

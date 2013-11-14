@@ -1,6 +1,17 @@
 it-IT:
   pages:
     proposals:
+      edit:
+        add_solution:
+          standard: "Aggiungi una nuova soluzione"
+          poll: "Aggiungi un'opzione"
+          rule_book: "Aggiungi una nuova soluzione"
+          press: "Aggiungi una nuova soluzione"
+          event: "Aggiungi una nuova soluzione"
+          estimate: "Aggiungi una nuova soluzione"
+          agenda: "Aggiungi un altro punto"
+          candidates: "Aggiungi un candidato"
+          simple: "Aggiungi una nuova soluzione"
       new:
         standard:
           problems_title: "Problema e/o ostacoli"

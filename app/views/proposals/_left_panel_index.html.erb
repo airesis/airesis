@@ -176,7 +176,7 @@
         <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
 
       </div>
-      <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">  <!--TODO:I18n-->
+      <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">
         <h4><%= t('pages.proposals.left_panel.choose_creation_date') %></h4>
         <%= form_for 'time', {url: current_url(time: {start_w: nil, end_w: nil}), method: :get} do |f| %>
             <p>

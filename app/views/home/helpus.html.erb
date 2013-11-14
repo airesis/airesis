@@ -1,29 +1,24 @@
 <% @page_title = "Aiutaci come puoi, ognuno può contribuire" %>
 <% @page_descr = "Contribuisci come per realizzare uno strumento capace di evolvere la democrazia " %>
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="row centered">
     <dl class="sub-nav">
-      <dd><a href="#sostenere">Perché sostenerci</a></dd>
-      <dd><a href="#donare">Donazioni</a></dd>
-      <dd><a href="#linkback">Fai conoscere il progetto</a></dd>
+      <dd><a href="#why"><%= t('.paragraph1.title') %></a></dd>
+      <dd><a href="#sostenere"><%= t('.paragraph2.title') %></a></dd>
+      <dd><a href="#donare"><%= t('.paragraph3.title') %></a></dd>
+      <dd><a href="#linkback"><%= t('.paragraph5.title') %></a></dd>
     </dl>
   </div>
 </div>
 
 <div class="slide yellow">
   <div class="row centered">
-    <div id="sostenere" class="fake_anchor"></div>
-    <h2>Perch&eacute; sostenere Airesis</h2>
+    <div id="why" class="fake_anchor"></div>
+    <h2><%= t('.paragraph1.title') %></h2>
 
     <div>
       <div style="float:left;width:78%;">
-        <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
-          la
-          loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
-          Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
-          tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
-          E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli
-          utenti.</p>
+        <%= t('.paragraph1.content_html') %>
       </div>
       <div style="float: left;">
         <iframe scrolling="no" width="160" height="250" frameborder="0" allowtransparency="true" src="http://www.buonacausa.org/widget/show/476"></iframe>
@@ -36,37 +31,16 @@
 <div class="slide violet">
   <div class="row centered">
     <div id="sostenere" class="fake_anchor"></div>
-    <h2>Scegli cosa sostenere</h2>
-
-
-    <p>Airesis permette di effettuare donazioni mirate su singole funzionalità. Il gruppo di sviluppo ha in cantiere
-      decine di idee ma per realizzarlee servono fondi per portare avanti i lavori.</p>
-
-    <p>Da oggi puoi scegliere di fare una donazione per la realizzazione di una specifica funzionalità, o proporci nuove
-      idee per le quali saresti disposto a donare qualcosa.</p>
-
-    <p>Vai alla <%= link_to 'pagina dedicata alle donazioni', donations_url %> e guarda cosa vorremmo realizzare con il
-      tuo aiuto!</p>
-
-
+    <h2><%= t('.paragraph2.title') %></h2>
+    <%= t('.paragraph2.content_html', link: (link_to t('.paragraph2.link'), donations_url)) %>
   </div>
 </div>
 <div class="slide red">
   <div class="row centered">
     <div id="donare" class="fake_anchor"></div>
-    <h2>Associati</h2>
+    <h2><%= t('.paragraph3.title') %></h2>
+    <%= t('.paragraph3.content_html') %>
 
-    <p>E' stata costituita l'Associazione di Promozione Sociale
-      <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
-      al fine di supportare lo sviluppo di Airesis e permetterne il sostentamento.
-      La tua donazione sarà interamente devoluta per lo sviluppo e l'hosting della piattaforma.
-
-      Sostienici economicamente al fine di retribuire un programmatore senior e per il mantenimento del server che
-      ospita la nostra applicazione:
-    <ul>
-      <li>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
-      <li>Attraverso una donazione su Paypal:</li>
-    </ul>
 
     <div style="text-align: center;">
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -76,16 +50,8 @@
         <img src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" border="0" alt="" width="1" height="1" style="display: block; margin-left: auto; margin-right: auto;"/>
       </form>
     </div>
-    <a href="mailto:info@airesis.it">Contattaci</a> per maggiori informazioni.</p>
+    <%= t('.paragraph4.content_html') %>
 
-    <p>La Democrazia ha bisogno non solo di persone nuove, ma anche di strumenti
-      per organizzarsi meglio e sviluppare nuove idee, cos&igrave; da non replicare
-      modelli improduttivi ed antidemocratici. In molti gruppi, inoltre, le
-      energie dei volontari e dei cittadini non riescono ad essere opportunamente
-      valorizzate, in mancanza di opportuni strumenti. Perci&ograve; contribuire alla
-      sperimentazione di Airesis e aiutarci a migliorare sempre di pi&ugrave; il software
-      &egrave; un investimento per valorizzare ci&ograve; che c'&egrave; di pi&ugrave; prezioso: il tuo tempo
-      ed il tempo di chi si impegna a servizio degli altri.</p>
   </div>
 </div>
 

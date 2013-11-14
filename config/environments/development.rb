@@ -75,14 +75,6 @@ Airesis::Application.configure do
 
   ENCRYPT_WORD="airesis"
 
-  config.middleware.use ExceptionNotifier,
-                        :ignore_crawlers => %w{Googlebot bingbot},
-                        :email => {
-                            :email_prefix => "[Exception] ",
-                            :sender_address => %{"Airesis Exception" <exceptions@airesis.it>},
-                            :exception_recipients => %w{coorasse+exceptions@gmail.com}
-                        }
-
   
 end
 

@@ -6,7 +6,7 @@
 
       <div class='user span2'>
         <div class='username'>
-          <%= link_to_if Frm.user_profile_links, post.user.fullname, post.user %>
+          <%= link_to post.user.fullname, post.user %>
         </div>
         <div class='icon'><%= post.user.user_image_tag 100 %></div>
       </div>

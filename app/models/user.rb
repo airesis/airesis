@@ -608,13 +608,12 @@ class User < ActiveRecord::Base
 
 
   def forem_moderate_posts?
-    Frm.moderate_first_post && !forem_approved_to_post?
+    false #todo
   end
 
   alias_method :forem_needs_moderation?, :forem_moderate_posts?
 
   def forem_approved_to_post?
-    #forem_state == 'approved'
     true
   end
 

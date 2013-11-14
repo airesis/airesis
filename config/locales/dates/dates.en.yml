@@ -18,6 +18,7 @@ en:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Sunday
       - Monday

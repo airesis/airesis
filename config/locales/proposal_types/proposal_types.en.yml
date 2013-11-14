@@ -1,6 +1,17 @@
 en:
   pages:
     proposals:
+      edit:
+        add_solution:
+          standard: "Add another solution"
+          poll: "Add another option"
+          rule_book: "Add another solution"
+          press: "Add another solution"
+          event: "Add another solution"
+          estimate: "Add another solution"
+          agenda: "Add another point"
+          candidates: "Add another candidate"
+          simple: "Add another solution"
       new:
         standard:
           problems_title: "Problems"

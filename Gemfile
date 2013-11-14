@@ -59,15 +59,6 @@ gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
-
-#TODO to remove in 3.0
-gem 'bluecloth', '2.0.7'
-
-#gem 'oniguruma'
-
-#TODO to remove in 3.0
-gem 'ultraviolet1x'
-
 gem 'devise', '2.0.4'
 
 gem 'fb_graph'

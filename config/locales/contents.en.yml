@@ -129,6 +129,7 @@ en:
           according to the consensus obtained by the individual contributions.
           The discussion area is two-levels indented, the first is designed to collect contributions , the second is intended for personal considerations on the latter.
           The first level implements a mechanism to collect valuable content by means of the incorporation in the proposal of the most appreciated contributions</p>
+
           <ul>
             <li><strong>valutations</strong>, defined as the number of people who have stated a choice (positive or negative liking);
             </li>
@@ -138,7 +139,9 @@ en:
             </li>
             <li><strong>minimum threshold</strong> to be overcome so that the proposal is not rejected</li>
           </ul>
-          <p>The evaluation of "liking" (or not) of a proposal is a formal act of the members of the community (stated during the discussion period), through which it’s expressed the suitability of text and solutions to achieve the voting phase.</p>
+          <p>The evaluation of "liking" (or not) of a proposal is a formal act of the members of the community
+          (stated during the discussion period), through which it’s expressed the suitability of text
+          and solutions to achieve the voting phase.</p>
           <p>There are different types of quorum: Depending on the complexity of the topic, the parameters (participation, liking and time) vary in consistency.
           For proposals published within the Common area, quorums are defined by the system administrator,
           while the quorum of the proposals published in the individual groups area can be freely selected by the groups administrators.
@@ -154,10 +157,14 @@ en:
       paragraph_8:
         title: "Schulze voting method and Direct Democracy"
         content_html: |
-          <p>When a sufficient number of people agree on the degree of maturity and completeness of the proposal and / or the minimum time set for the debate has expired, the proposal may go to the voting stage .
-             At this point the proposal is frozen and the proposer will have to choose a time window when the group will vote on the proposal. The 'voting' event is recorded on the group calendar and is notified on several occasions to all involved members .
-             At this point, each participant may order the various solutions according to their preference thereby allowing the processing of the Schulze method , which will determine the solution preferred by the group.
-             The solution thus defined will assume the status of "voted ", a condition where it can be resurrected (along with the proposal to which it relates ) for future needs aimed to revision and re-introduction into decision making workflow.</p>
+          <p>When a sufficient number of people agree on the degree of maturity and completeness of the proposal and / or the minimum time set for the debate has expired, the proposal may go to the <b>voting stage</b>.</p>
+          <p>At this point the proposal is frozen and the proposer will have to choose a time window when the group will vote on the proposal.
+          The 'voting' event is recorded on the group calendar and is notified on several occasions to all involved members .</p>
+          <p>At this point, each participant may order the various solutions according to their preference thereby allowing the processing of the Schulze method ,
+          which will determine the solution preferred by the group.
+          The solution thus defined will assume the status of "voted ", a condition where it can be resurrected
+          (along with the proposal to which it relates ) for future needs aimed to revision and re-introduction
+          into decision making workflow.</p>
       paragraph_9:
         title: "Promotion of shared proposals and Participatory Democracy"
         content_html: |
@@ -173,7 +180,8 @@ en:
             </li>
             <li>the presence of a discussion board attached to each proposal
             </li>
-            <li>reputation system that rewards participation, constructive and clarity, encouraging problem solving
+            <li>reputation system that rewards participation,
+            constructive and clarity, encouraging problem solving
             </li>
             <li>the opportunity to invite their contacts to join the discussion
             </li>
@@ -194,8 +202,16 @@ en:
           <p>In any case , at the end of the debate , and after the vote , the participants will be displayed with their real names so that it will be possible to verify the interventions of each of them.</p>
 
           <p>This option is also applicable to the voting stage, so it’s possible to choose if this will take place by open or secret ballot.
-             Important, especially in the case of a secret ballot, is the ability to verify the registration of his vote and the absence of fraud. This is possible through the system of auditable voting implemented by Airesis .
+             Important, especially in the case of a secret ballot, is the ability to verify the registration of his vote and the absence of fraud.
+             This is possible through the system of auditable voting implemented by Airesis .
           </p>
+
+
+
+
+
+
+
       paragraph_11:
         title: "Managing groups and user roles"
         content_html: |
@@ -266,10 +282,12 @@ en:
         content_html: |
           <p>Airesis is a <a href="http://en.wikipedia.org/wiki/Free_software">free software platform</a>, built
           by a team of Italian developers and contributors, to enable communities and groups to organize themselves in a productive manner according to the principles
-          of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.</p>
-
-          <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
-          help the development of a community, in particular tools of a "social " and deliberative orientation.</p>
+          of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.
+          </p>
+          <p>
+          To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
+          help the development of a community, in particular tools of a "social " and deliberative orientation.
+          </p>
       paragraph_2:
         title: "Build your group"
         content_html: |
@@ -343,3 +361,80 @@ en:
             organizzarlo al meglio: se hai una necessità, sicuramente Airesis ti permetterà di soddisfarla!
           </p>
         link: 'pagina di introduzione'
+    press:
+      title: "Press Release"
+    roadmap:
+      paragraph1:
+        title: "Destination: direct and participatory democracy"
+        content_html: |
+          <p>Airesis was born from the merging of two projects launched over two years ago as a result of the need to be able to use a
+           computer tool that could integrate the main features of social networks,
+           event management and online mass decision making system.</p>
+          <p>In March, 2012, during the meeting "Five stars citizen" (Cittadini a cinque stelle) organized in Rimini, Alessandro Rodi
+           with the Airesis project comes into contact with Nicola Giulietti and the Agora 2.0 project: on one side, there was a good software,
+           while on the other side there was an excellent analysis of the features that a portal
+           for participatory democracy should have been.</p>
+          <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
+           implement the functions identified by the Agora 2.0 group in more than a year's work.</p>
+          <p>The mission was (and is) still ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
+          <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
+           analysts, mathematicians, graphic designers and responsible citizens.</p>
+          <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
+           in order to apply a process of continuous improvement.</p>
+      paragraph2:
+        title: "The evolution of the Airesis project"
+        content_html: |
+          <p>The list below shows the changes in Airesis during its evolution.
+           You can also find, here highlighted, the innovations planned for future versions.
+           Check this page often if you are interested to know which features are being developed and come back soon to visit us!</p>
+    helpus:
+      paragraph1:
+        title: "Why support Airesis project"
+        content_html: |
+          <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
+          la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
+          Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
+          tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
+          E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli utenti.</p>
+      paragraph2:
+        title: "Choose what support"
+        content_html: |
+          <p>Airesis allow you to donate for single features.
+        link: "donations page"
+      paragraph3:
+        title: "How to donate"
+        content_html: |
+          <p>It was created the Association for Social Promotion named
+            <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
+            in order to support the development of Airesis and allow the project sustenance.
+            Your donation will be entirely addressed to the development and hosting platform.
+            Support us financially in order to pay for an experienced senior programmer and for the
+            maintenance of the server hosting our application:
+          </p>
+          <ul>
+            <li>You can donate through a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
+            <li>Through a donation carried out by Paypal:</li>
+          </ul>
+      paragraph4:
+        content_html: |
+          <p><a href="mailto:info@airesis.it">Contact us</a> for more information.</p>
+
+      paragraph5:
+        title: "Fai conoscere il progetto"
+    linkback:
+      paragraph1:
+        title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
+        content_html: |
+          <p>Our project needs to be known by all those who care about the future of our democracy.
+          Help us to spread it in blogs and forums, on Facebook, on social
+          networks and wherever there is a desire for democracy.</p>
+          <p>You can use it if you want our link or our banner on your site or that of friends, associations or
+          organizations that share the goals of the project.
+          In order to display the banner or link on your website, copy the code found below and insert it
+          in the code page of your site, at the point where you want it to be displayed:</p>
+      paragraph2:
+        title: "Banners"
+      paragraph3:
+        title: "Text link"
+        content_html: |
+          <p>If you choose to publish your banner will be of great help to the project. Thank you.</p>

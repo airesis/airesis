@@ -13,7 +13,7 @@ Airesis::Application.routes.draw do
   match '/bugtracking' => 'home#bugtracking'
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
-  match '/epartecipation' => 'home#intro'
+  match '/eparticipation' => 'home#intro'
   match '/story' => 'home#story'
   match '/sostienici' => 'home#helpus'
   match '/donations' => 'home#donations'

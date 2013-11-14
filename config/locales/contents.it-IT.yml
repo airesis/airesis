@@ -157,7 +157,7 @@ it-IT:
       paragraph_8:
         title: "Votazione con metodo Schulze e Democrazia Diretta"
         content_html: |
-          <p>Quando un numero sufficiente di persone concordano sulla maturità della proposta e/o il tempo minimo fissato per il dibattito scade, la proposta può passare alla <strong>votazione finale</strong>.</p>
+          <p>Quando un numero sufficiente di persone concordano sulla maturità della proposta e/o il tempo minimo fissato per il dibattito scade, la proposta può passare alla <b>votazione finale</b>.</p>
           <p>A questo punto la proposta viene <strong>congelata</strong> e il proponenente deve <strong>scegliere un periodo</strong> in cui il gruppo potrà votare la proposta.
           L'evento votazione viene registrato sul calendario del gruppo e viene <strong>notificato</strong> a tutti gli iscritti al gruppo il periodo della votazione.</p>
           <p>Al momento della votazione viene inviata una nuova notifica nella quale viene indicata la proposta da votare e la
@@ -188,7 +188,6 @@ it-IT:
             <li>la possibilità di chiedere di diventare <strong>co-autori di una proposta</strong>;</li>
             <li>l'ovvia necessità, da parte degli autori delle proposte, di raccogliere il <strong>sostegno della comunità</strong>;
             </li>
-            <li>la delibera sulle proposte tramite il <strong>voto</strong> dei membri certificati.</li>
           </ul>
       paragraph_10:
         title: "Anonimato temporaneo, voto segreto e auditable voting"
@@ -283,14 +282,11 @@ it-IT:
         content_html: |
           <p>Airesis è una <a href="http://it.wikipedia.org/wiki/Software_libero">piattaforma software libera </a>, realizzata
             da un team italiano, per consentire a diverse forme di comunità di organizzarsi in modo produttivo secondo i
-            principi della
-            <a href="http://it.wikipedia.org/wiki/Democrazia_diretta">democrazia diretta</a> e partecipativa.
+            principi della <a href="http://it.wikipedia.org/wiki/Democrazia_diretta">democrazia diretta</a> e partecipativa.
           </p>
-
           <p>
             A tal scopo, la piattaforma è stata pensata come un sistema multifunzionale, che integra tutti gli strumenti web
-            che possono
-            servire allo sviluppo di una comunità, in particolare strumenti "social" e strumenti deliberativi.
+            che possono servire allo sviluppo di una comunità, in particolare strumenti "social" e strumenti deliberativi.
           </p>
       paragraph_2:
         title: "Crea il tuo gruppo"
@@ -365,3 +361,83 @@ it-IT:
             organizzarlo al meglio: se hai una necessità, sicuramente Airesis ti permetterà di soddisfarla!
           </p>
         link: 'pagina di introduzione'
+    press:
+      title: "Rassegna stampa"
+    roadmap:
+      paragraph1:
+        title: "Destinazione: la democrazia diretta"
+        content_html: |
+          <p>Airesis nasce dall'incontro e dalla fusione di due progetti avviati oltre due anni fa a seguito della necessità di
+           usufruire di uno strumento informatico che potesse integrare le funzioni principali di social network, gestione di
+           eventi e sistema deliberativo di massa.</p>
+          <p>A Marzo 2012, durante l'incontro "Cittadini a cinque stelle" organizzato a Rimini, Rodi Alessandro con il
+           progetto Airesis entra in contatto con Nicola Giulietti ed il progetto Agora 2.0: da una parte c'era un buon
+           software, mentre dall'altra un'ottima analisi delle caratteristiche avrebbe dovuto avere un portale per la
+           democrazia partecipata.</p>
+          <p>In seguito a tale incontro si decise di collaborare nello sviluppo di una comune applicazione open source affinchè
+           essa potesse implementare le funzionalità individuate dal gruppo di Agora 2.0 in oltre un anno di lavoro.</p>
+          <p>La missione era (ed è) tuttora ambiziosa, ma sappiamo che è possibile realizzarla con gli strumenti giusti, passo dopo passo.</p>
+          <p>Grazie alla nostra determinazione quello che sembrava un sogno di libertà, ha trovato il supporto di
+           numerose persone ed il sostegno di programmatori, analisti, matematici, grafici e cittadini responsabili.</p>
+          <p>Attualmente le release del software avvengono a cadenza mensile o bimestrale per soddisfare le richieste e le
+           esigenze degli utenti, nell'ottica del miglioramento continuo.</p>
+      paragraph2:
+        title: "L'evoluzione di Airesis"
+        content_html: |
+          <p>Nell'elenco sottostante sono riportati i cambiamenti avvenuti in Airesis durante la sua evoluzione.
+          Sono evidenziate anche le novità previste per le versioni future.
+          Controlla spesso questa pagina se sei interessato a conoscere quali funzionalità sono in fase di sviluppo e torna a trovarci !</p>
+    helpus:
+      paragraph1:
+        title: "Perchè sostenere Airesis"
+        content_html: |
+          <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
+          la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
+          Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
+          tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
+          E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli utenti.</p>
+      paragraph2:
+        title: "Scegli cosa sostenere"
+        content_html: |
+          <p>Airesis permette di effettuare donazioni mirate su singole funzionalità.
+          Il gruppo di sviluppo ha in cantiere decine di idee ma per realizzarle servono fondi per portare avanti i lavori.</p>
+          <p>Da oggi puoi scegliere di fare una donazione per la realizzazione di una specifica funzionalità, o proporci nuove idee per le quali saresti disposto a donare qualcosa.</p>
+          <p>Vai alla %{link} e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
+        link: "pagina dedicata alle donazioni"
+      paragraph3:
+        title: "Come donare"
+        content_html: |
+          <p>E' stata costituita l'Associazione di Promozione Sociale
+            <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
+            al fine di supportare lo sviluppo di Airesis e permetterne il sostentamento.
+            La tua donazione sarà interamente devoluta per lo sviluppo e l'hosting della piattaforma.
+            Sostienici economicamente al fine di retribuire un programmatore senior e per il mantenimento del server che
+            ospita la nostra applicazione:
+          </p>
+          <ul>
+            <li>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
+            <li>Attraverso una donazione su Paypal:</li>
+          </ul>
+      paragraph4:
+        content_html: |
+          <p><a href="mailto:info@airesis.it">Contattaci</a> per maggiori informazioni.</p>
+
+      paragraph5:
+        title: "Fai conoscere il progetto"
+    linkback:
+      paragraph1:
+        title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
+        content_html: |
+          <p>Il nostro progetto ha bisogno di essere conosciuto da tutti coloro che hanno a cuore l'avvenire della nostra
+            democrazia. Aiutaci a divulgarlo nei blog, nei forum, su facebook, sui social network e ovunque ci sia voglia di
+            democrazia.</p>
+          <p>Puoi usare, se vuoi, i nostri link o i nostri banner sul tuo sito o in quello di amici, associazioni o enti che
+            condividono il nostro progetto.Per poter visualizzare il banner o il link sul proprio sito, copia il codice che
+            trovi qui sotto e inseriscilo all'interno del codice della pagina del tuo sito dove vuoi che venga
+            visualizzato:</p>
+      paragraph2:
+        title: "Banners"
+      paragraph3:
+        title: "Link testuale"
+        content_html: |
+          <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>

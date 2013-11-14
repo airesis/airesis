@@ -18,6 +18,7 @@ it-IT:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Domenica
       - Lunedì

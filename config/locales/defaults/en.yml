@@ -534,16 +534,6 @@ en:
         press_to_expand: "Click on the title to expand this solution"
         integrated: "Integrated"
         contribution_valuation: "What do they think?"
-        add_solution:
-          standard: "Add another solution"
-          poll: "Add another solution"
-          rule_book: "Add another solution"
-          press: "Add another solution"
-          event: "Add another solution"
-          estimate: "Add another solution"
-          agenda: "Add another solution"
-          candidates: "Add another solution"
-          simple: "Add another solution"
         navigator: "Navigator"
       manage_noise:
         available: "Contributions eligible for deletion"
