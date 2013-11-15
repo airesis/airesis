@@ -39,6 +39,10 @@ en:
           none: None
           moderators: Moderators
           no_category: (No Category)
+        default_private: "Private Forum"
+        default_public: "Public Forum"
+        default_private_description: "Forum reserved to group participants"
+        default_public_description: "Forum visible to all Airesis users. Also users that are not in the group"
       group:
         index: Manage Groups
         new: New Group
@@ -69,6 +73,8 @@ en:
         delete: Delete
         category: Category
         delete_confirm: Are you sure you want to delete this forum category?
+        default_private: "Private section"
+        default_public: "Public Section"
     common:
       pages: Pages
     errors:

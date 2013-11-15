@@ -381,11 +381,12 @@ function calculate_event_times() {
 }
 
 function addMinutes(date, minutes) {
+    console.log('add ' + minutes);
     return new Date(date.getTime() + minutes * 60000);
 }
 
 function upperMinutes(date, step) {
-    return addMinutes(date, date.getMinutes() % step);
+    return addMinutes(date, step - (date.getMinutes() % step));
 }
 
 function dateToString(date) {

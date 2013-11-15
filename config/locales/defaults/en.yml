@@ -119,6 +119,8 @@ en:
         confirm_role_change2: "will change from"
         confirm_role_change3: "to"
         confirm_role_change4: "Confirm?"
+        confirm_delete_1: "The operation may require few minutes.. Are you sure to remove  %{count} users from the group?"
+        confirm_delete_2: "This operation implies the removal of all %{count} selected users and cannot be undone! Are you really sure to continue?"
       edit_proposals:
         title: 'Manage quorum and proposals'
       index:
@@ -165,6 +167,12 @@ en:
         change_permissions: "In Roles and Permissions Settings you can always change the members permissions."
         remove_user_confirm: "Are you sure you want to remove %{name} from the group?"
         modify_group: "Modify the group"
+        private_warning_html: |
+          <b> Advice for private groups </ b> <br/>
+          Public proposals will still be visible from the outside. <br/>
+          Go to <b>%{link}</b> and disable the option 'Proposals visible from the outside'. <br/>
+          The posts published on the group wall are always visible in the personal pages of users. <br/>
+          Public forums are always visible on the outside.
       layout:
         home_button: "WALL"
         proposals_button: "PROPOSALS"
@@ -184,7 +192,7 @@ en:
         reject_request_button: "Reject"
         ask_participate_button: "Ask to be part of the group"
         remove_post: "Remove from the group board"
-        destroy_button: "Remove group"
+        destroy_button: "Delete"
         confirm_destroy: "YOU ARE DELETING THE GROUP!!! Are you sure you want to do that?"
         list_permissions:
           title: "List of your permissions inside the group"
@@ -276,6 +284,8 @@ en:
         participants_html:
           one: <b>1</b> participant
           other: <b>%{count}</b> participants
+        added_by: "Added by"
+        remove_all: "Remove all"
     login:
       title: 'Login'
     confirmation:
@@ -712,6 +722,7 @@ en:
       index:
         title: "All available quorums"
         how_read: "What is the quorum?"
+        debate_end: "end of debate"
     home:
       index:
         whatis: "WHAT IS AIRESIS"
@@ -1218,6 +1229,7 @@ en:
       description: "A  report has been sent and the problem will be fixed as soon as possible."
     event:
       comment_added: "Errore durante l'inserimento del commento"
+    participations_destroyed: "Error during operation"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1319,6 +1331,7 @@ en:
       comment_added: "Commento inserito correttamente"
     topic:
       hidden: "This topic is hidden"
+    participations_destroyed: "Users deleted. Please refresh the page."
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

@@ -1,5 +1,8 @@
-<div>
-  <h2><%= t("frm.admin.forum.index") %></h2>
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li class="current"><%= t("frm.admin.forum.index") %></li>
+</ul>
+
 
   <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), :class => "btn blue newButton" %>
 
@@ -51,7 +54,6 @@
         </tbody>
       </table>
   <% end %>
-</div>
 <%= render :partial => 'forem_footer' %>
 
 <%= content_for :left_panel do %>

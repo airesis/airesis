@@ -1,5 +1,5 @@
 <% if @frm_group.members.any? %>
-    <h3><%= t('.current_members') %></h3>
+    <label><%= t('.current_members') %></label>
     <div class="row">
       <ul id='members'>
         <% @frm_group.members.each do |member| %>

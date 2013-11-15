@@ -61,7 +61,7 @@
                         var start_field = $("#proposal_votation_start");
                         var end_field = $("#proposal_votation_end");
 
-                        choose_vote.find('.start_vot').html('<%='termine del dibattito'%>' + ' (' + dateToString(upperend_) + ')');
+                        choose_vote.find('.start_vot').html('<%=t('pages.quorums.index.debate_end')%>' + ' (' + dateToString(upperend_) + ')');
                         start_field.datetimepicker("option", "minDateTime", upperend_);
                         start_field.datetimepicker("option", "minDate", upperend_);
 

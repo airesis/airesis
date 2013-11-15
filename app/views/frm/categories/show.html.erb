@@ -1,5 +1,9 @@
 <%@extend=true%>
-<h2><%= link_to t('frm.forum.forums'), group_forums_url(@group) %> &raquo; <%= link_to @category, group_frm_category_url(@group, @category) %></h2>
+<ul class="breadcrumbs">
+  <li><%= link_to t('frm.forum.forums'), group_forums_url(@group) %></li>
+  <li class="current"><%= link_to @category, group_frm_category_url(@group, @category) %></li>
+</ul>
+<h2><%= @category %></h2>
 <div class='category'>
 
   <%= render @category %>

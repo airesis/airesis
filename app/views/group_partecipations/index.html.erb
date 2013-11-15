@@ -17,33 +17,8 @@
       <% end %>
 
     </fieldset>
-    <br/>
 
-    <fieldset>
-      <legend><%= t('pages.groups.participations.operations_on_user') %></legend>
-      <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
-
-      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email') %>">
-        <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
-
-            <%= e.label t('pages.users.send_message.subject_label') %>
-            <%= e.text_field 'subject' %>
-
-
-            <%= e.label t('pages.users.send_message.body_label') %>
-            <%= e.text_area 'body', rows: 10 %>
-
-            <%= e.hidden_field 'receiver_ids' %>
-
-
-            <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue', disable_with: t('sending') %>
-        <% end %>
-
-      </div>
-    </fieldset>
 <% end %>
-<br/>
 
 <div id="results_panel">
   <%= render :partial => 'group_partecipation_results' %>
@@ -52,13 +27,14 @@
 <script type="text/javascript">
     function show_email_form() {
         $('#email_panel').dialog({'width': '400px'});
-        $('#message_receiver_ids').val($('#ids_results').val());
     }
 </script>
 
-
-<% if can? :update, @group %>
-    <%= content_for :left_panel do %>
+<%= content_for :left_panel do %>
+    <% if can? :update, @group %>
         <%= render :partial => 'groups/administration_panel' %>
     <% end %>
+    <div class="mybox">
+      <%= link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable" %>
+    </div>
 <% end %>

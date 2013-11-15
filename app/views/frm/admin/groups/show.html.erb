@@ -1,7 +1,11 @@
-<h2><%= t('frm.admin.group.members', :group => @frm_group.name) %></h2>
-<%= link_to t('back_to_groups', :scope => "frm.admin"), group_frm_admin_frm_groups_path(@group), class: 'btn historyButton' %>
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li><%= link_to t('frm.admin.group.index'), group_frm_admin_frm_groups_url(@group) %></li>
+  <li class="current"><%= @frm_group.name %></li>
+</ul>
+
 <div class="row">
-  <h3><%= t('.add_a_new_member') %></h3>
+  <label><%= t('.add_a_new_member') %></label>
   <%= form_tag add_group_frm_admin_frm_group_members_url(@group, @frm_group), remote: true do %>
       <p>
         <%= text_field_tag "frm_user_id" %>

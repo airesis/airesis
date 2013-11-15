@@ -1160,14 +1160,18 @@ $large-screen: 1440px;
     width: 8px;
 }
 
-.btn .text {
-    margin-left: 14px;
+.btn {
+    &.little {
+        font-size: 0.8em;
+        padding: 0.2em 0.8em !important;
+        font-weight: normal;
+    }
+
+    .text {
+        margin-left: 14px;
+    }
 }
 
-.btn.little {
-    font-size: 0.8em;
-    padding: 0.2em 0.8em;
-}
 
 @media (max-width: 999px) {
     #menu-top {

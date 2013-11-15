@@ -264,6 +264,7 @@ Airesis::Application.routes.draw do
     resources :group_partecipations do
       collection do
         post :send_email
+        post :destroy_all
       end
     end
 
@@ -457,6 +458,7 @@ Airesis::Application.routes.draw do
       resources :group_partecipations do
         collection do
           post :send_email
+          post :destroy_all
         end
       end
 

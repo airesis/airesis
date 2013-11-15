@@ -370,13 +370,19 @@ class ProposalsController < ApplicationController
 
     rescue Exception => e
       log_error(e)
-      if @proposal.errors[:title]
-        @other = Proposal.find_by_title(params[:proposal][:title])
-      end
+
       respond_to do |format|
         format.js {
+          if !@proposal.errors[:title].empty?
+            @other = Proposal.find_by_title(params[:proposal][:title])
+            @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+          elsif !@proposal.errors.empty?
+            @err_msg = @proposal.errors.full_messages.join(",")
+          else
+            @err_msg = I18n.t('error.proposals.creation')
+          end
           render :update do |page|
-            page.alert I18n.t('error.proposals.creation')
+            page.alert @err_msg
           end
         }
         format.html { render :action => "new" }
@@ -456,11 +462,24 @@ class ProposalsController < ApplicationController
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
         if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
           @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+          @vote_event = Event.find(@proposal.vote_event_id)
+          if @vote_event.starttime < Time.now + @copy.minutes.minutes + 10.minutes #if the vote period start before the end of debate there is an error
+            @proposal.errors.add(:vote_event_id, 'Scegli un altro periodo per la votazione')
+            raise Exception
+          end
         else
           start = prparams[:votation][:start] || (@copy.ends_at + 1.minute)
           raise Exception 'error' unless prparams[:votation][:end].to_s != ''
           @proposal.vote_starts_at = start
           @proposal.vote_ends_at = prparams[:votation][:end]
+          if @proposal.vote_starts_at < (@copy.ends_at + 10.minutes)
+            @proposal.errors.add(:vote_starts_at, 'La votazione deve iniziare almeno 10 minuti dopo il termine del dibattito')
+            raise Exception
+          end
+          if @proposal.vote_ends_at < (@proposal.vote_starts_at + 10.minutes)
+            @proposal.errors.add(:vote_ends_at, 'La votazione deve durare almeno 10 minuti')
+            raise Exception
+          end
         end
 
         @proposal.vote_defined = true

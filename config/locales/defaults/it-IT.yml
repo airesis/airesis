@@ -119,6 +119,8 @@ it-IT:
         confirm_role_change2: "passerà da"
         confirm_role_change3: "a"
         confirm_role_change4: "Confermi?"
+        confirm_delete_1: "L'operazione potrebbe richiedere qualche minuto. Sei sicuro di voler rimuovere %{count} utenti dal gruppo?"
+        confirm_delete_2: "L'operazione che stai effettuando comporterà la rimozione dal gruppo di tutti e %{count} gli utenti selezionati e non potrà essere annullata! Sei veramente sicuro di voler continuare?"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -165,6 +167,12 @@ it-IT:
         change_permissions: "Nelle Impostazioni Ruoli e permessi puoi modificare le azioni che possono compiere gli iscritti"
         remove_user_confirm: "Sei sicuro di voler rimuovere %{name} dal gruppo?"
         modify_group: "Modifica il gruppo"
+        private_warning_html: |
+          <b>Avviso per i gruppi chiusi</b><br/>
+          Le proposte pubbliche saranno comunque visibili dall'esterno.<br/>
+          Vai in <b>%{link}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>
+          I post pubblicati nella bacheca del gruppo sono sempre visibili nelle pagine personali degli utenti.<br/>
+          I forum pubblici sono comunque visibili all'esterno.
       layout:
         home_button: "BACHECA"
         proposals_button: "PROPOSTE"
@@ -184,7 +192,7 @@ it-IT:
         reject_request_button: "Declina"
         ask_participate_button: "Richiedi di partecipare al gruppo"
         remove_post: "Rimuovi post dalla bacheca del gruppo"
-        destroy_button: "Rimuovi gruppo"
+        destroy_button: "Elimina"
         confirm_destroy: "STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?"
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -276,6 +284,8 @@ it-IT:
         participants_html:
           one: <b>1</b> partecipante
           other: <b>%{count}</b> partecipanti
+        added_by: "Aggiunto da"
+        remove_all: "Rimuovi tutti"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -709,6 +719,7 @@ it-IT:
       index:
         title: "Elenco durate disponibili"
         how_read: "Come si legge il quorum?"
+        debate_end: "termine del dibattito"
     home:
       index:
         whatis: "COS'E' AIRESIS"
@@ -1219,6 +1230,7 @@ it-IT:
     error_500:
       title: "Oops...errore nostro"
       description: "E' stata inviata una segnalazione e l'errore verrà risolto quanto prima."
+    participations_destroyed: "Errore durante l'operazione"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1318,6 +1330,7 @@ it-IT:
       status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
     topic:
       hidden: "Il topic è nascosto"
+    participations_destroyed: "Utenti eliminati. Aggiorna la pagina."
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"
