@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Paragraph < ActiveRecord::Base
   belongs_to :section
 
@@ -24,5 +25,7 @@ class Paragraph < ActiveRecord::Base
   def content=(content)
     write_attribute(:content,content ? content.gsub('&nbsp;',' ') : nil)
   end
+
+
 
 end

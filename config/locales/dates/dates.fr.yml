@@ -1,0 +1,123 @@
+fr:
+  calendar:
+    monthNames: "['Janvier', 'Février', 'mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']"
+    monthNamesShort: "['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc']"
+    dayNames: "['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi']"
+    dayNamesShort: "['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']"
+    today: "aujourd'hui"
+    month: mois
+    week: semaine
+    day: Jour
+    firstDay: "0"
+    timeFormat: 'h(:mm)t '
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: %d-%m-%Y
+      short: %b %d
+    day_names:
+      - Dimanche
+      - Lundi
+      - Mardi
+      - Mercredi
+      - Jeudi
+      - Vendredi
+      - Samedi
+    abbr_day_names:
+      - D
+      - L
+      - M
+      - M
+      - V
+      - J
+      - S
+    month_names:
+      - [ ]
+      - Janvier
+      - Février
+      - Mars
+      - Avril
+      - Mai
+      - Juin
+      - Juillet
+      - Août
+      - Septembre
+      - Octobre
+      - Novembre
+      - Décembre
+    abbr_month_names:
+      - [ ]
+      - Jan
+      - Fév
+      - Mar
+      - Avr
+      - Mai
+      - Juin
+      - Juil
+      - Aou
+      - Sep
+      - Oct
+      - Nov
+      - Déc
+  time:
+    formats:
+      default: %d %b %Y at %H:%M
+      long: %A %d %B %Y %H:%M
+      long_date: %A %d %B %Y
+      long_date_time: %A %d %B %Y à %H:%M
+      from_long_date_time: Du %A %d %B %Y à %H:%M
+      until_long_date_time: "Jusqu'au %A %d %B %Y à %H:%M"
+      weekday: %A
+      month: %B
+      dayandmonth: %d/%m
+      textfield: %d/%m/%Y %H:%M
+    am: am
+    pm: pm
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: Il y a environ une heure
+        other: 'il y a environ %{count} heures'
+      about_x_months:
+        one: il y a environ un mois
+        other: 'Il y a environ %{count} mois'
+      about_x_years:
+        one: Il y a environ un an
+        other: 'Il y a environ %{count} ans'
+      almost_x_years:
+        one: "Il y a près d'un an"
+        other: 'Il y a près de %{count} ans'
+      half_a_minute: Il y a une demi-minute
+      less_than_x_minutes:
+        one: "Il y a moins d'une minute"
+        other: 'Il y a moins de %{count} minutes'
+      less_than_x_seconds:
+        one: "il y a moins d'une seconde"
+        other: 'il y a moins de %{count} secondes'
+      over_x_years:
+        one: "Il y a plus d'un an"
+        other: 'il y a plus de %{count} ans'
+      x_days:
+        one: Il y a un jour
+        other: "! 'Il y a %{count} jours'"
+      x_minutes:
+        one: Il y a une minute
+        other: "! 'Il y a %{count} minutes'"
+      x_months:
+        one: Il y a un mois
+        other: "! 'Il y a %{count} mois'"
+      x_seconds:
+        one: Il y a une seconde
+        other: "! 'Il y a %{count} secondes'"
+  day:
+    one: '%{count} jour'
+    other: '%{count} jours'
+  hour:
+    one: '%{count} heure'
+    other: '%{count} heures'
+  minute:
+    one: '%{count} minute'
+    other: '%{count} minutes'

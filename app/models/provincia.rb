@@ -7,5 +7,8 @@ class Provincia < ActiveRecord::Base
   belongs_to :regione
   belongs_to :stato
   belongs_to :continente
-
+  
+  def parent
+    self.regione
+  end
 end

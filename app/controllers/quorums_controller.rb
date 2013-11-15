@@ -4,7 +4,7 @@ class QuorumsController < ApplicationController
 
   #load group
   before_filter :load_group, :except => :help
-  before_filter :load_quorum, :only => [:edit, :update, :destroy]
+  before_filter :load_quorum, :only => [:edit, :update, :destroy, :dates]
 
   #security controls
   before_filter :authenticate_user!
@@ -138,11 +138,21 @@ class QuorumsController < ApplicationController
     end
   end
 
+  #retrieve a list of votation dates compatibles with that quorum
+  def dates
+    starttime = Time.now + @quorum.minutes.minutes + 10.minutes
+    if @group
+      @dates = Event.in_group(@group.id).private.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
+    else
+      @dates = Event.public.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
+    end
+  end
+
 
   private
   def check_permissions
     return  if current_user.admin? || (@group.portavoce.include? current_user)
-    flash[:error] = t(:permissions_required)
+    flash[:error] = t('unauthorized.default')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}

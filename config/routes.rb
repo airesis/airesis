@@ -1,5 +1,9 @@
 Airesis::Application.routes.draw do
 
+  resources :sys_payment_notifications
+
+  resources :sys_features
+
   mount Ckeditor::Engine => '/ckeditor'
 
   match 'home', :to => 'home#show'
@@ -9,7 +13,10 @@ Airesis::Application.routes.draw do
   match '/bugtracking' => 'home#bugtracking'
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
+  match '/epartecipation' => 'home#intro'
+  match '/story' => 'home#story'
   match '/sostienici' => 'home#helpus'
+  match '/donations' => 'home#donations'
   match '/press' => 'home#press'
   match '/privacy' => 'home#privacy'
   match '/terms' => 'home#terms'
@@ -17,9 +24,19 @@ Airesis::Application.routes.draw do
   match '/statistics' => 'home#statistics'
   match '/movements' => 'home#movements'
 
+  resources :user_likes
+
   resources :proposal_nicknames
 
   #common routes both for main app and subdomains
+
+  resources :quorums do
+    collection do
+      get :dates
+      get :help
+    end
+  end
+
   resources :proposals do
     collection do
       get :endless_index
@@ -69,6 +86,7 @@ Airesis::Application.routes.draw do
       get :vote_results
       post :close_debate
       put :regenerate
+      get :geocode
     end
   end
 
@@ -108,6 +126,7 @@ Airesis::Application.routes.draw do
 
     collection do
       get :polling
+      get :proposal
       get :read_alerts
       post :check_all
     end
@@ -141,6 +160,7 @@ Airesis::Application.routes.draw do
       post :set_interest_borders #cambia i confini di interesse
       post :join_accounts
       get :privacy_preferences
+      get :statistics
       post :change_show_tooltips
       post :change_show_urls
       post :change_receive_messages
@@ -211,6 +231,12 @@ Airesis::Application.routes.draw do
 
     resources :events do
       resources :meeting_partecipations
+
+      resources :event_comments do
+        member do
+          post :like
+        end
+      end
       member do
         post :move
         post :resize
@@ -243,6 +269,53 @@ Airesis::Application.routes.draw do
 
     resources :search_partecipants
 
+    resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+      resources :topics, controller: 'frm/topics' do
+        member do
+          get :subscribe
+          get :unsubscribe
+        end
+      end
+
+
+      resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+        resources :posts, controller: 'frm/posts'
+      end
+
+
+    end
+
+    namespace :frm do
+      get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+      # For mass moderation of posts
+      put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+      # Moderation of a single topic
+      put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
+      resources :categories, :only => [:index, :show]
+      namespace :admin do
+        root :to => "base#index"
+        resources :groups, as: 'frm_groups' do
+          resources :members do
+            collection do
+              post :add
+            end
+          end
+        end
+
+        resources :forums do
+          resources :moderators
+        end
+
+        resources :categories
+        resources :topics do
+          member do
+            put :toggle_hide
+            put :toggle_lock
+            put :toggle_pin
+          end
+        end
+      end
+    end
 
     get '/:action', controller: 'groups'
     put '/:action', controller: 'groups'
@@ -256,15 +329,27 @@ Airesis::Application.routes.draw do
     root :to => 'home#index'
 
     #match ':controller/:action/:id'
+    resources :certifications, only: [:index, :create, :destroy]
+    resources :user_sensitives do
+      member do
+        get :document
+      end
+    end
 
     resources :proposal_categories do
       get :index, scope: :collection
     end
 
 
-
     resources :events do
       resources :meeting_partecipations
+
+      resources :event_comments do
+        member do
+          post :like
+        end
+      end
+
       member do
         post :move
         post :resize
@@ -273,9 +358,6 @@ Airesis::Application.routes.draw do
         get :list
       end
     end
-
-
-
 
     resources :groups do
       member do
@@ -300,10 +382,65 @@ Airesis::Application.routes.draw do
 
       collection do
         post :ask_for_multiple_follow
+        get :autocomplete
       end
+
+
+      resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+        resources :topics, controller: 'frm/topics' do
+          member do
+            get :subscribe
+            get :unsubscribe
+          end
+        end
+
+
+        resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+          resources :posts, controller: 'frm/posts'
+        end
+
+
+      end
+
+      namespace :frm do
+        get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+        # For mass moderation of posts
+        put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+        # Moderation of a single topic
+        put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
+        resources :categories, :only => [:index, :show]
+        namespace :admin do
+          root :to => "base#index"
+          resources :groups, as: 'frm_groups' do
+            resources :members do
+              collection do
+                post :add
+              end
+            end
+          end
+
+          resources :forums do
+            resources :moderators
+          end
+
+          resources :categories
+          resources :topics do
+            member do
+              put :toggle_hide
+              put :toggle_lock
+              put :toggle_pin
+            end
+          end
+        end
+      end
+
+      get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
+
+      #end
 
       resources :events do
         resources :meeting_partecipations
+
         member do
           post :move
           post :resize
@@ -332,6 +469,7 @@ Airesis::Application.routes.draw do
         member do
           post :close_debate
           put :regenerate
+          get :geocode
         end
       end
 
@@ -377,11 +515,7 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :quorums do
-      collection do
-        get :help
-      end
-    end
+
 
     resources :elections do
       member do
@@ -390,7 +524,6 @@ Airesis::Application.routes.draw do
         get :calculate_results
       end
     end
-
 
 
     match ':controller/:action/:id'
@@ -404,7 +537,6 @@ Airesis::Application.routes.draw do
     #match ':proposal_url/:id', :to => 'proposals#show'
     #match ':proposal_url', :to => 'proposals#index'
     #match ':proposal_url/cat/:category/', :to => 'proposals#index'
-
 
 
     admin_required = lambda do |request|
@@ -433,8 +565,8 @@ Airesis::Application.routes.draw do
     resources :tokens, :only => [:create, :destroy]
 
   end
-  #authenticate :admin do
-  #  mount Resque::Server, :at => "/resque_admin"
-  #end
+#authenticate :admin do
+#  mount Resque::Server, :at => "/resque_admin"
+#end
 
 end

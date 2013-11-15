@@ -3,7 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include GroupsHelper, NotificationHelper
+  include GroupsHelper, NotificationHelper, StepHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   after_filter :discard_flash_if_xhr
@@ -13,11 +13,17 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   before_filter :prepare_for_mobile
 
+  before_filter :load_tutorial
+
 
   protected
 
+  def load_tutorial
+    @step = get_next_step(current_user)  if current_user
+  end
+
   def ckeditor_filebrowser_scope(options = {})
-    options = { :assetable_id => current_user.id, :assetable_type => 'User' }.merge(options)
+    options = {:assetable_id => current_user.id, :assetable_type => 'User'}.merge(options)
     super
   end
 
@@ -43,10 +49,10 @@ class ApplicationController < ActionController::Base
             params[:l] || I18n.default_locale :
             params[:l] || @domain_locale || I18n.default_locale)
 
-    @locale = 'en' if ['en','eu'].include? @locale
+    @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
-    @locale = 'zh' if ['cn'].include? @locale
-    @locale = 'it-IT' if ['it','org','net'].include? @locale
+	@locale = 'zh' if ['cn'].include? @locale
+    @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
 
@@ -66,7 +72,7 @@ class ApplicationController < ActionController::Base
     {:l => I18n.locale }
   end
 
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?
 
 
   def log_error(exception)
@@ -104,6 +110,11 @@ class ApplicationController < ActionController::Base
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
   def is_admin?
     user_signed_in? && current_user.admin?
+  end
+
+  #helper method per determinare se l'utente attualmente collegato è amministratore di gruppo
+  def is_group_admin?(group)
+    (current_user && (group.portavoce.include? current_user)) || is_admin?
   end
 
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
@@ -172,17 +183,17 @@ class ApplicationController < ActionController::Base
   end
 
   #risposta generica nel caso non si abbiano i privilegi per eseguire l'operazione
-  def permissions_denied
+  def permissions_denied(exception=nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:error] = t('error.permissions_required')
+        flash.now[:error] =  exception.message
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
         store_location
-        flash[:error] = t('error.permissions_required')
+        flash[:error] = exception.message
         if request.env["HTTP_REFERER"]
           redirect_to :back
         else
@@ -201,7 +212,7 @@ class ApplicationController < ActionController::Base
     unless (request.xhr? ||
         (!params[:controller]) ||
         (params[:controller].starts_with? "devise/") ||
-        (params[:controller] ==  "passwords") ||
+        (params[:controller] == "passwords") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "polling") ||
         (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
@@ -298,7 +309,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    permissions_denied
+    permissions_denied(exception)
   end
 
   #check as rode all the alerts of the page.
@@ -315,7 +326,9 @@ class ApplicationController < ActionController::Base
               if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
                 flash[:info] = t('info.proposal.available_authors')
               end
-              @unread.update_all(:checked => true)
+              @unread.check_all
+              @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id)
+              @not_count.update_attribute(:count,0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
             else
           end
         when 'blog_posts'
@@ -323,7 +336,7 @@ class ApplicationController < ActionController::Base
             when 'show'
               #mark as checked all user alerts about this proposal
               @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'blog_post_id', @blog_post.id.to_s, false])
-              @unread.update_all(:checked => true)
+              @unread.check_all
             else
           end
         else
@@ -331,8 +344,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
+
+  def forem_admin?(group)
+    can? :update, group
+  end
+
+  helper_method :forem_admin?
+
+  def forem_admin_or_moderator?( forum)
+    can? :update, forum.group || forum.moderator?(current_user)
+  end
+
+  helper_method :forem_admin_or_moderator?
 
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]

@@ -47,13 +47,48 @@
     font-weight: bold;
 }
 
-.posts_container_main {
-    /*max-width: 600px;
-    float:left;
-    position: absolute;*/
+.blogComment {
+    padding: 20px 0 0;
+    border-bottom: 1px dashed #CCC;
+    border-top: 1px dashed #CCC;
+    clear: both;
+    color: #333333;
 }
 
-.group_infos {
-    position: absolute;
-    right: 0px;
+.blogCommentPostedAt {
+    margin-bottom:10px;
+}
+
+.blogNewComment {
+    margin-top: 5px;
+    clear: both;
+}
+
+.blogPoster {
+    font-style: italic;
+}
+
+.blogCommentAdmin {
+    background-color: #EBE0BF;
+}
+
+.blogFooter a {
+    margin-right: 5px;
+}
+
+.blogUserImage {
+    float: left;
+    margin: 0px 5px 5px 0px;
+}
+
+.blog-comment-content {
+    word-wrap: break-word;
+    margin: 5px 0px;
+}
+
+
+.blog-comment-footer {
+    font-size: 0.9em;
+    display: inline;
+    margin-top: 0.9em;
 }

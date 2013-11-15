@@ -25,8 +25,9 @@ Airesis::Application.configure do
 
 # Log the query plan for queries taking more than this (works
 # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  config.active_record.auto_explain_threshold_in_seconds = 1
 
+  config.i18n.fallbacks = true
 
   # Do not compress assets
   config.assets.compress = false
@@ -40,7 +41,7 @@ Airesis::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'airesisdev.it:3000' }
+  config.action_mailer.default_url_options = { :host => MAILER_DEFAULT_HOST }
   
   
   config.quiet_assets = true
@@ -60,7 +61,7 @@ Airesis::Application.configure do
   COMMENTS_TIME_LIMIT=30.seconds
 
   #limita il numero di proposte
-  LIMIT_PROPOSALS=true
+  LIMIT_PROPOSALS=false
   PROPOSALS_TIME_LIMIT=1.minute
 
   #limita il numero di gruppi
@@ -68,6 +69,8 @@ Airesis::Application.configure do
   GROUPS_TIME_LIMIT=24.hours
 
   ROTP_DRIFT = 20
+
+  ENCRYPT_WORD="airesis"
   
   #config.gem 'resque-mongo', :lib => 'resque'
 

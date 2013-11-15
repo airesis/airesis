@@ -1,12 +1,4 @@
-<% @page_head = '' %>
-<% @page_head += @group.name + " - " if @group %>
-<% if @category
-     @page_head += t('pages.proposals.index.title_with_category', :category => @category.description)
-   else
-     @page_head += t('pages.proposals.index.title')
-   end %>
-<% @page_head += " #{t('pages.proposals.index.in_group_area_title')} #{@group_area.name}" if @group_area %>
-<% @page_title = @page_head %>
+<% @extend = true %>
 
 <% if @group %>
     <%= content_for :head do %>
@@ -29,41 +21,36 @@
 <div style="clear:both"></div>
 
 
-<% if @group %>
-    <%= render :partial => 'search_form' %>
-<% end %>
-
-
 <div id="tabs">
   <ul>
     <% if ::Configuration.phases_active %>
         <li>
-          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_DEBATE, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
+          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_DEBATE, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_VOTATION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
+          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTATION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_VOTED, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
+          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTED, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(:scroll => true, :state => ProposalState::TAB_REVISION, :category => params[:category], :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
+          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_REVISION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
           <div class="tabs-triangle"/>
         </li>
     <% else %>
         <li>
-          <%= link_to t('pages.proposals.index.last_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
+          <%= link_to t('pages.proposals.index.last_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.most_popular_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
+          <%= link_to t('pages.proposals.index.most_popular_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
           <div class="tabs-triangle"/>
         </li>
         <li>
-          <%= link_to t('pages.proposals.index.most_voted_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
+          <%= link_to t('pages.proposals.index.most_voted_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
           <div class="tabs-triangle"/>
         </li>
     <% end %>
@@ -79,125 +66,96 @@
 </div>
 <% content_for :left_panel do %>
 
-
-
-    <% if @group %>
-        <%#= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-        <%= link_to t('proposals.create_button'), '#', id: 'nuova_proposta', onclick: 'return select_model();', class: "btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-        <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-    <% else %>
-        <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
-        <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
-    <% end %>
-
-
-    <div id="create_proposal_container" style="display:none;">
-
-    </div>
-
-    <div class="choose_model" style="display:none;">
-      <% ProposalType.active.order(:seq).each do |proposal_type| %>
-          <div class="proposal_model_option" data-id="<%= proposal_type.name %>">
-            <div class="model_name"><%= proposal_type.description %></div>
-          </div>
-      <% end %>
-    </div>
-
-
-
-
-    <% if @group && @group.enable_areas && @group.group_areas.length > 0 && ::Configuration.group_areas %>
-        <div class="mybox">
-          <div id="group_areas">
-            <h4><%= t('pages.proposals.index.group_areas_title') %></h4>
-
-            <div class="mycont">
-              <% if params[:group_area_id] %>
-                  <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
-              <% else %>
-                  <%= t('pages.proposals.index.all_areas') %>
-              <% end %>
-              <table>
-                <% @group.group_areas.each do |area| %>
-                    <tr>
-                      <td>
-                        <% if params[:group_area_id] == area.id.to_s %>
-                            <%= area.name %>
-                        <% else %>
-                            <%= link_to area.name, current_url(:group_area_id => area.id) %>
-                        <% end %>
-                      </td>
-
-                    </tr>
-                <% end %>
-              </table>
-            </div>
-          </div>
-        </div>
-    <% end %>
-    <% if ::Configuration.proposal_categories %>
-
-        <div id="categories">
-          <div class="mybox">
-            <% if params[:category] %>
-                <h4 class="filterSelected"><%= t('pages.proposals.index.categories_title') %></h4>
-            <% else %>
-                <h4><%= t('pages.proposals.index.categories_title') %></h4>
-            <% end %>
-            <div class="mycont">
-              <% if params[:category] %>
-                  <a href="<%= current_url(:category => nil) %>" style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></a>
-              <% else %>
-                  <span style="margin-left:31px;"><%= t('pages.proposals.index.all_categories') %></span>
-              <% end %>
-              <table>
-                <%
-                   conditions = "1 = 1"
-                   joins = "left join proposals on proposals.proposal_category_id = proposal_categories.id and proposals.proposal_state_id in (1,2,3,4,6,7)"
-                   if @group
-                     joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
-                     conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
-                   end
-                   categories = ProposalCategory.all(
-                           :select => "proposal_categories.id, proposal_categories.name, count(proposals.id) as proposals_count",
-                           :joins => joins,
-                           :conditions => conditions,
-                           :group => "proposal_categories.id, proposal_categories.name, proposal_categories.seq",
-                           :order => "proposal_categories.seq desc"
-                   )
-                   #categories = ProposalCategory.all
-                   categories.each do |category| %>
-                    <tr>
-                      <td style="vertical-align: middle;">
-                        <% if params[:category] == category.id.to_s %>
-                            <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
-                            </td>
-                            <td><%= category.description %>
-                        <% else %>
-                            <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => 'Nr proposte: ' + category.proposals_count, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
-                            </td>
-                            <td>
-                              <a href="<%= current_url(:category => category.id) %>" title='<%= category.proposals_count.to_i > 0 ? "Numero proposte: #{category.proposals_count}" : "Nessuna proposta in questa categoria" %>'>
-                                <%= category.description %>
-                              </a>
-                        <% end %>
-                        </td>
-                        </tr>
-                <% end %>
-              </table>
-            </div>
-          </div>
-        </div>
-    <% end %>
-
-
-
-
-    <!--<%= render :partial => 'users/most_active_users_panel' %>-->
+    <%= render 'left_panel_index' %>
 
 <% end %>
 
+
+
+
 <script>
+
+
+    function chooseDates() {
+        doModal($('#choose_dates'));
+    }
+
+
+    $(function () {
+
+
+        var datePickerOptions = {
+            changeMonth: false,
+            changeYear: false,
+            yearRange: "c:c+10",
+            maxDate: 0,
+            duration: "",
+            showTime: true,
+            constrainInput: true,
+            stepMinute: 5,
+            stepHour: 1,
+            altTimeField: "alt",
+            time24h: true
+        }
+
+
+        $('#time_start_w').datepicker($.extend({
+                    altField: "#time_start",
+                    altFormat: "@"},
+                datePickerOptions, {
+                    onClose: function () {
+                        $('#time_end_w').focus();
+
+                    }
+                }));
+
+        $('#time_end_w').datepicker($.extend({
+            altField: "#time_end",
+            altFormat: "@"}, datePickerOptions, {
+            onClose: function () {
+                $(this).form().find('button[name=button]').focus();
+
+            }
+        }));
+
+
+        <%if params[:time] && params[:time][:type]%>
+        var selected_ = $('#creation_date .hidden_menu a[data-type=<%=params[:time][:type]%>]');
+        <%if params[:time][:type] == 'f'%>
+        $('#creation_date .hidden_link b').text("<%=params[:time][:start_w]%>" + " - <%=params[:time][:end_w]%>");
+        <%else%>
+        $('#creation_date .hidden_link b').text(selected_.text());
+        <%end%>
+        <% else %>
+        var selected_ = $('#creation_date .hidden_menu a[data-type=w]');
+        $('#creation_date .hidden_link b').text(selected_.text());
+        <%end%>
+        selected_.addClass('checked');
+
+
+        $('.hidden_menu')
+                .click(function (event) {
+                    //event.stopPropagation();
+                });
+
+        $('html').click(function () {
+            $('.hidden_menu').hide();
+            $('.hidden_link.visible').removeClass('visible');
+        });
+
+        $('.hidden_link')
+                .click(function (event) {
+                    $(this).addClass('visible');
+                    $(this).next().show().position({
+                        my: "right top",
+                        at: "right bottom",
+                        of: $(this)
+                    });
+                    event.stopPropagation();
+                });
+    });
+
+
     $('#nuova_proposta, #nuovo_sondaggio').bind("ajax:error", function (event, data, status, xhr) {
         if (data.status == 401) {
             window.location = "/users/sign_in?l=<%=I18n.locale%>"
@@ -220,7 +178,7 @@
         }
     });
 
-    $(function() {
+    $(function () {
         // grab the url
         var url = document.URL;
         // grab the value of the hash
@@ -233,44 +191,17 @@
         }
     });
 
-    function select_model() {
-        var create_proposal_ = $('#create_proposal_container');
-        create_proposal_.empty();
-        create_proposal_.append($('.choose_model').clone().show());
 
+    $(window).resize(function () {
+        resizeProposal()
+    });
+    resizeProposal();
 
-        $('.proposal_model_option', create_proposal_).click(function () {
-            var create_proposal_inner_ = $('.choose_model', create_proposal_);
-            var type_id = $(this).data('id');
-            create_proposal_inner_.hide(1000, function () {
-                create_proposal_inner_.remove();
-                create_proposal_.append('<%=j render "fragments/loading"%>');
-                $.ajax({
-                    url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], models: true)%>',
-                    data: 'proposal_type_id=' + type_id,
-                    dataType: 'script'
-                })
-            });
-
-
-        });
-
-
-        create_proposal_.dialog({
-            title: "<%=j t('pages.proposals.index.choose_model') %>",
-            modal: true,
-            width: 940,
-            height: 'auto',
-            close: function (event, ui) {
-                create_proposal_.dialog('destroy');
-                /*create_proposal_.remove();*/
-            }
-        });
-        return false;
+    function resizeProposal() {
+        if (window.innerWidth > 1500) {
+            $('#tabs').addClass('twocols');
+        } else {
+            $('#tabs').removeClass('twocols');
+        }
     }
-
-
 </script>
-
-<% content_for :right_panel do %>
-<% end %>

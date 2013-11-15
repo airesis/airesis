@@ -7,4 +7,9 @@ class Stato < ActiveRecord::Base
   has_many :regiones
 
   belongs_to :continente
+
+  def parent
+    self.continente
+  end
+
 end

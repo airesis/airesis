@@ -1,11 +1,11 @@
-<p>
+
     <h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
     
     <%@group.portavoce.includes(:image).each do |user| %>
     	<%=user_tag(user, nil,true,false)%>
     <%end %>
     
-</p>
+
 <br/>
 
 
@@ -45,7 +45,7 @@
 
 
     <%if @group.group_partecipations.count > 5 %>
-        <%=link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :remote => true, :class => "btn showAllButton disable"%>
+        <%=link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :class => "btn personButton disable"%>
         <div id="partecipants_list_container" title="<%= t('pages.groups.show.participants_full_list')%>"></div>
     <%end%>
     <%=link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable"%>

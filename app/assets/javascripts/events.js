@@ -1,8 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
 function moveEvent(event, dayDelta, minuteDelta, allDay) {
     jQuery.ajax({
         data: 'title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay,
@@ -142,7 +137,6 @@ var basename = "event_meeting_attributes_place_attributes_";
  */
 function codeAddress(id) {
     var comune = $('#' + id + ' .token-input-list .token-input-token p').html();
-    console.log(comune);
     if (comune != null) {
         var address = comune + ", " + document.getElementById(basename + "address").value;
         putMarker(address);
@@ -208,12 +202,6 @@ function confirmEventData(el) {
             var event_duration = et.eventEndTime - et.eventStartTime;
             var candidates_duration = et.candidatesTime - et.eventStartTime;
             var election_duration = et.eventEndTime - et.candidatesTime;
-            console.log('entime: ' + et.eventEndTime / 1000);
-            console.log('startime: ' + et.eventStartTime / 1000);
-            console.log('candidatetime: ' + et.candidatesTime / 1000);
-            console.log('event: ' + event_duration / 1000);
-            console.log('candidates: ' + candidates_duration / 1000);
-            console.log('election: ' + election_duration / 1000);
             if (event_duration <= 0 || candidates_duration <= 0 || election_duration <= 0) {
                 alert('Le date non sono impostate correttamente. Ricontrollale.')
                 return false;

@@ -5,15 +5,15 @@
 
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">
-		<h1>Nessun Post</h1>
-		<p>Non ci sono post da pubblicare al momento.</p>
+		<h1><%=t('pages.blogs.show.no_posts')%></h1>
+		<p><%= t('pages.blogs.show.no_unpublished_posts')%></p>
 	</div>
 <% else %>
 	<%= render :collection => @blog_posts, :partial => 'blog_post' %>
 <% end %>
 
 <div class="blogPages">
-	<%= will_paginate @blog_posts %>
+	<%= paginate @blog_posts %>
 </div>
 
 <% content_for :left_panel do %>

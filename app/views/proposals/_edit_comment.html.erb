@@ -27,10 +27,10 @@
           truncate(text, :length => 15)
         end %>
       </div>
-      <div class="baloon-footer">
+      <div class="baloon-footer" title='<%=l(comment.created_at)%>'>
         <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
-        <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
+        <%= "in \"#{comment.location}\"" if comment.has_location? %>
 
         <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
             <%= link_to t('pages.proposals.delete_comment'), {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},
@@ -50,7 +50,7 @@
 
   </div>
   <% countreplies = comment.replies.count %>
-  <% @lastreplies = comment.replies.paginate(:page => 1, :per_page => 5, :order => 'created_at DESC').reverse! %>
+  <% @lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > 5 %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
         <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true, :method => :post %>

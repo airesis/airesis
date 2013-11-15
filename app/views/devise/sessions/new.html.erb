@@ -1,18 +1,36 @@
 <% @page_title=t('pages.login.title') %>
-<h2><%=t('pages.login.title') %></h2>
+<h2><%= t('pages.login.title') %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
-  <div><%= f.label :login, t('pages.sessions.new.login_label') %><br />
-  <%= f.text_field :login %></div>
-  
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.sessions.new.remember_me_label') %></div>
-  <% end -%>
+    <div class="row">
+      <div class="columns large-5">
+        <%= f.label :login, t('pages.sessions.new.login_label') %>
+        <%= f.text_field :login %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns large-5">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+    </div>
 
-  <div><%= f.button "Login", :class=>'btn blue loginButton'  %></div>
+    <div class="row">
+      <div class="columns large-5">
+        <%= f.label :remember_me do %>
+            <%= f.check_box :remember_me %>
+            <%= t('pages.sessions.new.remember_me_label') %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="columns large-5">
+        <%= f.button "Login", :class => 'btn blue loginButton' %>
+      </div>
+    </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

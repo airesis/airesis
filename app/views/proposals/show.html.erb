@@ -18,6 +18,10 @@
 <% end %>
 <% @page_title = @proposal.title %>
 <script type="text/javascript">
+
+
+    var nicknames = <%=raw @proposal.is_anonima? ? @proposal.proposal_nicknames.collect{|n|{name: n.nickname, id: n.id, avatar: n.avatar(16), type: 'nickname'}}.to_json.gsub('"','\'') : [] %>;
+
     $(function () {
         //$('#svgintro').svg({onLoad: drawIntro});
     })
@@ -42,12 +46,13 @@
 <div id="svgintro" style="height:600px;width:600px;">
 </div>
 -->
-<%= render :partial => "steps/#{@step.fragment}", :layout => "layouts/tutorial" if @step %>
 
 <%= render :partial => 'proposals/show_proposal' %>
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
+    <div id="proposalNewComment" class="blogNewComment">
     <%= render :partial => @proposal_comment = ProposalComment.new %>
+    </div>
     <div id="flash_messages_comments" style="height:20px"></div>
 <% else %>
     <div style="height:20px"></div>
@@ -86,20 +91,9 @@
     var contributes = [];
     var checkActive = false;
 
-    var $viewport = $('html, body');
-
 
     function scroll_to_vote_panel() {
-        $viewport.animate({
-            scrollTop: $(".vote_panel").offset().top - 100
-        }, 2000);
-
-        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
-        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
-            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
-                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
-            }
-        });
+        scrollToElement($(".vote_panel"));
         return false;
     }
 
@@ -141,7 +135,6 @@
     function hideAndDeleteReply(event, id) {
         if (!retval) {
             clicked = $('#delete' + id);
-            console.log(clicked);
             if (confirm('<%= t('pages.proposals.show.delete_suggestion_confirmation')%>')) {
                 $('#replys' + id).hide(600, function () {
                     retval = true;
@@ -253,15 +246,14 @@
         $('.suggestion_right[data-section_id=' + section_id + ']').hide();
         _this.parent().find(".tria").hide();
         $('.text', _this).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + _this.attr('data-unread_contributes_num') + "/" + _this.attr('data-contributes_num') + ")");
-        $('#menu-left').animate({'margin-left': '0'}, 200);
-        $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
-        $('.suggestion_right[data-section_id=' + section_id + ']').animate({'left': '1110px'}, 200);
-
+        $('#menu-left').removeClass('contributes_shown');
+        $('#centerpanelextended').removeClass('contributes_shown');
+        $('.suggestion_right[data-section_id=' + section_id + ']').removeClass('contributes_shown');
         _this.next().hide();
     }
 
     $(function () {
-        $('#centerpanelextended').css('max-width', '800px');
+        //$('#centerpanelextended').css('max-width', '800px');
 
         <%unless @proposal.voting? %>
         currentPage++;
@@ -282,10 +274,7 @@
         //0 - not fetched - closed
         //1 - fetched - open
         //2 - fetched - closed
-
-        console.log('attaching event');
-        $(".contributeButton").click(function (event, comment_id) {
-            console.log('hi');
+        $(".contributeButton").click(function (event, comment_id) { //when we click on show contributes button
             var this_ = $(this);
             var section_id = $(this).attr("data-section_id");
             var this_status = $(this).attr("data-status");
@@ -293,19 +282,14 @@
             $(".contributeButton").each(function () {
                 var his_status = $(this).attr("data-status");
                 var his_section_id = $(this).attr("data-section_id");
-                if (this_ != $(this)) {
+                if (this_ != $(this)) {     //for each right panel that is not the opened one
                     if (his_status == 1) {
                         $(this).attr("data-status", 2);
-                        $('.suggestion_right[data-section_id=' + his_section_id + ']').hide();
+                        $('.suggestion_right[data-section_id=' + his_section_id + ']').hide();  //hide it
                         $(this).parent().find(".tria").hide();
                         $('.text', this).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + $(this).attr('data-unread_contributes_num') + "/" + $(this).attr('data-contributes_num') + ")");
-                        if (window.innerWidth < 1600) {
-                            //$('#menu-left').animate({'margin-left': '0'}, 200);
-                            //$('#centerpanelextended').animate({'margin-left': '280px','max-width': '800px'}, 200);
-                            $('.suggestion_right[data-section_id=' + his_section_id + ']').animate({'left': '1110px'}, 200);
-                        }
 
-                        $(this).next().hide();
+                        $(this).next().hide();  //and hide what comes next...i don't know really...
                     }
                 }
             });

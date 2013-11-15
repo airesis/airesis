@@ -1,10 +1,14 @@
 <!-- ### facebook ###-->
 <div id="fb-root"></div>
+
+<link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
+
 <script>
 
-    var Airesis = {}
+    var Airesis = {};
     Airesis.id = <%=current_user ? current_user.id : -1 %>;
 
+    var $viewport = $('html, body');
 
     $.fn.qtip.defaults = $.extend(true, {}, $.fn.qtip.defaults, {
         style: {
@@ -21,7 +25,31 @@
             xfbml: true  // parse XFBML tags on this page?
         });
 
-        // Additional initialization code such as adding Event Listeners goes here
+        FB.Event.subscribe('edge.create', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>',
+                    type: 'post'
+                });
+            }
+        });
+        FB.Event.subscribe('edge.remove', function (href, widget) {
+            var likeable_type = $(widget).data('likeable_type');
+            var likeable_id = $(widget).data('likeable_id');
+            if (likeable_type && likeable_id) {
+                $.ajax({
+                    headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                    data: 'user_like[likeable_id]=' + likeable_id + '&user_like[likeable_type]=' + likeable_type,
+                    url: '<%=user_likes_url%>' + '/' + likeable_id,
+                    type: 'delete'
+                });
+            }
+
+        });
 
     };
 
@@ -37,12 +65,13 @@
         js = d.createElement('script');
         js.id = id;
         js.async = true;
-        js.src = "//connect.facebook.net/<%="#{I18n.locale}"%>/all" + (debug ? "/debug" : "") + ".js";
+        js.src = "//connect.facebook.net/<%="#{I18n.locale.to_s.gsub('-','_')}"%>/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
     }(document, /*debug*/ false));
 
 
     //google analytics
+    <%if Rails.env == 'production'%>
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-34897773-1']);
     _gaq.push(['_trackPageview']);
@@ -56,11 +85,8 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();
+    <%end%>
 
-
-</script>
-<link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
-<script type="text/javascript">
     window.___gcfg = {
         lang: '<%=I18n.locale%>'
     };
@@ -73,8 +99,6 @@
         s.parentNode.insertBefore(po, s);
     })();
 
-</script>
-<script>
     !function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (!d.getElementById(id)) {
@@ -97,151 +121,7 @@
 <% end %>
 
 
-<div id="menu-top" style="right:0px;min-width:1000px;">
-  <div id="logo-airesis">
-    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1"), root_path, tabindex: 1 %>
-  </div>
-  <div class="sep1"></div>
-  <div id="menu-group">
-    <%= yield :menu %>
-
-  </div>
-  <% unless in_subdomain? %>
-      <div id="logo-but" tabindex="2">
-        <span><%= t('pages.header.groups_title') %></span>
-        <br>
-        <%= image_tag 'cur-tria.png' %>
-      </div>
-  <% end %>
-
-  <div id="tolr"
-       <% unless current_user %>class="not_logged"
-       <% end %>>
-    <% unless current_user %>
-        <div id="inlog">
-          <a id="login_button" href="#" onclick="return false;"><%= t('pages.header.login') %></a>
-          -
-          <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
-        </div>
-
-        <div id="login_panel" style="display:none;">
-          <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
-
-              <%= f.text_field :login, placeholder: t('pages.header.login_placeholder') %>
-
-              <%= f.password_field :password, placeholder: 'Password' %>         <br/>
-              <%= f.check_box :remember_me %> <%= f.label :remember_me, t('pages.header.menu.remember_me') %>
-
-              <%= f.button t('pages.header.menu.login_button'), :class => "btn blue loginButton" %>
-
-          <% end %>
-
-
-          <div class="box lost">
-            <p><%= link_to t('pages.header.menu.forgot_password_button'), new_password_path(resource_name) %></p>
-
-            <p><%= link_to t('pages.header.menu.resend_email_button'), new_confirmation_path(resource_name) %></p>
-          </div>
-
-          <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
-              <%= cache ["social_network_header", I18n.locale] do %>
-                  <div class="box more">
-                    <div class="more">
-                      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
-                    </div>
-                    <div class="more">
-                      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
-                    </div>
-                    <div class="more">
-                      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
-                    </div>
-                    <div class="more">
-                      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
-                    </div>
-                    <div class="more">
-                      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
-                    </div>
-                  </div>
-              <% end %>
-          <% end %>
-        </div>
-    <% end %>
-
-    <%= link_to (image_tag 'cur-love.png'), sostienici_path, :class => 'cur love', title: t('pages.header.support_us') %>
-    <%= image_tag 'cur-info.png', :class => 'cur info', title: 'TUTORIAL' %>
-    <div id="help_panel" style="display:none;">
-      <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" %>
-      <br/>
-      <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos') %>
-      <br/>
-      <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' %>
-      <br/>
-      <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' %>
-      <br/>
-      <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis') %>
-      <br/>
-      <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe') %>
-    </div>
-  </div>
-
-  <% if current_user %>
-      <div id="account">
-          <span class="avatar">
-          <%= current_user.user_image_tag 60 %>
-          </span>
-        <%= image_tag 'cur-tria.png', class: 'triangle' %>
-      </div>
-  <% end %>
-  <% unless in_subdomain? %>
-      <div class="group-cont">
-        <div class="tria"></div>
-        <div class="group-cont-sep"></div>
-        <div class="group-tag">
-          <div class="tag sel"><span><%= t('pages.header.groups_list') %></span>
-
-            <div class="tria"></div>
-          </div>
-          <div class="tag"><%= link_to t('pages.header.open_group'), new_group_url(subdomain: false) %></div>
-          <div class="tag"><%= link_to t('pages.header.new_group'), groups_url(subdomain: false) %></div>
-        </div>
-        <div class="group-tag1">
-          <div class="group-item">
-            <div style="width:45px;height: 30px; float:left;">
-              <%= image_tag 'logo30.png', :width => 30, :alt => APP_LONG_NAME %>
-            </div>
-            <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
-
-            <div class="p2">
-              <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
-              <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %></div>
-          </div>
-          <% if user_signed_in? %>
-              <% @groups = current_user.groups %>
-              <% if @groups.empty? %>
-                  <%= t('pages.header.no_groups_yet') %>
-                  <br/>
-              <% else %>
-                  <% @groups.each do |group| %>
-                      <div class="group-item">
-                        <div style="width:45px;height: 30px; float:left;">
-                          <%= group.group_image_tag(30) rescue nil %>
-                        </div>
-                        <div class="p1">
-                          <%= link_to group.name, group_url(group) %>
-                          <div class="group_tag_fade"></div>
-                        </div>
-
-                        <div class="p2">
-                          <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
-                          <%= link_to t('pages.header.groups.events'), group_events_url(group) %></div>
-                      </div>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </div>
-      </div>
-  <% end %>
-</div>
+<%= render :partial => '/layouts/top_menu' %>
 
 
 
@@ -249,427 +129,405 @@
     <%= subscribe_to "/notifications/#{current_user.id}" %>
 
     <div id="avatar-qtip" style="display: none;">
-      <div class="cont">
-        <h2><%= current_user.fullname %></h2>
-
-        <div class="sep"></div>
-        <li>
-          <%= link_to t('pages.header.menu.my_page'), home_url %>
-        </li>
-        <li>
-          <% if current_user.blog %>
-              <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
-          <% else %>
-              <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
-        </li>
-        <div class="sep"></div>
-        <li>
-          <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
-        </li>
-        <% if is_moderator? %>
-            <li>
-              <%= link_to t('pages.header.menu.moderator'), moderator_panel_path %>
-            </li>
-        <% end %>
-        <% if is_admin? %>
-            <li>
-              <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
-            </li>
-            <div class="sep"></div>
-
-            <%= form_tag "/admin/become/" do %>
-                <%= label_tag t('pages.header.menu.become_user') %>
-                <br/>
-                <%= text_field_tag 'user_id' %> <br/>
-                <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
-            <% end %>
-
-        <% end %>
-      </div>
+      <%= render :partial => 'layouts/personal_menu' %>
     </div>
 <% end %>
 
 <script type="text/javascript">
-    var selector_ = $('#submenu .sel');
-    if (selector_.length > 0) {
-        $('#submenu .tria').animate({'left': selector_.offset().left + (selector_.width() / 2) - 12}, 0)
-    }
-    else {
-        $('#submenu .tria').remove();
-    }
-
-
-    $('#tolr .cur.love').qtip({
-        position: {
-            at: 'bottom center',
-            my: 'top center',
-            viewport: $(window),
-            effect: false,
-            adjust: {
-                method: 'shift',
-                x: 0, y: 0
-            }
-        },
-        style: {
-            classes: 'qtip-light qtip-shadow qtip-cur'
-        },
-        show: {
-            solo: true
+    $(function () {
+        var selector_ = $('#menu-top .submenu .sel');
+        if (selector_.length > 0) {
+            $('#menu-top .submenu .tria').animate({'left': (selector_.offset().left + (selector_.width() / 2) -12)}, 0);
         }
-    });
-
-
-    $('#tolr .cur.info').qtip({
-        content: $('#help_panel'),
-        position: {
-            at: 'bottom center',
-            my: 'top center',
-            viewport: $(window),
-            effect: false,
-            adjust: {
-                method: 'shift',
-                x: 0, y: 0
-            }
-        },
-        style: {
-            classes: 'qtip-light qtip-shadow qtip-cur'
-        },
-        show: {
-            solo: true
-        },
-        hide: {
-            fixed: true,
-            delay: 500
+        else {
+            $('#menu-top .submenu .tria').remove();
         }
-    });
-
-    <%if user_signed_in?%>
-
-    var last_poll_start = new Date().getTime() / 1000;
-    var last_poll_end = new Date().getTime() / 1000;
 
 
-    PrivatePub.subscribe("/notifications/<%=current_user.id%>", function (data, channel) {
-        var now_ = new Date().getTime() / 1000;
-        if (last_poll_end > last_poll_start && last_poll_end < (now_ - 5)) {
-            poll();
-        }
-    });
-
-    $('.hidden_panel').hide().click(function (event) {
-        event.stopPropagation();
-    });
-
-    user_panel_shown = false;
-    notification_panel_shown = false;
-    groups_panel_shown = false;
-
-    $('html').click(function () {
-        $('.menu_element').removeClass('active').data('show', false);
-        $('.hidden_panel').hide();
-
-    });
-
-    function showPanel(el) {
-        _this = $(el);
-        sval = _this.data('show');
-        $('.hidden_panel').hide();
-        $('.menu_element').removeClass('active').data('show', false);
-        _this.data('show', sval);
-        if (_this.data('show')) {
-            $('.hidden_panel', _this).hide();
-            _this.removeClass('active');
-            _this.data('show', false);
-        } else {
-            console.log($('.hidden_panel', _this));
-            $('.hidden_panel', _this).show().position({
-                my: "right top",
-                at: "right bottom",
-                of: _this
-            });
-            _this.addClass('active');
-            _this.data('show', true);
-        }
-    }
-
-    $('.menu_element')
-            .data('show', false)
-            .click(function (event) {
-                showPanel(this);
-                event.stopPropagation();
-            })
-            .mouseover(function () {
-                $(this).addClass("active");
-            })
-            .mouseout(function () {
-                if ($(this).data('show') == false) {
-                    $(this).removeClass("active");
+        $('#tolr .cur.love').qtip({
+            position: {
+                at: 'bottom center',
+                my: 'top center',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0, y: +10
                 }
-            })
-            .focusin(function () {
-                $(this).addClass("active");
-            })
-            .focusout(function () {
-                if ($(this).data('show') == false) {
-                    $(this).removeClass("active");
-                }
-            })
-            .keypress(function (event) {
-                if (event.keyCode == 13) {
-                    showPanel(this);
-                }
-            });
-
-    $('.groups_menu_chrome').width($('.groups_menu_chrome').width() + 3);
-
-    function poll() {
-        last_poll_start = new Date().getTime() / 1000;
-        $.ajax({
-            dataType: 'json',
-            type: 'get',
-            url: "<%=polling_alerts_path%>",
-            success: function (data) {
-                $('.alert_box.logo').each(function () {
-                    $(this).qtip('destroy');
-                });
-                $('.cont-mess').remove();
-
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    var obj = data[i];
-                    if (obj.count > 0) {
-                        $('.alert_box.logo[data-id=' + obj.id + ']').append($('<button class="alert notify boxed">').append(obj.count));
-                    }
-                    console.log('add container');
-                    var n_container = $('<div id="alert_cont_' + obj.id + '" class="cont-mess" style="display:none">');
-                    var tool_container = $('<div class="tool">');
-                    var img_container = $('<img class="logo" src="/assets/notification_categories/' + obj.short + '.png">');
-                    var span_container = $('<div>' + obj.title + '</div>');
-                    tool_container.append(img_container).append(span_container);
-                    var read_container = $('<div class="read_all">');
-                    read_container.append($('<a href="#" onclick="sign_all_as_read(' + obj.id + ');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
-                    var sub_container = $('<div class="cont1">');
-                    n_container.append(tool_container).append(read_container).append(sub_container);
-                    for (var j = 0; j < obj.alerts.length; j++) {
-                        var alert = obj.alerts[j];
-                        var alert_container = $('<a class="mess" href="' + alert.path + '">');
-
-                        alert_container.addClass(alert.checked ? 'old' : 'new');
-
-                        if (!alert.checked) {
-                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
-                        }
-
-                        alert_container.append($('<p class="p2">' + alert.created_at + '</p>'));
-                        alert_container.append($('<p class="p2">' + alert.text + '</p>'));
-                        sub_container.append(alert_container);
-                    }
-                    if (obj.alerts.length == 0) {
-                        sub_container.append($('<span><%=t('pages.header.no_alerts')%></span>'));
-                    }
-                    $('body').append(n_container);
-                }
-
-                $('.alert_box.logo').each(function () {
-                    $(this).qtip({
-                        prerender: true,
-                        content: $('#alert_cont_' + $(this).data('id')),
-                        position: {
-                            at: 'left center',
-                            my: 'right center',
-                            viewport: $(window),
-                            effect: false,
-                            resize: true,
-                            adjust: {
-                                method: 'shift',
-                                x: -5, y: -10
-                            }
-                        },
-                        show: {
-                            event: 'click',
-                            solo: true
-                        },
-                        hide: 'click unfocus',
-                        style: {
-                            classes: 'qtip-light qtip-shadow qtip-right',
-                            tip: {
-                                corner: true,
-                                width: 15,
-                                height: 5
-                            }
-                        }
-                    })
-                });
-
-                $('.alert_box.logo').each(function () {
-                    $(this)
-                            .removeData('qtip')
-                            .qtip({
-                                prerender: true,
-                                content: $(this).attr('oldtitle'),
-                                position: {
-                                    at: 'left top',
-                                    my: 'bottom right',
-                                    viewport: $(window),
-                                    effect: false
-                                },
-                                style: {
-                                    classes: 'qtip-dark'
-                                }
-                            })
-                });
-
-
-                $('.cont-mess .mess .read').qtip({
-                    position: {
-                        at: 'top center',
-                        my: 'bottom center',
-                        viewport: $(window),
-                        effect: false,
-                        adjust: {
-                            method: 'shift',
-                            x: 0, y: 0
-                        }
-                    },
-                    style: {
-                        classes: 'qtip-dark'
-                    }
-                });
-
-                $('.cont1')
-                        .bind('mousewheel DOMMouseScroll', function (e) {
-                            if (e.originalEvent) e = e.originalEvent;
-                            console.log('scrolling');
-                            console.log(e);
-                            var delta = e.wheelDelta || -e.detail;
-                            console.log('delta: ' + delta);
-                            this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                            e.preventDefault();
-                        });
-
-
             },
-            error: function (data) {
-                console.log(data);
+            style: {
+                classes: 'qtip-light qtip-shadow qtip-cur'
             },
-            complete: function (data) {
-                //setTimeout(poll, 60000);
-                last_poll_end = new Date().getTime() / 1000;
+            show: {
+                solo: true
             }
         });
-    }
 
-    poll();
 
-    $('#account').qtip({
-        content: $('#avatar-qtip'),
-        position: {
-            target: $('#account .avatar'),
-            at: 'left center',
-            my: 'right center',
-            viewport: $(window),
-            effect: false,
-            adjust: {
-                method: 'shift',
-                x: 0, y: -25
+        $('#tolr .cur.info').qtip({
+            content: $('#help_panel'),
+            position: {
+                at: 'bottom center',
+                my: 'top center',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0, y: 0
+                }
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow qtip-cur'
+            },
+            show: {
+                solo: true
+            },
+            hide: {
+                fixed: true,
+                delay: 500
             }
-        },
-        show: {
-            event: 'click',
-            solo: true
-        },
-        hide: 'click -unfocus',
-        style: {
-            classes: 'qtip-light qtip-shadow qtip-avatar',
-            tip: {
-                corner: true,
-                width: 15,
-                height: 5
+        });
+
+
+
+
+        <%if user_signed_in?%>
+
+
+        var last_poll_start = new Date().getTime() / 1000;
+        var last_poll_end = new Date().getTime() / 1000;
+
+
+        PrivatePub.subscribe("/notifications/<%=current_user.id%>", function (data, channel) {
+            var now_ = new Date().getTime() / 1000;
+            if (last_poll_end > last_poll_start && last_poll_end < (now_ - 5)) {
+                poll();
+            }
+        });
+
+        $('.hidden_panel').hide().click(function (event) {
+            event.stopPropagation();
+        });
+
+        user_panel_shown = false;
+        notification_panel_shown = false;
+        groups_panel_shown = false;
+
+        $('html').click(function () {
+            $('.menu_element').removeClass('active').data('show', false);
+            $('.hidden_panel').hide();
+
+        });
+
+        function showPanel(el) {
+            _this = $(el);
+            sval = _this.data('show');
+            $('.hidden_panel').hide();
+            $('.menu_element').removeClass('active').data('show', false);
+            _this.data('show', sval);
+            if (_this.data('show')) {
+                $('.hidden_panel', _this).hide();
+                _this.removeClass('active');
+                _this.data('show', false);
+            } else {
+                $('.hidden_panel', _this).show().position({
+                    my: "right top",
+                    at: "right bottom",
+                    of: _this
+                });
+                _this.addClass('active');
+                _this.data('show', true);
             }
         }
-    });
+
+        $('.menu_element')
+                .data('show', false)
+                .click(function (event) {
+                    showPanel(this);
+                    event.stopPropagation();
+                })
+                .mouseover(function () {
+                    $(this).addClass("active");
+                })
+                .mouseout(function () {
+                    if ($(this).data('show') == false) {
+                        $(this).removeClass("active");
+                    }
+                })
+                .focusin(function () {
+                    $(this).addClass("active");
+                })
+                .focusout(function () {
+                    if ($(this).data('show') == false) {
+                        $(this).removeClass("active");
+                    }
+                })
+                .keypress(function (event) {
+                    if (event.keyCode == 13) {
+                        showPanel(this);
+                    }
+                });
+
+        $('.groups_menu_chrome').width($('.groups_menu_chrome').width() + 3);
+
+        function poll() {
+            last_poll_start = new Date().getTime() / 1000;
+            $.ajax({
+                dataType: 'json',
+                type: 'get',
+                url: "<%=polling_alerts_path%>",
+                success: function (data) {
+                    $('.alert_box.logo').each(function () {
+                        $(this).qtip('destroy');
+                    });
+                    $('.cont-mess').remove();
+
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = data[i];
+                        if (obj.count > 0) {
+                            $('.alert_box.logo[data-id=' + obj.id + ']').append($('<button class="alert notify boxed">').append(obj.count));
+                        }
+                        var n_container = $('<div id="alert_cont_' + obj.id + '" class="cont-mess" style="display:none">');
+                        var tool_container = $('<div class="tool">');
+                        var img_container = $('<img class="logo" src="/assets/notification_categories/' + obj.short + '.png">');
+                        var span_container = $('<div>' + obj.title + '</div>');
+                        tool_container.append(img_container).append(span_container);
+                        var read_container = $('<div class="read_all">');
+                        read_container.append($('<a href="#" onclick="sign_all_as_read(' + obj.id + ');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
+                        var sub_container = $('<div class="cont1">');
+                        n_container.append(tool_container).append(read_container).append(sub_container);
+                        for (var j = 0; j < obj.alerts.length; j++) {
+                            var alert = obj.alerts[j];
+                            var alert_container = $('<a class="mess" href="' + alert.path + '">');
+
+                            alert_container.addClass(alert.checked ? 'old' : 'new');
+
+                            if (alert.proposal_id) {
+                                alert_container.attr('data-proposal-id', alert.proposal_id);
+                            }
+
+                            if (!alert.checked) {
+                                alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
+                            }
+
+                            alert_container.append($('<p class="p2">' + alert.created_at + '</p>'));
+                            alert_container.append($('<p class="p2">' + alert.text + '</p>'));
+                            sub_container.append(alert_container);
+                        }
+                        if (obj.alerts.length == 0) {
+                            sub_container.append($('<span><%=t('pages.header.no_alerts')%></span>'));
+                        }
+                        $('body').append(n_container);
+                    }
+
+                    $('.alert_box.logo').each(function () {
+                        $(this).qtip({
+                            prerender: true,
+                            content: $('#alert_cont_' + $(this).data('id')),
+                            position: {
+                                at: 'left center',
+                                my: 'right center',
+                                viewport: $(window),
+                                effect: false,
+                                resize: true,
+                                adjust: {
+                                    method: 'shift',
+                                    x: -5, y: -10
+                                }
+                            },
+                            show: {
+                                event: 'click',
+                                solo: true
+                            },
+                            hide: 'click unfocus',
+                            style: {
+                                classes: 'qtip-light qtip-shadow qtip-right',
+                                tip: {
+                                    corner: true,
+                                    width: 15,
+                                    height: 5
+                                }
+                            }
+                        })
+                    });
+
+                    $('.alert_box.logo').each(function () {
+                        $(this)
+                                .removeData('qtip')
+                                .qtip({
+                                    prerender: true,
+                                    content: $(this).attr('oldtitle'),
+                                    position: {
+                                        at: 'left top',
+                                        my: 'bottom right',
+                                        viewport: $(window),
+                                        effect: false
+                                    },
+                                    style: {
+                                        classes: 'qtip-dark'
+                                    }
+                                })
+                    });
 
 
-    <%else%>
-    $('#login_button').qtip({
-        content: $('#login_panel'),
-        position: {
-            at: 'bottom center',
-            my: 'top center',
-            viewport: $(window),
-            effect: false,
-            adjust: {
-                method: 'shift',
-                x: 0,
-                y: 0
-            }
-        },
-        show: {
-            event: 'click',
-            solo: true
-        },
-        hide: 'unfocus',
-        style: {
-            classes: 'qtip-light qtip-shadow  qtip-login',
-            tip: {
-                corner: true,
-                height: 5,
-                width: 5
-            }
-        }
-    });
-    $('#registration-panel')
-            .hide()
-            .click(function (event) {
-                event.stopPropagation();
+                    $('.cont-mess .mess .read').qtip({
+                        position: {
+                            at: 'top center',
+                            my: 'bottom center',
+                            viewport: $(window),
+                            effect: false,
+                            adjust: {
+                                method: 'shift',
+                                x: 0, y: 0
+                            }
+                        },
+                        style: {
+                            classes: 'qtip-dark'
+                        }
+                    });
+
+                    $('.cont1')
+                            .bind('mousewheel DOMMouseScroll', function (e) {
+                                if (e.originalEvent) e = e.originalEvent;
+                                var delta = e.wheelDelta || -e.detail;
+                                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                                e.preventDefault();
+                            });
+
+
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+                complete: function (data) {
+                    //setTimeout(poll, 60000);
+                    last_poll_end = new Date().getTime() / 1000;
+                }
             });
-
-    user_panel_shown = false;
-    $('html').click(function () {
-        if (user_panel_shown) {
-            $('#registration-panel').hide();
-            $('.superHeader').removeClass('active');
-            user_panel_shown = false;
         }
-    });
 
-    $(".superHeader")
-            .mouseover(function () {
-                $(this).addClass("active");
-            })
-            .mouseout(function () {
-                if (!user_panel_shown) {
+        poll();
+
+        $('#account').qtip({
+            content: $('#avatar-qtip'),
+            position: {
+                target: $('#account .avatar'),
+                at: 'left center',
+                my: 'right center',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0, y: -25
+                }
+            },
+            show: {
+                event: 'click',
+                solo: true
+            },
+            hide: 'click -unfocus',
+            style: {
+                classes: 'qtip-light qtip-shadow qtip-avatar',
+                tip: {
+                    corner: true,
+                    width: 15,
+                    height: 5
+                }
+            }
+        });
+
+        $('#account-small').click(function () {
+            var menu_ = $('#menu-right');
+            if (menu_.attr('data-expshow') == 'true') {
+                menu_.removeClass('small-show');
+                menu_.attr('data-expshow', false);
+            }
+            else {
+                menu_.addClass('small-show');
+                menu_.attr('data-expshow', true);
+            }
+        });
+
+        <%else%>
+        $('#login_button').qtip({
+            content: $('#login_panel'),
+            position: {
+                at: 'bottom center',
+                my: 'top center',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0,
+                    y: 0
+                }
+            },
+            show: {
+                event: 'click',
+                solo: true
+            },
+            hide: 'unfocus',
+            style: {
+                classes: 'qtip-light qtip-shadow  qtip-login',
+                tip: {
+                    corner: true,
+                    height: 5,
+                    width: 5
+                }
+            }
+        });
+        $('#registration-panel')
+                .hide()
+                .click(function (event) {
+                    event.stopPropagation();
+                });
+
+        user_panel_shown = false;
+        $('html').click(function () {
+            if (user_panel_shown) {
+                $('#registration-panel').hide();
+                $('.superHeader').removeClass('active');
+                user_panel_shown = false;
+            }
+        });
+
+        $(".superHeader")
+                .mouseover(function () {
+                    $(this).addClass("active");
+                })
+                .mouseout(function () {
+                    if (!user_panel_shown) {
+                        $(this).removeClass("active");
+                    }
+                })
+                .focusin(function () {
+                    $(this).addClass("active");
+                })
+                .focusout(function () {
                     $(this).removeClass("active");
-                }
-            })
-            .focusin(function () {
-                $(this).addClass("active");
-            })
-            .focusout(function () {
-                $(this).removeClass("active");
-            })
-            .click(function (event) {
-                if (user_panel_shown) {
-                    $('#registration-panel').hide();
-                    $('.superHeader').removeClass('active');
-                    user_panel_shown = false;
-                } else {
-                    $('#registration-panel').show().position({
-                        my: "right top",
-                        at: "right bottom",
-                        of: $('.superHeader')
-                    })
-                    $('.superHeader').addClass('active');
-                    user_panel_shown = true;
-                }
-                event.stopPropagation();
-            });
+                })
+                .click(function (event) {
+                    if (user_panel_shown) {
+                        $('#registration-panel').hide();
+                        $('.superHeader').removeClass('active');
+                        user_panel_shown = false;
+                    } else {
+                        $('#registration-panel').show().position({
+                            my: "right top",
+                            at: "right bottom",
+                            of: $('.superHeader')
+                        })
+                        $('.superHeader').addClass('active');
+                        user_panel_shown = true;
+                    }
+                    event.stopPropagation();
+                });
 
-    <%end%>
-    $('#loading').hide();
-
+        <%end%>
+    });
+    function disegnaCountdown() {
+        $('div[data-countdown]').each(function () {
+            $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: '<%=j raw(t('countdown'))%>'}, $.countdown.regional['<%=I18n.locale%>']));
+        })
+    }
 </script>

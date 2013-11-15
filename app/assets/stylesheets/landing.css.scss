@@ -1,0 +1,276 @@
+html, body {
+  height: 100%;
+}
+
+#footer {
+  font-size: 12px;
+  clear: both;
+  position: relative;
+  z-index: 10;
+  height: 35px;
+  margin-top: -30px;
+  width: 981px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px
+}
+
+a:hover, a:active {
+  outline: 0
+}
+
+sub, sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline
+}
+
+sup {
+  top: -0.5em
+}
+
+sub {
+  bottom: -0.25em
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic
+}
+
+button {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle
+}
+
+button {
+  *overflow: visible;
+  line-height: normal
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0
+}
+
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+.span4 {
+  width: 300px
+}
+
+.span2 {
+  width: 140px
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  *zoom: 1
+}
+
+.container:before, .container:after {
+  display: table;
+  content: ""
+}
+
+.container:after {
+  clear: both;
+  position: absolute;
+}
+
+p small {
+  font-size: 11px;
+  color: #999
+}
+
+.lead {
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 27px
+}
+
+.hide {
+  display: none
+}
+
+.show {
+  display: block
+}
+
+.invisible {
+  visibility: hidden
+}
+
+#footer, footer {
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  padding: 7px;
+  background-color: #33b5e5;
+  color: white;
+  box-shadow: 0px -1px 1px #333;
+  font-size: 0.9em;
+  z-index: 998;
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* frontpage */
+
+.last-bar em {
+  color: #5A7BC1;
+  font-style: normal;
+}
+
+.frontpage b {
+  color: #000;
+}
+
+.medium-bar {
+  background: url('/assets/people2.jpg') center 0px no-repeat;
+}
+
+.frontpage .fuicon {
+  background-image: url('/images/followus-icons.png');
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 27px;
+  display: inline-block;
+}
+
+#sub-slogan {
+  font-size: 18px;
+  position: absolute;
+  margin-top: 365px;
+  margin-left: 80px;
+  width: 980px;
+  text-align: center;
+}
+
+#pop-cloud {
+  position: absolute;
+  margin-top: 330px;
+  margin-left: 845px;
+  width: 300px;
+}
+
+/* navbar */
+.navbar {
+  list-style: none;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar > li > a {
+  font-size: 11pt;
+  float: none;
+  padding: 10px 10px 11px;
+  line-height: 19px;
+  color: #369;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  display: block;
+  margin-top: 3px;
+}
+
+.navbar > li > a:hover {
+  color: #FE8A5D;
+  border-top: solid 3px #FE8A5D;
+  margin-top: 0px;
+}
+
+/* General dropdown styles */
+.dropdown dd, .dropdown dt, .dropdown ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.dropdown dd {
+  position: relative;
+  z-index: 1;
+}
+
+/* DT styles for sliding doors */
+.cur.language {
+  background: url(arrow.png) no-repeat scroll right center;
+  display: block;
+  padding: 3px 20px 3px 0px;
+  color: #336699;
+  cursor: pointer;
+}
+
+#language a {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.dropdown dt a span {
+  cursor: pointer;
+  display: block;
+  padding: 5px;
+}
+
+/* UL styles */
+.dropdown dd ul {
+  background: white none repeat scroll 0 0;
+  display: none;
+  list-style: none;
+  padding: 5px 0px;
+  position: absolute;
+  left: 0px;
+  top: 2px;
+  width: 110px;
+  min-width: 100px;
+}
+
+.dropdown span.value {
+  display: none;
+}
+
+.dropdown dd ul li a {
+  padding: 5px;
+  display: block;
+}
+
+.dropdown {
+  float: left;
+  margin-bottom: 0px;
+  margin-top: 8px;
+  margin-left: 10px;
+}

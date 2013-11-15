@@ -84,6 +84,18 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def statistics
+    @user = current_user
+    @integrated_count = @user.proposal_comments.contributes.integrated.count
+    @spam_count = @user.proposal_comments.contributes.spam.count
+    @noisy_count = @user.proposal_comments.contributes.noisy.count
+    @contributes_count = @user.proposal_comments.contributes.count
+    @comments_count = @user.proposal_comments.comments.count
+    @proposals_count = @user.proposals.count
+  end
+
+
+
 
   def change_show_tooltips
     current_user.show_tooltips = params[:active]
@@ -246,7 +258,6 @@ class UsersController < ApplicationController
     end
     update_borders(borders)
     flash[:notice] = t('info.user.update_border')
-    AffinityHelper.calculate_group_affinity(current_user, Group.all)
     redirect_to :back
   end
 
@@ -349,10 +360,19 @@ class UsersController < ApplicationController
     flash[:notice] = t('info.message_sent')
   end
 
+  def autocomplete
+    @group = Group.find(params[:group_id])
+    users = @group.partecipants.autocomplete(params[:term])
+    users = users.map do |u|
+      { :id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}" }
+    end
+    render :json => users
+  end
+
   protected
 
   def choose_layout
-    (['index'].include? action_name) ? 'settings' : 'users'
+    (['index'].include? action_name) ? 'open_space' : 'users'
   end
 
   def load_user

@@ -1,10 +1,7 @@
 <div id="create_proposal">
   <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
-      <div class="legend first"><%= t('pages.proposals.new.step_1') %></div>
-      <div class="legend"><%= t('pages.proposals.new.step_2') %></div>
-      <div class="legend"><%= t('pages.proposals.new.step_3') %></div>
-      <div class="legend last"><%= t('pages.proposals.new.step_4') %></div>
-
+      <%= render :partial => 'proposal_types/wizard_steps' if request.xhr?%>
+      <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} unless request.xhr?%>
 
       <div class="step root root">
         <%= render 'proposal_types/first_step', {:f => f} %>
@@ -20,15 +17,15 @@
             <%= s.hidden_field :seq %>
             <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, t('pages.proposals.new.standard.problems_title_label') %> *<br/>
-                  <%= p.text_area :content, :rows => 5, :style => "width:98%", :class => "tinymce", :validate => {:presence => true} %>
+                  <%= p.label :content, t('pages.proposals.new.standard.problems_title_label') %>
+                  <%= p.cktext_area :content, :rows => 5, :style => "width:98%;", ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
                   <%= p.hidden_field :seq %>
                 </p>
             <% end %>
         <% end %>
 
         <div class="suggestion_box">
-          <%=t('pages.proposals.new.standard.suggestion_html') %>
+          <%= t('pages.proposals.new.standard.suggestion_html') %>
         </div>
 
       </div>
@@ -38,7 +35,8 @@
       </div>
 
       <p>
-        <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+
+        <%= link_to t('buttons.cancel'), :back, :class=>'btn' unless request.xhr?%>
         <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: t('loading') %>
       </p>
       </div>

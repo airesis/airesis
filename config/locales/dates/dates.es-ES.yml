@@ -1,0 +1,123 @@
+es-ES:
+  calendar:
+    monthNames: '[~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]'
+    monthNamesShort: '[~, En, Feb, Mar, Abr, May, Jun, Jul, Ago, Sept, Oct, Nov, Dic]'
+    dayNames: "['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
+    dayNamesShort: '[D, L, M, M, J, V, S]'
+    today: hoy
+    month: mes
+    week: semana
+    day: día
+    firstDay: "0"
+    timeFormat: 'h(:mm) t '
+  date:
+    order:
+    - :day
+    - :month
+    - :year
+    formats:
+      default: %d-%m-%Y
+      short: %b %d
+    day_names:
+    - Domingo
+    - Lunes
+    - Martes
+    - Miercoles
+    - Jueves
+    - Viernes
+    - Sabado
+    abbr_day_names:
+    - D
+    - L
+    - Ma
+    - Mi
+    - V
+    - J
+    - S
+    month_names:
+    - [ ]
+    - Enero
+    - Febrero
+    - Marzo
+    - Abril
+    - Mayo
+    - Junio
+    - Julio
+    - Agosto
+    - Septiembre
+    - Octubre
+    - Noviembre
+    - Diciembre
+    abbr_month_names:
+    - [ ]
+    - Ene
+    - Feb
+    - Mar
+    - Abr
+    - May
+    - Jun
+    - Jul
+    - Ago
+    - Sep
+    - Oct
+    - Nov
+    - Dic
+  time:
+    formats:
+      default: %d %b %Y at %H:%M
+      long: %A %d %B %Y %H:%M
+      long_date: %A %d %B %Y
+      long_date_time: %A %d %B %Y at %H:%M
+      from_long_date_time: From %A %d %B %Y at %H:%M
+      until_long_date_time: Until %A %d %B %Y at %H:%M
+      weekday: %A
+      month: %B
+      dayandmonth: %d/%m
+      textfield: %d/%m/%Y %H:%M
+    am: am
+    pm: pm
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: hace alrededor de una hora
+        other: 'hace %{count} horas'
+      about_x_months:
+        one: hace un mes
+        other: 'hace %{count} meses'
+      about_x_years:
+        one: hace aproximadamente un año
+        other: 'hace %{count} años'
+      almost_x_years:
+        one: hace casi un año
+        other: 'hace casi %{count} años'
+      half_a_minute: hace un minuto
+      less_than_x_minutes:
+        one: hace menos de un minuto
+        other: 'menos de %{count} minutos hace'
+      less_than_x_seconds:
+        one: menos de un segundo hace
+        other: 'menos de %{count} segundos hace'
+      over_x_years:
+        one: hace más de un año
+        other: 'más que %{count} años'
+      x_days:
+        one: hace un dia
+        other: "! 'hace %{count}  días'"
+      x_minutes:
+        one: hace un minuto
+        other: "! '%{count} minutos'"
+      x_months:
+        one: hace un mes
+        other: "! 'hace %{count} meses'"
+      x_seconds:
+        one: hace un segundo
+        other: "! '%{count} segundos hace'"
+  day:
+    one: '%{count} día'
+    other: '%{count} días'
+  hour:
+    one: '%{count} hora'
+    other: '%{count} horas'
+  minute:
+    one: '%{count} minuto'
+    other: '%{count} minutos'

@@ -69,13 +69,13 @@
                 breadCrumbElements = container.find(settings.breadCrumbElement);
                 breadCrumbElements.each(function (index) {
                     if (index == 0) {
-                        breadCrumbList += settings.breadCrumbListElementOpenFirst + $(this).text() + settings.breadCrumbListElementClose;
+                        breadCrumbList += settings.breadCrumbListElementOpenFirst + $(this).html() + settings.breadCrumbListElementClose;
                     }
                     else if (index == (breadCrumbElements.size() - 1)) {
-                        breadCrumbList += settings.breadCrumbListElementOpenLast + $(this).text() + settings.breadCrumbListElementClose;
+                        breadCrumbList += settings.breadCrumbListElementOpenLast + $(this).html() + settings.breadCrumbListElementClose;
                     }
                     else {
-                        breadCrumbList += settings.breadCrumbListElementOpen + $(this).text() + settings.breadCrumbListElementClose;
+                        breadCrumbList += settings.breadCrumbListElementOpen + $(this).html() + settings.breadCrumbListElementClose;
                     }
                 });
 
@@ -167,7 +167,11 @@
 
                         /* If bread crumb menu is used make those changes */
                         if (settings.breadCrumb) {
-                            breadCrumbList.find('.' + settings.breadCrumbActiveClass).removeClass(settings.breadCrumbActiveClass).next().addClass(settings.breadCrumbActiveClass);
+                            var activeCrumb_ = breadCrumbList.find('.' + settings.breadCrumbActiveClass);
+                            var nextCrumb_ = activeCrumb_.next();
+                            activeCrumb_.removeClass(settings.breadCrumbActiveClass);
+                            activeCrumb_.addClass(settings.breadCrumbCompletedClass);
+                            nextCrumb_.addClass(settings.breadCrumbActiveClass);
                         }
 
                         /* If the previous button is a button enable it */
@@ -206,7 +210,10 @@
                     });
 
                     if (settings.breadCrumb) {
-                        breadCrumbList.find('.' + settings.breadCrumbActiveClass).removeClass(settings.breadCrumbActiveClass).prev().addClass(settings.breadCrumbActiveClass);
+                        var activeCrumb_ = breadCrumbList.find('.' + settings.breadCrumbActiveClass);
+                        var prevCrumb_ = activeCrumb_.prev();
+                        activeCrumb_.removeClass(settings.breadCrumbActiveClass);
+                        prevCrumb_.addClass(settings.breadCrumbActiveClass);
                     }
                     $(next).show();
                     submitButton.hide();
@@ -239,64 +246,26 @@ function validElement() {
         }
     });
 
-    var ddclick_ = $('#proposal_proposal_category_id_container');
-    if (ddclick_.is(':visible')) {
-        var val_ = $('#proposal_proposal_category_id').val();
-        if (val_ != '') {
+    //var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
+    //if (content_.is(':visible')) {
+    //    var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
+    //    if (escapedcontent_ == '') {
+    //        return false;
+    //    }
+    //}
 
-            if (ddclick_.parent().hasClass('field_with_errors')) {
-                ddclick_.parent().children('.message').remove();
-                ddclick_.unwrap();
-            }
-            return valid;
-        }
-        else {
-            if (!ddclick_.parent().hasClass('field_with_errors')) {
-                var wrap_ = $('<div class="field_with_errors"></div>');
-                ddclick_.wrap(wrap_);
-                ddclick_.after($('<label class="message">obbligatorio</label>'));
-                return false;
-            }
-            else {
-                return false;
-            }
+
+    var choise_ = $('[name="proposal[votation][choise]"]:checked').val();
+    console.log('choise: ' + choise_);
+    if (choise_ == 'new') {
+        var end_ = $('#proposal_votation_end').val();
+        console.log('end: ' + end_);
+        if (end_ == '') {
+            alert('Devi impostare la data fine votazione');
+            e.preventDefault();
+            valid = false;
         }
     }
-
-
-    var ddclick2_ = $('#proposal_quorum_id_container');
-    if (ddclick2_.is(':visible')) {
-        var val2_ = $('#proposal_quorum_id').val();
-        if (val2_ != '') {
-
-            if (ddclick2_.parent().hasClass('field_with_errors')) {
-                ddclick2_.parent().children('.message').remove();
-                ddclick2_.unwrap();
-            }
-            return valid;
-        }
-        else {
-            if (!ddclick2_.parent().hasClass('field_with_errors')) {
-                var wrap2_ = $('<div class="field_with_errors"></div>');
-                ddclick2_.wrap(wrap2_);
-                ddclick2_.after($('<label class="message">obbligatorio</label>'));
-                return false;
-            }
-            else {
-                return false;
-            }
-        }
-    }
-
-
-    var content_ = $('#proposal_sections_attributes_0_paragraphs_attributes_0_content_tbl');
-    if (content_.is(':visible')) {
-        var escapedcontent_ = tinyMCE.get('proposal_sections_attributes_0_paragraphs_attributes_0_content').getContent().replace(/<p>&nbsp;<\/p>/g,'').replace(/\n/g,'').replace(/ /g,'');
-        if (escapedcontent_ == '') {
-            return false;
-        }
-    }
-
 
     // if any of the inputs are invalid we want to disrupt the click event
     return valid;

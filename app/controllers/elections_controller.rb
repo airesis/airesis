@@ -7,6 +7,7 @@ class ElectionsController < ApplicationController
   #rescue_from Exception, :with => :exception_occurred
   
   #l'utente deve aver fatto login
+  before_filter :admin_required
   before_filter :authenticate_user!, :except => [:index]
   
   before_filter :check_group, :only => [:new, :create, :edit, :update]

@@ -1,0 +1,9 @@
+<% content_for :head do %>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false&libraries=drawing">
+    </script>
+
+<% end %>
+
+
+<%=render :partial => 'geocode', locals: {remote: false} %>

@@ -33,7 +33,7 @@ class ProposalCommentsController < ApplicationController
       conditions += " AND proposal_comments.paragraph_id is null"
     end
 
-    if params[:view] == ORDER_RANDOM
+    if params[:view] == SearchProposal::ORDER_RANDOM
       #remove already shown contributes
       conditions << " AND proposal_comments.id not in (#{params[:contributes].join(',')})" if params[:contributes]
       left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
@@ -65,12 +65,12 @@ class ProposalCommentsController < ApplicationController
       @total_pages = (@proposal.contributes.listable.count.to_f / COMMENTS_PER_PAGE.to_f).ceil
       @current_page = (params[:page] || 1).to_i
     else
-      if params[:view] == ORDER_BY_RANK
+      if params[:view] == SearchProposal::ORDER_BY_RANK
         order << " proposal_comments.j_value desc, proposal_comments.id desc"
       else
         order << "proposal_comments.created_at desc"
       end
-      @proposal_comments = @proposal.contributes.listable.where(conditions).paginate(:page => params[:page], :per_page => COMMENTS_PER_PAGE, :order => order)
+      @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
       @total_pages = @proposal_comments.total_pages
       @current_page = @proposal_comments.current_page
     end
@@ -324,7 +324,7 @@ class ProposalCommentsController < ApplicationController
   def already_ranked
     return true if current_user.can_rank_again_comment?(@proposal_comment)
 
-    flash[:notice] = @proposal_comment.proposal.in_valutation? ? t('info.proposal.comment_already_ranked') : t('error.proposals.proposal_not_valuating')
+    flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
       format.js { render :update do |page|
         page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}

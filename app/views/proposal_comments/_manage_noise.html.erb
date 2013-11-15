@@ -34,7 +34,7 @@
       <%= f.hidden_field 'active' %>
       <%= f.hidden_field 'inactive' %>
       <input type="button" value="<%=t('buttons.cancel')%>" class="btn" onclick="$('#noise_manage_panel').dialog('destroy');$('#noise_manage_panel').remove();"/>
-      <%= f.submit t('buttons.save'), class: 'btn blue', onclick: 'set_noise_data();' %>
+      <%= f.submit t('buttons.save'), class: 'btn blue', onclick: 'set_noise_data();', disable_with: t('loading') %>
   <%end%>
 
 </div>

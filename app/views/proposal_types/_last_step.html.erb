@@ -1,37 +1,38 @@
-<h4><%= t('pages.proposals.new.step_4_title') %></h4>
+<h4><%= t('pages.proposals.new.step_4_title') if request.xhr? %></h4>
 
-<p>
-  <%= f.label :quorum_id %> *  <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %><br/>
-  <% if @group %>
-    <%@quorum_collection = @group.quorums.active%>
-<% else %>
-    <%@quorum_collection = Quorum.public.order('seq nulls last') %>
-<% end %>
-  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation}]}),{:include_blank => t('pages.proposals.new.quorum_prompt')}, {class: 'ddslick2'} %>
-
-
-
-<div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
-</div>
-</p>
-<div class="clearboth"></div>
-<p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
-
-</p>
+<%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
 
 <p>
   <% if @change_advanced_options %>
-    <%= f.check_box :anonima %>
-    <%= f.label :anonima %><br/>
-      <%= f.check_box :visible_outside %>
-    <%= f.label :visible_outside %><br/>
-      <%= f.check_box :secret_vote %>
-    <%= f.label :secret_vote %><br/>
+
+      <%= f.label :anonima do %>
+          <%= f.check_box :anonima %>
+          <%= t('activerecord.attributes.proposal.anonima') %>
+      <% end %>
+
+      <%= f.label :visible_outside do %>
+          <%= f.check_box :visible_outside %>
+          <%= t('activerecord.attributes.proposal.visible_outside') %>
+      <% end %>
+
+      <%= f.label :secret_vote do %>
+          <%= f.check_box :secret_vote %>
+          <%= t('activerecord.attributes.proposal.secret_vote') %>
+      <% end %>
   <% end %>
+  <%= f.hidden_field :topic_id %>
 </p>
 
 <div class="suggestion_box">
-  <%=raw 'Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
-         Se non lo farai la tua proposta non andrà in votazione.<br/>
-          Buona fortuna e non spaventarti: potrai farti aiutare da altre persone nel tuo compito.' %>
+  <%= t('pages.proposals.new.step_4_footer_html') %>
 </div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.formSubmit').click(function (e) {
+
+        });
+    })
+</script>

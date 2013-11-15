@@ -1,0 +1,22 @@
+if ($(window).width() > 768) {
+    $(function () {
+        var intro = introJs();
+        var portlets = $('.portlet_panel');
+        intro.setOptions({
+            steps: <%= yield %>,
+            skipLabel: 'Ok',
+            exitOnOverlayClick: false
+        });
+        intro.oncomplete(function () {
+            $.ajax({
+                url: '<%=complete_tutorial_step_path(@step.tutorial, @step)%>'
+            })
+        });
+        intro.onexit(function () {
+            $.ajax({
+                url: '<%=complete_tutorial_step_path(@step.tutorial, @step)%>'
+            })
+        });
+        intro.start();
+    });
+}

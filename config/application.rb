@@ -7,7 +7,7 @@ require 'fb_graph'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test))
+  Bundler.require *Rails.groups(:assets => %w(development test staging))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -25,11 +25,11 @@ module Airesis
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
-    config.autoload_paths << "#{Rails.root}/lib"
-    config.time_zone = 'Rome' 
-    config.i18n.default_locale = :en
 
+    config.autoload_paths << "#{Rails.root}/lib"
+    config.time_zone = 'Rome'
+    config.i18n.default_locale = :en
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{yml}')]
     config.i18n.fallbacks =[:en]
 
     config.to_prepare do
@@ -37,10 +37,14 @@ module Airesis
     end
 
     config.action_view.sanitized_allowed_tags = ['u', 'iframe']
-    config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style']
-  #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
-  #    include ActionView::Helpers::OutputSafetyHelper
-  #    raw %(<span class="field_with_errors">#{html_tag}</span>)
-  #  end 
+    config.action_view.sanitized_allowed_attributes = ['id', 'class', 'style', 'data-cke-realelement']
+    #  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+    #    include ActionView::Helpers::OutputSafetyHelper
+    #    raw %(<span class="field_with_errors">#{html_tag}</span>)
+    #  end
+
+    config.after_initialize do
+      GroupsHelper.init
+    end
   end
 end

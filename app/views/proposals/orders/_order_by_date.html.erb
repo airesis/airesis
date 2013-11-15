@@ -1,0 +1,10 @@
+<% if (!params[:view] || (params[:view] == SearchProposal::ORDER_BY_DATE)) %>
+    <span class="order_option sel">
+            <%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => SearchProposal::ORDER_BY_DATE, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), title:"Ordina le proposte per data di aggiornamento", :remote => true, disable_with: t('loading') %>
+      <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+           </span>
+<% else %>
+    <span class="order_option">
+			<%= link_to t('pages.proposals.tabs.last_inserted'), current_url(:view => SearchProposal::ORDER_BY_DATE, :replace => true, :replace_id => @replace_id), title:"Ordina le proposte per data di aggiornamento", :remote => true, disable_with: t('loading') %>
+              </span>
+<% end %>

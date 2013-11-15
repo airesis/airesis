@@ -10,7 +10,7 @@
 	</style>
 
   <div class="error_dialog shadow-box">
-    <h1><%=raw @title || 'La pagina che cerchi non esiste.'%></h1><!--TODO:I18n-->
-    <p><%=raw @message ||'Potresti aver sbagliato indirizzo, oppure la pagina non esiste più.'%></p>
+    <h1><%=raw @title || t('error.error_404.title')%></h1>
+    <p><%=raw @message ||t('error.error_404.description')%></p>
     <%=link_to t('buttons.go_back'), :back%>
   </div>

@@ -1,55 +1,65 @@
 <span class="ui-icon ui-icon-close" style="position: absolute; top: 5px; right: 5px; cursor: pointer;" onclick="close_right_contributes($('.contributeButton[data-section_id=<%=@section.id%>]'));return false;"></span>
-<div id="proposalNewComment" class="blogNewComment">
-  <h2><%= t('pages.proposals.show.contributes_list', section: @section.title) %></h2>
+<h2><%= t('pages.proposals.show.contributes_list', section: @section.title) %></h2>
 
 
 
-  <%@comment = ProposalComment.new %>
-  <%@comment.section_id = @section.id %>
-	<%= form_for [@proposal,@comment], :remote => true do |f| %>
-	
-	<p>
+<% @comment = ProposalComment.new %>
+<% @comment.section_id = @section.id %>
+<%= form_for [@proposal, @comment], :remote => true do |f| %>
 
-      <div class="comment-form-comment">
-        <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
-        <%= f.hidden_field :section_id %>
-        <%= hidden_field 'right', true %>
-	  </div>
-	</p>
-	<p>
-		<%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
-	</p>
-	<% end %>
-	
-	<script type="text/javascript">
+    <p>
+
+    <div class="comment-form-comment">
+      <%= f.text_area :content, :class => 'blogNewCommentField', :rows => 5, :cols => 70 %>
+      <%= f.hidden_field :section_id %>
+      <%= hidden_field 'right', true %>
+    </div>
+    </p>
+    <p>
+      <%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
+    </p>
+<% end %>
+
+<script type="text/javascript">
 
 
-        $(function() {
+    $(function () {
 
-            $('.blogNewCommentField').each(function() {
-                if ($(this).attr('data-initialized') != 1) {
-                    $(this).focus(function() {
-                        $(this).parent().toggleClass("active");
-                    }).focusout(function() {
-                        $(this).parent().toggleClass("active");
-                    });
-                    $(this).charCount({
-                        allowed : <%=CONTRIBUTE_MAX_LENGTH%>,
-                        warning : 100,
-                        counterText : '<%=t('pages.proposals.show.characters_left')%> '
-                    });
-                    $(this).elastic();
-                    $(this).attr('data-initialized',1);
-                }
-            });
+        $('.blogNewCommentField').each(function () {
+            if ($(this).attr('data-initialized') != 1) {
+                $(this).textntags({
+                    triggers: {'@': {uniqueTags: false}},
+                    onDataRequest: function (mode, query, triggerChar, callback) {
+                        var data = nicknames;
 
-		});
+                        query = query.toLowerCase();
+                        var found = _.filter(data, function (item) {
+                            return item.name.toLowerCase().indexOf(query) > -1;
+                        });
 
-  		$(document).ajaxError(function(e, XHR, options){
-    		if (XHR.status == 401){
-      			window.location.replace("<%= new_user_session_path %>");
-    		}
-  		});
-    </script>
-</div>
+                        callback.call(this, found);
+                    }
+                });
+                $(this).focus(function () {
+                    $(this).parent().parent().toggleClass("active");
+                }).focusout(function () {
+                            $(this).parent().parent().toggleClass("active");
+                        });
+                $(this).attr('data-initialized', 1);
+                $(this).charCount({
+                    allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+                    warning: 100,
+                    counterText: '<%=t('pages.proposals.show.characters_left')%> '
+                });
+            }
+        });
+
+    });
+
+    $(document).ajaxError(function (e, XHR, options) {
+        if (XHR.status == 401) {
+            window.location.replace("<%= new_user_session_path %>");
+        }
+    });
+</script>
 

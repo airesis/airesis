@@ -1,46 +1,23 @@
-<%if user_signed_in? %>
-<div class="mybox">
-	<h4><%= t('pages.groups.index.groups_list') %></h4>
-<div class="mycont">
-		<%@groups = current_user.groups %>
-        <%if @groups.empty?%>
-            <%=raw t('pages.groups.index.no_groups_yet',{name: (link_to t('group'), groups_path)})%>
-	    <%end%>
-		<%@groups.each do |group|%>
-			<div class="groupcontainer">
-				<div class="groupImg24">
-					<%= group.group_image_tag(24) rescue nil %>
-				</div>
-				<div class="group">
-					<%= link_to group.name, group_url(group) %>
-				</div>
-			</div>
-		<%end unless @groups.empty?%>
-	<div style="clear: both;"></div>	
-<!--<%if @groups.size > 5%>
-	<a href="#">Mostra tutti...</a>
+<% if user_signed_in? %>
+    <div class="mybox">
+      <h4><%= t('pages.groups.index.groups_list') %></h4>
 
-<%end%>-->
-<!--
-	<h4>Gruppi che segui</h4>
-        <%@following = current_user.followed_groups - current_user.groups %>
-	    <%if @following.empty?%>Non stai seguendo nessuno dei <%=link_to "gruppi", groups_path%> ancora<%end%>
-
-		<%@following.each do |group|%>
-			<div class="groupcontainer">
-				<div class="groupImg24">
-					<%= group.group_image_tag 24%>		
-				</div>
-				<div class="group">
-					<%= link_to group.name, group %>
-				</div>
-			</div>
-		<%end unless @following.empty?%>
--->
-<div style="clear: both;"></div>
-<!--<%if @following.size > 5%>
-	<a href="#">Mostra tutti...</a>
-<%end%>-->
-</div>
-</div>
-<%end%> 
+      <div class="mycont">
+        <% @groups = current_user.groups %>
+        <% if @groups.empty? %>
+            <%= raw t('pages.groups.index.no_groups_yet', {name: (link_to t('group'), groups_path)}) %>
+        <% end %>
+        <% @groups.each do |group| %>
+            <div class="groupcontainer">
+              <div class="groupImg24">
+                <%= group.group_image_tag(24) rescue nil %>
+              </div>
+              <div class="group">
+                <%= link_to group.name, group_url(group) %>
+              </div>
+            </div>
+        <% end unless @groups.empty? %>
+        <div style="clear: both;"></div>
+      </div>
+    </div>
+<% end %>

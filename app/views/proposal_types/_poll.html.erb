@@ -1,9 +1,6 @@
 <div id="create_proposal">
   <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
-      <div class="legend first">Informazioni iniziali</div>
-      <div class="legend">Sondaggi simili</div>
-      <div class="legend">Testo del sondaggio</div>
-      <div class="legend last">Soluzioni</div>
+      <%= render :partial => 'proposal_types/wizard_steps' %>
 
 
       <div class="step root root">

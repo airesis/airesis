@@ -2,19 +2,19 @@
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
     <p>
-      <%= f.label :name %><br/>
+      <%= f.label :name %>
       <%= f.text_field :name, placeholder: t('activerecord.attributes.group.name_placeholder'), style: "width: 600px" %>
     </p>
 
     <p>
-      <%= f.label :description %><br/>
-      <%= f.text_area :description, placeholder: t('activerecord.attributes.group.description_placeholder'), style: 'width:600px; height:100px;' %>
+      <%= f.label :description %>
+      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600}%>
     </p>
 
     <% if ['edit', 'update'].include? params[:action] %>
             <p>
-          <%= f.label :rule_book %><br/>
-          <%= f.text_area :rule_book, style: 'width:600px; height:100px;' %>
+          <%= f.label :rule_book %>
+          <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600} %>
         </p>
 
         <script type="text/javascript">
@@ -42,28 +42,18 @@
 
     <% if ::Configuration::socialnetwork_active && false %>
         <p>
-          <%= f.label :facebook_page_url %><br/>
+          <%= f.label :facebook_page_url %>
           <%= f.text_field :facebook_page_url, placeholder: t('activerecord.attributes.group.facebook_page_url_placeholder'), style: "width: 600px" %>
         </p>
     <% end %>
 
-    <!--
-    <p>
-      <%= f.label :accept_requests %><br/>
-      <%= f.radio_button :accept_requests, 'p' %>
-    <%= t('pages.groups.accept_requests.portavoce') %><br/>
-      <%= f.radio_button :accept_requests, 'v', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Votazione: quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno.'<br/>
-      <%= f.radio_button :accept_requests, 'b', :disabled => "disabled", :title => t('pages.groups.accept_requests.unavailable_option') %>Entrambi: avviene la votazione solo a seguito dell'accettazione da parte del portavoce.<br/>
-    </p>
-    -->
-
 
     <p>
-      <%= f.label :tags_list, t('pages.groups.new.tags.title') %><br/>
+      <%= f.label :tags_list, t('pages.groups.new.tags.title') %>
       <%= f.text_field :tags_list %>
     </p>
     <p>
-      <%= f.label :image %><br/>
+      <%= f.label :image %>
       <%= f.file_field :image, accept: "image/jpeg,image/png" %>
     <p>
 
@@ -79,41 +69,47 @@
         </p>
 
         <p>
-          <%= f.label :default_role_name %>    <br/>
+          <%= f.label :default_role_name %>
           <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>
           <a href="#" onclick="apri_permessi();return false;"><%= t('pages.groups.new.change_permissions_button') %></a>
         </p>
         <p>
-          <%= f.label :admin_title %> <br/>
+          <%= f.label :admin_title %>
           <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
         </p>
 
         <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
-          <%= t('pages.groups.new.change_permissions_description') %>
-          <br/>
+          <p><%= t('pages.groups.new.change_permissions_description') %>
+          </p>
           <% GroupAction.all.each do |action| %>
-              <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %> <%= f.label action.description %>
-              <br/>
+              <%= f.label action.description do%>
+                  <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %>
+                  <%= action.description %>
+              <%end%>
+
           <% end %>
 
           <a href="#" onclick="return default_action();" class="btn">Default</a>
           <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
         </div>
     <% else %>
-        <p>
-          <%= f.label :admin_title %> <br/>
+
+          <%= f.label :admin_title %>
           <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
-        </p>
-        <p>
-          <%= f.check_box :private %><%= f.label :private, title: "Chi non è registrato al gruppo può visualizzare solo nome, descrizione e le proposte rese pubbliche" %>
+
+          <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do%>
+               <%= f.check_box :private %>
+               <%=t('activerecord.attributes.group.private')%>
+           <%end%>
           <br/>
           <% if @group.is_private? %>
             <p class="toast-info info-panel">
               <%= raw "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
             </p>
         <% end %>
-        </p>
+
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
+
     <% end %>
 
     <p>
@@ -123,15 +119,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#group_description')
-                .charCount({
-                    counterElement: 'div',
-                    allowed: 2000,
-                    warning: 100,
-                    counterText: '<%= t('pages.proposals.show.characters_left')%> '
-                });
-
-        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
+            $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
             hintText: "<%=t('interest_borders.hint')%>",
@@ -164,9 +152,9 @@
     }
 
     function default_action() {
-        $("input[name=group\\[default_role_actions\\]\\[\\]]").attr('checked', false);
+        $("input[name=group\\[default_role_actions\\]\\[\\]]").prop('checked', false);
         <%@group.default_role_actions.each do |id|%>
-        $('#group_default_role_actions_<%=id%>').attr('checked', true);
+        $('#group_default_role_actions_<%=id%>').prop('checked', true);
         <%end%>
         return false;
     }

@@ -4,7 +4,8 @@
 require 'rake'
 
 class AdminController < ManagerController
-  before_filter :admin_required#, :only => [:new, :create, :destroy]
+  include ProposalsModule
+  before_filter :admin_required
 
   layout 'users'
 
@@ -37,10 +38,15 @@ class AdminController < ManagerController
       }
     end
   end
-  
-  #cambia lo stato delle proposte
+
+  #change proposal states in development. make a check and fix wrong situations
   def change_proposals_state
-   AdminHelper.change_proposals_state
+    return unless Rails.env == 'development'
+    #check all proposals in votation that has to be closed, in votation but the period has passed
+    voting = Proposal.all(:joins => [:vote_period], :conditions => ["proposal_state_id = #{ProposalState::VOTING} and current_timestamp > events.endtime"], :readonly => false)
+    voting.each do |proposal| #per ciascuna proposta da chiudere
+      close_vote_phase(proposal)
+    end if voting
     
     respond_to do |format|
       format.html {        
@@ -127,6 +133,8 @@ class AdminController < ManagerController
     sign_in User.find(params[:user_id]), :bypass => true
     redirect_to root_url # or user_root_url
   end
+
+
 
   def write_sitemap
     Rake::Task["sitemap:refresh"].invoke

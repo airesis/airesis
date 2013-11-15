@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+    <%= auto_discovery_link_tag(:atom, blog_url(@blog, format: 'atom')) %>
+<% end %>
+
 <% javascript 'endless_page' %>
 
 <%= render :layout => "layouts/page_title", :locals => {:title => @blog.title} do %>
@@ -53,8 +57,6 @@
 
 
 <% content_for :left_panel do %>
-    <div class="mybox">
+    <%= render :partial => 'blog_posts/admin_links' %>
 
-      <%= render :partial => 'blog_posts/admin_links' %>
-    </div>
 <% end %>

@@ -11,17 +11,31 @@
         <%= render :partial => 'blocked_proposal_alerts/block_alerts_panel' %>
       </div>
     </div>
+
+    <div id="dates" class="mybox" style="text-align:center">
+      <%= render :partial => 'proposals/dates' %>
+    </div>
+
 <% end %>
 
 <% if ::Configuration.socialnetwork_active %>
-    <div class="mybox">
+    <div class="mybox socialnetwork">
+      <% @pinurl = if (@group && !@group.image_url.blank?) %>
+          <% @group.image_url %>
+      <% else %>
+          <% "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>
+      <% end %>
+      <a href="//www.pinterest.com/pin/create/button/?url=<%=j current_url%>&media=<%=j @pinurl%>&description=<%= @proposal.title%>"
+         data-pin-do="buttonPin"
+         data-pin-config="above">
+      </a>
       <a href="https://twitter.com/share"
          class="twitter-share-button"
          data-lang="en"
          data-count="vertical"
          data-text="Guarda questa proposta su #<%= APP_SHORT_NAME %>">Tweet</a>
       <g:plusone size="tall"></g:plusone>
-      <%= raw facebook_like %>
+      <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
     </div>
 <% end %>
 
@@ -40,7 +54,7 @@
       </div>
     </div>
 <% else %>
-    <div class="mybox">
+    <div class="mybox authors">
       <h4><%= t('pages.proposals.show.editors_title') %></h4>
 
       <div class="mycont">
@@ -59,7 +73,6 @@
     </div>
 <% end %>
 
-<br/>
 
 <% if ::Configuration.proposal_support && !@proposal.private %>
     <div id="support_left_panel_container">
@@ -84,35 +97,9 @@
     </div>
 <% end %>
 
-<% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
-    <div class="mybox">
-      <h4><%= t('pages.proposals.show.tags_title') %></h4>
-
-      <div class="mycont">
-        <% @proposal.tags.each do |tag| %>
-            <div style="margin:5px;">
-              <a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
-              x <%= tag.proposals_count %></div>
-        <% end %>
-      </div>
-    </div>
-<% end %>
-
-<% unless @proposal.closest(@group ? @group.id : nil).empty? %>
-    <div class="mybox">
-      <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
-
-      <div class="mycont">
-        <% @proposal.closest.each do |p| %>
-            <%= link_to_proposal p %>
-            <br/>
-        <% end %>
-      </div>
-    </div>
-<% end %>
 
 <% if ::Configuration.proposal_categories %>
-    <div class="mybox">
+    <div class="mybox category">
       <h4><%= t('pages.proposals.show.category_title') %></h4>
 
       <div class="mycont">
@@ -126,6 +113,34 @@
             </td>
           </tr>
         </table>
+      </div>
+    </div>
+<% end %>
+
+<% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.tags_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.tags.each do |tag| %>
+            <div class="label round tag">
+              <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<% unless @proposal.closest(@group.try(:id)).empty? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.similar_proposals_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.closest.each do |p| %>
+            <div class="panel">
+            <%= link_to_proposal p %>
+            </div>
+        <% end %>
       </div>
     </div>
 <% end %>

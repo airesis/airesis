@@ -1,10 +1,7 @@
 <div class="vote_container">
-<%if @group%>
-<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id, :group_id => @group.id}, :remote => true,  :id => "vote"+action, :class=>"vote"+action %>
-<%else%>
-<%= link_to '', {:action => "rank"+action, :controller => "proposals", :id => @proposal.id}, :remote => true, :id => "vote"+action, :class=>"vote"+action %>
-<%end%>
-<span class="vote_description"><%= action == 'up' ? t('proposals.show.ready_for_vote') : t('proposals.show.keep_discuss') %></span>
+
+<%= render :partial => '/proposals/valutations/voteup' %>
+<%= render :partial => '/proposals/valutations/votedown' %>
+<span class="vote_description"></span>
 <div class="clearboth"></div>
 </div>
-<%= image_tag "spinner.gif", :style => 'display: none;', :class => 'loading'+action %>

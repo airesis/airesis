@@ -1,0 +1,123 @@
+de:
+  calendar:
+    monthNames: "['Januar','Februar','März','April','Mai','Juni','Juli','August','September','October','November','Dezember']"
+    monthNamesShort: "['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Oct','Nov','Dez']"
+    dayNames: "['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag',,'Freitag','Samstag']"
+    dayNamesShort: "['Son','Mon','Die','Mit','Don','Fre','Sam']"
+    today: Heute
+    month: Monat
+    week: Woche
+    day: Tag
+    firstDay: "0"
+    timeFormat: 'h(:mm)t '
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: %d-%m-%Y
+      short: %b %d
+    day_names:
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
+    abbr_day_names:
+      - S
+      - M
+      - D
+      - M
+      - F
+      - D
+      - S
+    month_names:
+      -
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
+  time:
+    formats:
+      default: %d %b %Y at %H:%M
+      long: %A %d %B %Y %H:%M
+      long_date: %A %d %B %Y
+      long_date_time: %A %d %B %Y um %H:%M
+      from_long_date_time: Von %A %d %B %Y um %H:%M
+      until_long_date_time: Bis %A %d %B %Y um %H:%M
+      weekday: %A
+      month: %B
+      dayandmonth: %d/%m
+      textfield: %d/%m/%Y %H:%M
+    am: am
+    pm: pm
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: ungefähr vor einer Stunde
+        other: 'ungefähr vor %{count} Stunden'
+      about_x_months:
+        one: ungefähr vor einem Monat
+        other: 'ungefähr vor %{count} Monate'
+      about_x_years:
+        one: vor ungefähr einem Jahr
+        other: 'ungefähr vor %{count} Jahren'
+      almost_x_years:
+        one: vor fast einem Jahr
+        other: 'vor fast %{count} Jahren'
+      half_a_minute: vor einer Halben Minute
+      less_than_x_minutes:
+        one: vor weniger als einer Minute
+        other: 'vor weniger als %{count} Minuten'
+      less_than_x_seconds:
+        one: vor weniger als einer Sekunde
+        other: 'vor weniger als %{count} Sekunden'
+      over_x_years:
+        one: vor mehr als einem Jahr
+        other: 'vor mehr als %{count} Jahren'
+      x_days:
+        one: vor einem Tag
+        other: "! 'vor %{count} Tagen'"
+      x_minutes:
+        one: vor einer Minute
+        other: "! 'vor %{count} Minuten'"
+      x_months:
+        one: vor einem Monat
+        other: "! 'vor %{count} Monaten'"
+      x_seconds:
+        one: vor einer Sekunde
+        other: "! 'vor %{count} Sekunden'"
+  day:
+    one: '%{count} Tag'
+    other: '%{count} Tage'
+  hour:
+    one: '%{count} Stunde'
+    other: '%{count} Stunden'
+  minute:
+    one: '%{count} Minute'
+    other: '%{count} Minuten'

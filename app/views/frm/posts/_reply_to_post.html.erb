@@ -1,0 +1,38 @@
+<table class="posts">
+  <tr>
+
+    <td class="user_post" rowspan="2">
+      <a name='post-<%= post.id %>'></a>
+
+      <div class='user span2'>
+        <div class='username'>
+          <%= link_to_if Frm.user_profile_links, post.user.fullname, post.user %>
+        </div>
+        <div class='icon'><%= post.user.user_image_tag 100 %></div>
+      </div>
+    </td>
+    <td>
+      <div class="post-header">
+        <a href='#post-<%= post.id %>'>
+          <div class="post-when">
+            <time datetime="<%= post.created_at.to_s(:db) -%>"><%= "#{time_ago_in_words(post.created_at)} #{t("ago")}" %></time>
+            <% if post.reply_to %>
+            <span class='in-reply-to'>
+              <%= link_to "#{t('frm.posts.post.in_reply_to')} #{post.reply_to.user}", "#post-#{post.reply_to.id}" %>
+            </span>
+            <% end %>
+          </div>
+        </a>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="post-body">
+        <%=sanitize post.text %>
+      </div>
+
+    </td>
+  </tr>
+
+</table>

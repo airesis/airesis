@@ -1,0 +1,49 @@
+<div id="proposal<%= proposal.id %>" class="proposal_list">
+  <div class="proposal_cont">
+    <div class="left_cont">
+      <div class="inner_cont">
+        <div class="category_icon">
+          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+        </div>
+      </div>
+    </div>
+    <div class="right_cont">
+      <div class="maintitle">
+        <%= user_valutation_image(current_user, proposal) if current_user%>
+        <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+
+      </div>
+
+      <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+
+      <div class="clearboth"></div>
+
+
+      <div class="proposal_bottom">
+
+        <div class="alerts_and_vote">
+          <% if current_user %>
+              <% count = proposal.alerts_count.to_i %>
+              <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+    <% unless proposal.groups.empty? %>
+        <div class="groups">
+          <div class="title"><%= t('pages.proposals.list.support_group') %></div>
+          <% proposal.groups.each do |group| %>
+              <div class="blogUserImage" title="<%= group.name %>">
+                <%= group.group_image_tag 20 %>
+              </div>
+          <% end %>
+          <div style="clear:both;"></div>
+
+        </div>
+    <% end %>
+
+    <div class="clearboth"></div>
+  </div>
+</div>

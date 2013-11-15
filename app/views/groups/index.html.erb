@@ -68,18 +68,25 @@
 </div>
 -->
 
-<h1><%= t('pages.groups.index.find_group_label') %></h1>
+<h1 xmlns="http://www.w3.org/1999/html"><%= t('pages.groups.index.find_group_label') %></h1>
 <!--<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">-->
 <div style="max-width: 600px;" id="group_search_form">
   <fieldset style="margin-right:10px;">
-    <legend><%= t('pages.groups.index.search_mask')%></legend>
+    <legend><%= t('pages.groups.index.search_mask') %></legend>
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
-        <p>
-          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
-          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
-        </p>
 
-        <p>
+
+          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
+
+        <div style="float:left">
+          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
+        </div>
+        <div style="float:left;margin-left:10px;">
+          <%= check_box_tag :and, params[:and], :title => "Scegli se cercare tutte le parole o almeno una" %>
+        </div>
+
+        <div class="clearboth"></div>
+
           <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>      <br/>
 
         <div style="float:left">
@@ -88,7 +95,7 @@
         <div style="float:left;margin-left:10px;">
           <%= check_box_tag :area, params[:area], :title => "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
         </div>
-        </p>
+
         <div class="clearboth"></div>
         <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', disable_with: t('loading') %>
     <% end %>
@@ -96,11 +103,11 @@
 </div>
 <!--<div style="float:left; width: 452px">
   <fieldset>
-    <legend><%= t('pages.groups.index.tags')%></legend>
+    <legend><%= t('pages.groups.index.tags') %></legend>
     <div id="tag_cloud">
       <% @tags.each do |tag| %>
-          <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
-      <% end %>
+    <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
+<% end %>
     </div>
   </fieldset>
 </div>
@@ -110,11 +117,11 @@
 
 
 <div id="groups_list">
-  <%if @groups.count > 0 %>
-  <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
-      <%else %>
-  <h2><%= t('pages.groups.index.search_description') %></h2>
-      <%end%>
+  <% if @groups.count > 0 %>
+      <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+  <% else %>
+      <h2><%= t('pages.groups.index.search_description') %></h2>
+  <% end %>
   <div style="clear: both"></div>
 </div>
 <div class="clearboth"></div>
@@ -130,7 +137,7 @@
       <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
       <% else %>
-          <%= 'Puoi creare al massimo un gruppo al giorno' %>  <!--TODO:I18n-->
+          <%= t('pages.groups.index.limit_reached') %>
       <% end %>
     </div>
     <%= render :partial => 'users/user_groups_panel' %>
@@ -187,8 +194,16 @@
         checked: <%=params[:area] == 'on' %>,
         on_label: $('<div class="s_circle"></div>'),
         off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
-        on_title: 'Ricerca esatta: cerca tutti i gruppi che hanno indicato questo confine geografico',
-        off_title: 'Ricerca di area: cerca tutti i gruppi presenti all\'interno di questo confine geografico'
+        on_title: '<%=t('pages.groups.index.switchButton.exact_border')%>',
+        off_title: '<%=t('pages.groups.index.switchButton.area_border')%>'
+    });
+
+    $("#and").switchButton({
+        checked: <%=params[:and] == 'on' %>,
+        on_label: $('<div>&</div>'),
+        off_label: $('<div>||</div>'),
+        on_title: '<%=t('pages.groups.index.switchButton.all_words')%>',
+        off_title: '<%=t('pages.groups.index.switchButton.one_word')%>'
     });
 
     $('.switch-button-label.on, .switch-button-label.off').qtip({

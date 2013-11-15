@@ -143,7 +143,7 @@ module GroupsHelper
         options[:subdomain] = group.subdomain
         proposal_url(proposal, options)
       else
-        #options[:subdomain] = false
+        options[:subdomain] = false #activated for proposal link when u r in subdomain (like in tags page)...i think there is something wrong here...
         super
       end
     end
@@ -290,6 +290,53 @@ module GroupsHelper
         change_permissions_group_area_area_roles_url(area, options) :
         super
   end
+
+  #def group_forums_url(group,option={})
+  #  forums_url
+  #end
+
+
+  #forum
+  #all routes concerning forums
+  #we write them dynamically to avoid writing every single method.
+  #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
+  if Rails.env == 'development'
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
+    names.each do |name|
+      self.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
+    def #{name}_url(group,*args)
+      (group_in_subdomain? group) ?
+        #{name.gsub('group_', '')}_url(*args) :
+        super
+    end if !(defined? #{name})
+      END_EVAL
+    end
+  end
+
+  #forum
+  #all routes concerning forums
+  #we write them dynamically to avoid writing every single method.
+  #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
+  #Airesis::Application.reload_routes!
+  def self.init
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
+    names.each do |name|
+      Rails.logger.info "defining: #{name}_url"
+      define_method("#{name}_url") do |group, *args|
+        (group_in_subdomain? group) ?
+            send("#{name.gsub('group_', '')}_url", *args) :
+            super(group, *args)
+      end
+      #self.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
+      #def #{name}_url(group,*args)
+      #  (group_in_subdomain? group) ?
+      #    #{name.gsub('group_', '')}_url(*args) :
+      #    super
+      #end
+      #END_EVAL
+    end
+  end
+
 
   private
 

@@ -1,0 +1,37 @@
+<div class="order_options">
+  <% if params[:state] == ProposalState::TAB_VOTATION.to_s %>
+      <%= render :partial => '/proposals/orders/order_by_votation_end' %>
+      <span class="order_separator">|</span>
+      <%= render :partial => '/proposals/orders/order_by_date' %>
+
+
+  <% elsif params[:state] == ProposalState::TAB_VOTED.to_s %>
+      <%= render :partial => '/proposals/orders/order_by_votes_number' %>
+      <span class="order_separator">|</span>
+      <%= render :partial => '/proposals/orders/order_by_votation_end' %>
+
+  <% elsif params[:state] == ProposalState::TAB_REVISION.to_s %>
+      <%= render :partial => '/proposals/orders/order_by_date' %>
+      <span class="order_separator">|</span>
+
+      <%= render :partial => '/proposals/orders/order_by_rank' %>
+
+      <span class="order_separator">|</span>
+
+      <%= render :partial => '/proposals/orders/order_by_valutations' %>
+
+  <% else %>
+      <%= render :partial => '/proposals/orders/order_by_date' %>
+
+      <span class="order_separator">|</span>
+
+      <%= render :partial => '/proposals/orders/order_by_rank' %>
+
+      <span class="order_separator">|</span>
+
+      <%= render :partial => '/proposals/orders/order_by_valutations' %>
+
+      <span class="order_separator">|</span>
+      <%= render :partial => '/proposals/orders/order_by_debate_end' %>
+  <% end %>
+</div>

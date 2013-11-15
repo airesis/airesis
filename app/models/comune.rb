@@ -1,5 +1,4 @@
 class Comune < ActiveRecord::Base
-
   has_many :places, :class_name => 'Place'
   has_many :circoscriziones, :class_name => 'Circoscrizione'
 
@@ -8,4 +7,7 @@ class Comune < ActiveRecord::Base
   belongs_to :stato
   belongs_to :continente
 
+  def parent
+    self.provincia
+  end
 end

@@ -1,4 +1,4 @@
-<%# @extend=true %>
+<% @extend=true %>
 <% javascript 'endless_page' %>
 
 <%= content_for :head do %>
@@ -11,15 +11,16 @@
                                            end %>"/>
     <meta property="og:description" content="<%= @group.description %>"/>
     <meta name="description" content="<%= @group.description %>">
+    <%= auto_discovery_link_tag(:atom, group_url(@group, format: 'atom')) %>
 <% end %>
 
 <% if can? :view_data, @group %>
     <% javascript 'endless_page' %>
 
-    <div class="group_description">
-      <%= raw (h @group.description).gsub(/\n/, "<br>") %></div>
-    <div class="group_show_page">
-      <div class="posts_container_main">
+
+    <div class="row full-width">
+      <div class="column large-8">
+        <div class="group_description"><%= raw (@group.description)%></div>
         <div id="posts_container">
           <% if @group_posts.count == 0 %>
               <div class="blogPost">
@@ -38,31 +39,22 @@
             </div>
         <% end %>
       </div>
-      <div class="group_infos">
-        <%#= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+
+      <div id="homegroup" class="columns large-4 show-for-large-up">
+
+
+
+        <% if can? :view_proposal, @group %>
+            <%= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+        <% end %>
+        <%= render :partial => "groups/portlets/topics", :layout => "layouts/portlet" %>
+        <%= render :partial => "groups/portlets/events", :layout => "layouts/portlet" %>
       </div>
     </div>
 <% end %>
 
 <%= render :partial => 'left_panel' %>
 
-<% if false #disattivato momentaneamente      %>
-    <%= content_for :right_panel do %>
-        <% if (can? :view_proposal, @group) %>
-            <h4>Proposte interne al gruppo</h4>
-            <% @group.internal_proposals.each do |proposal| %>
-                <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
-            <% end %>
-            <%= "Al momento non ci sono proposte" if @group.internal_proposals.empty? %>
-        <% end %>
-
-        <h4>Proposte sostenute dal gruppo</h4>
-        <% @group.proposals.each do |proposal| %>
-            <%= link_to proposal.title, proposal_path(proposal) %><br/><br/>
-        <% end %>
-        <%= "Al momento non ci sono proposte" if @group.proposals.empty? %>
-    <% end %>
-<% end %>
 
 
 <script type="text/javascript">

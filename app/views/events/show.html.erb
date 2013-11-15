@@ -1,166 +1,224 @@
-<% if @event.event_type_id != EventType::ELEZIONI %>
-    <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
-    </script>
+<% @extend=true %>
+<% content_for :html_options do %>
+    itemscope itemtype="http://schema.org/Event"
+<% end %>
 
+<script type="text/javascript">
 
-    <h1 class="eventtitle"><%= @event.title %></h1>
-    <div class="event_description">
-      <%= @event.description %>
-    </div>
-    <br/>
+    var pageURL = "<%= event_event_comments_url(@event) %>";
 
-    <h1><%=@event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %></h1>
-    <div class="event_when">
-      <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
-      <div style="float:left;margin-top: 10px;">
-        <b>
-          <%= l @event.starttime, :format => :from_long_date_time %>
-        </b>
+</script>
 
-        <div style="margin-top:5px;"></div>
-        <b>
-          <%= I18n.localize(@event.endtime, :format => :until_long_date_time) %>
-        </b>
+<% javascript 'endless_page' %>
+<div class="row full-width">
+  <% if !@event.is_elezione? %>
+      <script type="text/javascript"
+              src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false">
+      </script>
+
+      <div class="columns large-6">
+        <div class="event_main">
+          <h3>
+            <div class="tit1">
+              <div class="tit2" itemprop="name">
+                <%= @event.title %>
+              </div>
+            </div>
+          </h3>
+
+          <div class="event_content" itemprop="description">
+            <%= @event.description %>
+          </div>
+        </div>
+
+        <div class="event_main">
+          <h3>
+            <div class="tit1">
+              <div class="tit2">
+                <%= @event.is_past? ? t('pages.events.show.when_past') : t('pages.events.show.when') %>
+              </div>
+            </div>
+          </h3>
+          <div class="event_content">
+            <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
+            <div style="float:left;margin-top: 10px;">
+              <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
+              <b>
+                <%= l @event.starttime, :format => :from_long_date_time %>
+              </b>
+
+              <div style="margin-top:5px;"></div>
+              <b>
+                <%= I18n.localize(@event.endtime, :format => :until_long_date_time) %>
+              </b>
+            </div>
+            <div class="clearboth"></div>
+          </div>
+        </div>
       </div>
+      <% if @event.place %>
+          <div class="columns large-6">
+            <div class="event_main">
+              <h3>
+                <div class="tit1">
+                  <div class="tit2">
+                    <%= @event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %>
+                  </div>
+                </div>
+              </h3>
+              <div class="event_content" itemprop="location" itemscope itemtype="http://schema.org/Place">
+                <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                  <h2>
+                    <span itemprop="addressLocality"><%= "#{@event.place.comune.description}" if @event.place.comune %></span>,
+                    <span itemprop="streetAddress"><%= @event.place.address %></span></h2>
+                </div>
 
-      <div style="clear: both"></div>
-    </div>
-    <hr/>
+                <div>
+                  <div id="map_canvas" style="width: 320px; height: 320px;"></div>
+                </div>
+              </div>
 
 
-    <% if @event.place %>
-        <h1><%=@event.is_past? ? t('pages.events.show.where_past') : t('pages.events.show.where') %></h1>
-        <div class="event_where">
-          <div style="float:left; margin-right:10px;">
-            <a href="#" onclick="return openModal();" title="<%= t('pages.events.show.show_on_map')%>">
-              <%= image_tag('maps.png', alt: t('pages.events.show.map'), size: "64x64") %>
-            </a>
+              <div id="map_modal" title="<%= t('pages.events.show.event_place') %>" style="width:400px;height:400px;display:none">
+
+              </div>
+            </div>
           </div>
 
-          <div style="float:left">
-            <h2>
-              <%= @event.place.comune.description if @event.place.comune %>
-              <br/> <%= @event.place.address %></h2>
-          </div>
 
-          <div style="clear: both"></div>
-        </div>
+          <script type="text/javascript">
+              var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
 
-        <div id="map_modal" title="<%= t('pages.events.show.event_place')%>" style="width:400px;height:400px;display:none">
-          <div id="map_canvas" style="width: 320px; height: 320px; float:left;"></div>
-        </div>
-        <hr/>
+              function openModal() {
+                  $("#map_modal").dialog({ height: 400,
+                      width: 400,
+                      open: function () {
+                          google.maps.event.trigger(map, 'resize');
+                          map.setCenter(latlng);
+                      } });
+                  return false;
+              }
 
-        <script type="text/javascript">
-            var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
+              if (!geocoder) {
+                  geocoder = new google.maps.Geocoder();
+              }
 
-            function openModal() {
-                $("#map_modal").dialog({ height: 400,
-                    width: 400,
-                    open: function () {
-                        google.maps.event.trigger(map, 'resize');
-                        map.setCenter(latlng);
-                    } });
-                return false;
-            }
-
-            if (!geocoder) {
-                geocoder = new google.maps.Geocoder();
-            }
-
-            var center = latlng;
-            var zoom = <%=@event.place.zoom%>;
+              var center = latlng;
+              var zoom = <%=@event.place.zoom%>;
 
 
-            //noinspection JSUnresolvedVariable
-            var myOptions = {
-                zoom: zoom,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                panControl: false,
-                streetViewControl: false,
-                mapTypeControl: true,
-                draggable: true
-            };
+              //noinspection JSUnresolvedVariable
+              var myOptions = {
+                  zoom: zoom,
+                  center: latlng,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP,
+                  panControl: false,
+                  streetViewControl: false,
+                  mapTypeControl: true,
+                  draggable: true
+              };
 
-            map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+              map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
-            marker = new google.maps.Marker({
-                map: map,
-                position: latlng,
-                draggable: false
-            });
-        </script>
-    <% end %>
+              marker = new google.maps.Marker({
+                  map: map,
+                  position: latlng,
+                  draggable: false
+              });
+          </script>
+      <% end %>
 
-    <% if @event.meeting %>
-        <div id="partecipants_container">
-        <%= render :partial => 'meeting_responses' %>
-        </div>
-    <% end %>
 
-    <!--	<div class="user_tag last_tag shadow-box">
 
-            <div class="content">
-                Mostra altri...
-            </div>
-    </div> -->
-    <% content_for :left_panel do %>
-        <% if can? :update, @event %>
-            <div class="mybox">
-              <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', disable_with: t('loading') if can? :update, @event %>
-              <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', disable_with: t('loading') if can? :destroy, @event %>
-            </div>
-        <% end %>
+      <!--	<div class="user_tag last_tag shadow-box">
 
-        <% if ::Configuration::socialnetwork_active %>
-            <div class="mybox">
-              <a href="https://twitter.com/share"
-                 class="twitter-share-button"
-                 data-lang="en"
-                 data-count="vertical"
-                 data-text="C'è un nuovo evento su #<%= APP_SHORT_NAME %>">Tweet</a>
-              <g:plusone size="tall"></g:plusone>
-              <%= raw facebook_like %>
-            </div>
-        <% end %>
+              <div class="content">
+                  Mostra altri...
+              </div>
+      </div> -->
+      <% content_for :left_panel do %>
+          <% if can? :update, @event %>
+              <div class="mybox">
+                <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', disable_with: t('loading') if can? :update, @event %>
+                <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', disable_with: t('loading') if can? :destroy, @event %>
+              </div>
+          <% end %>
 
-        <!--
+          <% if ::Configuration::socialnetwork_active %>
+              <div class="mybox">
+                <a href="https://twitter.com/share"
+                   class="twitter-share-button"
+                   data-lang="en"
+                   data-count="vertical"
+                   data-text="C'è un nuovo evento su #<%= APP_SHORT_NAME %>">Tweet</a>
+                <g:plusone size="tall"></g:plusone>
+                <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @event.class.class_name %>" data-likeable_id="<%= @event.id %>"></div>
+              </div>
+          <% end %>
+
+          <!--
         <% @event.organizers.each do |group| %>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>
 			    </div>
 
         <% end %>-->
-        <% if @event.meeting %>
-            <div class="mybox" id="partecipation_panel_container">
-              <%= render :partial => 'partecipation_panel' %>
+          <% if @event.meeting %>
+              <div class="mybox" id="partecipation_panel_container">
+                <%= render :partial => 'partecipation_panel' %>
+              </div>
+
+
+              <% if @event.meeting %>
+                  <div id="partecipants_container">
+                    <%= render :partial => 'meeting_responses' %>
+                  </div>
+              <% end %>
+          <% end %>
+      <% end %>
+
+  <% end %>
+
+  <% if @event.is_votazione? %>
+      <div class="columns large-6">
+        <div class="event_main">
+          <h3>
+            <div class="tit1">
+              <div class="tit2">
+                <% if @event.proposals.count > 0 %>
+                    <%= t('pages.events.show.voting_proposals') %>
+                <% else %>
+                    <%= t('pages.events.show.no_voting_proposals')%>
+                <% end %>
+              </div>
             </div>
-        <% end %>
-    <% end %>
+          </h3>
 
-<% end %>
-
-<% if @event.event_type_id == EventType::VOTAZIONE %>
-    <p>
-      <% if @event.proposals.count > 0 %>
-        <h3>In queste giornate si voteranno le seguenti proposte</h3>
-        <br/>
-        <% @event.proposals.each do |proposal| %>
-            <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
-                <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal} %>
+          <div class="event_content">
+            <% @event.proposals.each do |proposal| %>
+                <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
+                    <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal} %>
+                <% end %>
             <% end %>
-        <% end %>
-    <% else %>
-        <h3>Ancora nessuna proposta in votazione durante queste giornate</h3>
-    <% end %>
+          </div>
+        </div>
+      </div>
+  <% elsif @event.is_elezione? %>
+      <%= render 'elections/election', {election: @event.election} %>
+  <% end %>
+</div>
 
-    </p>
+<% if @event.is_incontro? %>
+    <div class="row full-width">
+      <div class="columns large-6">
+        <%= render :partial => 'event_comments/new_event_comment', :locals => {:event_comment => @event_comment} %>
 
-
-<% elsif @event.event_type_id == EventType::ELEZIONI %>
-
-    <%= render 'elections/election', {election: @event.election} %>
-
+        <div id="eventCommentsContainer">
+          <%= render :partial => 'events/comments' %>
+        </div>
+        <div id="loading_results">
+          <span><%= t('pages.blog_posts.show.previous_comments') %></span>
+        </div>
+      </div>
+    </div>
 <% end %>

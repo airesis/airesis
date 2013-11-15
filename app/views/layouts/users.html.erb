@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US" <%= yield :html_options %>>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
   <%= render :partial => "layouts/head" %>
@@ -7,65 +7,73 @@
       <link href="<%= @user.google_page_url %>" rel="author"/>
   <% end %>
 </head>
-<body style="min-width:1000px;">
+<body>
 <div id="great_container">
-
   <% content_for :menu do %>
-      <% if @user %>
-          <span class="tit"><%= @user.fullname %></span>
-          <%= @user.user_image_tag 60 %>
+      <div id="menu-group" class="title-area ">
+        <% if @user %>
+            <div class="topimage hide-for-small">
+              <%= @user.user_image_tag 60 %>
+            </div>
+            <div class="topmenu">
+              <span class="tit left"><%= @user.fullname %></span>
 
-
-          <div id="submenu">
-            <% if current_user && (@user == current_user) %>
-                <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
-                <span> ⋅ </span>
-                <% if @user.blog %>
-                    <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
-                <% else %>
-                    <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
-                <% end %>
-                <span> ⋅ </span>
-                <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
-            <% end %>
-            <% if @user != current_user %>
-                <% unless @user.new_record? %>
-                    <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
-                <% end %>
-                <% if @user.blog %>
+              <div class="submenu mycont hide-for-small">
+                <% if current_user && (@user == current_user) %>
+                    <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
                     <span> ⋅ </span>
-                    <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                    <% if @user.blog %>
+                        <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                    <% else %>
+                        <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
+                    <% end %>
+                    <span> ⋅ </span>
+                    <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
                 <% end %>
-            <% end %>
-            <div class="borx <%=current_user ? '' : 'expandb'%>"></div>
-            <div class="tria" style="left: 389px;"></div>
-          </div>
-      <% end %>
+                <% if @user != current_user %>
+                    <% unless @user.new_record? %>
+                        <%= link_to t('pages.header.menu.profile'), @user, class: ((['home', 'users'].include? params[:controller]) ? 'sel' : '') %>
+                    <% end %>
+                    <% if @user.blog %>
+                        <span> ⋅ </span>
+                        <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                    <% end %>
+                <% end %>
+                <div class="borx show-for-large-up <%= current_user ? '' : 'expandb' %>"></div>
+                <div class="tria" style="left: 389px;"></div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="title-area show-for-small">
+
+      </div>
   <% end %>
 
   <%= render :partial => "layouts/header" %>
-  <div id="main" style="right:0px;min-width:1000px;">
-    <!-- ##### Main Copy ##### -->
+  <div id="main" style="right:0px;">
     <div id="main-copy">
-      <div id="menu-left">
+      <div id="menu-left" class="show-for-medium-up">
         <div class="menu2">
+          <div class="mybox show-for-small">
+            <%= yield :menu %>
+          </div>
           <%= yield :left_panel %>
         </div>
       </div>
       <div id="centerpanelextended">
         <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
-          <div id="flash_messages" style="height:20px">
+          <%= render :partial => 'layouts/tutorials' %>
+          <div id="flash_messages">
             <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
           </div>
           <%= yield :layout %>
         </div>
 
-
         <%= render :partial => "layouts/menu_right" %>
-
         <div class="clearboth"></div>
       </div>
-      <%= render :partial => "layouts/footer" %>
+      <%= render :partial => "layouts/new_footer" %>
     </div>
   </div>
 </div>

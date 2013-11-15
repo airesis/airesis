@@ -41,8 +41,8 @@ namespace :airesis do
 
       File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
         f.puts("#encoding: utf-8")
-        EventType.all.each do |type|
-            f.puts(" EventType.create( :name => \"#{type.name}\"){ |c| c.id = #{type.id}}.save")
+        EventType.active.all.each do |type|
+            f.puts(" EventType.create( :name => \"#{type.name}\", color: \"#{type.color}\"){ |c| c.id = #{type.id}}.save")
         end
         GroupAction.all.each do |action|
           f.puts("GroupAction.create(name: \"#{action.name}\")")
@@ -65,7 +65,7 @@ namespace :airesis do
           f.puts("ProposalState.create( :description => \"#{state.description}\" ){ |c| c.id = #{state.id} }.save")
         end
         ProposalType.all.each do |type|
-          f.puts("ProposalType.create( :active => \"#{type.active}\", :name => \"#{type.name}\" ){ |c| c.id = #{type.id} }.save")
+          f.puts("ProposalType.create( :active => \"#{type.active}\", :name => \"#{type.name}\", color: \"#{type.color}\" ){ |c| c.id = #{type.id} }.save")
         end
         RankingType.all.each do |rank|
           f.puts("RankingType.create( :description => \"#{rank.description}\" ){ |c| c.id = #{rank.id} }.save")

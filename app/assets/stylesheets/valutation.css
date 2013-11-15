@@ -1,21 +1,4 @@
-.voteup {
-	background: url('/assets/like-blank.gif') 0 0 no-repeat;
-	width: 35px;
-	height: 35px;
-	display: block;
-}
-.voteup:hover {
-	background: url('/assets/like.gif') 0 0 no-repeat;
-}
-.votedown {
-	background: url('/assets/dislike-blank.gif') 0 0 no-repeat;
-	width: 35px;
-	height: 35px;
-	display: block;
-}
-.votedown:hover {
-	background: url('/assets/dislike.gif') 0 0 no-repeat;
-}
+
 .votedup {
 	background: url('/assets/like.gif') 0 0 no-repeat;
 	width: 35px;
@@ -176,21 +159,4 @@
 }
 .ranking {
 	margin: 0px 0px 5px 0px;
-}
-
-
-.like-mini {
-    background: url('/assets/like-mini.gif') 0 0 no-repeat;
-    width: 19px;
-    height: 18px;
-    display: inline-block;
-    float: right;
-}
-
-.dislike-mini {
-    background: url('/assets/dislike-mini.gif') 0 0 no-repeat;
-    width: 19px;
-    height: 18px;
-    display: inline-block;
-    float: right;
 }

@@ -5,7 +5,7 @@ class NewsletterSender
     receiver = params['mail']['receiver']
     puts receiver
     if receiver == 'all'
-      @users = User.confirmed.where({blocked: false, receive_newsletter: true})
+      @users = User.confirmed.where({blocked: false, receive_newsletter: true}).where('email is not null')
     elsif receiver == 'not_confirmed'
       @users = User.unconfirmed.all
     elsif receiver == 'test'

@@ -2261,7 +2261,6 @@ elFinder.prototype = {
 		key = 'elfinder-'+key+this.id;
 		
 		if (val === null) {
-			console.log('remove', key)
 			return s.removeItem(key);
 		}
 		
@@ -5287,9 +5286,7 @@ $.fn.elfindercwd = function(fm, options) {
 			 * @return void
 			 */
 			content = function(files, any) {
-				var phash = fm.cwd().hash; 
-				// console.log(files)
-				
+				var phash = fm.cwd().hash;
 				unselectAll();
 				
 				try {

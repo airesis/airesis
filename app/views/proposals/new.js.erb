@@ -22,6 +22,7 @@ function showSimilarProposal(activeDiv) {
 
 }
 
+
 window.ClientSideValidations.selectors = {
     inputs: ':input:not(button):not([type="submit"])[name]:enabled',
     validate_inputs: ':input:enabled:visible[data-validate]',
@@ -56,72 +57,5 @@ $("#new_proposal").quickWizard({
     prevCallback: skipIfNecessary
 });
 
-input = $('#proposal_interest_borders_tkn')
-input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
-    crossDomain: false,
-    prePopulate: input.data("pre"),
-    hintText: "<%=t('interest_borders.hint')%>",
-    noResultsText: "<%=t('interest_borders.no_place_found')%>",
-    searchingText: "<%=t('interest_borders.searching')%>",
-    preventDuplicates: true,
-    allowTabOut: true
-});
-
-
-input = $('#proposal_tags_list')
-if (input != null) {
-    input.tokenInput("<%=tags_path(format: :json )%>", {
-        theme: "facebook",
-        crossDomain: false,
-        allowFreeTagging: true,
-        minChars: 3,
-        hintText: "<%=t('digit_tags')%>",
-        searchingText: "<%=t('digit_tags')%>",
-        preventDuplicates: true,
-        allowTabOut: true,
-        tokenValue: "name"
-    })
-}
-
-
-
-
 $('#new_proposal').enableClientSideValidations();
 disegnaBottoni();
-
-$('.ddslick2').ddslick({
-        width: 400,
-        onSelected: function(data) {
-            var exlanation_ = $('#proposal_quorum_id option:selected').data('explanation');
-            console.log('selected: ' + exlanation_);
-            if (exlanation_) {
-              $('#quorum_explanation').html(exlanation_).show();
-            }
-            else {
-              $('#quorum_explanation').hide();
-            }
-        }
-});
-
-$('#proposal_quorum_id_container').css('float','left').css('margin-right','5px');
-
-
-//window.ClientSideValidations.forms['new_proposal'].validators['proposal[sections_attributes][][paragraphs_attributes][][content]']['presence'] = [{'message':'deve essere compilato'}];
-
-
-tinyMCE.init({
-    mode: 'textareas',
-    theme: 'advanced',
-    theme_advanced_toolbar_location: 'top',
-    theme_advanced_toolbar_align: 'left',
-    theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor,image,youtube',
-    theme_advanced_buttons2: '',
-    theme_advanced_buttons3: '',
-    relative_urls: false,
-    plugins: 'legacyoutput,media,inlinepopups,youtube,paste',
-    formats: {
-        underline: { inline: 'u' }
-    },
-    paste_auto_cleanup_on_paste: true,
-    theme_advanced_statusbar_location: "none"
-});

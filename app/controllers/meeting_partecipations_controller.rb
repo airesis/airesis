@@ -16,8 +16,9 @@ class MeetingPartecipationsController < ApplicationController
     respond_to do |format|
       format.js { render :update do |page|
                       page.replace_html 'flash_messages', :partial => 'layouts/flash', :locals => {:flash => flash}
-                      page.replace 'partecipation_panel_container', :partial => 'events/partecipation_panel', :locals => {:event => @event}
-                      page.replace 'partecipants_container', :partial => 'events/meeting_responses', :locals => {:event => @event}
+                      page.replace_html 'partecipation_panel_container', :partial => 'events/partecipation_panel', :locals => {:event => @event}
+                      page.replace_html 'partecipants_container', :partial => 'events/meeting_responses', :locals => {:event => @event}
+                      page << "mybox_animate();"
                   end                  
       }
       format.html {

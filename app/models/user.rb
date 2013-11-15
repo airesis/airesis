@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   validates_format_of :blog_image_url, :with => AuthenticationModule.url_regex, :allow_nil => true
   validates_confirmation_of :password
 
-  validates_acceptance_of :accept_conditions, :message => "E' necessario accettare le condizioni d'uso"
+  validates_acceptance_of :accept_conditions, :message => I18n.t('activerecord.errors.messages.TOS')
 
   #colonne assegnabili massivamente
   attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id, :time_zone
@@ -45,6 +45,9 @@ class User < ActiveRecord::Base
   has_many :blog_posts, :class_name => 'BlogPost'
   has_many :blocked_alerts, :class_name => 'BlockedAlert'
   has_many :blocked_emails, :class_name => 'BlockedEmail'
+
+  has_many :event_comments, :class_name => 'EventComment'
+  has_many :likes, :class_name => 'EventCommentLike'
 
   has_many :group_partecipations, :class_name => 'GroupPartecipation'
   has_many :groups, :through => :group_partecipations, :class_name => 'Group'
@@ -72,6 +75,8 @@ class User < ActiveRecord::Base
   has_many :interest_borders, :through => :user_borders, :class_name => 'InterestBorder'
 
   has_many :user_alerts, :class_name => 'UserAlert', :order => 'user_alerts.created_at DESC'
+  has_many :unread_alerts, :class_name => 'UserAlert', conditions: 'user_alerts.checked = false'
+
   has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
   has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
 
@@ -97,16 +102,20 @@ class User < ActiveRecord::Base
   belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
   belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
 
-  #affinità con i gruppi
-  has_many :group_affinities, :class_name => 'GroupAffinity'
 
-  has_many :suggested_groups, :through => :group_affinities, :class_name => "Group", :order => "group_affinities.value desc", :limit => 10, :source => :group
-
+  has_many :events
 
   #candidature
   has_many :candidates, :class_name => 'Candidate'
 
   has_many :proposal_nicknames, :class_name => 'ProposalNickname'
+
+  has_one :certification, :class_name => 'UserSensitive', foreign_key: :user_id
+
+  #forum
+  has_many :viewed, :class_name => 'Frm::View'
+  has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
 
   #fake columns
   attr_accessor :image_url, :accept_conditions, :subdomain
@@ -115,9 +124,32 @@ class User < ActiveRecord::Base
 
   after_create :assign_tutorials
 
+  validate :check_uncertified
+
   scope :blocked, {:conditions => {:blocked => true}}
+  scope :unblocked, {:conditions => {:blocked => false}}
   scope :confirmed, {:conditions => 'confirmed_at is not null'}
   scope :unconfirmed, {:conditions => 'confirmed_at is null'}
+  scope :certified, {:conditions => {user_type_id: UserType::CERTIFIED}}
+
+
+  def check_uncertified
+    if certified?
+      if self.name_changed? || self.surname_changed?
+        self.errors.add(:user_type_id, "Non puoi modificare questi dati in quanto il tuo utente è certificato")
+      end
+    end
+  end
+
+
+  def suggested_groups
+    border = self.interest_borders.first
+    params = {}
+    params[:interest_border_obj] = border
+    params[:limit] = 12
+    Group.look(params)
+
+  end
 
 
   def email_required?
@@ -127,18 +159,15 @@ class User < ActiveRecord::Base
   #dopo aver creato un nuovo utente gli assegno il primo tutorial e
   #disattivo le notifiche standard
   def assign_tutorials
-    tutorial = Tutorial.find_by_name("Welcome Tutorial")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("First Proposal")
-    assign_tutorial(self, tutorial)
-    tutorial = Tutorial.find_by_name("Rank Bar")
-    assign_tutorial(self, tutorial)
+    Tutorial.all.each do |tutorial|
+      assign_tutorial(self, tutorial)
+    end
     self.blocked_alerts.create(:notification_type_id => 20)
     self.blocked_alerts.create(:notification_type_id => 21)
     self.blocked_alerts.create(:notification_type_id => 13)
     self.blocked_alerts.create(:notification_type_id => 3)
 
-    Resque.enqueue_in(5,GeocodeUser,self.id)
+    Resque.enqueue_in(5, GeocodeUser, self.id)
   end
 
   def init
@@ -154,10 +183,9 @@ class User < ActiveRecord::Base
     unless @search.empty? #continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
       @zone = Timezone::Zone.new :latlon => @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
-      self.update_attribute(:time_zone,@zone.active_support_time_zone) if @zone #update zone if found
+      self.update_attribute(:time_zone, @zone.active_support_time_zone) if @zone #update zone if found
     end
   end
-
 
 
   #restituisce l'elencod ei gruppi nei quali sono portavoce
@@ -186,11 +214,16 @@ class User < ActiveRecord::Base
     excluded_groups ? ret - excluded_groups : ret
   end
 
-  #return all group area partecipations of a particular group where the user can do a particular action
-  def scoped_areas(group_id, abilitation_id)
-    self.group_areas
-    .joins({:area_roles => :area_action_abilitations})
-    .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+  #return all group area partecipations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
+  def scoped_areas(group_id, abilitation_id=nil)
+    query = self.group_areas
+    if abilitation_id
+      query = query.joins({:area_roles => :area_action_abilitations})
+      .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+    else
+      query = query.joins(:area_roles)
+      .where(['group_areas.group_id = ?', group_id])
+    end
   end
 
   def self.new_with_session(params, session)
@@ -227,6 +260,15 @@ class User < ActiveRecord::Base
   end
 
 
+  def encoded_id
+    Base64.encode64(self.id)
+  end
+
+  def self.decode_id(id)
+    Base64.decode64(id)
+  end
+
+
   def image_url
     if (self.blog_image_url && !self.blog_image_url.blank?)
       return self.blog_image_url
@@ -239,7 +281,7 @@ class User < ActiveRecord::Base
 
 
   def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
+    write_attribute :login, (value.try(:downcase))
   end
 
   #determina se un oggetto appartiene all'utente verificando che 
@@ -320,7 +362,7 @@ class User < ActiveRecord::Base
   #restituisce true se l'utente ha valutato un contributo
   #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo
   def can_rank_again_comment?(comment)
-    return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
+    #return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
     ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
     return true unless ranking
     last_suggest = comment.replies.first(:order => 'created_at desc')
@@ -328,6 +370,10 @@ class User < ActiveRecord::Base
     ranking.updated_at < last_suggest.created_at
   end
 
+
+  def certified?
+    self.user_type.short_name == 'certified'
+  end
 
   def admin?
     self.user_type.short_name == 'admin'
@@ -498,5 +544,91 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  delegate :can?, :cannot?, :to => :ability
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
+
+  #forum methods
+  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
+  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
+  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
+  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
+
+
+  def can_read_forem_category?(category)
+    category.visible_outside || (category.group.partecipants.include? self)
+  end
+
+
+  def can_read_forem_forum?(forum)
+    forum.visible_outside || (forum.group.partecipants.include? self)
+  end
+
+
+  def can_create_forem_topics?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_reply_to_forem_topic?(topic)
+    topic.forum.group.partecipants.include? self
+  end
+
+
+  def can_edit_forem_posts?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_read_forem_topic?(topic)
+    !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
+  end
+
+  def auto_subscribe?
+    true
+  end
+
+
+  def can_moderate_forem_forum?(forum)
+    forum.moderator?(self)
+  end
+
+  def self.autocomplete(term)
+    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email, users.user_type_id").
+        order("users.surname desc, users.name desc")
+  end
+
+
+  def forem_moderate_posts?
+    Frm.moderate_first_post && !forem_approved_to_post?
+  end
+
+  alias_method :forem_needs_moderation?, :forem_moderate_posts?
+
+  def forem_approved_to_post?
+    #forem_state == 'approved'
+    true
+  end
+
+  def forem_spammer?
+    #forem_state == 'spam'
+    false
+  end
+
+
+  def forem_admin?(group)
+    self.can? :update, @group
+  end
+
+  def to_s
+    fullname
+  end
+
 
 end

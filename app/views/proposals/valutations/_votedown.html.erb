@@ -1,0 +1,1 @@
+<%= link_to t('proposals.show.keep_discuss'), {action: 'rankdown', controller: 'proposals', id: @proposal.id, group_id: @group.try(:id)}, remote: true, id: 'votedown', class: 'btn  votedown', disable_with: t('loading') %>

@@ -44,6 +44,7 @@
           *****
         </div>
       </div>
+
   <% end %>
 
   <% if @user.show_urls && ::Configuration::socialnetwork_active %>
@@ -85,6 +86,15 @@
       <%= l (@user.confirmed? ? @user.confirmed_at : @user.created_at) %>
     </div>
   </div>
+  <% if (current_user == @user) && @user.certified? %>
+      <div id="confirmed_at_profile" class="profile_element_no_click">
+        <h2 class="label_profile"><%= t('pages.users.show.certified_from') %>: </h2>
+
+        <div class="info_profile">
+          <%= l @user.certification.created_at %>
+        </div>
+      </div>
+  <% end %>
 
 </div>
 
@@ -138,10 +148,6 @@
             });
 
             $('.profile_element').css('cursor', 'pointer');
-
-            $('.profile_element').hover(function () {
-                $(this).toggleClass('profile_element_hover');
-            });
 
         });
     </script>

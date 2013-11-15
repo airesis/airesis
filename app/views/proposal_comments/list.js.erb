@@ -8,9 +8,6 @@
 <%end%>
 
 contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);
-//console.log('contributi mostrati:' + contributes);
-//console.log('total pages: <%=@total_pages%>');
-//console.log('current page: <%=@current_page%>');
 
 firstCheck = false;
 <%if @total_pages > @current_page%>
@@ -24,8 +21,9 @@ firstCheck = false;
   $('#loading_results').hide();
 <%end%>
 
-$('.reply_textarea').elastic();
+//$('.reply_textarea').elastic();
 disegnaBottoni();
+disegnaCountdown();
 
 /*$('.rankingpanelcontainer .votedup-mini').qtip({
     position: {

@@ -1,16 +1,16 @@
 <% partecipants.each do |partecipation| %>
-    <div>
-      <div style="float:left;">
+    <div class="partecipant_left">
+      <div class="partecipant_image">
         <%= partecipation.user_image_tag 48 %>
       </div>
-      <div style="float:left;margin-top:3px;margin-left:5px;">
+      <div class="partecipant_text">
         <%= link_to_user partecipation.user, :full_name => true %>
         <% if partecipation.guests > 0 %>
 
             <%=raw t('pages.events.show.with_guests', field: partecipation.guests) %>
         <% end %>
         <div style="margin-top:5px;"></div>
-        <span style="color:darkslategray">"<%= partecipation.comment %>"</span>
+        <span>"<%= partecipation.comment %>"</span>
       </div>
       <div style="clear: both;"></div>
     </div>

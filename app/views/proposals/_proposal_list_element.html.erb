@@ -1,71 +1,151 @@
-<div id="proposal<%= proposal.id %>" class="proposal_list shadow-box">
-  <div class="category_icon">
-    <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
-  </div>
-  <div class="maintitle">
-    <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
-  </div>
-  <div class="datetime">
-    <% if proposal.in_valutation? %>
-        <%= t('pages.proposals.list.last_update', date: (l proposal.updated_at)) %>
-    <% elsif proposal.waiting_date? %>
-        <%= t('pages.proposals.list.waiting_date') %>
-    <% elsif proposal.waiting? %>
-        <%= t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime) , to: (l proposal.vote_period.endtime))%>
-    <% elsif proposal.voting? %>
-        <%= t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime)) %>
-    <% elsif proposal.voted? %>
-        <% if proposal.vote_period %>
-           <%= t('pages.proposals.list.votation_finished', date: (l proposal.vote_period.endtime))%>
+<div id="proposal<%= proposal.id %>" class="proposal_list">
+  <div class="proposal_cont">
+    <div class="left_cont">
+      <div class="inner_cont">
+        <div class="model">
+          <%= proposal.proposal_type.description.upcase %>
+        </div>
+        <div class="category_icon">
+          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+        </div>
+        <div class="status">
+          <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
+          <% if proposal.in_valutation? %>
+              <% date = (l proposal.updated_at, format: :two_rows) %>
+              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
+          <% elsif proposal.waiting_date? %>
+              <% date = (l proposal.updated_at, format: :two_rows) %>
+              <% title = t('pages.proposals.list.waiting_date', {date: date}) %>
+          <% elsif proposal.waiting? %>
+              <% title = t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime)) %>
+          <% elsif proposal.voting? %>
+              <% title = t('pages.proposals.list.voting_until', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+          <% elsif proposal.voted? %>
+              <% if proposal.is_schulze? %>
+                  <% title = t('pages.proposals.list.votation_finished', time_ago: time_in_words(proposal.vote_period.endtime)) %>
+              <% else %>
+                  <% if proposal.rejected? %>
+                      <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+                  <% else %>
+                      <% title = t('pages.proposals.list.votation_finished_approved', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+                  <% end %>
+              <% end %>
+          <% elsif proposal.abandoned? %>
+              <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
+          <% end %>
+          <%= raw title %>
+        </div>
+      </div>
+    </div>
+    <div class="right_cont">
+      <div style="position: relative">
+        <div class="maintitle">
+          <%= user_valutation_image(current_user, proposal) if current_user %>
+          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+
+        </div>
+      </div>
+
+      <div class="text_content">
+        <p>
+        <%= raw proposal.short_content %>
+        </p>
+      </div>
+      <% if proposal.voting? || proposal.voted? %>
+          <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+      <% else %>
+          <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+      <% end %>
+
+      <div class="clearboth"></div>
+
+
+      <div class="proposal_bottom">
+        <% if proposal.in_valutation? %>
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left').upcase %>">
+              <%= image_tag 'plist/stopwatch.png' %>
+              <span class="count">
+              <%= proposal.quorum.time_left.upcase %></span>
+            </div>
+        <% elsif proposal.voting? %>
+            <div class="timeDescription timeleft" style="float:left" title="<%= t('pages.proposals.list.time_left').upcase %>">
+              <%= image_tag 'plist/stopwatch.png' %>
+              <span class="count">
+              <%= proposal.vote_period.time_left.upcase %></span>
+            </div>
+
+        <% end %>
+
+        <% if proposal.voting? || proposal.voted? %>
+            <div class="proposalDescription votersDescription" style="float:left" title="<%= t('pages.proposals.index.voters') %>">
+              <%= image_tag 'group_partecipants.png' %>
+              <span class="count"><%= "#{proposal.user_votes.count}/#{proposal.eligible_voters_count}" %></span>
+            </div>
         <% else %>
-            <%= t('pages.proposals.list.no_votation') %>
-        <% end %>
-    <% end %>
-    <% unless proposal.is_polling? %>
-        <%= render :partial => 'proposals/rank_bar', :locals => {:proposal => proposal} %> <%= user_valutation_image(current_user, proposal) %>
-    <% end %>
-  </div>
-  <% unless proposal.interest_borders.empty? %>
-      <div class="borders">
-        <div class="title"><%= t('pages.proposals.list.interest_borders') %></div>
-        <% proposal.interest_borders[0..5].each do |ib| %>
-            <div class="border ui-state-highlight" title="<%= ib.territory_type %>">
-              <%= ib.territory.description %>
+            <div class="proposalDescription rankDescription" style="float:left" title="<%= t('pages.proposals.index.rank') %>">
+              <%= image_tag 'plist/gradimento.png' %>
+              <span class="count"><%= proposal.rank %>%</span>
+            </div>
+            <div class="proposalDescription partecipants" style="float:left" title="<%= t('pages.proposals.index.partecipants_number') %>">
+              <%= image_tag 'group_partecipants.png' %>
+              <span class="count"><%= proposal.partecipants_count %></span>
+
+              <div class="authors">
+                <%= t('pages.proposals.index.partecipants_number') %>
+                <div class="title"><%= t('pages.proposals.list.authors').upcase %></div>
+                <% if signed_in? && (proposal.users.include? current_user) %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user) %>
+                    <% end %>
+                <% else %>
+                    <% proposal.users.each do |user| %>
+                        <%= user_tag_mini(user, proposal) %>
+                    <% end %>
+                <% end %>
+                <div style="clear:both;"></div>
+              </div>
             </div>
         <% end %>
-        <div style="clear:both;"></div>
-      </div>
-  <% end %>
 
-  <div class="authors">
-    <div class="title"><%= t('pages.proposals.list.authors') %></div>
-    <% if signed_in? && (proposal.users.include? current_user) %>
-        <% proposal.users.each do |user| %>
-            <%= user_tag_mini(user) %>
-        <% end %>
-    <% else %>
-        <% proposal.users.each do |user| %>
-            <%= user_tag_mini(user, proposal) %>
-        <% end %>
-    <% end %>
-    <div style="clear:both;"></div>
-  </div>
-  <% unless proposal.groups.empty? %>
-      <div class="groups">
-        <div class="title"><%= t('pages.proposals.list.support_group') %></div>
-        <% proposal.groups[0..10].each do |group| %>
-            <div class="blogUserImage" title="<%= group.name %>">
-              <%= group.group_image_tag 20 %>
+
+        <div class="proposalDescription contributes" style="float:left" title="<%= t('pages.proposals.index.contributes_number') %>">
+          <%= image_tag 'group_proposals.png' %>
+          <span class="count"><%= proposal.contributes.count %></span>
+        </div>
+
+        <% if proposal.interest_borders.count > 0 %>
+            <div class="territoryDescription" style="float:left">
+              <%= image_tag 'place.png' %>
+              <span class="count"><%= proposal.interest_borders.first.territory.description %></span>
             </div>
         <% end %>
-        <div style="clear:both;"></div>
+
+        <div class="alerts_and_vote">
+          <% if current_user %>
+              <% if can? :vote, proposal %>
+                  <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
+              <% end %>
+              <% count = proposal.count_notifications(current_user.id) %>
+              <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
+          <% end %>
+        </div>
 
       </div>
-  <% end %>
+    </div>
 
+    <% unless proposal.groups.empty? %>
+        <div class="groups">
+          <div class="title"><%= t('pages.proposals.list.support_group') %></div>
+          <% proposal.groups[0..10].each do |group| %>
+              <div class="blogUserImage" title="<%= group.name %>">
+                <%= group.group_image_tag 20 %>
+              </div>
+          <% end %>
+          <div style="clear:both;"></div>
 
-  <div class="proposal_content">
-    <%= raw proposal.short_content %>
-    <%= link_to t('pages.proposals.index.continue_reading'), proposal.private ? [proposal.presentation_groups.first, proposal] : proposal %>
+        </div>
+    <% end %>
+
+    <div class="clearboth"></div>
   </div>
 </div>

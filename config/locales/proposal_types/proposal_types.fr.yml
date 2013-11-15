@@ -1,0 +1,98 @@
+fr:
+  pages:
+    proposals:
+      new:
+        standard:
+          problems_title: Problèmes
+          problems_title_label: "Quel est le problème à résoudre et/ou quels sont les obstacles à surmonter pour atteindre l'objectif ?"
+          objectives_title: Objectifs
+          step_4_title: "Vous pouvez saisir un texte dans la proposition ou l'écrire plus tard sur la base des opinions reçues"
+          solution:
+            description: Description de la solution
+            time: Durée
+            subject: Superviseur
+            resources: Ressources nécessaires et comment les récupérer
+            aspects: Aspects éthiques, environnementaux, sociaux
+            documents: Documentation
+            pros: Avantages
+            cons: Inconvénients
+          suggestion_html: |
+            <div><b>Exemple :</b></div>
+            <div>réduire l'utilisation de l'eau potable pour l'irrigation.</div>
+            <div>Utiliser de l'eau potable pour arroser les parcs publics et les jardins privés est un gaspillage et a des coûts élevés. Par ailleurs l'aquifère alimentant l'aqueduc est insuffisant</div>
+        rule_book:
+          problems_title_label: "Quels sont les problèmes à résoudre avec l'application de ce règlement ? Quels sont les enjeux à régler ? Pourquoi ?"
+          suggestion_html: |
+            <div><b>Exemple :</b></div>
+            <div>Règlement pour réserver la St. Peter hall</div>
+            <div>la ville de Silverham dispose d'une salle de conférence qui est utilisée que par les « camarades » du maire. Il est temps de choisir une procédure impartiale pour accorder à tous les citoyens et les associations publiques le droit de réserver la salle pour des manifestations publiques.</div>
+          solution:
+            article: 'Article %{num}'
+            pros: Avantages
+            cons: Inconvénients
+        press:
+          problems_title_label: "Quel est le message que vous souhaitez transmettre ? Quels obstacles sont attendus pour obtenir un niveau suffisant de compréhension ou diffusion ? Est-ce qu'il y a a des articles ou des nouvelles récentes que vous souhaitez répliquer ou auxquels vous souhaitez apporter des améliorations ?"
+          problems_title: Message à transmettre
+          suggestion_html: |
+            <div><b>Exemple :</b></div>
+            <div>Annoncer la sortie de la version 3.5 de Airesis.</div>
+            <div>Nous devons annoncer la sortie de la version 3.5 de Airesis, qui apporte des fonctionnalités importantes pour les Administrations Publiques. Il est nécessaire d'expliquer ce qu'est Airesis et captiver l'attention de la presse, compte tenu des rumeurs récentes sur l'utilisation de Airesis à la maison-blanche.</div>
+          solution:
+            subtitle: Sous-titre
+            incipit: Introduction
+            body: Contenu
+            conclusion: Conclusions
+            deep: Prospectives
+        estimate:
+          problems_title_label: Quels biens ou services désirez vous acheter ? Pour résoudre quels problèmes ?
+          problems_title: Problèmes
+          suggestion_html: |
+            <div><b>Exemple:</b></div>
+            <div>Remplacement de la chaudière dans le siège social de l'Association.</div>
+            <div>En raison de la panne de l'ancienne chaudière, notre siège est impraticable pendant les hivers. Étant donné qu'il n'est pas possible de la réparer, il faut la avec une nouvelle, à faible consommation d'énergie.</div>
+          solution:
+            cost: Montant
+            problems: Respect des contraintes et des problèmes
+            dumentation: Documentation
+        agenda:
+          problems_title: Type de rendez-vous
+          suggestion_html: |
+            <div><b>Exemple :</b></div>
+            <div>Choisir un ordre du jour de notre réunion.</div>
+            <div>Réunion de coordination ordinaire pour échanger des expériences avec les référents des comités locaux pour l'agriculture biologique en l'Italie.</div>
+          solution:
+            points: "Éléments de l'agenda"
+            priorities: Priorités des éléments
+            links: Idées de Liens
+        event:
+          problems_title: "But de l'événement"
+          problems_title_label: Pourquoi voulez vous organiser un événement ? Quels sont les objectifs ?
+          suggestion_html: |
+            <div><b>Exemple :</b></div> 
+            <div>Organiser un concert de rock à faible coût.</div>
+            <div>Dans notre ville il y a beaucoup de groupes de jeunes qui ne peuvent pas montrer et améliorer leur talent, en raison du manque d'espace. En outre, il y a peu d'événements promus par notre municipalité pour l'été prochain, en raison du manque de ressources.</div>
+          solution:
+            title: Titre
+            description: Description de la solution
+            program: Date, heure et plan
+            body: lieu
+            place: Place
+            organization: "Organisation de l'événement"
+            resources: Ressources nécessaires et comment les récupérer
+            pros: Avantages
+            cons: Inconvénients
+        candidates:
+          suggestion_html: |
+            <div><b>Exemple :</b></div>
+            <div>Élire le nouveau référent pour le groupe de communication.</div>
+            <div>Le groupe de communication vient d'être créé et il est nécessaire d'élire un référent. Toutes les personnes qui ont été membres du groupe depuis au moins 5 mois peuvent être nominées.</div>
+          solution:
+            name: Prénom et nom du candidat
+            data: Données personnelles
+            curriculum: Curriculum Vitae
+            available: Disponibilité pour le poste
+        simple:
+          problems_title: Problème
+          solution:
+            description: Description
+          problems_title_label: "Quel est le problème à résoudre et/ou quels sont les obstacles à surmonter pour atteindre l'objectif ?"

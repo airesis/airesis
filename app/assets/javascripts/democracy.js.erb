@@ -1,29 +1,40 @@
 !window.console && (console = { log: function () {
 }});
 
-function checkWidth() {
-    if (window.innerWidth < 1000) {
-        $('#menu-top, #menu-right .cont').css('position', 'absolute');
-        $('#submenu .borx').hide();
-        $('#submenu .tria').hide();
-    }
-    else {
-        $('#menu-top, #menu-right .cont').css('position', 'fixed');
-        $('#submenu .borx').show();
-        $('#submenu .tria').show();
-    }
+
+
+function switchText(button) {
+    var other_ = button.data('other');
+    var text_ = button.text();
+    button.data('other', text_);
+    button.text(other_);
 }
 
+
+function scrollToElement(element) {
+    $viewport.animate({
+        scrollTop: element.offset().top - 100
+    }, 2000);
+
+    // Stop the animation if the user scrolls. Defaults on .stop() should be fine
+    $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
+        if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
+            $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
+        }
+    });
+    return false;
+}
+
+
 $(function () {
+    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
+
     /*$('#great_container').height($(window).height()-0);*/
     var submenupannel = 0;
 
-    checkWidth();
-    $(window).resize(function () {
-        checkWidth();
-    });
-
     disegnaBottoni();
+
+    disegnaProgressBar();
 
     if (window.location.hash) {
         setTimeout(function () {
@@ -51,10 +62,10 @@ $(function () {
         }
         event.stopPropagation();
     })
-    .keypress(function (event) {
-        if (event.which === 13)
-            $(this).click();
-    });
+            .keypress(function (event) {
+                if (event.which === 13)
+                    $(this).click();
+            });
 
 
     $('html').click(function () {
@@ -69,7 +80,47 @@ $(function () {
     $('.group-cont').click(function (event) {
         event.stopPropagation();
     });
+
+
+    $('.sub-nav a').click(function () {
+        $('.sub-nav dd').removeClass('active');
+        $(this).parent().addClass('active');
+
+    });
+
+
+    $('#logo1mini').click(function () {
+        var menu_ = $('#menu-left');
+        if (menu_.attr('data-expshow') == 'true') {
+            menu_.removeClass('small-show');
+            menu_.attr('data-expshow', false);
+        }
+        else {
+            menu_.addClass('small-show');
+            menu_.attr('data-expshow', true);
+        }
+    });
+
+
+    mybox_animate();
+
 });
+
+
+function mybox_animate() {
+    $(".mybox .mybox_button").click(function () {
+        if ($(this).data('menu2show') == 0) {
+            $(this).data('menu2show', 1);
+            $(this).parent().find('.mycont').slideDown();
+            $(this).removeClass('close');
+
+        } else {
+            $(this).data('menu2show', 0);
+            $(this).parent().find('.mycont').slideUp();
+            $(this).addClass('close');
+        }
+    });
+}
 
 function sticky_relocate() {
     var window_top = $(window).scrollTop();
@@ -109,16 +160,27 @@ function disegnaBottoni() {
     $('.saveButton').gbutton({icons: {primary: "ui-icon-check"}});
     $('.updateButton').gbutton({icons: {primary: "ui-icon-check"}});
     $('.rejectButton').gbutton({icons: {primary: "ui-icon-close"}});
-    $('.showAllButton').gbutton({icons: {primary: "ui-icon-script"}});
+    $('.scriptButton').gbutton({icons: {primary: "ui-icon-script"}});
     $('.inviteButton').gbutton({icons: {primary: "ui-icon-mail-open"}});
     $('.documentButton').gbutton({icons: {primary: "ui-icon-document"}});
     $('.closeButton').gbutton({icons: {primary: "ui-icon-close"}});
-    $('.draftsButton').gbutton({icons: {primary: "ui-icon-pencil"}});
-    $('.contributeButton').gbutton({icons: {primary: "ui-icon-signal-diag"}});
+    $('.draftsButton').gbutton({icons: {primary: "ui-icon-script"}});
+    $('.contributeButton').gbutton({icons: {primary: "ui-icon-pencil"}});
     $('.pdfButton').gbutton({icons: {primary: "ui-icon-print"}});
     $('.printButton').gbutton({icons: {primary: "ui-icon-print"}});
     $('.resultsButton').gbutton({icons: {primary: "ui-icon-check"}});
     $('.searchButton').gbutton({icons: {primary: "ui-icon-search"}});
+    $('.signalButton').gbutton({icons: {primary: "ui-icon-signal-diag"}});
+    $('.hideButton').gbutton({icons: {primary: "ui-icon-power"}});
+    $('.lockButton').gbutton({icons: {primary: "ui-icon-locked"}});
+    $('.pinButton').gbutton({icons: {primary: "ui-icon-pin-s"}});
+    $('.flagButton').gbutton({icons: {primary: "ui-icon-flag"}});
+    $('.contactButton').gbutton({icons: {primary: "ui-icon-contact"}});
+    $('.feedbackButton').gbutton({icons: {primary: "ui-icon-notice"}});
+    $('.videoButton').gbutton({icons: {primary: "ui-icon-video"}});
+    $('.infoButton').gbutton({icons: {primary: "ui-icon-info"}});
+    $('.bookmarkButton').gbutton({icons: {primary: "ui-icon-bookmark"}});
+    $('.extlinkButton').gbutton({icons: {primary: "ui-icon-extlink"}});
     $('.btn.help').gbutton({icons: {primary: "ui-icon-help"}});
     $('.btn.loginButton').gbutton({icons: {primary: "ui-icon-key"}});
     $('.disabledButton').gbutton("option", "disabled", true);
@@ -159,14 +221,100 @@ function disegnaBottoni() {
             .bind("ajax:complete", function () {
                 showDisableButton($('.disableButton', this));
             });
+}
 
-    $('.ddslick').each(function () {
-        $(this).ddslick({
-            width: 300
+function disegnaProgressBar() {
+    $('.timeline').each(function () {
+        if ($(this).attr('data-initialized') == 'true') return;
+        var time_ = $('.time', this);
+        var good_ = $('.good', this);
+        var quorum_ = $('.cur.quorum', this);
+        var badquorum_ = $('.cur.bad.quorum', this);
+        time_.animate({width: time_.data('percentage') + '%'}, 2000);
+        good_.animate({width: good_.data('percentage') + '%'}, 2000);
+        quorum_.css('left', quorum_.data('percentage') + '%');
+        badquorum_.css('left', badquorum_.data('percentage') + '%');
+        $(this).attr('data-initialized', 'true');
+    });
+
+    $('.timeline .cur').qtip({
+        position: {
+            at: 'bottom center',
+            my: 'top center'
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow',
+            tip: {
+                corner: true,
+                width: 5,
+                height: 5
+            }
+        }
+    });
+
+    $('.proposal_bottom .contributes, .proposal_bottom .timeleft, .proposal_bottom .rankDescription').qtip({
+        position: {
+            at: 'bottom center',
+            my: 'top center'
+        },
+        style: {
+            classes: 'qtip-light qtip-shadow',
+            tip: {
+                corner: true,
+                width: 5,
+                height: 5
+            }
+        }
+    });
+
+    $('.alert.notify[data-load="true"]').each(function () {
+        $(this).qtip({
+            content: {
+                text: 'Loading...', // The text to use whilst the AJAX request is loading
+                ajax: {
+                    url: '/alerts/proposal', // URL to the local file
+                    type: 'GET', // POST or GET
+                    data: 'proposal_id=' + $(this).data('proposal-id'),
+                    success: function (data, status) {
+
+                        this.set('content.text', data);
+                    }
+                }
+            },
+            position: {
+                my: 'bottom center',
+                at: 'top center',
+                viewport: $(window),
+                effect: false
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow'
+            },
+            hide: {
+                fixed: true,
+                delay: 500
+            }
         });
     });
 
 
+    $('.proposal_bottom .partecipants').each(function () {
+        $(this).qtip({
+            content: $('.authors', this),
+            position: {
+                at: 'bottom center',
+                my: 'top center'
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow',
+                tip: {
+                    corner: true,
+                    width: 5,
+                    height: 5
+                }
+            }
+        });
+    });
 }
 
 function hideDisableButton(button) {
@@ -224,16 +372,35 @@ function calculate_event_times() {
     et.candidatesTime = et.cet.datetimepicker("getDate");
     et.groupDate = new Date(et.groupTime);
     et.candidatesDate = new Date(et.candidatesTime);
-    console.log('endate: ' + et.eventEndDate);
-    console.log('startdate: ' + et.eventStartDate);
-    console.log('candidatedate: ' + et.candidatesDate);
-    console.log('entime: ' + et.eventEndTime / 1000);
-    console.log('startime: ' + et.eventStartTime / 1000);
-    console.log('candidatetime: ' + et.candidatesTime / 1000);
+    //console.log('endate: ' + et.eventEndDate);
+    //console.log('startdate: ' + et.eventStartDate);
+    //console.log('candidatedate: ' + et.candidatesDate);
+    //console.log('entime: ' + et.eventEndTime / 1000);
+    //console.log('startime: ' + et.eventStartTime / 1000);
+    //console.log('candidatetime: ' + et.candidatesTime / 1000);
 }
 
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes * 60000);
+}
+
+function upperMinutes(date, step) {
+    return addMinutes(date, date.getMinutes() % step);
+}
+
+function dateToString(date) {
+    var day_ = date.getDate()
+    var month_ = date.getMonth() + 1
+    var year_ = date.getFullYear()
+
+    var hours_ = date.getHours()
+    var minutes_ = date.getMinutes()
+
+    if (minutes_ < 10)
+        minutes_ = "0" + minutes_
+
+
+    return day_ + '/' + month_ + '/' + year_ + ' ' + hours_ + ':' + minutes_;
 }
 
 function startTimeChanged() {
@@ -306,10 +473,6 @@ function candidatesTimeChanged() {
 }
 
 var datePickerOptions = {
-    dateFormat: "dd/mm/yy",
-    buttonImageOnly: true,
-    buttonImage: "<%= asset_path('iconCalendar.png') %>",
-    showOn: "both",
     changeMonth: false,
     changeYear: false,
     yearRange: "c:c+10",
@@ -320,8 +483,7 @@ var datePickerOptions = {
     constrainInput: true,
     stepMinute: 5,
     stepHour: 1,
-    altTimeField: "alt",
-    time24h: true
+    altTimeField: "alt"
 }
 
 
@@ -439,7 +601,7 @@ function stripScripts(s) {
 
 
 function read_notifica(el) {
-    var parent_ = $(el).parent()
+    var parent_ = $(el).parent();
     parent_.addClass('old').removeClass('new');
     var url_ = parent_.attr('href');
     var type_id = $(el).data('type_id');
@@ -452,6 +614,20 @@ function read_notifica(el) {
     else {
         box_.remove();
     }
+    var proposal_id = parent_.data('proposal-id');
+    if (proposal_id) {
+        $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
+            var num_ = parseInt($(this).html());
+            if (num_ > 1) {
+                num_ -= 1;
+                $(this).html(num_);
+            }
+            else {
+                $(this).remove();
+            }
+        });
+    }
+
     $.ajax({
         dataType: 'js',
         type: 'get',
@@ -476,9 +652,24 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            $('#alert_cont_' + id + ' .mess.new').removeClass('new');
             var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
             box_.remove();
+            $('#alert_cont_' + id + ' .mess.new').each(function () {
+                $(this).removeClass('new');
+                var proposal_id = $(this).data('proposal-id');
+                if (proposal_id) {
+                    $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
+                        var num_ = parseInt($(this).html());
+                        if (num_ > 1) {
+                            num_ -= 1;
+                            $(this).html(num_);
+                        }
+                        else {
+                            $(this).remove();
+                        }
+                    });
+                }
+            });
         }
     });
 }
@@ -517,26 +708,26 @@ function secondsToString(seconds) {
 }
 
 
-function addQueryParam( url, key, val ){
+function addQueryParam(url, key, val) {
     var parts = url.match(/([^?#]+)(\?[^#]*)?(\#.*)?/);
     var url = parts[1];
     var qs = parts[2] || '';
     var hash = parts[3] || '';
 
-    if ( !qs ) {
-        return url + '?' + key + '=' + encodeURIComponent( val ) + hash;
+    if (!qs) {
+        return url + '?' + key + '=' + encodeURIComponent(val) + hash;
     } else {
         var qs_parts = qs.substr(1).split("&");
         var i;
-        for (i=0;i<qs_parts.length;i++) {
+        for (i = 0; i < qs_parts.length; i++) {
             var qs_pair = qs_parts[i].split("=");
-            if ( qs_pair[0] == key ){
-                qs_parts[ i ] = key + '=' + encodeURIComponent( val );
+            if (qs_pair[0] == key) {
+                qs_parts[ i ] = key + '=' + encodeURIComponent(val);
                 break;
             }
         }
-        if ( i == qs_parts.length ){
-            qs_parts.push( key + '=' + encodeURIComponent( val ) );
+        if (i == qs_parts.length) {
+            qs_parts.push(key + '=' + encodeURIComponent(val));
         }
         return url + '?' + qs_parts.join('&') + hash;
     }
@@ -544,42 +735,21 @@ function addQueryParam( url, key, val ){
 
 //hide left panel if the window width is not large enough
 function hideLeftPanel() {
-    if (window.innerWidth < 1600) {
-        $('#menu-left').animate({'margin-left': '-300'}, 200);
-        $('#centerpanelextended').animate({'margin-left': '-10px', 'max-width': '600px'}, 200);
-    }
-    else if (window.innerWidth < 1800) {
-        $('#centerpanelextended').animate({'max-width': '600px'}, 200);
-    }
-    else {
-        //do nothing, large enogh
-    }
+    $('#menu-left').addClass('contributes_shown')
+    $('#centerpanelextended').addClass('contributes_shown')
+
 }
 
 //hide left panel if the window width is not large enough
 function showLeftPanel() {
-    if (window.innerWidth < 1600) {
-        $('#menu-left').animate({'margin-left': '0'}, 200);
-        $('#centerpanelextended').animate({'margin-left': '280px', 'max-width': '800px'}, 200);
-    }
-    else if (window.innerWidth < 1800) {
-        $('#centerpanelextended').animate({'max-width': '800px'}, 200);
-    }
-    else {
-        //do nothing, large enogh
-    }
+    $('#menu-left').removeClass('contributes_shown')
+    $('#centerpanelextended').removeClass('contributes_shown')
 }
 
 function fitRightMenu(fetched) {
-    if (window.innerWidth < 1600) {
-        fetched.animate({'left': '618px'}, 200);
-    }
-    else if (window.innerWidth < 1800) {
-        fetched.animate({'left': '908px'}, 200);
-    }
-    else {
-        fetched.animate({'left': '1108px'}, 200);
-    }
+    fetched.addClass('contributes_shown');
+    fetched.css('display', '');
+
     fetched.height($(window).height() - 110);
 
     $(window).resize(function () {
@@ -587,16 +757,57 @@ function fitRightMenu(fetched) {
     });
 }
 
+//custom formatter for categories in select2 dropdown
+function formatCategory(state) {
+    if (!state.id) return state.text; // optgroup
+    return "<img src='/assets/proposal_categories/" + state.id.toLowerCase() + "_s.png'/> " + state.text;
+}
+
+//custom formatter for quora in select2 dropdown
+function formatQuorum(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div> <div class=\"quorum_title\">" + state.text + "</div> <div class=\"quorum_desc\">" + $(element_).data('description') + "</div></div>";
+}
+
+//custom formatter for vote period in select2 dropdown
+function formatPeriod(state) {
+    var element_ = state.element;
+    if (!state.id) return state.text; // optgroup
+    return "<div> <div class=\"period_title\">" + state.text + "</div> <div class=\"period_desc\">" + $(element_).data('title') + "</div></div>";
+}
 
 
-jQuery.uaMatch = function( ua ) {
+function initTextAreaTag() {
+    $('.reply_textarea[data-initialized!=1]').each(function () {
+        $(this).textntags({
+            triggers: {'@': {uniqueTags: false}},
+            onDataRequest: function (mode, query, triggerChar, callback) {
+                var data = nicknames;
+
+                query = query.toLowerCase();
+                var found = _.filter(data, function (item) {
+                    return item.name.toLowerCase().indexOf(query) > -1;
+                });
+
+                callback.call(this, found);
+            }
+        });
+        $(this).attr('data-initialized', 1);
+    });
+}
+
+
+
+
+jQuery.uaMatch = function (ua) {
     ua = ua.toLowerCase();
 
-    var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-            /(msie) ([\w.]+)/.exec( ua ) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+    var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+            /(msie) ([\w.]+)/.exec(ua) ||
+            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
             [];
 
     return {
@@ -606,21 +817,24 @@ jQuery.uaMatch = function( ua ) {
 };
 
 // Don't clobber any existing jQuery.browser in case it's different
-if ( !jQuery.browser ) {
-    matched = jQuery.uaMatch( navigator.userAgent );
+if (!jQuery.browser) {
+    matched = jQuery.uaMatch(navigator.userAgent);
     browser = {};
 
-    if ( matched.browser ) {
+    if (matched.browser) {
         browser[ matched.browser ] = true;
         browser.version = matched.version;
     }
 
     // Chrome is Webkit, but Webkit is also Safari.
-    if ( browser.chrome ) {
+    if (browser.chrome) {
         browser.webkit = true;
-    } else if ( browser.webkit ) {
+    } else if (browser.webkit) {
         browser.safari = true;
     }
 
     jQuery.browser = browser;
 }
+
+
+

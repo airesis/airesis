@@ -1,0 +1,39 @@
+<fieldset>
+  <legend>Certify a group</legend>
+<%=form_for add_certificate_groups_url do |f| %>
+    <%= label_tag 'group_id', 'Group' %>   <br/>
+    <%= text_field_tag "group_id" %>           <br/>
+    <%= label_tag 'domain', 'Subdomain' %>   <br/>
+    <%= text_field_tag "domain", '', required: true %>  <br/>
+    <%= submit_tag 'Certify it!', class: 'btn blue' %>
+<%end%>
+</fieldset>
+
+<script type="text/javascript">
+    function format(state) {
+        if (!state.id) return state.text; // optgroup
+        return state.image_path + state.identifier;
+    }
+
+    $("#group_id").select2({
+        containerCssClass: "user_auto",
+        ajax: {
+            url: "<%= autocomplete_groups_url %>",
+            data: function (term, page) {
+                return { "term": term }
+            },
+            results: function (data, page) {
+                return { results: data };
+            }
+        },
+        formatResult: format,
+        formatSelection: format
+    });
+</script>
+
+<h4><%= 'Certified groups' %></h4>
+<table>
+<%Group.where(:certified => true).each do |group| %>
+    <tr><td><%=link_to group.name, group_url(group) %></td><td><%= link_to 'Remove', certification_url(group, group_id: group.id), method: :delete, confirm: 'Are you sure?', disable_with: t('loading'), class: 'btn' %></td></tr>
+<%end%>
+</table>

@@ -3,12 +3,20 @@
 <br/>
 <br/>
 <br/>
-	<%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking" }, :class => 'btn' %>
+    <%= link_to 'Gestisci gruppi certificati', certifications_url, :class => 'btn blue' %>
+    <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list" }, :class => 'btn blue' %>
+    <%= link_to 'Announcements', announcements_path, :class => 'btn blue' %>
+    <%= link_to 'Movements', sys_movements_path, :class => 'btn blue' %>
+    <%= link_to 'Pannello Resque', '/resque_admin', :class => 'btn blue' %>
+
+    <%= link_to 'Funziononi', sys_features_path, :class => 'btn blue' %>
+    <%= link_to 'Certifica utenti', user_sensitives_path, :class => 'btn blue' %>
+
+    <%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking" }, :class => 'btn' %>
 	<%= link_to 'Ricalcola stato proposte', {:action => "change_proposals_state", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Verifica validità Gruppi', {:action => "validate_groups", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Aggiorna sitemap', {:action => "write_sitemap", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Cancella vecchie notifiche', {:action => "delete_old_notifications", :controller => "admin"}, :class => 'btn' %>
-	<%= link_to 'Pannello Resque', '/resque_admin', :class => 'btn' %>
 	<%= link_to 'Redis Test', {:action => "test_redis", :controller => "admin"}, :class => 'btn' %>
     <%= link_to 'Notification Test', {:action => "test_notification", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Scheduler Test', {:action => "test_scheduler", :controller => "admin"}, :class => 'btn' %>
@@ -16,9 +24,7 @@
 	<%= link_to 'Tutorials', '/tutorials', :class => 'btn' %>
 	<%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'btn' %>
-    <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list" }, :class => 'btn' %>
-    <%= link_to 'Announcements', announcements_path, :class => 'btn' %>
-    <%= link_to 'Movements', sys_movements_path, :class => 'btn' %>
+
 
 	<p>
 		<%current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |group_partecipation|

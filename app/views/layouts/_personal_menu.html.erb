@@ -1,0 +1,41 @@
+<div class="personal_cont">
+  <h2><%= current_user.fullname %></h2>
+
+  <div class="sep"></div>
+  <li>
+    <%= link_to t('pages.header.menu.my_page'), home_url %>
+  </li>
+  <li>
+    <% if current_user.blog %>
+        <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
+    <% else %>
+        <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
+  </li>
+  <div class="sep"></div>
+  <li>
+    <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
+  </li>
+  <% if is_moderator? %>
+      <li>
+        <%= link_to t('pages.header.menu.moderator'), moderator_panel_path %>
+      </li>
+  <% end %>
+  <% if is_admin? %>
+      <li>
+        <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
+      </li>
+      <div class="sep"></div>
+
+      <%= form_tag "/admin/become/" do %>
+          <%= label_tag t('pages.header.menu.become_user') %>
+          <br/>
+          <%= text_field_tag 'user_id' %> <br/>
+          <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
+      <% end %>
+
+  <% end %>
+</div>

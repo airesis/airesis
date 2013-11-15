@@ -1,0 +1,44 @@
+<label><%=t('frm.admin.forums.category') %><br/></label>
+<%= f.select :category_id, @group.categories.all.map { |r| [r.name, r.id, { 'data-tags' => r.tags_data}] } %>
+
+<%= f.input :title %>
+<%= f.input :description, :as => :text %>
+
+<%= f.input :tags_list %>
+
+<%= f.input :visible_outside %>
+<h3><%= t('frm.admin.forum.moderator_groups') %></h3>
+<%= f.association :moderators, collection: @group.moderator_groups, as: :check_boxes %>
+<%= f.submit :class => "btn blue" %>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        var input = $('#frm_forum_tags_list')
+        if (input != null) {
+            input.tokenInput("<%=tags_path(format: :json )%>", {
+                theme: "facebook",
+                crossDomain: false,
+                allowFreeTagging: true,
+                minChars: 3,
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
+                prePopulate: <%=raw @forum.tags_data%>,
+                preventDuplicates: true,
+                allowTabOut: true,
+                tokenValue: "name",
+                tokenLimit: 5
+            })
+        }
+
+        $('#frm_forum_category').change(function(ev) {
+            var tags_ = $(this).find(':selected').data('tags');
+            input.tokenInput('clear');
+            $.each(tags_, function (index, value) {
+                input.tokenInput('add',value);
+            });
+        });
+
+    });
+</script>

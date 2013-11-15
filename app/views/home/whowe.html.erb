@@ -1,275 +1,322 @@
-<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+<% @page_title = t('.title') %>
+<% @page_descr = t('.description') %>
 
-<% @page_title = "Chi siamo" %>
-<% @page_descr = "Un gruppo di volontari che vogliono migliorare il mondo in cui si vive, dei cittadini come te. " %>
-<h2 id="opensource">Cittadini che vogliono una democrazia pi&ugrave; evoluta</h2>
+<div class="row">
+  <div class="row centered">
+    <dl class="sub-nav">
+      <dd><a href="#development">Area Sviluppo</a></dd>
+      <dd><a href="#analysis">Area Analisi</a></dd>
+      <dd><a href="#graphic">Area Grafica</a></dd>
+      <dd><a href="#i18n">Area Internazionalizzazione</a></dd>
+      <dd><a href="#communication">Area Comunicazione</a></dd>
+      <dd><a href="#test">Area Test</a></dd>
+      <dd><a href="#others">Altri volontari</a></dd>
+    </dl>
+  </div>
+</div>
 
-<p>Airesis nasce dall'unione dei progetti Agor&agrave; 2.0 e Airesis confluiti successivamente nell'associazione
-  <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a> che ha l'obiettivo di
-  realizzare una innovativa piattaforma open-source per l'e-democracy. </p>
-<p>Il lavoro &egrave; portato avanti <strong>interamente da volontari </strong>, uniti dalla volont&agrave; di creare
-  uno strumento che consenta ai cittadini e ai gruppi di organizzarsi ed elaborare
-  <strong>risposte ai problemi comuni </strong>in modo <strong>trasparente </strong>, <strong>democratico</strong>,
-  <strong>partecipato</strong>, <strong>costruttivo</strong>, valorizzando l' <strong>intelligenza collettiva </strong>.
-</p>
+<div class="row">
+  <div class="row centered">
 
-<p>Se anche tu condividi il nostro obiettivo <a href="/partecipa">puoi contribuire</a> contattando i nostri volontari:
-</p>
+    <h2 id="opensource">Cittadini che vogliono una democrazia pi&ugrave; evoluta</h2>
 
-<h2>Area Sviluppo</h2>
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
+    <p>Airesis nasce dall'unione dei progetti Agor&agrave; 2.0 e Airesis confluiti successivamente nell'associazione
+      <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a> che ha l'obiettivo di
+      realizzare una innovativa piattaforma open-source per l'e-democracy. </p>
 
-    <a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br/>
-    <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
-      <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
-      <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
-      <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
-    </a><br/>
-    <a href="mailto:coorasse@gmail.com">
-      <%= image_tag "gmail_icon.gif" %>
-      coorasse@gmail.com
+    <p>Il lavoro &egrave; portato avanti <strong>interamente da volontari </strong>, uniti dalla volont&agrave; di
+      creare
+      uno strumento che consenta ai cittadini e ai gruppi di organizzarsi ed elaborare
+      <strong>risposte ai problemi comuni </strong>in modo <strong>trasparente </strong>, <strong>democratico</strong>,
+      <strong>partecipato</strong>, <strong>costruttivo</strong>, valorizzando l'
+      <strong>intelligenza collettiva </strong>.
+    </p>
+
+    <p>Se anche tu condividi il nostro obiettivo <a href="/partecipa">puoi contribuire</a> contattando i nostri
+      volontari.
+    </p>
+
+    <p>Guarda <%= link_to 'la storia di Airesis', story_path %> nel corso degli anni. Scopri come siamo nati e cresciuti
+      e quali sono i nostri obiettivi per il futuro
+    </p>
+  </div>
+
+</div>
+
+<div class="slide red">
+  <div class="row centered">
+    <h2><%= t('.development_area') %></h2>
+    <div id="development" class="fake_anchor"></div>
+
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
+      </div>
+      <div>
+        <a href="skype:coorasse?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br/>
+        <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+          <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
+          <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
+          <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+        </a><br/>
+        <a href="mailto:coorasse@gmail.com">
+          <%= image_tag "gmail_icon.gif" %>
+          coorasse@gmail.com
+        </a>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Alessandro Rodi</h3>
+        <h4><%= t('.rodi_alessandro.title') %></h4>
+        <%= t('.rodi_alessandro.content_html', age: age(Date.new(1986, 8, 19))) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide yellow">
+  <div class="row centered">
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/tilatti_marino.png", :width => 150 %>
+      </div>
+      <div>
+        <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Marino Tilatti</h3>
+        <h4><%= t('.tilatti_marino.title') %></h4>
+        <%= t('.tilatti_marino.content_html') %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="slide violet">
+  <div class="row centered">
+    <h2><%= t('.analysis_area') %></h2>
+    <div id="analysis" class="fake_anchor"></div>
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/giulietti_nicola.png", :width => 150 %>
+      </div>
+      <div>
+        <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
+        <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
+        <span>cell 380/2931955</span>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Nicola Giulietti</h3>
+        <h4><%= t('.giulietti_nicola.title') %></h4>
+        <%= t('.giulietti_nicola.content_html', age: age(Date.new(1984, 8, 19)), volunteer: age(Date.new(1998, 8, 19))) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="slide green ">
+  <div class="row centered">
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/baiotto_marco.png", :width => 150 %>
+      </div>
+      <div>
+        <a href="mailto:marco.baiotto@gmail.com">marco.baiotto@gmail.com</a>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Marco Baiotto</h3>
+        <h4><%= t('.baiotto_marco.title') %></h4>
+        <%= t('.baiotto_marco.content_html') %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide blue">
+  <div class="row centered">
+    <h2><%= t('.graphic_area') %></h2>
+    <div id="graphic" class="fake_anchor"></div>
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/kabora_marcello.jpg", :width => 150 %>
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Marcello Kabora</h3>
+        <h4><%= t('.kabora_marcello.title') %></h4>
+        <%= t('.kabora_marcello.content_html') %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide yellow">
+  <div class="row centered">
+    <h2><%= t('.i18n_area') %></h2>
+    <div id="i18n" class="fake_anchor"></div>
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/tolja_jacopo.jpg", :width => 150 %>
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Jacopo Tolja</h3>
+        <h4><%= t('.tolja_jacopo.title') %></h4>
+        <%= t('.tolja_jacopo.content_html') %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="slide red">
+  <div class="row centered">
+    <h2><%= t('.communication_area') %></h2>
+    <div id="communication" class="fake_anchor"></div>
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/curini_simone.jpg", :width => 150 %>
+      </div>
+      <div>
+        <a href="skype:curini.simone?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Simone Curini</h3>
+        <h4><%= t('.curini_simone.title') %></h4>
+        <%= t('.curini_simone.content_html', age: age(Date.new(1977, 8, 19)), volunteers: age(Date.new(2006, 1, 1))) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide yellow">
+  <div class="row centered">
+    <h2><%= t('.test_area') %></h2>
+    <div id="test" class="fake_anchor"></div>
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/mion_carlo.jpg", :width => 150 %>
+      </div>
+      <div>
+        <%= mail_to 'carlo.mion@airesis.it' %>
+        <div class="g-plus" data-height="131" data-width="100" height="131" data-href="//plus.google.com/101515742553331217199" data-rel="author"></div>
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Carlo Mion</h3>
+        <h4><%= t('.mion_carlo.title') %></h4>
+        <%= t('.mion_carlo.content_html') %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="slide red">
+  <div class="row centered">
+    <div class="large-3  columns">
+      <div class="image_volontario">
+        <%= image_tag "volunteers/zanellato_luca.jpg", :width => 150 %>
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <div class="large-9 columns">
+      <div class="descrizione_volontario">
+        <h3>Luca Zanellato</h3>
+        <h4><%= t('.zanellato_luca.title') %></h4>
+        <%= t('.zanellato_luca.content_html') %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="row centered">
+    <h2><%= t('.other_voluteers') %></h2>
+    <div id="others" class="fake_anchor"></div>
+    <p>Chiara Gianferrari, Fabio Ceccarelli, Fabio Palmieri, Giovani Spagnolo, Laura Maccioni, Luca Zanellato, Pietro
+      Speroni di Fenizio</p>
+
+    <h2><%= t('.contributors') %></h2>
+
+    <p><%= t('.contributors_desc') %> </p>
+    <p>
+      Alessandro Socciarello, Andrea Papini, Aramis amantini,
+      Danilo Mezgec, Enrico Mengotti, Fabio Alemagna, Fabrizio Traboni, Fatima Foudal,
+      Francesco Ercavalierenero,Gabriella Creti, Gianmarco Barel, Heba Saied,
+      Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri,
+      Riccardo Leone, Rui Martins, Simone D'Errico, Veit Ladurner...</p>
+
+    <h2><%= t('.special_thanks') %></h2>
+    <ul>
+      <li><a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5
+        Stelle</a> che supporta il
+        progetto e ha finanziato le spese per l'hosting per tutto il 2013  e 2014
+      </li>
+      <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave;
+        necessarie
+        per portarlo avanti
+      </li>
+      <li>Chi ci segue attraverso le nostre pagine facebook e le nostre mailing list, fornendo utili consigli,
+        informazioni
+        ed un caldo supporto morale
+      </li>
+      <li>Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo.</li>
+      <li><a href="http://www.jetbrains.com/" target="_blank">JetBrains</a> che ci fornisce gratuitamente
+        <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo
+      </li>
+      <li><a href="https://crowdin.net/" target="_blank">Crowdin</a> che ci fornisce gratuitamente
+        <a href="https://crowdin.net/project/airesis" target="_blank">la piattaforma per le traduzioni e
+          l'internazionalizzazione</a>
+      </li>
+      <li><a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente
+        <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione
+        e
+        realizzazione dei test
+      </li>
+      <li>Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce
+        gratuitamente
+        l'abbonamento
+        <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su
+        Ruby
+        On Rails
+      </li>
+    </ul>
+    <a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
+      <img src="http://www.h-online.com/imgs/43/6/0/0/6/6/4/RubyMine_logo200-d15f4bf32abe0692.png" height="32px"/>
+    </a>
+    <a href="http://www.gurock.com/testrail/" target="_blank" style="margin-right:40px;">
+      <img src="http://www.gurock.com/images/start/testrail.png" height="32px"/>
+    </a>
+    <a href="http://railscasts.com/" target="_blank">
+      <img src="http://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" height="32px"/>
     </a>
   </div>
-  <div class="descrizione_volontario">
-    <h3>Alessandro Rodi</h3>
-    <h4>Referente per la programmazione e webmaster</h4>
-
-    <p>
-      Ho <%= age(Date.new(1986, 8, 19)) %> anni e vivo a Zurigo dove lavoro come sviluppatore Java e Ruby On Rails.
-      Coltivo la passione per la programmazione da molti anni e nel 2009 ho completato il mio percorso di studi
-      laureandomi in Scienze dell'Informazione a Bologna.
-      Appassionato di politica e tecnologie digitali, a Luglio 2011 mi sono avvicinato a Ruby On Rails e ho iniziato a
-      gettare le basi del codice di Airesis, con in mente un progetto ambizioso: la creazione di un software per la
-      democrazia partecipata.
-      Affascinato da come la politica stia cambiando in questi anni e dal fatto che dovrà presto fare i conti con la
-      rete, mi sono reso conto che uno strumento simile non è mai stato messo a disposizione dei cittadini e
-      quindi....eccomi quà!
-      All'interno del progetto mi occupo di coordinare le attività di sviluppo e della programmazione vera e propria;
-      sono di supporto agli altri programmatori e fungo da supervisore alla qualità del codice. Aiuto inoltre
-      nell'elaborazione delle logiche e nella definizione delle tempistiche necessarie al loro completamento. </p>
-  </div>
-  <div style="clear:both;"></div>
 </div>
-
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/tilatti_marino.png", :width => 150 %>
-    <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Marino Tilatti</h3>
-    <h4>Sviluppatore e coordinatore</h4>
-    Durante i miei studi universitari, compresi le grandi possibilità che internet offre all'umanità.
-    Appena laureatomi in Economia e Commercio scelsi di dedicarmi alle mie passioni e diedi vita in pochi anni ad alcuni
-    importanti portali riguardo il mondo degli animali e gli immobili di prestigio,
-    oltre ad alcuni Application Service Provider.
-    Il mio sogno nel cassetto però rimane sempre quello di realizzare uno strumento decisionale capace di attuare la
-    democrazia diretta,
-    per questo, non appena ho saputo di questo progetto mi sono buttato a capofitto nonostante i miei altri impegni e i
-    miei due splendidi bambini.
-    Sto curando gli aspetti grafici e di usabilità, l'aspetto SEO e di comunicazione, oltre alla parte prettamente
-    tecnica di supporto alla programmazione.
-  </div>
-  <div style="clear:both;"></div>
-</div>
-<br/>
-
-
-<h2>Area Analisi</h2>
-
-
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/giulietti_nicola.png", :width => 150 %>
-    <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
-    <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a>
-    <span>cell 380/2931955</span>
-    <!-- Place this code where you want the badge to render. -->
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Nicola Giulietti</h3>
-    <h4>Analista e coordinatore</h4>
-
-    <p>
-      Ho <%= age(Date.new(1984, 8, 19)) %> anni e da circa <%= age(Date.new(1998, 8, 19)) %> sono impegnato nel mondo
-      del volontariato, nell'ambito del quale ho coordinato numerose attività. Ho studiato ingegneria ambientale ed
-      ingegneria energetica. Durante l’università ho partecipato ad alcuni progetti di innovazione tecnologica e ho
-      lavorato nel campo della sostenibilità e della democrazia partecipata.
-      In Agorà 2.0 - Airesis mi sono occupato un po' di tutto fuorché della programmazione: studio delle logiche,
-      coordinamento, grafica. Non è facile essere circondati da informatici, ma resisterò finché Airesis non consentirà
-      alla gente di auto-organizzarsi in modo efficiente e democratico per recuperare il volante di questo mondo
-      impazzito.
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
-
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/baiotto_marco.png", :width => 150 %>
-    <a href="mailto:marco.baiotto@gmail.com">marco.baiotto@gmail.com</a>
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Marco Baiotto</h3>
-    <h4>Analista</h4>
-
-    <p>
-      Riveste il ruolo di responsabile dei sistemi informativi per due grandi aziende metalmeccaniche appartenenti ad
-      una
-      holding internazionale operante nel settore automotive.
-      Da sempre diviso tra informatica e scienze umane, è giornalista pubblicista e critico letterario.
-      Curatore del sito <%= link_to 'http://www.lordglenn.com', 'http://www.lordglenn.com', target: '_blank' %> (nonché
-      giudice nell’omonimo concorso letterario dedicato agli animali), ha
-      collaborato a siti internet e riviste culturali e di varia umanità (tra
-      cui <%= link_to 'http://www.literary.it', 'www.literary.it', target: '_blank' %> ), nonché a volumi collettanei.
-      Ideatore dell’iperrelazionismo sensibile, costrutto filosofico in fieri, è autore del saggio "Wide Democracy,
-      oltre
-      la politica", sintesi di 3 anni di studi volti a realizzare un software di E-democracy certificato (rimasto allo
-      stadio
-      prototipale).<br/>
-      Si è imbattuto nel progetto Airesis e ne è rimasto folgorato. Ha deciso così di devolvere il frutto delle proprie
-      ricerche
-      ed il suo tempo libero, partecipando al gruppo di sviluppo. Si occupa prevalentemente di analisi delle logiche
-      funzionali e di testing, ma non disdegna la critica etica e filosofica rispetto alle scelte evolutive di più largo
-      respiro
-      operate all’interno del gruppo.
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
-
-<h2>Area Grafica</h2>
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/kabora_marcello.jpg", :width => 150 %>
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Marcello Kabora</h3>
-    <h4>Grafico</h4>
-
-    <p>
-      Sono un ragazzo capace e dinamico in cerca di un lavoro dove sviluppare le mie capacita accumulate in questi ultimi anni di lavoro, in particolare, nella costruzione di siti web, applicazioni, loghi,
-      cataloghi e volantini.
-      So utilizzare molti programmi di grafica e linguaggi informatici e cerco sempre tenermi aggiornato sui nuovi sviluppi informatici.
-      Mi piace lavorare in gruppo ma anche da solo, se il caso lo richiede, sono molto attento ai dettagli e so risolvere problemi attraverso ricerche specifiche.
-      So gestire lo stress molto bene ed ho buone capacità di comunicazione.
-      Negli ultimi due anni ho lavorato a diversi progetti a distanza, creato un forte comunicazione e ho sempre raggiunto gli obiettivi concordati in termini di efficacia e tempistica.
-      Per vedere il mio curriculum e i miei ultimi lavori vi invito a visitare il mio portale - <%= link_to 'www.marcellokabora.com', 'http://www.marcellokabora.com', target: '_blank' %>.
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
-
-<h2>Area Comunicazione</h2>
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/curini_simone.jpg", :width => 150 %>
-    <a href="skype:curini.simone?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Simone Curini</h3>
-    <h4>Divulgazione del progetto sul territorio e contatti con i Meetup</h4>
-
-    <p>
-      Ho <%= age(Date.new(1977, 8, 19)) %> anni e da circa  <%= age(Date.new(2006, 1, 1)) %> sono impegnato in attività
-      politiche e sociali su Firenze col movimento 5 stelle . Ho studiato economia e commercio (mercati finanziari) ,
-      poi ho capito chi ( o cosa ) sarei dovuto essere per onorare i miei studi ed ho preferito lidi familiari . Faccio
-      l'antiquario ed il tempo che questo lavoro mi ha regalato l'ho impiegato per perfezionare la conoscenza di alcuni
-      linguaggi di programmazione quali php e java.
-      In Agorà 2.0 - Airesis sono stato coinvolto da Nicola nel 2010 per lo studio delle logiche, per la creazione degli
-      spazi virtuali in cui ha avuto luogo il confronto tra i vari programmatori, ed infine per la sua presentazione e
-      promozione . Attualmente sto studiando Ruby nonostante una figlia di 8 mesi meravigliosamente impegnativa. La
-      speranza è quella di dare vita ad un sogno in cui la politica sia fatta dai cittadini per i cittadini per ottenere
-      sempre la soluzione più condivisa e ponderata possibile.
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
-
-
-<h2>Area Test</h2>
-
-<div class="scheda_volontario">
-  <div class="image_volontario">
-    <%= image_tag "volunteers/mion_carlo.jpg", :width => 150 %>
-    <%= mail_to 'mion00@gmail.com' %>
-    <div class="g-plus" data-height="131" data-width="100" height="131" data-href="//plus.google.com/101515742553331217199" data-rel="author"></div>
-  </div>
-  <div class="descrizione_volontario">
-    <h3>Carlo Mion</h3>
-    <h4>Tester e coordinatore</h4>
-
-    <p>
-      Sono uno studente che sta completando il primo ciclo di istruzione.
-      Ho scoperto da poco la mia passione per l'informatica e ho intenzione di continuare i miei studi universitari per approfondire questa scienza.
-      Ne sono affascinato perché ha rivoluzionato le nostre vite e continua ad evolvere giorno dopo giorno.<br/>
-      Ho imparato che alcuni intellettuali immaginavano una democrazia in cui fosse possibile prendere decisioni condivise dai cittadini attraverso la partecipazione degli stessi.
-      Credo che Airesis renda possibile ciò e per questo ho dato la mia disponibilità per aiutarne lo sviluppo.<br/>
-      Faccio parte del gruppo di testing, che ha lo scopo di verificare il corretto funzionamento di Airesis.
-      Raccolgo i feedback degli utenti e segnalo eventuali anomalie e problemi riscontrati, perché siano prontamente risolti dagli sviluppatori.
-      Mi occupo anche di testare le ultime novità introdotte nella piattaforma prima che siano rilasciate al pubblico.
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
-<!--
-<div class="scheda_volontario">
-  <div class="image_volontario">
-
-  </div>
-  <div class="descrizione_volontario">
-    <h3></h3>
-    <h4></h4>
-
-    <p>
-    </p>
-  </div>
-  <div style="clear:both;"></div>
-</div>
--->
-
-<h2>Altri volontari attivi nel progetto</h2>
-
-<p>Chiara Gianferrari, Fabio Ceccarelli, Fabio Palmieri, Giovani Spagnolo, Jacopo Tolja, Laura Maccioni,
-  Luca Zanellato, Pietro Speroni di Fenizio</p>
-
-<h2>Hanno contribuito</h2>
-<p>Hanno messo il loro tempo libero a disposizione del progetto anche (in ordine alfabetico): Alessandro Socciarello,
-  Andrea Papini, Aramis amantini, Danilo Mezgec, Enrico Mengotti, Fabio Alemagna, Fabrizio Traboni, Fatima Foudal, Francesco Ercavalierenero,Gabriella Creti, Gianmarco
-  Barel, Heba Saied, Marco Zordan, Mauro Sasso, Matteo Martini, Massimo Pagani, Michelangelo Marchesi, Pietro Polimeri, Riccardo Leone, Rui Martins, Simone
-  D'Errico, Veit Ladurner...</p>
-<h2>Uno speciale ringraziamento a</h2>
-<ul>
-  <li><a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5 Stelle</a> che supporta il
-    progetto e ha finanziato le spese per l'hosting per tutto il 2013
-  </li>
-  <li>Chi ha lavorato nell'ombra per divulgare il progetto aiutandoci a reperire le professionalit&agrave; necessarie
-    per portarlo avanti.
-  </li>
-  <li>Chi ci segue attraverso le nostre pagine facebook e le nostre mailing list, fornendo utili consigli, informazioni
-    ed un caldo supporto morale.
-  </li>
-  <li>Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo.</li>
-  <li><a href="http://www.jetbrains.com/" target="_blank">JetBrains</a> che ci fornisce gratuitamente
-    <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo. oute
-  </li>
-  <li><a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente
-    <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e
-    realizzazione dei test
-  </li>
-  <li>Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente l'abbonamento
-    <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby On Rails
-  </li>
-</ul>
-<a href="http://www.jetbrains.com/ruby/" target="_blank" style="margin-right:40px;">
-  <img src="http://www.h-online.com/imgs/43/6/0/0/6/6/4/RubyMine_logo200-d15f4bf32abe0692.png" height="32px"/>
-</a>
-<a href="http://www.gurock.com/testrail/" target="_blank" style="margin-right:40px;">
-  <img src="http://www.gurock.com/images/start/testrail.png" height="32px"/>
-</a>
-<a href="http://railscasts.com/" target="_blank">
-  <img src="http://railscasts.com/assets/railscasts_logo-7101a7cd0a48292a0c07276981855edb.png" height="32px"/>
-</a>
-

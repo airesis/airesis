@@ -1,0 +1,123 @@
+ro:
+  calendar:
+    monthNames: "['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie']"
+    monthNamesShort: "['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec']"
+    dayNames: "['Duminică','Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă']"
+    dayNamesShort: "['Dum','Lun',Mar','Mie','Joi','Vin','Sâm']"
+    today: astăzi
+    month: lună
+    week: săptămână
+    day: zi
+    firstDay: "0"
+    timeFormat: 'h(:mm)t '
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: %d-%m-%Y
+      short: %b %d
+    day_names:
+      - Duminică
+      - Luni
+      - Marţi
+      - Miercuri
+      - Joi
+      - Vineri
+      - Sâmbătă
+    abbr_day_names:
+      - Dum
+      - Lun
+      - Mar
+      - Mie
+      - Vin
+      - Joi
+      - Sâm
+    month_names:
+      -
+      - Ianuarie
+      - Februarie
+      - Martie
+      - Aprilie
+      - Mai
+      - Iunie
+      - Iulie
+      - August
+      - Septembrie
+      - Octombrie
+      - Noiembrie
+      - Decembrie
+    abbr_month_names:
+      -
+      - Ian
+      - Feb
+      - Mar
+      - Apr
+      - Mai
+      - Iun
+      - Iul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+  time:
+    formats:
+      default: %d %b %Y at %H:%M
+      long: %A %d %B %Y %H:%M
+      long_date: %A %d %B %Y
+      long_date_time: %A %d %B %Y at %H:%M
+      from_long_date_time: From %A %d %B %Y at %H:%M
+      until_long_date_time: Until %A %d %B %Y at %H:%M
+      weekday: %A
+      month: %B
+      dayandmonth: %d/%m
+      textfield: "%d/%m/%Y %H:%M"
+    am: am
+    pm: pm
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximativ o oră în urmă
+        other: 'aproximativ %{count} ore în urmă'
+      about_x_months:
+        one: aproximativ o lună în urmă
+        other: 'aproximativ %{count} luni în urmă'
+      about_x_years:
+        one: aproximativ un an în urmă
+        other: 'aproximativ %{count} ani în urmă'
+      almost_x_years:
+        one: aproape un an în urmă
+        other: 'aproape %{count} ani în urmă'
+      half_a_minute: o jumătate de minut în urmă
+      less_than_x_minutes:
+        one: mai puţin de un minut în urmă
+        other: 'la mai puţin de {count} % minute în urmă'
+      less_than_x_seconds:
+        one: mai puţin de o secundă în urmă
+        other: 'la mai puţin de %{count} secunde în urmă'
+      over_x_years:
+        one: mai mult de un an în urmă
+        other: 'mai mult de %{count} ani în urmă'
+      x_days:
+        one: acum o zi
+        other: '! "%{count} zile în urmă"'
+      x_minutes:
+        one: un minut în urmă
+        other: '! "%{count} minute în urmă"'
+      x_months:
+        one: o lună în urmă
+        other: '! "%{count} luni în urmă"'
+      x_seconds:
+        one: o secundă în urmă
+        other: '! "%{count} secunde"'
+  day:
+    one: 'ziua de {count} %'
+    other: '%{count} zile'
+  hour:
+    one: '%{count} oră'
+    other: '%{count} ore'
+  minute:
+    one: '%{count} minut'
+    other: '%{count} minute'

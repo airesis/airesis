@@ -1,0 +1,10 @@
+<% if (params[:view] == SearchProposal::ORDER_BY_RANK) %>
+    <span class="order_option sel">
+            <%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => SearchProposal::ORDER_BY_RANK, :replace => true, :replace_id => @replace_id, order: params[:order] == 'a' ? nil : 'a'), title:"Ordina le proposte per gradimento", :remote => true, disable_with: t('loading') %>
+      <%= image_tag params[:order] == 'a' ? 'order_asc.png' : 'order_desc.png' %>
+      </span>
+<% else %>
+    <span class="order_option">
+			<%= link_to t('pages.proposals.tabs.most_popular'), current_url(:view => SearchProposal::ORDER_BY_RANK, :replace => true, :replace_id => @replace_id),title:"Ordina le proposte per gradimento", :remote => true, disable_with: t('loading') %>
+              </span>
+<% end %>

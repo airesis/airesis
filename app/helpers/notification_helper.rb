@@ -7,12 +7,9 @@ module NotificationHelper
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
-      alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
-      alert.save! #invia la notifica
+      @alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false);
+      @alert.save! #invia la notifica
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
-      if (!user.blocked_email_notifications.include? notification.notification_type) && user.email
-        ResqueMailer.notification(alert.id).deliver
-      end
     end
     true
   end
@@ -37,32 +34,14 @@ module NotificationHelper
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
     end
-
   end
-
-  #invia le notifiche quando un una proposta viene modificata
-  #le notifiche vengono inviate ai creatori e ai partecipanti alla proposta
-  def notify_proposal_has_been_updated(proposal, group=nil)
-    data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision ? proposal.last_revision.id : nil), 'title' => proposal.title, 'i18n' => 't'}
-    data['group'] = group.name if group
-    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
-    notification_a.save
-    proposal.partecipants.each do |user|
-      if user != current_user
-        #non inviare la notifica se l'utente ne ha già una uguale sulla stessa proposta che ancora non ha letto
-        another = Notification.first(:joins => [:notification_data, :user_alerts => [:user]], :conditions => ['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false', 'proposal_id', proposal.id.to_s, 2, user.id.to_s])
-        send_notification_to_user(notification_a, user) unless (another || BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id))
-      end
-    end
-  end
-
 
   def notify_user_unintegrated_contribute(proposal_comment)
     @proposal = proposal_comment.proposal
     @group = @proposal.private ? @proposal.presentation_groups.first : nil
     comment_user = proposal_comment.user
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
-    name = (nickname && @proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
+    name = @proposal.is_anonima? ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
 
     data = {'proposal_id' => @proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => @proposal.title, 'i18n' => 't'}
     data['group'] = @group.name if @group
@@ -81,7 +60,7 @@ module NotificationHelper
   def notify_proposal_waiting_for_date(proposal, group = nil)
 
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(current_user.id, proposal.id)
-    name = nickname ? nickname.nickname : current_user.fullname
+    name = proposal.is_anonima? ? nickname.nickname : current_user.fullname
     data = {'proposal_id' => proposal.id.to_s, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'waiting_date'}
     data['group'] = group.name if group
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
@@ -108,12 +87,8 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la proposta è in votazione
-  def notify_proposal_in_vote(proposal, group=nil)
-    subject = ''
-    subject += "[#{group.name}] " if group
-    subject +="#{proposal.title} - VIENI A VOTARE!"
-
-    data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
+  def notify_proposal_in_vote(proposal, group=nil, group_area=nil)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
 
@@ -127,7 +102,41 @@ module NotificationHelper
     notification_b.save
 
     users = group ?
-        group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        proposal.partecipants
+
+    users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        unless proposal.users.include? user
+          send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+        end
+      end
+    end
+
+
+  end
+
+  #invia le notifihe per dire che la votazione è terminata
+  def notify_proposal_voted(proposal, group=nil, group_area=nil)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'voted'}
+    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_a.save
+
+    proposal.users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+      end
+    end
+
+    notification_b = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_b.save
+
+    users = group ?
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
         proposal.partecipants
 
     users.each do |user|
@@ -276,33 +285,6 @@ module NotificationHelper
   end
 
 
-  #invia una notifica agli utenti che è stato creato un nuovo evento
-  def notify_new_event(event)
-    if event.private
-      organizer = event.organizers.first
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't'}
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, :url => event_url(event), data: data)
-      notification_a.save
-
-      organizer.partecipants.each do |user|
-        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
-          send_notification_to_user(notification_a, user)
-        end
-      end
-    else
-      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'i18n' => 't'}
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
-      notification_a.save
-
-      User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = #{NotificationType::NEW_PUBLIC_EVENTS}").to_sql})").each do |user|
-        unless user == current_user #invia la notifica a tutti tranne a chi ha creato l'evento
-          send_notification_to_user(notification_a, user)
-        end
-      end
-    end
-  end
-
-
   #send an alert to the author that there is a new comments in his blog
   def notify_new_blog_post_comment(blog_comment)
     blog_post = blog_comment.blog_post
@@ -312,6 +294,88 @@ module NotificationHelper
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
       notification_a.save
       send_notification_to_user(notification_a, blog_post.user)
+    end
+  end
+
+  #send an alert to partecipants that there is a new comment in the event
+  def notify_new_event_comment(event_comment)
+#    blog_post = blog_comment.blog_post
+#    user = blog_comment.user
+#    unless blog_post.user == user #don't send a notification to myself
+#      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}", 'user' => user.fullname, 'title' => blog_post.title, 'i18n' => 't'}
+#      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
+#      notification_a.save
+#      send_notification_to_user(notification_a, blog_post.user)
+#    end
+    #TODO
+  end
+
+
+
+  def notify_24_hours_left(proposal)
+    time_left(proposal, '24_hours')
+  end
+
+  def notify_1_hour_left(proposal)
+    time_left(proposal, '1_hour')
+  end
+
+
+  def notify_24_hours_left_to_vote(proposal)
+    time_left_vote(proposal, '24_hours_vote')
+  end
+
+  def notify_1_hour_left_to_vote(proposal)
+    time_left_vote(proposal, '1_hour_vote')
+  end
+
+  protected
+
+  def time_left(proposal, type)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
+    group = proposal.private ? proposal.presentation_groups.first : nil
+    data['group'] = group.name if group
+    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a.save!
+    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b.save!
+    proposal.notification_receivers.each do |user|
+      (proposal.users.include? user) ?
+          send_notification_to_user(notification_b, user) :
+          send_notification_to_user(notification_a, user)
+    end
+  end
+
+
+  def time_left_vote(proposal, type)
+    data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
+    group = proposal.private ? proposal.presentation_groups.first : nil
+    data['group'] = group.name if group
+
+    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a.save!
+
+    proposal.users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        send_notification_to_user(notification_a, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
+      end
+    end
+
+    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b.save!
+
+    users = group ?
+        group_area ?
+            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
+        proposal.partecipants
+
+    users.each do |user|
+      if !(defined? current_user) || (user != current_user)
+        unless proposal.users.include? user
+          send_notification_to_user(notification_b, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
+        end
+      end
     end
   end
 end

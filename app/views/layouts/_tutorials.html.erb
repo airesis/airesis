@@ -1,0 +1,9 @@
+<%if user_signed_in? && @step%>
+    <%if @step.is_html? %>
+        <%= render :partial => "steps/#{@step.fragment}", formats: :html, :layout => "layouts/tutorial" %>
+    <%else%>
+        <script type="text/javascript">
+        <%= render :partial => "steps/#{@step.fragment}", formats: :js, :layout => "layouts/tutorial" %>
+        </script>
+    <%end%>
+<%end%>

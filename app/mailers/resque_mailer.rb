@@ -20,7 +20,7 @@ class ResqueMailer < ActionMailer::Base
       mail(:to => "discussion+#{to_id}@airesis.it", :bcc => @alert.user.email, :subject => subject, :template_name => template_name)
     else
 
-      mail(:to => @alert.user.email, :subject => subject, :template_name => template_name)
+      mail(:to => @alert.user.email, from: "Airesis <noreply@airesis.it>", :subject => subject, :template_name => template_name)
     end
   end
   
@@ -60,6 +60,7 @@ class ResqueMailer < ActionMailer::Base
     @body = body
     @from = User.find(from_id)
     @group = Group.find(group_id)
+    @user = @from
     @to = @group.partecipants.where('users.id in (?)',to_ids.split(','))
     mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
   end
@@ -90,6 +91,13 @@ class ResqueMailer < ActionMailer::Base
     mail(to: @user.email, from: "Airesis <noreply@airesis.it>", subject: 'Cancellazione account')
   end
 
+  def topic_reply(post_id, subscriber_id)
+    # only pass id to make it easier to send emails using resque
+    @post = Frm::Post.find(post_id)
+    @group = @post.forum.group
+    @user = User.find(subscriber_id)
+    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", :to => @user.email, :subject => "[#{@group.name}] #{@post.topic.subject}")
+  end
 
   protected
 

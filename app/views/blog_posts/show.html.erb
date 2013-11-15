@@ -28,16 +28,42 @@
   </p>
 
   <div class="blogPostBody" itemprop="description">
-    <%=sanitize @blog_post.body %>
+    <%= sanitize @blog_post.body %>
+    <div class="clearboth"></div>
   </div>
 
   <hr class="blogPostBreak"/>
-  <% unless @blog_post.tags.empty? %>
-      <p class="blogPostTags">
-        <b><%= t('pages.blog_posts.show.tags_title') %></b>
-        <%= raw @blog_post.tags_with_links %>
-      </p>
-  <% end %>
+  <div class="blogPostFooter">
+
+
+    <div class="blogPostPostedAt">
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %> |
+      <span class="blogComments">
+
+      <%=link_to t('pages.blog_posts.view.comments', count: @blog_post.blog_comments.count),'#blogPostCommentsContainer' %>
+      </span>
+    </div>
+    <% if ::Configuration::socialnetwork_active %>
+        <div class="post_buttons">
+          <g:plusone size="medium" href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>"></g:plusone>
+          |
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
+             data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
+          |
+          <div class="fb-like" data-href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+
+        </div>
+    <% end %>
+    <% unless @blog_post.tags.blank? %>
+        <div class="blogPostTags">
+          <span class="tag_label">Tags: </span>
+          <span class="tags_list"><%= raw @blog_post.tags_with_links %></span>
+        </div>
+    <% end %>
+  </div>
 
 
   <%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
@@ -55,10 +81,12 @@
 
 
 <%= content_for :left_panel do %>
-    <div class="mybox">
-      <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' if (user_signed_in? && (is_admin? || (current_user.is_my_blog_post? @blog_post.id))) %>
-      <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' if (user_signed_in? and current_user.is_my_blog_post? @blog_post.id) %>
-    </div>
+    <% if can? :update, @blog_post %>
+        <div class="mybox">
+          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' %>
+          <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' %>
+        </div>
+    <% end %>
     <% if ::Configuration.socialnetwork_active %>
         <div class="mybox">
           <a href="https://twitter.com/share"
@@ -71,3 +99,9 @@
         </div>
     <% end %>
 <% end %>
+
+<script type="text/javascript">
+    $(function() {
+        disegnaCountdown();
+    });
+</script>

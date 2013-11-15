@@ -1,0 +1,55 @@
+<%= simple_form_for(@user_sensitive) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="inputs">
+      <%= f.input :user_id %>
+      <%= f.input :name %>
+      <%= f.input :surname %>
+      <%= f.input :birth_date, :as => :string %>
+      <%= f.input :tax_code %>
+      <%= f.file_field :document %>
+    </div>
+
+    <div class="actions">
+      <%= f.button :submit, class: 'btn blue' %>
+    </div>
+<% end %>
+
+
+<script>
+    function format(state) {
+        if (!state.id) return state.text; // optgroup
+        return state.image_path + state.identifier;
+    }
+
+
+    $("#user_sensitive_user_id").select2({
+        containerCssClass: "user_auto",
+        ajax: {
+            url: "<%= url_for(:controller => 'admin', action: 'user_autocomplete') %>",
+            data: function (term, page) {
+                return { "term": term }
+            },
+            results: function (data, page) {
+                return { results: data };
+            }
+        },
+        formatResult: format,
+        formatSelection: format
+    }).on("change", function (e) {
+        console.log(e);
+        var el = e.added;
+        $('#user_sensitive_name').val(el.name);
+        $('#user_sensitive_surname').val(el.surname);
+    });
+
+    $("#user_sensitive_birth_date").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: "-18y",
+        yearRange: "-100:+0",
+        minDate: "-100y",
+        maxDate: "+0d"
+    });
+
+</script>

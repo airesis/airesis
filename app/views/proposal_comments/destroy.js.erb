@@ -8,7 +8,6 @@ if (Airesis.id != <%=current_user.id%>) {
     var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
     var contribute_button = $('.contributeButton'+data_section_id);
     var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
-    console.log('num:' + num_contributes);
     contribute_button.attr('data-contributes_num',num_contributes-1);
 
     if (contribute_button.attr('data-status') != 1) {

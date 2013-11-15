@@ -1,0 +1,3 @@
+$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
+$('#group_members_container').html('<%=j render(:partial => 'frm/admin/groups/group_members')%>');
+$("#frm_user_id").select2('data', {id: null, text: null});

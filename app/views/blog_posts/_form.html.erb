@@ -1,80 +1,83 @@
-<%= form_for([@blog,@blog_post], :html => { :multipart => true }) do |f| %>
+<%= form_for([@blog, @blog_post], :html => {:multipart => true}) do |f| %>
 
-	<div class="editBlogPost">
-			<% if @blog_post.errors.size > 0 %>
-				<div id="errorExplanation" class="ui-state-error ui-corner-all">
-					<h2><%= t('pages.groups.new.errors_title') %></h2>
-					<ul>
-						<% @blog_post.errors.full_messages.each do |msg| %>
-							<li><%= msg %></li>
-						<% end %>
-					</ul>
-				</div>
-			<% end %>
-			<p>
-				<%= f.label :title %><br />
-				<%= f.text_field :title, :style => 'width:80%' %>
-			</p>
-			<p>
-				<%= f.label :body %><br />
-				<%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale}%>
-			</p>
-			<p>
-				<%= f.label :tags_list, t('pages.groups.new.tags.title') %><br />
-				<%= f.text_field :tags_list %>
-			</p>
-			<p>
-				<%= f.label :published %><br />
-				<%= f.radio_button :published, true, :checked=>"checked" %><%= f.label :published_true %><br />
-				<%= f.radio_button :published, false %><%= f.label :published_false %>
-			</p>
+    <div class="editBlogPost">
+      <% if @blog_post.errors.size > 0 %>
+          <div id="errorExplanation" class="ui-state-error ui-corner-all">
+            <h2><%= t('pages.groups.new.errors_title') %></h2>
+            <ul>
+              <% @blog_post.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <p>
+        <%= f.label :title %>
+        <%= f.text_field :title, :style => 'width:80%' %>
+      </p>
 
-      <%if @groups.count > 0 %>
-			<p>
-				<%= f.label :groups, t('pages.blog_posts.new.published_in_groups') %>
-				<br/>
-				<% @groups.each do |group|%>
-				 <div>
+      <p>
+        <%= f.label :body %>
+        <%= f.cktext_area :body, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
+      </p>
 
-				 <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) || (@blog_post.group_ids.include? group.id), style: 'float:left;'%>
-                  <div class="blogUserImage" title="<%=group.name%>">
-                    <%= group.group_image_tag 20 %>
-                  </div>
-                  <%= f.label group.name, style: 'float:left;'%>
-                   <div style="clear: both;"></div>
-                 </div>
-				<%end%> 
-			</p>
-          <%end%>
-			<p>
-				<input  type="hidden" name="group_id" value="<%=params[:group_id]%>"/>
-              <%= link_to t('buttons.cancel'), :back, :class=>'btn' %>
-              <%= f.submit t('buttons.save'), :class=>'btn blue' %>
+      <p>
+        <%= f.label :tags_list, t('pages.groups.new.tags.title') %>
+        <%= f.text_field :tags_list %>
+      </p>
 
-			</p>
-		<div class="blogEditRightPanel">
-			
+      <p>
+        <%= f.label :published %>
+        <%= f.label :published_true do %>
+            <%= f.radio_button :published, true, :checked => "checked" %>
+            <%= t('activerecord.attributes.blog_post.published_true') %>
+        <% end %>
+        <%= f.label :published_false do %>
+            <%= f.radio_button :published, false %>
+            <%= t('activerecord.attributes.blog_post.published_false') %>
+        <% end %>
+      </p>
 
-			
-		</div>
-		<br style="clear: both;" />
-	</div>
+      <% if @groups.count > 0 %>
+          <p>
+            <%= f.label :groups, t('pages.blog_posts.new.published_in_groups') %>
+            <% @groups.each do |group| %>
+              <div>
+                <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) || (@blog_post.group_ids.include? group.id), style: 'float:left;' %>
+                <div class="blogUserImage" title="<%= group.name %>">
+                  <%= group.group_image_tag 20 %>
+                </div>
+                <%= f.label group.name, style: 'float:left;' %>
+                <div style="clear: both;"></div>
+              </div>
+          <% end %>
+          </p>
+      <% end %>
+      <p>
+        <input type="hidden" name="group_id" value="<%= params[:group_id] %>"/>
+        <%= link_to t('buttons.cancel'), :back, :class => 'btn' %>
+        <%= f.submit t('buttons.save'), :class => 'btn blue' %>
+
+      </p>
+
+      <div style="clear: both;"></div>
+    </div>
 <% end %>
 
 <% data = "["
    @blog_post.tags_list.split(',').each do |l|
-   	data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   	end 
-   data += "]"	
-   %>
+     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
+   end
+   data += "]"
+%>
 
 
 <script type="text/javascript">
 
-	$(function() {
-		input = $('#blog_post_tags_list')
-		if (input != null) {
-			input.tokenInput("<%=tags_path(format: :json )%>", {
+    $(function () {
+        input = $('#blog_post_tags_list')
+        if (input != null) {
+            input.tokenInput("<%=tags_path(format: :json )%>", {
                 theme: "facebook",
                 crossDomain: false,
                 allowFreeTagging: true,
@@ -84,8 +87,8 @@
                 preventDuplicates: true,
                 allowTabOut: true,
                 tokenValue: "name"
-			})
-		}
-	});
+            })
+        }
+    });
 </script>  		
 	

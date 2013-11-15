@@ -1,0 +1,56 @@
+FACEBOOK_APP_ID=""
+GOOGLE_APP_ID=""
+TWITTER_APP_ID=""
+MEETUP_APP_ID=""
+LINKEDIN_APP_ID=""
+MAPS_API_KEY=""
+
+FACEBOOK_APP_SECRET=""
+GOOGLE_APP_SECRET=""
+TWITTER_APP_SECRET=""
+MEETUP_APP_SECRET=""
+LINKEDIN_APP_SECRET=""
+
+EMAIL_ADDRESS=""
+EMAIL_USERNAME=""
+EMAIL_PASSWORD=""
+
+RECAPTCHA_PUBLIC=""
+RECAPTCHA_PRIVATE=""
+
+GEOSPATIAL_NAME=""
+
+APP_SHORT_NAME = "Airesis"
+APP_LONG_NAME = "Airesis - Scegli di partecipare"
+APP_EMAIL_ADDRESS = "info@airesis.it"
+
+
+NEWSLETTER_FROM_ADDRESS="Newsletter <newsletter@testairesis.com>"
+NEWSLETTER_TWITTER_URL="http://twitter.com/#!/democracyo"
+NEWSLETTER_FACEBOOK_URL="https://www.facebook.com/democracyonline"
+NEWSLETTER_GOOGLEPLUS_URL="https://plus.google.com/b/108270340723482080584/108270340723482080584"
+NEWSLETTER_PREFERENCES_URL="http://www.airesis.it/users/alarm_preferences"
+NEWSLETTER_HOME_URL="www.airesis.it"
+
+ERROR_SENDER="coorasse+notifier@gmail.com"
+
+#can also be a list of addresses separated by comma
+ERROR_RECEIVER="coorasse+exceptions@gmail.com"
+
+MAILER_DEFAULT_HOST='airesisdev.it:3000'
+
+BUGTRACKING_URL=""
+BUGTRACKING_USERNAME=""
+BUGTRACKING_PASSWORD=""
+
+
+# Load the rails application
+require File.expand_path('../application', __FILE__)
+
+# Initialize the rails application
+Airesis::Application.initialize!
+
+require 'will_paginate'
+
+#OmniAuth.config.test_mode = true
+

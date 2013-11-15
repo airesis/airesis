@@ -1,0 +1,17 @@
+var container_ = $('<div id="geocode_container" style="display:none;" title="Geolocalizza la proposta"></div>');
+container_.append('<%=j render :partial => 'geocode', locals: {remote: true} %>');
+$('body').append(container_);
+container_.dialog({
+    width: 700,
+    height: 'auto',
+    modal : true,
+    resizable: false,
+    open: function () {
+        google.maps.event.trigger(map, 'resize');
+        //map.setCenter(latlng);
+    },
+    close : function(event, ui) {
+        container_.dialog('destroy');
+        container_.remove();
+    }
+});

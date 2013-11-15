@@ -1,19 +1,33 @@
-<%if can? :view_proposal, @group%>
-<fieldset>
-  <legend><%= t('pages.proposals.index.search_title') %></legend>
 
-  <%= form_tag search_group_proposals_path(@group), method: :get do %>
-      <p>
-        <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 40 %><br />
-        <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br />
-        <%= submit_tag t('buttons.search'), onclick: 'return checkCharacters();', class: 'btn' %>
-      </p>
-  <% end %>
-</fieldset>
+    <%if params[:search] %>
+    <b><%= params[:search] %></b>
+       <%= link_to 'X',current_url(:search => nil) %>
+    <%end%>
+    <p>
+      <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30, onkeyup: 'checkCharacters();' %>
+      <br/>
+      <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br/>
+      <%= link_to t('buttons.search'), current_url, onclick: 'return checkCharactersAndGo();', class: 'btn' %>
+    </p>
+
 
 <script type="text/javascript">
-  function checkCharacters() {
-      return $('#search').val().length > 1
-  }
+    checkCharacters();
+    function checkCharacters() {
+        if ($('#search').val().length > 1) {
+            $('#search_form .btn').removeAttr('disabled');
+            return true
+        }
+        else {
+            $('#search_form .btn').attr('disabled','disabled');
+            return false
+        }
+    }
+
+    function checkCharactersAndGo() {
+        if (checkCharacters()) {
+            window.location = addQueryParam(addQueryParam(location.href,'search',$('#search').val()),'or',$('#or').val());
+        }
+        return false;
+    }
 </script>
-<%end%>

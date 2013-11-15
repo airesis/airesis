@@ -5,8 +5,8 @@
 
 <% if @blog_posts.size == 0 && !params[:page] %>
 	<div class="blogPost">
-		<h1>Nessun Post</h1>
-		<p>Non vi sono ancora Post in questo Blog, torna presto.</p>
+		<h1><%=t('pages.blogs.show.no_posts')%></h1>
+		<p><%=t('pages.blogs.show.no_posts_long')%></p>
 	</div>
 <% else %>
 	<% if @tag %>
@@ -16,7 +16,7 @@
 <% end %>
 
 <div class="blogPages">
-	<%= will_paginate @blog_posts %>
+	<%= paginate @blog_posts %>
 </div>
 
 <%= render :partial => 'admin_links' %>

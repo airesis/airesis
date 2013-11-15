@@ -1,0 +1,114 @@
+en:
+  home:
+    whowe:
+      title: "About Us"
+      description: "A group of volunteers who want to improve the world in which we live, citizens like you."
+      development_area: "Development Area"
+      other_voluteers: "Other volunteers active in the project"
+      contributors: "Contributors"
+      contributors_desc: "They dedicated free time to the project (in alphabetical order):"
+      special_thanks: "A special thanks to"
+      tilatti_marino:
+        title: "Developer and coordinator"
+        content_html: |
+          <p>
+            During my undergraduate studies, I realize the great possibilities that the internet offers to humanity.
+            Just graduated in Economics and Business I chose to devote myself to my passions and in a few years I gave life
+            to several major portals about the world of animals and luxury real estate, as well as some Application Service Provider.
+            My dream, however, is always to realize a decision-making tool capable of implementing direct democracy, for this reason,
+            as soon as I heard about this project I threw myself headlong in spite of my other commitments and my two wonderful children.
+            I'm taking care of the visual and usability aspects, SEO and communication matters, in addition to the purely technical programming support .
+          </p>
+      rodi_alessandro:
+        title: "Head Developer and Webmaster"
+        content_html: |
+          <p>
+          I am %{age} years old and live in Zurich where I work as a Java and Ruby on Rails developer.
+          I cultivate passion for programming for many years and in 2009 I completed my studies in Computer Science graduating in Bologna.
+          Passionate about politics and digital technologies, in July 2011 I was approached Ruby On Rails and I began to lay the foundations of the Airesis source code,
+          keeping in mind an ambitious project: the creation of a software for participatory democracy.
+          Fascinated by how politics is changing in recent years and by the fact that it will soon have to deal with the world wide web,
+          I realized that such an instrument has never been made ​​available to citizens and so .... here I am !
+          Within the project I work on coordinating the development activities and I take care of the programming itself;
+          I offer support to other programmers and act as the supervisor of the source code quality.
+          Moreover I help in the development of logic and in the definition of time windows and deadlines required for their completion.
+          </p>
+      analysis_area: "Analisys area"
+      giulietti_nicola:
+        title: "Analyst and coordinator"
+        content_html: |
+          <p>
+            I am %{age} years old and since about %{volunteer} are engaged in the voluntary sector, in which I coordinated many activities.
+            I studied environmental engineering and energy engineering.
+            During college I attended some technological innovation projects and have worked in the field of sustainability and participatory democracy.
+            Within Agora 2.0 - Airesis projects I took care of everything but the programming: the study of application logic, coordination, graphics.
+            It is not easy to be surrounded by computer science professionals and graduates, but I will resist until Airesis not allow people to efficiently
+            and democratically self-organize in order to retrieve the wheel of this crazy world.
+          </p>
+      baiotto_marco:
+        title: "Analyst"
+        content_html: |
+          <p>
+            Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site http://www.lordglenn.com (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including http://www.literary.ithttp://www.literary.it) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
+            Accidentally landend in the Airesis project, he has been conquered by its main concept and philosophy.
+            He decided to donate the fruit of his research and his free time, participating in the development group.
+            His contribute focuses on analysis of functional logic and testing, but does not mind the ethical criticism and philosophical implications arising from the longer term evolutionary choices carried out ​​within the group.
+          </p>
+      graphic_area: "Graphic Area"
+      kabora_marcello:
+        title: "Graphic designer"
+        content_html: |
+          <p>
+           I am a capable and dynamic guy looking for a job where I could develop my skills accumulated in the last few years of work, in particular,
+           in the construction of websites, applications, logos, catalogs and flyers. I use many graphics softwares and programming languages, and I
+           always try to keep myself updated on new developments. I like to work in a team but also in a stand-alone way, if the case so requires,
+           I pay a lot of attention to detail and I know how to solve problems by means of specific research.
+           I can handle stress very well and have good communication skills. Over the past two years I have worked on several projects at a distance,
+           created a strong communication mood and always reaching targets agreed in terms of effectiveness and timing.
+           To see my curriculum vitae and my recent work I’d like to invite you to visit my website - www.marcellokabora.com .
+          </p>
+      i18n_area: "Internationalization Area"
+      tolja_jacopo:
+        title: "Responsible for the recruiting and coordination of the translators"
+        content_html: |
+          <p>
+             I am 50 years old, are a disillusioned, but I found in Airesis a reason to get back into the game and hope to
+              develop a better society for me, but especially for my children and also for you that you get up to this point
+              and here you are reading this sentence.
+              I did everything during my life, travels, adventures, attempts of exploit and bring my experience as a citizen of
+              the world to ensure that Airesis is used by the most large number of people in each most remote corner of the world.
+             I give my help in coordinating the'<a href="https://crowdin.net/project/airesis" target="blank_">Airesis internationalization and localization process</a> and I'm interested in developing for the Airesis website the simplest and the most intuitive user interface existent on the web!
+              I have a big flaw, I am undemocratic and thus, here I'm fine, I'm the exception confirming the rule!
+              The members of this group have made me feel like that and more than in the family and I know I can count on them as I can count on true friends.
+          </p>
+      communication_area: "Communication Area"
+      curini_simone:
+        title: "Spreading of the project and contacts with Meetup"
+        content_html: |
+          <p>
+            I am %{age} years old and about %{volunteers} are engaged in the political and social movement called “Five stars movement” of Florence. I studied economics and business (financial markets), then I realized who (or what) I should have to be in order to be able to honor my studies and I preferred familiar shores. I'm an antiquarian and the time that this work has granted me, has been used to perfect the knowledge of some programming languages ​​such as php and java. In Agora 2.0 - Airesis I was involved by Nicola in 2010 for the study of logic, for the creation of virtual spaces in which the comparison between the different programmers took place, and finally for his presentation and promotion. I am currently studying Ruby despite a 8 month old daughter wonderfully challenging. The hope is to give life to a dream in which the policy is made ​​by the people for the people to always get the most shared, weighted and appreciated possible solution.
+          </p>
+      test_area: "Test Area"
+      mion_carlo:
+        title: "Tester and Coordinator"
+        content_html: |
+          <p>
+            I am a student who is completing the first cycle of education. I recently discovered my passion for computer science and I plan to continue my university studies to further study this science. I'm fascinated because it has revolutionized our lives and continues to evolve day after day.
+            I learned that some intellectuals imagined a democracy in which it was possible to make decisions shared by the citizens through the online participation.
+            I think Airesis makes this possible and that is the reason for which I gave my approval to help with the platform development.
+            I participate in the testing group, which has the aim to verify the proper operation of Airesis. I collect user feedback and point out any anomalies and problems that they may be readily solved by the developers. I 'm also testing the latest innovations introduced in the platform before they are released to the public .
+          </p>
+      zanellato_luca:
+        title: "Tester ed analyst"
+        content_html: |
+          <p>
+            I'm 47 and I'm an electronics.
+             As a citizen I was wondering if there might be another way of living the politics, or more in general, to collaborate with others.
+             I approached the issues of direct and participatory democracy, and I discovered the possibilities of the network and
+             of the e-democracy.
+
+           I believe that starting from these issues it will be possible to develop a new form of collaboration, not limited to
+             the political aspects and related to the management of the public affairs, but more in general concerning the solution of problems by means of discussion and exchange between communities of people,
+             also very large and transversals.
+             This group has given me the opportunity to collaborate on what I believe will be one of the next frontiers of sociability.
+          </p>

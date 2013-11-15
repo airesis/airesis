@@ -2,7 +2,10 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
 <%if @is_reply%>
     $("#rankingpanelcontainer<%=@proposal_comment.contribute.id%>").html('<%=j render partial: 'proposal_comments/ranking_panel', locals: {comment: @proposal_comment.contribute}%>');
     $("#<%=@proposal_comment.contribute.id%>_new_replies").append('<%=j render partial: 'proposals/reply', locals: {reply: @proposal_comment, hide: false}%>');
-    $('#<%=@proposal_comment.contribute.id%>_reply_text_area').val('');
+
+    var textarea_ = $('#<%=@proposal_comment.contribute.id%>_reply_text_area');
+    textarea_.textntags('reset');
+    textarea_.val('');
     $('.deleteReplyLink').unbind('click');
     $('.deleteReplyLink').bind('click', function (event) {
         hideAndDeleteReply(event, $(this).data('id'));
@@ -36,15 +39,19 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
+
+
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
+
     $('.proposalComment[data-collapsed=true]').show(600);
 
     initialize_hidden_menu();
+    initTextAreaTag();
     $('#delete<%=@proposal_comment.id%>').unbind('click');
     $('#delete<%=@proposal_comment.id%>').bind('click',function(event) {
         hiding(event,$(this).data('id'));
@@ -55,11 +62,8 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
             toastr.info('<%=j "E' appena stato inserito un nuovo contributo"%>');
             <%if @proposal_comment.paragraph_id %>
                 var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
-                console.log('data-section_id:' + data_section_id);
                 var contribute_button = $('.contributeButton'+data_section_id);
-                console.log('button:' + contribute_button);
                 var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
-                console.log('num:' + num_contributes);
                 contribute_button.attr('data-contributes_num',num_contributes+1);
                 var new_contributes = parseInt($('.contributeButton'+data_section_id).attr('data-unread_contributes_num'));
                 $('.contributeButton'+data_section_id).attr('data-unread_contributes_num',new_contributes+1);
@@ -75,6 +79,7 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
                 $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment_others', :locals => {:comment => @proposal_comment} %>');
             <%end%>
             hide_vote_controls();
+            initTextAreaTag();
         }
     <% end rescue nil%>
 
@@ -89,4 +94,5 @@ $('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash:
 disegnaBottoni();
 resetCounter();
 checkScroll();
+disegnaCountdown();
 $('.reply_textarea').elastic();

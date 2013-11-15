@@ -1,22 +1,18 @@
 <h1><%= t('pages.groups.participations.list_participations') %></h1>
-<% if current_user && ((@group.portavoce.include? current_user) || is_admin?) %>
+<% if can? :update, @group %>
     <fieldset>
-      <legend><%= t('pages.groups.participations.search')%></legend>
+      <legend><%= t('pages.groups.participations.search') %></legend>
 
       <%= form_for !in_subdomain? ? [@group, SearchPartecipant.new] : SearchPartecipant.new, remote: true do |f| %>
-          <p><%= f.label :keywords %><br/>
-            <%= f.text_field :keywords %>
-          </p>
+          <%= f.label :keywords %>
+          <%= f.text_field :keywords %>
 
-          <p>
-            <%= f.label :role_id %><br/>
-            <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => t('pages.groups.participations.anything') %>
-          </p>
+          <%= f.label :role_id %>
+          <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name), :prompt => t('pages.groups.participations.anything') %>
 
-          <p>
-            <%= f.label :status_id %><br/>
-            <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.all, :id, :description), :prompt => t('pages.groups.participations.anything') %>
-          </p>
+          <%= f.label :status_id %>
+          <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.active, :id, :description), :prompt => t('pages.groups.participations.anything') %>
+
           <%= f.button t('pages.groups.participations.filter'), class: 'btn blue', disable_with: t('loading') %>
       <% end %>
 
@@ -24,25 +20,24 @@
     <br/>
 
     <fieldset>
-      <legend><%= t('pages.groups.participations.operations_on_user')%></legend>
+      <legend><%= t('pages.groups.participations.operations_on_user') %></legend>
       <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
 
-      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email')%>">
-        <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class=>'disableForm' do |e| %>
-            <p>
-              <%= e.label t('pages.users.send_message.subject_label') %> <br/>
-              <%= e.text_field 'subject' %>
-            </p>
-            <p>
-              <%= e.label t('pages.users.send_message.body_label') %> <br/>
-              <%= e.text_area 'body', rows: 10 %>
-            </p>
+      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email') %>">
+        <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
+
+            <%= e.label t('pages.users.send_message.subject_label') %>
+            <%= e.text_field 'subject' %>
+
+
+            <%= e.label t('pages.users.send_message.body_label') %>
+            <%= e.text_area 'body', rows: 10 %>
 
             <%= e.hidden_field 'receiver_ids' %>
 
 
-            <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%=t('buttons.cancel')%></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue disable' %>
+            <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
+            <%= e.submit t('buttons.send'), :class => 'btn blue', disable_with: t('sending') %>
         <% end %>
 
       </div>
@@ -59,25 +54,11 @@
         $('#email_panel').dialog({'width': '400px'});
         $('#message_receiver_ids').val($('#ids_results').val());
     }
-
-
-     $('#partecipants').dataTable({
-         "oLanguage": {
-             "sLengthMenu": "Mostra _MENU_ utenti per pagina",
-             "sSearch": "<%=t('buttons.search')%>:",
-             "sZeroRecords": "<%='Nessun utente, spiacente..'%>",
-             "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ utenti",
-             "sInfoEmpty": "Sto mostrando 0 utenti",
-             "sInfoFiltered": "(filtrati da un totale di _MAX_ utenti)",
-             "oPaginate": {
-                 "sPrevious": "",
-                 "sNext": ""
-             }
-         },
-         "aaSorting": [],
-         "aoColumns": [null, null,{"iDataSort": 3},{"bVisible": false},null],
-         "bInfo": false,
-         "bLengthChange": false,
-         "bPaginate": false
-     });
 </script>
+
+
+<% if can? :update, @group %>
+    <%= content_for :left_panel do %>
+        <%= render :partial => 'groups/administration_panel' %>
+    <% end %>
+<% end %>

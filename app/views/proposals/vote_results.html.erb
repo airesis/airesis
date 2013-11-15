@@ -1,0 +1,11 @@
+<%@page_title =  t('pages.proposals.show.votation_results_title') %>
+<h1 class="proposalTitle" itemprop="name"><%= h @proposal.title %></h1>
+
+<h2><%= @page_title %></h2>
+
+<%=render(:partial => @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results')%>
+
+
+<% content_for :left_panel do %>
+    <%= render 'proposals/left_panel' %>
+<% end %>

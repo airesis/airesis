@@ -5,4 +5,8 @@ class Regione < ActiveRecord::Base
 
   belongs_to :stato
   belongs_to :continente
+
+  def parent
+    self.stato
+  end
 end
