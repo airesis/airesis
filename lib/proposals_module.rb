@@ -279,11 +279,13 @@ module ProposalsModule
 
 
   def candidates_new(proposal)
-    @problems = proposal.sections.build(title: t('pages.proposals.new.candidates.paragraph.election_type'), seq: 1)
+    @problems = proposal.sections.build(title: t('pages.proposals.new.candidates.paragraph.role'), seq: 1)
     @problems.paragraphs.build(content: '', seq: 1)
   end
 
   def candidates_create(proposal)
+    seq = 1
+    proposal.sections.build(title: t('pages.proposals.new.candidates.paragraph.requirements'), seq: seq+1).paragraphs.build(content: '', seq: 1)
     solution = candidates_solution
     solution.seq = 1
     proposal.solutions << solution

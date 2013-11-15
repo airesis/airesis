@@ -350,7 +350,7 @@ it-IT:
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
         history_button: "History"
-        choose_votation_period: "Scegli un periodo per la votazione"
+        choose_votation_period: "Scegli un evento per la votazione"
         choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
         choose_votation_period_button: "Ho scelto!"
         create_votation_period: "Non vi sono date disponibili per la votazione"
@@ -434,6 +434,13 @@ it-IT:
         debate_ends_valutations_html: |
           Termine dibattito con:<br/><b>%{evaluations_left}</b>"
         error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
+        generic_fake_content: "Questo paragrafo non è ancora stato compilato. Aiuta l'autore inserendo un contributo!"
+
+        model_title: "Modello"
+        created_events: "Eventi già creati"
+        create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
+        choose_later: "No grazie, lo scelgo dopo"
+        choose_now: "Lo voglio scegliere ora"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"

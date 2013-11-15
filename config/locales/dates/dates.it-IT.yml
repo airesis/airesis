@@ -134,3 +134,6 @@ it-IT:
       x_seconds:
         one: "1 secondo fa"
         other: ! '%{count} secondi fa'
+  label:
+    from: "dal"
+    to: "al"

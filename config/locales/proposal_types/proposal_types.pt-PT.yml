@@ -31,7 +31,6 @@ pt-PT:
           first_solution_title: "Title"
           problems_title: "Message to transmit"
           solution:
-            title: "Title"
             subtitle: "Subtitle"
             incipit: "Incipit"
             body: "Body"

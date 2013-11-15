@@ -27,6 +27,7 @@ en:
             documents: "Documentation"
             pros: "Pros"
             cons: "Cons"
+            title: "Solution 1"
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Reduce the usage of drinking water for irrigation.</div>
@@ -41,6 +42,7 @@ en:
             article: "Article %{num}"
             pros: "Pros"
             cons: "Cons"
+            title: "Solution 1"
           problems_title: "Problems"
           paragraph:
             inspire: "Regulation to inspire from"
@@ -59,6 +61,8 @@ en:
             body: "Body"
             conclusion: "Conclusions"
             deep: "Insights"
+            title: "Solution 1"
+            maintitle: "Title"
           paragraph:
             target: "Recipients/Target"
         estimate:
@@ -69,6 +73,7 @@ en:
             <div>Replacement of the thermal plant in the headquarter of the Association.</div>
             <div>Because of the failure of the old boiler, our quarter is impractical during winters. Given that it is not possible to fix it, we have to substitute the old thermal plant with a new one, with low energy consumption.</div>
           solution:
+            title: "Solution 1"
             cost: "Amount"
             problems: "Respect of constraints and problems"
             dumentation: "Documentation"
@@ -85,6 +90,7 @@ en:
             <div>Choose an agenda for our meeting.</div>
             <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
           solution:
+            title: "Item"
             priorities: "Item priority"
             links: "Insights links"
             description: "Description"
@@ -100,7 +106,8 @@ en:
             <div>Organize a low-cost rock concert.</div>
             <div>In our town there are a lot of young bands that cannot show off and improve their talent, because of a lack of space. In addition to this, there are few events promoted by our Municipality for the next summer, because of a lack of resources.</div>
           solution:
-            title: "Title"
+            title: "Solution 1"
+            maintitle: "Title"
             description: "Description of the solution"
             program: "Date, time and plan"
             body: "place"
@@ -129,4 +136,5 @@ en:
           problems_title: "Problem"
           solution:
             description: "Description"
+            title: "Solution 1"
           problems_title_label: "What is the problem to be solved and/or what are the obstacles to overcome in order to achieve the goal?"

@@ -134,3 +134,6 @@ en:
       x_seconds:
         one: "1 second ago"
         other: ! "%{count} seconds ago"
+  label:
+    from: "from"
+    to: "to"
