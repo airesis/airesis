@@ -810,12 +810,6 @@ en:
         description_html: |
           Set your geographical interest borders.<br />
           If Airesis know what are the territories you are interested in, it can suggest you the groups to follow and show the new proposals related to your territory.<br />
-      choose_image:
-        title: "Profile image"
-        gravatar: "The image you see has been taken from the service Gravatar using the e-mail address you registered with."
-        edit_image: "If you would like to change the image, hover your mouse on it and click on "
-        Identity_provider: "The image you see has been taken from your Identity Provider."
-        Identity_provider2: "It will be synced and every time you will change it on your social network, it will also change in Airesis."
       rank_bar_explain:
         title: "The maturity bar"
         description_html: |

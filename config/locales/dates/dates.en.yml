@@ -133,3 +133,4 @@ en:
       x_seconds:
         one: "1 second ago"
         other: ! "%{count} seconds ago"
+  countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"
