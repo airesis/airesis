@@ -137,3 +137,4 @@ en:
   label:
     from: "from"
     to: "to"
+  countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"

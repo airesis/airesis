@@ -525,4 +525,9 @@
 
         <%end%>
     });
+    function disegnaCountdown() {
+        $('div[data-countdown]').each(function () {
+            $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: '<%=j raw(t('countdown'))%>'}, $.countdown.regional['<%=I18n.locale%>']));
+        })
+    }
 </script>

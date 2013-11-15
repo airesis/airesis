@@ -216,15 +216,15 @@ en:
           simple: "Simple"
           advanced: "Advanced"
           time_description: "For the proposal to go to the voting phase, it must remain in debate for at least %{days} %{hours} %{minutes}"
-          simple_percentage_description: "Then it goes to the voting phase if its rank is superior to %{good_score}%."
+          simple_percentage_description: "Then it goes to the voting phase if its maturity is superior to %{good_score}%."
           advanced_participation_description: "%{and_or} it must be evaluated by almost %{participants_percentage}% of the members that have the right to do so (that is %{current_number} out of %{total_number} at the moment)."
-          advanced_percentage_description: "If however the rank is inferior to %{bad_score}% the proposal is abandoned."
-          advanced_percentage_description3: "The proposal remains in debate until the rank is between the two thresholds."
+          advanced_percentage_description: "If however the maturity is inferior to %{bad_score}% the proposal is abandoned."
+          advanced_percentage_description3: "The proposal remains in debate until the maturity is between the two thresholds."
         active: "Active"
         name: "Name"
         participants: "Participants"
         condition: "Condition"
-        good_percentage: "% Rank"
+        good_percentage: "% Maturity"
         bad_percentage: "% Rejection"
         confirm_deletion: "Are you sure you want to delete the quorum %{quorum}?"
         add_quorum: "Add a new quorum"
@@ -332,7 +332,7 @@ en:
         search_words: "Any words"
         partecipants_number: "PARTICIPANTS"
         contributes_number: "CONTRIBUTIONS"
-        rank: "RANK"
+        rank: "MATURITY"
         voters: "VOTERS"
         date_range: "created between %{start} and %{end}"
         proposal_types_title: "MODELS"
@@ -379,13 +379,13 @@ en:
         votation_message: "This proposal will be voted from %{from} to %{to}"
         editing_message_1: "This proposal will be developed by the editors thanks to all the contributions"
         editing_message_2: "In order to be voted it will have to reach a"
-        editing_message_3: "minimum rank"
+        editing_message_3: "minimum maturity"
         votation_page_button: "Go to the vote page"
         vote_button: "Vote!"
         send_contribute_button: "Send"
         characters_left: "Characters left:"
         score: "Evaluations"
-        rank: "Rank"
+        rank: "Maturity"
         created_at_html: "Created %{time} ago:<br/><b>%{date}</b>"
         updated_at_html: "Updated %{time} ago:<br/><b>%{date}</b>"
         votation_results: "Results"
@@ -468,7 +468,7 @@ en:
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
-        most_valutated: "Most ranked"
+        most_valutated: "Best maturity"
         most_urgent: "Most urgent"
       list:
         last_update: "Updated<br/>%{time_ago}<br/>"
@@ -483,7 +483,8 @@ en:
         authors: "Editors"
         support_group: "Support groups"
         no_proposals: "No proposals yet"
-        time_left: "Condition to end the debate"
+        condition_left: "Condition to end the debate"
+        time_left: "Time left"
         vote: "VOTE"
       delete_comment: "Delete"
       results:
@@ -553,6 +554,7 @@ en:
           other: "%{count} EVALUATIONS"
         good_score: "POSITIVE QUORUM %{score}%"
         bad_score: "NEGATIVE QUORUM %{score}%"
+        now: "%{left} left"
       left_panel:
         creation_date: "Date of creation"
         any_date: "Any date"
@@ -804,21 +806,15 @@ en:
         description_html: |
           Set your geographical interest borders.<br />
           If Airesis know what are the territories you are interested in, it can suggest you the groups to follow and show the new proposals related to your territory.<br />
-      choose_image:
-        title: "Profile image"
-        gravatar: "The image you see has been taken from the service Gravatar using the e-mail address you registered with."
-        edit_image: "If you would like to change the image, hover your mouse on it and click on "
-        Identity_provider: "The image you see has been taken from your Identity Provider."
-        Identity_provider2: "It will be synced and every time you will change it on your social network, it will also change in Airesis."
       rank_bar_explain:
-        title: "The rank bar"
+        title: "The maturity bar"
         description_html: |
-          The rank bar is situated in the right lateral menu.<br />
-          The bar shows the rank of approval of the proposal among the participants.<br />
+          The maturity bar is situated in the right lateral menu.<br />
+          The bar shows the maturity of approval of the proposal among the participants.<br />
           You can suggest if the text of the proposal is complete or not using the two buttons below the bar.<br />
           The editor of the proposal has to write the text on the basis of the contributions of other participants. When the text of the proposal changes you will be given the possibility to suggest if you like or not the new text and, as a consequence, to modify your previous evaluation.<br />
           The color of the bar shows if the proposal is ready to go to the voting phase, while the length shows how much time and/or evaluations are left before the discussion ends.<br />
-        newdescription2: "The bar displays the rank of the proposal among the participants and how much time is left until the end of the debate"
+        newdescription2: "The bar displays the maturity of the proposal among the participants and how much time is left until the end of the debate"
         newdescription3: "The color displays if the proposal will be able to go to the voting phase, while the length displays how much time is left before the debate ends"
         newdescription4: "When you think the debate is over and the editors integrated the contributions of other users, use this button"
         newdescription5: "If you think that the debate should continue, use this button"
@@ -855,7 +851,7 @@ en:
       life_cycle: "Life cycle"
       life_cycle_number: "Life cycle number %{life}"
       end_date: "Date of end:"
-      score_reached: "Rank reached:"
+      score_reached: "Maturity reached:"
       evaluation_reached: "Number of evaluations:"
       quorum_used: "Quorum used:"
       editors_in_life_cycle: "Editors in this life cycle:"
@@ -1084,8 +1080,8 @@ en:
       and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}.<br/>"
       time_condition_1: "The debate will end in <b>%{time}</b>.<br/>"
       participants_condition_1: "The debate will continue until %{participants_num}.<br/>"
-      good_score_condition: "If the proposal gets a rank over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
-      bad_score_explain: "If the proposal gets a rank over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
+      good_score_condition: "If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
+      bad_score_explain: "If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
       until_date: "(%{date} at %{time})"
       help_content:
         description_html: |
@@ -1099,7 +1095,7 @@ en:
         condition: "Condition of passage:"
         at_least_one: "At least one"
         both: "Both"
-        good_score: "Rank:"
+        good_score: "Maturity:"
         bad_score: "Rejection:"
   proposals:
     create_button: "Create a proposal"
@@ -1140,7 +1136,7 @@ en:
     view_noise: "View <strong>useless contributions</ strong> <br /> In here you will find all the contributions that have been deemed useless and removed the discussion by the editors of the proposal"
     quorum_minutes: "until <b>%{date}</b> at %{time}"
     quorum_valutations: "until it will be rated by at <b>least %{valutations} people</b>"
-    quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase only if its <b>rank</b> is greater than <b>%{good_score}%</b>."
+    quorum_description: "The proposal will be in debate %{conditions}. It will go to the voting phase only if its <b>maturity</b> is greater than <b>%{good_score}%</b>."
   group: "group"
   saving: "Saving..."
   sending: "Sending..."

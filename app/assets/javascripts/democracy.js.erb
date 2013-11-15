@@ -222,11 +222,6 @@ function disegnaBottoni() {
                 showDisableButton($('.disableButton', this));
             });
 }
-function disegnaCountdown() {
-    $('div[data-countdown]').each(function () {
-        $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: '{m<}{mn} {ml} ago{m>} {s<}just now{s>}'}, $.countdown.regional['<%=I18n.locale%>']));
-    })
-}
 
 function disegnaProgressBar() {
     $('.timeline').each(function () {
