@@ -53,9 +53,11 @@
                     success: function () {
                         choose_vote.show();
                         var now_ = new Date();
-                        var end_ = addMinutes(now_, parseInt(minutes_));
+                        var end_ = addMinutes(now_, (parseInt(minutes_) + <%=DEBATE_VOTE_DIFFERENCE.to_i / 60%>));
 
+                        //votation start time
                         var upperend_ = upperMinutes(end_, 5);
+                        //votation end time
                         var votation_end_ = addMinutes(upperend_, 2880);
 
                         var start_field = $("#proposal_votation_start");

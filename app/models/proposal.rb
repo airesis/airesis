@@ -309,7 +309,7 @@ class Proposal < ActiveRecord::Base
     @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
-      paragraph.content = '' if (paragraph.content == '<p><br></p>' && paragraph.content_was == '')
+      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
       if paragraph.content_changed? || section.marked_for_destruction?
         something = true
         section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
@@ -321,7 +321,7 @@ class Proposal < ActiveRecord::Base
       something_solution = false
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
-        paragraph.content = '' if (paragraph.content == '<p><br></p>' && paragraph.content_was == '')
+        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
         if paragraph.content_changed? || section.marked_for_destruction?
           something = true
           something_solution = true

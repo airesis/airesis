@@ -32,7 +32,7 @@
               </div>
             </div>
           </h3>
-          <div class="sol_content">
+          <div class="sol_content <%= solution.removed ? 'ice-del' : ''%> <%= solution.added ? 'ice-ins' : ''%>">
             <% solution.section_histories.each do |section| %>
                 <div class="proposal_main">
                   <h3>

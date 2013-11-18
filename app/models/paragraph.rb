@@ -23,7 +23,8 @@ class Paragraph < ActiveRecord::Base
   end
 
   def content=(content)
-    write_attribute(:content,content ? content.gsub('&nbsp;',' ') : nil)
+    ed_content = content ? content.gsub('&nbsp;', ' ').strip.gsub('<br></p>','</p>') : nil
+    write_attribute(:content, ed_content)
   end
 
 

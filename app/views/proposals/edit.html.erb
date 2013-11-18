@@ -428,7 +428,7 @@
         var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
         <%if @proposal.contributes.count > 0%>
         if (integrated_ == "") {
-            if (!confirm('Non hai integrato nessun contributo. Sei sicuro di voler procedere?')) {
+            if (!confirm('<%=t('pages.proposals.edit.update_confirm')%>')) {
                 return false;
             }
         }
@@ -523,7 +523,7 @@
 
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("Soluzione " + (++numSolution)); //TODO:I18n
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("<%=j t('proposals.edit.solutions.default_title')%> " + (++numSolution));
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
         paragraph_.find(".add_section").attr('data-solution_id', numSolution);
         paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);
@@ -668,8 +668,9 @@
     <div class="edit_proposal_panel">
       <div class="mybox">
         <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
-        <%= link_to 'Comprimi soluzioni', '#', onclick: 'return compressSolutions();', data: {other: 'Espandi soluzioni'}, class: 'compress btn' %>
-        <%= link_to 'Nascondi contributi', '#', onclick: 'return hideContributes();', data: {other: 'Mostra contributi'}, class: 'contributes btn' %>
+        <%= link_to t('pages.proposals.edit.compress_solutions'), '#', onclick: 'return compressSolutions();', data: {other: t('pages.proposals.edit.expand_solutions')}, class: 'compress btn' %>
+        <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
+        <%= link_to t('buttons.cancel'),  @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn', confirm: t('pages.proposals.edit.cancel_confirm') %>
       </div>
       <div class="mybox">
         <h4><%= t('pages.proposals.edit.navigator') %></h4>

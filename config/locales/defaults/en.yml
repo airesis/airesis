@@ -551,6 +551,12 @@ en:
         integrated: "Integrated"
         contribution_valuation: "What do they think?"
         navigator: "Navigator"
+        compress_solutions: "Compress solutions"
+        hide_contributes: "Hide contributes"
+        expand_solutions: "Expand solutions"
+        show_contributes: "Show contributes"
+        cancel_confirm: "Cancel your operations and show the proposal?"
+        update_confirm: "You have not integrated any contribute. Are you sure to continue?"
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
@@ -1114,6 +1120,9 @@ en:
       ready_for_vote: "Ready for vote"
       keep_discuss: "Continue the discussion"
     regenerate_button: "Put back in debate"
+    edit:
+      solutions:
+        default_title: "Solution"
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"
@@ -1195,6 +1204,9 @@ en:
       creation: "We are sorry but there was an error while creating the proposal"
       editors_added: "Error while adding editors"
       close_debate: "Error while closing the debate"
+      vote_period_incorrect: "Please choose another votation event"
+      vote_period_soon: "The vote event must start at least %{time} minutes after the end of debate"
+      vote_period_short: "The vote event must last at least 10 minutes"
     registration:
       recaptcha: "Error in validating captcha. Please type it again"
       user_not_found: "User not found"

@@ -28,7 +28,7 @@
                         <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
                     <% end %>
                     <span> ⋅ </span>
-                    <%= link_to t('pages.header.menu.preferences'), @user, class: (params[:controller] == 'users' ? 'sel' : '') %>
+                    <%= link_to t('pages.header.menu.preferences'), @user, class: ((['users','alerts'].include? params[:controller]) ? 'sel' : '') %>
                 <% end %>
                 <% if @user != current_user %>
                     <% unless @user.new_record? %>

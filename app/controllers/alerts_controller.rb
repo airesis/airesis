@@ -3,11 +3,12 @@ class AlertsController < ApplicationController
   before_filter :authenticate_user!
 
 
-  layout 'open_space'
+  layout 'users'
 
   #mostra gli alert dell'utente corrente
   def index
     @page_title = "Tutte le notifiche"
+    @user = current_user if current_user
     @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
     @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true')
 

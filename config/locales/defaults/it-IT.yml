@@ -555,6 +555,12 @@ it-IT:
         integrated: "Integrato"
         contribution_valuation: "Come la pensano?"
         navigator: "Navigatore"
+        compress_solutions: "Comprimi soluzioni"
+        hide_contributes: "Nascondi contributi"
+        expand_solutions: "Espandi soluzioni"
+        show_contributes: "Mostra contributi"
+        cancel_confirm: "Annullare le modifiche e tornare alla visualizzazione?"
+        update_confirm: "Non hai integrato nessun contributo. Sei sicuro di voler procedere?"
       manage_noise:
         available: "Contributi che possono essere eliminati"
         removed: "Contributi eliminati dalla discussione"
@@ -1117,6 +1123,9 @@ it-IT:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
+    edit:
+      solutions:
+        default_title: "Soluzione"
   digit_tags: "Digita i tag che vuoi inserire"
   buttons:
     cancel: "Annulla"
@@ -1198,6 +1207,9 @@ it-IT:
       creation: "Siamo spiacenti ma si è verificato un errore durante la creazione della proposta"
       editors_added: "Errore durante l'aggiunta dei nuovi redattori"
       close_debate: "Errore durante la chiusura del dibattito"
+      vote_period_incorrect: "Scegli un altro periodo per la votazione"
+      vote_period_soon: "La votazione deve iniziare almeno %{time} minuti dopo il termine del dibattito"
+      vote_period_short: "La votazione deve durare almeno 10 minuti"
     registration:
       recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
       user_not_found: "Utente non trovato"
