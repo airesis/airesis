@@ -77,7 +77,7 @@ fr:
       moderator_tools: "Outils de modération"
     forums:
       index:
-        title: Forums
+        title: Forum
         forum: Forum
         views: Vus
         last_post: 'Dernier Message :'

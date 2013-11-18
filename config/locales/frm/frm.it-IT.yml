@@ -98,7 +98,7 @@ it-IT:
       admin_tools: "Strumenti di amministrazione"
     forums:
       index:
-        title: Forums
+        title: Forum
         forum: Forum
         views: Visite
         last_post: 'Ultimo Messaggio:'
