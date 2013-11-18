@@ -42,16 +42,12 @@
 <% else %>
     <strong><%= t('pages.users.show.what_can_i_do') %></strong>
     <ul>
-      <li>
-        <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
-      </li>
+      <%= @actions.order(:seq).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
     </ul>
 
     <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
     <ul>
-      <li>
-        <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
-      </li>
+      <%= GroupAction.excluding_ids(@actions.select('group_actions.id').order(:seq).all).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
     </ul>
 <% end %>
 
