@@ -438,11 +438,11 @@ it-IT:
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
         debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
         debate_ends_valutations_or_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>
         debate_ends_valutations_and_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>
         debate_ends_valutations_html: |
-          Termine dibattito con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito con:<br/><b>%{evaluations_left}</b>
         error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
         generic_fake_content: "Questo paragrafo non è ancora stato compilato. Aiuta l'autore inserendo un contributo!"
 
@@ -589,6 +589,7 @@ it-IT:
       index:
         title: "Calendario"
         group_title: "Calendario degli eventi"
+        choose_type: "SCEGLI IL TIPO DI EVENTO"
       new:
         private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
         title: "Nuovo Evento"
@@ -596,6 +597,11 @@ it-IT:
         type_for_town: "Digita alcuni caratteri per cercare un comune"
         no_town_found: "Nessun comune trovato"
         town_searching: "Sto cercando..."
+        title_event: "NUOVO EVENTO VOTAZIONE"
+        title_meeting: "NUOVO EVENTO MEETUP"
+        step_2: "Descrizione"
+        step_3: "Quando"
+        step_4: "Dove"
       show:
         map: "Mappa"
         event_place: "Luogo dell'evento"

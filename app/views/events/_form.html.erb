@@ -25,11 +25,9 @@
       <div class="step root root">
 
         <%= f.label :title %>
-
         <%= f.text_field :title %>
 
         <%= f.label :description %>
-
         <%= f.text_area :description, :rows => 4, :cols => 30 %>
 
         <% if @event.is_votazione? %>

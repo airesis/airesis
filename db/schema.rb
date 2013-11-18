@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113160536) do
+ActiveRecord::Schema.define(:version => 20131118130744) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -324,7 +324,7 @@ ActiveRecord::Schema.define(:version => 20131113160536) do
     t.datetime "updated_at"
     t.text     "description"
     t.integer  "event_series_id"
-    t.integer  "event_type_id"
+    t.integer  "event_type_id",                      :null => false
     t.boolean  "private",         :default => false, :null => false
     t.integer  "user_id"
   end
