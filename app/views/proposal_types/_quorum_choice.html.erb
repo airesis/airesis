@@ -58,6 +58,7 @@
                         //votation start time
                         var upperend_ = upperMinutes(end_, 5);
                         //votation end time
+                        var min_votation_end_ = addMinutes(upperend_, 10);
                         var votation_end_ = addMinutes(upperend_, 2880);
 
                         var start_field = $("#proposal_votation_start");
@@ -67,8 +68,8 @@
                         start_field.datetimepicker("option", "minDateTime", upperend_);
                         start_field.datetimepicker("option", "minDate", upperend_);
 
-                        end_field.datetimepicker("option", "minDateTime", votation_end_);
-                        end_field.datetimepicker("option", "minDate", votation_end_);
+                        end_field.datetimepicker("option", "minDateTime", min_votation_end_);
+                        end_field.datetimepicker("option", "minDate", min_votation_end_);
                         end_field.datetimepicker("setDate", votation_end_);
                         //$("#proposal_votation_end").focus();
                     }
