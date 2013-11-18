@@ -569,7 +569,7 @@ ro-RO:
         edit_button: Editează
         delete_button: Ştergeţi
         delete_button_confirm: Sunteţi sigur că doriţi să ştergeţi acest post?
-        draft: '[Proiect]'
+        draft: 'Proiect'
         comments_says: spune...
       published_button: Posturi publicate
       view:

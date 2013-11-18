@@ -222,9 +222,11 @@ class User < ActiveRecord::Base
     if abilitation_id
       query = query.joins({:area_roles => :area_action_abilitations})
       .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+      .uniq
     else
       query = query.joins(:area_roles)
       .where(['group_areas.group_id = ?', group_id])
+      .uniq
     end
   end
 

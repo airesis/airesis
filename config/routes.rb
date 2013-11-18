@@ -23,6 +23,8 @@ Airesis::Application.routes.draw do
   match '/send_feedback' => 'home#feedback'
   match '/statistics' => 'home#statistics'
   match '/movements' => 'home#movements'
+  match '/school' => 'home#school'
+  match '/municipality' => 'home#municipality'
 
   resources :user_likes
 

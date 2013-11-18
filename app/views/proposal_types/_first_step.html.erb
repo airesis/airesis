@@ -11,7 +11,7 @@
     <p>
       <%= f.label :group_area_id %>
       <% if @available_areas.size > 0 %>
-          <%= select("proposal", "group_area_id", current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}) %>
+          <%= f.select :group_area_id, current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}, :style => "width:500px" %>
       <% else %>
           <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
       <% end %>
@@ -22,19 +22,19 @@
 <% if ::Configuration.proposal_categories %>
     <p>
       <%= f.label :proposal_category_id %>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {style: 'width:300px'} %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {style: 'width:500px'} %>
     </p>
 <% end %>
 
 <p>
   <%= f.label :interest_borders_tkn %>
-  <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder') %>
+  <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), :style => "width:500px" %>
 </p>
 
 <% if ::Configuration::folksonomy %>
     <p>
       <%= f.label :tags_list %>
-      <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder') %>
+      <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder'), :style => "width:500px" %>
     </p>
 <% end %>
 

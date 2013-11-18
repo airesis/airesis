@@ -292,75 +292,75 @@ en:
         title: "Build your group"
         content_html: |
           <p>
-            Che siate un'associazione, un'azienda, una scuola o un partito, Airesis è lo strumento che fa per voi!<br/>
-            Create in pochi minuti il vostro gruppo e iniziate subito a provare gli strumenti che avrete a disposizione.<br/>
-            La creazione di un gruppo è gratuita, facile e veloce e ben %{groups} gruppi si sono già attivati.<br/>
-            Leggete i nostri documenti sulle policy per scoprire come organizzarlo al meglio e scoprite quanto è facile
-            organizzare il vostro gruppo con Airesis e mettere a disposizione strumenti di edemocracy!
+            If you are an association, a company, a school or a party, Airesis is certanly appropriate for you!<br/>
+            Create in few minutes your group and began immediately to try the tools you have available.<br/>
+            Creating a group is free, quick and easy and %{groups} groups have already taken action.<br/>
+            Please read our documents on policy to find out how to organize it better and discover how easy it is
+            to organize your group with Airesis and provide eDemocracy tools!
           </p>
       paragraph_3:
         title: "Organize partecipants"
         content_html: |
           <p>
-            Un potente meccanismo di gestione dei <b>ruoli e dei permessi</b> vi consentirà di dare al vostro gruppo la forma che preferite:
-            potrete avere utenti con più permessi e utenti con meno permessi a seconda del loro ruolo, organizzare gerarchicamente i partecipanti
-            o fornire a tutti uguali diritti e doveri.</br>
-            E' per questo che Airesis si adatta perfettamente alle esigenze di un'<b>Azienda</b>, così come di un <b>Movimento Democratico</b> o di una <b>Associazione</b>.
+            A powerful mechanism for handling <b> roles and permissions </b> will allow you to give your group the shape that you prefer:
+            You may have users with more permissions and users with less permissions depending on their role, hierarchically organize the participants
+            or provide everyone equal rights and duties. </br>
+            That is the reason why Airesis is perfectly suited to the needs of a <b> Company </b>, as well as a <b> Democratic Movement </b> or an <b> Association </b>.
           </p>
       paragraph_4:
         title: "Propose and deliberate"
         content_html: |
           <p>
-            Il cuore pulsante di Airesis sono le proposte: avrete a disposizione diversi modelli con cui coinvolgere le persone nel gruppo e sentire la loro opinione.<br/>
-            Potrete dibattere su singoli argomenti, costruire un Ordine del Giorno in maniera condivisa e votare dei candidati in maniera democratica.<br/>
-            Lo strumento Proposte di Airesis è oggi il più sofisticato e completo sistema deliberativo di massa disponibile online!<br/>
-            In questo preciso momento %{users} utenti stanno discutendo su  %{proposals} proposte.
+            The heart of Airesis are the proposals: you will have several models with which to engage people in the group and hear their opinion. <br/>
+            You can debate on individual topics, build an agenda in a shared way or vote for candidates in a democratic way. <br/>
+            The  Proposals tool of Airesis is now the most sophisticated and complete mass deliberative system available online! <br/>
+            At this very moment %{users} users are discussing %{proposals} proposals.
           </p>
       paragraph_5:
         title: "Organize your events, increase partecipation"
         content_html: |
           <p>
-            Un sistema completo di calendarizzazione degli eventi vi permette di organizzare al meglio le attività del vostro gruppo.<br/>
-            I partecipanti al gruppo saranno avvisati dei prossimi eventi organizzati e potranno sincronizzare il proprio calendario con quello del gruppo.<br/>
-            Ciascun partecipante può infine specificare se parteciperà o meno, permettendo agli organizzatori una gestione migliore dell'evento.
+            A complete system for scheduling events allows you to better organize the activities of your group. <br/>
+            The participants will be notified of upcoming events and be able to synchronize their calendar with that of the group. <br/>
+            Each participant can then specify whether to participate or not, allowing organizers to better manage the event.
           </p>
       paragraph_6:
         title: "A shared documents archive"
         content_html: |
           <p>
-            Il vostro gruppo avrà a disposizione un utilissimo e completo Archivio Documenti che potrà organizzare in
-            cartelle e sottocartelle per mettere a disposizione dei partecipanti
-            tutto il materiale necessario.<br/>
-            La semplicità d'uso dell'Archivio Documenti su Airesis è senza paragoni: potrete caricare i file sul server
-            semplicemente trascinandoli nel browser dal vostro computer.<br/>
-            Pochi secondi e l'upload sarà completo! Chiedete al nostro team come aumentare lo spazio di archiviazione a
-            vostra disposizione e caricare fino ad 1GB di documenti.
+            Your group will have a very useful and complete Documents Archive that can be arranged in
+            folders and subfolders to make available to participants
+            all the necessary material. <br/>
+            The ease of use of the  Documents Archive of Airesis is unmatched: you can upload files to the server
+            simply dragging them to the browser from your computer. <br/>
+            Just a few seconds and uploading will be complete! Ask our team how to increase storage space in
+            your disposal and upload up to 1GB of documents.
           </p>
       paragraph_7:
         title: "A space to chat"
         content_html: |
           <p>
-            Le idee migliori nascono dal dialogo: è per questo che Airesis ha deciso di mettere a disposizione un forum per
-            ciascun gruppo dove gli utenti possano scambairsi idee, suggerimenti o semplicemente fare quattro chiacchiere in
-            libertà.<br/>
-            Il forum a disposizione è moderno e completo, totalmente configurabile e ampliabile dal gruppo per organizzarlo
-            secondo le proprie esigenze.
-            Potrete avere discussioni pubbliche e aperte a tutti, e discussioni private e riservate ai partecipanti del
-            gruppo.
-            Organizzate i forum in sezioni e create gruppi di moderatori! E' tutto nelle vostre mani e ci sono
-            già %{topics} discussioni attive su Airesis!
+          The best ideas come from the dialogue: that's why Airesis decided to provide a forum for
+          each group where users can exchange ideas, suggestions or simply chat in
+          freedom. <br/>
+          The forum provided is complete and modern, fully configurable and expandable by the group to organize
+          according to their needs.
+          You can have public discussions open to all, and discussions private and confidential to the participants of
+          group.
+          Organize your forum into sections and create groups of moderators! It 's all in your hands and there are
+          already %{topics} active discussions in Airesis!
           </p>
       paragraph_8:
         title: "Much, much more"
         content_html: |
           <p>
-            Le funzioni di Airesis non si esauriscono qui!<br/>
-            Guarda la nostra %{intro_page} per scoprire le decine di
-            strumenti e opzioni a disposizione per il tuo gruppo.<br/>
-            Scopri la miriade di funzionalità che ti aiuteranno nella gestione del tuo gruppo e che ti permetteranno di
-            organizzarlo al meglio: se hai una necessità, sicuramente Airesis ti permetterà di soddisfarla!
+          The functions of Airesis do not stop here! <br/>
+          Watch our %{intro_page}to discover the dozens of
+          tools and options available for your group. <br/>
+          Discover the myriad of features that will help you in the management of the group and that will allow you to
+          organize it to best: if you have a need, certainly Airesis will allow you to satisfy it!
           </p>
-        link: 'pagina di introduzione'
+        link: 'introduction page'
     press:
       title: "Press Release"
     roadmap:

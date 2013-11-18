@@ -158,6 +158,7 @@ en:
         pin:
           'true': Unpin this topic
           'false': Pin this topic
+        related_proposals: "Related proposals"
     post:
       buttons:
         reply: Post Reply

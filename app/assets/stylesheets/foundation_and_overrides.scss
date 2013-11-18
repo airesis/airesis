@@ -1398,3 +1398,216 @@ a:hover {
   }
 }
 
+ul, ol {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.label {
+  background-color: #2ba6cb;
+  a {
+    color: #fff;
+  }
+
+  &.tag {
+    margin:  5px;
+    max-width: 200px;
+    overflow: hidden;
+  }
+}
+
+/*menu che si incolla in alto*/
+.sticky {
+  padding: 0.5ex;
+
+}
+
+.sticky.stick {
+  position: fixed;
+  top: 90px;
+  z-index: 10000;
+  border-radius: 0 0 0.5em 0.5em;
+}
+
+#logo-but img {
+  height: 18px;
+  width: 20px;
+  margin: auto;
+}
+
+#tolr img {
+  height: 28px;
+}
+
+.active {
+  background: none;
+  border: none;
+}
+
+.slide {
+  padding: 20px;
+  position: relative;
+  &.blue {
+    background-color: #E2F4FB;
+  }
+  &.violet {
+    background-color: #F5EAFA;
+  }
+  &.green {
+    background-color: #F0F8DB;
+  }
+  &.yellow {
+    background-color: #FFF6DF;
+  }
+  &.red {
+    background-color: #FFE4E4;
+  }
+}
+
+.fake_anchor {
+  position: absolute;
+  top:  -90px;
+}
+
+.full-width {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#main {
+
+}
+
+#main-copy {
+  padding-bottom: 35px;
+  padding-right: 0;
+}
+
+#menu-top {
+  top: 0px;
+  min-width: initial;
+}
+
+#menu-group {
+  //top: initial;
+}
+
+#logo-but {
+  //top: initial;
+}
+
+body {
+  height: 100%;
+}
+
+.row.centered {
+  width: 1000px;
+  max-width: 100%;
+  min-width: 733px;
+  margin:  0 auto;
+  &.two-cols {
+    width:  80%;
+  }
+}
+
+@media only screen and (max-width: $small-screen) {
+  .row.centered {
+    width: auto;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+@media only screen and (min-width: $small-screen) {
+  span.show-for-medium-up {
+    display: inline !important;
+  }
+}
+
+.logo1mini {
+  height: 80px;
+}
+
+.row.top-bar {
+  background: rgb(254,255,255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(254,255,255,1) 0%, rgba(227,237,238,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,255,1)), color-stop(100%,rgba(227,237,238,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(227,237,238,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(227,237,238,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(227,237,238,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(254,255,255,1) 0%,rgba(227,237,238,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#e3edee',GradientType=0 ); /* IE6-9 */
+}
+
+.row.sub-bar {
+  background: rgb(192,246,184); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(192,246,184,1) 0%, rgba(146,221,152,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(192,246,184,1)), color-stop(100%,rgba(146,221,152,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(192,246,184,1) 0%,rgba(146,221,152,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(192,246,184,1) 0%,rgba(146,221,152,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(192,246,184,1) 0%,rgba(146,221,152,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(192,246,184,1) 0%,rgba(146,221,152,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0f6b8', endColorstr='#92dd98',GradientType=0 ); /* IE6-9 */
+}
+
+.row.last-bar {
+  margin-top: 20px;
+}
+
+
+.homepageButton {
+  font-weight:bold;
+  padding:5px;
+  padding-left:10px;
+  padding-right:10px;
+  background-color: #5A7BC1;
+  color:  #fff;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#5A7BC1', endColorstr='#4B6EB7', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+
+}
+
+.homepageButton:hover {
+  color: #fff;
+  background-color: #4B6EB7;
+}
+
+.topbar-menu-icon {
+  background: no-repeat url(/assets/top-menu.png);
+}
+
+.mycont {
+  .row {
+    margin: 4px 0px;
+    .columns img {
+      max-width: none;
+    }
+  }
+}
+
+select.resize {
+  width:  auto;
+}
+
+.dataTables_length select {
+  width: auto;
+}
+
+input.ui-spinner-input {
+  border: none;
+  margin: 0;
+  width: 35px;
+  padding: 0.3em;
+  height:  2em;
+}
+
+
+a.homepageButton {
+  line-height: 1.6em
+}
+

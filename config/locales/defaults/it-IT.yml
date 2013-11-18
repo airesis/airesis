@@ -52,6 +52,7 @@ it-IT:
         max_file_size: "Dimensione massima: 2MB"
         what_can_i_do: "Cosa posso fare?"
         what_i_cant_do: "Cosa NON posso fare?"
+        group_level_permission_title: "Permessi a livello di gruppo"
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
@@ -657,7 +658,7 @@ it-IT:
         edit_button: "Modifica"
         delete_button: "Cancella"
         delete_button_confirm: "Sei sicuro di voler cancellare il post?"
-        draft: "[Bozza]"
+        draft: "Bozza"
         comments_says: "dice..."
       published_button: "Post pubblicati"
       view:

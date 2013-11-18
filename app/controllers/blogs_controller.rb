@@ -17,7 +17,7 @@ class BlogsController < ApplicationController
    end
   
   def index
-    @page_title = t('pages.gs.show.title')
+    @page_title = t('pages.blogs.show.title')
     @blogs = Blog.all
 
     respond_to do |format|

@@ -10,7 +10,7 @@
 
 
 <% @page_title = @user.fullname %>
-<p>
+
 <div id="user_profile_container">
   <%= render :partial => 'user_profile' %>
 </div>
@@ -24,14 +24,18 @@
       <thead>
       <th><%= t('pages.users.show.group_column')%></th>
       <th><%= t('pages.users.show.role_column')%></th>
+      <th><%= t('pages.users.show.registered_from') %></th>
+      <th>registered_from</th>
       <th></th>
       </thead>
       <tbody>
 
       <% @group_partecipations.each do |partecipation| %>
           <tr>
-            <td><%= link_to partecipation.group.name, partecipation.group %></td>
+            <td><%=image_tag partecipation.group_image_tag%><%= link_to partecipation.group.name, partecipation.group %></td>
             <td><span id="partecipation_<%=partecipation.id%>"><%= partecipation.partecipation_role.name %></span></td>
+            <td><%=l partecipation.created_at.to_i if partecipation.created_at%></td>
+            <td><%= partecipation.created_at.to_i if partecipation.created_at%></td>
             <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_url(partecipation.group,partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, partecipation %></td>
           </tr>
       <% end %>
@@ -49,6 +53,7 @@
       <thead>
       <th><%= t('pages.users.show.proposal_column') %></th>
       <th><%= t('pages.users.show.votation_date_column') %></th>
+      <th>vote_sortable</th>
       <th><%= t('pages.users.show.vote_column') %></th>
       </thead>
       <tbody>
@@ -56,6 +61,7 @@
           <tr>
             <td><%=vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
             <td><%=l vote.created_at %></td>
+            <td><%= vote.created_at.to_i %></td>
             <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote')%></td>
           </tr>
       <% end %>
@@ -144,15 +150,25 @@
 
     <%= render :partial => 'attr_editor_modal', :locals => {:modal_id => 'email_modal', :attr_label => t('pages.users.show.email_label'), :attr_name => :email} %>
 <% end %>
-</p>
 
 <script type="text/javascript">
     <%if current_user == @user%>
-            $('#partecipation_table, #votations_table').dataTable({
+            $('#partecipation_table').dataTable({
                 "bPaginate": false,
                 "bFilter": false,
                 "bSearchable": false,
-                "bInfo": false
+                "bInfo": false,
+                "aaSorting": [[2,'desc']],
+                "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null]
+            });
+
+            $('#votations_table').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bSearchable": false,
+                "bInfo": false,
+                "aaSorting": [[1,'desc']],
+                "aoColumns": [null, {"iDataSort": 2}, {"bVisible": false}, null]
             });
     <%end%>
 </script>

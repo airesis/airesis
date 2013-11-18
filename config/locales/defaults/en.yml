@@ -53,6 +53,7 @@ en:
         what_can_i_do: "What can I do?"
         what_i_cant_do: "What can't I do?"
         certified_from: "Certified from"
+        group_level_permission_title: %Q(Group level permissions)
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -654,7 +655,7 @@ en:
         edit_button: "Edit"
         delete_button: "Delete"
         delete_button_confirm: "Are you sure you want to delete this post?"
-        draft: "[Draft]"
+        draft: "Draft"
         comments_says: "says..."
       published_button: "Published posts"
       view:

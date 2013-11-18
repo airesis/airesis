@@ -7,6 +7,8 @@ SitemapGenerator::Sitemap.create do
   add groups_path, changefreq: 'daily', priority: 0.9
   add edemocracy_path, changefreq: 'monthly', priority: 0.9
   add eparticipation_path, changefreq: 'monthly', priority: 0.9
+  add municipality_path, changefreq: 'monthly', priority: 0.6
+  add school_path, changefreq: 'monthly', priority: 0.6
   add story_path, changefreq: 'monthly', priority: 0.9
   add blogs_path, changefreq: 'daily', priority: 0.7
   add events_path, changefreq: 'daily', priority: 0.7
