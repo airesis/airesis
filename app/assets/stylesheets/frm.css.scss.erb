@@ -31,8 +31,7 @@ $border-color: #e2e2e2;
 
     .topic {
         .icon {
-            width: 20px;
-            height: 20px;
+            width: 3%;
             background: url('<%=asset_path 'frm/topic_read.gif'%>') no-repeat center;
             &.lock {
                 background-image: url('<%=asset_path 'frm/topic_read_locked.gif'%>');
@@ -56,6 +55,12 @@ $border-color: #e2e2e2;
                 }
             }
         }
+        .topic-title {
+            width:  47%;
+        }
+        .latest-post {
+            width:  40%;
+        }
     }
 
     thead {
@@ -76,8 +81,19 @@ $border-color: #e2e2e2;
                 border: 1px solid $border-color;
                 font-size: 0.9em;
                 padding: 0.5em;
+
+                &.forum-description {
+                    width:  45%;
+                }
+                &.topics-count {
+
+                }
+                &.last-post {
+                    width:  40%;
+                }
                 &.topics-count, &.posts-count, &.views-count {
                     text-align: center;
+                    width:  5%;
                 }
                 &.forum-description, &.last-post, &.byline {
                     padding-left: 20px;

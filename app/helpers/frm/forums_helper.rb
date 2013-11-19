@@ -4,7 +4,7 @@ module Frm
       if forem_admin_or_moderator?(forum)
         forum.topics.count
       else
-        forum.topics.approved.count
+        forum.topics.approved.visible(current_user).count
       end
     end
 
