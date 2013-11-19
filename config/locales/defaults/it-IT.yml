@@ -412,7 +412,7 @@ it-IT:
         close_debate_button: "Chiudi il dibattito"
         close_debate_proposal_confirmation: "Terminare immediatamente il dibattito e proseguire alla fase successiva?"
         during_debate: "Dibattito in corso"
-        comment_inserted_by: "Inserito %{when} da %{who}"
+        comment_inserted_by: "%{who} - %{when}"
         replies:
           show_all: "Mostra tutti i %{count} commenti..."
           delete: "Cancella"
