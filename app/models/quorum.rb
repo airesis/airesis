@@ -38,7 +38,7 @@ class Quorum < ActiveRecord::Base
         end
       end
     end
-    self.form_type = self.valutations || self.good_score != self.bad_score ? 'a' : 's'
+    self.form_type = (self.percentage || (self.good_score != self.bad_score)) ? 'a' : 's'
   end
 
   def or?
@@ -47,6 +47,11 @@ class Quorum < ActiveRecord::Base
 
   def and?
     self.condition && (self.condition.upcase == 'AND')
+  end
+
+
+  def assigned?
+    self.started_at != nil
   end
 
   def time_fixed?
@@ -207,7 +212,7 @@ end
     participants = I18n.t('models.quorum.participants', count: ((self.valutations == nil)? self.min_partecipants : self.valutations))  #used for singular and plural
     if self.minutes                                              #if the quorum has a minimum time
       time = "<b>#{self.time}</b> "                              #used in the proposal creation wizard
-      time = "<b>#{self.time(total_time=true)}</b> " if proposal_lives #used in the proposal history, when there are different life cycles
+      time = "<b>#{self.time(true)}</b> " if proposal_lives #used in the proposal history, when there are different life cycles
       time +=I18n.t('models.quorum.until_date',date: I18n.l(self.ends_at, format: :long_date), time: I18n.l(self.ends_at, format: :hour)) if self.ends_at #used after the proposal is created
 
       if self.percentage                                         #if quorums has minimum number of evaluations
