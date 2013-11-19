@@ -208,7 +208,7 @@
   <% end %>
 </div>
 
-<% if @event.is_incontro? %>
+<% if @event.is_incontro? || @event.is_riunione? %>
     <div class="row full-width">
       <div class="columns large-6">
         <%= render :partial => 'event_comments/new_event_comment', :locals => {:event_comment => @event_comment} %>

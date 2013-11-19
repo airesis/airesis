@@ -34,8 +34,7 @@
 
 .blogPostPostedAt {
     font-size: 0.87em;
-    height: 20px;
-
+    margin-bottom: 5px;
 }
 
 .blogPostPostedAt a img {

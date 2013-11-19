@@ -309,21 +309,23 @@ class Proposal < ActiveRecord::Base
     @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
-      if paragraph.content_changed?
+      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+      if paragraph.content_changed? || section.marked_for_destruction?
         something = true
-        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
     self.solutions.each do |solution|
-      solution_history = @revision.solution_histories.build(seq: solution.seq)
+      solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
       something_solution = false
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
-        if paragraph.content_changed?
+        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+        if paragraph.content_changed? || section.marked_for_destruction?
           something = true
           something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
           section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
         end
       end

@@ -27,9 +27,7 @@
         </div>
       </div>
       <div class="baloon-content">
-        <%= raw auto_link((h(comment.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-          truncate(text, :length => 15)
-        end %>
+        <%= parsed_content(comment,@proposal.is_anonima?) %>
       </div>
       <div class="baloon-footer" title='<%=l(comment.created_at)%>'>
         <% who = (proposal_nickname && @proposal.is_anonima?) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>

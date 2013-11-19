@@ -3,14 +3,14 @@
   <td class='<%= icon_classes(topic) %>'>
 
   </td>
-  <td class='byline'>
+  <td class='byline topic-title'>
     <div class='subject'><%= link_to topic.subject, group_forum_topic_url(@group, @forum, topic) %></div>
     <div class='started-by'><%= t "started_by" %><%= relevant_posts(topic).first.user %></div>
   </td>
 
   <td class='posts-count text-center'><%= relevant_posts(topic).count %></td>
   <td class='views-count text-center'><%= topic.views_count %></td>
-  <td class='latest-post text-center'>
+  <td class='latest-post'>
     <%= link_to_latest_post(topic) -%>
   </td>
 </tr>

@@ -18,6 +18,7 @@ it-IT:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Domenica
       - Lunedì
@@ -133,3 +134,6 @@ it-IT:
       x_seconds:
         one: "1 secondo fa"
         other: ! '%{count} secondi fa'
+  label:
+    from: "dal"
+    to: "al"

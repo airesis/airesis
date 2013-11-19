@@ -381,11 +381,12 @@ function calculate_event_times() {
 }
 
 function addMinutes(date, minutes) {
+    console.log('add ' + minutes);
     return new Date(date.getTime() + minutes * 60000);
 }
 
 function upperMinutes(date, step) {
-    return addMinutes(date, date.getMinutes() % step);
+    return addMinutes(date, step - (date.getMinutes() % step));
 }
 
 function dateToString(date) {
@@ -837,4 +838,67 @@ if (!jQuery.browser) {
 }
 
 
+/*we'll do that in 3.1 TODO */
+
+//var rails = $.rails;
+//rails.handleRemote = function (element) {
+//    console.log('handle remote');
+//    if ($(window).width() <=768) return;
+//    var method, url, data,
+//            crossDomain = element.data('cross-domain') || null,
+//            dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
+//            options;
+//
+//    if (rails.fire(element, 'ajax:before')) {
+//
+//        if (element.is('form')) {
+//            method = element.attr('method');
+//            url = element.attr('action');
+//            data = element.serializeArray();
+//            // memoized value from clicked submit button
+//            var button = element.data('ujs:submit-button');
+//            if (button) {
+//                data.push(button);
+//                element.data('ujs:submit-button', null);
+//            }
+//        } else if (element.is(rails.inputChangeSelector)) {
+//            method = element.data('method');
+//            url = element.data('url');
+//            data = element.serialize();
+//            if (element.data('params')) data = data + "&" + element.data('params');
+//        } else {
+//            method = element.data('method');
+//            url = element.attr('href');
+//            data = element.data('params') || null;
+//        }
+//
+//        options = {
+//            type: method || 'GET', data: data, dataType: dataType, crossDomain: crossDomain,
+//            // stopping the "ajax:beforeSend" event will cancel the ajax request
+//            beforeSend: function (xhr, settings) {
+//                if (settings.dataType === undefined) {
+//                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+//                }
+//                return rails.fire(element, 'ajax:beforeSend', [xhr, settings]);
+//            },
+//            success: function (data, status, xhr) {
+//                element.trigger('ajax:success', [data, status, xhr]);
+//            },
+//            complete: function (xhr, status) {
+//                element.trigger('ajax:complete', [xhr, status]);
+//            },
+//            error: function (xhr, status, error) {
+//                element.trigger('ajax:error', [xhr, status, error]);
+//            }
+//        };
+//        // Only pass url to `ajax` options if not blank
+//        if (url) {
+//            options.url = url;
+//        }
+//
+//        return rails.ajax(options);
+//    } else {
+//        return false;
+//    }
+//};
 

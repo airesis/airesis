@@ -101,21 +101,32 @@
 <% if ::Configuration.proposal_categories %>
     <div class="mybox category">
       <h4><%= t('pages.proposals.show.category_title') %></h4>
-
       <div class="mycont">
-        <table>
-          <tr>
-            <td style="vertical-align: middle;">
-              <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_path(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-            <td>
-              <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_path(:category => @proposal.category.id) %>
-            </td>
-          </tr>
-        </table>
+        <div class="row">
+              <div class="columns large-2">
+                <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+              </div>
+              <div class="columns large-10">
+                <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+              </div>
+        </div>
       </div>
     </div>
 <% end %>
+<div class="mybox model">
+  <h4><%= t('pages.proposals.show.model_title') %></h4>
+  <div class="mycont">
+    <div class="row">
+      <div class="columns large-2">
+        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:type => @proposal.proposal_type.id}) : proposals_url(:type => @proposal.proposal_type.id) %>
+      </div>
+      <div class="columns large-10">
+        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, {:type => @proposal.proposal_type.id}) : proposals_url(:type => @proposal.proposal_type.id) %>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
     <div class="mybox">

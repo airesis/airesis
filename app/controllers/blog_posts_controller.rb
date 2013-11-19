@@ -44,7 +44,7 @@ class BlogPostsController < ApplicationController
   
   
   def drafts
-    @page_title = t('pages.blog_posts.drafts.title', {blog: @blog.title})
+    @page_title = t('pages.blog_posts.drafts.title', blog: @blog.title)
     @user = @blog.user
     @blog_posts =  @blog.posts.drafts.order('updated_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     

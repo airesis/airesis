@@ -30,7 +30,6 @@ $large-screen: 1440px;
     text-align: center;
     color: #3366CC;
     font-weight: bold;
-    width: 98%;
     &:hover {
         background-color: #F4F4F4;
         text-decoration: none;
@@ -448,10 +447,7 @@ $large-screen: 1440px;
             }
         }
         .maintitle {
-            left: 10px;
-            right: 10px;
             font-size: 1em;
-            top: 6px;
         }
 
         .datetime {
@@ -470,6 +466,13 @@ $large-screen: 1440px;
 
 }
 
+
+#start_preset {
+    .start_vot {
+        margin-top: 10px;
+    }
+}
+
 .proposal_list {
     .datetime {
         margin: 5px 0px;
@@ -485,6 +488,7 @@ $large-screen: 1440px;
     word-break: break-word;
     padding: 10px;
     line-height: 1.6em;
+    overflow: hidden;
 }
 
 .proposal_list {
@@ -602,8 +606,11 @@ ul.blogList li.blogListFirst {
 }
 
 .solution_main .proposal_main {
-    /*margin:  5px;*/
     box-shadow: none;
+}
+
+.diffcontainer h3 .tit1 .tit2 {
+    margin-right: 0px;
 }
 
 h3 {
@@ -843,9 +850,9 @@ form {
 }
 
 .ice-del {
-    background-color: #faf1f1 !important;
+    background-color: #fad1e1 !important;
     img.cke_iframe {
-        background-color: #faf1f1 !important;
+        background-color: #fad1e1 !important;
     }
 }
 
@@ -1300,6 +1307,7 @@ a.spch-bub-inside:hover .point {
 
 .fake_content {
     color: #777;
+    font-size: 0.85em;
 }
 
 ul.navigator {
@@ -1343,4 +1351,19 @@ ul.navigator {
 
 .choise_b .inner {
     margin-top: 10px;
+}
+
+
+.color_legend {
+    width: 13px;
+    height: 13px;
+    &.positive {
+       background-color: #4bb2c5;
+    }
+    &.negative {
+       background-color: #EAA228;
+    }
+    &.neutral {
+       background-color: #c5b47f;
+    }
 }

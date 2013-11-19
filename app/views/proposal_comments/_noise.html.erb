@@ -2,9 +2,7 @@
   <%if @proposal.contributes.noise.count > 0 %>
   <% @proposal.contributes.noise.each do |contribute| %>
       <div class="noise_element" data-id="<%= contribute.id %>">
-        <%= raw auto_link((h(contribute.content)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-          truncate(text, :length => 15)
-        end %>
+        <%= parsed_content(contribute,@proposal.is_anonima?) %>
       </div>
   <% end %>
       <%else %>

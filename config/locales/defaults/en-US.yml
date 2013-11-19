@@ -52,6 +52,7 @@ en-US:
         max_file_size: "Max size: 2MB"
         what_can_i_do: "What can I do?"
         what_i_cant_do: "What can't I do?"
+        certified_from: "Certified from"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -336,6 +337,12 @@ en-US:
         date_range: "created between %{start} and %{end}"
         proposal_types_title: "MODELS"
         all_proposal_types: "All models"
+        with_text: "containing '%{text}'"
+        last_24h: "created in the last 24 hours"
+        last_1h: "created in the last hour"
+        last_7d: "created in the last week"
+        last_1m: "created in the last month"
+        last_1y: "created in the last year"
       show:
         voteup: 'I agree'
         votenil: "I don't know / I do not understand"
@@ -424,6 +431,7 @@ en-US:
         debate_ends_valutations_or_html: "End of debate in:<br/><b>%{num}</b> or with:<br/><b>%{evaluations_left}</b>"
         debate_ends_valutations_and_html: "End of debate in:<br/><b>%{num}</b> and with:<br/><b>%{evaluations_left}</b>"
         debate_ends_valutations_html: "End of debate with:<br/><b>%{evaluations_left}</b>"
+        error_loading_paragraph: "This paragraph has been removed. Reload the page to view the updated proposal"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -503,7 +511,7 @@ en-US:
         hurry_up: "Hurry up!"
         last_minutes: "You are allowed to edit these fields only for %{minutes} minutes."
         no_participants: "You are allowed to edit these fields only if nobody has participated!"
-        remove_section: "Remove section"
+        remove_section: "Remove paragraph"
         add_paragraph: "Add a new paragraph"
         edit_proposal: "Modify and update the text of the proposal!"
         remove_solution: "Remove solution"
@@ -536,6 +544,7 @@ en-US:
           agenda: "Add another solution"
           candidates: "Add another solution"
           simple: "Add another solution"
+        navigator: "Navigator"
       manage_noise:
         available: "Contributions eligible for deletion"
         removed: "Contributions removed from discussion"
@@ -632,7 +641,7 @@ en-US:
         edit_button: "Edit"
         delete_button: "Delete"
         delete_button_confirm: "Are you sure you want to delete this post?"
-        draft: "[Draft]"
+        draft: "Draft"
         comments_says: "says..."
       published_button: "Published posts"
       view:
@@ -894,6 +903,9 @@ en-US:
     event_comments:
       new:
         insert_comment: "Insert a comment"
+    propsoals:
+      index:
+        type: "of type %{type}"
   pl:
     comments:
       zero: "no comment"
@@ -1029,9 +1041,6 @@ en-US:
           other: '%{count} errors did not allow this %{model} from being saved'
           # The variable :count is also available
         body: 'There were problems with the following fields'
-
-      # The values :model, :attribute and :value are always available for interpolation
-      # The value :count is available when applicable. Can be used for pluralization.
       messages:
         inclusion: 'is not included in the list'
         exclusion: 'is reserved'
@@ -1113,8 +1122,8 @@ en-US:
     go_back: "Go back"
     chosen: "I have chosen!"
     ok: "OK"
-    yes: 'YES'
-    no: 'NO'
+    yes_word: 'YES'
+    no_word: 'NO'
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"

@@ -174,11 +174,15 @@ class PartecipationRolesController < ApplicationController
   #e sia l'amministratore o portavoce del gruppo
   #e che il ruolo appartenga al gruppo indicato o sia generico,
   #e l'utente a cui si modifica il ruolo appartenga al gruppo
+  #e non si stia cambiando il ruolo dell'unico amministratore
   def check_user_permissions
     @group = Group.find(params[:group_id])
     @role = PartecipationRole.find(params[:role_id])
     @user = User.find(params[:user_id])
-    if !((current_user && (@group.portavoce.include?current_user)) || is_admin?) || (@role.group && (@role.group != @group)) || (!@group.partecipants.include?@user)
+    if !((current_user && (@group.portavoce.include?current_user)) || is_admin?) || #check user is administrator
+        (@role.group && (@role.group != @group)) || #check role is a group role
+        (!@group.partecipants.include?@user) ||  #check the user is really in the group
+        ((@group.portavoce.include? @user) && (@group.portavoce.count == 1)) #check user is not the only administrator
       flash[:error] = t('error.role_permission_change')
       respond_to do |format|
       format.js { render :update do |page|

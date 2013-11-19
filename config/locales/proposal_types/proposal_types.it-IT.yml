@@ -1,6 +1,17 @@
 it-IT:
   pages:
     proposals:
+      edit:
+        add_solution:
+          standard: "Aggiungi una nuova soluzione"
+          poll: "Aggiungi un'opzione"
+          rule_book: "Aggiungi una nuova soluzione"
+          press: "Aggiungi una nuova soluzione"
+          event: "Aggiungi una nuova soluzione"
+          estimate: "Aggiungi una nuova soluzione"
+          agenda: "Aggiungi un altro punto"
+          candidates: "Aggiungi un candidato"
+          simple: "Aggiungi una nuova soluzione"
       new:
         standard:
           problems_title: "Problema e/o ostacoli"
@@ -16,6 +27,7 @@ it-IT:
             documents: "Documentazione"
             pros: "Pro"
             cons: "Contro"
+            title: "Soluzione 1"
           suggestion_html: |
             <div><b>Esempio:</b></div>
             <div>Ridurre l'uso di acqua potabile per l'irrigazione.</div>
@@ -30,6 +42,7 @@ it-IT:
             article: "Articolo %{num}"
             pros: "Pro"
             cons: "Contro"
+            title: "Soluzione 1"
           problems_title: "Problematica"
           paragraph:
             inspire: "Regolamenti a cui ispirarsi"
@@ -48,6 +61,8 @@ it-IT:
             body: "Corpo"
             conclusion: "Conclusioni"
             deep: "Approfondimenti"
+            title: "Soluzione 1"
+            maintitle: "Titolo"
           paragraph:
             target: "Destinatari/Target"
         estimate:
@@ -58,6 +73,7 @@ it-IT:
             <div>Sostituzione dell’impianto termico nella sede dell’Associazione.</div>
             <div>A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il guasto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico.</div>
           solution:
+            title: "Soluzione 1"
             cost: "Importo"
             problems: "Rispetto dei vincoli e problemi"
             dumentation: "Documentazione"
@@ -74,6 +90,7 @@ it-IT:
             <div>Stabilire un ordine del giorno per la riunione di coordinamento.</div>
             <div>Riunione di coordinamento ordinaria per lo scambio di esperienze con i referenti dei comitati locali per l'agricoltura biologica del centro Italia.</div>
           solution:
+            title: "Punto all'ordine del giorno"
             priorities: "Priorità del punto proposto"
             links: "Link di approfondimento"
             description: "Descrizione del tema"
@@ -89,7 +106,8 @@ it-IT:
             <div>Organizzare un festival rock low cost.</div>
             <div>Nella nostra città esistono molte band giovanili che non trovano spazi per esibirsi e valorizzare il loro talento. D'altra parte il programma di eventi promosso dal Comune per la prossima estate è molto scarno, a causa di mancanza di fondi.</div>
           solution:
-            title: "Titolo"
+            title: "Soluzione 1"
+            maintitle: "Titolo"
             description: "Descrizione della soluzione"
             program: "Data, orario e programma"
             body: "place"
@@ -114,8 +132,11 @@ it-IT:
             available: "Disponibilità a ricoprire la carica"
           paragraph:
             election_type: "Descrizione del tipo di elezione:"
+            role: "Ruolo o carica da ricoprire"
+            requirements: "Requisiti del candidato"
         simple:
           problems_title: "Problematica"
           solution:
             description: "Descrizione"
+            title: "Soluzione 1"
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"

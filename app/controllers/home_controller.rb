@@ -60,6 +60,12 @@ class HomeController < ApplicationController
   def helpus
   end
 
+  def school
+  end
+
+  def municipality
+  end
+
   def privacy
   end
 

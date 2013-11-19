@@ -52,6 +52,7 @@ it-IT:
         max_file_size: "Dimensione massima: 2MB"
         what_can_i_do: "Cosa posso fare?"
         what_i_cant_do: "Cosa NON posso fare?"
+        group_level_permission_title: "Permessi a livello di gruppo"
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
@@ -119,6 +120,8 @@ it-IT:
         confirm_role_change2: "passerà da"
         confirm_role_change3: "a"
         confirm_role_change4: "Confermi?"
+        confirm_delete_1: "L'operazione potrebbe richiedere qualche minuto. Sei sicuro di voler rimuovere %{count} utenti dal gruppo?"
+        confirm_delete_2: "L'operazione che stai effettuando comporterà la rimozione dal gruppo di tutti e %{count} gli utenti selezionati e non potrà essere annullata! Sei veramente sicuro di voler continuare?"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -165,6 +168,12 @@ it-IT:
         change_permissions: "Nelle Impostazioni Ruoli e permessi puoi modificare le azioni che possono compiere gli iscritti"
         remove_user_confirm: "Sei sicuro di voler rimuovere %{name} dal gruppo?"
         modify_group: "Modifica il gruppo"
+        private_warning_html: |
+          <b>Avviso per i gruppi chiusi</b><br/>
+          Le proposte pubbliche saranno comunque visibili dall'esterno.<br/>
+          Vai in <b>%{link}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>
+          I post pubblicati nella bacheca del gruppo sono sempre visibili nelle pagine personali degli utenti.<br/>
+          I forum pubblici sono comunque visibili all'esterno.
       layout:
         home_button: "BACHECA"
         proposals_button: "PROPOSTE"
@@ -184,7 +193,7 @@ it-IT:
         reject_request_button: "Declina"
         ask_participate_button: "Richiedi di partecipare al gruppo"
         remove_post: "Rimuovi post dalla bacheca del gruppo"
-        destroy_button: "Rimuovi gruppo"
+        destroy_button: "Elimina"
         confirm_destroy: "STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?"
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -276,6 +285,8 @@ it-IT:
         participants_html:
           one: <b>1</b> partecipante
           other: <b>%{count}</b> partecipanti
+        added_by: "Aggiunto da"
+        remove_all: "Rimuovi tutti"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -350,7 +361,7 @@ it-IT:
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
         history_button: "History"
-        choose_votation_period: "Scegli un periodo per la votazione"
+        choose_votation_period: "Scegli un evento per la votazione"
         choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
         choose_votation_period_button: "Ho scelto!"
         create_votation_period: "Non vi sono date disponibili per la votazione"
@@ -428,11 +439,19 @@ it-IT:
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
         debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
         debate_ends_valutations_or_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>
         debate_ends_valutations_and_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>
         debate_ends_valutations_html: |
-          Termine dibattito con:<br/><b>%{evaluations_left}</b>"
+          Termine dibattito con:<br/><b>%{evaluations_left}</b>
+        error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
+        generic_fake_content: "Questo paragrafo non è ancora stato compilato. Aiuta l'autore inserendo un contributo!"
+
+        model_title: "Modello"
+        created_events: "Eventi già creati"
+        create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
+        choose_later: "No grazie, lo scelgo dopo"
+        choose_now: "Lo voglio scegliere ora"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -512,7 +531,7 @@ it-IT:
         hurry_up: "Affrettati!"
         last_minutes: "Potrai modificare questi dati ancora per %{minutes} minuti."
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
-        remove_section: "Rimuovi sezione"
+        remove_section: "Rimuovi paragrafo"
         add_paragraph: "Aggiungi un nuovo paragrafo"
         edit_proposal: "Modifica e aggiorna il testo della proposta!"
         remove_solution: "Rimuovi soluzione"
@@ -537,6 +556,12 @@ it-IT:
         integrated: "Integrato"
         contribution_valuation: "Come la pensano?"
         navigator: "Navigatore"
+        compress_solutions: "Comprimi soluzioni"
+        hide_contributes: "Nascondi contributi"
+        expand_solutions: "Espandi soluzioni"
+        show_contributes: "Mostra contributi"
+        cancel_confirm: "Annullare le modifiche e tornare alla visualizzazione?"
+        update_confirm: "Non hai integrato nessun contributo. Sei sicuro di voler procedere?"
       manage_noise:
         available: "Contributi che possono essere eliminati"
         removed: "Contributi eliminati dalla discussione"
@@ -565,6 +590,7 @@ it-IT:
       index:
         title: "Calendario"
         group_title: "Calendario degli eventi"
+        choose_type: "SCEGLI IL TIPO DI EVENTO"
       new:
         private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
         title: "Nuovo Evento"
@@ -572,6 +598,11 @@ it-IT:
         type_for_town: "Digita alcuni caratteri per cercare un comune"
         no_town_found: "Nessun comune trovato"
         town_searching: "Sto cercando..."
+        title_event: "NUOVO EVENTO VOTAZIONE"
+        title_meeting: "NUOVO EVENTO MEETUP"
+        step_2: "Descrizione"
+        step_3: "Quando"
+        step_4: "Dove"
       show:
         map: "Mappa"
         event_place: "Luogo dell'evento"
@@ -627,7 +658,7 @@ it-IT:
         edit_button: "Modifica"
         delete_button: "Cancella"
         delete_button_confirm: "Sei sicuro di voler cancellare il post?"
-        draft: "[Bozza]"
+        draft: "Bozza"
         comments_says: "dice..."
       published_button: "Post pubblicati"
       view:
@@ -701,6 +732,7 @@ it-IT:
       index:
         title: "Elenco durate disponibili"
         how_read: "Come si legge il quorum?"
+        debate_end: "termine del dibattito"
     home:
       index:
         whatis: "COS'E' AIRESIS"
@@ -850,6 +882,12 @@ it-IT:
       evaluation_reached: "Numero di valutazioni:"
       quorum_used: "Quorum utilizzato:"
       editors_in_life_cycle: "Redattori durante questo ciclo di vita:"
+      solutions:
+        added: "NUOVA SOLUZIONE"
+        removed: "SOLUZIONE ELIMINATA"
+      sections:
+        added: "NUOVO PARAGRAFO"
+        removed: "PARAGRAFO ELIMINATO"
     tags:
       show:
         related_title: "Tag correlati"
@@ -1092,6 +1130,9 @@ it-IT:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
+    edit:
+      solutions:
+        default_title: "Soluzione"
   digit_tags: "Digita i tag che vuoi inserire"
   buttons:
     cancel: "Annulla"
@@ -1108,8 +1149,8 @@ it-IT:
     go_back: "Torna indietro"
     chosen: "Ho scelto!"
     ok: "OK"
-    yes: 'SI'
-    no: 'NO'
+    yes_word: 'SI'
+    no_word: 'NO'
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1173,6 +1214,9 @@ it-IT:
       creation: "Siamo spiacenti ma si è verificato un errore durante la creazione della proposta"
       editors_added: "Errore durante l'aggiunta dei nuovi redattori"
       close_debate: "Errore durante la chiusura del dibattito"
+      vote_period_incorrect: "Scegli un altro periodo per la votazione"
+      vote_period_soon: "La votazione deve iniziare almeno %{time} minuti dopo il termine del dibattito"
+      vote_period_short: "La votazione deve durare almeno 10 minuti"
     registration:
       recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
       user_not_found: "Utente non trovato"
@@ -1205,6 +1249,7 @@ it-IT:
     error_500:
       title: "Oops...errore nostro"
       description: "E' stata inviata una segnalazione e l'errore verrà risolto quanto prima."
+    participations_destroyed: "Errore durante l'operazione"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1302,6 +1347,9 @@ it-IT:
       status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
       status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
       status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
+    topic:
+      hidden: "Il topic è nascosto"
+    participations_destroyed: "Utenti eliminati. Aggiorna la pagina."
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

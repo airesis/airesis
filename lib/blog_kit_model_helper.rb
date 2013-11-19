@@ -2,19 +2,7 @@
 
 require 'rubygems'
 require 'sanitize'
-#TODO to remove in 3.0
-begin
-  require 'bluecloth'
-rescue Exception => e
-  require 'erb'
-  puts "Could not load bluecloth #{e.inspect}"
-end
-begin
-  require 'uv'
-rescue Exception => e
-  require 'erb'
-  puts "Could not load UltraViolet"
-end
+
 
 module BlogKitModelHelper
 

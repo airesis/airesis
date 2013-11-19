@@ -1,3 +1,37 @@
+<% if can? :update, @group %>
+    <fieldset>
+      <legend><%= t('pages.groups.participations.operations_on_user') %></legend>
+      <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
+
+      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email') %>">
+        <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
+
+            <%= e.label t('pages.users.send_message.subject_label') %>
+            <%= e.text_field 'subject' %>
+
+
+            <%= e.label t('pages.users.send_message.body_label') %>
+            <%= e.text_area 'body', rows: 10 %>
+
+            <%= e.hidden_field 'receiver_ids', value: @partecipants.map { |p| p.user_id }.join(',') %>
+
+
+            <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
+            <%= e.submit t('buttons.send'), :class => 'btn blue', disable_with: t('sending') %>
+        <% end %>
+      </div>
+
+      <%= form_for 'destroy', :url => destroy_all_group_group_partecipations_path(@group), :remote => true, method: :post, html: {style: 'display:inline;'} do |e| %>
+
+          <%= e.hidden_field 'ids', value: @partecipants.map { |p| p.id }.join(',') %>
+
+          <%= link_to t('pages.groups.participations.remove_all'), '#', class: 'btn trashButton', id: 'remove_all' %>
+      <% end %>
+
+
+    </fieldset>
+<% end %>
+
 <input type="hidden" id="count_results" value="<%= @partecipants.count %>"/>
 <input type="hidden" id="ids_results" value="<%= @partecipants.map { |p| p.user_id }.join(',') %>"/>
 
@@ -8,7 +42,9 @@
   <th><%= t('pages.users.show.registered_from') %></th>
   <th>registered_sortable</th>
   <th><%= t('pages.groups.participations.added_by') %></th>
-
+  <% if can? :update, @group %>
+      <th></th>
+  <% end %>
   </thead>
   <tbody>
   <% @partecipants.each do |partecipant| %>
@@ -27,11 +63,11 @@
         <td>
           <% if (defined? partecipant.partecipation_role) %>
 
-              <%if can? :update, @group %>
+              <% if can? :update, @group %>
                   <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, partecipant.partecipation_role.id), "data-user_id" => partecipant.user.id, :class => "user_role_changer" %>
-              <%else%>
+              <% else %>
                   <%= partecipant.partecipation_role.name %>
-              <%end%>
+              <% end %>
           <% end %>
         </td>
         <td><%= l partecipant.created_at if partecipant.created_at %></td>
@@ -49,30 +85,35 @@
               </div>
           <% end %>
         </td>
+        <% if can? :update, @group %>
+            <td>
+              <%= link_to t('pages.groups.edit_permissions.remove_user'), group_group_partecipation_path(@group, partecipant), :method => :delete, :class => "btn trashButton", confirm: t('pages.groups.edit.remove_user_confirm', name: partecipant.user.fullname) if can? :destroy, partecipant %>
+            </td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>
 </table>
 
 <script type="text/javascript">
-    $('.user_role_changer').each(function(i,el) {
+    $('.user_role_changer').each(function (i, el) {
         var select = $(el);
-        var username  = select.parent().prev().data('fullname');
+        var username = select.parent().prev().data('fullname');
         var user_id = select.data("user_id");
         //memorizzo il ruolo di ciascun utente
         var previousValue = select.val();
-        var previousLabel = $('option:selected',select).text();
+        var previousLabel = $('option:selected', select).text();
         //quando viene cambiato il ruolo, chiedo conferma all'utente
-        select.bind("change",function() {
+        select.bind("change", function () {
             var currentValue = select.val();
-            var currentLabel = $('option:selected',select).text();
-            if (confirm("<%=t('pages.groups.edit_permissions.confirm_role_change1')%> " + username + " <%=t('pages.groups.edit_permissions.confirm_role_change2')%> " + previousLabel + " <%=t('pages.groups.edit_permissions.confirm_role_change3')%> " + currentLabel +". <%=t('pages.groups.edit_permissions.confirm_role_change4')%>")) {
+            var currentLabel = $('option:selected', select).text();
+            if (confirm("<%=t('pages.groups.edit_permissions.confirm_role_change1')%> " + username + " <%=t('pages.groups.edit_permissions.confirm_role_change2')%> " + previousLabel + " <%=t('pages.groups.edit_permissions.confirm_role_change3')%> " + currentLabel + ". <%=t('pages.groups.edit_permissions.confirm_role_change4')%>")) {
                 previousValue = currentValue;
                 previousLabel = currentLabel;
                 select.disabled = true;
                 //se l'utente conferma invio la richiesta al server
                 $.ajax({
-                    data: "user_id="+user_id+"&role_id="+currentValue+"&group_id=<%=@group.id%>"+"&l=<%=I18n.locale%>",
+                    data: "user_id=" + user_id + "&role_id=" + currentValue + "&group_id=<%=@group.id%>" + "&l=<%=I18n.locale%>",
                     url: "/partecipation_roles/change_user_permission",
                     dataType: 'script',
                     type: 'post'
@@ -86,7 +127,6 @@
             }
         })
     });
-
 
     $('#partecipants').dataTable({
         "oLanguage": {
@@ -102,9 +142,25 @@
             }
         },
         "aaSorting": [],
-        "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null],
+        "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null<%if can? :update, @group%>, null<%end%>],
         "bInfo": false,
         "bLengthChange": false,
-        "bPaginate": false
+        "bPaginate": false,
+        "bFilter": false
     });
+
+    $('#remove_all').click(function (e) {
+        if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_1', count: @partecipants.count)%>')) {
+            <%if @partecipants.count >= 10 %>
+                if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_2',count: @partecipants.count)%>')) {
+                    $(this).closest("form").submit();
+                }
+            <%else%>
+                $(this).closest("form").submit();
+            <%end%>
+        }
+        return false;
+    });
+
+
 </script>

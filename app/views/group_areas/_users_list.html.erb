@@ -79,21 +79,12 @@
     function change_area_partecipation(el) {
         var group_area_id = $(el).data('group_area_id');
         var user_id = $(el).data('user_id');
-        if (el.checked) {
-            $.ajax({
-                data: "group_area_id=" + group_area_id + "&user_id=" + user_id + "&enable=true",
-                url: "<%=change_group_group_areas_path(@group)%>",
-                dataType: 'script',
-                type: 'PUT'
-            });
-        }
-        else {
-            $.ajax({
-                data: "group_area_id=" + group_area_id + "&user_id=" + user_id + "&enable=false",
-                url: "<%=change_group_group_areas_path(@group)%>",
-                dataType: 'script',
-                type: 'PUT'
-            });
-        }
+        var checked_ = el.checked;
+        $.ajax({
+            data: "group_area_id=" + group_area_id + "&user_id=" + user_id + "&enable="+checked_,
+            url: "<%=change_group_group_areas_url(@group)%>",
+            dataType: 'script',
+            type: 'PUT'
+        });
     }
 </script>

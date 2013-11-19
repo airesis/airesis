@@ -18,6 +18,7 @@ en:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Sunday
       - Monday
@@ -133,4 +134,7 @@ en:
       x_seconds:
         one: "1 second ago"
         other: ! "%{count} seconds ago"
+  label:
+    from: "from"
+    to: "to"
   countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"

@@ -13,7 +13,7 @@
   <h3 class="blogPostTitle">
     <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
     <% if !blog_post.published? %>
-        [<%= t('pages.blog_posts.drafts') %>]
+        [<%= t('pages.blog_posts.show.draft') %>]
     <% end %>
   </h3>
 

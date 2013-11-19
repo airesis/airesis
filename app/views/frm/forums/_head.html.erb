@@ -1,5 +1,10 @@
 <div id='forum'>
-  <h2><%= link_to t('frm.forum.forums'), group_forums_url(@group) %> &raquo; <%= link_to forum.category, group_frm_category_url(@group, forum.category) %> &raquo; <%= link_to forum.title, group_forum_url(@group, forum) %></h2>
+  <ul class="breadcrumbs">
+    <li><%= link_to t('frm.forum.forums'), group_forums_url(@group) %></li>
+    <li><%= link_to forum.category, group_frm_category_url(@group, forum.category) %></li>
+    <li class="current"><%= link_to forum.title, group_forum_url(@group, forum) %></li>
+  </ul>
+  <h2><%= forum.title %></h2>
 
 
   <div id='forum_topic_links' class='btn-group'>

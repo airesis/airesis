@@ -370,13 +370,19 @@ class ProposalsController < ApplicationController
 
     rescue Exception => e
       log_error(e)
-      if @proposal.errors[:title]
-        @other = Proposal.find_by_title(params[:proposal][:title])
-      end
+
       respond_to do |format|
         format.js {
+          if !@proposal.errors[:title].empty?
+            @other = Proposal.find_by_title(params[:proposal][:title])
+            @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+          elsif !@proposal.errors.empty?
+            @err_msg = @proposal.errors.full_messages.join(",")
+          else
+            @err_msg = I18n.t('error.proposals.creation')
+          end
           render :update do |page|
-            page.alert I18n.t('error.proposals.creation')
+            page.alert @err_msg
           end
         }
         format.html { render :action => "new" }
@@ -453,14 +459,29 @@ class ProposalsController < ApplicationController
 
     #if is time fixed you can choose immediatly vote period
     if @copy.time_fixed?
+      #if the user choosed it
       if prparams[:votation] && (prparams[:votation][:later] != 'true')
+        #if he took a vote period already existing
         if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
           @proposal.vote_event_id = prparams[:votation][:vote_period_id]
-        else
-          start = prparams[:votation][:start] || (@copy.ends_at + 1.minute)
+          @vote_event = Event.find(@proposal.vote_event_id)
+          if @vote_event.starttime < Time.now + @copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+            @proposal.errors.add(:vote_event_id, t('error.proposals.vote_period_incorrect'))
+            raise Exception
+          end
+        else #if he created a new period
+          start = ((prparams[:votation][:start_edited].to_s != '') && prparams[:votation][:start]) || (@copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
           raise Exception 'error' unless prparams[:votation][:end].to_s != ''
           @proposal.vote_starts_at = start
           @proposal.vote_ends_at = prparams[:votation][:end]
+          if (@proposal.vote_starts_at - @copy.ends_at) < DEBATE_VOTE_DIFFERENCE
+            @proposal.errors.add(:vote_starts_at, t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
+            raise Exception
+          end
+          if @proposal.vote_ends_at < (@proposal.vote_starts_at + 10.minutes)
+            @proposal.errors.add(:vote_ends_at, t('error.proposals.vote_period_short'))
+            raise Exception
+          end
         end
 
         @proposal.vote_defined = true

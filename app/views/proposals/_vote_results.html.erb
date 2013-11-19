@@ -2,22 +2,26 @@
 <b><%= t('pages.proposals.results.total', count: @proposal.vote.number) %> </b>
 <table>
   <thead>
+  <th></th>
   <th><%= t('pages.proposals.results.vote_column') %></th>
   <th><%= t('pages.proposals.results.number_column') %></th>
   <th><%= t('pages.proposals.results.percentage_column') %></th>
   </thead>
   <tbody>
   <tr>
+    <td><div class="color_legend positive"></div></td>
     <td><%= t('pages.proposals.results.positive') %></td>
     <td><%= @proposal.vote.positive %></td>
     <td><%= @proposal.vote.positive_perc %>%</td>
   </tr>
   <tr>
+    <td><div class="color_legend negative"></div></td>
     <td><%= t('pages.proposals.results.negative') %></td>
     <td><%= @proposal.vote.negative %></td>
     <td><%= @proposal.vote.negative_perc %>%</td>
   </tr>
   <tr>
+    <td><div class="color_legend neutral"></div></td>
     <td><%= t('pages.proposals.results.neutral') %></td>
     <td><%= @proposal.vote.neutral %></td>
     <td><%= @proposal.vote.neutral_perc %>%</td>
@@ -63,6 +67,7 @@
         $('#chart1').empty();
         var plot1 = jQuery.jqplot ('chart1', [dataa],
             {
+                seriesColors: [ "#4bb2c5", "#c5b47f", "#EAA228"],
                 seriesDefaults: {
                     // Make this a pie chart.
                     renderer: jQuery.jqplot.PieRenderer,

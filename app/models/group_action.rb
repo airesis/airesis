@@ -35,7 +35,7 @@ class GroupAction < ActiveRecord::Base
 
 
   scope :for_group_areas, :conditions => {id: DEFAULT_AREA_ACTIONS}
-
+  scope :excluding_ids, ->(ids) { where('id NOT IN (?)', ids) if ids.any? }
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")
   end

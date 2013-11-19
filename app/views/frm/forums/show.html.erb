@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th class="icon"></th>
-        <th class="byline"><%= t('frm.topic.headings.topic') -%></th>
+        <th class="byline topic-title"><%= t('frm.topic.headings.topic') -%></th>
         <th class="posts-count"><%= t('frm.topic.headings.posts') -%></th>
         <th class="views-count"><%= t('frm.topic.headings.views') -%></th>
         <th class="latest-post"><%= t('frm.topic.headings.latest') -%></th>
@@ -23,4 +23,4 @@
   <%= forem_pages_widget(@topics) %>
 </div>
 
-<%= render :partial => 'forem_footer' %>
+<%= render :partial => '/frm/application/forem_footer' %>

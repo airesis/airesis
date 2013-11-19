@@ -1,42 +1,29 @@
 <%= form_for @group, url: in_subdomain? ? '/update' : nil, :validate => true, :html => {:multipart => true} do |f| %>
+    <% if @group.is_private? %>
+        <div class="panel callout">
+          <p>
+            <%= t('pages.groups.edit.private_warning_html', link: (link_to t('pages.groups.administration_panel.proposals'), edit_proposals_group_path(@group))) %>
+          </p>
+        </div>
+    <% end %>
+
     <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
 
     <p>
       <%= f.label :name %>
-      <%= f.text_field :name, placeholder: t('activerecord.attributes.group.name_placeholder'), style: "width: 600px" %>
+      <%= f.text_field :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
     </p>
 
     <p>
       <%= f.label :description %>
-      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600}%>
+      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale,wordcount: {showCharCount: true, showWordCount: false,  charLimit: 2000, countHTML: true }} %>
     </p>
 
     <% if ['edit', 'update'].include? params[:action] %>
-            <p>
+        <p>
           <%= f.label :rule_book %>
-          <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, width:600} %>
+          <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
         </p>
-
-        <script type="text/javascript">
-            tinyMCE.init({
-                mode: 'exact',
-                elements: 'group_rule_book',
-                theme: 'advanced',
-                theme_advanced_toolbar_location: 'top',
-                theme_advanced_toolbar_align: 'left',
-                theme_advanced_buttons1: 'bold,italic,underline,separator,undo,redo,separator,bullist,numlist,separator,link,unlink,anchor',
-                theme_advanced_buttons2: '',
-                theme_advanced_buttons3: '',
-                relative_urls: false,
-                plugins: 'legacyoutput,media,inlinepopups,autolink,paste',
-                formats: {
-                    underline: { inline: 'u' }
-                },
-                paste_auto_cleanup_on_paste: true,
-                theme_advanced_statusbar_location: "none"
-
-            });
-        </script>
     <% end %>
 
 
@@ -82,44 +69,48 @@
           <p><%= t('pages.groups.new.change_permissions_description') %>
           </p>
           <% GroupAction.all.each do |action| %>
-              <%= f.label action.description do%>
+              <%= f.label action.description do %>
                   <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %>
                   <%= action.description %>
-              <%end%>
+              <% end %>
 
           <% end %>
 
           <a href="#" onclick="return default_action();" class="btn">Default</a>
           <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
         </div>
+
+        <p>
+          <%= f.submit button_name, :class => 'btn blue', disable_with: t('saving') %>
+        </p>
+
     <% else %>
 
-          <%= f.label :admin_title %>
-          <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
+        <%= f.label :admin_title %>
+        <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
 
-          <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do%>
-               <%= f.check_box :private %>
-               <%=t('activerecord.attributes.group.private')%>
-           <%end%>
-          <br/>
-          <% if @group.is_private? %>
-            <p class="toast-info info-panel">
-              <%= raw "<b>Attenzione</b></br>Le proposte pubbliche saranno comunque visibili dall'esterno. Se non vuoi mostrare nulla del gruppo vai in <b>#{link_to 'Quorum e proposte', edit_proposals_group_path(@group), style: "color: #fff;"}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>Inoltre i post pubblicati nella bachceca del gruppo saranno comunque visibili nelle pagine personali degli utenti." %>
-            </p>
+        <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do %>
+            <%= f.check_box :private %>
+            <%= t('activerecord.attributes.group.private') %>
         <% end %>
 
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
+        <p>
+          <%= f.submit button_name, :class => 'btn blue', disable_with: t('updating') %>
+          <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, confirm: t('pages.groups.show.confirm_destroy'), class: 'btn red trashButton right' if can? :destroy, @group %>
+        </p>
+
+
+
     <% end %>
 
-    <p>
-      <%= f.submit button_name, :class => 'btn blue', disable_with: t('saving') %>
-    </p>
+
 <% end %>
 
 <script type="text/javascript">
     $(function () {
-            $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
+        $('#group_interest_border_tkn').tokenInput("<%=interest_borders_path(format: :json )%>", {
             crossDomain: false,
             prePopulate: $('#group_interest_border_tkn').data("pre"),
             hintText: "<%=t('interest_borders.hint')%>",
@@ -169,7 +160,7 @@
     %>
 
 
-    $(function() {
+    $(function () {
         var input = $('#group_tags_list')
         if (input != null) {
             input.tokenInput("<%=tags_path(format: :json )%>", {
@@ -187,7 +178,6 @@
             })
         }
     });
-
 
 
 </script>

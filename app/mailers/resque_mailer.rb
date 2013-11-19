@@ -1,6 +1,7 @@
 #encoding: utf-8
 class ResqueMailer < ActionMailer::Base
   include Resque::Mailer
+  helper ProposalsHelper
   default from: "Airesis <info@airesis.it>"
 
   layout :choose_layout

@@ -6,8 +6,7 @@
 
   <% unless in_subdomain? %>
       <div id="logo-but" tabindex="2">
-        <div style="margin:auto"><%= t('pages.header.groups_title') %></div>
-        <br>
+        <div style="margin:auto;text-align: center;margin-bottom: 10px;"><%= t('pages.header.groups_title') %></div>
         <%= image_tag 'cur-tria.png' %>
       </div>
   <% end %>
@@ -99,7 +98,7 @@
           </span>
         <%= image_tag 'cur-tria.png', class: 'triangle' %>
       </div>
-      <div id="account-small" class="show-for-large-down">
+      <div id="account-small" class="show-for-medium-down">
           <span class="avatar">
           <%= current_user.user_image_tag 60, false, false %>
           </span>
