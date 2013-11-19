@@ -109,6 +109,9 @@ Devise.setup do |config|
 
   require "omniauth-linkedin"
   config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
+
+  require "omniauth-parma"
+  config.omniauth :parma, PARMA_APP_ID, PARMA_APP_SECRET, {:scope => 'email basic'}
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

@@ -17,6 +17,7 @@ it-IT:
       linkedin_login: "Accedi tramite LinkedIn"
       openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
+      parma_login: "Accedi con Parma"
     user:
       notifications: "Allarmi e notifiche"
       privacy: "Impostazioni Account e Privacy"
