@@ -75,6 +75,17 @@ $border-color: #e2e2e2;
         }
     }
 
+    .forum-description {
+        width:  45%;
+    }
+    .topics-count, .posts-count, .views-count {
+        text-align: center;
+        width:  5%;
+    }
+    .last-post {
+        width:  40%;
+    }
+
     tbody {
         tr {
             td {
@@ -82,19 +93,12 @@ $border-color: #e2e2e2;
                 font-size: 0.9em;
                 padding: 0.5em;
 
-                &.forum-description {
-                    width:  45%;
-                }
+
                 &.topics-count {
 
                 }
-                &.last-post {
-                    width:  40%;
-                }
-                &.topics-count, &.posts-count, &.views-count {
-                    text-align: center;
-                    width:  5%;
-                }
+
+
                 &.forum-description, &.last-post, &.byline {
                     padding-left: 20px;
                 }
@@ -103,6 +107,7 @@ $border-color: #e2e2e2;
                 }
                 &.user_post {
                     width: 120px;
+                    vertical-align: super;
                 }
                 .user {
                     .username {
