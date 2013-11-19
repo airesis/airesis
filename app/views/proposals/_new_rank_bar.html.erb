@@ -1,7 +1,7 @@
 <div class="timeline">
   <div class="cur start" title="<%= raw (t('pages.proposals.new_rank_bar.creation', time_ago: time_ago_in_words(proposal.created_at).upcase, date: (l proposal.created_at, format: :long).upcase)) %>">
   </div>
-  <div class="cur stop" title="<%= raw (t('pages.proposals.new_rank_bar.end', date: proposal.quorum.end_desc.upcase)) %>"></div>
+  <div class="cur stop" title="<%= raw (t('pages.proposals.new_rank_bar.end', date:proposal.quorum.end_desc.upcase)) %>"></div>
   <% unless proposal.percentage < 1 %>
       <div class="time" data-percentage="<%= proposal.percentage %>">
 
