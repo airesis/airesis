@@ -122,8 +122,8 @@ class Quorum < ActiveRecord::Base
 
   def end_desc
     conds = []
-    conds << "#{I18n.l self.ends_at} " if self.minutes
-    conds << " #{I18n.t('pages.proposals.new_rank_bar.valutations', count:self.valutations)}" if self.percentage
+    conds << "#{I18n.l self.ends_at} " if self.ends_at
+    conds << " #{I18n.t('pages.proposals.new_rank_bar.valutations', count:self.valutations)}" if self.valutations
     conds.join(or? ? I18n.t('words.or') : I18n.t('words.and'))
   end
 
@@ -231,8 +231,8 @@ end
       else                                                       #of the quorum has only minimum time of discussion
         ret = I18n.translate('models.quorum.time_condition_1', time: time)  #display the time left for discussion
       end
-    elsif self.percentage                                        #if the quorum has only minimum number of evaluation
-      ret = I18n.translate('models.quorum.participants_condition_1',percentage: self.percentage, participants_num: participants) #display number of required evaluations
+    else                                                           #if the quorum has only minimum number of evaluation
+      ret = I18n.translate('models.quorum.participants_condition_1', participants_num: participants) #display number of required evaluations
     end
     if self.bad_score && (self.bad_score != self.good_score)    #if quorum has negative quorum and it is not the same as positive quorum
         ret += I18n.translate('models.quorum.bad_score_explain', good_score: self.good_score, bad_score: self.bad_score)
