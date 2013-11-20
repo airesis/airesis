@@ -1,82 +1,82 @@
 <%if can? :show_tooltips, current_user %>
 
     $('#random_stack_l').qtip({
-        content: "<%=raw t('tooltips.random_stack_1')%>",
+        content: "<%=j raw t('tooltips.random_stack_1')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
 
     $('#random_stack_2').qtip({
-        content: "<%=raw t('tooltips.random_stack_2')%>",
+        content: "<%=j raw t('tooltips.random_stack_2')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
 
     $('#random_stack_3').qtip({
-        content: "<%=raw t('tooltips.random_stack_3')%>",
+        content: "<%=j raw t('tooltips.random_stack_3')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
 
     $('#miglioricontributi').qtip({
-        content: "<%=raw t('tooltips.miglioricontributi')%>",
+        content: "<%=j raw t('tooltips.miglioricontributi')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
 
     $('#voglioredigere a').qtip({
-      content: "<%=raw t('tooltips.voglioredigere') %>",
+      content: "<%=j raw t('tooltips.voglioredigere') %>",
       style: {
         classes: 'qtip-light qtip-shadow'
       }
     });
 
     $('#voteup').qtip({
-     content: "<%=raw t('tooltips.voteup')%>",
+     content: "<%=j raw t('tooltips.voteup')%>",
      style: {
        classes: 'qtip-light qtip-shadow'
      }
     });
 
     $('#votedown').qtip({
-      content: "<%=raw t('tooltips.votedown')%>",
+      content: "<%=j raw t('tooltips.votedown')%>",
       style: {
         classes: 'qtip-light qtip-shadow'
       }
     });
 
     $('#valutazioni').qtip({
-        content: "<%=raw t('tooltips.valutazioni')%>",
+        content: "<%=j raw t('tooltips.valutazioni')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
     $('#gradimento').qtip({
-        content: "<%=raw t('tooltips.gradimento')%>",
+        content: "<%=j raw t('tooltips.gradimento')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
     $('#nickname_panel').qtip({
-        content: "<%=raw t('tooltips.nickname')%>",
+        content: "<%=j raw t('tooltips.nickname')%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }
     });
     <%if current_user && (@proposal.users.include? current_user) %>
         $('#noise_comments a').qtip({
-            content: "<%=raw t('tooltips.manage_noise')%>",
+            content: "<%=j raw t('tooltips.manage_noise')%>",
             style: {
               classes: 'qtip-light qtip-shadow'
             }
         });
     <%else%>
         $('#noise_comments a').qtip({
-            content: "<%=raw t('tooltips.view_noise')%>",
+            content: "<%=j raw t('tooltips.view_noise')%>",
             style: {
               classes: 'qtip-light qtip-shadow'
             }
@@ -86,7 +86,7 @@
 <%end%>
 <%unless @proposal.is_polling?%>
     $('#suffgrad, #pb<%=@proposal.id%>').qtip({
-        content: "<%=@proposal.quorum.explanation%>",
+        content: "<%=j @proposal.quorum.explanation%>",
         style: {
           classes: 'qtip-light qtip-shadow'
         }

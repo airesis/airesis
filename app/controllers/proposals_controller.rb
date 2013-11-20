@@ -783,28 +783,19 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @ranking.ranking_type_id = rank_type #setta il tipo di valutazione
 
     ProposalRanking.transaction do
-      saved = @ranking.save
+      saved = @ranking.save!
       @proposal.reload
       check_phase(@proposal)
 
-      respond_to do |format|
-        if saved
-          load_my_vote
-          flash[:notice] = I18n.t('info.proposal.rank_recorderd')
-          format.js { render 'rank'
-          }
-          format.html
-        else
-          flash[:error] = I18n.t('error.proposals.proposal_rank')
-          format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          end
-          }
-          format.html
-        end
-      end
+      load_my_vote
 
     end #transaction
+    flash[:notice] = I18n.t('info.proposal.rank_recorderd')
+    respond_to do |format|
+      format.js { render 'rank'
+      }
+      format.html
+    end
   rescue Exception => e
 #    log_error(e)
     flash[:error] = I18n.t('error.proposals.proposal_rank')

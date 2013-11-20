@@ -76,8 +76,7 @@
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
 
 
-          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>               <br/>
-
+        <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>
         <div style="float:left">
           <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
         </div>
@@ -87,8 +86,7 @@
 
         <div class="clearboth"></div>
 
-          <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>      <br/>
-
+        <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
         <div style="float:left">
           <%= text_field_tag :interest_border, params[:interest_border], :title => t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
         </div>
