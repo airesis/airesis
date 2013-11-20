@@ -28,7 +28,7 @@
         </td>
         <td> <%= quorum.good_score %>%
         </td>
-        <td> <%= quorum.percentage ? quorum.bad_score.to_s + '%' : '-'%>
+        <td> <%= quorum.has_bad_score? ? quorum.bad_score.to_s + '%' : '-'%>
         </td>
         <td>
             <%= link_to "Modifica", edit_group_quorum_url(@group, quorum), :remote => true, :title => t('buttons.edit'), :class => "ui-icon ui-icon-pencil", :style=>'float:left' %>

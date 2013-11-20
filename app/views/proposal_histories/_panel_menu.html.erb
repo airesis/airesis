@@ -5,7 +5,7 @@
     <th><%= t('pages.proposal_histories.date_and_time') %></th>
     </thead>
     <tbody>
-    <% if @proposal.proposal_lives.count > 0 #if we have more life cycles   %>
+    <% if @proposal.proposal_lives.count > 0 #if we have more life cycles    %>
         <% unless  @proposal.abandoned? %>
             <tr>
               <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.present_life_cycle') %></td>
@@ -17,7 +17,7 @@
         <% lives = @proposal.proposal_lives.order('seq desc') %>
 
         <% unless  @proposal.abandoned? %>
-            <% revisions = @proposal.revisions.where(['created_at > ?', lives.first.created_at]) #revisions in current life cycle  %>
+            <% revisions = @proposal.revisions.where(['created_at > ?', lives.first.created_at]) #revisions in current life cycle   %>
             <% if (@last_cycle_count = revisions.count) > 0 %>
                 <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
                     <tr>
@@ -55,7 +55,7 @@
                         <%= l revision.created_at %>
                       </td>
                       <td><input type="radio" name="new" value="<%= revision.id %>"
-                                 <% if (i == 0) && ((revisions.count == 0) || !@last_cycle_count) %>checked="checked"
+                                 <% if (i == 0) && ((revisions.count == 0) || ([0, nil].include? @last_cycle_count)) %>checked="checked"
                                  <% end %>/></td>
                     </tr>
                 <% end %>
@@ -87,6 +87,7 @@
 
 <script type="text/javascript">
     $(function () {
+        $('input:radio')[0].checked = true;
         $("input:radio").change(executeDiff);
         executeDiff();
     });
@@ -94,41 +95,43 @@
     function executeDiff() {
         var newel = $("input[name='new']:checked");
         var newval = newel.val();
-        if (newel.attr('data-is_life') == 'true') {
-            $.ajax({
-                cache: true,
-                url: '/proposals/<%=@proposal.id%>/proposal_lives/' + newval,
-                method: 'get',
-                data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
-                dataType: 'script',
-                beforeSend: function (msg) {
-                    $('.diffview .diffcontainer').hide();
-                    $('.diffview .loading').show();
+        if (newval) {
+            if (newel.attr('data-is_life') == 'true') {
+                $.ajax({
+                    cache: true,
+                    url: '/proposals/<%=@proposal.id%>/proposal_lives/' + newval,
+                    method: 'get',
+                    data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
+                    dataType: 'script',
+                    beforeSend: function (msg) {
+                        $('.diffview .diffcontainer').hide();
+                        $('.diffview .loading').show();
 
-                },
-                success: function (msg) {
-                    $('.diffview .diffcontainer').show();
-                    $('.diffview .loading').hide();
-                }
-            });
-        }
-        else {
-            $.ajax({
-                cache: true,
-                url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
-                method: 'get',
-                data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
-                dataType: 'script',
-                beforeSend: function (msg) {
-                    $('.diffview .diffcontainer').hide();
-                    $('.diffview .loading').show();
+                    },
+                    success: function (msg) {
+                        $('.diffview .diffcontainer').show();
+                        $('.diffview .loading').hide();
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    cache: true,
+                    url: '/proposals/<%=@proposal.id%>/proposal_histories/' + newval,
+                    method: 'get',
+                    data: '<%= params[:l] ? "l=#{params[:l]}" : ''%>',
+                    dataType: 'script',
+                    beforeSend: function (msg) {
+                        $('.diffview .diffcontainer').hide();
+                        $('.diffview .loading').show();
 
-                },
-                success: function (msg) {
-                    $('.diffview .diffcontainer').show();
-                    $('.diffview .loading').hide();
-                }
-            });
+                    },
+                    success: function (msg) {
+                        $('.diffview .diffcontainer').show();
+                        $('.diffview .loading').hide();
+                    }
+                });
+            }
         }
     }
 

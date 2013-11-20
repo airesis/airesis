@@ -52,6 +52,7 @@ it-IT:
         max_file_size: "Dimensione massima: 2MB"
         what_can_i_do: "Cosa posso fare?"
         what_i_cant_do: "Cosa NON posso fare?"
+        certified_from: "Certificato dal"
         group_level_permission_title: "Permessi a livello di gruppo"
       send_message:
         subject_label: "Oggetto"
@@ -244,7 +245,7 @@ it-IT:
         default_secret_vote: "Voto segreto"
         let_editor_change_settings: "Permetti ai redattori di scegliere liberamente le opzioni sopraindicate"
         time: "Tempo"
-        edit_quorum_warning: "Attenzione! Le modifiche a questo quorum non saranno applicate alle proposte che lo stanno già usando!"
+        edit_quorum_warning: "Attenzione! Le modifiche a questo quorum non saranno applicate alle proposte che lo stanno già utilizzando."
       edit_work_areas:
         index:
           not_enabled: "Aree di lavoro non abilitate"
@@ -345,6 +346,7 @@ it-IT:
         contributes_number: "CONTRIBUTI"
         rank: "MATURITA'"
         voters: "VOTANTI"
+        date_range: "create tra %{start} e %{end}"
         proposal_types_title: "MODELLI"
         all_proposal_types: "Tutti i modelli"
         with_text: "contenenti '%{text}'"
@@ -437,16 +439,12 @@ it-IT:
         login_to_comment: "Fai login per inserire un commento"
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
-        debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
-        debate_ends_valutations_or_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>
-        debate_ends_valutations_and_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>
-        debate_ends_valutations_html: |
-          Termine dibattito con:<br/><b>%{evaluations_left}</b>
+        debate_ends_html: "Termine dibattito tra"
+        debate_ends_valutations_or: "opppure con"
+        debate_ends_valutations_and: "e con"
+        debate_ends_valutations: "Termine dibattito con"
         error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
         generic_fake_content: "Questo paragrafo non è ancora stato compilato. Aiuta l'autore inserendo un contributo!"
-
         model_title: "Modello"
         created_events: "Eventi già creati"
         create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
@@ -498,6 +496,7 @@ it-IT:
         authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
+        condition_left: "Condizione per il termine del dibattito"
         time_left: "Condizione per terminare il dibattito"
         vote: "VOTA"
       delete_comment: "Cancella"
@@ -537,7 +536,6 @@ it-IT:
         remove_solution: "Rimuovi soluzione"
         press_to_compress: "Clicca sul titolo per comprimere questa soluzione"
         add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
-        add_solution: "Aggiungi un'ulteriore soluzione"
         you_know_what_you_do: "Sai quello che fai?"
         schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
@@ -600,6 +598,7 @@ it-IT:
         town_searching: "Sto cercando..."
         title_event: "NUOVO EVENTO VOTAZIONE"
         title_meeting: "NUOVO EVENTO MEETUP"
+        step_1: "Tipo di evento"
         step_2: "Descrizione"
         step_3: "Quando"
         step_4: "Dove"
@@ -827,12 +826,6 @@ it-IT:
         description_html: |
           Definisci i tuoi confini geografici di interesse.<br />
           Se Airesis sa quali sono i territori ai quali sei interessato può consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio.<br />
-      choose_image:
-        title: "Immagine del profilo"
-        gravatar: "L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato."
-        edit_image: "Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su "
-        Identity_provider: "L'immagine che vedi è stata presa dal tuo Identity Provider."
-        Identity_provider2: "Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis."
       rank_bar_explain:
         title: "La barra della maturità"
         description_html: |
@@ -924,6 +917,9 @@ it-IT:
     passwords:
       edit:
         title: "Cambia la tua password"
+    event_comments:
+      new:
+        insert_comment: "Insert a comment"
     propsoals:
       index:
         type: "di tipo %{type}"
@@ -1062,9 +1058,6 @@ it-IT:
           other: "%{count} errori non hanno consentito questo %{model} di essere salvato"
           # The variable :count is also available
         body: "Ci sono stati problemi con i seguenti campi:"
-        
-      # The values :model, :attribute and :value are always available for interpolation
-      # The value :count is available when applicable. Can be used for pluralization.
       messages:
         inclusion: "non è incluso nella lista"
         exclusion: "è riservato"
@@ -1101,21 +1094,36 @@ it-IT:
   models:
     quorum:
       participants:
-        one: 'non avrà partecipato <b>1</b> persona'
-        other: 'non avranno partecipato <b>%{count}</b> persone'
-      or_condition_1: "Il dibattito proseguirà finchè %{participants_num} e, in ogni caso, per un massimo di %{time}."
-      and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà se %{participants_num}."
+        one: 'avrà partecipato almeno <b>una</b> persona'
+        other: 'avranno partecipato almeno <b>%{count}</b> persone'
+      participants_past:
+        one: 'partecipava almeno <b>una</b> persona'
+        other: 'partecipavano almeno <b>%{count}</b> persone'
+      or_condition_1: "Il dibattito terminerà tra %{time} oppure quando %{participants_num}."
+      or_condition_1_past: "Il dibattito terminava in %{time} oppure quando %{participants_num}."
+      and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
+      and_condition_1_past: "Il dibattito terminava in %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      participants_condition_1: "Il dibattito proseguirà finchè %{participants_num}."
-      good_score_condition: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
-      bad_score_explain: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà una maturità inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
-      until_date: "(%{date} alle %{time})"
+      time_condition_1_past: "Il dibattito terminvava in %{time}."
+      participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
+      participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
+      good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"
+      good_score_condition_past: "La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
+      bad_score_explain: |
+       La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, verrà abbandonata se avrà una maturità inferiore al <b>%{bad_score}%</b>.<br/>
+       Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
+      bad_score_explain_past: |
+       La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, veniva abbandonata se aveva una maturità inferiore al <b>%{bad_score}%</b>.<br/>
+       Il dibattito continuava finchè la maturità rimaneva tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
+      until_date: "(fino al %{date})"
       help_content:
         description_html: |
           <h3>Cos'è il quorum?</h3>
-          Il quorum è il parametro che determina quando termina la fase di discussione della proposta e si procede alla votazione.<br />
+          <p>
+          Il quorum è il parametro che determina quando termina la fase di dibattito della proposta e si procede alla votazione.<br />
           Quando crei una nuova proposta scegli uno dei quorum a disposizione nello Spazio Comune o uno tra quelli messi a disposizione dal tuo gruppo.<br />
           In questa finestra puoi selezionare i diversi quorum e vederne le caratteristiche: troverai la descrizione del quorum e l'elenco dei parametri impostati.<br />
+          </p>
         participants: "Numero minimo di partecipanti:"
         not_specified: "Non indicato"
         time_discussion: "Tempo di discussione:"
@@ -1249,6 +1257,8 @@ it-IT:
     error_500:
       title: "Oops...errore nostro"
       description: "E' stata inviata una segnalazione e l'errore verrà risolto quanto prima."
+    event:
+      comment_added: "Errore durante l'inserimento del commento"
     participations_destroyed: "Errore durante l'operazione"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
@@ -1347,6 +1357,8 @@ it-IT:
       status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
       status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
       status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
+    event:
+      comment_added: "Commento inserito correttamente"
     topic:
       hidden: "Il topic è nascosto"
     participations_destroyed: "Utenti eliminati. Aggiorna la pagina."

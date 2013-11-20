@@ -8,16 +8,18 @@
             <%= raw t('pages.groups.index.no_groups_yet', {name: (link_to t('group'), groups_path)}) %>
         <% end %>
         <% @groups.each do |group| %>
-            <div class="groupcontainer">
-              <div class="groupImg24">
-                <%= group.group_image_tag(24) rescue nil %>
+            <div class="panel">
+              <div class="groupcontainer">
+                <div class="groupImg24">
+                  <%= group.group_image_tag(24) rescue nil %>
+                </div>
+                <div class="group">
+                  <%= link_to group.name, group_url(group) %>
+                </div>
               </div>
-              <div class="group">
-                <%= link_to group.name, group_url(group) %>
-              </div>
+              <div class="clearboth"></div>
             </div>
         <% end unless @groups.empty? %>
-        <div style="clear: both;"></div>
       </div>
     </div>
 <% end %>
