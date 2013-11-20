@@ -26,7 +26,7 @@
 <% if signed_in? %>
     <div style="margin: 5px;">
       <% if @proposal.revisions.count > 0 %>
-          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), :remote => true, :class => 'btn scriptButton', :disable_with => t('loading') %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), :remote => true, :class => 'btn scriptButton', :disable_with => t('loading'), id: "history" %>
       <% end %>
     </div>
     <% if @proposal.voted? %>

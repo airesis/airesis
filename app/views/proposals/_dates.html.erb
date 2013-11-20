@@ -7,7 +7,7 @@
     </div>
 <% end %>
 <% if @proposal.in_valutation? %>
-    <div class="mycont">
+    <div class="mycont" id="condition_left">
       <% if @proposal.quorum.and? %>
           <% if @proposal.quorum.time && @proposal.quorum.valutations_left %>
               <%= t('pages.proposals.show.debate_ends_valutations_and_html', num: raw("<div id=end_debate></div>"), evaluations_left: @proposal.quorum.valutations_left) %>
