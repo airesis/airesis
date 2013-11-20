@@ -194,7 +194,7 @@ class Quorum < ActiveRecord::Base
   end
 
 
-  def explanation #set this to true when using method "description" in proposal history, when there are more than one life cycle
+  def explanation
     @explanation ||= explanation_pop
   end
 
