@@ -445,7 +445,7 @@ en:
         debate_ends_valutations: "End of debate with"
         error_loading_paragraph: "This paragraph has been removed. Reload the page to view the updated proposal"
         generic_fake_content: "This section has not yet been compiled. It helps the author by inserting a contribution!"
-        model_title: "Model"
+        model_title: "Template"
         created_events: "Already created events"
         create_new_votation_period: "Create a new event at the end of debate"
         choose_later: "No thanks. I will choose it later"
