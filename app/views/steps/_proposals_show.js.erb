@@ -1,92 +1,106 @@
 [
     {
         element: '#centerpanelextended .centerfloat',
-        intro: "Benvenuto nella tua prima proposta in dibattito su Airesis. Questo tutorial ti spiegherà nel dettaglio le parti di cui si compone",
+        intro: "<%=t('tutorial.proposals_show.welcome')%>",
         position: 'left'
 
     },
     {
         element: '.proposalTitle',
-        intro: "Questo è il titolo della proposta e l'obiettivo che si vuole raggiungere",
+        intro: "<%=t('tutorial.proposals_show.title')%>",
         position: 'left'
 
     },
     {
         element: '.status_description',
-        intro: "Qui sono indicate le regole del dibattito e per quanto tempo si svolgerà",
+        intro: "<%=t('tutorial.proposals_show.status_description')%>",
         position: 'left'
 
     },
     {
         element: '.proposal_main',
-        intro: "Questi sono i paragrafi di cui si compone il testo della proposta",
+        intro: "<%=t('tutorial.proposals_show.main')%>",
         position: 'left'
 
     },
     {
         element: '.solution_main',
-        intro: "Questa è una soluzione. Anche la soluzione si compone di diversi paragrafi. I redattori scriveranno una o più soluzioni per risolvere la problematica riscontrata",
+        intro: "<%=t('tutorial.proposals_show.solution_main')%>",
         position: 'left'
 
     },
     {
         element: '.solution_main .contributeButton',
-        intro: "Attraverso questi pulsanti potrai visualizzare i contributi dati dagli utenti e darne a tua volta. I contributi sono sempre relativi ad un paragrafo...",
+        intro: "<%=t('tutorial.proposals_show.contributeButton')%>",
         position: 'left'
 
     },
     {
         element: '#proposalNewComment',
-        intro: "Utilizza questo campo per lasciare un contributo che non fà riferimento ad un paragrafo specifico",
+        intro: "<%=t('tutorial.proposals_show.newComment')%>",
         position: 'left'
 
     },
     {
         element: '#menu-left .menu2',
-        intro: "Nel menu a sinistra troverai tutte le informazioni che ti servono che riguardano la proposta",
+        intro: "<%=t('tutorial.proposals_show.menu_left')%>",
         position: 'right'
 
     },
     {
         element: '.points .inpoints',
-        intro: "Il numero di valutazioni espresse dai partecipanti. Ovvero quanti partecipanti hanno indicato se la proposta debba passare in votazione o meno",
+        intro: "<%=t('tutorial.proposals_show.evaluations')%>",
         position: 'right'
 
     },
     {
         element: '.points .ranking',
-        intro: "La maturità della proposta, ovvero qual è la percentuale di partecipanti che ritiene che il dibattito possa essere chiuso e la proposta psosa essere votata",
+        intro: "<%=t('tutorial.proposals_show.ranking')%>",
         position: 'right'
 
     },
     {
         element: '#status',
-        intro: "Lo stato in cui si trova la proposta. In questo caso siamo nella fase di dibattito",
+        intro: "<%=t('tutorial.proposals_show.status')%>",
+        position: 'right'
+
+    },
+    <%if @proposal.revisions.count > 0%>
+    {
+        element: '#history',
+        intro: "<%=t('tutorial.proposals_show.history')%>",
+        position: 'right'
+
+    },
+    <%end%>
+    {
+        element: '#menu-left #dates',
+        intro: "<%=t('tutorial.proposals_show.dates')%>",
         position: 'right'
 
     },
     {
-        element: '#menu-left .dates',
-        intro: "Date di creazione e di ultima modifica",
+        element: '#menu-left #dates #condition_left',
+        intro: "<%=t('tutorial.proposals_show.condition_left')%>",
         position: 'right'
 
     },
     {
         element: '.socialnetwork',
-        intro: "I pulsanti per condividere la proposta con i tuoi amici e invitarli alla discussione",
+        intro: "<%=t('tutorial.proposals_show.socialnetwork')%>",
         position: 'right'
 
     },
     {
         element: '#menu-left .mybox.authors',
-        intro: "Gli attuali redattori del testo della proposta",
+        intro: "<%=t('tutorial.proposals_show.authors')%>",
         position: 'right'
 
     },
 
     {
         element: '#menu-left .mybox.category',
-        intro: "La categoria assegnata",
+        intro: "<%=t('tutorial.proposals_show.category')%>",
         position: 'right'
 
     },
