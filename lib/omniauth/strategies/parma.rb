@@ -14,11 +14,11 @@ module OmniAuth
       option :client_options, {
           :site => 'http://oauth2.comune.parma.it',
           :authorize_url => "/Authorization",
-          :token_url => '/Token/OpenGet',
+          :token_url => '/Token/OpenGet'
       }
 
       option :token_params, {
-          :parse => :query
+          :parse => :json
       }
 
       option :access_token_options, {
@@ -26,7 +26,10 @@ module OmniAuth
           :param_name => 'access_token'
       }
 
+
       option :authorize_options, [:scope, :display, :auth_type]
+
+      option :provider_ignores_state, true
 
       uid {
         raw_info['id']
@@ -57,7 +60,8 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/me', info_options).parsed || {}
+        #@raw_info ||= access_token.get('/me', info_options).parsed || {} #todo
+        @raw_info
       end
 
       def request_phase
