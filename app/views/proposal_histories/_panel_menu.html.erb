@@ -87,6 +87,7 @@
 
 <script type="text/javascript">
     $(function () {
+        $('input:radio')[0].checked = true;
         $("input:radio").change(executeDiff);
         executeDiff();
     });

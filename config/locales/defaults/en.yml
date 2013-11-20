@@ -53,7 +53,7 @@ en:
         what_can_i_do: "What can I do?"
         what_i_cant_do: "What can't I do?"
         certified_from: "Certified from"
-        group_level_permission_title: %Q(Group level permissions)
+        group_level_permission_title: "Group level permissions"
       send_message:
         subject_label: "Subject"
         body_label: "Body"
@@ -103,6 +103,7 @@ en:
         proposals: 'Quorum and proposals'
         areas: "Work areas"
         forum: "Forum administration"
+        users: "Manage users"
       edit_events:
         title: 'Manage group events'
       edit_permissions:
@@ -438,11 +439,12 @@ en:
         login_to_comment: "Login to add a comment"
         regenerate_nickname: "Regenerate nickname"
         add_contribution_no_paragraph: "No paragraph specified"
-        debate_ends_html: "End of debate in:<br/><b>%{time}</b>"
-        debate_ends_valutations_or_html: "End of debate in:<br/><b>%{num}</b> or with:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_and_html: "End of debate in:<br/><b>%{num}</b> and with:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_html: "End of debate with:<br/><b>%{evaluations_left}</b>"
+        debate_ends_html: "End of debate in"
+        debate_ends_valutations_or: "or with"
+        debate_ends_valutations_and: "and with"
+        debate_ends_valutations: "End of debate with"
         error_loading_paragraph: "This paragraph has been removed. Reload the page to view the updated proposal"
+        generic_fake_content: "This section has not yet been compiled. It helps the author by inserting a contribution!"
         model_title: "Model"
         created_events: "Already created events"
         create_new_votation_period: "Create a new event at the end of debate"
@@ -594,12 +596,12 @@ en:
         type_for_town: "Type some characters to search for a town"
         no_town_found: "No town found"
         town_searching: "Searching"
-        step_1: "Tipo di evento"
+        title_event: "NEW VOTATION EVENT"
+        title_meeting: "NEW MEETUP EVENT"
+        step_1: "Event type"
         step_2: "Description"
         step_3: "When"
         step_4: "Where"
-        title_event: "NEW VOTATION EVENT"
-        title_meeting: "NEW MEETUP EVENT"
       show:
         map: "Map"
         event_place: "Event place"
@@ -1092,21 +1094,36 @@ en:
   models:
     quorum:
       participants:
-        one: 'it has participated <b>1</b> person'
-        other: 'it has participated <b>%{count}</b> people'
-      or_condition_1: "The debate will continue until %{participants_num} and, in any case, for a maximum of %{time}.<br/>"
-      and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}.<br/>"
-      time_condition_1: "The debate will end in <b>%{time}</b>.<br/>"
-      participants_condition_1: "The debate will continue until %{participants_num}.<br/>"
-      good_score_condition: "If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase, otherwise it will be abandoned"
-      bad_score_explain: "If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations"
+        one: '<b>a person</b> will have participated in'
+        other: 'they have partecipated in <b>%{count}</b> people'
+      participants_past:
+        one: '<b>a person</b> has participated'
+        other: 'they had partecipated in <b>%{count}</b> people'
+      or_condition_1: "The debate will end in %{time} or when %{participants_num}."
+      or_condition_1_past: "The debate ended in %{time} or when %{participants_num}."
+      and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}."
+      and_condition_1_past: "The debate ended in %{time}, but continued unless %{participants_num}."
+      time_condition_1: "The debate will end in %{time}"
+      time_condition_1_past: "The debate ended in %{time}"
+      participants_condition_1: "The debate will continue until %{participants_num}."
+      participants_condition_1_past: "The debate continued until %{participants_num}."
+      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}</b>, otherwise it will be abandoned"
+      good_score_condition_past: "The proposal went to the vote if it had a maturity greater than <b>%{good_score}</b>, otherwise it was abandoned"
+      bad_score_explain: |
+        If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>
+        The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations
+      bad_score_explain_past: |
+        If the proposal got a maturity over <b>%{good_score}%</b> it went to the voting phase. If however it got a rank below <b>%{bad_score}%</b>, it was abandoned.<br/>
+        The debate continued if the rank remained between these two thresholds, regardless of time or the number of evaluations
       until_date: "(%{date} at %{time})"
       help_content:
         description_html: |
           <h3>What is a quorum?</h3>
+          <p>
           A quorum is the parameter that determines when the debate of the proposal ends and the voting phase starts.<br />
           When you create a new proposal you choose one of the quorum available in the Open Space or one among the quorums available in your group.<br />
           In this window you can click the different quorums in order to view its characteristics: you will find the description and the list of the parameters chosen.<br />
+          </p>
         participants: "Minimum number of participant:"
         not_specified: "Not specified"
         time_discussion: "Period of discussion:"
@@ -1241,7 +1258,7 @@ en:
       title: "Oops...our mistake"
       description: "A  report has been sent and the problem will be fixed as soon as possible."
     event:
-      comment_added: "Errore durante l'inserimento del commento"
+      comment_added: "Error while entering the comment"
     participations_destroyed: "Error during operation"
   info:
     setting_preferences: "Settings changed successfully"
@@ -1341,7 +1358,7 @@ en:
       status_voting: "The participation request is now in the status: VOTING"
       status_declined: "The participation request is now in the status: DECLINED"
     event:
-      comment_added: "Commento inserito correttamente"
+      comment_added: "Comment inserted succesfully"
     topic:
       hidden: "This topic is hidden"
     participations_destroyed: "Users deleted. Please refresh the page."
