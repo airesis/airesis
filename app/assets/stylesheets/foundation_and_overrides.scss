@@ -1588,6 +1588,7 @@ body {
 }
 
 .homepageButton:hover {
+  text-decoration: none;
   color: #fff;
   background-color: #4B6EB7;
 }
@@ -1623,5 +1624,10 @@ input.ui-spinner-input {
 
 a.homepageButton {
   line-height: 1.6em
+}
+
+a.zocial:hover {
+  color: white;
+  text-decoration: none;
 }
 
