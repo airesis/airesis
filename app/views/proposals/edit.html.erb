@@ -74,7 +74,7 @@
               <%= s.hidden_field :seq %>
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                  <p class="section_container" data-section-id="<%= section.id %>">
+                  <p class="section_container" data-section_id="<%= i %>">
                     <span class="move_button">
                       <%= image_tag 'move.png' %>
                     </span>
@@ -125,7 +125,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container" data-section-id="<%= section.id %>">
+                              <p class="section_container" data-section_id="<%= (i+1)*100+j %>">
                                 <span class="move_button">
                               <%= image_tag 'move.png' %>
                             </span>
@@ -464,7 +464,7 @@
         var sectionname = 'proposal[sections_attributes][' + numSections + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+        var paragraph_ = $('<p class="section_container" style="display:none;" data-section_id="'+numSections+'"></p>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -482,6 +482,15 @@
 
         addEditor(textarea_.attr('id'));
 
+
+        //navigator update
+        var nav_ = $('.navigator .sec_nav').last();
+
+        var sec_nav = $('<li data-section_id="'+numSections+'" class="sec_nav"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></li>');
+        nav_.after(sec_nav);
+
+        listen_title_change();
+
         numSections += 1;
     }
 
@@ -491,7 +500,8 @@
         var sectionname = 'proposal[solutions_attributes][' + solutionid + '][sections_attributes][' + numSolutionSections[solutionid] + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<p class="section_container" style="display:none;"></p>');
+        var section_num = ((parseInt(solutionid)+1)*100)+numSolutionSections[solutionid];
+        var paragraph_ = $('<p class="section_container" style="display:none;" data-section_id="'+section_num+'"></p>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -510,7 +520,19 @@
 
         addEditor(textarea_.attr('id'));
 
+
+
+
+        //navigator update
+        var nav_ = $('.navigator li[data-solution_id='+solutionid+']');
+
+        var sec_nav = $('<li data-section_id="'+section_num+'"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '</a></li>');
+        nav_.find('.sub_navigator').append(sec_nav);
+
+        listen_title_change();
+
         numSolutionSections[solutionid] += 1;
+
     }
 
 
@@ -521,9 +543,11 @@
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("<%=j t('proposals.edit.solutions.default_title')%> " + (++numSolution));
+
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
         paragraph_.find(".add_section").attr('data-solution_id', numSolution);
         paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);
+        paragraph_.attr('data-solution_id', numSolution);
         paragraph_.find("textarea[name^='proposals\[solutions_attributes\]\[0\]']").each(function () {
             var id_ = $(this).attr('id');
             $(this).attr('id', id_.replace('proposals_solutions_attributes_0', 'proposals_solutions_attributes_' + numSolution));
@@ -544,6 +568,19 @@
 
         make_solution_sortable($(".solutions_column", paragraph_));
 
+        //navigator update
+        $('.navigator li[data-solution_id=new]').attr('data-solution_id',numSolution);
+        var nav_ = $('.navigator li[data-solution_id='+numSolution+']');
+        nav_.find('span.sol_title').html("<%=j t('proposals.edit.solutions.default_title')%> " + (numSolution));
+        nav_.find('.sub_navigator li').each(function() {
+            var sec_id = parseInt($(this).attr('data-section_id'));
+            paragraph_.find('.section_container[data-section_id='+sec_id+']').attr('data-section_id',(numSolution+1)*100+sec_id);
+            $(this).attr('data-section_id',(numSolution+1)*100+sec_id);
+        });
+
+
+        listen_title_change();
+        console.log('done');
     }
 
     function removeSolutionSection(el, hide) {
@@ -640,17 +677,57 @@
                     addEditor(textareaId);
                 }
                 var i = 0;
+
+                //navigator update
+                var sol_id = $(this).attr('data-solution_id');
+                var nav_ = $('li[data-solution_id='+sol_id+'] .sub_navigator');
+                nav_.find('li').addClass('detach');
+
                 $(this).find('p').each(function (el) {
-                    var id = $(this).find('textarea').attr('id');
-                    var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                    $('#' + seq_id).val(i++)
+                    var sec_id = $(this).attr('data-section_id');
+
+                    var area_id = $(this).find('textarea').attr('id');
+                    var seq_id = area_id.replace(/paragraphs_attributes.*/, 'seq');
+                    $('#' + seq_id).val(i++);
+
+                    //navigator update
+                    var list_ = nav_.find('li[data-section_id='+sec_id+']').detach();
+                    list_.removeClass('detach');
+                    var last_ = nav_.find('li').not('.detach').last();
+                    if (last_.length > 0) {
+                        last_.after(list_);
+                    }
+                    else {
+                        nav_.prepend(list_);
+                    }
+
+
                 });
             }
         });
 
     }
 
+    function listen_title_change() {
+        $('.solution_main h3 .tit1 .tit2 input').on('keyup',function() {
+            console.log($(this).val());
+            var id_ = $(this).closest('.solution_main').attr('data-solution_id');
+            console.log(id_);
+            $('.navigator li[data-solution_id='+id_+'] span.sol_title').html($(this).val());
+        })
+
+        $('input.edit_label').on('keyup',function() {
+            console.log($(this).val());
+            var id_ = $(this).closest('.section_container').attr('data-section_id');
+            console.log(id_);
+            $('.navigator li[data-section_id='+id_+'] a.sec_title').text($(this).val());
+        })
+    }
+
     make_solution_sortable($(".solutions_column"));
+    listen_title_change();
+
+
 
 </script>
 
@@ -672,14 +749,14 @@
       <div class="mybox">
         <h4><%= t('pages.proposals.edit.navigator') %></h4>
         <ul class="navigator">
-          <% @proposal.sections.each do |section| %>
-              <li><%= link_to section.title, '#', onclick: "return scrollToSection(#{section.id});" %></li>
+          <% @proposal.sections.each_with_index do |section,i| %>
+              <li class="sec_nav" data-section_id="<%=i%>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
           <% end %>
-          <% @proposal.solutions.each do |solution| %>
-              <li><%= solution.title %>
-                <ul class="navigator">
-                  <% solution.sections.each do |section| %>
-                      <li><%= link_to section.title, '#', onclick: "return scrollToSection(#{section.id});" %></li>
+          <% @proposal.solutions.each_with_index do |solution,i| %>
+              <li data-solution_id="<%=i%>"><span class="sol_title"><%= solution.title %></span>
+                <ul class="sub_navigator">
+                  <% solution.sections.each_with_index do |section,j| %>
+                      <li data-section_id="<%=(i+1)*100+j%>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
                   <% end %>
                 </ul>
               </li>
@@ -703,8 +780,8 @@
             return false;
         }
 
-        function scrollToSection(number) {
-            scrollToElement($(".section_container[data-section-id=" + number + "]"));
+        function scrollToSection(el) {
+            scrollToElement($(".section_container[data-section_id=" + $(el).parent().attr('data-section_id') + "]"));
             return false;
         }
 
@@ -735,6 +812,9 @@
             return false;
         }
 
+        //window.onbeforeunload = function() {
+        //    return "Tutte le modifiche alla proposta andranno perse."
+        //};
 
     </script>
 <% end %>

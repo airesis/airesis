@@ -26,7 +26,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container">
+                              <p class="section_container" data-section_id="<%=j%>">
                                 <span class="move_button">
                                     <%= image_tag 'move.png' %>
                                 </span>
@@ -52,5 +52,15 @@
           <% end %>
       <% end %>
     </div>
-<% end %>
 
+
+<script type="text/javascript">
+    var sol_link = $('<li data-solution_id="new"><span class="sol_title"><%= solution.title %></span></li>');
+    var sub_nav = $('<ul class="sub_navigator"></ul>');
+    sol_link.append(sub_nav);
+    $('.navigator').append(sol_link);
+    <% solution.sections.each_with_index do |section,j| %>
+      sub_nav.append('<li data-section_id="<%=j%>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>');
+    <% end %>
+</script>
+<% end %>

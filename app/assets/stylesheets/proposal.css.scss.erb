@@ -1310,8 +1310,14 @@ a.spch-bub-inside:hover .point {
     font-size: 0.85em;
 }
 
-ul.navigator {
-    padding-left: 20px;
+ul{
+    &.navigator {
+        padding-left: 20px;
+        overflow: hidden;
+    }
+    &.sub_navigator {
+        padding-left: 20px;
+    }
 }
 
 @media (min-width: $small-screen) {
