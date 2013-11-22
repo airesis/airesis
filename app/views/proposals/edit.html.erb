@@ -615,6 +615,12 @@
                 ckedstoogle_[textareaId]['first'] = true;
                 addEditor(textareaId);
             }
+            var i = 0;
+            $(this).find('p').each(function (el) {
+                var id = $(this).find('textarea').attr('id');
+                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
+                $('#' + seq_id).val(i++)
+            });
         }
     });
 
