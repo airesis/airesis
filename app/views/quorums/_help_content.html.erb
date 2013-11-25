@@ -31,10 +31,14 @@
         <span class="gray">
           <%= t('models.quorum.help_content.condition') %>
           </span>
-            <% if quorum.condition.upcase == 'OR' %>
-                <b><%= t('models.quorum.help_content.at_least_one') %></b>
-            <% else %>
-                <b><%= t('models.quorum.help_content.both') %></b>
+            <% if quorum.percentage && quorum.minutes%>
+                <%if quorum.and?%>
+                    <b><%= t('models.quorum.help_content.both') %></b>
+                <%else%>
+                    <b><%= t('models.quorum.help_content.at_least_one') %></b>
+                <%end%>
+            <%else%>
+                <b><%= t('models.quorum.help_content.not_specified') %></b>
             <% end %>
           </li>
           <li class="bullet-item">
