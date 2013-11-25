@@ -1094,28 +1094,28 @@ en:
   models:
     quorum:
       participants:
-        one: '<b>a person</b> will have participated in'
-        other: 'they have partecipated in <b>%{count}</b> people'
+        one: '<b>a person</b> will have participated'
+        other: 'they have participated <b>%{count}</b> people'
       participants_past:
         one: '<b>a person</b> has participated'
-        other: 'they had partecipated in <b>%{count}</b> people'
+        other: 'they had participated in <b>%{count}</b> people'
       or_condition_1: "The debate will end in %{time} or when %{participants_num}."
-      or_condition_1_past: "The debate ended in %{time} or when %{participants_num}."
+      or_condition_1_past: "The debate lasted %{time} or when %{participants_num}."
       and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}."
-      and_condition_1_past: "The debate ended in %{time}, but continued unless %{participants_num}."
+      and_condition_1_past: "The debate lasted %{time}, but continued unless %{participants_num}."
       time_condition_1: "The debate will end in %{time}"
-      time_condition_1_past: "The debate ended in %{time}"
+      time_condition_1_past: "The debate lasted %{time}"
       participants_condition_1: "The debate will continue until %{participants_num}."
       participants_condition_1_past: "The debate continued until %{participants_num}."
-      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}</b>, otherwise it will be abandoned"
-      good_score_condition_past: "The proposal went to the vote if it had a maturity greater than <b>%{good_score}</b>, otherwise it was abandoned"
+      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}%</b>, otherwise it will be abandoned"
+      good_score_condition_past: "The proposal would have gone to the vote if it had a maturity greater than <b>%{good_score}%</b>, otherwise it would had been abandoned"
       bad_score_explain: |
         If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>
         The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations
       bad_score_explain_past: |
         If the proposal got a maturity over <b>%{good_score}%</b> it went to the voting phase. If however it got a rank below <b>%{bad_score}%</b>, it was abandoned.<br/>
         The debate continued if the rank remained between these two thresholds, regardless of time or the number of evaluations
-      until_date: "(%{date} at %{time})"
+      until_date: "(until %{date})"
       help_content:
         description_html: |
           <h3>What is a quorum?</h3>
