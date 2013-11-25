@@ -128,6 +128,15 @@
   </div>
 </div>
 
+<%if @proposal.in_group_area?%>
+<div class="mybox group_area_box">
+  <h4><%= t('pages.proposals.show.group_area') %></h4>
+  <div class="mycont">
+    <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {:group_area_id => @proposal.presentation_areas.first.id}) %>
+  </div>
+</div>
+<%end%>
+
 <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
     <div class="mybox">
       <h4><%= t('pages.proposals.show.tags_title') %></h4>

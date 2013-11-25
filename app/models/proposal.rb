@@ -249,6 +249,16 @@ class Proposal < ActiveRecord::Base
     is_current? && self.anonima
   end
 
+  #return true if the proposal is in a group
+  def in_group?
+    self.private?
+  end
+
+  def in_group_area?
+    self.in_group? && !self.presentation_areas.first.nil?
+  end
+
+
   def tags_list
     @tags_list ||= self.tags.map(&:text).join(', ')
   end

@@ -451,6 +451,7 @@ it-IT:
         create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
         choose_later: "No grazie, lo scelgo dopo"
         choose_now: "Lo voglio scegliere ora"
+        group_area: "Area di lavoro"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
