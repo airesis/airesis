@@ -573,7 +573,7 @@ it-IT:
           other: "%{count} VALUTAZIONI"
         good_score: "QUORUM POSITIVO %{score}%"
         bad_score: "QUORUM NEGATIVO %{score}%"
-        now: "Mancano %{left}"
+        now: "MANCANO %{left}"
       left_panel:
         creation_date: "Data di creazione"
         any_date: "Quasiasi data"
@@ -1104,7 +1104,7 @@ it-IT:
       and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
       and_condition_1_past: "Il dibattito durava %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      time_condition_1_past: "Il dibattito durata %{time}."
+      time_condition_1_past: "Il dibattito durava %{time}."
       participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
       participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
       good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"
