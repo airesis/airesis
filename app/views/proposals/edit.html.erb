@@ -586,7 +586,7 @@
     function removeSolutionSection(el, hide) {
         if (confirm('<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>')) {
             var section_ = $(el).parent().parent();
-            var solution_id = $(el).attr('data-solution_id');
+            var solution_id = section_.parent().attr('data-solution_id');
             var section_id = $(el).attr('data-section_id');
             if (hide) {
                 $('input[name="proposal\[solutions_attributes\]\[' + solution_id + '\]\[sections_attributes\]\[' + section_id + '\]\[_destroy\]"]').val(1);
@@ -597,6 +597,11 @@
                     section_.remove();
                 });
             }
+
+            //navigator update
+            //var solution_id = $(this).attr('data-solution_id');
+            //var nav_ = $('li[data-solution_id='+solution_id+'] .sub_navigator');
+            //nav_.find('li[data-section_id='+section_id+']').remove();
         }
     }
 
@@ -653,10 +658,28 @@
                 addEditor(textareaId);
             }
             var i = 0;
+
+            //navigator update
+
+            var nav_ = $('.navigator');
+            nav_.find('li.sec_nav').addClass('detach');
+
             $(this).find('p').each(function (el) {
+                var sec_id = $(this).attr('data-section_id');
                 var id = $(this).find('textarea').attr('id');
                 var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
                 $('#' + seq_id).val(i++)
+
+                //navigator update
+                var list_ = nav_.find('li.sec_nav[data-section_id='+sec_id+']').detach();
+                list_.removeClass('detach');
+                var last_ = nav_.find('li.sec_nav').not('.detach').last();
+                if (last_.length > 0) {
+                    last_.after(list_);
+                }
+                else {
+                    nav_.prepend(list_);
+                }
             });
         }
     });
