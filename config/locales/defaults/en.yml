@@ -450,6 +450,7 @@ en:
         create_new_votation_period: "Create a new event at the end of debate"
         choose_later: "No thanks. I will choose it later"
         choose_now: "I want to choose it now"
+        group_area: "Work area"
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
@@ -484,11 +485,11 @@ en:
         most_valutated: "Best maturity"
         most_urgent: "Most urgent"
       list:
-        last_update: "Updated<br/>%{time_ago}<br/>"
+        last_update: "Updated<br/>%{time_ago}"
         waiting_date: "Waiting for a date"
         voting_from_to: "From %{from} to %{to}"
         voting_until: "Until <br/>%{date}"
-        votation_finished: "Ended<br/>%{time_ago}<br/>%"
+        votation_finished: "Ended<br/>%{time_ago}"
         no_votation: "Rejected<br/> %{date}"
         votation_finished_approved: "Approved<br/> %{date}"
         no_votation: "There has not been any vote"
