@@ -1497,8 +1497,7 @@ ul, ol {
 }
 
 #main-copy {
-  padding-bottom: 35px;
-  padding-right: 0;
+  padding-right: 10px;
 }
 
 #menu-top {
@@ -1535,11 +1534,19 @@ body {
     margin-left: 0;
     margin-right: 0;
   }
+
+  #main-copy {
+    padding-bottom: 0px;
+  }
 }
 
 @media only screen and (min-width: $small-screen) {
   span.show-for-medium-up {
     display: inline !important;
+  }
+
+  #main-copy {
+    padding-bottom: 35px;
   }
 }
 
