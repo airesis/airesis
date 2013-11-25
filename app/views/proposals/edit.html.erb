@@ -346,15 +346,17 @@
         if ($(el).is(':checked')) {
             integrated_contributes.push(id);
             comment_.fadeTo(400, 0.3);
-            inside_.attr('data-height', inside_.innerHeight());
+            inside_.attr('data-height', inside_.outerHeight());
             inside_.css('overflow', 'hidden');
             inside_.animate({height: '42px'}, 400);
         }
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
             comment_.fadeTo(400, 1);
-            inside_.animate({height: inside_.attr('data-height')}, 400, function () {
-                inside_.css('overflow', 'auto');
+            inside_.animate({height: inside_.attr('data-height')}, 400,'swing', function () {
+                inside_.css('overflow', 'auto',function() {
+                    console.log('f');
+                });
             });
 
         }
