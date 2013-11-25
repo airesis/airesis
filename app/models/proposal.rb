@@ -26,7 +26,7 @@ class Proposal < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 
-  has_many :proposal_lives, :class_name => 'ProposalLife', :dependent => :destroy
+  has_many :proposal_lives, :class_name => 'ProposalLife', order: 'proposal_lives.created_at DESC', :dependent => :destroy
   has_many :users, :through => :proposal_presentations, :class_name => 'User'
 
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
