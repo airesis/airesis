@@ -567,14 +567,14 @@ en:
       contribution_valuation: "What do you think?"
       contribution_valuation_again: "Changed your mind?"
       new_rank_bar:
-        creation: "<b>CREATION</b>: %{time_ago}<br/>%{date}"
-        end: "<b>END DEBATE</b>:<br/> %{date}"
+        creation: "CREATION: %{time_ago}<br/>%{date}"
+        end: "END DEBATE:<br/> %{date}"
         valutations:
           one: "%{count} EVALUATION"
           other: "%{count} EVALUATIONS"
         good_score: "POSITIVE QUORUM %{score}%"
         bad_score: "NEGATIVE QUORUM %{score}%"
-        now: "%{left} left"
+        now: "%{left} LEFT"
       left_panel:
         creation_date: "Date of creation"
         any_date: "Any date"
