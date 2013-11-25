@@ -202,7 +202,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.4.1)
+    omniauth-facebook (1.5.0)
       omniauth-oauth2 (~> 1.1.0)
     omniauth-google-oauth2 (0.1.13)
       omniauth (~> 1.0)
@@ -407,7 +407,7 @@ DEPENDENCIES
   mailman
   maktoub!
   nickname_generator
-  omniauth-facebook
+  omniauth-facebook (= 1.5.0)
   omniauth-google-oauth2
   omniauth-linkedin
   omniauth-meetup

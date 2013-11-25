@@ -38,7 +38,7 @@ end
 
 #gem "omniauth", '1.0.3'
 
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.5.0'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
