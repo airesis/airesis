@@ -9,7 +9,7 @@ en:
     week: 'week'
     day: 'day'
     firstDay: 0
-    timeFormat: 'h(:mm)t '
+    timeFormat: 'h(:mm) TT { - h:mm TT} '
   date:
     order:
       - :day
@@ -73,7 +73,7 @@ en:
      until_long_date_time: "To %A %d %B %Y at %I:%M %p"
      short: "%d %b %Y"
      two_rows: "%d %b %Y <br/> %I:%M %p"
-     weekday: "%a %I:%M %p"
+     weekday: "%a at %I:%M %p"
      month: "%B"
      dayandmonth: "%d/%m"
      hour: "%I:%M %p"
