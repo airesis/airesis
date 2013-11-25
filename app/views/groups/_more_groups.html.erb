@@ -1,6 +1,6 @@
 <% if @groups.total_pages && (@groups.total_pages > @groups.current_page) %>
     <div id="more_groups" class="loading_groups">
-      <span><%= link_to t('pages.groups.index.show_more'), groups_path(page: @groups.current_page+1), :remote => true %></span>
+      <span><%= link_to t('pages.groups.index.show_more'), current_url(page: @groups.current_page+1), :remote => true %></span>
     </div>
     <div id="loading_groups" class="loading_groups" style="display:none">
       <div class="waitDiv"><%= image_tag "facebook-loader.gif", :alt => "loading..." %> </div>

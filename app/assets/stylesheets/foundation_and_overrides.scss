@@ -111,7 +111,7 @@ $default-float: left;
 // $include-html-type-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-html-visibility-classes: $include-html-classes;
-// $include-html-button-classes: $include-html-classes;
+ $include-html-button-classes: false;
 // $include-html-form-classes: $include-html-classes;
 // $include-html-custom-form-classes: $include-html-classes;
 // $include-html-media-classes: $include-html-classes;
@@ -1637,4 +1637,3 @@ a.zocial:hover {
   color: white;
   text-decoration: none;
 }
-
