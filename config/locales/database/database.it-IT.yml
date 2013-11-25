@@ -142,7 +142,7 @@ it:
           24_hours: "Il dibattito su %{title} finisce domani!"
           1_hour: "Il dibattito su %{title} scade tra un'ora!"
           24_hours_vote: "Puoi votare %{title} solo fino a domani!"
-          1_hour_vote: "La votazione di %{title} scade tra un'ora!"
+          1_hour_vote: "La votazione di %{title} termina tra un'ora!"
         message:
           waiting_date: "%{name} ha scelto la data di votazione per la proposta <b>%{title}</b>"
           in_vote: "La proposta <b>%{title}</b> è in votazione da adesso!"

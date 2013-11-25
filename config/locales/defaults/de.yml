@@ -555,7 +555,7 @@ de:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: Gib Deine Stimme ab!
-        schulze_title: 'Für diesen Vorschlag gibt es mehrere Lösungen.<br/>Ordne sie nach Deinen Präferenzen indem Du die Shulze-Methode verwendest<br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
+        schulze_title: 'Für diesen Vorschlag gibt es mehrere Lösungen.<br/>Ordne sie nach Deinen Präferenzen <br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
         secret_vote: Your vote is secret and you will not be able to recover or change it once expressed.
         clear_vote: Your vote is recorded and will therefore be verifiable.
         single_title: In this proposal there is only one solution. Make your point!

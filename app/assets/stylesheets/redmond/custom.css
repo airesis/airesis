@@ -930,7 +930,7 @@ body .ui-tooltip {
 }
 
 .ui-slider-handle {
-    border: 1px solid #c5dbec;
+    border: 1px solid #c5dbec !important;
     background: #dfeffc;
 }
 

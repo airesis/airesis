@@ -2,6 +2,7 @@ it-IT:
   tutorial:
     proposals_index:
       welcome_open_space: "Benvenuto nello spazio comune di Airesis. Lo spazio comune è un gruppo molto particolare nel quale partecipano tutti gli utenti. Qui trovi un elenco di proposte liberamente inserite dagli utenti del portale e potrai inserirne anche tu"
+      welcome_group: "Questa è la lista proposte del gruppo <b>%{group_name}</b>. Puoi vedere tutte le proposte create dai membri del gruppo e puoi aggiungere le tue se hai i permessi per farlo"
       new_proposal: "Nel menu a sinistra troverai un pulsante per la creazione di nuove proposte..."
       filters: "...e una serie di filtri per trovare quelle di tuo interesse"
       tabs: "Le proposte in Airesis seguono un iter ben preciso che si compone di quattro stati principali. Vediamoli!"

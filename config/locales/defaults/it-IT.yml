@@ -518,7 +518,7 @@ it-IT:
         report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
       vote_panel:
         title: "Esprimi il tuo voto!"
-        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze mediante metodo di Schulze da 1 (non mi piace) a %{max} (mi piace molto)."
+        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze da <b>1 (non mi piace)</b> a <b>%{max} (mi piace molto)</b>."
         secret_vote: "Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso."
         clear_vote: "Il tuo voto è palese e sarà quindi verificabile."
         single_title: "In questa proposta è presente un'unica soluzione. Esprimi il tuo giudizio!"

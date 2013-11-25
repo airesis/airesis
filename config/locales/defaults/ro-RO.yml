@@ -461,7 +461,7 @@ ro-RO:
         report_description: 'Puteți reclama webmasterului că această contribuţie încalcă legile aflate în prezent în vigoare. <br/> După ce se constată încălcarea, contribuţia va fi eliminată. Nu abuzaţi de acest instrument.'
       vote_panel:
         title: Votează!
-        schulze_title: 'Există mai multe soluţii la această propunere. <br/> Ordonează-le în funcţie de preferinţele tale folosind metoda Schulze <br/>de la 1 (nu-mi place) până la %{max} (Îmi place)'
+        schulze_title: 'Există mai multe soluţii la această propunere. <br/> Ordonează-le în funcţie de preferinţele <br/>de la 1 (nu-mi place) până la %{max} (Îmi place)'
         secret_vote: Votul dvs este secret şi odată exprimat, nu îl veți putea recupera sau schimba.
         clear_vote: Votul dvs. este înregistrat și, prin urmare, poate fi verificat ulterior.
         single_title: În această propunere este doar o singură soluţie. Exprimați-vă părerea!
