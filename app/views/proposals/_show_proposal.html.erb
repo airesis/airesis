@@ -103,7 +103,7 @@
 <% end %>
 
 <% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each do |solution| %>
-    <div class="solution_main">
+    <div class="solution_main" data-solution_id="<%= solution.id %>">
       <h3>
         <div class="tit1 sol">
           <div class="tit2">

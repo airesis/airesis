@@ -1,27 +1,42 @@
 <% if can? :vote, @proposal %>
     <div class="vote_panel">
       <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
-      <%range = @proposal.solutions.count %>
-      <%range += 1 if range.even?%>
+      <% range = @proposal.solutions.count %>
+      <% range += 1 if range.even? %>
 
-      <% if @proposal.is_schulze? #schulze        %>
-          <h4><%=raw t('pages.proposals.vote_panel.schulze_title',max:range) %></h4>
-          <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
-          <table style="width:60%" id="solutions_table">
+      <% if @proposal.is_schulze? #schulze          %>
+          <p><%= raw t('pages.proposals.vote_panel.schulze_title', max: range) %></p>
+          <h5><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h5>
 
-
+          <div id="solutions_table">
             <% @proposal.solutions.each do |solution| %>
-                <tr data-id="<%= solution.id %>">
-                  <td style="width:30%"><span class="vote_solution_title" data-id="<%=solution.id%>"><%= solution.title %></span></td>
-                  <td style="width:70%"><select class="slideNumber">
-                    <% range.times do |c| %>
-                        <option <%='selected="selected"' if c==range/2 %>><%= c+1 %></option>
-                    <% end %>
-                  </select>
-                  </td>
-                </tr>
+                <div class="row solution_row" data-id="<%= solution.id %>">
+                  <div class="columns large-2 small-8">
+                    <a class="vote_solution_title" data-id="<%= solution.id %>" href="#" onclick="return scrollToSolution(this);"><%= solution.title %></a>
+                  </div>
+                  <div class="columns large-9 small-9 hide-for-small">
+                    <div class="row">
+                      <div class="columns large-1 small-1">
+                        <div class="schulze bad"></div>
+                      </div>
+                      <div class="columns large-10 small-10">
+                        <div class='slider'></div>
+                      </div>
+                      <div class="columns large-1 small-1">
+                        <div class="schulze good"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="columns large-1 small-4">
+                    <select class="slideNumber">
+                      <% range.times do |c| %>
+                          <option <%= 'selected="selected"' if c==range/2 %>><%= c+1 %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
             <% end %>
-          </table>
+          </div>
 
           <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id}, method: :put, remote: true do |f| %>
               <%= f.hidden_field 'votes' %>
@@ -29,33 +44,39 @@
               <%= render :partial => 'fragments/how_schulze_works' %>
               <% if current_user.rotp_enabled && ::Configuration.rotp %>
                   <%= f.label 'Token di sicurezza' %>
-                  <%= f.text_field 'token', maxlength: 6%>
-              <%end%>
+                  <%= f.text_field 'token', maxlength: 6 %>
+              <% end %>
               <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'btn blue acceptButton' %>
           <% end %>
 
           <script type="text/javascript">
+
+            function scrollToSolution(el) {
+                scrollToElement($('.solution_main[data-solution_id='+$(el).attr('data-id') + ']'));
+                return false;
+            }
               $(function () {
-                  $('.vote_solution_title').each(function() {
+                  $('.vote_solution_title').each(function () {
                       $(this).qtip({
-                          content: $('.proposal_content[data-id='+$(this).data('id')+']').clone()
+                          content: $('.proposal_content[data-id=' + $(this).data('id') + ']').clone()
                       });
                   });
 
 
-                  var select = $(".slideNumber");
-                  var slider = $("<div class='slider'></div>").insertAfter(select).slider({
-                      min: 1,
-                      max: <%=range%>,
-                      range: "min",
-		              value: select.val(),
-                      slide: function (event, ui) {
-                          $(this).prev()[0].selectedIndex = ui.value - 1;
-                      }
-                  });
-
-                  $(".slideNumber").change(function () {
-                      $(this).next().slider("value", this.selectedIndex + 1);
+                  $('.solution_row').each(function () {
+                      var select = $(".slideNumber", $(this));
+                      var slider = $(".slider", $(this)).slider({
+                          min: 1,
+                          max: <%=range%>,
+                          range: "min",
+                          value: select.val(),
+                          slide: function (event, ui) {
+                              select[0].selectedIndex = ui.value - 1;
+                          }
+                      });
+                      select.change(function () {
+                          slider.slider("value", this.selectedIndex + 1);
+                      });
                   });
               });
 
@@ -65,7 +86,7 @@
               function elaboraVoto() {
                   votestring = "";
                   vote = [];
-                  $('#solutions_table tr').each(function (panel) {
+                  $('.solution_row').each(function (panel) {
                       var val = $('.slideNumber', this).val();
                       if (!val || val == '') val = "0";
                       vote.push([$(this).data('id'), val])
@@ -92,7 +113,7 @@
 
 
           </script>
-      <% else #standard        %>
+      <% else #standard          %>
           <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
           <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
 
@@ -101,8 +122,8 @@
               <% if current_user.rotp_enabled && ::Configuration.rotp %>
                   <%= f.label 'Token di sicurezza' %> <br/>
                   <%= f.text_field 'token', maxlength: 6 %>
-              <%end%>
-          <%end%>
+              <% end %>
+          <% end %>
 
           <div style="float: left">
             <%= link_to '', '#', :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), onclick: "return send_vote(#{VoteType::POSITIVE});" %>
@@ -123,14 +144,14 @@
               var message = (type == <%=VoteType::POSITIVE%>) ?
                       '<%=j t('pages.votations.show.confirm_positive', :name => @proposal.title) %>' :
                       (type == <%=VoteType::NEUTRAL%>) ?
-                          '<%=j t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>' :
+                              '<%=j t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>' :
                               '<%=j t('pages.votations.show.confirm_negative', :name => @proposal.title) %>';
               if (confirm(message)) {
-                $("#data_vote_type").val(type);
-                $(".votebutton").fadeOut();
-                $(".vote_panel form").fadeOut();
-                $(".loading_vote").show();
-                $(".vote_panel form").submit();
+                  $("#data_vote_type").val(type);
+                  $(".votebutton").fadeOut();
+                  $(".vote_panel form").fadeOut();
+                  $(".loading_vote").show();
+                  $(".vote_panel form").submit();
 
               }
               return false;
