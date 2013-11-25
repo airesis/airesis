@@ -252,6 +252,7 @@ $large-screen: 1440px;
                 text-align: center;
                 height: 45px;
                 margin-top: 4px;
+                line-height: 1.6em;
             }
         }
     }
@@ -829,7 +830,7 @@ form {
 
 #new_proposal_comment .counter {
     float: right;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .ice .cts-1 {
@@ -913,8 +914,9 @@ input.edit_label {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.contributeSectionButton {
-    margin-top: 10px;
+.btn.contributeSectionButton {
+    margin-top: 4px;
+    padding: 0.5em 0.8em !important;
 }
 
 .vote_panel {
@@ -1309,8 +1311,14 @@ a.spch-bub-inside:hover .point {
     font-size: 0.85em;
 }
 
-ul.navigator {
-    padding-left: 20px;
+ul{
+    &.navigator {
+        padding-left: 20px;
+        overflow: hidden;
+    }
+    &.sub_navigator {
+        padding-left: 20px;
+    }
 }
 
 @media (min-width: $small-screen) {
