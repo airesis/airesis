@@ -1,4 +1,3 @@
-
     <%if params[:search] %>
     <b><%= params[:search] %></b>
        <%= link_to 'X',current_url(:search => nil) %>
@@ -6,7 +5,7 @@
     <p>
       <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30, onkeyup: 'checkCharacters();' %>
       <br/>
-      <%= check_box_tag :or, params[:or] %> <%= t('pages.proposals.index.search_words') %><br/>
+      <%= check_box_tag :or, 'or', params[:or].to_s != '' %> <%= t('pages.proposals.index.search_words') %><br/>
       <%= link_to t('buttons.search'), current_url, onclick: 'return checkCharactersAndGo();', class: 'btn' %>
     </p>
 
@@ -26,7 +25,14 @@
 
     function checkCharactersAndGo() {
         if (checkCharacters()) {
-            window.location = addQueryParam(addQueryParam(location.href,'search',$('#search').val()),'or',$('#or').val());
+            var loc_ = addQueryParam(location.href,'search',$('#search').val());
+            if ($('#or:checked').length > 0) {
+                loc_ = addQueryParam(loc_,'or', $('#or:checked').val());
+            }
+            else {
+                loc_ = addQueryParam(loc_,'or', '');
+            }
+            window.location = loc_;
         }
         return false;
     }
