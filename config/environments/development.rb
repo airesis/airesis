@@ -52,6 +52,9 @@ Airesis::Application.configure do
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
   PROPOSALS_PER_PAGE=10
+
+  #topics per page
+  TOPICS_PER_PAGE=10
  
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
@@ -71,8 +74,6 @@ Airesis::Application.configure do
   ROTP_DRIFT = 20
 
   ENCRYPT_WORD="airesis"
-  
-  #config.gem 'resque-mongo', :lib => 'resque'
 
   
 end
@@ -108,6 +109,9 @@ Devise.setup do |config|
 
   require "omniauth-linkedin"
   config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
+
+  require "omniauth-parma"
+  config.omniauth :parma, PARMA_APP_ID, PARMA_APP_SECRET, {:scope => 'email basic'}
 end
 
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

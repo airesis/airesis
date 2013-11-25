@@ -17,6 +17,7 @@ it-IT:
       linkedin_login: "Accedi tramite LinkedIn"
       openid_login: "Accedi tramite OpenID"
       find_groups: "Cerca gruppi"
+      parma_login: "Accedi con Parma"
     user:
       notifications: "Allarmi e notifiche"
       privacy: "Impostazioni Account e Privacy"
@@ -52,6 +53,8 @@ it-IT:
         max_file_size: "Dimensione massima: 2MB"
         what_can_i_do: "Cosa posso fare?"
         what_i_cant_do: "Cosa NON posso fare?"
+        certified_from: "Certificato dal"
+        group_level_permission_title: "Permessi a livello di gruppo"
       send_message:
         subject_label: "Oggetto"
         body_label: "Testo"
@@ -119,6 +122,8 @@ it-IT:
         confirm_role_change2: "passerà da"
         confirm_role_change3: "a"
         confirm_role_change4: "Confermi?"
+        confirm_delete_1: "L'operazione potrebbe richiedere qualche minuto. Sei sicuro di voler rimuovere %{count} utenti dal gruppo?"
+        confirm_delete_2: "L'operazione che stai effettuando comporterà la rimozione dal gruppo di tutti e %{count} gli utenti selezionati e non potrà essere annullata! Sei veramente sicuro di voler continuare?"
       edit_proposals:
         title: "Gestisci i quorum e le proposte"
       index:
@@ -165,6 +170,12 @@ it-IT:
         change_permissions: "Nelle Impostazioni Ruoli e permessi puoi modificare le azioni che possono compiere gli iscritti"
         remove_user_confirm: "Sei sicuro di voler rimuovere %{name} dal gruppo?"
         modify_group: "Modifica il gruppo"
+        private_warning_html: |
+          <b>Avviso per i gruppi chiusi</b><br/>
+          Le proposte pubbliche saranno comunque visibili dall'esterno.<br/>
+          Vai in <b>%{link}</b> e disattiva l'opzione 'Proposte visibili all'esterno'.<br/>
+          I post pubblicati nella bacheca del gruppo sono sempre visibili nelle pagine personali degli utenti.<br/>
+          I forum pubblici sono comunque visibili all'esterno.
       layout:
         home_button: "BACHECA"
         proposals_button: "PROPOSTE"
@@ -184,7 +195,7 @@ it-IT:
         reject_request_button: "Declina"
         ask_participate_button: "Richiedi di partecipare al gruppo"
         remove_post: "Rimuovi post dalla bacheca del gruppo"
-        destroy_button: "Rimuovi gruppo"
+        destroy_button: "Elimina"
         confirm_destroy: "STAI ELIMINANDO IL GRUPPO!!! Sei assolutamente di sicuro di quello che stai facendo?"
         list_permissions:
           title: "Elenco dei tuoi permessi all'interno di questo gruppo"
@@ -235,7 +246,7 @@ it-IT:
         default_secret_vote: "Voto segreto"
         let_editor_change_settings: "Permetti ai redattori di scegliere liberamente le opzioni sopraindicate"
         time: "Tempo"
-        edit_quorum_warning: "Attenzione! Le modifiche a questo quorum non saranno applicate alle proposte che lo stanno già usando!"
+        edit_quorum_warning: "Attenzione! Le modifiche a questo quorum non saranno applicate alle proposte che lo stanno già utilizzando."
       edit_work_areas:
         index:
           not_enabled: "Aree di lavoro non abilitate"
@@ -276,6 +287,8 @@ it-IT:
         participants_html:
           one: <b>1</b> partecipante
           other: <b>%{count}</b> partecipanti
+        added_by: "Aggiunto da"
+        remove_all: "Rimuovi tutti"
     login:
       title: "Esegui l'autenticazione"
     confirmation:
@@ -334,6 +347,7 @@ it-IT:
         contributes_number: "CONTRIBUTI"
         rank: "MATURITA'"
         voters: "VOTANTI"
+        date_range: "create tra %{start} e %{end}"
         proposal_types_title: "MODELLI"
         all_proposal_types: "Tutti i modelli"
         with_text: "contenenti '%{text}'"
@@ -350,7 +364,7 @@ it-IT:
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
         history_button: "History"
-        choose_votation_period: "Scegli un periodo per la votazione"
+        choose_votation_period: "Scegli un evento per la votazione"
         choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
         choose_votation_period_button: "Ho scelto!"
         create_votation_period: "Non vi sono date disponibili per la votazione"
@@ -401,7 +415,7 @@ it-IT:
         close_debate_button: "Chiudi il dibattito"
         close_debate_proposal_confirmation: "Terminare immediatamente il dibattito e proseguire alla fase successiva?"
         during_debate: "Dibattito in corso"
-        comment_inserted_by: "Inserito %{when} da %{who}"
+        comment_inserted_by: "%{who} - %{when}"
         replies:
           show_all: "Mostra tutti i %{count} commenti..."
           delete: "Cancella"
@@ -426,13 +440,18 @@ it-IT:
         login_to_comment: "Fai login per inserire un commento"
         regenerate_nickname: "Rigenera nickname"
         add_contribution_no_paragraph: "Nessun paragrafo specifico"
-        debate_ends_html: "Termine dibattito tra:<br/><b>%{time}</b>"
-        debate_ends_valutations_or_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> opppure con:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_and_html: |
-          Termine dibattito tra:<br/><b>%{num}</b> e con:<br/><b>%{evaluations_left}</b>"
-        debate_ends_valutations_html: |
-          Termine dibattito con:<br/><b>%{evaluations_left}</b>"
+        debate_ends_html: "Termine dibattito tra"
+        debate_ends_valutations_or: "opppure con"
+        debate_ends_valutations_and: "e con"
+        debate_ends_valutations: "Termine dibattito con"
+        error_loading_paragraph: "Questo paragrafo è stato rimosso. Ricarica la la pagina per visualizzare la proposta aggiornata"
+        generic_fake_content: "Questo paragrafo non è ancora stato compilato. Aiuta l'autore inserendo un contributo!"
+        model_title: "Modello"
+        created_events: "Eventi già creati"
+        create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
+        choose_later: "No grazie, lo scelgo dopo"
+        choose_now: "Lo voglio scegliere ora"
+        group_area: "Area di lavoro"
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
@@ -467,11 +486,11 @@ it-IT:
         most_valutated: "Più valutate"
         most_urgent: "Più urgenti"
       list:
-        last_update: "Aggiornata<br/>%{time_ago}<br/>"
+        last_update: "Aggiornata<br/>%{time_ago}"
         waiting_date: "In attesa di data"
         voting_from_to: "Dal %{from} al %{to}"
         voting_until: "Fino al<br/> %{date}"
-        votation_finished: "Terminata<br/>%{time_ago}<br/>"
+        votation_finished: "Terminata<br/>%{time_ago}"
         votation_finished_rejected: "Respinta<br/> %{date}"
         votation_finished_approved: "Approvata<br/> %{date}"
         no_votation: "Non vi è stata alcuna votazione"
@@ -479,6 +498,7 @@ it-IT:
         authors: "Redattori"
         support_group: "Gruppi in sostegno"
         no_proposals: "Nessuna proposta al momento"
+        condition_left: "Condizione per il termine del dibattito"
         time_left: "Condizione per terminare il dibattito"
         vote: "VOTA"
       delete_comment: "Cancella"
@@ -499,7 +519,7 @@ it-IT:
         report_description: "Puoi indicare ai webmaster che tale contributo viola le leggi attualmente in               vigore.<br/>               Una volta appurata la violazione il contributo verrà rimosso.Non abusare di questo strumento."
       vote_panel:
         title: "Esprimi il tuo voto!"
-        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze mediante metodo di Schulze da 1 (non mi piace) a %{max} (mi piace molto)."
+        schulze_title: "Sono presenti più soluzioni a questa proposta.<br/>Ordinale in base alle tue preferenze da <b>1 (non mi piace)</b> a <b>%{max} (mi piace molto)</b>."
         secret_vote: "Il tuo voto è segreto e non sarà possibile recuperarlo o modificarlo una volta espresso."
         clear_vote: "Il tuo voto è palese e sarà quindi verificabile."
         single_title: "In questa proposta è presente un'unica soluzione. Esprimi il tuo giudizio!"
@@ -512,13 +532,12 @@ it-IT:
         hurry_up: "Affrettati!"
         last_minutes: "Potrai modificare questi dati ancora per %{minutes} minuti."
         no_participants: "Potrai modificare questi dati solo se nessuno ha ancora partecipato!"
-        remove_section: "Rimuovi sezione"
+        remove_section: "Rimuovi paragrafo"
         add_paragraph: "Aggiungi un nuovo paragrafo"
         edit_proposal: "Modifica e aggiorna il testo della proposta!"
         remove_solution: "Rimuovi soluzione"
         press_to_compress: "Clicca sul titolo per comprimere questa soluzione"
         add_paragraph_to_solution: "Aggiungi un paragrafo alla soluzione"
-        add_solution: "Aggiungi un'ulteriore soluzione"
         you_know_what_you_do: "Sai quello che fai?"
         schulze_title: "Una soluzione o più soluzioni?"
         inserted_contributes: "Indica quali contributi hai integrato con questa modifica della proposta"
@@ -537,6 +556,12 @@ it-IT:
         integrated: "Integrato"
         contribution_valuation: "Come la pensano?"
         navigator: "Navigatore"
+        compress_solutions: "Comprimi soluzioni"
+        hide_contributes: "Nascondi contributi"
+        expand_solutions: "Espandi soluzioni"
+        show_contributes: "Mostra contributi"
+        cancel_confirm: "Annullare le modifiche e tornare alla visualizzazione?"
+        update_confirm: "Non hai integrato nessun contributo. Sei sicuro di voler procedere?"
       manage_noise:
         available: "Contributi che possono essere eliminati"
         removed: "Contributi eliminati dalla discussione"
@@ -565,6 +590,7 @@ it-IT:
       index:
         title: "Calendario"
         group_title: "Calendario degli eventi"
+        choose_type: "SCEGLI IL TIPO DI EVENTO"
       new:
         private_tooltip: "Solo i membri del gruppo possono partecipare all'evento"
         title: "Nuovo Evento"
@@ -572,6 +598,12 @@ it-IT:
         type_for_town: "Digita alcuni caratteri per cercare un comune"
         no_town_found: "Nessun comune trovato"
         town_searching: "Sto cercando..."
+        title_event: "NUOVO EVENTO VOTAZIONE"
+        title_meeting: "NUOVO EVENTO MEETUP"
+        step_1: "Tipo di evento"
+        step_2: "Descrizione"
+        step_3: "Quando"
+        step_4: "Dove"
       show:
         map: "Mappa"
         event_place: "Luogo dell'evento"
@@ -627,7 +659,7 @@ it-IT:
         edit_button: "Modifica"
         delete_button: "Cancella"
         delete_button_confirm: "Sei sicuro di voler cancellare il post?"
-        draft: "[Bozza]"
+        draft: "Bozza"
         comments_says: "dice..."
       published_button: "Post pubblicati"
       view:
@@ -701,6 +733,7 @@ it-IT:
       index:
         title: "Elenco durate disponibili"
         how_read: "Come si legge il quorum?"
+        debate_end: "termine del dibattito"
     home:
       index:
         whatis: "COS'E' AIRESIS"
@@ -795,12 +828,6 @@ it-IT:
         description_html: |
           Definisci i tuoi confini geografici di interesse.<br />
           Se Airesis sa quali sono i territori ai quali sei interessato può consigliarti i gruppi da seguire e mostrarti le nuove proposte inserite che riguardano il tuo territorio.<br />
-      choose_image:
-        title: "Immagine del profilo"
-        gravatar: "L'immagine che vedi è stata presa dal servizio Gravatar a partire dall'indirizzo email con il quale ti sei registrato."
-        edit_image: "Se desideri cambiare l'immagine, passaci sopra con il mouse e clicca su "
-        Identity_provider: "L'immagine che vedi è stata presa dal tuo Identity Provider."
-        Identity_provider2: "Rimarrà sempre sincronizzata e ogni volta che la cambierai sul social network la vedrai cambiare anche in Airesis."
       rank_bar_explain:
         title: "La barra della maturità"
         description_html: |
@@ -850,6 +877,12 @@ it-IT:
       evaluation_reached: "Numero di valutazioni:"
       quorum_used: "Quorum utilizzato:"
       editors_in_life_cycle: "Redattori durante questo ciclo di vita:"
+      solutions:
+        added: "NUOVA SOLUZIONE"
+        removed: "SOLUZIONE ELIMINATA"
+      sections:
+        added: "NUOVO PARAGRAFO"
+        removed: "PARAGRAFO ELIMINATO"
     tags:
       show:
         related_title: "Tag correlati"
@@ -886,6 +919,9 @@ it-IT:
     passwords:
       edit:
         title: "Cambia la tua password"
+    event_comments:
+      new:
+        insert_comment: "Insert a comment"
     propsoals:
       index:
         type: "di tipo %{type}"
@@ -1024,9 +1060,6 @@ it-IT:
           other: "%{count} errori non hanno consentito questo %{model} di essere salvato"
           # The variable :count is also available
         body: "Ci sono stati problemi con i seguenti campi:"
-        
-      # The values :model, :attribute and :value are always available for interpolation
-      # The value :count is available when applicable. Can be used for pluralization.
       messages:
         inclusion: "non è incluso nella lista"
         exclusion: "è riservato"
@@ -1063,21 +1096,36 @@ it-IT:
   models:
     quorum:
       participants:
-        one: 'non avrà partecipato <b>1</b> persona'
-        other: 'non avranno partecipato <b>%{count}</b> persone'
-      or_condition_1: "Il dibattito proseguirà finchè %{participants_num} e, in ogni caso, per un massimo di %{time}."
-      and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà se %{participants_num}."
+        one: 'avrà partecipato almeno <b>una</b> persona'
+        other: 'avranno partecipato almeno <b>%{count}</b> persone'
+      participants_past:
+        one: 'partecipava almeno <b>una</b> persona'
+        other: 'partecipavano almeno <b>%{count}</b> persone'
+      or_condition_1: "Il dibattito terminerà tra %{time} oppure quando %{participants_num}."
+      or_condition_1_past: "Il dibattito terminava in %{time} oppure quando %{participants_num}."
+      and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
+      and_condition_1_past: "Il dibattito terminava in %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      participants_condition_1: "Il dibattito proseguirà finchè %{participants_num}."
-      good_score_condition: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione, altrimenti verrà abbandonata"
-      bad_score_explain: "Se avrà una maturità superiore al <b>%{good_score}%</b> andrà in votazione. Se invece avrà una maturità inferiore al <b>%{bad_score}%</b>, verrà abbandonata. <br/> Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti"
-      until_date: "(%{date} alle %{time})"
+      time_condition_1_past: "Il dibattito terminvava in %{time}."
+      participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
+      participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
+      good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"
+      good_score_condition_past: "La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
+      bad_score_explain: |
+       La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, verrà abbandonata se avrà una maturità inferiore al <b>%{bad_score}%</b>.<br/>
+       Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
+      bad_score_explain_past: |
+       La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, veniva abbandonata se aveva una maturità inferiore al <b>%{bad_score}%</b>.<br/>
+       Il dibattito continuava finchè la maturità rimaneva tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
+      until_date: "(fino al %{date})"
       help_content:
         description_html: |
           <h3>Cos'è il quorum?</h3>
-          Il quorum è il parametro che determina quando termina la fase di discussione della proposta e si procede alla votazione.<br />
+          <p>
+          Il quorum è il parametro che determina quando termina la fase di dibattito della proposta e si procede alla votazione.<br />
           Quando crei una nuova proposta scegli uno dei quorum a disposizione nello Spazio Comune o uno tra quelli messi a disposizione dal tuo gruppo.<br />
           In questa finestra puoi selezionare i diversi quorum e vederne le caratteristiche: troverai la descrizione del quorum e l'elenco dei parametri impostati.<br />
+          </p>
         participants: "Numero minimo di partecipanti:"
         not_specified: "Non indicato"
         time_discussion: "Tempo di discussione:"
@@ -1092,6 +1140,9 @@ it-IT:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
+    edit:
+      solutions:
+        default_title: "Soluzione"
   digit_tags: "Digita i tag che vuoi inserire"
   buttons:
     cancel: "Annulla"
@@ -1108,8 +1159,8 @@ it-IT:
     go_back: "Torna indietro"
     chosen: "Ho scelto!"
     ok: "OK"
-    yes: 'SI'
-    no: 'NO'
+    yes_word: 'SI'
+    no_word: 'NO'
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."
@@ -1173,6 +1224,9 @@ it-IT:
       creation: "Siamo spiacenti ma si è verificato un errore durante la creazione della proposta"
       editors_added: "Errore durante l'aggiunta dei nuovi redattori"
       close_debate: "Errore durante la chiusura del dibattito"
+      vote_period_incorrect: "Scegli un altro periodo per la votazione"
+      vote_period_soon: "La votazione deve iniziare almeno %{time} minuti dopo il termine del dibattito"
+      vote_period_short: "La votazione deve durare almeno 10 minuti"
     registration:
       recaptcha: "Errore nella validazione del captcha. Digitarlo nuovamente"
       user_not_found: "Utente non trovato"
@@ -1205,6 +1259,9 @@ it-IT:
     error_500:
       title: "Oops...errore nostro"
       description: "E' stata inviata una segnalazione e l'errore verrà risolto quanto prima."
+    event:
+      comment_added: "Errore durante l'inserimento del commento"
+    participations_destroyed: "Errore durante l'operazione"
   info:
     setting_preferences: "Impostazioni cambiate correttamente"
     blog_created: "Il tuo post è stato creato correttamente"
@@ -1302,6 +1359,11 @@ it-IT:
       status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
       status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
       status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
+    event:
+      comment_added: "Commento inserito correttamente"
+    topic:
+      hidden: "Il topic è nascosto"
+    participations_destroyed: "Utenti eliminati. Aggiorna la pagina."
   interest_borders:
     hint: "Digita alcuni caratteri per cercare un luogo"
     no_place_found: "Nessun luogo trovato"

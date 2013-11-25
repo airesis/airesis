@@ -1,4 +1,9 @@
-<h2><%= t("frm.forum.edit", :title => @forum.title).html_safe %></h2>
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li><%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group)%></li>
+  <li class="current"><%= @forum.title.html_safe %></li>
+</ul>
+
 
 <%= simple_form_for  @forum, url: group_frm_admin_forum_url(@group,@forum) do |f| %>
     <%= render partial: "form", locals: {f: f} %>

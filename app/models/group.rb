@@ -165,6 +165,18 @@ class Group < ActiveRecord::Base
     self.default_role.update_attribute(:group_id, self.id)
     ids = self.default_role.action_abilitations.pluck(:id)
     ActionAbilitation.update_all({:group_id => self.id}, {:id => ids})
+
+    #create default forums
+    private = self.categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
+    private_f = private.forums.build(name: I18n.t('frm.admin.forums.default_private'), description: I18n.t('frm.admin.forums.default_private_description'), visible_outside: false)
+    private_f.group = self
+    private_f.save!
+
+    public = self.categories.create(name: I18n.t('frm.admin.categories.default_public'))
+    public_f = public.forums.create(name: I18n.t('frm.admin.forums.default_public'), description: I18n.t('frm.admin.forums.default_public_description'))
+    public_f.group = self
+    public_f.save!
+
   end
 
   def destroy

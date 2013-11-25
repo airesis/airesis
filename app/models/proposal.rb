@@ -26,7 +26,7 @@ class Proposal < ActiveRecord::Base
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 
-  has_many :proposal_lives, :class_name => 'ProposalLife', :dependent => :destroy
+  has_many :proposal_lives, :class_name => 'ProposalLife', order: 'proposal_lives.created_at DESC', :dependent => :destroy
   has_many :users, :through => :proposal_presentations, :class_name => 'User'
 
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
@@ -249,6 +249,16 @@ class Proposal < ActiveRecord::Base
     is_current? && self.anonima
   end
 
+  #return true if the proposal is in a group
+  def in_group?
+    self.private?
+  end
+
+  def in_group_area?
+    self.in_group? && !self.presentation_areas.first.nil?
+  end
+
+
   def tags_list
     @tags_list ||= self.tags.map(&:text).join(', ')
   end
@@ -309,21 +319,23 @@ class Proposal < ActiveRecord::Base
     @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
     self.sections.each do |section|
       paragraph = section.paragraphs.first
-      if paragraph.content_changed?
+      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+      if paragraph.content_changed? || section.marked_for_destruction?
         something = true
-        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
     self.solutions.each do |solution|
-      solution_history = @revision.solution_histories.build(seq: solution.seq)
+      solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
       something_solution = false
       solution.sections.each do |section|
         paragraph = section.paragraphs.first
-        if paragraph.content_changed?
+        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+        if paragraph.content_changed? || section.marked_for_destruction?
           something = true
           something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
+          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
           section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
         end
       end

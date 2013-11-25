@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
 
   has_one :election, :class_name => 'Election', :dependent => :destroy
 
-  has_many :comments, class_name: 'EventComment', foreign_key: :event_id
+  has_many :comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
 
   belongs_to :user
 

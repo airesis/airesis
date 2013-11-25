@@ -1,36 +1,53 @@
 <div class="right_panel">
   <div id="whatis" class="quorum_section">
-    <%=t('models.quorum.help_content.description_html')%>
+    <%= t('models.quorum.help_content.description_html') %>
   </div>
-  <%@quorums.each do |quorum|%>
+  <% @quorums.each do |quorum| %>
 
-      <div id="quorum_<%=quorum.id%>" class="quorum_section">
-        <h3><%=quorum.name%></h3>
-        <%=quorum.description%>
-        <hr />
-        <%=quorum.explanation%>
-        <hr />
-        <label><%= t('models.quorum.help_content.participants')%> </label>
-        <%if quorum.percentage%>
-            <b><%= quorum.min_partecipants %>
-            </b>
-        <%else%>
-            <b><%= t('models.quorum.help_content.not_specified')%></b>
-        <%end%><br />
-        <label><%= t('models.quorum.help_content.time_discussion')%> </label>
-        <%if quorum.minutes%>
-            <b><%=quorum.time(true)%></b>
-        <%else%>
-            <b><%= t('models.quorum.help_content.not_specified')%></b>
-        <%end%><br />
-        <label><%= t('models.quorum.help_content.condition')%> </label>
-        <%if quorum.condition.upcase == 'OR'%>
-            <b><%= t('models.quorum.help_content.at_least_one')%></b>
-        <%else%>
-            <b><%= t('models.quorum.help_content.both')%></b>
-        <%end%><br />
-        <label><%= t('models.quorum.help_content.good_score') %> </label><b><%=quorum.good_score%>%</b><br />
-        <label><%= t('models.quorum.help_content.bad_score') %> </label><b><%=quorum.bad_score%>%</b><br />
+      <div id="quorum_<%= quorum.id %>" class="quorum_section">
+        <ul class="pricing-table">
+          <li class="title"><%= quorum.name %></li>
+          <li class="description"><%= quorum.description %></li>
+          <li class="description"><%= quorum.explanation %></li>
+
+          <li class="bullet-item">
+            <span class="gray"><%= t('models.quorum.help_content.participants') %> </span>
+            <% if quorum.percentage %>
+                <b><%= quorum.min_partecipants %>
+                </b>
+            <% else %>
+                <b><%= t('models.quorum.help_content.not_specified') %></b>
+            <% end %>
+          </li>
+          <li class="bullet-item">
+            <span class="gray"><%= t('models.quorum.help_content.time_discussion') %> </span>
+            <% if quorum.minutes %>
+                <b><%= quorum.time(true) %></b>
+            <% else %>
+                <b><%= t('models.quorum.help_content.not_specified') %></b>
+            <% end %>
+          </li>
+          <li class="bullet-item">
+        <span class="gray">
+          <%= t('models.quorum.help_content.condition') %>
+          </span>
+            <% if quorum.condition.upcase == 'OR' %>
+                <b><%= t('models.quorum.help_content.at_least_one') %></b>
+            <% else %>
+                <b><%= t('models.quorum.help_content.both') %></b>
+            <% end %>
+          </li>
+          <li class="bullet-item">
+            <span class="gray"><%= t('models.quorum.help_content.good_score') %> </span>
+            <b><%= quorum.good_score %>%</b>
+          </li>
+          <% if quorum.has_bad_score? %>
+              <li class="bullet-item">
+                <span class="gray"><%= t('models.quorum.help_content.bad_score') %> </span>
+                <b><%= quorum.bad_score %>%</b>
+              </li>
+          <% end %>
+        </ul>
       </div>
-  <%end%>
+  <% end %>
 </div>

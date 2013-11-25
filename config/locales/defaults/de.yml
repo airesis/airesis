@@ -1,7 +1,6 @@
 de:
   permissions_required: Du bist nicht berechtigt diese Operation durchzuführen
   test: Test
-
   open_space: Open space
   guide: FAQ
   hello: Hallo Welt
@@ -556,7 +555,7 @@ de:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: Gib Deine Stimme ab!
-        schulze_title: 'Für diesen Vorschlag gibt es mehrere Lösungen.<br/>Ordne sie nach Deinen Präferenzen indem Du die Shulze-Methode verwendest<br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
+        schulze_title: 'Für diesen Vorschlag gibt es mehrere Lösungen.<br/>Ordne sie nach Deinen Präferenzen <br/>von 1 (gefällt mir nicht) bis %{max} (gefällt mir sehr)'
         secret_vote: Your vote is secret and you will not be able to recover or change it once expressed.
         clear_vote: Your vote is recorded and will therefore be verifiable.
         single_title: In this proposal there is only one solution. Make your point!
@@ -569,7 +568,7 @@ de:
         hurry_up: Beeil dich!
         last_minutes: 'You are allowed to edit these fields only for %{minutes} minutes.'
         no_participants: You are allowed to edit these fields only if nobody has participated!
-        remove_section: Remove section
+        remove_section: Remove paragraph
         add_paragraph: Add a new paragraph
         edit_proposal: Edit and update the text of the proposal
         remove_solution: Remove solution
@@ -1110,8 +1109,8 @@ de:
     go_back: Zurück
     chosen: I have chosen!
     ok: OK
-    yes: JA
-    no: NEIN
+    yes_word: JA
+    no_word: NEIN
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: '<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent'

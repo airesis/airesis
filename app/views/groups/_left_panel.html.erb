@@ -106,9 +106,8 @@
         <% if @mypartecipation %>
             <div class="mybox">
               <div id="permissions_list_container" title="<%= t('pages.groups.show.list_permissions.title') %>"></div>
-              <%= link_to t('pages.groups.show.list_permissions.button'), permissions_list_group_path(@group), remote: true, class: 'btn infoButton' unless @group.portavoce.include? current_user %>
-              <%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_path(@group, @mypartecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn extlinkButton' if can? :destroy, @mypartecipation %>
-              <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, confirm: t('pages.groups.show.confirm_destroy'), class: 'btn red trashButton' if can? :destroy, @group %>
+              <%= link_to t('pages.groups.show.list_permissions.button'), permissions_list_group_path(@group), remote: true, disable_with: t('loading'), class: 'btn infoButton' unless @group.portavoce.include? current_user %>
+              <%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_path(@group, @mypartecipation), :method => :delete, disable_with: t('loading'), :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn extlinkButton' if can? :destroy, @mypartecipation %>
             </div>
         <% end %>
 

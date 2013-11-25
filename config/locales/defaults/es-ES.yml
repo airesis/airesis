@@ -460,7 +460,7 @@ es-ES:
         report_description: "You can point out to the webmaster that this contribution violates the laws currently in force. <br/> Once ascertained the infringement the contribution will be removed. Don't abuse this tool."
       vote_panel:
         title: Make your vote!
-        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences using Schulze Method<br/>from 1 (don't like) to %{max} (I really like)"
+        schulze_title: "There are several solutions to this proposal.<br/> Order them according to your preferences <br/>from 1 (don't like) to %{max} (I really like)"
         secret_vote: Your vote is secret and you will not be able to recover or change it once expressed.
         clear_vote: Your vote is recorded and will therefore be verifiable.
         single_title: In this proposal there is only one solution. Make your point!
@@ -566,7 +566,7 @@ es-ES:
         edit_button: Edit
         delete_button: Delete
         delete_button_confirm: Are you sure you want to delete this post?
-        draft: '[Draft]'
+        draft: 'Draft'
         comments_says: says...
       published_button: Published posts
       view:

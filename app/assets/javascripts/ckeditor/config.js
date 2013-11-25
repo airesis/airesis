@@ -49,7 +49,7 @@ CKEDITOR.editorConfig = function( config )
 
     ];
 
-    config.extraPlugins = 'youtube,smiley' ;
+    config.extraPlugins = 'youtube,smiley,wordcount' ;
 
 
     /* Filebrowser routes */
@@ -113,6 +113,15 @@ CKEDITOR.editorConfig = function( config )
         }
 
         return url + ( ( url.indexOf( "?" ) != -1 ) ? "&" : "?" ) + queryString.join( "&" );
+    };
+
+
+    config.wordcount = {
+        showWordCount: false,
+        showCharCount: false,
+        countHTML: false,
+        charLimit: 'unlimited',
+        wordLimit: 'unlimited'
     };
 
     // Integrate Rails CSRF token into file upload dialogs (link, image, attachment and flash)

@@ -1,57 +1,56 @@
+<h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
 
-    <h4><%= @group.admin_title || t('pages.groups.default_admin_title') %></h4>
-    
-    <%@group.portavoce.includes(:image).each do |user| %>
-    	<%=user_tag(user, nil,true,false)%>
-    <%end %>
-    
+<% @group.portavoce.includes(:image).each do |user| %>
+    <%= user_tag(user, nil, true, false) %>
+<% end %>
+
 
 <br/>
 
 
-<%if @group.group_partecipations.count > 0 %>
-    <%@partecipants = @group.group_partecipations.includes([{:user => :image}, :partecipation_role]).limit(5) %>
-<p>
+<% if @group.group_partecipations.count > 0 %>
+    <% @partecipants = @group.group_partecipations.includes([{:user => :image}, :partecipation_role]).limit(5) %>
+
     <h4><%= t('pages.groups.show.participants_list') %></h4>
 
     <% if (can? :accept_requests, @group) %>
         <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "btn inviteButton disable" %>
         <div id="new_invitation_container"></div>
-    <%end%>
+    <% end %>
 
 
-    <p>
+
       <% if user_signed_in? %>
-        <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
-      <%end%>
+          <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
+      <% end %>
       <% if !@partecipation_request %>
-        <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class=>"btn blue editButton" %>
-      <%end%>
+          <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class => "btn blue editButton" %>
+      <% end %>
+
+
+    <% @partecipants.each do |partecipant| %>
+        <% if !@group.portavoce.include? partecipant.user %>
+            <div class="pcontainer">
+              <div class="MoImg24">
+                <%= partecipant.user_image_tag(24) %>
+              </div>
+              <div class="Mo">
+                <%= link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
+              </div>
+              <div style="clear:both;"></div>
+            </div>
+        <% end %>
+    <% end %>
+
+
+    <% if @group.group_partecipations.count > 5 %>
+        <%= link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :class => "btn personButton disable" %>
+        <div id="partecipants_list_container" title="<%= t('pages.groups.show.participants_full_list') %>"></div>
+    <% end %>
+
+
+<% else %>
+    <p>
+      <b><%= t('pages.groups.show.no_participants') %></b>
     </p>
-
-    <%@partecipants.each do |partecipant| %>
-	    <%if !@group.portavoce.include? partecipant.user%>
-			    <div class="pcontainer">
-			        <div class="MoImg24">
-			            <%= partecipant.user_image_tag(24) %>
-			        </div>
-			        <div class="Mo">
-			            <%=link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
-			        </div>
-                  <div style="clear:both;"></div>
-			    </div>
-	    <%end%>
-    <%end %>
-
-
-    <%if @group.group_partecipations.count > 5 %>
-        <%=link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :class => "btn personButton disable"%>
-        <div id="partecipants_list_container" title="<%= t('pages.groups.show.participants_full_list')%>"></div>
-    <%end%>
-    <%=link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable"%>
-</p>
-<%else %>
-<p>
-    <b><%= t('pages.groups.show.no_participants') %></b>
-</p>
-<%end %>
+<% end %>

@@ -116,6 +116,8 @@ class User < ActiveRecord::Base
   has_many :viewed, :class_name => 'Frm::View'
   has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
+  has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
+  has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
 
   #fake columns
   attr_accessor :image_url, :accept_conditions, :subdomain
@@ -220,9 +222,11 @@ class User < ActiveRecord::Base
     if abilitation_id
       query = query.joins({:area_roles => :area_action_abilitations})
       .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+      .uniq
     else
       query = query.joins(:area_roles)
       .where(['group_areas.group_id = ?', group_id])
+      .uniq
     end
   end
 
@@ -606,13 +610,12 @@ class User < ActiveRecord::Base
 
 
   def forem_moderate_posts?
-    Frm.moderate_first_post && !forem_approved_to_post?
+    false #todo
   end
 
   alias_method :forem_needs_moderation?, :forem_moderate_posts?
 
   def forem_approved_to_post?
-    #forem_state == 'approved'
     true
   end
 
@@ -623,7 +626,7 @@ class User < ActiveRecord::Base
 
 
   def forem_admin?(group)
-    self.can? :update, @group
+    self.can? :update, group
   end
 
   def to_s

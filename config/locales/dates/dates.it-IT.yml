@@ -18,6 +18,7 @@ it-IT:
     formats:
       default: "%d %b %Y alle %H:%M"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Domenica
       - Lunedì
@@ -76,6 +77,7 @@ it-IT:
      month: "%B"
      dayandmonth: "%d/%m"
      hour: "%H:%M"
+     yesterday_at: "ieri alle %H:%M"
      textfield: "%d/%m/%Y %H:%M"
      rich: "%Y-%m-%dT%H:%M"
     am: "am"
@@ -133,3 +135,7 @@ it-IT:
       x_seconds:
         one: "1 secondo fa"
         other: ! '%{count} secondi fa'
+  label:
+    from: "dal"
+    to: "al"
+  countdown: "{m<}{mn} {ml} fa{m>} {s<}pochi secondi fa{s>}"

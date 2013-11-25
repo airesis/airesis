@@ -350,6 +350,7 @@ module NotificationHelper
   def time_left_vote(proposal, type)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
     group = proposal.private ? proposal.presentation_groups.first : nil
+    group_area = proposal.private ? proposal.presentation_areas.first : nil
     data['group'] = group.name if group
 
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)

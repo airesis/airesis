@@ -457,7 +457,7 @@ fr:
         report_description: "Vous pouvez signaler au webmaster que cette contribution viole les lois actuellement en vigueur. <br/> Une fois constatée l'infraction, la contribution sera supprimée. N'abusez pas de cet outil."
       vote_panel:
         title: Effectuez votre vote !
-        schulze_title: "Il existe plusieurs solutions à cette proposition. <br/> Classez-les selon vos préférences à l'aide de la méthode Schulze <br/> de 1 (je n'aime pas) à %{max} (j'aime)"
+        schulze_title: "Il existe plusieurs solutions à cette proposition. <br/> Classez-les selon vos préférences <br/> de 1 (je n'aime pas) à %{max} (j'aime)"
         secret_vote: Votre vote est secret et vous ne serez pas en mesure de le retirer ou de le changer une fois exprimé.
         clear_vote: Votre vote est enregistré et sera donc vérifiable.
         single_title: "Dans cette proposition il n'y a qu'une seule solution. Faite-vous votre avis!"

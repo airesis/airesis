@@ -38,7 +38,7 @@ end
 
 #gem "omniauth", '1.0.3'
 
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.5.0'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
@@ -58,15 +58,6 @@ gem 'paperclip'
 gem 'jquery-rails', '3.0.4'
 
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
-
-
-#TODO to remove in 3.0
-gem 'bluecloth', '2.0.7'
-
-#gem 'oniguruma'
-
-#TODO to remove in 3.0
-gem 'ultraviolet1x'
 
 gem 'devise', '2.0.4'
 

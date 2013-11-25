@@ -259,7 +259,8 @@ $large-screen: 1440px;
 #logo-but {
     float: left;
     margin-top: 20px;
-    margin-left: 10px;
+    margin-left: 4px;
+    width: 66px;
     margin-right: 13px;
     color: white;
     font-weight: bold;
@@ -607,6 +608,7 @@ $large-screen: 1440px;
     margin-top: 10px;
     line-height: 1.1em;
     margin-left: 2px;
+    width: 190px;
 }
 
 .cont-mess .mess:hover {
@@ -684,7 +686,6 @@ $large-screen: 1440px;
 
 .submenu {
     font-size: 13px;
-    margin-top: 10px;
     color: white;
     font-weight: bold;
     margin-top: 40px;
@@ -730,7 +731,7 @@ $large-screen: 1440px;
     position: relative;
 
     &.socialnetwork {
-        padding: 8px;
+        padding: 6px;
     }
 
     .mybox_button {
@@ -1160,14 +1161,18 @@ $large-screen: 1440px;
     width: 8px;
 }
 
-.btn .text {
-    margin-left: 14px;
+.btn {
+    &.little {
+        font-size: 0.8em;
+        padding: 0.2em 0.8em !important;
+        font-weight: normal;
+    }
+
+    .text {
+        margin-left: 14px;
+    }
 }
 
-.btn.little {
-    font-size: 0.8em;
-    padding: 0.2em 0.8em;
-}
 
 @media (max-width: 999px) {
     #menu-top {

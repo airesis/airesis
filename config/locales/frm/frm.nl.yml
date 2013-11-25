@@ -77,7 +77,7 @@ nl:
       moderator_tools: "Moderatie hulpmiddelen"
     forums:
       index:
-        title: Forums
+        title: Forum
         forum: Forum
         views: maal bekeken
         last_post: 'Laatste Reactie:'

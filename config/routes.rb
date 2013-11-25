@@ -13,7 +13,7 @@ Airesis::Application.routes.draw do
   match '/bugtracking' => 'home#bugtracking'
   match '/videoguide' => 'home#videoguide'
   match '/edemocracy' => 'home#whatis'
-  match '/epartecipation' => 'home#intro'
+  match '/eparticipation' => 'home#intro'
   match '/story' => 'home#story'
   match '/sostienici' => 'home#helpus'
   match '/donations' => 'home#donations'
@@ -23,6 +23,8 @@ Airesis::Application.routes.draw do
   match '/send_feedback' => 'home#feedback'
   match '/statistics' => 'home#statistics'
   match '/movements' => 'home#movements'
+  match '/school' => 'home#school'
+  match '/municipality' => 'home#municipality'
 
   resources :user_likes
 
@@ -264,6 +266,7 @@ Airesis::Application.routes.draw do
     resources :group_partecipations do
       collection do
         post :send_email
+        post :destroy_all
       end
     end
 
@@ -457,6 +460,7 @@ Airesis::Application.routes.draw do
       resources :group_partecipations do
         collection do
           post :send_email
+          post :destroy_all
         end
       end
 

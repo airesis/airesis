@@ -18,6 +18,7 @@ en:
     formats:
       default: "%d-%m-%Y"
       short: "%b %d"
+      long: "%d %B %Y"
     day_names:
       - Sunday
       - Monday
@@ -76,6 +77,7 @@ en:
      month: "%B"
      dayandmonth: "%d/%m"
      hour: "%I:%M %p"
+     yesterday_at: "yesterday at %I:%M %p"
      textfield: "%d/%m/%Y %I:%M %p"
      rich: "%Y-%m-%dT%H:%M"
     am: "am"
@@ -133,3 +135,7 @@ en:
       x_seconds:
         one: "1 second ago"
         other: ! "%{count} seconds ago"
+  label:
+    from: "from"
+    to: "to"
+  countdown: "{m<}{mn} {ml} ago{m>} {s<}just now{s>}"

@@ -30,7 +30,6 @@ $large-screen: 1440px;
     text-align: center;
     color: #3366CC;
     font-weight: bold;
-    width: 98%;
     &:hover {
         background-color: #F4F4F4;
         text-decoration: none;
@@ -253,6 +252,7 @@ $large-screen: 1440px;
                 text-align: center;
                 height: 45px;
                 margin-top: 4px;
+                line-height: 1.6em;
             }
         }
     }
@@ -448,10 +448,7 @@ $large-screen: 1440px;
             }
         }
         .maintitle {
-            left: 10px;
-            right: 10px;
             font-size: 1em;
-            top: 6px;
         }
 
         .datetime {
@@ -470,6 +467,12 @@ $large-screen: 1440px;
 
 }
 
+#start_preset {
+    .start_vot {
+        margin-top: 10px;
+    }
+}
+
 .proposal_list {
     .datetime {
         margin: 5px 0px;
@@ -485,6 +488,7 @@ $large-screen: 1440px;
     word-break: break-word;
     padding: 10px;
     line-height: 1.6em;
+    overflow: hidden;
 }
 
 .proposal_list {
@@ -602,8 +606,11 @@ ul.blogList li.blogListFirst {
 }
 
 .solution_main .proposal_main {
-    /*margin:  5px;*/
     box-shadow: none;
+}
+
+.diffcontainer h3 .tit1 .tit2 {
+    margin-right: 0px;
 }
 
 h3 {
@@ -823,7 +830,7 @@ form {
 
 #new_proposal_comment .counter {
     float: right;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .ice .cts-1 {
@@ -843,9 +850,9 @@ form {
 }
 
 .ice-del {
-    background-color: #faf1f1 !important;
+    background-color: #fad1e1 !important;
     img.cke_iframe {
-        background-color: #faf1f1 !important;
+        background-color: #fad1e1 !important;
     }
 }
 
@@ -907,8 +914,9 @@ input.edit_label {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.contributeSectionButton {
-    margin-top: 10px;
+.btn.contributeSectionButton {
+    margin-top: 4px;
+    padding: 0.5em 0.8em !important;
 }
 
 .vote_panel {
@@ -1300,10 +1308,17 @@ a.spch-bub-inside:hover .point {
 
 .fake_content {
     color: #777;
+    font-size: 0.85em;
 }
 
-ul.navigator {
-    padding-left: 20px;
+ul{
+    &.navigator {
+        padding-left: 20px;
+        overflow: hidden;
+    }
+    &.sub_navigator {
+        padding-left: 20px;
+    }
 }
 
 @media (min-width: $small-screen) {
@@ -1339,8 +1354,48 @@ ul.navigator {
     font-size: 0.8em;
     color: #333;
     position: relative;
+    line-height: 1.5em;
 }
 
 .choise_b .inner {
     margin-top: 10px;
+}
+
+.color_legend {
+    width: 13px;
+    height: 13px;
+    &.positive {
+        background-color: #4bb2c5;
+    }
+    &.negative {
+        background-color: #EAA228;
+    }
+    &.neutral {
+        background-color: #c5b47f;
+    }
+}
+
+.time_end {
+    margin-bottom: 5px;
+}
+
+.join_clause {
+    margin: 5px 0px;
+}
+
+#end_debate {
+    font-weight: bold;
+}
+
+.schulze {
+    width: 19px;
+    height: 18px;
+    display: inline-block;
+    &.bad {
+        background: url('/assets/faces/red_full_16.png') 0 0 no-repeat;
+    }
+    &.good {
+        background: url('/assets/faces/green_full_16.png') 0 0 no-repeat;
+
+    }
 }

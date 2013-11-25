@@ -123,6 +123,7 @@ class ProposalCommentsController < ApplicationController
 
 
   def create
+    authorize! :partecipate, @proposal
     parent_id = params[:proposal_comment][:parent_proposal_comment_id]
     @is_reply = parent_id != nil
     post_contribute

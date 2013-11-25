@@ -124,13 +124,11 @@
             <%end%>
 
             header: {
-                left: 'prev,next today',
+                left: 'today prev,next',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
             defaultView: 'month',
-            height: 600,
-            aspectRatio: 1,
             slotMinutes: 15,
             firstDay: <%=t('calendar.firstDay')%>,
             monthNames: <%=t('calendar.monthNames')%>,
@@ -183,10 +181,12 @@
                 }
             },
             dayClick: function(date, allDay, jsEvent, view) {
+                <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
                     data: 'starttime=' + date.getTime(),
-                    url: '<%=new_event_url(:group_id=> @group.try(:id)) %>'
+                    url: '<%=new_event_url(:group_id=> @group.try(:id), event_type_id: EventType::INCONTRO) %>'
                 });
+                <%end%>
             }
 
         });

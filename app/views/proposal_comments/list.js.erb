@@ -25,6 +25,12 @@ firstCheck = false;
 disegnaBottoni();
 disegnaCountdown();
 
+<%if params[:comment_id] %>
+var comment_ = $('#comment<%=params[:comment_id]%> .proposal_comment');
+scrollToElement(comment_);
+comment_.effect('highlight', {}, 3000);
+<%end%>
+
 /*$('.rankingpanelcontainer .votedup-mini').qtip({
     position: {
         at: 'center top',

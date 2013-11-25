@@ -169,6 +169,49 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
 
+
+  def parma
+    #se sono già autenticato allora sto facendo una join dei due account
+    access_token = request.env['omniauth.auth']
+    if current_user
+      data = access_token['extra']['raw_info'] #dati di meetup
+      auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'].to_s)
+      if auth #se c'è già un altro account annulla l'operazione!
+        flash[:error] = "Esiste già un altro account associato a questo account Meetup. Attendi la funzione di 'Unione account' per procedere"
+      else
+        current_user.build_authentication_provider(access_token)
+        current_user.save(:validate => false)
+        flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Meetup.'
+      end
+      redirect_to privacy_preferences_users_url
+    else
+      @user = User.find_for_meetup(request.env["omniauth.auth"], current_user)
+      if @user
+        #se all'utente è già collegato un account meetup
+        if @user.has_provider(Authentication::MEETUP)
+          flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Meetup"
+          #cheidigli di inserire l'email se è il primo accesso
+          if @user.sign_in_count == 0
+            request.env["omniauth.origin"] = nil
+            session["user_return_to"] = user_path(@user, {:insert_email => true})
+          end
+          @user.remember_me = true
+          sign_in_and_redirect @user, :event => :authentication
+        elsif @user.from_identity_provider?
+          flash[:error] = "Esiste già un altro account registrato a tuo nome."
+          redirect_to new_user_session_path
+        else
+          session["devise.meetup_data"] = request.env["omniauth.auth"]
+          redirect_to confirm_credentials_users_url
+        end
+      else
+        flash[:error] = "Account Meetup non verificato."
+        redirect_to proposals_path
+      end
+    end
+  end
+
+
   def linkedin
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']

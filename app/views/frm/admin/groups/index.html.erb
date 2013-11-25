@@ -1,4 +1,7 @@
-<h2><%= t('frm.admin.group.index') %></h2>
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li class="current"><%= t('frm.admin.group.index') %></li>
+</ul>
 
 <%= link_to t('frm.admin.group.new'), new_group_frm_admin_frm_group_url(@group), :class => "btn blue", remote: true, disable_with: t('loading') %>
 

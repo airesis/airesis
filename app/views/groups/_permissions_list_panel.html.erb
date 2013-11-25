@@ -1,24 +1,26 @@
-<strong><%= t('pages.users.show.what_can_i_do') %></strong>
-<ul>
-  <li>
-    <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
-  </li>
-</ul>
-
-<strong><%= t('pages.users.show.what_i_cant_do') %></strong>
-<ul>
-  <li>
-    <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
-  </li>
-</ul>
-
 <% if @group.enable_areas && current_user.scoped_areas(@group).count > 0 %>
     <div id="tabs">
       <ul>
+        <li><%= link_to t('pages.users.show.group_level_permission_title'), '#group_id' %></li>
         <% current_user.scoped_areas(@group).each do |area| %>
-            <li><%= link_to area.name, "##{area.id}"%></li>
+            <li><%= link_to area.name, "##{area.id}" %></li>
         <% end %>
       </ul>
+      <div id="group_id">
+        <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+        <ul>
+          <li>
+            <%= @actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
+          </li>
+        </ul>
+
+        <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+        <ul>
+          <li>
+            <%= GroupAction.where(['id not in (?)', @actions.select('group_actions.id').order(:seq)]).map { |a| a.description }.join('</li><li>').html_safe %>
+          </li>
+        </ul>
+      </div>
       <% current_user.scoped_areas(@group).each do |area| %>
           <div id="<%= area.id %>">
             <strong><%= t('pages.users.show.what_can_i_do') %></strong>
@@ -37,9 +39,19 @@
           </div>
       <% end %>
     </div>
+<% else %>
+    <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+    <ul>
+      <%= @actions.order(:seq).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
+    </ul>
+
+    <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+    <ul>
+      <%= GroupAction.excluding_ids(@actions.select('group_actions.id').order(:seq).all).map { |a| "<li>#{a.description}</li>" }.join('').html_safe %>
+    </ul>
 <% end %>
 
 
 <script type="text/javascript">
-  $('#tabs').tabs();
+    $('#tabs').tabs();
 </script>

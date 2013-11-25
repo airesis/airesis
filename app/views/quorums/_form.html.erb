@@ -2,37 +2,33 @@
     <div id="radio">
       <%= e.radio_button :form_type, 's', :checked => "checked" %><%= e.label :form_type_s, t('pages.groups.edit_quorums.new_quorum.simple') %>
       <%= e.radio_button :form_type, 'a'%><%= e.label :form_type_a, t('pages.groups.edit_quorums.new_quorum.advanced') %>
-      <!--<input type="radio" id="radio1" name="radio" checked="checked" value="s"/><label for="radio1">Semplice</label>
-      <input type="radio" id="radio2" name="radio" value="a"  /><label for="radio2">Avanzato</label>-->
     </div>
 
     <p>
       <%= e.label :name, t('activerecord.attributes.quorum.name') %>
-      <span id="name_title"><%= image_tag 'icon_info.gif', :alt => 'Di cosa si tratta?', :style => 'cursor:pointer',:title => t('activerecord.attributes.quorum.name_title') %></span>
       <%= e.text_field :name, :title => t('activerecord.attributes.quorum.name_title') %>
     </p>
     <p>
       <%= e.label :description, t('activerecord.attributes.quorum.description'), :title => t('activerecord.attributes.quorum.description_title') %>
-      <span id="description_title"><%= image_tag 'icon_info.gif', :style => 'cursor:pointer' %></span> <br/>
       <%= e.text_area :description, :rows => 2, :style => "width:100%", :class => "elastic" %>
     </p>
     <div id="options">
-      <div>
+      <p>
         <%= raw(t('pages.groups.edit_quorums.new_quorum.time_description',
                   :days => (e.text_field :days_m, :class => "days",:readonly => true)+(t 'activerecord.attributes.quorum.days_m'),
                   :hours => (e.text_field :hours_m, :class => "hours",:readonly => true)+(t 'activerecord.attributes.quorum.hours_m'),
                   :minutes =>(e.text_field :minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m')))
         %>
-        <div style="clear: both;"></div>
-      </div>
-      <div class="advanced" style="padding: 5px 10px 5px 0;">
+
+      </p>
+      <p class="advanced" style="padding: 5px 10px 5px 0;">
         <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
                   :and_or => (e.select :condition, {t('words.or') => "OR", t('words.and') => "AND"}, {}, {title: t('activerecord.attributes.quorum.condition_title'), class: 'resize'}),
                   :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
                   :current_number=> "<span id=\"partecipants_number\">0</span>", :total_number => @partecipants_count))
         %>
 
-      </div>
+      </p>
       <div class="form_float">
         <%= raw(t('pages.groups.edit_quorums.new_quorum.simple_percentage_description', :good_score => (e.text_field :good_score, :class => "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true))) %>
       </div>
@@ -46,7 +42,7 @@
       <div style="clear: both;"></div>
     </div>
     <a href="#" class="btn" onclick="closeMe();return false;"><%= t('buttons.cancel') %></a>
-    <%= e.submit button_name, :class => 'btn blue' %>
+    <%= e.submit button_name, :class => 'btn blue', disable_with: t('loading') %>
 <% end %>
 
 <script type="text/javascript">

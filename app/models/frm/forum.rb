@@ -42,7 +42,7 @@ module Frm
     end
 
     def moderator?(user)
-      user && (user.forem_group_ids & moderator_ids).any?
+      user && (user.frm_group_ids & moderator_ids).any?
     end
 
     def to_s

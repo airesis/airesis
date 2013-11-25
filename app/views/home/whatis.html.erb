@@ -9,7 +9,7 @@
     <%= t('.paragraph_1.content_html') %>
   </div>
 </div>
-<div class="slide">
+<div class="slide blue">
   <div class="row centered">
     <div class="columns large-3">
       <%= image_tag 'presentation/group.png', class: 'presentation' %>
@@ -20,7 +20,7 @@
     </div>
   </div>
 </div>
-<div class="slide yellow">
+<div class="slide green">
   <div class="row centered">
 
     <div class="columns large-9">
@@ -33,32 +33,33 @@
   </div>
 </div>
 
-<div class="slide violet">
+<div class="slide red">
   <div class="row centered">
     <div class="columns large-3">
-      <%= image_tag 'presentation/proposal.png', class: 'presentation' %>
+      <%= image_tag 'presentation/event.png', class: 'presentation' %>
     </div>
-    <div class="columns large-9">
-      <h2><%= t('.paragraph_4.title') %></h2>
-      <%= t('.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %>
-    </div>
-  </div>
-</div>
-
-<div class="slide blue">
-  <div class="row centered">
-
     <div class="columns large-9">
       <h2><%= t('.paragraph_5.title') %></h2>
       <%= t('.paragraph_5.content_html') %>
     </div>
+
+  </div>
+</div>
+
+<div class="slide yellow">
+  <div class="row centered">
+
+    <div class="columns large-9">
+      <h2><%= t('.paragraph_4.title') %></h2>
+      <%= t('.paragraph_4.content_html', users: User.count, proposals: Proposal.count) %>
+    </div>
     <div class="columns large-3">
-      <%= image_tag 'presentation/event.png', class: 'presentation' %>
+      <%= image_tag 'presentation/proposal.png', class: 'presentation' %>
     </div>
   </div>
 </div>
 
-<div class="slide red">
+<div class="slide violet">
   <div class="row centered">
     <div class="columns large-3">
       <%= image_tag 'presentation/documents.png', class: 'presentation' %>
@@ -71,7 +72,7 @@
 </div>
 
 
-<div class="slide green">
+<div class="slide blue">
   <div class="row centered">
 
     <div class="columns large-9">
@@ -90,7 +91,7 @@
     </div>
     <div class="columns large-9">
       <h2><%= t('.paragraph_8.title') %></h2>
-      <%= t('.paragraph_8.content_html', intro_page: (link_to t('.paragraph_8.link'), epartecipation_path)) %>
+      <%= t('.paragraph_8.content_html', intro_page: (link_to t('.paragraph_8.link'), eparticipation_path)) %>
     </div>
   </div>
 </div>

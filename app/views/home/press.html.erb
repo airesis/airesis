@@ -1,19 +1,22 @@
-<% @page_title = "Rassegna stampa" %>   <!--TODO:I18n -->
+<% @page_title = t('.title') %>
 
 <div class="row">
   <div class="row centered">
-<h2 id="opensource">Rassegna stampa</h2> <!--TODO:I18n -->
+<h2 id="opensource"><%= @page_title %></h2>
 
 <ul>
-  <li><a href="http://www.opinione.it/web/2013/06/18/alessandrini_web-18-06.aspx" target="_blank">18 Giugno 2013 - State of the Net: verso la eDemocracy</a></li>
-  <li><a href="http://www.romatoday.it/politica/elezioni/provincia-roma-comunali-2013/intervista-fabiola-velli-candidato-movimento-5-stelle-fiumicino.html" target="_blank">14 Maggio 2013 - Fabiola Velli (M5s): "Bloccare su Fiumicino la costruzione di quattro ecomostri"</a></li>
-  <li><a href="http://www.corriere.it/politica/13_aprile_22/m5s-piattaforma-democrazia-liquida-votazioni-online-problema-trasparenza_4e08ab82-ab41-11e2-8dd6-b5ff5800dec2.shtml" target="_blank">22 Aprile 2013 - Quanti voti ha preso Rodotà alle Quirinarie? La democrazia liquida fa discutere il M5S</a></li>
-  <li><a href="http://www.repubblica.it/tecnologia/2013/04/21/news/m5s_piattaforma_per_la_democrazia_online_ecco_airesis_al_via_il_23_maggio-57157303/" target="_blank">21 Aprile 2013 - M5s, piattaforma per la democrazia online: si chiama Airesis, al via il 23 maggio</a></li>
-  <li><a href="http://www.lanazione.it/firenze/cronaca/2013/04/20/876723-nuovo_software_movimento_stelle.shtml" target="_blank">20 Aprile 2013 - Un nuovo software per il Movimento 5 stelle</a></li>
-  <li><a href="http://espresso.repubblica.it/dettaglio/grillo-e-il-rebus-della-piattaforma/2204364" target="_blank">9 Aprile 2013 - Grillo e il rebus della piattaforma</a></li>
-  <li><a href="http://www.melty.it/airesis-m5s-copyright-democrazia-diretta-a109805.html" target="_blank">26 Marzo 2013 - Airesis, l'M5S non ha il copyright della democrazia diretta</a></li>
-  <li><a href="http://ctzen.it/2013/03/13/progetto-airesis-la-democrazia-e-in-rete-la-piattaforma-libera-del-m5s-e-non-solo/" target="_blank">13 Marzo 2013 - Progetto Airesis, la democrazia è in Rete. La piattaforma libera del M5s e non solo</a></li>
-  <li><a href="http://daily.wired.it/news/politica/2013/02/19/m5s-airesis-40321.html" target="_blank">19 Febbraio 2013 - Movimento 5 Stelle, la piattaforma che sostituisce LiquidFeedback</a></li>
+  <li><a href="https://www.youtube.com/watch?v=P5dH6wQcV-E" target="_blank"><%= l Date.new(2013,11,14), format: :long %> - Università Perugia, Scienze Politiche - Seminario Airesis</a></li>
+  <li><a href="http://www.parmaquotidiano.info/2013/10/13/la-nuova-idea-dei-5stelle-per-la-democrazia-partecipata-airesis/" target="_blank"><%= l Date.new(2013,10,13), format: :long %> - La nuova idea dei 5Stelle per la democrazia partecipata: Airesis</a></li>
+  <li><a href="http://p2pfoundation.net/Airesis" target="_blank"><%= l Date.new(2013,9,29), format: :long %> - Airesis - voting software in the vein of Liquid feedback</a></li>
+  <li><a href="http://www.opinione.it/web/2013/06/18/alessandrini_web-18-06.aspx" target="_blank"><%= l Date.new(2013,7,18), format: :long %> - State of the Net: verso la eDemocracy</a></li>
+  <li><a href="http://www.romatoday.it/politica/elezioni/provincia-roma-comunali-2013/intervista-fabiola-velli-candidato-movimento-5-stelle-fiumicino.html" target="_blank"><%= l Date.new(2013,5,14), format: :long %> - Fabiola Velli (M5s): "Bloccare su Fiumicino la costruzione di quattro ecomostri"</a></li>
+  <li><a href="http://www.corriere.it/politica/13_aprile_22/m5s-piattaforma-democrazia-liquida-votazioni-online-problema-trasparenza_4e08ab82-ab41-11e2-8dd6-b5ff5800dec2.shtml" target="_blank"><%= l Date.new(2013,4,22), format: :long %> - Quanti voti ha preso Rodotà alle Quirinarie? La democrazia liquida fa discutere il M5S</a></li>
+  <li><a href="http://www.repubblica.it/tecnologia/2013/04/21/news/m5s_piattaforma_per_la_democrazia_online_ecco_airesis_al_via_il_23_maggio-57157303/" target="_blank"><%= l Date.new(2013,4,21), format: :long %> - M5s, piattaforma per la democrazia online: si chiama Airesis, al via il 23 maggio</a></li>
+  <li><a href="http://www.lanazione.it/firenze/cronaca/2013/04/20/876723-nuovo_software_movimento_stelle.shtml" target="_blank"><%= l Date.new(2013,4,20), format: :long %> - Un nuovo software per il Movimento 5 stelle</a></li>
+  <li><a href="http://espresso.repubblica.it/dettaglio/grillo-e-il-rebus-della-piattaforma/2204364" target="_blank"><%= l Date.new(2013,4,9), format: :long %> - Grillo e il rebus della piattaforma</a></li>
+  <li><a href="http://www.melty.it/airesis-m5s-copyright-democrazia-diretta-a109805.html" target="_blank"><%= l Date.new(2013,3,26), format: :long %> - Airesis, l'M5S non ha il copyright della democrazia diretta</a></li>
+  <li><a href="http://ctzen.it/2013/03/13/progetto-airesis-la-democrazia-e-in-rete-la-piattaforma-libera-del-m5s-e-non-solo/" target="_blank"><%= l Date.new(2013,3,13), format: :long %> - Progetto Airesis, la democrazia è in Rete. La piattaforma libera del M5s e non solo</a></li>
+  <li><a href="http://daily.wired.it/news/politica/2013/02/19/m5s-airesis-40321.html" target="_blank"><%= l Date.new(2013,2,19), format: :long %> - Movimento 5 Stelle, la piattaforma che sostituisce LiquidFeedback</a></li>
 </ul>
     </div>
 </div>

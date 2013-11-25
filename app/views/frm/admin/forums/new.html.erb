@@ -1,3 +1,8 @@
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li><%= link_to t('frm.admin.forum.index'), group_frm_admin_forums_url(@group)%></li>
+  <li class="current"><%= t("frm.forum.new") %></li>
+</ul>
 <h2><%= t("frm.forum.new") %></h2>
 
 <%= simple_form_for  @forum, url: group_frm_admin_forums_url(@group) do |f| %>

@@ -418,7 +418,7 @@
                 effect: false,
                 adjust: {
                     method: 'shift',
-                    x: 0, y: -25
+                    x: 0, y: 0
                 }
             },
             show: {
@@ -525,4 +525,9 @@
 
         <%end%>
     });
+    function disegnaCountdown() {
+        $('div[data-countdown]').each(function () {
+            $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: '<%=j raw(t('countdown'))%>'}, $.countdown.regional['<%=I18n.locale%>']));
+        })
+    }
 </script>

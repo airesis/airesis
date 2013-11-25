@@ -71,8 +71,13 @@ module Frm
         where :state => 'spam'
       end
 
-      def visible
-        joins(:topic).where(:frm_topics => { :hidden => false })
+      def visible(user=nil)
+        if user
+          joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?',user.id)
+        else
+          joins(:topic).where(:frm_topics => { :hidden => false })
+        end
+
       end
 
       def topic_not_pending_review

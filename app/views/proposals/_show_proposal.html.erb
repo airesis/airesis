@@ -13,7 +13,10 @@
 </script>
 
 
-<h1 class="proposalTitle" itemprop="name"><%= h @proposal.title %></h1>
+<h1 class="proposalTitle">
+  <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:40px;padding-right:2px;")%>
+  <span itemprop="name"><%= h @proposal.title %></span>
+</h1>
 
 <h3 class="proposalSubtitle" itemprop="description"><%= h @proposal.subtitle %></h3>
 
@@ -80,11 +83,10 @@
             <%= section.title %>
           </div>
           <% unless @proposal.voting? %>
-
               <% contributes_num = section.proposal_comments.listable.count %>
               <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
               <div class="suggest">
-                <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+                <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
 
                 <div class="suggest_l" style="display: none;">
                   <img class="tria" src="/assets/suggest.png">
@@ -94,7 +96,6 @@
         </div>
       </h3>
 
-
       <div class="proposal_content">
         <%= parsed_paragraph(section.paragraphs.first.content) %>
       </div>
@@ -102,7 +103,7 @@
 <% end %>
 
 <% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each do |solution| %>
-    <div class="solution_main">
+    <div class="solution_main" data-solution_id="<%= solution.id %>">
       <h3>
         <div class="tit1 sol">
           <div class="tit2">
@@ -122,7 +123,7 @@
                       <% contributes_num = section.proposal_comments.listable.count %>
                       <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
                       <div class="suggest">
-                        <a href="#" class="btn green contributeButton contributeSectionButton" style="padding: 0.5em 0.8em;" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
+                        <a href="#" class="btn green contributeButton contributeSectionButton" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>"><%= t('pages.proposals.show.give_contribute') %> <%= "(#{unread}/#{contributes_num})" %></a>
                         <img class="tria" src="/assets/suggest.png" style="display: none;">
                       </div>
                   <% end %>

@@ -738,6 +738,7 @@
                             e.append("<span class='fc-header-title'><h2>&nbsp;</h2></span>");
                             if (prevButton) {
                                 prevButton.addClass(tm + '-corner-right');
+                                prevButton.addClass('btn');
                             }
                             prevButton = null;
                         }else{
@@ -755,7 +756,7 @@
                                 var icon = options.theme ? smartProperty(options.buttonIcons, buttonName) : null; // why are we using smartProperty here?
                                 var text = smartProperty(options.buttonText, buttonName); // why are we using smartProperty here?
                                 var button = $(
-                                    "<span class='fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
+                                    "<span class='fc-button btn fc-button-" + buttonName + " " + tm + "-state-default'>" +
                                         (icon ?
                                             "<span class='fc-icon-wrap'>" +
                                                 "<span class='ui-icon ui-icon-" + icon + "'/>" +
@@ -795,6 +796,7 @@
                                 disableTextSelection(button);
                                 if (!prevButton) {
                                     button.addClass(tm + '-corner-left');
+                                    button.addClass('btn');
                                 }
                                 prevButton = button;
                             }
@@ -802,6 +804,7 @@
                     });
                     if (prevButton) {
                         prevButton.addClass(tm + '-corner-right');
+                        prevButton.addClass('btn');
                     }
                 });
             }

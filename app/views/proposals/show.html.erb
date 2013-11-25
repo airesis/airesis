@@ -260,7 +260,8 @@
         $.ajax({ url: '<%=list_proposal_proposal_comments_url(@proposal) %>',
             data: {page: currentPage,
                 view: currentView,
-                contributes: contributes
+                contributes: contributes,
+                comment_id: <%=params[:comment_id] || 'null'%>  //show contribute if requested
             },
             type: 'get',
             complete: function () {
@@ -316,14 +317,19 @@
 
                 $.ajax({ url: '<%=left_list_proposal_proposal_comments_url(@proposal) %>',
                     data: {
-                        comment_id: comment_id,
-                        section_id: section_id,
+                        comment_id: comment_id,                                   section_id: section_id,
                         disable_limit: true,
                         view: <%=current_user ? 1 : 3 %>
                     },
                     type: 'get',
                     complete: function () {
                         $(".loading", fetched).hide();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        $(".loading", fetched).hide();
+                        if (xhr.status == '404') {
+                            $(fetched).html('<%=t('pages.proposals.show.error_loading_paragraph')%>');
+                        }
                     }
                 });
 
@@ -345,6 +351,7 @@
             return false;
         });
 
+        //open the contribute if it's a link from an email
         <%if params[:section_id] %>
         $('.contributeButton[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
         <%end%>

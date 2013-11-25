@@ -39,6 +39,10 @@ it-IT:
           none: Nessuno
           moderators: Moderatori
           no_category: (Nessuna sezione)
+        default_private: "Forum privato"
+        default_public: "Forum pubblico"
+        default_private_description: "Forum riservato a coloro che appartengono al gruppo"
+        default_public_description: "Forum aperto a tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo"
       group:
         index: Gestisci Gruppi di Moderatori
         new: Crea un nuovo Gruppo di moderatori
@@ -69,6 +73,8 @@ it-IT:
         delete: Elimina
         category: Sezione
         delete_confirm: Sei sicuro di voler eliminare questa sezione del forum?
+        default_private: "Sezione privata"
+        default_public: "Sezione pubblica"
     common:
       pages: Pagine
     errors:
@@ -92,7 +98,7 @@ it-IT:
       admin_tools: "Strumenti di amministrazione"
     forums:
       index:
-        title: Forums
+        title: Forum
         forum: Forum
         views: Visite
         last_post: 'Ultimo Messaggio:'
@@ -152,6 +158,7 @@ it-IT:
         pin:
           'true': Rimuovi topic da evidenza
           'false': Metti topic in evidenza
+        related_proposals: "Proposte collegate"
     post:
       buttons:
         reply: Rispondi
