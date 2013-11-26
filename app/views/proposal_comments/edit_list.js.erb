@@ -8,6 +8,7 @@ firstCheck = false;
         firstCheck = true;
     }
     checkActive = true;
+    hideLeftPanel();
 <%else%>
     $('#loading_results').hide();
     <%if @proposal_comments.count == 0 %>

@@ -703,8 +703,16 @@ h3 {
 
 .baloon_header {
     margin: 0px 5px;
-    .integrate_label {
-        margin-right: 3px;
+    .integrate_button {
+        float: right;
+        background-color: #eee;
+        padding: 8px;
+        .integrate_label {
+            margin-right: 3px;
+        }
+        input {
+            margin-bottom: 0px;
+        }
     }
 }
 
@@ -1200,7 +1208,7 @@ a.spch-bub-inside:hover .point {
     }
 }
 
-@media (max-width: $medium-screen) {
+@media (max-width: $medium-screen - 1) {
     .suggestion_right {
         right: 20px;
     }
@@ -1314,7 +1322,7 @@ a.spch-bub-inside:hover .point {
     font-size: 0.85em;
 }
 
-ul{
+ul {
     &.navigator {
         padding-left: 20px;
         overflow: hidden;

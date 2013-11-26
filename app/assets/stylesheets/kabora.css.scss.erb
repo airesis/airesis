@@ -408,7 +408,7 @@ $large-screen: 1440px;
     right: 7px;
 }
 
-@media (max-width: $medium-screen) {
+@media (max-width: ($medium-screen - 1)) {
     #menu-right .cont {
         position: relative;
         margin: auto;
@@ -1196,50 +1196,23 @@ $large-screen: 1440px;
 }
 
 
-@media (max-width: '1000px') {
-    #centerpanelextended {
-        &.contributes_shown {
-            max-width: 600px;
-            .centerfloat {
-                margin-left: -318px;
-                width: 600px;
-            }
-        }
-    }
-    .suggestion_right {
-        &.contributes_shown {
-            left: 269px;
-        }
-    }
-}
-
 @media (max-width: '768px') {
 
     #centerpanelextended {
         &.contributes_shown {
-            margin-left: -30px;
+            //margin-left: -30px;
         }
     }
 
 }
 
-@media (min-width: '768px') and (max-width: '1000px') {
+@media (min-width: '768px') and (max-width: '1279px') {
     #menu-left {
         &.contributes_shown {
             margin-left: -300px;
-        }
-    }
-    #centerpanelextended {
-        &.contributes_shown {
-            margin-left: -280px;
-        }
-    }
-}
-
-@media (min-width: '1000px') and (max-width: '1600px') {
-    #menu-left {
-        &.contributes_shown {
-            margin-left: -300px;
+            &.editing {
+                margin-left: 0px;
+            }
         }
     }
     #centerpanelextended {
@@ -1247,16 +1220,53 @@ $large-screen: 1440px;
             margin-left: -10px;
             max-width: 600px;
             padding-right: 10px;
+            &.editing {
+                margin-left: 280px;
+                max-width: 500px;
+            }
         }
     }
     .suggestion_right {
         &.contributes_shown {
             left: 587px;
+            &.editing {
+                left: 775px;
+            }
         }
     }
 }
 
-@media (min-width: '1600px') and (max-width: '1800px') {
+@media (min-width: '1280px') and (max-width: '1600px') {
+    #menu-left {
+        &.contributes_shown {
+            margin-left: -300px;
+            &.editing {
+                margin-left: 0px;
+            }
+        }
+    }
+    #centerpanelextended {
+        &.contributes_shown {
+            margin-left: -10px;
+            max-width: 600px;
+            padding-right: 10px;
+            &.editing {
+                margin-left: 280px;
+                max-width: 500px;
+            }
+        }
+    }
+    .suggestion_right {
+        &.contributes_shown {
+            left: 587px;
+            &.editing {
+                left: 775px;
+            }
+        }
+    }
+}
+
+@media (min-width: '1601px') and (max-width: '1800px') {
     #menu-left {
         &.contributes_shown {
 
@@ -1274,7 +1284,7 @@ $large-screen: 1440px;
     }
 }
 
-@media (min-width: '1800px') {
+@media (min-width: '1801px') {
     .suggestion_right {
         &.contributes_shown {
             left: 1108px;

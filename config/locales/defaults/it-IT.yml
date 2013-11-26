@@ -1414,6 +1414,7 @@ it-IT:
       reject: "Rifiuta"
       greetings: "A presto!"
       no_more_button: "Non ricevere più inviti"
+      subject: "Invito ad iscriversi a %{group_name}"
   words:
     contribution: "contributo"
     comment: "commento"

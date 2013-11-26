@@ -170,7 +170,7 @@
     </p>
 <% end %>
 
-<div class="suggestion_right">
+<div class="suggestion_right editing">
 <span id="suggestion_title">
 <%= t('pages.proposals.edit.inserted_contributes') %>
 </span>
@@ -241,11 +241,10 @@
 
 
 <script type="text/javascript">
-
+    $('#menu-left, #centerpanelextended').addClass('editing');
     function geocode_panel() {
 
     }
-
 
     fitRightMenu($('.suggestion_right'));
     $('.suggestion_right')
@@ -722,11 +721,13 @@
                 right_.removeClass('contributes_shown');
                 right_.hide();
                 $('#centerpanelextended').removeClass('contributes_shown');
+                $('#menu-left').removeClass('contributes_shown');
             }
             else {
                 right_.addClass('contributes_shown');
                 right_.show();
                 $('#centerpanelextended').addClass('contributes_shown');
+                $('#menu-left').addClass('contributes_shown');
             }
             var contributesButton = $('.contributes');
             switchText(contributesButton);

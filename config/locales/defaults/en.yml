@@ -1415,6 +1415,7 @@ en:
       reject: "Refuse"
       greetings: "Greetings!"
       no_more_button: "No further invitations"
+      subject: "You have been invited to %{group_name}"
   words:
     contribute: "contribution"
     comment: "comment"
