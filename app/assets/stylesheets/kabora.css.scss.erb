@@ -39,14 +39,18 @@ $large-screen: 1440px;
     float: left;
     width: 280px;
     padding-top: 15px;
-    display: inherit;
+    display: none;
     padding-top: 95px;
 }
 
-@media (max-width: $small-screen) {
+@media (min-width: $small-screen) {
     #menu-left {
-        display: none;
+        display: block;
     }
+}
+
+@media (max-width: $small-screen) {
+
     #centerpanelextended {
         margin-right: 10px;
         margin-left: 10px;
@@ -1196,11 +1200,25 @@ $large-screen: 1440px;
 }
 
 
+
 @media (max-width: '768px') {
 
     #centerpanelextended {
         &.contributes_shown {
-            //margin-left: -30px;
+            margin-left: -330px;
+            max-width: 600px;
+            &.editing {
+                margin-left: 0px;
+                max-width: 450px;
+            }
+        }
+    }
+    .suggestion_right {
+        &.contributes_shown {
+            left: 267px;
+            &.editing {
+                left: 440px;
+            }
         }
     }
 
