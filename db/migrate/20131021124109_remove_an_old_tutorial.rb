@@ -1,6 +1,7 @@
 class RemoveAnOldTutorial < ActiveRecord::Migration
   def up
     add_column :steps, :format, :string, default: 'html'
+    Step.reset_column_information
     Step.find_by_fragment("proposals_index").update_attribute(:format,'js')
     Step.find_by_fragment("welcome").update_attribute(:format,'js')
     Step.find_by_fragment("rank_bar_explain").update_attribute(:format,'js')
