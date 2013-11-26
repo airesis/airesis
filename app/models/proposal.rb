@@ -17,7 +17,7 @@ class Proposal < ActiveRecord::Base
 
   has_many :user_votes, :class_name => 'UserVote'
 
-  has_many :schulze_votes, :class_name => 'ProposalSchulzeVote'
+  has_many :schulze_votes, :class_name => 'ProposalSchulzeVote', dependent: :destroy
 
   # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
