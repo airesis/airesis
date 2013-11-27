@@ -429,11 +429,11 @@ fr:
         most_popular: Les plus populaires
         most_valutated: Le plus de rang
       list:
-        last_update: 'Dernière mise à jour du %{date}'
+        last_update: 'Dernière mise à jour du %{time_ago}'
         waiting_date: "En attente de choix d'une date de vote par les auteurs"
         voting_from_to: 'Votation du %{from} au %{to}'
         voting_until: "Votation en cours jusqu'au %{date}"
-        votation_finished: "La votation s'est terminée le %{date}"
+        votation_finished: "La votation s'est terminée le %{time_ago}"
         no_votation: "Il n'y a eu aucun vote"
         interest_borders: Limites géographiques
         authors: Auteurs

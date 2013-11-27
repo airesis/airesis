@@ -432,11 +432,11 @@ es-ES:
         most_popular: Most popular
         most_valutated: Most ranked
       list:
-        last_update: 'Last update of %{date}'
+        last_update: 'Last update of %{time_ago}'
         waiting_date: Waiting for the authors to choose a voting date
         voting_from_to: 'Voting from %{from} to %{to}'
         voting_until: 'Voting now until %{date}'
-        votation_finished: 'Voting ended on %{date}'
+        votation_finished: 'Voting ended on %{time_ago}'
         no_votation: There has not been any vote
         interest_borders: Geographic boundaries
         authors: Authors

@@ -433,11 +433,11 @@ ro-RO:
         most_popular: Cele mai populare
         most_valutated: Cele mai apreciate
       list:
-        last_update: 'Ultima actualizare a %{date}'
+        last_update: 'Ultima actualizare a %{time_ago}'
         waiting_date: Se așteaptă ca autorii să aleagă o dată de votare
         voting_from_to: 'Se votează de la %{from} până la %{to}'
         voting_until: 'Vot în desfășurare, până la %{date}'
-        votation_finished: 'Votul s-a încheiat la %{date}'
+        votation_finished: 'Votul s-a încheiat la %{time_ago}'
         no_votation: Nu s-a înregistrat niciun vot
         interest_borders: Graniţele geografice
         authors: Autori

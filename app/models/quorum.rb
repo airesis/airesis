@@ -147,7 +147,7 @@ class Quorum < ActiveRecord::Base
   #short description of time left
   def time_left
     ret = []
-    if self.minutes
+    if self.ends_at
       amount = self.ends_at - Time.now #left in seconds
       if amount > 0
         left = I18n.t('time.left.seconds', count: amount.to_i)
@@ -166,7 +166,7 @@ class Quorum < ActiveRecord::Base
         ret << left.upcase
       end
     end
-    if self.percentage
+    if self.valutations
       valutations = self.valutations - self.proposal.valutations
       if valutations > 0
         ret << I18n.t('pages.proposals.new_rank_bar.valutations', count: valutations)
@@ -247,11 +247,11 @@ class Quorum < ActiveRecord::Base
   #explain a quorum when assigned to a proposal in it's current state
   def assigned_explanation_pop
     ret = ''
-    if self.minutes && self.time_left? #if the quorum has a minimum time and there is still time remaining
+    if self.time_left? #if the quorum has a minimum time and there is still time remaining
       time = "<b>#{self.time}</b> "
       time +=I18n.t('models.quorum.until_date', date: I18n.l(self.ends_at))
 
-      if self.percentage && self.valutations_left?
+      if self.valutations_left?
         participants = I18n.t('models.quorum.participants', count: self.valutations)
         if self.or?
           ret = I18n.translate('models.quorum.or_condition_1', #display number of required evaluations and time left
@@ -268,7 +268,7 @@ class Quorum < ActiveRecord::Base
       else #only time
         ret = I18n.translate('models.quorum.time_condition_1', time: time) #display the time left for discussion
       end
-    elsif self.percentage && self.valutations_left? #if the quorum has only valutations left
+    elsif self.valutations_left? #if the quorum has only valutations left
       participants = I18n.t('models.quorum.participants', count: self.valutations)
       ret = I18n.translate('models.quorum.participants_condition_1',
                            percentage: self.percentage,

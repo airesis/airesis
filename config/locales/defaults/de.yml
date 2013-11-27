@@ -527,11 +527,11 @@ de:
         most_popular: Most popular
         most_valutated: Most ranked
       list:
-        last_update: 'Letzte Aktualisierung vom %{date}'
+        last_update: 'Letzte Aktualisierung vom %{time_ago}'
         waiting_date: Waiting for the authors to choose a voting date
         voting_from_to: 'Abstimmung vom %{from} bis zum %{to}'
         voting_until: 'Abstimmung jetzt bis zum %{date}'
-        votation_finished: 'Abstimmung beendet am %{date}'
+        votation_finished: 'Abstimmung beendet am %{time_ago}'
         no_votation: Es hat keine Abstimmung stattgefunden
         interest_borders: Geografische Grenzen
         authors: Autoren

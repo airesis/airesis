@@ -383,11 +383,11 @@ zh:
         most_popular: "熱門"
         most_valutated: "最佳 Rank"
       list:
-        last_update: "最後更新為 %{date}"
+        last_update: "最後更新為 %{time_ago}"
         waiting_date: "等待提案者選擇投票日期"
         voting_from_to: "這個提案將從 %{from} 到 %{to} 進行投票"
         voting_until: "投票中，截止日期為 %{date}"
-        votation_finished: "投票已於 %{date} 結束"
+        votation_finished: "投票已於 %{time_ago} 結束"
         no_votation: "尚未有任何得票"
         interest_borders: "地理位置"
         authors: "提案人"
