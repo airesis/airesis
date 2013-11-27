@@ -1018,8 +1018,8 @@ es-EC:
     random_stack_3: '<strong>How it works?</strong><br/>Contributions are shown in order of popularity. <br/> <b>Note</b>: Your rating will change this order!'
     miglioricontributi: '<strong> How can I help? </strong> <br/> Contributions should not express simple appreciation but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a shared summary of the text. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!'
     voglioredigere: Ask the editors to allow you to edit the text of the proposal on the basis of the contributions of the users.
-    voteup: "<div class='votedup'></div>The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)"
-    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
+    voteup: "The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)"
+    votedown: "The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
     valutazioni: total number of evaluations received
     gradimento: percentage of positive evaluations on the total
     nickname: '<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!'
