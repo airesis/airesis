@@ -4,8 +4,8 @@ module Frm
 
       layout 'groups'
 
-      before_filter :load_group
       before_filter :authorize_frm_admin
+      #before_filter :load_group
 
 
 
@@ -16,6 +16,7 @@ module Frm
       protected
 
       def authorize_frm_admin
+        load_group
         authorize! :update, @group
       end
     end
