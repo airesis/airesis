@@ -178,7 +178,7 @@
       </div>
       <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">
         <h4><%= t('pages.proposals.left_panel.choose_creation_date') %></h4>
-        <%= form_for 'time', {url: group_proposals_url(@group), method: :get} do |f| %>
+        <%= form_for 'time', {url: @group ? group_proposals_url(@group) : proposals_url, method: :get} do |f| %>
             <%if params[:type] %>
                 <input name="type" value="<%=params[:type]%>" type="hidden">
             <%end%>
