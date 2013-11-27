@@ -5,12 +5,19 @@ module Frm
       layout 'groups'
 
       before_filter :load_group
+      before_filter :authorize_frm_admin
+
 
 
       def index
-        authorize! :update, @group
+
       end
 
+      protected
+
+      def authorize_frm_admin
+        authorize! :update, @group
+      end
     end
   end
 end

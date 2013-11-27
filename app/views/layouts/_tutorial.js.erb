@@ -4,7 +4,9 @@ if ($(window).width() > 768) {
         var portlets = $('.portlet_panel');
         intro.setOptions({
             steps: <%= yield %>,
-            skipLabel: 'Ok',
+            skipLabel: 'X',
+            nextLabel: '<%=t('tutorial.next')%> &rarr;',
+            prevLabel: '&larr; <%=t('tutorial.back')%>',
             exitOnOverlayClick: false
         });
         intro.oncomplete(function () {
