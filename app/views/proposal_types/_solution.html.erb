@@ -26,7 +26,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container" data-section_id="<%=j%>">
+                              <div class="section_container" data-section_id="<%=j%>">
                                 <span class="move_button">
                                     <%= image_tag 'move.png' %>
                                 </span>
@@ -38,7 +38,7 @@
                                 <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
                                 <%= p.hidden_field :content %>
                                 <%= p.hidden_field :seq %>
-                              </p>
+                              </div>
                           <% end %>
                       <% end %>
                   <% end %>

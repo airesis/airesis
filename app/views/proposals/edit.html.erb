@@ -74,7 +74,7 @@
               <%= s.hidden_field :seq %>
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                  <p class="section_container" data-section_id="<%= i %>">
+                  <div class="section_container" data-section_id="<%= i %>">
                     <span class="move_button">
                       <%= image_tag 'move.png' %>
                     </span>
@@ -87,7 +87,7 @@
                     <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
-                  </p>
+                  </div>
               <% end %>
           <% end %>
       <% end %>
@@ -126,7 +126,7 @@
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
-                              <p class="section_container" data-section_id="<%= (i+1)*100+j %>">
+                              <div class="section_container" data-section_id="<%= (i+1)*100+j %>">
                                 <span class="move_button">
                               <%= image_tag 'move.png' %>
                             </span>
@@ -139,7 +139,7 @@
                                 <%= p.hidden_field :content %>
 
                                 <%= p.hidden_field :seq %>
-                              </p>
+                              </div>
                           <% end %>
                       <% end %>
                   <% end %>
@@ -467,7 +467,7 @@
         var sectionname = 'proposal[sections_attributes][' + numSections + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<p class="section_container" style="display:none;" data-section_id="'+numSections+'"></p>');
+        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="'+numSections+'"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -505,7 +505,7 @@
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
         var section_num = ((parseInt(solutionid)+1)*100)+numSolutionSections[solutionid];
-        var paragraph_ = $('<p class="section_container" style="display:none;" data-section_id="'+section_num+'"></p>');
+        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="'+section_num+'"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -669,7 +669,7 @@
             var nav_ = $('.navigator');
             nav_.find('li.sec_nav').addClass('detach');
 
-            $(this).find('p').each(function (el) {
+            $(this).find('div.section_container').each(function (el) {
                 var sec_id = $(this).attr('data-section_id');
                 var id = $(this).find('textarea').attr('id');
                 var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
@@ -717,7 +717,7 @@
                 var nav_ = $('li[data-solution_id='+sol_id+'] .sub_navigator');
                 nav_.find('li').addClass('detach');
 
-                $(this).find('p').each(function (el) {
+                $(this).find('div.section_container').each(function (el) {
                     var sec_id = $(this).attr('data-section_id');
 
                     var area_id = $(this).find('textarea').attr('id');
