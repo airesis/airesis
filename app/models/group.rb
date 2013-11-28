@@ -297,7 +297,7 @@ class Group < ActiveRecord::Base
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
 
-        paginate :page => 1, :per_page => params[:limit] || 30
+        paginate :page => page, :per_page => params[:limit] || 30
 
       end.results
     end

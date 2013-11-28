@@ -433,11 +433,11 @@ ro-RO:
         most_popular: Cele mai populare
         most_valutated: Cele mai apreciate
       list:
-        last_update: 'Ultima actualizare a %{date}'
+        last_update: 'Ultima actualizare a %{time_ago}'
         waiting_date: Se așteaptă ca autorii să aleagă o dată de votare
         voting_from_to: 'Se votează de la %{from} până la %{to}'
         voting_until: 'Vot în desfășurare, până la %{date}'
-        votation_finished: 'Votul s-a încheiat la %{date}'
+        votation_finished: 'Votul s-a încheiat la %{time_ago}'
         no_votation: Nu s-a înregistrat niciun vot
         interest_borders: Graniţele geografice
         authors: Autori
@@ -1022,8 +1022,8 @@ ro-RO:
     random_stack_3: '<strong>Cum funcțonează?</strong><br/>Contribuțiile sunt arătate în ordinea popularității. <br/> <b>Note</b>: Cotarea ta va schimba această ordine!'
     miglioricontributi: '<strong>Cum pot ajuta?</strong> <br/> Contribuțiile nu ar trebui să exprime simpla apreciere ci trebuie să aducă modificări substanțiale textului: critici constructive, alternative sau îmbunătăţiri pentru propunere care vor ajuta scriitorul să dezvolte un rezumat partajat al textului. <br /> <br/> <b>Notă</b>: cea mai valoroasă contribuție este cea care face posibilă găsirea unei soluţii la propunere!'
     voglioredigere: Cereți editorilor să vă permită să editaţi textul propunerii pe baza contribuțiilor utilizatorilor.
-    voteup: "<div class='votedup'></div> propunerea este suficient de matură şi puteţi merge la faza de vot (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii este actualizat)"
-    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div> textul propunerii nu este încă dezvoltat deoarece contribuţiile utilizatorilor trebuie să fie integrate (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii va fi actualizat)"
+    voteup: "propunerea este suficient de matură şi puteţi merge la faza de vot (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii este actualizat)"
+    votedown: "textul propunerii nu este încă dezvoltat deoarece contribuţiile utilizatorilor trebuie să fie integrate (puteţi schimba evaluarea dumneavoastră atunci când textul propunerii va fi actualizat)"
     valutazioni: Numărul total de evaluări primite
     gradimento: procentul de evaluări pozitive pe total
     nickname: '<strong> În această propunere, am ales pentru să discutăm anonim </strong> < br /> în acest fel nu este posibil ca ceilalţi utilizatori să ştie cine eşti şi în acelaşi timp, nu este posibil pentru tine să ştii cine sunt ceilalţi. <br /> lucrând şi vorbind în acest fel veți putea lua decizii şi să evaluați propuneri numai pe baza conţinutului. <br/> <b>Notă</b>: când discuția s-a terminat şi propunerea va fi aprobată sau respinsă vei vedea numele reale ale utilizatorilor!'

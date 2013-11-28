@@ -80,7 +80,7 @@
         <div style="float:left">
           <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
         </div>
-        <div style="float:left;margin-left:10px;">
+        <div class="search_words">
           <%= check_box_tag :and, params[:and], :title => "Scegli se cercare tutte le parole o almeno una" %>
         </div>
 
@@ -90,7 +90,7 @@
         <div style="float:left">
           <%= text_field_tag :interest_border, params[:interest_border], :title => t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
         </div>
-        <div style="float:left;margin-left:10px;">
+        <div class="search_borders">
           <%= check_box_tag :area, params[:area], :title => "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
         </div>
 
@@ -113,56 +113,23 @@
 -->
 
 
-
-<div id="groups_list">
-  <% if @groups.count > 0 %>
-      <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
-  <% else %>
-      <h2><%= t('pages.groups.index.search_description') %></h2>
-  <% end %>
-  <div style="clear: both"></div>
-</div>
-<div class="clearboth"></div>
-<div id="more_groups_container">
-  <%#= render :partial => 'more_groups' %>
-</div>
-
-<%= content_for :left_panel do %>
-    <div class="mybox">
-      <% if ::Configuration::open_space_proposals %>
-          <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "btn forwardButton" %>
-      <% end %>
-      <% if !current_user || (can? :create, Group) %>
-          <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
-      <% else %>
-          <%= t('pages.groups.index.limit_reached') %>
-      <% end %>
-    </div>
-    <%= render :partial => 'users/user_groups_panel' %>
-<% end %>
-
-
-
 <script type="text/javascript">
     $.fn.tagcloud.defaults = {
         size: {start: 12, end: 24, unit: 'pt'},
         color: {start: '#000', end: '#bbb'}
     };
 
-    $(function () {
-        $('#tag_cloud a').tagcloud();
+    $('#tag_cloud a').tagcloud();
 
-        $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
-            crossDomain: false,
-            prePopulate: $('#interest_border').data("pre"),
-            hintText: "<%=t('interest_borders.hint')%>",
-            noResultsText: "<%=t('interest_borders.no_place_found')%>",
-            searchingText: "<%=t('interest_borders.searching')%>",
-            preventDuplicates: true,
-            tokenLimit: 1,
-            allowTabOut: true
-        });
-
+    $('#interest_border').tokenInput("<%=interest_borders_path(format: :json )%>", {
+        crossDomain: false,
+        prePopulate: $('#interest_border').data("pre"),
+        hintText: "<%=t('interest_borders.hint')%>",
+        noResultsText: "<%=t('interest_borders.no_place_found')%>",
+        searchingText: "<%=t('interest_borders.searching')%>",
+        preventDuplicates: true,
+        tokenLimit: 1,
+        allowTabOut: true
     });
 
 
@@ -190,16 +157,16 @@
 
     $("#area").switchButton({
         checked: <%=params[:area] == 'on' %>,
-        on_label: $('<div class="s_circle"></div>'),
-        off_label: $('<div class="s_circle"><div class="i_circle"></div></div>'),
+        on_label: $('<div class="switch_opt s_circle"></div>'),
+        off_label: $('<div class="switch_opt s_circle"><div class="i_circle"></div></div>'),
         on_title: '<%=t('pages.groups.index.switchButton.exact_border')%>',
         off_title: '<%=t('pages.groups.index.switchButton.area_border')%>'
     });
 
     $("#and").switchButton({
         checked: <%=params[:and] == 'on' %>,
-        on_label: $('<div>&</div>'),
-        off_label: $('<div>||</div>'),
+        on_label: $('<div class="switch_opt">&</div>'),
+        off_label: $('<div class="switch_opt">||</div>'),
         on_title: '<%=t('pages.groups.index.switchButton.all_words')%>',
         off_title: '<%=t('pages.groups.index.switchButton.one_word')%>'
     });
@@ -218,3 +185,33 @@
     });
 
 </script>
+
+
+
+
+<div id="groups_list">
+  <% if @groups.count > 0 %>
+      <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+  <% else %>
+      <h2><%= t('pages.groups.index.search_description') %></h2>
+  <% end %>
+  <div style="clear: both"></div>
+</div>
+<div class="clearboth"></div>
+<div id="more_groups_container">
+  <%= render :partial => 'more_groups' %>
+</div>
+
+<%= content_for :left_panel do %>
+    <div class="mybox">
+      <% if ::Configuration::open_space_proposals %>
+          <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "btn forwardButton" %>
+      <% end %>
+      <% if !current_user || (can? :create, Group) %>
+          <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
+      <% else %>
+          <%= t('pages.groups.index.limit_reached') %>
+      <% end %>
+    </div>
+    <%= render :partial => 'users/user_groups_panel' %>
+<% end %>

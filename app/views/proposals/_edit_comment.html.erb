@@ -18,8 +18,8 @@
       <div class="baloon_header">
         <div id="flash_messages_comment_<%= comment.id %>">
         </div>
-        <div style="float:right">
-          <%= t('pages.proposals.edit.integrated') %><input type="checkbox" onclick="integrate_contribute(this,<%=comment.id%>);">
+        <div class="integrate_button">
+          <span class="integrate_label"><%= t('pages.proposals.edit.integrated') %></span><input type="checkbox" onclick="integrate_contribute(this,<%=comment.id%>);">
         </div>
       </div>
       <div class="baloon-content">

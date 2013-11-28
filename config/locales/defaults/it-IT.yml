@@ -575,7 +575,7 @@ it-IT:
           other: "%{count} VALUTAZIONI"
         good_score: "QUORUM POSITIVO %{score}%"
         bad_score: "QUORUM NEGATIVO %{score}%"
-        now: "Mancano %{left}"
+        now: "MANCANO %{left}"
       left_panel:
         creation_date: "Data di creazione"
         any_date: "Quasiasi data"
@@ -1102,15 +1102,15 @@ it-IT:
         one: 'partecipava almeno <b>una</b> persona'
         other: 'partecipavano almeno <b>%{count}</b> persone'
       or_condition_1: "Il dibattito terminerà tra %{time} oppure quando %{participants_num}."
-      or_condition_1_past: "Il dibattito terminava in %{time} oppure quando %{participants_num}."
+      or_condition_1_past: "Il dibattito è durato %{time} oppure quando %{participants_num}."
       and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
-      and_condition_1_past: "Il dibattito terminava in %{time}, ma proseguiva finchè non %{participants_num}."
+      and_condition_1_past: "Il dibattito durava %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      time_condition_1_past: "Il dibattito terminvava in %{time}."
+      time_condition_1_past: "Il dibattito durava %{time}."
       participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
       participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
       good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"
-      good_score_condition_past: "La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
+      good_score_condition_past: "La proposta sarebbe andata in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
       bad_score_explain: |
        La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, verrà abbandonata se avrà una maturità inferiore al <b>%{bad_score}%</b>.<br/>
        Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
@@ -1167,8 +1167,8 @@ it-IT:
     random_stack_3: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     miglioricontributi: "<strong>Come posso contribuire?</strong><br/>i contributi non devono esprimere dei semplici apprezzamenti ma sostanziali modifiche al testo: critiche costruttive, soluzioni alternative o miglioramenti alla proposta aiuteranno il redattore a sviluppare una sintesi del testo condivisa.<br/><br/><b>Nota</b>: Il contributo più prezioso è quello che permette di trovare una soluzione alla proposta!"
     voglioredigere: "Chiedi ai redattori di poter modificare il testo della proposta sulla base dei contributi degli utenti."
-    voteup: "<div class='votedup'></div>la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)"
-    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)"
+    voteup: "la proposta è matura e può andare in votazione (potrai cambiare la valutazione se la proposta viene aggiornata)"
+    votedown: "la proposta non è ancora matura in quanto nel testo devono essere ancora integrati i contributi degli utenti (potrai cambiare la valutazione quando la proposta verrà aggiornata)"
     valutazioni: "numero totale di valutazioni ricevute"
     gradimento: "percentuale di valutazioni positive sul totale"
     nickname: "<strong>In questa proposta si è scelto di discutere in modo anonimo</strong><br />In tal modo non è possibile, per gli altri utenti, sapere chi sei e, allo stesso tempo, non è possibile per te sapere chi sono gli altri.<br /> Lavorando e discutendo in questo modo si potranno prendere decisioni e valutare le proposte solo sulla base dei contenuti.<br/><br/><b>Nota</b>: Quando la discussione sarà terminata e la proposta sarà approvata oppure respinta allora potrai vedere i veri nomi degli utenti!"
@@ -1416,6 +1416,7 @@ it-IT:
       reject: "Rifiuta"
       greetings: "A presto!"
       no_more_button: "Non ricevere più inviti"
+      subject: "Invito ad iscriversi a %{group_name}"
   words:
     contribution: "contributo"
     comment: "commento"

@@ -28,13 +28,13 @@ it-IT:
       - Venerdì
       - Sabato
     abbr_day_names:
-      - D
-      - L
-      - M
-      - M
-      - G
-      - V
-      - S
+      - Dom
+      - Lun
+      - Mar
+      - Mer
+      - Gio
+      - Ven
+      - Sab
     month_names:
       -
       - Gennaio
@@ -73,7 +73,7 @@ it-IT:
      until_long_date_time: "Fino a %A %d %B %Y alle %H:%M"
      short: "%d %b %Y"
      two_rows: "%d %b %Y <br/> %H:%M"
-     weekday: "%A"
+     weekday: "%a alle %H:%M"
      month: "%B"
      dayandmonth: "%d/%m"
      hour: "%H:%M"

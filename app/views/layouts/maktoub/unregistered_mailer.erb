@@ -97,15 +97,15 @@
                               <div mc:edit="std_social">
                                 &nbsp;
                                 <% unless Maktoub.twitter_url.blank? %>
-                                    <%= link_to 'seguici su Twitter', Maktoub.twitter_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_twitter'), Maktoub.twitter_url, :target => "_blank" %>
                                 <% end %>
                                 <% unless Maktoub.facebook_url.blank? %>
                                     |
-                                    <%= link_to 'seguici su Facebook', Maktoub.facebook_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_facebook'), Maktoub.facebook_url, :target => "_blank" %>
                                 <% end %>
                                 <% unless Maktoub.google_plus_url.blank? %>
                                     |
-                                    <%= link_to 'seguici su Google+', Maktoub.google_plus_url, :target => "_blank" %>
+                                    <%= link_to t('mailer.default.follow_google'), Maktoub.google_plus_url, :target => "_blank" %>
                                 <% end %>
                                 &nbsp;
                               </div>

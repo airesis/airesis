@@ -111,7 +111,7 @@ $default-float: left;
 // $include-html-type-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-html-visibility-classes: $include-html-classes;
-// $include-html-button-classes: $include-html-classes;
+ $include-html-button-classes: false;
 // $include-html-form-classes: $include-html-classes;
 // $include-html-custom-form-classes: $include-html-classes;
 // $include-html-media-classes: $include-html-classes;
@@ -1497,8 +1497,7 @@ ul, ol {
 }
 
 #main-copy {
-  padding-bottom: 35px;
-  padding-right: 0;
+  padding-right: 10px;
 }
 
 #menu-top {
@@ -1535,11 +1534,19 @@ body {
     margin-left: 0;
     margin-right: 0;
   }
+
+  #main-copy {
+    padding-bottom: 0px;
+  }
 }
 
 @media only screen and (min-width: $small-screen) {
   span.show-for-medium-up {
     display: inline !important;
+  }
+
+  #main-copy {
+    padding-bottom: 35px;
   }
 }
 
@@ -1630,4 +1637,3 @@ a.zocial:hover {
   color: white;
   text-decoration: none;
 }
-

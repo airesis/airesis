@@ -40,3 +40,5 @@ en:
       authors: "The actual editors of the proposal"
       category: "The category of this proposal"
       history: "History of the proposal, in which you can view its modifications and evolution"
+    next: "Next"
+    back: "Back"

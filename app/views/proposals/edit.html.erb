@@ -81,6 +81,7 @@
                      <span class="remove_button">
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
+                    <div class="clearboth"></div>
                     <%= s.text_field :title, class: "edit_label" %>
 
                     <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
@@ -132,6 +133,7 @@
                              <span class="remove_button">
                               <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_section') %></a>
                             </span>
+                              <div class="clearboth"></div>
                                 <%= s.text_field :title, class: "edit_label" %>
                                 <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                                 <%= p.hidden_field :content %>
@@ -170,7 +172,7 @@
     </p>
 <% end %>
 
-<div class="suggestion_right">
+<div class="suggestion_right editing">
 <span id="suggestion_title">
 <%= t('pages.proposals.edit.inserted_contributes') %>
 </span>
@@ -241,11 +243,10 @@
 
 
 <script type="text/javascript">
-
+    $('#menu-left, #centerpanelextended').addClass('editing');
     function geocode_panel() {
 
     }
-
 
     fitRightMenu($('.suggestion_right'));
     $('.suggestion_right')
@@ -346,15 +347,17 @@
         if ($(el).is(':checked')) {
             integrated_contributes.push(id);
             comment_.fadeTo(400, 0.3);
-            inside_.attr('data-height', inside_.innerHeight());
+            inside_.attr('data-height', inside_.outerHeight());
             inside_.css('overflow', 'hidden');
             inside_.animate({height: '42px'}, 400);
         }
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
             comment_.fadeTo(400, 1);
-            inside_.animate({height: inside_.attr('data-height')}, 400, function () {
-                inside_.css('overflow', 'auto');
+            inside_.animate({height: inside_.attr('data-height')}, 400,'swing', function () {
+                inside_.css('overflow', 'auto',function() {
+                    console.log('f');
+                });
             });
 
         }
@@ -469,6 +472,7 @@
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
+        paragraph_.append('<div class="clearboth"></div>');
         paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
         var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
@@ -506,6 +510,7 @@
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolutionSection(this,false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
+        paragraph_.append('<div class="clearboth"></div>');
         paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '" name=\'' + sectionname + '[title]\'></input>');
         var textarea_ = $('<textarea cols=\'40\' rows=\'5\' style=\'width:98%; height: 280px;\' id=\'' + paragraphid + '_content_dirty\' name=\'' + paragraphname + '[content_dirty]\' ></textarea>');
         paragraph_.append(textarea_);
@@ -820,11 +825,13 @@
                 right_.removeClass('contributes_shown');
                 right_.hide();
                 $('#centerpanelextended').removeClass('contributes_shown');
+                $('#menu-left').removeClass('contributes_shown');
             }
             else {
                 right_.addClass('contributes_shown');
                 right_.show();
                 $('#centerpanelextended').addClass('contributes_shown');
+                $('#menu-left').addClass('contributes_shown');
             }
             var contributesButton = $('.contributes');
             switchText(contributesButton);

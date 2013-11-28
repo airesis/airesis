@@ -40,3 +40,5 @@ it-IT:
       authors: "Gli attuali redattori della proposta"
       category: "La categoria di questa proposta"
       history: "History della proposta, dove puoi vedere le modifiche apportate e la sua evoluzione"
+    next: "Avanti"
+    back: "Indietro"

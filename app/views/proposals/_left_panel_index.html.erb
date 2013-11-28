@@ -178,15 +178,35 @@
       </div>
       <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">
         <h4><%= t('pages.proposals.left_panel.choose_creation_date') %></h4>
-        <%= form_for 'time', {url: current_url(time: {start_w: nil, end_w: nil}), method: :get} do |f| %>
+        <%= form_for 'time', {url: @group ? group_proposals_url(@group) : proposals_url, method: :get} do |f| %>
+            <%if params[:type] %>
+                <input name="type" value="<%=params[:type]%>" type="hidden">
+            <%end%>
+            <%if params[:category] %>
+                <input name="category" value="<%=params[:category]%>" type="hidden">
+            <%end%>
+            <%if params[:l] %>
+                <input name="l" value="<%=params[:l]%>" type="hidden">
+            <%end%>
+            <%if params[:group_area_id] %>
+                <input name="group_area_id" value="<%=params[:group_area_id]%>" type="hidden">
+            <%end%>
+            <%if params[:search] %>
+                <input name="search" value="<%=params[:search]%>" type="hidden">
+            <%end%>
+            <%if params[:or] %>
+                <input name="or" value="<%=params[:or]%>" type="hidden">
+            <%end%>
+
+
             <p>
-              <%= f.label :start_w, 'Da' %>
+              <%= f.label :start_w, t('label.from').capitalize %>
               <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
               <%= f.hidden_field :start, value: (params[:time][:start] if params[:time]) %>
             </p>
 
             <p>
-              <%= f.label :end_w, 'A' %>
+              <%= f.label :end_w, t('label.to').capitalize %>
               <%= f.text_field :end_w, value: (params[:time][:end_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
               <%= f.hidden_field :end, value: (params[:time][:end] if params[:time]) %>
             </p>
@@ -195,7 +215,7 @@
 
             <p>
               <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$.modal.close();"/>
-              <%= f.button 'Vai', class: 'btn blue' %>
+              <%= f.button t('buttons.search'), class: 'btn blue', disable_with: t('loading') %>
             </p>
         <% end %>
       </div>

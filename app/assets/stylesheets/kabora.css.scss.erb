@@ -39,14 +39,18 @@ $large-screen: 1440px;
     float: left;
     width: 280px;
     padding-top: 15px;
-    display: inherit;
+    display: none;
     padding-top: 95px;
 }
 
-@media (max-width: $small-screen) {
+@media (min-width: $small-screen) {
     #menu-left {
-        display: none;
+        display: block;
     }
+}
+
+@media (max-width: $small-screen) {
+
     #centerpanelextended {
         margin-right: 10px;
         margin-left: 10px;
@@ -114,8 +118,7 @@ $large-screen: 1440px;
 
 #centerpanelextended {
     padding-top: 95px;
-    padding-bottom: 40px;
-
+    //padding-bottom: 40px;
 }
 
 #logo-airesis {
@@ -400,6 +403,7 @@ $large-screen: 1440px;
         margin-right: 0px;
         right: 0px;
     }
+
 }
 
 #menu-right .cont {
@@ -408,7 +412,7 @@ $large-screen: 1440px;
     right: 7px;
 }
 
-@media (max-width: $medium-screen) {
+@media (max-width: ($medium-screen - 1)) {
     #menu-right .cont {
         position: relative;
         margin: auto;
@@ -1201,62 +1205,86 @@ $large-screen: 1440px;
 
     #centerpanelextended {
         &.contributes_shown {
-            margin-left: -42px;
+            margin-left: -330px;
             max-width: 600px;
-            .centerfloat {
-                margin-left: -280px;
+            &.editing {
+                margin-left: 0px;
+                max-width: 450px;
             }
         }
     }
     .suggestion_right {
         &.contributes_shown {
-            left: 275px;
-        }
-    }
-}
-
-@media (min-width: '768px') and (max-width: '1000px') {
-    #menu-left {
-        &.contributes_shown {
-            margin-left: -300px;
-        }
-    }
-    #centerpanelextended {
-        &.contributes_shown {
-            margin-left: -280px;
-            max-width: 600px;
-            .centerfloat {
-                margin-left: -280px;
+            left: 267px;
+            &.editing {
+                left: 440px;
             }
         }
     }
-    .suggestion_right {
-        &.contributes_shown {
-            left: 275px;
-        }
-    }
+
 }
 
-@media (min-width: '1000px') and (max-width: '1600px') {
+@media (min-width: '768px') and (max-width: '1279px') {
     #menu-left {
         &.contributes_shown {
             margin-left: -300px;
+            &.editing {
+                margin-left: 0px;
+            }
         }
     }
     #centerpanelextended {
         &.contributes_shown {
             margin-left: -10px;
             max-width: 600px;
+            padding-right: 10px;
+            &.editing {
+                margin-left: 280px;
+                max-width: 500px;
+            }
         }
     }
     .suggestion_right {
         &.contributes_shown {
-            left: 618px;
+            left: 587px;
+            &.editing {
+                left: 775px;
+            }
         }
     }
 }
 
-@media (min-width: '1600px') and (max-width: '1800px') {
+@media (min-width: '1280px') and (max-width: '1600px') {
+    #menu-left {
+        &.contributes_shown {
+            margin-left: -300px;
+            &.editing {
+                margin-left: 0px;
+            }
+        }
+    }
+    #centerpanelextended {
+        &.contributes_shown {
+            margin-left: -10px;
+            max-width: 600px;
+            padding-right: 10px;
+            &.editing {
+                margin-left: 280px;
+                max-width: 500px;
+            }
+        }
+    }
+    .suggestion_right {
+        &.contributes_shown {
+            left: 587px;
+            &.editing {
+                left: 775px;
+            }
+        }
+    }
+}
+
+@media (min-width: '1601px') and (max-width: '1800px') {
     #menu-left {
         &.contributes_shown {
 
@@ -1269,12 +1297,12 @@ $large-screen: 1440px;
     }
     .suggestion_right {
         &.contributes_shown {
-            left: 908px;
+            left: 887px;
         }
     }
 }
 
-@media (min-width: '1800px') {
+@media (min-width: '1801px') {
     .suggestion_right {
         &.contributes_shown {
             left: 1108px;
