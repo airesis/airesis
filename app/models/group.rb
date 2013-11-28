@@ -1,4 +1,7 @@
 class Group < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged,:history]
+
   include ImageHelper
   REQ_BY_PORTAVOCE = 'p'
   REQ_BY_VOTE = 'v'
@@ -303,9 +306,7 @@ class Group < ActiveRecord::Base
     end
   end
 
-  def to_param
-    "#{id}-#{name.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
+
 
   searchable do
     text :name, boost: 5

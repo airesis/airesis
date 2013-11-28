@@ -50,6 +50,10 @@ class GroupsController < ApplicationController
   end
 
   def show
+    if request.url != group_url(@group)
+      redirect_to group_url(@group), status: :moved_permanently
+    end
+
     @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
     respond_to do |format|
       format.js {

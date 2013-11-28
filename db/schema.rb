@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118130744) do
+ActiveRecord::Schema.define(:version => 20131128123133) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -331,6 +331,17 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "frm_categories", :force => true do |t|
     t.string   "name",                              :null => false
     t.string   "slug"
@@ -618,8 +629,11 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
     t.boolean  "certified",                                   :default => false,    :null => false
     t.string   "status",                                      :default => "active", :null => false
     t.datetime "status_changed_at"
+    t.string   "slug"
   end
 
+  add_index "groups", ["name"], :name => "groups_unique_name", :unique => true
+  add_index "groups", ["slug"], :name => "index_groups_on_slug"
   add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
 
   create_table "images", :force => true do |t|
