@@ -534,11 +534,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  def render_404(exception=nil)
+    #log_error(exception) if exception
+    respond_to do |format|
+      @title = I18n.t('error.error_404.groups.title')
+      @message = I18n.t('error.error_404.groups.description')
+      format.html { render "errors/404", :status => 404, :layout => true }
+    end
+    true
+  end
+
   private
 
   def choose_layout
     'groups'
   end
+
+
 
 
 end

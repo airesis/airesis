@@ -1253,6 +1253,9 @@ en:
       events:
         title: "This event doesn't exist"
         description: "The event you are looking for doesn't exist or has been deleted"
+      groups:
+        title: "This group doesn't exist"
+        description: "The group you are looking for doesn't exist or has been deleted"
       title: "The page you are looking for doesn't exist"
       description: "Your address might be wrong, or this page does no longer exist"
     error_500:
