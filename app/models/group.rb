@@ -334,7 +334,6 @@ class Group < ActiveRecord::Base
     end
   end
 
-
   private
 
   def self.autocomplete(term)
