@@ -12,7 +12,12 @@ function checkScroll() {
     if (nearBottomOfPage() && checkActive) {
         checkActive = false;
         currentPage++;
-        $.ajax({ url: '?page=' + currentPage, type: 'get'});
+        console.log('end '+currentPage);
+        $.ajax({
+            url: '',
+            data: {page: currentPage},
+            type: 'get'
+        });
     } else {
         setTimeout("checkScroll()", 250);
     }
