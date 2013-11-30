@@ -15,7 +15,7 @@
               <% title = t('pages.proposals.list.last_update', time_ago: time_in_words(proposal.updated_at)) %>
           <% elsif proposal.waiting_date? %>
               <% date = (l proposal.updated_at, format: :two_rows) %>
-              <% title = t('pages.proposals.list.waiting_date', {date: date}) %>
+              <% title = t('pages.proposals.list.waiting_date') %>
           <% elsif proposal.waiting? %>
               <% title = t('pages.proposals.list.voting_from_to', from: (l proposal.vote_period.starttime), to: (l proposal.vote_period.endtime)) %>
           <% elsif proposal.voting? %>
@@ -27,7 +27,7 @@
                   <% if proposal.rejected? %>
                       <% title = t('pages.proposals.list.votation_finished_rejected', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
                   <% else %>
-                      <% title = t('pages.proposals.list.votation_finished_approved', time_ago: time_ago_in_words(proposal.vote_period.endtime), date: (l proposal.vote_period.endtime, format: :two_rows)) %>
+                      <% title = t('pages.proposals.list.votation_finished_approved', date: (l proposal.vote_period.endtime, format: :two_rows)) %>
                   <% end %>
               <% end %>
           <% elsif proposal.abandoned? %>

@@ -278,8 +278,11 @@ class Ability
         can :manage, Event
         can :manage, Frm::Topic
         can :create_topic, Frm::Forum
+        can :manage, Frm::Category
+        can :manage, Frm::Forum
 
-        #cannot :show_tooltips
+
+          #cannot :show_tooltips
         #can :vote, Proposal do |proposal|
         #  can_vote_proposal?(user, proposal)
         #end

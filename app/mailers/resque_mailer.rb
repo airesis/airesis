@@ -47,7 +47,7 @@ class ResqueMailer < ActionMailer::Base
     I18n.locale = @group_invitation.inviter.locale.key
     @group_invitation_email = @group_invitation.group_invitation_email
     @group = @group_invitation_email.group
-    mail(:to => @group_invitation_email.email, :subject => "Invito ad iscriversi a #{@group.name}")
+    mail(:to => @group_invitation_email.email, :subject => t('mailer.invite.subject', group_name: @group.name))
   end
 
   def user_message(subject,body,from_id,to_id)

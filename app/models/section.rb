@@ -7,9 +7,8 @@ class  Section < ActiveRecord::Base
 
   has_many :proposal_comments, through: :paragraphs
 
+  validates :title, length: {in: 1..100}
 
   accepts_nested_attributes_for :paragraphs
-
-
 
 end

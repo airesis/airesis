@@ -567,14 +567,14 @@ en:
       contribution_valuation: "What do you think?"
       contribution_valuation_again: "Changed your mind?"
       new_rank_bar:
-        creation: "<b>CREATION</b>: %{time_ago}<br/>%{date}"
-        end: "<b>END DEBATE</b>:<br/> %{date}"
+        creation: "CREATION: %{time_ago}<br/>%{date}"
+        end: "END DEBATE:<br/> %{date}"
         valutations:
           one: "%{count} EVALUATION"
           other: "%{count} EVALUATIONS"
         good_score: "POSITIVE QUORUM %{score}%"
         bad_score: "NEGATIVE QUORUM %{score}%"
-        now: "%{left} left"
+        now: "%{left} LEFT"
       left_panel:
         creation_date: "Date of creation"
         any_date: "Any date"
@@ -1095,28 +1095,28 @@ en:
   models:
     quorum:
       participants:
-        one: '<b>a person</b> will have participated in'
-        other: 'they have partecipated in <b>%{count}</b> people'
+        one: '<b>a person</b> will have participated'
+        other: 'they have participated <b>%{count}</b> people'
       participants_past:
         one: '<b>a person</b> has participated'
-        other: 'they had partecipated in <b>%{count}</b> people'
+        other: 'they had participated in <b>%{count}</b> people'
       or_condition_1: "The debate will end in %{time} or when %{participants_num}."
-      or_condition_1_past: "The debate ended in %{time} or when %{participants_num}."
+      or_condition_1_past: "The debate lasted %{time} or when %{participants_num}."
       and_condition_1: "The debate will end in %{time}, but it will continue unless %{participants_num}."
-      and_condition_1_past: "The debate ended in %{time}, but continued unless %{participants_num}."
+      and_condition_1_past: "The debate lasted %{time}, but continued unless %{participants_num}."
       time_condition_1: "The debate will end in %{time}"
-      time_condition_1_past: "The debate ended in %{time}"
+      time_condition_1_past: "The debate lasted %{time}"
       participants_condition_1: "The debate will continue until %{participants_num}."
       participants_condition_1_past: "The debate continued until %{participants_num}."
-      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}</b>, otherwise it will be abandoned"
-      good_score_condition_past: "The proposal went to the vote if it had a maturity greater than <b>%{good_score}</b>, otherwise it was abandoned"
+      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}%</b>, otherwise it will be abandoned"
+      good_score_condition_past: "The proposal would have gone to the vote if it had a maturity greater than <b>%{good_score}%</b>, otherwise it would had been abandoned"
       bad_score_explain: |
         If the proposal gets a maturity over <b>%{good_score}%</b> it will go to the voting phase. If however it gets a rank below <b>%{bad_score}%</b>, it will be abandoned.<br/>
         The debate will continue if the rank remains between these two thresholds, regardless of time or the number of evaluations
       bad_score_explain_past: |
         If the proposal got a maturity over <b>%{good_score}%</b> it went to the voting phase. If however it got a rank below <b>%{bad_score}%</b>, it was abandoned.<br/>
         The debate continued if the rank remained between these two thresholds, regardless of time or the number of evaluations
-      until_date: "(%{date} at %{time})"
+      until_date: "(until %{date})"
       help_content:
         description_html: |
           <h3>What is a quorum?</h3>
@@ -1166,8 +1166,8 @@ en:
     random_stack_3: "<strong>How it works?</strong><br/>Contributions are shown in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     miglioricontributi: "<strong> How can I help? </strong> <br/> Contributions should not express simple appreciation but substantial changes to the text: constructive criticism, alternatives or improvements to the proposal will help the writer to develop a shared summary of the text. <br /> <br/> <b>Note</b>: The most valuable contribution is what makes it possible to find a solution to the proposal!"
     voglioredigere: "Ask the editors to allow you to edit the text of the proposal on the basis of the contributions of the users."
-    voteup: "<div class='votedup'></div>The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)"
-    votedown: "<div class='voteddown' style='margin: 0px 10px 10px 0px'></div>The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
+    voteup: "The proposal is mature enough and can go to the voting phase (you can change your evaluation when the text of the proposal is updated)"
+    votedown: "The text of the proposal is not mature yet, because the users' contributions has to be integrated (you can change your evaluation when the text of the proposal will be updated)"
     valutazioni: "total number of evaluations received"
     gradimento: "percentage of positive evaluations on the total"
     nickname: "<strong> In this proposal, we have chosen to discuss anonymously </strong> <br /> In this way is not possible for other users to know who you are and at the same time, it is not possible for you to know who the others are. <br /> working and talking this way you will be able to make decisions and evaluate proposals based only on on content. <br/> <b>Note</b>: When the discussion is finished and the proposal will be approved or rejected then you will see the real names of users!"
@@ -1253,6 +1253,9 @@ en:
       events:
         title: "This event doesn't exist"
         description: "The event you are looking for doesn't exist or has been deleted"
+      groups:
+        title: "This group doesn't exist"
+        description: "The group you are looking for doesn't exist or has been deleted"
       title: "The page you are looking for doesn't exist"
       description: "Your address might be wrong, or this page does no longer exist"
     error_500:
@@ -1415,6 +1418,7 @@ en:
       reject: "Refuse"
       greetings: "Greetings!"
       no_more_button: "No further invitations"
+      subject: "You have been invited to %{group_name}"
   words:
     contribute: "contribution"
     comment: "comment"

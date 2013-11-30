@@ -439,8 +439,6 @@ Airesis::Application.routes.draw do
 
       get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
 
-      #end
-
       resources :events do
         resources :meeting_partecipations
 
@@ -529,18 +527,10 @@ Airesis::Application.routes.draw do
       end
     end
 
-
     match ':controller/:action/:id'
 
     match ':controller/:action/:id.:format'
 
-    match 'index_by_category', :to => 'proposals#index_by_category', :as => '/proposals/index_by_category'
-
-
-    #url friendly 'proposte'
-    #match ':proposal_url/:id', :to => 'proposals#show'
-    #match ':proposal_url', :to => 'proposals#index'
-    #match ':proposal_url/cat/:category/', :to => 'proposals#index'
 
 
     admin_required = lambda do |request|
@@ -568,9 +558,8 @@ Airesis::Application.routes.draw do
 
     resources :tokens, :only => [:create, :destroy]
 
+    get '/:id' => 'groups#show'
+
   end
-#authenticate :admin do
-#  mount Resque::Server, :at => "/resque_admin"
-#end
 
 end

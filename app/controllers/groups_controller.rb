@@ -49,14 +49,19 @@ class GroupsController < ApplicationController
     end
   end
 
-
   def show
+
+
     @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
     respond_to do |format|
       format.js {
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
       }
       format.html {
+        if request.url != group_url(@group)
+          redirect_to group_url(@group), status: :moved_permanently
+          return
+        end
         @page_title = @group.name
         @partecipants = @group.partecipants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
@@ -531,11 +536,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  def render_404(exception=nil)
+    #log_error(exception) if exception
+    respond_to do |format|
+      @title = I18n.t('error.error_404.groups.title')
+      @message = I18n.t('error.error_404.groups.description')
+      format.html { render "errors/404", :status => 404, :layout => true }
+    end
+    true
+  end
+
   private
 
   def choose_layout
     'groups'
   end
+
+
 
 
 end

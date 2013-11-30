@@ -25,7 +25,7 @@ it-IT:
           <p>Airesis è uno strumento decisionale di e-democracy open source,
           fortemente orientato al problem-solving e progettato per massimizzare l'immenso potere evolutivo
           dell'<a href="http://it.wikipedia.org/wiki/Intelligenza_collettiva" target="_blank">intelligenza collettiva</a>.</p>
-          <p>Sviluppato interamente da volontari, senza scopo di lucro, Airesis è nato per rendere più veloci, informate, condivise e partecipate le decisioni.
+          <p>Sviluppato interamente da volontari, senza scopo di lucro, Airesis è nato per rendere più veloci, informate, condivise e partecipate le decisioni.<br/>
           Si basa sui seguenti principi:</p>
           <ul>
           <li><b>Partecipazione</b> <br/>
@@ -48,7 +48,7 @@ it-IT:
           <li><b>Flessibilità</b><br/>
           Ogni gruppo ha le proprie necessità, ogni proposta è diversa dalle altre, ogni utente ha le proprie esigenze.</li>
       paragraph_4:
-        title: "Obiettivo: la democrazia diretta e partecipativa"
+        title: "Il nostro obiettivo: la democrazia diretta e partecipativa"
         content_html: |
           <p>Strutturato come un social network, permette di coinvolgere le persone in base ai propri interessi e di sfruttare
           le doti di ciascuno per deliberare in modo consensuale su qualsiasi tipo di proposta.
@@ -56,14 +56,14 @@ it-IT:
           su temi che possono coinvolgere il territorio, la promozione sociale, le politiche di settore e conseguentemente di far emergere le idee migliori.</p>
           <p>Airesis offre gli strumenti per:
           <ul>
-                <li>promuovere le idee e le esperienze dei singoli membri</li>
-                <li>raccogliere le iniziative/proposte dei singoli e presentarle alla comunità</li>
-                <li>fornire strumenti per il dibattito sulle varie iniziative</li>
-                <li>promuovere la modifica condivisa delle proposte</li>
-                <li>gestire la votazione delle varie iniziative e proposte</li>
-                <li>promuovere eventi generici o riunioni</li>
-                <li>gestire candidature e relative votazioni</li>
-                <li>gestire dei sotto-gruppi ristretti, governati da regolamenti e autorizzazioni, ma dotati di tutti gli strumenti previsti dalla piattaforma</li>
+                <li>Promuovere le idee e le esperienze dei singoli membri</li>
+                <li>Raccogliere le iniziative/proposte dei singoli e presentarle alla comunità</li>
+                <li>Fornire strumenti per il dibattito sulle varie iniziative</li>
+                <li>Promuovere la modifica condivisa delle proposte</li>
+                <li>Gestire la votazione delle varie iniziative e proposte</li>
+                <li>Promuovere eventi generici o riunioni</li>
+                <li>Gestire candidature e relative votazioni</li>
+                <li>Gestire dei sotto-gruppi ristretti, governati da specifici regolamenti e autorizzazioni, ma dotati di tutti gli strumenti previsti dalla piattaforma</li>
           </ul>
           </p>
       paragraph_5:
@@ -76,7 +76,7 @@ it-IT:
             iscriversi ad uno dei <strong>gruppi</strong> già presenti oppure di costituirne uno nuovo. Sia nei gruppi che
             nello spazio comune è possibile pubblicare iniziative/proposte, <strong>valutarle</strong>, redigerne una
             <strong>sintesi</strong> condivisa e quindi <strong>votarle</strong>. Sempre negli stessi ambiti è possibile
-            creare degli eventi riguardanti <strong>incontri</strong> , <strong>votazioni</strong> ed <strong>elezioni</strong> .
+            creare degli eventi riguardanti <strong>incontri</strong> e <strong>votazioni</strong>.
           </p>
       paragraph_6:
         title: "Funzioni di base"
@@ -303,7 +303,7 @@ it-IT:
         content_html: |
           <p>
             Un potente meccanismo di gestione dei <b>ruoli e dei permessi</b> vi consentirà di dare al vostro gruppo la forma che preferite:
-            potrete avere utenti con più permessi e utenti con meno permessi a seconda del loro ruolo, organizzare gerarchicamente i partecipanti
+            potrete avere utenti con più o meno permessi a seconda del loro ruolo, organizzare gerarchicamente i partecipanti
             o fornire a tutti uguali diritti e doveri.</br>
             E' per questo che Airesis si adatta perfettamente alle esigenze di un'<b>Azienda</b>, così come di un <b>Movimento Democratico</b> o di una <b>Associazione</b>.
           </p>
@@ -337,7 +337,7 @@ it-IT:
             vostra disposizione e caricare fino ad 1GB di documenti.
           </p>
       paragraph_7:
-        title: "Un spazio per dialogare"
+        title: "Uno spazio per dialogare"
         content_html: |
           <p>
             Le idee migliori nascono dal dialogo: è per questo che Airesis ha deciso di mettere a disposizione un forum per
@@ -345,10 +345,10 @@ it-IT:
             libertà.<br/>
             Il forum a disposizione è moderno e completo, totalmente configurabile e ampliabile dal gruppo per organizzarlo
             secondo le proprie esigenze.
-            Potrete avere discussioni pubbliche e aperte a tutti, e discussioni private e riservate ai partecipanti del
+            Potrete avere discussioni pubbliche, aperte a tutti, e discussioni private, riservate invece ai partecipanti del
             gruppo.
-            Organizzate i forum in sezioni e create gruppi di moderatori! E' tutto nelle vostre mani e ci sono
-            già %{topics} discussioni attive su Airesis!
+            Organizzate i forum in sezioni e create gruppi di moderatori! E' tutto nelle vostre mani! <br/>
+            Al momento ci sono già %{topics} discussioni attive su Airesis!
           </p>
       paragraph_8:
         title: "Molto, molto altro ancora"

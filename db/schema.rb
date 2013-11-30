@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118130744) do
+ActiveRecord::Schema.define(:version => 20131129132222) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -331,6 +331,17 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
 
   add_index "events", ["event_series_id"], :name => "index_events_on_event_series_id"
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "frm_categories", :force => true do |t|
     t.string   "name",                              :null => false
     t.string   "slug"
@@ -618,8 +629,10 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
     t.boolean  "certified",                                   :default => false,    :null => false
     t.string   "status",                                      :default => "active", :null => false
     t.datetime "status_changed_at"
+    t.string   "slug"
   end
 
+  add_index "groups", ["slug"], :name => "index_groups_on_slug"
   add_index "groups", ["subdomain"], :name => "index_groups_on_subdomain", :unique => true
 
   create_table "images", :force => true do |t|
@@ -1534,11 +1547,17 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
   add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
   add_foreign_key "events", "users", :name => "events_user_id_fk"
 
+  add_foreign_key "frm_categories", "groups", :name => "frm_categories_group_id_fk"
+
   add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
   add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"
 
   add_foreign_key "frm_forum_tags", "frm_forums", :name => "frm_forum_tags_frm_forum_id_fk"
   add_foreign_key "frm_forum_tags", "tags", :name => "frm_forum_tags_tag_id_fk"
+
+  add_foreign_key "frm_forums", "groups", :name => "frm_forums_group_id_fk"
+
+  add_foreign_key "frm_groups", "groups", :name => "frm_groups_group_id_fk"
 
   add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
   add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
@@ -1576,6 +1595,8 @@ ActiveRecord::Schema.define(:version => 20131118130744) do
 
   add_foreign_key "integrated_contributes", "proposal_comments", :name => "integrated_contributes_proposal_comment_id_fk"
   add_foreign_key "integrated_contributes", "proposal_revisions", :name => "integrated_contributes_proposal_revision_id_fk"
+
+  add_foreign_key "meeting_organizations", "groups", :name => "meeting_organizations_group_id_fk"
 
   add_foreign_key "meeting_partecipations", "meetings", :name => "meeting_partecipations_meeting_id_fk"
   add_foreign_key "meeting_partecipations", "users", :name => "meeting_partecipations_user_id_fk"

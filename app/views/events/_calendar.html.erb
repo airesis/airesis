@@ -19,7 +19,7 @@
 <% end %>
 
 
-<div>
+<div class="calendar_container">
   <div id='calendar'>
   </div>
 </div>
@@ -116,8 +116,13 @@
 
 
     $(function () {
+        //$('.calendar_container').height($(window).height());
+        $(window).resize(function() {
+            $('#calendar').fullCalendar('option', 'height', $(window).height() -170);
+        })
         $('#calendar').fullCalendar({
             editable: true,
+            height: $(window).height() -170,
             <%if (@group ? (can? :create_event, @group) : is_admin?) %>
             disableDragging: true,
             disableResizing: true,

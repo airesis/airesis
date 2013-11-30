@@ -1,7 +1,7 @@
 en:
   home:
     intro:
-      title: "The first Social network for E-Democracy in the world"
+      title: "The first social network for E-Democracy in the world"
       description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
       paragraph_1:
         title: "The Social Network for E-Democracy"
@@ -11,75 +11,74 @@ en:
           of <a href="http://en.wikipedia.org/wiki/Direct_democracy" target="_blank">direct democracy</a> and participation.</p>
 
           <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
-          help the development of a community, in particular tools of a "social " and deliberative orientation.</p>
+          help the development of a community, in particular "social" and deliberative tools.</p>
 
-          <p>Among the social tools Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
+          <p>Among <b>social tools</b>, Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
           Among <strong>deliberative tools</strong> it includes areas for the collection and deliberation of proposals and initiatives,
           and a voting system aimed to the election of candidates. The platform also allows you to create groups with access regulations policies and customizable permissions.
           Since the goal of Airesis is to stimulate participation, great attention has been spent in order to maximize the intuitiveness of the whole platform.
           The development philosophy is focused on continuous improvement, a kind of evolutionary process based on users feedback.
-          The development team is available to meet the needs of the communities which want to use the software according with the spirit of direct democracy.</p>
+          The development team is available to meet the needs of the communities which want to use the software according to the spirit of direct democracy.</p>
       paragraph_3:
         title: "Principles and core values"
         content_html: |
           <p>Airesis is an open source decision-making tool for e-democracy,
           strongly oriented to problem-solving and designed to maximize the immense evolutionary power
           of <a heref="http://en.wikipedia.org/wiki/Collective_intelligence" target="_blank">collective intelligence</a>.</p>
-          <p>Entirely developed by volunteers according to non-profit principles, Airesis was born to make faster, more informed and participated, any kind of shared by communities proposals.
+          <p>Entirely developed by volunteers according to non-profit principles, Airesis was created to take faster, informed, shared and participated decisions.<br/>
           It is based on the following principles:</p>
           <ul>
           <li><b>Participation</b> <br/>
           Involving citizens means having more energy and points of view available.
-          Only through direct participation is possible to investigate the problems and understand what people really want. Participation is the essence of democratic decisions.
+          Only through direct participation it is possible to investigate the problems and understand what people really want. Participation is the essence of democratic decisions.
           </li>
 
           <li><b>Transparency and Security</b><br/>
           Without transparency, rules can be easily circumvented and democracy can quickly degenerate.
           Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users to view the contents of the site.
-          Transparent is also the source code of the software, entirely open source.</li>
+          The source code of the software is also "transparent", being it entirely open source.</li>
 
           <li><b>Constructive dialogue</b><br/>
-          No one owns all the right answers. By means of appropriate tools,  elaborating ideas proposed by many people can be  more productive than doing it by yourself.</li>
+          No one owns all the right answers. Using appropriate tools, elaborating ideas proposed by many people can be more productive than doing it yourself.</li>
 
           <li><b>Equal opportunities</b><br/>
           To be intended as how effective equality, in terms of offered possibilities, can be pursued by the system.
           </li>
 
           <li><b>Flexibility</b><br/>
-          </li>
+          Each group ha its own needs, each proposal is different from the others, each user has its own needs.</li>
       paragraph_4:
         title: "Our goal: direct and participative democracy"
         content_html: |
-          <p>Structured as a social network, allows to engage people according to their interests and to exploit
-          the qualities of each in order to decide by consensus on any type of proposal.
+          <p>Structured as a social network, Airesis allows users to engage other people according to their interests and to exploit
+          the qualities of each in order to consensually deliberate any type of proposal.
           The architecture and its core values ​​allow the platform to pursue goals of social and constructive debate
-          on issues that may involve the territory, social sector policies and consequently to bring out the best ideas.</p>
-          <p>Airesis provides tools for:
+          on issues that may involve the territory, social promotion, sector policies and consequently to bring out the best ideas.</p>
+          <p>Airesis provides tools to:
           <ul>
-                <li>promoting ideas and experiences of individual members</li>
-                <li>informing on the initiatives / proposals and presenting them to the individual community</li>
-                <li>providing tools for debating on the various initiatives</li>
-                <li>promoting shared editing of proposals</li>
-                <li>managing the voting of the various initiatives and proposals;</li>
-                <li>promoting generic events or meetings</li>
-                <li>managing the candidates applications and the adjoining voting operations</li>
-                <li>managing restricted groups, governed by regulations and permissions, but with all the tools provided by the platform available</li>
+                <li>Promote the ideas and experiences of individual members</li>
+                <li>Group the initiatives / proposals of individual users and present them to the community</li>
+                <li>Provide tools for the debate on various initiatives</li>
+                <li>Promote shared editing of proposals</li>
+                <li>Manage the vote of various initiatives and proposals</li>
+                <li>Promote generic events or meetings</li>
+                <li>Manage the candidates applications and the adjoining vote operations</li>
+                <li>Manage restricted sub-groups, governed by specific regulations and permissions, but with all the tools provided by the platform</li>
           </ul>
           </p>
       paragraph_5:
-        title: "Features and Functions"
+        title: "Characteristics and features"
         content_html: |
           <p>The Airesis development team builds all the functions and tools
-          according to the needs of the groups which take benefit from the platform.
-          The same development group is present on Airesis and decides future implementations by consensus.
-          The current structure allows the registered user to belong to a common area,
-          to join one of the groups already present or to establish a new one.
-          Either within group, either within the common area, you can publish initiatives / proposals, evaluate them, and then produce a
-          summary that can be voted.
-          Always in the same fields you can create the events concerning meetings, voting and elections.
+          <strong>according to the needs of the groups</strong> which take benefit from the platform.
+          The same development group is present on Airesis and decides <strong>consensually</strong> future implementations.</p>
+          <p>The actual structure allows the registered user to belong to a <strong>open space</strong>,
+          to join one of the <strong>groups</strong> already present or to establish a new one.
+          Either within the groups and the open space it is possible to publish initiatives / proposals, <strong>evaluate them</strong>, edit
+          a shared <strong>summary</strong> and then <strong>vote them</strong>. In the same contexts you can create events concerning <strong>meetings</strong> and <strong>vote</strong>.
           </p>
       paragraph_6:
-        title: "Basic Functions"
+        title: "Basic features"
         content_html: |
           <ul>
             <li><strong>Sign up and login</strong> <br>
@@ -275,7 +274,7 @@ en:
             e, a seconda del tipo, si può interagire con esso (es. partecipando ad una votazione o segnalando la volontà di
             partecipare ad una riunione).</p>
     whatis:
-      title: "The first Social network for E-Democracy in the world"
+      title: "The first Social network for e-democracy in the world"
       description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
       paragraph_1:
         title: "The Social Network for E-Democracy"
@@ -286,78 +285,76 @@ en:
           </p>
           <p>
           To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
-          help the development of a community, in particular tools of a "social " and deliberative orientation.
+          help the development of a community, in particular "social" and deliberative tools.
           </p>
       paragraph_2:
         title: "Build your group"
         content_html: |
           <p>
             If you are an association, a company, a school or a party, Airesis is certanly appropriate for you!<br/>
-            Create in few minutes your group and began immediately to try the tools you have available.<br/>
-            Creating a group is free, quick and easy and %{groups} groups have already taken action.<br/>
+            Create in just a few minutes your group and try out all the available tools.<br/>
+            Creating a group is free, quick and easy and %{groups} groups are already active.<br/>
             Please read our documents on policy to find out how to organize it better and discover how easy it is
-            to organize your group with Airesis and provide eDemocracy tools!
+            to organize your group with Airesis and provide e-democracy tools!
           </p>
       paragraph_3:
-        title: "Organize partecipants"
+        title: "Organize participants"
         content_html: |
           <p>
-            A powerful mechanism for handling <b> roles and permissions </b> will allow you to give your group the shape that you prefer:
-            You may have users with more permissions and users with less permissions depending on their role, hierarchically organize the participants
+            A powerful mechanism for handling <b> roles and permissions </b> will allow you to give your group the shape you prefer:
+            you may have users with more or less permissions depeding on their role, hierarchically organize the participants
             or provide everyone equal rights and duties. </br>
-            That is the reason why Airesis is perfectly suited to the needs of a <b> Company </b>, as well as a <b> Democratic Movement </b> or an <b> Association </b>.
+            This is the reason why Airesis is perfectly suited to the needs of a <b> Company </b>, as well as a <b> Democratic Movement </b> or an <b> Association </b>.
           </p>
       paragraph_4:
         title: "Propose and deliberate"
         content_html: |
           <p>
-            The heart of Airesis are the proposals: you will have several models with which to engage people in the group and hear their opinion. <br/>
+            The heart of Airesis are the proposals: you will have several templates using which you can engage people in the group and hear their opinion. <br/>
             You can debate on individual topics, build an agenda in a shared way or vote for candidates in a democratic way. <br/>
             The  Proposals tool of Airesis is now the most sophisticated and complete mass deliberative system available online! <br/>
             At this very moment %{users} users are discussing %{proposals} proposals.
           </p>
       paragraph_5:
-        title: "Organize your events, increase partecipation"
+        title: "Organize your events, increase participation"
         content_html: |
           <p>
             A complete system for scheduling events allows you to better organize the activities of your group. <br/>
-            The participants will be notified of upcoming events and be able to synchronize their calendar with that of the group. <br/>
+            The participants will be notified of upcoming events and will be able to synchronize their calendar with the calendar of the group. <br/>
             Each participant can then specify whether to participate or not, allowing organizers to better manage the event.
           </p>
       paragraph_6:
         title: "A shared documents archive"
         content_html: |
           <p>
-            Your group will have a very useful and complete Documents Archive that can be arranged in
-            folders and subfolders to make available to participants
-            all the necessary material. <br/>
-            The ease of use of the  Documents Archive of Airesis is unmatched: you can upload files to the server
-            simply dragging them to the browser from your computer. <br/>
-            Just a few seconds and uploading will be complete! Ask our team how to increase storage space in
-            your disposal and upload up to 1GB of documents.
+          Your group will have a very useful and complete Documents Archive that can be arranged in
+          folders and subfolders to make available to all participants all the necessary material. <br/>
+          The ease of use of the Documents Archive of Airesis is unmatched: you can upload files to the server
+          simply dragging them to the browser from your computer. <br/>
+          Just a few seconds and the upload will be complete! Ask our team how to increase the storage space at
+          your disposal and upload up to 1GB of documents.
           </p>
       paragraph_7:
-        title: "A space to chat"
+        title: "A space to discuss"
         content_html: |
           <p>
           The best ideas come from the dialogue: that's why Airesis decided to provide a forum for
-          each group where users can exchange ideas, suggestions or simply chat in
-          freedom. <br/>
-          The forum provided is complete and modern, fully configurable and expandable by the group to organize
+          each group where users can exchange ideas, suggestions or simply chat freely. <br/>
+          The forum provided is both complete and modern, fully configurable and expandable by the group to be organized
           according to their needs.
-          You can have public discussions open to all, and discussions private and confidential to the participants of
+          You can have public discussions, visible to everyone, and private discussions, reserved to the participants of the
           group.
-          Organize your forum into sections and create groups of moderators! It 's all in your hands and there are
-          already %{topics} active discussions in Airesis!
+          Organize the forums into sections and create groups of moderators! It's all in your hands! <br/>
+          At the moment there are already %{topics} active discussions in Airesis!
           </p>
       paragraph_8:
         title: "Much, much more"
         content_html: |
           <p>
-          The functions of Airesis do not stop here! <br/>
-          Watch our %{intro_page}to discover the dozens of
+          The features of Airesis are not only these! <br/>
+          Watch our %{intro_page} to discover the dozens of
           tools and options available for your group. <br/>
-          Discover the myriad of features that will help you in the management of the group and that will allow you to
+          Discover the myriad of features that will help you manage the group and will allow you to
           organize it to best: if you have a need, certainly Airesis will allow you to satisfy it!
           </p>
         link: 'introduction page'

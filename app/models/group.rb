@@ -1,4 +1,7 @@
 class Group < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged,:history]
+
   include ImageHelper
   REQ_BY_PORTAVOCE = 'p'
   REQ_BY_VOTE = 'v'
@@ -297,15 +300,13 @@ class Group < ActiveRecord::Base
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
 
-        paginate :page => 1, :per_page => params[:limit] || 30
+        paginate :page => page, :per_page => params[:limit] || 30
 
       end.results
     end
   end
 
-  def to_param
-    "#{id}-#{name.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
+
 
   searchable do
     text :name, boost: 5
@@ -332,7 +333,6 @@ class Group < ActiveRecord::Base
       self.interest_border.circoscrizione.try(:id)
     end
   end
-
 
   private
 

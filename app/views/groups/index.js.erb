@@ -1,6 +1,6 @@
 <%if params[:page] %>
 $('#groups_list').append("<%=j (render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
-$('#more_groups_container').html("<%=j (render :partial => 'more_groups')%>");
+
 <%else%>
 $('#groups_list').fadeOut('slow', function () {
     <% if @groups.count > 0 %>
@@ -12,6 +12,7 @@ $('#groups_list').fadeOut('slow', function () {
     $('#groups_list').fadeIn();
 })
 <%end%>
+$('#more_groups_container').html("<%=j (render :partial => 'more_groups')%>");
 
 <%if params[:back] %>
     $('#search').val('<%=params[:search]%>');

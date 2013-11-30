@@ -12,7 +12,7 @@ class ProposalsController < ApplicationController
   layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:search, :index, :tab_list, :endless_index, :new, :create, :index_by_category, :similar, :vote_results]
+  before_filter :load_proposal_and_group, :except => [:search, :index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
 
   ###SICUREZZA###
 
