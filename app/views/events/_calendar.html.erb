@@ -150,7 +150,11 @@
             <%else%>
             events: '<%=list_events_url%>',
             <%end%>
-            timeFormat: '<%=t('calendar.timeFormat')%>',
+            timeFormat: {
+                month:'<%=t('calendar.timeFormat')%>',
+                week:'',
+                agenda:''
+            },
 			columnFormat: {
                         month: 'ddd',
                         week: 'ddd M/d',

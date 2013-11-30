@@ -9,7 +9,7 @@ en:
     week: 'week'
     day: 'day'
     firstDay: 0
-    timeFormat: 'h(:mm)t '
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
     order:
       - :day
@@ -36,7 +36,7 @@ en:
       - Thu
       - Sat
     month_names:
-      -
+      - []
       - January
       - February
       - March
@@ -50,7 +50,7 @@ en:
       - November
       - December
     abbr_month_names:
-      -
+      - []
       - Jan
       - Feb
       - Mar
