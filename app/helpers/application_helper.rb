@@ -34,7 +34,7 @@ module ApplicationHelper
   #return the time in words
   def time_in_words(from_time, include_seconds=false)
     diff = Time.now - from_time #difference of time from now
-    if diff > 24.hours #if it's more than 24 hours ago
+    if Time.now.day != from_time.day #if it's not the same day
       if diff < 7.days && (from_time.wday <= Time.now.wday) #if time in this
         if (Time.now.day - from_time.day) == 1 #if it was yesterady
           ret = I18n.l(from_time, format: :yesterday_at)

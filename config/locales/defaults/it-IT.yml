@@ -1102,15 +1102,15 @@ it-IT:
         one: 'partecipava almeno <b>una</b> persona'
         other: 'partecipavano almeno <b>%{count}</b> persone'
       or_condition_1: "Il dibattito terminerà tra %{time} oppure quando %{participants_num}."
-      or_condition_1_past: "Il dibattito terminava in %{time} oppure quando %{participants_num}."
+      or_condition_1_past: "Il dibattito è durato %{time} oppure quando %{participants_num}."
       and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
-      and_condition_1_past: "Il dibattito terminava in %{time}, ma proseguiva finchè non %{participants_num}."
+      and_condition_1_past: "Il dibattito è durato %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      time_condition_1_past: "Il dibattito terminvava in %{time}."
+      time_condition_1_past: "Il dibattito è durato %{time}."
       participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
       participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
       good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"
-      good_score_condition_past: "La proposta andava in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
+      good_score_condition_past: "La proposta sarebbe andata in votazione se aveva una maturità superiore al <b>%{good_score}%</b>, altrimenti veniva abbandonata"
       bad_score_explain: |
        La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, verrà abbandonata se avrà una maturità inferiore al <b>%{bad_score}%</b>.<br/>
        Il dibattito continuerà finchè la maturità rimarrà tra queste due soglie, indipendentemente dal tempo o dal numero di partecipanti
