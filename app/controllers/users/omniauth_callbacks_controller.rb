@@ -6,8 +6,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if current_user
       data = access_token['extra']['raw_info'] #dati di facebook
       auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
-      if auth #se c'è già un altro account annulla l'operazione!
-        flash[:error] = "Esiste già un altro account associato a questo account Facebook. Attendi la funzione di 'Unione account' per procedere"
+      if auth #se c'è già un altro account
+        if auth.token != access_token['credentials']['token'] #se devo aggiornare il token...fallo
+          auth.update_attribute(:token, access_token['credentials']['token'])
+        end
+
+        if request.env['omniauth.params']['share']
+          redirect_to request.env['omniauth.origin'] + '?share=true'
+        else
+          #annulla l'operazione!
+          flash[:error] = "Esiste già un altro account associato a questo account Facebook. Attendi la funzione di 'Unione account' per procedere"
+          redirect_to privacy_preferences_users_url
+        end
+
       else
         if data['verified']
           current_user.build_authentication_provider(access_token)
@@ -20,8 +31,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         else
           flash[:error] = "Account facebook non verificato."
         end
+        redirect_to privacy_preferences_users_url
       end
-      redirect_to privacy_preferences_users_url
+
+
     else
       @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
       if @user

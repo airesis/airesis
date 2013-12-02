@@ -25,7 +25,7 @@
       <% else %>
           <% "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>
       <% end %>
-      <a href="//www.pinterest.com/pin/create/button/?url=<%=j current_url%>&media=<%=j @pinurl%>&description=<%= @proposal.title%>"
+      <a href="//www.pinterest.com/pin/create/button/?url=<%= j current_url %>&media=<%= j @pinurl %>&description=<%= @proposal.title %>"
          data-pin-do="buttonPin"
          data-pin-config="above">
       </a>
@@ -36,6 +36,20 @@
          data-text="Guarda questa proposta su #<%= APP_SHORT_NAME %>">Tweet</a>
       <g:plusone size="tall"></g:plusone>
       <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
+      <% if current_user && current_user.has_provider('facebook') %>
+          <% if current_user.facebook && ((current_user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil)%>
+              <%= link_to 'Share with friends', facebook_share_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'sharefb' %>
+              <%if params[:share] %>
+              <script type="text/javascript">
+                  $(function () {
+                      $('#sharefb').click();
+                  });
+              </script>
+              <%end%>
+          <% else %>
+              <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'btn blue' %>
+          <% end %>
+      <% end %>
     </div>
 <% end %>
 
@@ -101,20 +115,22 @@
 <% if ::Configuration.proposal_categories %>
     <div class="mybox category">
       <h4><%= t('pages.proposals.show.category_title') %></h4>
+
       <div class="mycont">
         <div class="row">
-              <div class="columns large-2">
-                <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
-              </div>
-              <div class="columns large-10">
-                <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
-              </div>
+          <div class="columns large-2">
+            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+          </div>
+          <div class="columns large-10">
+            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+          </div>
         </div>
       </div>
     </div>
 <% end %>
 <div class="mybox model">
   <h4><%= t('pages.proposals.show.model_title') %></h4>
+
   <div class="mycont">
     <div class="row">
       <div class="columns large-2">
@@ -128,14 +144,15 @@
   </div>
 </div>
 
-<%if @proposal.in_group_area?%>
-<div class="mybox group_area_box">
-  <h4><%= t('pages.proposals.show.group_area') %></h4>
-  <div class="mycont">
-    <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {:group_area_id => @proposal.presentation_areas.first.id}) %>
-  </div>
-</div>
-<%end%>
+<% if @proposal.in_group_area? %>
+    <div class="mybox group_area_box">
+      <h4><%= t('pages.proposals.show.group_area') %></h4>
+
+      <div class="mycont">
+        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {:group_area_id => @proposal.presentation_areas.first.id}) %>
+      </div>
+    </div>
+<% end %>
 
 <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
     <div class="mybox">
@@ -158,7 +175,7 @@
       <div class="mycont">
         <% @proposal.closest.each do |p| %>
             <div class="panel">
-            <%= link_to_proposal p %>
+              <%= link_to_proposal p %>
             </div>
         <% end %>
       </div>

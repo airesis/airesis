@@ -10,16 +10,16 @@
 
           <div id="solutions_table">
             <% @proposal.solutions.each do |solution| %>
-                <div class="row solution_row" data-id="<%= solution.id %>">
-                  <div class="columns large-2 small-8">
+                <div class="row solution_row panel" data-id="<%= solution.id %>">
+                  <div class="columns large-3 small-8">
                     <a class="vote_solution_title" data-id="<%= solution.id %>" href="#" onclick="return scrollToSolution(this);"><%= solution.title %></a>
                   </div>
-                  <div class="columns large-9 small-9 hide-for-small">
+                  <div class="columns large-8 small-9 hide-for-small outer_slider_row">
                     <div class="row">
                       <div class="columns large-1 small-1">
                         <div class="schulze bad"></div>
                       </div>
-                      <div class="columns large-10 small-10">
+                      <div class="columns large-10 small-10 slider_row">
                         <div class='slider'></div>
                       </div>
                       <div class="columns large-1 small-1">

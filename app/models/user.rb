@@ -526,7 +526,7 @@ class User < ActiveRecord::Base
   end
 
   def facebook
-    @fb_user ||= FbGraph::User.me(self.authentications.find_by_provider(Authentication::FACEBOOK).token).fetch rescue nil
+    @fb_user ||= Koala::Facebook::API.new(self.authentications.find_by_provider(Authentication::FACEBOOK).token) rescue nil
   end
 
 

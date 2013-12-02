@@ -936,6 +936,15 @@ input.edit_label {
     border-radius: 5px;
     padding: 5px;
     margin-top: 15px;
+    .solution_row.panel {
+        padding: 1em 0.3em;
+        .slideNumber {
+            margin-bottom: 0px;
+        }
+        .slider-row {
+            padding-top: 2px;
+        }
+    }
 }
 
 .hidden_link {
@@ -1409,5 +1418,24 @@ ul {
     &.good {
         background: url('/assets/faces/green_full_16.png') 0 0 no-repeat;
 
+    }
+}
+
+ul.friends_list {
+    list-style: none;
+    margin: 2px;
+    .fb_friend {
+        .panel {
+            padding: 0.3em;
+        }
+    }
+}
+
+#sent_friends {
+    .row {
+        padding: 15px 10px 15px 10px;
+        [class*="column"] + [class*="column"]:last-child {
+            float:left;
+        }
     }
 }

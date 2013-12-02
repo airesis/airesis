@@ -38,7 +38,7 @@ end
 
 #gem "omniauth", '1.0.3'
 
-gem 'omniauth-facebook', '1.5.0'
+gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
@@ -63,8 +63,9 @@ gem 'devise', '2.0.4'
 
 gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
 
-
-gem 'fb_graph'
+#gem 'fb_graph'
+gem 'koala', '~> 1.8.0rc1'
+gem 'xmpp4r_facebook'
 
 gem 'exception_notification', '2.6.1'
 
