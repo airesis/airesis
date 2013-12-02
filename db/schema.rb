@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129132222) do
+ActiveRecord::Schema.define(:version => 20131202103503) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -135,6 +135,17 @@ ActiveRecord::Schema.define(:version => 20131129132222) do
   end
 
   add_index "blog_post_tags", ["blog_post_id", "tag_id"], :name => "index_blog_post_tags_on_blog_post_id_and_tag_id", :unique => true
+
+  create_table "blog_post_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "blog_post_versions", ["item_type", "item_id"], :name => "index_blog_post_versions_on_item_type_and_item_id"
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -597,6 +608,17 @@ ActiveRecord::Schema.define(:version => 20131129132222) do
     t.integer  "group_id"
     t.integer  "tag_id"
   end
+
+  create_table "group_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "group_versions", ["item_type", "item_id"], :name => "index_group_versions_on_item_type_and_item_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name",                       :limit => 200
@@ -1392,6 +1414,16 @@ ActiveRecord::Schema.define(:version => 20131129132222) do
   add_index "user_sensitives", ["tax_code"], :name => "index_user_sensitives_on_tax_code", :unique => true
   add_index "user_sensitives", ["user_id"], :name => "index_user_sensitives_on_user_id", :unique => true
 
+  create_table "user_tracings", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "sign_in_at"
+    t.datetime "sign_out_at"
+    t.string   "ip"
+    t.text     "user_agent"
+  end
+
+  add_index "user_tracings", ["user_id"], :name => "index_user_tracings_on_user_id"
+
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
     t.text   "short_name"
@@ -1470,271 +1502,282 @@ ActiveRecord::Schema.define(:version => 20131129132222) do
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
 
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
   create_table "vote_types", :force => true do |t|
     t.string "short"
   end
 
-  add_foreign_key "action_abilitations", "group_actions", :name => "action_abilitations_group_action_id_fk"
-  add_foreign_key "action_abilitations", "groups", :name => "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "partecipation_roles", :name => "action_abilitations_partecipation_role_id_fk"
+  add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
+  add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
+  add_foreign_key "action_abilitations", "partecipation_roles", name: "action_abilitations_partecipation_role_id_fk"
 
-  add_foreign_key "area_action_abilitations", "area_roles", :name => "area_action_abilitations_area_role_id_fk"
-  add_foreign_key "area_action_abilitations", "group_actions", :name => "area_action_abilitations_group_action_id_fk"
-  add_foreign_key "area_action_abilitations", "group_areas", :name => "area_action_abilitations_group_area_id_fk"
+  add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
+  add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
+  add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
 
-  add_foreign_key "area_partecipations", "area_roles", :name => "area_partecipations_area_role_id_fk"
-  add_foreign_key "area_partecipations", "group_areas", :name => "area_partecipations_group_area_id_fk"
-  add_foreign_key "area_partecipations", "users", :name => "area_partecipations_user_id_fk"
+  add_foreign_key "area_partecipations", "area_roles", name: "area_partecipations_area_role_id_fk"
+  add_foreign_key "area_partecipations", "group_areas", name: "area_partecipations_group_area_id_fk"
+  add_foreign_key "area_partecipations", "users", name: "area_partecipations_user_id_fk"
 
-  add_foreign_key "area_proposals", "group_areas", :name => "area_proposals_group_area_id_fk"
-  add_foreign_key "area_proposals", "proposals", :name => "area_proposals_proposal_id_fk"
+  add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
+  add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
 
-  add_foreign_key "area_roles", "group_areas", :name => "area_roles_group_area_id_fk"
+  add_foreign_key "area_roles", "group_areas", name: "area_roles_group_area_id_fk"
 
-  add_foreign_key "authentications", "users", :name => "authentications_user_id_fk"
+  add_foreign_key "authentications", "users", name: "authentications_user_id_fk"
 
-  add_foreign_key "available_authors", "proposals", :name => "available_authors_proposal_id_fk"
-  add_foreign_key "available_authors", "users", :name => "available_authors_user_id_fk"
+  add_foreign_key "available_authors", "proposals", name: "available_authors_proposal_id_fk"
+  add_foreign_key "available_authors", "users", name: "available_authors_user_id_fk"
 
-  add_foreign_key "blocked_alerts", "notification_types", :name => "blocked_alerts_notification_type_id_fk"
-  add_foreign_key "blocked_alerts", "users", :name => "blocked_alerts_user_id_fk"
+  add_foreign_key "blocked_alerts", "notification_types", name: "blocked_alerts_notification_type_id_fk"
+  add_foreign_key "blocked_alerts", "users", name: "blocked_alerts_user_id_fk"
 
-  add_foreign_key "blocked_emails", "notification_types", :name => "blocked_emails_notification_type_id_fk"
-  add_foreign_key "blocked_emails", "users", :name => "blocked_emails_user_id_fk"
+  add_foreign_key "blocked_emails", "notification_types", name: "blocked_emails_notification_type_id_fk"
+  add_foreign_key "blocked_emails", "users", name: "blocked_emails_user_id_fk"
 
-  add_foreign_key "blocked_proposal_alerts", "proposals", :name => "blocked_proposal_alerts_proposal_id_fk"
-  add_foreign_key "blocked_proposal_alerts", "users", :name => "blocked_proposal_alerts_user_id_fk"
+  add_foreign_key "blocked_proposal_alerts", "proposals", name: "blocked_proposal_alerts_proposal_id_fk"
+  add_foreign_key "blocked_proposal_alerts", "users", name: "blocked_proposal_alerts_user_id_fk"
 
-  add_foreign_key "blog_comments", "blog_comments", :name => "blog_comments_parent_blog_comment_id_fk", :column => "parent_blog_comment_id"
-  add_foreign_key "blog_comments", "blog_posts", :name => "blog_comments_blog_post_id_fk"
-  add_foreign_key "blog_comments", "users", :name => "blog_comments_user_id_fk"
+  add_foreign_key "blog_comments", "blog_comments", name: "blog_comments_parent_blog_comment_id_fk", column: "parent_blog_comment_id"
+  add_foreign_key "blog_comments", "blog_posts", name: "blog_comments_blog_post_id_fk"
+  add_foreign_key "blog_comments", "users", name: "blog_comments_user_id_fk"
 
-  add_foreign_key "blog_post_tags", "blog_posts", :name => "blog_post_tags_blog_post_id_fk"
-  add_foreign_key "blog_post_tags", "tags", :name => "blog_post_tags_tag_id_fk"
+  add_foreign_key "blog_post_tags", "blog_posts", name: "blog_post_tags_blog_post_id_fk"
+  add_foreign_key "blog_post_tags", "tags", name: "blog_post_tags_tag_id_fk"
 
-  add_foreign_key "blog_posts", "blogs", :name => "blog_posts_blog_id_fk"
-  add_foreign_key "blog_posts", "users", :name => "blog_posts_user_id_fk"
+  add_foreign_key "blog_posts", "blogs", name: "blog_posts_blog_id_fk"
+  add_foreign_key "blog_posts", "users", name: "blog_posts_user_id_fk"
 
-  add_foreign_key "blog_tags", "blogs", :name => "blog_tags_blog_id_fk"
-  add_foreign_key "blog_tags", "tags", :name => "blog_tags_tag_id_fk"
+  add_foreign_key "blog_tags", "blogs", name: "blog_tags_blog_id_fk"
+  add_foreign_key "blog_tags", "tags", name: "blog_tags_tag_id_fk"
 
-  add_foreign_key "blogs", "users", :name => "blogs_user_id_fk"
+  add_foreign_key "blogs", "users", name: "blogs_user_id_fk"
 
-  add_foreign_key "candidates", "elections", :name => "candidates_election_id_fk"
-  add_foreign_key "candidates", "users", :name => "candidates_user_id_fk"
+  add_foreign_key "candidates", "elections", name: "candidates_election_id_fk"
+  add_foreign_key "candidates", "users", name: "candidates_user_id_fk"
 
-  add_foreign_key "circoscriziones", "continentes", :name => "circoscriziones_continente_id_fk"
-  add_foreign_key "circoscriziones", "provincias", :name => "circoscriziones_provincia_id_fk"
-  add_foreign_key "circoscriziones", "regiones", :name => "circoscriziones_regione_id_fk"
-  add_foreign_key "circoscriziones", "statos", :name => "circoscriziones_stato_id_fk"
+  add_foreign_key "circoscriziones", "continentes", name: "circoscriziones_continente_id_fk"
+  add_foreign_key "circoscriziones", "provincias", name: "circoscriziones_provincia_id_fk"
+  add_foreign_key "circoscriziones", "regiones", name: "circoscriziones_regione_id_fk"
+  add_foreign_key "circoscriziones", "statos", name: "circoscriziones_stato_id_fk"
 
-  add_foreign_key "comunes", "continentes", :name => "comunes_continente_id_fk"
-  add_foreign_key "comunes", "regiones", :name => "comunes_regione_id_fk"
-  add_foreign_key "comunes", "statos", :name => "comunes_stato_id_fk"
+  add_foreign_key "comunes", "continentes", name: "comunes_continente_id_fk"
+  add_foreign_key "comunes", "regiones", name: "comunes_regione_id_fk"
+  add_foreign_key "comunes", "statos", name: "comunes_stato_id_fk"
 
-  add_foreign_key "election_votes", "elections", :name => "election_votes_election_id_fk"
-  add_foreign_key "election_votes", "users", :name => "election_votes_user_id_fk"
+  add_foreign_key "election_votes", "elections", name: "election_votes_election_id_fk"
+  add_foreign_key "election_votes", "users", name: "election_votes_user_id_fk"
 
-  add_foreign_key "elections", "events", :name => "elections_event_id_fk"
+  add_foreign_key "elections", "events", name: "elections_event_id_fk"
 
-  add_foreign_key "event_comment_likes", "event_comments", :name => "event_comment_likes_event_comment_id_fk"
-  add_foreign_key "event_comment_likes", "users", :name => "event_comment_likes_user_id_fk"
+  add_foreign_key "event_comment_likes", "event_comments", name: "event_comment_likes_event_comment_id_fk"
+  add_foreign_key "event_comment_likes", "users", name: "event_comment_likes_user_id_fk"
 
-  add_foreign_key "event_comments", "event_comments", :name => "event_comments_parent_event_comment_id_fk", :column => "parent_event_comment_id"
-  add_foreign_key "event_comments", "events", :name => "event_comments_event_id_fk"
-  add_foreign_key "event_comments", "users", :name => "event_comments_user_id_fk"
+  add_foreign_key "event_comments", "event_comments", name: "event_comments_parent_event_comment_id_fk", column: "parent_event_comment_id"
+  add_foreign_key "event_comments", "events", name: "event_comments_event_id_fk"
+  add_foreign_key "event_comments", "users", name: "event_comments_user_id_fk"
 
-  add_foreign_key "events", "event_types", :name => "events_event_type_id_fk"
-  add_foreign_key "events", "users", :name => "events_user_id_fk"
+  add_foreign_key "events", "event_types", name: "events_event_type_id_fk"
+  add_foreign_key "events", "users", name: "events_user_id_fk"
 
-  add_foreign_key "frm_categories", "groups", :name => "frm_categories_group_id_fk"
+  add_foreign_key "frm_categories", "groups", name: "frm_categories_group_id_fk"
 
-  add_foreign_key "frm_category_tags", "frm_categories", :name => "frm_category_tags_frm_category_id_fk"
-  add_foreign_key "frm_category_tags", "tags", :name => "frm_category_tags_tag_id_fk"
+  add_foreign_key "frm_category_tags", "frm_categories", name: "frm_category_tags_frm_category_id_fk"
+  add_foreign_key "frm_category_tags", "tags", name: "frm_category_tags_tag_id_fk"
 
-  add_foreign_key "frm_forum_tags", "frm_forums", :name => "frm_forum_tags_frm_forum_id_fk"
-  add_foreign_key "frm_forum_tags", "tags", :name => "frm_forum_tags_tag_id_fk"
+  add_foreign_key "frm_forum_tags", "frm_forums", name: "frm_forum_tags_frm_forum_id_fk"
+  add_foreign_key "frm_forum_tags", "tags", name: "frm_forum_tags_tag_id_fk"
 
-  add_foreign_key "frm_forums", "groups", :name => "frm_forums_group_id_fk"
+  add_foreign_key "frm_forums", "groups", name: "frm_forums_group_id_fk"
 
-  add_foreign_key "frm_groups", "groups", :name => "frm_groups_group_id_fk"
+  add_foreign_key "frm_groups", "groups", name: "frm_groups_group_id_fk"
 
-  add_foreign_key "frm_topic_tags", "frm_topics", :name => "frm_topic_tags_frm_topic_id_fk"
-  add_foreign_key "frm_topic_tags", "tags", :name => "frm_topic_tags_tag_id_fk"
+  add_foreign_key "frm_topic_tags", "frm_topics", name: "frm_topic_tags_frm_topic_id_fk"
+  add_foreign_key "frm_topic_tags", "tags", name: "frm_topic_tags_tag_id_fk"
 
-  add_foreign_key "group_areas", "area_roles", :name => "group_areas_area_role_id_fk"
-  add_foreign_key "group_areas", "groups", :name => "group_areas_group_id_fk"
+  add_foreign_key "group_areas", "area_roles", name: "group_areas_area_role_id_fk"
+  add_foreign_key "group_areas", "groups", name: "group_areas_group_id_fk"
 
-  add_foreign_key "group_elections", "elections", :name => "group_elections_election_id_fk"
-  add_foreign_key "group_elections", "groups", :name => "group_elections_group_id_fk"
+  add_foreign_key "group_elections", "elections", name: "group_elections_election_id_fk"
+  add_foreign_key "group_elections", "groups", name: "group_elections_group_id_fk"
 
-  add_foreign_key "group_invitation_emails", "groups", :name => "group_invitation_emails_group_id_fk"
+  add_foreign_key "group_invitation_emails", "groups", name: "group_invitation_emails_group_id_fk"
 
-  add_foreign_key "group_invitations", "users", :name => "group_invitations_invited_id_fk", :column => "invited_id"
-  add_foreign_key "group_invitations", "users", :name => "group_invitations_inviter_id_fk", :column => "inviter_id"
+  add_foreign_key "group_invitations", "users", name: "group_invitations_invited_id_fk", column: "invited_id"
+  add_foreign_key "group_invitations", "users", name: "group_invitations_inviter_id_fk", column: "inviter_id"
 
-  add_foreign_key "group_partecipation_requests", "group_partecipation_request_statuses", :name => "parent_fk"
-  add_foreign_key "group_partecipation_requests", "groups", :name => "group_partecipation_requests_group_id_fk"
-  add_foreign_key "group_partecipation_requests", "users", :name => "group_partecipation_requests_user_id_fk"
+  add_foreign_key "group_partecipation_requests", "group_partecipation_request_statuses", name: "parent_fk"
+  add_foreign_key "group_partecipation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
+  add_foreign_key "group_partecipation_requests", "users", name: "group_partecipation_requests_user_id_fk"
 
-  add_foreign_key "group_partecipations", "groups", :name => "group_partecipations_group_id_fk"
-  add_foreign_key "group_partecipations", "partecipation_roles", :name => "group_partecipations_partecipation_role_id_fk"
-  add_foreign_key "group_partecipations", "users", :name => "group_partecipations_user_id_fk"
+  add_foreign_key "group_partecipations", "groups", name: "group_partecipations_group_id_fk"
+  add_foreign_key "group_partecipations", "partecipation_roles", name: "group_partecipations_partecipation_role_id_fk"
+  add_foreign_key "group_partecipations", "users", name: "group_partecipations_user_id_fk"
 
-  add_foreign_key "group_proposals", "groups", :name => "group_proposals_group_id_fk"
-  add_foreign_key "group_proposals", "proposals", :name => "group_proposals_proposal_id_fk"
+  add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk"
+  add_foreign_key "group_proposals", "proposals", name: "group_proposals_proposal_id_fk"
 
-  add_foreign_key "group_quorums", "groups", :name => "group_quorums_group_id_fk"
-  add_foreign_key "group_quorums", "quorums", :name => "group_quorums_quorum_id_fk"
+  add_foreign_key "group_quorums", "groups", name: "group_quorums_group_id_fk"
+  add_foreign_key "group_quorums", "quorums", name: "group_quorums_quorum_id_fk"
 
-  add_foreign_key "group_tags", "groups", :name => "group_tags_group_id_fk"
-  add_foreign_key "group_tags", "tags", :name => "group_tags_tag_id_fk"
+  add_foreign_key "group_tags", "groups", name: "group_tags_group_id_fk"
+  add_foreign_key "group_tags", "tags", name: "group_tags_tag_id_fk"
 
-  add_foreign_key "groups", "interest_borders", :name => "groups_interest_border_id_fk"
-  add_foreign_key "groups", "partecipation_roles", :name => "groups_partecipation_role_id_fk"
+  add_foreign_key "groups", "interest_borders", name: "groups_interest_border_id_fk"
+  add_foreign_key "groups", "partecipation_roles", name: "groups_partecipation_role_id_fk"
 
-  add_foreign_key "integrated_contributes", "proposal_comments", :name => "integrated_contributes_proposal_comment_id_fk"
-  add_foreign_key "integrated_contributes", "proposal_revisions", :name => "integrated_contributes_proposal_revision_id_fk"
+  add_foreign_key "integrated_contributes", "proposal_comments", name: "integrated_contributes_proposal_comment_id_fk"
+  add_foreign_key "integrated_contributes", "proposal_revisions", name: "integrated_contributes_proposal_revision_id_fk"
 
-  add_foreign_key "meeting_organizations", "groups", :name => "meeting_organizations_group_id_fk"
+  add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk"
 
-  add_foreign_key "meeting_partecipations", "meetings", :name => "meeting_partecipations_meeting_id_fk"
-  add_foreign_key "meeting_partecipations", "users", :name => "meeting_partecipations_user_id_fk"
+  add_foreign_key "meeting_partecipations", "meetings", name: "meeting_partecipations_meeting_id_fk"
+  add_foreign_key "meeting_partecipations", "users", name: "meeting_partecipations_user_id_fk"
 
-  add_foreign_key "meetings", "events", :name => "meetings_event_id_fk"
-  add_foreign_key "meetings", "places", :name => "meetings_place_id_fk"
+  add_foreign_key "meetings", "events", name: "meetings_event_id_fk"
+  add_foreign_key "meetings", "places", name: "meetings_place_id_fk"
 
-  add_foreign_key "notification_data", "notifications", :name => "notification_data_notification_id_fk"
+  add_foreign_key "notification_data", "notifications", name: "notification_data_notification_id_fk"
 
-  add_foreign_key "notifications", "notification_types", :name => "notifications_notification_type_id_fk"
+  add_foreign_key "notifications", "notification_types", name: "notifications_notification_type_id_fk"
 
-  add_foreign_key "old_proposal_presentations", "proposal_lives", :name => "old_proposal_presentations_proposal_life_id_fk"
-  add_foreign_key "old_proposal_presentations", "users", :name => "old_proposal_presentations_user_id_fk"
+  add_foreign_key "old_proposal_presentations", "proposal_lives", name: "old_proposal_presentations_proposal_life_id_fk"
+  add_foreign_key "old_proposal_presentations", "users", name: "old_proposal_presentations_user_id_fk"
 
-  add_foreign_key "paragraph_histories", "proposals", :name => "paragraph_histories_proposal_id_fk"
+  add_foreign_key "paragraph_histories", "proposals", name: "paragraph_histories_proposal_id_fk"
 
-  add_foreign_key "paragraphs", "sections", :name => "paragraphs_section_id_fk"
+  add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
 
-  add_foreign_key "partecipation_roles", "groups", :name => "partecipation_roles_group_id_fk"
-  add_foreign_key "partecipation_roles", "partecipation_roles", :name => "partecipation_roles_parent_partecipation_role_id_fk", :column => "parent_partecipation_role_id"
+  add_foreign_key "partecipation_roles", "groups", name: "partecipation_roles_group_id_fk"
+  add_foreign_key "partecipation_roles", "partecipation_roles", name: "partecipation_roles_parent_partecipation_role_id_fk", column: "parent_partecipation_role_id"
 
-  add_foreign_key "post_publishings", "blog_posts", :name => "post_publishings_blog_post_id_fk"
-  add_foreign_key "post_publishings", "groups", :name => "post_publishings_group_id_fk"
+  add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
+  add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk"
 
-  add_foreign_key "proposal_borders", "interest_borders", :name => "proposal_borders_interest_border_id_fk"
-  add_foreign_key "proposal_borders", "proposals", :name => "proposal_borders_proposal_id_fk"
+  add_foreign_key "proposal_borders", "interest_borders", name: "proposal_borders_interest_border_id_fk"
+  add_foreign_key "proposal_borders", "proposals", name: "proposal_borders_proposal_id_fk"
 
-  add_foreign_key "proposal_categories", "proposal_categories", :name => "proposal_categories_parent_proposal_category_id_fk", :column => "parent_proposal_category_id"
+  add_foreign_key "proposal_categories", "proposal_categories", name: "proposal_categories_parent_proposal_category_id_fk", column: "parent_proposal_category_id"
 
-  add_foreign_key "proposal_comment_rankings", "proposal_comments", :name => "proposal_comment_rankings_proposal_comment_id_fk"
-  add_foreign_key "proposal_comment_rankings", "ranking_types", :name => "proposal_comment_rankings_ranking_type_id_fk"
-  add_foreign_key "proposal_comment_rankings", "users", :name => "proposal_comment_rankings_user_id_fk"
+  add_foreign_key "proposal_comment_rankings", "proposal_comments", name: "proposal_comment_rankings_proposal_comment_id_fk"
+  add_foreign_key "proposal_comment_rankings", "ranking_types", name: "proposal_comment_rankings_ranking_type_id_fk"
+  add_foreign_key "proposal_comment_rankings", "users", name: "proposal_comment_rankings_user_id_fk"
 
-  add_foreign_key "proposal_comment_reports", "proposal_comment_report_types", :name => "proposal_comment_reports_proposal_comment_report_type_id_fk"
+  add_foreign_key "proposal_comment_reports", "proposal_comment_report_types", name: "proposal_comment_reports_proposal_comment_report_type_id_fk"
 
-  add_foreign_key "proposal_comments", "paragraphs", :name => "proposal_comments_paragraph_id_fk"
-  add_foreign_key "proposal_comments", "proposals", :name => "proposal_comments_proposal_id_fk"
-  add_foreign_key "proposal_comments", "users", :name => "proposal_comments_deleted_user_id_fk"
-  add_foreign_key "proposal_comments", "users", :name => "proposal_comments_user_id_fk"
+  add_foreign_key "proposal_comments", "paragraphs", name: "proposal_comments_paragraph_id_fk"
+  add_foreign_key "proposal_comments", "proposals", name: "proposal_comments_proposal_id_fk"
+  add_foreign_key "proposal_comments", "users", name: "proposal_comments_deleted_user_id_fk"
+  add_foreign_key "proposal_comments", "users", name: "proposal_comments_user_id_fk"
 
-  add_foreign_key "proposal_lives", "proposals", :name => "proposal_lives_proposal_id_fk"
-  add_foreign_key "proposal_lives", "quorums", :name => "proposal_lives_quorum_id_fk"
+  add_foreign_key "proposal_lives", "proposals", name: "proposal_lives_proposal_id_fk"
+  add_foreign_key "proposal_lives", "quorums", name: "proposal_lives_quorum_id_fk"
 
-  add_foreign_key "proposal_nicknames", "proposals", :name => "proposal_nicknames_proposal_id_fk"
-  add_foreign_key "proposal_nicknames", "users", :name => "proposal_nicknames_user_id_fk"
+  add_foreign_key "proposal_nicknames", "proposals", name: "proposal_nicknames_proposal_id_fk"
+  add_foreign_key "proposal_nicknames", "users", name: "proposal_nicknames_user_id_fk"
 
-  add_foreign_key "proposal_presentations", "proposals", :name => "proposal_presentations_proposal_id_fk"
-  add_foreign_key "proposal_presentations", "users", :name => "proposal_presentations_user_id_fk"
+  add_foreign_key "proposal_presentations", "proposals", name: "proposal_presentations_proposal_id_fk"
+  add_foreign_key "proposal_presentations", "users", name: "proposal_presentations_user_id_fk"
 
-  add_foreign_key "proposal_rankings", "proposals", :name => "proposal_rankings_proposal_id_fk"
-  add_foreign_key "proposal_rankings", "users", :name => "proposal_rankings_user_id_fk"
+  add_foreign_key "proposal_rankings", "proposals", name: "proposal_rankings_proposal_id_fk"
+  add_foreign_key "proposal_rankings", "users", name: "proposal_rankings_user_id_fk"
 
-  add_foreign_key "proposal_revisions", "proposals", :name => "proposal_revisions_proposal_id_fk"
+  add_foreign_key "proposal_revisions", "proposals", name: "proposal_revisions_proposal_id_fk"
 
-  add_foreign_key "proposal_schulze_votes", "proposals", :name => "proposal_schulze_votes_proposal_id_fk"
+  add_foreign_key "proposal_schulze_votes", "proposals", name: "proposal_schulze_votes_proposal_id_fk"
 
-  add_foreign_key "proposal_sections", "proposals", :name => "proposal_sections_proposal_id_fk"
-  add_foreign_key "proposal_sections", "sections", :name => "proposal_sections_section_id_fk"
+  add_foreign_key "proposal_sections", "proposals", name: "proposal_sections_proposal_id_fk"
+  add_foreign_key "proposal_sections", "sections", name: "proposal_sections_section_id_fk"
 
-  add_foreign_key "proposal_supports", "groups", :name => "proposal_supports_group_id_fk"
-  add_foreign_key "proposal_supports", "proposals", :name => "proposal_supports_proposal_id_fk"
+  add_foreign_key "proposal_supports", "groups", name: "proposal_supports_group_id_fk"
+  add_foreign_key "proposal_supports", "proposals", name: "proposal_supports_proposal_id_fk"
 
-  add_foreign_key "proposal_tags", "proposals", :name => "proposal_tags_proposal_id_fk"
-  add_foreign_key "proposal_tags", "tags", :name => "proposal_tags_tag_id_fk"
+  add_foreign_key "proposal_tags", "proposals", name: "proposal_tags_proposal_id_fk"
+  add_foreign_key "proposal_tags", "tags", name: "proposal_tags_tag_id_fk"
 
-  add_foreign_key "proposal_votes", "proposals", :name => "proposal_votes_proposal_id_fk"
+  add_foreign_key "proposal_votes", "proposals", name: "proposal_votes_proposal_id_fk"
 
-  add_foreign_key "proposals", "events", :name => "proposals_vote_event_id_fk", :column => "vote_event_id"
-  add_foreign_key "proposals", "events", :name => "proposals_vote_period_id_fk", :column => "vote_period_id"
-  add_foreign_key "proposals", "proposal_categories", :name => "proposals_proposal_category_id_fk"
-  add_foreign_key "proposals", "proposal_states", :name => "proposals_proposal_state_id_fk"
-  add_foreign_key "proposals", "proposal_types", :name => "proposals_proposal_type_id_fk"
-  add_foreign_key "proposals", "proposal_votation_types", :name => "proposals_proposal_votation_type_id_fk"
-  add_foreign_key "proposals", "quorums", :name => "proposals_quorum_id_fk"
+  add_foreign_key "proposals", "events", name: "proposals_vote_event_id_fk", column: "vote_event_id"
+  add_foreign_key "proposals", "events", name: "proposals_vote_period_id_fk", column: "vote_period_id"
+  add_foreign_key "proposals", "proposal_categories", name: "proposals_proposal_category_id_fk"
+  add_foreign_key "proposals", "proposal_states", name: "proposals_proposal_state_id_fk"
+  add_foreign_key "proposals", "proposal_types", name: "proposals_proposal_type_id_fk"
+  add_foreign_key "proposals", "proposal_votation_types", name: "proposals_proposal_votation_type_id_fk"
+  add_foreign_key "proposals", "quorums", name: "proposals_quorum_id_fk"
 
-  add_foreign_key "provincias", "continentes", :name => "provincias_continente_id_fk"
-  add_foreign_key "provincias", "statos", :name => "provincias_stato_id_fk"
+  add_foreign_key "provincias", "continentes", name: "provincias_continente_id_fk"
+  add_foreign_key "provincias", "statos", name: "provincias_stato_id_fk"
 
-  add_foreign_key "quorums", "quorums", :name => "quorums_quorum_id_fk"
+  add_foreign_key "quorums", "quorums", name: "quorums_quorum_id_fk"
 
-  add_foreign_key "regiones", "continentes", :name => "regiones_continente_id_fk"
-  add_foreign_key "regiones", "statos", :name => "regiones_stato_id_fk"
+  add_foreign_key "regiones", "continentes", name: "regiones_continente_id_fk"
+  add_foreign_key "regiones", "statos", name: "regiones_stato_id_fk"
 
-  add_foreign_key "revision_section_histories", "proposal_revisions", :name => "revision_section_histories_proposal_revision_id_fk"
-  add_foreign_key "revision_section_histories", "section_histories", :name => "revision_section_histories_section_history_id_fk"
+  add_foreign_key "revision_section_histories", "proposal_revisions", name: "revision_section_histories_proposal_revision_id_fk"
+  add_foreign_key "revision_section_histories", "section_histories", name: "revision_section_histories_section_history_id_fk"
 
-  add_foreign_key "schulze_votes", "elections", :name => "schulze_votes_election_id_fk"
+  add_foreign_key "schulze_votes", "elections", name: "schulze_votes_election_id_fk"
 
-  add_foreign_key "simple_votes", "candidates", :name => "simple_votes_candidate_id_fk"
+  add_foreign_key "simple_votes", "candidates", name: "simple_votes_candidate_id_fk"
 
-  add_foreign_key "solution_histories", "proposal_revisions", :name => "solution_histories_proposal_revision_id_fk"
+  add_foreign_key "solution_histories", "proposal_revisions", name: "solution_histories_proposal_revision_id_fk"
 
-  add_foreign_key "solution_section_histories", "section_histories", :name => "solution_section_histories_section_history_id_fk"
-  add_foreign_key "solution_section_histories", "solution_histories", :name => "solution_section_histories_solution_history_id_fk"
+  add_foreign_key "solution_section_histories", "section_histories", name: "solution_section_histories_section_history_id_fk"
+  add_foreign_key "solution_section_histories", "solution_histories", name: "solution_section_histories_solution_history_id_fk"
 
-  add_foreign_key "solution_sections", "sections", :name => "solution_sections_section_id_fk"
-  add_foreign_key "solution_sections", "solutions", :name => "solution_sections_solution_id_fk"
+  add_foreign_key "solution_sections", "sections", name: "solution_sections_section_id_fk"
+  add_foreign_key "solution_sections", "solutions", name: "solution_sections_solution_id_fk"
 
-  add_foreign_key "solutions", "proposals", :name => "solutions_proposal_id_fk"
+  add_foreign_key "solutions", "proposals", name: "solutions_proposal_id_fk"
 
-  add_foreign_key "statos", "continentes", :name => "statos_continente_id_fk"
+  add_foreign_key "statos", "continentes", name: "statos_continente_id_fk"
 
-  add_foreign_key "supporters", "candidates", :name => "supporters_candidate_id_fk"
-  add_foreign_key "supporters", "groups", :name => "supporters_group_id_fk"
+  add_foreign_key "supporters", "candidates", name: "supporters_candidate_id_fk"
+  add_foreign_key "supporters", "groups", name: "supporters_group_id_fk"
 
-  add_foreign_key "sys_movements", "sys_currencies", :name => "sys_movements_sys_currency_id_fk"
-  add_foreign_key "sys_movements", "sys_movement_types", :name => "sys_movements_sys_movement_type_id_fk"
-  add_foreign_key "sys_movements", "users", :name => "sys_movements_user_id_fk"
+  add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
+  add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"
+  add_foreign_key "sys_movements", "users", name: "sys_movements_user_id_fk"
 
-  add_foreign_key "sys_payment_notifications", "sys_features", :name => "sys_payment_notifications_sys_feature_id_fk"
+  add_foreign_key "sys_payment_notifications", "sys_features", name: "sys_payment_notifications_sys_feature_id_fk"
 
-  add_foreign_key "tutorial_assignees", "tutorials", :name => "tutorial_assignees_tutorial_id_fk"
-  add_foreign_key "tutorial_assignees", "users", :name => "tutorial_assignees_user_id_fk"
+  add_foreign_key "tutorial_assignees", "tutorials", name: "tutorial_assignees_tutorial_id_fk"
+  add_foreign_key "tutorial_assignees", "users", name: "tutorial_assignees_user_id_fk"
 
-  add_foreign_key "tutorial_progresses", "steps", :name => "tutorial_progresses_step_id_fk"
-  add_foreign_key "tutorial_progresses", "users", :name => "tutorial_progresses_user_id_fk"
+  add_foreign_key "tutorial_progresses", "steps", name: "tutorial_progresses_step_id_fk"
+  add_foreign_key "tutorial_progresses", "users", name: "tutorial_progresses_user_id_fk"
 
-  add_foreign_key "user_alerts", "notifications", :name => "user_alerts_notification_id_fk"
-  add_foreign_key "user_alerts", "users", :name => "user_alerts_user_id_fk"
+  add_foreign_key "user_alerts", "notifications", name: "user_alerts_notification_id_fk"
+  add_foreign_key "user_alerts", "users", name: "user_alerts_user_id_fk"
 
-  add_foreign_key "user_borders", "interest_borders", :name => "user_borders_interest_border_id_fk"
-  add_foreign_key "user_borders", "users", :name => "user_borders_user_id_fk"
+  add_foreign_key "user_borders", "interest_borders", name: "user_borders_interest_border_id_fk"
+  add_foreign_key "user_borders", "users", name: "user_borders_user_id_fk"
 
-  add_foreign_key "user_follows", "users", :name => "user_follows_followed_id_fk", :column => "followed_id"
-  add_foreign_key "user_follows", "users", :name => "user_follows_follower_id_fk", :column => "follower_id"
+  add_foreign_key "user_follows", "users", name: "user_follows_followed_id_fk", column: "followed_id"
+  add_foreign_key "user_follows", "users", name: "user_follows_follower_id_fk", column: "follower_id"
 
-  add_foreign_key "user_likes", "users", :name => "user_likes_user_id_fk"
+  add_foreign_key "user_likes", "users", name: "user_likes_user_id_fk"
 
-  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_birth_place_id_fk", :column => "birth_place_id"
-  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_home_place_id_fk", :column => "home_place_id"
-  add_foreign_key "user_sensitives", "interest_borders", :name => "user_sensitives_residence_place_id_fk", :column => "residence_place_id"
-  add_foreign_key "user_sensitives", "sys_document_types", :name => "user_sensitives_sys_document_type_id_fk"
-  add_foreign_key "user_sensitives", "users", :name => "user_sensitives_user_id_fk"
+  add_foreign_key "user_sensitives", "interest_borders", name: "user_sensitives_birth_place_id_fk", column: "birth_place_id"
+  add_foreign_key "user_sensitives", "interest_borders", name: "user_sensitives_home_place_id_fk", column: "home_place_id"
+  add_foreign_key "user_sensitives", "interest_borders", name: "user_sensitives_residence_place_id_fk", column: "residence_place_id"
+  add_foreign_key "user_sensitives", "sys_document_types", name: "user_sensitives_sys_document_type_id_fk"
+  add_foreign_key "user_sensitives", "users", name: "user_sensitives_user_id_fk"
 
-  add_foreign_key "user_votes", "users", :name => "user_votes_user_id_fk"
-  add_foreign_key "user_votes", "vote_types", :name => "user_votes_vote_type_id_fk"
+  add_foreign_key "user_votes", "users", name: "user_votes_user_id_fk"
+  add_foreign_key "user_votes", "vote_types", name: "user_votes_vote_type_id_fk"
 
-  add_foreign_key "users", "images", :name => "users_image_id_fk"
-  add_foreign_key "users", "user_types", :name => "users_user_type_id_fk"
+  add_foreign_key "users", "images", name: "users_image_id_fk"
+  add_foreign_key "users", "user_types", name: "users_user_type_id_fk"
 
 end

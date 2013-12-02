@@ -22,10 +22,10 @@ end
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
-gem 'sunspot_rails'
+gem 'sunspot_rails', '2.0.0'
 
 group :development do
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '2.0.0'
   gem "better_errors"
 end
 
@@ -60,6 +60,9 @@ gem 'jquery-rails', '3.0.4'
 gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
 gem 'devise', '2.0.4'
+
+gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
+
 
 gem 'fb_graph'
 
@@ -121,7 +124,7 @@ gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize3'
+gem 'globalize', '~> 3.0.0'
 
 gem 'sanitize'
 
@@ -156,3 +159,5 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'activerecord-postgres-array'
+
+gem 'paper_trail', '~> 2.7.2'

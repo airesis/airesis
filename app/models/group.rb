@@ -2,6 +2,8 @@ class Group < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged,:history]
 
+  has_paper_trail :class_name => 'GroupVersion'
+
   include ImageHelper
   REQ_BY_PORTAVOCE = 'p'
   REQ_BY_VOTE = 'v'
@@ -26,7 +28,6 @@ class Group < ActiveRecord::Base
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
-
   has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
@@ -48,7 +49,6 @@ class Group < ActiveRecord::Base
 
   has_many :action_abilitations, :class_name => 'ActionAbilitation'
 
-
   has_many :group_elections, :class_name => 'GroupElection'
   #elezioni a cui partecipa
   has_many :elections, :through => :group_elections, :class_name => 'Election'
@@ -63,7 +63,6 @@ class Group < ActiveRecord::Base
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
   has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum, order: 'seq nulls last, quorums.id'
 
-
   has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
@@ -74,7 +73,6 @@ class Group < ActiveRecord::Base
 
   has_many :group_tags, :dependent => :destroy
   has_many :tags, :through => :group_tags, :class_name => 'Tag'
-
 
   #forum
   has_many :forums, :class_name => 'Frm::Forum', foreign_key: 'group_id'
