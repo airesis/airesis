@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :forem_admin?
 
-  def forem_admin_or_moderator?( forum)
+  def forem_admin_or_moderator?(forum)
     can? :update, forum.group || forum.moderator?(current_user)
   end
 
