@@ -746,18 +746,20 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def facebook_send_message
     @friend_id = params[:message][:friend_id]
-    body = params[:message][:body] + "\n" + params[:message][:url]
-    id = "-#{current_user.authentications.find_by_provider(Authentication::FACEBOOK).uid}@chat.facebook.com"
-    to = "-#{@friend_id}@chat.facebook.com"
-    subject = 'Message from Airesis'
-    message = Jabber::Message.new to, body
-    message.subject = subject
 
-#    client = Jabber::Client.new Jabber::JID.new(id)
-#    client.connect
-#    client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, FACEBOOK_APP_ID, current_user.authentications.find_by_provider(Authentication::FACEBOOK).token, FACEBOOK_APP_SECRET), nil)
-#    client.send message
-#    client.close
+    unless Rails.env == 'development'
+      body = params[:message][:body] + "\n" + params[:message][:url]
+      id = "-#{current_user.authentications.find_by_provider(Authentication::FACEBOOK).uid}@chat.facebook.com"
+      to = "-#{@friend_id}@chat.facebook.com"
+      subject = 'Message from Airesis'
+      message = Jabber::Message.new to, body
+      message.subject = subject
+      client = Jabber::Client.new Jabber::JID.new(id)
+      client.connect
+      client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, FACEBOOK_APP_ID, current_user.authentications.find_by_provider(Authentication::FACEBOOK).token, FACEBOOK_APP_SECRET), nil)
+      client.send message
+      client.close
+    end
     respond_to do |format|
       format.js
     end
