@@ -97,7 +97,7 @@ it-IT:
         other: "%{count} giorni"
       months:
         one: "1 mese"
-        other: "%{count} months"
+        other: "%{count} mesi"
   datetime:
     added_on: "il %{date}"
     distance_in_words:

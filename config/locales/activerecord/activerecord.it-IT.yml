@@ -87,17 +87,21 @@ it-IT:
         name_title: "Inserire un titolo conciso, esplicativo"
         description: "Descrizione / Breve spiegazione"
         description_title: "Una descrizione per far comprendere le finalità di questo quorum"
-        days_m: Giorni
-        hours_m: Ore
-        minutes_m: Minuti
-        percentage: Partecipanti (percentuale)
+        minutes: 'Durata dibattito'
+        days_m: 'Giorni'
+        hours_m: 'Ore'
+        minutes_m: 'Minuti'
+        percentage: 'Quorum (partecipanti)'
         percentage_title: "Numero minimo di partecipanti alla discussione in percentuale rispetto al numero di partecipanti al gruppo"
-        good_score: Quorum (percentuale)
+        good_score: 'Maturità'
         good_score_title: "Maturità da raggiungere per portare in votazione la proposta"
         bad_score: Quorum negativo (percentuale)
         bad_score_title: "Maturità al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
         condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
+        vote_minutes: 'Durata votazione'
+        vote_percenntage: 'Quorum (votanti)'
+        vote_good_score: 'Gradimento'
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'

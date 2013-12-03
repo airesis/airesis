@@ -32,12 +32,16 @@ Airesis::Application.routes.draw do
 
   #common routes both for main app and subdomains
 
+
   resources :quorums do
     collection do
       get :dates
       get :help
     end
   end
+
+  resources :best_quorums, :controller => 'quorums'
+  resources :old_quorums, :controller => 'quorums'
 
   resources :proposals do
     collection do
@@ -227,6 +231,10 @@ Airesis::Application.routes.draw do
         post :change_status
       end
     end
+
+
+    resources :best_quorums, :controller => 'quorums'
+    resources :old_quorums, :controller => 'quorums'
 
     resources :documents do
       collection do
@@ -484,6 +492,10 @@ Airesis::Application.routes.draw do
           post :change_status
         end
       end
+
+
+      resources :best_quorums, :controller => 'quorums'
+      resources :old_quorums, :controller => 'quorums'
 
       resources :documents do
         collection do

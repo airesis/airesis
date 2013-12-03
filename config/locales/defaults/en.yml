@@ -225,7 +225,7 @@ en:
           title: "New quorum"
           simple: "Simple"
           advanced: "Advanced"
-          time_description: "For the proposal to go to the voting phase, it must remain in debate for at least %{days} %{hours} %{minutes}"
+          time_description: "The debate last %{days} %{hours} %{minutes}"
           simple_percentage_description: "Then it goes to the voting phase if its maturity is superior to %{good_score}%."
           advanced_participation_description: "%{and_or} it must be evaluated by almost %{participants_percentage}% of the members that have the right to do so (that is %{current_number} out of %{total_number} at the moment)."
           advanced_percentage_description: "If however the maturity is inferior to %{bad_score}% the proposal is abandoned."

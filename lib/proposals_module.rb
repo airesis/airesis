@@ -7,117 +7,14 @@ module ProposalsModule
   def check_phase(proposal, force_end=false)
     return unless proposal.in_valutation? #if the proposal already passed this phase skip this check
     quorum = proposal.quorum
-    passed = false
-    timepassed = (!quorum.ends_at || Time.now > quorum.ends_at)
-    vpassed = (!quorum.valutations || proposal.valutations >= quorum.valutations)
-                                          #if both parameters were defined
-    if quorum.ends_at && quorum.valutations
-      if quorum.or?
-        passed = (timepassed || vpassed)
-      else
-        quorum.and?
-        passed = (timepassed && vpassed)
-      end
-    else #we just need one of two (one will be certainly true)
-      passed = (timepassed && vpassed)
-    end
-    passed = passed || force_end #maybe we want to force the end of the proposal
-
-    if passed #if we have to move one
-      if proposal.rank >= quorum.good_score #and we passed the debate quorum
-        if proposal.vote_defined #the user already choosed the votation period! that's great, we can just sit along the river waiting for it to begin
-          proposal.proposal_state_id = ProposalState::WAIT
-          #automatically create
-          if proposal.vote_event_id
-            @event = Event.find(proposal.vote_event_id)
-          else
-            event_p = {
-                event_type_id: EventType::VOTAZIONE,
-                title: "Votazione #{proposal.title}",
-                starttime: proposal.vote_starts_at,
-                endtime: proposal.vote_ends_at,
-                description: "Votazione #{proposal.title}"
-            }
-            if proposal.private?
-              @event = proposal.presentation_groups.first.events.create!(event_p)
-            else
-              @event = Event.create!(event_p)
-            end
-
-            #fai partire il timer per far scadere la proposta
-            Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-            Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
-          end
-          proposal.vote_period = @event
-        else
-          proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
-          proposal.private? ?
-              notify_proposal_ready_for_vote(proposal, proposal.presentation_groups.first) :
-              notify_proposal_ready_for_vote(proposal)
-
-        end
-
-        #remove the timer if is still there
-        if quorum.minutes
-          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
-        end
-      elsif proposal.rank < quorum.bad_score #if we have not passed the debate quorum abandon it
-        abandon(proposal)
-
-        proposal.private? ?
-            notify_proposal_abandoned(proposal, proposal.presentation_groups.first) :
-            notify_proposal_abandoned(proposal)
-
-        #remove the timer if is still there
-        if quorum.minutes
-          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
-        end
-      else #if we are between bad and good score just do nothing...continue the debate
-
-      end
-
-      proposal.save
-      proposal.reload
-    end
+    quorum.check_phase(force_end)
   end
-
 
   def close_vote_phase(proposal)
-    if proposal.is_schulze?
-      vote_data_schulze = proposal.schulze_votes
-      Proposal.transaction do
-        votesstring = ""; #stringa da passare alla libreria schulze_vote per calcolare il punteggio
-        vote_data_schulze.each do |vote|
-          #in ogni riga inserisco la mappa del voto ed eventualmente il numero se più di un utente ha espresso la stessa preferenza
-          vote.count > 1 ? votesstring += "#{vote.count}=#{vote.preferences}\n" : votesstring += "#{vote.preferences}\n"
-        end
-        num_solutions = proposal.solutions.count
-        vs = SchulzeBasic.do votesstring, num_solutions
-        solutions_sorted = proposal.solutions.sort { |a, b| a.id <=> b.id } #ordino le soluzioni secondo l'id crescente (così come vengono restituiti dalla libreria)
-        solutions_sorted.each_with_index do |c, i|
-          c.schulze_score = vs.ranks[i].to_i
-          c.save!
-        end
-        proposal.proposal_state_id = ProposalState::ACCEPTED
-      end #fine transazione
-    else
-      vote_data = proposal.vote
-      positive = vote_data.positive
-      negative = vote_data.negative
-      neutral = vote_data.neutral
-      votes = positive + negative + neutral
-      if positive > negative #se ha avuto più voti positivi allora diventa ACCETTATA
-        proposal.proposal_state_id = ProposalState::ACCEPTED
-      elsif positive <= negative #se ne ha di più negativi allora diventa RESPINTA
-        proposal.proposal_state_id = ProposalState::REJECTED
-      end
-    end
-    proposal.save!
-    proposal.private ?
-        notify_proposal_voted(proposal, proposal.presentation_groups.first, proposal.presentation_areas.first) :
-        notify_proposal_voted(proposal)
-  end
+    quorum = proposal.quorum
+    quorum.close_vote_phase
 
+  end
 
   def abandon(proposal)
     proposal.proposal_state_id = ProposalState::ABANDONED

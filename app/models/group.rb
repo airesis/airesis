@@ -189,13 +189,22 @@ class Group < ActiveRecord::Base
     self.private
   end
 
-  #utenti che possono votare
+  #utenti che possono partecipare alle proposte
+  def count_proposals_partecipants
+    self.partecipants.count(
+        :joins => "join partecipation_roles
+               on group_partecipations.partecipation_role_id = partecipation_roles.id
+               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
+        :conditions => "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+  end
+
+  #utenti che possono votare le proposte
   def count_voter_partecipants
     self.partecipants.count(
         :joins => "join partecipation_roles
                on group_partecipations.partecipation_role_id = partecipation_roles.id
                left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-        :conditions => "(action_abilitations.group_action_id = 7 AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+        :conditions => "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
   end
 
   #utenti che possono eseguire un'azione

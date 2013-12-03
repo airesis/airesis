@@ -48,13 +48,22 @@ class GroupArea < ActiveRecord::Base
   end
 
 
-  #utenti che possono votare
+  #utenti che possono partecipare alle proposte
+  def count_proposals_partecipants
+    self.partecipants.count(
+        :joins => "join area_roles
+               on area_partecipations.area_role_id = area_roles.id
+               left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
+        :conditions => "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
+  end
+
+  #utenti che possono votare le proposte
   def count_voter_partecipants
     self.partecipants.count(
         :joins => "join area_roles
                on area_partecipations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        :conditions => "(area_action_abilitations.group_action_id = 7 AND area_action_abilitations.group_area_id = #{self.id})")
+        :conditions => "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND area_action_abilitations.group_area_id = #{self.id})")
   end
 
   #utenti che possono eseguire un'azione

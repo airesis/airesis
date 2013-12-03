@@ -14,10 +14,12 @@ class QuorumsController < ApplicationController
   layout :choose_layout
 
   def new
-    @quorum = Quorum.new
-    @partecipants_count = @group.count_voter_partecipants #_partecipants.count
+    @quorum = BestQuorum.new({:percentage => 0, :good_score => 20, :vote_percentage => 0, :vote_good_score => 50})
+    @partecipants_count = @group.count_proposals_partecipants
+    @vote_partecipants_count = @group.count_voter_partecipants
     respond_to do |format|
       format.js
+      format.html
     end
   end
 
@@ -54,7 +56,8 @@ class QuorumsController < ApplicationController
   end
 
   def edit
-    @partecipants_count = @group.count_voter_partecipants
+    @partecipants_count = @group.count_proposals_partecipants
+    @vote_partecipants_count = @group.count_voter_partecipants
   end
 
 

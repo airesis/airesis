@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202103503) do
+ActiveRecord::Schema.define(:version => 20131203115707) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1030,22 +1030,38 @@ ActiveRecord::Schema.define(:version => 20131202103503) do
   add_index "provincias", ["stato_id"], :name => "index_provincias_on_stato_id"
 
   create_table "quorums", :force => true do |t|
-    t.string   "name",        :limit => 100,                     :null => false
-    t.string   "description", :limit => 4000
+    t.string   "name",              :limit => 100,                     :null => false
+    t.string   "description",       :limit => 4000
     t.integer  "percentage"
     t.integer  "valutations"
     t.integer  "minutes"
-    t.string   "condition",   :limit => 5
-    t.integer  "bad_score",                                      :null => false
-    t.integer  "good_score",                                     :null => false
-    t.boolean  "active",                      :default => true,  :null => false
-    t.boolean  "public",                      :default => false, :null => false
+    t.string   "condition",         :limit => 5
+    t.integer  "bad_score",                                            :null => false
+    t.integer  "good_score",                                           :null => false
+    t.boolean  "active",                            :default => true,  :null => false
+    t.boolean  "public",                            :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "started_at"
     t.datetime "ends_at"
     t.integer  "seq"
     t.integer  "quorum_id"
+    t.integer  "vote_minutes"
+    t.integer  "vote_percentage"
+    t.integer  "vote_valutations"
+    t.integer  "vote_good_score"
+    t.datetime "vote_start_at"
+    t.datetime "vote_ends_at"
+    t.string   "t_percentage",      :limit => 1
+    t.string   "t_minutes",         :limit => 1
+    t.string   "t_good_score",      :limit => 1
+    t.string   "t_vote_percentage", :limit => 1
+    t.string   "t_vote_minutes",    :limit => 1
+    t.string   "t_vote_good_score", :limit => 1
+    t.string   "type"
+    t.boolean  "removed",                           :default => false
+    t.integer  "old_bad_score"
+    t.string   "old_condition",     :limit => 5
   end
 
   create_table "ranking_types", :force => true do |t|

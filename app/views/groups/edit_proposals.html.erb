@@ -7,7 +7,7 @@
   <%= render :partial => 'groups/quorums_panel' %>
 </div>
 
-<%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_quorum_url(@group), :remote => true, :class => "btn blue newButton disable" %>
+<%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_best_quorum_url(@group), :remote => true, :class => "btn blue newButton disable" %>
 
 <div id="new_quorum_container" title="<%= t('pages.groups.edit_quorums.new_quorum.title') %>" style="display: none; font-size: 14px;">
 </div>
@@ -77,24 +77,6 @@
                 }
             });
         });
-
-        $('#quorum_table').dataTable({
-            "oLanguage": {
-                "sLengthMenu": "Mostra _MENU_ quorum per pagina",
-                "sSearch": "Cerca:",
-                "sZeroRecords": "Nessun quorum, spiacente..",
-                "sInfo": "Sto mostrando da _START_ a _END_ di _TOTAL_ quorum",
-                "sInfoEmpty": "Sto mostrando 0 quorum",
-                "sInfoFiltered": "(filtrati da un totale di _MAX_ quorum)",
-                "oPaginate": {
-                    "sPrevious": "Pagina precedente",
-                    "sNext": "Pagina successiva"
-                }
-            },
-            "aoColumns": [null, { "bSortable": false }]
-        });
-
-        $('#roles_table_wrapper label').css("font-weight", "normal").css("font-size", "12px");
     });
 
     function hideNewQuorumPanel() {
