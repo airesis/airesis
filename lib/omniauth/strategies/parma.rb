@@ -12,7 +12,7 @@ module OmniAuth
       DEFAULT_SCOPE = 'email'
 
       option :client_options, {
-          :site => 'http://oauth2.comune.parma.it',
+          :site => 'https://oauth2.comune.parma.it',
           :authorize_url => "/Authorization",
           :token_url => '/Token/OpenGet'
       }

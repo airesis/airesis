@@ -529,6 +529,11 @@ class User < ActiveRecord::Base
     @fb_user ||= Koala::Facebook::API.new(self.authentications.find_by_provider(Authentication::FACEBOOK).token) rescue nil
   end
 
+  def parma
+    @parma_user ||= Parma::API.new(self.authentications.find_by_provider(Authentication::PARMA).token) rescue nil
+  end
+
+
 
   def fullname
     return "#{self.name} #{self.surname}"
