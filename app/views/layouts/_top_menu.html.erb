@@ -1,31 +1,36 @@
 <div id="menu-top">
-  <div id="logo-airesis">
-    <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path, tabindex: 1 %>
-    <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small"), '#', tabindex: 1, id: 'logo1mini' %>
-  </div>
+  <div id="menu-top-left">
+    <div id="logo-airesis">
+      <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path, tabindex: 1 %>
+      <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small"), '#', tabindex: 1, id: 'logo1mini' %>
+    </div>
 
-  <% unless in_subdomain? %>
-      <div id="logo-but" tabindex="2">
-        <div style="margin:auto;text-align: center;margin-bottom: 10px;"><%= t('pages.header.groups_title') %></div>
-        <%= image_tag 'cur-tria.png' %>
-      </div>
-  <% end %>
+    <% unless in_subdomain? %>
+        <div id="logo-but" tabindex="2">
+          <div style="margin:auto;text-align: center;margin-bottom: 10px;"><%= t('pages.header.groups_title') %></div>
+          <%= image_tag 'cur-tria.png' %>
+        </div>
+    <% end %>
+  </div>
 
   <div class="sep1"></div>
   <div style="position:relative">
-      <%= yield :menu %>
+    <%= yield :menu %>
   </div>
-
 
   <div id="tolr"
        <% unless current_user %>class="not_logged"
        <% end %>>
     <% unless current_user %>
         <div id="inlog">
-          <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
-          <%= link_to t('pages.header.login'), '/users/sign_in', :class => "show-for-small" %>
-          -
-          <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
+          <% if in_subdomain? %>
+              <%= eval "#{@group.subdomain}_login" %>
+          <% else %>
+              <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
+              <%= link_to t('pages.header.login'), '/users/sign_in', :class => "show-for-small" %>
+              -
+              <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
+          <% end %>
         </div>
 
         <div id="login_panel" style="display:none;">

@@ -99,7 +99,7 @@ class Ability
         can_do_on_group?(user, group, 3)
       end
       can :accept_requests, Group do |group|
-        can_do_on_group?(user, group, 4)
+        can_do_on_group?(user, group, 4) && !group.disable_partecipation_requests
       end
       can :create_election, Group do |group|
         #controllo se può creare eventi in generale

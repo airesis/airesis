@@ -69,10 +69,11 @@
         <div id="partecipants_container" class="mybox">
           <%= render :partial => 'groups/partecipants_panel' %>
         </div>
-
+        <%unless @group.disable_partecipation_requests %>
         <div id="partecipation_requests_container">
         <%= render :partial => 'groups/partecipation_requests_panel' %>
         </div>
+        <%end%>
 
         <% voting = @group.partecipation_requests.voting
            if voting.size > 0 %>
@@ -91,16 +92,6 @@
         <% end %>
 
         <br/>
-        <!--
-     <h4>Al momento seguono il gruppo <%= @group.followers.count %> persone</h4>
-     <% if current_user
-                                                                                         follow = (@group.partecipants.include? current_user) || (@group.followers.include? current_user)
-        end
-        if !follow %>
-            <%= link_to 'Segui', {:action => "ask_for_follow", :controller => "groups", :id => @group.id}, :id => 'group_follow', :class => "buttonStyle littleText disableButton" %>
-            <br/>(notifiche non ancora attive, spiacente)
-     <% end %>
-        -->
 
         <% @mypartecipation = @group.group_partecipations.where(:user_id => current_user.id).first if current_user %>
         <% if @mypartecipation %>

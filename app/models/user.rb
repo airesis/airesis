@@ -396,7 +396,7 @@ class User < ActiveRecord::Base
 #gestisce l'azione di login tramite facebook
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] ##dati di facebook
-                                             #se è presente un account facebook per l'utente usa quello
+    #se è presente un account facebook per l'utente usa quello
     auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
     if auth
       user = auth.user #se ho trovato l'id dell'utente prendi lui
@@ -424,7 +424,7 @@ class User < ActiveRecord::Base
 #gestisce l'azione di login tramite linkedin
   def self.find_for_linkedin_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] ##dati di linkedin
-                                             #se è presente un account linkedin per l'utente usa quello
+    #se è presente un account linkedin per l'utente usa quello
     auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'])
     if auth
       user = auth.user #se ho trovato l'id dell'utente prendi lui
@@ -495,7 +495,7 @@ class User < ActiveRecord::Base
   end
 
 
-#gestisce l'azione di login tramite meetup
+  #gestisce l'azione di login tramite meetup
   def self.find_for_meetup(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] #dati di twitter
     auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'].to_s)
@@ -520,6 +520,42 @@ class User < ActiveRecord::Base
     end
   end
 
+  #gestisce l'azione di login tramite parma
+  def self.find_for_parma(access_token, signed_in_resource=nil)
+    data = access_token['info'] #dati di parma
+    auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'].to_s)
+    if auth
+      user = auth.user #se ho trovato l'id dell'utente prendi lui
+    end
+
+    if user
+      return user
+    else #crea un nuovo account parma
+
+      user = User.new(:name => data['first_name'].capitalize, :surname => data['last_name'].capitalize, :password => Devise.friendly_token[0, 20], :email => data['email'])
+      if data['verified']
+        certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+        group = Group.find_by_subdomain('parma')
+        user.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => 3)
+        user.group_partecipations.build(:group => group, :partecipation_role_id => group.partecipation_role_id)
+        user.user_type_id = UserType::CERTIFIED
+      else
+        user.user_type_id = UserType::AUTHENTICATED
+      end
+
+      user.sign_in_count = 0
+      user.build_authentication_provider(access_token)
+      user.confirm!
+      user.save!
+
+      #if data['verified']
+      #  UserSensitive.create!({name: user.name, surname: user.surname, tax_code: user.email, user_id: user.id})
+      #end
+
+      return user
+    end
+  end
+
 
   def build_authentication_provider(access_token)
     self.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token => (access_token['credentials']['token'] rescue nil))
@@ -532,7 +568,6 @@ class User < ActiveRecord::Base
   def parma
     @parma_user ||= Parma::API.new(self.authentications.find_by_provider(Authentication::PARMA).token) rescue nil
   end
-
 
 
   def fullname
