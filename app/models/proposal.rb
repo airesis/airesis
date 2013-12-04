@@ -65,7 +65,8 @@ class Proposal < ActiveRecord::Base
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
-  has_many :proposal_alerts, :class_name => 'ProposalAlert'
+  has_many :proposal_alerts, :class_name => 'ProposalAlert', dependent: :destroy
+  has_many :blocked_proposal_alerts, :class_name => 'BlockedProposalAlert', dependent: :destroy
 
   #validation
   validates_presence_of :title, :message => "obbligatorio" #TODO:I18n
