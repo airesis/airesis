@@ -236,20 +236,21 @@ class User < ActiveRecord::Base
       user.subdomain = session[:subdomain] if (session[:subdomain] && !session[:subdomain].blank?)
       user.original_sys_locale_id =user.sys_locale_id = SysLocale.find_by_key(I18n.locale).id
 
-      fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"]
-      data = fdata["extra"]["raw_info"] if fdata
+      fdata = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data']
+      data = fdata["extra"]["raw_info"] || fdata["info"] if fdata #raw-info for google and facebook and linkedin, info for parma
       if data
         user.email = data["email"]
         if fdata['provider'] == Authentication::LINKEDIN
           user.linkedin_page_url = data['publicProfileUrl']
           user.email = data["emailAddress"]
-        elsif fdata['provider'] == Authentication::GOOGLE
-        elsif fdata['provider'] == Authentication::FACEBOOK
+        elsif fdata['provider'] == Authentication::GOOGLE #do nothing
+        elsif fdata['provider'] == Authentication::FACEBOOK #do nothing
+        elsif fdata['provider'] == Authentication::PARMA #do nothing
         end
-      elsif data = session[:user]
+      elsif data == session[:user] #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
-        if invite = session[:invite]
+        if invite = session[:invite] #if is by invitation
           group_invitation = GroupInvitation.find_by_token(invite[:token])
           if user.email == group_invitation.group_invitation_email.email
             user.skip_confirmation!
@@ -335,13 +336,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_provider(provider_name)
-    return self.authentications.where(:provider => provider_name).count > 0
-  end
 
-  def from_identity_provider?
-    return self.authentications.count > 0
-  end
 
   def has_ranked_proposal?(proposal_id)
     ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, proposal_id)
@@ -392,8 +387,135 @@ class User < ActiveRecord::Base
     self.group_partecipation_requests.find_by_group_id(group_id)
   end
 
+  def fullname
+    return "#{self.name} #{self.surname}"
+  end
 
-#gestisce l'azione di login tramite facebook
+
+  def to_param
+    "#{id}-#{self.fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
+
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(login) = :value OR lower(email) = :value", {:value => login.downcase}]).first
+    else
+      where(conditions).first
+    end
+  end
+
+  delegate :can?, :cannot?, :to => :ability
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
+
+  #forum methods
+  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
+  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
+  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
+  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
+
+
+  def can_read_forem_category?(category)
+    category.visible_outside || (category.group.partecipants.include? self)
+  end
+
+
+  def can_read_forem_forum?(forum)
+    forum.visible_outside || (forum.group.partecipants.include? self)
+  end
+
+
+  def can_create_forem_topics?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_reply_to_forem_topic?(topic)
+    topic.forum.group.partecipants.include? self
+  end
+
+
+  def can_edit_forem_posts?(forum)
+    forum.group.partecipants.include? self
+  end
+
+
+  def can_read_forem_topic?(topic)
+    !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
+  end
+
+  def auto_subscribe?
+    true
+  end
+
+
+  def can_moderate_forem_forum?(forum)
+    forum.moderator?(self)
+  end
+
+  def self.autocomplete(term)
+    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
+        limit(10).
+        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email, users.user_type_id").
+        order("users.surname desc, users.name desc")
+  end
+
+
+  def forem_moderate_posts?
+    false #todo
+  end
+
+  alias_method :forem_needs_moderation?, :forem_moderate_posts?
+
+  def forem_approved_to_post?
+    true
+  end
+
+  def forem_spammer?
+    #forem_state == 'spam'
+    false
+  end
+
+
+  def forem_admin?(group)
+    self.can? :update, group
+  end
+
+  def to_s
+    fullname
+  end
+
+
+
+
+  #authentication method
+  def has_provider(provider_name)
+    return self.authentications.where(:provider => provider_name).count > 0
+  end
+
+  def from_identity_provider?
+    return self.authentications.count > 0
+  end
+
+
+  def build_authentication_provider(access_token)
+    self.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token => (access_token['credentials']['token'] rescue nil))
+  end
+
+  def facebook
+    @fb_user ||= Koala::Facebook::API.new(self.authentications.find_by_provider(Authentication::FACEBOOK).token) rescue nil
+  end
+
+  def parma
+    @parma_user ||= Parma::API.new(self.authentications.find_by_provider(Authentication::PARMA).token) rescue nil
+  end
+
+  #gestisce l'azione di login tramite facebook
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info'] ##dati di facebook
     #se è presente un account facebook per l'utente usa quello
@@ -526,6 +648,8 @@ class User < ActiveRecord::Base
     auth = Authentication.find_by_provider_and_uid(access_token['provider'], access_token['uid'].to_s)
     if auth
       user = auth.user #se ho trovato l'id dell'utente prendi lui
+    else
+      user = User.find_by_email(data['email']) #altrimenti cercane uno con l'email uguale
     end
 
     if user
@@ -554,123 +678,6 @@ class User < ActiveRecord::Base
 
       return user
     end
-  end
-
-
-  def build_authentication_provider(access_token)
-    self.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token => (access_token['credentials']['token'] rescue nil))
-  end
-
-  def facebook
-    @fb_user ||= Koala::Facebook::API.new(self.authentications.find_by_provider(Authentication::FACEBOOK).token) rescue nil
-  end
-
-  def parma
-    @parma_user ||= Parma::API.new(self.authentications.find_by_provider(Authentication::PARMA).token) rescue nil
-  end
-
-
-  def fullname
-    return "#{self.name} #{self.surname}"
-  end
-
-
-  def to_param
-    "#{id}-#{self.fullname.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
-
-
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["lower(login) = :value OR lower(email) = :value", {:value => login.downcase}]).first
-    else
-      where(conditions).first
-    end
-  end
-
-  delegate :can?, :cannot?, :to => :ability
-
-  def ability
-    @ability ||= Ability.new(self)
-  end
-
-
-  #forum methods
-  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
-  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
-  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
-  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
-
-
-  def can_read_forem_category?(category)
-    category.visible_outside || (category.group.partecipants.include? self)
-  end
-
-
-  def can_read_forem_forum?(forum)
-    forum.visible_outside || (forum.group.partecipants.include? self)
-  end
-
-
-  def can_create_forem_topics?(forum)
-    forum.group.partecipants.include? self
-  end
-
-
-  def can_reply_to_forem_topic?(topic)
-    topic.forum.group.partecipants.include? self
-  end
-
-
-  def can_edit_forem_posts?(forum)
-    forum.group.partecipants.include? self
-  end
-
-
-  def can_read_forem_topic?(topic)
-    !topic.hidden? || forem_admin?(topic.forum.group) || (topic.user == self)
-  end
-
-  def auto_subscribe?
-    true
-  end
-
-
-  def can_moderate_forem_forum?(forum)
-    forum.moderator?(self)
-  end
-
-  def self.autocomplete(term)
-    where("lower(users.name) LIKE :term or lower(users.surname) LIKE :term", {term: "%#{term.downcase}%"}).
-        limit(10).
-        select("users.name, users.surname, users.id, users.blog_image_url, users.image_id, users.email, users.user_type_id").
-        order("users.surname desc, users.name desc")
-  end
-
-
-  def forem_moderate_posts?
-    false #todo
-  end
-
-  alias_method :forem_needs_moderation?, :forem_moderate_posts?
-
-  def forem_approved_to_post?
-    true
-  end
-
-  def forem_spammer?
-    #forem_state == 'spam'
-    false
-  end
-
-
-  def forem_admin?(group)
-    self.can? :update, group
-  end
-
-  def to_s
-    fullname
   end
 
 
