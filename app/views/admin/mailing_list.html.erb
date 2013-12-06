@@ -1,17 +1,18 @@
 Elenco mailing list disponibili:
-<ul>
-<%Dir.entries("app/views/maktoub/newsletters").each do |file|%>
+
+<%Dir.entries("app/views/maktoub/newsletters").sort{|a,b| File.stat("app/views/maktoub/newsletters/#{b}").mtime <=> File.stat("app/views/maktoub/newsletters/#{a}").mtime}.each do |file|%>
     <%unless file == "." || file == ".." %>
-        <li>
-          <%= file %>
+        <div class="panel">
+
           <%=form_for 'mail', :url => {:action => "send_newsletter", :controller => "admin", :name => file} do |f| %>
+            <%= file %>
+            <%=f.label 'subject', 'Subject' %>
             <%=f.text_field 'subject' %>
             <%=f.hidden_field 'name', value: file.gsub(".html.erb","") %>
             <%=f.select 'receiver', {tutti: 'all', 'account non confermato' => 'not_confirmed', portavoce: 'portavoce', test: 'test', admin: 'admin'}%>
-          <%= f.submit  'Invia'%>
+          <%= f.submit  'Invia', class: 'btn'%>
           <%end%>
           <%= link_to 'Anteprima', "/maktoub/newsletter/" + (file.gsub(".html.erb",""))%>
-        </li>
+        </div>
     <%end%>
 <%end%>
-</ul>
