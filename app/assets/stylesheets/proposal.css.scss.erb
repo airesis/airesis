@@ -1424,9 +1424,20 @@ ul {
 ul.friends_list {
     list-style: none;
     margin: 2px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
     .fb_friend {
         .panel {
-            padding: 0.3em;
+            padding: 0.5em;
+            margin-bottom: 0.5em;
+            form {
+                margin: 0;
+                .fb_msg_area {
+                    width: 100%;
+                    height:64px;
+                }
+            }
         }
     }
 }
@@ -1435,7 +1446,7 @@ ul.friends_list {
     .row {
         padding: 15px 10px 15px 10px;
         [class*="column"] + [class*="column"]:last-child {
-            float:left;
+            float: left;
         }
     }
 }

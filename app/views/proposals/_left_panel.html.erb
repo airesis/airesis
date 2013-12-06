@@ -38,7 +38,7 @@
       <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
       <% if current_user && current_user.has_provider('facebook') %>
           <% if current_user.facebook && ((current_user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil)%>
-              <%= link_to 'Share with friends', facebook_share_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'sharefb' %>
+              <%= link_to 'Share with friends', facebook_share_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'zocial facebook', id: 'sharefb' %>
               <%if params[:share] %>
               <script type="text/javascript">
                   $(function () {
@@ -47,7 +47,7 @@
               </script>
               <%end%>
           <% else %>
-              <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'btn blue' %>
+              <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'zocial facebook' %>
           <% end %>
       <% end %>
     </div>
