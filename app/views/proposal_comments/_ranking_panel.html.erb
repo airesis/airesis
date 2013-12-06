@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if can? :partecipate, @proposal %>
     <% my_rank = current_user.comment_rank(comment) %>
     <% can_rank_again = current_user.can_rank_again_comment?(comment) %>
 

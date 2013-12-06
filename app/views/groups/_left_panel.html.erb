@@ -7,18 +7,25 @@
                  class="twitter-share-button"
                  data-lang="en"
                  data-count="vertical"
-                 data-text="Partecipa a questo gruppo su #<%= APP_SHORT_NAME %>">Tweet</a>
+                 data-text="<%="Look at this group on ##{APP_SHORT_NAME}"%>">Tweet</a>
 
               <g:plusone size="tall"></g:plusone>
 
 
-              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%=@group.class.class_name%>" data-likeable_id="<%=@group.id%>"></div>
+              <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @group.class.class_name %>" data-likeable_id="<%= @group.id %>"></div>
 
+              <h4><%= t('pages.groups.show.short_url').upcase %></h4>
+
+              <div class="mycont">
+
+                <%= link_to group_url(@group).gsub('/groups', ''), group_url(@group).gsub('/groups', '') %>
+              </div>
             </div>
         <% end %>
     <% end %>
 
     <div class="mybox">
+
       <a href="#" onclick="openRulesModal();return false;" class="btn notesButton"><%= t('pages.groups.show.rules_button') %></a>
 
 
@@ -26,15 +33,17 @@
         <% if @group.rule_book && !@group.rule_book.empty? %>
             <%= raw @group.rule_book %>
         <% else %>
-            <div><%= t('pages.groups.show.rule_book_html')%>
+            <div><%= t('pages.groups.show.rule_book_html') %>
               <ul>
                 <li>Partecipazione:</li>
                 <% if @group.request_by_vote? %>
                     Quando un utente richiede di partecipare al gruppo, tutti gli altri partecipanti devono esprimere
-                    il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o meno. <!--TODO:il18n-->
+                    il loro parere entro X giorni, al termine dei quali viene determinato se l'utente può entrare o
+                    meno. <!--TODO:il18n-->
                 <% elsif @group.request_by_portavoce? %>
                     Quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce
-                    del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli
+                    del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti
+                    gli
                     effetti un partecipante del gruppo. <!--TODO:il18n-->
                 <% end %>
               </ul>
@@ -69,11 +78,11 @@
         <div id="partecipants_container" class="mybox">
           <%= render :partial => 'groups/partecipants_panel' %>
         </div>
-        <%unless @group.disable_partecipation_requests %>
-        <div id="partecipation_requests_container">
-        <%= render :partial => 'groups/partecipation_requests_panel' %>
-        </div>
-        <%end%>
+        <% unless @group.disable_partecipation_requests %>
+            <div id="partecipation_requests_container">
+              <%= render :partial => 'groups/partecipation_requests_panel' %>
+            </div>
+        <% end %>
 
         <% voting = @group.partecipation_requests.voting
            if voting.size > 0 %>
