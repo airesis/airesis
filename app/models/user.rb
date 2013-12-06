@@ -658,7 +658,7 @@ class User < ActiveRecord::Base
 
       user = User.new(:name => data['first_name'].capitalize, :surname => data['last_name'].capitalize, :password => Devise.friendly_token[0, 20], :email => data['email'])
       if data['verified']
-        certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+        #certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
         group = Group.find_by_subdomain('parma')
         user.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => 3)
         user.group_partecipations.build(:group => group, :partecipation_role_id => group.partecipation_role_id)
