@@ -24,7 +24,7 @@
     <% unless current_user %>
         <div id="inlog">
           <% if in_subdomain? %>
-              <%= eval "#{@group.subdomain}_login" %>
+              <%= eval "#{@group.subdomain}_login" if @group%>
           <% else %>
               <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
               <%= link_to t('pages.header.login'), '/users/sign_in', :class => "show-for-small" %>

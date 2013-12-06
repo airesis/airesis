@@ -208,14 +208,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to group_url(Group.find_by_subdomain('parma'))
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account registrato a tuo nome."
-          redirect_to new_user_session_path
+          redirect_to group_url(Group.find_by_subdomain('parma'))
         else
           session["devise.parma_data"] = request.env["omniauth.auth"]
           redirect_to confirm_credentials_users_url
         end
       else
         flash[:error] = "Account Parma non verificato."
-        redirect_to proposals_path
+        redirect_to group_url(Group.find_by_subdomain('parma'))
       end
     end
   end
