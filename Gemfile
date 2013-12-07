@@ -22,10 +22,10 @@ end
 #gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
-gem 'sunspot_rails'
+gem 'sunspot_rails', '2.0.0'
 
 group :development do
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '2.0.0'
   gem "better_errors"
 end
 
@@ -38,7 +38,7 @@ end
 
 #gem "omniauth", '1.0.3'
 
-gem 'omniauth-facebook', '1.5.0'
+gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
@@ -61,7 +61,11 @@ gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
 
 gem 'devise', '2.0.4'
 
-gem 'fb_graph'
+gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
+
+#gem 'fb_graph'
+gem 'koala', '~> 1.8.0rc1'
+gem 'xmpp4r_facebook'
 
 gem 'exception_notification', '2.6.1'
 
@@ -121,7 +125,7 @@ gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize3'
+gem 'globalize', '~> 3.0.0'
 
 gem 'sanitize'
 
@@ -156,3 +160,5 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'activerecord-postgres-array'
+
+gem 'paper_trail', '~> 2.7.2'

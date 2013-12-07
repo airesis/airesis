@@ -20,12 +20,16 @@
 
 
 
-      <% if user_signed_in? %>
-          <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
-      <% end %>
-      <% if !@partecipation_request %>
-          <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class => "btn blue editButton" %>
-      <% end %>
+    <% if user_signed_in? %>
+        <% @partecipation_request = current_user.has_asked_for_partecipation?(@group.id) %>
+    <% end %>
+    <% if !@partecipation_request %>
+        <% if @group.disable_partecipation_requests %>
+            <%= eval "#{@group.subdomain}_participation_request" %>
+        <% else %>
+            <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class => "btn blue editButton" %>
+        <% end %>
+    <% end %>
 
 
     <% @partecipants.each do |partecipant| %>

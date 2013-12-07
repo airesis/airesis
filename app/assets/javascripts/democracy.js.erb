@@ -36,13 +36,6 @@ $(function () {
 
     disegnaProgressBar();
 
-    if (window.location.hash) {
-        setTimeout(function () {
-            $(window.location.hash + " #commentcc").effect('highlight', {mode: 'show'}, 3000)
-        }, 500);
-    }
-
-
     if ($('.sticky-anchor').length > 0) {
         $(window).scroll(sticky_relocate);
         sticky_relocate();

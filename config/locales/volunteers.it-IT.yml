@@ -51,8 +51,8 @@ it-IT:
           <p>
             Riveste il ruolo di responsabile dei sistemi informativi per due grandi aziende metalmeccaniche appartenenti ad una holding internazionale operante nel settore automotive.
             Da sempre diviso tra informatica e scienze umane, è giornalista pubblicista e critico letterario.
-            Curatore del sito <a href=http://www.lordglenn.com target=blank>www.lordglenn.com</a>
-            (nonché giudice nell’omonimo concorso letterario dedicato agli animali), ha collaborato a siti internet e riviste culturali e di varia umanità (tra cui <a href=http://www.literary.it target=blank>www.literary.it</a>), nonché a volumi collettanei.
+            Curatore del sito <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a>
+            (nonché giudice nell’omonimo concorso letterario dedicato agli animali), ha collaborato a siti internet e riviste culturali e di varia umanità (tra cui <a href="http://www.literary.it" target="_blank">www.literary.it</a>), nonché a volumi collettanei.
             Ideatore dell’iperrelazionismo sensibile, costrutto filosofico in fieri, è autore del saggio "Wide Democracy, oltre la politica", sintesi di 3 anni di studi volti a realizzare un software di E-democracy certificato (rimasto allo stadio prototipale).<br/>
             Si è imbattuto nel progetto Airesis e ne è rimasto folgorato.
             Ha deciso così di devolvere il frutto delle proprie ricerche ed il suo tempo libero, partecipando al gruppo di sviluppo.
@@ -72,7 +72,7 @@ it-IT:
             Negli ultimi due anni ho lavorato a diversi progetti a distanza, creato un forte comunicazione e ho sempre
             raggiunto gli obiettivi concordati in termini di efficacia e tempistica.
             Per vedere il mio curriculum e i miei ultimi lavori vi invito a visitare il mio portale
-            - <a href=http://www.marcellokabora.com target=blank> www.marcellokabora.com</a>.
+            - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
           </p>
       i18n_area: "Area Internazionalizzazione"
       tolja_jacopo:

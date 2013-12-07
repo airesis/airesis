@@ -12,7 +12,7 @@ module OmniAuth
       DEFAULT_SCOPE = 'email'
 
       option :client_options, {
-          :site => 'http://oauth2.comune.parma.it',
+          :site => 'https://oauth2.comune.parma.it',
           :authorize_url => "/Authorization",
           :token_url => '/Token/OpenGet'
       }
@@ -32,36 +32,27 @@ module OmniAuth
       option :provider_ignores_state, true
 
       uid {
-        raw_info['id']
+        raw_info['email']
       }
 
       info do
-        prune!({
-                   'nickname' => raw_info['username'],
-                   'email' => raw_info['email'],
-                   'name' => raw_info['name'],
-                   'first_name' => raw_info['first_name'],
-                   'last_name' => raw_info['last_name'],
-                   'image' => image_url(uid, options),
-                   'description' => raw_info['bio'],
-                   'urls' => {
-                       'Facebook' => raw_info['link'],
-                       'Website' => raw_info['website']
-                   },
-                   'location' => (raw_info['location'] || {})['name'],
-                   'verified' => raw_info['verified']
-               })
+        {
+            'email' => raw_info['email'],
+            'first_name' => raw_info['nome'],
+            'last_name' => raw_info['cognome'],
+            'verified' => raw_info['residente'] || false
+        }
       end
 
       extra do
         hash = {}
         hash['raw_info'] = raw_info unless skip_info?
-        prune! hash
       end
 
       def raw_info
-        #@raw_info ||= access_token.get('/me', info_options).parsed || {} #todo
-        @raw_info
+        access_token.options[:mode] = :body
+        access_token.options[:param_name] = :token
+        @raw_info ||= access_token.post('/Cittadino/About').parsed
       end
 
       def request_phase

@@ -89,6 +89,8 @@ Airesis::Application.routes.draw do
       post :close_debate
       put :regenerate
       get :geocode
+      get :facebook_share
+      post :facebook_send_message
     end
   end
 
@@ -146,6 +148,8 @@ Airesis::Application.routes.draw do
   resources :comunes
 
   match 'elfinder' => 'elfinder#elfinder'
+
+  #match '/users/auth/facebook/setup', :to => 'users/facebook#setup'
 
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
     get '/users/sign_in', :to => 'devise/sessions#new'

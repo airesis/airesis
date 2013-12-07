@@ -1,0 +1,42 @@
+var toMove = $('.fb_friend[data-id=<%=@friend_id%>] img');
+toMove.css('top',toMove.offset().top);
+toMove.css('left',toMove.offset().left);
+toMove.css('position','absolute');
+toMove.css('z-index','9999999');
+toMove.detach();
+$('body').append(toMove);
+
+
+var in_row = 4;
+var row_space = 103;
+var col_space = 80;
+var top_offset = 15;
+var left_offset = 10;
+var added = parseInt($('#sent_friends').attr('data-added'));
+var column = parseInt(added%in_row);
+var row = parseInt(added/in_row);
+console.log('added: ' + added);
+console.log('column: ' + column);
+console.log('row: ' + row);
+var offset = $('#sent_friends').offset();
+toMove.animate({
+    top: offset.top + top_offset + row*col_space,
+    left: offset.left + left_offset + column*row_space
+},null,null,function() {
+    var toApp;
+    if (column == 0) {
+        toApp = $('<div class="row"></div>');
+        $('#sent_friends').append(toApp);
+    }
+    else {
+        toApp = $('#sent_friends .row:last');
+    }
+    var photo_cont = $('<div class="columns large-3"></div>');
+    toApp.append(photo_cont);
+    photo_cont.append(toMove);
+    toMove.css('position','');
+    toMove.css('left','');
+    toMove.css('top','');
+});
+$('#sent_friends').attr('data-added',added+1);
+$('.fb_friend[data-id=<%=@friend_id%>]').fadeOut();

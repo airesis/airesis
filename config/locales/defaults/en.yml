@@ -209,6 +209,7 @@ en:
           <p>When you participate in a group the posts your blog can be shown in the Wall of the group.</p>
           <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
           <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
+        short_url: "Short url"
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"

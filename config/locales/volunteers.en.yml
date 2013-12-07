@@ -49,7 +49,7 @@ en:
         title: "Analyst"
         content_html: |
           <p>
-            Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site <a href=http://www.lordglenn.com target=blank>www.lordglenn.com</a> (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including <a href=http://www.literary.it target=blank>www.literary.it</a>) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
+            Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a> (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including <a href="http://www.literary.it" target="_blank">www.literary.it</a>) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
             Accidentally landend in the Airesis project, he has been conquered by its main concept and philosophy.
             He decided to donate the fruit of his research and his free time, participating in the development group.
             His contribute focuses on analysis of functional logic and testing, but does not mind the ethical criticism and philosophical implications arising from the longer term evolutionary choices carried out ​​within the group.
@@ -65,7 +65,7 @@ en:
            I pay a lot of attention to detail and I know how to solve problems by means of specific research.
            I can handle stress very well and have good communication skills. Over the past two years I have worked on several projects at a distance,
            created a strong communication mood and always reaching targets agreed in terms of effectiveness and timing.
-           To see my curriculum vitae and my recent work I’d like to invite you to visit my website - <a href=http://www.marcellokabora.com target=blank> www.marcellokabora.com</a>.
+           To see my curriculum vitae and my recent work I’d like to invite you to visit my website - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
           </p>
       i18n_area: "Internationalization Area"
       tolja_jacopo:

@@ -27,9 +27,7 @@
             </p>
         <% end %>
 
-        <%= f.hidden_field :event_type_id %>
-      </div>
-      <div class="columns large-6 small-6">
+
 
         <%= f.label :starttime %>
 
@@ -43,38 +41,36 @@
             <%= f.check_box :all_day %>
             <%= t('activerecord.attributes.event.all_day') %>
         <% end %>
+
+        <%= f.hidden_field :event_type_id %>
+        <%= f.hidden_field :id, :value => @event.id %>
+        <%= f.hidden_field :commit_button, :value => "" %>
+      </div>
+
+      <div class="columns large-6 small-6">
+        <% if @event.is_incontro? %>
+        <%= f.fields_for :meeting, @meeting do |m| %>
+            <%= m.fields_for :place, @place do |p| %>
+                <div id="edit_luogo">
+                  <%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %>
+                  <%= p.text_field :comune_id, :onchange => "codeAddress('edit_luogo');", "data-pre" => [{:id => @event.place.comune.id, :name => @event.place.comune.description}].to_json %>
+                  <%= p.label :address %>
+                  <%= p.text_field :address, :onchange => "codeAddress('edit_luogo');" %>
+                  <%= p.hidden_field :latitude_original %>
+                  <%= p.hidden_field :longitude_original %>
+                  <%= p.hidden_field :latitude_center %>
+                  <%= p.hidden_field :longitude_center %>
+                  <%= p.hidden_field :zoom %>
+
+                  <div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
+                  <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+                </div>
+            <% end %>
+        <% end %>
+        <% end %>
+
       </div>
     </div>
-
-    <%= f.hidden_field :id, :value => @event.id %>
-    <%= f.hidden_field :commit_button, :value => "" %>
-
-    <% if @event.is_incontro? %>
-        <div class="row">
-          <div class="columns large-6 small-6">
-
-
-            <%= f.fields_for :meeting, @meeting do |m| %>
-                <%= m.fields_for :place, @place do |p| %>
-                    <div id="edit_luogo">
-                      <%= p.label :comune_id, t('activerecord.attributes.event.meeting.place.comune_id') %>
-                      <%= p.text_field :comune_id, :onchange => "codeAddress('edit_luogo');", "data-pre" => [{:id => @event.place.comune.id, :name => @event.place.comune.description}].to_json %>
-                      <%= p.label :address %>
-                      <%= p.text_field :address, :onchange => "codeAddress('edit_luogo');" %>
-                      <%= p.hidden_field :latitude_original %>
-                      <%= p.hidden_field :longitude_original %>
-                      <%= p.hidden_field :latitude_center %>
-                      <%= p.hidden_field :longitude_center %>
-                      <%= p.hidden_field :zoom %>
-
-                      <div id="edit_map_canvas" style="width: 320px; height: 320px;"></div>
-                      <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
-                    </div>
-                <% end %>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
 
     <div class="row">
       <div class="columns large-12 small-12">

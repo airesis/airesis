@@ -31,7 +31,7 @@ module Frm
     end
 
     def update
-      if @post.owner_or_admin?(current_user) && @post.update_attributes(params[:frm_post])
+      if @post.owner_or_moderator?(current_user) && @post.update_attributes(params[:frm_post])
         update_successful
       else
         update_failed
@@ -85,7 +85,7 @@ module Frm
     end
 
     def ensure_post_ownership!
-      unless @post.owner_or_admin? current_user
+      unless @post.owner_or_moderator? current_user
         flash[:alert] = t("frm.post.cannot_delete")
         redirect_to group_forum_topic_url(@group,@topic.forum, @topic) and return
       end

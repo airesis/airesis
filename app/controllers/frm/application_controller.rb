@@ -5,6 +5,12 @@ class Frm::ApplicationController < ApplicationController
 
   before_filter :load_group
 
-
+  protected
+  def load_group
+    super
+    if @group.disable_forums
+      head :forbidden
+    end
+  end
 
 end

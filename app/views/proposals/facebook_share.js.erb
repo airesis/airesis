@@ -1,0 +1,8 @@
+var container_ = $('<div id="facebook_share_container" title="<%=@page_title%>"></div>');
+container_.html("<%=j render 'facebook_share'%>");
+container_.dialog({ width: 800, height: 'auto', modal: true,
+    close : function(event, ui) {
+        container_.dialog('destroy');
+        container_.remove();
+    }});
+disegnaBottoni();

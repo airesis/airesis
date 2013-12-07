@@ -293,6 +293,7 @@ class ProposalCommentsController < ApplicationController
 
 
   def rank(rank_type)
+    authorize! :rank, @proposal_comment
     @my_ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(current_user.id, @proposal_comment.id)
     if @my_ranking
       @ranking = @my_ranking

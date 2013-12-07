@@ -1,6 +1,8 @@
 #encoding: utf-8
 class BlogPost < ActiveRecord::Base
 	include BlogKitModelHelper
+
+  has_paper_trail :class_name => 'BlogPostVersion'
 	
 	unloadable
 	
@@ -26,7 +28,6 @@ class BlogPost < ActiveRecord::Base
 	
 	before_save :check_published, :if => :not_resaving?
 	before_save :save_tags, :if => :not_resaving?
-	after_save :replace_blog_image_tags, :if => :not_resaving?
 
 	def tags_list
 		@tags_list ||= self.tags.map(&:text).join(', ')
@@ -65,31 +66,7 @@ class BlogPost < ActiveRecord::Base
 		!@resaving
 	end
 	
-	# For images that haven't been uploaded yet, they get a random image id
-	# with 'upload' infront of it.  We replace those with their new image
-	# id
-	def replace_blog_image_tags
-		@resaving = true
-		self.body.gsub!(/[{]blog_image:upload[0-9]+:[a-zA-Z]+[}]/) do |image_tag|
-			random_id, size = image_tag.scan(/upload([0-9]+)[:]([a-zA-Z]+)/).flatten
-			
-			new_id = random_id
-			
-			matching_image = self.blog_images.reject {|bi| !bi.random_id || bi.random_id != random_id }.first
-			
-			if matching_image
-				new_id = matching_image.id
-			end
-			
-			"{blog_image:#{new_id}:#{size}}"
-		end
-		
-		self.save
-		@resaving = false
-		
-		return true
-	end
-	
+
 	def check_published
 		if self.published_change && self.published_change == [false, true]
 			# Moved to published state, update published_on

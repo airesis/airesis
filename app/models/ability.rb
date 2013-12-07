@@ -99,7 +99,7 @@ class Ability
         can_do_on_group?(user, group, 3)
       end
       can :accept_requests, Group do |group|
-        can_do_on_group?(user, group, 4)
+        can_do_on_group?(user, group, 4) && !group.disable_partecipation_requests
       end
       can :create_election, Group do |group|
         #controllo se può creare eventi in generale
@@ -171,7 +171,10 @@ class Ability
       #  proposal.users.include? user
       #end
       can :destroy, ProposalComment do |comment|
-        (comment.user == user or comment.proposal.users.include? user) and ((Time.now - comment.created_at)/60) < 5
+        (comment.user == user) and ((Time.now - comment.created_at)/60) < 5
+      end
+      can :rank, ProposalComment do |comment|
+        can_partecipate_proposal?(user, comment.proposal)
       end
       can :show_tooltips, User do |fake|
         user.show_tooltips
