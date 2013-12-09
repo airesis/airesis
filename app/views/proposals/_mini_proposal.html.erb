@@ -16,7 +16,11 @@
         </div>
       </div>
 
-      <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+      <% if proposal.voting? || proposal.voted? %>
+          <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+      <% else %>
+          <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+      <% end %>
 
       <div class="clearboth"></div>
 

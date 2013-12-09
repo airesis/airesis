@@ -36,7 +36,7 @@ en:
       - Thu
       - Sat
     month_names:
-      - []
+      - nil
       - January
       - February
       - March
@@ -50,7 +50,7 @@ en:
       - November
       - December
     abbr_month_names:
-      - []
+      - nil
       - Jan
       - Feb
       - Mar

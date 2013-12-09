@@ -1115,7 +1115,7 @@ en-US:
       bad_score_explain_past: |
         If the proposal got a maturity over <b>%{good_score}%</b> it went to the voting phase. If however it got a rank below <b>%{bad_score}%</b>, it was abandoned.<br/>
         The debate continued if the rank remained between these two thresholds, regardless of time or the number of evaluations
-      until_date: "(%{date} at %{time})"
+      until_date: "(until %{date})"
       help_content:
         description_html: |
           <h3>What is a quorum?</h3>

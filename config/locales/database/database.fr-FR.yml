@@ -6,7 +6,7 @@ fr:
       en:
         description: Anglais
       en-US:
-        description: Américain
+        description: Anglais (États-Unis)
       fr:
         description: Français
       es-ES:
@@ -49,7 +49,7 @@ fr:
       STREAM_POST:
         description: Poster sur le Mur du Groupe
       CREATE_EVENT:
-        description: Créer des événements et des votes
+        description: Créer des Rendez-vous
       PROPOSAL:
         description: Soutenir les propositions au nom du groupe
       REQUEST_ACCEPT:
@@ -68,6 +68,8 @@ fr:
         description: Gérer les documents
       PROPOSAL_VOTE:
         description: Voter pour les propositions
+      PROPOSAL_DATE:
+        description: Créer des votes
     notification_categories:
       MYPROP:
         description: Propositions que je rédige
@@ -82,110 +84,130 @@ fr:
     notification_types:
       new_public_events:
         description: Nouveaux évenements publics
-        email_subject: Il y a un nouvel événement public
-        message: 'Nouvel événement public : <b>%{event}</b>'
+        email_subject: "Nouvel événement public : %{event}"
+        message: "Nouvel événement public : <b>%{event}</b>"
       new_events:
         description: "Nouveaux messages d'un utilisateur que je suis"
-        email_subject: Il y a un nouvel événement
-        message: 'Nouvel événement <b>%{event}</b> dans le groupe <b>%{group}</b>'
+        email_subject: "Nouvel événement : %{event}"
+        message: "Nouvel événement <b>%{event}</b> dans le groupe <b>%{group}</b>"
       new_posts_user_follow:
         description: "Nouveaux messages d'un utilisateur que je suis"
         email_subject: Il y a un nouveau message
-        message: '%{user} a ajouté un nouveau message dans son blog <b>%{blog}</b>'
+        message: "%{user} a ajouté un nouveau message dans son blog <b>%{blog}</b>"
       new_valutation_mine:
         description: Nouvelle évaluation à une de mes propositions
-        email_subject: '%{title} - Nouvelle évaluation'
-        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
+        email_subject: "%{title} - Nouvelle évaluation"
+        message: "Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation"
       new_valutation:
         description: Nouvelle évaluation à une proposition à laquelle je participe
-        email_subject: '%{title} - Nouvelle évaluation'
-        message: 'Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation'
+        email_subject: "%{title} - Nouvelle évaluation"
+        message: "Votre proposition <b>%{title}</b> a reçu une nouvelle évaluation"
       available_author:
         description: "Utilisateur disponible pour devenir éditeur d'une proposition"
-        email_subject: '%{title} - Nouveaux éditeurs disponibles'
-        message: '%{user}  est disponible à rédiger la proposition <b>%{title}</b>'
+        email_subject: "%{title} - Nouveaux éditeurs disponibles"
+        message: "%{user}  est disponible à rédiger la proposition <b>%{title}</b>"
       author_accepted:
         description: "Acceptation en tant qu'éditeur d'une proposition"
-        email_subject: '%{title} - Vous êtes maintenant un de ses éditeurs !'
+        email_subject: "%{title} - Vous êtes maintenant un de ses éditeurs !"
         message: "Vous êtes maintenant éditeur de la proposition <b>%{title}</b>. <br/>N'oubliez pas qu'en tant qu'éditeur, vous devrez prendre en compte les contributions d'autres utilisateurs et améliorer le texte en conséquence<br/>"
       new_authors:
         description: Nouveaux éditeurs de propositions
-        email_subject: '%{title} - Nouveaux éditeurs'
-        message: '<b>%{user}</b> est un éditeur de la proposition <b>%{title}</b>'
+        email_subject: "%{title} - Nouveaux éditeurs"
+        message: "<b>%{user}</b> est un éditeur de la proposition <b>%{title}</b>"
       unintegrated_contribute:
         description: Des contributions sont remises en débat
-        email_subject: '%{proposal} - Contribution remise en débat'
-        message: 'Une contribution que vous avez intégré dans la proposition <b>%{proposal}</b> a été remise en débat'
+        email_subject: "%{proposal} - Contribution remise en débat"
+        message: "Une contribution que vous avez intégré dans la proposition <b>%{proposal}</b> a été remise en débat"
       new_contributes:
         description: Nouvelles contributions et commentaires aux propositions auxquelles je participe
-        email_subject: '%{title} - nouvelle contribution'
-        message: '<b>%{name}</b> a ajouté une nouvelle contribution à la proposition <b>%{title}</b>'
+        email_subject: "%{title} - nouvelle contribution"
+        message: "<b>%{name}</b> a ajouté une nouvelle contribution à la proposition <b>%{title}</b>"
       text_update:
         description: "Mise à jour du texte d'une proposition à laquelle je participe"
-        email_subject: '%{title} - Le texte a été modifié'
-        message: 'La proposition <b>%{title}</b> a été mise à jour'
+        email_subject: "%{title} - Le texte a été modifié"
+        message: "La proposition <b>%{title}</b> a été mise à jour"
       new_contributes_mine:
         description: Nouvelles contributions à mes propositions
-        email_subject: '%{title} - Nouvelle contribution'
-        message: '<b>%{name}</b> a ajouté une contribution à votre proposition <b>%{title}</b>'
+        email_subject: "%{title} - Nouvelle contribution"
+        message: "<b>%{name}</b> a ajouté une contribution à votre proposition <b>%{title}</b>"
       change_status:
         description: "Changement de statut d'une proposition à laquelle je participe"
         email_subject:
-          wait: '%{title} - Choisissez la date du vote'
-          waiting_date: '%{title} - La date du vote a été choisie'
-          in_vote: '%{title} - VENEZ ET VOTEZ !'
-          abandoned: "%{title}</b> n'a pas été débatue"
-          rejected: '%{title} a été rejetée'
+          wait: "%{title} - Choisissez la date du vote"
+          waiting_date: "%{title} - La date du vote a été choisie"
+          in_vote: "%{title} - VENEZ ET VOTEZ !"
+          abandoned: "%{title} n'a pas été débattu"
+          rejected: "%{title} a été rejetée"
+          voted: "%{title} - Le vote est terminé"
+          24_hours: "Le débat sur %{title} se termine demain !"
+          1_hour: "Le débat sur %{title} se termine dans une heure !"
+          24_hours_vote: "Le vote sur %{title} se termine demain !"
+          1_hour_vote: "Le vote sur %{title} se termine dans une heure !"
         message:
-          waiting_date: '%{name} a choisi la date du vote pour la proposition <b>%{title}</b>'
-          in_vote: 'La proposition <b>%{title}</b> est maintenant en votation !'
+          waiting_date: "%{name} a choisi la date du vote pour la proposition <b>%{title}</b>"
+          in_vote: "La proposition <b>%{title}</b> est maintenant en votation !"
           abandoned: "La proposition <b>%{title}</b> n'a pas passé le débat et a été abandonnée"
-          rejected: 'La proposition <b>%{title}</b> a été rejetée par les participants'
+          rejected: "La proposition <b>%{title}</b> a été rejetée par les participants"
+          voted: "%{title} - Vote terminé"
+          24_hours: "Le débat sur <b>%{title}</b> se termine demain !"
+          1_hour: "Le débat sur <b>%{title}</b> se termine dans une heure !"
+          24_hours_vote: "Le vote sur <b>%{title}</b> se termine demain !"
+          1_hour_vote: "Le vote sur <b>%{title}</b> se termine dans une heure !"
       change_status_mine:
         description: Le statut de mes propositions a changé
         email_subject:
-          wait: '%{title} - Choisissez la date du vote'
-          waiting_date: '%{title} - La date du vote a été choisie'
-          in_vote: '%{title} - VENEZ ET VOTEZ!'
-          abandoned: "%{title}</b> n'a pas été débatue"
-          rejected: '%{title} a été rejetée'
+          wait: "%{title} - Choisissez la date du vote"
+          waiting_date: "%{title} - La date du vote a été choisie"
+          in_vote: "%{title} - VENEZ ET VOTEZ!"
+          abandoned: "%{title} n'a pas été débattu"
+          rejected: "%{title} a été rejetée"
+          voted: "%{title} - Vote terminé"
+          24_hours: "Le débat sur %{title} se termine demain!"
+          1_hour: "Le débat sur %{title} se termine dans une heure!"
+          24_hours_vote: "Le vote sur %{title} se termine demain!"
+          1_hour_vote: "Le vote sur %{title} se termine dans une heure!"
         message:
-          wait: 'Votre proposition <b>%{title}</b> a passé la phase de discussion et attend maintenant que vous choisissiez la date du vote'
-          waiting_date: '%{name} a choisi la date du vote pour la proposition <b>%{title}</b>'
-          in_vote: 'Votre proposition <b>%{title}</b> est maintenant en votation !'
+          wait: "Votre proposition <b>%{title}</b> a passé la phase de discussion et attend maintenant que vous choisissiez la date du vote"
+          waiting_date: "%{name} a choisi la date du vote pour la proposition <b>%{title}</b>"
+          in_vote: "Votre proposition <b>%{title}</b> est maintenant en votation !"
           abandoned: "Votre proposition <b>%{title}</b> n'a pas passé le débat et a été abandonnée. Désolé"
-          rejected: 'Votre proposition <b>%{title}</b> a été rejetée par les participants. Désolé'
+          rejected: "Votre proposition <b>%{title}</b> a été rejetée par les participants. Désolé"
+          voted: "<b>%{title}</b> - Le vote est terminé"
+          24_hours: "Le débat sur <b>%{title}</b> se termine demain!"
+          1_hour: "Le débat sur <b>%{title}</b> se termine dans une heure!"
+          24_hours_vote: "Le vote sur <b>%{title}</b> se termine demain!"
+          1_hour_vote: "Le vote sur <b>%{title}</b> se termine dans une heure!"
       new_posts_group_follow:
         description: Nouveaux messages sur les Murs des groupes que je suis
         email_subject: Nouveau message
       new_posts_group:
         description: Nouveaux messages sur les Murs de groupes auxquels je participe
         email_subject: Nouveau message
-        message: '<b>%{user}<b> a ajouté un nouveau message dans le groupe <b>%{group}</b>'
+        message: "<b>%{user}</b> a ajouté un nouveau message dans le groupe <b>%{group}</b>"
       new_public_proposals:
         description: "Nouvelles propositions insérées dans l'espace commun"
-        email_subject: '%{proposal}'
+        email_subject: "%{proposal}"
         message: "Nouvelle proposition <b>%{proposal}</b> ajoutée à l'Espace Commun"
       new_proposals:
         description: Nouvelles propositions dans le groupe
-        email_subject: '%{proposal}'
-        message: 'Nouvelle proposition <b>%{proposal}</b> créée dans le groupe <b>%{group}</b>'
+        email_subject: "%{proposal}"
+        message: "Nouvelle proposition <b>%{proposal}</b> créée dans le groupe <b>%{group}</b>"
       new_partecipation_request:
         description: Nouvelle demande de participation
         email_subject: Nouvelle demande de participation
-        message: '<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>'
+        message: "<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>"
       new_blog_comment:
         description: Nouveau commentaire dans mon blog
         email_subject: Nouveau commentaire dans votre blog
-        message: '<b>%{user}</b> a commenté votre message <b>%{title}</b>'
+        message: "<b>%{user}</b> a commenté votre message <b>%{title}</b>"
       new_comments_mine:
         description: Nouveaux commentaires à mes propositions
         email_subject: Nouveau commentaire à ma proposition
-        message: '<b>%{name}</b> a ajouté un commentaire à une discussion dans votre proposition <b>%{title}</b>'
+        message: "<b>%{name}</b> a ajouté un commentaire à une discussion dans votre proposition <b>%{title}</b>"
       new_comments:
         description: Il y a des nouveaux commentaires dans les discussions auxquelles je participe
-        email_subject: '%{title} - Nouveau commentaire'
-        message: '<b>%{name}</b> a ajouté un commentaire dans une discussion à laquelle vous participez pour la proposition <b>%{title}</b>'
+        email_subject: "%{title} - Nouveau commentaire"
+        message: "<b>%{name}</b> a ajouté un commentaire dans une discussion à laquelle vous participez pour la proposition <b>%{title}</b>"
     proposal_categories:
       no_category:
         description: Aucune catégorie
