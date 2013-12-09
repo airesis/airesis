@@ -731,7 +731,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def facebook_share
-
+    @page_title = "Invite friends to join this proposal"
     respond_to do |format|
       format.html {
 

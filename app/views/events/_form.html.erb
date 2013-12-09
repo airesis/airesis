@@ -99,10 +99,14 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="large-6 columns">
+                        <div class="large-8 columns">
                           <%= p.label :address %>
-                          <%= p.text_field :address, :onchange => "codeAddress('luogo');" %>
+                          <%= p.text_field :address, :onkeyup => "codeAddress('luogo');" %>
                         </div>
+                        <div class="large-2 columns">
+                           <%= image_tag 'gloading.gif', class: 'loading_place' %>
+                        </div>
+                        <div class="large-2 columns"></div>
                       </div>
                       <div class="row">
                         <%= p.hidden_field :latitude_original %>

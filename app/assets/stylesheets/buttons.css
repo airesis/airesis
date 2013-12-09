@@ -485,3 +485,7 @@ body .zocial {
 .zocial.icon.vertical {
     vertical-align: middle;
 }
+
+.zocial.parma {
+    background: center url('/assets/parma.png') no-repeat;
+}

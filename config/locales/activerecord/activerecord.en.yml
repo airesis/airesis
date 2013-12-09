@@ -87,10 +87,11 @@ en:
         name_title: 'Please enter a short, explanatory title'
         description: 'Description / Brief explanation'
         description_title: 'A description to understand the purpose of this quorum'
+        minutes: Debate duration
         days_m: Days
         hours_m: hours
         minutes_m: Minutes
-        percentage: 'Participants (percentage)'
+        percentage: 'Quorum (participants)'
         percentage_title: 'Minimum number of participants in the discussion as a percentage of the number of participants in the group'
         good_score: 'Maturity'
         good_score_title: 'Rating to be achieved in order to bring the proposal to the voting phase'
@@ -98,6 +99,9 @@ en:
         bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met'
         condition: Condition
         condition_title: 'The conditions of Time and Participants must be both overcome or just one of them?'
+        vote_minutes: 'Vote duration'
+        vote_percentage: 'Quorum (voters)'
+        vote_good_score: 'Approval'
       search_partecipant:
         role_id: 'Role'
         keywords: 'Name or surname'

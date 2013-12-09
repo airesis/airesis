@@ -16,10 +16,12 @@ class UsersController < ApplicationController
 
   #unisce due account
   def join_accounts
-    data = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] #prendi i dati di facebook dalla sessione
+    data = session["devise.google_data"] || session["devise.facebook_data"] || session["devise.linkedin_data"] || session['devise.parma_data'] #prendi i dati di facebook dalla sessione
     email = ""
     if data["provider"] == Authentication::LINKEDIN
       email = data["extra"]["raw_info"]["emailAddress"]
+    elsif data["provider"] == Authentication::PARMA
+      email = data["info"]["email"]
     else
       email = data["extra"]["raw_info"]["email"]
     end
@@ -29,7 +31,7 @@ class UsersController < ApplicationController
     else
       auth = User.find_by_email(email) #trova l'utente del portale con email e password indicati
       if (auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
-                                                                           #aggiungi il provider
+        #aggiungi il provider
         User.transaction do
           auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token => (data['credentials']['token'] rescue nil))
           auth.save!
@@ -62,7 +64,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
-                  #format.xml  { render :xml => @user }
+      #format.xml  { render :xml => @user }
     end
   end
 
@@ -72,7 +74,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
-                  #format.xml  { render :xml => @user }
+      #format.xml  { render :xml => @user }
     end
   end
 
@@ -93,8 +95,6 @@ class UsersController < ApplicationController
     @comments_count = @user.proposal_comments.comments.count
     @proposals_count = @user.proposals.count
   end
-
-
 
 
   def change_show_tooltips
@@ -219,6 +219,7 @@ class UsersController < ApplicationController
       }
     end
   end
+
   #enable or disable rotp feature
   def change_rotp_enabled
     authorize! :change_rotp_enabled, current_user
@@ -364,7 +365,7 @@ class UsersController < ApplicationController
     @group = Group.find(params[:group_id])
     users = @group.partecipants.autocomplete(params[:term])
     users = users.map do |u|
-      { :id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}" }
+      {:id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}"}
     end
     render :json => users
   end
@@ -372,7 +373,13 @@ class UsersController < ApplicationController
   protected
 
   def choose_layout
-    (['index'].include? action_name) ? 'open_space' : 'users'
+    if ['index'].include? action_name
+      'open_space'
+    elsif ['confirm_credentials'].include? action_name
+      'application'
+    else
+      'users'
+    end
   end
 
   def load_user

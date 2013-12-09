@@ -120,6 +120,14 @@ function showPlace(value) {
 }
 
 
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
 /**
  * Gestione mappa
  */
@@ -136,31 +144,47 @@ var basename = "event_meeting_attributes_place_attributes_";
  * posiziona il marcatore sull'indirizzo specificato nel campo 'Comune'
  */
 function codeAddress(id) {
-    var comune = $('#' + id + ' .token-input-list .token-input-token p').html();
-    if (comune != null) {
-        var address = comune + ", " + document.getElementById(basename + "address").value;
-        putMarker(address);
-    }
+    delay(function () {
+        var comune = $('#' + id + ' .token-input-list .token-input-token p').html();
+        if (comune != null) {
+            var address = comune + ", " + document.getElementById(basename + "address").value;
+            putMarker(address);
+        }
+    }, 600);
 }
 
+
+var marker_cache = {}
 /**
  * Posiziona il marcatore in un indirizzo specifico
  */
 function putMarker(address) {
-    geocoder.geocode({
-        'address': address
-    }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            posizionaMappa(results[0].geometry.location, results[0].geometry.viewport);
-            listenMarkerPosition();
-        }
-        else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
-            alert('Spiacente ma non riesco a trovare l\'indirizzo. Prova a cambiarlo...');
-        }
-        else {
-            alert("Impossibile utilizzare il geocoder di Google: " + status);
-        }
-    });
+    if (marker_cache[address] == null) {
+        console.log('no cache');
+        $('.loading_place').show();
+        geocoder.geocode({
+            'address': address
+        }, function (results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                marker_cache[address] = results;
+                posizionaMappa(results[0].geometry.location, results[0].geometry.viewport);
+                listenMarkerPosition();
+                $('.loading_place').hide();
+            }
+            else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+                //alert('Spiacente ma non riesco a trovare l\'indirizzo. Prova a cambiarlo...');
+            }
+            else {
+                //alert("Impossibile utilizzare il geocoder di Google: " + status);
+            }
+        });
+    }
+    else {
+        console.log('cache');
+        posizionaMappa(marker_cache[address][0].geometry.location, marker_cache[address][0].geometry.viewport);
+        listenMarkerPosition();
+    }
 }
 
 function posizionaMappa(latlng, viewport) {

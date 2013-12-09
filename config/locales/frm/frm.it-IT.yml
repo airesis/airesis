@@ -42,7 +42,7 @@ it-IT:
         default_private: "Forum privato"
         default_public: "Forum pubblico"
         default_private_description: "Forum riservato a coloro che appartengono al gruppo"
-        default_public_description: "Forum aperto a tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo"
+        default_public_description: "Forum visualizzabile da tutti i partecipanti di Airesis. Anche a coloro che non appartengono al gruppo"
       group:
         index: Gestisci Gruppi di Moderatori
         new: Crea un nuovo Gruppo di moderatori

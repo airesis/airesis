@@ -61,7 +61,7 @@ class Group < ActiveRecord::Base
   has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal
 
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
-  has_many :quorums, :through => :group_quorums, :class_name => 'Quorum', :source => :quorum, order: 'seq nulls last, quorums.id'
+  has_many :quorums, :through => :group_quorums, :class_name => 'BestQuorum', :source => :quorum, order: 'seq nulls last, quorums.id'
 
   has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
 
@@ -79,6 +79,8 @@ class Group < ActiveRecord::Base
   has_many :topics, through: :forums, class_name: 'Frm::Topic', source: :topics
   has_many :categories, :class_name => 'Frm::Category', foreign_key: 'group_id'
   has_many :moderator_groups, :class_name => 'Frm::Group', foreign_key: 'group_id'
+
+  has_one :statistic, :class_name => 'GroupStatistic'
 
   # Check for paperclip
   has_attached_file :image,
@@ -177,6 +179,8 @@ class Group < ActiveRecord::Base
     public_f = public.forums.create(name: I18n.t('frm.admin.forums.default_public'), description: I18n.t('frm.admin.forums.default_public_description'))
     public_f.group = self
     public_f.save!
+
+    GroupStatistic.create(:group_id => self.id).save!
 
   end
 

@@ -97,6 +97,8 @@
                 <div class="zocial icon linkedin vertical"></div> Linkedin
             <% elsif authentication.provider == Authentication::MEETUP %>
                 <div class="zocial icon meetup vertical"></div> Meetup
+            <% elsif authentication.provider == Authentication::PARMA %>
+                <div class="zocial icon parma vertical"></div> Comune di Parma
             <% end %>
             <% if @user.email %>
                 <%= link_to 'Scollega', [@user, authentication], method: :delete, confirm: 'Sei sicuro di voler scollegare questo Identity Provider? Non potrai più accedere tramite esso.' %><br/>

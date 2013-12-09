@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131203115707) do
+ActiveRecord::Schema.define(:version => 20131209135014) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -621,37 +621,39 @@ ActiveRecord::Schema.define(:version => 20131203115707) do
   add_index "group_versions", ["item_type", "item_id"], :name => "index_group_versions_on_item_type_and_item_id"
 
   create_table "groups", :force => true do |t|
-    t.string   "name",                       :limit => 200
-    t.string   "description",                :limit => 2500
-    t.string   "accept_requests",                             :default => "p",      :null => false
+    t.string   "name",                           :limit => 200
+    t.string   "description",                    :limit => 2500
+    t.string   "accept_requests",                                 :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1,        :null => false
+    t.integer  "partecipation_role_id",                           :default => 1,        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                     :default => true,     :null => false
-    t.boolean  "default_anonima",                             :default => true,     :null => false
-    t.boolean  "default_visible_outside",                     :default => false,    :null => false
-    t.boolean  "default_secret_vote",                         :default => true,     :null => false
-    t.integer  "max_storage_size",                            :default => 51200,    :null => false
-    t.integer  "actual_storage_size",                         :default => 0,        :null => false
-    t.boolean  "enable_areas",                                :default => false,    :null => false
-    t.integer  "group_partecipations_count",                  :default => 1,        :null => false
+    t.boolean  "change_advanced_options",                         :default => true,     :null => false
+    t.boolean  "default_anonima",                                 :default => true,     :null => false
+    t.boolean  "default_visible_outside",                         :default => false,    :null => false
+    t.boolean  "default_secret_vote",                             :default => true,     :null => false
+    t.integer  "max_storage_size",                                :default => 51200,    :null => false
+    t.integer  "actual_storage_size",                             :default => 0,        :null => false
+    t.boolean  "enable_areas",                                    :default => false,    :null => false
+    t.integer  "group_partecipations_count",                      :default => 1,        :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "admin_title",                :limit => 200
-    t.boolean  "private",                                     :default => false
-    t.string   "rule_book",                  :limit => 40000
-    t.string   "subdomain",                  :limit => 100
-    t.boolean  "certified",                                   :default => false,    :null => false
-    t.string   "status",                                      :default => "active", :null => false
+    t.string   "admin_title",                    :limit => 200
+    t.boolean  "private",                                         :default => false
+    t.string   "rule_book",                      :limit => 40000
+    t.string   "subdomain",                      :limit => 100
+    t.boolean  "certified",                                       :default => false,    :null => false
+    t.string   "status",                                          :default => "active", :null => false
     t.datetime "status_changed_at"
     t.string   "slug"
+    t.boolean  "disable_partecipation_requests",                  :default => false
+    t.boolean  "disable_forums",                                  :default => false
   end
 
   add_index "groups", ["slug"], :name => "index_groups_on_slug"
@@ -1062,6 +1064,7 @@ ActiveRecord::Schema.define(:version => 20131203115707) do
     t.boolean  "removed",                           :default => false
     t.integer  "old_bad_score"
     t.string   "old_condition",     :limit => 5
+    t.boolean  "assigned",                          :default => false
   end
 
   create_table "ranking_types", :force => true do |t|
@@ -1425,6 +1428,7 @@ ActiveRecord::Schema.define(:version => 20131203115707) do
     t.datetime "document_updated_at"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "channel"
   end
 
   add_index "user_sensitives", ["tax_code"], :name => "index_user_sensitives_on_tax_code", :unique => true

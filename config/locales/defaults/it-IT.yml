@@ -210,6 +210,7 @@ it-IT:
           <p>Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati nella Bacheca del grupp.</p>
           <p>I gruppi possono sostenere le proposte, crearne di interne, creare sondaggi e organizzare i membri secondo ruoli e permessi.</p>
           <p>É possibile cambiare le regole di questo gruppo tramite le <b>Impostazioni</b> del gruppo stesso.</p>
+        short_url: "Indirizzo breve"
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -235,7 +236,7 @@ it-IT:
         name: "Nome"
         participants: "Partecipanti"
         condition: "Condizione"
-        good_percentage: "% maturità"
+        good_percentage: "Maturità"
         bad_percentage: "% Respingimento"
         confirm_deletion: "Sei sicuro di voler eliminare il quorum '%{quorum}'?"
         add_quorum: "Aggiungi un nuovo quorum"

@@ -187,6 +187,30 @@ class OldQuorum < Quorum
     self.bad_score && (self.bad_score != self.good_score)
   end
 
+
+  def debate_progress
+    percentages = []
+    if valutations
+      minimum = [self.proposal.valutations, self.valutations].min
+      percentagevals = minimum.to_f/self.valutations.to_f
+      percentagevals *= 100
+      percentages << percentagevals
+    end
+    if minutes
+      minimum = [Time.now, self.ends_at].min
+      minimum = ((minimum - self.started_at)/60)
+      percentagetime = minimum.to_f/self.minutes.to_f
+      percentagetime *= 100
+      percentages << percentagetime
+    end
+
+    if self.or?
+      percentages.max
+    else
+      percentages.min
+    end
+  end
+
   protected
 
   def min_partecipants_pop
@@ -334,4 +358,7 @@ class OldQuorum < Quorum
     end
     ret
   end
+
+
+
 end

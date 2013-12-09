@@ -8,23 +8,7 @@
 <% end %>
 <% if @proposal.in_valutation? %>
     <div class="mycont" id="condition_left">
-      <%if @proposal.quorum.time_left? #if time set and time left%>
-            <%if @proposal.quorum.valutations_left? #if two parameters and valutations left%>
-              <div class="time_end"><%= t('pages.proposals.show.debate_ends_html')%>:</div>
-              <div id=end_debate></div>
-              <div class="join_clause"><%= @proposal.quorum.or? ? t('pages.proposals.show.debate_ends_valutations_or') : t('pages.proposals.show.debate_ends_valutations_and')%>:</div>
-                <b><%=@proposal.quorum.valutations_left%></b>
-            <%else #only time%>
-              <div class="time_end"><%= t('pages.proposals.show.debate_ends_html') %>:</div>
-              <div id=end_debate></div>
-            <%end%>
-      <%elsif @proposal.quorum.valutations_left? #only valutations%>
-          <div class="time_end"><%= t('pages.proposals.show.debate_ends_valutations') %>:</div>
-          <b><%= @proposal.quorum.valutations_left %></b>
-      <%else #stalled%>
-          End of debate:<br/>rank superior to <b><%= @proposal.quorum.good_score %>%</b><br/> <!--TODO:I18n-->
-          Abandoned:<br/>rank inferior to <b><%= @proposal.quorum.bad_score %>%</b>
-      <%end%>
+      <%=dates_panel(@proposal.quorum) %>
     </div>
 <% end %>
 

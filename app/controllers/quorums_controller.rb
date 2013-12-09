@@ -25,8 +25,8 @@ class QuorumsController < ApplicationController
 
   def create
     begin
-      Quorum.transaction do
-        @quorum = @group.quorums.build(params[:quorum])
+      BestQuorum.transaction do
+        @quorum = @group.quorums.build(params[:best_quorum])
         @quorum.public = false
         @group.save!
       end
@@ -63,7 +63,7 @@ class QuorumsController < ApplicationController
 
   def update
     Quorum.transaction do
-      @quorum.attributes = params[:quorum]
+      @quorum.attributes = params[:best_quorum]
       @quorum.save!
     end
 

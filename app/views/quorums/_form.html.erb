@@ -1,59 +1,79 @@
 <%= form_for !in_subdomain? ? [@group, @quorum] : @quorum, :validate => true, :remote => true do |e| %>
-    <p>
-      <%= e.label :name, t('activerecord.attributes.quorum.name') %>
-      <%= e.text_field :name, :title => t('activerecord.attributes.quorum.name_title') %>
-    </p>
-    <p>
-      <%= e.label :description, t('activerecord.attributes.quorum.description'), :title => t('activerecord.attributes.quorum.description_title') %>
-      <%= e.text_area :description, :rows => 2, :style => "width:100%", :class => "elastic" %>
-    </p>
+    <div class="row">
+      <p>
+        <%= e.label :name, t('activerecord.attributes.quorum.name') %>
+        <%= e.text_field :name, :title => t('activerecord.attributes.quorum.name_title') %>
+      </p>
 
-    <fieldset>
-     <legend><%='Debate'%></legend>
-    <p>
-      <%= e.label :minutes %>
-      <%= e.text_field(:days_m, :class => "days", :readonly => true)+(t 'activerecord.attributes.quorum.days_m') %>
-      <%= e.text_field(:hours_m, :class => "hours", :readonly => true)+(t 'activerecord.attributes.quorum.hours_m') %>
-      <%= e.text_field(:minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m') %>
-    </p>
+      <p>
+        <%= e.label :description, t('activerecord.attributes.quorum.description'), :title => t('activerecord.attributes.quorum.description_title') %>
+        <%= e.text_area :description, :rows => 2, :style => "width:100%", :class => "elastic" %>
+      </p>
+    </div>
+    <div class="row">
+      <div class="columns large-6">
+        <fieldset>
+          <legend><%= 'Debate' %></legend>
+          <p>
+            <%= e.label :minutes %>
+            <%= e.text_field(:days_m, :class => "days", :readonly => true)+(t 'activerecord.attributes.quorum.days_m') %>
+            <%= e.text_field(:hours_m, :class => "hours", :readonly => true)+(t 'activerecord.attributes.quorum.hours_m') %>
+            <%= e.text_field(:minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m') %>
+          </p>
 
-    <p>
-      <%= e.label :percentage %>
-      <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
-                :current_number => "<span id=\"partecipants_number\">1</span>", :total_number => @partecipants_count))
-      %>
-    </p>
-    <p>
-      <%= e.label :good_score %>
-      <%= e.text_field :good_score, :class => "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true %>%
-    </p>
+          <p>
+            <%= e.label :percentage %>
+            <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                      :participants_percentage => (e.text_field :percentage, :class => "percentage partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
+                      :current_number => "<span id=\"partecipants_number\">1</span>", :total_number => @partecipants_count))
+            %>
+          </p>
 
-    </fieldset>
-    <fieldset>
-      <legend><%='Votation'%></legend>
-    <p>
-      <%= e.label :vote_minutes %>
-      <%#= e.text_field(:vote_days_m, :class => "days", :readonly => true)+(t 'activerecord.attributes.quorum.days_m') %>
-      <%#= e.text_field(:vote_hours_m, :class => "hours", :readonly => true)+(t 'activerecord.attributes.quorum.hours_m') %>
-      <%#= e.text_field(:vote_minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m') %>
-      <%= 'free' %>
-    </p>
+          <p>
+            <%= e.label :good_score %>
+            <%= e.text_field :good_score, :class => "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true %>
+            %
+          </p>
 
-    <p>
-      <%= e.label :vote_percentage %>
-      <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                :participants_percentage => (e.text_field :vote_percentage, :class => "percentage vote_partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
-                :current_number => "<span id=\"vote_partecipants_number\">1</span>", :total_number => @vote_partecipants_count))
-      %>
-    </p>
-    <p>
-      <%= e.label :vote_good_score %>
-      <%= e.text_field :vote_good_score, :class => "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true %>%
-    </p>
-    </fieldset>
-      <a href="#" class="btn" onclick="closeMe();return false;"><%= t('buttons.cancel') %></a>
-      <%= e.submit button_name, :class => 'btn blue', disable_with: t('loading') %>
+          <%=e.hidden_field :t_percentage, value: 's' %>
+          <%=e.hidden_field :t_minutes, value: 's' %>
+          <%=e.hidden_field :t_good_score, value: 's' %>
+
+        </fieldset>
+      </div>
+      <div class="columns large-6">
+        <fieldset>
+          <legend><%= 'Votation' %></legend>
+          <p>
+            <%= e.label :vote_minutes %>
+            <%#= e.text_field(:vote_days_m, :class => "days", :readonly => true)+(t 'activerecord.attributes.quorum.days_m') %>
+            <%#= e.text_field(:vote_hours_m, :class => "hours", :readonly => true)+(t 'activerecord.attributes.quorum.hours_m') %>
+            <%#= e.text_field(:vote_minutes_m, :class => "minutes", :readonly => true)+(t 'activerecord.attributes.quorum.minutes_m') %>
+            <%= 'free' %>
+          </p>
+
+          <p>
+            <%= e.label :vote_percentage %>
+            <%= raw(t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                      :participants_percentage => (e.text_field :vote_percentage, :class => "percentage vote_partecipants", :title => t('activerecord.attributes.quorum.percentage_title'), :readonly => true),
+                      :current_number => "<span id=\"vote_partecipants_number\">1</span>", :total_number => @vote_partecipants_count))
+            %>
+          </p>
+
+          <p>
+            <%= e.label :vote_good_score %>
+            <%= e.text_field :vote_good_score, :class => "percentage", :validate => false, :title => t('activerecord.attributes.quorum.good_score_title'), :readonly => true %>
+            %
+          </p>
+
+          <%=e.hidden_field :t_vote_percentage, value: 's' %>
+          <%=e.hidden_field :t_vote_minutes, value: 'f' %>
+          <%=e.hidden_field :t_vote_good_score, value: 's' %>
+        </fieldset>
+      </div>
+    </div>
+    <a href="#" class="btn" onclick="closeMe();return false;"><%= t('buttons.cancel') %></a>
+    <%= e.submit button_name, :class => 'btn blue', disable_with: t('loading') %>
 <% end %>
 
 <script type="text/javascript">
@@ -134,9 +154,9 @@
         });
         $(".minutes").spinner({
             incremental: true,
-            max: 45,
+            max: 55,
             min: 0,
-            step: 15
+            step: 5
         });
 
         $("#radio").buttonset();

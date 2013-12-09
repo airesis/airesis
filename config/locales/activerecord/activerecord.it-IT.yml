@@ -100,7 +100,7 @@ it-IT:
         condition: Condizione
         condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
         vote_minutes: 'Durata votazione'
-        vote_percenntage: 'Quorum (votanti)'
+        vote_percentage: 'Quorum (votanti)'
         vote_good_score: 'Gradimento'
       search_partecipant:
         role_id: 'Ruolo'

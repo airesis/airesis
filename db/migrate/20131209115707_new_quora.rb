@@ -18,9 +18,11 @@ class NewQuora < ActiveRecord::Migration
       add_column :quorums, :removed, :boolean, default: false
       add_column :quorums, :old_bad_score, :integer
       add_column :quorums, :old_condition, :string, limit: 5
+      add_column :quorums, :assigned, :boolean, default: false
 
       Quorum.reset_column_information
       f.puts 'resetting columns'
+      Quorum.where('id in (select distinct quorum_id from proposals) or id in (select distinct quorum_id from proposal_lives)').update_all(assigned: true)
       assigned = Quorum.assigned
       f.puts "#{assigned.count} assigned quora become Old"
       assigned.update_all({:type => 'OldQuorum'})
@@ -57,6 +59,7 @@ class NewQuora < ActiveRecord::Migration
       quorum.condition = quorum.old_condition
       quorum.save!
     end
+    remove_column :quorums, :assigned
     remove_column :quorums, :old_condition
     remove_column :quorums, :old_bad_score
     remove_column :quorums, :removed

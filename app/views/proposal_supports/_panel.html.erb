@@ -5,12 +5,15 @@
   <% else %>
       <%= form_for [@proposal, @proposal_support], :remote => true do |f| %>
           <% @available_groups.each do |group| %>
-              <%= check_box_tag "proposal[group_ids][]", group.id %>
-              <%= f.label group.name %>
+              <%= f.label group.name do %>
+                  <%= check_box_tag "proposal[group_ids][]", group.id, ProposalSupport.where({group_id: group.id, proposal_id: @proposal.id}).exists? %>
+                  <%= group.name %>
+                  <%= group.group_image_tag 20 %>
+              <%end%>
               <br/>
           <% end %>
           <a href="#" class="btn" onclick="$('#proposal_support').dialog('destroy');$('#proposal_support').remove();"><%= t('buttons.cancel') %></a>
-          <%= f.submit t('pages.proposal_supports.confirm_button'), :class => 'btn blue' %>
+          <%= f.submit t('pages.proposal_supports.confirm_button'), :class => 'btn blue', disable_with: t('loading') %>
       <% end %>
   <% end %>
 </div>

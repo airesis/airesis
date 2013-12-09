@@ -1,6 +1,7 @@
 #encoding: utf-8
 class BestQuorum < Quorum
 
+  validates :minutes, numericality: {only_integer: true, greater_than_or_equal_to: 5}
   attr_accessor :vote_days_m, :vote_hours_m, :vote_minutes_m
 
   before_save :populate_vote
@@ -10,6 +11,7 @@ class BestQuorum < Quorum
   after_find :populate_accessor
 
   def populate_accessor
+    super
     self.vote_minutes_m = self.vote_minutes
     if self.vote_minutes_m
       if self.vote_minutes_m > 59
@@ -30,6 +32,7 @@ class BestQuorum < Quorum
       self.vote_minutes = self.vote_minutes_m.to_i + (self.vote_hours_m.to_i * 60) + (self.vote_days_m.to_i * 24 * 60)
       self.vote_minutes = nil if (self.vote_minutes == 0)
     end
+    self.bad_score = self.good_score
   end
 
   def populate_vote!
@@ -90,7 +93,7 @@ class BestQuorum < Quorum
   def vote_time
     case self.t_vote_minutes
       when 'f'
-        'free'
+        'free' #TODO:I18n
       when 's'
         min = self.vote_minutes if self.vote_minutes
 
@@ -237,6 +240,15 @@ class BestQuorum < Quorum
 
   def has_bad_score?
     false #new quora does not have bad score
+  end
+
+
+  def debate_progress
+    minimum = [Time.now, self.ends_at].min
+    minimum = ((minimum - self.started_at)/60)
+    percentagetime = minimum.to_f/self.minutes.to_f
+    percentagetime *= 100
+    percentagetime
   end
 
   protected

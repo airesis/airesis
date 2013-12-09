@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Quorum < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::TextHelper, NotificationHelper, Rails.application.routes.url_helpers, GroupsHelper
 
   STANDARD = 2
 
@@ -13,16 +13,20 @@ class Quorum < ActiveRecord::Base
 
   scope :public, {:conditions => ["public = ?", true]}
   scope :active, {:conditions => ["active = ?", true]}
-  scope :assigned, {:conditions => "started_at is not null"}
-  scope :unassigned, {:conditions => "started_at is null"}
+  scope :assigned, {:conditions => ["assigned = ?", true]}
+  scope :unassigned, {:conditions => ["assigned = ?", false]}
 
   attr_accessor :days_m, :hours_m, :minutes_m
 
-  before_save :populate
-
-  before_update :populate!
-
   after_find :populate_accessor
+
+  before_validation :populate
+  #before_validation :populate, on: :update
+
+  def populate
+    self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
+    self.minutes = nil if (self.minutes == 0)
+  end
 
   def populate_accessor
     self.minutes_m = self.minutes
@@ -36,27 +40,8 @@ class Quorum < ActiveRecord::Base
         end
       end
     end
-    self.form_type 'a'
   end
 
-  #return true if the quorum is assigned to a proposal
-  def assigned?
-    self.started_at != nil
-  end
-
-  #se i minuti non vengono definiti direttamente (come in caso di copia) allora calcolali dai dati di input
-  def populate
-    unless self.minutes
-      self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
-      self.minutes = nil if (self.minutes == 0)
-    end
-
-  end
-
-  def populate!
-    self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
-    self.minutes = nil if (self.minutes == 0)
-  end
 
   #return true if there is still time left to the end of the quorum
   def time_left?
@@ -125,5 +110,29 @@ class Quorum < ActiveRecord::Base
   def min_partecipants
     @min_partecipants ||= min_partecipants_pop
   end
+
+
+  protected
+
+  def abandon(proposal)
+    proposal.proposal_state_id = ProposalState::ABANDONED
+    life = proposal.proposal_lives.create(quorum_id: proposal.quorum_id, valutations: proposal.valutations, rank: proposal.rank, seq: ((proposal.proposal_lives.maximum(:seq) || 0) + 1))
+    #save old authors
+    proposal.users.each do |user|
+      life.users << user
+    end
+    life.save!
+    #delete old data
+    proposal.valutations = 0
+    proposal.rank = 0
+    #proposal.quorum_id = nil
+
+    #and authors
+    proposal.proposal_presentations.destroy_all
+    proposal.rankings.destroy_all
+    #proposal.save!
+  end
+
+
 
 end
