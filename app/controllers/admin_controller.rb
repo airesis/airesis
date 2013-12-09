@@ -158,5 +158,36 @@ class AdminController < ManagerController
     flash[:notice] = "Newsletter pubblicata correttamente"
     redirect_to :controller => 'admin', :action => 'mailing_list'
   end
+
+  def upload_sources
+     Crowdin::Client.new.upload_sources
+     respond_to do |format|
+       format.html {
+         flash[:notice] = 'Sources successfully uploaded'
+         redirect_to admin_panel_path
+       }
+      end
+  end
+
+  def update_sources
+    Crowdin::Client.new.update_sources
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Sources successfully updated'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+
+  def download_translations
+    Crowdin::Client.new.download_translations
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Sources updated'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+
   
 end

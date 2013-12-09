@@ -25,27 +25,34 @@
 	<%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'btn' %>
 	<%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'btn' %>
 
+    <%if CROWDIN_API %>
+        <div class="mybox">
+            <h3>Crowdin</h3>
+            <%= link_to 'Upload sources', {:controller => "admin", :action => "upload_sources"}, :class => 'btn'%>
+            <%= link_to 'Update sources', {:controller => "admin", :action => "update_sources"}, :class => 'btn'%>
+            <%= link_to 'Download translations', {:controller => "admin", :action => "download_translations"}, :class => 'btn'%>
+        </div>
+    <%end%>
 
-	<p>
+    <p>
 		<%current_user.scoped_group_partecipations(GroupAction::PROPOSAL).each do |group_partecipation|
 		 group = group_partecipation.group
-		 role = group_partecipation.partecipation_role		 
-		%>
-		
+		 role = group_partecipation.partecipation_role%>
+
 		<%=group.name%> - <%=role.name%><br/>
-		<%end%>	
+		<%end%>
 	</p>
 
     <p>
       <%=form_tag "/admin/block/" do %>
           <%=label_tag 'Blocca utente' %>
           <%=text_field_tag 'user_id'%>
-          <%=submit_tag 'Vai!'%>
+          <%=submit_tag 'Vai!', :class => 'btn red'%>
       <%end%>
       <h3>Elenco utenti bloccati</h3>
         <ul>
       <%User.blocked.each do |user|%>
-        <li><%= "#{user.id}: #{user.fullname} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname}) (#{user.email})"%>  <%= link_to 'Sblocca', {:controller => 'admin', :action => 'unblock', :user_id => user.id} %></li>
+        <li><%= "#{user.id}: #{user.fullname} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname}) (#{user.email})"%>  <%= link_to 'Sblocca', {:controller => 'admin', :action => 'unblock', :user_id => user.id}, :class => 'btn' %></li>
       <%end%>
         </ul>
     </p>

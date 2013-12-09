@@ -156,3 +156,6 @@ gem 'mailman', require: false
 gem 'email_reply_parser'
 
 gem 'activerecord-postgres-array'
+
+gem 'crowdin-api'
+gem 'rubyzip'
