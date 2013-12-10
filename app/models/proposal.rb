@@ -330,19 +330,21 @@ def save_proposal_history
     end
   end
   self.solutions.each do |solution|
+
     solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
-    something_solution = false
-    solution.sections.each do |section|
+    something_solution = solution.title_changed? || solution.marked_for_destruction?
+        solution.sections.each do |section|
       paragraph = section.paragraphs.first
       paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-      if paragraph.content_changed? || section.marked_for_destruction?
+      if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
         something = true
         something_solution = true
-        section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
+        section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: (section.marked_for_destruction? || solution.marked_for_destruction?))
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
     solution_history.destroy unless something_solution
+    something = true if something_solution
   end
   something ? @revision.save! : @revision.destroy
   self.touch

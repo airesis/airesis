@@ -453,6 +453,7 @@ class ProposalsController < ApplicationController
       @copy.valutations = [@copy.valutations, 1].max
     end
     @copy.public = false
+    @copy.assigned = true
     @copy.save!
     @proposal.quorum_id = @copy.id
 
@@ -519,6 +520,8 @@ class ProposalsController < ApplicationController
 
       end
       Resque.enqueue_in(1, NotificationProposalUpdate, current_user.id, @proposal.id, @group.try(:id))
+
+      PrivatePub.publish_to(proposal_path(@proposal), reload_message)
 
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_updated')
@@ -890,7 +893,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #questo metodo permette di verificare che l'utente collegato
   #sia l'autore della proposta il cui id è presente nei parametri
   def check_author
-    if !is_proprietary? @proposal and !is_admin?
+    unless (is_proprietary? @proposal) || is_admin?
       flash[:error] = I18n.t('error.proposals.proposal_not_your')
       redirect_to proposals_path
     end

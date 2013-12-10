@@ -8,13 +8,6 @@
 </div>
 
 <%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_best_quorum_url(@group), :remote => true, :class => "btn blue newButton disable" %>
-
-<div id="new_quorum_container" title="<%= t('pages.groups.edit_quorums.new_quorum.title') %>" style="display: none; font-size: 14px;">
-</div>
-
-<div id="edit_quorum_container" title="<%= t('pages.groups.edit_quorums.edit_quorum') %>" style="display: none; font-size: 14px;">
-</div>
-
 <br/>
 <h2><%= t('pages.groups.edit_quorums.configure_proposal_parameters') %></h2>
 <%= check_box :group, :default_anonima, :onclick => "return change_default_anonima(this);" %><%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br />

@@ -132,6 +132,7 @@ class ProposalCommentsController < ApplicationController
       @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id)
       @proposal_comment.collapsed = true
       format.js
+      format.json { head :ok }
       format.html { redirect_to @proposal }
     end
 
@@ -149,6 +150,9 @@ class ProposalCommentsController < ApplicationController
           #page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
         end
       end
+      }
+      format.json {
+        render :json => @proposal_comment.try(:errors) || {error: true}, :status => :unprocessable_entity
       }
     end
   end

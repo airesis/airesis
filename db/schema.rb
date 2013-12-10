@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131209135014) do
+ActiveRecord::Schema.define(:version => 20131210100639) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -601,6 +601,16 @@ ActiveRecord::Schema.define(:version => 20131209135014) do
 
   add_index "group_quorums", ["quorum_id", "group_id"], :name => "index_group_quorums_on_quorum_id_and_group_id", :unique => true
   add_index "group_quorums", ["quorum_id"], :name => "index_group_quorums_on_quorum_id", :unique => true
+
+  create_table "group_statistics", :force => true do |t|
+    t.integer  "group_id",         :null => false
+    t.float    "good_score"
+    t.float    "vote_good_score"
+    t.float    "valutations"
+    t.float    "vote_valutations"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "group_tags", :force => true do |t|
     t.datetime "created_at", :null => false

@@ -1,13 +1,14 @@
-$('#edit_quorum_container').html("<div  class='panel callout'><p><%=t('pages.groups.edit_quorums.edit_quorum_warning')%></p></div><br/><%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.update')}))%>");
+var container_ = $('<div id="quorum_container"class="reveal-modal medium" data-reveal></div>');
+$('body').append(container_);
+container_.html("<%= j (render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.update')}))%>");
 
-$('#edit_quorum_container').dialog({
-    width: 800,
-    height: 'auto',
-    modal : true,
-    resizable: false,
-    close : function(event, ui) {
-        $('#edit_quorum_container').dialog('destroy');
-        $('#edit_quorum_container').empty();
-    }
+container_.foundation('reveal', 'open');
+
+container_.find('a.cancel').click(function() {
+    container_.foundation('reveal', 'close');
+    return false;
 });
 
+$(document).on('closed', container_, function () {
+    container_.remove();
+});

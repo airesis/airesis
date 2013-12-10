@@ -41,14 +41,10 @@ class Ability
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
-      #can :choose_date, Proposal do |proposal|
-      #  if proposal.private?
-      #    group = proposal.presentation_groups.first
-      #    (can? :choose_proposal_date, group) && (user.is_mine? proposal)
-      #  else
-      #    user.is_mine? proposal
-      #  end
-      #end
+      can :choose_date, Proposal do |proposal|  #return true if the user can put the proposal in votation
+        (user.is_mine? @proposal) ||
+        ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
+      end
       can :regenerate, Proposal do |proposal|
         can_regenerate_proposal?(user, proposal)
       end
@@ -270,7 +266,7 @@ class Ability
 
         can :update, Proposal #can edit them
         can :partecipate, Proposal #can partecipate
-        #can :choose_date, Proposal #can edit them
+        can :choose_date, Proposal
         can :destroy, Proposal #can destroy one
         can :destroy, ProposalComment
         can :manage, Group

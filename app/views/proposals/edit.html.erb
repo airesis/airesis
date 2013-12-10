@@ -81,6 +81,7 @@
                      <span class="remove_button">
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
+
                     <div class="clearboth"></div>
                     <%= s.text_field :title, class: "edit_label" %>
 
@@ -133,7 +134,8 @@
                              <span class="remove_button">
                               <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_section') %></a>
                             </span>
-                              <div class="clearboth"></div>
+
+                                <div class="clearboth"></div>
                                 <%= s.text_field :title, class: "edit_label" %>
                                 <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                                 <%= p.hidden_field :content %>
@@ -143,15 +145,13 @@
                           <% end %>
                       <% end %>
                   <% end %>
-
-
                 </div>
+                <div class="new_section">
+                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
+                </div>
+              </div>
+            </div>
         <% end %>
-        <div class="new_section">
-          <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
-        </div>
-        </div>
-        </div>
     <% end %>
 
 
@@ -354,8 +354,8 @@
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
             comment_.fadeTo(400, 1);
-            inside_.animate({height: inside_.attr('data-height')}, 400,'swing', function () {
-                inside_.css('overflow', 'auto',function() {
+            inside_.animate({height: inside_.attr('data-height')}, 400, 'swing', function () {
+                inside_.css('overflow', 'auto', function () {
                     console.log('f');
                 });
             });
@@ -467,7 +467,7 @@
         var sectionname = 'proposal[sections_attributes][' + numSections + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="'+numSections+'"></div>');
+        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + numSections + '"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -490,7 +490,7 @@
         //navigator update
         var nav_ = $('.navigator .sec_nav').last();
 
-        var sec_nav = $('<li data-section_id="'+numSections+'" class="sec_nav"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></li>');
+        var sec_nav = $('<li data-section_id="' + numSections + '" class="sec_nav"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></li>');
         nav_.after(sec_nav);
 
         listen_title_change();
@@ -504,8 +504,8 @@
         var sectionname = 'proposal[solutions_attributes][' + solutionid + '][sections_attributes][' + numSolutionSections[solutionid] + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
-        var section_num = ((parseInt(solutionid)+1)*100)+numSolutionSections[solutionid];
-        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="'+section_num+'"></div>');
+        var section_num = ((parseInt(solutionid) + 1) * 100) + numSolutionSections[solutionid];
+        var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + section_num + '"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
 
         paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
@@ -526,12 +526,10 @@
         addEditor(textarea_.attr('id'));
 
 
-
-
         //navigator update
-        var nav_ = $('.navigator li[data-solution_id='+solutionid+']');
+        var nav_ = $('.navigator li[data-solution_id=' + solutionid + ']');
 
-        var sec_nav = $('<li data-section_id="'+section_num+'"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '</a></li>');
+        var sec_nav = $('<li data-section_id="' + section_num + '"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '</a></li>');
         nav_.find('.sub_navigator').append(sec_nav);
 
         listen_title_change();
@@ -574,13 +572,13 @@
         make_solution_sortable($(".solutions_column", paragraph_));
 
         //navigator update
-        $('.navigator li[data-solution_id=new]').attr('data-solution_id',numSolution);
-        var nav_ = $('.navigator li[data-solution_id='+numSolution+']');
+        $('.navigator li[data-solution_id=new]').attr('data-solution_id', numSolution);
+        var nav_ = $('.navigator li[data-solution_id=' + numSolution + ']');
         nav_.find('span.sol_title').html("<%=j t('proposals.edit.solutions.default_title')%> " + (numSolution));
-        nav_.find('.sub_navigator li').each(function() {
+        nav_.find('.sub_navigator li').each(function () {
             var sec_id = parseInt($(this).attr('data-section_id'));
-            paragraph_.find('.section_container[data-section_id='+sec_id+']').attr('data-section_id',(numSolution+1)*100+sec_id);
-            $(this).attr('data-section_id',(numSolution+1)*100+sec_id);
+            paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (numSolution + 1) * 100 + sec_id);
+            $(this).attr('data-section_id', (numSolution + 1) * 100 + sec_id);
         });
 
 
@@ -676,7 +674,7 @@
                 $('#' + seq_id).val(i++)
 
                 //navigator update
-                var list_ = nav_.find('li.sec_nav[data-section_id='+sec_id+']').detach();
+                var list_ = nav_.find('li.sec_nav[data-section_id=' + sec_id + ']').detach();
                 list_.removeClass('detach');
                 var last_ = nav_.find('li.sec_nav').not('.detach').last();
                 if (last_.length > 0) {
@@ -714,7 +712,7 @@
 
                 //navigator update
                 var sol_id = $(this).attr('data-solution_id');
-                var nav_ = $('li[data-solution_id='+sol_id+'] .sub_navigator');
+                var nav_ = $('li[data-solution_id=' + sol_id + '] .sub_navigator');
                 nav_.find('li').addClass('detach');
 
                 $(this).find('div.section_container').each(function (el) {
@@ -725,7 +723,7 @@
                     $('#' + seq_id).val(i++);
 
                     //navigator update
-                    var list_ = nav_.find('li[data-section_id='+sec_id+']').detach();
+                    var list_ = nav_.find('li[data-section_id=' + sec_id + ']').detach();
                     list_.removeClass('detach');
                     var last_ = nav_.find('li').not('.detach').last();
                     if (last_.length > 0) {
@@ -743,24 +741,23 @@
     }
 
     function listen_title_change() {
-        $('.solution_main h3 .tit1 .tit2 input').on('keyup',function() {
+        $('.solution_main h3 .tit1 .tit2 input').on('keyup', function () {
             console.log($(this).val());
             var id_ = $(this).closest('.solution_main').attr('data-solution_id');
             console.log(id_);
-            $('.navigator li[data-solution_id='+id_+'] span.sol_title').html($(this).val());
+            $('.navigator li[data-solution_id=' + id_ + '] span.sol_title').html($(this).val());
         })
 
-        $('input.edit_label').on('keyup',function() {
+        $('input.edit_label').on('keyup', function () {
             console.log($(this).val());
             var id_ = $(this).closest('.section_container').attr('data-section_id');
             console.log(id_);
-            $('.navigator li[data-section_id='+id_+'] a.sec_title').text($(this).val());
+            $('.navigator li[data-section_id=' + id_ + '] a.sec_title').text($(this).val());
         })
     }
 
     make_solution_sortable($(".solutions_column"));
     listen_title_change();
-
 
 
 </script>
@@ -778,19 +775,19 @@
         <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
         <%= link_to t('pages.proposals.edit.compress_solutions'), '#', onclick: 'return compressSolutions();', data: {other: t('pages.proposals.edit.expand_solutions')}, class: 'compress btn' %>
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
-        <%= link_to t('buttons.cancel'),  @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn', confirm: t('pages.proposals.edit.cancel_confirm') %>
+        <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn', confirm: t('pages.proposals.edit.cancel_confirm') %>
       </div>
       <div class="mybox">
         <h4><%= t('pages.proposals.edit.navigator') %></h4>
         <ul class="navigator">
-          <% @proposal.sections.each_with_index do |section,i| %>
-              <li class="sec_nav" data-section_id="<%=i%>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
+          <% @proposal.sections.each_with_index do |section, i| %>
+              <li class="sec_nav" data-section_id="<%= i %>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
           <% end %>
-          <% @proposal.solutions.each_with_index do |solution,i| %>
-              <li data-solution_id="<%=i%>"><span class="sol_title"><%= solution.title %></span>
+          <% @proposal.solutions.each_with_index do |solution, i| %>
+              <li data-solution_id="<%= i %>"><span class="sol_title"><%= solution.title %></span>
                 <ul class="sub_navigator">
-                  <% solution.sections.each_with_index do |section,j| %>
-                      <li data-section_id="<%=(i+1)*100+j%>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
+                  <% solution.sections.each_with_index do |section, j| %>
+                      <li data-section_id="<%= (i+1)*100+j %>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
                   <% end %>
                 </ul>
               </li>

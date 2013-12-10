@@ -1,13 +1,27 @@
-$('#new_quorum_container').html("<%= escape_javascript(render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.create')}))%>");
+var container_ = $('<div id="quorum_container"class="reveal-modal medium" data-reveal></div>');
+$('body').append(container_);
+container_.html("<%= j (render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.create')}))%>");
 
-$('#new_quorum_container').dialog({
+container_.foundation('reveal', 'open');
+
+container_.find('a.cancel').click(function() {
+    container_.foundation('reveal', 'close');
+    return false;
+});
+
+$(document).on('closed', container_, function () {
+    container_.remove();
+});
+
+/*container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y','auto');
+container_.dialog({
 	width: 800,
 	height: 'auto',
 	modal : true,
 	resizable: false,
 	close : function(event, ui) {
-		$('#new_quorum_container').dialog('destroy');
-        $('#new_quorum_container').empty();
+        container_.dialog('destroy');
+        container_.remove();
 	}
 });
-
+  */

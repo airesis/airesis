@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :load_tutorial
 
+  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
+
 
   protected
 
@@ -35,6 +37,7 @@ class ApplicationController < ActionController::Base
     elsif !['', 'www'].include? request.subdomain
       @group = Group.find_by_subdomain(request.subdomain)
     end
+    @group
   end
 
   def extract_locale_from_tld

@@ -1,0 +1,62 @@
+{"created_at": "2013-03-19T08:59:13+01:00",
+    "proposal_category_id": 25,
+    "rank": 0,
+    "title": "Ipsum doloret",
+    "updated_at": "2013-03-19T08:59:13+01:00",
+    "valutations": 1,
+    "short_content": "Ipsum doloret",
+    "percentage": 9.090909090909092,
+    "is_anonima?": false,
+    "users_j": [
+        {
+            "id": 1986,
+            "fullname": "Name Surname"
+        }
+    ],
+    "interest_borders": [
+        {
+            "territory_id": 6150,
+            "territory_type": "Comune",
+            "description": "Itala (Comune)"
+        }
+    ],
+    "groups": [],
+    "sections": [
+        {
+            "seq": 1,
+            "title": "Title",
+            "paragraphs": [
+                {
+                    "content": "html content",
+                    "seq": 1
+                }
+            ]
+        },
+        {
+            "seq": 2,
+            "title": "Title",
+            "paragraphs": [
+                {
+                    "content": "html content",
+                    "seq": 1
+                }
+            ]
+        }
+    ],
+    "solutions": [
+        {
+            "seq": 1,
+            "sections": [
+                {
+                    "seq": 1,
+                    "title": "Title",
+                    "paragraphs": [
+                        {
+                            "content": "html content",
+                            "seq": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]}

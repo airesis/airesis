@@ -1,4 +1,5 @@
-<div title="<%= t('pages.proposal_histories.title') %>" id="proposal_histories" style="display: none;">
+<div id="proposal_histories"  class="reveal-modal" data-reveal>
+  <h2><%= t('pages.proposal_histories.title') %></h2>
   <div class="row full-width">
     <div class="columns large-4">
       <%= render :partial => 'panel_menu' %>
@@ -7,6 +8,7 @@
       <%= render :partial => 'panel_content' %>
     </div>
   </div>
+  <a class="close-reveal-modal">&#215;</a>
 </div>
 
 

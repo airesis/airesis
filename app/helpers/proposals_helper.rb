@@ -1,6 +1,17 @@
 #encoding: utf-8
 module ProposalsHelper
 
+
+  def reload_message
+    ret = "toastr.options = {tapToDismiss: false, extendedTimeOut: 0, timeOut: 0};"
+    ret += "toastr.info('<div id=\"reload_proposal\">"
+    ret += 'This page is outdate.<br/>Please reload the page.'
+    ret += "<br/>"
+    ret += '<a href="" class="btn" style="color: #444">Reload</a>'
+    ret += "</div>');"
+    ret.html_safe
+  end
+
   #return a parsed paragraph
   def parsed_paragraph(content)
     sanitize(content).gsub(/<.{1,3}>/,'').blank? ?

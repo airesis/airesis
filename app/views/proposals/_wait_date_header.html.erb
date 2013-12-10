@@ -1,4 +1,4 @@
-<% if (current_user && (current_user.is_mine? @proposal)) || is_admin? %>
+<% if can? :choose_date, @proposal %>
     <% if @group %>
         <% collection = Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
     <% else %>

@@ -44,6 +44,7 @@
     $('#end_debate').countdown($.extend({
                 until: endsDate,
                 significant: 3,
+                onExpiry: reload_proposal,
                 description: '<%=l @proposal.quorum.ends_at%>'},
             $.countdown.regional['<%=I18n.locale%>']));
     <%end%>
@@ -55,4 +56,9 @@
                 description: '<%=l @proposal.vote_period.endtime%>'},
             $.countdown.regional['<%=I18n.locale%>']));
     <%end%>
+
+    function reload_proposal() {
+        <%=reload_message %>
+    }
+
 </script>

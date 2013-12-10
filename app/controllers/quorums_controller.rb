@@ -14,6 +14,7 @@ class QuorumsController < ApplicationController
   layout :choose_layout
 
   def new
+    @page_title=  t('pages.groups.edit_quorums.new_quorum.title')
     @quorum = BestQuorum.new({:percentage => 0, :good_score => 20, :vote_percentage => 0, :vote_good_score => 50})
     @partecipants_count = @group.count_proposals_partecipants
     @vote_partecipants_count = @group.count_voter_partecipants
@@ -56,6 +57,7 @@ class QuorumsController < ApplicationController
   end
 
   def edit
+    @page_title = t('pages.groups.edit_quorums.edit_quorum')
     @partecipants_count = @group.count_proposals_partecipants
     @vote_partecipants_count = @group.count_voter_partecipants
   end
