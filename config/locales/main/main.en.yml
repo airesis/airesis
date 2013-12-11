@@ -792,7 +792,7 @@ en:
     proposal_supports:
       new:
         panel_title: "Confirm proposal support"
-        no_available_groups: "You are not allowed to support this proposal by any group "
+        no_available_groups: "You are not allowed to support this proposal on behalf of any group"
       confirm_button: "Confirm"
     calendar:
       create_event_button: "Create new event"
