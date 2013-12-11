@@ -92,7 +92,7 @@ module Crowdin
     #that have translation percentage superior to min_translation_perc
     def status
       auth
-      min_translation_perc = -1
+      min_translation_perc = 60
       @lang_ready= []
 
       output_array =  @crowdin.translations_status
@@ -101,7 +101,6 @@ module Crowdin
           @lang_ready << lang["code"]
       end
 
-      puts @lang_ready
     end
 
 
