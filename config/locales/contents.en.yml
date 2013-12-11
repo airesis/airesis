@@ -2,7 +2,7 @@ en:
   home:
     intro:
       title: "The first social network for E-Democracy in the world"
-      description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
+      description: "A tool of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
       paragraph_1:
         title: "The Social Network for E-Democracy"
         content_html: |
@@ -158,20 +158,21 @@ en:
       paragraph_9:
         title: "Promotion of shared proposals and Participatory Democracy"
         content_html: |
-          <p>Airesis was developed to promote the sharing of ideas and opinions within the community. To achieve this, the platform offers various tools and features:</p>
+          <p>Airesis was developed to promote the sharing of ideas and opinions within the community. To achieve this, the platform offers different tools:</p>
           <ul>
             <li>the <strong>proposal is public by default</strong>
             </li>
-            <li>publication of proposals on social networks, the Common area of Airesis or on external blogs and forums;
+            <li>publication of proposals on <strong>social networks</strong>, in the Open Space of Airesis or on external blogs and forums;
             </li>
-            <li>the personal blog in which community members can interact
+            <li>the <strong>personal blog</strong> where community members can present themselfes and post info and announcement in the news of the groups they are members of, in addition to share ideas/opinions;
             </li>
-            <li>the possibility of organizing meetings dedicated to the members of a group or public for all
+            <li>the possibility of organizing <strong>meetings</strong> for the members of the community;
             </li>
-            <li>the presence of a discussion board attached to each proposal
+            <li>the possibility to <strong>mark interesting events</strong> on a shared calendar;
             </li>
-            <li>reputation system that rewards participation,
-            constructive and clarity, encouraging problem solving
+            <li>the presence of a <strong>discussion board</strong> in each proposal, in which to add contributions that editors will be able to integrate in the text of the proposal, according to the evaluations received;
+            </li>
+            <li>reputation system that rewards participation, constructive and clarity, encouraging problem solving
             </li>
             <li>the opportunity to invite their contacts to join the discussion
             </li>
