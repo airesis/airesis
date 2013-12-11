@@ -16,7 +16,7 @@ it-IT:
       invalid_token: "Codice di autenticazione non valido"
       timeout: "Sessione scaduta, accedere nuovamente per continuare"
       inactive: "Il tuo account non è stato ancora attivato"
-      unauthenticated: "Esegui il login per visualizzare pagina"
+      unauthenticated: "Esegui il login per visualizzare la pagina"
       unconfirmed: "L'account non è ancora stato confermato"
       user:
         invalid: "Nome utente o password non validi"
