@@ -5,6 +5,9 @@ require 'zip'
 module Crowdin
   class Client
 
+    DOWNLOAD_FOLDER = "tmp"
+    MIN_TRANSLATION_PERCENTAGE = 60
+
     def auth
       @crowdin = Crowdin::API.new(:api_key => CROWDIN_API , :project_id => CROWDIN_PROJECT_ID, :account_key => CROWDIN_ACCOUNT_KEY)
       @crowdin.log = Logger.new $stderr
@@ -53,7 +56,7 @@ module Crowdin
       self.status
       @crowdin.export_translations
       @lang_ready.each { |lang|
-        @crowdin.download_translation(lang, :output => "config/locales/output-#{lang}.zip")
+        @crowdin.download_translation(lang, :output => "#{DOWNLOAD_FOLDER}/output-#{lang}.zip")
       }
 
     end
@@ -64,13 +67,13 @@ module Crowdin
     #reload translations from file (if there are new .yml files added we still need to restart the application!)
     def extract_zip
       zip_files = []
-      Dir.open("config/locales").each do |filename|
+      Dir.open(DOWNLOAD_FOLDER).each do |filename|
         next if !(filename.end_with?('zip'))
-        zip_files << filename
+        zip_files << "#{DOWNLOAD_FOLDER}/#{filename}"
       end
 
       zip_files.each{ |zip|
-        Zip::File.open("config/locales/#{zip}") { |zip_file|
+        Zip::File.open(zip) { |zip_file|
           zip_file.each { |f|
             f_path=File.join(f.name)
             FileUtils.mkdir_p(File.dirname(f_path))
@@ -85,19 +88,18 @@ module Crowdin
     end
 
     def delete_zip(zip_file)
-      File.delete("config/locales/#{zip_file}")
+      File.delete(zip_file)
     end
 
     #check the status of the translations and populate the array @lang_ready with the lang code
-    #that have translation percentage superior to min_translation_perc
+    #that have translation percentage superior to MIN_TRANSLATION_PERCENTAGE
     def status
       auth
-      min_translation_perc = 60
       @lang_ready= []
 
       output_array =  @crowdin.translations_status
       output_array.each do |lang|
-       next if lang["translated_progress"] < min_translation_perc
+       next if lang["translated_progress"] < MIN_TRANSLATION_PERCENTAGE
           @lang_ready << lang["code"]
       end
 
