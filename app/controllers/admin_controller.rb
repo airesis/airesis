@@ -163,7 +163,7 @@ class AdminController < ManagerController
      Crowdin::Client.new.upload_sources
      respond_to do |format|
        format.html {
-         flash[:notice] = 'Sources successfully uploaded'
+         flash[:notice] = 'Sources uploaded'
          redirect_to admin_panel_path
        }
       end
@@ -173,7 +173,7 @@ class AdminController < ManagerController
     Crowdin::Client.new.update_sources
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Sources successfully updated'
+        flash[:notice] = 'Sources updated'
         redirect_to admin_panel_path
       }
     end
@@ -183,11 +183,31 @@ class AdminController < ManagerController
     Crowdin::Client.new.download_translations
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Sources updated'
+        flash[:notice] = 'Translations downloaded'
         redirect_to admin_panel_path
       }
     end
   end
 
+  def translation_status
+    Crowdin::Client.new.status
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Status downloaded'
+        redirect_to admin_panel_path
+      }
+    end
+  end
+
+  def extract_delete_zip
+    Crowdin::Client.new.extract_zip
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Translations unzipped and zip deleted'
+        redirect_to admin_panel_path
+      }
+    end
+
+  end
   
 end
