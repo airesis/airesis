@@ -15,34 +15,38 @@ module Crowdin
 
     def upload_sources
       auth
-      #@crowdin.add_file(
-      #    files = [
-      #        { :dest => '/config/locales/dates/%file_name%.%locale%.yml', :source => 'config/locales/dates/*.en.yml'},
-      #    ], :type => 'yaml')
-      directories = Dir.entries("config/locales")
-      #puts directories
+      source_files_path = Dir["config/locales/**/*.en.yml"]
+
       files=[]
-      directories.each { |name|
-        if !(name.eql?("..") || name.eql?('.') || name.end_with?(".zip"))
-          files << { :dest => "/#{name}.yml", :source => "config/locales/#{name}/#{name}.en.yml", :export_pattern => "/config/locales/#{name}/#{name}.%locale%.yml"}
-        end
+      source_files_path.each { |path|
+        files << { :dest => "/#{File.basename(path)}", :source => path, :export_pattern => "/"+path.gsub("en.yml","%locale%.yml")}
       }
       @crowdin.add_file(files, :type=>'yaml')
+    end
+
+    def upload_translations
+      auth
+      transl_files_path = Dir["config/locales/**/*it-IT.yml"]
+      files = []
+      transl_files_path.each { |path|
+        files << { :dest => "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, "en")}", :source => path }
+      }
+
+      crowdin.upload_translation(
+          files,
+          language = 'it',
+           params = {:import_duplicates => true})
     end
 
     #scan directory "locales", memorize the names of the directories inside it
     #passes the directories name to crowdin.update_files, that upload the english files inside each directory
     def update_sources
       auth
-      directories = []
-      Dir.open("config/locales").each do |filename|
-        next if (!File.directory?("config/locales/"+filename) || filename.end_with?('.'))
-        directories << filename
-        end
-
+      source_files_path = Dir["config/locales/**/*.en.yml"]
       files=[]
-      directories.each { |filename|
-        files << { :dest => "/#{filename}.yml", :source => "config/locales/#{filename}/#{filename}.en.yml"}
+
+      source_files_path.each { |path|
+        files << { :dest => "/#{File.basename(path)}", :source => path}
         }
       @crowdin.update_file(files)
     end
@@ -66,11 +70,7 @@ module Crowdin
     #delete zip files at the end of extraction
     #reload translations from file (if there are new .yml files added we still need to restart the application!)
     def extract_zip
-      zip_files = []
-      Dir.open(DOWNLOAD_FOLDER).each do |filename|
-        next if !(filename.end_with?('zip'))
-        zip_files << "#{DOWNLOAD_FOLDER}/#{filename}"
-      end
+      zip_files = Dir["#{DOWNLOAD_FOLDER}/*.zip"]
 
       zip_files.each{ |zip|
         Zip::File.open(zip) { |zip_file|

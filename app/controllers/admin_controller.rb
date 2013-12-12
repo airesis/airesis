@@ -179,21 +179,21 @@ class AdminController < ManagerController
     end
   end
 
+  def upload_translations
+    Crowdin::Client.new.upload_translations
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Translation uploaded'
+        redirect_to admin_panel_path
+      }
+      end
+  end
+
   def download_translations
     Crowdin::Client.new.download_translations
     respond_to do |format|
       format.html {
         flash[:notice] = 'Translations downloaded'
-        redirect_to admin_panel_path
-      }
-    end
-  end
-
-  def translation_status
-    Crowdin::Client.new.status
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Status downloaded'
         redirect_to admin_panel_path
       }
     end
