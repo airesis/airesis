@@ -69,6 +69,7 @@ class ResqueMailer < ActionMailer::Base
 
   def publish(params)
     @user = User.find_by_id(params['user_id'])
+    I18n.locale = @user.locale.key || 'en'
     mail_fields = {
       subject: params['subject'],
       to: @user.email
@@ -103,6 +104,6 @@ class ResqueMailer < ActionMailer::Base
   protected
 
   def choose_layout
-    (['invite','admin_message','feedback'].include? action_name) ? 'maktoub/unregistered_mailer' : 'maktoub/newsletter_mailer'
+    (['invite','admin_message','feedback'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
   end
 end
