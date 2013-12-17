@@ -75,11 +75,11 @@ module Crowdin
       zip_files.each{ |zip|
         Zip::File.open(zip) { |zip_file|
           zip_file.each { |f|
-            f_path=File.join(f.name)
+            f_path = f.name
             FileUtils.mkdir_p(File.dirname(f_path))
-            if f.directory? || (f.size && f.size != 0) #always extract directories, but doesn't extract empty files
+            if f.size && f.size != 0 #doesn't extract empty files
               zip_file.extract(f, f_path) { true } #if true overwrite existing files with same name
-            end
+           end
           }
         }
         delete_zip(zip)
