@@ -247,7 +247,7 @@ class User < ActiveRecord::Base
         elsif fdata['provider'] == Authentication::FACEBOOK #do nothing
         elsif fdata['provider'] == Authentication::PARMA #do nothing
         end
-      elsif data == session[:user] #what does it do? can't remember
+      elsif data = session[:user] #what does it do? can't remember
         user.email = session[:user][:email]
         user.login = session[:user][:email]
         if invite = session[:invite] #if is by invitation
