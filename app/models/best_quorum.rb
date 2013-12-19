@@ -10,6 +10,10 @@ class BestQuorum < Quorum
 
   after_find :populate_accessor
 
+  def valutations
+    (read_attribute :valutations) || 1
+  end
+
   def populate_accessor
     super
     self.vote_minutes_m = self.vote_minutes

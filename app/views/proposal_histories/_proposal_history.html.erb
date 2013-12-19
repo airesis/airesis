@@ -21,14 +21,14 @@
 
 <% if @revision.solution_histories.size > 0 %>
 
-    <% @revision.solution_histories.includes(:section_histories => :paragraphs).order('section_histories.seq').each do |solution| %>
+    <% @revision.solution_histories.includes(:section_histories => :paragraphs).order('section_histories.seq').each_with_index do |solution,i| %>
         <div class="solution_main">
           <h3>
             <div class="tit1 sol">
               <div class="tit2">
                 <%= "#{t('pages.proposal_histories.solutions.added')}: " if solution.added %>
                 <%= "#{t('pages.proposal_histories.solutions.removed')}: " if solution.removed %>
-                <%= "#{solution.title}" %>
+                <%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%> <%= "#{solution.title}" %>
               </div>
             </div>
           </h3>

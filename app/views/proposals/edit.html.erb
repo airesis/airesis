@@ -101,13 +101,13 @@
     <hr/>
     <h4><%= t('pages.proposals.edit.edit_proposal') %></h4>
 
-    <% @proposal.solutions.includes({:sections => :paragraphs}).each_with_index do |solution, i| %>
+    <% @proposal.solutions.includes({:sections => :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
             <div class="solution_main" data-solution_id="<%= i %>">
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
-                    <%= sol.text_field :title %>
+                    <span class="title_placeholder"><%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
                   </div>
                   <span class="remove_sol_button">
                     <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_solution') %></a>
@@ -124,6 +124,7 @@
                   <% solution.sections.each_with_index do |section, j| %>
                       <%= sol.fields_for :sections, section do |s| %>
                           <%= s.hidden_field :title %>
+                          <%= s.hidden_field :question %>
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
@@ -453,7 +454,8 @@
         return true;
     }
 
-    var numSolution = <%=@proposal.solutions.count%>;
+    var numSolution = <%=@proposal.solutions.count%>;       //this is used for ids
+    var fakeNumSolution = <%=@proposal.solutions.count%>;   //this is used to show user the number and for sequences
     var numSections = <%=@proposal.sections.count%>;
 
     //register the number of current sections for each solution
@@ -545,9 +547,12 @@
 
         $(el).parent().before(paragraph_)
         paragraph_.fadeIn();
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']").val("<%=j t('proposals.edit.solutions.default_title')%> " + (++numSolution));
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']");
+        numSolution++;
+        fakeNumSolution++;
+        paragraph_.find(".title_placeholder .num").html(fakeNumSolution);
 
-        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(numSolution);
+        paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(fakeNumSolution);
         paragraph_.find(".add_section").attr('data-solution_id', numSolution);
         paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);
         paragraph_.attr('data-solution_id', numSolution);
@@ -574,7 +579,7 @@
         //navigator update
         $('.navigator li[data-solution_id=new]').attr('data-solution_id', numSolution);
         var nav_ = $('.navigator li[data-solution_id=' + numSolution + ']');
-        nav_.find('span.sol_title').html("<%=j t('proposals.edit.solutions.default_title')%> " + (numSolution));
+        nav_.find('span.sol_title').html(""); //TODO title in navigator
         nav_.find('.sub_navigator li').each(function () {
             var sec_id = parseInt($(this).attr('data-section_id'));
             paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (numSolution + 1) * 100 + sec_id);
@@ -619,8 +624,19 @@
             else {
                 section_.fadeOut(function () {
                     section_.remove();
+                    //CKEDITOR.remove(section_.find('textarea').attr('id'));
                 });
             }
+            section_.nextUntil(null,'.solution_main').each(function() {
+                var sol_id = $(this).attr('data-solution_id');
+                var id = $(this).find('textarea').attr('id');
+                var seqel_ = $("[name^='proposal\[solutions_attributes\]\["+sol_id+"\]\[seq\]']");
+                console.log(seqel_);
+                var seq_ = parseInt(seqel_.val());
+                seqel_.val(seq_-1);
+                $(this).find(".title_placeholder .num").html(seq_-1);
+            });
+            fakeNumSolution--;
         }
     }
 

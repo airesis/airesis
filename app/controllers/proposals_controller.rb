@@ -521,7 +521,7 @@ class ProposalsController < ApplicationController
       end
       Resque.enqueue_in(1, NotificationProposalUpdate, current_user.id, @proposal.id, @group.try(:id))
 
-      PrivatePub.publish_to(proposal_path(@proposal), reload_message)
+      PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
 
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_updated')

@@ -97,17 +97,17 @@
       </h3>
 
       <div class="proposal_content">
-        <%= parsed_paragraph(section.paragraphs.first.content) %>
+        <%= parsed_section(section) %>
       </div>
     </div>
 <% end %>
 
-<% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each do |solution| %>
+<% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each_with_index do |solution,i| %>
     <div class="solution_main" data-solution_id="<%= solution.id %>">
       <h3>
         <div class="tit1 sol">
           <div class="tit2">
-            <%= "#{solution.title}" %>
+            <%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%> <%= "#{solution.title}" %>
           </div>
         </div>
       </h3>
@@ -131,7 +131,7 @@
               </h3>
 
               <div class="proposal_content" data-id="<%= solution.id %>">
-                <%= parsed_paragraph(section.paragraphs.first.content) %>
+                <%= parsed_section(section) %>
               </div>
             </div>
         <% end %>

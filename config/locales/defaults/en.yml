@@ -17,6 +17,7 @@ en:
       linkedin_login: "Login with LinkedIn"
       openid_login: "Login with OpenID"
       find_groups: 'Search Groups'
+      parma_login: "Login with Parma"
     user:
       notifications: 'Alarms and Notifications'
       privacy: "Account and privacy"
@@ -445,7 +446,7 @@ en:
         debate_ends_valutations_and: "and with"
         debate_ends_valutations: "End of debate with"
         error_loading_paragraph: "This paragraph has been removed. Reload the page to view the updated proposal"
-        generic_fake_content: "This section has not yet been compiled. It helps the author by inserting a contribution!"
+        generic_fake_content: "This section has not yet been compiled. Help the editor by inserting a contribution!"
         model_title: "Template"
         created_events: "Already created events"
         create_new_votation_period: "Create a new event at the end of debate"
@@ -1094,6 +1095,9 @@ en:
           portavoce:
             required: 'You must choose a spokesman'
   models:
+    best_quorum:
+      good_score_condition: "The proposal will go to the vote if it has a maturity greater than <b>%{good_score}%</b> and %{participants}, otherwise it will be abandoned"
+      good_score_condition_past: "The proposal would have gone to the vote if it had a maturity greater than <b>%{good_score}%</b> and %{participants}, otherwise it would had been abandoned"
     quorum:
       participants:
         one: '<b>a person</b> will have participated'
@@ -1140,9 +1144,6 @@ en:
       ready_for_vote: "Ready for vote"
       keep_discuss: "Continue the discussion"
     regenerate_button: "Put back in debate"
-    edit:
-      solutions:
-        default_title: "Solution"
   digit_tags: "Type the tags you want to add"
   buttons:
     cancel: "Cancel"

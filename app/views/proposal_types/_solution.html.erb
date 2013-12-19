@@ -8,10 +8,10 @@
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
-                    <%= sol.text_field :title %>
+                    <span class="title_placeholder"><%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: 0)%></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
                   </div>
                   <span class="remove_sol_button">
-                    <a href="#" onclick="removeSolution(this,false);return false;"> <%= 'Rimuovi soluzione' %></a>
+                    <a href="#" onclick="removeSolution(this,false);return false;"> <%= t('pages.proposals.edit.remove_solution') %></a>
                   </span>
                 </div>
               </h3>
@@ -23,6 +23,7 @@
                   <% solution.sections.each_with_index do |section, j| %>
                       <%= sol.fields_for :sections, section do |s| %>
                           <%= s.hidden_field :title %>
+                          <%= s.hidden_field :question %>
                           <%= s.hidden_field :seq %>
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
@@ -31,7 +32,7 @@
                                     <%= image_tag 'move.png' %>
                                 </span>
                                 <span class="remove_button">
-                                    <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= 'Rimuovi sezione' %></a>
+                                    <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= t('pages.proposals.edit.remove_section') %></a>
                                 </span>
 
                                 <div class="clearboth"></div>
@@ -45,7 +46,7 @@
                   <% end %>
                 </div>
                 <div class="new_section">
-                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section"><%= 'Aggiungi un paragrafo alla soluzione' %></a>
+                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
                 </div>
               </div>
           <% end %>

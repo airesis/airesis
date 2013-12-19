@@ -1144,9 +1144,6 @@ it-IT:
       ready_for_vote: "Pronta per la votazione"
       keep_discuss: "Continua la discussione"
     regenerate_button: "Rimetti in dibattito"
-    edit:
-      solutions:
-        default_title: "Soluzione"
   digit_tags: "Digita i tag che vuoi inserire"
   buttons:
     cancel: "Annulla"
