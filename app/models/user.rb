@@ -657,15 +657,17 @@ class User < ActiveRecord::Base
     else #crea un nuovo account parma
 
       user = User.new(:name => data['first_name'].capitalize, :surname => data['last_name'].capitalize, :password => Devise.friendly_token[0, 20], :email => data['email'])
+      group = Group.find_by_subdomain('parma')
+      user.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => GroupPartecipationRequestStatus::ACCEPTED)
+      partecipation_role = group.default_role
       if data['verified']
-        #certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        group = Group.find_by_subdomain('parma')
-        user.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => 3)
-        user.group_partecipations.build(:group => group, :partecipation_role_id => group.partecipation_role_id)
+        certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
+        partecipation_role = PartecipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || partecipation_role  #look for best role or fallback
         user.user_type_id = UserType::CERTIFIED
       else
         user.user_type_id = UserType::AUTHENTICATED
       end
+      user.group_partecipations.build(:group => group, :partecipation_role_id => partecipation_role.id)
 
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)

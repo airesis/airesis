@@ -218,7 +218,8 @@ class ApplicationController < ActionController::Base
         (params[:controller] == "passwords") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "polling") ||
-        (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")))
+        (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")) ||
+        (params[:action] == 'feedback'))
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       session[:user_return_to] = request.url

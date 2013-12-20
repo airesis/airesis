@@ -912,7 +912,7 @@ it-IT:
       add_details: "Aggiungi dettagli"
       view_preview: "Visualizza anteprima"
       send_succes: "Feedback inviato correttamente. Grazie!"
-      send_error: "Spiacenti ma si è verificato un errore durante l\'invio del feedback"
+      send_error: "Spiacenti ma si è verificato un errore durante l'invio del feedback"
       describe_problem: "Scrivi qui il tuo messagio:"
       highlight_or_blackout: "Evidenzia o oscura le informazioni importanti"
       blackout: "Evidenzia"

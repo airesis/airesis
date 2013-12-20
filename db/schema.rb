@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131219135805) do
+ActiveRecord::Schema.define(:version => 20131220150531) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1183,6 +1183,7 @@ ActiveRecord::Schema.define(:version => 20131219135805) do
     t.datetime "image_updated_at"
     t.text     "message"
     t.string   "email"
+    t.text     "stack"
   end
 
   create_table "simple_votes", :force => true do |t|

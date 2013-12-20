@@ -94,8 +94,13 @@ class HomeController < ApplicationController
         feedback = JSON.parse(params[:data])
         data = feedback[1][22..-1] if feedback[1]#get the feedback image data
 
-
-        feedback = SentFeedback.new(message: feedback[0]['message'])
+        stack  = ""
+        if current_user
+          stack << "user id: #{current_user.id}\n"
+          stack << "user email: #{current_user.email}\n"
+          stack << "current url: #{session[:user_return_to]}\n"
+        end
+        feedback = SentFeedback.new(message: feedback[0]['message'], stack: stack)
 
         feedback.email = current_user.email if current_user #save user email if is logged in
 

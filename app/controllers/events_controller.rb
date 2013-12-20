@@ -1,6 +1,6 @@
 #encoding: utf-8
 class EventsController < ApplicationController
-  include NotificationHelper
+  include NotificationHelper, GroupsHelper
 
   layout :choose_layout
 
@@ -149,24 +149,35 @@ class EventsController < ApplicationController
   end
 
   def list
+    conditions = "(starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}') or (endtime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}')"
     if @group
-      @events = @group.events.all(:conditions => ["(starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}') or (endtime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}')"])
+      @events = @group.events.where(conditions)
+      @group_name = @group.name
+      @group_url = group_url(@group)
     else
-      @events = Event.all(:conditions => ["(starttime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and starttime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}') or (endtime >= '#{Time.at(params['start'].to_i).to_formatted_s(:db)}' and endtime < '#{Time.at(params['end'].to_i).to_formatted_s(:db)}')"])
+      @events = Event.where(conditions).includes(:organizers)
     end
     events = []
     @events.each do |event|
-      events << {:id => event.id,
-                 :title => event.title,
-                 :description => event.description || "Some cool description here...",
-                 :start => "#{event.starttime.iso8601}",
-                 :end => "#{event.endtime.iso8601}",
-                 :allDay => event.all_day,
-                 :recurring => event.event_series_id ? true : false,
-                 :backgroundColor => event.backgroundColor,
-                 :textColor => event.textColor,
-                 :editable => !event.is_votazione?,
-                 :url => event.is_elezione? ? election_path(event.election) : event_path(event)}
+      event_obj = {:id => event.id,
+                   :title => event.title,
+                   :description => event.description || "Some cool description here...",
+                   :start => "#{event.starttime.iso8601}",
+                   :end => "#{event.endtime.iso8601}",
+                   :allDay => event.all_day,
+                   :recurring => event.event_series_id ? true : false,
+                   :backgroundColor => event.backgroundColor,
+                   :textColor => event.textColor,
+                   :editable => !event.is_votazione?,
+                   :url => event.is_elezione? ? election_path(event.election) : event_path(event)}
+      if @group
+        event_obj[:group] = @group_name
+        event_obj[:group_url] = @group_url
+      elsif event.organizers.first
+        event_obj[:group] = event.organizers.first.name
+        event_obj[:group_url] = group_url(event.organizers.first)
+      end
+      events << event_obj
     end
     render :text => events.to_json
   end

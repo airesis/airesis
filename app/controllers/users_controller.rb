@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :load_user, :only => [:show, :suspend, :unsuspend, :destroy, :purge, :update, :update_image, :edit, :show_message, :send_message]
+  before_filter :load_user, :only => [:show, :update, :update_image, :show_message, :send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)
@@ -34,6 +34,17 @@ class UsersController < ApplicationController
         #aggiungi il provider
         User.transaction do
           auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token => (data['credentials']['token'] rescue nil))
+          if data["provider"] == Authentication::PARMA
+            group = Group.find_by_subdomain('parma')
+            auth.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => GroupPartecipationRequestStatus::ACCEPTED)
+            partecipation_role = group.default_role
+            if data['info']['verified']
+              certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
+              partecipation_role = PartecipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || partecipation_role  #look for best role or fallback
+              auth.user_type_id = UserType::CERTIFIED
+            end
+            auth.group_partecipations.build(:group => group, :partecipation_role_id => partecipation_role.id)
+          end
           auth.save!
         end
         #fine dell'unione

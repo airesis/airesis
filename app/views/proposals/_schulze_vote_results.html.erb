@@ -15,7 +15,7 @@
         <tbody>
         <% Solution.where(:proposal_id => @proposal.id).order('schulze_score desc').each do |solution| %>
             <tr>
-              <td><%= solution.title %></td>
+              <td><%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: solution.seq)%> <%= solution.title %></td>
               <td style="text-align: center"><%= solution.schulze_score %></td>
             </tr>
         <% end %>
