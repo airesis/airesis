@@ -1,0 +1,42 @@
+<div id="proposal_comment_history" class="reveal-modal small" data-reveal>
+  <h2><%= t('pages.proposal_comments.title') %></h2>
+
+  <div class="row full-width">
+    <div class="columns large-12">
+      <% @proposal_comment.versions.each do |version| %>
+          <div class="panel" data-version-id="<%= version.id %>" data-version>
+            <span><%= parsed_content(version.reify, @proposal.is_anonima?) if version.reify %></span>
+            <div>
+              <div class="baloon-footer" title='<%= l(version.created_at) %>'>
+                <%= time_in_words(version.created_at) %>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <div class="panel" style="display: none;">
+        <span><%= parsed_content(@proposal_comment, @proposal.is_anonima?) %></span>
+      </div>
+    </div>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+
+  <script type="text/javascript">
+      var dmp = new diff_match_patch();
+      $('.panel[data-version]').each(function () {
+          var text1 = $(this).find('span').text();
+          var text2 = $(this).next('.panel').find('span').text();
+          console.log('text a:' + text1);
+          console.log('text b:' + text2);
+          dmp.Diff_Timeout = 0;
+          dmp.Diff_EditCost = 4;
+          var d = dmp.diff_main(text1, text2);
+          dmp.diff_cleanupEfficiency(d);
+          var ds = dmp.diff_prettyHtml(d);
+          $(this).find('span').html(ds);
+          console.log(d);
+          console.log(ds);
+      });
+      disegnaCountdown();
+  </script>
+
+</div>

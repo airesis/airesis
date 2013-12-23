@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131220150531) do
+ActiveRecord::Schema.define(:version => 20131223093450) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -831,6 +831,17 @@ ActiveRecord::Schema.define(:version => 20131220150531) do
   end
 
   add_index "proposal_comment_reports", ["proposal_comment_id", "user_id"], :name => "reports_index", :unique => true
+
+  create_table "proposal_comment_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "proposal_comment_versions", ["item_type", "item_id"], :name => "index_proposal_comment_versions_on_item_type_and_item_id"
 
   create_table "proposal_comments", :force => true do |t|
     t.integer  "parent_proposal_comment_id"

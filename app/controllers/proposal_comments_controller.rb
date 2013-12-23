@@ -4,7 +4,7 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
+  before_filter :load_proposal_comment, :only => [:show, :edit, :history, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
 
 ###SICUREZZA###
 
@@ -102,10 +102,14 @@ class ProposalCommentsController < ApplicationController
     end
   end
 
+  def history
+
+  end
+
   #mostra tutti i commenti dati ad un contributo
   def show_all_replies
     @proposal_comment = ProposalComment.find_by_id(params[:id])
-    @replies = ProposalComment.where('parent_proposal_comment_id=?', params[:id]).order('created_at ASC')[0..-6]
+    @replies = ProposalComment.where('parent_proposal_comment_id=?', params[:id]).order('created_at ASC')[0..-(params[:showed].to_i+1)]
   end
 
   def new
@@ -163,6 +167,7 @@ class ProposalCommentsController < ApplicationController
       if @proposal_comment.update_attributes(params[:proposal_comment])
         flash[:notice] = t('info.proposal.updated_comment')
         format.html { redirect_to(@proposal) }
+        format.js
         format.xml { head :ok }
       else
         format.html { render :action => "edit" }

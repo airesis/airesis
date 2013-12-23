@@ -166,12 +166,19 @@ class Ability
       #can :update, Proposal do |proposal|
       #  proposal.users.include? user
       #end
+
+      can :update, ProposalComment do |comment|
+        comment.user == user
+      end
       can :destroy, ProposalComment do |comment|
         (comment.user == user) and ((Time.now - comment.created_at)/60) < 5
       end
       can :rank, ProposalComment do |comment|
         can_partecipate_proposal?(user, comment.proposal)
       end
+
+
+
       can :show_tooltips, User do |fake|
         user.show_tooltips
       end

@@ -50,4 +50,4 @@
 //= require paypal-button.min
 //= require foundation
 //= require list
-
+//= require diff_match_patch

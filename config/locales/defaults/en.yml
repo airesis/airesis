@@ -417,6 +417,7 @@ en:
         close_debate_proposal_confirmation: "Close debate immediately and go to the next phase?"
         during_debate: "Debate proceeding"
         comment_inserted_by: "%{who} - %{when}"
+        comment_updated_by: "%{who} - updated on %{when}"
         replies:
           show_all: "Show all %{count} comments..."
           delete: "Delete"
@@ -587,6 +588,7 @@ en:
         last_month: "Last month"
         last_year: "Last year"
         date_range: "Time interval"
+      update_comment: "Edit"
     events:
       index:
         title: 'Calendar'
@@ -926,6 +928,8 @@ en:
     propsoals:
       index:
         type: "of type %{type}"
+    proposal_comments:
+      title: "Contribute History"
   pl:
     comments:
       zero: "no comment"

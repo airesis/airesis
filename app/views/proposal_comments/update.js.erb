@@ -1,0 +1,5 @@
+$("#flash_messages").html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
+<% proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(@proposal_comment.user.id)%>
+$('.proposalComment[data-id=<%=@proposal_comment.id%>] .proposal_comment').html('<%=j render(partial: 'proposal_comments/content', locals: {comment: @proposal_comment, proposal_nickname: proposal_nickname}) %>');
+initialize_hidden_menu();
+disegnaCountdown()

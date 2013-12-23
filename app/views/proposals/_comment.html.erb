@@ -1,10 +1,8 @@
 <% proposal_nickname = @proposal.proposal_nicknames.find_by_user_id(comment.user.id)
 %>
 
-<div id="comment<%= comment.id %>" class="proposalComment"<%= "style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %>>
-  <div class="blogUserImage" title="
-    <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %><%= proposal_nickname.nickname %>
-    <% end %>">
+<div id="comment<%= comment.id %>" class="proposalComment"<%= "style=\"display:none\" data-collapsed=\"true\"" if comment.collapsed %> data-id="<%= comment.id %>">
+  <div class="blogUserImage" title="<%= proposal_nickname.nickname if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>">
     <% if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) %>
         <img src="http://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(proposal_nickname.nickname) %>?s=40&d=identicon&r=PG"/>
     <% else %>
@@ -12,57 +10,26 @@
     <% end %>
   </div>
   <div class="proposal_comment">
-    <div class="baloon-triangle">
-    </div>
-    <div>
-      <div class="baloon_header">
-        <div id="flash_messages_comment_<%= comment.id %>">
-        </div>
-        <div class="report_contribute hidden_link">
-        </div>
-        <div class="report_menu hidden_menu">
-          <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
-            <%= t('buttons.report')%>
-          </div>
-
-          <% if can? :destroy, comment %>
-              <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
-                          :method => :delete,
-                          :onclick => "return false;",
-                          :class => "deleteCommentLink menu_item",
-                          :id => "delete#{comment.id}",
-                          :data => {id: comment.id} %>
-          <% end %>
-
-        </div>
-      </div>
-      <div class="baloon-content">
-        <%= parsed_content(comment,@proposal.is_anonima?) %>
-      </div>
-      <div class="baloon-footer" title='<%=l(comment.created_at) %>'>
-        <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
-        <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
-
-        </div>
-      <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer">
-        <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
-      </div>
-      <div style="clear:both;"></div>
-    </div>
-
-
+    <%= render partial: 'proposal_comments/content', locals: {comment: comment, proposal_nickname: proposal_nickname} %>
   </div>
   <% countreplies = comment.replies.count %>
-  <% @lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse! %>
-  <% if countreplies > 5 %>
+  <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?",comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
+  <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
-        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true, :method => :post, disable_with: t('loading') %>
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), :remote => true, disable_with: t('loading') %>
       </div>
   <% end %>
-  <div id="<%= comment.id %>_replies" style="disaply:none;">
+  <div id="<%= comment.id %>_replies" style="display:none;">
   </div>
-  <%= render :partial => 'proposals/reply', :collection => @lastreplies, locals: {hide: false} %>
-  <div id="<%= comment.id %>_new_replies" style="disaply:none;">
+  <%@lastreplies.each_with_index do |reply,i| %>
+    <%= render :partial => 'proposals/reply', locals: {reply:reply, hide: false} %>
+    <%if (i < @lastreplies.length - 1) && (version = comment.versions.where(['created_at between ? and ?',@lastreplies[i].created_at, @lastreplies[i+1].created_at]).first) %>
+      <div class="comment_update_divider">
+        <%=raw 'updated on ' + time_in_words(version.created_at) %>
+      </div>
+      <%end%>
+  <%end%>
+  <div id="<%= comment.id %>_new_replies">
   </div>
 
   <% if signed_in? && (can? :partecipate, @proposal) %>

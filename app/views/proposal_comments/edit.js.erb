@@ -1,0 +1,26 @@
+$('.proposalComment[data-id=<%=@proposal_comment.id%>] .baloon-content').fadeOut(function () {
+    var edit_panel = $('<div class="edit_panel"></div>');
+    $(this).after(edit_panel);
+    edit_panel.html('<%=j render 'form'%>');
+    edit_panel.fadeIn(function () {
+        edit_panel.find('.edit_comment').textntags({
+            triggers: {'@': {uniqueTags: false}},
+            onDataRequest: function (mode, query, triggerChar, callback) {
+                var data = nicknames;
+
+                query = query.toLowerCase();
+                var found = _.filter(data, function (item) {
+                    return item.name.toLowerCase().indexOf(query) > -1;
+                });
+
+                callback.call(this, found);
+            }
+        });
+
+        edit_panel.find('.edit_comment').charCount({
+            allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+            warning: 100,
+            counterText: '<%=t('pages.proposals.show.characters_left')%>'
+        });
+    });
+});

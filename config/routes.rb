@@ -55,8 +55,9 @@ Airesis::Application.routes.draw do
         put :rankup
         put :ranknil
         put :rankdown
-        post :show_all_replies
+        get :show_all_replies
         put :unintegrate
+        get :history
       end
       collection do
         post :mark_noise

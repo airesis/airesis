@@ -3,6 +3,9 @@ class ProposalComment < ActiveRecord::Base
   include LogicalDeleteHelper
   include ActionView::Helpers::TextHelper
 
+  has_paper_trail :class_name => 'ProposalCommentVersion', only: [:content], on: [:update,:destroy]
+
+
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
   belongs_to :contribute, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
   has_many :replies, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id, dependent: :destroy
