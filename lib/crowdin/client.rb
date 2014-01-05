@@ -5,6 +5,10 @@ require 'zip'
 module Crowdin
   class Client
 
+    def initialize
+      auth
+    end
+
     DOWNLOAD_FOLDER = "tmp"
     MIN_TRANSLATION_PERCENTAGE = 60
 
@@ -14,7 +18,7 @@ module Crowdin
     end
 
     def upload_sources
-      auth
+
       source_files_path = Dir["config/locales/**/*.en.yml"]
 
       files=[]
@@ -25,7 +29,7 @@ module Crowdin
     end
 
     def upload_translations
-      auth
+
       transl_files_path = Dir["config/locales/**/*it-IT.yml"]
       files = []
       transl_files_path.each { |path|
@@ -41,7 +45,7 @@ module Crowdin
     #scan directory "locales", memorize the names of the directories inside it
     #passes the directories name to crowdin.update_files, that upload the english files inside each directory
     def update_sources
-      auth
+
       source_files_path = Dir["config/locales/**/*.en.yml"]
       files=[]
 
@@ -56,7 +60,7 @@ module Crowdin
     #build zip file in Crowdin server
     #download only zip files of languages inside @lang_ready (see #status for more info on @lang_ready)
     def download_translations
-      auth
+
       self.status
       @crowdin.export_translations
       @lang_ready.each { |lang|
