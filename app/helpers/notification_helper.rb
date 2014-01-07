@@ -199,7 +199,7 @@ module NotificationHelper
 
   #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
   def notify_user_asked_for_partecipation(group)
-    data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
+    data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'group' => group.name, 'i18n' => 't'}
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTECIPATION_REQUEST, url: group_url(group), data: data)
     notification_a.save
     group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
@@ -255,7 +255,7 @@ module NotificationHelper
 
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
-    data = {'proposal_id' => proposal.id.to_s, 'user' => current_user.fullname, 'title' => proposal.title, 'i18n' => 't'}
+    data = {'proposal_id' => proposal.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'title' => proposal.title, 'i18n' => 't'}
     notification_a = Notification.new(:notification_type_id => NotificationType::AVAILABLE_AUTHOR, :url => proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|

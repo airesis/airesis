@@ -164,15 +164,24 @@ class ProposalCommentsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @proposal_comment.update_attributes(params[:proposal_comment])
-        flash[:notice] = t('info.proposal.updated_comment')
+      @proposal_comment.content = params[:proposal_comment][:content]
+      if @proposal_comment.content_changed?
+        if @proposal_comment.save
+          Resque.enqueue_in(1, NotificationProposalCommentUpdate, @proposal_comment.id)
+          flash[:notice] = t('info.proposal.updated_comment')
+          format.html { redirect_to(@proposal) }
+          format.js
+          format.xml { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
+        end
+      else #content has not changed
         format.html { redirect_to(@proposal) }
         format.js
         format.xml { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
       end
+
     end
   end
 

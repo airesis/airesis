@@ -36,7 +36,7 @@
         <div id="login_panel" style="display:none;">
           <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
 
-              <%= f.text_field :login, placeholder: t('pages.header.login_placeholder') %>
+              <%= f.text_field :login, placeholder: t('pages.header.login_placeholder'), autocomplete: :off %>
 
               <%= f.password_field :password, placeholder: 'Password' %>         <br/>
               <%= f.label :remember_me do %>

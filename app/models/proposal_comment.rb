@@ -12,6 +12,7 @@ class ProposalComment < ActiveRecord::Base
   has_many :repliers, class_name: 'User', :through => :replies, :source => :user, uniq: true
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
   has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
+  has_many :rankers, :through => :rankings, :class_name => 'User', source: :user
   belongs_to :paragraph
 
   has_one :integrated_contribute, :class_name => 'IntegratedContribute', dependent: :destroy

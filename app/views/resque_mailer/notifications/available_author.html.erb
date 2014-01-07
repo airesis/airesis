@@ -1,0 +1,17 @@
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
+<% @user = User.find(@data[:user_id]) %>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+
+<%= email_h1 do %>
+    <%= @alert.email_subject %>
+<% end %>
+
+<p>
+  <%= @user.user_image_tag(40,true) %>
+  <%=raw @alert.notification.message%>
+</p>
+
+<%= blue_panel do %>
+    <a href="<%= @alert_url %>" style="color: #2ba6cb; text-decoration: none;">Click
+      here</a> to view the proposal on Airesis and accept new authors.
+<% end %>

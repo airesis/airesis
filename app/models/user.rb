@@ -359,14 +359,15 @@ class User < ActiveRecord::Base
   end
 
   #restituisce true se l'utente ha valutato un contributo
-  #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo
+  #ma è stato successivamente inserito un commento e può quindi valutarlo di nuovo oppure il contributo è stato modificato
   def can_rank_again_comment?(comment)
     #return false unless comment.proposal.in_valutation? #can't change opinion if not in valutation anymore
     ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
-    return true unless ranking
+    return true unless ranking #si, se non l'ho mai valutato
+    return true if ranking.updated_at < comment.updated_at #si, se è stato aggiornato dopo la mia valutazione
     last_suggest = comment.replies.first(:order => 'created_at desc')
-    return false unless last_suggest
-    ranking.updated_at < last_suggest.created_at
+    return false unless last_suggest #no, se non vi è alcun commento
+    ranking.updated_at < last_suggest.created_at #si, se vi sono commenti dopo la mia valutazione
   end
 
 

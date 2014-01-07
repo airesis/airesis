@@ -1,0 +1,32 @@
+<% @proposal = Proposal.find(@data[:proposal_id]) %>
+<% @group = Group.find(@data[:group_id]) if @data[:group_id]%>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+
+<%= email_h3 do %>
+    <%= @group.group_image_tag(40, true) %><%= @group.name %>
+<% end if @group%>
+
+<%= email_h1 do %>
+    <%= @proposal.title %>
+<% end %>
+
+
+<%= blue_panel do %>
+    <a href="<%= @alert_url %>" style="color: #2ba6cb; text-decoration: none;">Click
+      here</a> to view the complete proposal on Airesis and help improving it.
+<% end %>
+
+<% @proposal.sections.includes(:paragraphs).each do |section| %>
+    <% unless section.paragraphs.first.content.gsub(/<.{1,3}>/, '').blank? %>
+        <%= section_panel do %>
+            <h5 style="color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 24px; margin: 0; padding: 0 0 10px;" align="left">
+              <%= section.title %></h5>
+            <%= raw section.paragraphs.first.content %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= blue_panel do %>
+    <a href="<%= @alert_url %>" style="color: #2ba6cb; text-decoration: none;">Click
+      here</a> to view the complete proposal on Airesis and help improving it.
+<% end %>

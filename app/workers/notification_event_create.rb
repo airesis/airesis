@@ -14,7 +14,7 @@ class NotificationEventCreate < NotificationSender
     current_user = User.find(current_user_id)
     if event.private
       organizer = event.organizers.first
-      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name, 'event' => event.title, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name,'group_id' => organizer.id,'user_id' => current_user_id, 'event' => event.title, 'i18n' => 't'}
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, :url => event_url(event), data: data)
       notification_a.save
 

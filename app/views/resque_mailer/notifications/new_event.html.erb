@@ -1,0 +1,37 @@
+<% @group = Group.find(@data[:group_id]) if @data[:group_id]%>
+<% @user = User.find(@data[:user_id])%>
+<% @event = Event.find(@data[:event_id])%>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+
+<%= email_h3 do %>
+    <%= @group.group_image_tag(40, true) %><%= @group.name %>
+<% end if @group%>
+
+<%= email_h1 do %>
+    <%=link_to @event.title, @alert_url %>
+<% end %>
+<p>
+  <%= @event.description %>
+</p>
+
+<%= section_panel do %>
+    <%=email_h5 do %>
+      <%= t('pages.events.show.when') %>
+    <%end%>
+
+    <div style="float:left;margin-top: 10px;">
+      <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
+      <b>
+        <%= l @event.starttime, :format => :from_long_date_time %>
+      </b>
+      <div style="margin-top:5px;"></div>
+      <b>
+        <%= I18n.localize(@event.endtime, :format => :until_long_date_time) %>
+      </b>
+    </div>
+<% end %>
+
+<%= blue_panel do %>
+    <a href="<%= @alert_url %>" style="color: #2ba6cb; text-decoration: none;">Click
+      here</a> to view the event on Airesis.
+<% end %>

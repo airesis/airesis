@@ -984,12 +984,21 @@ input.edit_label {
     visibility: visible;
 }
 
+.proposal_comment:hover .hidden_link.invisible {
+    visibility: hidden;
+}
+
 .blogPost:hover .hidden_link {
     visibility: visible;
 }
 
-.hidden_link.visible {
-    visibility: visible;
+.hidden_link {
+    &.visible {
+        visibility: visible;
+    }
+    &.invisible {
+        visibility: hidden;
+    }
 }
 
 .hidden_menu {

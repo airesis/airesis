@@ -1,0 +1,17 @@
+<% @user = User.find(@data[:user_id])%>
+<% @group = Group.find(@data[:group_id])%>
+<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+
+<%= email_h3 do %>
+    <%= @group.group_image_tag(40, true) %><%= @group.name %>
+<% end if @group%>
+
+<p>
+    <%= @alert.notification.message%>
+</p>
+
+
+<%= blue_panel do %>
+    <a href="<%= @alert_url %>" style="color: #2ba6cb; text-decoration: none;">Click
+      here</a> to go to the group page and accept or reject the participation request.
+<% end %>

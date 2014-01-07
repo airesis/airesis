@@ -21,6 +21,7 @@ class NotificationType < ActiveRecord::Base
   NEW_BLOG_COMMENT = 26
   NEW_COMMENTS_MINE = 27
   NEW_COMMENTS = 28
+  CONTRIBUTE_UPDATE = 29
 
 
   belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id

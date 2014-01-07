@@ -132,6 +132,9 @@
 
 
     function edit_contribute(id) {
+        $('.report_menu').hide();
+        $('.report_contribute.visible').removeClass('visible');
+        $('.report_contribute').addClass('invisible');
         $.ajax({
             dataType: 'script',
             type: 'get',
@@ -141,6 +144,8 @@
     }
 
     function history_contribute(id) {
+        $('.report_menu').hide();
+        $('.report_contribute.visible').removeClass('visible');
         $.ajax({
             dataType: 'script',
             type: 'get',
@@ -154,7 +159,8 @@
             $('.proposalComment[data-id='+id+'] .edit_panel').fadeOut(function() {
                 $(this).remove();
                 $('.proposalComment[data-id='+id+'] .baloon-content').fadeIn();
-            })
+            });
+            $('.report_contribute.invisible').removeClass('invisible');
         }
     }
 

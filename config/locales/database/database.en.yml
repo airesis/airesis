@@ -208,6 +208,10 @@ en:
         description: New comments in the discussions I take part in
         email_subject: "%{title} - New comment"
         message: "<b>%{name}</b> added a comment in a discussion you are taking part in the proposal <b>%{title}</b>"
+      contribute_update:
+        description: Update of the text of an already evaualted contribute
+        email_subject: "%{title} - A contribute you have previously evaluated has changed"
+        message: "<b>%{name}</b> changed a contribute in <b>%{title}</b> you have previously evaluated. Check if you want to change your opinion."
     proposal_categories:
       no_category:
         description: Uncategorized

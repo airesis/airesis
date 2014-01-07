@@ -1388,7 +1388,7 @@ en:
       follow_google: "follow us on Google+"
       footer:
         registered_at: "You receive this email because you are registered on %{url}."
-      edit_preferences: "Edit alarms and notifications preferences"
+      edit_preferences: "Preferences"
       click_here: "Click here"
     new_contribute:
       title: "%{user} inserted a new %{comment} in the proposal"
@@ -1425,6 +1425,9 @@ en:
       greetings: "Greetings!"
       no_more_button: "No further invitations"
       subject: "You have been invited to %{group_name}"
+    update_contribute:
+      title: "%{user} changed his contribute"
+      view_proposal: "%{click_here} to see the contribute and change your evaluation"
   words:
     contribute: "contribution"
     comment: "comment"

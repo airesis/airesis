@@ -1384,7 +1384,7 @@ it-IT:
       follow_google: "seguici su Google+"
       footer:
         registered_at: "Ricevi questa email in quanto sei registrato al sito %{url}."
-      edit_preferences: "Modifica preferenze newsletter e notifiche"
+      edit_preferences: "Preferenze"
       click_here: "Clicca qui"
     new_contribute:
       title: "%{user} ha inserito un nuovo %{comment} alla proposta"

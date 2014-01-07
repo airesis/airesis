@@ -105,7 +105,16 @@ class AdminController < ManagerController
 
   #invia una notifica di prova tramite resque e redis
   def test_notification
-    ResqueMailer.notification(6200).deliver
+    if params[:alert_id].to_s != ''
+      ResqueMailer.notification(params[:alert_id]).deliver
+    else
+      NotificationType.all.each do |type|
+        notification = type.notifications.order('created_at desc').first
+        alert = notification.user_alerts.first if notification
+        ResqueMailer.notification(alert.id).deliver if alert
+      end
+    end
+
     respond_to do |format|
       format.html {
         flash[:notice] = 'Test avviato'
