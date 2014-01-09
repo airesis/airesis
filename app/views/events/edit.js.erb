@@ -1,9 +1,11 @@
-//$('#event_actions').fadeOut();
-var event_edit = $('<div id="event_edit"></div>');
+var event_edit = $('<div id="event_edit"  class="reveal-modal medium" data-reveal></div>');
 
-event_edit.html("<%= escape_javascript(render(:partial => 'edit_form'))%>");
+event_edit.html("<%=j render 'edit_form'%>");
 
-event_edit.dialog({
+event_edit.foundation('reveal', 'open');
+
+
+/*event_edit.dialog({
     title: '<%=j 'Modifica evento'%>',
     modal: true,
     width: 740,
@@ -12,7 +14,7 @@ event_edit.dialog({
         event_edit.dialog('destroy');
         event_edit.remove();
     }
-});
+});*/
 
 
 disegnaBottoni();
