@@ -365,7 +365,7 @@ en:
         most_recent: 'Most recent'
         most_ranked: 'Most evaluated'
         history_button: "History"
-        choose_votation_period: "Choose a voting period"
+        choose_votation_period: "Vote duration"
         choose_votation_period_alert: "Are you sure about the voting period? You can't change it later!"
         choose_votation_period_button: "I chose!"
         create_votation_period: "No voting dates set, please sets a new date"
@@ -457,10 +457,10 @@ en:
       new:
         quorum_prompt: "Select quorum"
         quorum_help: "Help"
-        step_1: "Classification"
-        step_2: "Similar proposals"
+        step_classification: "Classification"
+        step_similar: "Similar proposals"
         step_3: "Problems/Obstacles"
-        step_4: "Proposal creation"
+        step_dates: "Debate and votation"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"
@@ -482,6 +482,8 @@ en:
         no_work_area_selected: "No work area"
         solution1: "Agenda Item"
         solution: "Agenda Item"
+        step_base_info: "Initial information"
+        advanced_options: "Advanced options"
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"
@@ -1012,7 +1014,7 @@ en:
         content: 'Text'
         interest_borders_tkn: 'Geographical places of interest'
         tags_list: "Tags"
-        quorum_id: "Quorum"
+        quorum_id: "Debate duration"
         anonima: "Temporary anonymity"
         visible_outside: "Publicly visible"
         secret_vote: "Secret vote"

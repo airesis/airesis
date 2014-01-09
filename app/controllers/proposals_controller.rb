@@ -12,7 +12,7 @@ class ProposalsController < ApplicationController
   layout :choose_layout
   #carica la proposta
   before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:search, :index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
+  before_filter :load_proposal_and_group, :except => [:index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
 
   ###SICUREZZA###
 
@@ -861,7 +861,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
     if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound
-    elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && request.subdomain.empty?
+    elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && !in_subdomain?
       redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, :format => params[:format])
     end
     load_my_vote

@@ -402,10 +402,10 @@ es-EC:
       new:
         quorum_prompt: Seleccione quórum
         quorum_help: ¡No entiendo!
-        step_1: Información inicial
-        step_2: Propuestas similares
+        step_classification: Información inicial
+        step_similar: Propuestas similares
         step_3: Problemas y objetivos
-        step_4: Creación de la propuesta
+        step_dates: Creación de la propuesta
         step_3_title: Describir exhaustivamente los problemas que enfrenta y qué objetivos de la propuesta quiere alcanzar
         create_button: Crear la propuesta
         title: Nueva propuesta

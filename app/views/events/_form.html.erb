@@ -1,3 +1,4 @@
+<h2><%=@title%></h2>
 <div id="create_event">
   <%= form_for (@group && !in_subdomain?) ? [@group, @event] : @event, :html => {:class => "disableForm"}, :remote => true, :validate => true do |f| %>
 
@@ -126,3 +127,4 @@
       <%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving') %>
   <% end %>
 </div>
+<a class="close-reveal-modal">&#215;</a>

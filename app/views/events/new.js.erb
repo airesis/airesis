@@ -1,18 +1,8 @@
-
 $('#create_event_dialog').html("<%= escape_javascript(render(:partial => 'form'))%>");
-<%if params[:models] %>
-$('#create_event_dialog').dialog('option', 'title', '<%=escape_javascript @title%>');
-$('#create_event_dialog').dialog('option', 'width', 740);
-$('#create_event_dialog').dialog('option', 'height', 'auto');
-<%else%>
-$('#create_event_dialog').dialog({
-    title : '<%=escape_javascript @title%>',
-    modal : true,
-    width : 740,
-    height: 'auto',
-    close : function(event, ui) {
-        $('#create_event_dialog').dialog('destroy');
-    }
+<%unless params[:models] %>
+$('#create_event_dialog').foundation('reveal', 'open', {
+    closeOnBackgroundClick: false,
+    closeOnEsc: false
 });
 <%end%>
 
@@ -30,7 +20,6 @@ $("#create_event_dialog #event_meeting_attributes_place_attributes_comune_id").t
 disegnaDatePicker();   
 
 $('.legend').hide();
-
 
 $("#new_event").quickWizard({
     prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
@@ -51,8 +40,6 @@ window.ClientSideValidations.selectors = {
 $('#new_event').enableClientSideValidations();
 
 disegnaBottoni();
-
-$('#create_event_dialog').dialog('option', 'position', 'center');
 
 <%unless @event.is_votazione? %>
 if (!geocoder){

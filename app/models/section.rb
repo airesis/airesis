@@ -11,4 +11,7 @@ class  Section < ActiveRecord::Base
 
   accepts_nested_attributes_for :paragraphs
 
+  attr_accessor :suggestion
+
+
 end

@@ -499,6 +499,9 @@ $large-screen: 1440px;
     padding: 10px;
     line-height: 1.6em;
     overflow: hidden;
+    p {
+        margin-bottom: 0.2em;
+    }
 }
 
 .proposal_list {
@@ -1155,19 +1158,21 @@ a.spch-bub-inside:hover .point {
 }
 
 .btn.later {
-    float: right;
+
 }
 
 #create_proposal, #create_event {
     form {
         overflow: hidden;
-
+        max-width:1280px;
+        margin:auto;
     }
     .bread-crumb {
         list-style: none outside none;
         padding: 0;
         width: 100%;
-        margin: 0;
+        margin: auto;
+        max-width:1280px;
         height: 47px;
         li {
             float: left;
@@ -1176,6 +1181,7 @@ a.spch-bub-inside:hover .point {
             padding-right: 3px;
             font-weight: bold;
             cursor: default;
+            width: 240px;
 
             div.step_title {
                 color: #CCCCCC;
@@ -1199,10 +1205,14 @@ a.spch-bub-inside:hover .point {
                     display: inline-block;
                     font-size: 2em;
                     font-family: verdana;
+                    width: 23px;
                 }
 
                 .title {
                     display: inline-block;
+                    width: 165px;
+                    overflow: hidden;
+                    white-space: nowrap;
                 }
             }
 

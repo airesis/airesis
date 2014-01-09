@@ -407,10 +407,10 @@ de:
       new:
         quorum_prompt: Quorum auswählen
         quorum_help: Ich verstehe es nicht!
-        step_1: Erstinformation
-        step_2: Ähnliche Vorschläge
+        step_classification: Erstinformation
+        step_similar: Ähnliche Vorschläge
         step_3: Probleme und Ziele
-        step_4: Erstellung des Vorschlags
+        step_dates: Erstellung des Vorschlags
         step_3_title: Describe comprehensively the problems that you face and what goals the proposal wants to achieve
         create_button: Den Vorschlag erstellen
         title: Neuer Vorschlag

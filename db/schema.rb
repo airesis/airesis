@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106151751) do
+ActiveRecord::Schema.define(:version => 20140109095257) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -664,6 +664,7 @@ ActiveRecord::Schema.define(:version => 20140106151751) do
     t.string   "slug"
     t.boolean  "disable_partecipation_requests",                  :default => false
     t.boolean  "disable_forums",                                  :default => false
+    t.boolean  "disable_documents",                               :default => false
   end
 
   add_index "groups", ["slug"], :name => "index_groups_on_slug"

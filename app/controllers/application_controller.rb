@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     {:l => I18n.locale }
   end
 
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
 
 
   def log_error(exception)
@@ -163,6 +163,11 @@ class ApplicationController < ActionController::Base
   def moderator_required
     is_admin? ||is_moderator? || admin_denied
   end
+
+  def in_subdomain?
+    request.subdomain.present? && request.subdomain != 'www'
+  end
+
 
   #risposta nel caso sia necessario essere amministartori
   def admin_denied

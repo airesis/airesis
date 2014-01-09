@@ -417,7 +417,7 @@ de:
         add_contribution_no_paragraph: Kein Paragraph definiert
       new:
         quorum_prompt: Quorum auswählen
-        step_2: Ähnliche Vorschläge
+        step_similar: Ähnliche Vorschläge
         step_3_title: Beschreibe verständlich die Probleme, die du angehst und welche Ziele der Vorschlag erreichen will
         create_button: Den Vorschlag erstellen
         title: Neuer Vorschlag

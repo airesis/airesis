@@ -17,7 +17,6 @@
               </h3>
               <div class="sol_content">
                 <div class="solutions_column" data-solution_id="">
-
                   <%= sol.hidden_field :seq %>
                   <%= sol.check_box '_destroy', style: 'display:none' %>
                   <% solution.sections.each_with_index do |section, j| %>
@@ -52,8 +51,6 @@
           <% end %>
       <% end %>
     </div>
-
-
     <script type="text/javascript">
         var sol_link = $('<li data-solution_id="new"><span class="sol_title"><%= solution.title %></span></li>');
         var sub_nav = $('<ul class="sub_navigator"></ul>');

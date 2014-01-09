@@ -8,11 +8,13 @@
 <% end %>
 
 
-<div id="create_proposal_container" style="display:none;">
+<div id="create_proposal_container" class="reveal-modal large" data-reveal>
 
 </div>
 
 <div class="choose_model" style="display:none;">
+  <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
+  <div style="max-width:1000px;margin:auto;">
   <% ProposalType.active.order(:seq).each do |proposal_type| %>
       <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
         <div class="model_name">
@@ -25,6 +27,8 @@
         </div>
       </div>
   <% end %>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
 </div>
 
 <script type="text/javascript">
@@ -32,7 +36,6 @@
         var create_proposal_ = $('#create_proposal_container');
         create_proposal_.empty();
         create_proposal_.append($('.choose_model').clone().show());
-
 
         $('.proposal_model_option', create_proposal_).click(function () {
             var create_proposal_inner_ = $('.choose_model', create_proposal_);
@@ -50,23 +53,11 @@
 
         });
 
-
-        create_proposal_.dialog({
-            title: "<%=j t('pages.proposals.index.choose_model') %>",
-            modal: true,
-            width: 1000,
-            height: 'auto',
-            close: function (event, ui) {
-                create_proposal_.dialog('destroy');
-                /*create_proposal_.remove();*/
-            }
-            /*create: function(event, ui) {
-             $("body").css({ overflow: 'hidden' })
-             },
-             beforeClose: function(event, ui) {
-             $("body").css({ overflow: 'inherit' })
-             } */
+        create_proposal_.foundation('reveal', 'open', {
+            closeOnBackgroundClick: false,
+            closeOnEsc: false
         });
+
         return false;
     }
 </script>

@@ -542,10 +542,12 @@
 
 
     function addSolution(el) {
-
-        var paragraph_ = $('<%=j render "proposal_types/solution"%>');
-
-        $(el).parent().before(paragraph_)
+        var paragraph_ = $("<%=j render "proposal_types/solution"%>");
+        try {
+        $(el).parent().before(paragraph_);
+        } catch (e) {
+            console.log('errors occured adding a new solution');
+        }
         paragraph_.fadeIn();
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[title\]']");
         numSolution++;
@@ -564,7 +566,6 @@
             var name_ = $(this).attr('name');
             $(this).attr('name', name_.replace('proposals[solutions_attributes][0]', 'proposal[solutions_attributes][' + numSolution + ']'));
         });
-
 
         paragraph_.find('textarea.tinymce').each(function () {
             addEditor($(this).attr('id'));

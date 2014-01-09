@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div id="create_event_dialog" style="display:none;">
+<div id="create_event_dialog" class="reveal-modal medium" data-reveal>
 
 </div>
 
@@ -63,16 +63,21 @@
 
 
     <div class="choose_event_type" style="display:none;">
-      <% EventType.active.each do |event_type| %>
-          <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
-            <div class="model_name">
-              <div class="name"><%= event_type.description.upcase %></div>
-              <div class="icon">
-                <%= image_tag"event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description, style: 'width:160px' %>
+      <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
+
+      <div style="max-width:540px;margin:auto;">
+        <% EventType.active.each do |event_type| %>
+            <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
+              <div class="model_name">
+                <div class="name"><%= event_type.description.upcase %></div>
+                <div class="icon">
+                  <%= image_tag "event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description, style: 'width:160px' %>
+                </div>
               </div>
             </div>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
+      <a class="close-reveal-modal">&#215;</a>
     </div>
 
 <% end %>
@@ -102,28 +107,34 @@
         });
 
 
-        create_event_.dialog({
-            title: "<%=j t('pages.events.index.choose_type') %>",
-            modal: true,
-            width: 600,
-            height: 'auto',
-            close: function (event, ui) {
-                create_event_.dialog('destroy');
-            }
+        create_event_.foundation('reveal', 'open', {
+            closeOnBackgroundClick: false,
+            closeOnEsc: false
         });
+
+        /*create_event_.dialog({
+         title: "
+        <%=j t('pages.events.index.choose_type') %>",
+         modal: true,
+         width: 600,
+         height: 'auto',
+         close: function (event, ui) {
+         create_event_.dialog('destroy');
+         }
+         });*/
         return false;
     }
 
 
     $(function () {
         //$('.calendar_container').height($(window).height());
-        $(window).resize(function() {
-            $('#calendar').fullCalendar('option', 'height', $(window).height() -170);
+        $(window).resize(function () {
+            $('#calendar').fullCalendar('option', 'height', $(window).height() - 170);
         })
         $('#calendar').fullCalendar({
             editable: true,
-            height: $(window).height() -170,
-            <%if (@group ? (can? :create_event, @group) : is_admin?) %>
+            height: $(window).height() - 170,
+            <%unless (@group ? (can? :create_event, @group) : is_admin?) %>
             disableDragging: true,
             disableResizing: true,
             <%end%>
@@ -156,17 +167,17 @@
             events: '<%=list_events_url%>',
             <%end%>
             timeFormat: '<%=t('calendar.timeFormat')%>',
-			columnFormat: {
-                        month: 'ddd',
-                        week: 'ddd M/d',
-                        day: 'dddd M/d'
-                    },
-                    titleFormat: {                                          //TODO:I18n
-                        month: 'MMMM yyyy',
-                        week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-                        day: 'dddd, MMM d, yyyy'
-                    },
-                    axisFormat: 'H:mm',
+            columnFormat: {
+                month: 'ddd',
+                week: 'ddd M/d',
+                day: 'dddd M/d'
+            },
+            titleFormat: {                                          //TODO:I18n
+                month: 'MMMM yyyy',
+                week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
+                day: 'dddd, MMM d, yyyy'
+            },
+            axisFormat: 'H:mm',
             dragOpacity: "0.5",
             eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                 moveEvent(event, dayDelta, minuteDelta, allDay);
@@ -185,7 +196,7 @@
                     element.css('cursor', 'pointer');
                 }
             },
-            dayClick: function(date, allDay, jsEvent, view) {
+            dayClick: function (date, allDay, jsEvent, view) {
                 <%if (@group ? (can? :create_event, @group) : is_admin?) %>
                 $.ajax({
                     data: 'starttime=' + date.getTime(),

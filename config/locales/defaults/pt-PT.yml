@@ -342,10 +342,10 @@ pt-PT:
       new:
         quorum_prompt: "Selecione um quorum"
         quorum_help: "Não os conheço!"
-        step_1: "Initial informations"
-        step_2: "Similar proposals"
+        step_classification: "Initial informations"
+        step_similar: "Similar proposals"
         step_3: "Problems and objectives"
-        step_4: "First proposal"
+        step_dates: "First proposal"
         step_3_title: "Describe comprehensively the problems that you face and what goals the proposal wants to achieve"
         create_button: "Create the proposal"
         title: "New proposal"

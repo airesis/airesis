@@ -370,7 +370,7 @@ ro:
         add_contribution_no_paragraph: Niciun alineat menționat
       new:
         quorum_prompt: Selectaţi cvorum
-        step_2: Propuneri similare
+        step_similar: Propuneri similare
         step_3_title: Descrie exhaustiv problemele cu care vă confruntaţi şi obiectivele pe care propunerea doreşte să le realizeze
         create_button: Crează propunerea
         title: Propunere nouă

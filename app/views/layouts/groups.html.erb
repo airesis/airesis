@@ -33,7 +33,7 @@
                   <%= link_to t('pages.groups.layout.calendar'), group_events_url(@group), class: (params[:controller] == 'events' ? 'sel' : '') %>
 
               <% end %>
-              <% unless in_subdomain? %>
+              <% unless @group.disable_documents %>
                   <% if ::Configuration::documents_active %>
                       <span> ⋅ </span>
                       <%= link_to t('pages.groups.header.documents'), group_documents_url(@group), class: (params[:controller] == 'documents' ? 'sel' : '') %>

@@ -31,24 +31,15 @@ window.ClientSideValidations.selectors = {
 
 var create_proposal_ = $('#create_proposal');
 var container_ = $('#create_proposal_container');
-container_.html('<%=j render "proposal_types/#{params[:proposal_type_id].downcase}"%>');
-<%if params[:models] %>
-    container_.dialog('option', 'title', '<%=j @title%>');
-<%else%>
-    container_.dialog({
-        title: '<%=j @title%>',
-        modal: true,
-        width: 940,
-        height: 'auto',
-        close: function (event, ui) {
-            create_proposal_.dialog('destroy');
-        }
-    });
+container_.html('<%=j render "proposal_types/form"%>');
+<%unless params[:models] %>
+container_.foundation('reveal', 'open', {
+    closeOnBackgroundClick: false,
+    closeOnEsc: false
+});
 <%end%>
 
 $('.legend').hide();
-
-
 
 $("#new_proposal").quickWizard({
     prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',

@@ -73,11 +73,11 @@ it-IT:
               stakeholders: "Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dell'obbiettivo e dalle soluzioni proposte? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?"
               requirements: "Quali sono le caratteristiche che dovrebbe rispettare la soluzione ideale? Possono essere indicati sia requisiti tecnici che valori e principi da rispettare."
             solution:
-              description: "Descrivere la soluzione che, concretamente, si propone di adottare per raggiungere l’obiettivo."
+              description: "Descrivere la soluzione che, concretamente, si propone di adottare per raggiungere l'obiettivo."
               time: "Quando dovrà essere attuata questa soluzione? Individuare le eventuali fasi di attuazione."
               subject: "Chi dovrà attuare o far attuare la soluzione? Come saranno monitorati e verificati, in caso di attuazione, gli esiti della soluzione?"
               resources: "Sono necessari fondi, volontari, strumenti, competenze specifiche per realizzare questa soluzione? Elencarli e quantificarli. Come saranno reperite tali risorse?"
-              aspects: "Questa soluzione soddisfa i requisiti etici del gruppo o della comunità a cui si rivolge? Qual’è il suo impatto sociale ed ambientale?"
+              aspects: "Questa soluzione soddisfa i requisiti etici del gruppo o della comunità a cui si rivolge? Qual'è il suo impatto sociale ed ambientale?"
               documents: "E' disponibile della documentazione relativa alla soluzione?"
               pros: "Elencare e riassumere i principali vantaggi e i punti di forza di questa soluzione. Indicare chi sono i soggetti interessati dai vantaggi."
               cons: "Elencare e riassumere i principali svantaggi e problemi di questa soluzione. Indicare chi sono i soggetti interessati dagli svantaggi."
@@ -102,7 +102,7 @@ it-IT:
             paragraph:
               inspire: "Esistono regolamenti analoghi a quello da redigere, dai quali prendere spunto?  Tra le esperienze di regolamentazione analoghe, quali hanno raggiunto migliori risultati e quali peggiori? Perché?"
               requirements: "Quali sono i principali vincoli di cui il regolamento dovrà tenere conto? Quali i valori e i principi da rispettare? Quali dovranno risultare i costi di applicazione del regolamento? Quali soggetti saranno incaricati di farlo rispettare?"
-              stakeholders: "Chi risulta maggiormente coinvolto dall’applicazione del regolamento? Chi potrà subirne le conseguenze? Tali soggetti sono stati coinvolti nella discussione di questa proposta? Come?"
+              stakeholders: "Chi risulta maggiormente coinvolto dall'applicazione del regolamento? Chi potrà subirne le conseguenze? Tali soggetti sono stati coinvolti nella discussione di questa proposta? Come?"
             solution:
               article: "Indicare il testo del primo articolo, assicurandosi che la sua interpretazione risulti univoca. Inserire una definizione dei termini o delle espressioni soggette a fraintendimento."
               pros: "Elencare e riassumere i principali vantaggi e i punti di forza di questa soluzione. Indicare chi sono i soggetti interessati dai vantaggi."
@@ -114,7 +114,7 @@ it-IT:
           suggestion_html: |
             <div><b>Esempio:</b></div>
             <div>Comunicare alla stampa il rilascio della versione 3.5 di Airesis.</div>
-            <div>Dobbiamo pubblicizzare l’uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce sulle recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca.</div>
+            <div>Dobbiamo pubblicizzare l'uscita della versione 3.5 di Airesis, che presenta importanti novità per le Amministrazioni Pubbliche. Risulta necessario spiegare cosa è Airesis a chi ancora non la conosce e accativarci l'attenzione dei giornalisti facendo luce sulle recenti indiscrezioni relative all'impiego del software da parte della Casa Bianca.</div>
           solution:
             title: "Soluzione 1"
             maintitle: "Titolo"
@@ -130,7 +130,7 @@ it-IT:
               target: "A chi è destinato l'articolo/comunicato stampa? A quali aspetti del messaggio che vuoi trasmettere è maggiormente interessato?"
             solution:
               maintitle: "Come si può riassumere in poche parole ed in modo accattivante il messaggio dell'articolo/comunicato?"
-              subtitle: "Indicare in estrema sintesi un concetto chiave dell’articolo o informazioni complementari a quelle riportate nel titolo."
+              subtitle: "Indicare in estrema sintesi un concetto chiave dell'articolo o informazioni complementari a quelle riportate nel titolo."
               incipit: "Indicare in modo estremamente sintetico chi ha fatto cosa, quando lo ha fatto, dove e perché, evidenziando il motivo per cui il fatto è molto rilevante."
               body: "Descrivere in modo più dettagliato, ma sintetico, il fatto. Scrivere frasi brevi e significative."
               conclusion: "Vi sono proposte da fare al lettore? Quali potrebbero essere i possibili sviluppi del fatto o le sue implicazioni?"
@@ -141,7 +141,7 @@ it-IT:
           problems_question: "Quali beni o servizi si desiderano acquistare? Per risolvere quali problemi?"
           suggestion_html: |
             <div><b>Esempio:</b></div>
-            <div>Sostituzione dell’impianto termico nella sede dell’Associazione.</div>
+            <div>Sostituzione dell'impianto termico nella sede dell'Associazione.</div>
             <div>A causa della rottura della vecchia caldaia, la nostra sede è di fatto impraticabile nei mesi invernali. Poichè è impossibile riparare il guasto, è necessaria la sostituzione del vecchio impianto di riscaldamento con uno nuovo, a basso consumo energetico.</div>
           solution:
             title: "Soluzione 1"
@@ -159,12 +159,12 @@ it-IT:
               technical_constrains: "Quali requisiti tecnici dovranno assicurare i beni ed i servizi da acquistare?"
               temporal_constrains: "Con quali tempistica dovranno essere forniti il preventivo nonchè i beni o servizi da acquistare?"
               other_constrains: "Quali requisiti ambientali ed etici dovranno assicurare i beni o i servizi da acquistare? Dovranno rispettare particolari norme di legge?"
-              budget: "Quale è la massima cifra destinabile all’acquisto?"
+              budget: "Quale è la massima cifra destinabile all'acquisto?"
               recipient_budget: "Quali soggetti saranno invitati a fornire un preventivo? Quali sono i loro contatti?"
             solution:
-              cost: "Qual è l’importo preventivato per la fornitura dei beni e dei servizi richiesti?"
-              problems: "Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d’interesse, mancanza di assistenza...)."
-              dumentation: "Riportare, anche attraverso l’impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo."
+              cost: "Qual è l'importo preventivato per la fornitura dei beni e dei servizi richiesti?"
+              problems: "Quali, tra i vincoli precedentemente individuati, non saranno rispettati? Il ricorso a questo preventivo comporta altre problematiche? (es. conflitto d'interesse, mancanza di assistenza...)."
+              dumentation: "Riportare, anche attraverso l'impiego di link ed allegati, ulteriore documentazione relativa a questo preventivo."
         agenda:
           problems_title: "Tipologia di incontro"
           problems_question: "Che tipo di incontro si desidera organizzare? Perchè lo si vuole organizzare?"
@@ -183,8 +183,8 @@ it-IT:
             place: "Luogo"
           question:
             paragraph:
-              date_time: "Quando avrà luogo l’incontro? Si è accertata la disponibilità degli invitati? Si è accertato che l’evento non si sovrapponga con altri? "
-              place: "Dove si svolgerà l’evento? Se l’evento ha luogo on-line, indicare l’indirizzo web al quale collegarsi per partecipare."
+              date_time: "Quando avrà luogo l'incontro? Si è accertata la disponibilità degli invitati? Si è accertato che l'evento non si sovrapponga con altri? "
+              place: "Dove si svolgerà l'evento? Se l'evento ha luogo on-line, indicare l'indirizzo web al quale collegarsi per partecipare."
             solution:
               description: "Indicare uno dei punti all'ordine del giorno."
               links: "Eventuali link a documenti o pagine web utili per la riunione o citati durante la stessa."
@@ -215,14 +215,14 @@ it-IT:
             desired_characteristics: "Caratteristiche desiderate"
           question:
             paragraph:
-              similar_experiences: "Esistono esperienze a cui ispirarsi per organizzare l’evento? Tra le possibili iniziative già messe in atto, quali hanno raggiunto migliori risultati e quali peggiori? Perché?"
-              stakeholders: "Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dall’organizzazione dell’evento? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?"
-              desired_characteristics: "Quali sono le caratteristiche che l’evento dovrebbe presentare? Possono essere indicati requisiti tecnici, principi etici, criteri organizzativi..."
+              similar_experiences: "Esistono esperienze a cui ispirarsi per organizzare l'evento? Tra le possibili iniziative già messe in atto, quali hanno raggiunto migliori risultati e quali peggiori? Perché?"
+              stakeholders: "Chi riceverà dei vantaggi e degli svantaggi dal raggiungimento dall'organizzazione dell'evento? Tali soggetti sono stati coinvolti nella discussione di questa proposta? In che modo?"
+              desired_characteristics: "Quali sono le caratteristiche che l'evento dovrebbe presentare? Possono essere indicati requisiti tecnici, principi etici, criteri organizzativi..."
             solution:
-              description: "Descrivere la soluzione che si propone di adottare per l’organizzazione dell’evento"
-              program: "Quando si svolgerà l’evento? Quale sarà il programma? Si è accertato che l’evento non si sovrapponga con altri? Si è accertata la disponibilità degli invitati?"
-              place: "Dove si svolgerà l’evento? Tale luogo dispone dei servizi necessari per l’evento (es. accesso disabili, bagni, fornitura elettrica)? Se no, come si pensa di rimediare alla lacuna?"
-              organization: "Quali saranno le diverse fasi/aree organizzative? Chii sarà incaricato dell’organizzazione delle diverse fasi/aree?"
+              description: "Descrivere la soluzione che si propone di adottare per l'organizzazione dell'evento"
+              program: "Quando si svolgerà l'evento? Quale sarà il programma? Si è accertato che l'evento non si sovrapponga con altri? Si è accertata la disponibilità degli invitati?"
+              place: "Dove si svolgerà l'evento? Tale luogo dispone dei servizi necessari per l'evento (es. accesso disabili, bagni, fornitura elettrica)? Se no, come si pensa di rimediare alla lacuna?"
+              organization: "Quali saranno le diverse fasi/aree organizzative? Chii sarà incaricato dell'organizzazione delle diverse fasi/aree?"
               resources: "Sono necessari fondi, volontari, strumenti, competenze specifiche per realizzare questa soluzione? Elencarli e quantificarli. Come saranno reperite tali risorse?"
         candidates:
           suggestion_html: |
@@ -243,8 +243,8 @@ it-IT:
               requirements: "Quali sono le caratteristiche ideali del candidato? Quali sono i requisiti minimi inderogabili?"
             solution:
               name: "Indicare Nome e Cognome del candidato."
-              data: "Indicare i dati anagrafici essenziali per consentire l’identificazione univoca del candidato."
-              curriculum: "Qual’è in curriculum del candidato? Rispetta i requisiti precedentemente individuati? Il candidato pone limiti alla propria disponibilità a ricoprire la carica?"
+              data: "Indicare i dati anagrafici essenziali per consentire l'identificazione univoca del candidato."
+              curriculum: "Qual'è in curriculum del candidato? Rispetta i requisiti precedentemente individuati? Il candidato pone limiti alla propria disponibilità a ricoprire la carica?"
         simple:
           problems_title: "Problematica"
           problems_title_label: "Qual è il problema da risolvere e/o quali sono gli ostacoli da superare per raggiungere l'obiettivo prefissato?"
@@ -254,4 +254,4 @@ it-IT:
             title: "Soluzione 1"
           question:
             solution:
-              description: "Descrivere la soluzione da adottare per raggiungere l’obiettivo, indicando tempistiche, risorse necessarie per l’attuazione, eventuali problemi irrisolti."
+              description: "Descrivere la soluzione da adottare per raggiungere l'obiettivo, indicando tempistiche, risorse necessarie per l'attuazione, eventuali problemi irrisolti."

@@ -366,7 +366,7 @@ fr:
         add_contribution_no_paragraph: Aucun paragraphe spécifié
       new:
         quorum_prompt: Sélectionnez quorum
-        step_2: Propositions similaires
+        step_similar: Propositions similaires
         step_3_title: Décrire de manière exhaustive les problèmes que vous rencontrez et quels sont les objectifs que la proposition veut atteindre
         create_button: Créer la proposition
         title: Nouvelle proposition

@@ -59,9 +59,4 @@ module ApplicationHelper
     image_tag(url, :alt => 'Google Authenticator QRCode')
   end
 
-
-  def in_subdomain?
-    request.subdomain.present? && request.subdomain != 'www'
-  end
-  
 end

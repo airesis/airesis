@@ -362,10 +362,10 @@ zh:
       new:
         quorum_prompt: "選擇門檻"
         quorum_help: "我看不懂這個"
-        step_1: "初始資訊"
-        step_2: "相似的提案"
+        step_classification: "初始資訊"
+        step_similar: "相似的提案"
         step_3: "挑戰與目標"
-        step_4: "第一個提案！"
+        step_dates: "第一個提案！"
         step_3_title: "剛開始時，盡可能全面地描述目前想要嘗試解決的問題、面臨的挑戰或困難是什麼，以及這個提案希望達成的目標。"
         create_button: "提出新的提案"
         title: "新提案"

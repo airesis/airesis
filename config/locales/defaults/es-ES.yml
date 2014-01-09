@@ -406,10 +406,10 @@ es-ES:
       new:
         quorum_prompt: Select quorum
         quorum_help: "I don't get this!"
-        step_1: Initial information
-        step_2: Similar proposals
+        step_classification: Initial information
+        step_similar: Similar proposals
         step_3: Problems and objectives
-        step_4: Creation of the proposal
+        step_dates: Creation of the proposal
         step_3_title: Describe comprehensively the problems that you face and what goals the proposal wants to achieve
         create_button: Create the proposal
         title: New proposal

@@ -427,10 +427,10 @@ pt-BR:
       new:
         quorum_prompt: Selecione o quórum
         quorum_help: Ajuda
-        step_1: Classificação
-        step_2: Propostas semelhantes
+        step_classification: Classificação
+        step_similar: Propostas semelhantes
         step_3: Problemas/obstáculos
-        step_4: Criação de proposta
+        step_dates: Criação de proposta
         step_3_title: Descreva exaustivamente os problemas que você enfrenta e quais metas a proposta pretende atingir
         create_button: Criar a proposta
         title: Nova proposta

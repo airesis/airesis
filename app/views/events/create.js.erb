@@ -7,4 +7,4 @@ $('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/fla
 <%else%>
 $('#calendar').fullCalendar( 'refetchEvents' );
 <%end%>
-$('#create_event_dialog').dialog('destroy');
+$('#create_event_dialog').foundation('reveal', 'close');

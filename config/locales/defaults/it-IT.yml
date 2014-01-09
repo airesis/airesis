@@ -365,7 +365,7 @@ it-IT:
         most_recent: "Più recenti"
         most_ranked: "Più valutati"
         history_button: "History"
-        choose_votation_period: "Scegli un evento per la votazione"
+        choose_votation_period: "Durata votazione"
         choose_votation_period_alert: "Sei sicuro di voler votare la tua proposta in questo periodo? Non sarà possibile sceglierlo nuovamente!"
         choose_votation_period_button: "Ho scelto!"
         create_votation_period: "Non vi sono date disponibili per la votazione"
@@ -456,10 +456,9 @@ it-IT:
       new:
         quorum_prompt: "Seleziona una durata"
         quorum_help: "Help"
-        step_1: "Classificazione"
-        step_2: "Proposte simili"
-        step_3: "Problema/ostacoli"
-        step_4: "Creazione proposta"
+        step_classification: "Classificazione"
+        step_similar: "Proposte simili"
+        step_dates: "Dibattito e votazione"
         step_3_title: "Descrivi in maniera esaustiva le problematiche che vuoi affrontare e quali sono gli obiettivi che vuole raggiungere la proposta"
         create_button: "Crea la proposta"
         title: "Nuova proposta"
@@ -470,7 +469,7 @@ it-IT:
         tags_list_placeholder: "Inserisci delle parole attinenti alla tua proposta"
         step_1_title: "Puoi proporre un problema da risolvere, un'idea da perfezionare, un'iniziativa da organizzare… L’importante è aver chiaro un obiettivo: Airesis ti aiuterà a raggiungerlo con l'aiuto degli altri utenti, attraverso un processo di problem solving condiviso."
         step_2_title: "Forse qualcuno ha già inserito una proposta simile alla tua: controlla sotto ed eventualmente interrompi la creazione per evitare duplicazioni. Unire le forze, dà forza alle tue idee! Facendo click sul titolo le proposte saranno aperte in una nuova scheda."
-        step_4_title: "Perfetto! Scegli le opzioni e fai click su 'Crea la proposta' per completare la guida. La tua proposta sarà inserita in Airesis e potrai compilarla quando vorrai con ulteriori informazioni."
+        step_4_title: "Ci siamo quasi...scegli la durata del dibattito e quella della votazione e fai clic su 'Crea la proposta'. La tua proposta sarà inserita in Airesis e potrai completarla quando vorrai con ulteriori informazioni."
         step_4_footer_html: |
           Airesis ti aiuterà a raggiungere il tuo obiettivo attraverso un processo di problem solving condiviso: gli utenti suggeriranno modifiche ed contributi al tuo testo e <b>spetterà a te</b> integrare quelle più gradite.<br/>
           Se non lo farai la tua proposta non andrà in votazione.<br/>
@@ -481,6 +480,8 @@ it-IT:
         no_work_area_selected: "Nessuna area di lavoro"
         solution1: "Titolo punto all'ordine del giorno"
         solution: "Punto all'ordine del giorno"
+        step_base_info: "Informazioni iniziali"
+        advanced_options: "Opzioni avanzate"
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"
