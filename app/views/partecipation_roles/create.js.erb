@@ -1,0 +1,4 @@
+$('#flash_messages').html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
+$('#roles_panel_container').html('<%=j render 'groups/roles_panel'%>');
+$("#roles_panel_container").foundation('reveal', 'close');
+

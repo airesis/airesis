@@ -9,26 +9,21 @@
 <br/>
 <a href="#" class="btn blue newButton disable" id="addRole"><%= t('pages.groups.edit_permissions.new_role') %></a>
 
-<div id="edit_role" title="<%= t('pages.groups.edit_permissions.edit_role_title')%>" style="display: none;">
+<div id="edit_role" title="<%= t('pages.groups.edit_permissions.edit_role_title')%>"  class="reveal-modal small" data-reveal>
 
 </div>
-<div id="new_role" title="<%= t('pages.groups.edit_permissions.new_role_title')%>" style="display: none">
+<div id="new_role"  class="reveal-modal small" data-reveal>
+  <h2><%= t('pages.groups.edit_permissions.new_role_title')%></h2>
 	<%
 	@partecipation_role = PartecipationRole.new(:group_id => @group.id)%>
     <%= render(:partial => 'partecipation_roles/form', :locals => {:button_name => t('buttons.create')})%>
+
 </div>
 
 <script type="text/javascript">
 	$(function() {
 		$('#addRole').click(function() {
-			$('#new_role').dialog({
-				modal : true,
-				width: 340,
-				height: 'auto',
-				close : function(event, ui) {
-					$('#new_role').dialog('destroy');			
-				}
-			});
+			$('#new_role').foundation('reveal','open');
             return false;
 		});
 	});
@@ -52,13 +47,6 @@
 	        	type: 'post'    
 	        });	        
     }
-    
-    
-    function hideNewRolePanel() {
-    	$('#new_role').dialog('destroy');
-    }
-	
-	
 </script>
                 
 <%=content_for :left_panel do%>

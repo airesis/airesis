@@ -1,12 +1,3 @@
-$('#edit_role').html("<%= escape_javascript(render(:partial => 'partecipation_roles/form', :locals => {:button_name => t('buttons.update')}))%>");
-
-$('#edit_role').dialog({
-	width: 'auto',
-	height: 'auto',
-	modal : true,
-	resizable: false,
-	close : function(event, ui) {
-		$('#edit_role').dialog('destroy');
-	}
-});
+$('#edit_role').html("<%= j (render(:partial => 'partecipation_roles/form', :locals => {:button_name => t('buttons.update')}))%>");
+$('#edit_role').foundation('reveal','open');
 

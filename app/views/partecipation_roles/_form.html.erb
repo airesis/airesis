@@ -9,9 +9,10 @@
         <%=f.text_area :description%>
 
     <%end%>
-    <a href="#" class="btn" onclick="$('#<%=params[:action] == 'edit' ? 'edit_role' : 'new_role'%>').dialog('destroy');"><%= t('buttons.cancel') %></a>
+    <a href="#" class="btn" onclick="$('#<%=params[:action] == 'edit' ? 'edit_role' : 'new_role'%>').foundation('reveal','close');"><%= t('buttons.cancel') %></a>
     <%=f.button button_name, :class => 'btn blue saveButton'%>
 <%end%>
+<a class="close-reveal-modal">&#215;</a>
 
 <script type="text/javascript">
   $(function() {
