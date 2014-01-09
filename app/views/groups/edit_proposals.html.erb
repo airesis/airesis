@@ -57,31 +57,6 @@
         });
     }
 
-    $(function () {
-
-        $('#addQuorum').click(function () {
-            $('#new_quorum').dialog({
-                width: 500,
-                height: 'auto',
-                modal: true,
-                resizable: false,
-                close: function (event, ui) {
-                    $('#new_quorum').dialog('destroy');
-                }
-            });
-        });
-    });
-
-    function hideNewQuorumPanel() {
-        $('#new_quorum_container').dialog('destroy');
-        $('#new_quorum_container').empty();
-    }
-
-    function hideEditQuorumPanel() {
-        $('#edit_quorum_container').dialog('destroy');
-        $('#edit_quorum_container').empty();
-    }
-
 </script>
 
 <%= content_for :left_panel do %>

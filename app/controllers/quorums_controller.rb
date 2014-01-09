@@ -34,13 +34,7 @@ class QuorumsController < ApplicationController
 
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_created')
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "quorum_panel_container", :partial => 'groups/quorums_panel'
-          page.call "hideNewQuorumPanel"
-          page.call "generateTable"
-        end
-        }
+        format.js
       end
 
     rescue Exception => e
@@ -71,13 +65,7 @@ class QuorumsController < ApplicationController
 
     respond_to do |format|
       flash[:notice] = t('info.quorums.quorum_updated')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "quorum_panel_container", :partial => 'groups/quorums_panel'
-        page.call "hideEditQuorumPanel"
-        page.call "generateTable"
-      end
-      }
+      format.js
     end
 
   rescue Exception => e

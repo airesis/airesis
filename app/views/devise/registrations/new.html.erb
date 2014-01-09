@@ -59,14 +59,14 @@
 
 
 
-<div id="eula_modal" title="<%= t('words.terms_of_service') %>" style="width:600px;height:300px;display:none">
+<div id="eula_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render :partial => 'devise/registrations/eula' %>
   </p>
 </div>
 
 
-<div id="privacy_modal" title="<%= t('words.privacy_policy') %>" style="width:600px;height:300px;display:none">
+<div id="privacy_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render :partial => 'devise/registrations/privacy' %>
   </p>
@@ -77,12 +77,12 @@
     //window.ClientSideValidations.remote_validators_prefix= null;
 
     function openPrivacyModal() {
-        $("#privacy_modal").dialog({ height: 400, width: 600 });
+        $("#privacy_modal").foundation('reveal', 'open');
         return false;
     }
 
     function openModal() {
-        $("#eula_modal").dialog({ height: 400, width: 600 });
+        $("#eula_modal").foundation('reveal', 'open');
         return false;
     }
 </script>
