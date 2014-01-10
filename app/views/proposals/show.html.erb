@@ -10,7 +10,6 @@
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta name="description" content="<%= @proposal.subtitle %>">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
-
 <% end %>
 
 <% if current_user %>
@@ -18,8 +17,6 @@
 <% end %>
 <% @page_title = @proposal.title %>
 <script type="text/javascript">
-
-
     var nicknames = <%=raw @proposal.is_anonima? ? @proposal.proposal_nicknames.collect{|n|{name: n.nickname, id: n.id, avatar: n.avatar(16), type: 'nickname'}}.to_json.gsub('"','\'') : [] %>;
 
     $(function () {
@@ -190,7 +187,7 @@
         $('.report_contribute.visible').removeClass('visible');
         $('#report_contribute_id').val(id);
         $('input[name=reason]').removeAttr('checked');
-        doModal($('#report_contribute'));
+        $('#report_contribute').foundation('reveal','open');
     }
 
     function hide_vote_controls() {

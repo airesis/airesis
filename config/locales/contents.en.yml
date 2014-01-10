@@ -513,3 +513,9 @@ en:
           </li>
           </ol>
 
+  pages:
+    proposals:
+      new:
+        signatures: "Signatures target"
+  buttons:
+    mark: "Mark"

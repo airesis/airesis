@@ -19,7 +19,7 @@
 <% end %>
 
 
-<div class="calendar_container">
+<div class="calendar_container card">
   <div id='calendar'>
   </div>
 </div>
@@ -42,7 +42,7 @@
 
 
 <%= content_for :left_panel do %>
-    <div class="menu2">
+    <div class="mybox">
       <% if @group %>
           <% if (can? :create_both_events, @group) %>
               <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>

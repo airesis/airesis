@@ -1,4 +1,4 @@
-<div class="blogPost" id="blogPost<%= blog_post.id %>">
+<div class="card blogPost" id="blogPost<%= blog_post.id %>">
   <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || (@group && (@group.portavoce.include? current_user)) || is_admin?) %>
       <div class="hidden_link">
       </div>

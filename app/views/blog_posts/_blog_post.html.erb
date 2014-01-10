@@ -1,4 +1,4 @@
-<div class="blogPost" id="blogPost<%= blog_post.id %>">
+<div class="blogPost card" id="blogPost<%= blog_post.id %>">
   <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
       <div class="hidden_link">
       </div>
@@ -12,7 +12,7 @@
 
   <h3 class="blogPostTitle">
     <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
-    <% if !blog_post.published? %>
+    <% unless blog_post.published? %>
         [<%= t('pages.blog_posts.show.draft') %>]
     <% end %>
   </h3>

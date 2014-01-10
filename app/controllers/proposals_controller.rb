@@ -296,18 +296,16 @@ class ProposalsController < ApplicationController
           @proposal.secret_vote = true
         end
 
-        #il quorum viene utilizzato per le proposte standard
+        #we don't use quorum for petitions
         # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-        quorum = assign_quorum(prparams)
+        if @proposal.is_petition?
 
-        #metto la proposta in valutazione se è standard
-        @proposal.proposal_state_id = PROP_VALUT
-        @proposal.rank = 0
+        else
+          quorum = assign_quorum(prparams)
+          @proposal.proposal_state_id = PROP_VALUT
+          @proposal.rank = 0
 
-
-        #elsif params[:proposal][:proposal_type_id] == ProposalType::POLL.to_s
-        #   @proposal.proposal_state_id = ProposalState::WAIT_DATE
-        # end
+        end
 
 
         borders = prparams[:interest_borders_tkn]
@@ -319,17 +317,18 @@ class ProposalsController < ApplicationController
 
         @proposal.save!
 
+        unless @proposal.is_petition?
+          #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+          if @copy.time_fixed?
+            Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+            Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+          end
 
-        #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-        if @copy.time_fixed?
-          Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-          Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
-        end
 
-
-        #fai partire il timer per far scadere la proposta
-        if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-          Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+          #fai partire il timer per far scadere la proposta
+          if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+            Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+          end
         end
 
 
@@ -341,8 +340,6 @@ class ProposalsController < ApplicationController
         proposalpresentation = ProposalPresentation.new(proposalparams)
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
-
-
       end #end transaction
       Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
 
@@ -1024,8 +1021,5 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
     true
   end
-
-
-
 
 end

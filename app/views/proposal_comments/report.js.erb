@@ -1,2 +1,2 @@
-$('#flash_messages_comments').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$.modal.close();
+$('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash: flash}%>');
+$('#report_contribute').foundation('reveal','close');

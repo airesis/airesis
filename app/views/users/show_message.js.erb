@@ -1,15 +1,6 @@
-$('body').append("<div id='new_message_container' title='<%='Invia un nuovo messaggio a'%> <%=@user.fullname%>'></div>");
-$('#new_message_container').html("<%= escape_javascript(render(:partial => 'users/message'))%>");
+$('body').append('<div id="new_message_container" class="reveal-modal medium" data-reveal></div>');
+$('#new_message_container').html("<%= j render 'users/message'%>");
 
-$('#new_message_container').dialog({
-	width: 500,
-	height: 'auto',
-	modal : true,
-	resizable: true,
-	close : function(event, ui) {
-		$('#new_message_container').dialog('destroy');
-        $('#new_message_container').remove();
-	}
-});
+$('#new_message_container').foundation('reveal','open');
 
 disegnaBottoni();

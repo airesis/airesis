@@ -173,11 +173,11 @@
         <%= link_to t('pages.proposals.left_panel.last_month'), current_url({time: {start: (Time.now - 1.month).to_i * 1000, end: Time.now.to_i * 1000, type:  '1m'}}), class: 'menu_item', data: {type: '1m'} %>
         <%= link_to t('pages.proposals.left_panel.last_year'), current_url({time: {start: (Time.now - 1.year).to_i * 1000, end: Time.now.to_i * 1000, type:  '1y'}}), class: 'menu_item', data: {type: '1y'} %>
         <span class="separator"></span>
-        <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: 'chooseDates();return false;' %>
+        <%= link_to t('pages.proposals.left_panel.date_range'), '#', class: 'menu_item', data: {type: 'f'}, onclick: "$('#choose_dates').foundation('reveal','open');return false;" %>
 
       </div>
-      <div id="choose_dates" style="display:none" title="<%= t('pages.proposals.left_panel.choose_creation_date')%>" class="choose_dates_modal">
-        <h4><%= t('pages.proposals.left_panel.choose_creation_date') %></h4>
+      <div id="choose_dates"  class="reveal-modal small" data-reveal>
+        <h2><%= t('pages.proposals.left_panel.choose_creation_date') %></h2>
         <%= form_for 'time', {url: @group ? group_proposals_url(@group) : proposals_url, method: :get} do |f| %>
             <%if params[:type] %>
                 <input name="type" value="<%=params[:type]%>" type="hidden">
@@ -198,7 +198,6 @@
                 <input name="or" value="<%=params[:or]%>" type="hidden">
             <%end%>
 
-
             <p>
               <%= f.label :start_w, t('label.from').capitalize %>
               <%= f.text_field :start_w, value: (params[:time][:start_w] if params[:time]), class: 'datePicker', autocomplete: 'off' %>
@@ -214,12 +213,12 @@
             <%= f.hidden_field :type, value: 'f' %>
 
             <p>
-              <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$.modal.close();"/>
+              <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$('#choose_dates').foundation('reveal','close');"/>
               <%= f.button t('buttons.search'), class: 'btn blue', disable_with: t('loading') %>
             </p>
         <% end %>
       </div>
-      <div class="clearboth"></div>
+      <a class="close-reveal-modal">&#215;</a>
     </div>
 
   </div>

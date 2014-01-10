@@ -3,7 +3,7 @@
 </div>
 <% @c = Proposal.group_portlet(@group,current_user) %>
 <% unless @c.empty? %>
-    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+    <div class="scrollable">
       <%= render partial: 'proposals/mini_proposal', collection: @c, as: 'proposal' %>
     </div>
 

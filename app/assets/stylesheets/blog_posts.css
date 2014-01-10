@@ -47,11 +47,7 @@
 }
 
 .blogComment {
-    padding: 20px 0 0;
-    border-bottom: 1px dashed #CCC;
-    border-top: 1px dashed #CCC;
-    clear: both;
-    color: #333333;
+    margin-bottom: 20px ;
 }
 
 .blogCommentPostedAt {

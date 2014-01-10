@@ -4,7 +4,7 @@
 
 <% @proposals_p = Proposal.home_portlet(current_user) %>
    <% unless @proposals_p.empty? %>
-    <div style="overflow-y: scroll;height: 310px;overflow-x: hidden;">
+    <div class="scrollable">
       <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
     </div>
 <% end %>

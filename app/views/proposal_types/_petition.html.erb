@@ -1,0 +1,170 @@
+<h2><%=@title%></h2>
+<div id="create_proposal">
+  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
+      <% if request.xhr? %>
+          <div class="legend first">
+            <div class="number">1</div>
+            <div class="title">
+              <%= t('pages.proposals.new.step_base_info') %>
+            </div>
+          </div>
+          <div class="legend first">
+            <div class="number">2</div>
+            <div class="title">
+              <%= t('pages.proposals.new.step_classification') %>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="number">3</div>
+            <div class="title">
+              <%= t('pages.proposals.new.step_similar') %>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="number">4</div>
+            <div class="title">
+              <%= @problems.title %>
+            </div>
+          </div>
+          <div class="legend last">
+            <div class="number">5</div>
+            <div class="title">
+              <%= t('pages.proposals.new.signatures') %>
+            </div>
+          </div>
+      <% else %>
+          <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
+      <% end %>
+
+      <div class="step root root">
+        <p>
+          <%= f.label :title, t('pages.proposals.new.title_synthetic') %>
+          <%= f.text_field :title, placeholder: t('pages.proposals.new.title_placeholder'), :style => "width:500px" %>
+        </p>
+
+
+        <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
+        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
+            <p>
+              <%= f.label :group_area_id %>
+              <% if @available_areas.size > 0 %>
+                  <%= f.select :group_area_id, current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).collect { |p| [p.name, p.id] }, {:prompt => t('pages.proposals.new.no_work_area_selected')}, :style => "width:500px" %>
+              <% else %>
+                  <%= t('pages.proposals.new.cannot_add_proposal_in_work_area') %>
+              <% end %>
+            </p>
+        <% end %>
+
+        <p>
+          <%= f.label :interest_borders_tkn %>
+          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), :style => "width:500px" %>
+        </p>
+
+        <p>
+          <% if @group %>
+              <input type="hidden" name="from_group" value="<%= @group.id %>"/>
+          <% end %>
+          <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
+          <%= f.hidden_field :private %>
+          <%= f.hidden_field :proposal_type_id %>
+          <%= f.hidden_field :proposal_votation_type_id %>
+          <%= f.hidden_field :topic_id %>
+        </p>
+      </div>
+
+      <div class="step">
+        <% if ::Configuration.proposal_categories %>
+            <p>
+              <%= f.label :proposal_category_id %>
+              <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}]}, @proposal.proposal_category_id),{:include_blank => t('pages.proposals.new.category_prompt')}, {style: 'width:500px'} %>
+            </p>
+        <% end %>
+
+        <% if ::Configuration::folksonomy %>
+            <p>
+              <%= f.label :tags_list %>
+              <%= f.text_field :tags_list, placeholder: t('pages.proposals.new.tags_list_placeholder'), :style => "width:500px" %>
+            </p>
+        <% end %>
+
+
+      </div>
+
+
+      <div class="step" id="suggestions">
+      </div>
+
+      <div class="step">
+        <%= f.fields_for :sections, @problems do |s| %>
+            <%= s.hidden_field :title %>
+            <%= s.hidden_field :seq %>
+            <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
+                <p>
+                  <%= p.label :content, @problems.question %>
+                  <%= p.cktext_area :content, :rows => 5, :style => "width:98%;", ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
+                  <%= p.hidden_field :seq %>
+                </p>
+            <% end %>
+        <% end %>
+
+        <div class="suggestion_box">
+          <%= raw @problems.suggestion %>
+        </div>
+
+      </div>
+
+      <div class="step">
+        <%=f.label :signatures %>
+        <%= f.text_field :signatures %>
+
+
+        <%= f.radio_button :petition_phase, :signatures %><%= f.label :petition_phase, 'Collect signatures' %>
+        <%= f.radio_button :petition_phase, :debate %><%= f.label :petition_phase, 'Debate and build' %>
+
+      </div>
+
+      <p>
+        <%= link_to t('buttons.cancel'), :back, :class => 'btn' unless request.xhr? %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: t('loading') %>
+      </p>
+  <% end %>
+
+
+  <script type="text/javascript">
+      $(function() {
+          var input = $('#proposal_interest_borders_tkn')
+          input.tokenInput("<%=interest_borders_path(:format => :json)%>", {
+              crossDomain: false,
+              prePopulate: input.data("pre"),
+              hintText: "<%=t('interest_borders.hint')%>",
+              noResultsText: "<%=t('interest_borders.no_place_found')%>",
+              searchingText: "<%=t('interest_borders.searching')%>",
+              preventDuplicates: true,
+              allowTabOut: true
+          });
+
+          input = $('#proposal_tags_list')
+          if (input != null) {
+              input.tokenInput("<%=tags_path(format: :json )%>", {
+                  theme: "facebook",
+                  crossDomain: false,
+                  allowFreeTagging: true,
+                  minChars: 3,
+                  hintText: "<%=t('digit_tags')%>",
+                  searchingText: "<%=t('digit_tags')%>",
+                  preventDuplicates: true,
+                  allowTabOut: true,
+                  tokenValue: "name"
+              })
+          }
+
+          $('#proposal_proposal_category_id').select2({
+              minimumResultsForSearch: -1,
+              formatResult: formatCategory,
+              formatSelection: formatCategory,
+              escapeMarkup: function(m) { return m; }
+          });
+      });
+  </script>
+</div>
+<a class="close-reveal-modal">&#215;</a>

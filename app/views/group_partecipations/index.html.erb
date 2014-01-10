@@ -1,6 +1,6 @@
 <h1><%= t('pages.groups.participations.list_participations') %></h1>
 <% if can? :update, @group %>
-    <fieldset>
+    <fieldset class="card">
       <legend><%= t('pages.groups.participations.search') %></legend>
 
       <%= form_for !in_subdomain? ? [@group, SearchPartecipant.new] : SearchPartecipant.new, remote: true do |f| %>

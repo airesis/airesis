@@ -561,27 +561,6 @@ function array1dToJson(a, p) {
 }
 
 
-function doModal(el) {
-    el.modal({
-        opacity: 60,
-        overlayCss: {
-            backgroundColor: "#dddddd"
-        },
-        minWidth: '400px',
-        minHeight: '200px',
-        transient: 'true',
-        persist: 'true',
-        onShow: function (dialog) {
-            dialog.data.prepend('<div id="error_updating"></div>');
-        },
-        onClose: function (dialog) {
-            $('#error_updating').remove();
-            $.modal.close();
-        }
-    });
-}
-
-
 function stripScripts(s) {
     var div = document.createElement('div');
     div.innerHTML = s;

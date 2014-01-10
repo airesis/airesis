@@ -1,5 +1,5 @@
 <% if can? :update, @group %>
-    <fieldset>
+    <fieldset class="card">
       <legend><%= t('pages.groups.participations.operations_on_user') %></legend>
       <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
 
@@ -34,7 +34,7 @@
 
 <input type="hidden" id="count_results" value="<%= @partecipants.count %>"/>
 <input type="hidden" id="ids_results" value="<%= @partecipants.map { |p| p.user_id }.join(',') %>"/>
-
+<div class="card">
 <table style="width:800px;" id="partecipants">
   <thead>
   <th><%= t('pages.groups.edit_permissions.user_title') %></th>
@@ -94,6 +94,7 @@
   <% end %>
   </tbody>
 </table>
+</div>
 
 <script type="text/javascript">
     $('.user_role_changer').each(function (i, el) {

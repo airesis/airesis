@@ -255,3 +255,9 @@ en:
           question:
             solution:
               description: "Descrivere la soluzione da adottare per raggiungere l’obiettivo, indicando tempistiche, risorse necessarie per l’attuazione, eventuali problemi irrisolti."
+        petition:
+          paragraph:
+            text: "Petition text"
+          question:
+            paragraph:
+              text: "Text of the petition"

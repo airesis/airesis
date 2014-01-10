@@ -1,13 +1,5 @@
 $('body').append("<%= escape_javascript(render(:partial => 'proposal_supports/panel'))%>");
 
-$('#proposal_support').dialog({modal:true,
-									height:'auto',
-									resizable: true,
-									width:460,
-	 close: function(event, ui){ 
-                                  $(this).dialog('destroy'); 
-                                  $('#proposal_support').remove();
-               }
-});
+$('#proposal_support').foundation('reveal','open');
 
 disegnaBottoni();

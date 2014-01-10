@@ -92,6 +92,7 @@ it-IT:
       border_preferences:
         updating: "Attendi. Stiamo aggiornando le tue preferenze in base ai confini scelti"
         your_borders: "I tuoi confini geografici di interesse"
+      send_message_title: "Invia un messaggio a %{name}"
     groups:
       accept_requests:
         portavoce: "Portavoce: quando un utente richiede di partecipare al gruppo, l'accettazione è consentita solo ai portavoce del gruppo stesso. Una volta che il portavoce avrà accettato la richiesta, l'utente sarà a tutti gli effetti un partecipante del gruppo."
@@ -1163,6 +1164,7 @@ it-IT:
     ok: "OK"
     yes_word: 'SI'
     no_word: 'NO'
+    mark: "Marca"
   tooltips:
     random_stack_1: "<strong>Come funziona?</strong><br/>Vengono mostrati prima i contributi nuovi o non valutati e quindi i contributi che hai già valutato in ordine di maturità.<br/><br/><b>Nota</b>: La tua valutazione ne modifica l'ordinamento!"
     random_stack_2: "<strong>Come funziona?</strong><br/>Vengono mostrati i contributi in ordine cronologico a partire dal più recente."

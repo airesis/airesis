@@ -17,13 +17,13 @@
 
 
 <% if @user == current_user && @user.group_partecipations.count > 0 %>
-    <%@group_partecipations = @user.group_partecipations.includes([:group,:partecipation_role, :user]) %>
+    <% @group_partecipations = @user.group_partecipations.includes([:group, :partecipation_role, :user]) %>
     <h4><%= t('pages.users.show.groups_title') %></h4>
     <table id="partecipation_table">
 
       <thead>
-      <th><%= t('pages.users.show.group_column')%></th>
-      <th><%= t('pages.users.show.role_column')%></th>
+      <th><%= t('pages.users.show.group_column') %></th>
+      <th><%= t('pages.users.show.role_column') %></th>
       <th><%= t('pages.users.show.registered_from') %></th>
       <th>registered_from</th>
       <th></th>
@@ -32,19 +32,20 @@
 
       <% @group_partecipations.each do |partecipation| %>
           <tr>
-            <td><%=partecipation.group_image_tag 20%><%= link_to partecipation.group.name, partecipation.group %></td>
-            <td><span id="partecipation_<%=partecipation.id%>"><%= partecipation.partecipation_role.name %></span></td>
-            <td><%=partecipation.created_at if partecipation.created_at%></td>
-            <td><%= partecipation.created_at.to_i if partecipation.created_at%></td>
-            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_url(partecipation.group,partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, partecipation %></td>
+            <td><%= partecipation.group_image_tag 20 %><%= link_to partecipation.group.name, partecipation.group %></td>
+            <td><span id="partecipation_<%= partecipation.id %>"><%= partecipation.partecipation_role.name %></span>
+            </td>
+            <td><%= partecipation.created_at if partecipation.created_at %></td>
+            <td><%= partecipation.created_at.to_i if partecipation.created_at %></td>
+            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_url(partecipation.group, partecipation), :method => :delete, :confirm => t('pages.users.show.get_out_of_group_confermation'), class: 'btn' if can? :destroy, partecipation %></td>
           </tr>
       <% end %>
       </tbody>
     </table>
     <script>
         <%@group_partecipations.each do |partecipation| %>
-            $('#partecipation_<%=partecipation.id%>').qtip({content:"<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
-      <%end%>
+        $('#partecipation_<%=partecipation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
+        <%end%>
     </script>
 <% end %>
 <% if @user == current_user && @user.user_votes.count > 0 %>
@@ -59,10 +60,10 @@
       <tbody>
       <% @user.user_votes.includes(:proposal, :vote_type).each do |vote| %>
           <tr>
-            <td><%=vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
-            <td><%=l vote.created_at %></td>
+            <td><%= vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
+            <td><%= l vote.created_at %></td>
             <td><%= vote.created_at.to_i %></td>
-            <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote')%></td>
+            <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote') %></td>
           </tr>
       <% end %>
       </tbody>
@@ -70,106 +71,77 @@
 <% end %>
 
 <% if current_user == @user %>
-    <div id="name_modal" class="edit_modal  shadow-box">
+    <div id="name_modal" class="reveal-modal medium" data-reveal>
       <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.name_label') %></h2>
-
-          <div style="padding-left:135px">
-            <%= f.text_field :name, :size => 20 %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
+          <div class="row">
+            <div class="columns large-6">
+              <h2><%= t('pages.users.show.name_label') %></h2>
+              <%= f.text_field :name, :size => 20 %>
+              <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#name_modal').foundation('reveal','close');" class="btn"/>
               <%= f.submit t('buttons.save'), class: 'btn blue' %>
             </div>
           </div>
       <% end %>
+      <a class="close-reveal-modal">&#215;</a>
     </div>
-    <div id="surname_modal" class="edit_modal shadow-box">
+    <div id="surname_modal" class="reveal-modal medium" data-reveal>
       <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.surname_label') %></h2>
+          <h2><%= t('pages.users.show.surname_label') %></h2>
 
-          <div style="padding-left:135px">
-            <%= f.text_field :surname, :size => 20 %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit t('buttons.save'), class: 'btn blue' %>
-            </div>
-          </div>
+          <%= f.text_field :surname, :size => 20 %>
+          <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#surname_modal').foundation('reveal','close');" class="btn"/>
+          <%= f.submit t('buttons.save'), class: 'btn blue' %>
       <% end %>
+      <a class="close-reveal-modal">&#215;</a>
     </div>
-    <!--    <div id="facebook_page_url_modal" class="edit_modal shadow-box">
-      <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
-          <div style="padding-left:135px">
-            <%= f.text_field :facebook_page_url, :size => 20 %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit t('buttons.save'), class: 'btn blue' %>
-            </div>
-          </div>
-    <% end %>
-    </div>
-    <div id="google_page_url_modal" class="edit_modal shadow-box">
-      <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
-          <div style="padding-left:135px">
-            <%= f.text_field :google_page_url, :size => 20 %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit t('buttons.save'), class: 'btn blue' %>
-            </div>
-          </div>
-    <% end %>
-    </div>
-    <div id="linkedin_page_url_modal" class="edit_modal shadow-box">
-      <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top">Inserisci il link</h2>
-          <div style="padding-left:135px">
-            <%= f.text_field :linkedin_page_url, :size => 20 %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit t('buttons.save'), class: 'btn blue' %>
-            </div>
-          </div>
-    <% end %>
-    </div>
-   -->
-    <div id="password_modal" class="edit_modal shadow-box">
-      <%= form_for @user, :remote => true do |f| %>
-          <h2 style="margin-top:0px;float:left;color: #333333;font-size: 110%;font-weight: bold;vertical-align: top"><%= t('pages.users.show.password_label') %></h2>
 
-          <div style="padding-left:135px">
-            <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;", placeholder: 'Nuova password' %>
-            <%= f.text_field :password_confirmation, :type => :password, :size => 20, placeholder: 'Conferma nuova password' %>
-            <div style="margin-top:8px">
-              <input type="button" value="<%=t('buttons.cancel')%>" onclick="$.modal.close();" class="btn"/>
-              <%= f.submit t('buttons.save'), class: 'btn blue' %>
-            </div>
-          </div>
+    <div id="password_modal" class="reveal-modal medium" data-reveal>
+      <%= form_for @user, :remote => true do |f| %>
+          <h2><%= t('pages.users.show.password_label') %></h2>
+
+          <%= f.text_field :password, :type => :password, :size => 20, :style => "margin-bottom:5px;", placeholder: 'Nuova password' %>
+          <%= f.text_field :password_confirmation, :type => :password, :size => 20, placeholder: 'Conferma nuova password' %>
+          <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#password_modal').foundation('reveal','close');" class="btn"/>
+          <%= f.submit t('buttons.save'), class: 'btn blue' %>
       <% end %>
+      <a class="close-reveal-modal">&#215;</a>
     </div>
 
-    <%= render :partial => 'attr_editor_modal', :locals => {:modal_id => 'email_modal', :attr_label => t('pages.users.show.email_label'), :attr_name => :email} %>
+    <div id="email_modal" class="reveal-modal medium" data-reveal>
+      <%= form_for @user, :remote => true do |f| %>
+          <h2><%= t('pages.users.show.email_label') %></h2>
+
+          <%= f.text_field :email, size: 25 %>
+          <input type="button" value="<%= t('buttons.cancel') %>" onclick="$('#email_modal').foundation('reveal','close');" class="btn"/>
+          <%= f.submit t('buttons.save'), class: 'btn blue' %>
+      <% end %>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
 <% end %>
 
 <script type="text/javascript">
     <%if current_user == @user%>
-            $('#partecipation_table').dataTable({
-                "bPaginate": false,
-                "bFilter": false,
-                "bSearchable": false,
-                "bInfo": false,
-                "aaSorting": [[2,'desc']],
-                "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null]
-            });
+    $('#partecipation_table').dataTable({
+        "bPaginate": false,
+        "bFilter": false,
+        "bSearchable": false,
+        "bInfo": false,
+        "aaSorting": [
+            [2, 'desc']
+        ],
+        "aoColumns": [null, null, {"iDataSort": 3}, {"bVisible": false}, null]
+    });
 
-            $('#votations_table').dataTable({
-                "bPaginate": false,
-                "bFilter": false,
-                "bSearchable": false,
-                "bInfo": false,
-                "aaSorting": [[1,'desc']],
-                "aoColumns": [null, {"iDataSort": 2}, {"bVisible": false}, null]
-            });
+    $('#votations_table').dataTable({
+        "bPaginate": false,
+        "bFilter": false,
+        "bSearchable": false,
+        "bInfo": false,
+        "aaSorting": [
+            [1, 'desc']
+        ],
+        "aoColumns": [null, {"iDataSort": 2}, {"bVisible": false}, null]
+    });
     <%end%>
 </script>
 

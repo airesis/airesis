@@ -449,33 +449,9 @@
         });
 
         <%else%>
-        $('#login_button').qtip({
-            content: $('#login_panel'),
-            position: {
-                at: 'bottom center',
-                my: 'top center',
-                viewport: $(window),
-                effect: false,
-                adjust: {
-                    method: 'shift',
-                    x: 0,
-                    y: 0
-                }
-            },
-            show: {
-                event: 'click',
-                solo: true
-            },
-            hide: 'unfocus',
-            style: {
-                classes: 'qtip-light qtip-shadow  qtip-login',
-                tip: {
-                    corner: true,
-                    height: 5,
-                    width: 5
-                }
-            }
-        });
+        $('#login_button').click(function() {
+            $('#login_panel').foundation('reveal','open');
+        })
         $('#registration-panel')
                 .hide()
                 .click(function (event) {

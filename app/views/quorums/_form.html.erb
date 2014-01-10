@@ -1,6 +1,6 @@
 <h2><%= @page_title %></h2>
 <% if ['edit', 'update'].include? params[:action] %>
-    <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div><br/>
+    <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div>
 <% end %>
 
 <%= form_for !in_subdomain? ? [@group, @quorum] : @quorum, :validate => true, :remote => true do |e| %>

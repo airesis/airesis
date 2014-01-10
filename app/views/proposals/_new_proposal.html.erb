@@ -1,63 +1,59 @@
 <% if @group %>
-    <%#= link_to t('proposals.create_button'), new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
     <%= link_to t('proposals.create_button'), '#', id: 'nuova_proposta', onclick: 'return select_model();', class: "btn blue disable newButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
-    <%#= link_to 'Crea un sondaggio', new_proposal_path(group_id: @group.id, group_area_id: params[:group_area_id], proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <div class="choose_model" style="display:none;">
+      <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
+      <div style="max-width:1000px;margin:auto;">
+        <% ProposalType.active.for_groups.order(:seq).each do |proposal_type| %>
+            <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
+              <div class="model_name">
+                <div class="name">
+                  <%= proposal_type.description %>
+                </div>
+                <div class="icon">
+                  <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", :align => 'middle', :alt => proposal_type.description, :title => proposal_type.description) %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <script type="text/javascript">
+        function select_model() {
+            var create_proposal_ = $('#create_proposal_container');
+            create_proposal_.empty();
+            create_proposal_.append($('.choose_model').clone().show());
+
+            $('.proposal_model_option', create_proposal_).click(function () {
+                var create_proposal_inner_ = $('.choose_model', create_proposal_);
+                var type_id = $(this).data('id');
+                create_proposal_inner_.hide(1000, function () {
+                    create_proposal_inner_.remove();
+                    create_proposal_.append('<%=j render "fragments/loading"%>');
+                    $.ajax({
+                        url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id: (@topic.id if @topic),  models: true)%>',
+                        data: 'proposal_type_id=' + type_id,
+                        dataType: 'script'
+                    })
+                });
+
+
+            });
+
+            create_proposal_.foundation('reveal', 'open', {
+                closeOnBackgroundClick: false,
+                closeOnEsc: false
+            });
+
+            return false;
+        }
+    </script>
 <% else %>
     <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
-    <%#= link_to 'Crea un sondaggio', new_proposal_path(proposal_type_id: ProposalType::POLL, category: params[:category]), remote: true, id: 'nuovo_sondaggio', class: "disableButton" %>
 <% end %>
 
 
 <div id="create_proposal_container" class="reveal-modal large" data-reveal>
 
 </div>
-
-<div class="choose_model" style="display:none;">
-  <h2 class="modal_title"><%= t('pages.proposals.index.choose_model') %></h2>
-  <div style="max-width:1000px;margin:auto;">
-  <% ProposalType.active.order(:seq).each do |proposal_type| %>
-      <div class="proposal_model_option" data-id="<%= proposal_type.name %>" style="background-color: <%= proposal_type.color %>">
-        <div class="model_name">
-          <div class="name">
-            <%= proposal_type.description %>
-          </div>
-          <div class="icon">
-            <%= image_tag("proposal_types/#{proposal_type.name.downcase}.png", :align => 'middle', :alt => proposal_type.description, :title => proposal_type.description) %>
-          </div>
-        </div>
-      </div>
-  <% end %>
-  </div>
-  <a class="close-reveal-modal">&#215;</a>
-</div>
-
-<script type="text/javascript">
-    function select_model() {
-        var create_proposal_ = $('#create_proposal_container');
-        create_proposal_.empty();
-        create_proposal_.append($('.choose_model').clone().show());
-
-        $('.proposal_model_option', create_proposal_).click(function () {
-            var create_proposal_inner_ = $('.choose_model', create_proposal_);
-            var type_id = $(this).data('id');
-            create_proposal_inner_.hide(1000, function () {
-                create_proposal_inner_.remove();
-                create_proposal_.append('<%=j render "fragments/loading"%>');
-                $.ajax({
-                    url: '<%=new_proposal_path(group_id: (@group.id if @group), group_area_id: params[:group_area_id], category: params[:category], topic_id: (@topic.id if @topic),  models: true)%>',
-                    data: 'proposal_type_id=' + type_id,
-                    dataType: 'script'
-                })
-            });
-
-
-        });
-
-        create_proposal_.foundation('reveal', 'open', {
-            closeOnBackgroundClick: false,
-            closeOnEsc: false
-        });
-
-        return false;
-    }
-</script>

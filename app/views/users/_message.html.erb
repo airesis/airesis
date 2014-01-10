@@ -1,3 +1,4 @@
+<h2><%= t('pages.users.send_message_title', name: @user.fullname) %></h2>
 <%= form_for 'message', :url => send_message_user_path(@user), :remote => true, :class=>'disableForm' do |e| %>
     <p>
       <%= e.label t('pages.users.send_message.subject_label') %> <br/>
@@ -9,6 +10,6 @@
     </p>
 
 
-    <a href="#" class="btn" onclick="$('#new_message_container').dialog('destroy');$('#new_message_container').remove();return false;"><%=t('buttons.cancel')%></a>
+    <a href="#" class="btn" onclick="$('#new_message_container').foundation('reveal','close');$('#new_message_container').remove();return false;"><%=t('buttons.cancel')%></a>
     <%= e.submit t('buttons.send'), :class => 'btn blue disable' %>
 <% end %>

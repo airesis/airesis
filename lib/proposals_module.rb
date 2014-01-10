@@ -177,4 +177,15 @@ module ProposalsModule
     solution.seq = 1
     proposal.solutions << solution
   end
+
+  def petition_new(proposal)
+    @problems = proposal.sections.build(title: t('pages.proposals.new.petition.paragraph.text'),question: t('pages.proposals.new.petition.question.paragraph.text'), seq: 1)
+    @problems.suggestion = t('pages.proposals.new.petition.suggestion_html')
+    @problems.paragraphs.build(content: '', seq: 1)
+  end
+
+  def petition_create(proposal)
+
+  end
+
 end

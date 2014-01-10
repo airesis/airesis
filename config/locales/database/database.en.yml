@@ -36,6 +36,8 @@ en:
         description: Choice of a candidate
       SIMPLE:
         description: Simple proposal
+      PETITION:
+        description: Petition
     event_types:
       meeting:
         description: meeting
