@@ -1,5 +1,5 @@
 <% if @group %>
-    <h3><%= "Evento del gruppo: #{@group.name}" %></h3>
+    <h2><%= "Evento del gruppo: #{@group.name}" %></h2>
 <% else %>
     admin event
 <% end %>
@@ -74,7 +74,7 @@
 
     <div class="row">
       <div class="columns large-12 small-12">
-        <a href="#" class="btn" onclick="$('#event_edit').dialog('destroy');$('#event_edit').remove();"><%= t('buttons.cancel') %></a>
+        <a href="#" class="btn" onclick="$('#event_edit').foundation('reveal','close');$('#event_edit').remove();"><%= t('buttons.cancel') %></a>
         <% if @event.event_series -%>
             <%= f.submit 'Aggiorna solo questa occorrenza', :onclick => "document.getElementById('event_commit_button').value = this.value" %>
             <%= f.submit 'Aggiorna tutte le occorrenze', :onclick => "document.getElementById('event_commit_button').value = this.value" %>
@@ -85,4 +85,5 @@
       </div>
     </div>
 <% end %>
+<a class="close-reveal-modal">&#215;</a>
 

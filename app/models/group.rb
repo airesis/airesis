@@ -180,8 +180,7 @@ class Group < ActiveRecord::Base
     public_f.group = self
     public_f.save!
 
-    GroupStatistic.create(:group_id => self.id).save!
-
+    GroupStatistic.create(:group_id => self.id, valutations: 0, vote_valutations: 0, good_score: 0).save!
   end
 
   def destroy

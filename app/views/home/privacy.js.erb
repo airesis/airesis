@@ -1,9 +1,4 @@
-var _privacy_container = $('<div id="privacy_modal" title="<%=escape_javascript t('words.privacy_policy') %>"></div>');
-_privacy_container.html("<%= escape_javascript(render(:partial => 'devise/registrations/privacy'))%>");
+var _privacy_container = $('<div id="privacy_modal"  class="reveal-modal medium" data-reveal></div>');
+_privacy_container.html("<%= j render(:partial => 'devise/registrations/privacy')%>");
 $('body').append(_privacy_container);
-_privacy_container.dialog({ height: 250, width: 450, modal: true});
-$('.privacy_link').click(function (e) {
-    _privacy_container.dialog('open');
-    e.preventDefault();
-    return false;
-});
+$("#privacy_modal").foundation('reveal', 'open');

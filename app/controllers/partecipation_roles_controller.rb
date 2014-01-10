@@ -9,7 +9,8 @@ class PartecipationRolesController < ApplicationController
   before_filter :check_group_permissions, :only => [:change_group_permission]
   before_filter :check_role_permissions, :only => [:change_default_role]
   before_filter :check_user_permissions, :only => [:change_user_permission]
-  def create    
+
+  def create
     begin
       PartecipationRole.transaction do
         
@@ -19,13 +20,7 @@ class PartecipationRolesController < ApplicationController
       
       respond_to do |format|
           flash[:notice] = t('info.participation_roles.role_created')
-          format.js { render :update do |page|
-                     page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                     page.replace_html "roles_panel_container", :partial => 'groups/roles_panel'
-                     page.call "hideNewRolePanel"
-                     page.call "generateTable"
-                  end
-      }
+          format.js
           format.html { redirect_to edit_permissions_group_path(@group) }          
       end 
     

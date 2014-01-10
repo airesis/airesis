@@ -89,16 +89,6 @@
           <script type="text/javascript">
               var latlng = new google.maps.LatLng(<%=@event.place.latitude_original%>, <%=@event.place.longitude_original%>);
 
-              function openModal() {
-                  $("#map_modal").dialog({ height: 400,
-                      width: 400,
-                      open: function () {
-                          google.maps.event.trigger(map, 'resize');
-                          map.setCenter(latlng);
-                      } });
-                  return false;
-              }
-
               if (!geocoder) {
                   geocoder = new google.maps.Geocoder();
               }
