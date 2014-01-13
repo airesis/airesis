@@ -111,14 +111,9 @@ class ProposalsController < ApplicationController
     query_index
     respond_to do |format|
       format.html {
-        if params[:replace]
-          render :update do |page|
-            page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
-          end
-        else
-          render :partial => 'tab_list', :locals => {:proposals => @proposals}
-        end
+        render :partial => 'tab_list', :locals => {:proposals => @proposals}
       }
+      format.js
       format.json
     end
   end
@@ -437,7 +432,7 @@ class ProposalsController < ApplicationController
     #se il numero di valutazioni è definito
     if quorum.percentage
       if @group #calcolo il numero in base ai partecipanti
-                #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
         if @group_area
           @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
         else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
@@ -775,18 +770,16 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #query per la ricerca delle proposte
   def query_index
     populate_search
-
-    if params[:state] == ProposalState::VOTATION_STATE
-      @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
-    elsif params[:state] == ProposalState::ACCEPTED_STATE
-      @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
-    elsif params[:state] == ProposalState::REVISION_STATE
-      @replace_id = t("pages.proposals.index.revision").gsub(' ', '_')
-    else
-      @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
+    case params[:state]
+      when ProposalState::VOTATION_STATE
+        @replace_id = 'votation'
+      when ProposalState::ACCEPTED_STATE
+        @replace_id = 'accepted'
+      when ProposalState::REVISION_STATE
+        @replace_id = 'revision'
+      else
+        @replace_id = 'debate'
     end
-
-
     @proposals = @search.results
   end
 
@@ -1005,9 +998,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @search.page = params[:page] || 1
     @search.per_page = PROPOSALS_PER_PAGE
   end
-
-
-
 
 
   private

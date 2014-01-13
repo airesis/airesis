@@ -388,6 +388,8 @@ it-IT:
           Sono evidenziate anche le novità previste per le versioni future.
           Controlla spesso questa pagina se sei interessato a conoscere quali funzionalità sono in fase di sviluppo e torna a trovarci !</p>
     helpus:
+      title: "Aiutaci come puoi, ognuno può contribuire"
+      description: "Contribuisci per realizzare uno strumento capace di evolvere la democrazia"
       paragraph1:
         title: "Perchè sostenere Airesis"
         content_html: |
@@ -480,7 +482,9 @@ it-IT:
       users_lastmonth: "Numero di utenti che hanno fatto login nell'ultimo mese:"
       groups_count: "Numero di gruppi:"
       proposals_per_month: "Numero di proposte al mese"
-
+    donations:
+      title: "Aiutaci come puoi, ognuno può contribuire"
+      description: "Contribuisci per realizzare uno strumento capace di evolvere la democrazia"
   devise:
     registrations:
       privacy:

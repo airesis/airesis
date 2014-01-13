@@ -20,65 +20,103 @@
 
 <div style="clear:both"></div>
 
+<div id="tabs" class="section-container tabs twocols" data-section="tabs">
+  <section class="active" data-state="<%= ProposalState::TAB_DEBATE %>">
+    <p class="title" data-section-title>
+      <a href="#debate" data-href="<%= tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_DEBATE, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.debate_title', :count => @in_valutation_count) %></a>
+    </p>
 
-<div id="tabs">
-  <ul>
-    <% if ::Configuration.phases_active %>
-        <li>
-          <%= link_to t('pages.proposals.index.debate_title', :count => @in_valutation_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_DEBATE, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'dibattito', :title => t("pages.proposals.index.debate") %>
-          <div class="tabs-triangle"/>
-        </li>
-        <li>
-          <%= link_to t('pages.proposals.index.voting_title', :count => @in_votation_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTATION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'votazione', :title => t("pages.proposals.index.voting") %>
-          <div class="tabs-triangle"/>
-        </li>
-        <li>
-          <%= link_to t('pages.proposals.index.accepted_title', :count => @accepted_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTED, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'accettate', :title => t("pages.proposals.index.accepted") %>
-          <div class="tabs-triangle"/>
-        </li>
-        <li>
-          <%= link_to t('pages.proposals.index.revision_title', :count => @revision_count), tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_REVISION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})), :class => "status_title", :id => 'revisione', :title => t("pages.proposals.index.revision") %>
-          <div class="tabs-triangle"/>
-        </li>
-    <% else %>
-        <li>
-          <%= link_to t('pages.proposals.index.last_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_DATE, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'ultime', :title => t("pages.proposals.index.last") %>
-          <div class="tabs-triangle"/>
-        </li>
-        <li>
-          <%= link_to t('pages.proposals.index.most_popular_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_RANK, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'popolari', :title => t("pages.proposals.index.most_popular") %>
-          <div class="tabs-triangle"/>
-        </li>
-        <li>
-          <%= link_to t('pages.proposals.index.most_voted_title'), tab_list_proposals_path(:scroll => true, :view => ORDER_BY_VOTES, :category => params[:category], type: params[:type], :group_id => params[:group_id], :group_area_id => (@group_area.id if @group_area)), :class => "status_title", :id => 'valutate', :title => t("pages.proposals.index.most_valutated") %>
-          <div class="tabs-triangle"/>
-        </li>
-    <% end %>
-  </ul>
-
-  <div id="<%= ::Configuration.phases_active ? t("pages.proposals.index.debate").gsub(/\s/, '_') : t('pages.proposals.index.last_title').gsub(/\s/, '_') %>">
-    <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
-      <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
-      <br/>
-      <b><%= t('pages.proposals.index.loading_proposals') %></b>
+    <div class="content" data-section-content id="debate">
+      <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+        <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
+        <br/>
+        <b><%= t('pages.proposals.index.loading_proposals') %></b>
+      </div>
     </div>
-  </div>
+  </section>
+  <section data-state="<%= ProposalState::TAB_VOTATION %>">
+    <p class="title" data-section-title>
+      <a href="#votation" data-href="<%= tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTATION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.voting_title', :count => @in_votation_count) %></a>
+    </p>
+
+    <div class="content" data-section-content id="votation">
+      <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+        <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
+        <br/>
+        <b><%= t('pages.proposals.index.loading_proposals') %></b>
+      </div>
+    </div>
+  </section>
+  <section data-state="<%= ProposalState::TAB_VOTED %>">
+    <p class="title" data-section-title>
+      <a href="#accepted" data-href="<%= tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_VOTED, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.accepted_title', :count => @accepted_count) %></a>
+    </p>
+
+    <div class="content" data-section-content id="accepted">
+      <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+        <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
+        <br/>
+        <b><%= t('pages.proposals.index.loading_proposals') %></b>
+      </div>
+    </div>
+  </section>
+  <section data-state="<%= ProposalState::TAB_REVISION %>">
+    <p class="title" data-section-title>
+      <a href="#revision" data-href="<%= tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_REVISION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', :count => @revision_count) %></a>
+    </p>
+
+    <div class="content" data-section-content id="revision">
+      <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
+        <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>
+        <br/>
+        <b><%= t('pages.proposals.index.loading_proposals') %></b>
+      </div>
+    </div>
+  </section>
 </div>
+
 <% content_for :left_panel do %>
-
     <%= render 'left_panel_index' %>
-
 <% end %>
-
-
-
 
 <script>
 
 
+    function tabCallback(obj) {
+        var active_ = obj.find('section.active');
+        var state_ = active_.attr('data-state');
+        if (active_.data('ititialized')) {
+            //do nothing...cached
+        }
+        else {
+            var url_ = active_.find('[data-section-title] a').attr('data-href');
+            $.ajax({
+                url: url_,
+                success: function (data) {
+                    active_.find('[data-section-content]').html(data);
+                    active_.data('ititialized', true);
+                }
+            });
+        }
+
+        window.location.hash = active_.find('[data-section-title] a').attr('href').replace('#', '_');
+
+    }
+
+    function hashChange() {
+        if (window.location.hash) {
+            $('#tabs section a[href=' + window.location.hash.replace('_', '') + ']').click();
+        }
+    }
 
     $(function () {
 
+        $('#tabs').foundation('section', {callback: tabCallback});
+        tabCallback($('#tabs'));
+
+        $(window).on('hashchange', function () {
+            hashChange();
+        });
 
         var datePickerOptions = {
             changeMonth: false,
@@ -157,22 +195,7 @@
             window.location = "/users/sign_in?l=<%=I18n.locale%>"
         }
     });
-    ;
 
-    $('#tabs').tabs({
-        cache: true,
-        load: function (e, ui) {
-            $(ui.panel).find("#loading_borders").remove();
-
-        },
-        select: function (e, ui) {
-            var $panel = $(ui.panel);
-            if ($panel.is(":empty")) {
-                $panel.html("<div id='loading_borders' style='margin:auto;text-align:center;display:block;'><%=j (image_tag 'ajax-loader.gif', :alt=>t('pages.proposals.index.loading_alt'))%><br /><b><%= t('pages.proposals.index.loading_proposals')%></b></div>");
-            }
-            window.location.hash = ui.index;
-        }
-    });
 
     $(function () {
         // grab the url

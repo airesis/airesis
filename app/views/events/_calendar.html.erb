@@ -42,8 +42,9 @@
 
 
 <%= content_for :left_panel do %>
-    <div class="mybox">
-      <% if @group %>
+
+    <% if @group %>
+        <div class="mybox">
           <% if (can? :create_both_events, @group) %>
               <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>
           <% elsif can? :create_event, @group %>
@@ -53,13 +54,15 @@
           <% end %>
 
           <%= link_to '<img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0>'.html_safe, "http://www.google.com/calendar/render?cid=#{group_events_url(@group, format: :ics)}", target: '_blank', style: 'display: table; margin: 25px auto;' %>
-
-      <% else %>
-          <% if is_admin? %>
+        </div>
+    <% else %>
+        <% if is_admin? %>
+            <div class="mybox">
               <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton disable' %>
-          <% end %>
-      <% end %>
-    </div>
+            </div>
+        <% end %>
+    <% end %>
+
 
 
     <div class="choose_event_type" style="display:none;">

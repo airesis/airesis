@@ -204,13 +204,6 @@ en:
              Important, especially in the case of a secret ballot, is the ability to verify the registration of his vote and the absence of fraud.
              This is possible through the system of auditable voting implemented by Airesis .
           </p>
-
-
-
-
-
-
-
       paragraph_11:
         title: "Managing groups and user roles"
         content_html: |
@@ -385,6 +378,8 @@ en:
            You can also find, here highlighted, the innovations planned for future versions.
            Check this page often if you are interested to know which features are being developed and come back soon to visit us!</p>
     helpus:
+      title: "Help us, everyone can contribute"
+      description: "Contribute to create a tool able to evolve democracy"
       paragraph1:
         title: "Why support Airesis project"
         content_html: |
@@ -473,7 +468,9 @@ en:
       users_lastmonth: "Number of users that joined us in the last month:"
       groups_count: "Groups number:"
       proposals_per_month: "Proposals per month"
-
+    donations:
+      title: "Help us, everyone can contribute"
+      description: "Contribute to create a tool able to evolve democracy"
   devise:
     registrations:
       privacy:

@@ -1,28 +1,30 @@
-<%if ::Configuration.socialnetwork_active  && !in_subdomain?%>
-<br />
-    <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
+<div class="card">
+  <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
 
-    <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
+      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
 
-    <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
+      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
 
-    <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
+      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
 
-    <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
+      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
 
-<%end%>
-<br />
+      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
 
-<ul style="padding-left: 15px;">
-  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <li><%= link_to t('pages.sessions.links.register'), new_registration_path(resource_name) %></li>
-<% end -%>
+  <% end %>
 
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <li><%= link_to t('pages.sessions.links.forgot_password'), new_password_path(resource_name) %></li>
-<% end -%>
 
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <li><%= link_to t('pages.sessions.links.havent_received_email'), new_confirmation_path(resource_name) %></li>
-<% end -%>
-</ul>
+  <ul style="padding-left: 15px;">
+    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+        <li><%= link_to t('pages.sessions.links.register'), new_registration_path(resource_name) %></li>
+    <% end -%>
+
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+        <li><%= link_to t('pages.sessions.links.forgot_password'), new_password_path(resource_name) %></li>
+    <% end -%>
+
+    <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+        <li><%= link_to t('pages.sessions.links.havent_received_email'), new_confirmation_path(resource_name) %></li>
+    <% end -%>
+  </ul>
+</div>

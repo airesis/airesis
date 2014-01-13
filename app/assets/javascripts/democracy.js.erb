@@ -560,7 +560,6 @@ function array1dToJson(a, p) {
     return s;
 }
 
-
 function stripScripts(s) {
     var div = document.createElement('div');
     div.innerHTML = s;
@@ -680,6 +679,13 @@ function secondsToString(seconds) {
     return str;
 }
 
+function getQueryParam(param) {
+    var result =  window.location.search.match(
+            new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+    );
+
+    return result ? result[3] : false;
+}
 
 function addQueryParam(url, key, val) {
     var parts = url.match(/([^?#]+)(\?[^#]*)?(\#.*)?/);

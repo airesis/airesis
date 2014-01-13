@@ -3,59 +3,61 @@
 
 
 <% if ::Configuration.socialnetwork_active && !in_subdomain? %>
-    <h2><%= t('pages.registration.identity_provviders_title') %></h2>
+    <div class="card">
+      <h2><%= t('pages.registration.identity_provviders_title') %></h2>
 
-    <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
+      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
 
-    <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
+      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
 
-    <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
+      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
 
-    <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
+      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
 
-    <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
-    <br/>
+      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
+    </div>
 <% end %>
+<div class="card">
+  <h2><%= t('pages.registration.title') %></h2>
 
-<h2><%= t('pages.registration.title') %></h2>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
+      <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
-    <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
-
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-    <% if resource.email && params[:action] == 'new'%>
-        <%= t('pages.registration.email_confirmed') %>
-    <% end %>
-
-
-    <%= f.label :password_confirmation, t('pages.registration.choose_password'), :for => "new_user_password_confirmation" %>
-    <%= f.password_field :password_confirmation, :id => "new_user_password_confirmation" %>
-
-    <%= f.label :password, t('pages.registration.confirm_password'), :for => "new_user_password" %>
-    <%= f.password_field :password, :id => "new_user_password" %>
-
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-
-    <%= f.label :surname %>
-    <%= f.text_field :surname %>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+      <% if resource.email && params[:action] == 'new' %>
+          <%= t('pages.registration.email_confirmed') %>
+      <% end %>
 
 
-    <%= f.label :accept_conditions do %>
-        <%= f.check_box :accept_conditions %>
-        <%= raw t('pages.registration.accept_conditions') %>
-    <% end %>
+      <%= f.label :password_confirmation, t('pages.registration.choose_password'), :for => "new_user_password_confirmation" %>
+      <%= f.password_field :password_confirmation, :id => "new_user_password_confirmation" %>
+
+      <%= f.label :password, t('pages.registration.confirm_password'), :for => "new_user_password" %>
+      <%= f.password_field :password, :id => "new_user_password" %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :surname %>
+      <%= f.text_field :surname %>
 
 
-    <%= f.hidden_field :sys_locale_id %>
+      <%= f.label :accept_conditions do %>
+          <%= f.check_box :accept_conditions %>
+          <%= raw t('pages.registration.accept_conditions') %>
+      <% end %>
 
-    <% if ::Configuration.recaptcha %>
-        <%= recaptcha_tags :display => {'theme' => 'clean'} %>
-    <% end %>
 
-    <div><%= f.submit t('pages.registration.register_button'), :class => 'btn blue' %></div>
-<% end %>
+      <%= f.hidden_field :sys_locale_id %>
+
+      <% if ::Configuration.recaptcha %>
+          <%= recaptcha_tags :display => {'theme' => 'clean'} %>
+      <% end %>
+
+      <div><%= f.submit t('pages.registration.register_button'), :class => 'btn blue' %></div>
+  <% end %>
+</div>
 
 
 
