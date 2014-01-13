@@ -309,7 +309,7 @@ def save_tags
       else
         self.sections.first
       end
-  self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
+  self.content = first_section ? truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60) : ''
 
 
 end
