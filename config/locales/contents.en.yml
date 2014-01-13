@@ -462,6 +462,18 @@ en:
         <a href="http://www.gurock.com/" target="_blank">Gurock Software</a> who provided us the  <a href="http://www.gurock.com/testrail/" target="_blank">TestRail</a> platform testing management software for free
       thanks_8_html: |
         Our very gentle friend <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> who allows us to use <a href="http://railscasts.com/" target="_blank">RailsCasts</a> for tutorial and  other videos about Ruby on Rails for free.
+    statistics:
+      title: "Statistics"
+      proposals_number: "Total number of proposals:"
+      proposals_debate: "Number of proposals currently in debate:"
+      proposals_vote: "Number of proposals currently in votation:"
+      proposals_voted: "Total number of voted proposals:"
+      proposals_rejected: "Total number of rejected proposals:"
+      users_count: "Number of Airesis users:"
+      users_lastmonth: "Number of users that joined us in the last month:"
+      groups_count: "Groups number:"
+      proposals_per_month: "Proposals per month"
+
   devise:
     registrations:
       privacy:

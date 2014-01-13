@@ -469,6 +469,18 @@ it-IT:
         <a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e realizzazione dei test
       thanks_8_html: |
         Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente l'abbonamento <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby On Rails
+    statistics:
+      title: "Statistiche"
+      proposals_number: "Numero di proposte totali:"
+      proposals_debate: "Numero di proposte in dibattito:"
+      proposals_vote: "Numero di proposte in votazione:"
+      proposals_voted: "Numero di proposte votate:"
+      proposals_rejected: "Numero di proposte abbandonate:"
+      users_count: "Numero di utenti:"
+      users_lastmonth: "Numero di utenti che hanno fatto login nell'ultimo mese:"
+      groups_count: "Numero di gruppi:"
+      proposals_per_month: "Numero di proposte al mese"
+
   devise:
     registrations:
       privacy:
