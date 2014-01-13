@@ -438,3 +438,5 @@ it-IT:
         title: "Link testuale"
         content_html: |
           <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>
+    tags:
+      description: "Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"

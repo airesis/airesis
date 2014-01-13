@@ -427,3 +427,5 @@ en:
         title: "Text link"
         content_html: |
           <p>If you choose to publish your banner will be of great help to the project. Thank you.</p>
+    tags:
+      description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"
