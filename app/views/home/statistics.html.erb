@@ -1,22 +1,25 @@
 <script type="text/javascript" src="../src/plugins/jqplot.dateAxisRenderer.min.js"></script>
-<% @page_title = "Statistiche" %>
-<h2 id="statistics"><%= @page_title %></h2>
+<% @page_title = t('.title') %>
+<div class="row">
+  <div class="row centered">
+    <h2 id="statistics"><%= @page_title %></h2>
 
-<div style="height: 400px; width: 600px; " id="chart1">
+    <div style="height: 400px; width: 600px; " id="chart1">
+    </div>
+
+    <h4><%= t('.proposals_number') %></h4> <%= Proposal.count %>
+    <h4><%= t('.proposals_debate') %></h4> <%= Proposal.in_valutation.count %>
+    <h4><%= t('.proposals_vote') %></h4> <%= Proposal.in_votation.count %>
+    <h4><%= t('.proposals_voted') %></h4> <%= Proposal.voted.count %>
+    <h4><%= t('.proposals_rejected') %></h4> <%= Proposal.abandoned.count %>
+    <hr>
+    <h4><%= t('.users_count') %></h4> <%= User.count %>
+    <h4><%= t('.users_lastmonth') %></h4> <%= User.where(['last_sign_in_at > ?',Time.now - 1.month]).count %>
+
+    <hr>
+    <h4><%= t('.groups_count') %></h4> <%= Group.count %>
+  </div>
 </div>
-
-<h4><%= 'Numero di proposte totali:' %></h4> <%= Proposal.count %>
-<h4><%= 'Numero di proposte in dibattito:' %></h4> <%= Proposal.in_valutation.count %>
-<h4><%= 'Numero di proposte in votazione:' %></h4> <%= Proposal.in_votation.count %>
-<h4><%= 'Numero di proposte votate:' %></h4> <%= Proposal.voted.count %>
-<h4><%= 'Numero di proposte abbandonate:' %></h4> <%= Proposal.abandoned.count %>
-<hr>
-<h4><%= 'Numero di utenti:' %></h4> <%= User.count %>
-<h4><%= "Numero di utenti che hanno fatto login nell'ultimo mese:" %></h4> <%= User.where(['last_sign_in_at > ?',Time.now - 1.month]).count %>
-<h4><%= 'Numero di gruppi per utente (tra utenti registrati almeno a un gruppo)' %></h4>   <%=  User.joins(:groups).where()%>
-<hr>
-<h4><%= 'Numero di gruppi:' %></h4> <%= Group.count %>
-
 
 
 
@@ -24,7 +27,7 @@
   $(function() {
       var line1=<%= @stat1.map{|h| [h['date'],h['sum'].to_i]}.to_s.gsub(/"/, "'").html_safe %>;
       var plot1 = $.jqplot('chart1', [line1], {
-          title:'Numero di proposte al mese',
+          title: '<%=j t('.proposals_per_month')%>',
           axes:{xaxis:{
               renderer:$.jqplot.DateAxisRenderer,
               tickOptions:{

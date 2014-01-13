@@ -441,3 +441,14 @@ it-IT:
         title: "Link testuale"
         content_html: |
           <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>
+    statistics:
+      title: "Statistiche"
+      proposals_number: "Numero di proposte totali:"
+      proposals_debate: "Numero di proposte in dibattito:"
+      proposals_vote: "Numero di proposte in votazione:"
+      proposals_voted: "Numero di proposte votate:"
+      proposals_rejected: "Numero di proposte abbandonate:"
+      users_count: "Numero di utenti:"
+      users_lastmonth: "Numero di utenti che hanno fatto login nell'ultimo mese:"
+      groups_count: "Numero di gruppi:"
+      proposals_per_month: "Numero di proposte al mese"

@@ -435,3 +435,14 @@ en:
         title: "Text link"
         content_html: |
           <p>If you choose to publish your banner will be of great help to the project. Thank you.</p>
+    statistics:
+      title: "Statistics"
+      proposals_number: "Total number of proposals:"
+      proposals_debate: "Number of proposals currently in debate:"
+      proposals_vote: "Number of proposals currently in votation:"
+      proposals_voted: "Total number of voted proposals:"
+      proposals_rejected: "Total number of rejected proposals:"
+      users_count: "Number of Airesis users:"
+      users_lastmonth: "Number of users that joined us in the last month:"
+      groups_count: "Groups number:"
+      proposals_per_month: "Proposals per month"
