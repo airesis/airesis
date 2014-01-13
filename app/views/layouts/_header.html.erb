@@ -530,4 +530,14 @@
             $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: '<%=j raw(t('countdown'))%>'}, $.countdown.regional['<%=I18n.locale%>']));
         })
     }
+
 </script>
+
+<%if I18n.locale.to_s == "en-GB" %>
+    <script type="text/javascript">
+    var _jipt = [];
+    _jipt.push(['project', 'airesis']);
+    </script>
+    <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
+    </script>
+<%end%>
