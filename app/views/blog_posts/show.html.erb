@@ -23,43 +23,44 @@
   </script>
 
   <div class="card">
-  <p class="blogPostPostedAt">
-    <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
-  </p>
+    <p class="blogPostPostedAt">
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
+    </p>
 
-  <div class="blogPostBody" itemprop="description">
-    <%= sanitize @blog_post.body %>
-    <div class="clearboth"></div>
-  </div>
-  <div class="blogPostFooter">
-    <div class="blogPostPostedAt">
-      <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %> |
+    <div class="blogPostBody" itemprop="description">
+      <%= sanitize @blog_post.body %>
+      <div class="clearboth"></div>
+    </div>
+    <div class="blogPostFooter">
+      <div class="blogPostPostedAt">
+        <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %>
+        |
       <span class="blogComments">
 
-      <%=link_to t('pages.blog_posts.view.comments', count: @blog_post.blog_comments.count),'#blogPostCommentsContainer' %>
+      <%= link_to t('pages.blog_posts.view.comments', count: @blog_post.blog_comments.count), '#blogPostCommentsContainer' %>
       </span>
-    </div>
-    <% if ::Configuration::socialnetwork_active %>
-        <div class="post_buttons">
-          <g:plusone size="medium" href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>"></g:plusone>
-          |
-          <a href="https://twitter.com/share"
-             class="twitter-share-button"
-             data-lang="en"
-             data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
-             data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
-          |
-          <div class="fb-like" data-href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+      </div>
+      <% if ::Configuration::socialnetwork_active %>
+          <div class="post_buttons">
+            <g:plusone size="medium" href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>"></g:plusone>
+            |
+            <a href="https://twitter.com/share"
+               class="twitter-share-button"
+               data-lang="en"
+               data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
+               data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
+            |
+            <div class="fb-like" data-href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
 
-        </div>
-    <% end %>
-    <% unless @blog_post.tags.blank? %>
-        <div class="blogPostTags">
-          <span class="tag_label">Tags: </span>
-          <span class="tags_list"><%= raw @blog_post.tags_with_links %></span>
-        </div>
-    <% end %>
-  </div>
+          </div>
+      <% end %>
+      <% unless @blog_post.tags.blank? %>
+          <div class="blogPostTags">
+            <span class="tag_label">Tags: </span>
+            <span class="tags_list"><%= raw @blog_post.tags_with_links %></span>
+          </div>
+      <% end %>
+    </div>
   </div>
 
 
@@ -96,14 +97,33 @@
         </div>
     <% end %>
 
-    <%if @blog_post.groups.count > 0 %>
-    <%end%>
+    <% if @blog_post.groups.count > 0 %>
+        <div class="mybox">
+          <h4><%= 'Published on the following groups' %></h4>
 
-    <%=render 'blogs/left_panel' %>
+          <div class="mycont">
+            <% @blog_post.groups.each do |group| %>
+                <div class="panel">
+                  <div class="groupcontainer">
+                    <div class="groupImg24">
+                      <%= group.group_image_tag(24) rescue nil %>
+                    </div>
+                    <div class="group">
+                      <%= link_to group.name, group_url(group) %>
+                    </div>
+                  </div>
+                  <div class="clearboth"></div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+
+    <%= render 'blogs/left_panel' %>
 <% end %>
 
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         disegnaCountdown();
     });
 </script>
