@@ -7,7 +7,7 @@
      <% if !pv || (pv == 1) %>
         <%= t('pages.proposals.show.random_stack') %>
     <% else %>
-        <%= link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, :view => 1, :reset => true), :remote => true, :method => :post, :onclick => "hideContributes(1);", :id => 'random_stack_l' %>
+        <%= link_to t('pages.proposals.show.random_stack'), list_proposal_proposal_comments_url(@proposal, :view => 1, :reset => true), :remote => true, :onclick => "hideContributes(1);", :id => 'random_stack_l' %>
     <% end %></span> |
     <% end %>
     <span id="random_stack_2">
