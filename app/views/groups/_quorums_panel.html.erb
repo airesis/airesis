@@ -4,7 +4,7 @@
     <td rowspan="2"><%= t('pages.groups.edit_quorums.active') %></td>
     <td rowspan="2"><%= t('pages.groups.edit_quorums.name') %></td>
     <td colspan="3"><%='Debate'%></td>
-    <td colspan="3"><%='Votation'%></td>
+    <td colspan="2"><%='Votation'%></td>
   </tr>
   <tr>
     <td><%= t('pages.groups.edit_quorums.time') %></td>
@@ -14,7 +14,7 @@
     <td>
       <%= t('pages.groups.edit_quorums.good_percentage') %>
     </td>
-    <td><%= t('pages.groups.edit_quorums.time') %></td>
+    <!--<td><%= t('pages.groups.edit_quorums.time') %></td>-->
     <td>
       <%= t('pages.groups.edit_quorums.participants') %>
     </td>
@@ -39,7 +39,7 @@
         </td>
         <td> <%= quorum.good_score %>%
         </td>
-        <td> <%= quorum.vote_time %>
+        <!--<td> <%= quorum.vote_time %>-->
         <td> <%= desc_percentage(quorum.vote_percentage) %>
         </td>
         <td> <%= quorum.vote_good_score %>%

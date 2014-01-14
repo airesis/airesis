@@ -68,7 +68,7 @@ class ProposalCommentsController < ApplicationController
       if params[:view] == SearchProposal::ORDER_BY_RANK
         order << " proposal_comments.j_value desc, proposal_comments.id desc"
       else
-        order << "proposal_comments.created_at desc"
+        order << "proposal_comments.updated_at desc"
       end
       @proposal_comments = @proposal.contributes.listable.where(conditions).order(order).page(params[:page]).per(COMMENTS_PER_PAGE)
       @total_pages = @proposal_comments.total_pages

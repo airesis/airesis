@@ -267,13 +267,13 @@ module GroupsHelper
         super
   end
 
-  def new_group_quorum_url(group, options={})
+  def new_group_best_quorum_url(group, options={})
     (group_in_subdomain? group) ?
         new_quorum_url(options) :
         super
   end
 
-  def edit_group_quorum_url(group, options={})
+  def edit_group_best_quorum_url(group, options={})
     (group_in_subdomain? group) ?
         edit_quorum_url(options) :
         super
