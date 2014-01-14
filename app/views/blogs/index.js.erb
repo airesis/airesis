@@ -1,0 +1,9 @@
+$('#blogsContainer').append("<%= j render(:partial => 'blog', :collection => @blogs)%>");
+
+<%if @blogs.total_pages > @blogs.current_page%>
+checkActive = true;
+checkScroll();
+
+<%else%>
+$('#loading_results').hide();
+<%end%>

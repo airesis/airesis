@@ -674,6 +674,8 @@ en:
         title: "Blogs"
       edit:
         title: "Edit the post"
+      archives:
+        title: "Archive for %{month}, %{year}"
     alerts:
       polling:
         show_all: "Show all notifications"
@@ -727,6 +729,7 @@ en:
         edit_button: "Edit blog"
         title: "Blogs list"
         no_unpublished_posts: "There are no unpublished posts at the moment"
+        other_blogs: "More blogs"
       new:
         title: "Create your personal blog!"
         cancel_button: "No, thanks!"
@@ -735,6 +738,8 @@ en:
         title: "Edit blog"
         title_label: "Blog title"
         back_to_blog: "Back to my blog"
+      index:
+        blog_subtitle: "%{posts} posts, %{comments} comments"
     quorums:
       index:
         title: "All available quorums"

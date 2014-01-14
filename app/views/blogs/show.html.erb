@@ -11,7 +11,6 @@
 <% if @blog_posts.size == 0 && !params[:page] %>
     <div class="blogPost">
       <h3><%= t('pages.blogs.show.no_posts') %></h3>
-
       <p><%= t('pages.blogs.show.no_posts_long') %></p>
     </div>
 <% else %>
@@ -53,10 +52,8 @@
                 });
     });
 </script>
-<br/>
-
 
 <% content_for :left_panel do %>
-    <%= render :partial => 'blog_posts/admin_links' %>
-
+   <%=render 'blog_posts/admin_links' %>
+   <%=render 'blogs/left_panel' %>
 <% end %>

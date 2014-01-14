@@ -1,0 +1,37 @@
+
+<div class="mybox">
+  <h4><%='Recent comments'%></h4>
+  <div class="mycont">
+    <%@recent_comments.each do |comment| %>
+        <div class="blog_comment">
+          <div class="comment_avatar">
+            <%=comment.user_image_tag 40%>
+          </div>
+          <div class="comment_desc">
+            <%=link_to_user comment.user, full_name: true%> on <%=link_to(h(comment.blog_post.title), [@blog, comment.blog_post])%>
+          </div>
+          <div class="clearboth"></div>
+        </div>
+    <%end%>
+  </div>
+</div>
+<div class="mybox">
+  <h4><%='Recent posts'%></h4>
+  <div class="mycont">
+    <%@recent_posts.each do |post| %>
+        <div class="blog_comment">
+          <%=link_to(h(post.title), [@blog, post])%>
+        </div>
+    <%end%>
+  </div>
+</div>
+<div class="mybox">
+  <h4><%='Archives'%></h4>
+  <div class="mycont">
+    <%@archives.each do |rec|%>
+        <div class="blog_comment">
+          <%=link_to "#{t('date.month_names')[rec.month.to_i]} #{rec.year} (#{rec.posts})", posts_by_year_and_month_blog_path(@blog, :month => rec.month, :year => rec.year) %>
+        </div>
+    <%end%>
+  </div>
+</div>

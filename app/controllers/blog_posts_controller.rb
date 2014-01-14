@@ -17,6 +17,8 @@ class BlogPostsController < ApplicationController
 
   before_filter :load_blog_post, only: :show
 
+  before_filter :load_blog_data, only: :show
+
   #il blog caricato deve essere dell'utente.
   #l'azione può essere eseguita solo sul proprio blog, altrimenti viene dato errore e redirezionato alla pagina precedente.
   before_filter :must_be_my_blog, :only => [:new, :edit, :update, :create, :destroy]
@@ -53,6 +55,7 @@ class BlogPostsController < ApplicationController
       format.xml  { render :xml => @blog_posts }
     end
   end
+
   
   def show
     @user = @blog_post.user

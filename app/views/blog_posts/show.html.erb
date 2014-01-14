@@ -22,7 +22,7 @@
 
   </script>
 
-
+  <div class="card">
   <p class="blogPostPostedAt">
     <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to_user @blog_post.user), date: (l @blog_post.updated_at)) %>
   </p>
@@ -31,11 +31,7 @@
     <%= sanitize @blog_post.body %>
     <div class="clearboth"></div>
   </div>
-
-  <hr class="blogPostBreak"/>
   <div class="blogPostFooter">
-
-
     <div class="blogPostPostedAt">
       <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((@blog_post.user_image_tag 15) + @blog_post.user.fullname), @blog_post.user), date: (l @blog_post.created_at)) %> |
       <span class="blogComments">
@@ -63,6 +59,7 @@
           <span class="tags_list"><%= raw @blog_post.tags_with_links %></span>
         </div>
     <% end %>
+  </div>
   </div>
 
 
@@ -98,6 +95,11 @@
           <%= raw facebook_like %>   <br/>
         </div>
     <% end %>
+
+    <%if @blog_post.groups.count > 0 %>
+    <%end%>
+
+    <%=render 'blogs/left_panel' %>
 <% end %>
 
 <script type="text/javascript">

@@ -1,38 +1,10 @@
-<h1>Tutti i blog</h1>
+<h1><%='Tutti i blog'%></h1>
+<% javascript 'endless_page' %>
 
-<style>
-	.blogListContainer {
-		border: 1px solid #CCCCCC;
-		clear: both;
-		box-shadow: 0 1px 5px #CCCCCC;
-		margin-left: 0;
-		position: relative;
-		height: 60px;
-		margin-bottom:10px;
-	}
-</style>
-<% @blogs.each do |blog| %>
-<div class="blogListContainer">
-	<div class="blogUserImage">
-		<%= blog.user.user_image_tag 50 %>
-	</div>
-	<div class="blogTitle">
-		<h3><%= link_to blog.title, blog %></h3>
-	</div>
-	<div class="blogAuthor">
-		Autore: <%=link_to_user blog.user, :full_name => true %>
-	</div>
-	<div class="blogFooter">
-		<%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
-		<%= link_to 'Cancella', blog, :confirm => 'Sei sicuro di voler eliminare questo blog?', :method => :delete, :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
-	</div>
-	
+<div id="blogsContainer">
+<%=render partial: 'blog', :collection => @blogs %>
 </div>
-<%end%> 
 
-<script type="text/javascript">
-	$(function() {
-	disegnaBottoni();
-    disegnaCountdown();
-	});
-</script>
+<div id="loading_results">
+  <span><%= t('pages.blogs.show.other_blogs') %></span>
+</div>

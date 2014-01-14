@@ -1,0 +1,101 @@
+#new_blog_comment .counter {
+  float: right;
+}
+
+.blogPostTitle {
+  font-size: 1.4em;
+}
+
+.tag_label {
+  color: #999;
+}
+
+.tags_list a {
+  font-style: italic;
+  color: #666;
+}
+
+.blogPostTags {
+  font-size: 0.87em;
+}
+
+.post_buttons {
+  font-size: 0.8em;
+  color: #666;
+  line-height: 18px;
+  vertical-align: top;
+}
+
+.blogPostFooter {
+  padding-top: 5px;
+  border-top: 1px dotted #ccc;
+  margin-bottom: 40px;
+}
+
+.blogPostPostedAt {
+  font-size: 0.87em;
+  margin-bottom: 5px;
+}
+
+.blogPostPostedAt a img {
+  vertical-align: top;
+}
+
+.blogPostFooter .blogComments a {
+  color: #666;
+  font-weight: bold;
+}
+
+.blogComment {
+  margin-bottom: 20px;
+}
+
+.blogCommentPostedAt {
+  margin-bottom: 10px;
+}
+
+.blogNewComment {
+  margin-top: 5px;
+  clear: both;
+}
+
+.blogPoster {
+  font-style: italic;
+}
+
+.blogCommentAdmin {
+  background-color: #EBE0BF;
+}
+
+.blogFooter a {
+  margin-right: 5px;
+}
+
+.blogUserImage {
+  float: left;
+  margin: 0px 5px 5px 0px;
+}
+
+.blog-comment-content {
+  word-wrap: break-word;
+  margin: 5px 0px;
+}
+
+.blog-comment-footer {
+  font-size: 0.9em;
+  display: inline;
+  margin-top: 0.9em;
+}
+
+.blog_comment {
+  margin-bottom: 0.4em;
+  .comment_avatar {
+    float:left;
+  }
+  .comment_desc {
+    float: left;
+    width: 175px;
+    overflow: hidden;
+    margin-left:5px;
+  }
+}

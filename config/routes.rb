@@ -102,11 +102,14 @@ Airesis::Application.routes.draw do
   resources :proposal_categories
 
   resources :blogs do
+
     resources :blog_posts do
       #match :tag, :on => :member
       match :drafts, :on => :collection
+
       resources :blog_comments
     end
+    match '/:year/:month' => 'blogs#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
   end
 
   resources :announcements do

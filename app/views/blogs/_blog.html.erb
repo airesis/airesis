@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="blogUserImage">
+    <%= blog.user.user_image_tag 50 %>
+  </div>
+  <div class="blogAuthor">
+    <%=link_to_user blog.user, :full_name => true %>
+  </div>
+  <div class="blogTitle">
+    <h3><%= link_to (blog.title.to_s != '' ? blog.title : 'Nessun titolo'), blog %></h3>
+  </div>
+  <div class="blogAuthor">
+    <%= t('pages.blogs.index.blog_subtitle', posts: blog.posts_count, comments: blog.comments_count) %>
+  </div>
+  <div class="blogFooter">
+    <%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
+    <%= link_to 'Cancella', blog, :confirm => 'Sei sicuro di voler eliminare questo blog?', :method => :delete, :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
+  </div>
+
+</div>

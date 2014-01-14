@@ -1,16 +1,8 @@
 <%@extend=true%>
-	<style type="text/css">
-		div.error_dialog {
-			width: 25em;
-			padding: 0 4em;
-			margin: 0px auto 20px;
-			border: 1px solid #ccc;			
-		}
-		div.error_dialog h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-	</style>
-
-  <div class="error_dialog shadow-box">
+  <div class="error_dialog card">
+    <div style="text-align: center;">
     <h1><%=raw @title || t('error.error_404.title')%></h1>
     <p><%=raw @message ||t('error.error_404.description')%></p>
     <%=link_to t('buttons.go_back'), :back%>
+    </div>
   </div>

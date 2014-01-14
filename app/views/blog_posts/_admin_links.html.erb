@@ -1,4 +1,4 @@
-<% if (user_signed_in? and @blog and current_user.is_my_blog? @blog.id) %>
+<% if user_signed_in? && @blog && (current_user.is_my_blog? @blog.id) %>
     <div class=mybox>
         <div class="blogAdminLinks">
 
