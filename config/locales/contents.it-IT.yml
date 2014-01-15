@@ -444,3 +444,73 @@ it-IT:
     engage:
       title: "Partecipa al progetto per una nuova democrazia"
       description: "Contribuisci a questo progetto con le tue esperienze, aiutaci a realizzare una nuova democrazia, piu' trasparente e piu' condivisa"
+      nav:
+        opensource: "Open source"
+        participate: "Partecipa"
+        banner: "Banner"
+      paragraph1:
+        title: "Airesis è aperto a tutti"
+        description_html: |
+          <p>Airesis si appoggia su un motore totalmente gratuito ed Open Source. Puoi partecipare allo sviluppo:</p>
+          <ul>
+            <li>Fruendo della piattaforma e segnalando i bug e gli errori che riscontri</li>
+            <li>Contribuendo alla grafica, all'usabilit&agrave; e all'intuitivit&agrave; del sistema</li>
+            <li>Programmando l'interfaccia utente della piattaforma (RICHIESTA: Conoscenza di HTML, CSS o Javascript)</li>
+            <li>Programmando la piattaforma lato server (RICHIESTA: Conoscenza del linguaggio Ruby o C/C++, o voglia di imparalo con l'aiuto degli altri volontari)</li>
+            <li>Fornendo un <a href=%{donations_path}>contributo economico</a> al progetto o ricercando finanziamenti</li>
+            <li>Occupandoti di <a href="#linkback">divulgare il progetto</a> e curandone la comunicazione</li>
+          </ul>
+          <p>A tale scopo stiamo usufruendo dei seguenti strumenti per poter coordinare la nostra attivit&agrave;. Puoi partecipare gi&agrave; da qui: </p>
+          <ul>
+            <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Gruppo di sviluppo su Google Groups</a></li>
+            <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Gruppo di sviluppo su Facebook </a></li>
+            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Codice sorgente</a></li>
+          </ul>
+      paragraph2:
+        title: "Come partecipare al progetto"
+        description_html: |
+          <p>Chiunque pu&ograve; contribuire al progetto open-source Airesis: non &egrave; necessario avere competenze informatiche, le cose da fare sono molte anche per i non programmatori.
+          Nel progetto <a href=%{chisiamo}>siamo tutti volontari</a> non retribuiti, uniti dalla volont&agrave; di aiutare i cittadini ad organizzarsi in modo trasparente e partecipato facendo rifiorire una democrazia di qualit&agrave;.</p>
+          <p>Per segnalarci la tua partecipazione compila <a href="%{form}" target="_blank"><strong>questo modulo</strong></a>, oppure prendi contatto con <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} se hai dubbi o necessiti di chiarimenti.</p>
+          <p>Ecco un elenco dei volontari di cui abbiamo bisogno:</p>
+      developer:
+        title: "Sviluppatore"
+        description_html: |
+          <p>
+          Lo sviluppatore è colui che scrive materialmente il codice di Airesis. <br/>
+          Segue le linee guida del progetto e si occupa di portare avanti le attività richieste per implementare le diverse funzionalità.<br/>
+          Il suo lavoro consisterà nella scrittura di moduli in Ruby quando ci saranno nuove funzionalità da implementare, o nella scrittura di pagine HTML e,
+          di conseguenza, CSS e Javascript se si occupa dell'interfaccia utente. <br/>
+          Chiunque voglia ricoprire questo ruolo sarà aiutato e guidato dal <a href="%{chisiamo}" target="_blank">referente per la programmazione</a> nelle prime fasi
+          per poter iniziare agevolmente il proprio lavoro.
+          </p>
+      analyst:
+        title: "Analista"
+        description_html: |
+          <p>
+          E' l'anello di congiunzione tra gli utenti ed il gruppo di sviluppo. <br/>
+          Raccoglie le necessità dei gruppi e dei cittadini e fornisce al gruppo di sviluppo la documentazione necessaria e dettagliata per lo sviluppo di nuove funzionalità o il miglioramento di quelle esistenti.
+          </p>
+      first_lev_tester:
+        title: "Tester di primo livello"
+        description_html: |
+          <p>
+          Il tester di primo livello è un utente che, auspicabilmente, non ha alcuna conoscenza tecnica informatica
+          ed un livello di informatizzazione medio, tale per cui è in grado di navigare in internet in autonomia ed è
+          in grado di utilizzare gli strumenti più comuni del web (motori di ricerca, social network, ecc...).<br/>
+          Il tester di primo livello rappresenta il cittadino che utilizza l'applicazione: si occupa di segnalare tutte
+          le pagine e funzionalità del sistema che non si comportano nella maniera in cui si aspetta o che hanno problemi.
+          </p>
+      sec_lev_tester:
+        title: "Tester di secondo livello"
+        description_html: |
+          <p>
+          Il tester di secondo livello è un utente con una buona conoscenza informatica per cui è in grado di eseguire i test più approfonditi del sistema.<br/>
+          Si occupa dei test di sicurezza e forza il sistema al limite, cercando di metterlo sotto stress e riscontrare problemi più complessi.
+          </p>
+      graphic:
+        title: "Grafico"
+        description_html: |
+          <p>
+          Disegna le interfacce utente e fornisce le bozze al gruppo di sviluppo.
+          </p>

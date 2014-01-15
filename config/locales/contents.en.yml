@@ -433,4 +433,67 @@ en:
     engage:
       title: "Participate in the project for a new democracy"
       description: "Contribute in this project with your experiences, help us build a new democracy, more transparent and shared"
-
+      nav:
+        opensource: "Open Source"
+        participate: "Participate"
+        banner: "Banner"
+      paragraph1:
+        title: "Airesis is open to everyone"
+        description_html: |
+          <p>Airesis is a project based upon a free and open-source software. You can contribute to its development:</p>
+          <ul>
+            <li>Using the platform and doing bug-checking</li>
+            <li>Giving comments and suggestions about usability and platform UI</li>
+            <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
+            <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
+            <li>Supporting us with a <a href=%{donations_path}>donation</a> or searching founds</li>
+            <li><a href="#linkback">Spreading the word</a> about the project and managing its comunication</li>
+          </ul>
+          <p>To help us coordinate our activities we use these tools. You can start from here:</p>
+          <ul>
+            <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
+            <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
+            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+          </ul>
+      paragraph2:
+        title: "How to contribute"
+        description_html: |
+          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there is a lot of activities to do anyway.
+          In the project <a href=%{chisiamo}>we are all unpaid volunteers</a>, sharing the will to help citizens organize transparently and participate in the making of a top notch democracy.</p>
+          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more informations.</p>
+          <p>Here is a list of volunteers that we need:</p>
+      developer:
+        title: "Developer"
+        description_html: |
+          <p>
+          The developer is the person who actually writes the code of Airesis. <br/>
+          He follows the specifications and guidelines agreed upon by the team.
+          The developer will write new modules in Ruby when there will be new features to be added, or HTML pages, using also CSS and Javascript in case of UI functionalities.<br/>
+          New applicants fwill be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
+          </p>
+      analyst:
+        title: "Analyst"
+        description_html: |
+          <p>
+          He is the conjunction ring between users and the development team. <br/>
+          He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.
+      first_lev_tester:
+        title: "First-level tester"
+        description_html: |
+          <p>
+          The first-level tester is a person available to test the system without necessarily have to provide any technical feedback about the code.
+          The first level tester is required to know about how to run the system and be able to use an internet browser or social networking system but it is not required to know any programming language.<br/>
+          Feedback from a first-level tester will then be about unexpected occurrences from the system and bugs.
+          </p>
+      sec_lev_tester:
+        title: "Second-level tester"
+        description_html: |
+          <p>
+          Good knowledge of programming is required to become a second-level tester. He is asked to perform more stringent and detailed tests than the first-level tester. A second-level tester works on complex issues and is able to push the whole system under stress, to discover hidden problems.
+          </p>
+      graphic:
+        title: "Graphic designer"
+        description_html: |
+          <p>
+          The graphic designer draws the user interfaces and gives their drafts to the development group.
+          </p>

@@ -5,9 +5,9 @@
 <div class="row" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
   <div class="row centered">
     <dl class="sub-nav">
-      <dd><a href="#opensource"><%="Open source"%></a></dd>
-      <dd><a href="#partecipare"><%="Partecipa"%></a></dd>
-      <dd><a href="#linkback"><%="Banner"%></a></dd>
+      <dd><a href="#opensource"><%= t('home.engage.nav.opensource')%></a></dd>
+      <dd><a href="#partecipare"><%= t('home.engage.nav.participate')%></a></dd>
+      <dd><a href="#linkback"><%= t('home.engage.nav.banner')%></a></dd>
     </dl>
   </div>
 </div>
@@ -15,115 +15,54 @@
 <div class="slide">
   <div class="row centered">
 
-    <h2 id="opensource">Airesis &egrave; aperto a tutti</h2>
+    <h2 id="opensource"><%= t('home.engage.paragraph1.title')%></h2>
     <a href="https://github.com/coorasse/Airesis"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork Airesis on GitHub" class="show-for-medium-up"></a>
 
-    <p>Airesis si appoggia su un motore totalmente gratuito ed OpenSource. Puoi partecipare allo sviluppo:</p>
-    <ul>
-      <li>Fruendo della piattaforma e segnalando i bug e gli errori che riscontri</li>
-      <li> Contribuendo alla grafica, all'usabilit&agrave; e all'intuitivit&agrave; del sistema</li>
-      <li>Programmando l'interfaccia utente della piattaforma (RICHIESTA: Conoscenza di HTML, CSS o Javascript)</li>
-      <li> Programmando la piattaforma al lato server (RICHIESTA: Conoscenza del linguaggio Ruby o C/C++ o voglia di
-        imparalo con l'aiuto degli altri volontari)
-      </li>
-      <li> Fornendo un <%= link_to 'contributo economico', sostienici_path %> al progetto o ricercando finanziamenti
-      </li>
-      <li>Occupandoti di <a href="#linkback">divulgare il progetto</a> e curandone la comunicazione</li>
-    </ul>
-    <p>A tale scopo stiamo usufruendo dei seguenti strumenti per poter coordinare la nostra attivit&agrave;. Puoi
-      partecipare gi&agrave; da qui: </p>
-    <ul>
-      <li>
-        <a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Gruppo di sviluppo su
-          Google
-          Groups</a></li>
-      <li><a href="https://www.facebook.com/groups/airesis/">Gruppo di sviluppo su Facebook </a></li>
-      <li><a href="https://github.com/coorasse/Airesis">Codice sorgente</a></li>
-    </ul>
+    <%= t('home.engage.paragraph1.description_html', donations_path: sostienici_path)%>
   </div>
 </div>
 <div class="slide yellow">
   <div class="row centered">
-    <h2 id="partecipare">Come partecipare al progetto</h2>
-
-    <p></p>
+    <h2 id="partecipare"><%= t('home.engage.paragraph2.title')%></h2>
 
     <div>
-      <p>Chiunque pu&ograve; contribuire al progetto open-source Airesis: non &egrave; necessario avere competenze
-        informatiche, le cose da fare sono molte anche per i non programmatori.
-
-        Nel progetto <%= link_to 'siamo tutti volontari', chisiamo_path %> non retribuiti, uniti dalla volont&agrave; di
-        aiutare i cittadini ad organizzarsi in modo trasparente e partecipato facendo rifiorire una democrazia di qualit&agrave;.</p>
-
-      <p>Per poter segnalarci la tua partecipazione inserisci la tua email e indicaci in che ambito potresti aiutarci
-        tramite il modulo che trovi a
-        <a href="https://docs.google.com/forms/d/1UJXAIaLYp73XRr_BfvOG-V4Yw9Xf9K0eARNGevtyE1M/viewform" target="_blank"><strong>questa
-          pagina</strong></a>, oppure puoi prendere contatto con <strong>Nicola Giulietti</strong> &nbsp;-
-        <a href="mailto:nicolagiulietti@hotmail.it">nicolagiulietti@hotmail.it</a> - cell. 380 2931955 se hai dubbi o
-        necessiti di chiarimenti. </p>
-
-      Ecco un elenco dei volontari di cui abbiamo bisogno:
+      <%= t('home.engage.paragraph2.description_html', email: raw(" <SCRIPT TYPE=\"text/javascript\">
+                                                                emailE=('nicolagiulietti@' + 'hotmail.it')
+                                                                document.write('<A href=\"mailto:' + emailE + '\">' + emailE + '</a>')</SCRIPT>"),
+                                                       chisiamo: chisiamo_path, cell:"380 2931955",
+                                                       form:"https://docs.google.com/forms/d/1UJXAIaLYp73XRr_BfvOG-V4Yw9Xf9K0eARNGevtyE1M/viewform")%>
       <div class="panel">
-        <h3>Developer</h3>
+        <h3><%= t('home.engage.developer.title')%></h3>
 
-        <p>
-          Lo sviluppatore è colui che scrive materialmente il codice di Airesis. <br/>
-          Segue le linee guida del progetto e si occupa di portare avanti le attività richieste per implementare le
-          diverse funzionalità.<br/>
-          Il suo lavoro consisterà nella scrittura di moduli in Ruby, quando ci saranno nuove funzionalità da
-          implementare, o nella scrittura di pagine HTML e,
-          di conseguenza, CSS e Javascript se si occupa dell'interfaccia utente. <br/>
-          Chiunque voglia ricoprire questo ruolo sarà aiutato e guidato dal
-          <a href="chisiamo">referente per la programmazione</a> nelle prime fasi
-          per poter iniziare agevolmente il proprio lavoro.
-        </p>
+        <%=t('home.engage.developer.description_html', chisiamo: chisiamo_path) %>
       </div>
 
       <div class="panel">
-        <h3>Analista</h3>
+        <h3><%= t('home.engage.analyst.title')%></h3>
 
-        <p>
-          E' l'anello di congiunzione tra gli utenti ed il gruppo di sviluppo. <br/>
-          Raccoglie le necessità dei gruppi e dei cittadini e fornisce al gruppo di sviluppo ed al gruppo grafica
-          la documentazione necessaria e dettagliata per lo sviluppo di tali servizi.
-        </p>
+        <%=t('home.engage.analyst.description_html') %>
       </div>
 
       <div class="panel">
-        <h3>Tester di primo livello</h3>
+        <h3><%= t('home.engage.first_lev_tester.title')%></h3>
 
-        <p>
-          Il tester di primo livello è un utente che, auspicabilmente, non ha alcuna conoscenza tecnica informatica
-          ed un livello di informatizzazione medio, tale per cui è in grado di navigare in internet in autonomia ed è
-          in grado di utilizzare gli strumenti più comuni del web (motori di ricerca, social network, ecc...).<br/>
-          Il tester di primo livello rappresenta il cittadino che utilizza l'applicazione: si occupa di segnalare tutte
-          le
-          pagine
-          e funzionalità del sistema che non si comportano nella maniera in cui si aspetta o che hanno problemi.
-        </p>
+        <%=t('home.engage.first_lev_tester.description_html') %>
       </div>
 
       <div class="panel">
-        <h3>Tester di secondo livello</h3>
+        <h3><%= t('home.engage.sec_lev_tester.title')%></h3>
 
-        <p>
-          Il tester di secondo livello è un utente con una buona conoscenza informatica per cui è in grado di eseguire
-          i test più approfonditi del sistema.<br/>
-          Si occupa dei test di sicurezza e forza il sistema al limite, cercando di metterlo sotto stress e riscontrare
-          problemi più complessi.
-        </p>
+        <%=t('home.engage.sec_lev_tester.description_html') %>
       </div>
 
       <div class="panel">
-        <h3>Grafico</h3>
+        <h3><%= t('home.engage.graphic.title')%></h3>
 
-        <p>
-          Disegna le interfacce utente e fornisce le bozze al gruppo di sviluppo.
-        </p>
+        <%=t('home.engage.graphic.description_html') %>
       </div>
 
       <div class="panel">
-        <h3>Reclutatore</h3>
+        <h3><%="Reclutatore"%></h3>
 
         <p>
           Si occupa della ricerca di nuovi volontari disposti a portare avanti il progetto, di testers,
