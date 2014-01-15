@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131207134053) do
+ActiveRecord::Schema.define(:version => 20140115114442) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -135,6 +135,17 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
   end
 
   add_index "blog_post_tags", ["blog_post_id", "tag_id"], :name => "index_blog_post_tags_on_blog_post_id_and_tag_id", :unique => true
+
+  create_table "blog_post_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "blog_post_versions", ["item_type", "item_id"], :name => "index_blog_post_versions_on_item_type_and_item_id"
 
   create_table "blog_posts", :force => true do |t|
     t.integer  "blog_id"
@@ -591,6 +602,16 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
   add_index "group_quorums", ["quorum_id", "group_id"], :name => "index_group_quorums_on_quorum_id_and_group_id", :unique => true
   add_index "group_quorums", ["quorum_id"], :name => "index_group_quorums_on_quorum_id", :unique => true
 
+  create_table "group_statistics", :force => true do |t|
+    t.integer  "group_id",         :null => false
+    t.float    "good_score"
+    t.float    "vote_good_score"
+    t.float    "valutations"
+    t.float    "vote_valutations"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "group_tags", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -598,38 +619,52 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
     t.integer  "tag_id"
   end
 
+  create_table "group_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "group_versions", ["item_type", "item_id"], :name => "index_group_versions_on_item_type_and_item_id"
+
   create_table "groups", :force => true do |t|
-    t.string   "name",                       :limit => 200
-    t.string   "description",                :limit => 2500
-    t.string   "accept_requests",                             :default => "p",      :null => false
+    t.string   "name",                           :limit => 200
+    t.string   "description",                    :limit => 2500
+    t.string   "accept_requests",                                 :default => "p",      :null => false
     t.integer  "interest_border_id"
     t.string   "facebook_page_url"
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                       :default => 1,        :null => false
+    t.integer  "partecipation_role_id",                           :default => 1,        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "change_advanced_options",                     :default => true,     :null => false
-    t.boolean  "default_anonima",                             :default => true,     :null => false
-    t.boolean  "default_visible_outside",                     :default => false,    :null => false
-    t.boolean  "default_secret_vote",                         :default => true,     :null => false
-    t.integer  "max_storage_size",                            :default => 51200,    :null => false
-    t.integer  "actual_storage_size",                         :default => 0,        :null => false
-    t.boolean  "enable_areas",                                :default => false,    :null => false
-    t.integer  "group_partecipations_count",                  :default => 1,        :null => false
+    t.boolean  "change_advanced_options",                         :default => true,     :null => false
+    t.boolean  "default_anonima",                                 :default => true,     :null => false
+    t.boolean  "default_visible_outside",                         :default => false,    :null => false
+    t.boolean  "default_secret_vote",                             :default => true,     :null => false
+    t.integer  "max_storage_size",                                :default => 51200,    :null => false
+    t.integer  "actual_storage_size",                             :default => 0,        :null => false
+    t.boolean  "enable_areas",                                    :default => false,    :null => false
+    t.integer  "group_partecipations_count",                      :default => 1,        :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "admin_title",                :limit => 200
-    t.boolean  "private",                                     :default => false
-    t.string   "rule_book",                  :limit => 40000
-    t.string   "subdomain",                  :limit => 100
-    t.boolean  "certified",                                   :default => false,    :null => false
-    t.string   "status",                                      :default => "active", :null => false
+    t.string   "admin_title",                    :limit => 200
+    t.boolean  "private",                                         :default => false
+    t.string   "rule_book",                      :limit => 40000
+    t.string   "subdomain",                      :limit => 100
+    t.boolean  "certified",                                       :default => false,    :null => false
+    t.string   "status",                                          :default => "active", :null => false
     t.datetime "status_changed_at"
     t.string   "slug"
+    t.boolean  "disable_partecipation_requests",                  :default => false
+    t.boolean  "disable_forums",                                  :default => false
+    t.boolean  "disable_documents",                               :default => false
   end
 
   add_index "groups", ["slug"], :name => "index_groups_on_slug"
@@ -798,6 +833,17 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
 
   add_index "proposal_comment_reports", ["proposal_comment_id", "user_id"], :name => "reports_index", :unique => true
 
+  create_table "proposal_comment_versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "proposal_comment_versions", ["item_type", "item_id"], :name => "index_proposal_comment_versions_on_item_type_and_item_id"
+
   create_table "proposal_comments", :force => true do |t|
     t.integer  "parent_proposal_comment_id"
     t.integer  "user_id"
@@ -923,10 +969,12 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
   create_table "proposal_types", :force => true do |t|
-    t.string  "name",   :limit => 10,                    :null => false
-    t.integer "seq",                  :default => 0
-    t.boolean "active",               :default => false
-    t.string  "color",  :limit => 10
+    t.string  "name",                 :limit => 10,                    :null => false
+    t.integer "seq",                                :default => 0
+    t.boolean "active",                             :default => false
+    t.string  "color",                :limit => 10
+    t.boolean "groups_available",                   :default => true
+    t.boolean "open_space_available",               :default => false
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -1008,22 +1056,39 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
   add_index "provincias", ["stato_id"], :name => "index_provincias_on_stato_id"
 
   create_table "quorums", :force => true do |t|
-    t.string   "name",        :limit => 100,                     :null => false
-    t.string   "description", :limit => 4000
+    t.string   "name",              :limit => 100,                     :null => false
+    t.string   "description",       :limit => 4000
     t.integer  "percentage"
     t.integer  "valutations"
     t.integer  "minutes"
-    t.string   "condition",   :limit => 5
-    t.integer  "bad_score",                                      :null => false
-    t.integer  "good_score",                                     :null => false
-    t.boolean  "active",                      :default => true,  :null => false
-    t.boolean  "public",                      :default => false, :null => false
+    t.string   "condition",         :limit => 5
+    t.integer  "bad_score",                                            :null => false
+    t.integer  "good_score",                                           :null => false
+    t.boolean  "active",                            :default => true,  :null => false
+    t.boolean  "public",                            :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "started_at"
     t.datetime "ends_at"
     t.integer  "seq"
     t.integer  "quorum_id"
+    t.integer  "vote_minutes"
+    t.integer  "vote_percentage"
+    t.integer  "vote_valutations"
+    t.integer  "vote_good_score"
+    t.datetime "vote_start_at"
+    t.datetime "vote_ends_at"
+    t.string   "t_percentage",      :limit => 1
+    t.string   "t_minutes",         :limit => 1
+    t.string   "t_good_score",      :limit => 1
+    t.string   "t_vote_percentage", :limit => 1
+    t.string   "t_vote_minutes",    :limit => 1
+    t.string   "t_vote_good_score", :limit => 1
+    t.string   "type"
+    t.boolean  "removed",                           :default => false
+    t.integer  "old_bad_score"
+    t.string   "old_condition",     :limit => 5
+    t.boolean  "assigned",                          :default => false
   end
 
   create_table "ranking_types", :force => true do |t|
@@ -1132,6 +1197,7 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
     t.datetime "image_updated_at"
     t.text     "message"
     t.string   "email"
+    t.text     "stack"
   end
 
   create_table "simple_votes", :force => true do |t|
@@ -1387,10 +1453,21 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
     t.datetime "document_updated_at"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.string   "channel"
   end
 
   add_index "user_sensitives", ["tax_code"], :name => "index_user_sensitives_on_tax_code", :unique => true
   add_index "user_sensitives", ["user_id"], :name => "index_user_sensitives_on_user_id", :unique => true
+
+  create_table "user_tracings", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "sign_in_at"
+    t.datetime "sign_out_at"
+    t.string   "ip"
+    t.text     "user_agent"
+  end
+
+  add_index "user_tracings", ["user_id"], :name => "index_user_tracings_on_user_id"
 
   create_table "user_types", :force => true do |t|
     t.string "description", :limit => 200
@@ -1469,6 +1546,17 @@ ActiveRecord::Schema.define(:version => 20131207134053) do
 
   add_index "users", ["email"], :name => "uniqueemail", :unique => true
   add_index "users", ["login"], :name => "uniquelogin", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "vote_types", :force => true do |t|
     t.string "short"
