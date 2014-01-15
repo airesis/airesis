@@ -1,3 +1,34 @@
+<script type="text/javascript">
+    $(function () {
+
+        $('.cur.language').qtip({
+            content: $('#language'),
+            position: {
+                at: 'bottom center',
+                my: 'top right',
+                viewport: $(window),
+                effect: false,
+                adjust: {
+                    method: 'shift',
+                    x: 0, y: 0
+                }
+            },
+            style: {
+                classes: 'qtip-light qtip-shadow qtip-cur'
+            },
+            show: {
+                event: 'click',
+                solo: true
+            },
+            hide: {
+                event: 'click -unfocus',
+                fixed: true,
+                delay: 500
+            }
+        });
+
+    })
+</script>
 <div id="menu-top">
   <div id="logo-airesis">
     <%= link_to (image_tag (Rails.env == 'production') ? 'logo.png' : 'logo_test.png', class: "logo1 show-for-medium-up"), root_path, tabindex: 1 %>
@@ -89,6 +120,37 @@
       <br/>
       <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'btn contactButton' %>
     </div>
+      <%= image_tag "flags/#{I18n.locale}.png", :class => 'cur language', title: t('pages.home.index.change_language') %>
+    <div id="language" style="display:none;">
+      <%= link_to (image_tag 'flags/en.png') + ' Europe', SysLocale.find_by_key('en').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/it-IT.png') + ' Italia', SysLocale.find_by_key('it-IT').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/pt-PT.png') + ' Portugal', SysLocale.find_by_key('pt-PT').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/es-ES.png') + ' España', SysLocale.find_by_key('es-ES').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/fr.png') + ' France', SysLocale.find_by_key('fr').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/de.png') + ' Deutschland', SysLocale.find_by_key('de').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/ro-RO.png') + ' România', SysLocale.find_by_key('ro-RO').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/en-US.png') + ' USA', SysLocale.find_by_key('en-US').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/pt-BR.png') + ' Brasil', SysLocale.find_by_key('pt-BR').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/es-EC.png') + ' Ecuador', SysLocale.find_by_key('es-EC').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/es-CL.png') + ' Chile', SysLocale.find_by_key('es-CL').url %>
+      <br/>
+      <%= link_to (image_tag 'flags/zh.png') + ' 中国', SysLocale.find_by_key('zh').url %>
+      <br/>
+      <%= locale.to_s=="en-GB" ?
+            (link_to (image_tag 'flags/en-GB.png') + ' Exit Translation Mode', current_url(:l => nil)):
+            (link_to (image_tag 'flags/en-GB.png') + ' Activate Translation Mode', current_url(:l => :"en-GB"))%>
+      <br/>
+    </div>
   </div>
 
   <% if current_user %>
@@ -155,3 +217,4 @@
       </div>
   <% end %>
 </div>
+
