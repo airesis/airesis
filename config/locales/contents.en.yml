@@ -2,7 +2,7 @@ en:
   home:
     intro:
       title: "The first social network for E-Democracy in the world"
-      description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
+      description: "A tool of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."
       paragraph_1:
         title: "The Social Network for E-Democracy"
         content_html: |
@@ -13,7 +13,7 @@ en:
           <p>To achieve this goal, the application has been designed as a multifunctional system, which integrates all the tools that can
           help the development of a community, in particular "social" and deliberative tools.</p>
 
-          <p>Among <b>social tools</b>, Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
+          <p>Among <strong>social tools</strong>, Airesis offers blogs and a system of promotion of events and meetings with adjoining scheduling.
           Among <strong>deliberative tools</strong> it includes areas for the collection and deliberation of proposals and initiatives,
           and a voting system aimed to the election of candidates. The platform also allows you to create groups with access regulations policies and customizable permissions.
           Since the goal of Airesis is to stimulate participation, great attention has been spent in order to maximize the intuitiveness of the whole platform.
@@ -28,24 +28,24 @@ en:
           <p>Entirely developed by volunteers according to non-profit principles, Airesis was created to take faster, informed, shared and participated decisions.<br/>
           It is based on the following principles:</p>
           <ul>
-          <li><b>Participation</b> <br/>
+          <li><strong>Participation</strong> <br/>
           Involving citizens means having more energy and points of view available.
           Only through direct participation it is possible to investigate the problems and understand what people really want. Participation is the essence of democratic decisions.
           </li>
 
-          <li><b>Transparency and Security</b><br/>
+          <li><strong>Transparency and Security</strong><br/>
           Without transparency, rules can be easily circumvented and democracy can quickly degenerate.
           Transparency also means openness, ability to receive: for this reasons Airesis also allows unregistered users to view the contents of the site.
           The source code of the software is also "transparent", being it entirely open source.</li>
 
-          <li><b>Constructive dialogue</b><br/>
+          <li><strong>Constructive dialogue</strong><br/>
           No one owns all the right answers. Using appropriate tools, elaborating ideas proposed by many people can be more productive than doing it yourself.</li>
 
-          <li><b>Equal opportunities</b><br/>
+          <li><strong>Equal opportunities</strong><br/>
           To be intended as how effective equality, in terms of offered possibilities, can be pursued by the system.
           </li>
 
-          <li><b>Flexibility</b><br/>
+          <li><strong>Flexibility</strong><br/>
           Each group ha its own needs, each proposal is different from the others, each user has its own needs.</li>
       paragraph_4:
         title: "Our goal: direct and participative democracy"
@@ -81,106 +81,98 @@ en:
         title: "Basic features"
         content_html: |
           <ul>
-            <li><b>Subscription to the platform</b> <br>
-              Facebook, Google +, Meetup, Twitter or Linkedin
+            <li><strong>Sign up and login</strong> <br>
+              from every page or even after adding a comment or a contribution. It is even possible to login using Facebook, Google +, Meetup, Twitter or Linkedin
             </li>
-            <li><b>Presence of a public or private area within groups</b> <br>
-              (<a href="http://youtu.be/n_ZruAcNkVk">http://youtu.be/n_ZruAcNkVk </a>): <br>
-              Registration process enables you to belong to a common area, to join one of the groups already present or to establish a new one.
+            <li><strong>Public area or private area for groups</strong> (<a href="http://youtu.be/n_ZruAcNkVk" target="blank">More info in this video-tutorial</a>) <br>
+              Signin up enables you to participate in the Open Space, to join one of the groups already present or to create a new one.
             </li>
-            <li><b>Creation of proposals and debates</b>
-
-
+            <li><strong>Creation of proposals and debates</strong>
+              Both in groups and Open Space it is possible to post proposals/initiatives and receive contributions,
+              comments and evaluations to edit a shared summary of the proposal that can gain the largest possible consensus.
             </li>
-            <li><b>Quorum and voting proposals</b> <br>
-              For each proposal is assigned a quorum. Voting shall be by preference according to the Schultze method.
+            <li><strong>Quorum and proposals vote</strong> <br>
+              Each proposal has its own quorum. Voting occurs by preference according to the Schultze method.
             </li>
-            <li><b>Events\calendar management</b> <br>
-              It's possible to schedule events concerning meetings, voting, elections of candidates within groups or in the common area.
+            <li><strong>Events\calendar management</strong> <br>
+              It is possible to schedule events concerning meetings, voting, elections of candidates within groups or in the Open Space.
             </li>
-            <li><b>Newsletter</b> of events and news about the platform</li>
-            <li><b>Messaging service</b> and <strong>e-mail notifications</strong> (customizable)
+            <li><strong>Newsletter</strong> of events and news about the platform</li>
+            <li><strong>Messaging service</strong> and <strong>e-mail notifications</strong> (customizable by the user)
             </li>
-            <li><b>Uploading and managing of documents</b> and attachments to the proposals (feature currently disabled)
+            <li><strong>Uploading and managing documents</strong> and attachments to the proposals (feature currently disabled)
             </li>
-            <li><b>Polls</b> both internal and external, by the Schulze voting method.</li>
-            <li><b>Mobile App</b></li>
+            <li><strong>Polls</strong> both internal and external using Schulze voting method.</li>
+            <li><strong>Mobile App</strong></li>
           </ul>
       paragraph_7:
-        title: "Proposals and debates tool"
+        title: "Proposal and debate tool"
         content_html: |
-          The core of the software is focused on the <b>deliberative tool</b> which allows you to participate in the drafting of a proposal to set a common goal,
+          <p>The core of the software is focused on the <strong>deliberative tool</strong> which allows you to participate in the drafting of a proposal, to set a common goal,
           to contribute to the search for alternative solutions and to bring to the vote the result of this work so that the proposal can receive the most
-          possible consensus making in the manner that the best and the most shared solution become able to emerge.
+          possible consensus and the best and the most shared solution can emerge.</p>
           <p>The process involves 3 steps:</p>
           <ul>
-            <li><b>The author creates the proposal</b> following a wizard as a result of which the system publishes the text in the section <b>in debate</b>.
-            During this period, the proposal may be modified by the authors on the basis of assessments made and reported by contributors</li>
-            <li>when the quorum is reached, the proposal goes to the section / state "voting"
-            and during this time the text of the proposal cannot be changed, the author chooses an "event for voting" (voting period)
-            among those already planned or may create a new one by the calendar,
-            all those eligible (according to the rules established by the group), can vote during the defined period</li>
-            <li>at the end of the voting period, the system calculates the votes and places the proposal in the "approved" section or, in the case of a negative outcome, rejects it;
-            proposals may be subsequently revised and reintroduced in decision-making from step one
-            </li>
+            <li><strong>The author creates the proposal</strong> following a wizard, after wich the system publishes the text in the section <strong>"In debate"</strong>.
+            During this period the proposal can be modified by the editors on the basis of given evaluations and contributions added by other users.</li>
+            <li>When the <strong>debate quorum is reached</strong> the proposal goes to the section <strong>"Voting"</strong> during this time
+            the text of the proposal cannot be changed, the editor chooses a <strong>vote event</strong> (voting period)
+            among those already planned or can create a new one using the calendar.<br>
+            All eligible users (according to the rules established by the group) can <strong>vote</strong> during the defined period.</li>
+            <li><strong>At the end of the vote</strong> the system calculates the <strong>results</strong> and places the proposal in the <strong>"Voted"</strong> section.</li>
+            <li>If however the <strong>debate quorum is not reached</strong>, the proposal go to the <strong>"Abandoned"</strong> section, where it can be <strong>put back in debate</strong> to start again a new life cycle.</li>
           </ul>
-          <p>Particularly interesting is the adoption of a discussion area for each published proposal that allows the proposal itself to be modified by the author (like a wiki)
-          according to the consensus obtained by the individual contributions.
-          The discussion area is two-levels indented, the first is designed to collect contributions , the second is intended for personal considerations on the latter.
-          The first level implements a mechanism to collect valuable content by means of the incorporation in the proposal of the most appreciated contributions</p>
-
+          <p>Particularly interesting is the adoption of a <strong>discussion area</strong> for each published proposal that allows the proposal itself to be modified by the editors (like a <a href="http://en.wikipedia.org/wiki/Wiki" target="blank">wiki</a>)
+          according to the consensus obtained by individual contributions.
+          The discussion area is two-levels indented, the first designed to collect contributions, the second personal considerations on the latter.
+          The first level implements a mechanism to increment the maturity of the proposal <strong>incorporating in it the most appreciated contributions</strong>.</p>
+          <p>The <strong>debate quorum</strong>, necessary to promote a proposal to the voting phase, is composed of three different parameters:</p>
           <ul>
-            <li><strong>valutations</strong>, defined as the number of people who have stated a choice (positive or negative liking);
+            <li><strong>Participants</strong>: number of people who participate in the debate;
             </li>
-            <li><strong>discussion time</strong>, minimum discussion period (starting from the submission of the proposal);
+            <li><strong>Discussion time</strong>: period of time in which the proposal remains in the debate phase (starting from its submission);
             </li>
-            <li><strong>maturity</strong>,  defined as the percentage of "participants" who claim to accept the proposal
+            <li><strong>Maturity</strong>: percentage of participants who claim that the proposal is ready to be voted;
             </li>
-            <li><strong>minimum threshold</strong> to be overcome so that the proposal is not rejected</li>
           </ul>
-          <p>The evaluation of "liking" (or not) of a proposal is a formal act of the members of the community
-          (stated during the discussion period), through which it’s expressed the suitability of text
-          and solutions to achieve the voting phase.</p>
-          <p>There are different types of quorum: Depending on the complexity of the topic, the parameters (participation, liking and time) vary in consistency.
-          For proposals published within the Common area, quorums are defined by the system administrator,
-          while the quorum of the proposals published in the individual groups area can be freely selected by the groups administrators.
+          <p>The evaluation of "<strong>maturity</strong>" of a proposal is a formal act of the members of the community
+          (done during the discussion period), through which they express the <strong>suitability</strong> of the text of the proposal for <strong>the following voting phase</strong>.</p>
+          <p>There are <strong>different types of quorum</strong>: Depending on the complexity of the topic, the parameters (participation, time and maturity) vary.
+          For the proposals inside the Open Space quorums are defined by the system administrator, while the <strong>quorum of the proposals published inside groups can be freely modified by the groups administrators</strong>.
           </p>
-          <p>The proposals are organized, sorted and searchable, in three ways:</p>
+          <p>The proposals are <strong>organized</strong>, <strong>sorted</strong> and <strong>searchable</strong> in different ways:</p>
           <ul>
-            <li>depending on their status ("In debate," "Voting", "Voted", "Abandoned")</li>
-            <li>according to pre-defined categories ("Work", "Health", "Education", etc.)</li>
-            <li>depending on the type of proposal: standard, regulation, estimate, statement, technical decision, etc ...
-            </li>
-            <li>by free tags, which can be entered in the text of the proposal.</li>
+            <li>depending on their <strong>status</strong> ("In debate," "Voting", "Voted", "Abandoned")</li>
+            <li>according to pre-defined <strong>categories</strong> ("Work", "Health", "Education", etc.)</li>
+            <li>depending on the <strong>type</strong> of proposal: standard, regulation, estimate, statement, technical decision, etc ...</li>
+            <li>using <strong>free tags</strong> which can be entered in the text of the proposal.</li>
           </ul>
       paragraph_8:
         title: "Schulze voting method and Direct Democracy"
         content_html: |
-          <p>When a sufficient number of people agree on the degree of maturity and completeness of the proposal and / or the minimum time set for the debate has expired, the proposal may go to the <b>voting stage</b>.</p>
-          <p>At this point the proposal is frozen and the proposer will have to choose a time window when the group will vote on the proposal.
-          The 'voting' event is recorded on the group calendar and is notified on several occasions to all involved members .</p>
-          <p>At this point, each participant may order the various solutions according to their preference thereby allowing the processing of the Schulze method ,
-          which will determine the solution preferred by the group.
-          The solution thus defined will assume the status of "voted ", a condition where it can be resurrected
-          (along with the proposal to which it relates ) for future needs aimed to revision and re-introduction
-          into decision making workflow.</p>
+          <p>When the period of time assigned for the debate ends and a sufficient number of people agree on the maturity of the proposal (these conditions vary according to the quorum of debate), the proposal go to the <strong>voting phase</strong>.</p>
+          <p>At this point the proposal is <strong>frozen</strong> and the editor have to <strong>choose a time frame</strong> in which the group will be able to vote the proposal.
+          The 'voting' event is recorded on the group calendar and is <strong>notified</strong> to all members of the group.</p>
+          <p>At the time of vote a new notification is sent in which it is displayed the proposal to be voted and the page in which the vote occurs. At this point each participant, after having read the proposal and the list of possible solutions, can submit his preference <strong>ordering</strong> these solutions from the most liked to the least and thereby allowing the processing of the <a href="http://it.wikipedia.org/wiki/Metodo_Schulze" target="blank">Schulze Method</a> to find out the solution preferrred by the group.</p>
+          <p>At the end of the vote the proposal go to the <strong>"voted"</strong> status, where it is possible to review the result of the vote at any time.</p>
       paragraph_9:
         title: "Promotion of shared proposals and Participatory Democracy"
         content_html: |
-          <p>Airesis was developed to promote the sharing of ideas and opinions within the community. To achieve this, the platform offers various tools and features:</p>
+          <p>Airesis was developed to promote the sharing of ideas and opinions within the community. To achieve this, the platform offers different tools:</p>
           <ul>
-            <li>the <b>proposal is public by default</b>
+            <li>the <strong>proposal is public by default</strong>
             </li>
-            <li>publication of proposals on social networks, the Common area of Airesis or on external blogs and forums;
+            <li>publication of proposals on <strong>social networks</strong>, in the Open Space of Airesis or on external blogs and forums;
             </li>
-            <li>the personal blog in which community members can interact
+            <li>the <strong>personal blog</strong> where community members can present themselfes and post info and announcement in the news of the groups they are members of, in addition to share ideas/opinions;
             </li>
-            <li>the possibility of organizing meetings dedicated to the members of a group or public for all
+            <li>the possibility of organizing <strong>meetings</strong> for the members of the community;
             </li>
-            <li>the presence of a discussion board attached to each proposal
+            <li>the possibility to <strong>mark interesting events</strong> on a shared calendar;
             </li>
-            <li>reputation system that rewards participation,
-            constructive and clarity, encouraging problem solving
+            <li>the presence of a <strong>discussion board</strong> in each proposal, in which to add contributions that editors will be able to integrate in the text of the proposal, according to the evaluations received;
+            </li>
+            <li>reputation system that rewards participation, constructive and clarity, encouraging problem solving
             </li>
             <li>the opportunity to invite their contacts to join the discussion
             </li>
@@ -191,7 +183,7 @@ en:
       paragraph_10:
         title: "Temporarary anonymity, secret ballot and auditable voting"
         content_html: |
-          <p>One of the peculiarities of Airesis is that <b>groups can choose if the proposals debate will be anonymous or not</b>.</p>
+          <p>One of the peculiarities of Airesis is that <strong>groups can choose if the proposals debate will be anonymous or not</strong>.</p>
 
           <p>If anonymity is enabled, authors and commentators of the proposals are indicated by means of a pseudonym.
           This feature allows you to evaluate the proposals, criticisms and suggestions according on their content only, impartially,
@@ -294,10 +286,10 @@ en:
         title: "Organize participants"
         content_html: |
           <p>
-            A powerful mechanism for handling <b> roles and permissions </b> will allow you to give your group the shape you prefer:
+            A powerful mechanism for handling <strong> roles and permissions </strong> will allow you to give your group the shape you prefer:
             you may have users with more or less permissions depeding on their role, hierarchically organize the participants
             or provide everyone equal rights and duties. </br>
-            This is the reason why Airesis is perfectly suited to the needs of a <b> Company </b>, as well as a <b> Democratic Movement </b> or an <b> Association </b>.
+            This is the reason why Airesis is perfectly suited to the needs of a <strong> Company </strong>, as well as a <strong> Democratic Movement </strong> or an <strong> Association </strong>.
           </p>
       paragraph_4:
         title: "Propose and deliberate"

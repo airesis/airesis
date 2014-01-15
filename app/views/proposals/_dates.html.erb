@@ -10,12 +10,17 @@
     <div class="mycont" id="condition_left">
       <%=dates_panel(@proposal.quorum) %>
     </div>
+    <%if @proposal.vote_starts_at%>
+        <div class="mycont" style="line-height: 15px">
+          <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_starts_at), end: (l @proposal.vote_ends_at)) %>
+        </div>
+    <%end%>
 <% end %>
 
 <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata       %>
     <div class="mycont">
       <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %>
-    </div><br/>
+    </div>
 <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione       %>
     <div class="mycont">
       <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end_vote'></div>")) %>

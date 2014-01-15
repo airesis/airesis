@@ -49,33 +49,14 @@ it-IT:
         title: "Analista"
         content_html: |
           <p>
-            Riveste il ruolo di responsabile dei sistemi informativi per due grandi aziende metalmeccaniche appartenenti
-            ad
-            una
-            holding internazionale operante nel settore automotive.
+            Riveste il ruolo di responsabile dei sistemi informativi per due grandi aziende metalmeccaniche appartenenti ad una holding internazionale operante nel settore automotive.
             Da sempre diviso tra informatica e scienze umane, è giornalista pubblicista e critico letterario.
-            Curatore del sito <a href="http://www.lordglenn.com" target="_blank">http://www.lordglenn.com</a>
-            (nonché
-            giudice nell’omonimo concorso letterario dedicato agli animali), ha
-            collaborato a siti internet e riviste culturali e di varia umanità (tra
-            cui <a href="http://www.literary.it" target="_blank">www.literary.it</a>), nonché a volumi
-            collettanei.
-            Ideatore dell’iperrelazionismo sensibile, costrutto filosofico in fieri, è autore del saggio "Wide
-            Democracy,
-            oltre
-            la politica", sintesi di 3 anni di studi volti a realizzare un software di E-democracy certificato (rimasto
-            allo
-            stadio
-            prototipale).<br/>
-            Si è imbattuto nel progetto Airesis e ne è rimasto folgorato. Ha deciso così di devolvere il frutto delle
-            proprie
-            ricerche
-            ed il suo tempo libero, partecipando al gruppo di sviluppo. Si occupa prevalentemente di analisi delle
-            logiche
-            funzionali e di testing, ma non disdegna la critica etica e filosofica rispetto alle scelte evolutive di più
-            largo
-            respiro
-            operate all’interno del gruppo.
+            Curatore del sito <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a>
+            (nonché giudice nell’omonimo concorso letterario dedicato agli animali), ha collaborato a siti internet e riviste culturali e di varia umanità (tra cui <a href="http://www.literary.it" target="_blank">www.literary.it</a>), nonché a volumi collettanei.
+            Ideatore dell’iperrelazionismo sensibile, costrutto filosofico in fieri, è autore del saggio "Wide Democracy, oltre la politica", sintesi di 3 anni di studi volti a realizzare un software di E-democracy certificato (rimasto allo stadio prototipale).<br/>
+            Si è imbattuto nel progetto Airesis e ne è rimasto folgorato.
+            Ha deciso così di devolvere il frutto delle proprie ricerche ed il suo tempo libero, partecipando al gruppo di sviluppo.
+            Si occupa prevalentemente di analisi delle logiche funzionali e di testing, ma non disdegna la critica etica e filosofica rispetto alle scelte evolutive di più largo respiro operate all’interno del gruppo.
           </p>
       graphic_area: "Area Grafica"
       kabora_marcello:
@@ -91,7 +72,7 @@ it-IT:
             Negli ultimi due anni ho lavorato a diversi progetti a distanza, creato un forte comunicazione e ho sempre
             raggiunto gli obiettivi concordati in termini di efficacia e tempistica.
             Per vedere il mio curriculum e i miei ultimi lavori vi invito a visitare il mio portale
-            - <a href="www.marcellokabora.com"  target="_blank">http://www.marcellokabora.com</a>.
+            - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
           </p>
       i18n_area: "Area Internazionalizzazione"
       tolja_jacopo:
@@ -140,25 +121,12 @@ it-IT:
           </p>
       test_area: "Area Test"
       mion_carlo:
-        title: "Tester e coordinatore"
+        title: "Tester e programmatore"
         content_html: |
           <p>
-            Sono uno studente che sta completando il primo ciclo di istruzione.
-            Ho scoperto da poco la mia passione per l'informatica e ho intenzione di continuare i miei studi
-            universitari
-            per
-            approfondire questa scienza.
-            Ne sono affascinato perché ha rivoluzionato le nostre vite e continua ad evolvere giorno dopo giorno.<br/>
-            Ho imparato che alcuni intellettuali immaginavano una democrazia in cui fosse possibile prendere decisioni
-            condivise dai cittadini attraverso la partecipazione degli stessi.
-            Credo che Airesis renda possibile ciò e per questo ho dato la mia disponibilità per aiutarne lo
-            sviluppo.<br/>
-            Faccio parte del gruppo di testing, che ha lo scopo di verificare il corretto funzionamento di Airesis.
-            Raccolgo i feedback degli utenti e segnalo eventuali anomalie e problemi riscontrati, perché siano
-            prontamente
-            risolti dagli sviluppatori.
-            Mi occupo anche di testare le ultime novità introdotte nella piattaforma prima che siano rilasciate al
-            pubblico.
+            Sono uno studente presso l'università di Trento. Fin da giovane ho avuto una passione per l'informatica, perciò ho iniziato i miei studi universitari per approfondire questa scienza. Ne sono affascinato perché ha profondamente rivoluzionato le nostre vite e continua ad evolvere giorno dopo giorno.<br/>
+            Durante i miei anni liceali ho imparato che alcuni intellettuali immaginavano una democrazia in cui fosse possibile prendere decisioni condivise dai cittadini attraverso la partecipazione degli stessi. Credo che Airesis renda possibile ciò e per questo ho dato la mia disponibilità per aiutarne lo sviluppo.<br/>
+            Faccio parte del gruppo di testing, che ha lo scopo di verificare il corretto funzionamento di Airesis. Effettuo test sulle ultime novità introdotte nella piattaforma prima che siano rilasciate al pubblico. Allo stesso tempo aiuto il gruppo di internazionalizzazione, preparando i testi e le parole presenti nel codice di Airesis affinchè siano facilmente tradotti da questi. Facendo ciò posso approfondire il linguaggio Ruby e credo che questo non possa che giovare in previsione di una mia futura carriera lavorativa.
           </p>
       zanellato_luca:
         title: "Tester ed analista"
