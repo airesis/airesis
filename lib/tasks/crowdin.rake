@@ -1,21 +1,21 @@
 namespace :airesis do
   namespace :crowdin do
 
-    task :translations => :enviroment do
-      Crowdin::Client.download_translations
-      Crowdin::Client.extract_zip
+    task :translations => :environment do
+      Crowdin::Client.new.download_translations
+      Crowdin::Client.new.extract_zip
 
     end
 
 
 
-    task :download_translations => :enviroment do
-      Crowdin::Client.download_translations
+    task :download_translations => :environment do
+      Crowdin::Client.new.download_translations
 
     end
 
-    task :unzip => :enviroment do
-      Crowdin::Client.extract_zip
+    task :unzip => :environment do
+      Crowdin::Client.new.extract_zip
     end
 
   end
