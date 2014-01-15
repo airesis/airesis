@@ -26,9 +26,7 @@
     <h2 id="partecipare"><%= t('home.engage.paragraph2.title')%></h2>
 
     <div>
-      <%= t('home.engage.paragraph2.description_html', email: raw(" <SCRIPT TYPE=\"text/javascript\">
-                                                                emailE=('nicolagiulietti@' + 'hotmail.it')
-                                                                document.write('<A href=\"mailto:' + emailE + '\">' + emailE + '</a>')</SCRIPT>"),
+      <%= t('home.engage.paragraph2.description_html', email: raw(" <SCRIPT TYPE=\"text/javascript\">emailE=('nicolagiulietti@' + 'hotmail.it');document.write('<A href=\"mailto:' + emailE + '\">' + emailE + '</a>')</SCRIPT>"),
                                                        chisiamo: chisiamo_path, cell:"380 2931955",
                                                        form:"https://docs.google.com/forms/d/1UJXAIaLYp73XRr_BfvOG-V4Yw9Xf9K0eARNGevtyE1M/viewform")%>
       <div class="panel">
