@@ -8,6 +8,12 @@
     </div>
 
     <div class="right">
+        <%= image_tag "flags/crowdin.png", :class => 'cur language footer', title: t('pages.home.index.change_language') , style:"display:inline;"%>
+      <div id="language_footer" style="display:none;">
+        <%= locale.to_s=="crowdin" ?
+                    (link_to (image_tag 'flags/crowdin.png') + ' Exit Translation Mode', current_url(:l => nil)):
+                    (link_to (image_tag 'flags/crowdin.png') + ' Activate Translation Mode', current_url(:l => :"crowdin"))%>
+      </div> -
       <%= link_to t('pages.home.index.support'), sostienici_path %> -
       <%= link_to t('terms_of_service'), terms_path, remote: true, class: 'terms_link' %> -
       <%= link_to t('privacy_policy'), privacy_path, remote: true, class: 'privacy_link' %> -
@@ -31,6 +37,32 @@
             $("#privacy_modal").dialog({ height: 250, width: 450 });
             return false;
         }
+
+        $(function () {
+
+            $('.language.footer').qtip({
+                content: $('#language_footer'),
+                position: {
+                    at: 'top center',
+                    my: 'bottom center',
+                    viewport: $(window),
+                    effect: false
+                },
+                style: {
+                    classes: 'qtip-light qtip-shadow qtip-cur'
+                },
+                show: {
+                    event: 'click',
+                    solo: true
+                },
+                hide: {
+                    event: 'click -unfocus',
+                    fixed: true,
+                    delay: 500
+                }
+            });
+
+        })
     </script>
 </footer>
 

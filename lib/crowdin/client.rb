@@ -11,6 +11,7 @@ module Crowdin
 
     DOWNLOAD_FOLDER = "tmp"
     MIN_TRANSLATION_PERCENTAGE = 60
+    FAKE_LANGUAGE = "en-GB"
 
     def auth
       @crowdin = Crowdin::API.new(:api_key => CROWDIN_API , :project_id => CROWDIN_PROJECT_ID, :account_key => CROWDIN_ACCOUNT_KEY)
@@ -81,14 +82,36 @@ module Crowdin
           zip_file.each { |f|
             f_path = f.name
             FileUtils.mkdir_p(File.dirname(f_path))
+
+            if f.name.include? "#{FAKE_LANGUAGE}"
+              zip_file.rename(f,f.name.gsub(/(?<=\.)(.*)(?=\.)/, "crowdin") )
+            end
+
             if f.size && f.size != 0 #doesn't extract empty files
               zip_file.extract(f, f_path) { true } #if true overwrite existing files with same name
-           end
+            end
           }
         }
         delete_zip(zip)
       }
+      self.change_fakelocale
       I18n.reload!
+    end
+
+    def change_fakelocale
+      files = Dir["config/locales/*/*.crowdin.yml"]
+      files.each{ |file_name|
+        File.open("tmpfile", 'w') { |tmp|
+          File.open(file_name, 'r').each { |l|
+            if l.chomp == "#{FAKE_LANGUAGE}:"
+              tmp << "crowdin:\n"
+            else
+              tmp << l
+            end
+          }
+          FileUtils.mv(tmp.path, file_name)
+        }
+      }
     end
 
     def delete_zip(zip_file)
@@ -103,10 +126,10 @@ module Crowdin
 
       output_array =  @crowdin.translations_status
       output_array.each do |lang|
-       next if lang["translated_progress"] < MIN_TRANSLATION_PERCENTAGE
+      next if lang["translated_progress"] < MIN_TRANSLATION_PERCENTAGE
           @lang_ready << lang["code"]
       end
-
+      @lang_ready << "#{FAKE_LANGUAGE}" unless @lang_ready.include?("#{FAKE_LANGUAGE}")
     end
 
 

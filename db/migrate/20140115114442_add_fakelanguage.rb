@@ -3,11 +3,11 @@ class AddFakelanguage < ActiveRecord::Migration
 
     I18n.locale = 'en'
 
-    SysLocale.create(:key => 'en-GB', :host => 'www.airesis.eu', lang: 'en-GB')
+    SysLocale.create(:key => 'crowdin', :host => 'www.airesis.eu', lang: 'crowdin')
   end
 
   def down
     I18n.locale = 'en'
-    SysLocale.where(:key => 'en-GB').destroy_all
+    SysLocale.where(:key => 'crowdin').destroy_all
   end
 end
