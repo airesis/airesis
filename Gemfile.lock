@@ -1,9 +1,15 @@
 GIT
   remote: https://github.com/bcardarella/client_side_validations.git
-  revision: 1acefeb98ae5a3ba24555d7b0868b130d1884c3b
+  revision: 56bdafa7502e3aba899a9ce56784392e3d8b0566
   branch: 3-2-stable
   specs:
-    client_side_validations (3.2.2)
+    client_side_validations (3.2.6)
+
+GIT
+  remote: https://github.com/coorasse/devise_traceable.git
+  revision: 02d6d348b2a97938faada8cee1862848f3398530
+  specs:
+    devise_traceable (0.0.8)
 
 GIT
   remote: https://github.com/coorasse/jquery-rjs.git
@@ -93,8 +99,6 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     cookiejar (0.3.0)
-    crowdin-api (0.2.0)
-      rest-client (>= 1.6.7)
     css_parser (1.2.6)
       addressable
       rdoc
@@ -306,14 +310,11 @@ GEM
       rufus-scheduler
     resque_mailer (2.2.1)
       actionmailer (~> 3.0)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rotp (1.4.1)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     ruby-openid (2.2.2)
     ruby-prof (0.13.0)
-    rubyzip (1.1.0)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
     sanitize (2.0.3)
@@ -393,7 +394,6 @@ DEPENDENCIES
   client_side_validations!
   client_side_validations-simple_form
   coffee-rails (~> 3.2.1)
-  crowdin-api
   devise (= 2.0.4)
   el_finder
   email_preview
@@ -432,7 +432,6 @@ DEPENDENCIES
   resque_mailer
   rotp
   ruby-prof
-  rubyzip
   sanitize
   sass-rails (~> 3.2.3)
   seed_dump

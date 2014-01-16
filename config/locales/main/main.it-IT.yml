@@ -210,6 +210,7 @@ it-IT:
           <p>Quando partecipate ad un gruppo i post che inserite nel vostro blog possono essere mostrati nella Bacheca del grupp.</p>
           <p>I gruppi possono sostenere le proposte, crearne di interne, creare sondaggi e organizzare i membri secondo ruoli e permessi.</p>
           <p>É possibile cambiare le regole di questo gruppo tramite le <b>Impostazioni</b> del gruppo stesso.</p>
+        short_url: "Indirizzo breve"
       header:
         settings: "IMPOSTAZIONI"
         elections: "ELEZIONI"
@@ -226,9 +227,9 @@ it-IT:
           title: "Nuovo quorum"
           simple: "Semplice"
           advanced: "Avanzato"
-          time_description: "Affinché la proposta acceda alla fase di votazione deve restare in dibattito per almeno %{days}  %{hours}  %{minutes}"
-          simple_percentage_description: "Quindi passa in votazione se la maturità è superiore al %{good_score}%."
-          advanced_participation_description: "%{and_or} deve essere valutata da almeno il %{participants_percentage}% degli utenti che dispongono i permessi per farlo (ovvero %{current_number} su %{total_number} attualmente)."
+          time_description: "Il dibattito durerà almeno %{days}  %{hours}  %{minutes}"
+          simple_percentage_description: "Quindi la proposta passa in votazione se la maturità è superiore al %{good_score}%."
+          advanced_participation_description: "%{and_or} la proposta deve essere valutata da almeno il %{participants_percentage}% degli utenti che dispongono i permessi per farlo (ovvero %{current_number} su %{total_number} attualmente)."
           advanced_percentage_description: "Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata."
           advanced_percentage_description3: "La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie."
         active: "Attivo"
@@ -1104,9 +1105,9 @@ it-IT:
       or_condition_1: "Il dibattito terminerà tra %{time} oppure quando %{participants_num}."
       or_condition_1_past: "Il dibattito è durato %{time} oppure quando %{participants_num}."
       and_condition_1: "Il dibattito terminerà tra %{time}, ma proseguirà finchè non %{participants_num}."
-      and_condition_1_past: "Il dibattito durava %{time}, ma proseguiva finchè non %{participants_num}."
+      and_condition_1_past: "Il dibattito è durato %{time}, ma proseguiva finchè non %{participants_num}."
       time_condition_1: "Il dibattito terminerà tra %{time}."
-      time_condition_1_past: "Il dibattito durava %{time}."
+      time_condition_1_past: "Il dibattito è durato %{time}."
       participants_condition_1: "Il dibattito proseguirà finchè non %{participants_num}."
       participants_condition_1_past: "Il dibattito proseguiva finchè non %{participants_num}."
       good_score_condition: "La proposta andrà in votazione se avrà una maturità superiore al <b>%{good_score}%</b>, altrimenti verrà abbandonata"

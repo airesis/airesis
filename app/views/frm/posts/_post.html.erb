@@ -45,7 +45,7 @@
                       <%= link_to t('quote', :scope => 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, :reply_to_id => post.id, :quote => true) %>
                   <% end %>
               <% end %>
-              <% if post.owner_or_admin?(current_user) %>
+              <% if post.owner_or_moderator?(current_user) %>
                   <% if can?(:edit_post, post.topic.forum) %>
                       <%= link_to t('edit', :scope => 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
                   <% end %>

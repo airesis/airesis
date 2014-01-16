@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="columns large-8">
+
+    <div class="friends_scroll" id="my_friends">
+      <input class="search" placeholder="Search"/>
+      <ul class="list friends_list">
+        <% current_user.facebook.get_connections("me", "friends?fields=id,name,first_name, picture.type(square)").each do |friend| %>
+            <li class="fb_friend" data-id=<%= friend['id'] %>>
+              <div class="panel">
+                <div class="row">
+
+                  <div class="columns large-2">
+                    <%= image_tag friend['picture']['data']['url'] %>
+                  </div>
+                  <div class="columns large-10">
+                    <%= form_for 'message', url: facebook_send_message_proposal_url(@proposal), remote: true do |f| %>
+                        <div class="row name">
+                          <div class="columns large-12">
+                            <%= friend['name'] %>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="columns large-9">
+                            <%= f.hidden_field :friend_id, value: friend['id'] %>
+                            <%= f.hidden_field :url, value: @proposal.private ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) %>
+                            <%= f.text_area :body, value: "Hi #{friend['first_name']},\ntake a look at this proposal on Airesis. You may be interested in it!", class: 'fb_msg_area' %>
+                          </div>
+                          <div class="columns large-3">
+                            <%= f.button t('buttons.send'), class: 'btn' %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="columns large-4">
+    <div class="row">
+      <p><%= 'Invitations will be sent via Facebook message along with a link to this proposal so your friends can partecipate.' %></p>
+    </div>
+    <div id="sent_friends" class="row sent_friends" data-added=0>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    var options = {
+        valueNames: [ 'name' ]
+    };
+    var friendsList = new List('my_friends', options);
+</script>

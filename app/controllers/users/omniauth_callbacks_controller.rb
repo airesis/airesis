@@ -6,8 +6,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if current_user
       data = access_token['extra']['raw_info'] #dati di facebook
       auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'])
-      if auth #se c'è già un altro account annulla l'operazione!
-        flash[:error] = "Esiste già un altro account associato a questo account Facebook. Attendi la funzione di 'Unione account' per procedere"
+      if auth #se c'è già un altro account
+        if auth.token != access_token['credentials']['token'] #se devo aggiornare il token...fallo
+          auth.update_attribute(:token, access_token['credentials']['token'])
+        end
+
+        if request.env['omniauth.params']['share']
+          redirect_to request.env['omniauth.origin'] + '?share=true'
+        else
+          #annulla l'operazione!
+          flash[:error] = "Esiste già un altro account associato a questo account Facebook. Attendi la funzione di 'Unione account' per procedere"
+          redirect_to privacy_preferences_users_url
+        end
+
       else
         if data['verified']
           current_user.build_authentication_provider(access_token)
@@ -20,8 +31,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         else
           flash[:error] = "Account facebook non verificato."
         end
+        redirect_to privacy_preferences_users_url
       end
-      redirect_to privacy_preferences_users_url
+
+
     else
       @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
       if @user
@@ -174,39 +187,35 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #se sono già autenticato allora sto facendo una join dei due account
     access_token = request.env['omniauth.auth']
     if current_user
-      data = access_token['extra']['raw_info'] #dati di meetup
+      data = access_token['info'] #dati di meetup
       auth = Authentication.find_by_provider_and_uid(access_token['provider'],access_token['uid'].to_s)
       if auth #se c'è già un altro account annulla l'operazione!
-        flash[:error] = "Esiste già un altro account associato a questo account Meetup. Attendi la funzione di 'Unione account' per procedere"
+        flash[:error] = "Esiste già un altro account associato a questo account Parma. Attendi la funzione di 'Unione account' per procedere"
       else
         current_user.build_authentication_provider(access_token)
         current_user.save(:validate => false)
-        flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Meetup.'
+        flash[:notice] = 'Unione account avvenuta corretamente. Complimenti, ora puoi fare login anche attraverso Parma.'
       end
       redirect_to privacy_preferences_users_url
     else
-      @user = User.find_for_meetup(request.env["omniauth.auth"], current_user)
+      @user = User.find_for_parma(access_token, current_user)
       if @user
-        #se all'utente è già collegato un account meetup
-        if @user.has_provider(Authentication::MEETUP)
-          flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Meetup"
-          #cheidigli di inserire l'email se è il primo accesso
-          if @user.sign_in_count == 0
-            request.env["omniauth.origin"] = nil
-            session["user_return_to"] = user_path(@user, {:insert_email => true})
-          end
+        #se all'utente è già collegato un account parma
+        if @user.has_provider(Authentication::PARMA)
+          flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Parma"
           @user.remember_me = true
-          sign_in_and_redirect @user, :event => :authentication
+          sign_in @user, :event => :authentication
+          redirect_to group_url(Group.find_by_subdomain('parma'))
         elsif @user.from_identity_provider?
           flash[:error] = "Esiste già un altro account registrato a tuo nome."
-          redirect_to new_user_session_path
+          redirect_to group_url(Group.find_by_subdomain('parma'))
         else
-          session["devise.meetup_data"] = request.env["omniauth.auth"]
+          session["devise.parma_data"] = request.env["omniauth.auth"]
           redirect_to confirm_credentials_users_url
         end
       else
-        flash[:error] = "Account Meetup non verificato."
-        redirect_to proposals_path
+        flash[:error] = "Account Parma non verificato."
+        redirect_to group_url(Group.find_by_subdomain('parma'))
       end
     end
   end

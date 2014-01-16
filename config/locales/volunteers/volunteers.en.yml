@@ -3,6 +3,15 @@ en:
     whowe:
       title: "About Us"
       description: "A group of volunteers who want to improve the world in which we live, citizens like you."
+      intro:
+        title: "Citizens looking forward to a better democracy"
+        description_html: |
+          <p>Airesis is the outcome of the fusion of two projects: Agor&agrave 2.0 and DemocracyOnline, that came toghether in the association <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>, with one of its main goal being the development of an innovative open-source e-democracy software.</p>
+          <p>The goal of the team, <strong>made entarely of volunteers</strong> is to give citizens and groups a software platform that allows them to cope with <strong>most of the problems</strong> of our society
+          by allowing the <strong>creation</strong>, the <strong>discussion</strong> and <strong>voting</strong> on proposals in a <strong>transparent</strong>, <strong>democratic</strong>, <strong>constructive</strong> and <strong>participative</strong> way,
+          allowing the <strong>collective intelligence</strong> to emerge.</p>
+          <p>If you also share our goal, you can <a href="/partecipa">join us</a> contacting our volunteers.</p>
+          <p>Please have a look at <a href=%{story}>the history of Airesis</a>. Find out how our project was born and what are our future objectives.</p>
       development_area: "Development Area"
       other_voluteers: "Other volunteers active in the project"
       contributors: "Contributors"
@@ -49,7 +58,7 @@ en:
         title: "Analyst"
         content_html: |
           <p>
-            Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site http://www.lordglenn.com (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including http://www.literary.ithttp://www.literary.it) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
+            Plays the role of chief information officer for two large manufacturing companies belonging to an international holding operating in the automotive sector. Always divided between computer science and the humanities, he is a journalist and literary critic. Curator of the site <a href="http://www.lordglenn.com" target="_blank">www.lordglenn.com</a> (as well as judge in the homonymous literary contest dedicated to animals), has published on several websites and magazines of various cultural and humanity (including <a href="http://www.literary.it" target="_blank">www.literary.it</a>) as well as in anthologies. Creator of “Iperrelazionismo sensibile”, a philosophical construct in the making, is the author of the essay "Wide Democracy, beyond politics," synthesis of 3 years of studies dedicated to create a certified software for e-democracy and online deliberation matters (remained at the prototype stage).
             Accidentally landend in the Airesis project, he has been conquered by its main concept and philosophy.
             He decided to donate the fruit of his research and his free time, participating in the development group.
             His contribute focuses on analysis of functional logic and testing, but does not mind the ethical criticism and philosophical implications arising from the longer term evolutionary choices carried out ​​within the group.
@@ -65,11 +74,11 @@ en:
            I pay a lot of attention to detail and I know how to solve problems by means of specific research.
            I can handle stress very well and have good communication skills. Over the past two years I have worked on several projects at a distance,
            created a strong communication mood and always reaching targets agreed in terms of effectiveness and timing.
-           To see my curriculum vitae and my recent work I’d like to invite you to visit my website - www.marcellokabora.com .
+           To see my curriculum vitae and my recent work I’d like to invite you to visit my website - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com</a>.
           </p>
       i18n_area: "Internationalization Area"
       tolja_jacopo:
-        title: "Responsible for the recruiting and coordination of the translators"
+        title: "In charge for recruiting and coordination of translators"
         content_html: |
           <p>
              I am 50 years old, are a disillusioned, but I found in Airesis a reason to get back into the game and hope to
@@ -90,13 +99,12 @@ en:
           </p>
       test_area: "Test Area"
       mion_carlo:
-        title: "Tester and Coordinator"
+        title: "Tester and Developer"
         content_html: |
           <p>
-            I am a student who is completing the first cycle of education. I recently discovered my passion for computer science and I plan to continue my university studies to further study this science. I'm fascinated because it has revolutionized our lives and continues to evolve day after day.
-            I learned that some intellectuals imagined a democracy in which it was possible to make decisions shared by the citizens through the online participation.
-            I think Airesis makes this possible and that is the reason for which I gave my approval to help with the platform development.
-            I participate in the testing group, which has the aim to verify the proper operation of Airesis. I collect user feedback and point out any anomalies and problems that they may be readily solved by the developers. I 'm also testing the latest innovations introduced in the platform before they are released to the public .
+            I am a student at the University of Trento. I have had a passion for computer science since I was young, so I began my academic studies in order to further study this science. It is fascinating for me because it has revolutionized our lives and continues to evolve day after day.<br/>
+            During my years in high school I learned that some intellectuals theorized a democracy in which it was possible to make shared decisions through the participation of the same citizens. I think that Airesis makes this possible and so I gave my availability to help its development.<br/>
+            I am part of the testing group, which has the goal of verifiyng the proper operativeness of Airesis. I also test the latest innovations introduced in the platform before they are released to the public. At the same time I help the internazionalization team, preparing the strings and words written in the source code of Airesis so that they can be easily translated. Doing this I can better know the Ruby language and I think that this will greatly help my future carrer.
           </p>
       zanellato_luca:
         title: "Tester ed analyst"

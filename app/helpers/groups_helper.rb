@@ -120,7 +120,7 @@ module GroupsHelper
     if group_in_subdomain? group
       proposals_url(options)
     else
-      options[:subdomain] = false
+      options[:subdomain] = false unless defined? request
       super
     end
   end
@@ -143,7 +143,7 @@ module GroupsHelper
         options[:subdomain] = group.subdomain
         proposal_url(proposal, options)
       else
-        options[:subdomain] = false if !(defined? request) #activated for proposal link when you are in subdomain (like in tags page)...i think there is something wrong here...
+        options[:subdomain] = false unless defined? request #activated for proposal link when you are in subdomain (like in tags page)...i think there is something wrong here...
                                                   #theres an error for mails coming from https cause we do not have a valid certificate and in the mail is missing wwww, let's try like this and....cross fingers
         super
       end

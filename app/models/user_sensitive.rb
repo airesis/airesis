@@ -11,8 +11,7 @@ class UserSensitive < ActiveRecord::Base
                     :path => ":rails_root/private/users/:id/documents/:basename.:extension"
 
 
-  validates_presence_of :name, :surname, :birth_date, :user_id
-
+  validates_presence_of :name, :surname, :user_id, :tax_code
 
   before_save :update_user
 

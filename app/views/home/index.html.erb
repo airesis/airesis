@@ -4,15 +4,15 @@
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta charset="utf-8">
-      <title><%= APP_LONG_NAME %></title>
+      <title><%= t('home.tags.title') %></title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="apple-mobile-web-app-capable" content="yes">
-      <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro">
-      <meta property="og:title" content="<%= APP_LONG_NAME %>"/>
+      <meta name="description" content="<%= t('home.tags.description')%>">
+      <meta property="og:title" content="<%= t('home.tags.title') %>"/>
       <meta property="og:type" content="website"/>
       <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
       <meta property="og:site_name" content="<%= APP_LONG_NAME %>"/>
-      <meta property="og:description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"/>
+      <meta property="og:description" content="<% t('home.tags.description')%>"/>
       <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
       <meta name="author" content="Tecnologie Democratiche">
       <link rel="shortcut icon" href="/favicon.ico"/>
@@ -186,7 +186,7 @@
       <div class="row full-width medium-bar"><!-- Menù navigatore-->
         <div class="row centered" style="margin-top: 10px">
           <!-- Logo principale-->
-          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare" %>
+          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
 
           <div style="float:right" class="show-for-medium-up">
             <div style=" width:387px;font-family:Arial; text-align:center;">
@@ -250,7 +250,7 @@
                       <br/>
                       <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
                       <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
-					  <%= link_to 'Accedi con Parma', user_omniauth_authorize_path(:parma), :alt => t('pages.top_panel.parma_login'), :title => t('pages.top_panel.parma_login') if Rails.env == 'development'%>
+
                     </div>
                   </div>
 

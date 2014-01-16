@@ -209,6 +209,7 @@ en:
           <p>When you participate in a group the posts your blog can be shown in the Wall of the group.</p>
           <p>Groups can sustain proposals, create new ones, create surveys and organize members using roles and permissions.</p>
           <p>It is possible to change the rules of this group using through its <b>Settings</b>.</p>
+        short_url: "Short url"
       header:
         settings: "SETTINGS"
         elections: "ELECTIONS"
@@ -225,9 +226,9 @@ en:
           title: "New quorum"
           simple: "Simple"
           advanced: "Advanced"
-          time_description: "For the proposal to go to the voting phase, it must remain in debate for at least %{days} %{hours} %{minutes}"
-          simple_percentage_description: "Then it goes to the voting phase if its maturity is superior to %{good_score}%."
-          advanced_participation_description: "%{and_or} it must be evaluated by almost %{participants_percentage}% of the members that have the right to do so (that is %{current_number} out of %{total_number} at the moment)."
+          time_description: "The debate will last at least %{days} %{hours} %{minutes}"
+          simple_percentage_description: "Then the proposal goes to the voting phase if its maturity is superior to %{good_score}%."
+          advanced_participation_description: "%{and_or} the proposal must be evaluated by almost %{participants_percentage}% of the members that have the right to do so (that is %{current_number} out of %{total_number} at the moment)."
           advanced_percentage_description: "If however the maturity is inferior to %{bad_score}% the proposal is abandoned."
           advanced_percentage_description3: "The proposal remains in debate until the maturity is between the two thresholds."
         active: "Active"

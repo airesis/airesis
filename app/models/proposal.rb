@@ -65,7 +65,8 @@ class Proposal < ActiveRecord::Base
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
-  has_many :proposal_alerts, :class_name => 'ProposalAlert'
+  has_many :proposal_alerts, :class_name => 'ProposalAlert', dependent: :destroy
+  has_many :blocked_proposal_alerts, :class_name => 'BlockedProposalAlert', dependent: :destroy
 
   #validation
   validates_presence_of :title, :message => "obbligatorio" #TODO:I18n
@@ -152,19 +153,23 @@ class Proposal < ActiveRecord::Base
   end
 
   def self.votation_portlet(user)
-    @list_a = user.proposals.voting.not_voted_by(user.id).pluck('proposals.id')
-    @list_b = user.partecipating_proposals.voting.not_voted_by(user.id).pluck('proposals.id')
-    @list_c = @list_a | @list_b
-     if @list_c.empty?
-       return []
-     else
-       return self.current
-       .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-       .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
-       .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
-       .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
-       .order('proposals.updated_at desc')
-     end
+    proposals = Proposal.find_by_sql("select distinct p.*, pa.count as alerts_count, pk.ranking_type_id as ranking, e.endtime as end_time
+                          from proposals p
+                          join group_proposals gp on p.id = gp.proposal_id
+                          join groups g on g.id = gp.group_id
+                          join group_partecipations gi on (g.id = gi.group_id and gi.user_id = #{user.id})
+                          join partecipation_roles pr on (gi.partecipation_role_id = pr.id)
+                          join events e on e.id = p.vote_period_id
+                          left join action_abilitations aa on (aa.partecipation_role_id = pr.id)
+                          left join user_votes uv on (uv.proposal_id = p.id and uv.user_id = #{user.id})
+                          left join proposal_alerts pa on p.id = pa.proposal_id and pa.user_id = #{user.id}
+                          left join proposal_rankings pk on p.id = pk.proposal_id and pk.user_id = #{user.id}
+                          where  p.proposal_state_id = #{ProposalState::VOTING}
+                          and uv.id is null
+                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{PartecipationRole::PORTAVOCE})
+                          order by e.endtime asc")
+    ActiveRecord::Associations::Preloader.new(proposals,[:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category]).run
+    proposals
   end
 
   #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
@@ -172,361 +177,360 @@ class Proposal < ActiveRecord::Base
     query = group.internal_proposals.includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
     if user
     query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
+    .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
     .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
-    end
   end
+end
 
 
+def count_notifications(user_id)
+  (alerts = self.proposal_alerts.where(:user_id => user_id).first) ? alerts.count : 0
+
+end
+
+def populate_fake_url
+  self.url = ''
+end
+
+#after_find :calculate_percentage
+
+def integrated_contributes_ids_list=(value)
+  self.integrated_contributes_ids = value.split(/,\s*/)
+end
+
+def is_schulze?
+  self.solutions.count > 1
+end
+
+def is_standard?
+  self.proposal_type.name == ProposalType::STANDARD
+end
+
+def is_polling?
+  self.proposal_type.name == ProposalType::POLL
+end
+
+def remove_scheduled_tasks
+  Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
+end
+
+#return true if the proposal is currently in debate
+def in_valutation?
+  self.proposal_state_id == ProposalState::VALUTATION
+end
+
+def waiting_date?
+  self.proposal_state_id == ProposalState::WAIT_DATE
+end
+
+def waiting?
+  self.proposal_state_id == ProposalState::WAIT
+end
+
+def voting?
+  self.proposal_state_id == ProposalState::VOTING
+end
+
+def abandoned?
+  self.proposal_state_id == ProposalState::ABANDONED
+end
+
+def voted?
+  [ProposalState::ACCEPTED, ProposalState::REJECTED].include? self.proposal_state_id
+end
+
+def rejected?
+  self.proposal_state_id == ProposalState::REJECTED
+end
+
+def is_current?
+  [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
+end
+
+#restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
+def is_anonima?
+  is_current? && self.anonima
+end
+
+#return true if the proposal is in a group
+def in_group?
+  self.private?
+end
+
+def in_group_area?
+  self.in_group? && !self.presentation_areas.first.nil?
+end
 
 
-  def count_notifications(user_id)
-    (alerts = self.proposal_alerts.where(:user_id => user_id).first) ? alerts.count : 0
+def tags_list
+  @tags_list ||= self.tags.map(&:text).join(', ')
+end
 
-  end
+def tags_list_json
+  @tags_list ||= self.tags.map(&:text).join(', ')
+end
 
-  def populate_fake_url
-    self.url = ''
-  end
+def tags_list=(tags_list)
+  @tags_list = tags_list
+end
 
-  #after_find :calculate_percentage
+def tags_with_links
+  self.tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
+end
 
-  def integrated_contributes_ids_list=(value)
-    self.integrated_contributes_ids = value.split(/,\s*/)
-  end
+def save_tags
+  if @tags_list
+    # Remove old tags
+    #self.proposal_tags.destroy_all
 
-  def is_schulze?
-    self.solutions.count > 1
-  end
-
-  def is_standard?
-    self.proposal_type.name == ProposalType::STANDARD
-  end
-
-  def is_polling?
-    self.proposal_type.name == ProposalType::POLL
-  end
-
-  def remove_scheduled_tasks
-    Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
-  end
-
-  #return true if the proposal is currently in debate
-  def in_valutation?
-    self.proposal_state_id == ProposalState::VALUTATION
-  end
-
-  def waiting_date?
-    self.proposal_state_id == ProposalState::WAIT_DATE
-  end
-
-  def waiting?
-    self.proposal_state_id == ProposalState::WAIT
-  end
-
-  def voting?
-    self.proposal_state_id == ProposalState::VOTING
-  end
-
-  def abandoned?
-    self.proposal_state_id == ProposalState::ABANDONED
-  end
-
-  def voted?
-    [ProposalState::ACCEPTED, ProposalState::REJECTED].include? self.proposal_state_id
-  end
-
-  def rejected?
-    self.proposal_state_id == ProposalState::REJECTED
-  end
-
-  def is_current?
-    [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
-  end
-
-  #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito
-  def is_anonima?
-    is_current? && self.anonima
-  end
-
-  #return true if the proposal is in a group
-  def in_group?
-    self.private?
-  end
-
-  def in_group_area?
-    self.in_group? && !self.presentation_areas.first.nil?
-  end
-
-
-  def tags_list
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list_json
-    @tags_list ||= self.tags.map(&:text).join(', ')
-  end
-
-  def tags_list=(tags_list)
-    @tags_list = tags_list
-  end
-
-  def tags_with_links
-    self.tags.collect { |t| "<a href=\"/tag/#{t.text.strip}\">#{t.text.strip}</a>" }.join(', ')
-  end
-
-  def save_tags
-    if @tags_list
-      # Remove old tags
-      #self.proposal_tags.destroy_all
-
-      # Save new tags
-      tids = []
-      @tags_list.split(/,/).each do |tag|
-        stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
-        unless stripped.blank?
-          t = Tag.find_or_create_by_text(stripped)
-          tids << t.id
-        end
-        #if (!self.tags.include? t)
-        #  self.tags << t
-        #end
+    # Save new tags
+    tids = []
+    @tags_list.split(/,/).each do |tag|
+      stripped = tag.strip.downcase.gsub('.', '').gsub("'", "")
+      unless stripped.blank?
+        t = Tag.find_or_create_by_text(stripped)
+        tids << t.id
       end
-      self.tag_ids = tids
+      #if (!self.tags.include? t)
+      #  self.tags << t
+      #end
     end
-
-    first_solution = self.solutions.first
-    first_section =
-        if first_solution && first_solution.sections.first
-          first_solution.sections.first
-        else
-          self.sections.first
-        end
-    self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
-
-
+    self.tag_ids = tids
   end
 
-  def to_param
-    "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
+  first_solution = self.solutions.first
+  first_section =
+      if first_solution && first_solution.sections.first
+        first_solution.sections.first
+      else
+        self.sections.first
+      end
+  self.content = truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60)
 
-  #prima di aggiornare la proposta salvane la
-  #storia nella tabella dedicata (se è cambiato il testo)
-  def save_proposal_history
-    something = false
-    seq = (self.revisions.maximum(:seq) || 0) + 1
-    @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
-    self.sections.each do |section|
+
+end
+
+def to_param
+  "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+end
+
+#prima di aggiornare la proposta salvane la
+#storia nella tabella dedicata (se è cambiato il testo)
+def save_proposal_history
+  something = false
+  seq = (self.revisions.maximum(:seq) || 0) + 1
+  @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+  self.sections.each do |section|
+    paragraph = section.paragraphs.first
+    paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+    if paragraph.content_changed? || section.marked_for_destruction?
+      something = true
+      section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
+      section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
+    end
+  end
+  self.solutions.each do |solution|
+    solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
+    something_solution = false
+    solution.sections.each do |section|
       paragraph = section.paragraphs.first
       paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
       if paragraph.content_changed? || section.marked_for_destruction?
         something = true
-        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
+        something_solution = true
+        section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
         section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
       end
     end
-    self.solutions.each do |solution|
-      solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
-      something_solution = false
-      solution.sections.each do |section|
-        paragraph = section.paragraphs.first
-        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-        if paragraph.content_changed? || section.marked_for_destruction?
-          something = true
-          something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
-        end
-      end
-      solution_history.destroy unless something_solution
-    end
-    something ? @revision.save! : @revision.destroy
-    self.touch
+    solution_history.destroy unless something_solution
   end
+  something ? @revision.save! : @revision.destroy
+  self.touch
+end
 
-  def mark_integrated_contributes
-    if @revision.id
-      self.last_revision = @revision
-      comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
-      ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
-      comment_ids.each do |id|
-        self.last_revision.integrated_contributes.create(:proposal_comment_id => id)
-      end
+def mark_integrated_contributes
+  if @revision.id
+    self.last_revision = @revision
+    comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
+    ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
+    comment_ids.each do |id|
+      self.last_revision.integrated_contributes.create(:proposal_comment_id => id)
     end
   end
+end
 
-  #restituisce il primo autore della proposta
-  def user
-    @first_user ||= self.proposal_presentations.first.user
-    #@first_user ||= self.proposals_presentations. 
-    return @first_user
-  end
+#restituisce il primo autore della proposta
+def user
+  @first_user ||= self.proposal_presentations.first.user
+  #@first_user ||= self.proposals_presentations.
+  return @first_user
+end
 
-  def short_content
-    truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 35)
-  end
+def short_content
+  truncate_words(self.content.gsub(%r{</?[^>]+?>}, ''), 35)
+end
 
-  def interest_borders_tkn
+def interest_borders_tkn
 
-  end
+end
 
-  def interest_borders_tkn=(list)
+def interest_borders_tkn=(list)
 
-  end
+end
 
 
-  #retrieve the number of users that can vote this proposal
-  def eligible_voters_count
-    if self.private?
-      if self.presentation_areas.size > 0 #if we are in a working area
-        self.presentation_areas.first.count_voter_partecipants
-      else
-        self.presentation_groups.first.count_voter_partecipants
-      end
+#retrieve the number of users that can vote this proposal
+def eligible_voters_count
+  if self.private?
+    if self.presentation_areas.size > 0 #if we are in a working area
+      self.presentation_areas.first.count_voter_partecipants
     else
-      User.confirmed.unblocked.count #if it's public everyone can vote
+      self.presentation_groups.first.count_voter_partecipants
     end
+  else
+    User.confirmed.unblocked.count #if it's public everyone can vote
   end
+end
 
 
-  #count without fetching, for the list. this number may be different from partecipants because doesn't look if the partecipants are still in the group
-  def partecipants_count
-    a = User.joins({:proposal_rankings => [:proposal]}).where(["proposals.id = ?", self.id]).count
-    a += User.joins({:proposal_comments => [:proposal]}).where(["proposals.id = ?", self.id]).count
+#count without fetching, for the list. this number may be different from partecipants because doesn't look if the partecipants are still in the group
+def partecipants_count
+  a = User.joins({:proposal_rankings => [:proposal]}).where(["proposals.id = ?", self.id]).count
+  a += User.joins({:proposal_comments => [:proposal]}).where(["proposals.id = ?", self.id]).count
+end
+
+#retrieve all the partecipants to the proposals that are still part of the group
+def partecipants
+  #all users who ranked the proposal
+  a = User.all(:joins => {:proposal_rankings => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
+  #all users who contributed to the proposal
+  b = User.all(:joins => {:proposal_comments => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
+  c = (a | b)
+  if self.private
+    #all users that are part of the group of the proposal
+    d = self.presentation_groups.map { |group| group.partecipants }.flatten
+    e = self.groups.map { |group| group.partecipants }.flatten
+    f = d | e
+    #the partecipants are user that partecipated the proposal and are still in the group
+    c = c & f
   end
+  c
+end
 
-  #retrieve all the partecipants to the proposals that are still part of the group
-  def partecipants
-    #all users who ranked the proposal
-    a = User.all(:joins => {:proposal_rankings => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
-    #all users who contributed to the proposal
-    b = User.all(:joins => {:proposal_comments => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
-    c = (a | b)
-    if self.private
-      #all users that are part of the group of the proposal
-      d = self.presentation_groups.map { |group| group.partecipants }.flatten
-      e = self.groups.map { |group| group.partecipants }.flatten
-      f = d | e
-      #the partecipants are user that partecipated the proposal and are still in the group
-      c = c & f
-    end
-    c
+
+#all users that will receive a notification that asks them to check or give their valutation to the proposal
+def notification_receivers
+  #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
+  users = self.partecipants
+  res = []
+  users.each do |user|
+    #user ranking to the proposal
+    ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
+    res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
   end
+end
 
 
-  #all users that will receive a notification that asks them to check or give their valutation to the proposal
-  def notification_receivers
-    #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-    users = self.partecipants
-    res = []
-    users.each do |user|
-      #user ranking to the proposal
-      ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
-      res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
-    end
+#all users that will receive a notification that asks them to vote the proposal
+def vote_notification_receivers
+  #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
+  users = self.partecipants
+  res = []
+  users.each do |user|
+    #user ranking to the proposal
+    ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
+    res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
   end
+end
 
-
-  #all users that will receive a notification that asks them to vote the proposal
-  def vote_notification_receivers
-    #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-    users = self.partecipants
-    res = []
-    users.each do |user|
-      #user ranking to the proposal
-      ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
-      res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
-    end
-  end
-
-  #restituisce la lista delle 10 proposte più vicine a questa
-  def closest(group_id=nil)
-    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+#restituisce la lista delle 10 proposte più vicine a questa
+def closest(group_id=nil)
+  sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
               p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
               FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
 
-    sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
-    sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
+  sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if group_id
+  sql_q += " WHERE pt.tag_id IN (SELECT pti.tag_id
                                   FROM proposal_tags pti
                                   WHERE pti.proposal_id = #{self.id})
               AND pt.proposal_id != #{self.id} "
-    sql_q += " AND (p.private = false OR p.visible_outside = true "
-    sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
-    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+  sql_q += " AND (p.private = false OR p.visible_outside = true "
+  sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
+  sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
                ORDER BY closeness DESC limit 10"
-    Proposal.find_by_sql(sql_q)
+  Proposal.find_by_sql(sql_q)
+end
+
+
+searchable do
+  text :title, boost: 5
+  text :content, boost: 2
+  text :paragraphs do
+    (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
+        solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
+  end
+  boolean :visible_outside
+  boolean :private
+  integer :presentation_group_ids, multiple: true #presentation groups
+  integer :group_ids, multiple: true #supporting groups
+  integer :presentation_area_ids, multiple: true #area
+  integer :proposal_state_id
+  integer :proposal_category_id
+  integer :proposal_type_id
+  time :created_at
+  time :updated_at
+  integer :valutations
+  double :rank
+  time :quorum_ends_at do
+    self.quorum.ends_at
   end
 
+  #two infos only when is in vote
+  integer :votes do
+    self.user_votes.count if voting? || voted?
+  end
+  time :votation_ends_at do
+    self.vote_period.endtime if voting? || voted?
+  end
+end
 
-  searchable do
-    text :title, boost: 5
-    text :content, boost: 2
-    text :paragraphs do
-      (sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } +
-          solutions.map { |solution| solution.sections.map { |section| section.paragraphs.map { |paragraph| paragraph.content } } }).flatten
-    end
-    boolean :visible_outside
-    boolean :private
-    integer :presentation_group_ids, multiple: true  #presentation groups
-    integer :group_ids, multiple: true #supporting groups
-    integer :presentation_area_ids, multiple: true  #area
-    integer :proposal_state_id
-    integer :proposal_category_id
-    integer :proposal_type_id
-    time    :created_at
-    time    :updated_at
-    integer :valutations
-    double  :rank
-    time    :quorum_ends_at do
-      self.quorum.ends_at
-    end
-
-    #two infos only when is in vote
-    integer :votes do
-      self.user_votes.count if voting? || voted?
-    end
-    time :votation_ends_at do
-      self.vote_period.endtime if voting? || voted?
-    end
+#restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
+def calculate_percentage
+  return unless self.quorum
+  percentages = []
+  if self.quorum.valutations
+    minimum = [self.valutations, self.quorum.valutations].min
+    percentagevals = minimum.to_f/self.quorum.valutations.to_f
+    percentagevals *= 100
+    percentages << percentagevals
+  end
+  if self.quorum.minutes
+    minimum = [Time.now, self.quorum.ends_at].min
+    minimum = ((minimum - self.quorum.started_at)/60)
+    percentagetime = minimum.to_f/self.quorum.minutes.to_f
+    percentagetime *= 100
+    percentages << percentagetime
   end
 
-  #restituisce la percentuale di avanzamento della proposta in base al quorum assegnato
-  def calculate_percentage
-    return unless self.quorum
-    percentages = []
-    if self.quorum.valutations
-      minimum = [self.valutations, self.quorum.valutations].min
-      percentagevals = minimum.to_f/self.quorum.valutations.to_f
-      percentagevals *= 100
-      percentages << percentagevals
-    end
-    if self.quorum.minutes
-      minimum = [Time.now, self.quorum.ends_at].min
-      minimum = ((minimum - self.quorum.started_at)/60)
-      percentagetime = minimum.to_f/self.quorum.minutes.to_f
-      percentagetime *= 100
-      percentages << percentagetime
-    end
-
-    if self.quorum.or?
-      @percentage=percentages.max
-    else
-      @percentage=percentages.min
-    end
+  if self.quorum.or?
+    @percentage=percentages.max
+  else
+    @percentage=percentages.min
   end
+end
 
-  def percentage
-    @percentage ||= calculate_percentage
-  end
+def percentage
+  @percentage ||= calculate_percentage
+end
 
 
-  def users_j
-    self.is_anonima? ?
-        self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
-        self.users.as_json(:only => [:id], :methods => [:fullname])
-  end
+def users_j
+  self.is_anonima? ?
+      self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
+      self.users.as_json(:only => [:id], :methods => [:fullname])
+end
+
 end
