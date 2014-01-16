@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.13'
 
 gem 'therubyracer', '0.10.1'
 
@@ -15,11 +15,6 @@ group :assets do
   gem 'zurb-foundation'
 end
 
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'pg'
 
 gem 'sunspot_rails', '2.0.0'
@@ -29,29 +24,12 @@ group :development do
   gem "better_errors"
 end
 
-#gem 'rufus-scheduler'
-
-#per gmail
-#gem 'tlsmail'
-
-#gem 'silent-postgres'
-
-#gem "omniauth", '1.0.3'
-
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
 gem 'omniauth-openid'
-
-#gem 'oa-oauth', '>=0.3.2', :require => 'omniauth/oauth'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
 
 gem 'paperclip'
 
@@ -63,16 +41,13 @@ gem 'devise', '2.0.4'
 
 gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
 
-#gem 'fb_graph'
 gem 'koala', '~> 1.8.0rc1'
+
 gem 'xmpp4r_facebook'
 
 gem 'exception_notification', '2.6.1'
 
 gem 'resque', :require => 'resque/server'
-#gem 'nfo-resque-mongo', :require => 'resque'#, :git => 'https://github.com/coorasse/resque-mongo.git'
-#gem 'mongo-resque', :require => 'resque'
-
 
 gem 'resque_mailer'
 
@@ -80,18 +55,13 @@ gem 'resque-scheduler'
 
 gem 'sunspot-queue'
 
-#gem 'resque-mongo-scheduler'#, :git => 'https://github.com/srmelody/resque-mongo-scheduler.git'
-
 gem 'cancan'
 
 gem 'foreigner'
 
 gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '3-2-stable'
-#gem 'ar_fixtures'
 
 gem 'sitemap_generator'
-
-#gem 'georuby'
 
 gem 'geocoder'
 
@@ -100,9 +70,6 @@ gem 'email_preview'
 gem 'seed_dump'
 
 gem 'vote-schulze', :git => 'https://github.com/coorasse/vote-schulze.git'
-
-#gem 'rgl', :git => 'git@github.com:coorasse/rgl.git'
-#gem 'rgl'#,  "~> 0.4.0", :git => 'git://github.com/javanthropus/rgl.git'
 
 gem 'quiet_assets', :group => :development
 
@@ -141,9 +108,7 @@ gem 'rotp'
 
 gem 'ckeditor'
 
-
 gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'
-
 
 #added for forums
 gem 'friendly_id'

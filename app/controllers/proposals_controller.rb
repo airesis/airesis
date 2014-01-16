@@ -244,8 +244,8 @@ class ProposalsController < ApplicationController
       log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
-          page.alert "Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora #{((PROPOSALS_TIME_LIMIT - elapsed)/60).floor} minuti e #{((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)} secondi."
-          page << "$('#create_proposal_container').dialog('destroy');"
+          page.alert t('pages.proposals.new.wait',minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor,seconds:((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
+          page << "$('#create_proposal_container').foundation('reveal','close');"
         end }
       end
     end

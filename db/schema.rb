@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140109095257) do
+ActiveRecord::Schema.define(:version => 20140116104636) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -969,10 +969,12 @@ ActiveRecord::Schema.define(:version => 20140109095257) do
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
   create_table "proposal_types", :force => true do |t|
-    t.string  "name",   :limit => 10,                    :null => false
-    t.integer "seq",                  :default => 0
-    t.boolean "active",               :default => false
-    t.string  "color",  :limit => 10
+    t.string  "name",                 :limit => 10,                    :null => false
+    t.integer "seq",                                :default => 0
+    t.boolean "active",                             :default => false
+    t.string  "color",                :limit => 10
+    t.boolean "groups_available",                   :default => true
+    t.boolean "open_space_available",               :default => false
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -1498,7 +1500,6 @@ ActiveRecord::Schema.define(:version => 20140109095257) do
     t.datetime "updated_at"
     t.string   "login",                     :limit => 40
     t.string   "password_salt",             :limit => 40
-    t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"

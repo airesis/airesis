@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
   def load_group
     if params[:group_id].to_s != ''
-
       @group = Group.find(params[:group_id])
     elsif !['', 'www'].include? request.subdomain
       @group = Group.find_by_subdomain(request.subdomain)

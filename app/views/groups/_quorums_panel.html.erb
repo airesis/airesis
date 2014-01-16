@@ -51,17 +51,6 @@
       </tr>
   <% end %>
   </tbody>
-  <thead>
-  <tr>
-    <td colspan="2"><%='Average values'%></td>
-    <td></td>
-    <td><%= (@group.statistic.valutations*100 / @group.count_proposals_partecipants).round(2) %>%</td>
-    <td><%= @group.statistic.good_score.round(2) %>%</td>
-    <td></td>
-    <td><%= (@group.statistic.vote_valutations*100 / @group.count_voter_partecipants).round(2) %>%</td>
-    <td></td>
-  </tr>
-  </thead>
 </table>
 
 <script type="text/javascript">
