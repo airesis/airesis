@@ -386,6 +386,10 @@
         $('.contributeButton[data-section_id=<%=params[:section_id]%>]').trigger('click', [<%=params[:comment_id]%>]);
         <%end%>
 
+        <%if params[:share] %>
+            $('#promote_proposal').click();
+        <%end%>
+
     });
 </script>
 

@@ -73,29 +73,29 @@ class Proposal < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, :message => "obbligatorio"
 
-  validates_presence_of :quorum_id #, :if => :is_standard? #todo bug in client_side_validation
+  validates_presence_of :quorum_id, :unless => :is_petition? #todo bug in client_side_validation
 
-  validates_with AtLeastOneValidator, associations: [:solutions]
+  validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :signatures, :petition_phase
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase
 
   attr_accessible :proposal_category_id, :content, :title, :interest_borders_tkn, :subtitle, :objectives, :problems, :tags_list,
                   :presentation_group_ids, :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id,
                   :group_area_id, :topic_id,
-                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids_list, :votation
+                  :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id, :integrated_contributes_ids_list, :votation, :signatures, :petition_phase
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
-  scope :current, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
+  scope :current, {:conditions => {:proposal_state_id => [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
   #tutte le proposte in valutazione
-  scope :in_valutation, {:conditions => {:proposal_state_id => PROP_VALUT}}
+  scope :in_valutation, {:conditions => {:proposal_state_id => ProposalState::VALUTATION}}
   #tutte le proposte in attesa di votazione o attualmente in votazione
 
   #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
-  scope :before_votation, {:conditions => {:proposal_state_id => [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT]}}
+  scope :before_votation, {:conditions => {:proposal_state_id => [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT]}}
 
   scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
 
@@ -491,7 +491,7 @@ searchable do
   integer :valutations
   double :rank
   time :quorum_ends_at do
-    self.quorum.ends_at
+    self.quorum.ends_at if self.quorum
   end
 
   #two infos only when is in vote
@@ -499,7 +499,7 @@ searchable do
     self.user_votes.count if voting? || voted?
   end
   time :votation_ends_at do
-    self.vote_period.endtime if voting? || voted?
+    self.vote_period.endtime if self.vote_period && (voting? || voted?)
   end
 end
 

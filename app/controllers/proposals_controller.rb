@@ -239,8 +239,8 @@ class ProposalsController < ApplicationController
       log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
-          page.alert "Devono passare 2 minuti tra una proposta e l\'altra\nAttendi ancora #{((PROPOSALS_TIME_LIMIT - elapsed)/60).floor} minuti e #{((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0)} secondi."
-          page << "$('#create_proposal_container').dialog('destroy');"
+          page.alert t('pages.proposals.new.wait',minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor,seconds:((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
+          page << "$('#create_proposal_container').foundation('reveal','close');"
         end }
       end
     end
@@ -294,12 +294,11 @@ class ProposalsController < ApplicationController
         #we don't use quorum for petitions
         # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
         if @proposal.is_petition?
-
+          @proposal.proposal_state_id = @proposal.petition_phase == 'signatures' ? ProposalState::VOTING : ProposalState::VALUTATION
         else
           quorum = assign_quorum(prparams)
-          @proposal.proposal_state_id = PROP_VALUT
+          @proposal.proposal_state_id = ProposalState::VALUTATION
           @proposal.rank = 0
-
         end
 
 
@@ -307,7 +306,7 @@ class ProposalsController < ApplicationController
         update_borders(borders)
 
 
-        @proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
+        #@proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
 
         @proposal.save!
@@ -725,6 +724,14 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
   end
 
+
+  def promote
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
   def facebook_share
     @page_title = "Invite friends to join this proposal"
     respond_to do |format|
@@ -862,9 +869,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def load_my_vote
-    if @proposal.proposal_state_id != PROP_VALUT
-      @can_vote_again = 0
-    else
+    if @proposal.in_valutation?
       ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
@@ -877,6 +882,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       else
         @can_vote_again = 1
       end
+    else
+      @can_vote_again = 0
     end
   end
 
@@ -921,7 +928,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def valutation_state_required
-    if @proposal.proposal_state_id != PROP_VALUT
+    unless @proposal.in_valutation?
       flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
       respond_to do |format|
         format.js { render :update do |page|

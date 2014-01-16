@@ -240,7 +240,7 @@ en:
         good_percentage: "% Maturity"
         bad_percentage: "% Rejection"
         confirm_deletion: "Are you sure you want to delete the quorum %{quorum}?"
-        add_quorum: "Add a new quorum"
+        add_quorum: "Create a new quorum"
         edit_quorum: "Modify quorum"
         configure_proposal_parameters: "Configure proposals parameters"
         default_anonymous_proposal: "Temporary anonymity active"
@@ -291,6 +291,8 @@ en:
           other: <b>%{count}</b> participants
         added_by: "Added by"
         remove_all: "Remove all"
+      statistics:
+        title: "Average values calulated (last update on %{date})"
     login:
       title: 'Login'
     confirmation:
@@ -485,6 +487,7 @@ en:
         solution: "Agenda Item"
         step_base_info: "Initial information"
         advanced_options: "Advanced options"
+        wait: "You can create only one proposal every two minutes\nPlease wait %{minutes} minutes and %{seconds} seconds."
       tabs:
         last_inserted: "Last updated"
         most_popular: "Most popular"

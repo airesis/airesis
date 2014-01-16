@@ -50,7 +50,7 @@
         }
     </script>
 <% else %>
-    <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
+    <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::PETITION, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
 <% end %>
 
 

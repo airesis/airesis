@@ -6,59 +6,62 @@
       <%= t('pages.proposals.show.updated_at_html', time: raw("<div class='date_update'></div>"), date: (l @proposal.updated_at)) %>
     </div>
 <% end %>
-<% if @proposal.in_valutation? %>
-    <div class="mycont" id="condition_left">
-      <%=dates_panel(@proposal.quorum) %>
-    </div>
-<% end %>
+<%unless @proposal.is_petition? %>
+    <% if @proposal.in_valutation? %>
+        <div class="mycont" id="condition_left">
+          <%=dates_panel(@proposal.quorum) %>
+        </div>
+    <% end %>
 
-<% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata       %>
-    <div class="mycont">
-      <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %>
-    </div><br/>
-<% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione       %>
-    <div class="mycont">
-      <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end_vote'></div>")) %>
-    </div>
-<% end %>
+    <% if @proposal.proposal_state_id == ProposalState::WAIT #in attesa di essere votata       %>
+        <div class="mycont">
+          <%= t('pages.proposals.show.in_votation_html', start: (l @proposal.vote_period.starttime), end: (l @proposal.vote_period.endtime)) %>
+        </div><br/>
+    <% elsif @proposal.proposal_state_id == ProposalState::VOTING #in votazione       %>
+        <div class="mycont">
+          <%= t('pages.proposals.show.in_votation_until_html', date: raw("<div class='end_vote'></div>")) %>
+        </div>
+    <% end %>
 
 
-<script type="text/javascript">
-    var creationDate = new Date(<%=(@proposal.created_at).to_i * 1000%>);
-    $('.date_creation').countdown($.extend({
-                since: creationDate,
-                significant: 1,
-                format: 'yodhms',
-                layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
-            $.countdown.regional['<%=I18n.locale%>']));
 
-    var updateDate = new Date(<%=(@proposal.updated_at).to_i * 1000%>);
-    $('.date_update').countdown($.extend({
-                since: updateDate,
-                significant: 1,
-                format: 'yodhms',
-                layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
-            $.countdown.regional['<%=I18n.locale%>']));
-    <%if @proposal.quorum.ends_at %>
-    var endsDate = new Date(<%=(@proposal.quorum.ends_at).to_i * 1000%>);
-    $('#end_debate').countdown($.extend({
-                until: endsDate,
-                significant: 3,
-                onExpiry: reload_proposal,
-                description: '<%=l @proposal.quorum.ends_at%>'},
-            $.countdown.regional['<%=I18n.locale%>']));
-    <%end%>
-    <%if @proposal.proposal_state_id == ProposalState::VOTING%>
-    var endsVote = new Date(<%=(@proposal.vote_period.endtime).to_i * 1000%>);
-    $('.end_vote').countdown($.extend({
-                until: endsVote,
-                significant: 3,
-                description: '<%=l @proposal.vote_period.endtime%>'},
-            $.countdown.regional['<%=I18n.locale%>']));
-    <%end%>
+    <script type="text/javascript">
+        var creationDate = new Date(<%=(@proposal.created_at).to_i * 1000%>);
+        $('.date_creation').countdown($.extend({
+                    since: creationDate,
+                    significant: 1,
+                    format: 'yodhms',
+                    layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
+                $.countdown.regional['<%=I18n.locale%>']));
 
-    function reload_proposal() {
-        <%=reload_message %>
-    }
+        var updateDate = new Date(<%=(@proposal.updated_at).to_i * 1000%>);
+        $('.date_update').countdown($.extend({
+                    since: updateDate,
+                    significant: 1,
+                    format: 'yodhms',
+                    layout: '{o<}{on} {ol}{o>} {d<}{dn} {dl}{d>} {h<}{hn} {hl}{h>} {m<}{mn} {ml}{m>}'},
+                $.countdown.regional['<%=I18n.locale%>']));
+        <%if @proposal.quorum.ends_at %>
+        var endsDate = new Date(<%=(@proposal.quorum.ends_at).to_i * 1000%>);
+        $('#end_debate').countdown($.extend({
+                    until: endsDate,
+                    significant: 3,
+                    onExpiry: reload_proposal,
+                    description: '<%=l @proposal.quorum.ends_at%>'},
+                $.countdown.regional['<%=I18n.locale%>']));
+        <%end%>
+        <%if @proposal.proposal_state_id == ProposalState::VOTING%>
+        var endsVote = new Date(<%=(@proposal.vote_period.endtime).to_i * 1000%>);
+        $('.end_vote').countdown($.extend({
+                    until: endsVote,
+                    significant: 3,
+                    description: '<%=l @proposal.vote_period.endtime%>'},
+                $.countdown.regional['<%=I18n.locale%>']));
+        <%end%>
 
-</script>
+        function reload_proposal() {
+            <%=reload_message %>
+        }
+
+    </script>
+<%end%>

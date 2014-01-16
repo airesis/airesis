@@ -11,6 +11,8 @@ Devise.setup do |config|
     helper :url
   end
 
+  config.use_salt_as_remember_token = true
+
   # Automatically apply schema changes in tableless databases
  # config.apply_schema = false
 

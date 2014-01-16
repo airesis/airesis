@@ -95,6 +95,7 @@ Airesis::Application.routes.draw do
       put :regenerate
       get :geocode
       get :facebook_share
+      get :promote
       post :facebook_send_message
     end
   end
