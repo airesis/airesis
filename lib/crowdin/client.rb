@@ -31,7 +31,7 @@ module Crowdin
 
     def upload_translations
 
-      transl_files_path = Dir["config/locales/**/*it-IT.yml"]
+      transl_files_path = Dir["config/locales/**/*.it-IT.yml"]
       files = []
       transl_files_path.each { |path|
         files << { :dest => "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, "en")}", :source => path }
