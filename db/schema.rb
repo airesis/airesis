@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140110120141) do
+ActiveRecord::Schema.define(:version => 20140116104636) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1500,7 +1500,6 @@ ActiveRecord::Schema.define(:version => 20140110120141) do
     t.datetime "updated_at"
     t.string   "login",                     :limit => 40
     t.string   "password_salt",             :limit => 40
-    t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
