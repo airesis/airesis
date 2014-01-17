@@ -50,8 +50,6 @@ class GroupsController < ApplicationController
   end
 
   def show
-
-
     @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
     respond_to do |format|
       format.js {

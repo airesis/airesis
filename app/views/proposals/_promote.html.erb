@@ -1,30 +1,101 @@
-
-<div id="promote_steps">
-  <form class="disableForm">
+<%j = 0%>
+<div id="promote_container" class="reveal-modal" data-reveal>
+  <h2><%= '' %></h2>
+  <div id="promote_steps">
+    <form id="promote_form">
       <div class="legend">
-        <div class="number">1</div>
+        <div class="number"><%=j+=1%></div>
         <div class="title">
-          <%= t('pages.events.new.step_2') %>
+          <%= 'Sign' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number">2</div>
+        <div class="number"><%=j+=1%></div>
         <div class="title">
-          <%= t('pages.events.new.step_3') %>
+          <%= 'Suggestions' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Promote' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Share' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Facebook' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Become fan' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Twitter' %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number"><%=j+=1%></div>
+        <div class="title">
+          <%= 'Donate' %>
         </div>
       </div>
 
 
       <div class="step root root">
-
-           aaaa
+        <p>
+          <%=raw "Complimenti! La tua proposta è stata creata con successo!<br/>Inizia subito la raccolta firme!<br/>Tu sarai il primo firmatario della petizione. Aggiungi un commento e coinvolgi i tuoi amici per raccogliere altre firme e diffondere la petizione.<br/>Inserisci qui sotto il commento che verrà associato alla tua firma."%>
+          <textarea/>
+          <input type="button" value="Firma e commenta">
+        </p>
 
       </div>
       <div class="step">
-         aaa
+        <%="Come fare per ricevere molte firme? E' facile!<br/>Su Airesis le petizioni più firmate vengono visualizzate nella Home Page pubblica e questo ti permetterà di raccogliere ancora più firme!<br/>E' importante che all'inizio tu raccolga le firme al di fuori di Airesis. Come?"%>
+        <ol>
+          <li>Manda una mail a tutti i tuoi conoscenti che potrebbero essere interessati a firmare la petizione</li>
+          <li>Se hai un sito o un blog scrivi un articolo per far conoscere la petizione</li>
+        </ol>
+
+      </div>
+      <div class="step">
+        aaa
+
+      </div>
+      <div class="step">
+        aaa
+
+      </div>
+      <div class="step">
+        aaa
+
+      </div>
+      <div class="step">
+        aaa
+
+      </div>
+      <div class="step">
+        aaa
+
+      </div>
+      <div class="step">
+        aaa
 
       </div>
 
       <input type="submit">
-  </form>
+    </form>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
 </div>

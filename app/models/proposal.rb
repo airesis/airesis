@@ -95,7 +95,8 @@ class Proposal < ActiveRecord::Base
 
   #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
-  scope :before_votation, {:conditions => {:proposal_state_id => [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT]}}
+  #retrieve proposals in a state before votation, exclude petitions
+  scope :before_votation, where(['proposal_state_id in (?) and proposal_type_id != ?',[ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11 ])
 
   scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
 
@@ -159,12 +160,14 @@ class Proposal < ActiveRecord::Base
                           join groups g on g.id = gp.group_id
                           join group_partecipations gi on (g.id = gi.group_id and gi.user_id = #{user.id})
                           join partecipation_roles pr on (gi.partecipation_role_id = pr.id)
+                          join proposal_types pt on (p.proposal_type_id = pt.id)
                           join events e on e.id = p.vote_period_id
                           left join action_abilitations aa on (aa.partecipation_role_id = pr.id)
                           left join user_votes uv on (uv.proposal_id = p.id and uv.user_id = #{user.id})
                           left join proposal_alerts pa on p.id = pa.proposal_id and pa.user_id = #{user.id}
                           left join proposal_rankings pk on p.id = pk.proposal_id and pk.user_id = #{user.id}
                           where  p.proposal_state_id = #{ProposalState::VOTING}
+                          and pt.name != '#{ProposalType::PETITION}'
                           and uv.id is null
                           and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{PartecipationRole::PORTAVOCE})
                           order by e.endtime asc")
