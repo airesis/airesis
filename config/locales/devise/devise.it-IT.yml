@@ -25,7 +25,7 @@ it-IT:
       signed_out: "Sei uscito correttamente"
       user:
         signed_out: 'Hai eseguito logout. Ciao!'
-        signed_in: 'Hai eseguito l''autenticazione. Benvenuto!'
+        signed_in: "Hai eseguito l'autenticazione. Benvenuto!"
         signed_up: 'Hai eseguito correttamente la registrazione. Benvenuto!'
     passwords:
       send_instructions: "Entro qualche minuto riceverai un messaggio email con le istruzioni per reimpostare la tua password"
