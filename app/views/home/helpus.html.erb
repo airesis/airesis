@@ -1,5 +1,5 @@
-<% @page_title = "Aiutaci come puoi, ognuno può contribuire" %>
-<% @page_descr = "Contribuisci come per realizzare uno strumento capace di evolvere la democrazia " %>
+<% @page_title = t('home.helpus.title') %>
+<% @page_descr = t('home.helpus.description') %>
 <div class="row" xmlns="http://www.w3.org/1999/html">
   <div class="row centered">
     <dl class="sub-nav">
@@ -32,7 +32,7 @@
   <div class="row centered">
     <div id="sostenere" class="fake_anchor"></div>
     <h2><%= t('.paragraph2.title') %></h2>
-    <%= t('.paragraph2.content_html', link: (link_to t('.paragraph2.link'), donations_url)) %>
+    <%= t('.paragraph2.content_html', link:donations_url) %>
   </div>
 </div>
 <div class="slide red">
@@ -42,17 +42,179 @@
     <%= t('.paragraph3.content_html') %>
 
 
-    <div style="text-align: center;">
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-        <input type="hidden" name="cmd" value="_s-xclick" style="border: 0px;"/>
-        <input type="hidden" name="hosted_button_id" value="RL58BCGC6TS48" style="border: 0px;"/>
-        <input type="image" name="submit" src="https://www.paypalobjects.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" alt="PayPal - Il metodo rapido, affidabile e innovativo per pagare e farsi pagare." style="border: 0px;"/>
-        <img src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" border="0" alt="" width="1" height="1" style="display: block; margin-left: auto; margin-right: auto;"/>
-      </form>
-    </div>
-    <%= t('.paragraph4.content_html') %>
+    <div>
 
+      <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post">-->
+        <!--<input type="hidden" name="cmd" value="_s-xclick" style="border: 0px;"/>-->
+        <!--<input type="hidden" name="hosted_button_id" value="RL58BCGC6TS48" style="border: 0px;"/>-->
+        <!--<input type="image" name="submit" src="https://www.paypalobjects.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" alt="PayPal - Il metodo rapido, affidabile e innovativo per pagare e farsi pagare." style="border: 0px;"/>-->
+        <!--<img src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" border="0" alt="" width="1" height="1" style="display: block; margin-left: auto; margin-right: auto;"/>-->
+      <!--</form>-->
+    </div>
+
+    <ul class="small-block-grid-2 large-block-grid-4">
+      <li>
+        <ul class="pricing-table">
+          <li class="title">Clouchar</li>
+          <li class="price">1.00€</li>
+          <li class="description">A simple donation to help the project</li>
+          <li class="bullet-item">Buy 1/2 coffee for the developer</li>
+          <li class="cta-button">
+            <a class="button show-for-small" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="small"
+                      data-currency="EUR"
+                      data-amount="1.00"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a><a class="button show-for-medium-up" href="#">
+            <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                    data-button="donate"
+                    data-name="Airesis"
+                    data-number="1"
+                    data-size="large"
+                    data-currency="EUR"
+                    data-amount="1.00"
+                    data-quantity="1"
+                    data-lc="<%=I18n.locale%>"
+                    data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+            </script>
+          </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <ul class="pricing-table">
+          <li class="title">Standard</li>
+          <li class="price">5.00€</li>
+          <li class="description">Advanced donator</li>
+          <li class="bullet-item">Help the developer fix 1/2 bug</li>
+          <li class="cta-button">
+            <a class="button show-for-medium-up" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="large"
+                      data-currency="EUR"
+                      data-amount="5.00"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+            <a class="button show-for-small" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="small"
+                      data-currency="EUR"
+                      data-amount="5.00"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <ul class="pricing-table">
+          <li class="title">Premium</li>
+          <li class="price">20.00€</li>
+          <li class="description">Become member of Tecnologie Democratiche</li>
+          <li class="bullet-item">Membership</li>
+          <li class="cta-button">
+            <a class="button show-for-small" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="small"
+                      data-currency="EUR"
+                      data-amount="20.00"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+            <a class="button show-for-medium-up" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="large"
+                      data-currency="EUR"
+                      data-amount="20.00"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <ul class="pricing-table">
+          <li class="title">Custom</li>
+          <li class="price">--.--€</li>
+          <li class="description">Any amount</li>
+          <li class="bullet-item">Your help is greatly appreciated!</li>
+          <li class="cta-button">
+            <a class="button show-for-small" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="small"
+                      data-currency="EUR"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+            <a class="button show-for-medium-up" href="#">
+              <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                      data-button="donate"
+                      data-name="Airesis"
+                      data-number="1"
+                      data-size="large"
+                      data-currency="EUR"
+                      data-quantity="1"
+                      data-lc="<%=I18n.locale%>"
+                      data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+              </script>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+    <%= t('.paragraph4.content_html', mail: "info@airesis.it") %>
   </div>
-</div>
+  </div>
+
+<script type="text/javascript">
+    $("[data-match-height]").each(function() {
+
+        var parentRow = $(this),
+                childrenCols = $(this).find("[data-height-watch]"),
+                childHeights = childrenCols.map(function(){ return $(this).height(); }).get(),
+                tallestChild = Math.max.apply(Math, childHeights);
+
+        childrenCols.css('min-height', tallestChild);
+
+    });
+</script>
+
 
 <%= render :partial => 'linkback' %>

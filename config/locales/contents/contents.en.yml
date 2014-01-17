@@ -378,47 +378,48 @@ en:
            Check this page often if you are interested to know which features are being developed and come back soon to visit us!</p>
     helpus:
       paragraph1:
-        title: "Why support Airesis project"
+        title: "Why are we asking you to support Airesis?"
         content_html: |
-          <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
-          la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
-          Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
-          tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
-          E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli utenti.</p>
+          <p>
+           The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
+           However, volunteering and hard work alone are not sufficient: money is needed to mantain a server installation publicly available, to keep the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
+           </p>
       paragraph2:
-        title: "Choose what support"
+        title: "Choose what to support"
         content_html: |
           <p>Airesis allow you to donate for single features.
-        link: "donations page"
+          The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
+          <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
+          <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
       paragraph3:
         title: "How to donate"
         content_html: |
-          <p>It was created the Association for Social Promotion named
+          <p> The Association for Social Promotion named
             <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
-            in order to support the development of Airesis and allow the project sustenance.
-            Your donation will be entirely addressed to the development and hosting platform.
-            Support us financially in order to pay for an experienced senior programmer and for the
-            maintenance of the server hosting our application:
+            was created in order to support the development of Airesis and allow the project sustenance.
+            Your donation will be entirely addressed to the development and hosting of the platform.
+            Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
           </p>
           <ul>
-            <li>You can donate through a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
-            <li>Through a donation carried out by Paypal:</li>
+            <li>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
+            <li>With a donation using Paypal:</li>
           </ul>
       paragraph4:
         content_html: |
-          <p><a href="mailto:info@airesis.it">Contact us</a> for more information.</p>
+          <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>
 
       paragraph5:
         title: "Fai conoscere il progetto"
+      title: "Help us as you want, anyone can contribute"
+      description: "Contribute to realize a tool capable of evolving e-democracy"
     linkback:
       paragraph1:
-        title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
+        title: "Help us spread the word about this e-democracy tool"
         content_html: |
           <p>Our project needs to be known by all those who care about the future of our democracy.
-          Help us to spread it in blogs and forums, on Facebook, on social
-          networks and wherever there is a desire for democracy.</p>
-          <p>You can use it if you want our link or our banner on your site or that of friends, associations or
-          organizations that share the goals of the project.
+          Help us spread it in blogs and forums, on Facebook, on social networks and wherever there is a desire for democracy.</p>
+          <p>You can use our link or our banner on your site or in friends', associations' or
+          organizations' ones that share the goals of the project.
           In order to display the banner or link on your website, copy the code found below and insert it
           in the code page of your site, at the point where you want it to be displayed:</p>
       paragraph2:
@@ -426,7 +427,7 @@ en:
       paragraph3:
         title: "Text link"
         content_html: |
-          <p>If you choose to publish your banner will be of great help to the project. Thank you.</p>
+          <p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>
     tags:
       title: "Airesis - Make a decision"
       description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"
@@ -475,8 +476,10 @@ en:
         title: "Analyst"
         description_html: |
           <p>
-          He is the conjunction ring between users and the development team. <br/>
-          He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.
+            He is the conjunction ring between users and the development team. <br/>
+            He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.<br/>
+            He elaborates algorithms, as well as pros and cons of each feature, and its possible impropriate uses.
+          </p>
       first_lev_tester:
         title: "First-level tester"
         description_html: |
@@ -495,5 +498,30 @@ en:
         title: "Graphic designer"
         description_html: |
           <p>
-          The graphic designer draws the user interfaces and gives their drafts to the development group.
+            The graphic designer draws the user interfaces and gives their drafts to the development group.
+            He improves the usability and comprehensiveness of the texts in the software (eg: user guides...)
+          </p>
+      recruiter:
+        title: "Recruitment"
+        description_html: |
+          <p>
+            He is in charge of looking for new volunteers willing to help in this project, testers, as well as groups available to use the software
+            for their needs.
+            He engages groups of people that are not represented by the development group (women, people with low informatic skills, etc...) so that the software can be
+            attractive even and foremost to them, basing on their feedbacks.
+          </p>
+      communication:
+        title: "Communication manager"
+        description_html: |
+          <p>
+            He manages press contacts, promotes the software looking for new users, technical aspects such as linkback and SEO (Search Engine Optimization),
+            viral marketing (eg. creating interesting proposals), videos and informative documentation.
+            He updates social networks and media, represent the external referent-spokesman.
+          </p>
+      i18n:
+        title: "Internazionalization"
+        description_html: |
+          <p>
+            He is in charge of the software translation. He contacts and coordinates foreign translators.<br/>
+            (N.B.: it is not required to posses any programming skill)
           </p>

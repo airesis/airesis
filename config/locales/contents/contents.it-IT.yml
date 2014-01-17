@@ -386,7 +386,7 @@ it-IT:
           Controlla spesso questa pagina se sei interessato a conoscere quali funzionalità sono in fase di sviluppo e torna a trovarci !</p>
     helpus:
       paragraph1:
-        title: "Perchè sostenere Airesis"
+        title: "Perchè sostenere Airesis?"
         content_html: |
           <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
           la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
@@ -399,8 +399,7 @@ it-IT:
           <p>Airesis permette di effettuare donazioni mirate su singole funzionalità.
           Il gruppo di sviluppo ha in cantiere decine di idee ma per realizzarle servono fondi per portare avanti i lavori.</p>
           <p>Da oggi puoi scegliere di fare una donazione per la realizzazione di una specifica funzionalità, o proporci nuove idee per le quali saresti disposto a donare qualcosa.</p>
-          <p>Vai alla %{link} e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
-        link: "pagina dedicata alle donazioni"
+          <p>Vai alla <a href=%{link}> pagina dedicata alle donazioni</a> e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
       paragraph3:
         title: "Come donare"
         content_html: |
@@ -417,10 +416,12 @@ it-IT:
           </ul>
       paragraph4:
         content_html: |
-          <p><a href="mailto:info@airesis.it">Contattaci</a> per maggiori informazioni.</p>
+          <p><a href="mailto:%{mail}">Contattaci</a> per maggiori informazioni.</p>
 
       paragraph5:
         title: "Fai conoscere il progetto"
+      title: "Aiutaci come puoi, ognuno può contribuire"
+      description: "Contribuisci per realizzare uno strumento capace di evolvere l' e-democracy"
     linkback:
       paragraph1:
         title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
@@ -488,8 +489,9 @@ it-IT:
         title: "Analista"
         description_html: |
           <p>
-          E' l'anello di congiunzione tra gli utenti ed il gruppo di sviluppo. <br/>
-          Raccoglie le necessità dei gruppi e dei cittadini e fornisce al gruppo di sviluppo la documentazione necessaria e dettagliata per lo sviluppo di nuove funzionalità o il miglioramento di quelle esistenti.
+            E' l'anello di congiunzione tra gli utenti ed il gruppo di sviluppo. <br/>
+            Raccoglie le necessità dei gruppi e dei cittadini e fornisce al gruppo di sviluppo la documentazione necessaria e dettagliata per lo sviluppo di nuove funzionalità o il miglioramento di quelle esistenti.<br/>
+            Individua algoritmi di calcolo, così come conseguenze positive e negative prodotte da ciascuna funzione e dal suo uso improprio.
           </p>
       first_lev_tester:
         title: "Tester di primo livello"
@@ -512,5 +514,29 @@ it-IT:
         title: "Grafico"
         description_html: |
           <p>
-          Disegna le interfacce utente e fornisce le bozze al gruppo di sviluppo.
+            Disegna le interfacce utente e fornisce le bozze al gruppo di sviluppo.
+            Cura l'accessibilità e la comprensibilità/leggibilità dei testi presenti nel software (guide per gli utenti...)
+          </p>
+      recruiter:
+        title: "Reclutatore"
+        description_html: |
+          <p>
+            Si occupa della ricerca di nuovi volontari disposti a portare avanti il progetto, di testers,
+            nonchè di gruppi disponibili ad utilizzare il software per le loro attività.
+            Coinvolge le categorie meno rappresentate nel gruppo di sviluppo (donne, persone a bassa alfabetizzazione informatica...) così da rendere il software attraente anche e soprattutto per loro, sulla base dei loro feedback.
+          </p>
+      communication:
+        title: "Addetto alla comunicazione"
+        description_html: |
+           <p>
+             Si occupa di gestire contatti con la stampa, promuovere il software per cercare possibili utenze, aspetti tecnici come linkback e SEO (ottimizzazione motori di ricerca),
+             marketing virale (es. creazione di proposte particolarmente interessanti), video e documenti promozionali e divulgativi.
+             Aggiorna i canali di informazione su social network, rappresenta il referente-portavoce verso l'esterno.
+           </p>
+      i18n:
+        title: "Internazionalizzazione"
+        description_html: |
+          <p>
+            Si occupa della traduzione del software. Prende contatti e coordina i traduttori stranieri.<br/>
+            (N.B.: non è necessaria alcuna conoscenza di programmazione)
           </p>

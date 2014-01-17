@@ -29,45 +29,45 @@
       <%= t('home.engage.paragraph2.description_html', email: raw(" <SCRIPT TYPE=\"text/javascript\">emailE=('nicolagiulietti@' + 'hotmail.it');document.write('<A href=\"mailto:' + emailE + '\">' + emailE + '</a>')</SCRIPT>"),
                                                        chisiamo: chisiamo_path, cell:"380 2931955",
                                                        form:"https://docs.google.com/forms/d/1UJXAIaLYp73XRr_BfvOG-V4Yw9Xf9K0eARNGevtyE1M/viewform")%>
+
       <div class="panel">
         <h3><%= t('home.engage.developer.title')%></h3>
-
         <%=t('home.engage.developer.description_html', chisiamo: chisiamo_path) %>
       </div>
 
       <div class="panel">
         <h3><%= t('home.engage.analyst.title')%></h3>
-
         <%=t('home.engage.analyst.description_html') %>
       </div>
 
       <div class="panel">
         <h3><%= t('home.engage.first_lev_tester.title')%></h3>
-
         <%=t('home.engage.first_lev_tester.description_html') %>
       </div>
 
       <div class="panel">
         <h3><%= t('home.engage.sec_lev_tester.title')%></h3>
-
         <%=t('home.engage.sec_lev_tester.description_html') %>
       </div>
 
       <div class="panel">
         <h3><%= t('home.engage.graphic.title')%></h3>
-
         <%=t('home.engage.graphic.description_html') %>
       </div>
 
       <div class="panel">
-        <h3><%="Reclutatore"%></h3>
+        <h3><%= t('home.engage.recruiter.title')%></h3>
+        <%=t('home.engage.recruiter.description_html') %>
+      </div>
 
-        <p>
-          Si occupa della ricerca di nuovi volontari disposti a portare avanti il progetto, di testers,
-          nonchè di gruppi disponibili ad utilizzare il software per le loro attività e la verifica del funzionamento
-          delle
-          logiche.
-        </p>
+      <div class="panel">
+        <h3><%= t('home.engage.communication.title')%></h3>
+        <%= t('home.engage.communication.description_html')%>
+      </div>
+
+      <div class="panel">
+        <h3><%=t('home.engage.i18n.title') %></h3>
+        <%=t('home.engage.i18n.description_html') %>
       </div>
     </div>
   </div>
