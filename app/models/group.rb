@@ -221,7 +221,7 @@ class Group < ActiveRecord::Base
 
   #restituisce la lista dei portavoce del gruppo
   def portavoce
-    self.partecipants.where(:conditions => {"group_partecipations.partecipation_role_id" => 2})
+    self.partecipants.where(["group_partecipations.partecipation_role_id = ?",PartecipationRole::PORTAVOCE])
   end
 
   def partecipant_tokens=(ids)
