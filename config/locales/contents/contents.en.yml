@@ -201,7 +201,7 @@ en:
         content_html: |
           <p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può
             disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
-          <ul>
+          <ul class="disc">
             <li>Visualizzare le proposte private</li>
             <li>Contribuire alle proposte</li>
             <li>Inserire nuove proposte nel gruppo</li>
@@ -347,73 +347,74 @@ en:
       title: "Press Release"
     roadmap:
       paragraph1:
-        title: "Destination: direct and participatory democracy"
+        title: "Destination: direct democracy"
         content_html: |
-          <p>Airesis was born from the merging of two projects launched over two years ago as a result of the need to be able to use a
-           computer tool that could integrate the main features of social networks,
-           event management and online mass decision making system.</p>
-          <p>In March, 2012, during the meeting "Five stars citizen" (Cittadini a cinque stelle) organized in Rimini, Alessandro Rodi
-           with the Airesis project comes into contact with Nicola Giulietti and the Agora 2.0 project: on one side, there was a good software,
-           while on the other side there was an excellent analysis of the features that a portal
-           for participatory democracy should have been.</p>
+          <p>Airesis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
+           software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
+          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
+           with its Airesis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
+           on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
           <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
-           implement the functions identified by the Agora 2.0 group in more than a year's work.</p>
-          <p>The mission was (and is) still ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
+           implement the functions identified by the Agora 2.0 group in more than a year long work.</p>
+          <p>The mission was (and still is) ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
           <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
            analysts, mathematicians, graphic designers and responsible citizens.</p>
           <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
            in order to apply a process of continuous improvement.</p>
       paragraph2:
-        title: "The evolution of the Airesis project"
+        title: "The evolution of Airesis"
         content_html: |
-          <p>The list below shows the changes in Airesis during its evolution.
-           You can also find, here highlighted, the innovations planned for future versions.
-           Check this page often if you are interested to know which features are being developed and come back soon to visit us!</p>
+          <p>The list below shows the changes of Airesis during its evolution.
+           You can also find highlighted the innovations planned for future versions.
+           Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
+      title: "The evolution of Airesis"
+      description: "Our road to realize a new software, an idea capable of evolving democracy that came to life in the web."
     helpus:
       title: "Help us, everyone can contribute"
       description: "Contribute to create a tool able to evolve democracy"
       paragraph1:
-        title: "Why support Airesis project"
+        title: "Why are we asking you to support Airesis?"
         content_html: |
-          <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
-          la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
-          Purtroppo però, il volontariato non basta: servono fondi per mantenere un'installazione del software aperta a
-          tutti, dove sperimentare le migliorie e le funzionalità che stiamo sviluppando.
-          E' inoltre necessario avvalersi di lavoro retribuito per la manutenzione del server e l'assistenza agli utenti.</p>
+          <p>
+           The volunteers working on this project spend a considerable amount of time in order to bring a useful software for our communities.
+           However, volunteering and hard work alone are not sufficient: money is needed to mantain a server installation publicly available, to keep the software updated and experiment with the new features and improvements we are developing. In addition to this, paid work is required for server maintenance and user help desk.
+           </p>
       paragraph2:
-        title: "Choose what support"
+        title: "Choose what to support"
         content_html: |
           <p>Airesis allow you to donate for single features.
-        link: "donations page"
+          The development group has dozens of ideas to improve the software, however funds are required to implement them</p>
+          <p>Today you can donate to realize a specific feature, or to suggest new ideas you are willing to donate for.</p>
+          <p>Go to the <a href=%{link}>donations page</a> and see what we would like to realize with your help!</p>
       paragraph3:
         title: "How to donate"
         content_html: |
-          <p>It was created the Association for Social Promotion named
+          <p> The Association for Social Promotion named
             <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>
-            in order to support the development of Airesis and allow the project sustenance.
-            Your donation will be entirely addressed to the development and hosting platform.
-            Support us financially in order to pay for an experienced senior programmer and for the
-            maintenance of the server hosting our application:
+            was created in order to support the development of Airesis and allow the project sustenance.
+            Your donation will be entirely addressed to the development and hosting of the platform.
+            Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
           </p>
-          <ul>
-            <li>You can donate through a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
-            <li>Through a donation carried out by Paypal:</li>
+          <ul class="disc">
+            <li>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
+            <li>With a donation using Paypal:</li>
           </ul>
       paragraph4:
         content_html: |
-          <p><a href="mailto:info@airesis.it">Contact us</a> for more information.</p>
+          <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>
 
       paragraph5:
-        title: "Fai conoscere il progetto"
+        title: "Spread the word about this project"
+      title: "Help us as you want, anyone can contribute"
+      description: "Contribute to realize a tool capable of evolving e-democracy"
     linkback:
       paragraph1:
-        title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
+        title: "Help us spread the word about this e-democracy tool"
         content_html: |
           <p>Our project needs to be known by all those who care about the future of our democracy.
-          Help us to spread it in blogs and forums, on Facebook, on social
-          networks and wherever there is a desire for democracy.</p>
-          <p>You can use it if you want our link or our banner on your site or that of friends, associations or
-          organizations that share the goals of the project.
+          Help us spread it in blogs and forums, on Facebook, on social networks and wherever there is a desire for democracy.</p>
+          <p>You can use our link or our banner on your site or in friends', associations' or
+          organizations' ones that share the goals of the project.
           In order to display the banner or link on your website, copy the code found below and insert it
           in the code page of your site, at the point where you want it to be displayed:</p>
       paragraph2:
@@ -421,102 +422,101 @@ en:
       paragraph3:
         title: "Text link"
         content_html: |
-          <p>If you choose to publish your banner will be of great help to the project. Thank you.</p>
-    whowe:
+          <p>If you choose to publish your banner it will be of great help to the project. Thank you.</p>
+    tags:
+      title: "Airesis - Make a decision"
+      description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"
+    engage:
+      title: "Participate in the project for a new democracy"
+      description: "Contribute in this project with your experiences, help us build a new democracy, more transparent and shared"
+      nav:
+        opensource: "Open Source"
+        participate: "Participate"
+        banner: "Banner"
       paragraph1:
-        title: "Citizens looking forward to a better democracy"
-        content_html: |
-          <p>Airesis has originally been developed by a former group (the original Airesis group) that
-          later on joined another group of people working on a similar software called Agora 2.0.
-          The current Airesis project is therefore now enriched by the efforts of the original Airesis
-          team and those of the former Agora 2.0 team.</p>
-          <p>The goal of the team is to give to citizens a software platform that allows them to cope with
-          most of the problems of our society by allowing the creation, the discussion and voting on
-          proposals in a transparent, democratic, constructive and participative way.</p>
-          <p>If you also share our values, you can join us by contacting us
-          Please have a look at %{story}. Please find out how our project was born and what
-          our perspectives for the future are</p>
-        story: "our history here"
-      thanks_1: "The “Incontro dei cittadini a 5 Stelle” group who supported and financed the project  by paying for the site hosting expenses of 2013 and 2014"
-      thanks_2: "All the people working and helping the project, introducing the project to  professionals and users in Italy and around the world"
-      thanks_3: "Whoever follows us in our Facebook page and in our mailing list, providing us with  feedbacks and suggestions"
-      thanks_4: "All the people who provided us with their houses and helped us with hosting a  group meeting"
-      thanks_5_html: |
-       <a href="http://www.jetbrains.com/" target="_blank">JetBrains</a>, who provided us with <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> for free
-      thanks_6_html: |
-        <a href="https://crowdin.net/" target="_blank">Crowdin</a>, who provided us their <a href="https://crowdin.net/project/airesis" target="_blank">platform for internationalization and translation services</a> for free.
-      thanks_7_html: |
-        <a href="http://www.gurock.com/" target="_blank">Gurock Software</a> who provided us the  <a href="http://www.gurock.com/testrail/" target="_blank">TestRail</a> platform testing management software for free
-      thanks_8_html: |
-        Our very gentle friend <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> who allows us to use <a href="http://railscasts.com/" target="_blank">RailsCasts</a> for tutorial and  other videos about Ruby on Rails for free.
-    statistics:
-      title: "Statistics"
-      proposals_number: "Total number of proposals:"
-      proposals_debate: "Number of proposals currently in debate:"
-      proposals_vote: "Number of proposals currently in votation:"
-      proposals_voted: "Total number of voted proposals:"
-      proposals_rejected: "Total number of rejected proposals:"
-      users_count: "Number of Airesis users:"
-      users_lastmonth: "Number of users that joined us in the last month:"
-      groups_count: "Groups number:"
-      proposals_per_month: "Proposals per month"
-    donations:
-      title: "Help us, everyone can contribute"
-      description: "Contribute to create a tool able to evolve democracy"
-  devise:
-    registrations:
-      privacy:
-        privacy_html: |
-          <ol style="padding-left:10px">
-          <li><b>Introduction</b>
-            This following document sets forth the Privacy Policy for Airesis.
-            Airesis sets out a number of principles concerning the privacy of individuals.
-          </li>
-          <li>
-            <b>Collection of your personal information</b>
-            There are many aspects of the site which can be viewed without providing personal
-            information, however, for access to future Airesis support features you are required to
-            submit personally identifiable information. This may include but not limited to a unique
-            username and password, or provide sensitive information in the recovery of your lost
-            password.
-          </li>
-          <li>
-            <b>Sharing of your personal information</b>
-            We may occasionally hire other companies to provide services on our behalf, including
-            but not limited to handling customer support enquiries, processing transactions or
-            customer freight shipping. Those companies will be permitted to obtain only the personal
-            information they need to deliver the service. Airesis takes reasonable steps to ensure that
-            these organisations are bound by confidentiality and privacy obligations in relation to the
-            protection of your personal information.
-          </li>
-          <li>
-            <b>Use of your personal information</b>
-            For each visitor to reach the site, we expressively collect the following non-personally
-            identifiable information, including but not limited to browser type, version and language,
-            operating system, pages viewed while browsing the Site, page access times and referring
-            website address. This collected information is used solely internally for the purpose of
-            gauging visitor traffic, trends and delivering personalized content to you while you are at
-            this Site.
-            From time to time, we may use customer information for new, unanticipated uses not
-            previously disclosed in our privacy notice. If our information practices change at some time
-            in the future we will use for these new purposes only, data collected from the time of the
-            policy change forward will adhere to our updated practices.
-          </li>
-          <li>
-            <b>Changes to this Privacy Policy</b>
-            Airesis reserves the right to make amendments to this Privacy Policy at any time. If you
-            have objections to the Privacy Policy, you should not access or use the Site.
-          </li>
-          <li>
-            <b>Contacting.</b>
-            Airesis welcomes your comments regarding this Privacy Policy. If you have any questions
-            about this Privacy Policy and would like further information, please contact us by sending an email to the webmaster
-          </li>
-          </ol>
-
-  pages:
-    proposals:
-      new:
-        signatures: "Signatures target"
-  buttons:
-    mark: "Mark"
+        title: "Airesis is open to everyone"
+        description_html: |
+          <p>Airesis is a project based upon a free and open-source software. You can contribute to its development:</p>
+          <ul>
+            <li>Using the platform and doing bug-checking</li>
+            <li>Giving comments and suggestions about usability and platform UI</li>
+            <li>Programming the platform UI (REQUIRED: knowledge of HTML, CSS or Javascript)</li>
+            <li>Programming the platform server-side (REQUIRED: knowledge of Ruby and/or C++ language, or will to learn it with the help of other volunteers)</li>
+            <li>Supporting us with a <a href=%{donations_path}>donation</a> or searching founds</li>
+            <li><a href="#linkback">Spreading the word</a> about the project and managing its comunication</li>
+          </ul>
+          <p>To help us coordinate our activities we use these tools. You can start from here:</p>
+          <ul>
+            <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
+            <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Development group on Faceook</a></li>
+            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Source code</a></li>
+          </ul>
+      paragraph2:
+        title: "How to contribute"
+        description_html: |
+          <p>Anyone can help in the open-source project Airesis: you do not need to be a programmer, since there is a lot of activities to do anyway.
+          In the project <a href=%{chisiamo}>we are all unpaid volunteers</a>, sharing the will to help citizens organize transparently and participate in the making of a top notch democracy.</p>
+          <p>To report your availability please fill <a href="%{form}" target="_blank"><strong>this form</strong></a>, or contact <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} in case of doubts or you want more informations.</p>
+          <p>Here is a list of volunteers that we need:</p>
+      developer:
+        title: "Developer"
+        description_html: |
+          <p>
+          The developer is the person who actually writes the code of Airesis. <br/>
+          He follows the specifications and guidelines agreed upon by the team.
+          The developer will write new modules in Ruby when there will be new features to be added, or HTML pages, using also CSS and Javascript in case of UI functionalities.<br/>
+          New applicants fwill be helped and guided by the <a href="%{chisiamo}" target="_blank">head programmer</a> in their first steps to easily start their jobs.
+          </p>
+      analyst:
+        title: "Analyst"
+        description_html: |
+          <p>
+            He is the conjunction ring between users and the development team. <br/>
+            He collects feedbacks from groups and citizens and gives the development team all the required documentations to develop new functionalities or improve existing ones.<br/>
+            He elaborates algorithms, as well as pros and cons of each feature, and its possible impropriate uses.
+          </p>
+      first_lev_tester:
+        title: "First-level tester"
+        description_html: |
+          <p>
+          The first-level tester is a person available to test the system without necessarily have to provide any technical feedback about the code.
+          The first level tester is required to know about how to run the system and be able to use an internet browser or social networking system but it is not required to know any programming language.<br/>
+          Feedback from a first-level tester will then be about unexpected occurrences from the system and bugs.
+          </p>
+      sec_lev_tester:
+        title: "Second-level tester"
+        description_html: |
+          <p>
+          Good knowledge of programming is required to become a second-level tester. He is asked to perform more stringent and detailed tests than the first-level tester. A second-level tester works on complex issues and is able to push the whole system under stress, to discover hidden problems.
+          </p>
+      graphic:
+        title: "Graphic designer"
+        description_html: |
+          <p>
+            The graphic designer draws the user interfaces and gives their drafts to the development group.
+            He improves the usability and comprehensiveness of the texts in the software (eg: user guides...)
+          </p>
+      recruiter:
+        title: "Recruitment"
+        description_html: |
+          <p>
+            He is in charge of looking for new volunteers willing to help in this project, testers, as well as groups available to use the software
+            for their needs.
+            He engages groups of people that are not represented by the development group (women, people with low informatic skills, etc...) so that the software can be
+            attractive even and foremost to them, basing on their feedbacks.
+          </p>
+      communication:
+        title: "Communication manager"
+        description_html: |
+          <p>
+            He manages press contacts, promotes the software looking for new users, technical aspects such as linkback and SEO (Search Engine Optimization),
+            viral marketing (eg. creating interesting proposals), videos and informative documentation.
+            He updates social networks and media, represent the external referent-spokesman.
+          </p>
+      i18n:
+        title: "Internazionalization"
+        description_html: |
+          <p>
+            He is in charge of the software translation. He contacts and coordinates foreign translators.<br/>
+            (N.B.: it is not required to posses any programming skill)
+          </p>

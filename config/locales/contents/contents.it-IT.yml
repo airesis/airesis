@@ -214,7 +214,7 @@ it-IT:
         content_html: |
           <p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può
             disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
-          <ul>
+          <ul class="disc">
             <li>Visualizzare le proposte private</li>
             <li>Contribuire alle proposte</li>
             <li>Inserire nuove proposte nel gruppo</li>
@@ -367,13 +367,13 @@ it-IT:
           <p>Airesis nasce dall'incontro e dalla fusione di due progetti avviati oltre due anni fa a seguito della necessità di
            usufruire di uno strumento informatico che potesse integrare le funzioni principali di social network, gestione di
            eventi e sistema deliberativo di massa.</p>
-          <p>A Marzo 2012, durante l'incontro "Cittadini a cinque stelle" organizzato a Rimini, Rodi Alessandro con il
+          <p>A Marzo 2012, durante l'incontro "Cittadini a cinque stelle" organizzato a Rimini, Alessandro Rodi con il
            progetto Airesis entra in contatto con Nicola Giulietti ed il progetto Agora 2.0: da una parte c'era un buon
            software, mentre dall'altra un'ottima analisi delle caratteristiche avrebbe dovuto avere un portale per la
            democrazia partecipata.</p>
           <p>In seguito a tale incontro si decise di collaborare nello sviluppo di una comune applicazione open source affinchè
            essa potesse implementare le funzionalità individuate dal gruppo di Agora 2.0 in oltre un anno di lavoro.</p>
-          <p>La missione era (ed è) tuttora ambiziosa, ma sappiamo che è possibile realizzarla con gli strumenti giusti, passo dopo passo.</p>
+          <p>La missione era (ed è tuttora) ambiziosa, ma sappiamo che è possibile realizzarla con gli strumenti giusti, passo dopo passo.</p>
           <p>Grazie alla nostra determinazione quello che sembrava un sogno di libertà, ha trovato il supporto di
            numerose persone ed il sostegno di programmatori, analisti, matematici, grafici e cittadini responsabili.</p>
           <p>Attualmente le release del software avvengono a cadenza mensile o bimestrale per soddisfare le richieste e le
@@ -384,11 +384,13 @@ it-IT:
           <p>Nell'elenco sottostante sono riportati i cambiamenti avvenuti in Airesis durante la sua evoluzione.
           Sono evidenziate anche le novità previste per le versioni future.
           Controlla spesso questa pagina se sei interessato a conoscere quali funzionalità sono in fase di sviluppo e torna a trovarci !</p>
+      title: "Road Map e futuri sviluppi"
+      description: "Il nostro percorso per realizzare un nuovo software, una idea nata con internet capace di far evolvere la democrazia."
     helpus:
       title: "Aiutaci come puoi, ognuno può contribuire"
       description: "Contribuisci per realizzare uno strumento capace di evolvere la democrazia"
       paragraph1:
-        title: "Perchè sostenere Airesis"
+        title: "Perchè sostenere Airesis?"
         content_html: |
           <p> I volontari di questo progetto impiegano molte ore per realizzare uno strumento al servizio dei cittadini:
           la loro disponibilità è ripagata unicamente dalla soddisfazione di realizzare qualcosa di utile.
@@ -401,8 +403,7 @@ it-IT:
           <p>Airesis permette di effettuare donazioni mirate su singole funzionalità.
           Il gruppo di sviluppo ha in cantiere decine di idee ma per realizzarle servono fondi per portare avanti i lavori.</p>
           <p>Da oggi puoi scegliere di fare una donazione per la realizzazione di una specifica funzionalità, o proporci nuove idee per le quali saresti disposto a donare qualcosa.</p>
-          <p>Vai alla %{link} e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
-        link: "pagina dedicata alle donazioni"
+          <p>Vai alla <a href=%{link}> pagina dedicata alle donazioni</a> e guarda cosa vorremmo realizzare con il tuo aiuto!</p>
       paragraph3:
         title: "Come donare"
         content_html: |
@@ -413,16 +414,18 @@ it-IT:
             Sostienici economicamente al fine di retribuire un programmatore senior e per il mantenimento del server che
             ospita la nostra applicazione:
           </p>
-          <ul>
+          <ul class="disc">
             <li>Attraverso un bonifico intestato a: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
             <li>Attraverso una donazione su Paypal:</li>
           </ul>
       paragraph4:
         content_html: |
-          <p><a href="mailto:info@airesis.it">Contattaci</a> per maggiori informazioni.</p>
+          <p><a href="mailto:%{mail}">Contattaci</a> per maggiori informazioni.</p>
 
       paragraph5:
         title: "Fai conoscere il progetto"
+      title: "Aiutaci come puoi, ognuno può contribuire"
+      description: "Contribuisci per realizzare uno strumento capace di evolvere l' e-democracy"
     linkback:
       paragraph1:
         title: "Aiutaci a far conoscere questo strumento di democrazia partecipativa"
@@ -440,7 +443,107 @@ it-IT:
         title: "Link testuale"
         content_html: |
           <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>
-    whowe:
+    tags:
+      title: "Airesis - Scegli di partecipare"
+      description: "Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"
+    engage:
+      title: "Partecipa al progetto per una nuova democrazia"
+      description: "Contribuisci a questo progetto con le tue esperienze, aiutaci a realizzare una nuova democrazia, piu' trasparente e piu' condivisa"
+      nav:
+        opensource: "Open source"
+        participate: "Partecipa"
+        banner: "Banner"
+      paragraph1:
+        title: "Airesis è aperto a tutti"
+        description_html: |
+          <p>Airesis si appoggia su un motore totalmente gratuito ed Open Source. Puoi partecipare allo sviluppo:</p>
+          <ul>
+            <li>Fruendo della piattaforma e segnalando i bug e gli errori che riscontri</li>
+            <li>Contribuendo alla grafica, all'usabilit&agrave; e all'intuitivit&agrave; del sistema</li>
+            <li>Programmando l'interfaccia utente della piattaforma (RICHIESTA: Conoscenza di HTML, CSS o Javascript)</li>
+            <li>Programmando la piattaforma lato server (RICHIESTA: Conoscenza del linguaggio Ruby o C/C++, o voglia di imparalo con l'aiuto degli altri volontari)</li>
+            <li>Fornendo un <a href=%{donations_path}>contributo economico</a> al progetto o ricercando finanziamenti</li>
+            <li>Occupandoti di <a href="#linkback">divulgare il progetto</a> e curandone la comunicazione</li>
+          </ul>
+          <p>A tale scopo stiamo usufruendo dei seguenti strumenti per poter coordinare la nostra attivit&agrave;. Puoi partecipare gi&agrave; da qui: </p>
+          <ul>
+            <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Gruppo di sviluppo su Google Groups</a></li>
+            <li><a href="https://www.facebook.com/groups/airesis/" target="_blank">Gruppo di sviluppo su Facebook </a></li>
+            <li><a href="https://github.com/coorasse/Airesis" target="_blank">Codice sorgente</a></li>
+          </ul>
+      paragraph2:
+        title: "Come partecipare al progetto"
+        description_html: |
+          <p>Chiunque pu&ograve; contribuire al progetto open-source Airesis: non &egrave; necessario avere competenze informatiche, le cose da fare sono molte anche per i non programmatori.
+          Nel progetto <a href=%{chisiamo}>siamo tutti volontari</a> non retribuiti, uniti dalla volont&agrave; di aiutare i cittadini ad organizzarsi in modo trasparente e partecipato facendo rifiorire una democrazia di qualit&agrave;.</p>
+          <p>Per segnalarci la tua partecipazione compila <a href="%{form}" target="_blank"><strong>questo modulo</strong></a>, oppure prendi contatto con <strong>Nicola Giulietti</strong>&nbsp;- %{email} - cell. %{cell} se hai dubbi o necessiti di chiarimenti.</p>
+          <p>Ecco un elenco dei volontari di cui abbiamo bisogno:</p>
+      developer:
+        title: "Sviluppatore"
+        description_html: |
+          <p>
+          Lo sviluppatore è colui che scrive materialmente il codice di Airesis. <br/>
+          Segue le linee guida del progetto e si occupa di portare avanti le attività richieste per implementare le diverse funzionalità.<br/>
+          Il suo lavoro consisterà nella scrittura di moduli in Ruby quando ci saranno nuove funzionalità da implementare, o nella scrittura di pagine HTML e,
+          di conseguenza, CSS e Javascript se si occupa dell'interfaccia utente. <br/>
+          Chiunque voglia ricoprire questo ruolo sarà aiutato e guidato dal <a href="%{chisiamo}" target="_blank">referente per la programmazione</a> nelle prime fasi
+          per poter iniziare agevolmente il proprio lavoro.
+          </p>
+      analyst:
+        title: "Analista"
+        description_html: |
+          <p>
+            E' l'anello di congiunzione tra gli utenti ed il gruppo di sviluppo. <br/>
+            Raccoglie le necessità dei gruppi e dei cittadini e fornisce al gruppo di sviluppo la documentazione necessaria e dettagliata per lo sviluppo di nuove funzionalità o il miglioramento di quelle esistenti.<br/>
+            Individua algoritmi di calcolo, così come conseguenze positive e negative prodotte da ciascuna funzione e dal suo uso improprio.
+          </p>
+      first_lev_tester:
+        title: "Tester di primo livello"
+        description_html: |
+          <p>
+          Il tester di primo livello è un utente che, auspicabilmente, non ha alcuna conoscenza tecnica informatica
+          ed un livello di informatizzazione medio, tale per cui è in grado di navigare in internet in autonomia ed è
+          in grado di utilizzare gli strumenti più comuni del web (motori di ricerca, social network, ecc...).<br/>
+          Il tester di primo livello rappresenta il cittadino che utilizza l'applicazione: si occupa di segnalare tutte
+          le pagine e funzionalità del sistema che non si comportano nella maniera in cui si aspetta o che hanno problemi.
+          </p>
+      sec_lev_tester:
+        title: "Tester di secondo livello"
+        description_html: |
+          <p>
+          Il tester di secondo livello è un utente con una buona conoscenza informatica per cui è in grado di eseguire i test più approfonditi del sistema.<br/>
+          Si occupa dei test di sicurezza e forza il sistema al limite, cercando di metterlo sotto stress e riscontrare problemi più complessi.
+          </p>
+      graphic:
+        title: "Grafico"
+        description_html: |
+          <p>
+            Disegna le interfacce utente e fornisce le bozze al gruppo di sviluppo.
+            Cura l'accessibilità e la comprensibilità/leggibilità dei testi presenti nel software (guide per gli utenti...)
+          </p>
+      recruiter:
+        title: "Reclutatore"
+        description_html: |
+          <p>
+            Si occupa della ricerca di nuovi volontari disposti a portare avanti il progetto, di testers,
+            nonchè di gruppi disponibili ad utilizzare il software per le loro attività.
+            Coinvolge le categorie meno rappresentate nel gruppo di sviluppo (donne, persone a bassa alfabetizzazione informatica...) così da rendere il software attraente anche e soprattutto per loro, sulla base dei loro feedback.
+          </p>
+      communication:
+        title: "Addetto alla comunicazione"
+        description_html: |
+           <p>
+             Si occupa di gestire contatti con la stampa, promuovere il software per cercare possibili utenze, aspetti tecnici come linkback e SEO (ottimizzazione motori di ricerca),
+             marketing virale (es. creazione di proposte particolarmente interessanti), video e documenti promozionali e divulgativi.
+             Aggiorna i canali di informazione su social network, rappresenta il referente-portavoce verso l'esterno.
+           </p>
+      i18n:
+        title: "Internazionalizzazione"
+        description_html: |
+          <p>
+            Si occupa della traduzione del software. Prende contatti e coordina i traduttori stranieri.<br/>
+            (N.B.: non è necessaria alcuna conoscenza di programmazione)
+          </p>    whowe:
       paragraph1:
         title: "Cittadini che vogliono una democrazia più evoluta"
         content_html: |

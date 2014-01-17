@@ -3,6 +3,15 @@ en:
     whowe:
       title: "About Us"
       description: "A group of volunteers who want to improve the world in which we live, citizens like you."
+      intro:
+        title: "Citizens looking forward to a better democracy"
+        description_html: |
+          <p>Airesis is the outcome of the fusion of two projects: Agor&agrave 2.0 and DemocracyOnline, that came toghether in the association <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>, with one of its main goal being the development of an innovative open-source e-democracy software.</p>
+          <p>The goal of the team, <strong>made entarely of volunteers</strong> is to give citizens and groups a software platform that allows them to cope with <strong>most of the problems</strong> of our society
+          by allowing the <strong>creation</strong>, the <strong>discussion</strong> and <strong>voting</strong> on proposals in a <strong>transparent</strong>, <strong>democratic</strong>, <strong>constructive</strong> and <strong>participative</strong> way,
+          allowing the <strong>collective intelligence</strong> to emerge.</p>
+          <p>If you also share our goal, you can <a href="/partecipa">join us</a> contacting our volunteers.</p>
+          <p>Please have a look at <a href=%{story}>the history of Airesis</a>. Find out how our project was born and what are our future objectives.</p>
       development_area: "Development Area"
       other_voluteers: "Other volunteers active in the project"
       contributors: "Contributors"
@@ -69,7 +78,7 @@ en:
           </p>
       i18n_area: "Internationalization Area"
       tolja_jacopo:
-        title: "Responsible for the recruiting and coordination of the translators"
+        title: "In charge for recruiting and coordination of translators"
         content_html: |
           <p>
              I am 50 years old, are a disillusioned, but I found in Airesis a reason to get back into the game and hope to
