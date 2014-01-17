@@ -208,7 +208,7 @@ en:
         content_html: |
           <p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può
             disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
-          <ul>
+          <ul class="disc">
             <li>Visualizzare le proposte private</li>
             <li>Contribuire alle proposte</li>
             <li>Inserire nuove proposte nel gruppo</li>
@@ -354,28 +354,28 @@ en:
       title: "Press Release"
     roadmap:
       paragraph1:
-        title: "Destination: direct and participatory democracy"
+        title: "Destination: direct democracy"
         content_html: |
-          <p>Airesis was born from the merging of two projects launched over two years ago as a result of the need to be able to use a
-           computer tool that could integrate the main features of social networks,
-           event management and online mass decision making system.</p>
-          <p>In March, 2012, during the meeting "Five stars citizen" (Cittadini a cinque stelle) organized in Rimini, Alessandro Rodi
-           with the Airesis project comes into contact with Nicola Giulietti and the Agora 2.0 project: on one side, there was a good software,
-           while on the other side there was an excellent analysis of the features that a portal
-           for participatory democracy should have been.</p>
+          <p>Airesis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
+           software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
+          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
+           with its Airesis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
+           on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
           <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
-           implement the functions identified by the Agora 2.0 group in more than a year's work.</p>
-          <p>The mission was (and is) still ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
+           implement the functions identified by the Agora 2.0 group in more than a year long work.</p>
+          <p>The mission was (and still is) ambitious, but we know that it is possible to be achieved with the right tools, step by step.</p>
           <p>Thanks to our determination what initially looked like a dream of freedom, found the support of many people and the help of programmers,
            analysts, mathematicians, graphic designers and responsible citizens.</p>
           <p>Currently software releases are published on a monthly or bi-monthly basis to meet the demands and needs of users,
            in order to apply a process of continuous improvement.</p>
       paragraph2:
-        title: "The evolution of the Airesis project"
+        title: "The evolution of Airesis"
         content_html: |
-          <p>The list below shows the changes in Airesis during its evolution.
-           You can also find, here highlighted, the innovations planned for future versions.
-           Check this page often if you are interested to know which features are being developed and come back soon to visit us!</p>
+          <p>The list below shows the changes of Airesis during its evolution.
+           You can also find highlighted the innovations planned for future versions.
+           Check this page often if you are interested to know which features are being developed and come back to visit us!</p>
+      title: "The evolution of Airesis"
+      description: "Our road to realize a new software, an idea capable of evolving democracy that came to life in the web."
     helpus:
       paragraph1:
         title: "Why are we asking you to support Airesis?"
@@ -400,7 +400,7 @@ en:
             Your donation will be entirely addressed to the development and hosting of the platform.
             Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
           </p>
-          <ul>
+          <ul class="disc">
             <li>With a bank transfer addressed to: 'Tecnologie Democratiche' IBAN: IT76L0316501600000011758905</li>
             <li>With a donation using Paypal:</li>
           </ul>
@@ -409,7 +409,7 @@ en:
           <p><a href="mailto:%{mail}">Contact us</a> for more information.</p>
 
       paragraph5:
-        title: "Fai conoscere il progetto"
+        title: "Spread the word about this project"
       title: "Help us as you want, anyone can contribute"
       description: "Contribute to realize a tool capable of evolving e-democracy"
     linkback:
