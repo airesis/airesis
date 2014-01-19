@@ -240,7 +240,7 @@ it-IT:
         good_percentage: "Maturità"
         bad_percentage: "% Respingimento"
         confirm_deletion: "Sei sicuro di voler eliminare il quorum '%{quorum}'?"
-        add_quorum: "Aggiungi un nuovo quorum"
+        add_quorum: "Crea un nuovo quorum"
         edit_quorum: "Modifica quorum"
         configure_proposal_parameters: "Parametri di configurazione proposte"
         default_anonymous_proposal: "Anonimato temporaneo attivo"
@@ -483,6 +483,7 @@ it-IT:
         solution: "Punto all'ordine del giorno"
         step_base_info: "Informazioni iniziali"
         advanced_options: "Opzioni avanzate"
+        wait: "Puoi creare solo una proposta ogni due minuti\nAttendi ancora %{minutes} minuti e %{seconds} secondi."
       tabs:
         last_inserted: "Ultime aggiornate"
         most_popular: "Più popolari"

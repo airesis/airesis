@@ -1,4 +1,4 @@
-$('#create_event_dialog').html("<%= escape_javascript(render(:partial => 'form'))%>");
+$('#create_event_dialog').html("<%= j (render(:partial => 'form'))%>");
 <%unless params[:models] %>
 $('#create_event_dialog').foundation('reveal', 'open', {
     closeOnBackgroundClick: false,

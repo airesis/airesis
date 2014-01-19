@@ -1,0 +1,25 @@
+$('body').append('<%=j render 'promote'%>');
+$('#promote_container').foundation('reveal', 'open');
+
+$('.legend').hide();
+
+$("#promote_form").quickWizard({
+    prevButton: '<button id="form-wizard-prev" type="button" class="btn backButton"><%=j t('buttons.go_back')%></button>',
+    nextButton: '<button id="form-wizard-next" type="button" class="btn blue forwardButton"><%=j t('buttons.next')%></button>',
+    clickableBreadCrumbs: true,
+    breadCrumbListClass: 'bread-crumb',
+    nextCallback: function() {},
+    prevCallback: function() {}
+});
+
+
+
+$('#promote_proposal').click(function (e) {
+    $('#promote_container').foundation('reveal', 'open');
+    e.preventDefault();
+    return false;
+});
+
+
+
+disegnaBottoni();

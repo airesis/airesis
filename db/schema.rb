@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116104636) do
+ActiveRecord::Schema.define(:version => 20140116142959) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1026,6 +1026,7 @@ ActiveRecord::Schema.define(:version => 20140116104636) do
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
+    t.integer  "signatures"
   end
 
   add_index "proposals", ["proposal_category_id"], :name => "_idx_proposals_proposal_category_id"

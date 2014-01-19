@@ -1,4 +1,4 @@
-<% unless @proposal.is_polling? %>
+<% unless @proposal.is_petition? %>
     <div id="rankleftpanel" class="rankleftpanel mybox">
       <div class="points">
         <%= render :partial => 'proposals/points_left_panel' %>
@@ -50,6 +50,7 @@
               <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'zocial facebook' %>
           <% end %>
       <% end %>
+      <%=link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'promote_proposal' %>
     </div>
 <% end %>
 

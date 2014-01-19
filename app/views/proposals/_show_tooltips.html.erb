@@ -84,7 +84,7 @@
     <%end%>
 
 <%end%>
-<%unless @proposal.is_polling?%>
+<%unless @proposal.is_petition?%>
     $('#suffgrad, #pb<%=@proposal.id%>').qtip({
         content: "<%=j @proposal.quorum.explanation%>",
         style: {

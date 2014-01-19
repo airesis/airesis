@@ -7,7 +7,11 @@ module ProposalsModule
   def check_phase(proposal, force_end=false)
     return unless proposal.in_valutation? #if the proposal already passed this phase skip this check
     quorum = proposal.quorum
-    quorum.check_phase(force_end)
+    if quorum
+      quorum.check_phase(force_end)
+    else
+      proposal.update_attribute(:proposal_state_id,ProposalState::VOTING)
+    end
   end
 
   def close_vote_phase(proposal)
