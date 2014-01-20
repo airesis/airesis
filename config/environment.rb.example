@@ -54,3 +54,7 @@ require 'will_paginate'
 
 #OmniAuth.config.test_mode = true
 
+CROWDIN_API=
+CROWDIN_PROJECT_ID=
+CROWDIN_ACCOUNT_KEY=
+

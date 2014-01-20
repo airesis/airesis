@@ -18,8 +18,9 @@
 <div class="slide">
   <div class="row centered">
 
-    <h2 id="opensource"><%=t('.paragraph1.title')%></h2>
-    <%=t('.paragraph1.content_html',story: (link_to t('.paragraph1.story'), story_path))%>
+    <h2 id="opensource"><%= t('home.whowe.intro.title')%></h2>
+
+    <%= t('home.whowe.intro.description_html', story: story_path) %>
   </div>
 
 </div>
@@ -34,8 +35,8 @@
         <%= image_tag "volunteers/rodi_alessandro.jpg", :width => 150 %>
       </div>
       <div>
-        <%= mail_to  'alessandro.rodi@airesis.it'%>
-        <a href="//plus.google.com/105378296770624698158?prsrc=3" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+        <SCRIPT TYPE="text/javascript"> emailE=('alessandro.rodi@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
+        <a href="//plus.google.com/105378296770624698158?prsrc=3" target="_blank" rel="publisher" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
           <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:0px; margin-top:0px;">Alessandro</span>
           <span style="display:inline-block;vertical-align:top;margin-right:5px; margin-top:0px;">su</span>
           <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
@@ -61,7 +62,7 @@
         <%= image_tag "volunteers/tilatti_marino.png", :width => 150 %>
       </div>
       <div>
-        <%= mail_to  'marino.tilatti@airesis.it'%>
+        <SCRIPT TYPE="text/javascript"> emailE=('marino.tilatti@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
         <a href="skype:nemesistemi?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a>
       </div>
     </div>
@@ -88,7 +89,7 @@
       </div>
       <div>
         <a href="skype:nicolagiulietti?add"><img src="http://download.skype.com/share/skypebuttons/buttons/add_green_transparent_118x23.png" style="border: none;" width="118" height="23" alt="Aggiungimi a Skype"/></a><br>
-        <%= mail_to 'mailto:nicolagiulietti@hotmail.it' %>
+        <SCRIPT TYPE="text/javascript"> emailE=('nicolagiulietti@' + 'hotmail.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
         <div>cell +39.3802931955</div>
       </div>
     </div>
@@ -110,7 +111,7 @@
         <%= image_tag "volunteers/baiotto_marco.png", :width => 150 %>
       </div>
       <div>
-        <%= mail_to 'marco.baiotto@airesis.it' %>
+        <SCRIPT TYPE="text/javascript"> emailE=('marco.baiotto@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
       </div>
     </div>
     <div class="large-9 columns">
@@ -156,7 +157,7 @@
         <%= image_tag "volunteers/tolja_jacopo.jpg", :width => 150 %>
       </div>
       <div>
-        <%= mail_to 'jacopo.tolja@airesis.it' %>
+        <SCRIPT TYPE="text/javascript"> emailE=('jacopo.tolja@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
       </div>
       <div>
 
@@ -182,7 +183,7 @@
         <%= image_tag "volunteers/curini_simone.jpg", :width => 150 %>
       </div>
       <div>
-        <%= mail_to 'simone.curini@airesis.it' %>
+        <SCRIPT TYPE="text/javascript"> emailE=('simone.curini@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
       </div>
     </div>
     <div class="large-9 columns">
@@ -203,9 +204,13 @@
       <div class="image_volontario">
         <%= image_tag "volunteers/mion_carlo.jpg", :width => 150 %>
       </div>
-      <div>
-        <%= mail_to 'carlo.mion@airesis.it' %>
-        <div class="g-plus" data-height="131" data-width="100" height="131" data-href="//plus.google.com/101515742553331217199" data-rel="author"></div>
+      <div style="line-height: 20px">
+        <SCRIPT TYPE="text/javascript"> emailE=('carlo.mion@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
+        <a href="//plus.google.com/101515742553331217199?prsrc=3" target="_blank"
+           rel="publisher" target="_top" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+          <span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:5px; margin-top:0px;">Carlo Mion</span><span style="display:inline-block;vertical-align:top;margin-right:13px; margin-top:0px;">on</span>
+          <img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+        </a>
       </div>
     </div>
     <div class="large-9 columns">
@@ -227,7 +232,7 @@
         <%= image_tag "volunteers/zanellato_luca.jpg", :width => 150 %>
       </div>
       <div>
-        <%= mail_to 'luca.zanellato@airesis.it' %>
+        <SCRIPT TYPE="text/javascript"> emailE=('luca.zanellato@' + 'airesis.it');document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')</SCRIPT>
       </div>
       <div>
 

@@ -45,12 +45,12 @@ class ProposalsController < ApplicationController
       authorize! :view_data, @group
 
       unless can? :view_proposal, @group
-        flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
+        flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo." #TODO:I18n
       end
 
       if params[:group_area_id]
         unless can? :view_proposal, @group_area
-          flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo."
+          flash.now[:warn] = "Non hai i permessi per visualizzare le proposte private. Contatta gli amministratori del gruppo." #TODO:I18n
         end
       end
     end

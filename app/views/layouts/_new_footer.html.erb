@@ -8,6 +8,77 @@
     </div>
 
     <div class="right">
+
+      <div id="language" class="reveal-modal">
+         <div class="section-container auto" data-section>
+            <section class="active">
+              <p class="title" data-section-title><a href="#panel1" title="Europe">Europe</a></p>
+              <div class="content" data-section-content>
+                <div class="row panel">
+                  <div class="small-6 large-4 columns">
+                    <h1><%= link_to (image_tag 'flags/en.png', :alt => "Europe"), current_url(:l => 'en'), :title => "Europe" %></h1>
+                    <h1><%= link_to (image_tag 'flags/it-IT.png', :alt => "Italia"), current_url(:l => 'it-IT'), :title => "Italia" %></h1>
+                    <h1><%= link_to (image_tag 'flags/fr.png', :alt => "France"), current_url(:l => 'fr'), :title => "France" %></h1>
+                  </div>
+                  <div class="small-6 large-4 columns">
+                    <h1><%= link_to (image_tag 'flags/de.png', :alt => "Deutschland"), current_url(:l => 'de'), :title => "Deutschland" %></h1>
+                    <h1><%= link_to (image_tag 'flags/ro-RO.png', :alt => "România"), current_url(:l => 'ro-RO'), :title => "România" %></h1>
+                  </div>
+                  <div class="small-6 large-4 columns">
+                    <h1><%= link_to (image_tag 'flags/pt-PT.png', :alt => "Portugal"), current_url(:l => 'pt-PT'), :title => "Portugal" %></h1>
+                    <h1><%= link_to (image_tag 'flags/es-ES.png', :alt => 'España'), current_url(:l => 'pt-PT'), :title => "España" %></h1>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+            <section>
+                <p class="title" data-section-title><a href=#panel2>America</a></p>
+                <div class="content" data-section-content>
+                  <div class="row panel">
+                    <div class="small-6 large-4 columns">
+                      <h1><%= link_to (image_tag 'flags/en-US.png', :alt => "USA"),current_url(:l => 'en-US'), :title => "USA" %></h1>
+                    </div>
+                    <div class="small-6 large-4 columns">
+                      <h1><%= link_to (image_tag 'flags/es-EC.png', :alt => "Ecuador"), current_url(:l => "es-EC"), :title => "Ecuador" %></h1>
+                      <h1><%= link_to (image_tag 'flags/pt-BR.png', :alt => "Brasil"), current_url(:l => "pt-BR"), :title => "Brasil"%></h1>
+                    </div>
+                    <div class="small-6 large-4 columns">
+                      <h1><%= link_to (image_tag 'flags/es-CL.png', :alt => "Chile"), current_url(:l => "es-CL"), :title => "Chile" %></h1>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <section>
+                <p class="title" data-section-title><a href=#panel3>Asia</a></p>
+                <div class="content" data-section-content>
+                  <div class="row panel">
+                    <div class="small-6 large-4 columns">
+                      <h1><%= link_to (image_tag 'flags/zh.png', :alt => "中国"), current_url(:l => "zh"), :title => "中国" %></h1>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <section>
+              <p class="title" data-section-title><a href=#panel4>Translate Airesis</a></p>
+              <div class="content" data-section-content>
+                <div class="row panel">
+                  <div class="large-centered large-12 column text-center">
+                    <h1><%= locale.to_s=="crowdin" ?
+                                (link_to (image_tag 'flags/crowdin.png'), current_url(:l => nil), :title => "Exit Translation Mode"):
+                                (link_to (image_tag 'flags/crowdin.png'), current_url(:l => :"crowdin"), :title => "Activate Translation Mode")%></h1>
+                  </div>
+                </div>
+              </div>
+            </section>
+         </div>
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+
+      <a href="#" data-reveal-id="language">
+        <%= image_tag "flags/#{I18n.locale}.png", :class => 'language footer', title: t('pages.home.index.change_language') %>
+      </a>
+
       <%= link_to t('pages.home.index.support'), sostienici_path %> -
       <%= link_to t('terms_of_service'), terms_path, class: 'terms_link' %> -
       <%= link_to t('privacy_policy'), privacy_path, class: 'privacy_link' %> -
@@ -31,7 +102,51 @@
             $("#privacy_modal").dialog({ height: 250, width: 450 });
             return false;
         }
+
+
+        $(function () {
+
+            $('.language.footer').qtip({
+                position: {
+                    at: 'top center',
+                    my: 'bottom center',
+                    viewport: $(window)
+                },
+                style: {
+                    classes: 'qtip-shadow qtip-bootstrap'
+                },
+                show: {
+                    event: 'click mouseenter',
+                    solo: true
+                },
+                hide: {
+                    event: 'click mouseleave'
+                }
+            });
+
+
+            $('#language').on('opened', function () {
+                $(this).find('.row a').qtip({
+                    style: {
+                        classes: 'qtip-shadow qtip-bootstrap'
+                    },
+                    position: {
+                        at: 'left center',
+                        my: 'right center'
+                    }
+                });
+                $(this).foundation('section', 'reflow');
+            });
+
+        })
     </script>
 </footer>
 
-<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js">
+</script>
+
+<script>
+    $(document).foundation();
+</script>
+

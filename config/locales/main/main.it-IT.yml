@@ -228,9 +228,9 @@ it-IT:
           title: "Nuovo quorum"
           simple: "Semplice"
           advanced: "Avanzato"
-          time_description: "Il dibattito dura %{days}  %{hours}  %{minutes}"
-          simple_percentage_description: "e avere una maturità superiore o uguale al %{good_score}%."
-          advanced_participation_description: "%{participants_percentage}%+1 (%{current_number} su %{total_number} aventi diritto) <b>(valore medio: %{average}%)</b>"
+          time_description: "Il dibattito durerà almeno %{days}  %{hours}  %{minutes}"
+          simple_percentage_description: "Quindi la proposta passa in votazione se la maturità è superiore al %{good_score}%."
+          advanced_participation_description: "La proposta deve essere valutata da almeno il %{participants_percentage}% degli utenti che dispongono i permessi per farlo (ovvero %{current_number} su %{total_number} attualmente)."
           advanced_percentage_description: "Se invece la maturità è inferiore al %{bad_score}% la proposta viene abbandonata."
           advanced_percentage_description3: "La proposta resta in dibattito fintanto che la maturità è compresa fra le due soglie."
         active: "Attivo"
@@ -918,8 +918,8 @@ it-IT:
       send_error: "Spiacenti ma si è verificato un errore durante l'invio del feedback"
       describe_problem: "Scrivi qui il tuo messagio:"
       highlight_or_blackout: "Evidenzia o oscura le informazioni importanti"
-      blackout: "Evidenzia"
-      highlight: "Oscura"
+      blackout: "Oscura"
+      highlight: "Evidenzia"
     passwords:
       edit:
         title: "Cambia la tua password"

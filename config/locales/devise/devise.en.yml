@@ -25,8 +25,8 @@ en:
       signed_out: 'Signed out successfully'
       user:
         signed_out: 'You have successfully logged out.  Good-bye'
-        signed_in: 'Welcome! You have completed your registration'
-        signed_up: 'You have correctly completed the registration. Welcome!'
+        signed_in: 'You have signed in. Welcome!'
+        signed_up: 'You have successfully completed your registration. Welcome!'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes'
       updated: 'Your password was changed successfully. You are now signed in'

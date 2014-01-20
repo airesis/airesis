@@ -914,7 +914,7 @@ $form-label-font-weight: bold;
 // We use these to set default inner padding and bottom margin
 
 // $panel-margin-bottom: em-calc(20);
-// $panel-padding: em-calc(20);
+ $panel-padding: em-calc(10);
 
 // We use these to set default font colors
 
@@ -1440,7 +1440,7 @@ ul, ol {
 }
 
 .slide {
-  padding: 20px;
+  padding: 10px;
   position: relative;
   background: white;
   img.presentation {

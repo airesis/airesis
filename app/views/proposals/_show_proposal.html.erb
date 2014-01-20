@@ -68,12 +68,16 @@
 
 <%unless @proposal.is_petition? %>
   <% if @proposal.waiting? #waitinf for the vote period %>
-      <div class="status_description">
+    <div class="status_description">
         <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
-      </div>
+    </div>
   <% elsif @proposal.in_valutation?  %>
     <div class="status_description">
-      <%= @proposal.quorum.explanation %>
+        <%= @proposal.quorum.explanation %>
+    </div>
+  <% elsif @proposal.abandoned? %>
+    <div class="status_description">
+      <%= "Abandoned #{time_ago_in_words(@proposal.updated_at)}: <b>#{l @proposal.updated_at}</b>".html_safe%>
     </div>
   <% end %>
 <%end%>

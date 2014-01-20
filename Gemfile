@@ -127,3 +127,7 @@ gem 'email_reply_parser'
 gem 'activerecord-postgres-array'
 
 gem 'paper_trail', '~> 2.7.2'
+gem 'activerecord-postgres-array'
+
+gem 'crowdin-api'
+gem 'rubyzip'
