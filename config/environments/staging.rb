@@ -4,6 +4,8 @@ DemocracyOnline3::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
@@ -12,7 +14,7 @@ DemocracyOnline3::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -27,8 +29,6 @@ DemocracyOnline3::Application.configure do
 
   config.active_support.deprecation = :notify
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
 
 # Log the query plan for queries taking more than this (works
 # with SQLite, MySQL, and PostgreSQL)
@@ -74,9 +74,12 @@ DemocracyOnline3::Application.configure do
   ROTP_DRIFT = 20
 
   config.middleware.use ExceptionNotifier,
-                        :email_prefix => "[Exception] ",
-                        :sender_address => %{"Exception Notifier" <coorasse+notifier@gmail.com>},
-                        :exception_recipients => %w{coorasse+exceptions@gmail.com}
+                        :ignore_crawlers => %w{Googlebot bingbot},
+                        :email => {
+                            :email_prefix => "[Exception] ",
+                            :sender_address => %{"Airesis Exception" <exceptions@airesis.it>},
+                            :exception_recipients => %w{coorasse+exceptions@gmail.com}
+                        }
 
 end
 

@@ -1660,3 +1660,7 @@ a.zocial:hover {
   border: none;
   padding: 0;
 }
+
+.section-container.tabs > section.active > .title {
+  border-bottom: 1px solid rgb(204, 204, 204);
+}

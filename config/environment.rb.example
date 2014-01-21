@@ -43,6 +43,7 @@ BUGTRACKING_URL=""
 BUGTRACKING_USERNAME=""
 BUGTRACKING_PASSWORD=""
 
+DEVISE_SECRET_KEY = 'airesis4'
 
 # Load the rails application
 require File.expand_path('../application', __FILE__)

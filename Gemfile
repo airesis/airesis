@@ -1,27 +1,33 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.2'
 
-gem 'therubyracer', '0.10.1'
+gem 'therubyracer', platforms: :ruby
 
 gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
 
 gem 'turnout'
 
-group :assets do
-  gem 'sass-rails', "~> 3.2.3"
-  gem 'coffee-rails', "~> 3.2.1"
-  gem 'uglifier', ">= 1.0.3"
-  gem 'zurb-foundation'
-end
+
+gem 'sass-rails', "~> 4.0.0"
+gem 'coffee-rails', "~> 4.0.0"
+gem 'uglifier', ">= 1.3.0"
+gem 'zurb-foundation'
+
 
 gem 'pg'
 
-gem 'sunspot_rails', '2.0.0'
+gem 'sunspot_rails'
 
 group :development do
-  gem 'sunspot_solr', '2.0.0'
+  gem 'sunspot_solr'
   gem "better_errors"
+  gem 'quiet_assets'
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
 end
 
 gem 'omniauth-facebook'
@@ -33,11 +39,13 @@ gem 'omniauth-openid'
 
 gem 'paperclip'
 
-gem 'jquery-rails', '3.0.4'
+gem 'jquery-rails'
 
-gem 'jquery-rjs', :git => 'https://github.com/coorasse/jquery-rjs.git'
+gem 'turbolinks'
 
-gem 'devise', '2.0.4'
+gem 'jbuilder', '~> 1.2'
+
+gem 'devise'
 
 gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
 
@@ -45,7 +53,7 @@ gem 'koala', '~> 1.8.0rc1'
 
 gem 'xmpp4r_facebook'
 
-gem 'exception_notification', '2.6.1'
+gem 'exception_notification'
 
 gem 'resque', :require => 'resque/server'
 
@@ -59,7 +67,10 @@ gem 'cancan'
 
 gem 'foreigner'
 
-gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '3-2-stable'
+gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '4-0-beta'
+
+gem 'client_side_validations-simple_form', git: 'https://github.com/coorasse/client_side_validations-simple_form.git'
+
 
 gem 'sitemap_generator'
 
@@ -71,7 +82,6 @@ gem 'seed_dump'
 
 gem 'vote-schulze', :git => 'https://github.com/coorasse/vote-schulze.git'
 
-gem 'quiet_assets', :group => :development
 
 #gem 'airesis_metis', :path => '~/airesis_metis/', :group => :development
 
@@ -92,7 +102,7 @@ gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
-gem 'globalize', '~> 3.0.0'
+gem 'globalize', '~> 4.0.0'
 
 gem 'sanitize'
 
@@ -112,13 +122,12 @@ gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'
 
 #added for forums
 gem 'friendly_id'
-gem 'simple_form', '1.5.0'
-gem 'client_side_validations-simple_form'
+gem 'simple_form'
 gem 'gemoji'
 gem 'workflow'
-gem 'select2-rails', '3.4.3'
-gem 'redcarpet', '~> 2.0.1'
-gem 'kaminari', '~> 0.14.1'
+gem 'select2-rails'
+gem 'redcarpet'
+gem 'kaminari'
 
 gem 'mailman', require: false
 
@@ -126,8 +135,12 @@ gem 'email_reply_parser'
 
 gem 'activerecord-postgres-array'
 
-gem 'paper_trail', '~> 2.7.2'
+gem 'paper_trail', '~> 3.0.0'
 gem 'activerecord-postgres-array'
 
 gem 'crowdin-api'
 gem 'rubyzip'
+
+
+#added for rails 4
+gem 'protected_attributes'

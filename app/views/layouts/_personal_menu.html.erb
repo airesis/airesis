@@ -1,41 +1,68 @@
 <div class="personal_cont">
-  <h2><%= current_user.fullname %></h2>
+  <div class="row">
+    <div class="columns large-6">
+      <% @groups = current_user.groups %>
+      <% if @groups.empty? %>
+          <%= t('pages.header.no_groups_yet') %>
+          <br/>
+      <% else %>
+          <% @groups.each do |group| %>
+              <div class="group-item">
+                <div style="width:45px;height: 30px; float:left;">
+                  <%= group.group_image_tag(30) rescue nil %>
+                </div>
+                <div class="p1">
+                  <%= link_to group.name, group_url(group) %>
+                  <div class="group_tag_fade"></div>
+                </div>
 
-  <div class="sep"></div>
-  <li>
-    <%= link_to t('pages.header.menu.my_page'), home_url %>
-  </li>
-  <li>
-    <% if current_user.blog %>
-        <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
-    <% else %>
-        <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
-  </li>
-  <div class="sep"></div>
-  <li>
-    <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
-  </li>
-  <% if is_moderator? %>
+                <div class="p2">
+                  <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
+                  <%= link_to t('pages.header.groups.events'), group_events_url(group) %></div>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+    <div class="columns large-6">
+      <h2><%= current_user.fullname %></h2>
+
+      <div class="sep"></div>
       <li>
-        <%= link_to t('pages.header.menu.moderator'), moderator_panel_path %>
+        <%= link_to t('pages.header.menu.my_page'), home_url %>
       </li>
-  <% end %>
-  <% if is_admin? %>
       <li>
-        <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
+        <% if current_user.blog %>
+            <%= link_to t('pages.header.menu.my_blog'), current_user.blog %>
+        <% else %>
+            <%= link_to t('pages.header.menu.create_blog'), new_blog_path %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to t('pages.header.menu.preferences'), user_url(current_user) %>
       </li>
       <div class="sep"></div>
-
-      <%= form_tag "/admin/become/" do %>
-          <%= label_tag t('pages.header.menu.become_user') %>
-          <br/>
-          <%= text_field_tag 'user_id' %> <br/>
-          <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
+      <li>
+        <%= link_to t('pages.header.menu.logout'), destroy_user_session_path, :method => 'delete' %>
+      </li>
+      <% if is_moderator? %>
+          <li>
+            <%= link_to t('pages.header.menu.moderator'), moderator_panel_path %>
+          </li>
       <% end %>
+      <% if is_admin? %>
+          <li>
+            <%= link_to t('pages.header.menu.administration'), admin_panel_path %>
+          </li>
+          <div class="sep"></div>
 
-  <% end %>
+          <%= form_tag "/admin/become/" do %>
+              <%= label_tag t('pages.header.menu.become_user') %>
+              <br/>
+              <%= text_field_tag 'user_id' %> <br/>
+              <%= button_tag t('pages.header.menu.become_user_button'), class: 'btn' %>
+          <% end %>
+
+      <% end %>
+    </div>
+  </div>
 </div>

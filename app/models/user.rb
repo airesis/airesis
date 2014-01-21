@@ -3,9 +3,9 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :blockable, :token_authenticatable, :traceable
+         :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
 
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers

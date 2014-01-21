@@ -38,7 +38,7 @@
           <h2><%=t('pages.header.login')%></h2>
           <div class="row">
             <div class="columns large-6">
-              <%= form_for resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}, :html => {:class => 'box'} do |f| %>
+              <%= form_for User.new, url: {:action => "create", :controller => "devise/sessions"}, html: {:class => 'box'} do |f| %>
 
                   <%= f.text_field :login, placeholder: t('pages.header.login_placeholder'), autocomplete: :off %>
 

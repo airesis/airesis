@@ -4,13 +4,9 @@ require 'rails/all'
 
 require 'csv'
 
+Bundler.require(:default, Rails.env)
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test staging))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+#TODO renenable token authenticable
 
 module Airesis
   class Application < Rails::Application
@@ -20,8 +16,7 @@ module Airesis
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    # Enable the asset pipeline
-    config.assets.enabled = true
+    config.active_record.whitelist_attributes = false #TODO
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
@@ -48,3 +43,5 @@ module Airesis
     end
   end
 end
+
+I18n.enforce_available_locales = false

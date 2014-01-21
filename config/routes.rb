@@ -6,25 +6,25 @@ Airesis::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  match 'home', :to => 'home#show'
-  match '/partecipa' => 'home#engage'
-  match '/chisiamo' => 'home#whowe'
-  match '/roadmap' => 'home#roadmap'
-  match '/bugtracking' => 'home#bugtracking'
-  match '/videoguide' => 'home#videoguide'
-  match '/edemocracy' => 'home#whatis'
-  match '/eparticipation' => 'home#intro'
-  match '/story' => 'home#story'
-  match '/sostienici' => 'home#helpus'
-  match '/donations' => 'home#donations'
-  match '/press' => 'home#press'
-  match '/privacy' => 'home#privacy'
-  match '/terms' => 'home#terms'
-  match '/send_feedback' => 'home#feedback'
-  match '/statistics' => 'home#statistics'
-  match '/movements' => 'home#movements'
-  match '/school' => 'home#school'
-  match '/municipality' => 'home#municipality'
+  get 'home' => 'home#show'
+  get 'partecipa' => 'home#engage'
+  get 'chisiamo' => 'home#whowe'
+  get 'roadmap' => 'home#roadmap'
+  get 'bugtracking' => 'home#bugtracking'
+  get 'videoguide' => 'home#videoguide'
+  get 'edemocracy' => 'home#whatis'
+  get 'eparticipation' => 'home#intro'
+  get 'story' => 'home#story'
+  get 'sostienici' => 'home#helpus'
+  get 'donations' => 'home#donations'
+  get 'press' => 'home#press'
+  get 'privacy' => 'home#privacy'
+  get 'terms' => 'home#terms'
+  get 'send_feedback' => 'home#feedback'
+  get 'statistics' => 'home#statistics'
+  get 'movements' => 'home#movements'
+  get 'school' => 'home#school'
+  get 'municipality' => 'home#municipality'
 
   resources :user_likes
 
@@ -106,11 +106,11 @@ Airesis::Application.routes.draw do
 
     resources :blog_posts do
       #match :tag, :on => :member
-      match :drafts, :on => :collection
+      get :drafts, :on => :collection
 
       resources :blog_comments
     end
-    match '/:year/:month' => 'blogs#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
+    get '/:year/:month' => 'blogs#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
   end
 
   resources :announcements do
@@ -156,9 +156,7 @@ Airesis::Application.routes.draw do
   resources :interest_borders
   resources :comunes
 
-  match 'elfinder' => 'elfinder#elfinder'
-
-  #match '/users/auth/facebook/setup', :to => 'users/facebook#setup'
+  get 'elfinder' => 'elfinder#elfinder'
 
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
     get '/users/sign_in', :to => 'devise/sessions#new'
@@ -214,19 +212,19 @@ Airesis::Application.routes.draw do
 
   resources :tags
 
-  match '/tags/:text', :to => 'tags#show', :as => 'tag'
+  get '/tags/:text', :to => 'tags#show'
 
-  match '/votation/', :to => 'votations#show'
-  match '/votation/vote', :to => 'votations#vote'
-  match '/votation/vote_schulze', :to => 'votations#vote_schulze'
+  get '/votation/', :to => 'votations#show'
+  put '/votation/vote', :to => 'votations#vote'
+  put '/votation/vote_schulze', :to => 'votations#vote_schulze'
   resources :votations
 
   #specific routes for subdomains
   constraints Subdomain do
-    match '', to: 'groups#show'
+    get '', to: 'groups#show'
 
-    match '/edit', to: 'groups#edit'
-    match '/update', to: 'groups#update'
+    get '/edit', to: 'groups#edit'
+    put '/update', to: 'groups#update'
 
     resources :elections
     resources :candidates
@@ -348,7 +346,6 @@ Airesis::Application.routes.draw do
 
     root :to => 'home#index'
 
-    #match ':controller/:action/:id'
     resources :certifications, only: [:index, :create, :destroy]
     resources :user_sensitives do
       member do
@@ -524,7 +521,7 @@ Airesis::Application.routes.draw do
 
       resources :blog_posts do
         #match :tag, :on => :member
-        match :drafts, :on => :collection
+        get :drafts, :on => :collection
         resources :blog_comments
       end
     end
@@ -548,9 +545,9 @@ Airesis::Application.routes.draw do
       end
     end
 
-    match ':controller/:action/:id'
+    match ':controller/:action/:id', via: :all
 
-    match ':controller/:action/:id.:format'
+    match ':controller/:action/:id.:format', via: :all
 
 
 
@@ -563,17 +560,17 @@ Airesis::Application.routes.draw do
     end
 
     constraints moderator_required do
-      match ':controller/:action/'
-      match 'moderator_panel', :to => 'moderator#show', :as => 'moderator/panel'
+      match ':controller/:action/', via: :all
+      get 'moderator_panel', :to => 'moderator#show', :as => 'moderator/panel'
     end
 
 
     constraints admin_required do
       mount Resque::Server, :at => "/resque_admin/"
       mount Maktoub::Engine => "/maktoub/"
-      match ':controller/:action/'
+      match ':controller/:action/', via: :all
       resources :admin
-      match 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
+      get 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
     end
 
 

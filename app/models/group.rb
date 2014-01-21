@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
-  has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
+  has_many :group_partecipations, -> { order 'id DESC' }, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
   has_many :partecipants, :through => :group_partecipations, :source => :user, :class_name => 'User'
