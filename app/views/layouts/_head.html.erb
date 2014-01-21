@@ -2,10 +2,10 @@
 		
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
-<%= javascript_include_tag "i18n/jquery.ui.datepicker-#{I18n.locale}" %>
-<%= javascript_include_tag "i18n/jquery-ui-timepicker-#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/jquery.ui.datepicker.#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/jquery-ui-timepicker.#{I18n.locale}" %>
 <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
-<%= javascript_include_tag "i18n/jquery.countdown-#{I18n.locale}" %>
+<%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
@@ -16,11 +16,11 @@
 
 <meta name="author" content="Tecnologie Democratiche" />
 <link rel="shortcut icon" href="/favicon.ico" />
-
+<%= javascript_include_tag "vendor/custom.modernizr" %>
 <script type="text/javascript">
 
   $(function() {
-      $(document).foundation();
+
 
       var feedback_options =
               Feedback({
@@ -61,4 +61,14 @@
                   ]
               });
   })
+
 </script>
+
+<%if I18n.locale.to_s == "crowdin" %>
+    <script type="text/javascript">
+        var _jipt = [];
+        _jipt.push(['project', 'airesis']);
+    </script>
+    <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
+    </script>
+<%end%>

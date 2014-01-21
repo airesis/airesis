@@ -9,7 +9,7 @@ en:
     week: 'week'
     day: 'day'
     firstDay: 0
-    timeFormat: 'h(:mm) TT { - h:mm TT} '
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
     order:
       - :day

@@ -4,20 +4,21 @@
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta charset="utf-8">
-      <title><%= APP_LONG_NAME %></title>
+      <title><%= t('home.tags.title') %></title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="apple-mobile-web-app-capable" content="yes">
-      <meta name="description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro">
-      <meta property="og:title" content="<%= APP_LONG_NAME %>"/>
+      <meta name="description" content="<%= t('home.tags.description')%>">
+      <meta property="og:title" content="<%= t('home.tags.title') %>"/>
       <meta property="og:type" content="website"/>
       <meta property="og:image" content="<%= "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>"/>
       <meta property="og:site_name" content="<%= APP_LONG_NAME %>"/>
-      <meta property="og:description" content="Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"/>
+      <meta property="og:description" content="<% t('home.tags.description')%>"/>
       <meta property="fb:app_id" content="<%= FACEBOOK_APP_ID %>"/>
       <meta name="author" content="Tecnologie Democratiche">
       <link rel="shortcut icon" href="/favicon.ico"/>
 
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
+      <%= javascript_include_tag "foundation" %>
 
       <%= stylesheet_link_tag 'landing.css' %>
       <%= stylesheet_link_tag 'jquery.qtip' %>
@@ -29,6 +30,14 @@
 
 
       <link rel="shortcut icon" type="image/x-icon" href="">
+      <%if I18n.locale.to_s == "crowdin" %>
+          <script type="text/javascript">
+              var _jipt = [];
+              _jipt.push(['project', 'airesis']);
+          </script>
+          <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
+          </script>
+      <%end%>
     </head>
     <body>
 
@@ -141,36 +150,7 @@
             <div style="padding-top: 8px; float:left;">
               <div class="fb-like" data-href="http://www.facebook.com/AiresisIt" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </div>
-            <div style="padding-top: 8px; padding-left: 25px; float:left;">
-              <%= image_tag "flags/#{I18n.locale}.png", :class => 'cur language', title: t('pages.home.index.change_language') %>
-            </div>
 
-            <div id="language" style="display:none;">
-              <%= link_to (image_tag 'flags/en.png') + ' Europe', SysLocale.find_by_key('en').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/it-IT.png') + ' Italia', SysLocale.find_by_key('it-IT').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/pt-PT.png') + ' Portugal', SysLocale.find_by_key('pt-PT').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/es-ES.png') + ' España', SysLocale.find_by_key('es-ES').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/fr.png') + ' France', SysLocale.find_by_key('fr').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/de.png') + ' Deutschland', SysLocale.find_by_key('de').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/ro-RO.png') + ' România', SysLocale.find_by_key('ro-RO').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/en-US.png') + ' USA', SysLocale.find_by_key('en-US').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/pt-BR.png') + ' Brasil', SysLocale.find_by_key('pt-BR').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/es-EC.png') + ' Ecuador', SysLocale.find_by_key('es-EC').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/es-CL.png') + ' Chile', SysLocale.find_by_key('es-CL').url %>
-              <br/>
-              <%= link_to (image_tag 'flags/zh.png') + ' 中国', SysLocale.find_by_key('zh').url %>
-              <br/>
-            </div>
           </div>
         </div>
       </div>
@@ -178,7 +158,7 @@
       <div class="row full-width medium-bar"><!-- Menù navigatore-->
         <div class="row centered" style="margin-top: 10px">
           <!-- Logo principale-->
-          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare" %>
+          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
 
           <div style="float:right" class="show-for-medium-up">
             <div style=" width:387px;font-family:Arial; text-align:center;">

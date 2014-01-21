@@ -1,7 +1,7 @@
 <% if @group %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", onclick: 'regenerate();return false;' if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
 <% else %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "btn", onclick: 'regenerate();return false;' %>
+    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", onclick: 'regenerate();return false;' %>
 <% end %>
 
 <div id="regenerate_container" title="<%= t('pages.proposals.show.new_quorum_title') %>" style="display:none">

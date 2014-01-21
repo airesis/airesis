@@ -227,17 +227,21 @@ p small {
 }
 
 /* DT styles for sliding doors */
-.cur.language {
-  background: url(arrow.png) no-repeat scroll right center;
-  display: block;
-  padding: 3px 20px 3px 0px;
-  color: #336699;
-  cursor: pointer;
+.language.footer {
+  max-width: 7%;
 }
 
-#language a {
+#language {
+  a {
   font-size: 1.5em;
   line-height: 1.5em;
+  }
+  img {
+    max-width: 100%;
+  }
+  h1 {
+    text-align: center;
+  }
 }
 
 .dropdown dt a span {
