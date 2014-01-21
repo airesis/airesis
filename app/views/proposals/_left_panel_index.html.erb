@@ -214,7 +214,7 @@
 
             <p>
               <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$('#choose_dates').foundation('reveal','close');"/>
-              <%= f.button t('buttons.search'), class: 'btn blue', disable_with: t('loading') %>
+              <%= f.button t('buttons.search'), class: 'btn blue', data:{disable_with: t('loading')} %>
             </p>
         <% end %>
       </div>

@@ -15,7 +15,7 @@
                 <br/>
             <% end %>
             <input type="button" value="<%=t('buttons.cancel')%>" class="btn" onclick="$('#report_contribute').foundation('reveal','close');"/>
-            <%= f.submit t('buttons.mark'), class: 'btn blue', disable_with: t('loading') %>
+            <%= f.submit t('buttons.mark'), class: 'btn blue', data:{disable_with: t('loading')} %>
             <hr/>
             <h2><%= t('pages.proposals.report_contribute.report_title')%></h2>
             <div class='panel callout'>
@@ -29,7 +29,7 @@
           </div>
           <div style="margin-top:8px">
             <input type="button" value="<%=t('buttons.cancel')%>" class="btn" onclick="$('#report_contribute').foundation('reveal','close');"/>
-            <%= f.submit t('buttons.report'), class: 'btn blue', disable_with: t('loading') %>
+            <%= f.submit t('buttons.report'), class: 'btn blue', data: {disable_with: t('loading')} %>
           </div>
       <% end %>
   <% end %>

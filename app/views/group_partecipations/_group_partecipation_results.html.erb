@@ -17,7 +17,7 @@
 
 
             <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue', disable_with: t('sending') %>
+            <%= e.submit t('buttons.send'), :class => 'btn blue', data:{disable_with: t('sending')} %>
         <% end %>
       </div>
 

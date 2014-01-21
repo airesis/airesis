@@ -12,7 +12,7 @@
 
         <div class="content" data-section-content>
           <% if (role.id != @group.partecipation_role_id) %>
-              <%= link_to t('buttons.delete'), partecipation_role_path(role), :method => :delete, :remote => true, :class => 'btn deleteButton', style: 'float:right', :confirm => t('pages.groups.edit_permissions.confirm_role_deletion') %>
+              <%= link_to t('buttons.delete'), partecipation_role_path(role), :method => :delete, :remote => true, :class => 'btn deleteButton', style: 'float:right', data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
           <% end %>
           <%= link_to t('buttons.edit'), edit_partecipation_role_path(role), :class => 'btn editButton', style: 'float:right', :remote => true %>
           <h4><%= role.description %></h4>

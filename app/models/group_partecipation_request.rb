@@ -7,8 +7,8 @@ class GroupPartecipationRequest < ActiveRecord::Base
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
   belongs_to :status, :class_name => 'GroupPartecipationRequestStatus', :foreign_key => :group_partecipation_request_status_id
   
-  scope :pending, { :conditions => {:group_partecipation_request_status_id => 1 }}
-  scope :voting, { :conditions => {:group_partecipation_request_status_id => 2 }}
+  scope :pending, -> { where(:group_partecipation_request_status_id,1)}
+  scope :voting, -> {where(:group_partecipation_request_status_id,2)}
   
    validates_uniqueness_of :user_id, :scope => :group_id
 end

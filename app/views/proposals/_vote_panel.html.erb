@@ -48,7 +48,7 @@
                   <%= f.label 'Token di sicurezza' %>
                   <%= f.text_field 'token', maxlength: 6 %>
               <% end %>
-              <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, :confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title), :id => 'submit', :class => 'btn blue acceptButton' %>
+              <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, data: {:confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title)}, :id => 'submit', :class => 'btn blue acceptButton' %>
           <% end %>
 
           <script type="text/javascript">

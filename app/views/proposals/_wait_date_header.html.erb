@@ -13,7 +13,7 @@
               <b><%= t('pages.proposals.show.choose_votation_period') %></b>
               <%= f.select :vote_period_id, options_for_select(collection), {style: 'width:400px'} %>
 
-              <%= f.submit t('pages.proposals.show.choose_votation_period_button'), :confirm => t('pages.proposals.show.choose_votation_period_alert'), :class => 'btn blue' %>
+              <%= f.submit t('pages.proposals.show.choose_votation_period_button'), data: {:confirm => t('pages.proposals.show.choose_votation_period_alert')}, :class => 'btn blue' %>
             </p>
         <% end %>
     <% else %>

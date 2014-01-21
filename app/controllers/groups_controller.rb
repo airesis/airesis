@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
 
   def index
     unless request.xhr?
-      @tags = Tag.where(['groups_count > 0']).all
+      @tags = Tag.where(['groups_count > 0']).load
     end
 
     interest_border_key = params[:interest_border]
@@ -524,7 +524,7 @@ class GroupsController < ApplicationController
   protected
 
   def load_group
-    @group = params[:id] ? Group.find(params[:id]) : Group.find_by_subdomain(request.subdomain)
+    @group = params[:id] ? Group.friendly.find(params[:id]) : Group.find_by_subdomain(request.subdomain)
   end
 
   def portavoce_required

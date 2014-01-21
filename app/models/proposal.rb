@@ -5,7 +5,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation', order: 'id DESC', dependent: :destroy
+  has_many :proposal_presentations, -> {order 'id DESC' }, :class_name => 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, :class_name => 'ProposalBorder', dependent: :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
@@ -22,7 +22,7 @@ class Proposal < ActiveRecord::Base
   # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
   # only the main contributes related to the proposal
-  has_many :contributes, :class_name => 'ProposalComment', :dependent => :destroy, :conditions => ['parent_proposal_comment_id is null']
+  has_many :contributes, -> {where(['parent_proposal_comment_id is null'])}, :class_name => 'ProposalComment', :dependent => :destroy
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
   has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
 

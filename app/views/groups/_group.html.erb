@@ -81,7 +81,7 @@
         </div>
 
         <p>
-          <%= f.submit button_name, :class => 'btn blue', disable_with: t('saving') %>
+          <%= f.submit button_name, :class => 'btn blue', data:{disable_with: t('saving')} %>
         </p>
 
     <% else %>
@@ -97,7 +97,7 @@
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
         <p>
-          <%= f.submit button_name, :class => 'btn blue', disable_with: t('updating') %>
+          <%= f.submit button_name, :class => 'btn blue', data:{disable_with: t('updating')} %>
           <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, confirm: t('pages.groups.show.confirm_destroy'), class: 'btn red trashButton right' if can? :destroy, @group %>
         </p>
 

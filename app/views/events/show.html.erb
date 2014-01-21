@@ -129,8 +129,8 @@
       <% content_for :left_panel do %>
           <% if can? :update, @event %>
               <div class="mybox">
-                <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', disable_with: t('loading') if can? :update, @event %>
-                <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', disable_with: t('loading') if can? :destroy, @event %>
+                <%= link_to t('buttons.edit'), edit_event_path(@event), remote: true, class: 'btn editButton', data:{disable_with: t('loading')} if can? :update, @event %>
+                <%= link_to t('buttons.delete'), @event, method: :delete, class: 'btn red trashButton', confirm: 'Sei sicuro di voler eliminare questo evento?', data:{disable_with: t('loading')} if can? :destroy, @event %>
               </div>
           <% end %>
 

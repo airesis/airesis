@@ -22,7 +22,7 @@
       <input type="hidden" name="manage" value="<%= params[:manage]%>"/>
 
       <a href="#" class="btn" onclick="$('#group_area_panel').dialog('close');"><%= t('buttons.cancel') %></a>
-      <%= e.submit t('buttons.create'), :class => 'btn blue', disable_with: t('saving') %>
+      <%= e.submit t('buttons.create'), :class => 'btn blue', data:{disable_with: t('saving')} %>
   <% end %>
 </div>
 

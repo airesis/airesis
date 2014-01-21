@@ -95,7 +95,7 @@
         </div>
 
         <div class="clearboth"></div>
-        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', disable_with: t('loading') %>
+        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', data:{disable_with: t('loading')} %>
     <% end %>
   </fieldset>
 </div>

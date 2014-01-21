@@ -125,7 +125,7 @@
 
       <p>
         <%= link_to t('buttons.cancel'), :back, :class => 'btn' unless request.xhr? %>
-        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', disable_with: t('loading') %>
+        <%= f.submit t('pages.proposals.new.create_button'), :class => 'btn blue disable', onclick: 'return validElement();', data:{disable_with: t('loading')} %>
       </p>
   <% end %>
 

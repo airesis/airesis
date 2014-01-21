@@ -82,7 +82,7 @@
     <% if can? :update, @blog_post %>
         <div class="mybox">
           <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' %>
-          <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, :confirm => t('pages.blog_posts.show.delete_button_confirm'), :class => 'btn deleteButton' %>
+          <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, data: {confirm: t('pages.blog_posts.show.delete_button_confirm')}, :class => 'btn deleteButton' %>
         </div>
     <% end %>
     <% if ::Configuration.socialnetwork_active %>
