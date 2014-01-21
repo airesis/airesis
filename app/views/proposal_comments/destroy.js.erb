@@ -1,5 +1,5 @@
 $('#comment<%=@proposal_comment.id.to_s%>').hide(600);
-$("#flash_messages_comments").html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
+$('#flash_messages').html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
 
 
 <% publish_to proposal_path(@proposal) do %>
