@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116142959) do
+ActiveRecord::Schema.define(:version => 20140117133329) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1485,6 +1485,7 @@ ActiveRecord::Schema.define(:version => 20140116142959) do
     t.integer  "vote_type_id"
     t.string   "vote_schulze"
     t.string   "vote_schulze_desc", :limit => 2000
+    t.text     "comment"
   end
 
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true

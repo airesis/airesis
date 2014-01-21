@@ -247,7 +247,7 @@ def rejected?
 end
 
 def is_current?
-  [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
+  [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
 end
 
 #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito

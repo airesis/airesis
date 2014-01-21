@@ -1,4 +1,19 @@
-<% unless @proposal.is_petition? %>
+<% if @proposal.is_petition? %>
+    <% if @proposal.voting? %>
+        <div class="rankleftpanel mybox">
+          <p class="inpoints">
+            <span class="littleText" id="valutazioni"><%= 'Signs' %></span>
+            <span class="rightAlign"><%= @proposal.valutations %></span>
+          </p>
+          <% if can? :vote, @proposal %>
+              <%= form_for 'data', :url => votation_vote_path(:proposal_id => @proposal.id), remote: true, method: :put do |f| %>
+                  <%= f.text_area 'comment', placeholder: 'Share your thought' %>
+                  <%= f.submit 'Sign the petition', class: 'btn  blue', disable_with: t('loading') %>
+              <% end %>
+          <% end %>
+        </div>
+    <% end %>
+<% else %>
     <div id="rankleftpanel" class="rankleftpanel mybox">
       <div class="points">
         <%= render :partial => 'proposals/points_left_panel' %>
@@ -25,10 +40,6 @@
       <% else %>
           <% "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>
       <% end %>
-      <a href="//www.pinterest.com/pin/create/button/?url=<%= j current_url %>&media=<%= j @pinurl %>&description=<%= @proposal.title %>"
-         data-pin-do="buttonPin"
-         data-pin-config="above">
-      </a>
       <a href="https://twitter.com/share"
          class="twitter-share-button"
          data-lang="en"
@@ -37,20 +48,20 @@
       <g:plusone size="tall"></g:plusone>
       <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
       <% if current_user && current_user.has_provider('facebook') %>
-          <% if current_user.facebook && ((current_user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil)%>
+          <% if current_user.facebook && ((current_user.facebook.get_connections('me', 'permissions')[0]['xmpp_login'].to_i == 1) rescue nil) %>
               <%= link_to 'Share with friends', facebook_share_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'zocial facebook', id: 'sharefb' %>
-              <%if params[:share] %>
-              <script type="text/javascript">
-                  $(function () {
-                      $('#sharefb').click();
-                  });
-              </script>
-              <%end%>
+              <% if params[:share] %>
+                  <script type="text/javascript">
+                      $(function () {
+                          $('#sharefb').click();
+                      });
+                  </script>
+              <% end %>
           <% else %>
               <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'zocial facebook' %>
           <% end %>
       <% end %>
-      <%=link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'promote_proposal' %>
+      <%= link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'promote_proposal' %>
     </div>
 <% end %>
 

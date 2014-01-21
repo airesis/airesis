@@ -1,4 +1,4 @@
-<% if can? :vote, @proposal %>
+<% if can? :vote, @proposal && !@proposal.is_petition? %>
     <div class="vote_panel">
       <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
       <% range = @proposal.solutions.count %>
@@ -164,7 +164,8 @@
     </div>
 
 
-<% elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
+<% elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) && !@proposal.is_petition? %>
+
     <div class="vote_panel">
       <h4><%= t('pages.proposals.vote_panel.results_time', when: (l vote.created_at)) %></h4>
       <% if @proposal.secret_vote %>

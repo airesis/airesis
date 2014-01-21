@@ -56,7 +56,9 @@
         </div>
       </div>
   <% elsif @proposal.voting? %>
+      <%unless @proposal.is_petition? %>
       <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>     <!--TODO:I18n -->
+      <%end%>
   <% elsif @proposal.abandoned? %>
       <%= render :partial => 'proposals/abandoned_header' %>
   <% end %>
@@ -80,7 +82,7 @@
 
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>
-    <div class="proposal_main">
+    <div class="proposal_main card">
       <h3>
         <div class="tit1">
           <div class="tit2">
@@ -107,7 +109,7 @@
 <% end %>
 
 <% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each_with_index do |solution,i| %>
-    <div class="solution_main" data-solution_id="<%= solution.id %>">
+    <div class="solution_main card" data-solution_id="<%= solution.id %>">
       <h3>
         <div class="tit1 sol">
           <div class="tit2">

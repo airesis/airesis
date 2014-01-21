@@ -286,7 +286,7 @@ class ProposalsController < ApplicationController
             @proposal.topic_proposals.build(:topic_id => @topic.id, :user_id => current_user.id)
           end
         else
-          @proposal.anonima = DEFAULT_ANONIMA
+          @proposal.anonima = @proposal.is_petition? ? false : DEFAULT_ANONIMA
           @proposal.visible_outside = true
           @proposal.secret_vote = true
         end

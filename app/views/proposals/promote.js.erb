@@ -20,6 +20,9 @@ $('#promote_proposal').click(function (e) {
     return false;
 });
 
-
+try{
+    FB.XFBML.parse();
+}catch(ex){}
+twttr.widgets.load();
 
 disegnaBottoni();
