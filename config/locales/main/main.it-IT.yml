@@ -911,7 +911,7 @@ it-IT:
       blocked_user_list: "Elenco utenti bloccati"
       block: "Sblocca"
     feedback:
-      send_feedback: "Invia feedback"
+      send_feedback: "Feedback"
       add_details: "Aggiungi dettagli"
       view_preview: "Visualizza anteprima"
       send_succes: "Feedback inviato correttamente. Grazie!"

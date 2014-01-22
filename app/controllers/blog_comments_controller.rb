@@ -1,7 +1,6 @@
 #encoding: utf-8
 class BlogCommentsController < ApplicationController
-  unloadable
-  
+
   helper :blog
   
   layout('application')

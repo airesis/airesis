@@ -1,7 +1,7 @@
 #encoding: utf-8
 class BlogPostsController < ApplicationController
   include NotificationHelper, GroupsHelper
-  unloadable
+
   
   
   helper :blog

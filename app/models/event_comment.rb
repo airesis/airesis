@@ -1,5 +1,4 @@
 class EventComment < ActiveRecord::Base
-  unloadable
 
   belongs_to :user
   belongs_to :event

@@ -11,7 +11,7 @@
             <div class="MoImg24">
               <%= request.user_image_tag(24) %>
             </div>
-            <div class="Mo2" style="width:155px">
+            <div class="Mo2" style="width:120px">
               <%= link_to_user request.user, :full_name => true %>
             </div>
             <% if (can? :accept_requests, @group) %>

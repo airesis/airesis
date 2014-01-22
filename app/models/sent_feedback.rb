@@ -1,5 +1,4 @@
 class SentFeedback < ActiveRecord::Base
-  unloadable
 
   # Check for paperclip
   has_attached_file :image,

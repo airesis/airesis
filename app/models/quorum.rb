@@ -11,10 +11,10 @@ class Quorum < ActiveRecord::Base
   has_one :group, :through => :group_quorum, :class_name => 'Group'
   has_one :proposal, :class_name => 'Proposal'
 
-  scope :public, {:conditions => ["public = ?", true]}
-  scope :active, {:conditions => ["active = ?", true]}
-  scope :assigned, {:conditions => ["assigned = ?", true]}
-  scope :unassigned, {:conditions => ["assigned = ?", false]}
+  scope :public, -> {where(["public = ?", true])}
+  scope :active, -> {where(["active = ?", true])}
+  scope :assigned, -> {where(["assigned = ?", true])}
+  scope :unassigned, -> {where(["assigned = ?", false])}
 
   attr_accessor :days_m, :hours_m, :minutes_m
 

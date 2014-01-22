@@ -27,7 +27,7 @@ module Frm
 
     alias_attribute :title, :name
 
-    default_scope order('name ASC')
+    default_scope {order('name ASC')}
 
     def last_post_for(forem_user)
       if forem_user && (forem_user.forem_admin?(group) || moderator?(forem_user))

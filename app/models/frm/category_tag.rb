@@ -1,6 +1,5 @@
 module Frm
   class CategoryTag < Frm::FrmTable
-    unloadable
 
     belongs_to :category, foreign_key: 'frm_category_id'
     belongs_to :tag

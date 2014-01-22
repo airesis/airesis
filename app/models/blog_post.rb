@@ -3,9 +3,7 @@ class BlogPost < ActiveRecord::Base
 	include BlogKitModelHelper
 
   has_paper_trail :class_name => 'BlogPostVersion'
-	
-	unloadable
-	
+
 	belongs_to :user
   belongs_to :blog
 	

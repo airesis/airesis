@@ -28,7 +28,7 @@ module Frm
     belongs_to :forum
     belongs_to :user, :class_name => 'User'
     has_many   :subscriptions
-    has_many   :posts, :dependent => :destroy, :order => "frm_posts.created_at ASC"
+    has_many   :posts, -> {order 'frm_posts.created_at ASC'}, :dependent => :destroy
 
     has_many :topic_tags, :dependent => :destroy, foreign_key: 'frm_topic_id'
     has_many :tags, :through => :topic_tags, :class_name => 'Tag'

@@ -16,13 +16,13 @@ class GroupArea < ActiveRecord::Base
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
   belongs_to :default_role, :class_name => 'AreaRole', :foreign_key => :area_role_id
 
-  has_many :area_partecipations, :class_name => 'AreaPartecipation', :dependent => :destroy, :order => 'id DESC'
+  has_many :area_partecipations, -> {order 'id DESC'}, :class_name => 'AreaPartecipation', :dependent => :destroy
   has_many :partecipants, :through => :area_partecipations, :source => :user, :class_name => 'User'
 
   has_many :area_proposals, :class_name => 'AreaProposal'#, :dependent => :destroy
   has_many :internal_proposals, :through => :area_proposals, :class_name => 'Proposal', :source => :proposal
 
-  has_many :area_roles, :class_name => 'AreaRole', :dependent => :destroy, :order => 'id DESC'
+  has_many :area_roles, -> {order 'id DESC'}, :class_name => 'AreaRole', :dependent => :destroy
 
   before_create :pre_populate
   after_create :after_populate

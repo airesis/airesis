@@ -41,6 +41,7 @@ module Airesis
     config.after_initialize do
       GroupsHelper.init
     end
+
   end
 end
 
