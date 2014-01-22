@@ -160,3 +160,16 @@ it-IT:
             Questo gruppo mi ha dato la possibilità di collaborare a quello che ritengo sarà una delle prossime frontiere
             della socialità.
           </p>
+      thanks_1_html: |
+        <a href="https://www.facebook.com/groups/incontrom5s/" target="_blank">Il Gruppo Incontro dei cittadini a 5 Stelle</a> che supporta il progetto e ha finanziato le spese per l'hosting per tutto il 2013  e 2014"
+      thanks_2: "Chi ha lavorato duramente per divulgare il progetto aiutandoci a reperire le professionalità necessarie per portarlo avanti"
+      thanks_3: "Chi ci segue attraverso le nostre pagine facebook e le nostre mailing list, fornendo utili consigli, informazioni ed un caldo supporto morale"
+      thanks_4: "Chi ha ospitato e ospiterà nella propria sede o nella propria casa le riunioni fisiche del gruppo."
+      thanks_5_html: |
+        <a href="http://www.jetbrains.com/" target="_blank">JetBrains</a> che ci fornisce gratuitamente <a href="http://www.jetbrains.com/ruby/" target="_blank">RubyMine</a> per lo sviluppo
+      thanks_6_html: |
+        <a href="https://crowdin.net/" target="_blank">Crowdin</a> che ci fornisce gratuitamente <a href="https://crowdin.net/project/airesis" target="_blank">la piattaforma per le traduzioni e l'internazionalizzazione</a>
+      thanks_7_html: |
+        <a href="http://www.gurock.com/" target="_blank">Gurock Software</a> che ci fornisce gratuitamente <a href="http://www.gurock.com/testrail/" target="_blank">TestRail test management software</a> per la gestione e realizzazione dei test
+      thanks_8_html: |
+        Il gentilissimo <a href="https://twitter.com/rbates" target="_blank">Ryan Bates</a> che ci fornisce gratuitamente l'abbonamento <a href="http://railscasts.com/" target="_blank">RailsCasts</a> per la visualizzazione di tutorial e video su Ruby On Rails

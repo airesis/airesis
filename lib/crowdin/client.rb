@@ -37,7 +37,7 @@ module Crowdin
         files << { :dest => "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, "en")}", :source => path }
       }
 
-      crowdin.upload_translation(
+      @crowdin.upload_translation(
           files,
           language = 'it',
            params = {:import_duplicates => true})

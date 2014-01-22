@@ -420,7 +420,7 @@ en:
         close_debate_proposal_confirmation: "Close debate immediately and go to the next phase?"
         during_debate: "Debate proceeding"
         comment_inserted_by: "%{who} - %{when}"
-        comment_updated_by: "%{who} - updated on %{when}"
+        comment_updated_by: "%{who} - updated %{when}"
         replies:
           show_all: "Show all %{count} comments..."
           delete: "Delete"
@@ -1177,6 +1177,7 @@ en:
     ok: "OK"
     yes_word: 'YES'
     no_word: 'NO'
+    mark: "Mark"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"

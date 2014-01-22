@@ -95,7 +95,11 @@ en:
         title: "Spreading of the project and contacts with Meetup"
         content_html: |
           <p>
-            I am %{age} years old and about %{volunteers} are engaged in the political and social movement called “Five stars movement” of Florence. I studied economics and business (financial markets), then I realized who (or what) I should have to be in order to be able to honor my studies and I preferred familiar shores. I'm an antiquarian and the time that this work has granted me, has been used to perfect the knowledge of some programming languages ​​such as php and java. In Agora 2.0 - Airesis I was involved by Nicola in 2010 for the study of logic, for the creation of virtual spaces in which the comparison between the different programmers took place, and finally for his presentation and promotion. I am currently studying Ruby despite a 8 month old daughter wonderfully challenging. The hope is to give life to a dream in which the policy is made ​​by the people for the people to always get the most shared, weighted and appreciated possible solution.
+            I am %{age} years old and about %{volunteers} are engaged in the political and social movement called “Five stars movement” of Florence.
+            I studied economics and business (financial markets), then I realized who (or what) I should have to be in order to be able to honor my studies and I preferred familiar shores.
+            I'm an antiquarian and the time that this work has granted me, has been used to perfect the knowledge of some programming languages ​​such as php and java.
+            In Agora 2.0 - Airesis I was involved by Nicola in 2010 for the study of logic, for the creation of virtual spaces in which the comparison between the different programmers took place, and finally for his presentation and promotion.
+            I am currently studying Ruby despite a 8 month old daughter wonderfully challenging. The hope is to give life to a dream in which the policy is made ​​by the people for the people to always get the most shared, weighted and appreciated possible solution.
           </p>
       test_area: "Test Area"
       mion_carlo:
