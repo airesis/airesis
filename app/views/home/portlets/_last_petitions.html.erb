@@ -1,0 +1,12 @@
+<div class="title">
+  <%= t('pages.home.index.last_petitions') %>
+  <%=link_to 'Vai alle petizioni', proposals_path, class: 'btn' %>
+</div>
+
+
+<% @proposals_p = Proposal.open_space_petitions_portlet(current_user) %>
+<% unless @proposals_p.empty? %>
+    <div class="scrollable">
+      <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
+    </div>
+<% end %>

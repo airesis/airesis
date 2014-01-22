@@ -42,7 +42,7 @@ $large-screen: 1440px;
 
 .comment_update_divider {
     margin-left: 97px;
-    background-color: #eee;
+    background-color: #bbb;
     padding: 0.3em;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
@@ -95,7 +95,7 @@ $large-screen: 1440px;
 
 .show_all_comments {
     position: relative;
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+    background: #fff;
     border-left: 1px solid #CCCCCC;
     border-right: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
@@ -325,7 +325,21 @@ $large-screen: 1440px;
 
 .twocols {
     .proposal_list {
-        width: 50%;
+        width: 100%;
+    }
+    .blogPost {
+        width: 100%;
+    }
+}
+
+@media (min-width: '1500px') {
+    .twocols {
+        .proposal_list {
+            width: 50%;
+        }
+        .blogPost {
+            width: 50%;
+        }
     }
 }
 
@@ -1281,7 +1295,7 @@ a.spch-bub-inside:hover .point {
 
 .suggest .tria {
     position: absolute;
-    right: -12px;
+    right: -24px;
     margin-top: -40px;
     height: 38px;
     width: 20px;

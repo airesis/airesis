@@ -295,6 +295,7 @@ class ProposalsController < ApplicationController
         # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
         if @proposal.is_petition?
           @proposal.proposal_state_id = @proposal.petition_phase == 'signatures' ? ProposalState::VOTING : ProposalState::VALUTATION
+          @proposal.build_vote(:positive => 0, :negative => 0, :neutral => 0)
         else
           quorum = assign_quorum(prparams)
           @proposal.proposal_state_id = ProposalState::VALUTATION
@@ -346,7 +347,9 @@ class ProposalsController < ApplicationController
             if request.env['HTTP_REFERER']["back=home"]
               page.redirect_to home_url
             else
-              page.redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
+              page.redirect_to @proposal.is_petition? ?
+                @group ? group_proposal_url(@group, @proposal) : proposal_path(@proposal) :
+                @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
             end
           end
         }

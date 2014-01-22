@@ -3,13 +3,15 @@
         <div class="rankleftpanel mybox">
           <p class="inpoints">
             <span class="littleText" id="valutazioni"><%= 'Signs' %></span>
-            <span class="rightAlign"><%= @proposal.valutations %></span>
+            <span class="rightAlign"><%= @proposal.vote.number %>/<%= @proposal.signatures %></span>
           </p>
           <% if can? :vote, @proposal %>
               <%= form_for 'data', :url => votation_vote_path(:proposal_id => @proposal.id), remote: true, method: :put do |f| %>
                   <%= f.text_area 'comment', placeholder: 'Share your thought' %>
                   <%= f.submit 'Sign the petition', class: 'btn  blue', disable_with: t('loading') %>
               <% end %>
+              <%elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
+              <p>You signed this petition</p>
           <% end %>
         </div>
     <% end %>
@@ -61,7 +63,7 @@
               <%= link_to 'Share with friends', user_omniauth_authorize_path(:facebook, scope: 'xmpp_login', origin: current_url, share: true), disable_with: t('loading'), class: 'zocial facebook' %>
           <% end %>
       <% end %>
-      <%= link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'promote_proposal' %>
+            <%= link_to 'Promote the proposal', promote_proposal_url(@proposal, group_id: @group.try(:id)), remote: true, disable_with: t('loading'), class: 'btn blue', id: 'promote_proposal' if @proposal.is_petition?%>
     </div>
 <% end %>
 

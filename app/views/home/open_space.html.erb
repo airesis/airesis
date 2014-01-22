@@ -1,0 +1,13 @@
+<%@extend = true %>
+<!--Scrivania dell'utente -->
+
+<div id="homecont">
+<%= render :partial => "home/portlets/last_proposals", :layout => "layouts/portlet"%>
+<%= render :partial => "home/portlets/last_petitions", :layout => "layouts/portlet"%>
+  <%= render :partial => "home/portlets/from_blogs", :layout => "layouts/portlet"%>
+  <%= render :partial => "home/portlets/most_active_groups", :layout => "layouts/portlet"%>
+  <%= render :partial => "home/portlets/next_events", :layout => "layouts/portlet"%>
+  <%= render :partial => "home/portlets/tags", :layout => "layouts/portlet"%>
+
+<div class="clearboth"></div>
+</div>
