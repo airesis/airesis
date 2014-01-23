@@ -328,6 +328,15 @@ function disegnaProgressBar() {
             }
         });
     });
+
+    $(function () {
+        $(".progress_bar").progressBar({
+            boxImage: '<%=asset_path "progressbar.gif"%>',
+            barImage: '<%=asset_path "progressbg_green.gif"%>',
+            showText: true,
+            textFormat: 'custom'
+        });
+    });
 }
 
 function hideDisableButton(button) {

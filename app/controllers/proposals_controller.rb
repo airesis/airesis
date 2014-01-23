@@ -125,6 +125,30 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def banner
+    @proposal = Proposal.find(params[:id])
+
+    if @proposal.is_petition?
+      respond_to do |format|
+        format.js
+        format.html {render 'banner', layout: false}
+      end
+    else
+      render nothing: true, status: 404
+    end
+  end
+
+  def test_banner
+    @proposal = Proposal.find(params[:id])
+    if @proposal.is_petition?
+      respond_to do |format|
+        format.html
+      end
+    else
+      render nothing: true, status: 404
+    end
+  end
+
   def show
     @step = get_next_step(current_user) if current_user
     if @proposal.private && @group #la proposta è interna ad un gruppo
@@ -239,7 +263,7 @@ class ProposalsController < ApplicationController
       log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
-          page.alert t('pages.proposals.new.wait',minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor,seconds:((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
+          page.alert t('pages.proposals.new.wait', minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor, seconds: ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
           page << "$('#create_proposal_container').foundation('reveal','close');"
         end }
       end
@@ -348,8 +372,8 @@ class ProposalsController < ApplicationController
               page.redirect_to home_url
             else
               page.redirect_to @proposal.is_petition? ?
-                @group ? group_proposal_url(@group, @proposal) : proposal_path(@proposal) :
-                @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
+                                   @group ? group_proposal_url(@group, @proposal) : proposal_path(@proposal) :
+                                   @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
             end
           end
         }
