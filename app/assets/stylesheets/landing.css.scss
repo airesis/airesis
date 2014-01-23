@@ -2,16 +2,35 @@ html, body {
   height: 100%;
 }
 
-#footer {
-  font-size: 12px;
-  clear: both;
-  position: relative;
-  z-index: 10;
-  height: 35px;
-  margin-top: -30px;
-  width: 981px;
-  margin-left: auto;
-  margin-right: auto;
+#footer, footer {
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 7px;
+  background-color: #33b5e5;
+  color: white;
+  box-shadow: 0px -1px 1px #333;
+  font-size: 0.9em;
+  z-index: 998;
+  @media only screen and (max-width: 64em) {
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 1.5em;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .language.footer {
+    max-width: 30%;
+    @media only screen and (max-width: 40.063em) {
+      max-width: 50%;
+    }
+  }
 }
 
 a:focus {
@@ -128,25 +147,6 @@ p small {
   visibility: hidden
 }
 
-#footer, footer {
-  position: absolute;
-  right: 0px;
-  left: 0px;
-  padding: 7px;
-  background-color: #33b5e5;
-  color: white;
-  box-shadow: 0px -1px 1px #333;
-  font-size: 0.9em;
-  z-index: 998;
-  a {
-    color: white;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
 
 /* frontpage */
 
@@ -227,9 +227,6 @@ p small {
 }
 
 /* DT styles for sliding doors */
-.language.footer {
-  max-width: 7%;
-}
 
 #language {
   a {

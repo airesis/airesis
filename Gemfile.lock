@@ -148,6 +148,9 @@ GEM
     ffi (1.9.3)
     foreigner (1.6.1)
       activerecord (>= 3.0.0)
+    foundation-rails (5.0.3.1)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     gemoji (1.5.0)
@@ -385,8 +388,6 @@ GEM
     xmpp4r (0.5.5)
     xmpp4r_facebook (0.1.1)
       xmpp4r
-    zurb-foundation (4.3.2)
-      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -408,6 +409,7 @@ DEPENDENCIES
   email_reply_parser
   exception_notification (= 2.6.1)
   foreigner
+  foundation-rails
   friendly_id
   gemoji
   geocoder
@@ -461,4 +463,3 @@ DEPENDENCIES
   wicked_pdf
   workflow
   xmpp4r_facebook
-  zurb-foundation

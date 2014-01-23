@@ -19,12 +19,12 @@
 
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
       <%= javascript_include_tag "foundation" %>
+      <%= javascript_include_tag "vendor/modernizr" %>
 
       <%= stylesheet_link_tag 'landing.css' %>
       <%= stylesheet_link_tag 'jquery.qtip' %>
       <%= stylesheet_link_tag 'redmond/custom' %>
-
-      <%= stylesheet_link_tag "foundation_and_overrides" %>
+      <%= stylesheet_link_tag 'application' %>
 
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -91,37 +91,6 @@
             s.parentNode.insertBefore(ga, s);
         })();
         <%end%>
-
-
-        $(function () {
-
-            $('.cur.language').qtip({
-                content: $('#language'),
-                position: {
-                    at: 'bottom center',
-                    my: 'top right',
-                    viewport: $(window),
-                    effect: false,
-                    adjust: {
-                        method: 'shift',
-                        x: 0, y: 0
-                    }
-                },
-                style: {
-                    classes: 'qtip-light qtip-shadow qtip-cur'
-                },
-                show: {
-                    event: 'click',
-                    solo: true
-                },
-                hide: {
-                    event: 'click -unfocus',
-                    fixed: true,
-                    delay: 500
-                }
-            });
-
-        })
 
 
     </script>
@@ -292,10 +261,14 @@
         </div>
 
       </div>
-      <div class="row">
+      <div class="row full-width">
       <%= render :partial => "layouts/new_footer" %>
       </div>
     </div>
+
+    <script type="text/javascript">
+        $(function(){ $(document).foundation(); });
+    </script>
     </body>
     </html>
 <% end %>

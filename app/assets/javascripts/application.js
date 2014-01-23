@@ -48,3 +48,5 @@
 //= require foundation
 //= require list
 //= require diff_match_patch
+
+$(function(){ $(document).foundation(); });
