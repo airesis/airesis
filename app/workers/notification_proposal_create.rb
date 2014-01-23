@@ -18,6 +18,7 @@ class NotificationProposalCreate < NotificationSender
       group = Group.find(group_id)
       data['group_id'] = group.id.to_s
       data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
 
       #le notifiche vengono inviate ai partecipanti al gruppo che possono visualizzare le proposte
       if group_area_id

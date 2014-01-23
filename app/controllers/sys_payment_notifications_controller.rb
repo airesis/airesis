@@ -13,8 +13,6 @@ class SysPaymentNotificationsController < ApplicationController
     render nothing: true
   end
 
-
-
   protected
   def validate_IPN_notification(raw)
     uri = URI.parse("#{PAYPAL['paypal_url']}?cmd=_notify-validate")

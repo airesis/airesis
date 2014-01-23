@@ -44,7 +44,10 @@ module NotificationHelper
     name = @proposal.is_anonima? ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
 
     data = {'proposal_id' => @proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => @proposal.title, 'i18n' => 't'}
-    data['group'] = @group.name if @group
+    if @group
+    data['group'] = @group.name
+    data['subdomain'] = @group.subdomain if @group.certified?
+    end
     notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE, :url => @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), :data => data)
     notification_a.save
     @proposal.users.each do |user|
@@ -62,7 +65,10 @@ module NotificationHelper
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(current_user.id, proposal.id)
     name = proposal.is_anonima? ? nickname.nickname : current_user.fullname
     data = {'proposal_id' => proposal.id.to_s, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'waiting_date'}
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
@@ -76,7 +82,10 @@ module NotificationHelper
   #le notifiche vengono inviate ai creatori  della proposta
   def notify_proposal_ready_for_vote(proposal, group=nil)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'wait'}
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
@@ -180,7 +189,10 @@ module NotificationHelper
   def notify_proposal_rejected(proposal, group=nil)
     subject +="#{proposal.title} è stata respinta"
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'rejected'}
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.users.each do |user|
@@ -200,6 +212,7 @@ module NotificationHelper
   #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
   def notify_user_asked_for_partecipation(group)
     data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'group' => group.name, 'i18n' => 't'}
+    data['subdomain'] = group.subdomain if group.certified?
     notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTECIPATION_REQUEST, url: group_url(group), data: data)
     notification_a.save
     group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
@@ -230,6 +243,8 @@ module NotificationHelper
     blog_post.groups.each do |group|
       #TODO followers are not supported anymore
       data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
+      data['subdomain'] = group.subdomain if group.certified?
+
       #notifica a chi segue il gruppo
       #notification_b = Notification.create(:notification_type_id => 8,:url => group_blog_post_url(group, blog_post), data: data)
       #group.followers.each do |user|
@@ -334,7 +349,10 @@ module NotificationHelper
   def time_left(proposal, type)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
     group = proposal.private ? proposal.presentation_groups.first : nil
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save!
     notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
@@ -351,7 +369,10 @@ module NotificationHelper
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
     group = proposal.private ? proposal.presentation_groups.first : nil
     group_area = proposal.private ? proposal.presentation_areas.first : nil
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
 
     notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save!
