@@ -1,70 +1,80 @@
 pt-PT:
   errors:
     messages:
-      expired: "expirada, por favor, solicitar uma nova"
-      not_found: "não encontrada"
-      already_confirmed: "já foi confirmado, tente efetuar login novamente"
-      not_locked: "não foi bloqueado"
+      expired: expirou, por favor, solicite um novo
+      not_found: Não foi encontrado
+      already_confirmed: foi já confirmado, por favor, tente entrar
+      not_locked: Não foi bloqueado
       not_saved:
-        one: "Não posso salvar este %{resource}: 1 erro"
-        other: "Não posso salvar este %{resource}: %{count} erro."
-
+        one: "1 erro impediu este %{recurso} de ser salvo:"
+        other: "%{count} erros proibindo este %{resource} de ser salvo:"
   devise:
     failure:
-      locked: "A sua conta está bloqueada."
-      invalid: "Endereço de email ou senha inválida."
-      invalid_token: "Código de autenticação inválido"
-      timeout: "Sessão expirou, faça o login novamente para continuar."
-      inactive: "A sua conta não foi ativada."
-      already_authenticated: "Já está autenticado."
-      unauthenticated: "Entre para ver a página"
-      unconfirmed: "A conta ainda não foi confirmada."
+      locked: A sua conta está bloqueada
+      invalid: E-mail ou palavra-chave inválida
+      invalid_token: Token de autenticação inválido
+      timeout: A sua sessão expirou, por favor entre novamente para continuar
+      inactive: A sua conta ainda não foi ativada
+      already_authenticated: Você já está registado
+      unauthenticated: "Log-in necessário para aceder a esta página.  Por favor, faça log-in."
+      unconfirmed: A sua conta ainda não foi confirmada
       user:
-        invalid: "Nome de utilizador ou palavra-pase inválida"
+        invalid: Nome de utilizador ou palavra-passe inválidos
     sessions:
-      signed_in: "Logado com sucesso."
-      signed_out: "Você está fora corretamente."
+      signed_in: Logado com sucesso
+      signed_out: Saiu com sucesso
       user:
-        signed_out: 'Conseguiu fazer logout. Até à vista!'
-        signed_in: 'Conseguiu autenticar-se. Bemvindo!'
-        signed_up: 'Seguiu corretamente o registo. Bemvindo!'
+        signed_out: "Você conectou-se com sucesso.  Adeus"
+        signed_in: Você registou-se. Bem-vindo!
+        signed_up: Você concluiu com êxito o seu registo. Bem-vindo!
     passwords:
-      send_instructions: "Dentro de alguns minutos, receberá um email com instruções para redefinir sua senha."
-      updated: "Sua senha foi alterada. Agora está conetado."
-      updated_not_active: "A senha foi alterada."
-      send_paranoid_instructions: "O endereço de email existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail que contém um link para redefinir sua senha"
+      send_instructions: Você receberá um e-mail com instruções sobre como redefinir sua senha dentro de alguns minutos
+      updated: A sua senha foi alterada com êxito. Você está agora conetado
+      updated_not_active: A sua senha foi alterada com sucesso
+      send_paranoid_instructions: Se o seu e-mail existe na nossa base de de dados, receberá um link de recuperação de senha na sua caixa de entrada
       user:
-        updated: 'Palavra-chave  atualizada corretamente.'
-        send_instructions: 'Instruções enviadas para o endereço indicado.'
+        updated: Senha atualizada corretamente
+        send_instructions: Instruções foram enviadas para o seu e-mail
     confirmations:
-      send_instructions: "receberá um email com instruções sobre como confirmar a sua conta dentro de alguns minutos."
-      send_paranoid_instructions: "Se o seu endereço de email existe no nosso banco de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como confirmar a sua conta."
-      confirmed: "A sua conta foi confirmada com sucesso. Está agora conectado."
+      send_instructions: Você receberá um e-mail com instruções sobre como confirmar sua conta dentro de alguns minutos
+      send_paranoid_instructions: Se o seu e-mail existe na nossa base de dados, receberá um e-mail com instruções sobre como confirmar a sua conta dentro de poucos minutos
+      confirmed: A sua conta foi confirmada com sucesso. Está agora conectado
       user:
-        confirmed: 'Registo completado com sucesso!'
-        send_instructions:  'Instruções enviadas para o endereço indicado.'
+        confirmed: A sua inscrição foi concluída com êxito
+        send_instructions: As instruções foram enviadas para seu email designado
     registrations:
-      signed_up: "Bem-vindo! Inscreveu-se com sucesso."
-      signed_up_but_unconfirmed: "Inscreveu-se com sucesso. No entanto, não pode entrar porque a sua conta tem que ser confirmada. Por favor, abra o link que recebeu por email para ativar sua conta."
-      signed_up_but_inactive: "inscreveu-se com sucesso. No entanto, não pode fazer logon porque sua conta não foi ativada."
-      signed_up_but_locked: "Inscreveu-se com sucesso. No entanto, você não pode entrar porque a sua conta é bloqueada"
-      updated: "A sua conta foi atualizada."
-      update_needs_confirmation: "A sua conta foi atualizada, mas precisa de verificar o seu endereço de email novo. Dentro de alguns minutos, receberá um e-mail com as instruções para confirmar seu endereço de e-mail novo."
-      destroyed: "Adeus! A sua conta foi excluída. Nós queremos vê-lo em breve!"
+      signed_up: Bem-vindo! Você inscreveu-se com sucesso
+      signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada para seu endereço de e-mail. Por favor, abra o link para ativar sua conta
+      signed_up_but_inactive: Você inscreveu-se com sucesso. No entanto, nós não poderia registar-se você porque sua conta ainda não está ativada
+      signed_up_but_locked: Você inscreveu-se com êxito. No entanto, não pode entrar porque sua conta está bloqueada.
+      updated: Você atualizou sua conta com sucesso
+      update_needs_confirmation: Você atualizou a sua conta com sucesso, mas precisamos verificar seu novo endereço de e-mail. Por favor verifique o seu e-mail e clique no link confirmar para finalizar confirmando seu novo endereço de e-mail
+      destroyed: Adeus! A sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve
       user:
-        inactive_signed_up: 'Para completar o seu registo clique na ligação da mensagem de correio eletrónico que recebeu.'
-        signed_up_but_unconfirmed: 'Clique na ligação que lhe foi enviada para''o endereço de correio eletrónico para completar o registo.'
+        inactive_signed_up: Para completar o seu registo por favor clique no link no email recebido
+        signed_up_but_unconfirmed: Clique no link no e-mail enviado ao seu endereço para concluir o processo de registo
     unlocks:
-      send_instructions: "Dentro de alguns minutos, receberá um email com instruções sobre como desbloquear sua conta."
-      unlocked: "A sua conta foi desbloqueado com sucesso. Você agora está conectado."
-      send_paranoid_instructions: "Se o seu endereço de email existe na base de dados, dentro de alguns minutos, receberá um e-mail com instruções sobre como desbloquear sua conta."
+      send_instructions: Você receberá um e-mail com instruções sobre como confirmar sua conta dentro de alguns minutos
+      unlocked: A sua conta foi desbloqueada com sucesso. Inscreva-se continuar
+      send_paranoid_instructions: Se a sua conta existir, você receberá um e-mail com instruções sobre como desbloqueá-lo em poucos minutos
     omniauth_callbacks:
-      success: 'Conseguiu autenticar-se. Bemvindo!'
-      failure: 'Não foi possível autorizar %{kind} porque "%{reason}".'
+      success: A sua inscrição foi concluída. Bem-vindo!
+      failure: 'Não poderia autorizá-lo de %{kind} porque "%{reason}"'
     mailer:
       confirmation_instructions:
-        subject: "Instruções para confirmar"
+        subject: Instruções de confirmação
+        welcome: "Bem-vindo à %{app_name} {user}!"
+        follow_link: "Você pode confirmar o seu endereço de e-mail clicando no link a seguir:"
+        confirm_account: Confirmar a sua conta
+        follow_link_2: "ou visitando o seguinte url:"
+        access_by_email: "Depois poderá aceder a %{app_name} com o email disponibilizado e a password escolhida"
+        contact_assistance: "Se tiver qualquer problema com o procedimento contacte um administrador: %{mail}"
       reset_password_instructions:
-        subject: "Instruções para redefinir a palavra-passe"
+        subject: Instruções para redifinir a password
+        hi_user: "Olá %{user}!"
+        follow_link: "Você pode alterar a sua palavra-passe clicando no link:"
+        change_password: Alterar palavra-passe
+        ignore: Se não pediu para alterar a sua palavra-passe, por favor, ignore este email.
+        password_will_not_change: A sua palavra-passe não mudará até clicar no link anterior.
       unlock_instructions:
-        subject: "Instruções para desbloquear a conta"
+        subject: Instruções de desbloqueio

@@ -13,6 +13,7 @@ group :assets do
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', ">= 1.0.3"
   gem 'zurb-foundation'
+  gem 'turbo-sprockets-rails3'
 end
 
 gem 'pg'

@@ -27,6 +27,7 @@ class NotificationProposalCommentUpdate < NotificationSender
         url = group_proposal_url(group, proposal)
         data['group'] = group.name
         data['group_id'] = group.id
+        data['subdomain'] = group.subdomain if group.certified?
       else
         url = proposal_url(proposal)
       end
