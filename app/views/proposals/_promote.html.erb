@@ -1,100 +1,142 @@
-<%j = 0%>
+<% j = 0 %>
 <div id="promote_container" class="reveal-modal" data-reveal>
   <h2><%= '' %></h2>
+
   <div id="promote_steps">
     <form id="promote_form">
+      <% if can? :vote, @proposal %>
+          <div class="legend">
+            <div class="number"><%= j+=1 %></div>
+            <div class="title">
+              <%= 'Sign' %>
+            </div>
+          </div>
+      <% end %>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
-        <div class="title">
-          <%= 'Sign' %>
-        </div>
-      </div>
-      <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Suggestions' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Promote' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Share' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Facebook' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Become fan' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Twitter' %>
         </div>
       </div>
       <div class="legend">
-        <div class="number"><%=j+=1%></div>
+        <div class="number"><%= j+=1 %></div>
         <div class="title">
           <%= 'Donate' %>
         </div>
       </div>
 
+      <% if can? :vote, @proposal %>
+          <div class="step root root">
+            <div class="panel callout">
+              <p><%= raw "Complimenti! La tua proposta è stata creata con successo!<br/>Inizia subito la raccolta firme!<br/>Tu sarai il primo firmatario della petizione. Aggiungi un commento e coinvolgi i tuoi amici per raccogliere altre firme e diffondere la petizione.<br/>Inserisci qui sotto il commento che verrà associato alla tua firma." %>
+              </p>
+            </div>
 
-      <div class="step root root">
+            <textarea style="width:60%;margin:auto;"></textarea>
+            <input type="button" class="btn blue" value="Firma e commenta">
+          </div>
+      <% end %>
+      <div class="step">
+        <%= raw "Come fare per ricevere molte firme? E' facile!<br/>Su Airesis le petizioni più firmate vengono visualizzate nella Home Page pubblica e questo ti permetterà di raccogliere ancora più firme!<br/>E' importante che all'inizio tu raccolga le firme al di fuori di Airesis. Come?" %>
+        <ol>
+          <li>Manda una mail a tutti i tuoi conoscenti che potrebbero essere interessati a firmare la petizione</li>
+          <li>Se hai un sito o un blog scrivi un articolo per far conoscere la petizione</li>
+          <li>Contatta altri siti e blog che potrebbero essere interessati e proponi loro di condividere la tua
+            petizione
+          </li>
+          <li>Segnala la tua petizione sui gruppi e le pagine di Facebook o proponi agli amministratori di segnalarle
+          </li>
+          <li>Il passaparola funziona sempre! Parla con i tuoi amici e colleghi e mettili a conoscenza della tua
+            iniziativa
+          </li>
+          <li>Se hai un gruppo su Airesis, sostieni la petizione e falla conoscere a tutti i partecipanti del gruppo
+          </li>
+          <li>Contatta altri gruppi su Airesis e chiedi loro di sostenere la tua petizione. Più gruppi equivale a più
+            firme!
+          </li>
+        </ol>
         <p>
-          <%=raw "Complimenti! La tua proposta è stata creata con successo!<br/>Inizia subito la raccolta firme!<br/>Tu sarai il primo firmatario della petizione. Aggiungi un commento e coinvolgi i tuoi amici per raccogliere altre firme e diffondere la petizione.<br/>Inserisci qui sotto il commento che verrà associato alla tua firma."%>
-          <textarea/>
-          <input type="button" value="Firma e commenta">
+          Ricorda che più firme riuscirai a raccogliere nella fase iniziale e più firme otterrai dagli utenti di
+          Airesis!
         </p>
 
       </div>
       <div class="step">
-        <%="Come fare per ricevere molte firme? E' facile!<br/>Su Airesis le petizioni più firmate vengono visualizzate nella Home Page pubblica e questo ti permetterà di raccogliere ancora più firme!<br/>E' importante che all'inizio tu raccolga le firme al di fuori di Airesis. Come?"%>
-        <ol>
-          <li>Manda una mail a tutti i tuoi conoscenti che potrebbero essere interessati a firmare la petizione</li>
-          <li>Se hai un sito o un blog scrivi un articolo per far conoscere la petizione</li>
-        </ol>
+        Vuoi rendere più visibile la tua petizione su Airesis? Promuovila acquistando un banner che sarà visualizzato nella HomePage di Airesis e nella pagina Petizioni.
+        Airesis ha decine di migliaia di utenti ed il BANNER porterà molti visitatori!
 
       </div>
       <div class="step">
-        aaa
+        Pubblica e condividi un banner su Siti Internet e Blog, eccoti un esempio:
+        <div style="margin:auto;width:800px;">
+          <%= render 'banner' %>
+        </div>
+        Copia il codice HTML sottostante all'interno del tuo sito:
+        <textarea style="width:800px;height:120px;margin:auto;" onclick="this.select();">
+          <div id="airesis_petition_<%= @proposal.id %>"></div>
+          <script type="text/javascript" src="<%= banner_proposal_url(@proposal) %>"></script>
+        </textarea>
 
       </div>
       <div class="step">
-        aaa
+        <p>Clicca su Consiglia qui sotto e condividi la tua petizione con tutti i tuoi amici su Facebook, invitandoli a
+          firmare la petizione.</p>
+
+        <div class="fb-like" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
 
       </div>
       <div class="step">
-        aaa
+        <p>Ricordati di cliccare Mi Piace per seguire la pagina di Airesis e tenerti sempre aggiornato sulle nuove
+          petizioni e le novità di Airesis.</p>
+
+        <div class="fb-like" data-href="http://www.facebook.com/AiresisIt" data-layout="standard" data-action="recommend" data-show-faces="true" data-share="false"></div>
+      </div>
+      <div class="step">
+        <p>Condividi la petizione su Twitter!</p>
+        <a href="https://twitter.com/share"
+           class="twitter-share-button"
+           data-lang="en"
+           data-count="vertical"
+           data-text="Guarda questa proposta su #<%= APP_SHORT_NAME %>">Tweet</a>
 
       </div>
       <div class="step">
-        aaa
-
-      </div>
-      <div class="step">
-        aaa
-
-      </div>
-      <div class="step">
-        aaa
-
+        Airesis offre a tutti gli utenti la creazione e la divulgazione delle petizioni in maniera gratuita.
+        Tecnologie Democratiche è la ONLUS senza scopo di lucro che finanzia il progetto. Fai una donazione!
+        <%=render 'home/donate_buttons'%>
       </div>
 
-      <input type="submit">
+      <input class="wizard" type="submit" style="visibility: hidden;">
     </form>
   </div>
   <a class="close-reveal-modal">&#215;</a>

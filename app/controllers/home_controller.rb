@@ -17,7 +17,9 @@ class HomeController < ApplicationController
   before_filter :initialize_roadmap, :only => [:bugtracking]
 
   def index
-    redirect_to home_url if current_user
+    if current_user
+      render 'open_space'
+    end
   end
 
   def videoguide
@@ -132,7 +134,7 @@ class HomeController < ApplicationController
 
   def choose_layout
     if ['index'].include? action_name
-      nil
+      current_user ? 'open_space' : nil
     elsif ['show'].include? action_name
       'users'
     else

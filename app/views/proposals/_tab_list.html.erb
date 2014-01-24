@@ -6,15 +6,16 @@
   <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
 </div>
 <% unless @proposals.last_page? %>
-    <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals">
+    <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
       <span><%= t('pages.proposals.index.show_more') %></span>
     </div>
-    <div id="loading_proposals<%= params[:state] || params[:view] %>_2" class="loading_proposals" style="display:none">
+    <div id="loading_proposals<%= params[:state] || params[:view] %>_2" class="loading_proposals card" style="display:none">
       <div class="waitDiv"><%= image_tag "facebook-loader.gif", :alt => "loading..." %> </div>
     </div>
 
     <script type="text/javascript">
         $(function () {
+            show_cards();
             var currentPage = 1;
             $('#loading_proposals<%=params[:state] || params[:view]%>').click(function () {
                 $(this).hide();

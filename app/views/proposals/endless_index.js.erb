@@ -5,6 +5,6 @@ $('#proposalsListContainer<%=params[:state] || params[:view]%>').append("<%= esc
   $('#loading_proposals<%=params[:state] || params[:view]%>').hide();
 <%end%>
 $('#loading_proposals<%=params[:state] || params[:view]%>').next().hide();
-
+show_cards();
 disegnaProgressBar();
 disegnaCountdown();

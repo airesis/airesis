@@ -424,7 +424,6 @@ class Ability
     #e se la proposta è in votazione
     def can_vote_proposal?(user, proposal)
       return false unless proposal.voting?
-      return false if proposal.is_petition?
       return false if UserVote.find_by_proposal_id_and_user_id(proposal.id, user.id)
       if proposal.private
         proposal.presentation_groups.each do |group|

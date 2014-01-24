@@ -116,7 +116,7 @@ class Proposal < ActiveRecord::Base
   #tutte le proposte entrate in fase di revisione e feedback
   scope :revision, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
 
-  scope :public, {:conditions => {:private => false}}
+  scope :public, {:conditions => ['private = ? or visible_outside = ?',true,true]}
   scope :private, {:conditions => {:private => true}} #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
@@ -151,6 +151,29 @@ class Proposal < ActiveRecord::Base
       .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
       .order('proposals.updated_at desc')
     end
+  end
+
+  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  def self.open_space_portlet(user)
+    @list_a = Proposal.public
+    .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
+    .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
+    .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
+    .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
+    .where("pt.name != '#{ProposalType::PETITION}'")
+    .order('updated_at DESC').limit(10)
+  end
+
+  #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
+  def self.open_space_petitions_portlet(user)
+    @list_a = Proposal.public
+    .select('distinct proposals.*, proposal_alerts.count as alerts_count')
+    .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
+    .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
+    .where("pt.name = '#{ProposalType::PETITION}'")
+    .order('updated_at DESC').limit(10)
   end
 
   def self.votation_portlet(user)
@@ -247,7 +270,7 @@ def rejected?
 end
 
 def is_current?
-  [PROP_VALUT, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
+  [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING].include? self.proposal_state_id
 end
 
 #restituisce 'true' se la proposta è attualmente anonima, ovvero è stata definita come tale ed è in dibattito

@@ -44,6 +44,7 @@ class SearchProposal < ActiveRecord::Base
         with(:proposal_category_id, self.proposal_category_id) if self.proposal_category_id
 
         with(:proposal_type_id, self.proposal_type_id) if self.proposal_type_id
+        without(:proposal_type_id, 11)    #TODO removed petitions
 
         if self.created_at_from
           ends = self.created_at_to || Time.now

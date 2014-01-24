@@ -1515,6 +1515,7 @@ ul, ol {
 
 body {
   height: 100%;
+  line-height: 1.38em;
 }
 
 .row.centered {
@@ -1654,3 +1655,13 @@ a.zocial:hover {
   display:inherit;
 }
 
+.section-container.tabs section .content {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.progress.success .meter {
+  font-weight: bold;
+  padding-left: 2em;
+}

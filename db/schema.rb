@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116142959) do
+ActiveRecord::Schema.define(:version => 20140122162713) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -1347,7 +1347,6 @@ ActiveRecord::Schema.define(:version => 20140116142959) do
 
   create_table "sys_payment_notifications", :force => true do |t|
     t.text     "params"
-    t.integer  "sys_feature_id"
     t.string   "status"
     t.string   "transaction_id"
     t.datetime "created_at",                     :null => false
@@ -1356,6 +1355,8 @@ ActiveRecord::Schema.define(:version => 20140116142959) do
     t.decimal  "payment_gross"
     t.string   "first_name",     :limit => 4000
     t.string   "last_name",      :limit => 4000
+    t.integer  "payable_id"
+    t.string   "payable_type"
   end
 
   add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true
@@ -1485,6 +1486,7 @@ ActiveRecord::Schema.define(:version => 20140116142959) do
     t.integer  "vote_type_id"
     t.string   "vote_schulze"
     t.string   "vote_schulze_desc", :limit => 2000
+    t.text     "comment"
   end
 
   add_index "user_votes", ["proposal_id", "user_id"], :name => "onlyvoteuser", :unique => true
@@ -1793,8 +1795,6 @@ ActiveRecord::Schema.define(:version => 20140116142959) do
   add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"
   add_foreign_key "sys_movements", "users", name: "sys_movements_user_id_fk"
-
-  add_foreign_key "sys_payment_notifications", "sys_features", name: "sys_payment_notifications_sys_feature_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", name: "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", name: "tutorial_assignees_user_id_fk"
