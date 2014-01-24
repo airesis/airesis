@@ -80,15 +80,15 @@ module Crowdin
       zip_files.each{ |zip|
         Zip::File.open(zip) { |zip_file|
           zip_file.each { |f|
-            f_path = f.name
-            FileUtils.mkdir_p(File.dirname(f_path))
+            file_name = f.name
+            FileUtils.mkdir_p(File.dirname(file_name))
 
-            if f.name.include? "#{FAKE_LANGUAGE}"
-              zip_file.rename(f,f.name.gsub(/(?<=\.)(.*)(?=\.)/, "crowdin") )
+            if (file_name.include? "#{FAKE_LANGUAGE}") && !(file_name.include? "assets")
+              zip_file.rename(f,file_name.gsub(/(?<=\.)(.*)(?=\.)/, "crowdin") )
             end
 
-            if f.size && f.size != 0 #doesn't extract empty files
-              zip_file.extract(f, f_path) { true } #if true overwrite existing files with same name
+            if f.size && f.size != 0 && !(f.name.include? "#{FAKE_LANGUAGE}") #doesn't extract empty files or files with fake locale
+              zip_file.extract(f, f.name) { true } #if true overwrite existing files with same name
             end
           }
         }
