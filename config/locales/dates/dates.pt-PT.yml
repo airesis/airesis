@@ -1,68 +1,163 @@
 pt-PT:
   calendar:
-    monthNames: "['January','February','March','April','May','June','July','August','September','October','November','December']"
-    monthNamesShort: "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
-    dayNames: "['Sunday','Monday','Tuesday','Wednesday','Friday','Thursday','Saturday']"
-    dayNamesShort: "['Sun','Mon','Tue','Wed','Thu','Fri','Sat']"
-    today: 'today'
-    month: 'month'
-    week: 'week'
-    day: 'day'
-    firstDay: 0
-    timeFormat: 'h(:mm)t '
+    monthNames: "['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']"
+    monthNamesShort: "['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']"
+    dayNames: "['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado']"
+    dayNamesShort: "['Dom','Seg','Ter','Qua','Qui','Sex','Sáb']"
+    today: hoje
+    month: mês
+    week: semana
+    day: dia
+    firstDay: "0"
+    timeFormat: "h:mm TT {-[ddd] [dd] h:mm TT}"
   date:
-    order: "[:day, :month, :year ]"
     formats:
-      default: "%d %b %Y todos %H:%M"
-      short: "%b %d"
-    day_names: [domingo, segunda-feira, terça-feira, quarta-feira, quinta-feira, sexta-feira, sábado]
-    abbr_day_names: [D, 2, 3, 4, 5, 6, S]
-    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
-    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mar, Jun, Jul, Ago, Set, Out, Nov, Dec]
+      short: %b %d
+      long: %d %B %Y
+    day_names:
+      - Domingo
+      - Segunda-Feira
+      - Terça-Feira
+      - Quarta-Feira
+      - Quinta-Feira
+      - Sexta-Feira
+      - Sábado
+    abbr_day_names:
+      - Dom
+      - Seg
+      - Ter
+      - Qua
+      - Sex
+      - Qui
+      - Sáb
+    month_names:
+      - Nil
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+    abbr_month_names:
+      - nil
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
   time:
     formats:
-     default: "%d %b %Y todos %H:%M"
-     long: "%A %d %B %Y %H:%M"
-     long_date: "%A %d %B %Y"
-     long_date_time: "%A %d %B %Y horas %H:%M"
-     weekday: "%A"
-     month: "%B"
-     dayandmonth: "%d/%m"
-    am: "am"
-    pm: "pm"
+      default: %d %b %Y at %I:%M %p
+      long: %A %d %B %Y às %I:%M %p
+      long_date: %A %d %B %Y
+      long_date_time: %A %d %B %Y às %I:%M %p
+      from_long_date_time: De %A %d %B %Y a %I:%M %p
+      until_long_date_time: De %A %d %B %Y a %I:%M %p
+      short: %d %b %Y
+      two_rows: "%d %b %Y <br/> %I:%M %p"
+      weekday: %a a %I:%M %p
+      month: %B
+      dayandmonth: %d/%m
+      hour: %I:%M %p
+      yesterday_at: ontem a %I:%M %p
+      textfield: %d/%m/%Y %I:%M %p
+      rich: %Y-%m-%dT%H:%M
+    am: am
+    pm: pm
+    left:
+      seconds:
+        one: 1 segundo
+        other: |
+          [um]
+          1 segundo
+          [other]
+          %{count} segundos
+      minutes:
+        one: |
+          [one]
+          1 minuto
+          [other]
+          %{count} minutos
+        other: |
+          [one]
+          1 minuto
+          [other]
+          %{count} minutos
+      hours:
+        one: |
+          [one]
+          1 hora
+          [other]
+          %{count} horas
+        other: |
+          [one]
+          1 hora
+          [other]
+          %{count} horas
+      days:
+        one: |
+          [one]
+          1 dia
+          [other]
+          %{count} dias
+        other: |
+          [one]
+          1 dia
+          [other]
+          %{count} dias
+      months:
+        one: |
+          [one]
+          1 mês
+          [other]
+          %{count} meses
+        other: |
+          [one]
+          1 mês
+          [other]
+          %{count} meses
   datetime:
+    added_on: "em %{date}"
     distance_in_words:
       about_x_hours:
-        one: circa 1 ora
-        other: circa %{count} ore
+        one: Há cerca de 1 hora
+        other: "%{count} horas atrás"
       about_x_months:
-        one: circa 1 mese
-        other: circa %{count} mesi
-      about_x_years:
-        one: circa 1 anno
-        other: circa %{count} anno
-      almost_x_years:
-        one: quasi 1 anno
-        other: quasi %{count} anni
-      half_a_minute: mezzo minuto
-      less_than_x_minutes:
-        one: meno di 1 minuto
-        other: meno di %{count} minuti
+        one: cerca de 1 mês atrás
+        other: "%{count} meses atrás"
+      half_a_minute: Há um minuto
       less_than_x_seconds:
-        one: meno di 1 secondo
-        other: meno di %{count} secondi
+        one: Há menos de 1 segundo
+        other: "há menos de %{count} segundos atrás"
       over_x_years:
-        one: più di 1 anno
-        other: più di %{count} anni
+        one: Há mais de 1 ano
+        other: "mais do que %{count} anos atrás"
       x_days:
-        one: 1 giorno
-        other: ! '%{count} dias'
+        one: 1 dia atrás
+        other: ! '%{count} dias atrás'
       x_minutes:
-        one: 1 minuto
-        other: ! '%{count} minutos'
+        one: 1 minuto atrás
+        other: ! '%{count} minutos atrás'
       x_months:
-        one: 1 mese
+        one: 1 mês atrás
         other: ! '%{count} meses'
       x_seconds:
-        one: 1 secondo
-        other: ! '%{count} segundos'
+        one: 1 segundo atrás
+        other: ! '%{count} segundos atrás'
+  label:
+    from: De
+    to: a
+  countdown: "{m<}{mn} {ml} atrás{m>} {s<}agora{s>}"
