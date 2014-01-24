@@ -233,18 +233,13 @@ p small {
   padding: 3px 20px 3px 0px;
   color: #336699;
   cursor: pointer;
-  max-width: 50%;
 }
 
-#language {
- img {
-   max-width: 20%;
- }
- a {
+#language a {
   font-size: 1.5em;
   line-height: 1.5em;
 }
-}
+
 .dropdown dt a span {
   cursor: pointer;
   display: block;
