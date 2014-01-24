@@ -265,7 +265,21 @@ class BestQuorum < Quorum
       else
         count = (self.percentage.to_f * 0.001 * User.count)
       end
-      [count, 1].max.floor
+      [count, 1].max.floor + 1 #we always add +1 in new quora
+    else
+      1
+    end
+  end
+
+  def min_vote_partecipants_pop
+    count = 1
+    if self.vote_percentage
+      if self.group
+        count = (self.vote_percentage.to_f * 0.01 * self.group.count_voter_partecipants) #todo group areas
+      else
+        count = (self.vote_percentage.to_f * 0.001 * User.count)
+      end
+      [count, 1].max.floor + 1 #we always add +1 in new quora
     else
       1
     end

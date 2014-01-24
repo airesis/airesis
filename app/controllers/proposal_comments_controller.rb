@@ -150,7 +150,7 @@ class ProposalCommentsController < ApplicationController
         if @is_reply
           page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
         else
-          page.replace_html "flash_messages_comments", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
           #page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
         end
       end
@@ -169,17 +169,18 @@ class ProposalCommentsController < ApplicationController
         if @proposal_comment.save
           Resque.enqueue_in(1, NotificationProposalCommentUpdate, @proposal_comment.id)
           flash[:notice] = t('info.proposal.updated_comment')
-          format.html { redirect_to(@proposal) }
           format.js
           format.xml { head :ok }
+          format.html { redirect_to(@proposal) }
+
         else
-          format.html { render :action => "edit" }
           format.xml { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
+          format.html { render :action => "edit" }
         end
       else #content has not changed
-        format.html { redirect_to(@proposal) }
         format.js
         format.xml { head :ok }
+        format.html { redirect_to(@proposal) }
       end
 
     end
