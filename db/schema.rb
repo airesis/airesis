@@ -969,12 +969,10 @@ ActiveRecord::Schema.define(:version => 20140116104636) do
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
   create_table "proposal_types", :force => true do |t|
-    t.string  "name",                 :limit => 10,                    :null => false
-    t.integer "seq",                                :default => 0
-    t.boolean "active",                             :default => false
-    t.string  "color",                :limit => 10
-    t.boolean "groups_available",                   :default => true
-    t.boolean "open_space_available",               :default => false
+    t.string  "name",   :limit => 10,                    :null => false
+    t.integer "seq",                  :default => 0
+    t.boolean "active",               :default => false
+    t.string  "color",  :limit => 10
   end
 
   create_table "proposal_votation_types", :force => true do |t|
