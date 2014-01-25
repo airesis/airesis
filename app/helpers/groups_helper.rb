@@ -4,7 +4,7 @@ module GroupsHelper
     if group.certified?
       root_url(:subdomain => group.subdomain)
     else
-      options[:subdomain] = false if (defined? request) && (request.subdomain != 'www')
+      options[:subdomain] = false if (defined? request) && request && (request.subdomain != 'www')
       super
     end
   end
