@@ -97,24 +97,4 @@ ActionMailer::Base.smtp_settings = {
     :password => EMAIL_PASSWORD
 }
 
-# Use this hook to configure devise mailer, warden hooks and so forth. The first
-# four configuration values can also be set straight in your models.
-Devise.setup do |config|
-  require "omniauth-facebook"
-  config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
-                  {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-
-  require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, {access_type: "offline", approval_prompt: ""}
-
-  require "omniauth-twitter"
-  config.omniauth :twitter, TWITTER_APP_ID, TWITTER_APP_SECRET
-
-  require "omniauth-meetup"
-  config.omniauth :meetup, MEETUP_APP_ID, MEETUP_APP_SECRET
-
-  require "omniauth-linkedin"
-  config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
-end
-
 Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options
