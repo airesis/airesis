@@ -4,7 +4,7 @@
  * @version 2013-01-22
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
-	elFinder.prototype.i18.pt_BR = {
+	elFinder.prototype.i18.pt_PT = {
 		translator : 'Leandro Carvalho &lt;contato@leandrowebdev.net&gt;',
 		language   : 'Português',
 		direction  : 'ltr',
