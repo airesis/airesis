@@ -10,7 +10,7 @@ Airesis::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = false
 
   # Print deprecation notices to the Rails logger
@@ -34,18 +34,18 @@ Airesis::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
+
   #config.assets.logger = nil
   config.force_ssl = false
-  
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => MAILER_DEFAULT_HOST }
-  
-  
+  config.action_mailer.default_url_options = {:host => MAILER_DEFAULT_HOST}
+
+
   config.quiet_assets = true
-  
+
   #indirizzo del sito
   SITE="http://airesisdev.it:3000"
   #numero massimo di commenti per pagina
@@ -55,7 +55,7 @@ Airesis::Application.configure do
 
   #topics per page
   TOPICS_PER_PAGE=10
- 
+
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
 
@@ -73,9 +73,18 @@ Airesis::Application.configure do
 
   ROTP_DRIFT = 20
 
+  config.middleware.use ExceptionNotifier,
+                        :ignore_exceptions => ['ActiveRecord::RecordNotFound'] + ExceptionNotifier.ignored_exceptions,
+                        :ignore_crawlers => %w{Googlebot bingbot},
+                        :email => {
+                            :email_prefix => "[Exception] ",
+                            :sender_address => %{"Airesis Exception" <exceptions@airesis.it>},
+                            :exception_recipients => %w{coorasse+exceptions@gmail.com}
+                        }
+
   ENCRYPT_WORD="airesis"
 
-  
+
 end
 
 
@@ -84,11 +93,11 @@ ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.smtp_settings = {
     :enable_starttls_auto => true,
-    :address            => EMAIL_ADDRESS,
-    :port               => 587,
-    :authentication     => :plain,
-    :user_name          => EMAIL_USERNAME,
-    :password           => EMAIL_PASSWORD
+    :address => EMAIL_ADDRESS,
+    :port => 587,
+    :authentication => :plain,
+    :user_name => EMAIL_USERNAME,
+    :password => EMAIL_PASSWORD
 }
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
@@ -96,16 +105,16 @@ ActionMailer::Base.smtp_settings = {
 Devise.setup do |config|
   require "omniauth-facebook"
   config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
-                      {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
-                      
+                  {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
+
   require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, { access_type: "offline", approval_prompt: "" }
+  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, {access_type: "offline", approval_prompt: ""}
 
   require "omniauth-twitter"
-  config.omniauth :twitter,TWITTER_APP_ID, TWITTER_APP_SECRET
+  config.omniauth :twitter, TWITTER_APP_ID, TWITTER_APP_SECRET
 
   require "omniauth-meetup"
-  config.omniauth :meetup,MEETUP_APP_ID, MEETUP_APP_SECRET
+  config.omniauth :meetup, MEETUP_APP_ID, MEETUP_APP_SECRET
 
   require "omniauth-linkedin"
   config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
