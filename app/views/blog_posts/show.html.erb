@@ -118,8 +118,9 @@
           </div>
         </div>
     <% end %>
-
-    <%= render 'blogs/left_panel' %>
+    <% if @blog %>
+        <%= render 'blogs/left_panel' %>
+    <% end %>
 <% end %>
 
 <script type="text/javascript">

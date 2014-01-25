@@ -74,7 +74,7 @@ DemocracyOnline3::Application.configure do
   ROTP_DRIFT = 20
 
   config.middleware.use ExceptionNotifier,
-                        :ignore_exceptions => ['ActiveRecord::RecordNotFound'] + ExceptionNotifier.ignored_exceptions,
+                        :ignore_exceptions => ['ActiveRecord::RecordNotFound'],
                         :ignore_crawlers => %w{Googlebot bingbot},
                         :email_prefix => "[Exception] ",
                         :sender_address => %{"Exception Notifier" <coorasse+notifier@gmail.com>},
