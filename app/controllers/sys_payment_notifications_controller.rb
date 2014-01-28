@@ -8,6 +8,7 @@ class SysPaymentNotificationsController < ApplicationController
       when "VERIFIED"
         SysPaymentNotification.create!(:params => params, :sys_feature_id => (params[:item_number].to_i rescue nil), :status => params[:payment_status], :transaction_id => params[:txn_id], payment_fee: params[:payment_fee], payment_gross: params[:payment_gross], first_name: params[:first_name], last_name: params[:last_name])
       when "INVALID"
+        log_error Exception.new('invalid ipn received')
       else
         # error
     end
