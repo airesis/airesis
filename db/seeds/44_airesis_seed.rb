@@ -1,0 +1,10 @@
+#encoding: utf-8
+Comune.create(:description => "Puerto Varas", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 32912)
+Comune.create(:description => "Puerto Montt", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 175938)
+Comune.create(:description => "Maullín", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 15580)
+Comune.create(:description => "Los Muermos", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 16964)
+Comune.create(:description => "Llanquihue", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 16337)
+Comune.create(:description => "Frutillar", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 15525)
+Comune.create(:description => "Fresia", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 12804)
+Comune.create(:description => "Cochamó", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 4363)
+Comune.create(:description => "Calbuco", :provincia_id => 218, :regione_id => 50, stato_id: 90, continente_id: 2 , :population => 31070)

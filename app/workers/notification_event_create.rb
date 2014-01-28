@@ -12,8 +12,8 @@ class NotificationEventCreate < NotificationSender
   def elaborate(current_user_id,event_id)
     event = Event.find(event_id)
     current_user = User.find(current_user_id)
-    if event.private
-      organizer = event.organizers.first
+    organizer = event.organizers.first
+    if organizer  #if there is a group  #todo there are some problems with private and public events and their notifications
       data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name,'group_id' => organizer.id,'user_id' => current_user_id, 'event' => event.title, 'i18n' => 't'}
       data['subdomain'] = organizer.subdomain if organizer.certified?
 
@@ -26,7 +26,7 @@ class NotificationEventCreate < NotificationSender
         end
       end
     else
-      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'i18n' => 't'}
+      data = {'event_id' => event.id.to_s, 'subject' => "Nuovo evento pubblico: #{event.title}", 'event' => event.title, 'user_id' => current_user_id, 'i18n' => 't'}
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PUBLIC_EVENTS, url: event_url(event), data: data)
       notification_a.save
 

@@ -312,7 +312,7 @@ class Ability
         c1 = user.admin?
       end
       #can edit the event only if the user created it or if it's the admin of the group
-      c2 = event.user ?  ((user == event.user) || (group.portavoce.include? user)) : true
+      c2 = event.user ?  ((user == event.user) || (group && (group.portavoce.include? user))) : true
       c1 && c2 &&
       ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
        (event.is_incontro? || event.is_riunione?))
