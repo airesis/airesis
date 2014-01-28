@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SysPaymentNotificationsController < ApplicationController
   protect_from_forgery except: :create
 
