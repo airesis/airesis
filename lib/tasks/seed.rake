@@ -3,8 +3,12 @@ namespace :airesis do
 
     desc 'Dump all Airesis Seed Data and split them in a good way. Take options from config/seed_dump.yml'
     task :dump => :environment do
+      def filename(num)
+        "db/seeds/#{num}_airesis_seed.rb"
+      end
+
       num = 0
-      File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
+      File.open(filename(num), 'w') do |f|
         f.puts("#encoding: utf-8")
         Continente.all.each do |continente|
           f.puts("a#{continente.id} = Continente.create(:description => \"#{continente.description}\")")
@@ -28,7 +32,7 @@ namespace :airesis do
 
       Provincia.all.each do |provincia|
         num += 1
-        File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
+        File.open(filename(num), 'w') do |f|
           f.puts("#encoding: utf-8")
           provincia.comunes.each do |comune|
             f.puts("Comune.create(:description => \"#{comune.description}\", :provincia_id => #{provincia.id}, :regione_id => #{provincia.regione.id}, stato_id: #{provincia.stato.id}, continente_id: #{provincia.continente.id} " + (comune.population ? ", :population => #{comune.population}" : "") + ")")
@@ -39,7 +43,7 @@ namespace :airesis do
       num += 1
 
 
-      File.open("db/seeds/#{num}_aresis_seed.rb", 'w') do |f|
+      File.open(filename(num), 'w') do |f|
         f.puts("#encoding: utf-8")
         EventType.active.all.each do |type|
             f.puts(" EventType.create( :name => \"#{type.name}\", color: \"#{type.color}\"){ |c| c.id = #{type.id}}.save")
@@ -72,7 +76,7 @@ namespace :airesis do
         end
 
         Tutorial.all.each do |tutorial|
-          f.puts("tut#{tutorial.id} = Tutorial.create( :action => \"#{tutorial.action}\", :controller => \"#{tutorial.controller}\", :name => \"#{tutorial.name}\", :description => \"#{tutorial.description}\")")
+          f.puts("tut#{tutorial.id} = Tutorial.create( :action => \"#{tutorial.action}\", :controller => \"#{tutorial.controller}\", :name => \"#{tutorial.name}\")")
           tutorial.steps.each do |step|
             f.puts("Step.create( :tutorial_id => tut#{tutorial.id}.id, :index => #{step.index}, :title => \"#{step.title}\", :content => \"#{step.content}\", :required => \"#{step.required}\", :fragment => \"#{step.fragment}\")")
           end
@@ -83,7 +87,7 @@ namespace :airesis do
         end
 
         Quorum.public.each do |quorum|
-          f.puts("Quorum.create(name: \"#{quorum.name}\", percentage: #{quorum.percentage || 'nil'}, minutes: #{quorum.minutes || 'nil'}, condition: \"#{quorum.condition || 'nil'}\", good_score: #{quorum.good_score || 'nil'}, bad_score: #{quorum.bad_score || 'nil'}, public: true, seq: #{quorum.seq || 'nil'})")
+          f.puts("Quorum.create(name: \"#{quorum.name}\", percentage: #{quorum.percentage || 'nil'}, minutes: #{quorum.minutes || 'nil'}, good_score: #{quorum.good_score || 'nil'}, bad_score: #{quorum.bad_score || 'nil'}, vote_percentage: #{quorum.vote_percentage || 'nil'}, vote_minutes: #{quorum.vote_minutes || 'nil'}, vote_good_score: #{quorum.vote_good_score || 'nil'}, t_percentage: \"#{quorum.t_percentage}\", t_minutes: \"#{quorum.t_minutes}\", t_good_score: \"#{quorum.t_good_score}\", t_vote_percentage: \"#{quorum.t_vote_percentage}\", t_vote_minutes: \"#{quorum.t_vote_minutes}\", t_vote_good_score: \"#{quorum.t_vote_good_score}\", public: true, seq: #{quorum.seq || 'nil'})")
         end
 
         f.puts("PartecipationRole.create(:name => \"amministratore\", :description => \"Amministratore\"){ |c| c.id = 2 }.save")
@@ -104,10 +108,6 @@ namespace :airesis do
           f.puts("SysCurrency.create(description: \"#{currency.description}\")")
         end
 
-        SysCurrency.all.each do |currency|
-          f.puts("SysCurrency.create(description: \"#{currency.description}\")")
-        end
-
         SysLocale.all.each do |locale|
           f.puts("SysLocale.create(key: \"#{locale.key}\", host: \"#{locale.host}\", territory_type: \"#{locale.territory_type}\", territory_id: \"#{locale.territory_id}\"" + (locale.lang ? ", lang: \"#{locale.lang}\"" : "") +")")
         end
@@ -117,15 +117,9 @@ namespace :airesis do
         end
 
 
-        f.puts("User.create()")
-
-
-
-
+        #f.puts("@u = User.create(user_type_id: 1, name: 'Administrator', surname: 'Admin', email: \"#{APP_EMAIL_ADDRESS}\", login: 'admin', confirmed_at: Time.now)")
 
       end
-
-
     end
   end
 end
