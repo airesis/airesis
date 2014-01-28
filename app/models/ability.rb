@@ -42,7 +42,7 @@ class Ability
         can_vote_proposal?(user, proposal)
       end
       can :choose_date, Proposal do |proposal|  #return true if the user can put the proposal in votation
-        (user.is_mine? @proposal) ||
+        (user.is_mine? proposal) ||
         ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
       end
       can :regenerate, Proposal do |proposal|
