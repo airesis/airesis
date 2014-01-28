@@ -16,7 +16,7 @@ class SysFeature < ActiveRecord::Base
     data-name=\"#{self.title}\"
     data-number=\"#{self.id}\"
     data-quantity=\"1\"
-    data-env=\"#{Rails.env == 'production' ? 'www' : 'sandbox'}\"
+    data-env=\"#{Rails.env == 'production' ? '' : 'sandbox'}\"
     data-callback=\"#{notify_url}\"
     data-return=\"#{return_url}\"
     ></script>".html_safe
