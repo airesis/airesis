@@ -1,6 +1,6 @@
 class SysFeature < ActiveRecord::Base
 
-  has_many :sys_payment_notifications
+  has_many :sys_payment_notifications, as: :payable
 
   # Check for paperclip
   has_attached_file :image,
@@ -15,8 +15,10 @@ class SysFeature < ActiveRecord::Base
     data-button=\"donate\"
     data-name=\"#{self.title}\"
     data-number=\"#{self.id}\"
+    data-atype=\"feature\"
     data-quantity=\"1\"
-    data-env=\"#{Rails.env == 'production' ? 'www' : 'sandbox'}\"
+    data-currency=\"EUR\"
+    data-env=\"#{Rails.env == 'production' ? '' : 'sandbox'}\"
     data-callback=\"#{notify_url}\"
     data-return=\"#{return_url}\"
     ></script>".html_safe

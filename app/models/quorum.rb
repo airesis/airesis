@@ -111,6 +111,11 @@ class Quorum < ActiveRecord::Base
     @min_partecipants ||= min_partecipants_pop
   end
 
+  #calculate minimum number of partecipants
+  def min_vote_partecipants
+    @min_vote_partecipants ||= min_vote_partecipants_pop
+  end
+
 
   protected
 

@@ -4,7 +4,7 @@ module GroupsHelper
     if group.certified?
       root_url(:subdomain => group.subdomain)
     else
-      options[:subdomain] = false if (defined? request) && (request.subdomain != 'www')
+      options[:subdomain] = false if (defined? request) && request && (request.subdomain != 'www')
       super
     end
   end
@@ -295,6 +295,14 @@ module GroupsHelper
   #def group_forums_url(group,option={})
   #  forums_url
   #end
+
+
+  #todo to be moved as soon as possible
+  def check_alert_alert_url(alert,options={})
+    subdomain = alert.notification.data[:subdomain]
+    options[:subdomain] = subdomain if subdomain.to_s != ''
+    super
+  end
 
 
   #forum

@@ -1,0 +1,13 @@
+#encoding: utf-8
+Comune.create(:description => "Tomé", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 52440)
+Comune.create(:description => "Talcahuano", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 250348)
+Comune.create(:description => "Santa Juana", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 12713)
+Comune.create(:description => "San Pedro de la Paz", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 80447)
+Comune.create(:description => "Penco", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 46016)
+Comune.create(:description => "Lota", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 49089)
+Comune.create(:description => "Hualqui", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 18768)
+Comune.create(:description => "Hualpén", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 86722)
+Comune.create(:description => "Florida", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 10177)
+Comune.create(:description => "Coronel", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 95528)
+Comune.create(:description => "Concepción", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 216061)
+Comune.create(:description => "Chiguayante", :provincia_id => 211, :regione_id => 47, stato_id: 90, continente_id: 2 , :population => 81302)

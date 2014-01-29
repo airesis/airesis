@@ -198,66 +198,6 @@ en:
           </p>
       paragraph_11:
         title: "Managing groups and user roles"
-        content_html: |
-          <p>Airesis implementa un sistema flessibile per poter gestire i <strong>permessi</strong> di cui ogni membro può
-            disporre all'interno del gruppo in modo da poter imputare i seguenti <strong>ruoli</strong>: </p>
-          <ul class="disc">
-            <li>Visualizzare le proposte private</li>
-            <li>Contribuire alle proposte</li>
-            <li>Inserire nuove proposte nel gruppo</li>
-            <li>Pubblicare nella Home Page del gruppo</li>
-            <li>Creare eventi e votazioni</li>
-            <li>Sostenere proposte a nome del gruppo</li>
-            <li>Aggiungere partecipanti nel gruppo</li>
-            <li>Candidare utenti alle elezioni</li>
-          </ul>
-          <p>Airesis consente ai gruppi che ne fanno uso di scegliere le
-            <strong>impostazioni che meglio si adattano alle loro esigenze</strong> e ai loro regolamenti interni. Risulta
-            possibile, ad esempio, consentire l’accesso ad alcune funzioni solo agli
-            <strong>utenti attivi e/o certificati</strong>, oppure a coloro che hanno un <strong>particolare ruolo</strong>.
-            Vi è ampia libertà anche sulla gestione dei requisiti che le proposte devono raggiungere per accedere alla votazione.
-          </p>
-
-          <p>Un’altra importante funzionalità è la <strong>suddivisione in aree/gruppi di lavoro</strong> grazie alla quale è
-            possibile creare delle aree all’interno dei gruppi e poter imputare a ciascuna area dei partecipanti che potranno
-            discutere delle proposte inerenti quella particolare area. A ciascun partecipante potranno essere assegnati
-            <strong>ruoli particolari per ciascuna area</strong> in modo da rendere ancora più flessibile lo strumento. </p>
-      paragraph_12:
-        title: "I Gruppi"
-        content_html: |
-          L'accesso ai "Gruppi" può avvenire o premendo su ‘cerca gruppi’ dalla barra in alto o dalla colonna di sinistra della home page personale.
-          <p>Cliccando sul nome di un gruppo, si apre la relativa home-page (presentazione + news/blog). Nell’area delle
-            proposte
-            sono visualizzate quelle che il gruppo ha deciso di rendere pubbliche, mentre per visualizzare quelle interne
-            (proposte ed eventi privati), bisogna chiedere all'amministratore locale l'ammissione al gruppo. </p>
-
-          <p>L'area proposte è divisa in quattro schede ("In dibattito","In votazione", "Votate", ”Abbandonate”), in cui sono
-            elencate le proposte a seconda del loro stato. Cliccando sul titolo di una proposta, questa si apre,
-            visualizzandone
-            il testo e l’area dei contributi. Le proposte possono essere ulteriormente filtrate selezionando le Categorie o i
-            Tag,
-            in modo da visualizzare solo le proposte degli argomenti che interessano.</p>
-
-          <p>Ogni membro della comunità può promuovere una nuova proposta: per far ciò basta cliccare sul pulsante "Crea nuova
-            proposta", e apparirà la form da compilare.</p>
-
-          <p>Accedendo all'interno di una proposta in discussione, i membri della comunità possono interagire con essa secondo
-            le loro capacità, competenze e opinioni.</p>
-
-
-          <h3 id="Spazio_comune">Spazio comune</h3>
-
-          <p>Cliccando su "Spazio comune" si accede all'area destinata alla gestione delle proposte che possono essere di
-            comune interesse.</p>
-
-          <p>L'area delle proposte del gruppo si presenta simile a quella dei Gruppi; inoltre è presente anche un "calendario
-            privato" che visualizza tutti gli eventi pubblici, più quelli privati relativi al gruppo.</p>
-
-          <p>Nello Spazio comune è presente anche una scheda "calendario", su cui sono evidenziati gli eventi destinati a
-            tutta la
-            comunità (segnalazione eventi, riunioni, votazioni). Cliccando su una nota, si apre la pagina relativa all'evento
-            e, a seconda del tipo, si può interagire con esso (es. partecipando ad una votazione o segnalando la volontà di
-            partecipare ad una riunione).</p>
     whatis:
       title: "The first Social network for e-democracy in the world"
       description: "An instrument of direct democracy born to decide and act collectively on proposals and ideas generated anywhere for any theme."

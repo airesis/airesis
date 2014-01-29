@@ -25,6 +25,8 @@
     <% end %>
     <% if @group && (can? :create_date, @group) %>
         <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
+        <div id="create_event_dialog" class="reveal-modal medium" data-reveal>
+        </div>
     <% end %>
 <% else %>
     <b><%= t('pages.proposals.show.no_periods_contact_group') %></b>

@@ -1,4 +1,4 @@
-DemocracyOnline3::Application.configure do
+Airesis::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -19,7 +19,7 @@ DemocracyOnline3::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
-  config.assets.precompile += %w(endless_page.js back_enabled.png landing.css redmond/custom.css menu_left.css jquery.js ice/index.js)
+  config.assets.precompile += %w(endless_page.js back_enabled.png landing.css redmond/custom.css menu_left.css jquery.js ice/index.js html2canvas.js jquery.qtip.js jquery.qtip.css i18n/*.js foundation.js foundation_and_overrides.css)
 
 
   # Generate digests for assets URLs
@@ -29,7 +29,6 @@ DemocracyOnline3::Application.configure do
 
   config.active_support.deprecation = :notify
 
-
 # Log the query plan for queries taking more than this (works
 # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.4
@@ -37,10 +36,11 @@ DemocracyOnline3::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = {:host => 'airesistest.alwaysdata.net'}
+  config.action_mailer.default_url_options = {:host => 'arengo.org'}
   config.action_mailer.logger = nil
 
-  config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"), 50, 100.megabytes)
+  config.logger = Logger.new(Rails.root.join("log", Rails.env + ".log"))
+  config.logger.level = Logger::WARN
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -50,18 +50,19 @@ DemocracyOnline3::Application.configure do
   config.active_support.deprecation = :notify
 
   #indirizzo del sito
-  SITE="http://airesistest.alwaysdata.net"
+  SITE="http://www.arengo.org"
   #numero massimo di commenti per pagina
   COMMENTS_PER_PAGE=5
   #numero massimo di proposte per pagina
   PROPOSALS_PER_PAGE=10
+  TOPICS_PER_PAGE=10
 
   #numero di giorni senza aggiornamenti dopo i quali la proposta viene abolita
   PROP_DAY_STALLED=2
 
   #limita il numero di commenti
   LIMIT_COMMENTS=true
-  COMMENTS_TIME_LIMIT=30.seconds
+  COMMENTS_TIME_LIMIT=5.seconds
 
   #limita il numero di proposte
   LIMIT_PROPOSALS=true
@@ -74,12 +75,11 @@ DemocracyOnline3::Application.configure do
   ROTP_DRIFT = 20
 
   config.middleware.use ExceptionNotifier,
+                        :ignore_exceptions => ['ActiveRecord::RecordNotFound'],
                         :ignore_crawlers => %w{Googlebot bingbot},
-                        :email => {
-                            :email_prefix => "[Exception] ",
-                            :sender_address => %{"Airesis Exception" <exceptions@airesis.it>},
-                            :exception_recipients => %w{coorasse+exceptions@gmail.com}
-                        }
+                        :email_prefix => "[Exception] ",
+                        :sender_address => %{"Exception Notifier" <exceptions@airesis.it>},
+                        :exception_recipients => %w{coorasse+exceptions@gmail.com carlo.mion@airesis.it}
 
 end
 
@@ -96,23 +96,4 @@ ActionMailer::Base.smtp_settings = {
     :password => EMAIL_PASSWORD
 }
 
-# Use this hook to configure devise mailer, warden hooks and so forth. The first
-# four configuration values can also be set straight in your models.
-Devise.setup do |config|
-  require "omniauth-facebook"
-  config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
-                  {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-
-  require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, {access_type: "offline", approval_prompt: ""}
-
-  require "omniauth-twitter"
-  config.omniauth :twitter, TWITTER_APP_ID, TWITTER_APP_SECRET
-
-  require "omniauth-meetup"
-  config.omniauth :meetup, MEETUP_APP_ID, MEETUP_APP_SECRET
-
-  require "omniauth-linkedin"
-  config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
-
-end
+Airesis::Application.default_url_options = Airesis::Application.config.action_mailer.default_url_options

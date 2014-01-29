@@ -206,4 +206,37 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   config.secret_key = DEVISE_SECRET_KEY
+
+  # ==> OmniAuth
+  # Add a new OmniAuth provider. Check the wiki for more information on setting
+  # up on your models and hooks.
+  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+
+  # ==> Warden configuration
+  # If you want to use other strategies, that are not supported by Devise, or
+  # change the failure app, you can configure them inside the config.warden block.
+  #
+  # config.warden do |manager|
+  #   manager.intercept_401 = false
+  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+  # end
+
+  require "omniauth-google-oauth2"
+  config.omniauth :google_oauth2, GOOGLE_APP_ID, GOOGLE_APP_SECRET, {access_type: "offline", approval_prompt: ""}
+
+  require "omniauth-twitter"
+  config.omniauth :twitter, TWITTER_APP_ID, TWITTER_APP_SECRET
+
+  require "omniauth-meetup"
+  config.omniauth :meetup, MEETUP_APP_ID, MEETUP_APP_SECRET
+
+  require "omniauth-linkedin"
+  config.omniauth :linkedin, LINKEDIN_APP_ID, LINKEDIN_APP_SECRET
+
+  require "omniauth-parma"
+  config.omniauth :parma, PARMA_APP_ID, PARMA_APP_SECRET, {:scope => 'email basic'}
+
+  require "omniauth-facebook"
+  config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET,
+                  {:scope => 'email', :client_options => {:ssl => {:verify => false, :ca_path => '/etc/ssl/certs'}}}
 end

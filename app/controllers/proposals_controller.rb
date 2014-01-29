@@ -125,6 +125,30 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def banner
+    @proposal = Proposal.find(params[:id])
+
+    if @proposal.is_petition?
+      respond_to do |format|
+        format.js
+        format.html {render 'banner', layout: false}
+      end
+    else
+      render nothing: true, status: 404
+    end
+  end
+
+  def test_banner
+    @proposal = Proposal.find(params[:id])
+    if @proposal.is_petition?
+      respond_to do |format|
+        format.html
+      end
+    else
+      render nothing: true, status: 404
+    end
+  end
+
   def show
     @step = get_next_step(current_user) if current_user
     if @proposal.private && @group #la proposta è interna ad un gruppo
@@ -239,7 +263,7 @@ class ProposalsController < ApplicationController
       log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
-          page.alert t('pages.proposals.new.wait',minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor,seconds:((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
+          page.alert t('pages.proposals.new.wait', minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor, seconds: ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
           page << "$('#create_proposal_container').foundation('reveal','close');"
         end }
       end
@@ -295,6 +319,7 @@ class ProposalsController < ApplicationController
         # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
         if @proposal.is_petition?
           @proposal.proposal_state_id = @proposal.petition_phase == 'signatures' ? ProposalState::VOTING : ProposalState::VALUTATION
+          @proposal.build_vote(:positive => 0, :negative => 0, :neutral => 0)
         else
           quorum = assign_quorum(prparams)
           @proposal.proposal_state_id = ProposalState::VALUTATION
@@ -346,7 +371,9 @@ class ProposalsController < ApplicationController
             if request.env['HTTP_REFERER']["back=home"]
               page.redirect_to home_url
             else
-              page.redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
+              page.redirect_to @proposal.is_petition? ?
+                                   @group ? group_proposal_url(@group, @proposal) : proposal_path(@proposal) :
+                                   @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
             end
           end
         }
@@ -434,14 +461,18 @@ class ProposalsController < ApplicationController
         #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
         if @group_area
           @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
+          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
         else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
           @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
+          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
         end
       else #calcolo il numero in base agli utenti del portale (il 10%)
         @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+        @copy.vote_valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
       end
       #deve essere almeno 1!
-      @copy.valutations = [@copy.valutations, 1].max
+      @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
+      @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
     end
     @copy.public = false
     @copy.assigned = true

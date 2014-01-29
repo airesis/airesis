@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140117133329) do
+ActiveRecord::Schema.define(:version => 20140122162713) do
 
   create_table "action_abilitations", :force => true do |t|
     t.integer  "group_action_id"
@@ -969,12 +969,10 @@ ActiveRecord::Schema.define(:version => 20140117133329) do
   add_index "proposal_tags", ["proposal_id", "tag_id"], :name => "index_proposal_tags_on_proposal_id_and_tag_id", :unique => true
 
   create_table "proposal_types", :force => true do |t|
-    t.string  "name",                 :limit => 10,                    :null => false
-    t.integer "seq",                                :default => 0
-    t.boolean "active",                             :default => false
-    t.string  "color",                :limit => 10
-    t.boolean "groups_available",                   :default => true
-    t.boolean "open_space_available",               :default => false
+    t.string  "name",   :limit => 10,                    :null => false
+    t.integer "seq",                  :default => 0
+    t.boolean "active",               :default => false
+    t.string  "color",  :limit => 10
   end
 
   create_table "proposal_votation_types", :force => true do |t|
@@ -1347,7 +1345,6 @@ ActiveRecord::Schema.define(:version => 20140117133329) do
 
   create_table "sys_payment_notifications", :force => true do |t|
     t.text     "params"
-    t.integer  "sys_feature_id"
     t.string   "status"
     t.string   "transaction_id"
     t.datetime "created_at",                     :null => false
@@ -1356,6 +1353,8 @@ ActiveRecord::Schema.define(:version => 20140117133329) do
     t.decimal  "payment_gross"
     t.string   "first_name",     :limit => 4000
     t.string   "last_name",      :limit => 4000
+    t.integer  "payable_id"
+    t.string   "payable_type"
   end
 
   add_index "sys_payment_notifications", ["transaction_id"], :name => "index_sys_payment_notifications_on_transaction_id", :unique => true
@@ -1794,8 +1793,6 @@ ActiveRecord::Schema.define(:version => 20140117133329) do
   add_foreign_key "sys_movements", "sys_currencies", name: "sys_movements_sys_currency_id_fk"
   add_foreign_key "sys_movements", "sys_movement_types", name: "sys_movements_sys_movement_type_id_fk"
   add_foreign_key "sys_movements", "users", name: "sys_movements_user_id_fk"
-
-  add_foreign_key "sys_payment_notifications", "sys_features", name: "sys_payment_notifications_sys_feature_id_fk"
 
   add_foreign_key "tutorial_assignees", "tutorials", name: "tutorial_assignees_tutorial_id_fk"
   add_foreign_key "tutorial_assignees", "users", name: "tutorial_assignees_user_id_fk"

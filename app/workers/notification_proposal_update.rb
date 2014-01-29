@@ -15,7 +15,10 @@ class NotificationProposalUpdate < NotificationSender
     group = Group.find(group_id) if group_id
 
     data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title, 'i18n' => 't'}
-    data['group'] = group.name if group
+    if group
+      data['group'] = group.name
+      data['subdomain'] = group.subdomain if group.certified?
+    end
     notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|

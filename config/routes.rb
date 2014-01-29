@@ -97,6 +97,8 @@ Airesis::Application.routes.draw do
       get :facebook_share
       get :promote
       post :facebook_send_message
+      get :banner
+      get :test_banner
     end
   end
 
