@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
     if notifier
       env = request.env
       env['exception_notifier.options'] = notifier.args.first || {}
-      ExceptionNotifier::Notifier.exception_notification(env, exception).deliver
+      ExceptionNotifier.notify_exception(exception, env).deliver
       env['exception_notifier.delivered'] = true
     end
     message = "\n#{exception.class} (#{exception.message}):\n"
