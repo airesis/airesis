@@ -27,4 +27,5 @@ solr/default
 config/database.yml
 config/paypal.yml
 config/initializers/constants.rb
+config/environments
 *.orig
