@@ -4,6 +4,6 @@ class ProposalCommentReportType < ActiveRecord::Base
 
   has_many :proposal_comment_reports, :class_name => 'ProposalCommentReport'
 
-  scope :softs, {conditions: {:severity => ProposalCommentReportType::LOW}, order: :seq}
-  scope :graves, {conditions: {:severity => ProposalCommentReportType::HIGH}, order: :seq}
+  scope :softs, -> {where(:severity => ProposalCommentReportType::LOW).order(:seq)}
+  scope :graves, -> {where(:severity => ProposalCommentReportType::HIGH).order(:seq)}
 end

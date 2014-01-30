@@ -4,8 +4,8 @@ class ProposalRanking < ActiveRecord::Base
   belongs_to :user, :class_name => 'User', :foreign_key => :user_id
   belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id
 
-  scope :positives, { :conditions => {:ranking_type_id => 1 }}
-  scope :negatives, { :conditions => {:ranking_type_id => 3 }}
+  scope :positives, -> {where(:ranking_type_id =>1)}
+  scope :negatives, -> {where(:ranking_type_id => 3)}
   
   after_save :update_counter_cache
   after_destroy :update_counter_cache

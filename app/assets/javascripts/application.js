@@ -28,8 +28,6 @@
 //= require jqlplot/jqplot.dateAxisRenderer
 //= require jqlplot/jqplot.cursor
 //= require jqlplot/jqplot.highlighter
-//= require elfinder.full
-//= require elFinderSupportVer1
 //= require jquery.livequery
 //= require proposals
 //= require jquery.qtip

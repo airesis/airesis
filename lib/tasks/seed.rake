@@ -78,7 +78,7 @@ namespace :airesis do
         Tutorial.all.each do |tutorial|
           f.puts("tut#{tutorial.id} = Tutorial.create( :action => \"#{tutorial.action}\", :controller => \"#{tutorial.controller}\", :name => \"#{tutorial.name}\")")
           tutorial.steps.each do |step|
-            f.puts("Step.create( :tutorial_id => tut#{tutorial.id}.id, :index => #{step.index}, :title => \"#{step.title}\", :content => \"#{step.content}\", :required => \"#{step.required}\", :fragment => \"#{step.fragment}\")")
+            f.puts("Step.create( :tutorial_id => tut#{tutorial.id}.id, :index => #{step.index}, :title => \"#{step.title}\", :content => \"#{step.content}\", :required => \"#{step.required}\", :fragment => \"#{step.fragment}\", format: \"#{step.format}\")")
           end
         end
 

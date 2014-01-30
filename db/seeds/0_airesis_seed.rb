@@ -60,8 +60,8 @@ a2 = Continente.create(:description => "America")
  s87 = Stato.create( :description => "Cayman Islands", :continente_id => a2.id, sigla: "KY", sigla_ext: "CYM")
   s87.translations.where(locale: "en").first_or_create.update_attributes(description: "Cayman Islands")
  s90 = Stato.create( :description => "Chile", :continente_id => a2.id, sigla: "CL", sigla_ext: "CHL")
-  s90.translations.where(locale: "es-CL").first_or_create.update_attributes(description: "Chile")
   s90.translations.where(locale: "en").first_or_create.update_attributes(description: "Chile")
+  s90.translations.where(locale: "es-CL").first_or_create.update_attributes(description: "Chile")
   r38 = Regione.create(:description => "Arica and Parinacota", stato_id: s90.id, continente_id: a2.id)
    Provincia.create(:description => "Arica", :regione_id => r38.id, stato_id: s90.id, continente_id: a2.id, :sigla => ""){ |c| c.id = 175}.save
    Provincia.create(:description => "Parinacota", :regione_id => r38.id, stato_id: s90.id, continente_id: a2.id, :sigla => ""){ |c| c.id = 176}.save

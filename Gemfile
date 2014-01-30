@@ -25,7 +25,7 @@ end
 
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
-gem 'bumbler', git: 'https://github.com/mark-ellul/Bumbler.git', group: [:development, :staging]
+#gem 'bumbler', git: 'https://github.com/mark-ellul/Bumbler.git', group: [:development, :staging], require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -71,7 +71,6 @@ gem 'foreigner'
 gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '4-0-beta'
 
 gem 'client_side_validations-simple_form', git: 'https://github.com/coorasse/client_side_validations-simple_form.git'
-
 
 gem 'sitemap_generator'
 
@@ -127,17 +126,13 @@ gem 'workflow'
 gem 'select2-rails'
 gem 'redcarpet'
 gem 'kaminari'
+###
 
 gem 'mailman', require: false
 
 gem 'email_reply_parser'
 
-gem 'activerecord-postgres-array'
-
 gem 'paper_trail', '~> 3.0.0'
-gem 'activerecord-postgres-array'
-
-
 
 #added for rails 4
 gem 'protected_attributes'

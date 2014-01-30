@@ -24,16 +24,16 @@
     <%= link_to 'Calcola affinità Utenti-Gruppi', {:action => "calculate_user_group_affinity", :controller => "admin"}, :class => 'btn' %>
     <%= link_to 'Test gemma', {:action => "test_gem", :controller => "admin"}, :class => 'btn' %>
 
-    <fieldset>
-      <legend>Alert Test</legend>
+    <div class="card">
+      <h3>Alert Test</h3>
       <%= form_tag "/admin/test_notification/" do %>
           <%= label_tag 'Alert ID' %>
           <%= text_field_tag 'alert_id' %>
           <%= submit_tag 'Send' %>
       <% end %>
-    </fieldset>
+    </div>
     <%if CROWDIN_API %>
-        <div class="mybox">
+        <div class="card">
             <h3>Crowdin</h3>
             <%= link_to 'Upload sources', {:controller => "admin", :action => "upload_sources"}, :class => 'btn'%>
             <%= link_to 'Upload italian translations', {:controller => "admin", :action => "upload_translations"}, :class => 'btn'%>
@@ -43,20 +43,22 @@
         </div>
     <%end%>
 
-    <p>
-    <fieldset>
-      <legend>Lock users</legend>
+
+    <div class="card">
+      <h3>Lock users</h3>
       <%= form_tag "/admin/block/" do %>
           <%= label_tag 'Blocca utente' %>
           <%= text_field_tag 'user_id' %>
-          <%= submit_tag 'Vai!' %>
+          <%= submit_tag 'Vai!', class: 'btn' %>
       <% end %>
-    </fieldset>
+    </div>
+    <div  class="card">
     <h3>Elenco utenti bloccati</h3>
     <ul>
       <% User.blocked.each do |user| %>
-          <li><%= "#{user.id}: #{user.fullname} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname}) (#{user.email})" %>  <%= link_to 'Sblocca', {:controller => 'admin', :action => 'unblock', :user_id => user.id} %></li>
+          <li><%=raw "#{user.id}: #{ link_to user.fullname, user} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname}) (#{user.email})" %>  <%= link_to 'Sblocca', {:controller => 'admin', :action => 'unblock', :user_id => user.id} %></li>
       <% end %>
     </ul>
-    </p>
+    </div>
+
 <% end %>

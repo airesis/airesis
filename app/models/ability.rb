@@ -321,7 +321,7 @@ class Ability
 
     def can_do_on_group?(user, group, action)
       user.groups.where("partecipation_role_id = 2")
-      partecipation = user.group_partecipations.first(:conditions => {:group_id => group.id})
+      partecipation = user.group_partecipations.where(:group_id => group.id).first
       return false unless partecipation
       role = partecipation.partecipation_role
       return true if (role.id == PartecipationRole::PORTAVOCE)

@@ -1,5 +1,0 @@
-if @saved
-  page<<"$('#create_proposal_dialog').dialog('destroy')"
-else
-  page.alert @proposal.errors.full_messages.join(";")
-end

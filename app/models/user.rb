@@ -128,11 +128,11 @@ class User < ActiveRecord::Base
 
   validate :check_uncertified
 
-  scope :blocked, -> {where(:blocked,true)}
-  scope :unblocked, -> {where(:blocked,false)}
+  scope :blocked, -> {where(:blocked => true)}
+  scope :unblocked, -> {where(:blocked => false)}
   scope :confirmed, -> {where 'confirmed_at is not null'}
   scope :unconfirmed, -> {where 'confirmed_at is null'}
-  scope :certified, -> {where(:user_type_id,UserType::CERTIFIED)}
+  scope :certified, -> {where(:user_type_id => UserType::CERTIFIED)}
 
 
   def check_uncertified
@@ -365,7 +365,7 @@ class User < ActiveRecord::Base
     ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(self.id, comment.id)
     return true unless ranking #si, se non l'ho mai valutato
     return true if ranking.updated_at < comment.updated_at #si, se è stato aggiornato dopo la mia valutazione
-    last_suggest = comment.replies.first(:order => 'created_at desc')
+    last_suggest = comment.replies.order('created_at desc').first
     return false unless last_suggest #no, se non vi è alcun commento
     ranking.updated_at < last_suggest.created_at #si, se vi sono commenti dopo la mia valutazione
   end

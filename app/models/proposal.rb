@@ -434,9 +434,9 @@ end
 #retrieve all the partecipants to the proposals that are still part of the group
 def partecipants
   #all users who ranked the proposal
-  a = User.all(:joins => {:proposal_rankings => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
+  a = User.joins(:proposal_rankings => [:proposal]).where(["proposals.id = ?", self.id]).load
   #all users who contributed to the proposal
-  b = User.all(:joins => {:proposal_comments => [:proposal]}, :conditions => ["proposals.id = ?", self.id])
+  b = User.joins(:proposal_comments => [:proposal]).where(["proposals.id = ?", self.id]).load
   c = (a | b)
   if self.private
     #all users that are part of the group of the proposal

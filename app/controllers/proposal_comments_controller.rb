@@ -46,19 +46,19 @@ class ProposalCommentsController < ApplicationController
       if left > 0
         #extract evaluated ids
         valuated_cond = conditions + " AND proposal_comment_rankings.user_id = #{current_user.id}"
-        valuated_ids = @proposal.contributes.listable.all(:joins => :rankings, :select => 'distinct(proposal_comments.id)', :conditions => valuated_cond).map { |c| c.id }
+        valuated_ids = @proposal.contributes.listable.joins(:rankings).where(valuated_cond).select('distinct(proposal_comments.id)').map { |c| c.id }
 
         #extract not evaluated contributes
         non_valuated_cond = conditions
         non_valuated_cond += " AND proposal_comments.id not in (#{valuated_ids.join(',')})" unless valuated_ids.empty?
-        tmp_comments += @proposal.contributes.listable.all(:conditions => non_valuated_cond, :order => " random()", :limit => left)
+        tmp_comments += @proposal.contributes.listable.where(non_valuated_cond).order('random()').limit(left).load
         left -= tmp_comments.size
 
         if left > 0 && !valuated_ids.empty?
           #extract the evaluated ones
           valuated_cond = conditions
           valuated_cond += " AND proposal_comments.id in (#{valuated_ids.join(',')})"
-          tmp_comments += @proposal.contributes.listable.all(:conditions => valuated_cond, :order => " rank desc", :limit => left)
+          tmp_comments += @proposal.contributes.listable.where(valuated_cond).order('rank desc').limit(left).load
         end
       end
       @proposal_comments = tmp_comments

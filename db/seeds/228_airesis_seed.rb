@@ -1,17 +1,17 @@
 #encoding: utf-8
  EventType.create( :name => "vote", color: "#C7E4C8"){ |c| c.id = 2}.save
  EventType.create( :name => "meeting", color: "#EDD4B6"){ |c| c.id = 1}.save
-GroupAction.create(name: "PROPOSAL_VIEW")
 GroupAction.create(name: "PROPOSAL")
+GroupAction.create(name: "PROPOSAL_VIEW")
 GroupAction.create(name: "PROPOSAL_PARTECIPATION")
-GroupAction.create(name: "CREATE_EVENT")
-GroupAction.create(name: "PROPOSAL_DATE")
-GroupAction.create(name: "STREAM_POST")
-GroupAction.create(name: "REQUEST_ACCEPT")
 GroupAction.create(name: "PROPOSAL_VOTE")
 GroupAction.create(name: "PROPOSAL_INSERT")
 GroupAction.create(name: "DOCUMENT_VIEW")
 GroupAction.create(name: "DOCUMENT_MANAGE")
+GroupAction.create(name: "CREATE_EVENT")
+GroupAction.create(name: "PROPOSAL_DATE")
+GroupAction.create(name: "STREAM_POST")
+GroupAction.create(name: "REQUEST_ACCEPT")
 GroupPartecipationRequestStatus.create( :description => "Inoltrata" ){ |c| c.id = 1}.save
 GroupPartecipationRequestStatus.create( :description => "In votazione" ){ |c| c.id = 2}.save
 GroupPartecipationRequestStatus.create( :description => "Accettata" ){ |c| c.id = 3}.save
@@ -81,32 +81,33 @@ ProposalType.create( :active => "true", :name => "ESTIMATE", color: "#C7E4C8" ){
 ProposalType.create( :active => "true", :name => "AGENDA", color: "#EDD4B6" ){ |c| c.id = 7 }.save
 ProposalType.create( :active => "true", :name => "CANDIDATES", color: "#F0B5AD" ){ |c| c.id = 8 }.save
 ProposalType.create( :active => "false", :name => "POLL", color: "#F0EEA4" ){ |c| c.id = 2 }.save
+ProposalType.create( :active => "true", :name => "PETITION", color: "#F0EEA4" ){ |c| c.id = 11 }.save
 RankingType.create( :description => "I agree" ){ |c| c.id = 1 }.save
 RankingType.create( :description => "I don't know / I do not understand" ){ |c| c.id = 2 }.save
 RankingType.create( :description => "I ​​disagree" ){ |c| c.id = 3 }.save
 tut1 = Tutorial.create( :action => "show", :controller => "home", :name => "Welcome Tutorial")
-Step.create( :tutorial_id => tut1.id, :index => 0, :title => "Messaggio di benvenuto", :content => "", :required => "false", :fragment => "welcome")
-Step.create( :tutorial_id => tut1.id, :index => 1, :title => "Confini geografici di interesse", :content => "", :required => "false", :fragment => "interest_borders")
-Step.create( :tutorial_id => tut1.id, :index => 2, :title => "Scegli i gruppi", :content => "", :required => "false", :fragment => "choose_follow")
-Step.create( :tutorial_id => tut1.id, :index => 3, :title => "Prima proposta", :content => "", :required => "false", :fragment => "first_proposal")
+Step.create( :tutorial_id => tut1.id, :index => 0, :title => "Messaggio di benvenuto", :content => "", :required => "false", :fragment => "welcome", format: "js")
+Step.create( :tutorial_id => tut1.id, :index => 1, :title => "Confini geografici di interesse", :content => "", :required => "false", :fragment => "interest_borders", format: "html")
+Step.create( :tutorial_id => tut1.id, :index => 2, :title => "Scegli i gruppi", :content => "", :required => "false", :fragment => "choose_follow", format: "html")
+Step.create( :tutorial_id => tut1.id, :index => 3, :title => "Prima proposta", :content => "", :required => "false", :fragment => "first_proposal", format: "html")
 tut2 = Tutorial.create( :action => "new", :controller => "proposals", :name => "First Proposal")
-Step.create( :tutorial_id => tut2.id, :index => 0, :title => "Breve spiegazione", :content => "", :required => "false", :fragment => "proposals_new")
+Step.create( :tutorial_id => tut2.id, :index => 0, :title => "Breve spiegazione", :content => "", :required => "false", :fragment => "proposals_new", format: "js")
 tut3 = Tutorial.create( :action => "show", :controller => "proposals", :name => "Rank Bar")
-Step.create( :tutorial_id => tut3.id, :index => 0, :title => "L'anonimato nella discussione", :content => "", :required => "false", :fragment => "proposals_show")
+Step.create( :tutorial_id => tut3.id, :index => 0, :title => "L'anonimato nella discussione", :content => "", :required => "false", :fragment => "proposals_show", format: "js")
 tut5 = Tutorial.create( :action => "index", :controller => "proposals", :name => "Open Space")
-Step.create( :tutorial_id => tut5.id, :index => 0, :title => "The Open Space and the proposals list", :content => "", :required => "false", :fragment => "proposals_index")
+Step.create( :tutorial_id => tut5.id, :index => 0, :title => "The Open Space and the proposals list", :content => "", :required => "false", :fragment => "proposals_index", format: "js")
 tut6 = Tutorial.create( :action => "show", :controller => "users", :name => "Setting Tutorial - Personal Info")
-Step.create( :tutorial_id => tut6.id, :index => 0, :title => "Settings", :content => "", :required => "false", :fragment => "users_show")
+Step.create( :tutorial_id => tut6.id, :index => 0, :title => "Settings", :content => "", :required => "false", :fragment => "users_show", format: "js")
 tut7 = Tutorial.create( :action => "alarm_preferences", :controller => "users", :name => "Setting Tutorial - Alarm Preferences")
-Step.create( :tutorial_id => tut7.id, :index => 0, :title => "Alarm Preferences", :content => "", :required => "false", :fragment => "users_alarm_preferences")
+Step.create( :tutorial_id => tut7.id, :index => 0, :title => "Alarm Preferences", :content => "", :required => "false", :fragment => "users_alarm_preferences", format: "js")
 tut8 = Tutorial.create( :action => "border_preferences", :controller => "users", :name => "Setting Tutorial - Border Preferences")
-Step.create( :tutorial_id => tut8.id, :index => 0, :title => "Border Preferences", :content => "", :required => "false", :fragment => "users_border_preferences")
+Step.create( :tutorial_id => tut8.id, :index => 0, :title => "Border Preferences", :content => "", :required => "false", :fragment => "users_border_preferences", format: "js")
 tut9 = Tutorial.create( :action => "privacy_preferences", :controller => "users", :name => "Setting Tutorial - Privacy Preferences")
-Step.create( :tutorial_id => tut9.id, :index => 0, :title => "Privacy Preferences", :content => "", :required => "false", :fragment => "users_privacy_preferences")
+Step.create( :tutorial_id => tut9.id, :index => 0, :title => "Privacy Preferences", :content => "", :required => "false", :fragment => "users_privacy_preferences", format: "js")
 tut10 = Tutorial.create( :action => "statistics", :controller => "users", :name => "Statistics - Personal Info")
-Step.create( :tutorial_id => tut10.id, :index => 0, :title => "Statistics", :content => "", :required => "false", :fragment => "users_statistics")
+Step.create( :tutorial_id => tut10.id, :index => 0, :title => "Statistics", :content => "", :required => "false", :fragment => "users_statistics", format: "js")
 tut11 = Tutorial.create( :action => "edit", :controller => "groups", :name => "Nuovo menu Impostazioni")
-Step.create( :tutorial_id => tut11.id, :index => 0, :title => "Il nuovo MENU Impostazioni", :content => "", :required => "false", :fragment => "groups_edit")
+Step.create( :tutorial_id => tut11.id, :index => 0, :title => "Il nuovo MENU Impostazioni", :content => "", :required => "false", :fragment => "groups_edit", format: "js")
 UserType.create( description: "Administrator", :short_name => "admin" ){ |c| c.id = 1}.save
 UserType.create( description: "Moderator", :short_name => "mod" ){ |c| c.id = 2}.save
 UserType.create( description: "Authenticated User", :short_name => "authuser" ){ |c| c.id = 3}.save
@@ -146,9 +147,6 @@ Configuration.create(name: "recaptcha", value: 1)
 SysCurrency.create(description: "EUR")
 SysCurrency.create(description: "CHF")
 SysCurrency.create(description: "$")
-SysLocale.create(key: "it-IT", host: "www.airesis.it", territory_type: "Stato", territory_id: "1")
-SysLocale.create(key: "en", host: "www.airesis.eu", territory_type: "Continente", territory_id: "1")
-SysLocale.create(key: "en-US", host: "www.airesis.us", territory_type: "Continente", territory_id: "2")
 SysLocale.create(key: "fr", host: "www.airesis.eu", territory_type: "Stato", territory_id: "18", lang: "fr")
 SysLocale.create(key: "es-ES", host: "www.airesis.eu", territory_type: "Stato", territory_id: "47", lang: "es-ES")
 SysLocale.create(key: "pt-PT", host: "www.airesis.eu", territory_type: "Stato", territory_id: "41", lang: "pt-PT")
@@ -157,6 +155,10 @@ SysLocale.create(key: "pt-BR", host: "www.airesis.us", territory_type: "Stato", 
 SysLocale.create(key: "es-EC", host: "www.airesis.us", territory_type: "Stato", territory_id: "53", lang: "es-EC")
 SysLocale.create(key: "zh", host: "www.airesis.cn", territory_type: "Stato", territory_id: "91")
 SysLocale.create(key: "ro-RO", host: "www.airesis.eu", territory_type: "Stato", territory_id: "42", lang: "ro-RO")
-SysLocale.create(key: "es-CL", host: "www.airesis.us", territory_type: "Stato", territory_id: "90", lang: "es-CL")
+SysLocale.create(key: "es-CL", host: "http://www.airesis.us", territory_type: "Stato", territory_id: "90", lang: "es-CL")
+SysLocale.create(key: "crowdin", host: "www.airesis.eu", territory_type: "", territory_id: "", lang: "crowdin")
+SysLocale.create(key: "it-IT", host: "www.airesisdev.it:3000", territory_type: "Stato", territory_id: "1")
+SysLocale.create(key: "en", host: "www.airesisdev.eu:3000", territory_type: "Continente", territory_id: "1")
+SysLocale.create(key: "en-US", host: "www.airesisdev.us:3000", territory_type: "Continente", territory_id: "2")
 SysMovementType.create(description: "Entrata")
 SysMovementType.create(description: "Uscita")

@@ -121,7 +121,9 @@ it-IT:
       new_contributes:
         description: Nuovi contributi e commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo contributo"
-        message: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>"
+        message:
+          one: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>"
+          other: "Ci sono <b>%{count}</b> nuovi contributi alla proposta <b>%{title}</b>"
       text_update:
         description: Aggiornamento del testo di una proposta a cui partecipo
         email_subject: "%{title} - Il testo è stato modificato"
@@ -129,7 +131,9 @@ it-IT:
       new_contributes_mine:
         description: Nuovi contributi alle mie proposte
         email_subject: "%{title} - Nuovo contributo"
-        message: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
+        message:
+          one: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
+          other: "Ci sono <b>%{count}</b> nuovi contributi alla tua proposta <b>%{title}</b>"
       change_status:
         description: Cambio di stato di una proposta a cui partecipo
         email_subject:

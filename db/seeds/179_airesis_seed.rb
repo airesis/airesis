@@ -1,2 +1,4 @@
 #encoding: utf-8
-Comune.create(:description => "Guaranda", :provincia_id => 126, :regione_id => 1, stato_id: 53, continente_id: 2 , :population => 23874)
+Comune.create(:description => "San Pedro de Atacama", :provincia_id => 180, :regione_id => 40, stato_id: 90, continente_id: 2 , :population => 4969)
+Comune.create(:description => "Ollagüe", :provincia_id => 180, :regione_id => 40, stato_id: 90, continente_id: 2 , :population => 318)
+Comune.create(:description => "Calama", :provincia_id => 180, :regione_id => 40, stato_id: 90, continente_id: 2 , :population => 138402)

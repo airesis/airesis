@@ -18,6 +18,13 @@ class ApplicationController < ActionController::Base
   skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password)}
+  end
+
   protected
 
   def load_tutorial

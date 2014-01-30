@@ -211,8 +211,8 @@ class ProposalsController < ApplicationController
     begin
       if LIMIT_PROPOSALS
         max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-        elapsed = Time.now - max
-        if elapsed < PROPOSALS_TIME_LIMIT
+        @elapsed = Time.now - max
+        if @elapsed < PROPOSALS_TIME_LIMIT
           raise Exception
         end
       end
@@ -262,10 +262,7 @@ class ProposalsController < ApplicationController
     rescue Exception => e
       log_error(e)
       respond_to do |format|
-        format.js { render :update do |page|
-          page.alert t('pages.proposals.new.wait', minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor, seconds: ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
-          page << "$('#create_proposal_container').foundation('reveal','close');"
-        end }
+        format.js {render 'error_new'}
       end
     end
   end
@@ -366,17 +363,7 @@ class ProposalsController < ApplicationController
 
       respond_to do |format|
         flash[:notice] = I18n.t('info.proposal.proposal_created')
-        format.js {
-          render :update do |page|
-            if request.env['HTTP_REFERER']["back=home"]
-              page.redirect_to home_url
-            else
-              page.redirect_to @proposal.is_petition? ?
-                                   @group ? group_proposal_url(@group, @proposal) : proposal_path(@proposal) :
-                                   @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
-            end
-          end
-        }
+        format.js
         format.html {
           if request.env['HTTP_REFERER']["back=home"]
             redirect_to home_url
@@ -388,21 +375,16 @@ class ProposalsController < ApplicationController
 
     rescue Exception => e
       log_error(e)
-
+      if !@proposal.errors[:title].empty?
+        @other = Proposal.find_by_title(params[:proposal][:title])
+        @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+      elsif !@proposal.errors.empty?
+        @err_msg = @proposal.errors.full_messages.join(",")
+      else
+        @err_msg = I18n.t('error.proposals.creation')
+      end
       respond_to do |format|
-        format.js {
-          if !@proposal.errors[:title].empty?
-            @other = Proposal.find_by_title(params[:proposal][:title])
-            @err_msg = "Esiste già un altra proposta con lo stesso titolo"
-          elsif !@proposal.errors.empty?
-            @err_msg = @proposal.errors.full_messages.join(",")
-          else
-            @err_msg = I18n.t('error.proposals.creation')
-          end
-          render :update do |page|
-            page.alert @err_msg
-          end
-        }
+        format.js { render 'error_create' }
         format.html { render :action => "new" }
       end
     end
@@ -885,7 +867,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
-    @pgroup = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    @pgroup = params[:group_id] ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
 
     if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound

@@ -40,12 +40,6 @@ GIT
   specs:
     vote-schulze (0.2.0)
 
-GIT
-  remote: https://github.com/mark-ellul/Bumbler.git
-  revision: a4fb3b61619c41a9cf4dd6c20c829f5bd94561c8
-  specs:
-    bumbler (0.1.4)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -67,8 +61,6 @@ GEM
       activesupport (= 4.0.2)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
-    activerecord-postgres-array (0.0.10)
-      activerecord
     activesupport (4.0.2)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -399,10 +391,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-postgres-array
   better_errors
   bullet
-  bumbler!
   cancan
   ckeditor
   client_side_validations!

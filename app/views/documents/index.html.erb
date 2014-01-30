@@ -1,68 +1,73 @@
+<% content_for :head do %>
+    <%= stylesheet_link_tag 'elfinder.min' %>
+    <%= javascript_include_tag 'elfinder.full', 'elFinderSupportVer1' %>
+<% end %>
+
+<%@extend=true%>
 <% @page_title = t('pages.groups.documents.documents_archive') %>
 
-
 <%= render :layout => "layouts/page_title", :locals => {:title => @page_title} do %>
-
 <% end %>
 
 
-<%if can? :view_documents, @group %>
+<% if can? :view_documents, @group %>
     <div id="storage_size_container">
-    <%= render :partial => 'storage_size' %>
+      <%= render :partial => 'storage_size' %>
     </div>
     <div id="elfinder"></div>
 
-<script type="text/javascript" charset="utf-8">
-    $(function () {
-        var elf = $('#elfinder').elfinder({
-            // lang: 'ru',             // language (OPTIONAL)
-            url: '/elfinder?group_id=<%=@group.id%>',  // connector URL (REQUIRED)
-            transport: new elFinderSupportVer1(),
-            commands: [
-                'open', 'up', 'back', 'forward', 'getfile',
-                'download', 'rm', /*'duplicate'*/, 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
-                'cut', 'paste', 'edit', /* 'extract', 'archive', 'search',*/ 'info', 'view', 'help',
-                /*'resize',*/ 'sort'
-            ],
-            uiOptions: {
-                 toolbar: [
-                    ['back', 'forward'],
-                    // ['reload'],
-                    // ['home', 'up'],
-                    ['mkdir', /*'mkfile',*/ 'upload'],
-                    ['open', 'download', /*'getfile'*/],
-                    ['info'],
-                    //['quicklook'],
-                    ['copy', 'cut', 'paste'],
-                    ['rm'],
-                    ['duplicate', 'rename', 'edit', 'resize'],
-                    ['extract', 'archive'],
-                    ['search'],
-                    ['view', 'sort'],
-                    ['help']
-                 ]
-            },
-            lang: '<%=I18n.locale.to_s.gsub('-','_')%>'
-        }).elfinder('instance');
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            var elf = $('#elfinder').elfinder({
+                // lang: 'ru',             // language (OPTIONAL)
+                url: '/elfinder?group_id=<%=@group.id%>',  // connector URL (REQUIRED)
+                transport: new elFinderSupportVer1(),
+                commands: [
+                    'open', 'up', 'back', 'forward', 'getfile',
+                    'download', 'rm', /*'duplicate'*/, 'rename', 'mkdir', 'mkfile', 'upload', 'copy',
+                    'cut', 'paste', 'edit', /* 'extract', 'archive', 'search',*/ 'info', 'view', 'help',
+                    /*'resize',*/ 'sort'
+                ],
+                uiOptions: {
+                    toolbar: [
+                        ['back', 'forward'],
+                        // ['reload'],
+                        // ['home', 'up'],
+                        ['mkdir', /*'mkfile',*/ 'upload'],
+                        ['open', 'download', /*'getfile'*/],
+                        ['info'],
+                        //['quicklook'],
+                        ['copy', 'cut', 'paste'],
+                        ['rm'],
+                        ['duplicate', 'rename', 'edit', 'resize'],
+                        ['extract', 'archive'],
+                        ['search'],
+                        ['view', 'sort'],
+                        ['help']
+                    ]
+                },
+                lang: '<%=I18n.locale.to_s.gsub('-','_')%>',
+                resizable: false
+            }).elfinder('instance');
 
-        elf
-        .bind('upload', function (event) {
-            $.ajax({
-                url: "<%=reload_storage_size_group_url(@group)%>",
-                dataType: 'script',
-                type: 'get'
-            });
-        })
-        .bind('remove', function (event) {
-            $.ajax({
-                url: "<%=reload_storage_size_group_url(@group)%>",
-                dataType: 'script',
-                type: 'get'
-            });
+            elf
+                    .bind('upload', function (event) {
+                        $.ajax({
+                            url: "<%=reload_storage_size_group_url(@group)%>",
+                            dataType: 'script',
+                            type: 'get'
+                        });
+                    })
+                    .bind('remove', function (event) {
+                        $.ajax({
+                            url: "<%=reload_storage_size_group_url(@group)%>",
+                            dataType: 'script',
+                            type: 'get'
+                        });
+                    });
         });
-    });
-</script>
-    <%else%>
-    <br />
+    </script>
+<% else %>
+    <br/>
     <b><%= t('pages.groups.documents.not_authorized') %></b>
-<%end%>
+<% end %>

@@ -1,0 +1,7 @@
+<%if request.env['HTTP_REFERER']["back=home"]%>
+    window.location = "<%=home_url%>";
+    <%else%>
+window.location = "<%=@proposal.is_petition? ?
+        @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) :
+        @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_url(@proposal)%>";
+<%end%>
