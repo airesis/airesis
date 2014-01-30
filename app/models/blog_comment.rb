@@ -1,8 +1,6 @@
 class BlogComment < ActiveRecord::Base
 	include BlogKitModelHelper
-	
-	unloadable
-	
+
 	belongs_to :user
 	belongs_to :blog_post
   has_one :blog, through: :blog_post

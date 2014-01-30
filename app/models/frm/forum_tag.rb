@@ -1,6 +1,5 @@
 module Frm
   class ForumTag < Frm::FrmTable
-    unloadable
 
     belongs_to :forum, foreign_key: 'frm_forum_id'
     belongs_to :tag

@@ -8,7 +8,7 @@
   <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true do |f| %>
       <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
       <a href="#" class="btn" onclick="$('#regenerate_container').dialog('destroy');"><%= t('buttons.cancel') %></a>
-      <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', disable_with: t('loading'), onclick: 'return check_quorum();' %>
+      <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', data:{disable_with: t('loading')}, onclick: 'return check_quorum();' %>
   <% end %>
 </div>
 

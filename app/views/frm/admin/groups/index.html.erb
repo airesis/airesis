@@ -3,7 +3,7 @@
   <li class="current"><%= t('frm.admin.group.index') %></li>
 </ul>
 
-<%= link_to t('frm.admin.group.new'), new_group_frm_admin_frm_group_url(@group), :class => "btn blue", remote: true, disable_with: t('loading') %>
+<%= link_to t('frm.admin.group.new'), new_group_frm_admin_frm_group_url(@group), :class => "btn blue", remote: true, data:{disable_with: t('loading')} %>
 
 <div id="groups_table">
 <%= render :partial => 'groups' %>

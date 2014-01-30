@@ -3,9 +3,9 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :omniauthable, #:reconfirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :blockable, :token_authenticatable, :traceable
+         :recoverable, :rememberable, :trackable, :validatable, :blockable, :traceable
 
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, :through => :user_borders, :class_name => 'InterestBorder'
 
-  has_many :user_alerts, :class_name => 'UserAlert', :order => 'user_alerts.created_at DESC'
-  has_many :unread_alerts, :class_name => 'UserAlert', conditions: 'user_alerts.checked = false'
+  has_many :user_alerts, -> {order('user_alerts.created_at DESC')}, :class_name => 'UserAlert'
+  has_many :unread_alerts, -> {where 'user_alerts.checked = false'}, :class_name => 'UserAlert'
 
   has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
   has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
 
   has_many :tutorial_assignees, :class_name => 'TutorialAssignee'
   has_many :tutorial_progresses, :class_name => 'TutorialProgress'
-  has_many :todo_tutorial_assignees, :class_name => 'TutorialAssignee', :conditions => 'tutorial_assignees.completed = false'
+  has_many :todo_tutorial_assignees, -> {where('tutorial_assignees.completed = false')}, :class_name => 'TutorialAssignee'
   #tutorial assegnati all'utente
   has_many :tutorials, :through => :tutorial_assignees, :class_name => 'Tutorial', :source => :user
   has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
   #forum
   has_many :viewed, :class_name => 'Frm::View'
   has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
-  has_many :unread_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic', conditions: 'frm_views.updated_at < frm_topics.last_post_at'
+  has_many :unread_topics, -> {where 'frm_views.updated_at < frm_topics.last_post_at'}, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
   has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
 
@@ -128,11 +128,11 @@ class User < ActiveRecord::Base
 
   validate :check_uncertified
 
-  scope :blocked, {:conditions => {:blocked => true}}
-  scope :unblocked, {:conditions => {:blocked => false}}
-  scope :confirmed, {:conditions => 'confirmed_at is not null'}
-  scope :unconfirmed, {:conditions => 'confirmed_at is null'}
-  scope :certified, {:conditions => {user_type_id: UserType::CERTIFIED}}
+  scope :blocked, -> {where(:blocked,true)}
+  scope :unblocked, -> {where(:blocked,false)}
+  scope :confirmed, -> {where 'confirmed_at is not null'}
+  scope :unconfirmed, -> {where 'confirmed_at is null'}
+  scope :certified, -> {where(:user_type_id,UserType::CERTIFIED)}
 
 
   def check_uncertified

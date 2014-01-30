@@ -124,7 +124,7 @@
             <% end %>
           </div>
       <% end %>
-      <%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", disable_with: t('saving') %>
+      <%= f.submit t('pages.events.new.submit'), :class => 'btn blue disable', :onclick => "return confirmEventData(this);", data:{disable_with: t('saving')} %>
   <% end %>
 </div>
 <a class="close-reveal-modal">&#215;</a>

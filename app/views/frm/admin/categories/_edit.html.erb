@@ -3,7 +3,7 @@
     <%= f.input :name %>
     <%= f.input :tags_list %>
     <%= f.input :visible_outside %>
-    <%= f.submit :class => "btn blue", disable_with: t('loading') %>
+    <%= f.submit :class => "btn blue", data:{disable_with: t('loading')} %>
 <% end %>
 
 <% data = "["

@@ -2,72 +2,35 @@
   <li>
     <ul class="pricing-table">
       <li class="title">Small</li>
-      <li class="price">1.00€</li>
+      <li class="price">5.00€</li>
       <li class="description">A simple donation to help the project</li>
-      <li class="bullet-item">Buy 1/2 coffee for the developer</li>
+      <li class="bullet-item">Buy a coffee for the developer</li>
       <li class="cta-button">
         <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
-                  data-name="Airesis"
+                  data-name="Airesis - Scegli di partecipare"
                   data-number="1"
                   data-size="small"
                   data-currency="EUR"
-                  data-amount="1.00"
+                  data-amount="5.00"
                   data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a><a class="button show-for-medium-up" href="#">
-        <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+        <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                 data-button="donate"
-                data-name="Airesis"
+                data-name="Airesis - Scegli di partecipare"
                 data-number="1"
                 data-size="large"
                 data-currency="EUR"
-                data-amount="1.00"
+                data-amount="5.00"
                 data-quantity="1"
-                data-lc="<%= I18n.locale %>"
-                data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                data-lc="<%=I18n.locale%>"
+                data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
         </script>
       </a>
-      </li>
-    </ul>
-  </li>
-
-  <li>
-    <ul class="pricing-table">
-      <li class="title">Standard</li>
-      <li class="price">5.00€</li>
-      <li class="description">Advanced donator</li>
-      <li class="bullet-item">Help the developer fix 1/2 bug</li>
-      <li class="cta-button">
-        <a class="button show-for-medium-up" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                  data-button="donate"
-                  data-name="Airesis"
-                  data-number="1"
-                  data-size="large"
-                  data-currency="EUR"
-                  data-amount="5.00"
-                  data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-          </script>
-        </a>
-        <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
-                  data-button="donate"
-                  data-name="Airesis"
-                  data-number="1"
-                  data-size="small"
-                  data-currency="EUR"
-                  data-amount="5.00"
-                  data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
-          </script>
-        </a>
       </li>
     </ul>
   </li>
@@ -80,7 +43,7 @@
       <li class="bullet-item">Membership</li>
       <li class="cta-button">
         <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
@@ -88,12 +51,12 @@
                   data-currency="EUR"
                   data-amount="20.00"
                   data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a>
         <a class="button show-for-medium-up" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
@@ -101,13 +64,52 @@
                   data-currency="EUR"
                   data-amount="20.00"
                   data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a>
       </li>
     </ul>
   </li>
+
+  <li>
+    <ul class="pricing-table">
+      <li class="title">Standard</li>
+      <li class="price">50.00€</li>
+      <li class="description">Premium member of Tecnologie Democratiche</li>
+      <li class="bullet-item">Become member and help the developer fix some bugs</li>
+      <li class="cta-button">
+        <a class="button show-for-medium-up" href="#">
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                  data-button="donate"
+                  data-name="Airesis"
+                  data-number="1"
+                  data-size="large"
+                  data-currency="EUR"
+                  data-amount="50.00"
+                  data-quantity="1"
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+          </script>
+        </a>
+        <a class="button show-for-small" href="#">
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
+                  data-button="donate"
+                  data-name="Airesis"
+                  data-number="1"
+                  data-size="small"
+                  data-currency="EUR"
+                  data-amount="50.00"
+                  data-quantity="1"
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
+          </script>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+
 
   <li>
     <ul class="pricing-table">
@@ -117,30 +119,31 @@
       <li class="bullet-item">Your help is greatly appreciated!</li>
       <li class="cta-button">
         <a class="button show-for-small" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
                   data-size="small"
                   data-currency="EUR"
                   data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a>
         <a class="button show-for-medium-up" href="#">
-          <script src="/assets/paypal-button.min.js?merchant=<%= "#{PAYPAL['paypal_merchant']}" %>"
+          <script src="/assets/paypal-button.min.js?merchant=<%="#{PAYPAL['paypal_merchant']}"%>"
                   data-button="donate"
                   data-name="Airesis"
                   data-number="1"
                   data-size="large"
                   data-currency="EUR"
                   data-quantity="1"
-                  data-lc="<%= I18n.locale %>"
-                  data-env="<%= "#{Rails.env == 'production' ? 'www' : 'sandbox'}" %>">
+                  data-lc="<%=I18n.locale%>"
+                  data-env="<%="#{Rails.env == 'production' ? 'www' : 'sandbox'}"%>">
           </script>
         </a>
       </li>
     </ul>
   </li>
+
 </ul>

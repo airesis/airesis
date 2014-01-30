@@ -1,6 +1,5 @@
 class Image < ActiveRecord::Base	
-  unloadable
-  
+
   has_many :blog_posts, :through => :blog_post_images, :dependent => :destroy
 
   attr_accessor :random_id

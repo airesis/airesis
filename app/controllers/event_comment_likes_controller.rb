@@ -1,6 +1,6 @@
 #encoding: utf-8
 class EventCommentLikesController < ApplicationController
-  unloadable
+
 
   before_filter :authenticate_user!
 

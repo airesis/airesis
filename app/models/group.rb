@@ -28,14 +28,14 @@ class Group < ActiveRecord::Base
   attr_reader :partecipant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
-  has_many :group_partecipations, :class_name => 'GroupPartecipation', :dependent => :destroy, :order => 'id DESC'
+  has_many :group_partecipations, -> { order 'id DESC' }, :class_name => 'GroupPartecipation', :dependent => :destroy
   has_many :group_follows, :class_name => 'GroupFollow', :dependent => :destroy
   has_many :post_publishings, :class_name => 'PostPublishing', :dependent => :destroy
   has_many :partecipants, :through => :group_partecipations, :source => :user, :class_name => 'User'
   has_many :followers, :through => :group_follows, :source => :user, :class_name => 'User'
   has_many :posts, :through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
-  has_many :partecipation_roles, :class_name => 'PartecipationRole', :dependent => :destroy, :order => 'id DESC'
+  has_many :partecipation_roles, -> {order 'id DESC'}, :class_name => 'PartecipationRole', :dependent => :destroy
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   belongs_to :default_role, :class_name => 'PartecipationRole', :foreign_key => :partecipation_role_id
@@ -61,9 +61,9 @@ class Group < ActiveRecord::Base
   has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal
 
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
-  has_many :quorums, :through => :group_quorums, :class_name => 'BestQuorum', :source => :quorum, order: 'seq nulls last, quorums.id'
+  has_many :quorums, -> {order 'seq nulls last, quorums.id'}, :through => :group_quorums, :class_name => 'BestQuorum', :source => :quorum
 
-  has_many :voters, :through => :group_partecipations, :source => :user, :class_name => 'User', :include => [:partecipation_roles], :conditions => ["partecipation_roles.id = ?", 2]
+  has_many :voters, -> {include(:partecipation_roles).where(["partecipation_roles.id = ?", 2])}, :through => :group_partecipations, :source => :user, :class_name => 'User'
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
 

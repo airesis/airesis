@@ -921,7 +921,7 @@ en:
       blocked_user_list: "List of blocked users"
       block: "Unblock"
     feedback:
-      send_feedback: "Send feedback"
+      send_feedback: "Feedback"
       add_details: "Add details"
       view_preview: "Preview"
       send_succes: "Feedback successfully sent. Thank you!"
@@ -1448,3 +1448,5 @@ en:
     terms_of_service: "Terms of Service"
     privacy_policy: "Privacy"
     guide: "FAQ"
+  terms_of_service: "Terms"
+  privacy_policy: "Privacy"

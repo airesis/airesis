@@ -9,8 +9,8 @@ module AuthenticationModule
 
   self.bad_login_message = "puoi utilizzare solo lettere, numeri e .-_@".freeze
 
-  self.name_regex        = /^[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF][a-zA-Z\s\-\u00C0-\u00F6\u00F8-\u00FF' ]*[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF]$/
-  self.url_regex        = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+  self.name_regex        = /\A[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF][a-zA-Z\s\-\u00C0-\u00F6\u00F8-\u00FF' ]*[a-zA-Z\u00C0-\u00F6\u00F8-\u00FF]\z/
+  self.url_regex        = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix
   self.bad_name_message  = "Formato del nome non valido.".freeze
 
   self.email_name_regex  = '[\w\.%\+\-]+'.freeze

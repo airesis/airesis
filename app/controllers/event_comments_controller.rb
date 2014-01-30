@@ -1,6 +1,6 @@
 #encoding: utf-8
 class EventCommentsController < ApplicationController
-  unloadable
+
 
   before_filter :authenticate_user!, :only => [:create, :delete, :edit, :update]
 

@@ -17,7 +17,7 @@ module Frm
       def register_view_by(user)
         return unless user
 
-        view = views.find_or_create_by_user_id(user.id)
+        view = views.find_or_create_by(user_id: user.id)
         view.increment!("count")
         increment!(:views_count)
 

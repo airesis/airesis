@@ -432,7 +432,7 @@ function startTimeChanged() {
     //se la data inizio supera la data fine
     if (!(et.eventEndDate.getTime() > et.eventStartDate.getTime())) {
         //reimposto la data fine avanti
-        var min15 = addMinutes(et.eventStartTime, 15)
+        var min15 = addMinutes(et.eventStartTime, 15);
         et.eet.datetimepicker("setDate", min15);
     }
 

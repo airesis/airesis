@@ -13,7 +13,7 @@
 
     </p>
     <p>
-      <%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', disable_with: t('sending'), style: "width: 100px;height:35px;" %>
+      <%= f.submit t('pages.proposals.show.send_contribute_button'), :id => 'insert_comment', class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
     </p>
 <% end %>
 

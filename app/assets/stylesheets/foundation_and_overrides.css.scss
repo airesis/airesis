@@ -1508,6 +1508,10 @@ a.zocial:hover {
   width: 100%;
 }
 
+.section-container.tabs > section.active > .title {
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
 .progress.success .meter {
   font-weight: bold;
   padding-left: 2em;

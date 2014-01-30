@@ -104,7 +104,7 @@ module Frm
 
     private
     def find_forum
-      @forum = @group.forums.find(params[:forum_id])
+      @forum = @group.forums.friendly.find(params[:forum_id])
       authorize! :read, @forum
     end
 
@@ -118,7 +118,7 @@ module Frm
 
     def find_topic
       begin
-        @topic = forum_topics(@forum, current_user).find(params[:id])
+        @topic = forum_topics(@forum, current_user).friendly.find(params[:id])
         authorize! :read, @topic
       rescue ActiveRecord::RecordNotFound
         flash.alert = t("frm.topic.not_found")

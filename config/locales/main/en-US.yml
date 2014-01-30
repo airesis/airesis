@@ -905,7 +905,6 @@ en-US:
       blocked_user_list: "List of blocked users"
       block: "Unblock"
     feedback:
-      send_feedback: "Send feedback"
       add_details: "Add details"
       view_preview: "Preview"
       send_succes: "Feedback successfully sent. Thank you!"

@@ -5,5 +5,5 @@
         <%= render :partial => "frm/posts/form", :locals => {:f => post} %>
     <% end %>
 
-    <%= f.submit t('helpers.submit.topic.create'), :class => "btn blue", onclick: 'fillHiddenTextarea();return true;', disable_with:t('loading')%>
+    <%= f.submit t('helpers.submit.topic.create'), :class => "btn blue", onclick: 'fillHiddenTextarea();return true;', data:{disable_with:t('loading')}%>
 <% end %>

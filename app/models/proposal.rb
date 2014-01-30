@@ -5,7 +5,7 @@ class Proposal < ActiveRecord::Base
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
   belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation', order: 'id DESC', dependent: :destroy
+  has_many :proposal_presentations, -> {order 'id DESC' }, :class_name => 'ProposalPresentation', dependent: :destroy
 
   has_many :proposal_borders, :class_name => 'ProposalBorder', dependent: :destroy
   has_many :proposal_histories, :class_name => 'ProposalHistory'
@@ -22,11 +22,11 @@ class Proposal < ActiveRecord::Base
   # all the comments related to the proposal
   has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
   # only the main contributes related to the proposal
-  has_many :contributes, :class_name => 'ProposalComment', :dependent => :destroy, :conditions => ['parent_proposal_comment_id is null']
+  has_many :contributes, -> {where(['parent_proposal_comment_id is null'])}, :class_name => 'ProposalComment', :dependent => :destroy
   has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
-  has_many :positive_rankings, :class_name => 'ProposalRanking', :conditions => ['ranking_type_id = 1']
+  has_many :positive_rankings, -> {where(['ranking_type_id = 1'])}, :class_name => 'ProposalRanking'
 
-  has_many :proposal_lives, :class_name => 'ProposalLife', order: 'proposal_lives.created_at DESC', :dependent => :destroy
+  has_many :proposal_lives, -> {order 'proposal_lives.created_at DESC'}, :class_name => 'ProposalLife', :dependent => :destroy
   has_many :users, :through => :proposal_presentations, :class_name => 'User'
 
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
@@ -53,9 +53,9 @@ class Proposal < ActiveRecord::Base
   #eager_load :quorum
 
   has_many :proposal_sections, :dependent => :destroy
-  has_many :sections, :through => :proposal_sections, :order => :seq
+  has_many :sections, -> {order :seq}, :through => :proposal_sections
 
-  has_many :solutions, :order => 'solutions.seq', :dependent => :destroy
+  has_many :solutions, -> {order 'solutions.seq'}, :dependent => :destroy
 
   belongs_to :proposal_votation_type, :class_name => 'ProposalVotationType'
 
@@ -88,36 +88,36 @@ class Proposal < ActiveRecord::Base
   accepts_nested_attributes_for :solutions, allow_destroy: true
 
   #tutte le proposte 'attive'. sono attive le proposte dalla  fase di valutazione fino a quando non vengono accettate o respinte
-  scope :current, {:conditions => {:proposal_state_id => [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING]}}
+  scope :current, -> {where(proposal_state_id: [ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT, PROP_VOTING])}
   #tutte le proposte in valutazione
-  scope :in_valutation, {:conditions => {:proposal_state_id => ProposalState::VALUTATION}}
+  scope :in_valutation, -> {where(proposal_state_id: ProposalState::VALUTATION)}
   #tutte le proposte in attesa di votazione o attualmente in votazione
 
   #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
   #retrieve proposals in a state before votation, exclude petitions
-  scope :before_votation, where(['proposal_state_id in (?) and proposal_type_id != ?',[ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11 ])
+  scope :before_votation, -> {where(['proposal_state_id in (?) and proposal_type_id != ?',[ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11 ])}
 
-  scope :in_votation, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING]}}
+  scope :in_votation, -> {where(proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT, PROP_VOTING])}
 
-  scope :voting, {:conditions => {:proposal_state_id => ProposalState::VOTING}}
+  scope :voting, -> {where(proposal_state_id: ProposalState::VOTING)}
 
   scope :not_voted_by, lambda { |user_id| {:conditions => ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
 
   #tutte le proposte accettate
-  scope :accepted, {:conditions => {:proposal_state_id => ProposalState::ACCEPTED}}
+  scope :accepted, -> {where(proposal_state_id: ProposalState::ACCEPTED)}
   #tutte le proposte respinte
-  scope :rejected, {:conditions => {:proposal_state_id => ProposalState::REJECTED}}
+  scope :rejected, -> {where(proposal_state_id: ProposalState::REJECTED)}
   #tutte le proposte respinte
-  scope :abandoned, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
+  scope :abandoned, -> {where(proposal_state_id: ProposalState::ABANDONED)}
 
-  scope :voted, {:conditions => {:proposal_state_id => [ProposalState::ACCEPTED, ProposalState::REJECTED]}}
+  scope :voted, -> {where(proposal_state_id: [ProposalState::ACCEPTED, ProposalState::REJECTED])}
 
   #tutte le proposte entrate in fase di revisione e feedback
-  scope :revision, {:conditions => {:proposal_state_id => ProposalState::ABANDONED}}
+  scope :revision, -> {where(proposal_state_id: ProposalState::ABANDONED)}
 
-  scope :public, {:conditions => ['private = ? or visible_outside = ?',true,true]}
-  scope :private, {:conditions => {:private => true}} #proposte interne ai gruppi
+  scope :public, -> {where(['private = ? or visible_outside = ?',true,true])}
+  scope :private, -> {where(private: true)} #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
   scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }

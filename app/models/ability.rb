@@ -42,7 +42,7 @@ class Ability
         can_vote_proposal?(user, proposal)
       end
       can :choose_date, Proposal do |proposal|  #return true if the user can put the proposal in votation
-        (user.is_mine? @proposal) ||
+        (user.is_mine? proposal) ||
         ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
       end
       can :regenerate, Proposal do |proposal|
@@ -312,7 +312,7 @@ class Ability
         c1 = user.admin?
       end
       #can edit the event only if the user created it or if it's the admin of the group
-      c2 = event.user ?  ((user == event.user) || (group.portavoce.include? user)) : true
+      c2 = event.user ?  ((user == event.user) || (group && (group.portavoce.include? user))) : true
       c1 && c2 &&
       ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
        (event.is_incontro? || event.is_riunione?))

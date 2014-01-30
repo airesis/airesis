@@ -61,7 +61,7 @@
               <%= f.text_area :content, :class => 'reply_textarea', :data => {:id => comment.id}, :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
-              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', disable_with: t('sending') %>
+              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', data:{disable_with: t('sending')} %>
             </div>
             <div style="clear: both;"></div>
         <% end %>

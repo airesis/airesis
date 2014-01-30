@@ -134,7 +134,7 @@ class HomeController < ApplicationController
 
   def choose_layout
     if ['index'].include? action_name
-      current_user ? 'open_space' : nil
+      current_user ? 'open_space' : false
     elsif ['show'].include? action_name
       'users'
     else

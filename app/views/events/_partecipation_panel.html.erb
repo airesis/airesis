@@ -36,7 +36,7 @@
                 <br />
 			</div>
 			<%= f.text_area :comment, rows: 4, cols: 10%>
-			<%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', disable_with: t('sending')%>
+			<%= f.submit t('pages.events.show.reply'), style: "margin-bottom: 15px;margin-top: 10px;", class: 'btn blue', data:{disable_with: t('sending')}%>
 			<%end%>
 		<script type="text/javascript">
 			$(function() {

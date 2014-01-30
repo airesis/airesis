@@ -3,9 +3,7 @@ class BlogPost < ActiveRecord::Base
 	include BlogKitModelHelper
 
   has_paper_trail :class_name => 'BlogPostVersion'
-	
-	unloadable
-	
+
 	belongs_to :user
   belongs_to :blog
 	
@@ -23,8 +21,8 @@ class BlogPost < ActiveRecord::Base
 	validates_presence_of :title
 	validates_presence_of :body
 	
-	scope :published, { :conditions => {:published => true }, :order => 'published_at DESC'}
-	scope :drafts, { :conditions => {:published => false }, :order => 'published_at DESC'}
+	scope :published, -> { where(:published => true).order('published_at DESC') }
+	scope :drafts, -> { where(:published => false).order('published_at DESC')}
 	
 	before_save :check_published, :if => :not_resaving?
 	before_save :save_tags, :if => :not_resaving?

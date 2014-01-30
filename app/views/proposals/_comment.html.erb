@@ -16,7 +16,7 @@
   <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?",comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
-        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), :remote => true, disable_with: t('loading') %>
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), :remote => true, data:{disable_with: t('loading')} %>
       </div>
   <% end %>
   <div id="<%= comment.id %>_replies" style="display:none;">
@@ -46,7 +46,7 @@
               <%= f.text_area :content, :class => 'reply_textarea', :data => {:id => comment.id}, :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
-              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', disable_with: t('sending') %>
+              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', data: {disable_with: t('sending')} %>
             </div>
             <div style="clear: both;"></div>
         <% end %>

@@ -216,7 +216,7 @@ function confirmEventData(el) {
     var valid = true;
 
     $('[data-validate]:input:visible', event_form).each(function () {
-        var settings = window.ClientSideValidations.forms[this.form.id]
+        var settings = window.ClientSideValidations.forms[this.form.id];
         if (!$(this).isValid(settings.validators)) {
             valid = false;
         }
@@ -227,7 +227,7 @@ function confirmEventData(el) {
             var candidates_duration = et.candidatesTime - et.eventStartTime;
             var election_duration = et.eventEndTime - et.candidatesTime;
             if (event_duration <= 0 || candidates_duration <= 0 || election_duration <= 0) {
-                alert('Le date non sono impostate correttamente. Ricontrollale.')
+                alert('Le date non sono impostate correttamente. Ricontrollale.');
                 return false;
             }
             else {

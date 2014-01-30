@@ -17,7 +17,7 @@
 
 
             <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue', disable_with: t('sending') %>
+            <%= e.submit t('buttons.send'), :class => 'btn blue', data:{disable_with: t('sending')} %>
         <% end %>
       </div>
 
@@ -34,8 +34,8 @@
 
 <input type="hidden" id="count_results" value="<%= @partecipants.count %>"/>
 <input type="hidden" id="ids_results" value="<%= @partecipants.map { |p| p.user_id }.join(',') %>"/>
-<div class="card">
-<table style="width:800px;" id="partecipants">
+
+<table class="card" style="width:800px;" id="partecipants">
   <thead>
   <th><%= t('pages.groups.edit_permissions.user_title') %></th>
   <th><%= t('pages.groups.edit_permissions.role_title') %></th>
@@ -94,7 +94,7 @@
   <% end %>
   </tbody>
 </table>
-</div>
+
 
 <script type="text/javascript">
     $('.user_role_changer').each(function (i, el) {

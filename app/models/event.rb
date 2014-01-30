@@ -23,14 +23,14 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :meeting, :election
 
-  scope :public, {:conditions => {private: false}}
-  scope :private, {:conditions => {private: true}}
+  scope :public, -> {where(private: false)}
+  scope :private, -> {where(private: true)}
   scope :vote_period, lambda { |*starttime|
     where(['event_type_id = ? AND starttime > ?', 2, starttime.empty? ? Time.now : starttime]).order('starttime asc')
   }
   scope :in_group, lambda { |group_id| {:include => [:organizers], :conditions => ['groups.id = ?', group_id]} if group_id }
 
-  scope :next, {:conditions => ['starttime > ?', Time.now]}
+  scope :next, -> {where(['starttime > ?', Time.now])}
 
 
   after_destroy :remove_scheduled_tasks

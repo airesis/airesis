@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
 
   has_many :blog_posts, :through => :blog_post_tags, :class_name => 'BlogPost'
 
-  scope :most_used, {conditions: (('(blog_posts_count + blogs_count + proposals_count + groups_count) > 2')), order: 'random()'}
+  scope :most_used, -> {where('(blog_posts_count + blogs_count + proposals_count + groups_count) > 2').order('random()')}
 
   def as_json(options={})    
    { :id => self.text, :name => self.text }

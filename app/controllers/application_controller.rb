@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_tutorial
-    @step = get_next_step(current_user)  if current_user
+    @step = get_next_step(current_user) if current_user
   end
 
   def ckeditor_filebrowser_scope(options = {})
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   def load_group
     if params[:group_id].to_s != ''
-      @group = Group.find(params[:group_id])
+      @group = Group.friendly.find(params[:group_id])
     elsif !['', 'www'].include? request.subdomain
       @group = Group.find_by_subdomain(request.subdomain)
     end
@@ -41,11 +41,13 @@ class ApplicationController < ActionController::Base
 
 
   def load_blog_data
-    @user = @blog.user
-    @blog_posts = @blog.posts.published.includes(:user,:blog,:tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-    @recent_comments =  @blog.comments.order('created_at DESC').limit(10)
-    @recent_posts =  @blog.posts.published.order('published_at DESC').limit(10)
-    @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
+    if @blog
+      @user = @blog.user
+      @blog_posts = @blog.posts.published.includes(:user, :blog, :tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+      @recent_comments = @blog.comments.order('created_at DESC').limit(10)
+      @recent_posts = @blog.posts.published.order('published_at DESC').limit(10)
+      @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
+    end
   end
 
 
@@ -63,7 +65,7 @@ class ApplicationController < ActionController::Base
 
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
-	@locale = 'zh' if ['cn'].include? @locale
+    @locale = 'zh' if ['cn'].include? @locale
     @locale = 'it-IT' if ['it', 'org', 'net'].include? @locale
     I18n.locale = @locale
   end
@@ -81,7 +83,7 @@ class ApplicationController < ActionController::Base
 
   #for devise. that a shit! why it doesn not use the other method?
   def self.default_url_options(options={})
-    {:l => I18n.locale }
+    {:l => I18n.locale}
   end
 
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
@@ -92,7 +94,7 @@ class ApplicationController < ActionController::Base
     if notifier
       env = request.env
       env['exception_notifier.options'] = notifier.args.first || {}
-      ExceptionNotifier::Notifier.exception_notification(env, exception).deliver
+      ExceptionNotifier.notify_exception(exception, env).deliver
       env['exception_notifier.delivered'] = true
     end
     message = "\n#{exception.class} (#{exception.message}):\n"
@@ -203,7 +205,7 @@ class ApplicationController < ActionController::Base
   def permissions_denied(exception=nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
-        flash.now[:error] =  exception.message
+        flash.now[:error] = exception.message
         render :update do |page|
           page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
         end
@@ -345,8 +347,8 @@ class ApplicationController < ActionController::Base
                 flash[:info] = t('info.proposal.available_authors')
               end
               @unread.check_all
-              @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id,@proposal.id)
-              @not_count.update_attribute(:count,0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
+              @not_count = ProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
+              @not_count.update_attribute(:count, 0) if @not_count #just to be sure. if everything is correct this would not be required but what if not?...just leave it here
             else
           end
         when 'blog_posts'

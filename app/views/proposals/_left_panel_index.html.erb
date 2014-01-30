@@ -69,7 +69,7 @@
                joins += " left join proposal_supports on proposals.id = proposal_supports.proposal_id  left join group_proposals on proposals.id = group_proposals.proposal_id"
                conditions += " AND ((proposal_supports.group_id = #{@group.id} and proposals.private = 'f') or (group_proposals.group_id = #{@group.id} and proposals.private = 't'))"
              end
-             categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group('proposal_categories.id,  proposal_categories.parent_proposal_category_id, proposal_categories.name, proposal_categories.seq')
+             categories = ProposalCategory.joins(joins).where(conditions).order("proposal_categories.seq desc").group(ProposalCategory.column_names.map { |col| "#{ProposalCategory.table_name}.#{col}" }.join(','))
 
              #categories = ProposalCategory.all
              categories.each do |category| %>
@@ -126,7 +126,7 @@
              types = ProposalType.all(
                      :joins => joins,
                      :conditions => conditions,
-                     :group => 'proposal_types.id, proposal_types.name, proposal_types.seq, proposal_types.active, proposal_types.color'
+                     :group =>  ProposalType.column_names.map { |col| "#{ProposalType.table_name}.#{col}" }.join(',')
              )
              types.each do |type| %>
               <div class="row">
@@ -214,7 +214,7 @@
 
             <p>
               <input type="button" value="<%= t('buttons.cancel') %>" class="btn" onclick="$('#choose_dates').foundation('reveal','close');"/>
-              <%= f.button t('buttons.search'), class: 'btn blue', disable_with: t('loading') %>
+              <%= f.button t('buttons.search'), class: 'btn blue', data:{disable_with: t('loading')} %>
             </p>
         <% end %>
       </div>

@@ -11,7 +11,7 @@ module Frm
     layout 'groups'
 
     def index
-      @categories = @group.categories.all
+      @categories = @group.categories.load
     end
 
     def show
@@ -44,7 +44,7 @@ module Frm
 
 
     def load_forum
-      @forum = @group.forums.find(params[:id])
+      @forum = @group.forums.friendly.find(params[:id])
     end
   end
 end

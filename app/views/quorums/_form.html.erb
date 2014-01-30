@@ -81,7 +81,7 @@
       <div class="columns large-12">
         <%=link_to t('buttons.cancel'), :back, class: 'btn cancel' %>
 
-        <%= e.submit button_name, :class => 'btn blue', disable_with: t('loading') %>
+        <%= e.submit button_name, :class => 'btn blue', data:{disable_with: t('loading')} %>
       </div>
     </div>
 <% end %>

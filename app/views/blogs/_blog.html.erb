@@ -13,7 +13,7 @@
   </div>
   <div class="blogFooter">
     <%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
-    <%= link_to 'Cancella', blog, :confirm => 'Sei sicuro di voler eliminare questo blog?', :method => :delete, :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
+    <%= link_to 'Cancella', blog, data: {:confirm => 'Sei sicuro di voler eliminare questo blog?'}, :method => :delete, :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id)%>
   </div>
 
 </div>
