@@ -12,9 +12,11 @@ pkg
 tmp
 log
 app/assets/images/users
-config/environments/production.rb
+config/environments/
 config/environment.rb
-tmp
+config/database.yml
+config/paypal.yml
+config/initializers/constants.rb
 test/fixtures
 script/igraph-0.5.4
 public/assets
@@ -24,8 +26,4 @@ solr/data/
 solr/development
 solr/test
 solr/default
-config/database.yml
-config/paypal.yml
-config/initializers/constants.rb
-config/environments
 *.orig
