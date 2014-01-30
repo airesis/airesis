@@ -34,7 +34,7 @@ class GroupAction < ActiveRecord::Base
   has_many :area_action_abilitations, :class_name => 'AreaActionAbilitation', dependent: :destroy
 
 
-  scope :for_group_areas, :conditions => {id: DEFAULT_AREA_ACTIONS}
+  scope :for_group_areas, -> {where(id: DEFAULT_AREA_ACTIONS)}
   scope :excluding_ids, ->(ids) { where('id NOT IN (?)', ids) if ids.any? }
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")

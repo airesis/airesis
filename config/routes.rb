@@ -92,7 +92,7 @@ Airesis::Application.routes.draw do
       put :add_authors
       get :vote_results
       post :close_debate
-      put :regenerate
+      patch :regenerate
       get :geocode
       get :facebook_share
       get :promote
@@ -486,7 +486,7 @@ Airesis::Application.routes.draw do
         end
         member do
           post :close_debate
-          put :regenerate
+          patch :regenerate
           get :geocode
         end
       end

@@ -325,7 +325,7 @@ class Ability
       return false unless partecipation
       role = partecipation.partecipation_role
       return true if (role.id == PartecipationRole::PORTAVOCE)
-      roles = group.partecipation_roles.all(:joins => :action_abilitations, :conditions => ["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id])
+      roles = group.partecipation_roles.joins(:action_abilitations).where(["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id]).load
       roles.include? role
     end
 
