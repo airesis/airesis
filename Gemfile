@@ -8,12 +8,10 @@ gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
 
 gem 'turnout'
 
-
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
 gem 'zurb-foundation'
-
 
 gem 'pg'
 
@@ -25,6 +23,10 @@ group :development do
   gem 'quiet_assets'
 end
 
+gem 'crowdin-api', group: [:development, :staging]
+gem 'rubyzip', group: [:development, :staging]
+gem 'bumbler', git: 'https://github.com/mark-ellul/Bumbler.git', group: [:development, :staging]
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -35,7 +37,6 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-meetup'
 gem 'omniauth-linkedin'
-gem 'omniauth-openid'
 
 gem 'paperclip'
 
@@ -75,8 +76,6 @@ gem 'client_side_validations-simple_form', git: 'https://github.com/coorasse/cli
 gem 'sitemap_generator'
 
 gem 'geocoder'
-
-gem 'email_preview'
 
 gem 'seed_dump'
 
@@ -138,9 +137,8 @@ gem 'activerecord-postgres-array'
 gem 'paper_trail', '~> 3.0.0'
 gem 'activerecord-postgres-array'
 
-gem 'crowdin-api'
-gem 'rubyzip'
 
 
 #added for rails 4
 gem 'protected_attributes'
+

@@ -29,10 +29,6 @@ Airesis::Application.configure do
 
   config.active_support.deprecation = :notify
 
-# Log the query plan for queries taking more than this (works
-# with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.4
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
@@ -74,12 +70,14 @@ Airesis::Application.configure do
 
   ROTP_DRIFT = 20
 
-  config.middleware.use ExceptionNotifier,
+  config.middleware.use ExceptionNotification::Rack,
                         :ignore_exceptions => ['ActiveRecord::RecordNotFound'],
                         :ignore_crawlers => %w{Googlebot bingbot},
-                        :email_prefix => "[Exception] ",
-                        :sender_address => %{"Exception Notifier" <exceptions@airesis.it>},
-                        :exception_recipients => %w{coorasse+exceptions@gmail.com carlo.mion@airesis.it}
+                        :email => {
+                            :email_prefix => "[Exception] ",
+                            :sender_address => %{"Exception Notifier" <exceptions@airesis.it>},
+                            :exception_recipients => %w{coorasse+exceptions@gmail.com carlo.mion@airesis.it}
+                        }
 
 end
 
