@@ -5,15 +5,13 @@ class SysPaymentNotificationsController < ApplicationController
     response = validate_IPN_notification(request.raw_post)
     case response
       when "VERIFIED"
-        SysPaymentNotification.create!(:params => params, :sys_feature_id => (params[:item_number].to_i rescue nil), :status => params[:payment_status], :transaction_id => params[:txn_id], payment_fee: params[:payment_fee], payment_gross: params[:payment_gross], first_name: params[:first_name], last_name: params[:last_name])
+        SysPaymentNotification.create!(params: params, payable_id: (params[:item_number].to_i rescue nil), payable_type: (Object.const_defined?(params[:atype]) ? params[:atype] : nil), status: params[:payment_status], transaction_id: params[:txn_id], payment_fee: params[:payment_fee], payment_gross: params[:payment_gross], first_name: params[:first_name], last_name: params[:last_name])
       when "INVALID"
       else
         # error
     end
     render nothing: true
   end
-
-
 
   protected
   def validate_IPN_notification(raw)

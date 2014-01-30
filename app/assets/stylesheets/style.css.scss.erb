@@ -1,20 +1,74 @@
-.card {
+.card, .mybox {
     background: #fff;
     box-shadow: 1px 1px 0px 0px #ccc;
     padding: 0.4em;
     border: 1px solid #d8d8d8;
     margin-bottom: 0.8em;
+    position: relative;
     legend {
         background-color: transparent;
     }
 }
 
+.card {
+    &.appear {
+        -webkit-transition: all 400ms ease;
+        -moz-transition: all 400ms ease;
+        -o-transition: all 400ms ease;
+        transition: all 400ms ease;
+        -webkit-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+        -moz-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+        transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
+        opacity: 0;
+        &.appeared {
+            -webkit-transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
+            -moz-transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
+            transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
+            opacity: 1;
+        }
+    }
+
+}
 
 label.boolean {
     display: inline-block;
     margin: 0.6em 0.2em;
 }
 
+/*
+html {
+    &::-webkit-scrollbar-track {
+        background-clip: padding-box;
+        border: solid transparent;
+        border-width: 0 0 0 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,.2);
+        background-clip: padding-box;
+        border: solid transparent;
+        border-width: 1px 1px 1px 1px;
+        min-height: 28px;
+        padding: 100px 0 0;
+        box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    }
+
+    &::-webkit-scrollbar {
+        height: 16px;
+        overflow: visible;
+        width: 16px;
+    }
+
+    &::-webkit-scrollbar-button {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+*/
 html, body {
     height: 100%;
 }
@@ -79,7 +133,6 @@ body div.token-input-dropdown {
     margin: 0 2px;
     padding: 2px 18px;
 }
-
 
 body {
     line-height: 18px;
@@ -860,7 +913,6 @@ ul.dd-options {
     }
 }
 
-
 form.paypal-button {
     width: 400px;
     display: inline;
@@ -900,7 +952,6 @@ form.paypal-button {
         }
     }
 }
-
 
 #menu-top-left {
     min-width: 280px;

@@ -19,7 +19,7 @@ class VotationsController < ApplicationController
 
       authorize! :vote, @proposal
 
-      vote_type = params[:data][:vote_type].to_i
+
 
       #check if user has rotp enabled and check the code
       if current_user.rotp_enabled && ::Configuration.rotp
@@ -36,6 +36,7 @@ class VotationsController < ApplicationController
         end
       end
 
+      vote_type = params[:data][:vote_type].to_i
 
       vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
       vote.vote_type_id = vote_type unless @proposal.secret_vote
@@ -43,10 +44,10 @@ class VotationsController < ApplicationController
 
       if vote_type == VoteType::POSITIVE
         @proposal.vote.positive += 1
-      elsif vote_type  == VoteType::NEUTRAL
-        @proposal.vote.neutral += 1
       elsif vote_type  == VoteType::NEGATIVE
         @proposal.vote.negative += 1
+      else vote_type  == VoteType::NEUTRAL
+        @proposal.vote.neutral += 1
       end
       @proposal.vote.save!
 

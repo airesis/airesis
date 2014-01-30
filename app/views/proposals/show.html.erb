@@ -56,7 +56,9 @@
 
 
 <% if @proposal.voting? %>
+    <%unless @proposal.is_petition? %>
     <h4><%= t('pages.proposals.show.no_contributes') %></h4>
+    <%end%>
 <% else %>
     <div id="order_bar">
       <%= render :partial => 'proposal_comments/order_bar' %>

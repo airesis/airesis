@@ -48,5 +48,6 @@
 //= require foundation
 //= require list
 //= require diff_match_patch
+//= require jquery.appear
 
 $(function(){ $(document).foundation(); });

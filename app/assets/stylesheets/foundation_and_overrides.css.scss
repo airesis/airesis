@@ -854,7 +854,7 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // We use this to control the definition
 // $sub-nav-font-family: $body-font-family;
 // $sub-nav-font-size: rem-calc(14);
- $sub-nav-font-color: #333;
+$sub-nav-font-color: #333;
 // $sub-nav-font-weight: normal;
 // $sub-nav-text-decoration: none;
 // $sub-nav-border-radius: 3px;
@@ -1508,3 +1508,7 @@ a.zocial:hover {
   width: 100%;
 }
 
+.progress.success .meter {
+  font-weight: bold;
+  padding-left: 2em;
+}

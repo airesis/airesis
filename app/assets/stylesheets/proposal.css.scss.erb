@@ -6,9 +6,7 @@ $large-screen: 1440px;
     margin-bottom: 5px;
 }
 
-.loading_proposals {
-    background-color: #FAFAFA;
-    border-top: 1px solid #E3E3E3;
+.loading_proposals.card {
     display: block;
     padding: 10px 0;
     text-align: center;
@@ -44,7 +42,7 @@ $large-screen: 1440px;
 
 .comment_update_divider {
     margin-left: 97px;
-    background-color: #eee;
+    background-color: #bbb;
     padding: 0.3em;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
@@ -70,24 +68,10 @@ $large-screen: 1440px;
 }
 
 .proposal_main {
-    position: relative;
-    background-color: white;
-    border-radius: 3px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    box-shadow: 0px 0px 1px #000;
-    margin-bottom: 20px;
+
 }
 
 .solution_main {
-    position: relative;
-    background-color: white;
-    border-radius: 3px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    box-shadow: 0px 0px 1px #000;
-    margin-bottom: 20px;
-
     .proposal_main {
         margin-bottom: 0px;
     }
@@ -111,7 +95,7 @@ $large-screen: 1440px;
 
 .show_all_comments {
     position: relative;
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+    background: #fff;
     border-left: 1px solid #CCCCCC;
     border-right: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
@@ -237,12 +221,11 @@ $large-screen: 1440px;
 
     .proposal_cont {
         margin: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
         position: relative;
         display: table;
         width: 98%;
         height: 162px;
+
         .left_cont {
             width: 90px;
         }
@@ -342,7 +325,21 @@ $large-screen: 1440px;
 
 .twocols {
     .proposal_list {
-        width: 50%;
+        width: 100%;
+    }
+    .blogPost {
+        width: 100%;
+    }
+}
+
+@media (min-width: '1500px') {
+    .twocols {
+        .proposal_list {
+            width: 50%;
+        }
+        .blogPost {
+            width: 50%;
+        }
     }
 }
 
@@ -1162,6 +1159,7 @@ a.spch-bub-inside:hover .point {
 
 }
 
+
 #create_proposal, #create_event, #promote_steps {
     form {
         overflow: hidden;
@@ -1183,7 +1181,6 @@ a.spch-bub-inside:hover .point {
             padding-right: 3px;
             font-weight: bold;
             cursor: default;
-            width: 240px;
 
             div.step_title {
                 color: #CCCCCC;
@@ -1212,7 +1209,6 @@ a.spch-bub-inside:hover .point {
 
                 .title {
                     display: inline-block;
-                    width: 165px;
                     overflow: hidden;
                     white-space: nowrap;
                 }
@@ -1236,6 +1232,31 @@ a.spch-bub-inside:hover .point {
             }
 
         }
+    }
+}
+
+#create_proposal, #create_event {
+    .bread-crumb {
+        li {
+            width: 240px;
+            .title {
+                width: 165px;
+            }
+        }
+    }
+}
+
+#promote_steps {
+    .bread-crumb {
+        li {
+            width: 180px;
+            .title {
+                width: 100px;
+            }
+        }
+    }
+    div.step {
+        text-align: center;
     }
 }
 
@@ -1274,7 +1295,7 @@ a.spch-bub-inside:hover .point {
 
 .suggest .tria {
     position: absolute;
-    right: -12px;
+    right: -24px;
     margin-top: -40px;
     height: 38px;
     width: 20px;
@@ -1406,8 +1427,8 @@ ul {
     box-shadow: 0px 0px 1px #000;
     border-radius: 3px;
     margin: 0px;
-    margin-bottom: 10px;
-    font-size: 0.8em;
+    margin-bottom: 20px;
+    font-size: 0.9em;
     color: #333;
     position: relative;
     line-height: 1.5em;

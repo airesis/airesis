@@ -118,8 +118,11 @@ USAGE:
 								return " " + Math.round(config.running_value) + "%";
 							} else if (config.textFormat == 'fraction') {
 								return " " + config.running_value + '/' + config.max;
-							}
+							} else if (config.textFormat == 'custom') {
+                                return $this.data('text');
+                            }
 						}
+                        return ''
 					}
 					
 					config.increment = Math.round((config.value - config.running_value)/config.steps);

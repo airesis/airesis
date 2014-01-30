@@ -9,7 +9,8 @@ $("#promote_form").quickWizard({
     clickableBreadCrumbs: true,
     breadCrumbListClass: 'bread-crumb',
     nextCallback: function() {},
-    prevCallback: function() {}
+    prevCallback: function() {},
+    submit: '.wizard[type = "submit"]'
 });
 
 
@@ -20,6 +21,9 @@ $('#promote_proposal').click(function (e) {
     return false;
 });
 
-
+try{
+    FB.XFBML.parse();
+}catch(ex){}
+twttr.widgets.load();
 
 disegnaBottoni();

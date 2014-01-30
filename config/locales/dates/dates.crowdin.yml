@@ -1,0 +1,141 @@
+crowdin:
+  calendar:
+    monthNames: "{crwdns5771:0}{crwdne5771:0}"
+    monthNamesShort: "{crwdns5772:0}{crwdne5772:0}"
+    dayNames: "{crwdns5773:0}{crwdne5773:0}"
+    dayNamesShort: "{crwdns5774:0}{crwdne5774:0}"
+    today: "{crwdns5775:0}{crwdne5775:0}"
+    month: "{crwdns5776:0}{crwdne5776:0}"
+    week: "{crwdns5777:0}{crwdne5777:0}"
+    day: "{crwdns5778:0}{crwdne5778:0}"
+    firstDay: "{crwdns5779:0}{crwdne5779:0}"
+    timeFormat: "{crwdns7923:0}{crwdne7923:0}"
+  date:
+    order:
+      - :day
+      - :month
+      - :year
+    formats:
+      default: %d-%m-%Y
+      short: "{crwdns5785:0}%b{crwdnd5785:0}%d{crwdne5785:0}"
+      long: "{crwdns6440:0}%d{crwdnd6440:0}%B{crwdnd6440:0}%Y{crwdne6440:0}"
+    day_names:
+      - "{crwdns5786:0}{crwdne5786:0}"
+      - "{crwdns5787:0}{crwdne5787:0}"
+      - "{crwdns5788:0}{crwdne5788:0}"
+      - "{crwdns5789:0}{crwdne5789:0}"
+      - "{crwdns5790:0}{crwdne5790:0}"
+      - "{crwdns5791:0}{crwdne5791:0}"
+      - "{crwdns5792:0}{crwdne5792:0}"
+    abbr_day_names:
+      - "{crwdns5793:0}{crwdne5793:0}"
+      - "{crwdns5794:0}{crwdne5794:0}"
+      - "{crwdns5795:0}{crwdne5795:0}"
+      - "{crwdns5796:0}{crwdne5796:0}"
+      - "{crwdns5797:0}{crwdne5797:0}"
+      - "{crwdns5798:0}{crwdne5798:0}"
+      - "{crwdns5799:0}{crwdne5799:0}"
+    month_names:
+      - "{crwdns6548:0}{crwdne6548:0}"
+      - "{crwdns5800:0}{crwdne5800:0}"
+      - "{crwdns5801:0}{crwdne5801:0}"
+      - "{crwdns5802:0}{crwdne5802:0}"
+      - "{crwdns5803:0}{crwdne5803:0}"
+      - "{crwdns5804:0}{crwdne5804:0}"
+      - "{crwdns5805:0}{crwdne5805:0}"
+      - "{crwdns5806:0}{crwdne5806:0}"
+      - "{crwdns5807:0}{crwdne5807:0}"
+      - "{crwdns5808:0}{crwdne5808:0}"
+      - "{crwdns5809:0}{crwdne5809:0}"
+      - "{crwdns5810:0}{crwdne5810:0}"
+      - "{crwdns5811:0}{crwdne5811:0}"
+    abbr_month_names:
+      - "{crwdns6549:0}{crwdne6549:0}"
+      - "{crwdns5812:0}{crwdne5812:0}"
+      - "{crwdns5813:0}{crwdne5813:0}"
+      - "{crwdns5814:0}{crwdne5814:0}"
+      - "{crwdns5815:0}{crwdne5815:0}"
+      - "{crwdns5816:0}{crwdne5816:0}"
+      - "{crwdns5817:0}{crwdne5817:0}"
+      - "{crwdns5818:0}{crwdne5818:0}"
+      - "{crwdns5819:0}{crwdne5819:0}"
+      - "{crwdns5820:0}{crwdne5820:0}"
+      - "{crwdns5821:0}{crwdne5821:0}"
+      - "{crwdns5822:0}{crwdne5822:0}"
+      - "{crwdns5823:0}{crwdne5823:0}"
+  time:
+    formats:
+      default: "{crwdns5824:0}%d{crwdnd5824:0}%b{crwdnd5824:0}%Y{crwdnd5824:0}%I{crwdnd5824:0}%M{crwdnd5824:0}%p{crwdne5824:0}"
+      long: "{crwdns5825:0}%A{crwdnd5825:0}%d{crwdnd5825:0}%B{crwdnd5825:0}%Y{crwdnd5825:0}%I{crwdnd5825:0}%M{crwdnd5825:0}%p{crwdne5825:0}"
+      long_date: "{crwdns5826:0}%A{crwdnd5826:0}%d{crwdnd5826:0}%B{crwdnd5826:0}%Y{crwdne5826:0}"
+      long_date_time: "{crwdns5827:0}%A{crwdnd5827:0}%d{crwdnd5827:0}%B{crwdnd5827:0}%Y{crwdnd5827:0}%I{crwdnd5827:0}%M{crwdnd5827:0}%p{crwdne5827:0}"
+      from_long_date_time: "{crwdns5828:0}%A{crwdnd5828:0}%d{crwdnd5828:0}%B{crwdnd5828:0}%Y{crwdnd5828:0}%I{crwdnd5828:0}%M{crwdnd5828:0}%p{crwdne5828:0}"
+      until_long_date_time: "{crwdns5829:0}%A{crwdnd5829:0}%d{crwdnd5829:0}%B{crwdnd5829:0}%Y{crwdnd5829:0}%I{crwdnd5829:0}%M{crwdnd5829:0}%p{crwdne5829:0}"
+      short: "{crwdns5830:0}%d{crwdnd5830:0}%b{crwdnd5830:0}%Y{crwdne5830:0}"
+      two_rows: "{crwdns5831:0}%d{crwdnd5831:0}%b{crwdnd5831:0}%Y{crwdnd5831:0}%I{crwdnd5831:0}%M{crwdnd5831:0}%p{crwdne5831:0}"
+      weekday: "{crwdns6550:0}%a{crwdnd6550:0}%I{crwdnd6550:0}%M{crwdnd6550:0}%p{crwdne6550:0}"
+      month: "{crwdns5833:0}%B{crwdne5833:0}"
+      dayandmonth: "{crwdns5834:0}%d{crwdnd5834:0}%m{crwdne5834:0}"
+      hour: "{crwdns5835:0}%I{crwdnd5835:0}%M{crwdnd5835:0}%p{crwdne5835:0}"
+      yesterday_at: "{crwdns6442:0}%I{crwdnd6442:0}%M{crwdnd6442:0}%p{crwdne6442:0}"
+      textfield: "{crwdns5836:0}%d{crwdnd5836:0}%m{crwdnd5836:0}%Y{crwdnd5836:0}%I{crwdnd5836:0}%M{crwdnd5836:0}%p{crwdne5836:0}"
+      rich: "{crwdns5837:0}%Y{crwdnd5837:0}%m{crwdnd5837:0}%d{crwdnd5837:0}%H{crwdnd5837:0}%M{crwdne5837:0}"
+    am: "{crwdns5838:0}{crwdne5838:0}"
+    pm: "{crwdns5839:0}{crwdne5839:0}"
+    left:
+      seconds:
+        one: "{crwdns5840:0}{crwdne5840:0}"
+        other: "{crwdns5840:1}%{count}{crwdne5840:1}"
+      minutes:
+        one: "{crwdns5841:0}{crwdne5841:0}"
+        other: "{crwdns5841:1}%{count}{crwdne5841:1}"
+      hours:
+        one: "{crwdns5842:0}{crwdne5842:0}"
+        other: "{crwdns5842:1}%{count}{crwdne5842:1}"
+      days:
+        one: "{crwdns5843:0}{crwdne5843:0}"
+        other: "{crwdns5843:1}%{count}{crwdne5843:1}"
+      months:
+        one: "{crwdns5844:0}{crwdne5844:0}"
+        other: "{crwdns5844:1}%{count}{crwdne5844:1}"
+  datetime:
+    added_on: "{crwdns5845:0}%{date}{crwdne5845:0}"
+    distance_in_words:
+      about_x_hours:
+        one: "{crwdns5846:0}{crwdne5846:0}"
+        other: "{crwdns5846:1}%{count}{crwdne5846:1}"
+      about_x_months:
+        one: "{crwdns5847:0}{crwdne5847:0}"
+        other: "{crwdns5847:1}%{count}{crwdne5847:1}"
+      about_x_years:
+        one: "{crwdns5848:0}{crwdne5848:0}"
+        other: "{crwdns5848:1}%{count}{crwdne5848:1}"
+      almost_x_years:
+        one: "{crwdns5849:0}{crwdne5849:0}"
+        other: "{crwdns5849:1}%{count}{crwdne5849:1}"
+      half_a_minute: "{crwdns5850:0}{crwdne5850:0}"
+      less_than_x_minutes:
+        one: "{crwdns5851:0}{crwdne5851:0}"
+        other: "{crwdns5851:1}%{count}{crwdne5851:1}"
+      less_than_x_seconds:
+        one: "{crwdns5852:0}{crwdne5852:0}"
+        other: "{crwdns5852:1}%{count}{crwdne5852:1}"
+      over_x_years:
+        one: "{crwdns5853:0}{crwdne5853:0}"
+        other: "{crwdns5853:1}%{count}{crwdne5853:1}"
+      x_days:
+        one: "{crwdns5854:0}{crwdne5854:0}"
+        other: ! '{crwdns5854:1}%{count}{crwdne5854:1}'
+      x_minutes:
+        one: "{crwdns5855:0}{crwdne5855:0}"
+        other: ! '{crwdns5855:1}%{count}{crwdne5855:1}'
+      x_months:
+        one: "{crwdns5856:0}{crwdne5856:0}"
+        other: ! '{crwdns5856:1}%{count}{crwdne5856:1}'
+      x_seconds:
+        one: "{crwdns5857:0}{crwdne5857:0}"
+        other: ! '{crwdns5857:1}%{count}{crwdne5857:1}'
+  label:
+    from: "{crwdns6443:0}{crwdne6443:0}"
+    to: "{crwdns6444:0}{crwdne6444:0}"
+  countdown: "{crwdns6445:0}{mn}{crwdnd6445:0}{ml}{crwdne6445:0}"
