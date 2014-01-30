@@ -21,6 +21,9 @@ public/assets
 public/ckeditor_assets
 private
 solr/data/
+solr/development
+solr/test
+solr/default
 config/database.yml
 config/paypal.yml
 config/initializers/constants.rb
