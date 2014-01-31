@@ -1,16 +1,13 @@
-<div id="roles_accordion" class="section-container accordion" data-section="accordion">
-
+<dl id="roles_accordion" class="accordion" data-accordion>
+  <dd>
   <% @group.partecipation_roles.each do |role|
     abilitations = role.action_abilitations.by_group(@group).all %>
-      <section>
-        <p class="title" data-section-title>
-          <a href="#"><%= role.name %>
+          <a href="#<%=role.id%>"><%= role.name %>
             <% if (role.id == @group.partecipation_role_id) %> (default)
             <% end %>
           </a>
-        </p>
 
-        <div class="content" data-section-content>
+        <div id="<%= role.id %>" class="content">
           <% if (role.id != @group.partecipation_role_id) %>
               <%= link_to t('buttons.delete'), partecipation_role_path(role), :method => :delete, :remote => true, :class => 'btn deleteButton', style: 'float:right', data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
           <% end %>
@@ -26,9 +23,9 @@
           <% end %>
 
         </div>
-      </section>
   <% end %>
-</div>
+  </dd>
+</dl>
 <script>
     $(function () {
         //$( "#roles_accordion" ).accordion();

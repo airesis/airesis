@@ -95,7 +95,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.3)
+    coffee-script-source (1.7.0)
     cookiejar (0.3.0)
     crowdin-api (0.2.0)
       rest-client (>= 1.6.7)
@@ -141,6 +141,9 @@ GEM
     ffi (1.9.3)
     foreigner (1.6.1)
       activerecord (>= 3.0.0)
+    foundation-rails (5.0.3.1)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
     gemoji (1.5.0)
@@ -161,7 +164,7 @@ GEM
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-rails (3.0.4)
+    jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
@@ -170,7 +173,7 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    koala (1.8.0rc1)
+    koala (1.8.0)
       addressable
       faraday
       multi_json
@@ -234,7 +237,7 @@ GEM
     paper_trail (3.0.0)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
-    paperclip (3.5.2)
+    paperclip (3.5.3)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -289,7 +292,7 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-    resque-scheduler (2.3.1)
+    resque-scheduler (2.4.0)
       redis (>= 3.0.0)
       resque (~> 1.25)
       rufus-scheduler (~> 2.0)
@@ -306,7 +309,7 @@ GEM
       tzinfo (>= 0.3.22)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.2.13)
+    sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
@@ -384,8 +387,6 @@ GEM
     xmpp4r (0.5.5)
     xmpp4r_facebook (0.1.1)
       xmpp4r
-    zurb-foundation (4.3.2)
-      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -405,6 +406,7 @@ DEPENDENCIES
   email_reply_parser
   exception_notification
   foreigner
+  foundation-rails (~> 5.0.3.1)
   friendly_id
   gemoji
   geocoder
@@ -460,4 +462,3 @@ DEPENDENCIES
   wicked_pdf
   workflow
   xmpp4r_facebook
-  zurb-foundation

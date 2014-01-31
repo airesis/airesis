@@ -1,5 +1,5 @@
-$small-screen: 768px;
-$medium-screen: 1280px;
+$small-screen: 640px;
+$medium-screen: 1024px;
 $large-screen: 1440px;
 
 #main {
@@ -822,7 +822,6 @@ $large-screen: 1440px;
 }
 
 #footer, footer {
-    position: absolute;
     bottom: 0px;
     right: 0px;
     left: 0px;
@@ -832,6 +831,11 @@ $large-screen: 1440px;
     box-shadow: 0px -1px 1px #333;
     font-size: 0.9em;
     z-index: 998;
+    @media only screen and (max-width: 64em) {
+        text-align: center;
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
     a {
         color: white;
         text-decoration: none;
@@ -841,12 +845,16 @@ $large-screen: 1440px;
         }
     }
     .language.footer {
-        max-width: 5%;
+        max-width: 30%;
+        @media only screen and (max-width: 40.063em) {
+            max-width: 50%;
+        }
     }
 }
 
 #language {
     a {
+        text-align: center;
         font-size: 1.5em;
         line-height: 1.5em;
     }

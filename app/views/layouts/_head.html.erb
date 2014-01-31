@@ -5,6 +5,7 @@
 <%= javascript_include_tag "i18n/jquery.ui.datepicker.#{I18n.locale}" %>
 <%= javascript_include_tag "i18n/jquery-ui-timepicker.#{I18n.locale}" %>
 <%= javascript_include_tag "i18n/jquery.countdown.#{I18n.locale}" %>
+<%= javascript_include_tag "vendor/modernizr" %>
 <%= csrf_meta_tag %>
 <%= yield :head %>
 
@@ -15,7 +16,6 @@
 
 <meta name="author" content="Tecnologie Democratiche" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<%= javascript_include_tag "vendor/custom.modernizr" %>
 <script type="text/javascript">
 
   $(function() {
