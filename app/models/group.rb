@@ -231,11 +231,11 @@ class Group < ActiveRecord::Base
 
   def image_url
     if self.image.exists?
-      return self.image.url
+      self.image.url
     elsif read_attribute(:image_url) != nil
-      return read_attribute(:image_url)
+      read_attribute(:image_url)
     else
-      return ""
+      '/assets/gruppo-anonimo.png'
     end
   end
 

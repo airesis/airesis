@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130134932) do
+ActiveRecord::Schema.define(version: 20140131095549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -734,10 +734,10 @@ ActiveRecord::Schema.define(version: 20140130134932) do
   create_table "notifications", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "notification_type_id",              null: false
+    t.integer  "notification_type_id",                           null: false
     t.string   "message",              limit: 1000
     t.string   "url",                  limit: 400
-    t.hstore   "properties"
+    t.hstore   "properties",                        default: {}, null: false
   end
 
   create_table "old_proposal_presentations", force: true do |t|
@@ -1407,13 +1407,13 @@ ActiveRecord::Schema.define(version: 20140130134932) do
   end
 
   create_table "user_alerts", force: true do |t|
-    t.integer  "notification_id", null: false
+    t.integer  "notification_id",              null: false
     t.integer  "user_id"
     t.boolean  "checked"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "checked_at"
-    t.hstore   "properties"
+    t.hstore   "properties",      default: {}, null: false
   end
 
   add_index "user_alerts", ["checked"], name: "index_user_alerts_on_checked", using: :btree

@@ -53,7 +53,7 @@ class BlogPost < ActiveRecord::Base
 			tids = []
 			@tags_list.split(/,/).each do |tag|
 			  stripped = tag.strip.downcase.gsub('.','')
-			  t = Tag.find_or_create_by_text(stripped)
+			  t = Tag.find_or_create_by(text: stripped)
 			  tids << t.id
 			end
 			self.tag_ids = tids

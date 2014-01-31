@@ -7,6 +7,8 @@
    if !@blog_post.published?
      @title += t('pages.blog_posts.show.draft')
    end
+
+   @blog_url = @group ? group_blog_post_url(@group,@blog_post) : blog_blog_post_url(@blog, @blog_post)
 %>
 
 <%= render :layout => "layouts/page_title", :locals => {:title => @blog_post.title} do %>
@@ -18,7 +20,7 @@
 
   <script type="text/javascript">
 
-      var pageURL = "<%= @group ?  group_blog_post_url(@group,@blog_post) : blog_blog_post_url(@blog) %>";
+      var pageURL = "<%= @blog_url %>";
 
   </script>
 
@@ -50,7 +52,7 @@
                data-text="Guarda questo post su #<%= APP_SHORT_NAME %>"
                data-url="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>">Tweet</a>
             |
-            <div class="fb-like" data-href="<%= blog_blog_post_url(@blog_post.blog, @blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+            <div class="fb-like" data-href="<%= @blog_url %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
 
           </div>
       <% end %>
@@ -81,8 +83,8 @@
 <%= content_for :left_panel do %>
     <% if can? :update, @blog_post %>
         <div class="mybox">
-          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog), :class => 'btn editButton' %>
-          <%= link_to t('pages.blog_posts.show.delete_button'), blog_blog_post_path(@blog_post.blog), :method => :delete, data: {confirm: t('pages.blog_posts.show.delete_button_confirm')}, :class => 'btn deleteButton' %>
+          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog, @blog_post), :class => 'btn editButton' %>
+          <%= link_to t('pages.blog_posts.show.delete_button'), @blog_url, :method => :delete, data: {confirm: t('pages.blog_posts.show.delete_button_confirm')}, :class => 'btn deleteButton' %>
         </div>
     <% end %>
     <% if ::Configuration.socialnetwork_active %>

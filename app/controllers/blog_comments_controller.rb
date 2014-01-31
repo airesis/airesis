@@ -26,22 +26,13 @@ class BlogCommentsController < ApplicationController
         @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
         @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
         @saved.collapsed = true
-        notify_new_blog_post_comment(@blog_comment)
-        format.js   { render :update do |page|
-                        page.replace_html "blogPostCommentsContainer", :partial => "blog_posts/comments", :layout => false
-                        page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_post.blog_comments.new}
-                        
-                      end
-                    }
-        format.html 
-        
+        Resque.enqueue_in(1, NotificationBlogCommentCreate, @blog_comment.id)
+        format.js
         format.xml  { render :xml => @blog_comment, :status => :created, :location => @blog_comment }
+        format.html
       else
         flash[:notice] = t('error.blog.comment_added')
-        format.js   { render :update do |page|
-                        page.replace "blogNewComment", :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment}
-                      end
-                    }
+        format.js { render 'blog_comments/errors/create'}
         format.html 
         format.xml  { render :xml => @blog_comment.errors, :status => :unprocessable_entity }
       end

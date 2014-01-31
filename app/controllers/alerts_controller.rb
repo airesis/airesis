@@ -18,7 +18,7 @@ class AlertsController < ApplicationController
     @map = []
 
     #this is quicker but doesn't show old alerts in categories which don't have new alerts
-    #current_user.user_alerts.includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = false']).group_by{|a| a.notification.notification_type.notification_category}.each do |category,alerts|
+    #current_user.user_alerts.includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = false']).group_by{|a| a.notification.notification_type.notification_category}
     #  numunread = alerts.size
     #  if numunread < 10
     #    alerts += current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = true and notification_categories.id = ?', category.id]).limit(10 - numunread).load
@@ -27,13 +27,16 @@ class AlertsController < ApplicationController
     #end
 
     NotificationCategory.all.each do |category|
-#      logger.info "category #{category.description}"
-      unread = current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes(:notification => :notification_data).where(['user_alerts.checked = false and notification_categories.id = ?', category.id]).load
+      logger.info "category #{category.description}"
+      unread = current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes([{:notification => :notification_data}, :notification_type]).where(['user_alerts.checked = false and notification_categories.id = ?', category.id]).load
       numunread = unread.size
       if numunread < 10
-        unread += current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes(:notification => :notification_data).where(['user_alerts.checked = true and notification_categories.id = ?', category.id]).limit(10 - numunread).load
+        unread += current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes([{:notification => :notification_data}, :notification_type]).where(['user_alerts.checked = true and notification_categories.id = ?', category.id]).limit(10 - numunread).load
       end
-      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => unread.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
+      alerts = unread.map do |alert|
+        {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.message, :proposal_id => alert.data[:proposal_id]}
+      end
+      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => alerts}
     end
   end
 
@@ -72,7 +75,7 @@ class AlertsController < ApplicationController
 
   #return notification tooltip for a specific proposal and user
   def proposal
-    @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', params[:proposal_id], false])
+    @unread = current_user.user_alerts.where(["(notifications.properties -> 'proposal_id') = ? and user_alerts.checked = ?", params[:proposal_id].to_s, false])
     render layout: false
   end
 

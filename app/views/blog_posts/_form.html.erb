@@ -40,17 +40,7 @@
 
       <% if @groups.count > 0 %>
           <p>
-            <%= f.label :groups, t('pages.blog_posts.new.published_in_groups') %>
-            <% @groups.each do |group| %>
-              <div>
-                <%= check_box_tag "blog_post[group_ids][]", group.id, (group.id.to_s == params[:group_id]) || (@blog_post.group_ids.include? group.id), style: 'float:left;' %>
-                <div class="blogUserImage" title="<%= group.name %>">
-                  <%= group.group_image_tag 20 %>
-                </div>
-                <%= f.label group.name, style: 'float:left;' %>
-                <div style="clear: both;"></div>
-              </div>
-          <% end %>
+            <%= f.select :group_ids, @groups.map { |group| [group.name, group.id, {'data-image' => group.image_url}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
       <p>
@@ -75,20 +65,28 @@
 <script type="text/javascript">
 
     $(function () {
-        input = $('#blog_post_tags_list')
-        if (input != null) {
-            input.tokenInput("<%=tags_path(format: :json )%>", {
-                theme: "facebook",
-                crossDomain: false,
-                allowFreeTagging: true,
-                minChars: 3,
-                hintText: "<%=t('digit_tags')%>",
-                searchingText: "<%=t('digit_tags')%>",
-                preventDuplicates: true,
-                allowTabOut: true,
-                tokenValue: "name"
-            })
+        $('#blog_post_tags_list').tokenInput("<%=tags_path(format: :json )%>", {
+            theme: "facebook",
+            crossDomain: false,
+            allowFreeTagging: true,
+            minChars: 3,
+            hintText: "<%=t('digit_tags')%>",
+            searchingText: "<%=t('digit_tags')%>",
+            preventDuplicates: true,
+            allowTabOut: true,
+            tokenValue: "name"
+        });
+
+        function format(state) {
+            var element_ = state.element;
+            return "<img src='" + $(element_).data('image') + "' style='width:20px;height:20px;margin-right:5px;'/>" + state.text;
         }
+
+        $('#blog_post_group_ids').select2({
+            formatResult: format,
+            formatSelection: format
+        });
+
     });
 </script>  		
 	

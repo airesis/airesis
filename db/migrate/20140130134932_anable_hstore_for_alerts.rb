@@ -4,7 +4,13 @@ class AnableHstoreForAlerts < ActiveRecord::Migration
     add_column :user_alerts, :properties, :hstore
     add_column :notifications, :properties, :hstore
     Notification.all.each do |notification|
-      notification.properties = notification.data
+      data = {}
+      notification.notification_data.each do |d|
+          name = d
+          value = d.value
+          data[name] = value
+        end
+      notification.properties = data
       notification.save!
     end
   end

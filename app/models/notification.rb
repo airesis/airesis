@@ -3,10 +3,10 @@ class Notification < ActiveRecord::Base
   has_many :user_alerts, :class_name => "UserAlert", :dependent => :destroy
   has_many :notification_data, :class_name => "NotificationData", :dependent => :destroy, :foreign_key => :notification_id
 
-  scope :another, lambda {|proposal_id,user_id,notification_type| joins(:notification_data, :user_alerts => [:user]).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false', 'proposal_id', proposal_id.to_s, notification_type, user_id.to_s]).readonly(false)}
-
   def data
-    self.properties.symbolize_keys
+    ret = self.properties.symbolize_keys
+    ret[:count] = ret[:count].to_i
+    ret
     #unless @data
     #  @data = {}
     #  self.notification_data.each do |d|
@@ -50,9 +50,6 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def increase_count!
-    data = self.notification_data.find_or_create_by(name: 'count')
-    data.update_attribute(:value,data.value.to_i + 1)
-  end
+
 
 end

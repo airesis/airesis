@@ -300,18 +300,6 @@ module NotificationHelper
   end
 
 
-  #send an alert to the author that there is a new comments in his blog
-  def notify_new_blog_post_comment(blog_comment)
-    blog_post = blog_comment.blog_post
-    user = blog_comment.user
-    unless blog_post.user == user #don't send a notification to myself
-      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}", 'user' => user.fullname, 'title' => blog_post.title, 'i18n' => 't'}
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
-      notification_a.save
-      send_notification_to_user(notification_a, blog_post.user)
-    end
-  end
-
   #send an alert to partecipants that there is a new comment in the event
   def notify_new_event_comment(event_comment)
 #    blog_post = blog_comment.blog_post

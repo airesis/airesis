@@ -35,8 +35,8 @@ class NotificationProposalCommentCreate < NotificationSender
     if comment.is_contribute?
       proposal.users.each do |user|   #send emails to editors
         if user != comment_user
-          #check if there is another notification to this user about new contributes that he has not read yet
-          another = Notification.another(proposal.id,user.id,NotificationType::NEW_CONTRIBUTES_MINE).first
+          #check if there is another alert to this user about new contributes that he has not read yet
+          another = UserAlert.another('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES_MINE).first
           if another
             another.increase_count!
             PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
@@ -52,7 +52,7 @@ class NotificationProposalCommentCreate < NotificationSender
       proposal.partecipants.each do |user|
         if (user != comment_user) && (!proposal.users.include? user)
           #check if there is another notification to this user about new contributes that he has not read yet
-          another = Notification.another(proposal.id,user.id,NotificationType::NEW_CONTRIBUTES).first
+          another = UserAlert.another('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES).first
           if another
             another.increase_count!
             PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
@@ -61,7 +61,6 @@ class NotificationProposalCommentCreate < NotificationSender
             #for contributes we create a notification for each user and aggregate them if needed
             send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
           end
-
         end
       end
     else

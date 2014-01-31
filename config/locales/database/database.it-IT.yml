@@ -36,6 +36,8 @@ it-IT:
         description: "Scelta di un candidato"
       SIMPLE:
         description: "Semplice"
+      PETITION:
+        description: Petizione
     event_types:
       meeting:
         description: incontro
@@ -122,6 +124,7 @@ it-IT:
         description: Nuovi contributi e commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo contributo"
         message:
+          zero: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>"
           one: "<b>%{name}</b> ha inserito un contributo alla proposta <b>%{title}</b>"
           other: "Ci sono <b>%{count}</b> nuovi contributi alla proposta <b>%{title}</b>"
       text_update:
@@ -132,6 +135,7 @@ it-IT:
         description: Nuovi contributi alle mie proposte
         email_subject: "%{title} - Nuovo contributo"
         message:
+          zero: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
           one: "<b>%{name}</b> ha inserito un contributo alla tua proposta <b>%{title}</b>"
           other: "Ci sono <b>%{count}</b> nuovi contributi alla tua proposta <b>%{title}</b>"
       change_status:
@@ -203,7 +207,10 @@ it-IT:
       new_blog_comment:
         description: Nuovo commento nel mio blog
         email_subject: E' stato inserito un nuovo commento nel tuo blog
-        message: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>"
+        message:
+          zero: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>"
+          one: "<b>%{user}</b> ha commentato il tuo post <b>%{title}</b>"
+          other: "Ci sono <b>%{count}</b> nuovi commenti nel tuo post <b>%{title}</b>"
       new_comments_mine:
         description: Nuovi commenti alle mie proposte
         email_subject: Nuovo commento ad una mia proposta
@@ -212,6 +219,10 @@ it-IT:
         description: Nuovi commenti alle proposte a cui partecipo
         email_subject: "%{title} - Nuovo commento"
         message: "<b>%{name}</b> ha inserito un commento in una discussione a cui partecipi nella proposta <b>%{title}</b>"
+      contribute_update:
+        description: "Aggiornamento di un contributo che hai valutato"
+        email_subject: "%{title} - Un contributo che hai valutato è stato cambiato"
+        message: "<b>%{name}</b> ha cambiato un contributo in <b>%{title}</b> che avevi precedentemente valutato. Verifica se vuoi cambiare la tua valutazione."
     proposal_categories:
       no_category:
         description: Nessuna categoria

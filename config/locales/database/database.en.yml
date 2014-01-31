@@ -123,7 +123,10 @@ en:
       new_contributes:
         description: "New contributions and comments in the proposals I participate in"
         email_subject: "%{title} - New contribute"
-        message: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
+        message:
+          zero: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
+          one: "<b>%{name}</b> added a new contribution in the proposal <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new contributions in the proposal <b>%{title}</b>"
       text_update:
         description: "Update of the text of a proposal I participate in"
         email_subject: "%{title} - The text has been modified"
@@ -131,7 +134,10 @@ en:
       new_contributes_mine:
         description: "New contributions in my proposals"
         email_subject: "%{title} - New contribution"
-        message: "<b>%{name}</b> added a contribution in your proposal <b>%{title}</b>"
+        message:
+          zero: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
+          one: "<b>%{name}</b> added a new contribution in your proposal <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new contributions in your proposal <b>%{title}</b>"
       change_status:
         description: "Change in the status of a proposal I participate in"
         email_subject:
@@ -201,7 +207,10 @@ en:
       new_blog_comment:
         description: New comment in my blog
         email_subject: New comment in your blog
-        message: "<b>%{user}</b> commented your post <b>%{title}</b>"
+        message:
+          zero: "<b>%{user}</b> commented your post <b>%{title}</b>"
+          one: "<b>%{user}</b> commented your post <b>%{title}</b>"
+          other: "There are <b>%{count}</b> new comments in your post <b>%{title}</b>"
       new_comments_mine:
         description: New comments in my proposals
         email_subject: New comment in my proposal

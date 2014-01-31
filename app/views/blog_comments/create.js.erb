@@ -1,0 +1,2 @@
+$('#blogPostCommentsContainer').html('<%=j render 'blog_posts/comments'%>');
+$('#blogNewComment').html('<%=j render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_post.blog_comments.new}%>');

@@ -349,7 +349,7 @@ class ApplicationController < ActionController::Base
           case params[:action]
             when 'show'
               #mark as checked all user alerts about this proposal
-              @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'proposal_id', @proposal.id.to_s, false])
+              @unread = current_user.user_alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and user_alerts.checked = ?", @proposal.id.to_s, false])
               if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
                 flash[:info] = t('info.proposal.available_authors')
               end
@@ -362,7 +362,7 @@ class ApplicationController < ActionController::Base
           case params[:action]
             when 'show'
               #mark as checked all user alerts about this proposal
-              @unread = current_user.user_alerts.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and user_alerts.checked = ?', 'blog_post_id', @blog_post.id.to_s, false])
+              @unread = current_user.user_alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and user_alerts.checked = ?", @blog_post.id.to_s, false])
               @unread.check_all
             else
           end
