@@ -4,7 +4,7 @@ $large-screen: 1440px;
 
 #main {
     position: absolute;
-    top: 0px;
+    top: 40px;
     left: 0px;
     right: 0px;
     bottom: 0px;
@@ -14,9 +14,7 @@ $large-screen: 1440px;
 #main-copy {
     position: relative;
     background-color: rgba(0, 0, 0, 0.1);
-    padding-right: 20px;
     min-height: 100%;
-
 }
 
 #menu-top {
@@ -47,6 +45,10 @@ $large-screen: 1440px;
     #menu-left {
         display: block;
     }
+}
+
+#centerpanelextended {
+    padding-bottom: 10px;
 }
 
 @media (max-width: $small-screen) {
@@ -845,7 +847,7 @@ $large-screen: 1440px;
         }
     }
     .language.footer {
-        max-width: 30%;
+        height: 15px;
         @media only screen and (max-width: 40.063em) {
             max-width: 50%;
         }

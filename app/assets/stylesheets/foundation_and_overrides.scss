@@ -5,7 +5,8 @@
 // This is the default html and body font-size for the base rem value.
 // $rem-base: 16px;
 $base-font-size: 13px !default;
-$rem-base = $base-font-size;
+
+$rem-base: $base-font-size;
 
 // Allows the use of rem-calc() or lower-bound() in your settings
 @import "foundation/functions";
@@ -1354,18 +1355,12 @@ ul, ol {
   margin: 0 auto;
 }
 
-#main {
-
-}
-
-#main-copy {
-  padding-right: 10px;
-}
 
 #menu-top {
-  top: 0px;
+  top: 40px;
   min-width: initial;
 }
+
 
 #menu-group {
   //top: initial;
@@ -1396,19 +1391,11 @@ body {
     margin-left: 0;
     margin-right: 0;
   }
-
-  #main-copy {
-    padding-bottom: 0px;
-  }
 }
 
 @media only screen and (min-width: 40.063em) {
   span.show-for-medium-up {
     display: inline !important;
-  }
-
-  #main-copy {
-    padding-bottom: 50px;
   }
 }
 

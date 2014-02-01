@@ -406,7 +406,7 @@ DEPENDENCIES
   email_reply_parser
   exception_notification
   foreigner
-  foundation-rails (~> 5.0.3.1)
+  foundation-rails
   friendly_id
   gemoji
   geocoder

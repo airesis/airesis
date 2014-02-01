@@ -99,15 +99,15 @@ $(function () {
     mybox_animate();
 
 
-    $(document.body).on('appear', '.card.appear', function(e, $affected) {
+    $(document.body).on('appear', '.card.appear', function (e, $affected) {
         cards_delay = 0;
         $(this).addClass('appeared');
         /*$affected.each(function() {
-            var $this_ = $(this);
-            console.log('appear in ' + cards_delay);
-            setTimeout(function() {$this_.addClass("appeared")},cards_delay);
-            cards_delay += 300;
-        });*/
+         var $this_ = $(this);
+         console.log('appear in ' + cards_delay);
+         setTimeout(function() {$this_.addClass("appeared")},cards_delay);
+         cards_delay += 300;
+         });*/
         cards_delay = 0;
     });
 
@@ -710,7 +710,7 @@ function secondsToString(seconds) {
 }
 
 function getQueryParam(param) {
-    var result =  window.location.search.match(
+    var result = window.location.search.match(
             new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
     );
 
@@ -909,4 +909,15 @@ if (!jQuery.browser) {
 //        return false;
 //    }
 //};
+
+
+function airesis_reveal(element_, remove_on_close) {
+    remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
+    element_.foundation().foundation('reveal', 'open');
+    if (remove_on_close) {
+        $(document).on('closed', element_, function () {
+            element_.remove();
+        });
+    }
+}
 

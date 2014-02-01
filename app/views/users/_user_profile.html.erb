@@ -8,13 +8,14 @@
 </div>
 
 
-<h4><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h4>
+
 <% if ::Configuration::user_messages %>
     <span><%= link_to t('pages.users.show.send_message_button'), show_message_user_path(@user), :remote => true, :class => 'btn inviteButton disable' if can? :send_message, @user %></span>
 <% end %>
 
 
 <div class="card">
+  <h2><%= t('pages.users.show.profile_info') %><%= t('pages.users.show.profile_info_unconfirmed') unless @user.confirmed? %></h2>
   <div id="name_profile" class="profile_element">
 
     <h2 class="label_profile"><%= t('pages.users.show.name_label') %>: </h2>

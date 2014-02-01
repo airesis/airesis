@@ -1,5 +1,7 @@
 Airesis::Application.routes.draw do
 
+  resources :searches
+
   resources :sys_payment_notifications
 
   resources :sys_features

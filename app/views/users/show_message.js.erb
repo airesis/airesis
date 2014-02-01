@@ -1,6 +1,5 @@
-$('body').append('<div id="new_message_container" class="reveal-modal medium" data-reveal></div>');
-$('#new_message_container').html("<%= j render 'users/message'%>");
-
-$('#new_message_container').foundation('reveal','open');
-
+var container_ = $('<div id="new_message_container" class="reveal-modal medium" data-reveal></div>');
+$('body').append(container_);
+container_.html("<%= j render 'users/message'%>");
+airesis_reveal(container_);
 disegnaBottoni();

@@ -1,4 +1,27 @@
+<nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Airesis</a></h1>
+    </li>
 
+  </ul>
+  <section class="top-bar-section">
+    <ul class="left">
+      <li class="has-form">
+        <%= form_for Search.new, data: {remote: true} do |f| %>
+            <div class="row collapse">
+              <div class="large-8 small-9 columns">
+                <%=f.text_field :q, placeholder: "Find Stuff" %>
+              </div>
+              <div class="large-4 small-3 columns">
+                <%=f.submit 'Search', class: 'alert button expand'%>
+              </div>
+            </div>
+        <% end %>
+      </li>
+    </ul>
+  </section>
+</nav>
 <div id="menu-top">
   <div id="menu-top-left">
     <div id="logo-airesis">
@@ -35,7 +58,8 @@
         </div>
 
         <div id="login_panel" class="reveal-modal large" data-reveal>
-          <h2><%=t('pages.header.login')%></h2>
+          <h2><%= t('pages.header.login') %></h2>
+
           <div class="row">
             <div class="columns large-6">
               <%= form_for User.new, url: {:action => "create", :controller => "devise/sessions"}, html: {:class => 'box'} do |f| %>

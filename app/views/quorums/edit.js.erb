@@ -2,13 +2,9 @@ var container_ = $('<div id="quorum_container"class="reveal-modal medium" data-r
 $('body').append(container_);
 container_.html("<%= j (render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.update')}))%>");
 
-container_.foundation('reveal', 'open');
+airesis_reveal(container_);
 
 container_.find('a.cancel').click(function() {
     container_.foundation('reveal', 'close');
     return false;
-});
-
-$(document).on('closed', container_, function () {
-    container_.remove();
 });

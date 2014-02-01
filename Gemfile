@@ -11,7 +11,7 @@ gem 'turnout'
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails', "~> 5.0.3.1"
+gem 'foundation-rails'
 
 gem 'pg'
 

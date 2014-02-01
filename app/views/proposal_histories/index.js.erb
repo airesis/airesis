@@ -1,7 +1,7 @@
 var container_ = $('<%= j (render(:partial => 'proposal_histories/panel'))%>');
 $('body').append(container_);
 
-container_.foundation('reveal', 'open');
+container_.foundation().foundation('reveal', 'open');
 container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y','auto');
 $(document).on('opened', '[data-reveal]', function () {
     $('html').css('overflow', 'hidden');

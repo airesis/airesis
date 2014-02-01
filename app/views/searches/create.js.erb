@@ -1,0 +1,4 @@
+var results_ = $('<div id="search_box" class="reveal-modal small" data-reveal ></div>');
+$('#main').append(results_);
+results_.html('<%=j render 'list'%>');
+airesis_reveal(results_);

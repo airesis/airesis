@@ -1,0 +1,14 @@
+<div class="results_list">
+  <% @search.groups.each do |group| %>
+      <div class="result_element">
+        <%= group.name %>
+      </div>
+  <% end %>
+  <% @search.proposals.each do |proposal| %>
+      <div class="result_element">
+        <%= proposal.title %>
+      </div>
+  <% end %>
+
+</div>
+<a class="close-reveal-modal">&#215;</a>

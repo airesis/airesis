@@ -17,8 +17,9 @@
 
 
 <% if @user == current_user && @user.group_partecipations.count > 0 %>
+    <div class="card">
     <% @group_partecipations = @user.group_partecipations.includes([:group, :partecipation_role, :user]) %>
-    <h4><%= t('pages.users.show.groups_title') %></h4>
+    <h2><%= t('pages.users.show.groups_title') %></h2>
     <table id="partecipation_table">
 
       <thead>
@@ -47,9 +48,11 @@
         $('#partecipation_<%=partecipation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
         <%end%>
     </script>
+    </div>
 <% end %>
 <% if @user == current_user && @user.user_votes.count > 0 %>
-    <h4><%= t('pages.users.show.votations_title') %></h4>
+    <div class="card">
+    <h2><%= t('pages.users.show.votations_title') %></h2>
     <table id="votations_table">
       <thead>
       <th><%= t('pages.users.show.proposal_column') %></th>
@@ -68,6 +71,7 @@
       <% end %>
       </tbody>
     </table>
+    </div>
 <% end %>
 
 <% if current_user == @user %>
