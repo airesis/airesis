@@ -244,7 +244,7 @@ class ProposalsController < ApplicationController
       log_error(e)
       respond_to do |format|
         format.js { render :update do |page|
-          page.alert t('pages.proposals.new.wait',minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor,seconds:((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
+          page.alert t('pages.proposals.new.wait', minutes: ((PROPOSALS_TIME_LIMIT - elapsed)/60).floor, seconds: ((PROPOSALS_TIME_LIMIT - elapsed)%60).round(0))
           page << "$('#create_proposal_container').foundation('reveal','close');"
         end }
       end
@@ -438,24 +438,23 @@ class ProposalsController < ApplicationController
       @copy.ends_at = endtime
     end
     #se il numero di valutazioni è definito
-    if quorum.percentage
-      if @group #calcolo il numero in base ai partecipanti
-                #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        if @group_area
-          @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
-          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
-        else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-          @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
-          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
-        end
-      else #calcolo il numero in base agli utenti del portale (il 10%)
-        @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
-        @copy.vote_valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+
+    if @group #calcolo il numero in base ai partecipanti
+      if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
+      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
+        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
       end
-      #deve essere almeno 1!
-      @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
-      @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+    else #calcolo il numero in base agli utenti del portale (il 10%)
+      @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+      @copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
     end
+    #deve essere almeno 1!
+    @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
+    @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+
     @copy.public = false
     @copy.assigned = true
     @copy.save!
@@ -1014,9 +1013,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
 
-
-
-
   private
 
   def render_404(exception=nil)
@@ -1028,8 +1024,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
     true
   end
-
-
 
 
 end
