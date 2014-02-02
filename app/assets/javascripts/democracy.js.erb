@@ -921,3 +921,18 @@ function airesis_reveal(element_, remove_on_close) {
     }
 }
 
+/**
+ * posiziona il marcatore sull'indirizzo specificato nel campo 'Comune'
+ */
+function search_stuff() {
+    delay(function () {
+        var query = $('#search_q').val();
+        if (query != null && query != "") {
+            $.ajax({
+                url: '/searches',
+                data: 'search[q]='+query,
+                method: 'POST'
+            });
+        }
+    }, 600);
+}

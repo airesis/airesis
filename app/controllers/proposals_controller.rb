@@ -865,7 +865,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
-    @pgroup = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    @pgroup = params[:group_id] ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
 
     if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound

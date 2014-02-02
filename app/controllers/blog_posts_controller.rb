@@ -87,7 +87,7 @@ class BlogPostsController < ApplicationController
 
   def create
     group_ids = params[:blog_post][:group_ids]
-    group_ids.select! { |id| can? :post_to, Group.find_by_id(id) } if group_ids
+    group_ids.select! { |id| can? :post_to, Group.find(id) } if group_ids
     BlogPost.transaction do
       @blog_post = @blog.posts.build(params[:blog_post])
       @blog_post.user_id = current_user.id

@@ -8,34 +8,6 @@
   <% end %>
 </head>
 <body>
-<%= render :partial => "layouts/header" %>
-<div id="main">
-  <div id="main-copy">
-    <div id="menu-left" class="show-for-medium-up">
-      <div class="menu2">
-        <div class="mybox show-for-small">
-          <%= yield :menu %>
-        </div>
-        <%= yield :left_panel %>
-      </div>
-    </div>
-    <div id="centerpanelextended">
-      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
-        <%= render :partial => 'layouts/tutorials' %>
-        <div id="flash_messages">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-        </div>
-        <%= yield :layout %>
-      </div>
-
-      <%= render :partial => "layouts/menu_right" %>
-      <div class="clearboth"></div>
-    </div>
-    <%= render :partial => "layouts/new_footer" %>
-  </div>
-</div>
-</body>
-</html>
 
 <% content_for :menu do %>
     <div id="menu-group" class="title-area ">
@@ -67,8 +39,6 @@
                       <%= link_to 'BLOG', @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
                   <% end %>
               <% end %>
-              <div class="borx show-for-large-up <%= current_user ? '' : 'expandb' %>"></div>
-              <div class="tria" style="left: 389px;"></div>
             </div>
           </div>
       <% end %>
@@ -77,3 +47,34 @@
 
     </div>
 <% end %>
+
+<%= render :partial => "layouts/header" %>
+
+<div id="main">
+  <div id="main-copy">
+    <div id="menu-left" class="show-for-medium-up">
+      <div class="menu2">
+        <div class="mybox show-for-small">
+          <%= yield :menu %>
+        </div>
+        <%= yield :left_panel %>
+      </div>
+    </div>
+    <div id="centerpanelextended">
+      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+        <%= render :partial => 'layouts/tutorials' %>
+        <div id="flash_messages">
+          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        </div>
+        <%= yield :layout %>
+      </div>
+
+      <%= render :partial => "layouts/menu_right" %>
+      <div class="clearboth"></div>
+    </div>
+    <%= render :partial => "layouts/new_footer" %>
+  </div>
+</div>
+</body>
+</html>
+

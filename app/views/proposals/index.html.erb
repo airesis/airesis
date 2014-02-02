@@ -34,7 +34,7 @@
     <a href="#revision" data-href="<%= tab_list_proposals_path(params.merge({:scroll => true, :state => ProposalState::TAB_REVISION, :group_id => (@group.id if @group), :group_area_id => (@group_area.id if @group_area)})) %>"><%= t('pages.proposals.index.revision_title', :count => @revision_count) %></a>
   </dd>
 </dl>
-<div class="tabs-content" id="proposals-content">
+<div class="tabs-content twocols" id="proposals-content">
   <div class="content active" data-content id="debate" data-state="<%= ProposalState::TAB_DEBATE %>">
     <div id='loading_borders' style='margin:auto;text-align:center;display:block;'>
       <%= image_tag 'ajax-loader.gif', :alt => t('pages.proposals.index.loading_alt') %>

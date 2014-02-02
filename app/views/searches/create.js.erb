@@ -1,4 +1,8 @@
-var results_ = $('<div id="search_box" class="reveal-modal small" data-reveal ></div>');
-$('#main').append(results_);
+var results_ = $('#search_box');
 results_.html('<%=j render 'list'%>');
-airesis_reveal(results_);
+results_.position({
+    of: $('#search_q'),
+    my: 'left top',
+    at: 'left bottom'
+});
+results_.show();
