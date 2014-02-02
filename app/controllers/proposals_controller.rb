@@ -111,9 +111,14 @@ class ProposalsController < ApplicationController
     query_index
     respond_to do |format|
       format.html {
-        render :partial => 'tab_list', :locals => {:proposals => @proposals}
+        if params[:replace]
+          render :update do |page|
+            page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
+          end
+        else
+          render :partial => 'tab_list', :locals => {:proposals => @proposals}
+        end
       }
-      format.js
       format.json
     end
   end
@@ -438,24 +443,23 @@ class ProposalsController < ApplicationController
       @copy.ends_at = endtime
     end
     #se il numero di valutazioni è definito
-    if quorum.percentage
-      if @group #calcolo il numero in base ai partecipanti
-        #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        if @group_area
-          @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
-          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
-        else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-          @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
-          @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
-        end
-      else #calcolo il numero in base agli utenti del portale (il 10%)
-        @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
-        @copy.vote_valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+
+    if @group #calcolo il numero in base ai partecipanti    
+      if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
+      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
+        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
       end
-      #deve essere almeno 1!
-      @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
-      @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+    else #calcolo il numero in base agli utenti del portale (il 10%)
+      @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+      @copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
     end
+    #deve essere almeno 1!
+    @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
+    @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+
     @copy.public = false
     @copy.assigned = true
     @copy.save!
@@ -737,14 +741,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     end
   end
 
-
-  def promote
-    respond_to do |format|
-      format.js
-      format.html
-    end
-  end
-
   def facebook_share
     @page_title = "Invite friends to join this proposal"
     respond_to do |format|
@@ -790,16 +786,18 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   #query per la ricerca delle proposte
   def query_index
     populate_search
-    case params[:state]
-      when ProposalState::VOTATION_STATE
-        @replace_id = 'votation'
-      when ProposalState::ACCEPTED_STATE
-        @replace_id = 'accepted'
-      when ProposalState::REVISION_STATE
-        @replace_id = 'revision'
-      else
-        @replace_id = 'debate'
+
+    if params[:state] == ProposalState::VOTATION_STATE
+      @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
+    elsif params[:state] == ProposalState::ACCEPTED_STATE
+      @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
+    elsif params[:state] == ProposalState::REVISION_STATE
+      @replace_id = t("pages.proposals.index.revision").gsub(' ', '_')
+    else
+      @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
     end
+
+
     @proposals = @search.results
   end
 
@@ -867,7 +865,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   def load_proposal_and_group
     @proposal = Proposal.find(params[:id])
-    @pgroup = params[:group_id] ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    @pgroup = params[:group_id] ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
 
     if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound
@@ -882,7 +880,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def load_my_vote
-    if @proposal.in_valutation?
+    if @proposal.proposal_state_id != PROP_VALUT
+      @can_vote_again = 0
+    else
       ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
       @my_vote = ranking.ranking_type_id if ranking
       if @my_vote
@@ -895,8 +895,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       else
         @can_vote_again = 1
       end
-    else
-      @can_vote_again = 0
     end
   end
 
@@ -941,7 +939,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def valutation_state_required
-    unless @proposal.in_valutation?
+    if @proposal.proposal_state_id != PROP_VALUT
       flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
       respond_to do |format|
         format.js { render :update do |page|
