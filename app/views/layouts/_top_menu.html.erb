@@ -2,10 +2,9 @@
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name">
-        <%= link_to (image_tag 'logo_new.png', class: "logo1 show-for-medium-up", style: 'height:30px'), root_path, tabindex: 1 %>
-        <%= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small", style: 'height:30px'), '#', tabindex: 1, id: 'logo1mini' %>
+        <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px'), root_path, tabindex: 1 %>
+        <%#= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small", style: 'height:30px'), '#', tabindex: 1, id: 'logo1mini' %>
       </li>
-
     </ul>
     <section class="top-bar-section">
       <ul class="left">
@@ -14,64 +13,23 @@
               <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true"><%= t('pages.header.groups_title') %></a>
             </li>
         <% end %>
-        <li>
+        <li class="has-form">
           <%= form_for Search.new, data: {remote: true} do |f| %>
               <div class="row collapse">
-                <div class="large-12 small-9 columns">
+                <div class="large-10 small-10 columns">
                   <%= f.text_field :q, placeholder: "Find Stuff" %>
+                </div>
+                <div class="large-2 small-2 columns">
+                  <a href="#"><div class="icon-search medium"></div></a>
                 </div>
               </div>
           <% end %>
           <div id="search_box" class="card"></div>
-          <script type="text/javascript">
-              $(function () {
-                  var searchcache = {};
-                  $("#search_q").autocomplete({
-                      minLength: 1,
-                      source: function (request, response) {
-                          var term = request.term;
-                          if (term in searchcache) {
-                              response(searchcache[ term ]);
-                              return;
-                          }
-                          $.getJSON("/searches", request, function (data, status, xhr) {
-                              searchcache[ term ] = data;
-                              response(data);
-                          });
-                      },
-                      select: function (event, ui) {
-                          window.location.href = ui.item.url;
-                      }
-
-                  });
-                  $("#search_q").data("uiAutocomplete")._renderMenu = function (ul, items) {
-                      var that = this;
-                      $.each(items, function (index, item) {
-                          if (item.type == 'Divider') {
-                              ul.append($("<li class='ui-autocomplete-category'>" + item.value + "</li>"));
-                          }
-                          else {
-                              that._renderItemData(ul, item);
-                          }
-                      });
-                      $(ul).addClass('f-dropdown').addClass('medium').css('z-index', 1005).css('width', '400px');
-                  };
-                  $("#search_q").data("uiAutocomplete")._renderItem = function (ul, item) {
-                      var el = $("<li>");
-                      var link_ = $("<a>").text(item.label).attr('href', item.url);
-                      el.append(link_);
-                      el.appendTo(ul);
-                      return el;
-                  };
-
-              });
-          </script>
         </li>
       </ul>
       <ul class="right">
-        <li><%= link_to "<div class=\"icon-heart medium\"></div>".html_safe, sostienici_path, class: 'cur love', title: t('pages.header.support_us') %></li>
-        <li><div class="icon-question medium cur info" title="TUTORIAL"></div></li>
-
+        <li><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do%><div class="icon-heart medium"></div><%end%></li>
+        <li><a href="#" onclick="return false;"><div class="icon-question medium cur info" title="TUTORIAL"></div></a></li>
 
         <% if current_user %>
             <li><%= link_to '#', class: 'button account' do %>
@@ -79,7 +37,7 @@
                   <%= current_user.fullname %>
               <% end %>
             </li>
-            <li><div class="icon-bell medium" title="ALERTS"></div></li>
+            <li><a href="#" onclick="return false;" id="alerts_link"><div class="icon-bell medium" title="ALERTS"></div></a></li>
         <% end %>
       </ul>
     </section>

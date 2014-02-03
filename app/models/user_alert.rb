@@ -9,6 +9,7 @@ class UserAlert < ActiveRecord::Base
   #store_accessor :properties, :ncount
 
   has_one :notification_type, through: :notification
+  has_one :notification_category, through: :notification_type
 
   after_create :increase_counter
 

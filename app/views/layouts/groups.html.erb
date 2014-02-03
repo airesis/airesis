@@ -15,7 +15,7 @@
             <%= @top_title = link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
         <% end %>
 
-        <div class="submenu mycont hide-for-small">
+        <div class="submenu mycont hide-for-small left">
           <% if @group && @group.id && (can? :view_data, @group) %>
               <%= link_to t('pages.groups.layout.home_button'), @group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '' %>
               <span> ⋅ </span>

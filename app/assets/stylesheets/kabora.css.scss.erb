@@ -1,6 +1,7 @@
 $small-screen: 640px;
 $medium-screen: 1024px;
 $large-screen: 1440px;
+$left-menu-width: 250px;
 
 #main {
     position: absolute;
@@ -30,7 +31,7 @@ $large-screen: 1440px;
 
 #menu-left {
     float: left;
-    width: 250px;
+    width: $left-menu-width;
     padding-top: 10px;
     display: none;
 }
@@ -78,8 +79,8 @@ $large-screen: 1440px;
 
 @media (min-width: $small-screen) {
     #centerpanelextended {
-        margin-left: 280px;
-        padding-left: 20px;
+        margin-left: $left-menu-width;
+        padding-left: 5px;
         border-left: 1px dotted gray;
     }
     #menu-top {
@@ -99,12 +100,6 @@ $large-screen: 1440px;
         display: inline !important;
     }
 
-}
-
-@media (min-width: $medium-screen) {
-    #centerpanelextended {
-        margin-right: 100px;
-    }
 }
 
 #centerpanelextended {
@@ -142,8 +137,6 @@ $large-screen: 1440px;
     padding: 5px;
 
     img {
-        height: 60px;
-        width: 60px;
         &.certification {
             height: auto;
             width: auto;
@@ -159,14 +152,10 @@ $large-screen: 1440px;
     a {
         color: white;
         text-decoration: none;
-
         &:hover {
             opacity: 0.8;
         }
     }
-
-
-
 }
 
 .group_tag_fade {
@@ -234,12 +223,11 @@ $large-screen: 1440px;
 
 #menu-right {
     position: absolute;
-    top: 80px;
+    top: 0px;
     right: 0px;
     bottom: 50px;
     width: 90px;
     border-left: 1px dotted gray;
-    z-index: 999;
 }
 
 @media (max-width: $medium-screen) {
@@ -373,8 +361,8 @@ $large-screen: 1440px;
 
 .alert.notify.boxed {
     position: absolute;
-    right: -10px;
-    top: -10px;
+    right: 15px;
+    top: 3px;
 }
 
 #menu-right img:hover,

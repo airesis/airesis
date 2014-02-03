@@ -15,29 +15,17 @@ class AlertsController < ApplicationController
   end
 
   def polling
-    @map = []
 
-    #this is quicker but doesn't show old alerts in categories which don't have new alerts
-    #current_user.user_alerts.includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = false']).group_by{|a| a.notification.notification_type.notification_category}
-    #  numunread = alerts.size
-    #  if numunread < 10
-    #    alerts += current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes({:notification => [:notification_data,{:notification_type => :notification_category}]}).where(['user_alerts.checked = true and notification_categories.id = ?', category.id]).limit(10 - numunread).load
-    #  end
-    #  @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => alerts.map { |alert| {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.notification.message, :proposal_id => alert.notification.data[:proposal_id]} }}
-    #end
 
-    NotificationCategory.all.each do |category|
-      logger.info "category #{category.description}"
-      unread = current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes([{:notification => :notification_data}, :notification_type]).where(['user_alerts.checked = false and notification_categories.id = ?', category.id]).load
-      numunread = unread.size
-      if numunread < 10
-        unread += current_user.user_alerts.joins(:notification => {:notification_type => :notification_category}).includes([{:notification => :notification_data}, :notification_type]).where(['user_alerts.checked = true and notification_categories.id = ?', category.id]).limit(10 - numunread).load
-      end
-      alerts = unread.map do |alert|
-        {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.message, :proposal_id => alert.data[:proposal_id]}
-      end
-      @map << {:id => category.id, :short => category.short.downcase, :count => numunread, :title => category.description.upcase, :alerts => alerts}
+    unread = current_user.user_alerts.joins(:notification_category).includes([{:notification => :notification_data}, :notification_type]).where(checked: false).load
+    numunread = unread.size
+    if numunread < 10
+      unread += current_user.user_alerts.joins(:notification_category).includes([{:notification => :notification_data}, :notification_type]).where(checked: true).limit(10 - numunread).load
     end
+    alerts = unread.map do |alert|
+      {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.message, :proposal_id => alert.data[:proposal_id], category_name: alert.notification_category.short.downcase, category_title: alert.notification_category.description.upcase}
+    end
+    @map = {:count => numunread, :alerts => alerts}
   end
 
   #imposta tutte fle notifiche come lette
