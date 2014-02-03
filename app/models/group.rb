@@ -321,6 +321,7 @@ class Group < ActiveRecord::Base
   searchable do
     text :name, boost: 5
     text :description
+    integer :id
     integer :interest_border_id
     integer :group_partecipations_count
     time :created_at

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
+<head>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
+  <%= render :partial => "layouts/head" %>
+</head>
+<body>
+
+<%= render :partial => "layouts/header" %>
+
+<div id="main">
+  <div id="menu-top">
+    <div style="position:relative">
+      <%= yield :menu %>
+    </div>
+  </div>
+  <div id="main-copy">
+    <div id="menu-left" class="show-for-medium-up">
+      <div class="menu2">
+        <div class="mybox show-for-small">
+          <%= yield :menu %>
+        </div>
+        <%= yield :left_panel %>
+      </div>
+    </div>
+    <div id="centerpanelextended">
+      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+        <%= render :partial => 'layouts/tutorials' %>
+        <div id="flash_messages">
+          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+        </div>
+        <%= yield :layout %>
+      </div>
+
+      <%= render :partial => "layouts/menu_right" %>
+      <div class="clearboth"></div>
+    </div>
+    <%= render :partial => "layouts/footer" %>
+  </div>
+</div>
+</body>
+</html>
+

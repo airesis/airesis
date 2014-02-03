@@ -1,3 +1,6 @@
+
+
+
 .card, .mybox {
     background: #fff;
     box-shadow: 1px 1px 0px 0px #ccc;
@@ -966,4 +969,87 @@ form.paypal-button {
     width: 400px;
     display: none;
     position: absolute;
+}
+
+
+.group-cont {
+    position: fixed;
+    height: 141px;
+    top: 80px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    display: none;
+    background-color: #55bde4;
+    border-top: 1px dotted rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 2px 3px #797979;
+    left: 0px;
+    right: 90px;
+    .tria {
+        position: absolute;
+        top: -10px;
+        left: 220px;
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 10px solid #55bde4;
+    }
+    .group-cont-sep {
+        border-left: 1px dotted rgba(255, 255, 255, 0.5);
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+    }
+    .group-tag {
+        float: left;
+        margin-top: 10px;
+        text-align: right;
+    }
+    .tag {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    .group-tag1 {
+        margin-right: 10px;
+        height: 100%;
+        overflow: auto;
+
+    }
+}
+
+.group-item {
+    padding: 10px;
+    img {
+        padding: 4px;
+        margin-right: 3px;
+    }
+    .p1 {
+        font-size: 1.2em;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 245px;
+        position: relative;
+    }
+    .p2 {
+        margin-top: 7px;
+        margin-left: 45px;
+        font-size: 0.8em;
+        a {
+            display: inline;
+        }
+    }
+}
+
+.button.account {
+    padding-left: 30px !important;
+    img {
+        width: 26px;
+        height:26px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }

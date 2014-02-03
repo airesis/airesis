@@ -135,16 +135,8 @@
 
 <script type="text/javascript">
     $(function () {
-        var selector_ = $('#menu-top .submenu .sel');
-        if (selector_.length > 0) {
-            $('#menu-top .submenu .tria').animate({'left': (selector_.offset().left + (selector_.width() / 2) - 12)}, 0);
-        }
-        else {
-            $('#menu-top .submenu .tria').remove();
-        }
 
-
-        $('#tolr .cur.love').qtip({
+        $('.cur.love').qtip({
             position: {
                 at: 'bottom center',
                 my: 'top center',
@@ -152,7 +144,7 @@
                 effect: false,
                 adjust: {
                     method: 'shift',
-                    x: 0, y: +10
+                    x: 0, y: 0
                 }
             },
             style: {
@@ -164,7 +156,7 @@
         });
 
 
-        $('#tolr .cur.info').qtip({
+        $('.cur.info').qtip({
             content: $('#help_panel'),
             position: {
                 at: 'bottom center',
@@ -406,17 +398,17 @@
 
         poll();
 
-        $('#account').qtip({
+        $('.button.account').qtip({
             content: $('#avatar-qtip'),
             position: {
-                target: $('#account .avatar'),
-                at: 'left center',
-                my: 'right center',
+                target: $('.button.account'),
+                at: 'right top',
+                my: 'right top',
                 viewport: $(window),
                 effect: false,
                 adjust: {
                     method: 'shift',
-                    x: 0, y: 0
+                    x: 0, y: -10
                 }
             },
             show: {

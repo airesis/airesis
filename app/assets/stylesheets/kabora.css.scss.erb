@@ -18,13 +18,8 @@ $large-screen: 1440px;
 }
 
 #menu-top {
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    height: 80px;
+    height: 50px;
     background-color: #33b5e5;
-    box-shadow: 0px 2px 3px #797979;
-    z-index: 1001;
 }
 
 #pulldown #menu-left {
@@ -36,9 +31,8 @@ $large-screen: 1440px;
 #menu-left {
     float: left;
     width: 250px;
-    padding-top: 15px;
+    padding-top: 10px;
     display: none;
-    padding-top: 95px;
 }
 
 @media (min-width: $small-screen) {
@@ -60,9 +54,7 @@ $large-screen: 1440px;
     }
 
     #menu-top {
-        .title-area {
-            left: 100px;
-        }
+
         .group-cont {
             .group-tag {
                 width: 152px;
@@ -91,9 +83,6 @@ $large-screen: 1440px;
         border-left: 1px dotted gray;
     }
     #menu-top {
-        .title-area {
-            left: 290px;
-        }
         .group-cont {
             .group-tag {
                 width: 260px;
@@ -119,8 +108,7 @@ $large-screen: 1440px;
 }
 
 #centerpanelextended {
-    padding-top: 95px;
-    //padding-bottom: 40px;
+    padding-top: 10px;
 }
 
 #logo-airesis {
@@ -137,16 +125,6 @@ $large-screen: 1440px;
     margin-top: 5px;
 }
 
-#menu-top .sep1 {
-    float: left;
-    height: 80px;
-    border-left: 1px dotted rgba(255, 255, 255, 0.5);
-}
-
-#menu-top .title-area {
-    position: absolute;
-    right: 90px;
-}
 
 #menu-top .topmenu {
     position: absolute;
@@ -161,8 +139,7 @@ $large-screen: 1440px;
     color: white;
     font-size: 13px;
     font-weight: bold;
-    margin-top: 6px;
-    padding: 6px;
+    padding: 5px;
 
     img {
         height: 60px;
@@ -174,6 +151,7 @@ $large-screen: 1440px;
     }
     .tit {
         font-size: 1.7em;
+        margin-top: 8px;
     }
 }
 
@@ -187,78 +165,7 @@ $large-screen: 1440px;
         }
     }
 
-    .group-cont {
-        position: fixed;
-        height: 141px;
-        top: 80px;
-        padding-top: 12px;
-        padding-bottom: 8px;
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        display: none;
-        background-color: #55bde4;
-        border-top: 1px dotted rgba(255, 255, 255, 0.2);
-        box-shadow: 0px 2px 3px #797979;
-        left: 0px;
-        right: 90px;
-        .tria {
-            position: absolute;
-            top: -10px;
-            left: 220px;
-            width: 0;
-            height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-bottom: 10px solid #55bde4;
-        }
-        .group-cont-sep {
-            border-left: 1px dotted rgba(255, 255, 255, 0.5);
-            position: absolute;
-            top: 10px;
-            bottom: 10px;
-        }
-        .group-tag {
-            float: left;
-            margin-top: 10px;
-            text-align: right;
-        }
-        .tag {
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .group-tag1 {
-            margin-right: 10px;
-            height: 100%;
-            overflow: auto;
-            .group-item {
-                margin-right: 10px;
-                margin-bottom: 15px;
-                float: left;
-                width: 300px;
-                img {
-                    height: 30px;
-                    padding: 4px;
-                    background-color: white;
-                    border-radius: 5px;
-                    margin-right: 3px;
-                    box-shadow: 0px 0px 2px gray;
-                }
-                .p1 {
-                    font-size: 1.2em;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    width: 245px;
-                    position: relative;
-                }
-                .p2 {
-                    margin-top: 7px;
-                    margin-left: 45px;
-                    font-size: 0.8em;
-                }
-            }
-        }
-    }
+
 
 }
 
@@ -397,14 +304,10 @@ $large-screen: 1440px;
 }
 
 #account, #account-small {
-    position: absolute;
-    right: 0px;
-    top: 0px;
+
     cursor: pointer;
     color: white;
-    width: 90px;
-    border-left: 1px dotted #fff;
-    height: 80px;
+
     img {
         height: 48px;
         margin-left: 8px;
@@ -667,7 +570,8 @@ $large-screen: 1440px;
     font-size: 13px;
     color: white;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-left: 15px;
     a.sel {
         border-radius: 20px;
         background-color: rgba(255, 255, 255, 0.3);

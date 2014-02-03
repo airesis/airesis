@@ -506,6 +506,7 @@ searchable do
   end
   boolean :visible_outside
   boolean :private
+  integer :id
   integer :presentation_group_ids, multiple: true #presentation groups
   integer :group_ids, multiple: true #supporting groups
   integer :presentation_area_ids, multiple: true #area

@@ -1,15 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" xmlns:fb="http://ogp.me/ns/fb#" lang="<%= I18n.locale %>"  <%= yield :html_options %>>
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article# blog: http://ogp.me/ns/blog# http://ogp.me/ns/fb/airesis#">
-  <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
-  <%= render :partial => "layouts/head" %>
-</head>
-<body>
-
 <% content_for :menu do %>
     <div id="menu-group" class="title-area">
       <div class="topimage hide-for-small">
-        <%= @group ? (@group.group_image_tag 60) : (image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME) %>
+        <%= @group ? (@group.group_image_tag 40) : (image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME) %>
 
       </div>
       <div class="topmenu">
@@ -49,45 +41,11 @@
                   <%= link_to t('pages.groups.header.settings'), edit_group_url(@group), class: ((params[:controller] == 'groups' && params[:action] != 'show') || (['group_areas', 'group_partecipations', 'search_partecipants','quorums'].include? params[:controller]) || (params[:controller].start_with? 'frm/admin') ? 'sel' : '') %>
               <% end %>
           <% end %>
-
-          <div class="borx show-for-large-up <%= current_user ? '' : 'expandb' %>"></div>
-          <div class="tria" style="left: 389px;"></div>
         </div>
       </div>
     </div>
 
 <% end %>
 
-<%= render :partial => "layouts/header" %>
+<%=render 'layouts/general'%>
 
-<!-- ##### Main Copy ##### -->
-<div id="main">
-  <div id="main-copy">
-    <div id="menu-left">
-      <div class="menu2">
-        <div class="mybox show-for-small">
-          <%= yield :menu %>
-        </div>
-        <%= yield :left_panel %>
-      </div>
-    </div>
-    <div id="centerpanelextended">
-      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
-        <%= render :partial => 'layouts/tutorials' %>
-        <div id="flash_messages">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-        </div>
-        <%= yield :layout %>
-      </div>
-
-      <%= render :partial => "layouts/menu_right" %>
-      <div class="clearboth"></div>
-    </div>
-    <div style="clear: both; height: 0; overflow: hidden;"></div>
-    <%= render :partial => "layouts/new_footer" %>
-  </div>
-</div>
-
-
-</body>
-</html>

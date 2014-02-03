@@ -1,3 +1,5 @@
+
+
 //
 // FOUNDATION SETTINGS
 //
@@ -1521,4 +1523,12 @@ a.zocial:hover {
 .progress.success .meter {
   font-weight: bold;
   padding-left: 2em;
+}
+
+.top-bar {
+  div {
+    &[class^="icon-"], &[class*=" icon-"] {
+      margin: 0px 10px;
+    }
+  }
 }
