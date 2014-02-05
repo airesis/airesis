@@ -16,8 +16,6 @@ class ProposalStatisticsController < ApplicationController
     end
   end
   
-  
-  
   protected
     
   def load_proposal

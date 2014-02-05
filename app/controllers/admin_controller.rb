@@ -10,13 +10,13 @@ class AdminController < ManagerController
   layout 'users'
 
   def index
-   
+
   end
-  
-  def show        
-   
+
+  def show
+
   end
-  
+
   #fa un test della gemma
   def test_gem
     AiresisMetis.hi
@@ -27,7 +27,7 @@ class AdminController < ManagerController
       }
     end
   end
-  
+
   #calcola il ranking degli utenti
   def calculate_ranking
     AdminHelper.calculate_ranking
@@ -47,19 +47,19 @@ class AdminController < ManagerController
     voting.each do |proposal| #per ciascuna proposta da chiudere
       close_vote_phase(proposal)
     end if voting
-    
+
     respond_to do |format|
-      format.html {        
+      format.html {
         flash[:notice] = 'Stato proposte aggiornato'
         redirect_to admin_panel_path
       }
     end
   end
-  
+
   def validate_groups
     AdminHelper.validate_groups
-    
-    
+
+
     respond_to do |format|
       format.html {
         flash[:notice] = 'Inviato elenco gruppi non validi'
@@ -67,10 +67,10 @@ class AdminController < ManagerController
       }
     end
   end
-  
-   def calculate_user_group_affinity
+
+  def calculate_user_group_affinity
     AffinityHelper.calculate_user_group_affinity
-       
+
     respond_to do |format|
       format.html {
         flash[:notice] = 'Affinità calcolate'
@@ -78,26 +78,26 @@ class AdminController < ManagerController
       }
     end
   end
-  
-  
+
+
   def delete_old_notifications
     deleted = AdminHelper.delete_old_notifications
-        
+
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Notifiche eliminate: ' + deleted.to_s 
+        flash[:notice] = 'Notifiche eliminate: ' + deleted.to_s
         redirect_to admin_panel_path
       }
     end
   end
-  
+
   #invia una mail di prova tramite resque e redis
   def test_redis
     TestMailer.test.deliver
     #Resque.enqueue(TestSender)
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Test avviato' 
+        flash[:notice] = 'Test avviato'
         redirect_to admin_panel_path
       }
     end
@@ -128,21 +128,20 @@ class AdminController < ManagerController
     Resque.enqueue_at(15.seconds.from_now, ProposalsWorker, :proposal_id => 1)
     respond_to do |format|
       format.html {
-        flash[:notice] = 'Test avviato' 
+        flash[:notice] = 'Test avviato'
         redirect_to admin_panel_path
       }
     end
-    
-    rescue Exception => e
-	puts e.backtrace
+
+  rescue Exception => e
+    puts e.backtrace
   end
-  
-  
+
+
   def become
     sign_in User.find(params[:user_id]), :bypass => true
     redirect_to root_url # or user_root_url
   end
-
 
 
   def write_sitemap
@@ -169,13 +168,13 @@ class AdminController < ManagerController
   end
 
   def upload_sources
-     Crowdin::Client.new.upload_sources
-     respond_to do |format|
-       format.html {
-         flash[:notice] = 'Sources uploaded'
-         redirect_to admin_panel_path
-       }
-      end
+    Crowdin::Client.new.upload_sources
+    respond_to do |format|
+      format.html {
+        flash[:notice] = 'Sources uploaded'
+        redirect_to admin_panel_path
+      }
+    end
   end
 
   def update_sources
@@ -195,7 +194,7 @@ class AdminController < ManagerController
         flash[:notice] = 'Translation uploaded'
         redirect_to admin_panel_path
       }
-      end
+    end
   end
 
   def download_translations
@@ -218,5 +217,23 @@ class AdminController < ManagerController
     end
 
   end
-  
+
+
+  def proposals_stats
+    ret = []
+    Proposal.voted.joins(:solutions).group('proposals.id').having('count(solutions.*) > 1').count.map do |proposal_id, count|
+      proposal = Proposal.find(proposal_id)
+      phash = {proposal_id: proposal_id, solutions_count: count, votes_count: proposal.user_votes.count, solutions: proposal.solutions.map { |s| s.id }.join(',')}
+      votes = []
+      proposal.schulze_votes.each do |vote|
+        votes << {count: vote.count, data: vote.preferences}
+      end
+      phash[:preferences] = votes
+      ret << phash
+    end
+    File.open('stat.json', 'w') do |f|
+      f.puts JSON.pretty_generate(ret)
+    end
+  end
+
 end
