@@ -424,7 +424,7 @@
         }
     });
 
-
+    //fills all clean fields with correct data
     function fillCleanFields() {
         var integrated_ = $('#proposal_integrated_contributes_ids_list').val();
         <%if @proposal.contributes.count > 0%>
@@ -450,7 +450,7 @@
         }
 
         $('.update2').attr('disabled', 'disabled');
-
+        safe_exit = true;
         return true;
     }
 
@@ -792,7 +792,7 @@
         <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
         <%= link_to t('pages.proposals.edit.compress_solutions'), '#', onclick: 'return compressSolutions();', data: {other: t('pages.proposals.edit.expand_solutions')}, class: 'compress btn' %>
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
-        <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn', confirm: t('pages.proposals.edit.cancel_confirm') %>
+        <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>
       <div class="mybox">
         <h4><%= t('pages.proposals.edit.navigator') %></h4>
@@ -862,9 +862,19 @@
             return false;
         }
 
-        //window.onbeforeunload = function() {
-        //    return "Tutte le modifiche alla proposta andranno perse."
-        //};
+
+        var safe_exit = false;
+
+        function check_before_exit() {
+            if (safe_exit) {
+                return null;
+            }
+            else {
+                return "Tutte le modifiche alla proposta andranno perse."
+            }
+        };
+
+        window.onbeforeunload = check_before_exit;
 
     </script>
 <% end %>
