@@ -17,10 +17,10 @@ class AlertsController < ApplicationController
   def polling
 
 
-    unread = current_user.user_alerts.joins(:notification_category).includes([:notification, :notification_type, :notification_category]).where(checked: false).load
+    unread = current_user.user_alerts.where(checked: false).load
     numunread = unread.size
     if numunread < 10
-      unread += current_user.user_alerts.joins(:notification_category).includes([:notification, :notification_type, :notification_category]).where(checked: true).limit(10 - numunread).load
+      unread += current_user.user_alerts.where(checked: true).limit(10 - numunread).load
     end
     alerts = unread.map do |alert|
       {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.message, :proposal_id => alert.data[:proposal_id], category_name: alert.notification_category.short.downcase, category_title: alert.notification_category.description.upcase}

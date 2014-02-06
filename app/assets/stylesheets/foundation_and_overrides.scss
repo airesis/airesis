@@ -1,5 +1,3 @@
-
-
 //
 // FOUNDATION SETTINGS
 //
@@ -43,7 +41,7 @@ $base-line-height: 1.28em;
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
- $body-font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+$body-font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -103,7 +101,6 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // $small: $medium-up;
 // $medium: $medium-up;
 // $large: $large-up;
-
 
 //We use this as cursors values for enabling the option of having custom cursors in the whole site's stylesheet
 // $cursor-crosshair-value: crosshair;
@@ -707,7 +704,6 @@ $panel-padding: rem-calc(10);
 // $price-money-size: rem-calc(32);
 // $price-money-font-family: $body-font-family;
 
-
 // We use these to control the description styles
 // $price-bg: #fff;
 // $price-desc-color: #777;
@@ -805,8 +801,6 @@ $panel-padding: rem-calc(10);
 // $side-nav-font-family: $body-font-family;
 // $side-nav-active-font-family: $side-nav-font-family;
 
-
-
 // We use these to control border styles
 // $side-nav-divider-size: 1px;
 // $side-nav-divider-style: solid;
@@ -866,7 +860,6 @@ $sub-nav-font-color: #333;
 // $sub-nav-text-decoration: none;
 // $sub-nav-border-radius: 3px;
 // $sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: -25%);
-
 
 // We use these to control the active item styles
 
@@ -1020,11 +1013,11 @@ $table-border-style: none;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-// $topbar-bg-color: #333;
-// $topbar-bg: $topbar-bg-color;
+$topbar-bg-color: #33b5e5;
+$topbar-bg: $topbar-bg-color;
 
 // Height and margin
- $topbar-height: 40px;
+$topbar-height: 40px;
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1032,22 +1025,22 @@ $table-border-style: none;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: #333;
-// $topbar-dropdown-link-color: #fff;
-// $topbar-dropdown-link-bg: #333;
+ $topbar-dropdown-bg: $topbar-bg-color;
+ $topbar-dropdown-link-color: #fff;
+ $topbar-dropdown-link-bg: $topbar-bg-color;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: #fff;
+ $topbar-dropdown-toggle-color: #fff;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: #fff;
-// $topbar-link-color-hover: #fff;
-// $topbar-link-color-active: #fff;
+ $topbar-link-color: #fff;
+ $topbar-link-color-hover: #fff;
+ $topbar-link-color-active: #fff;
 // $topbar-link-weight: normal;
 // $topbar-link-font-size: rem-calc(13);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
-// $topbar-link-bg-hover: #272727  ;
+ $topbar-link-bg-hover: $topbar-bg-color  ;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
@@ -1058,7 +1051,7 @@ $table-border-style: none;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
 // $topbar-dropdown-label-font-size: rem-calc(10);
-// $topbar-dropdown-label-bg: #333;
+ $topbar-dropdown-label-bg: $topbar-bg-color;
 
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
@@ -1074,6 +1067,7 @@ $table-border-style: none;
 // Using rem-calc for the below breakpoint causes issues with top bar
 // $topbar-breakpoint: #{upper-bound($medium-range)}; // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width: #{upper-bound($medium-range)})";
+$topbar-media-query: "only screen";
 
 // Divider Styles
 // $topbar-divider-border-bottom: solid 1px  scale-color($topbar-bg-color, $lightness: 13%);
@@ -1197,7 +1191,6 @@ $paragraph-line-height: 1.6;
 // $include-html-visibility-classes: $include-html-classes;
 
 @import 'foundation';
-
 
 .medium-bar {
   height: 335px;
@@ -1352,15 +1345,39 @@ ul, ol {
 }
 
 
-#menu-top {
-  top: 40px;
-  min-width: initial;
-}
+$sectionbar-height: 50px;
 
+#menu-top {
+  top: $topbar-height;
+  height: $sectionbar-height;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0px;
+  width: 100%;
+  z-index: 3;
+}
 
 #menu-group {
   //top: initial;
 }
+
+
+
+#main {
+  position: absolute;
+  top: $topbar-height+$sectionbar-height;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: inherit;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#main-copy {
+  position: relative;
+  min-height: 100%;
+}
+
 
 body {
   height: 100%;
@@ -1489,11 +1506,11 @@ a.zocial:hover {
 }
 
 .close-reveal-modal {
-  display:none;
+  display: none;
 }
 
 .reveal-modal .close-reveal-modal {
-  display:inherit;
+  display: inherit;
 }
 
 .tabs-content > .content.active {
@@ -1508,7 +1525,6 @@ a.zocial:hover {
   font-weight: bold;
   padding-left: 2em;
 }
-
 
 .section-container.tabs section .content {
   background-color: transparent;
@@ -1531,4 +1547,23 @@ a.zocial:hover {
       margin: 0px 10px;
     }
   }
+}
+
+$logo-width: 92px;
+
+@media #{$medium-up} {
+
+  .logo-wrapper {
+    position: relative;
+  }
+
+  .logo-wrapper .logo {
+    width: $logo-width;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 0px;
+    margin-left: -($logo-width/2);
+  }
+
 }

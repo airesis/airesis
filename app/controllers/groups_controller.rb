@@ -550,9 +550,6 @@ class GroupsController < ApplicationController
     'groups'
   end
 
-
-
-
 end
 
 

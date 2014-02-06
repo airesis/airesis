@@ -1,12 +1,13 @@
 <div class="fixed">
   <nav class="top-bar" data-topbar>
-    <ul class="title-area">
-      <li class="name">
-        <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px'), root_path, tabindex: 1 %>
-        <%#= link_to (image_tag 'logo120.png', class: "logo1mini show-for-small", style: 'height:30px'), '#', tabindex: 1, id: 'logo1mini' %>
-      </li>
-    </ul>
     <section class="top-bar-section">
+      <div class="logo-wrapper hide-for-small-only">
+        <div class="logo">
+          <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px'), root_path, tabindex: 1 %>
+        </div>
+      </div>
+
+
       <ul class="left">
         <% unless in_subdomain? %>
             <li class="has-form">
@@ -20,24 +21,35 @@
                   <%= f.text_field :q, placeholder: "Find Stuff" %>
                 </div>
                 <div class="large-2 small-2 columns">
-                  <a href="#"><div class="icon-search medium"></div></a>
+                  <%= link_to searches_path do %>
+                      <div class="icon-search medium"></div>
+                  <% end %>
                 </div>
               </div>
           <% end %>
           <div id="search_box" class="card"></div>
         </li>
       </ul>
+
       <ul class="right">
-        <li><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do%><div class="icon-heart medium"></div><%end%></li>
-        <li><a href="#" onclick="return false;"><div class="icon-question medium cur info" title="TUTORIAL"></div></a></li>
+        <li><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
+              <div class="icon-heart medium"></div>
+          <% end %></li>
+        <li><a href="#" onclick="return false;">
+          <div class="icon-question medium cur info" title="TUTORIAL"></div>
+        </a></li>
 
         <% if current_user %>
-            <li><%= link_to '#', class: 'button account' do %>
+            <li>
+              <%= link_to '#', class: 'button account' do %>
                   <%= current_user.user_image_tag 26, false, false %>
-                  <%= current_user.fullname %>
-              <% end %>
+                  <span  class="show-for-large-up"><%= current_user.fullname %></span>
+              <% end %></li>
+            <li >
             </li>
-            <li><a href="#" onclick="return false;" id="alerts_link"><div class="icon-bell medium" title="ALERTS"></div></a></li>
+            <li><a href="#" onclick="return false;" id="alerts_link">
+              <div class="icon-bell medium" title="ALERTS"></div>
+            </a></li>
         <% end %>
       </ul>
     </section>

@@ -129,8 +129,13 @@ $(function () {
                 response(data);
             });
         },
+        focus: function( event, ui ) {
+          console.log('focus on ' + ui);
+            event.preventDefault();
+        },
         select: function (event, ui) {
             window.location.href = ui.item.url;
+            event.preventDefault();
         }
 
     });
