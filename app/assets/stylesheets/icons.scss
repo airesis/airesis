@@ -26,6 +26,11 @@
     font-size: 26px;
     line-height: 40px;
   }
+
+  &.small {
+    font-size: 16px;
+    line-height: 13px;
+  }
 }
 
 .icon-search:before {
@@ -37,8 +42,20 @@
 .icon-heart:before {
   content: "\e602";
 }
+.icon-home:before {
+  content: "\e604";
+}
+.icon-bubble:before {
+  content: "\e605";
+}
 .icon-question:before {
   content: "\e603";
+}
+.icon-pen:before {
+  content: "\e606";
+}
+.icon-settings:before {
+  content: "\e607";
 }
 
 

@@ -13,17 +13,30 @@
           <div class="topmenu">
             <span class="tit left"><%= @user.fullname %></span>
 
-            <div class="submenu mycont hide-for-small left">
+            <div class="submenu mycont left">
               <% if current_user && (@user == current_user) %>
-                  <%= link_to t('pages.header.menu.my_page'), home_url, class: (params[:controller] == 'home' ? 'sel' : '') %>
+                  <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
+                      <span class="show-for-large-up"><%= t('pages.header.menu.my_page') %></span>
+                      <div class="icon-home small hide-for-large-up" title="<%= t('pages.header.menu.my_page') %>"></div>
+                  <% end %>
+
                   <span> ⋅ </span>
                   <% if @user.blog %>
-                      <%= link_to t('pages.header.menu.my_blog'), @user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '') %>
+                      <%= link_to(@user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '')) do%>
+                          <span class="show-for-large-up"><%= t('pages.header.menu.my_blog') %></span>
+                          <div class="icon-pen small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
+                      <%end%>
                   <% else %>
-                      <%= link_to t('pages.header.menu.create_blog'), new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '') %>
+                      <%= link_to(new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '')) do%>
+                          <span class="show-for-large-up"><%= t('pages.header.menu.create_blog') %></span>
+                          <div class="icon-pen small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
+                      <%end%>
                   <% end %>
                   <span> ⋅ </span>
-                  <%= link_to t('pages.header.menu.preferences'), @user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '') %>
+                  <%= link_to(@user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '')) do%>
+                      <span class="show-for-large-up"><%=  t('pages.header.menu.preferences') %></span>
+                      <div class="icon-settings small hide-for-large-up" title="<%=  t('pages.header.menu.preferences') %>"></div>
+                  <%end%>
               <% end %>
               <% if @user != current_user %>
                   <% unless @user.new_record? %>
@@ -40,4 +53,4 @@
     </div>
 <% end %>
 
-<%=render 'layouts/general'%>
+<%= render 'layouts/general' %>

@@ -10,7 +10,7 @@
 
       <ul class="left">
         <% unless in_subdomain? %>
-            <li class="has-form">
+            <li class="has-form show-for-large-up">
               <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true"><%= t('pages.header.groups_title') %></a>
             </li>
         <% end %>
@@ -32,19 +32,23 @@
       </ul>
 
       <ul class="right">
-        <li><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
+        <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
               <div class="icon-heart medium"></div>
           <% end %></li>
-        <li><a href="#" onclick="return false;">
+        <li class="hide-for-small"><a href="#" onclick="return false;">
           <div class="icon-question medium cur info" title="TUTORIAL"></div>
         </a></li>
 
         <% if current_user %>
             <li>
-              <%= link_to '#', class: 'button account' do %>
+              <%= link_to '#', class: 'button account show-for-large-up' do %>
                   <%= current_user.user_image_tag 26, false, false %>
-                  <span  class="show-for-large-up"><%= current_user.fullname %></span>
-              <% end %></li>
+                  <span><%= current_user.fullname %></span>
+              <% end %>
+              <%= link_to '#', class: 'account hide-for-large-up' do %>
+                  <%= current_user.user_image_tag 26, false, false %>
+              <% end %>
+            </li>
             <li >
             </li>
             <li><a href="#" onclick="return false;" id="alerts_link">
