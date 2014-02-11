@@ -93,9 +93,9 @@ class ProposalComment < ActiveRecord::Base
     ret = nil
     unless self.paragraph.nil?
       section = self.paragraph.section
-      ret = section.title
+      ret = "#{section.title}"
       unless section.solution.nil?
-        ret = section.solution.title + " > " + ret
+        ret = "#{section.solution.title_with_seq} > #{ret}"
       end
     end
     ret
