@@ -1,5 +1,4 @@
 <script>
-
     var pageURL = "<%= proposal_path(@proposal) %>";	//need this for ajaxify pagination
 
     $(function () {
@@ -9,12 +8,29 @@
             $(this).remove();
         });
     });
-
 </script>
-
+<%if current_user %>
+<%= link_to '#', class: 'read_contributes' do %>
+    <div class="icon-bell medium"></div>
+<% end %>
+<script type="text/javascript">
+    var unread = <%=raw @proposal.contributes.listable.unread(current_user.id, @proposal.id).joins({:paragraph => :section}).select('proposal_comments.id, paragraphs.id as paragraph_id, sections.id as section').to_json%>;
+    $('.read_contributes').css('top', '90px').css('right', '20px');
+    console.log(unread);
+    $('.read_contributes').click(function () {
+        var obj_ = unread.pop();
+        console.log(unread.length);
+        $('.contributeButton[data-section_id='+obj_.section+']').trigger('click', obj_.id);
+        if (unread.length == 0) {
+            $(this).remove();
+        }
+        return false;
+    });
+</script>
+<%end%>
 
 <h1 class="proposalTitle">
-  <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:40px;padding-right:2px;")%>
+  <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:40px;padding-right:2px;") %>
   <span itemprop="name"><%= h @proposal.title %></span>
 </h1>
 
@@ -46,7 +62,7 @@
 
   <% if @proposal.in_valutation? %>
       <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, data: {confirm: t('pages.proposals.show.close_debate_proposal_confirmation')}, class: 'btn closeButton' if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                 %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                    %>
       <div id="wait_date_header_container">
         <%= render :partial => 'proposals/wait_date_header' %>
       </div>
@@ -56,9 +72,9 @@
         </div>
       </div>
   <% elsif @proposal.voting? %>
-      <%unless @proposal.is_petition? %>
-      <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b>     <!--TODO:I18n -->
-      <%end%>
+      <% unless @proposal.is_petition? %>
+          <b><%= raw 'Questa proposta è in votazione. Leggi le soluzioni proposte e <a href="#" onclick="scroll_to_vote_panel();return false;">vota qui</a>.' %></b> <!--TODO:I18n -->
+      <% end %>
   <% elsif @proposal.abandoned? %>
       <%= render :partial => 'proposals/abandoned_header' %>
   <% end %>
@@ -68,21 +84,21 @@
 
 <div style="clear: both;"></div>
 
-<%unless @proposal.is_petition? %>
-  <% if @proposal.waiting? #waitinf for the vote period %>
-    <div class="status_description">
-        <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
-    </div>
-  <% elsif @proposal.in_valutation?  %>
-    <div class="status_description">
-        <%= @proposal.quorum.explanation %>
-    </div>
-  <% elsif @proposal.abandoned? %>
-    <div class="status_description">
-      <%= "Abandoned #{time_ago_in_words(@proposal.updated_at)}: <b>#{l @proposal.updated_at}</b>".html_safe%>
-    </div>
-  <% end %>
-<%end%>
+<% unless @proposal.is_petition? %>
+    <% if @proposal.waiting? #waitinf for the vote period    %>
+        <div class="status_description card">
+          <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
+        </div>
+    <% elsif @proposal.in_valutation? %>
+        <div class="status_description card">
+          <%= @proposal.quorum.explanation %>
+        </div>
+    <% elsif @proposal.abandoned? %>
+        <div class="status_description card">
+          <%= "Abandoned #{time_ago_in_words(@proposal.updated_at)}: <b>#{l @proposal.updated_at}</b>".html_safe %>
+        </div>
+    <% end %>
+<% end %>
 
 
 <% @proposal.sections.includes(:paragraphs).each do |section| %>
@@ -112,12 +128,12 @@
     </div>
 <% end %>
 
-<% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each_with_index do |solution,i| %>
+<% @proposal.solutions.includes(:sections => :paragraphs).order('sections.seq').each_with_index do |solution, i| %>
     <div class="solution_main card" data-solution_id="<%= solution.id %>">
       <h3>
         <div class="tit1 sol">
           <div class="tit2">
-            <%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%> <%= "#{solution.title}" %>
+            <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %> <%= "#{solution.title}" %>
           </div>
         </div>
       </h3>

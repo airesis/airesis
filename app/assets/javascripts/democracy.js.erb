@@ -30,9 +30,6 @@ var cards_delay = 0;
 $(function () {
     ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
 
-    /*$('#great_container').height($(window).height()-0);*/
-    var submenupannel = 0;
-
     disegnaBottoni();
 
     disegnaProgressBar();
@@ -42,48 +39,9 @@ $(function () {
         sticky_relocate();
     }
 
-    $("#logo-but").click(function (event) {
-        if (submenupannel == 0) {
-            submenupannel = 1;
-            $('#menu-top .group-cont').slideDown().delay(200);
-            $('#submenu .tria').hide();
-            $(this).addClass("sel");
-        } else {
-            submenupannel = 0;
-            $('#menu-top .group-cont').slideUp().delay(0);
-            $('#submenu .tria').delay(200).show(0);
-            $(this).removeClass("sel");
-        }
-        event.stopPropagation();
-    })
-            .keypress(function (event) {
-                if (event.which === 13)
-                    $(this).click();
-            });
 
 
-    $('html').click(function () {
-        if (submenupannel == 1) {
-            submenupannel = 0;
-            $('#menu-top .group-cont').slideUp().delay(0);
-            $('#submenu .tria').delay(200).show(0);
-            $(this).removeClass("sel");
-        }
-    });
-
-    $('.group-cont').click(function (event) {
-        event.stopPropagation();
-    });
-
-
-    $('.sub-nav a').click(function () {
-        $('.sub-nav dd').removeClass('active');
-        $(this).parent().addClass('active');
-
-    });
-
-
-    $('#logo1mini').click(function () {
+    $('#menu-group .icon-menu').click(function () {
         var menu_ = $('#menu-left');
         if (menu_.attr('data-expshow') == 'true') {
             menu_.removeClass('small-show');

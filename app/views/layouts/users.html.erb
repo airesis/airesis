@@ -6,13 +6,14 @@
 
 <% content_for :menu do %>
     <div id="menu-group" class="title-area ">
+      <div class="icon-menu medium show-for-small-only left"></div>
       <% if @user %>
           <div class="topimage hide-for-small">
             <%= @user.user_image_tag 40 %>
           </div>
           <div class="topmenu">
-            <span class="tit left"><%= @user.fullname %></span>
 
+            <span class="tit left"><%= @user.fullname %></span>
             <div class="submenu mycont left">
               <% if current_user && (@user == current_user) %>
                   <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
@@ -24,18 +25,18 @@
                   <% if @user.blog %>
                       <%= link_to(@user.blog, class: ((['blogs', 'blog_posts'].include? params[:controller]) ? 'sel' : '')) do%>
                           <span class="show-for-large-up"><%= t('pages.header.menu.my_blog') %></span>
-                          <div class="icon-pen small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
+                          <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.my_blog') %>"></div>
                       <%end%>
                   <% else %>
                       <%= link_to(new_blog_path, class: (['blogs', 'blog_posts'].include? params[:controller] ? 'sel' : '')) do%>
                           <span class="show-for-large-up"><%= t('pages.header.menu.create_blog') %></span>
-                          <div class="icon-pen small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
+                          <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.header.menu.create_blog') %>"></div>
                       <%end%>
                   <% end %>
                   <span> ⋅ </span>
                   <%= link_to(@user, class: ((['users', 'alerts'].include? params[:controller]) ? 'sel' : '')) do%>
                       <span class="show-for-large-up"><%=  t('pages.header.menu.preferences') %></span>
-                      <div class="icon-settings small hide-for-large-up" title="<%=  t('pages.header.menu.preferences') %>"></div>
+                      <div class="icon-cog small hide-for-large-up" title="<%=  t('pages.header.menu.preferences') %>"></div>
                   <%end%>
               <% end %>
               <% if @user != current_user %>

@@ -256,7 +256,7 @@
     }
 
 
-    function open_right_contributes(_this) {
+    function open_right_contributes(_this,comment_id) {
         var section_id = _this.attr("data-section_id");
         _this.attr("data-status", 1);
         $('#suggest').show();
@@ -269,10 +269,21 @@
         $('.suggestion_right[data-section_id=' + section_id + ']').fadeIn();
         _this.next().show();
 
+        if (comment_id) {
+            console.log('opening and already fetched. id: ' + comment_id);
+            var comment_ = $('#comment'+comment_id+' .proposal_comment');
+            fetched.animate({
+                scrollTop: comment_.offset().top - 100
+            }, 2000);
+            comment_.effect('highlight', {}, 3000);
+        }
+
+
     }
 
 
     function close_right_contributes(_this) {
+        console.log('closing contributes');
         var section_id = _this.attr("data-section_id");
         _this.attr("data-status", 2);
         $('.suggestion_right[data-section_id=' + section_id + ']').hide();
@@ -315,7 +326,7 @@
             $(".contributeButton").each(function () {
                 var his_status = $(this).attr("data-status");
                 var his_section_id = $(this).attr("data-section_id");
-                if (this_ != $(this)) {     //for each right panel that is not the opened one
+                if (this_[0] != this) {     //for each right panel that is not the opened one
                     if (his_status == 1) {
                         $(this).attr("data-status", 2);
                         $('.suggestion_right[data-section_id=' + his_section_id + ']').hide();  //hide it
@@ -375,10 +386,21 @@
 
             }
             else if (this_status == 2) { //closed and fetched
-                open_right_contributes($(this));
+                    open_right_contributes($(this),comment_id);
             }
             else {   //status == 1  //fetched and open
-                close_right_contributes($(this));
+                if (comment_id != null) {
+                    var comment_ = $('#comment'+comment_id+' .proposal_comment');
+                    var section_id = $(this).attr("data-section_id");
+                    $('.suggestion_right[data-section_id=' + section_id + ']').scrollTop(0);
+                    $('.suggestion_right[data-section_id=' + section_id + ']').animate({
+                        scrollTop: comment_.offset().top - 100
+                    }, 2000);
+                    comment_.effect('highlight', {}, 3000);
+                }
+                else {
+                    close_right_contributes($(this));
+                }
             }
             return false;
         });

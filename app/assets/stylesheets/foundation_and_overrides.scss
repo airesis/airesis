@@ -143,9 +143,9 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // We use this for close hover effect.
 // $alert-function-factor: -14%;
 
-$h1-font-size: em-calc(30);
-$h2-font-size: em-calc(27);
-$h3-font-size: em-calc(22);
+$h1-font-size: rem-calc(25);
+$h2-font-size: rem-calc(27);
+$h3-font-size: rem-calc(22);
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
 // $alert-bottom-margin: rem-calc(20);
 
@@ -950,12 +950,12 @@ $table-border-style: none;
 
 // $include-html-tabs-classes: $include-html-classes;
 
-// $tabs-navigation-padding: rem-calc(16);
+$tabs-navigation-padding: rem-calc(10);
 // $tabs-navigation-bg-color: #efefef  ;
 // $tabs-navigation-active-bg-color: #fff;
 // $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
 // $tabs-navigation-font-color: #222;
-// $tabs-navigation-font-size: rem-calc(16);
+$tabs-navigation-font-size: rem-calc(14);
 // $tabs-navigation-font-family: $body-font-family;
 
 // $tabs-content-margin-bottom: rem-calc(24);
@@ -1025,22 +1025,22 @@ $topbar-height: 40px;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
- $topbar-dropdown-bg: $topbar-bg-color;
- $topbar-dropdown-link-color: #fff;
- $topbar-dropdown-link-bg: $topbar-bg-color;
+$topbar-dropdown-bg: $topbar-bg-color;
+$topbar-dropdown-link-color: #fff;
+$topbar-dropdown-link-bg: $topbar-bg-color;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
- $topbar-dropdown-toggle-color: #fff;
+$topbar-dropdown-toggle-color: #fff;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
- $topbar-link-color: #fff;
- $topbar-link-color-hover: #fff;
- $topbar-link-color-active: #fff;
+$topbar-link-color: #fff;
+$topbar-link-color-hover: #fff;
+$topbar-link-color-active: #fff;
 // $topbar-link-weight: normal;
 // $topbar-link-font-size: rem-calc(13);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
- $topbar-link-bg-hover: $topbar-bg-color  ;
+$topbar-link-bg-hover: $topbar-bg-color;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
@@ -1051,7 +1051,7 @@ $topbar-height: 40px;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
 // $topbar-dropdown-label-font-size: rem-calc(10);
- $topbar-dropdown-label-bg: $topbar-bg-color;
+$topbar-dropdown-label-bg: $topbar-bg-color;
 
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
@@ -1191,6 +1191,10 @@ $paragraph-line-height: 1.6;
 // $include-html-visibility-classes: $include-html-classes;
 
 @import 'foundation';
+
+//airesis specific
+$left-menu-width: 250px;
+$sectionbar-height: 40px;
 
 .medium-bar {
   height: 335px;
@@ -1344,9 +1348,6 @@ ul, ol {
   margin: 0 auto;
 }
 
-
-$sectionbar-height: 50px;
-
 #menu-top {
   top: $topbar-height;
   height: $sectionbar-height;
@@ -1355,12 +1356,59 @@ $sectionbar-height: 50px;
   left: 0px;
   width: 100%;
   z-index: 3;
+
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .topimage {
+    position: absolute;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .topmenu {
+    position: absolute;
+    margin-left: 40px;
+  }
 }
+
 
 #menu-group {
-  //top: initial;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px;
+
+  img {
+    &.certification {
+      height: auto;
+      width: auto;
+    }
+  }
+  .tit {
+    font-size: 1.2em;
+    margin-top: 6px;
+  }
 }
 
+.submenu {
+  color: white;
+  font-weight: bolder;
+  font-size: 0.8em;
+  margin-top: 6px;
+  margin-left: 15px;
+  a.sel {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 3px 10px 3px 10px;
+  }
+}
 
 
 #main {
@@ -1378,7 +1426,6 @@ $sectionbar-height: 50px;
   min-height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
 }
-
 
 body {
   height: 100%;
@@ -1568,3 +1615,162 @@ $logo-width: 92px;
   }
 
 }
+
+#centerpanelextended {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-left: none;
+}
+
+@media #{$medium-up} {
+  #centerpanelextended {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: $left-menu-width;
+    border-left: 1px dotted gray;
+  }
+}
+
+#footer, footer {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 7px;
+  background-color: #33b5e5;
+  color: white;
+  box-shadow: 0px -1px 1px #333;
+  font-size: 0.9em;
+  z-index: 998;
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .language.footer {
+    height: 15px;
+  }
+  @media #{$small-only} {
+    text-align: center;
+    .language.footer {
+      max-width: 50%;
+    }
+  }
+}
+
+@media (max-width: '768px') {
+  #centerpanelextended {
+    &.contributes_shown {
+      margin-left: -330px;
+      max-width: 600px;
+      &.editing {
+        margin-left: 0px;
+        max-width: 450px;
+      }
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 267px;
+      &.editing {
+        left: 440px;
+      }
+    }
+  }
+
+}
+
+@media (min-width: '768px') and (max-width: '1279px') {
+  #menu-left {
+    &.contributes_shown {
+      margin-left: -300px;
+      &.editing {
+        margin-left: 0px;
+      }
+    }
+  }
+  #centerpanelextended {
+    &.contributes_shown {
+      margin-left: -10px;
+      max-width: 600px;
+      padding-right: 10px;
+      &.editing {
+        margin-left: 280px;
+        max-width: 500px;
+      }
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 587px;
+      &.editing {
+        left: 775px;
+      }
+    }
+  }
+}
+
+@media (min-width: '1280px') and (max-width: '1600px') {
+  #menu-left {
+    &.contributes_shown {
+      margin-left: -300px;
+      &.editing {
+        margin-left: 0px;
+      }
+    }
+  }
+  #centerpanelextended {
+    &.contributes_shown {
+      margin-left: -10px;
+      max-width: 600px;
+      padding-right: 10px;
+      &.editing {
+        margin-left: 280px;
+        max-width: 500px;
+      }
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 587px;
+      &.editing {
+        left: 775px;
+      }
+    }
+  }
+}
+
+@media (min-width: '1601px') and (max-width: '1800px') {
+  #menu-left {
+    &.contributes_shown {
+
+    }
+  }
+  #centerpanelextended {
+    &.contributes_shown {
+      max-width: 600px;
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 887px;
+    }
+  }
+}
+
+@media (min-width: '1801px') {
+  .suggestion_right {
+    &.contributes_shown {
+      left: 1108px;
+    }
+  }
+}
+
+
+
+
