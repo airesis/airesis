@@ -441,6 +441,9 @@ it-IT:
         title: "Link testuale"
         content_html: |
           <p>Se sceglierai di pubblicare il banner sarà di grande aiuto per il progetto. Grazie.</p>
+    tags:
+      title: "Airesis - Scegli di partecipare"
+      description: "Partecipa alle decisioni, proponi le tue idee, suggerisci delle soluzioni, vota e decidi il tuo futuro"
     whowe:
       paragraph1:
         title: "Cittadini che vogliono una democrazia più evoluta"

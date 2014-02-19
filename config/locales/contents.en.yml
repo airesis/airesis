@@ -360,6 +360,9 @@ en:
         link: 'introduction page'
     press:
       title: "Press Release"
+    tags:
+      title: "Airesis - Make a decision"
+      description: "A decision making tool for direct democracy and e-government: participate in discussions, bring your ideas, suggest solutions and vote online"
     roadmap:
       paragraph1:
         title: "Destination: direct and participatory democracy"
