@@ -231,7 +231,7 @@ class BestQuorum < Quorum
       votes = positive + negative + neutral
       if ((positive+negative) > 0) && ((positive.to_f / (positive+negative).to_f) > (self.vote_good_score.to_f / 100)) && (votes >= self.vote_valutations) #se ha avuto più voti positivi allora diventa ACCETTATA
         proposal.proposal_state_id = ProposalState::ACCEPTED
-      elsif positive <= negative #se ne ha di più negativi allora diventa RESPINTA
+      else #se ne ha di più negativi allora diventa RESPINTA
         proposal.proposal_state_id = ProposalState::REJECTED
       end
     end
