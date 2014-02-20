@@ -637,7 +637,7 @@ it-IT:
           vote_positive: "Voto positivo"
           vote_neutral: "Voto neutrale"
           vote_negative: "Voto negativo"
-          confirm_positive: "Confermi il tuo voto POSITIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
+          confirm_positive: "Confermi il tuo voto FAVOREVOLE alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_neutral: "Confermi il tuo voto NEUTRALE alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_negative: "Confermi il tuo voto NEGATIVO alla proposta '%{name}'? Non potrai più cambiarlo!"
           confirm_schulze: "Confermi il tuo voto alla proposta %{name}? Non potrai più cambiarlo!"

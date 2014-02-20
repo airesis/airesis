@@ -257,54 +257,57 @@
 		 * the range is selecting the second child - the <span> tag.
 		 * 
 		 * <p><TEXT>some </TEXT><SPAN>test</SPAN><TEXT> text</TEXT></p>
+		 * Fixed by dfl to handle cases when there's no next container
 		 */
 		rangy.rangePrototype.moveCharRight = function (moveStart, units) {
-		var container, offset;
-
-		if (moveStart) {
-			container = this.startContainer;
-			offset = this.startOffset;
-		} else {
-			container = this.endContainer;
-			offset = this.endOffset;
-		}
-
-		if (container.nodeType === ice.dom.ELEMENT_NODE) {
-			container = container.childNodes[offset];
-			if (container.nodeType !== ice.dom.TEXT_NODE) {
-			container = this.getNextTextNode(container);
+			var container, offset;
+	
+			if (moveStart) {
+				container = this.startContainer;
+				offset = this.startOffset;
+			} else {
+				container = this.endContainer;
+				offset = this.endOffset;
 			}
-
-			offset = units;
-		} else {
-			offset += units;
-		}
-
-		var diff = (offset - container.data.length);
-		if (diff > 0) {
-			var skippedBlockElem = [];
-			// We need to move to the next selectable container.
-			while (diff > 0) {
-			container = this.getNextContainer(container, skippedBlockElem);
-
+	
 			if (container.nodeType === ice.dom.ELEMENT_NODE) {
-				continue;
+				container = container.childNodes[offset];
+				if (container.nodeType !== ice.dom.TEXT_NODE) {
+				container = this.getNextTextNode(container);
+				}
+	
+				offset = units;
+			} else {
+				offset += units;
 			}
-
-			if (container.data.length >= diff) {
-				// We found a container with enough content to select.
-				break;
-			} else if (container.data.length > 0) {
-				// Container does not have enough content,
-				// find the next one.
-				diff -= container.data.length;
+	
+			var diff = (offset - container.data.length);
+			if (diff > 0) {
+				var skippedBlockElem = [];
+				// We need to move to the next selectable container.
+				while (diff > 0) {
+					container = this.getNextContainer(container, skippedBlockElem);
+					if (! container) {
+						return;
+					}
+		
+					if (container.nodeType === ice.dom.ELEMENT_NODE) {
+						continue;
+					}
+		
+					if (container.data.length >= diff) {
+						// We found a container with enough content to select.
+						break;
+					} else if (container.data.length > 0) {
+						// Container does not have enough content,
+						// find the next one.
+						diff -= container.data.length;
+					}
+				}
+	
+				offset = diff;
 			}
-			}
-
-			offset = diff;
-		}
-
-		this.setRange(moveStart, container, offset);
+			this.setRange(moveStart, container, offset);
 		};
 
 		/**

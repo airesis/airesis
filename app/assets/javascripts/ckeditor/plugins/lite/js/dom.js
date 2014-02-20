@@ -142,6 +142,8 @@
 	 */
 	dom.getNode = function (node, selector) {
 		if (! node) return null;
+// dfl switch to DOM node from dom.js node
+		node = node.$ || node;
 // dfl don't test text nodes
 		return (node.nodeType != 3 && dom.is(node, selector)) ? node : dom.parents(node, selector)[0] || null;
 	},

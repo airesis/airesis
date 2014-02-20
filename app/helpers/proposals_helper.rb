@@ -97,7 +97,8 @@ module ProposalsHelper
     seq = 0
     solution = Solution.new
     4.times do
-      solution.sections.build(title: t('pages.proposals.new.rule_book.solution.article', num: seq+=1),question: t('pages.proposals.new.rule_book.question.solution.article', num: seq+=1), seq: seq).paragraphs.build(content: '', seq: 1)
+      seq+=1
+      solution.sections.build(title: t('pages.proposals.new.rule_book.solution.article', num: seq),question: t('pages.proposals.new.rule_book.question.solution.article', num: seq), seq: seq).paragraphs.build(content: '', seq: 1)
     end
     solution.sections.build(title: t('pages.proposals.new.rule_book.solution.pros'),question: t('pages.proposals.new.rule_book.question.solution.pros'), seq: seq+=1).paragraphs.build(content: '', seq: 1)
     solution.sections.build(title: t('pages.proposals.new.rule_book.solution.cons'),question: t('pages.proposals.new.rule_book.question.solution.cons'), seq: seq+=1).paragraphs.build(content: '', seq: 1)

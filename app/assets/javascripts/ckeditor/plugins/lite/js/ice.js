@@ -34,7 +34,7 @@
 		userIdAttribute: 'data-userid',
 		userNameAttribute: 'data-username',
 		timeAttribute: 'data-time',
-		changeDataAttribute: 'data-changedata', // dfl, arbitrary data to associate with the node, e.g. version
+		changeDataAttribute: 'data-changeData', // dfl, arbitrary data to associate with the node, e.g. version
 		
 		// Prepended to `changeType.alias` for classname uniqueness, if needed
 		attrValuePrefix: '',
@@ -65,41 +65,38 @@
 				alias: 'ins',
 				action: 'Inserted'
 		},
-		deleteType: {
-			tag: 'span',
-			alias: 'del',
-			action: 'Deleted'
-		}
-	},
+			deleteType: {
+				tag: 'span',
+				alias: 'del',
+				action: 'Deleted'
+			}
+		},
 
-	// If `true`, setup event listeners on `this.element` and handle events - good option for a basic
-	// setup without a text editor. Otherwise, when set to `false`, events need to be manually passed
-	// to `handleEvent`, which is good for a text editor with an event callback handler, like tinymce.
-	handleEvents: false,
-
-	// Sets this.element with the contentEditable element
-	contentEditable: undefined,//dfl, start with a neutral value
-
-	// Switch for toggling track changes on/off - when `false` events will be ignored.
-	isTracking: true,
-
-	// NOT IMPLEMENTED - Selector for elements that will not get track changes
-	noTrack: '.ice-no-track',
-
-	// Selector for elements to avoid - move range before or after - similar handling to deletes
-	avoid: '.ice-avoid',
-
-	// Switch for whether paragraph breaks should be removed when the user is deleting over a
-	// paragraph break while changes are tracked.
-	mergeBlocks: true,
+		// If `true`, setup event listeners on `this.element` and handle events - good option for a basic
+		// setup without a text editor. Otherwise, when set to `false`, events need to be manually passed
+		// to `handleEvent`, which is good for a text editor with an event callback handler, like tinymce.
+		handleEvents: false,
 	
-	titleTemplate : null, // dfl, no title by default
+		// Sets this.element with the contentEditable element
+		contentEditable: undefined,//dfl, start with a neutral value
 	
-	isVisible : true, // dfl, state of change tracking visibility
+		// Switch for toggling track changes on/off - when `false` events will be ignored.
+		isTracking: true,
 	
-	changeData : null //dfl, a string you can associate with the current change set, e.g. version
+		// NOT IMPLEMENTED - Selector for elements that will not get track changes
+		noTrack: '.ice-no-track',
 	
-	
+		// Switch for whether paragraph breaks should be removed when the user is deleting over a
+		// paragraph break while changes are tracked.
+		mergeBlocks: true,
+		
+		titleTemplate : null, // dfl, no title by default
+		
+		isVisible : true, // dfl, state of change tracking visibility
+		
+		_changeData : null, //dfl, a string you can associate with the current change set, e.g. version
+		
+		_handleSelectAll: false // dfl, if true, handle ctrl/cmd-A in the change tracker
 	};
 
 	InlineChangeEditor = function (options) {
@@ -107,6 +104,10 @@
 		// Data structure for modelling changes in the element according to the following model:
 		//	[changeid] => {`type`, `time`, `userid`, `username`}
 		this._changes = {};
+		// Tracks all of the styles for users according to the following model:
+		//	[userId] => styleId; where style is "this.stylePrefix" + "this.uniqueStyleIndex"
+		this._userStyles = {}; // dfl, moved from prototype
+		this._styles = {}; // dfl, moved from prototype
 		this._refreshInterval = null; // dfl
 		this.$this = jQuery(this);
 	
@@ -122,10 +123,6 @@
 	};
 
 	InlineChangeEditor.prototype = {
-		// Tracks all of the styles for users according to the following model:
-		//	[userId] => styleId; where style is "this.stylePrefix" + "this.uniqueStyleIndex"
-		_userStyles: {},
-		_styles: {},
 	
 		// Incremented for each new user and appended to they style prefix, and dropped in the
 		// ice node class attribute.
@@ -677,29 +674,34 @@
 			var onEdge = false;
 			var voidEl = this._getVoidElement(range.endContainer);
 			while (voidEl) {
-			// Move end of range to position it inside of any potential adjacent containers
-			// E.G.:	test|<em>text</em>	->	test<em>|text</em>
-			try {
-				range.moveEnd(ice.dom.CHARACTER_UNIT, 1);
-				range.moveEnd(ice.dom.CHARACTER_UNIT, -1);
-			} catch (e) {
-				// Moving outside of the element and nothing is left on the page
-				onEdge = true;
-			}
-			if (onEdge || ice.dom.onBlockBoundary(range.endContainer, range.startContainer, this.blockEls)) {
-				range.setStartAfter(voidEl);
-				range.collapse(true);
-				break;
-			}
-			voidEl = this._getVoidElement(range.endContainer);
-			if (voidEl) {
-				range.setEnd(range.endContainer, 0);
-				range.moveEnd(ice.dom.CHARACTER_UNIT, ice.dom.getNodeCharacterLength(range.endContainer));
-				range.collapse();
-			} else {
-				range.setStart(range.endContainer, 0);
-				range.collapse(true);
-			}
+				// Move end of range to position it inside of any potential adjacent containers
+				// E.G.:	test|<em>text</em>	->	test<em>|text</em>
+				try {
+					range.moveEnd(ice.dom.CHARACTER_UNIT, 1);
+					//dfl				range.moveEnd(ice.dom.CHARACTER_UNIT, -1);					
+					
+					range.moveEnd(ice.dom.CHARACTER_UNIT, -1);
+				} catch (e) {
+					// Moving outside of the element and nothing is left on the page
+					onEdge = true;
+				}
+				if (onEdge || ice.dom.onBlockBoundary(range.endContainer, range.startContainer, this.blockEls)) {
+					range.setStartAfter(voidEl);
+					range.collapse(true);
+					break;
+				}
+				var newVoidEl = this._getVoidElement(range.endContainer);
+				if (newVoidEl == voidEl) {
+					voidEl = null;
+				}
+				if (voidEl){
+					range.setEnd(range.endContainer, 0);
+					range.moveEnd(ice.dom.CHARACTER_UNIT, ice.dom.getNodeCharacterLength(range.endContainer));
+					range.collapse();
+				} else {
+					range.setStart(range.endContainer, 0);
+					range.collapse(true);
+				}
 			}
 		},
 	
@@ -734,10 +736,10 @@
 		},
 	
 		/**
-		 * Returns a combined selector for delete and void elements.
+		 * Returns a css selector for delete .
 		 */
 		_getVoidElSelector: function () {
-			return '.' + this._getIceNodeClass('deleteType') + ',' + this.avoid;
+			return '.' + this._getIceNodeClass('deleteType');
 		},
 	
 		/**
@@ -769,9 +771,16 @@
 		},
 	
 		getUserStyle: function (userid) {
+			if (userid === null || userid === "" || "undefined" == typeof userid) {
+				return this.stylePrefix;
+			};
 			var styleIndex = null;
-			if (this._userStyles[userid]) styleIndex = this._userStyles[userid];
-			else styleIndex = this.setUserStyle(userid, this.getNewStyleId());
+			if (this._userStyles[userid]) {
+				styleIndex = this._userStyles[userid];
+			}
+			else {
+				styleIndex = this.setUserStyle(userid, this.getNewStyleId());
+			}
 			return styleIndex;
 		},
 	
@@ -787,8 +796,8 @@
 			// Dupe.. create another..
 			return this.getNewStyleId();
 			} else {
-			this._styles[id] = true;
-			return id;
+				this._styles[id] = true;
+				return id;
 			}
 		},
 	
@@ -801,7 +810,7 @@
 					time: (new Date()).getTime(),
 					userid: String(this.currentUser.id),// dfl: must stringify for consistency - when we read the props from dom attrs they are strings
 					username: this.currentUser.name,
-					data : this.changeData || ""
+					data : this._changeData || ""
 				};
 				this._triggerChange(); //dfl
 			}
@@ -835,7 +844,7 @@
 // dfl add change data
 			var changeData = ctNode.getAttribute(this.changeDataAttribute);
 			if (null == changeData) {
-				ctNode.setAttribute(this.changeDataAttribute, this.changeData || "");
+				ctNode.setAttribute(this.changeDataAttribute, this._changeData || "");
 			}
 			
 			if (!ctNode.getAttribute(this.timeAttribute)) ctNode.setAttribute(this.timeAttribute, change.time);
@@ -913,7 +922,11 @@
 			else if (!inCurrentUserInsert) node = this.createIceNode('insertType', node);
 	
 			range.insertNode(node);
-			range.setEnd(node, 1);
+			range.setStartAfter(node); // dfl set selection to end of insert node instead of 1 offset into itgit status
+			if (inCurrentUserInsert) {
+				this._normalizeNode(ctNode);
+			}
+//			range.setEnd(node, textLength);
 	
 			if (insertingDummy) {
 			// Create a selection of the dummy character we inserted
@@ -947,56 +960,57 @@
 			betweenBlocks = new Array(); 
 	
 			for (var i = 0; i < elements.length; i++) {
-			var elem = elements[i];
-			if (ice.dom.isBlockElement(elem)) {
-				betweenBlocks.push(elem);
-				if (!ice.dom.canContainTextElement(elem)) {
-				// Ignore containers that are not supposed to contain text. Check children instead.
-				for (var k = 0; k < elem.childNodes.length; k++) {
-					elements.push(elem.childNodes[k]);
-				}
-				continue;
-				}
-			}
-			// Ignore empty space nodes
-			if (elem.nodeType === ice.dom.TEXT_NODE && ice.dom.getNodeTextContent(elem).length === 0) continue;
-	
-			if (!this._getVoidElement(elem)) {
-				// If the element is not a text or stub node, go deeper and check the children.
-				if (elem.nodeType !== ice.dom.TEXT_NODE) {
-				// Browsers like to insert breaks into empty paragraphs - remove them
-				if (ice.dom.BREAK_ELEMENT == ice.dom.getTagName(elem)) {
+				var elem = elements[i];
+				if (ice.dom.isBlockElement(elem)) {
+					betweenBlocks.push(elem);
+					if (!ice.dom.canContainTextElement(elem)) {
+					// Ignore containers that are not supposed to contain text. Check children instead.
+					for (var k = 0; k < elem.childNodes.length; k++) {
+						elements.push(elem.childNodes[k]);
+					}
 					continue;
+					}
 				}
-	
-				if (ice.dom.isStubElement(elem)) {
-					this._addNodeTracking(elem, false, true);
+				// Ignore empty space nodes
+				if (elem.nodeType === ice.dom.TEXT_NODE && ice.dom.getNodeTextContent(elem).length === 0) continue;
+		
+				if (!this._getVoidElement(elem)) {
+					// If the element is not a text or stub node, go deeper and check the children.
+					if (elem.nodeType !== ice.dom.TEXT_NODE) {
+					// Browsers like to insert breaks into empty paragraphs - remove them
+					if (ice.dom.BREAK_ELEMENT == ice.dom.getTagName(elem)) {
+						continue;
+					}
+		
+					if (ice.dom.isStubElement(elem)) {
+						this._addNodeTracking(elem, false, true);
+						continue;
+					}
+					if (ice.dom.hasNoTextOrStubContent(elem)) {
+						ice.dom.remove(elem);
+					}
+		
+					for (j = 0; j < elem.childNodes.length; j++) {
+						var child = elem.childNodes[j];
+						elements.push(child);
+					}
 					continue;
+					}
+					var parentBlock = ice.dom.getBlockParent(elem);
+					this._addNodeTracking(elem, false, true, true);
+					if (ice.dom.hasNoTextOrStubContent(parentBlock)) {
+					ice.dom.remove(parentBlock);
+					}
 				}
-				if (ice.dom.hasNoTextOrStubContent(elem)) {
-					ice.dom.remove(elem);
-				}
-	
-				for (j = 0; j < elem.childNodes.length; j++) {
-					var child = elem.childNodes[j];
-					elements.push(child);
-				}
-				continue;
-				}
-				var parentBlock = ice.dom.getBlockParent(elem);
-				this._addNodeTracking(elem, false, true, true);
-				if (ice.dom.hasNoTextOrStubContent(parentBlock)) {
-				ice.dom.remove(parentBlock);
-				}
-			}
 			}
 	
 			if (this.mergeBlocks && b1 !== b2) {
-			while (betweenBlocks.length)
-				ice.dom.mergeContainers(betweenBlocks.shift(), b1);
-			ice.dom.removeBRFromChild(b2);
-			ice.dom.removeBRFromChild(b1);
-			ice.dom.mergeContainers(b2, b1);
+				while (betweenBlocks.length) {
+					ice.dom.mergeContainers(betweenBlocks.shift(), b1);
+				}
+				ice.dom.removeBRFromChild(b2);
+				ice.dom.removeBRFromChild(b1);
+				ice.dom.mergeContainers(b2, b1);
 			}
 	
 			bookmark.selectBookmark();
@@ -1058,41 +1072,41 @@
 	
 			// Handle cases of the caret is at the end of a container or placed directly in a block element
 			if (initialOffset === initialContainer.data.length && (!ice.dom.hasNoTextOrStubContent(initialContainer))) {
-			nextContainer = ice.dom.getNextNode(initialContainer, this.element);
-	
-			// If the next container is outside of ICE then do nothing.
-			if (!nextContainer) {
-				range.selectNodeContents(initialContainer);
-				range.collapse();
-				return false;
-			}
-	
-			// If the next container is <br> element find the next node
-			if (ice.dom.BREAK_ELEMENT == ice.dom.getTagName(nextContainer)) {
-				nextContainer = ice.dom.getNextNode(nextContainer, this.element);
-			}
-	
-			// If the next container is a text node, look at the parent node instead.
-			if (nextContainer.nodeType === ice.dom.TEXT_NODE) {
-				nextContainer = nextContainer.parentNode;
-			}
-	
-			// If the next container is non-editable, enclose it with a delete ice node and add an empty text node after it to position the caret.
-			if (!nextContainer.isContentEditable) {
-				returnValue = this._addNodeTracking(nextContainer, false, false);
-				var emptySpaceNode = document.createTextNode('');
-				nextContainer.parentNode.insertBefore(emptySpaceNode, nextContainer.nextSibling);
-				range.selectNode(emptySpaceNode);
-				range.collapse(true);
-				return returnValue;
-			}
-	
-			if (this._handleVoidEl(nextContainer, range)) return true;
-	
-			// If the caret was placed directly before a stub element, enclose the element with a delete ice node.
-			if (ice.dom.isChildOf(nextContainer, parentBlock) && ice.dom.isStubElement(nextContainer)) {
-				return this._addNodeTracking(nextContainer, range, false);
-			}
+				nextContainer = ice.dom.getNextNode(initialContainer, this.element);
+		
+				// If the next container is outside of ICE then do nothing.
+				if (!nextContainer) {
+					range.selectNodeContents(initialContainer);
+					range.collapse();
+					return false;
+				}
+		
+				// If the next container is <br> element find the next node
+				if (ice.dom.BREAK_ELEMENT == ice.dom.getTagName(nextContainer)) {
+					nextContainer = ice.dom.getNextNode(nextContainer, this.element);
+				}
+		
+				// If the next container is a text node, look at the parent node instead.
+				if (nextContainer.nodeType === ice.dom.TEXT_NODE) {
+					nextContainer = nextContainer.parentNode;
+				}
+		
+				// If the next container is non-editable, enclose it with a delete ice node and add an empty text node after it to position the caret.
+				if (!nextContainer.isContentEditable) {
+					returnValue = this._addNodeTracking(nextContainer, false, false);
+					var emptySpaceNode = document.createTextNode('');
+					nextContainer.parentNode.insertBefore(emptySpaceNode, nextContainer.nextSibling);
+					range.selectNode(emptySpaceNode);
+					range.collapse(true);
+					return returnValue;
+				}
+		
+				if (this._handleVoidEl(nextContainer, range)) return true;
+		
+				// If the caret was placed directly before a stub element, enclose the element with a delete ice node.
+				if (ice.dom.isChildOf(nextContainer, parentBlock) && ice.dom.isStubElement(nextContainer)) {
+					return this._addNodeTracking(nextContainer, range, false);
+				}
 	
 			}
 	
@@ -1591,38 +1605,41 @@
 			var keyCode = e.which;
 			if (keyCode === null) {
 			// IE.
-			keyCode = e.keyCode;
+				keyCode = e.keyCode;
 			}
 	
 			var preventDefault = false;
 			switch (keyCode) {
 			case 65:
+				if (! this._handleSelectAll) {
+					return true;
+				}
 				// Check for CTRL/CMD + A (select all).
 				if (e.ctrlKey === true || e.metaKey === true) {
-				preventDefault = true;
-				var range = this.getCurrentRange();
-	
-				if (ice.dom.isBrowser('msie') === true) {
-					var selStart = this.env.document.createTextNode('');
-					var selEnd = this.env.document.createTextNode('');
-	
-					if (this.element.firstChild) {
-					ice.dom.insertBefore(this.element.firstChild, selStart);
+					preventDefault = true;
+					var range = this.getCurrentRange();
+		
+					if (ice.dom.isBrowser('msie') === true) {
+						var selStart = this.env.document.createTextNode('');
+						var selEnd = this.env.document.createTextNode('');
+		
+						if (this.element.firstChild) {
+						ice.dom.insertBefore(this.element.firstChild, selStart);
+						} else {
+						this.element.appendChild(selStart);
+						}
+		
+						this.element.appendChild(selEnd);
+		
+						range.setStart(selStart, 0);
+						range.setEnd(selEnd, 0);
 					} else {
-					this.element.appendChild(selStart);
-					}
-	
-					this.element.appendChild(selEnd);
-	
-					range.setStart(selStart, 0);
-					range.setEnd(selEnd, 0);
-				} else {
-					range.setStart(range.getFirstSelectableChild(this.element), 0);
-					var lastSelectable = range.getLastSelectableChild(this.element);
-					range.setEnd(lastSelectable, lastSelectable.length);
-				} //end if
-	
-				this.selection.addRange(range);
+						range.setStart(range.getFirstSelectableChild(this.element), 0);
+						var lastSelectable = range.getLastSelectableChild(this.element);
+						range.setEnd(lastSelectable, lastSelectable.length);
+					} //end if
+		
+					this.selection.addRange(range);
 				} //end if
 				break;
 	
@@ -1632,8 +1649,8 @@
 			} //end switch
 	
 			if (preventDefault === true) {
-			ice.dom.preventDefault(e);
-			return false;
+				ice.dom.preventDefault(e);
+				return false;
 			}
 	
 			return true;
@@ -1720,11 +1737,15 @@
 			if (null == data || (typeof data == "undefined")) {
 				data = "";
 			}
-			this.changeData = String(data);
+			this._changeData = String(data);
 		},
 		
 		getDeleteClass : function() {
 			return this._getIceNodeClass('deleteType');
+		},
+		
+		toString : function() {
+			return "ICE " + ((this.element && this.element.id) || "(no element id)");
 		},
 		
 		_triggerChange : function() {
@@ -1806,6 +1827,8 @@
 		_loadFromDom : function() {
 			this._changes = {};
 			this._userStyles = {};
+			this._styles = {};
+			this._uniqueStyleIndex = 0;
 			var myUserId = this.currentUser && this.currentUser.id;
 			var myUserName = (this.currentUser && this.currentUser.name) || "";
 			var now = (new Date()).getTime();
