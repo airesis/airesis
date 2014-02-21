@@ -1,8 +1,6 @@
 !window.console && (console = { log: function () {
 }});
 
-
-
 function switchText(button) {
     var other_ = button.data('other');
     var text_ = button.text();
@@ -116,6 +114,15 @@ $(function () {
         el.appendTo(ul);
         return el;
     };
+
+
+    $('.submenu a div').qtip({
+        position: {
+            at: 'bottom center',
+            my: 'top center',
+            effect: false
+        }
+    });
 
 });
 

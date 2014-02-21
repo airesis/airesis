@@ -1,17 +1,48 @@
 <% content_for :menu do %>
-    <div id="menu-group" class="title-area hide-for-small">
+    <div id="menu-group" class="title-area">
+      <div class="icon-menu medium show-for-small-only left"></div>
       <div class="topimage hide-for-small">
         <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
       </div>
       <div class="topmenu">
         <span class="tit left"><%= APP_LONG_NAME %></span>
 
-        <div class="submenu mycont hide-for-small left">
-          <%= link_to t('pages.open_space.layout.proposals_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+        <div class="submenu left">
+          <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.proposals_button') %></span>
+
+              <div class="icon-file small hide-for-large-up" title="<%= t('pages.open_space.layout.proposals_button') %>"></div>
+          <% end %>
           <span> ⋅ </span>
-          <%= link_to t('pages.open_space.layout.petitions_button'), proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '') %>
+          <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.petitions_button') %></span>
+
+              <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.open_space.layout.petitions_button') %>"></div>
+          <% end %>
           <span> ⋅ </span>
-          <%= link_to t('pages.open_space.layout.calendar_button'), events_path, class: (params[:controller] == 'events' ? 'sel' : '') %>
+          <%= link_to(blogs_path, class: ((['blogs'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.blogs_button') %></span>
+
+              <div class="icon-bubble small hide-for-large-up" title="<%= t('pages.open_space.layout.blogs_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to(groups_path, class: ((['groups'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.groups_button') %></span>
+
+              <div class="icon-users small hide-for-large-up" title="<%= t('pages.open_space.layout.groups_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to events_path, class: (params[:controller] == 'events' ? 'sel' : '') do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.calendar_button') %></span>
+
+              <div class="icon-calendar small hide-for-large-up" title="<%= t('pages.open_space.layout.calendar_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to(tags_path, class: (params[:controller] == 'tags' ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.tags_button') %></span>
+
+              <div class="icon-tags small hide-for-large-up" title="<%= t('pages.open_space.layout.tags_button') %>"></div>
+          <% end %>
         </div>
       </div>
     </div>

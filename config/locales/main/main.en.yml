@@ -804,6 +804,10 @@ en:
         proposals_button: "PROPOSALS"
         calendar_button: "CALENDAR"
         map_button: "MAP"
+        groups_button: "GROUPS"
+        blogs_button: "BLOGS"
+        petitions_button: "PETITIONS"
+        tags_button: "TAGS"
     proposal_supports:
       new:
         panel_title: "Confirm proposal support"
