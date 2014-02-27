@@ -1,0 +1,14 @@
+<div class="group-item">
+  <div style="float:left;">
+    <%= group.group_image_tag(60) rescue nil %>
+  </div>
+  <div class="p1">
+    <%= link_to group.name, group_url(group) %>
+  </div>
+
+  <div class="p2">
+    <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
+    <%= link_to t('pages.header.groups.events'), group_events_url(group) %>
+  </div>
+  <div class="clearboth"></div>
+</div>

@@ -29,7 +29,7 @@ class TagsController < ApplicationController
       @tags = Tag.most_used
 
       respond_to do |format|
-        format.html {render :not_found}
+        format.html {render 'index'}
       end
     end
 
