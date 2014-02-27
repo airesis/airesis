@@ -261,15 +261,11 @@
                     if (obj.count > 0) {
                         $('#alerts_link').append($('<button class="alert notify boxed">').append(obj.count));
                     }
-                    var n_container = $('<div id="alert_cont_' + obj.id + '" class="cont-mess" style="display:none">');
-                    var tool_container = $('<div class="tool">');
-                    //var img_container = $('<img class="logo" src="/assets/notification_categories/' + obj.short + '.png">');
-                    var span_container = $('<div>' + obj.title + '</div>');
-                    tool_container.append(span_container);
+                    var n_container = $('<div id="alert_cont" class="cont-mess" style="display:none">');
                     var read_container = $('<div class="read_all">');
                     read_container.append($('<a href="#" onclick="sign_all_as_read(' + obj.id + ');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
                     var sub_container = $('<div class="cont1">');
-                    n_container.append(tool_container).append(read_container).append(sub_container);
+                    n_container.append(read_container).append(sub_container);
                     for (var j = 0; j < data.alerts.length; j++) {
                         var alert = data.alerts[j];
                         var alert_container = $('<a class="mess" href="' + alert.path + '">');
@@ -301,23 +297,25 @@
                             my: 'top right',
                             viewport: $(window),
                             effect: false,
-                            resize: true,
                             adjust: {
-                                method: 'shift',
-                                x: 0, y: 0
+                                x: -28, y: -8
                             }
                         },
                         show: {
-                            event: 'mouseover',
                             solo: true
                         },
-                        hide: 'click unfocus',
+                        hide: {
+                            fixed: true,
+                            delay: 500
+                        },
                         style: {
-                            classes: 'qtip-light qtip-shadow qtip-right',
+                            classes: 'qtip-light qtip-shadow',
                             tip: {
-                                corner: true,
-                                width: 15,
-                                height: 5
+                                corner: 'top right',
+                                mimic: 'center',
+                                width: 8,
+                                height: 8,
+                                offset: 28
                             }
                         }
                     });
@@ -343,21 +341,18 @@
 
         poll();
 
-        $('.button.account').qtip({
+        $('.account').qtip({
             content: $('#avatar-qtip'),
             position: {
-                target: $('.button.account'),
-                at: 'right top',
-                my: 'right top',
+                at: 'bottom right',
+                my: 'top right',
                 viewport: $(window),
                 effect: false,
                 adjust: {
-                    method: 'shift',
-                    x: 0, y: -10
+                    x: -5, y: -8
                 }
             },
             show: {
-                event: 'mouseover',
                 solo: true
             },
             hide: {
@@ -367,9 +362,11 @@
             style: {
                 classes: 'qtip-light qtip-shadow qtip-avatar',
                 tip: {
-                    corner: true,
-                    width: 15,
-                    height: 5
+                    corner: 'top right',
+                    mimic: 'center',
+                    width: 8,
+                    height: 8,
+                    offset: 5
                 }
             }
         });

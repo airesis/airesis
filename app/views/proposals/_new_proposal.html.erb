@@ -42,7 +42,7 @@
             });
 
             create_proposal_.foundation('reveal', 'open', {
-                closeOnBackgroundClick: false,
+                close_on_background_click: false,
                 closeOnEsc: false
             });
 
@@ -50,10 +50,10 @@
         }
     </script>
 <% else %>
-    <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::PETITION, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
+    <%= link_to t('proposals.create_button'), new_proposal_path(proposal_type_id: ProposalType::STANDARD, category: params[:category]), remote: true, id: 'nuova_proposta', class: "btn blue disable newButton" %>
 <% end %>
 
 
-<div id="create_proposal_container" class="reveal-modal large" data-reveal>
+<div id="create_proposal_container" class="reveal-modal large" data-reveal data-options="close_on_background_click:false;close_on_esc:false;">
 
 </div>

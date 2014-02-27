@@ -144,8 +144,8 @@ $small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
 // $alert-function-factor: -14%;
 
 $h1-font-size: rem-calc(25);
-$h2-font-size: rem-calc(27);
-$h3-font-size: rem-calc(22);
+$h2-font-size: rem-calc(20);
+$h3-font-size: rem-calc(15);
 // $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
 // $alert-bottom-margin: rem-calc(20);
 
@@ -246,6 +246,7 @@ $h3-font-size: rem-calc(22);
 // Button Groups
 
 // $include-html-button-classes: $include-html-classes;
+$include-html-button-classes: false;
 
 // Sets the margin for the right side by default, and the left margin if right-to-left direction is used
 // $button-bar-margin-opposite: rem-calc(10);
@@ -1378,7 +1379,6 @@ ul, ol {
   }
 }
 
-
 #menu-group {
   color: white;
   font-size: 13px;
@@ -1401,15 +1401,17 @@ ul, ol {
   color: white;
   font-weight: bolder;
   font-size: 0.8em;
-  margin-top: 6px;
+  margin-top: 4px;
   margin-left: 15px;
-  a.sel {
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 3px 10px 3px 10px;
+  a {
+    display: inline-block;
+    &.sel {
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 3px 10px 3px 10px;
+    }
   }
 }
-
 
 #main {
   position: absolute;
@@ -1593,7 +1595,11 @@ a.zocial:hover {
   div {
     &[class^="icon-"], &[class*=" icon-"] {
       margin: 0px 10px;
+      color: white;
     }
+  }
+  a:hover {
+    text-decoration: none;
   }
 }
 
@@ -1621,7 +1627,6 @@ $logo-width: 92px;
   padding-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
-  border-left: none;
 }
 
 @media #{$medium-up} {
@@ -1629,7 +1634,14 @@ $logo-width: 92px;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: $left-menu-width;
-    border-left: 1px dotted gray;
+  }
+}
+
+@media #{$medium-up} {
+  footer {
+    .text-right-medium-up {
+      text-align: right;
+    }
   }
 }
 

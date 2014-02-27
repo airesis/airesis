@@ -9,6 +9,9 @@ class Tag < ActiveRecord::Base
 
   scope :most_used, -> {where('(blog_posts_count + blogs_count + proposals_count + groups_count) > 2').order('random()')}
 
+
+  scope :most_groups, -> {where('groups_count > 0').order('groups_count desc').limit(40)}
+
   def as_json(options={})    
    { :id => self.text, :name => self.text }
   end
@@ -31,4 +34,6 @@ class Tag < ActiveRecord::Base
                 and tt3.text != ?", self.text,self.text])
     Tag.find_by_sql query
   end
+
+
 end

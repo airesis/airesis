@@ -13,12 +13,12 @@
 
               <div class="icon-file small hide-for-large-up" title="<%= t('pages.open_space.layout.proposals_button') %>"></div>
           <% end %>
-          <span> ⋅ </span>
+          <!--<span> ⋅ </span>
           <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
               <span class="show-for-large-up"><%= t('pages.open_space.layout.petitions_button') %></span>
 
               <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.open_space.layout.petitions_button') %>"></div>
-          <% end %>
+          <% end %>-->
           <span> ⋅ </span>
           <%= link_to(blogs_path, class: ((['blogs'].include? params[:controller]) ? 'sel' : '')) do %>
               <span class="show-for-large-up"><%= t('pages.open_space.layout.blogs_button') %></span>

@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
 
   def index
     unless request.xhr?
-      @tags = Tag.where(['groups_count > 0']).load
+      @tags = Tag.most_groups.shuffle
     end
 
     interest_border_key = params[:interest_border]
@@ -547,7 +547,7 @@ class GroupsController < ApplicationController
   private
 
   def choose_layout
-    'groups'
+    @group ? 'groups' : 'open_space'
   end
 
 end

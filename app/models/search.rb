@@ -1,6 +1,6 @@
 class Search < ActiveRecord::Base
 
-  attr_accessor :groups, :proposals, :user_id
+  attr_accessor :groups, :proposals, :user_id, :blogs
 
   def find
     user = User.find(self.user_id)
@@ -51,6 +51,12 @@ class Search < ActiveRecord::Base
       #order_by :presentation_group_ids, :desc
       order_by :score, :desc
       order_by :updated_at, :desc
+      paginate :page => 1, :per_page => 5
+    end.results
+
+    self.blogs = Blog.search do
+      fulltext self.q
+      order_by :score, :desc
       paginate :page => 1, :per_page => 5
     end.results
   end

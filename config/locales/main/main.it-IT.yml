@@ -687,6 +687,7 @@ it-IT:
       groups:
         events: "EVENTI"
         proposals: "PROPOSTE"
+        forum: "FORUM"
       no_groups_yet: "Non partecipi a nessun gruppo ancora"
       menu:
         my_page: "LA MIA PAGINA"
@@ -890,11 +891,11 @@ it-IT:
     tags:
       show:
         related_title: "Tag correlati"
-      list_proposals_with_tag: "Elenco proposte con tag:"
+      list_proposals_with_tag: "Elenco proposte"
       no_proposals_with_tag: "Non vi sono ancora proposte con questo tag"
-      list_posts_with_tag: "Elenco post con tag:"
+      list_posts_with_tag: "Elenco post"
       no_posts_with_tag: "Non vi sono ancora Post con questo tag"
-      list_groups_with_tags: "Elenco gruppi con tag:"
+      list_groups_with_tags: "Elenco gruppi"
       no_groups_with_tag: "Non vi sono gruppi con questo tag"
       proposals_tab: "Proposte"
       posts_tab: "Post"
@@ -904,7 +905,7 @@ it-IT:
     footer:
       for_edemocracy: "per l'e-democracy"
       go_to_main_site: "Vai al sito principale"
-      for_edemocracy_html: "Progetto <a href=\"https://github.com/coorasse/Airesis\" target=\"_blank\">Open Source</a> per l'e-democracy"
+      for_edemocracy_html: "Airesis™ - Il Social Network per l'e-democracy"
     moderator_panel:
       title: "Pannello moderazione"
       block_user: "Blocca utente"
@@ -1433,3 +1434,7 @@ it-IT:
     terms_of_service: "Condizioni"
     privacy_policy: "Privacy"
     guide: "Guida FAQ"
+  controllers:
+    searches:
+      index:
+        groups_divider: "Gruppi"

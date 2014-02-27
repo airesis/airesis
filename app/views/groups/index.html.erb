@@ -69,10 +69,10 @@
 -->
 
 <h1><%= t('pages.groups.index.find_group_label') %></h1>
-<!--<div style="float:left; width: 462px; margin-right: 5px;" id="group_search_form">-->
-<div style="max-width: 600px;" id="group_search_form">
-  <fieldset class="card" style="margin-right:10px;">
-    <legend><%= t('pages.groups.index.search_mask') %></legend>
+<div class="row full-width">
+  <div class="columns large-6" id="group_search_form">
+     <div class="card">
+
     <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
 
 
@@ -95,22 +95,19 @@
         </div>
 
         <div class="clearboth"></div>
-        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', data:{disable_with: t('loading')} %>
+        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', data: {disable_with: t('loading')} %>
     <% end %>
-  </fieldset>
-</div>
-<!--<div style="float:left; width: 452px">
-  <fieldset>
-    <legend><%= t('pages.groups.index.tags') %></legend>
-    <div id="tag_cloud">
+     </div>
+  </div>
+  <div class="columns large-6">
+    <div id="tag_cloud" class="card">
       <% @tags.each do |tag| %>
-    <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
-<% end %>
+          <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
+      <% end %>
     </div>
-  </fieldset>
+  </div>
 </div>
-<div class="clearboth"></div>
--->
+
 
 
 <script type="text/javascript">
@@ -205,7 +202,7 @@
 <%= content_for :left_panel do %>
     <div class="mybox">
       <% if ::Configuration::open_space_proposals %>
-          <%= link_to t('pages.groups.index.open_space_button'), proposals_path, :class => "btn forwardButton" %>
+          <%= link_to t('pages.groups.index.open_space_button'), root_path, :class => "btn forwardButton" %>
       <% end %>
       <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>

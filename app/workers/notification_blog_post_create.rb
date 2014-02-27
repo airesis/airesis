@@ -1,75 +1,43 @@
-class NotificationProposalCommentCreate < NotificationSender
+class NotificationBlogPostCreate < NotificationSender
   include GroupsHelper, Rails.application.routes.url_helpers
 
   @queue = :notifications
 
-  def self.perform(comment_id)
-    NotificationProposalCommentCreate.new.elaborate(comment_id)
+  def self.perform(blog_post_id)
+    NotificationBlogPostCreate.new.elaborate(blog_post_id)
   end
 
-  #invia le notifiche quando un un contributo viene creato
-  def elaborate(comment_id)
-    comment = ProposalComment.find(comment_id)
-    proposal = comment.proposal
-    comment_user = comment.user
-    nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, proposal.id)
-    name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
-    url = nil
+  #invia le notifiche quando un utente inserisce un post sul proprio blog
+  #le notifiche vengono inviate agli utenti che seguono il blog dell'autore,
+  #agli utenti che seguono o partecipano ai gruppi in cui il post è stato inserito
+  def elaborate(blog_post_id)
+    blog_post = BlogPost.find(blog_post_id)
+    post_user = blog_post.user
+    user_followers = post_user.followers #utenti che seguono il blog
+    sent_users = []
+    data = {'blog_post_id' => blog_post.id.to_s}
+    notification_a = Notification.new(:notification_type_id => 15, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
+    notification_a.save
+    #TODO followers are not yet supported
+    user_followers.each do |user|
+      if (user != post_user) && (!sent_users.include? user)
+        if send_notification_to_user(notification_a, user)
+          sent_users << user
+        end
+      end
+    end
 
-    data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'count' => 1}
-    query = {'comment_id' => comment.id.to_s}
-    if proposal.private?
-      group = proposal.presentation_groups.first
-      url = group_proposal_url(group,proposal)
-      data['group'] = group.name
+    blog_post.groups.each do |group|
+      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
       data['subdomain'] = group.subdomain if group.certified?
-    else
-      url = proposal_url(proposal)
-    end
-    if comment.paragraph
-      query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id
-      query['section_id'] = data['section_id'] = comment.paragraph.section_id
 
-    end
-
-    if comment.is_contribute?
-      proposal.users.each do |user|   #send emails to editors
-        if user != comment_user
-          #check if there is another alert to this user about new contributes that he has not read yet
-          another = UserAlert.another('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES_MINE).first
-          if another
-            another.increase_count!
-            PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
-          else
-            #for contributes we create a notification for each user and aggregate them if needed
-            notification_a = Notification.create!(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :url => url + "?#{query.to_query}",:data => data)
-            send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+      #notifica a chi partecipa al gruppo
+      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_POST_GROUP, :url => group_blog_post_url(group, blog_post), data: data)
+      group.partecipants.each do |user|
+        if (user != post_user) && (!sent_users.include? user)
+          if send_notification_to_user(notification_b, user)
+            sent_users << user
           end
-        end
-      end
-
-
-      proposal.partecipants.each do |user|
-        if (user != comment_user) && (!proposal.users.include? user)
-          #check if there is another notification to this user about new contributes that he has not read yet
-          another = UserAlert.another('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES).first
-          if another
-            another.increase_count!
-            PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
-          else
-            notification_b = Notification.create!(:notification_type_id => NotificationType::NEW_CONTRIBUTES, :url => url +"?#{query.to_query}", :data => data)
-            #for contributes we create a notification for each user and aggregate them if needed
-            send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-          end
-        end
-      end
-    else
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_COMMENTS, :url => url +"?#{query.to_query}", :data => data)
-      notification_a.save
-
-      comment.contribute.partecipants.each do |user|
-        unless user == comment_user
-          send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end
     end

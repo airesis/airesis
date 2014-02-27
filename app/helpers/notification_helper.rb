@@ -222,51 +222,6 @@ module NotificationHelper
     end
   end
 
-  #invia le notifiche quando un utente inserisce un post sul proprio blog
-  #le notifiche vengono inviate agli utenti che seguono il blog dell'autore,
-  #agli utenti che seguono o partecipano ai gruppi in cui il post è stato inserito
-  def notify_user_insert_blog_post(blog_post)
-    post_user = blog_post.user
-    user_followers = post_user.followers #utenti che seguono il blog
-    sent_users = []
-    data = {'blog_post_id' => blog_post.id.to_s}
-    notification_a = Notification.new(:notification_type_id => 15, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
-    notification_a.save
-    user_followers.each do |user|
-      if (user != post_user) && (!sent_users.include? user)
-        if send_notification_to_user(notification_a, user)
-          sent_users << user
-        end
-      end
-    end
-
-    blog_post.groups.each do |group|
-      #TODO followers are not supported anymore
-      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
-      data['subdomain'] = group.subdomain if group.certified?
-
-      #notifica a chi segue il gruppo
-      #notification_b = Notification.create(:notification_type_id => 8,:url => group_blog_post_url(group, blog_post), data: data)
-      #group.followers.each do |user|
-      #  if (user != post_user) && (!sent_users.include?user)
-      #    if send_notification_to_user(notification_b,user)
-      #      sent_users << user
-      #    end
-      #  end
-      #end
-
-      #notifica a chi partecipa al gruppo
-      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_POST_GROUP, :url => group_blog_post_url(group, blog_post), data: data)
-      group.partecipants.each do |user|
-        if (user != post_user) && (!sent_users.include? user)
-          if send_notification_to_user(notification_b, user)
-            sent_users << user
-          end
-        end
-      end
-    end
-  end
-
 
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
@@ -280,7 +235,7 @@ module NotificationHelper
     end
   end
 
-  #invia una notifica all'utente che è stato accettato come redattore di una proposta
+  #invia una notifica all'utente che è stato accettato come redattore di una proposta e a tutti i partecipanti
   def notify_user_choosed_as_author(user, proposal)
     data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
     notification_a = Notification.new(notification_type_id: NotificationType::AUTHOR_ACCEPTED, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)

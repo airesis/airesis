@@ -92,79 +92,7 @@ $left-menu-width: 250px;
     text-align: right;
 }
 
-
-#menu-right {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 50px;
-    width: 90px;
-    border-left: 1px dotted gray;
-}
-
-@media (max-width: $medium-screen) {
-    #menu-right.small-show {
-        display: block !important;
-        background-color: #333;
-        width: 200px;
-        padding-top: 15px;
-        z-index: 1000;
-        bottom: inherit;
-        .personal_cont {
-            h2 {
-                font-size: 1.2em;
-                font-weight: bold;
-            }
-            li {
-                list-style-type: none;
-                padding: 4px;
-                a {
-                    color: #000;
-                }
-            }
-        }
-    }
-}
-
-@media (min-width: $medium-screen) {
-    #menu-right .mybox {
-        box-shadow: none;
-        background-color: transparent;
-        border: none;
-    }
-}
-
-@media (max-width: $small-screen) {
-    #menu-left.small-show {
-        display: block !important;
-        background-color: #333;
-        position: absolute;
-        z-index: 1000;
-        min-height: 100%;
-    }
-
-    #menu-top .group-cont {
-        margin-right: 0px;
-        right: 0px;
-    }
-
-}
-
-#menu-right .cont {
-    position: fixed;
-    width: 77px;
-    right: 7px;
-}
-
-@media (max-width: ($medium-screen - 1)) {
-    #menu-right .cont {
-        position: relative;
-        margin: auto;
-    }
-}
-
 #account, #account-small {
-
     cursor: pointer;
     color: white;
 
@@ -268,15 +196,14 @@ $left-menu-width: 250px;
 }
 
 .qtip.qtip-avatar {
-    width: auto;
-    max-width: 600px;
-    margin-top: 10px;
+    width: 800px;
+    max-width: 800px;
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.qtip-avatar .personal_cont {
+.qtip-avatar .personal_cont .text-right {
     text-align: right;
 }
 

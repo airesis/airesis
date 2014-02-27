@@ -70,7 +70,15 @@ class BlogPostsController < ApplicationController
     @blog_post = @blog.posts.build
     @blog_post.published = true
 
+
     load_post_groups
+
+    if params[:group_id]
+      group = Group.find(params[:group_id])
+      if (@groups.include? group) || current_user.admin?
+        @blog_post.groups << group
+      end
+    end
 
     respond_to do |format|
       format.html
@@ -87,31 +95,27 @@ class BlogPostsController < ApplicationController
 
   def create
     group_ids = params[:blog_post][:group_ids]
-    group_ids.select! { |id| can? :post_to, Group.find(id) } if group_ids
+    group_ids.select! { |id| (id != '') && (can? :post_to, Group.find(id)) } if group_ids
     BlogPost.transaction do
       @blog_post = @blog.posts.build(params[:blog_post])
       @blog_post.user_id = current_user.id
-
       saved = @blog_post.save
-
       respond_to do |format|
         if saved
-          notify_user_insert_blog_post(@blog_post) if @blog_post.published
+          Resque.enqueue_in(1, NotificationBlogPostCreate, @blog_post.id) if @blog_post.published
           flash[:notice] = t('info.blog_created')
           format.html {
-            if params[:group_id] && !params[:group_id].empty?
+            if params[:group_id].to_s != ''
               @group = Group.find(params[:group_id])
               redirect_to group_url(@group)
             else
-              redirect_to([@blog, @blog_post])
+              redirect_to @blog
             end
           }
-          #format.xml  { render :xml => @blog_post, :status => :created, :location => @blog_post }
         else
           @user = @blog.user
           load_post_groups
           format.html { render :action => "new" }
-          #format.xml  { render :xml => @blog_post.errors, :status => :unprocessable_entity }
         end
       end
     end

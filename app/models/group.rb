@@ -279,9 +279,10 @@ class Group < ActiveRecord::Base
     tag = params[:tag]
 
     page = params[:page] || 1
+    limite = params[:limit] || 30
 
     if tag then
-      Group.all(:joins => :tags, :conditions => ['tags.text = ?', tag], :order => 'group_partecipations_count desc, created_at desc', limit: 30)
+      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_partecipations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search do
         fulltext search, :minimum_match => params[:minimum] if search
@@ -310,7 +311,7 @@ class Group < ActiveRecord::Base
         order_by :group_partecipations_count, :desc
         order_by :created_at, :desc
 
-        paginate :page => page, :per_page => params[:limit] || 30
+        paginate :page => page, :per_page => limite
 
       end.results
     end

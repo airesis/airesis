@@ -1,5 +1,6 @@
 <%@extend=true%>
-<div class="section-container tabs  twocols" data-section="tabs">
+<h1><%=@tag%></h1>
+<dl class="section-container tabs" data-tab>
 
   <dd class="active"><a href="#proposals"><%= t('pages.tags.proposals_tab') %></a></dd>
   <dd><a href="#posts"><%= t('pages.tags.posts_tab') %></a></dd>
@@ -7,8 +8,8 @@
 </dl>
 
 <div class="tabs-content">
-  <div class="content active" id="proposals">
-    <h2><%= t('pages.tags.list_proposals_with_tag') %> '<%= @tag %>'</h2>
+  <div class="content active twocols" id="proposals">
+    <h2><%= t('pages.tags.list_proposals_with_tag') %></h2>
     <% if @proposals.size == 0 %>
         <div class="Proposal">
           <p><%= t('pages.tags.no_proposals_with_tag') %></p>
@@ -19,7 +20,7 @@
   </div>
 
   <div class="content" id="posts">
-    <h2><%= t('pages.tags.list_posts_with_tag') %> '<%= @tag %>'</h2>
+    <h2><%= t('pages.tags.list_posts_with_tag') %></h2>
     <% if @blog_posts.size == 0 %>
         <div class="blogPost">
           <p><%= t('pages.tags.no_posts_with_tag') %></p>
@@ -30,7 +31,7 @@
   </div>
 
   <div class="content" id="groups">
-    <h2><%= t('pages.tags.list_groups_with_tags') %> '<%= @tag %>'</h2>
+    <h2><%= t('pages.tags.list_groups_with_tags') %></h2>
     <% if @groups.size == 0 %>
         <p><%= t('pages.tags.no_groups_with_tag') %></p>
     <% else %>

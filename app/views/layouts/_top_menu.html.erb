@@ -17,14 +17,14 @@
         <li class="has-form">
           <%= form_for Search.new, data: {remote: true} do |f| %>
               <div class="row collapse">
-                <div class="large-10 small-10 columns">
+                <div class="large-12 small-10 columns">
                   <%= f.text_field :q, placeholder: "Find Stuff" %>
                 </div>
-                <div class="large-2 small-2 columns">
+                <!--<div class="large-2 small-2 columns">
                   <%= link_to searches_path do %>
                       <div class="icon-search medium"></div>
                   <% end %>
-                </div>
+                </div>-->
               </div>
           <% end %>
           <div id="search_box" class="card"></div>
@@ -49,7 +49,7 @@
                   <%= current_user.user_image_tag 26, false, false %>
               <% end %>
             </li>
-            <li >
+            <li>
             </li>
             <li><a href="#" onclick="return false;" id="alerts_link">
               <div class="icon-bell medium" title="ALERTS"></div>
@@ -77,18 +77,6 @@
 
 <% unless in_subdomain? %>
     <div id="hover1" class="f-dropdown medium" data-dropdown-content>
-      <div class="group-item">
-        <div style="float:left;">
-          <%= image_tag 'logo30.png', :width => 60, :alt => APP_LONG_NAME %>
-        </div>
-        <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
-
-        <div class="p2">
-          <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
-          <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %>
-        </div>
-        <div class="clearboth"></div>
-      </div>
 
 
       <% if user_signed_in? %>
@@ -98,27 +86,28 @@
           <% else %>
               <% @groups.each do |group| %>
 
-                  <div class="group-item">
-                    <div style="float:left;">
-                      <%= group.group_image_tag(60) rescue nil %>
-                    </div>
-                    <div class="p1">
-                      <%= link_to group.name, group_url(group) %>
-                    </div>
-
-                    <div class="p2">
-                      <%= link_to t('pages.header.groups.proposals'), group_proposals_url(group) %> -
-                      <%= link_to t('pages.header.groups.events'), group_events_url(group) %>
-                    </div>
-                    <div class="clearboth"></div>
-                  </div>
+                  <%= render 'groups/group_menu_item', group: group %>
 
               <% end %>
           <% end %>
-      <% end %>
+      <% else %>
+          <div class="group-item">
+            <div style="float:left;">
+              <%= image_tag 'logo30.png', :width => 60, :alt => APP_LONG_NAME %>
+            </div>
+            <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
 
-      <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'button' %>
-      <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'button' %>
+            <div class="p2">
+              <%= link_to t('pages.header.groups.proposals'), proposals_url(subdomain: false) %> -
+              <%= link_to t('pages.header.groups.events'), events_url(subdomain: false) %>
+            </div>
+            <div class="clearboth"></div>
+          </div>
+      <% end %>
+      <div class="group-item">
+        <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'button' %>
+        <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'button' %>
+      </div>
     </div>
 <% end %>
 

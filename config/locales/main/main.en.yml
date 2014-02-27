@@ -694,6 +694,7 @@ en:
       groups:
         events: "EVENTS"
         proposals: "PROPOSALS"
+        forum: "FORUM"
       no_groups_yet: "You are not in any group yet"
       menu:
         my_page: "MY HOMEPAGE"
@@ -904,11 +905,11 @@ en:
     tags:
       show:
         related_title: "Related tags"
-      list_proposals_with_tag: "Proposals with tag:"
+      list_proposals_with_tag: "Proposals"
       no_proposals_with_tag: "There are no proposals with this tag yet"
-      list_posts_with_tag: "Posts with tag:"
+      list_posts_with_tag: "Posts"
       no_posts_with_tag: "There are no posts with this tag"
-      list_groups_with_tags: "Groups with tag:"
+      list_groups_with_tags: "Groups"
       no_groups_with_tag: "There are no groups with this tag"
       proposals_tab: "Proposals"
       posts_tab: "Posts"
@@ -1454,3 +1455,7 @@ en:
     guide: "FAQ"
   terms_of_service: "Terms"
   privacy_policy: "Privacy"
+  controllers:
+    searches:
+      index:
+        groups_divider: "Groups"
