@@ -1,7 +1,7 @@
 <div class="topic <%= cycle('odd', 'even') %> <%= topic.locked? ? 'locked' : 'unlocked' %>">
   <div class='<%= icon_classes(topic) + 'floatleft' %>'>
   </div>
-  <div class='byline floatleft'>
+  <div class='byline floatleft topic-title'>
     <%= new_since_last_view_text(topic) %>
     <div class='subject'><%= link_to topic.subject, group_forum_topic_url(topic.forum.group, topic.forum, topic) %></div>
     <div class='started-by'><%= t "started_by" %><%= relevant_posts(topic).first.user %></div>

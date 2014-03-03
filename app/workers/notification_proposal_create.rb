@@ -29,7 +29,7 @@ class NotificationProposalCreate < NotificationSender
       else
         receivers = group.scoped_partecipants(GroupAction::PROPOSAL_VIEW)
       end
-      notification_a = Notification.new(:notification_type_id => 10, :url => group_proposal_url(group,proposal), :data => data)
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PROPOSALS, :url => group_proposal_url(group,proposal), :data => data)
       notification_a.save
       receivers.each do |user|
         if user != current_user
@@ -39,7 +39,7 @@ class NotificationProposalCreate < NotificationSender
 
     else
       #if it'a a public proposal
-      notification_a = Notification.new(:notification_type_id => 3, :url => proposal_url(proposal,subdomain: false), :data => data)
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PUBLIC_PROPOSALS, :url => proposal_url(proposal,subdomain: false), :data => data)
       notification_a.save
       User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
         if user != current_user

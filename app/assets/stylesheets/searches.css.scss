@@ -1,0 +1,33 @@
+// Place all the styles related to the searches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search_result_container {
+  height: 40px;
+  .search_result_image {
+    float: left;
+    width: 40px;
+    height: 40px;
+  }
+  .search_result_description {
+    float: left;
+    width: 430px;
+    margin-left: 10px;
+    .search_result_title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0rem 0.5rem;
+    }
+    .search_result_text {
+      .groupDescription {
+        float:left;
+        margin: 0.5rem;
+      }
+
+    }
+  }
+}
+
+.ui-autocomplete-category {
+  text-transform: uppercase;
+}

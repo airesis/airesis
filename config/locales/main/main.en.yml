@@ -787,6 +787,12 @@ en:
         FAQ: "FAQ"
         guide: "GUIDE"
         change_language: "Change language"
+        most_used_tags: "Most used tags"
+        show_tags: "Show all tags"
+        next_events: "Next events"
+        show_events: "Show calendar"
+        most_active_groups: "Most active groups"
+        show_groups: "Show all groups"
       show:
         your_proposals: "Proposals you participate in"
         proposals:

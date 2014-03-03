@@ -777,6 +777,12 @@ it-IT:
         FAQ: "FAQ"
         guide: "GUIDA"
         change_language: "Cambia lingua"
+        most_used_tags: "Tag più utilizzati"
+        show_tags: "Visualizza tutti i tag"
+        next_events: "Prossimi eventi"
+        show_events: "Vai al calendario"
+        most_active_groups: "Gruppi più attivi"
+        show_groups: "Visualizza tutti i gruppi"
       show:
         your_proposals: "Proposte a cui partecipi"
         proposals:

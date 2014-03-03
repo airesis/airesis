@@ -1,4 +1,7 @@
 <div class="title">
   <%= t('pages.home.index.most_active_groups') %>
-  <%=link_to 'Vai ai gruppi', groups_path, class: 'btn' %>
+  <%= link_to t('pages.home.index.show_groups'), groups_path, class: 'btn' %>
+  <div class="scrollable">
+    <%= render partial: 'groups/group_portlet_tag', collection: Group.most_active, as: 'group' %>
+  </div>
 </div>

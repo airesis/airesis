@@ -1,40 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
-<head>
-  <title><%= @page_title ? @page_title + ' - ' + APP_SHORT_NAME : APP_SHORT_NAME %></title>
-  <%= render :partial => "layouts/head" %>
-
-</head>
-<body>
-
 <% content_for :menu do %>
-    <div id="menu-group" class="title-area hide-for-small">
-    <div class="topimage hide-for-small">
-      <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
-    </div>
-    <div class="topmenu">
-      <span class="tit"><%= @page_title %></span>
-    </div>
-    </div>
-<% end %>
+    <div id="menu-group" class="title-area">
+      <div class="topimage">
+        <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
+      </div>
+      <div class="topmenu">
+        <span class="tit left"><%= APP_LONG_NAME %></span>
 
-<%= render :partial => "layouts/header" %>
-<div id="main" style="<%= current_user ? 'right:80px;' : 'right:0px;' %>">
-  <!-- ##### Main Copy ##### -->
-  <div id="main-copy" class="application">
+        <div class="submenu left">
+          <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.proposals_button') %></span>
 
-    <div class="row">
-      <div class="columns large-12">
-          <%= yield :left_panel %>
-          <%= render :partial => 'layouts/tutorials' %>
-          <div id="flash_messages" style="height:20px">
-            <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-          </div>
-          <%= yield :layout %>
+              <div class="icon-file small hide-for-large-up" title="<%= t('pages.open_space.layout.proposals_button') %>"></div>
+          <% end %>
+          <!--<span> ⋅ </span>
+          <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.petitions_button') %></span>
+
+              <div class="icon-pencil small hide-for-large-up" title="<%= t('pages.open_space.layout.petitions_button') %>"></div>
+          <% end %>-->
+          <span> ⋅ </span>
+          <%= link_to(blogs_path, class: ((['blogs'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.blogs_button') %></span>
+
+              <div class="icon-bubble small hide-for-large-up" title="<%= t('pages.open_space.layout.blogs_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to(groups_path, class: ((['groups'].include? params[:controller]) ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.groups_button') %></span>
+
+              <div class="icon-users small hide-for-large-up" title="<%= t('pages.open_space.layout.groups_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to events_path, class: (params[:controller] == 'events' ? 'sel' : '') do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.calendar_button') %></span>
+
+              <div class="icon-calendar small hide-for-large-up" title="<%= t('pages.open_space.layout.calendar_button') %>"></div>
+          <% end %>
+          <span> ⋅ </span>
+          <%= link_to(tags_path, class: (params[:controller] == 'tags' ? 'sel' : '')) do %>
+              <span class="show-for-large-up"><%= t('pages.open_space.layout.tags_button') %></span>
+
+              <div class="icon-tags small hide-for-large-up" title="<%= t('pages.open_space.layout.tags_button') %>"></div>
+          <% end %>
+        </div>
       </div>
     </div>
-    <%= render :partial => "layouts/new_footer" %>
-  </div>
-</div>
-</body>
-</html>
+<% end %>
+<%@noleft = true %>
+<%= render 'layouts/general' %>

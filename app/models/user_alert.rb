@@ -4,7 +4,7 @@ class UserAlert < ActiveRecord::Base
 
   default_scope -> {select('user_alerts.*, notifications.properties || user_alerts.properties as nproperties').joins(:notification)}
 
-  scope :another, ->(attribute,attr_id,user_id,notification_type) {joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id = ? and users.id = ? and user_alerts.checked = false", attribute,attr_id.to_s, notification_type, user_id]).readonly(false)}
+  scope :another, ->(attribute,attr_id,user_id,notification_type) {joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ? and user_alerts.checked = false", attribute,attr_id.to_s, notification_type, user_id]).readonly(false)}
 
   #store_accessor :properties, :ncount
 

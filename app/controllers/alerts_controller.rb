@@ -23,7 +23,15 @@ class AlertsController < ApplicationController
       unread += current_user.user_alerts.where(checked: true).limit(10 - numunread).load
     end
     alerts = unread.map do |alert|
-      {:id => alert.id, :path => alert.checked ? alert.notification.url : check_alert_alert_url(alert), :created_at => (l alert.created_at), :checked => alert.checked, :text => alert.message, :proposal_id => alert.data[:proposal_id], category_name: alert.notification_category.short.downcase, category_title: alert.notification_category.description.upcase}
+      {id: alert.id,
+       path: alert.checked ? alert.notification.url : check_alert_alert_url(alert),
+       created_at: (time_in_words alert.created_at),
+       checked: alert.checked,
+       text: alert.message,
+       proposal_id: alert.data[:proposal_id],
+       category_name: alert.notification_category.short.downcase,
+       category_title: alert.notification_category.description.upcase,
+       image: "<img src=\"/assets/notification_categories/#{alert.notification_category.short.downcase}.png\"/>"}
     end
     @map = {:count => numunread, :alerts => alerts}
   end
@@ -55,7 +63,7 @@ class AlertsController < ApplicationController
 
   #check all notifications in a specific category
   def check_all
-    current_user.user_alerts.joins(:notification => :notification_type).where(['notification_category_id = ? and user_alerts.checked = ?', params[:id].to_i, false]).check_all
+    current_user.user_alerts.where(['user_alerts.checked = ?', false]).check_all
     respond_to do |format|
       format.js { render :nothing => true }
     end

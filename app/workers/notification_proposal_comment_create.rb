@@ -64,12 +64,20 @@ class NotificationProposalCommentCreate < NotificationSender
         end
       end
     else
+      data[:parent_id] = comment.contribute.id
+
       notification_a = Notification.new(:notification_type_id => NotificationType::NEW_COMMENTS, :url => url +"?#{query.to_query}", :data => data)
       notification_a.save
 
       comment.contribute.partecipants.each do |user|
         unless user == comment_user
-          send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+          another = UserAlert.another('parent_id',comment.contribute.id,user.id,NotificationType::NEW_COMMENTS).first
+          if another
+            another.increase_count!
+            PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
+          else
+            send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+          end
         end
       end
     end

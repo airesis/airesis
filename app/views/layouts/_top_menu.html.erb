@@ -14,21 +14,23 @@
               <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true"><%= t('pages.header.groups_title') %></a>
             </li>
         <% end %>
-        <li class="has-form">
-          <%= form_for Search.new, data: {remote: true} do |f| %>
-              <div class="row collapse">
-                <div class="large-12 small-10 columns">
-                  <%= f.text_field :q, placeholder: "Find Stuff" %>
-                </div>
-                <!--<div class="large-2 small-2 columns">
+        <% if current_user %>
+            <li class="has-form">
+              <%= form_for Search.new, data: {remote: true} do |f| %>
+                  <div class="row collapse">
+                    <div class="large-12 small-10 columns">
+                      <%= f.text_field :q, placeholder: "Find Stuff" %>
+                    </div>
+                    <!--<div class="large-2 small-2 columns">
                   <%= link_to searches_path do %>
                       <div class="icon-search medium"></div>
                   <% end %>
                 </div>-->
-              </div>
-          <% end %>
-          <div id="search_box" class="card"></div>
-        </li>
+                  </div>
+              <% end %>
+              <div id="search_box" class="card"></div>
+            </li>
+        <% end %>
       </ul>
 
       <ul class="right">
@@ -42,11 +44,11 @@
         <% if current_user %>
             <li>
               <%= link_to '#', class: 'button account show-for-large-up' do %>
-                  <%= current_user.user_image_tag 26, false, false %>
+                  <%= current_user.user_image_tag 30, false, false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
               <%= link_to '#', class: 'account hide-for-large-up' do %>
-                  <%= current_user.user_image_tag 26, false, false %>
+                  <%= current_user.user_image_tag 30, false, false %>
               <% end %>
             </li>
             <li>
@@ -54,6 +56,20 @@
             <li><a href="#" onclick="return false;" id="alerts_link">
               <div class="icon-bell medium" title="ALERTS"></div>
             </a></li>
+        <% else %>
+            <% if in_subdomain? %>
+                <li>
+                  <%= eval "#{@group.subdomain}_login" if @group %>
+                </li>
+            <% else %>
+                <li>
+                  <a id="login_button" href="#" onclick="return false;" class="button show-for-medium-up"><%= t('pages.header.login') %></a>
+                  <%= link_to t('pages.header.login'), '/users/sign_in', :class => "button show-for-small" %>
+                </li>
+                <li>
+                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'button' %>
+                </li>
+            <% end %>
         <% end %>
       </ul>
     </section>
@@ -105,25 +121,16 @@
           </div>
       <% end %>
       <div class="group-item">
-        <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'button' %>
-        <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'button' %>
+        <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'btn blue' %>
+        <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'btn blue' %>
       </div>
     </div>
 <% end %>
 
-<div id="tolr"
-     <% unless current_user %>class="not_logged"
-     <% end %>>
-  <% unless current_user %>
+<% unless current_user %>
+    <div id="tolr" class="not_logged">
       <div id="inlog">
-        <% if in_subdomain? %>
-            <%= eval "#{@group.subdomain}_login" if @group %>
-        <% else %>
-            <a id="login_button" href="#" onclick="return false;" class="show-for-medium-up"><%= t('pages.header.login') %></a>
-            <%= link_to t('pages.header.login'), '/users/sign_in', :class => "show-for-small" %>
-            -
-            <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name) %>
-        <% end %>
+
       </div>
 
       <div id="login_panel" class="reveal-modal large" data-reveal>
@@ -178,8 +185,9 @@
         </div>
         <a class="close-reveal-modal">&#215;</a>
       </div>
-  <% end %>
-</div>
+    </div>
+<% end %>
+
 
 
 

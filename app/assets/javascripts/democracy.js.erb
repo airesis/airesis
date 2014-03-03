@@ -38,7 +38,6 @@ $(function () {
     }
 
 
-
     $('#menu-group .icon-menu').click(function () {
         var menu_ = $('#menu-left');
         if (menu_.attr('data-expshow') == 'true') {
@@ -72,72 +71,74 @@ $(function () {
 
     var searchcache = {};
     var search_f = $('#search_q');
-    search_f.autocomplete({
-        minLength: 1,
-        source: function (request, response) {
-            var term = request.term;
-            if (term in searchcache) {
-                response(searchcache[ term ]);
-                return;
+    if (search_f.length > 0) {
+        search_f.autocomplete({
+            minLength: 1,
+            source: function (request, response) {
+                var term = request.term;
+                if (term in searchcache) {
+                    response(searchcache[ term ]);
+                    return;
+                }
+                $.getJSON("/searches", request, function (data, status, xhr) {
+                    searchcache[ term ] = data;
+                    response(data);
+                });
+
+            },
+            focus: function (event, ui) {
+                console.log('focus on ' + ui);
+                event.preventDefault();
+            },
+            select: function (event, ui) {
+                window.location.href = ui.item.url;
+                event.preventDefault();
             }
-            $.getJSON("/searches", request, function (data, status, xhr) {
-                searchcache[ term ] = data;
-                response(data);
+
+        });
+        search_f.data("uiAutocomplete")._renderMenu = function (ul, items) {
+            var that = this;
+            $.each(items, function (index, item) {
+                if (item.type == 'Divider') {
+                    ul.append($("<li class='ui-autocomplete-category'>" + item.value + "</li>"));
+                }
+                else {
+                    that._renderItemData(ul, item);
+                }
             });
-
-        },
-        focus: function( event, ui ) {
-          console.log('focus on ' + ui);
-            event.preventDefault();
-        },
-        select: function (event, ui) {
-            window.location.href = ui.item.url;
-            event.preventDefault();
-        }
-
-    });
-    search_f.data("uiAutocomplete")._renderMenu = function (ul, items) {
-        var that = this;
-        $.each(items, function (index, item) {
-            if (item.type == 'Divider') {
-                ul.append($("<li class='ui-autocomplete-category'>" + item.value + "</li>"));
+            $(ul).addClass('f-dropdown').addClass('medium').css('z-index', 1005).css('width', '400px');
+        };
+        search_f.data("uiAutocomplete")._renderItem = function (ul, item) {
+            var el = $("<li>");
+            var link_ = $("<a></a>");
+            var container_ = $('<div class="search_result_container"></div>')
+            var image_ = $('<div class="search_result_image"></div>')
+            container_.append(image_);
+            var desc_ = $('<div class="search_result_description"></div>');
+            desc_.append('<div class="search_result_title">' + item.label + '</div>');
+            var text_ = $('<div class="search_result_text">' + '</div>');
+            if (item.type == 'Blog') {
+                image_.append(item.image);
+                text_.append('<a href="' + item.user_url + '">' + item.username + '</a>');
+            }
+            else if (item.type == 'Group') {
+                text_.append('<div class="groupDescription"><img src="/assets/group_partecipants.png"><span class="count">' + item.partecipants_num + '</span></div>');
+                text_.append('<div class="groupDescription"><img src="/assets/group_proposals.png"><span class="count">' + item.proposals_num + '</span></div>');
+                image_.append('<img src="' + item.image + '"/>');
             }
             else {
-                that._renderItemData(ul, item);
+                image_.append('<img src="' + item.image + '"/>');
             }
-        });
-        $(ul).addClass('f-dropdown').addClass('medium').css('z-index', 1005).css('width', '400px');
-    };
-    search_f.data("uiAutocomplete")._renderItem = function (ul, item) {
-        var el = $("<li>");
-        var link_ = $("<a></a>");
-        var container_ = $('<div class="search_result_container"></div>')
-        var image_ = $('<div class="search_result_image"></div>')
-        container_.append(image_);
-        var desc_ = $('<div class="search_result_description"></div>');
-        desc_.append('<div class="search_result_title">'+item.label+'</div>');
-        var text_ = $('<div class="search_result_text">'+'</div>');
-        if (item.type == 'Blog') {
-            image_.append(item.image);
-            text_.append('<a href="'+item.user_url+'">'+item.username+'</a>');
-        }
-        else if (item.type == 'Group') {
-            text_.append('<div class="groupDescription"><img src="/assets/group_partecipants.png"><span class="count">'+item.partecipants_num+'</span></div>');
-            text_.append('<div class="groupDescription"><img src="/assets/group_proposals.png"><span class="count">'+item.proposals_num+'</span></div>');
-            image_.append('<img src="'+item.image+'"/>');
-        }
-        else {
-            image_.append('<img src="'+item.image+'"/>');
-        }
-        desc_.append(text_);
-        container_.append(desc_);
-        container_.append('<div class="clearboth"></div>')
-        link_.attr('href', item.url);
-        link_.append(container_);
-        el.append(link_);
-        el.appendTo(ul);
-        return el;
-    };
+            desc_.append(text_);
+            container_.append(desc_);
+            container_.append('<div class="clearboth"></div>')
+            link_.attr('href', item.url);
+            link_.append(container_);
+            el.append(link_);
+            el.appendTo(ul);
+            return el;
+        };
+    }
 
 
     $('.submenu a div').qtip({
@@ -689,9 +690,9 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            var box_ = $('.alert_box.logo[data-id=' + id + '] .notify');
+            var box_ = $('.alert.notify.boxed');
             box_.remove();
-            $('#alert_cont_' + id + ' .mess.new').each(function () {
+            $('.cont-mess .mess.new').each(function () {
                 $(this).removeClass('new');
                 var proposal_id = $(this).data('proposal-id');
                 if (proposal_id) {

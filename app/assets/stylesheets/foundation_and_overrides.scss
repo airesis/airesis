@@ -54,7 +54,7 @@ $body-font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
 $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+$primary-color: #008CBA;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -1028,7 +1028,7 @@ $topbar-height: 40px;
 // Style the top bar dropdown elements
 $topbar-dropdown-bg: $topbar-bg-color;
 $topbar-dropdown-link-color: #fff;
-$topbar-dropdown-link-bg: $topbar-bg-color;
+//$topbar-dropdown-link-bg: $topbar-bg-color;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
 $topbar-dropdown-toggle-color: #fff;
@@ -1041,7 +1041,7 @@ $topbar-link-color-active: #fff;
 // $topbar-link-weight: normal;
 // $topbar-link-font-size: rem-calc(13);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
-$topbar-link-bg-hover: $topbar-bg-color;
+$topbar-link-bg-hover: $primary-color;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
@@ -1191,11 +1191,18 @@ $paragraph-line-height: 1.6;
 
 // $include-html-visibility-classes: $include-html-classes;
 
+
+$namespace : false;
+
 @import 'foundation';
 
 //airesis specific
 $left-menu-width: 250px;
-$sectionbar-height: 40px;
+
+$sectionbar-height-large: 40px;
+$sectionbar-height-small: $sectionbar-height-large + 20;
+
+
 
 .medium-bar {
   height: 335px;
@@ -1351,7 +1358,7 @@ ul, ol {
 
 #menu-top {
   top: $topbar-height;
-  height: $sectionbar-height;
+  height: $sectionbar-height-small;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   left: 0px;
@@ -1377,6 +1384,10 @@ ul, ol {
     position: absolute;
     margin-left: 40px;
   }
+
+  @media #{$medium-up} {
+    height: $sectionbar-height-large;
+  }
 }
 
 #menu-group {
@@ -1394,6 +1405,7 @@ ul, ol {
   .tit {
     font-size: 1.2em;
     margin-top: 6px;
+    margin-right: 15px;
   }
 }
 
@@ -1402,25 +1414,30 @@ ul, ol {
   font-weight: bolder;
   font-size: 0.8em;
   margin-top: 4px;
-  margin-left: 15px;
+  margin-left: -10px;
   a {
     display: inline-block;
+    border-radius: 20px;
+    padding: 3px 10px 3px 10px;
     &.sel {
-      border-radius: 20px;
       background-color: rgba(255, 255, 255, 0.3);
-      padding: 3px 10px 3px 10px;
     }
+  }
+  @media #{$medium-up} {
+    margin-left: 0px;
   }
 }
 
 #main {
   position: absolute;
-  top: $topbar-height+$sectionbar-height;
+  top: $topbar-height+$sectionbar-height-small;
   left: 0px;
   right: 0px;
   bottom: 0px;
   display: inherit;
-
+  @media #{$medium-up} {
+    top: $topbar-height+$sectionbar-height-large;
+  }
 }
 
 #main-copy {
@@ -1623,7 +1640,7 @@ $logo-width: 92px;
 }
 
 #centerpanelextended {
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   padding-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
@@ -1783,6 +1800,12 @@ $logo-width: 92px;
   }
 }
 
-
-
-
+@media #{$small-only} {
+  #menu-left.small-show {
+    display: block !important;
+    background-color: #333;
+    position: absolute;
+    z-index: 1000;
+    min-height: 100%;
+  }
+}

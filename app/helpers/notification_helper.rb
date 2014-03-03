@@ -119,7 +119,13 @@ module NotificationHelper
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
         unless proposal.users.include? user
-          send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+          another = UserAlert.another('proposal_id',proposal.id,user.id,[NotificationType::NEW_PROPOSALS,NotificationType::NEW_PUBLIC_PROPOSALS]).first
+          if another
+            another.destroy
+            PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
+          else
+            send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
+          end
         end
       end
     end
@@ -217,7 +223,13 @@ module NotificationHelper
     notification_a.save
     group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
       if user != current_user
-        send_notification_to_user(notification_a, user)
+        another = UserAlert.another('group_id',group.id,user.id,NotificationType::NEW_PARTECIPATION_REQUEST).first
+        if another
+          another.increase_count!
+          PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
+        else
+          send_notification_to_user(notification_a, user)
+        end
       end
     end
   end

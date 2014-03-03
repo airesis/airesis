@@ -279,9 +279,12 @@
                         if (!alert.checked) {
                             alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }
-
-                        alert_container.append($('<p class="p2">' + alert.created_at + '</p>'));
-                        alert_container.append($('<p class="p2">' + alert.text + '</p>'));
+                        var notif_container = $('<div class="mess_desc"></div>');
+                        notif_container.append($('<p class="p2">' + alert.text + '</p>'));
+                        notif_container.append($('<div class="p1">' + alert.created_at + '</div>'));
+                        alert_container.append(alert.image);
+                        alert_container.append(notif_container);
+                        alert_container.append('<div class="clearboth"></div>');
                         sub_container.append(alert_container);
                     }
                     if (obj.alerts.length == 0) {
@@ -309,7 +312,7 @@
                             delay: 500
                         },
                         style: {
-                            classes: 'qtip-light qtip-shadow',
+                            classes: 'qtip-light qtip-shadow qtip-alerts',
                             tip: {
                                 corner: 'top right',
                                 mimic: 'center',
@@ -327,6 +330,7 @@
                                 this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
                                 e.preventDefault();
                             });
+                    disegnaCountdown();
 
                 },
                 error: function (data) {

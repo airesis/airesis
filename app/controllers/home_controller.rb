@@ -17,6 +17,7 @@ class HomeController < ApplicationController
   before_filter :initialize_roadmap, :only => [:bugtracking]
 
   def index
+    @page_title = 'Home'
     if current_user
       render 'open_space'
     end

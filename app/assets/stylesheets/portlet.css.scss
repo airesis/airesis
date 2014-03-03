@@ -42,7 +42,7 @@
       height: 400px;
 
       .scrollable {
-        height: 364px;
+        height: 348px;
         overflow-x: hidden;
         overflow-y: auto;
       }
@@ -67,9 +67,11 @@
       }
 
       .title {
-        font-size: 1.2em;
+        font-size: 1.2rem;
         font-weight: bold;
-        padding: 5px;
+        padding: 0px 5px;
+        min-height: 45px;
+        line-height: 40px;
       }
     }
   }

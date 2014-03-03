@@ -20,6 +20,50 @@ $border-color: #e2e2e2;
     }
 }
 
+.mini_topics {
+    .topic {
+        border-bottom: 1px dotted #ccc;
+        padding: 6px 0px;
+        .icon {
+            height: 20px;
+            width: 25px;
+        }
+    }
+}
+
+.topic {
+    .icon {
+        background: url('<%=asset_path 'frm/topic_read.gif'%>') no-repeat center;
+        &.lock {
+            background-image: url('<%=asset_path 'frm/topic_read_locked.gif'%>');
+        }
+        &.new_posts {
+            background-image: url('<%=asset_path 'frm/topic_unread.gif'%>');
+            &.lock {
+                background-image: url('<%=asset_path 'frm/topic_unread_locked.gif'%>');
+            }
+        }
+        &.pin {
+            background-image: url('<%=asset_path 'frm/sticky_read.gif'%>');
+            &.lock {
+                background-image: url('<%=asset_path 'frm/sticky_read_locked.gif'%>');
+            }
+            &.new_posts {
+                background-image: url('<%=asset_path 'frm/sticky_unread.gif'%>');
+                &.lock {
+                    background-image: url('<%=asset_path 'frm/sticky_unread_locked.gif'%>');
+                }
+            }
+        }
+    }
+    .topic-title {
+        width: 47%;
+    }
+    .latest-post {
+        width: 40%;
+    }
+}
+
 .forums, .topics, .posts {
     border: 1px solid $border-color;
     border-collapse: collapse;
@@ -32,34 +76,6 @@ $border-color: #e2e2e2;
     .topic {
         .icon {
             width: 3%;
-            background: url('<%=asset_path 'frm/topic_read.gif'%>') no-repeat center;
-            &.lock {
-                background-image: url('<%=asset_path 'frm/topic_read_locked.gif'%>');
-            }
-            &.new_posts {
-                background-image: url('<%=asset_path 'frm/topic_unread.gif'%>');
-                &.lock {
-                    background-image: url('<%=asset_path 'frm/topic_unread_locked.gif'%>');
-                }
-            }
-            &.pin {
-                background-image: url('<%=asset_path 'frm/sticky_read.gif'%>');
-                &.lock {
-                    background-image: url('<%=asset_path 'frm/sticky_read_locked.gif'%>');
-                }
-                &.new_posts {
-                    background-image: url('<%=asset_path 'frm/sticky_unread.gif'%>');
-                    &.lock {
-                        background-image: url('<%=asset_path 'frm/sticky_unread_locked.gif'%>');
-                    }
-                }
-            }
-        }
-        .topic-title {
-            width:  47%;
-        }
-        .latest-post {
-            width:  40%;
         }
     }
 
@@ -76,14 +92,14 @@ $border-color: #e2e2e2;
     }
 
     .forum-description {
-        width:  45%;
+        width: 45%;
     }
     .topics-count, .posts-count, .views-count {
         text-align: center;
-        width:  5%;
+        width: 5%;
     }
     .last-post {
-        width:  40%;
+        width: 40%;
     }
 
     tbody {
@@ -93,11 +109,9 @@ $border-color: #e2e2e2;
                 font-size: 0.9em;
                 padding: 0.5em;
 
-
                 &.topics-count {
 
                 }
-
 
                 &.forum-description, &.last-post, &.byline {
                     padding-left: 20px;
@@ -182,7 +196,6 @@ $border-color: #e2e2e2;
     border-bottom: 3px solid #232323;
     font-size: 110%;
 }
-
 
 .contents.span7 {
     float: left;

@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:slugged,:history]
+  friendly_id :name, use: [:slugged, :history]
 
   has_paper_trail :class_name => 'GroupVersion'
 
@@ -35,7 +35,7 @@ class Group < ActiveRecord::Base
   has_many :followers, :through => :group_follows, :source => :user, :class_name => 'User'
   has_many :posts, :through => :post_publishings, :source => :blog_post, :class_name => 'BlogPost'
   has_many :partecipation_requests, :class_name => 'GroupPartecipationRequest', :dependent => :destroy
-  has_many :partecipation_roles, -> {order 'id DESC'}, :class_name => 'PartecipationRole', :dependent => :destroy
+  has_many :partecipation_roles, -> { order 'id DESC' }, :class_name => 'PartecipationRole', :dependent => :destroy
   #has_many :partecipation_roles, :class_name => 'PartecipationRole'
   belongs_to :interest_border, :class_name => 'InterestBorder', :foreign_key => :interest_border_id
   belongs_to :default_role, :class_name => 'PartecipationRole', :foreign_key => :partecipation_role_id
@@ -61,9 +61,9 @@ class Group < ActiveRecord::Base
   has_many :internal_proposals, :through => :group_proposals, :class_name => 'Proposal', :source => :proposal
 
   has_many :group_quorums, :class_name => 'GroupQuorum', :dependent => :destroy
-  has_many :quorums, -> {order 'seq nulls last, quorums.id'}, :through => :group_quorums, :class_name => 'BestQuorum', :source => :quorum
+  has_many :quorums, -> { order 'seq nulls last, quorums.id' }, :through => :group_quorums, :class_name => 'BestQuorum', :source => :quorum
 
-  has_many :voters, -> {include(:partecipation_roles).where(["partecipation_roles.id = ?", 2])}, :through => :group_partecipations, :source => :user, :class_name => 'User'
+  has_many :voters, -> { include(:partecipation_roles).where(["partecipation_roles.id = ?", 2]) }, :through => :group_partecipations, :source => :user, :class_name => 'User'
 
   has_many :invitation_emails, :class_name => 'GroupInvitationEmail', dependent: :destroy
 
@@ -221,7 +221,7 @@ class Group < ActiveRecord::Base
 
   #restituisce la lista dei portavoce del gruppo
   def portavoce
-    self.partecipants.where(["group_partecipations.partecipation_role_id = ?",PartecipationRole::PORTAVOCE])
+    self.partecipants.where(["group_partecipations.partecipation_role_id = ?", PartecipationRole::PORTAVOCE])
   end
 
   def partecipant_tokens=(ids)
@@ -290,21 +290,21 @@ class Group < ActiveRecord::Base
         if params[:interest_border_obj]
           border = params[:interest_border_obj]
           if params[:area]
-            with(:interest_border_id,border.id)
+            with(:interest_border_id, border.id)
           else
-          if border.is_continente?
-            with(:continente_id, border.territory.id)
-          elsif border.is_stato?
-            with(:stato_id, border.territory.id)
-          elsif border.is_regione?
-            with(:regione_id, border.territory.id)
-          elsif border.is_provincia?
-            with(:provincia_id, border.territory.id)
-          elsif border.is_comune?
-            with(:comune_id, border.territory.id)
-          elsif border.is_circoscrizione?
-            with(:circoscrizione_id, border.territory.id)
-          end
+            if border.is_continente?
+              with(:continente_id, border.territory.id)
+            elsif border.is_stato?
+              with(:stato_id, border.territory.id)
+            elsif border.is_regione?
+              with(:regione_id, border.territory.id)
+            elsif border.is_provincia?
+              with(:provincia_id, border.territory.id)
+            elsif border.is_comune?
+              with(:comune_id, border.territory.id)
+            elsif border.is_circoscrizione?
+              with(:circoscrizione_id, border.territory.id)
+            end
           end
         end
         order_by :score, :desc
@@ -317,6 +317,10 @@ class Group < ActiveRecord::Base
     end
   end
 
+
+  def self.most_active
+    Group.order(:group_partecipations_count => :desc).limit(5)
+  end
 
 
   searchable do

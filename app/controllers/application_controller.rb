@@ -3,7 +3,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include GroupsHelper, NotificationHelper, StepHelper
+  include ApplicationHelper, GroupsHelper, NotificationHelper, StepHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   after_filter :discard_flash_if_xhr

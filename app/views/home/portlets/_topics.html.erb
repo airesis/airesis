@@ -4,7 +4,7 @@
 <% @c = @user.viewed_topics.order('created_at desc').limit(10) %>
 <% unless @c.empty? %>
     <div class="scrollable">
-      <div class="topics">
+      <div class="mini_topics">
       <%= render partial: 'frm/topics/mini_topic', collection: @c, as: 'topic' %>
       </div>
     </div>

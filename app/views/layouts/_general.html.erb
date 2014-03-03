@@ -15,21 +15,35 @@
     </div>
   </div>
   <div id="main-copy">
-    <div id="menu-left" class="show-for-medium-up">
-      <div class="menu2">
-        <%= yield :left_panel %>
-      </div>
-    </div>
-    <div id="centerpanelextended">
-      <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
-        <%= render :partial => 'layouts/tutorials' %>
-        <div id="flash_messages">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+    <% if @noleft %>
+        <div class="row" style="padding-bottom:30px;">
+          <div class="columns large-12">
+            <%= yield :left_panel %>
+            <%= render :partial => 'layouts/tutorials' %>
+            <div id="flash_messages" style="height:20px">
+              <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+            </div>
+            <%= yield :layout %>
+          </div>
         </div>
-        <%= yield :layout %>
-      </div>
-      <div class="clearboth"></div>
-    </div>
+    <% else %>
+        <div id="menu-left" class="show-for-medium-up">
+          <div class="menu2">
+            <%= yield :left_panel %>
+          </div>
+        </div>
+
+        <div id="centerpanelextended">
+          <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+            <%= render :partial => 'layouts/tutorials' %>
+            <div id="flash_messages">
+              <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+            </div>
+            <%= yield :layout %>
+          </div>
+          <div class="clearboth"></div>
+        </div>
+    <% end %>
     <%= render :partial => "layouts/footer" %>
   </div>
 </div>
