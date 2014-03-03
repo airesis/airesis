@@ -48,89 +48,89 @@ pt-PT:
           problems_question: Qual é o problema a ser resolvido e/ou quais são os obstáculos a ultrapassar para alcançar o objetivo?
           problems_title_label: Qual é o problema a ser resolvido e/ou quais são os obstáculos a ultrapassar para alcançar o objetivo?
           objectives_title: Objectivos
-          step_4_title: Você pode inserir um texto da proposta ou escrevê-lo mais tarde baseando-se na entrada recebida
+          step_4_title: Pode inserir um texto da proposta ou escrevê-lo mais tarde baseando-se nos contributos recebidos
           solution:
             description: Descrição da solução
-            time: Vezes
+            time: Tempo
             subject: Supervisor
-            resources: Recursos necessários e como recuperá-los
+            resources: Recursos necessários e como os obter
             aspects: Aspectos éticos, ambientais, sociais
             documents: Documentação
-            pros: Profissionais de tecnologias de informação
+            pros: Prós
             cons: Contras
             title: Solução 1
-          suggestion_html: "<div><b>Exemplo:</b></div> <div>Reduzir o uso de água potável para irrigação.</div> <div>Usando água para regar os parques públicos e jardins privados é um desperdício e tem custos relevantes. Além que o aquífero que abastece o aqueduto está fraco</div>"
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Reduzir o uso de água potável para irrigação.</div> <div>Usando água para regar os parques públicos e jardins privados é um desperdício e tem custos relevantes. Além que o aquífero que abastece o aqueduto está fraco</div>'
           paragraph:
             similar: Experiências semelhantes
             stakeholders: Partes interessadas
             requirements: Requisitos da solução
           question:
             paragraph:
-              similar: Existem experiências para inspirar para atingir o objetivo? Entre as possíveis soluções / iniciativas já em vigor, que alcançaram os melhores resultados e qual o pior? Por que?
-              stakeholders: Quem receberá os benefícios e as desvantagens da realização do objetivo e as soluções propostas? Estes temas foram envolvidos na discussão desta proposta? De que forma?
-              requirements: Quais são as características que devem respeitar a solução ideal? Podem ser referidos requisitos técnicos que os valores e princípios a serem observados.
+              similar: Existem experiências em que se inspirar para atingir o objetivo? Entre as possíveis soluções/iniciativas já em vigor, quais alcançaram os melhores resultados e quais o pior? Por quê?
+              stakeholders: Quem receberá os benefícios e as desvantagens da realização do objetivo e das soluções propostas? Esses sujeitos foram envolvidos na discussão desta proposta? De que forma?
+              requirements: Quais são as características que a solução ideal deve respeitar? Podem ser referidos requisitos técnicos assim como os valores e princípios a serem observados.
             solution:
-              description: Descreva a solução que, na prática, propõe-se a tomar para atingir o objetivo.
-              time: Quando será implementada esta solução? Identifica as etapas possíveis de implementação.
-              subject: Como irá implementar, ou organizar para implementar a solução? Como será monitorado e verificado, no caso de implementação, os resultados da solução?
-              resources: Existem fundos necessários, voluntários, ferramentas e habilidades para implementar esta solução? Listá-los e quantificá-los. Como esses recursos vão ser encontrados?
-              aspects: Esta solução satisfaz os requisitos éticos do grupo ou comunidade a que é dirigida? Qual é o seu impacto social e ambiental?
-              documents: Há documentação disponível para esta solução?
-              pros: Listar e resumir as principais vantagens e pontos fortes desta solução. Indica quem são os interessados das vantagens.
-              cons: Listar e resumir os principais problemas e desvantagens desta solução. Indica quem são os interessados das desvantagens.
+              description: Descreva a solução que, na prática, se propõe tomar para atingir o objetivo.
+              time: Quando será implementada esta solução? Identificar as etapas possíveis de implementação.
+              subject: Quem deverá implementar, ou organizar a implementação da solução? Como será monitorado e verificado o resultado da solução, caso seja implementada?
+              resources: Existem fundos necessários, voluntários, ferramentas e habilidades para implementar esta solução? Listá-los e quantificá-los. Como vão ser encontrados esses recursos?
+              aspects: Esta solução satisfaz os requisitos éticos do grupo ou comunidade a que é dirigida? Qual será o seu impacto social e ambiental?
+              documents: Há documentação disponível sobre esta solução?
+              pros: Listar e resumir as principais vantagens e pontos fortes desta solução. Indicar quem são os interessados das vantagens.
+              cons: Listar e resumir os principais problemas e desvantagens desta solução. Indicar quem são os interessados das desvantagens.
         rule_book:
           problems_title: Problemas
-          problems_title_label: Quais são os problemas a serem resolvidos com a aplicação do presente regulamento. Quais são as questões a serem reguladas? Porquê?
+          problems_title_label: Quais são os problemas a serem resolvidos com a aplicação deste regulamento? Quais são as questões a ser reguladas? Porquê?
           problems_question: Quais são os problemas a serem resolvidos com a aplicação do presente regulamento. Quais são as questões a serem reguladas? Porquê?
-          suggestion_html: '<div><b>Exemplo:</b></div> <div>Livro de regras para reservar o St Peter hall</div> <div>a cidade de Silverham tem uma sala de conferência que hoje em dia é usada somente por "companheiros" do prefeito. Está na hora de escolher um procedimento imparcial para conceder a todos os cidadãos e associações públicas o direito de reservar o espaço para eventos públicos.</div>'
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Livro de regras para reservar a sala de conferências</div> <div>a cidade do Barreiro tem uma sala de conferências que hoje em dia é usada somente por "amigos" do autarca. Está na altura de escolher um procedimento imparcial para conceder a todos os cidadãos e associações públicas o direito de reservar o espaço para eventos públicos.</div>'
           solution:
             title: Solução 1
-            article: "Artigo %{num}"
-            pros: Profissionais de tecnologias de informação
+            article: 'Artigo %{num}'
+            pros: Prós
             cons: Contras
           paragraph:
-            inspire: Regulamento para inspirar a partir
-            requirements: Requisitos para atender
+            inspire: Regulamento no qual se inspirar
+            requirements: Requisitos a preencher
             stakeholders: Partes interessadas (pessoas envolvidas)
           question:
             paragraph:
-              inspire: Existem regulamentos de onde obter inspiraçã? Entre as experiências de regras semelhantes, que alcançaram os melhores resultados e qual o pior? Por que?
-              requirements: Quais são as principais restrições que o regulamento deve levar em consideração? Quais são os valores e os princípios a serem observados? Qual será o custo de aplicação do Regulamento? Que assuntos serão instruídos para aplicá-la?
+              inspire: Existem regulamentos análogos, para usar como ponto de partida? Entre as experiências de regras semelhantes, quais alcançaram os melhores resultados e quais o pior? Porquê?
+              requirements: Quais são as principais limitações que o regulamento deve levar em consideração? Quais são os valores e os princípios a serem observados? Qual será o custo de aplicação do Regulamento? Quem será encarregado de o aplicar?
               stakeholders: Quem é mais afetado pela aplicação do Regulamento? Quem vai sofrer as consequências? Estes temas foram envolvidos na discussão desta proposta? Como?
             solution:
-              article: Insira o texto do artigo primeiro, assegurando que sua interpretação aparece exclusiva. Inserir uma definição de termos ou expressões estão sujeitos a engano.
+              article: Insira o texto do artigo primeiro, assegurando que sua a interpretação seja inequívoca. Inserir uma definição de termos ou expressões sujeitos a mal-entendidos.
               pros: Listar e resumir as principais vantagens e pontos fortes desta solução. Indica quem são os interessados das vantagens.
               cons: Listar e resumir os principais problemas e desvantagens desta solução. Indica quem são os interessados das desvantagens.
         press:
-          problems_title_label: Qual é a mensagem que você deseja transmitir? Que obstáculos são esperados para sua compreensão adequada e córregos? Existem artigos ou notícias recentes que você deseja replicar ou para o qual você deseja fornecer um ajuste?
+          problems_title_label: Qual é a mensagem que deseja transmitir? Que obstáculos são esperados à sua compreensão e difusão adequada? Existem artigos ou notícias recentes que você deseja replicar ou retificar?
           problems_title: Mensagem a transmitir
-          problems_question: Qual é a mensagem que você deseja transmitir? Que obstáculos são esperados para sua compreensão adequada e córregos? Existem artigos ou notícias recentes que você deseja replicar ou para o qual você deseja fornecer um ajuste?
-          suggestion_html: "<div><b>Exemplo:</b></div> <div>Anunciar o lançamento da versão 3.5 do Airesis.</div> <div>Temos de anunciar o lançamento da versão 3.5 do Airesis, que traz características importantes para as administrações públicas. É preciso explicar o que é Aires e cativam a atenção da imprensa, tendo em conta os recentes rumores sobre o uso de Aires na casa branca.</div>"
+          problems_question: Qual é a mensagem que deseja transmitir? Que obstáculos são esperados à sua compreensão e difusão adequada? Existem artigos ou notícias recentes que você deseja replicar ou retificar?
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Anunciar o lançamento da versão 3.5 do Airesis.</div> <div>Temos de anunciar o lançamento da versão 3.5 do Airesis, que traz novidades importantes para as administrações públicas. É preciso explicar o que é Airesis a quem não o conhece e cativar a atenção da imprensa, fazendo luz sobre os recentes rumores sobre o uso do Airesis na Casa Branca.</div>'
           solution:
             title: Solução 1
             maintitle: Título
             subtitle: Subtítulo
-            incipit: Incipit
-            body: Corpo da mensagem
+            incipit: Introdução
+            body: Corpo
             conclusion: Conclusões
-            deep: Insights
+            deep: Aprofundamento
           paragraph:
             target: Destinatários/alvo
           question:
             paragraph:
-              target: Quem é o alvo do artigo / comunicado de imprensa? Que aspectos da mensagem que você deseja transmitir está mais interessado em?
+              target: Quem é o alvo do artigo/comunicado de imprensa? Em que aspectos da mensagem que deseja transmitir está mais interessado?
             solution:
-              maintitle: Como você pode resumir em poucas palavras, a mensagem do artigo / comunicado de imprensa?
-              subtitle: Indica em poucas palavras, um conceito-chave do artigo ou informações adicionais à contida no título.
-              incipit: Indicar em poucas palavras, quem fez o quê, quando ele fez, onde e por quê, destacando porque o fato é muito relevante.
-              body: Descreva mais detalhadamente, mas sintético, o fato. Escreva frases curtas e significativas.
-              conclusion: Existem propostas para o leitor? O que poderia ser a possível evolução de fato ou suas implicações?
+              maintitle: Como se poderá resumir, em poucas palavras e de modo apelativo, a mensagem do artigo/comunicado de imprensa?
+              subtitle: Indique, em poucas palavras, um conceito-chave do artigo ou informações complementares à contida no título.
+              incipit: Indicar em poucas palavras quem fez o quê, quando, onde e porquê, destacando o motivo pelo qual o facto é muito relevante.
+              body: Descreva mais detalhadamente, mas de forma sintética, o facto. Escreva frases curtas e significativas.
+              conclusion: Existem propostas para o leitor? Qual poderia ser a possível evolução do facto ou as suas implicações?
               deep: Inserir links, contactos ou informações adicionais para aqueles que desejam aprofundar a notícia.
         estimate:
           problems_title_label: Que bens ou serviços você deseja comprar? Para resolver quais problemas?
           problems_title: Problemas
           problems_question: Que bens ou serviços você deseja comprar? Para resolver quais problemas?
-          suggestion_html: "<div><b>Exemplo:</b></div> <div>Substituição da planta térmica na sede da associação.</div> <div>Por causa da avaria da caldeira velha, o nosso bairro é impraticável durante os invernos. Dado que não é possível corrigi-lo, temos de substituir a velha usina térmica com um novo, com baixo consumo de energia.</div>"
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Substituição da caldeira na sede da Associação.</div> <div>Por causa da avaria da caldeira velha, a nossa sede é inutilizável durante o Inverno. Dado que não é possível arranjá-la, temos de substituir a velha caldeira por uma nova, com baixo consumo de energia.</div>'
           solution:
             title: Solução 1
             cost: Quantia
@@ -139,16 +139,16 @@ pt-PT:
           paragraph:
             technical_constrains: Limitações técnicas
             temporal_constrains: Limitações temporais
-            other_constrains: Ambiental, ética, limitações regulamentares
+            other_constrains: Ambientais, éticos, limitações regulamentares
             budget: Orçamento máximo
             recipient_budget: Destinatários do pedido de cotação
         agenda:
           problems_title: Tipo de reunião
-          suggestion_html: "<div><b>Exemplo:</b></div> <div>Escolher uma agenda para nossa reunião.</div> <div>Reunião ordinária coordenação de trocar experiências com os responsáveis dos comités locais para a agricultura biológica da Itália.</div>"
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Escolher uma agenda para a nossa reunião.</div> <div>Reunião de coordenação ordinária para a troca de experiências com os responsáveis dos comités locais para a agricultura biológica em Portugal.</div>'
           solution:
             title: Item
             priorities: prioridade do item
-            links: Links de insights
+            links: Links de aprofundamento
             description: Descrição
             estimated_time: Tempo de discussão necessária
           paragraph:
@@ -158,7 +158,7 @@ pt-PT:
           problems_title: Âmbito do evento
           problems_title_label: Por que você quer organizar um evento? Quais são os objectivos?
           problems_question: Por que você quer organizar um evento? Quais são os objectivos?
-          suggestion_html: "<div><b>Exemplo:</b></div> <div>Organizar um concerto de rock de baixo custo.</div> <div>Na nossa cidade, existem várias bandas jovens que não podem mostrar e melhorar o seu talento, por falta de espaço. Além disso, existem alguns eventos promovidos pelo nosso município para o próximo verão, devido à falta de recursos.</div>"
+          suggestion_html: '<div><b>Exemplo:</b></div> <div>Organizar um concerto de rock de baixo custo.</div> <div>Na nossa cidade, existem várias bandas jovens que não podem mostrar e melhorar o seu talento, por falta de espaço. Além disso, existem alguns eventos promovidos pelo nosso município para o próximo verão, devido à falta de recursos.</div>'
           solution:
             title: Solução 1
             maintitle: Título
@@ -176,11 +176,11 @@ pt-PT:
             desired_characteristics: Características desejadas
         candidates:
           solution:
-            name: Sobrenome e nome do candidato
+            name: Nome e apelido do candidato
             data: Dados pessoais
             curriculum: Currículo
           paragraph:
-            election_type: "Descrição do tipo de eleição:"
+            election_type: 'Descrição do tipo de eleição:'
         simple:
           problems_title: Problema
           problems_title_label: Qual é o problema a ser resolvido e/ou quais são os obstáculos a ultrapassar para alcançar o objetivo?
