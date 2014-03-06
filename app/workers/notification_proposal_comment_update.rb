@@ -14,7 +14,7 @@ class NotificationProposalCommentUpdate < NotificationSender
     comment_user = comment.user
 
     rankers = comment.rankers.where("users.id != #{comment.user_id}")
-
+    host = comment_user.locale.host
     if rankers.size > 0
       nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, proposal.id)
       name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
@@ -24,12 +24,12 @@ class NotificationProposalCommentUpdate < NotificationSender
       query = {'comment_id' => comment.id.to_s}
       if proposal.private?
         group = proposal.presentation_groups.first
-        url = group_proposal_url(group, proposal)
+        url = group_proposal_url(group, proposal,{host: host})
         data['group'] = group.name
         data['group_id'] = group.id
         data['subdomain'] = group.subdomain if group.certified?
       else
-        url = proposal_url(proposal)
+        url = proposal_url(proposal,{host: host})
       end
       if comment.paragraph
         query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id

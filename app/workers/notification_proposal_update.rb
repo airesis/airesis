@@ -13,13 +13,13 @@ class NotificationProposalUpdate < NotificationSender
     proposal = Proposal.find(proposal_id)
     current_user = User.find(current_user_id)
     group = Group.find(group_id) if group_id
-
+    host = current_user.locale.host
     data = {'proposal_id' => proposal.id.to_s, 'revision_id' => (proposal.last_revision.try(:id)), 'title' => proposal.title, 'i18n' => 't'}
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(:notification_type_id => NotificationType::TEXT_UPDATE, :url => group ? group_proposal_url(group, proposal,{host: host}) : proposal_url(proposal,{host: host}), :data => data)
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user
