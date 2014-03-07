@@ -27,30 +27,45 @@
       </p>
 
       <p>
-        <%= f.label :published %>
-        <%= f.label :published_true do %>
-            <%= f.radio_button :published, true, :checked => "checked" %>
+        <%= f.label :status %>
+        <%= f.label :status_p, title: t('.published_title') do %>
+            <%= f.radio_button :status, 'P', :checked => "checked" %>
             <%= t('activerecord.attributes.blog_post.published_true') %>
         <% end %>
-        <%= f.label :published_false do %>
-            <%= f.radio_button :published, false %>
+        <%= f.label :status_r, title: t('.reserved_title') do %>
+            <%= f.radio_button :status, 'R' %>
+            <%= t('activerecord.attributes.blog_post.published_reserved') %>
+        <% end %>
+        <%= f.label :status_d, title: t('.draft_title') do %>
+            <%= f.radio_button :status, 'D'%>
             <%= t('activerecord.attributes.blog_post.published_false') %>
         <% end %>
       </p>
 
       <% if @groups.count > 0 %>
           <p>
+            <%= f.label :group_ids %>
             <%= f.select :group_ids, @groups.map { |group| [group.name, group.id, {'data-image' => group.image_url}] }, {}, multiple: '', style: 'width: 80%;' %>
           </p>
       <% end %>
       <p>
         <input type="hidden" name="group_id" value="<%= params[:group_id] %>"/>
-        <%= link_to t('buttons.cancel'), :back, :class => 'btn' %>
-        <%= f.submit t('buttons.save'), :class => 'btn blue' %>
+        <%= link_to t('buttons.cancel'), :back, :class => 'btn', id: 'cancel_button', data: {disable_with: t('loading')} %>
+        <%= f.submit t('buttons.save'), :class => 'btn blue', id: 'save_button', data: {disable_with: t('loading')} %>
 
       </p>
 
       <div style="clear: both;"></div>
+    </div>
+<% end %>
+
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <div class="mycont">
+        <%= link_to t('buttons.save'), '#', onclick: "$('#save_button').click();return false;", class: 'btn blue' %>
+        <%= link_to t('buttons.cancel'), '#', onclick: "$('#cancel_button').click();return false;", class: 'btn ' %>
+      </div>
     </div>
 <% end %>
 
@@ -85,6 +100,13 @@
         $('#blog_post_group_ids').select2({
             formatResult: format,
             formatSelection: format
+        });
+
+        $('label').qtip({
+            position: {
+                my: 'bottom left',
+                at: 'top left'
+            }
         });
 
     });

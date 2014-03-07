@@ -69,7 +69,7 @@
 -->
 
 <h1><%= t('pages.groups.index.find_group_label') %></h1>
-<div class="row full-width">
+<div class="row full-width groups_row">
   <div class="columns large-6" id="group_search_form">
      <div class="card">
 
@@ -99,7 +99,7 @@
     <% end %>
      </div>
   </div>
-  <div class="columns large-6">
+  <div class="columns large-6 show-for-large-up">
     <div id="tag_cloud" class="card">
       <% @tags.each do |tag| %>
           <%= link_to tag.text, groups_url(tag: tag.text), remote: true, rel: tag.groups_count %>
@@ -201,9 +201,6 @@
 
 <%= content_for :left_panel do %>
     <div class="mybox">
-      <% if ::Configuration::open_space_proposals %>
-          <%= link_to t('pages.groups.index.open_space_button'), root_path, :class => "btn forwardButton" %>
-      <% end %>
       <% if !current_user || (can? :create, Group) %>
           <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
       <% else %>

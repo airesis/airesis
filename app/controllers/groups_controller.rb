@@ -50,7 +50,12 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
+    if current_user
+      @group_posts = @group.posts.viewable_by(current_user).includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
+    else
+      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
+    end
+
     respond_to do |format|
       format.js {
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)

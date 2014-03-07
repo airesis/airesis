@@ -6,13 +6,13 @@ class BlogPostsController < ApplicationController
   helper :blog
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :tag, :show]
+  before_filter :authenticate_user!, :except => [:index, :show]
 
   #l'utente deve aver creato un blog personale, oppure viene rimandato alla pagina per la creazione
-  before_filter :require_blog, :except => [:index, :show, :tag]
+  before_filter :require_blog, :except => [:index, :show]
 
   #before_filter :require_user, :except => [:index, :show, :tag]
-  before_filter :load_blog, :except => [:tag]
+  before_filter :load_blog
 
   before_filter :load_blog_post, only: :show
 
@@ -56,6 +56,7 @@ class BlogPostsController < ApplicationController
 
 
   def show
+    authorize! :read, @blog_post
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
@@ -68,8 +69,7 @@ class BlogPostsController < ApplicationController
 
   def new
     @blog_post = @blog.posts.build
-    @blog_post.published = true
-
+    @blog_post.status = 'P'
 
     load_post_groups
 
@@ -102,7 +102,7 @@ class BlogPostsController < ApplicationController
       saved = @blog_post.save
       respond_to do |format|
         if saved
-          Resque.enqueue_in(1, NotificationBlogPostCreate, @blog_post.id) if @blog_post.published
+          Resque.enqueue_in(1, NotificationBlogPostCreate, @blog_post.id) unless @blog_post.draft?
           flash[:notice] = t('info.blog_created')
           format.html {
             if params[:group_id].to_s != ''
@@ -177,7 +177,7 @@ class BlogPostsController < ApplicationController
     @blog = Blog.find(params[:blog_id]) if params[:blog_id]
     @user = @blog.user if @blog
 
-    @group = (params[:group_id] && !params[:group_id].empty?) ? Group.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
+    @group = (params[:group_id] && !params[:group_id].empty?) ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by(subdomain: request.subdomain) : nil
     @groups = current_user.groups if current_user
   end
 

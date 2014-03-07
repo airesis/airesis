@@ -3,15 +3,18 @@
     <section class="top-bar-section">
       <div class="logo-wrapper hide-for-small-only">
         <div class="logo">
-          <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px'), root_path, tabindex: 1 %>
+          <%= link_to (image_tag 'logo_new.png', class: "logo1", style: 'height:30px', data: ({dropdown: "airesis_panel", options: "is_hover:true;align:center;"} unless true)), root_path, tabindex: 1 %>
         </div>
       </div>
 
 
       <ul class="left">
         <% unless in_subdomain? %>
-            <li class="has-form show-for-large-up">
-              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true"><%= t('pages.header.groups_title') %></a>
+            <li class="has-form">
+              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:true">
+                <span class="icon-users small"></span>
+                <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
+              </a>
             </li>
         <% end %>
         <% if current_user %>
@@ -37,25 +40,29 @@
         <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
               <div class="icon-heart medium"></div>
           <% end %></li>
-        <li class="hide-for-small"><a href="#" onclick="return false;">
-          <div class="icon-question medium cur info" title="TUTORIAL"></div>
-        </a></li>
+        <li class="hide-for-small">
+          <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:true"} do %>
+              <div class="icon-question medium cur info" title="TUTORIAL"></div>
+          <% end %>
+        </li>
 
         <% if current_user %>
             <li>
-              <%= link_to '#', class: 'button account show-for-large-up' do %>
+              <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:true"} do %>
                   <%= current_user.user_image_tag 30, false, false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
-              <%= link_to '#', class: 'account hide-for-large-up' do %>
+              <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:true"} do %>
                   <%= current_user.user_image_tag 30, false, false %>
               <% end %>
             </li>
             <li>
             </li>
-            <li><a href="#" onclick="return false;" id="alerts_link">
-              <div class="icon-bell medium" title="ALERTS"></div>
-            </a></li>
+            <li>
+              <%= link_to "#", onclick: "return false;", id: "alerts_link", data: {dropdown: "alert_cont", options: "is_hover:true"} do %>
+                  <div class="icon-bell medium" title="ALERTS"></div>
+              <% end %>
+            </li>
         <% else %>
             <% if in_subdomain? %>
                 <li>
@@ -77,19 +84,16 @@
 </div>
 
 
-<div id="help_panel" style="display:none;">
-  <%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class: 'btn feedbackButton' %>
-  <br/>
-  <%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class: 'btn videoButton' %>
-  <br/>
-  <%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class: 'btn bookmarkButton' %>
-  <br/>
-  <%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class: 'btn help' %>
-  <br/>
-  <%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class: 'btn infoButton' %>
-  <br/>
-  <%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'btn contactButton' %>
-</div>
+<ul id="help_panel" class="f-dropdown xsmall" data-dropdown-content>
+
+    <li><%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class: 'feedbackButton' %></li>
+    <li><%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class: 'videoButton' %></li>
+    <li><%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class: 'bookmarkButton' %></li>
+    <li><%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class: 'helpButton' %></li>
+    <li><%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class: 'infoButton' %></li>
+    <li><%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'contactButton' %></li>
+
+</ul>
 
 <% unless in_subdomain? %>
     <div id="hover1" class="f-dropdown medium" data-dropdown-content>
@@ -124,6 +128,10 @@
         <%= link_to t('pages.header.open_group'), new_group_url(subdomain: false), class: 'btn blue' %>
         <%= link_to t('pages.header.new_group'), groups_url(subdomain: false), class: 'btn blue' %>
       </div>
+    </div>
+
+    <div id="airesis_panel" class="f-dropdown medium" data-dropdown-content>
+      PANEL
     </div>
 <% end %>
 

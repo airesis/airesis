@@ -15,9 +15,6 @@
 
   <h3 class="blogPostTitle">
     <%= link_to(h(blog_post.title), group_blog_post_url(@group, blog_post)) %>
-    <% if !blog_post.published? %>
-        [<%= t('pages.blog_posts.drafts') %>]
-    <% end %>
   </h3>
 
   <div class="blogPostBody">

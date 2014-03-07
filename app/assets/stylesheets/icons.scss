@@ -23,7 +23,7 @@
   -moz-osx-font-smoothing: grayscale;
   &.medium {
     font-size: 26px;
-    line-height: 40px;
+    line-height: 26px;
   }
 
   &.small {
@@ -31,6 +31,16 @@
     line-height: 13px;
   }
 }
+
+.top-bar {
+  [class^="icon-"], [class*=" icon-"] {
+    &.medium {
+      line-height: 40px;
+    }
+  }
+
+}
+
 
 
 .icon-search:before {

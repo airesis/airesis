@@ -26,7 +26,11 @@
           <p><%= t('pages.tags.no_posts_with_tag') %></p>
         </div>
     <% else %>
-        <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+        <%@blog_posts.each do |blog_post| %>
+        <div class="container-2">
+        <%= render 'blog_posts/blog_post', blog_post: blog_post %>
+        </div>
+        <% end %>
     <% end %>
   </div>
 

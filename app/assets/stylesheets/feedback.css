@@ -413,7 +413,6 @@ button.feedback-btn.small, input[type="submit"].feedback-btn.small {
 }
 
 #feedback-highlight-close {
-    background: #ccc;
     border:1px solid black;
     text-align:center;
     line-height:20px;

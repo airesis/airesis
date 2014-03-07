@@ -16,7 +16,7 @@ class EventsController < ApplicationController
       format.ics do
         @events = @group ?
             @group.events.all :
-            @events = Event.all(:conditions => ["private = false"])
+            @events = Event.where(private: false).all
         calendar = Icalendar::Calendar.new
         @events.each do |event|
           calendar.add_event(event.to_ics)

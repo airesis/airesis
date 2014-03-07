@@ -1,28 +1,12 @@
-$small-screen: 640px;
-$medium-screen: 1024px;
-$large-screen: 1440px;
-$left-menu-width: 250px;
-
+@import "foundation/functions";
+@include exports("global") {}
+@import "foundation/components/global";
 
 #pulldown #menu-left {
     width: 0px;
     height: 0px;
     padding-top: 0px;
 }
-
-#menu-left {
-    float: left;
-    width: $left-menu-width;
-    padding-top: 10px;
-    display: none;
-}
-
-@media (min-width: $small-screen) {
-    #menu-left {
-        display: block;
-    }
-}
-
 
 #logo-airesis {
     float: left;
@@ -31,7 +15,7 @@ $left-menu-width: 250px;
 
 
 .group_tag_fade {
-    background-image: url('<%=asset_path 'vertical_blue_line.png'%>');
+    background-image: asset_url('vertical_blue_line.png');
     height: 20px;
     position: absolute;
     width: 20px;
@@ -237,10 +221,10 @@ $left-menu-width: 250px;
         top: 13px;
         width: 16px;
         height: 16px;
-        background-image: url('<%=asset_path 'menu_open.png'%>');
+        background-image: asset_url('menu_open.png');
         cursor: pointer;
         &.close {
-            background-image: url('<%=asset_path 'menu_close.png'%>');
+            background-image: asset_url('menu_close.png');
         }
     }
     .separator {

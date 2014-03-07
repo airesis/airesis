@@ -132,25 +132,16 @@ class ProposalsController < ApplicationController
 
   def banner
     @proposal = Proposal.find(params[:id])
-
-    if @proposal.is_petition?
-      respond_to do |format|
-        format.js
-        format.html {render 'banner', layout: false}
-      end
-    else
-      render nothing: true, status: 404
+    respond_to do |format|
+      format.js
+      format.html { render 'banner', layout: false }
     end
   end
 
   def test_banner
     @proposal = Proposal.find(params[:id])
-    if @proposal.is_petition?
-      respond_to do |format|
-        format.html
-      end
-    else
-      render nothing: true, status: 404
+    respond_to do |format|
+      format.html
     end
   end
 
@@ -267,7 +258,7 @@ class ProposalsController < ApplicationController
     rescue Exception => e
       log_error(e)
       respond_to do |format|
-        format.js {render 'error_new'}
+        format.js { render 'error_new' }
       end
     end
   end

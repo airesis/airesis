@@ -21,11 +21,24 @@ class BlogPost < ActiveRecord::Base
 	validates_presence_of :title
 	validates_presence_of :body
 	
-	scope :published, -> { where(:published => true).order('published_at DESC') }
-	scope :drafts, -> { where(:published => false).order('published_at DESC')}
+	scope :published, -> { where(:status => ['P','R']).order('published_at DESC') }
+	scope :drafts, -> { where(:status => 'D').order('published_at DESC')}
+  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_partecipations.user_id = ?)",user.id).joins(:groups => [:group_partecipations]).select('distinct blog_posts.*')}
 	
 	before_save :check_published, :if => :not_resaving?
 	before_save :save_tags, :if => :not_resaving?
+
+  def published?
+    self.status == 'P'
+  end
+
+  def draft?
+    self.status == 'D'
+  end
+
+  def reserved?
+    self.status == 'R'
+  end
 
 	def tags_list
 		@tags_list ||= self.tags.map(&:text).join(', ')
@@ -66,7 +79,7 @@ class BlogPost < ActiveRecord::Base
 	
 
 	def check_published
-		if self.published_change && self.published_change == [false, true]
+		if self.status_change && ([['D', 'P'],['D', 'R'], ['P','R']].include? self.status_change)
 			# Moved to published state, update published_on
 			self.published_at = Time.now
 		end
@@ -74,22 +87,6 @@ class BlogPost < ActiveRecord::Base
 	
 	def show_user?
 		self.user
-	end
-
-  #TODO to remove in 3.0
-	def parsed_body
-		image_parsed_body = self.body.gsub(/[{]blog_image[:]([0-9]+)[:]([a-zA-Z]+)[}]/) do |str|
-			puts "IMAGE ID: #{$1.to_i}"
-			img = Image.find_by_id($1.to_i)
-
-			if img
-				img.image.url($2)
-			else
-				''
-			end
-		end
-		ret = code_highlight_and_markdown(image_parsed_body).force_encoding(Encoding::UTF_8)
-		return ret
 	end
 
 	def formatted_updated_at

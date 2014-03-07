@@ -1,10 +1,11 @@
+<%@extend = true%>
 <h1><%='Tutti i blog'%></h1>
 <% javascript 'endless_page' %>
 
 <div id="blogsContainer">
 <%=render partial: 'blog', :collection => @blogs %>
 </div>
-
+<div class="clearboth"></div>
 <div id="loading_results">
   <span><%= t('pages.blogs.show.other_blogs') %></span>
 </div>

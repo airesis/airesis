@@ -2,24 +2,6 @@
 @include exports("global") {}
 @import "foundation/components/global";
 
-
-#homecont .portlet_panel {
-  width: 100%;
-}
-
-
-@media (min-width: 1201px) and (max-width: 1600px) {
-  #homecont .portlet_panel {
-    width: 50%;
-  }
-}
-
-@media (min-width: 1601px) {
-  #homecont .portlet_panel {
-    width: 33%;
-  }
-}
-
 #notification-portlet {
   overflow: auto;
   height: 260px;

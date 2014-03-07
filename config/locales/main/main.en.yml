@@ -670,6 +670,7 @@ en:
         delete_button_confirm: "Are you sure you want to delete this post?"
         draft: "Draft"
         comments_says: "says..."
+        reserved: "reserved"
       published_button: "Published posts"
       view:
         comments: "Comments (%{count})"
@@ -1016,6 +1017,7 @@ en:
         published: 'State'
         published_true: 'Published'
         published_false: 'Draft'
+        published_reserved: "Reserved"
       partecipation_role:
          name: 'Name'
          description: 'Short description'
@@ -1465,3 +1467,11 @@ en:
     searches:
       index:
         groups_divider: "Groups"
+  tags:
+    index:
+      tag_title: "%{proposals} proposals - %{blog_posts} blog posts - %{groups} groups"
+  blog_posts:
+    form:
+      published_title: "Your post will be published on the web and everyone will be able to see, share and comment it"
+      reserved_title: "Your post will be visible only to users which belongs to the groups in which you publish"
+      draft_title: "Your post is visible only to you"

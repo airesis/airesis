@@ -119,9 +119,7 @@
 <% if user_signed_in? %>
     <%= subscribe_to "/notifications/#{current_user.id}" %>
 
-    <div id="avatar-qtip" style="display: none;">
-      <%= render :partial => 'layouts/personal_menu' %>
-    </div>
+    <%= render :partial => 'layouts/personal_menu' %>
 <% end %>
 
 <script type="text/javascript">
@@ -143,31 +141,6 @@
             },
             show: {
                 solo: true
-            }
-        });
-
-
-        $('.cur.info').qtip({
-            content: $('#help_panel'),
-            position: {
-                at: 'bottom center',
-                my: 'top center',
-                viewport: $(window),
-                effect: false,
-                adjust: {
-                    method: 'shift',
-                    x: 0, y: 0
-                }
-            },
-            style: {
-                classes: 'qtip-light qtip-shadow qtip-cur'
-            },
-            show: {
-                solo: true
-            },
-            hide: {
-                fixed: true,
-                delay: 500
             }
         });
 
@@ -256,20 +229,21 @@
                 type: 'get',
                 url: "<%=polling_alerts_path%>",
                 success: function (data) {
-                    $('#alerts_link').qtip('destroy');
-                    var obj = data;
-                    if (obj.count > 0) {
-                        $('#alerts_link').append($('<button class="alert notify boxed">').append(obj.count));
+                    if (data.count > 0) {
+                        $('#alerts_link').append($('<button class="alert notify boxed">').append(data.count));
                     }
-                    var n_container = $('<div id="alert_cont" class="cont-mess" style="display:none">');
+                    var n_container = $("#alert_cont");
+                    n_container.empty();
                     var read_container = $('<div class="read_all">');
-                    read_container.append($('<a href="#" onclick="sign_all_as_read(' + obj.id + ');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
+                    read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;"><%=t('pages.header.menu.sign_has_read')%></a>'));
                     var sub_container = $('<div class="cont1">');
                     n_container.append(read_container).append(sub_container);
                     for (var j = 0; j < data.alerts.length; j++) {
                         var alert = data.alerts[j];
-                        var alert_container = $('<a class="mess" href="' + alert.path + '">');
+                        var li_alert_con = $('<li></li>');
 
+                        var alert_container = $('<a class="mess" href="' + alert.path + '">');
+                        li_alert_con.append(alert_container);
                         alert_container.addClass(alert.checked ? 'old' : 'new');
 
                         if (alert.proposal_id) {
@@ -277,7 +251,7 @@
                         }
 
                         if (!alert.checked) {
-                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + obj.id + '" onclick="read_notifica(this);return false;"></span>'));
+                            alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="<%=I18n.t('pages.header.read')%>" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></span>'));
                         }
                         var notif_container = $('<div class="mess_desc"></div>');
                         notif_container.append($('<p class="p2">' + alert.text + '</p>'));
@@ -285,43 +259,11 @@
                         alert_container.append(alert.image);
                         alert_container.append(notif_container);
                         alert_container.append('<div class="clearboth"></div>');
-                        sub_container.append(alert_container);
+                        sub_container.append(li_alert_con);
                     }
-                    if (obj.alerts.length == 0) {
+                    if (data.alerts.length == 0) {
                         sub_container.append($('<span><%=t('pages.header.no_alerts')%></span>'));
                     }
-                    $('body').append(n_container);
-
-                    $('#alerts_link').qtip({
-                        prerender: true,
-                        content: n_container,
-                        position: {
-                            at: 'bottom right',
-                            my: 'top right',
-                            viewport: $(window),
-                            effect: false,
-                            adjust: {
-                                x: -28, y: -8
-                            }
-                        },
-                        show: {
-                            solo: true
-                        },
-                        hide: {
-                            fixed: true,
-                            delay: 500
-                        },
-                        style: {
-                            classes: 'qtip-light qtip-shadow qtip-alerts',
-                            tip: {
-                                corner: 'top right',
-                                mimic: 'center',
-                                width: 8,
-                                height: 8,
-                                offset: 28
-                            }
-                        }
-                    });
 
                     $('.cont1')
                             .bind('mousewheel DOMMouseScroll', function (e) {
@@ -342,55 +284,12 @@
                 }
             });
         }
-
         poll();
-
-        $('.account').qtip({
-            content: $('#avatar-qtip'),
-            position: {
-                at: 'bottom right',
-                my: 'top right',
-                viewport: $(window),
-                effect: false,
-                adjust: {
-                    x: -5, y: -8
-                }
-            },
-            show: {
-                solo: true
-            },
-            hide: {
-                fixed: true,
-                delay: 500
-            },
-            style: {
-                classes: 'qtip-light qtip-shadow qtip-avatar',
-                tip: {
-                    corner: 'top right',
-                    mimic: 'center',
-                    width: 8,
-                    height: 8,
-                    offset: 5
-                }
-            }
-        });
-
-        $('#account-small').click(function () {
-            var menu_ = $('#menu-right');
-            if (menu_.attr('data-expshow') == 'true') {
-                menu_.removeClass('small-show');
-                menu_.attr('data-expshow', false);
-            }
-            else {
-                menu_.addClass('small-show');
-                menu_.attr('data-expshow', true);
-            }
-        });
 
         <%else%>
         $('#login_button').click(function () {
             $('#login_panel').foundation('reveal', 'open');
-        })
+        });
         $('#registration-panel')
                 .hide()
                 .click(function (event) {

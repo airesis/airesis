@@ -6,7 +6,7 @@ module Frm
     belongs_to :user, :class_name => 'User'
 
     validates :viewable_id, :viewable_type, :presence => true
-    attr_accessible :user, :current_viewed_at, :count
+    attr_accessible :user_id, :current_viewed_at, :count
 
     scope :topics,  -> {where "viewable_type = 'Frm::Topic'"}
     def viewed_at

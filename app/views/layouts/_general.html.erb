@@ -11,7 +11,15 @@
 <div id="main">
   <div id="menu-top">
     <div style="position:relative">
-      <%= yield :menu %>
+      <div id="menu-group" class="title-area">
+        <%if content_for? :left_panel%>
+            <a href="#" onclick="return false;" class="icon-menu medium show-for-small-only left">
+              <div ></div>
+            </a>
+        <%end%>
+        <%= yield :menu %>
+      </div>
+
     </div>
   </div>
   <div id="main-copy">
@@ -27,14 +35,15 @@
           </div>
         </div>
     <% else %>
+        <% if content_for?(:left_panel) %>
         <div id="menu-left" class="show-for-medium-up">
           <div class="menu2">
             <%= yield :left_panel %>
           </div>
         </div>
-
-        <div id="centerpanelextended">
-          <div class="centerfloat <%= raw @extend ? 'extended' : '' %>">
+        <%end%>
+        <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel)%> <%= 'nomargin' if @nomargin%>">
+          <div class="centerfloat <%= 'extended' if @extend %>">
             <%= render :partial => 'layouts/tutorials' %>
             <div id="flash_messages">
               <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>

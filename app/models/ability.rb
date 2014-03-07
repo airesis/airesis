@@ -197,6 +197,13 @@ class Ability
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
       end
 
+      can :read, BlogPost do |blog_post|
+        blog_post.published? ||
+        blog_post.user == user ||
+        (blog_post.reserved? && can_view_post?(user,blog_post))
+
+      end
+
       can :update, BlogPost do |blog_post|
         blog_post.user == user
       end
@@ -436,12 +443,15 @@ class Ability
       true
     end
 
-
     def can_regenerate_proposal?(user, proposal)
       return false unless proposal.abandoned?
       proposal.private ?
           can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_INSERT) :
           true
+    end
+
+    def can_view_post?(user,blog_post)
+      blog_post.groups.joins(:group_partecipations).where('group_partecipations.user_id = ?',user.id).exists?
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

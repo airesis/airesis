@@ -2,24 +2,6 @@
 @include exports("global") {}
 @import "foundation/components/global";
 
-@media (max-width: 1200px) {
-    .groupListContainer {
-        width: 100%;
-    }
-}
-
-@media (min-width: 1201px) and (max-width: 1600px) {
-    .groupListContainer {
-        width: 50%;
-    }
-}
-
-@media (min-width: 1601px) {
-    .groupListContainer {
-        width: 33.33%;
-    }
-}
-
 .groupDescription {
     .count {
         vertical-align: middle;
@@ -198,34 +180,6 @@ input.minutes {
     position: relative;
     display: table;
 }
-
-.group_infos {
-    /*position: absolute;
-    right: 0px;
-    top: 0px;
-    max-width: 500px;*/
-    display: table-cell;
-    vertical-align: top;
-    max-width: 472px;
-}
-
-.posts_container_main {
-    max-width: 800px;
-    /*margin-right: 500px;*/
-    display: table-cell;
-    vertical-align: top;
-}
-
-@media (max-width: 1200px) {
-    .group_infos {
-        display: none;
-    }
-    .posts_container_main {
-        max-width: 100%;
-        margin-right: 0px;
-    }
-}
-
 
 //search panel
 

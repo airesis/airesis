@@ -111,13 +111,13 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     log_error(exception)
-    render :template => "/errors/500.html.erb", :status => 500
+    render :template => "/errors/500.html.erb", :status => 500, layout: 'application'
   end
 
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      format.html { render "errors/404", :status => 404, :layout => true }
+      format.html { render "errors/404", :status => 404, :layout => 'application' }
       #format.xml  { render :nothing => true, :status => '404 Not Found' }
     end
     true

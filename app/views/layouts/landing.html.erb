@@ -1,22 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>">
-<head>
-  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
-  <%= render :partial => "layouts/head" %>
-</head>
-<body>
-
-
+<%@nomargin=true%>
+<%@extend=true%>
 <% content_for :menu do %>
-    <div id="menu-group" class="title-area">
       <div class="topimage hide-for-small">
-        <%= image_tag 'logo120.png', :width => 60, :alt => APP_LONG_NAME %>
+        <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
       </div>
-      <div class="topmenu">
-        <div class="tit left"><%= @page_title %></div>
-        <div class="topbar-menu-icon left"></div>
+      <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
+        <span class="tit left"><%= @page_title %></span>
 
-        <div class="submenu mycont hide-for-small left">
+        <div class="submenu left">
           <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: ((['whatis','intro'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
           <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: ((['engage'].include? params[:action]) ? 'sel' : '') %>
@@ -34,38 +25,6 @@
           <% end %>
         </div>
       </div>
-    </div>
 <% end %>
 
-<%= render :partial => "layouts/header" %>
-
-<div id="main">
-  <div id="menu-top">
-    <div style="position:relative">
-      <%= yield :menu %>
-    </div>
-  </div>
-  <div id="main-copy">
-    <div id="pulldown">
-      <div class="full-width">
-        <div id="menu-left">
-          <div class="menu2">
-            <div class="mybox show-for-small">
-              <%= yield :menu %>
-            </div>
-            <%= yield :left_panel %>
-          </div>
-        </div>
-
-        <%= yield :layout %>
-
-      </div>
-
-      <%= render :partial => "layouts/footer" %>
-    </div>
-  </div>
-</div>
-
-
-</body>
-</html>
+<%= render 'layouts/general'%>

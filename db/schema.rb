@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131172503) do
+ActiveRecord::Schema.define(version: 20140307152328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
@@ -152,13 +153,14 @@ ActiveRecord::Schema.define(version: 20140131172503) do
 
   create_table "blog_posts", force: true do |t|
     t.integer  "blog_id"
-    t.string   "title",                        null: false
+    t.string   "title",                                  null: false
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",    default: false, null: false
+    t.boolean  "published",              default: false, null: false
     t.datetime "published_at"
     t.integer  "user_id"
+    t.string   "status",       limit: 1, default: "P",   null: false
   end
 
   create_table "blog_tags", force: true do |t|

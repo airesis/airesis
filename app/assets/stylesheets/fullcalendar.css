@@ -649,7 +649,7 @@ table.fc-border-separate {
 }
 
 .fc-event-time {
-    display: inline-block;
+/*    display: inline-block;*/
     vertical-align: top;
     width: 15%;
     margin-right: 8px;
