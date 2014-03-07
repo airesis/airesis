@@ -1,5 +1,0 @@
-<%if !@new_user_alerts.empty?%>
-	$('.alerts_link').addClass('to_read');
-	$('.alerts_link .number').html('<%=@new_user_alerts.size%>');
-<%end%>
-$('#notification-panel, #notification-portlet').html("<%= escape_javascript(render(:partial => 'alerts/polling'))%>");

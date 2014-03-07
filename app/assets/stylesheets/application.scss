@@ -6,7 +6,6 @@
  *= require proposal
  *= require users/users
  *= require token-input
- *= require groups
  *= require fullcalendar
  *= require dialog
  *= require event
@@ -37,6 +36,6 @@
  *= require select2
  *= require frm
  *= require jquery.textntags
- *= require foundation_and_overrides
-
 */
+@import 'foundation_and_overrides';
+@import 'groups'       ;

@@ -4,12 +4,11 @@
 <% end %>
 
 <script type="text/javascript">
-
     var pageURL = "<%= event_event_comments_url(@event) %>";
-
 </script>
 
 <% javascript 'endless_page' %>
+
 <div class="row full-width">
   <% if !@event.is_elezione? %>
       <script type="text/javascript"
@@ -27,7 +26,7 @@
           </h3>
 
           <div class="event_content" itemprop="description">
-            <%= @event.description %>
+            <%= simple_format(@event.description) %>
           </div>
         </div>
 
@@ -117,9 +116,6 @@
               });
           </script>
       <% end %>
-
-
-
       <!--	<div class="user_tag last_tag shadow-box">
 
               <div class="content">

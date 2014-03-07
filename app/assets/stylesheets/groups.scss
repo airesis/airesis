@@ -1,3 +1,7 @@
+@import "foundation/functions";
+@include exports("global") {}
+@import "foundation/components/global";
+
 @media (max-width: 1200px) {
     .groupListContainer {
         width: 100%;
@@ -167,7 +171,7 @@ input.minutes {
 
 
 .title_fade {
-    background-image: url('<%=asset_path 'vertical_line.png'%>');
+    background-image: asset_url('vertical_line.png');
     height: 20px;
     position: absolute;
     width: 20px;
@@ -176,7 +180,7 @@ input.minutes {
 }
 
 .territory_fade {
-    background-image: url('<%=asset_path 'vertical_line.png'%>');
+    background-image: asset_url('vertical_line.png');
     height: 20px;
     position: absolute;
     width: 20px;
@@ -278,5 +282,12 @@ input.minutes {
             border-color: #ccc;
             background-color: #ccc;
         }
+    }
+}
+
+
+.groups_row {
+    .columns {
+        padding-left: 0px;
     }
 }

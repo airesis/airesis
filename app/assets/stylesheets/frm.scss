@@ -1,4 +1,4 @@
-$title-background: url('<%=asset_path 'yellow_stripe.png'%>');
+$title-background: asset_url('yellow_stripe.png');
 //$title-border-color: #9933cc;
 //$title-border-color: #aa66cc;
 $link-color: #aa150e;
@@ -33,25 +33,25 @@ $border-color: #e2e2e2;
 
 .topic {
     .icon {
-        background: url('<%=asset_path 'frm/topic_read.gif'%>') no-repeat center;
+        background: asset_url('frm/topic_read.gif') no-repeat center;
         &.lock {
-            background-image: url('<%=asset_path 'frm/topic_read_locked.gif'%>');
+            background-image: asset_url('frm/topic_read_locked.gif');
         }
         &.new_posts {
-            background-image: url('<%=asset_path 'frm/topic_unread.gif'%>');
+            background-image: asset_url('frm/topic_unread.gif');
             &.lock {
-                background-image: url('<%=asset_path 'frm/topic_unread_locked.gif'%>');
+                background-image: asset_url('frm/topic_unread_locked.gif');
             }
         }
         &.pin {
-            background-image: url('<%=asset_path 'frm/sticky_read.gif'%>');
+            background-image: asset_url('frm/sticky_read.gif');
             &.lock {
-                background-image: url('<%=asset_path 'frm/sticky_read_locked.gif'%>');
+                background-image: asset_url('frm/sticky_read_locked.gif');
             }
             &.new_posts {
-                background-image: url('<%=asset_path 'frm/sticky_unread.gif'%>');
+                background-image: asset_url('frm/sticky_unread.gif');
                 &.lock {
-                    background-image: url('<%=asset_path 'frm/sticky_unread_locked.gif'%>');
+                    background-image: asset_url('frm/sticky_unread_locked.gif');
                 }
             }
         }
@@ -217,13 +217,13 @@ blockquote {
 .lock.icon {
     width: 24px;
     height: 24px;
-    background: transparent url(<%= asset_path('lock_icon.png') %>) 0 0;
+    background: transparent asset_url('lock_icon.png') 0 0;
     display: inline-block;
 }
 
 .pin.icon {
     width: 9px;
     height: 15px;
-    background: transparent url(<%= asset_path('pin_icon.png') %>) 0 0;
+    background: transparent asset_url('pin_icon.png') 0 0;
     display: inline-block;
 }

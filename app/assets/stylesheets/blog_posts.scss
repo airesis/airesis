@@ -99,3 +99,27 @@
     margin-left:5px;
   }
 }
+
+.blog_post_list {
+  padding: 10px 0px;
+  border-bottom: 1px dotted #ccc;
+  .comment_avatar {
+    float:left;
+  }
+  .blog_post_desc {
+    float:left;
+    margin-left: 10px;
+    max-width: 365px;
+    .blog_post_title {
+      font-size: 1.1em;
+      font-weight: bold;
+      line-height: 1.3em;
+      white-space: nowrap;
+      overflow-x: hidden;
+    }
+    .blog_post_footer {
+      margin-top: 3px;
+      font-size: 0.9em;
+    }
+  }
+}

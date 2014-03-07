@@ -14,17 +14,18 @@ class NotificationProposalCommentCreate < NotificationSender
     comment_user = comment.user
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, proposal.id)
     name = (nickname && proposal.is_anonima?) ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
+    host = comment_user.locale.host
     url = nil
 
     data = {'comment_id' => comment.id.to_s, 'proposal_id' => proposal.id.to_s, 'to_id' => "proposal_c_#{proposal.id}", 'username' => name, 'name' => name, 'title' => proposal.title, 'i18n' => 't', 'count' => 1}
     query = {'comment_id' => comment.id.to_s}
     if proposal.private?
       group = proposal.presentation_groups.first
-      url = group_proposal_url(group,proposal)
+      url = group_proposal_url(group,proposal,{host: host})
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     else
-      url = proposal_url(proposal)
+      url = proposal_url(proposal,{host: host})
     end
     if comment.paragraph
       query['paragraph_id'] = data['paragraph_id'] = comment.paragraph_id

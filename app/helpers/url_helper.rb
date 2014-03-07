@@ -1,18 +1,17 @@
 module UrlHelper
 
-  def with_subdomain(subdomain)
-    subdomain = (subdomain || "")
+  def with_subdomain(options)
+    subdomain = (options.delete(:subdomain) || "")
     subdomain += "." unless subdomain.empty?
-    subdomain += "www." if (!request || !request.subdomain.empty?) && (subdomain.empty?)
-    host = ((defined? request) && request) ? request.domain : Rails.application.config.action_mailer.default_url_options[:host]
-    host = '10.0.2.2' if (Rails.env == 'development') && !host
+    subdomain += "www." if (!(defined? request) || !request || !request.subdomain.empty?) && (subdomain.empty?)
+    host = options[:host] || (((defined? request) && request) ? request.domain : Rails.application.config.action_mailer.default_url_options[:host])
     host = host.gsub('www.','').split(':')[0]
-    [subdomain, host].join
+    options[:host] = [subdomain, host].join
   end
 
   def url_for(options = nil)
       if options.kind_of?(Hash) && options.has_key?(:subdomain)
-      options[:host] = with_subdomain(options.delete(:subdomain))
+      with_subdomain(options)
       super
     elsif options.kind_of?(Group)
       if !request.subdomain.empty? && options.certified

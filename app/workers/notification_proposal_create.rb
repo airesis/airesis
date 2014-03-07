@@ -13,6 +13,7 @@ class NotificationProposalCreate < NotificationSender
     proposal = Proposal.find(proposal_id)
     current_user = User.find(current_user_id)
     data = {'proposal_id' => proposal.id.to_s, 'proposal' => proposal.title, 'i18n' => 't'}
+    host =  current_user.locale.host  #TODO non è corretto. l'host dovrebbe essere quello di chi riceve la mail ma allora dobbiamo spostare l'url nell'alert. da fare nella 4.0
     if group_id
       #if it's a group proposal
       group = Group.find(group_id)
@@ -29,7 +30,7 @@ class NotificationProposalCreate < NotificationSender
       else
         receivers = group.scoped_partecipants(GroupAction::PROPOSAL_VIEW)
       end
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PROPOSALS, :url => group_proposal_url(group,proposal), :data => data)
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PROPOSALS, :url => group_proposal_url(group,proposal, host: host), :data => data)
       notification_a.save
       receivers.each do |user|
         if user != current_user
@@ -39,7 +40,7 @@ class NotificationProposalCreate < NotificationSender
 
     else
       #if it'a a public proposal
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PUBLIC_PROPOSALS, :url => proposal_url(proposal,subdomain: false), :data => data)
+      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_PUBLIC_PROPOSALS, :url => proposal_url(proposal,{subdomain: false, host: host}), :data => data)
       notification_a.save
       User.where("id not in (#{User.select("users.id").joins(:blocked_alerts).where("blocked_alerts.notification_type_id = 3").to_sql})").each do |user|
         if user != current_user

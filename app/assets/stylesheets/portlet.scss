@@ -1,8 +1,12 @@
-@media (max-width: 1200px) {
-  #homecont .portlet_panel {
-    width: 100%;
-  }
+@import "foundation/functions";
+@include exports("global") {}
+@import "foundation/components/global";
+
+
+#homecont .portlet_panel {
+  width: 100%;
 }
+
 
 @media (min-width: 1201px) and (max-width: 1600px) {
   #homecont .portlet_panel {

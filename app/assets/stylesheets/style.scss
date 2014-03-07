@@ -214,10 +214,6 @@ table.dataTable td .blogUserImage {
     text-decoration: none;
 }
 
-#notification-panel ul.menu-list, #notification-portlet ul.menu-list {
-    margin: 5px;
-}
-
 .nolink_menu_element {
     font-size: 14px;
     padding: 7px 15px;
@@ -365,12 +361,6 @@ table.dataTable td .blogUserImage {
 
 #menu-left .groupcontainer .group {
     width: 130px;
-}
-
-#groups_panel .groupcontainer .group {
-    cursor: pointer;
-    float: left;
-    width: 180px;
 }
 
 .MoImg24 {
@@ -531,7 +521,7 @@ table.stiled tr.even.gradeA {
 }
 
 .votered {
-    background: url('/assets/red-2.png') 0 0 no-repeat;
+    background: asset_url('red-2.png') 0 0 no-repeat;
     width: 32px;
     height: 32px;
     display: block;
@@ -540,11 +530,11 @@ table.stiled tr.even.gradeA {
 }
 
 .votered:hover {
-    background: url('/assets/red.png') 0 0 no-repeat;
+    background: asset_url('red.png') 0 0 no-repeat;
 }
 
 .voteyellow {
-    background: url('/assets/yellow-2.png') 0 0 no-repeat;
+    background: asset_url('yellow-2.png') 0 0 no-repeat;
     width: 32px;
     height: 32px;
     display: block;
@@ -553,11 +543,11 @@ table.stiled tr.even.gradeA {
 }
 
 .voteyellow:hover {
-    background: url('/assets/yellow.png') 0 0 no-repeat;
+    background: asset_url('yellow.png') 0 0 no-repeat;
 }
 
 .votegreen {
-    background: url('/assets/green-2.png') 0 0 no-repeat;
+    background: asset_url('green-2.png') 0 0 no-repeat;
     width: 32px;
     height: 32px;
     display: block;
@@ -566,7 +556,7 @@ table.stiled tr.even.gradeA {
 }
 
 .votegreen:hover {
-    background: url('/assets/green.png') 0 0 no-repeat;
+    background: asset_url('green.png') 0 0 no-repeat;
 }
 
 #registration-panel {
@@ -581,20 +571,6 @@ table.stiled tr.even.gradeA {
     position: absolute;
     text-align: left;
     width: 300px;
-    z-index: 3;
-}
-
-#groups_panel {
-    background-color: white;
-    border-bottom: 1px solid #CCCCCC;
-    border-left: 1px solid #CCCCCC;
-    border-right: 1px solid #CCCCCC;
-    color: #294145;
-    display: none;
-    padding: 10px;
-    position: absolute;
-    text-align: left;
-    width: 210px;
     z-index: 3;
 }
 
@@ -815,7 +791,7 @@ span.tooltip:hover span.innerc {
     position: absolute;
     color: #111;
     border: 1px solid #99CC00;
-    background: #E2F0B6 url(/assets/css-tooltip-gradient-bg.png) repeat-x 0 0;
+    background: #E2F0B6 asset_url('css-tooltip-gradient-bg.png') repeat-x 0 0;
 }
 
 .title_grey {
@@ -1053,4 +1029,8 @@ form.paypal-button {
         top: 0;
         left: 0;
     }
+}
+
+.error_dialog {
+    margin: auto;
 }

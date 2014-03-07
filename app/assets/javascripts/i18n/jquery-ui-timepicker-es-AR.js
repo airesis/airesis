@@ -1,7 +1,7 @@
 /* Spanish translation for the jQuery Timepicker Addon */
 /* Written by Ianaré Sévi */
 (function($) {
-	$.timepicker.regional['es-EC'] = {
+	$.timepicker.regional['es-AR'] = {
 		timeOnlyTitle: 'Elegir una hora',
 		timeText: 'Hora',
 		hourText: 'Horas',
@@ -17,5 +17,5 @@
 		pmNames: ['p.m.', 'PM', 'P'],
 		isRTL: false
 	};
-	$.timepicker.setDefaults($.timepicker.regional['es-EC']);
+	$.timepicker.setDefaults($.timepicker.regional['es-AR']);
 })(jQuery);

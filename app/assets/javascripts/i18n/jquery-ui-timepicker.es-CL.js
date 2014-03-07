@@ -17,5 +17,5 @@
 		pmNames: ['p.m.', 'PM', 'P'],
 		isRTL: false
 	};
-	$.timepicker.setDefaults($.timepicker.regional['es-ES']);
+	$.timepicker.setDefaults($.timepicker.regional['es-CL']);
 })(jQuery);

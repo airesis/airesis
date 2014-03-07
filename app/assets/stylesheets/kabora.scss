@@ -197,7 +197,7 @@ $left-menu-width: 250px;
     margin-bottom: 10px;
 }
 
-.qtip-avatar .sep {
+.sep {
     border-bottom: 1px dotted #000;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -581,25 +581,25 @@ $left-menu-width: 250px;
 }
 
 .btn .ui-icon {
-    background-image: url('<%=asset_path 'icons_444.png'%>');
+    background-image: asset_url('icons_444.png');
     position: absolute;
     left: 6px;
 }
 
 .btn.blue .ui-icon, .btn.red .ui-icon, .btn.green .ui-icon {
-    background-image: url('<%=asset_path 'icons_fff.png'%>');
+    background-image: asset_url('icons_fff.png');
 }
 
 .ui-dialog .ui-icon {
-    background-image: url('<%=asset_path 'icons_444.png'%>');
+    background-image: asset_url('icons_444.png');
 }
 
 .ui-dialog .ui-state-hover .ui-icon {
-    background-image: url('<%=asset_path 'icons_444.png'%>');
+    background-image: asset_url('icons_444.png');
 }
 
 .ui-dialog .ui-state-hover .ui-icon {
-    background-image: url('/assets/icons_444.png');
+    background-image: asset_url('icons_444.png');
 }
 
 .ui-dialog.ui-widget-content {

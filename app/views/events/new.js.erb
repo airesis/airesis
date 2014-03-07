@@ -6,7 +6,7 @@ $('#create_event_dialog').foundation('reveal', 'open', {
 });
 <%end%>
 
-$("#create_event_dialog #event_meeting_attributes_place_attributes_comune_id").tokenInput("/comunes.json", {
+$("#create_event_dialog #event_meeting_attributes_place_attributes_comune_id").tokenInput("<%=comunes_path(:format => :json)%>", {
 	crossDomain : false,
 	prePopulate : $('#event_meeting_attributes_place_attributes_comune_id').data("pre"),
 	hintText : '<%=t('pages.events.new.type_for_town')%>',
