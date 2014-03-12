@@ -1,6 +1,7 @@
 class ElaborateEmails
-  
-  def self.perform(*args)
+  include Sidekiq::Worker
+
+  def perform(*args)
     ReceivedEmail.where(read: false).each do |email|
       email.update_attribute(:read,true)
       @topic = Frm::Topic.find_by_token(email.token)

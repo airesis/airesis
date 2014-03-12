@@ -18,7 +18,7 @@
     <% javascript 'endless_page' %>
 
     <div class="row full-width">
-      <div class="column large-8">
+      <div class="column medium-12 large-8" style="padding-left:0;padding-right:0;">
         <div class="card"><%= raw (@group.description)%></div>
         <div id="posts_container">
           <% if @group_posts.count == 0 %>
@@ -39,7 +39,7 @@
         <% end %>
       </div>
 
-      <div id="homegroup" class="columns large-4 show-for-xlarge">
+      <div id="homegroup" class="columns large-4 show-for-large-up">
 
 
 

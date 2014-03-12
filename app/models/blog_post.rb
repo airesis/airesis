@@ -23,7 +23,7 @@ class BlogPost < ActiveRecord::Base
 	
 	scope :published, -> { where(:status => ['P','R']).order('published_at DESC') }
 	scope :drafts, -> { where(:status => 'D').order('published_at DESC')}
-  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_partecipations.user_id = ?)",user.id).joins(:groups => [:group_partecipations]).select('distinct blog_posts.*')}
+  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_partecipations.user_id = ?)",user.id).joins(:groups => [:group_partecipations])}
 	
 	before_save :check_published, :if => :not_resaving?
 	before_save :save_tags, :if => :not_resaving?

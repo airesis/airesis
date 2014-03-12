@@ -116,7 +116,7 @@ zh:
     one: "%{count} day"
     other: "%{count} 天"
   hour:
-    one: %{count} hour
+    one: '%{count} hour'
     other: "%{count} 小時"
   minute:
     one: "%{count} minute"

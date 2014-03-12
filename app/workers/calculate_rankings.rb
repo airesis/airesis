@@ -1,6 +1,8 @@
 class CalculateRankings
-  
-  def self.perform(*args)
+  include Sidekiq::Worker
+  sidekiq_options :queue => :low_priority
+
+  def perform(*args)
     msg = "Ricalcolo ranking\n"
     @users = User.all
     @users.each do |user|
@@ -18,7 +20,7 @@ class CalculateRankings
       msg  += "  user rank: " + user.rank.to_s + "\n----\n"
       user.save(:validate => false)
     end
-    ResqueMailer.admin_message(msg).deliver
+    ResqueMailer.delay.admin_message(msg)
   end
 
 end

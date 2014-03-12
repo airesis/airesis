@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Airesis::Application.routes.draw do
 
   resources :searches
@@ -570,7 +572,7 @@ Airesis::Application.routes.draw do
 
 
     constraints admin_required do
-      mount Resque::Server, :at => "/resque_admin/"
+      mount Sidekiq::Web => "/sidekiq"
       mount Maktoub::Engine => "/maktoub/"
       match ':controller/:action/', via: :all
       resources :admin

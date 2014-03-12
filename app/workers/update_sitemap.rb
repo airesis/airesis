@@ -1,5 +1,8 @@
 class UpdateSitemap
-  def self.perform(*args)
+  include Sidekiq::Worker
+  sidekiq_options :queue => :low_priority
+
+  def perform(*args)
     Rake::Task["sitemap:refresh"].invoke
   end
 

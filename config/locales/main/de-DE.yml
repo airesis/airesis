@@ -228,8 +228,8 @@ de:
         name: Name
         participants: Teilnehmer
         condition: Bedingung
-        good_percentage: % Reife
-        bad_percentage: % Ablehnung
+        good_percentage: '% Reife'
+        bad_percentage: '% Ablehnung'
         confirm_deletion: "Bist Du sicher das Quorum %{quorum} löschen zu wollen?"
         add_quorum: Ein neues Quorum hinzufügen
         edit_quorum: Quorum ändern

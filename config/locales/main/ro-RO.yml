@@ -199,7 +199,7 @@ ro:
         name: nume
         participants: Participanţi
         condition: Condiţie
-        bad_percentage: % Respingere
+        bad_percentage: '% Respingere'
         confirm_deletion: "Sunteţi sigur că doriţi să ştergeţi % cvorum {cvorum}?"
         add_quorum: Adăugaţi un nou cvorum
         edit_quorum: Modifică cvorum

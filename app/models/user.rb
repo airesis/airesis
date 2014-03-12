@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
     self.blocked_alerts.create(:notification_type_id => 13)
     self.blocked_alerts.create(:notification_type_id => 3)
 
-    Resque.enqueue_in(5, GeocodeUser, self.id)
+    GeocodeUser.perform_in(5, self.id)
   end
 
   def init

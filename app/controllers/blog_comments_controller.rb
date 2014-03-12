@@ -26,7 +26,7 @@ class BlogCommentsController < ApplicationController
         @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
         @saved = @blog_comments.find { |comment| comment.id == @blog_comment.id }
         @saved.collapsed = true
-        Resque.enqueue_in(1, NotificationBlogCommentCreate, @blog_comment.id)
+        NotificationBlogCommentCreate.perform_async(@blog_comment.id)
         format.js
         format.xml  { render :xml => @blog_comment, :status => :created, :location => @blog_comment }
         format.html

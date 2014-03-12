@@ -1,18 +1,18 @@
 class EventsWorker
-  include GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers, ProposalsModule
-  @queue = :events
+  include Sidekiq::Worker, GroupsHelper, NotificationHelper, Rails.application.routes.url_helpers, ProposalsModule
+  sidekiq_options :queue => :high_priority
 
   STARTVOTATION='startvotation'
   ENDVOTATION='endvotation'
 
 
-  def self.perform(*args)
+  def perform(*args)
     params = args[0]
     case params['action']
       when STARTVOTATION
-        EventsWorker.new.start_votation(params['event_id'])
+        start_votation(params['event_id'])
       when ENDVOTATION
-        EventsWorker.new.end_votation(params['event_id'])
+        end_votation(params['event_id'])
       else
         puts "==Action not found!=="
     end
@@ -36,8 +36,8 @@ class EventsWorker
           notify_proposal_in_vote(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
           notify_proposal_in_vote(proposal)
 
-      Resque.enqueue_at(event.endtime - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 1440
-      Resque.enqueue_at(event.endtime - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 60
+      ProposalsWorker.perform_at(event.endtime - 24.hours, {:action => ProposalsWorker::LEFT24VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 1440
+      ProposalsWorker.perform_at(event.endtime - 1.hour, {:action => ProposalsWorker::LEFT1VOTE, :proposal_id => proposal.id}) if (event.duration/60) > 60
 
     end #end each
   end

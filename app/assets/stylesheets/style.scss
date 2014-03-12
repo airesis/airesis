@@ -35,10 +35,6 @@ label.boolean {
     margin: 0.6em 0.2em;
 }
 
-html, body {
-    height: 100%;
-}
-
 #great_container {
     height: auto;
     min-height: 95%;
@@ -768,26 +764,6 @@ ul.dd-options {
     cursor: pointer;
 }
 
-@media (max-width: '1280px') {
-    #toast-container {
-        right: 0px;
-    }
-}
-
-@media (min-width: '1280px') {
-    #toast-container {
-        right: 100px;
-    }
-}
-
-#toast-container {
-    top: 100px;
-    z-index: 10000 !important;
-}
-
-#toast-container.sticky:hover {
-    cursor: default;
-}
 
 .info-panel {
     padding: 5px;

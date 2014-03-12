@@ -1,10 +1,8 @@
 class NotificationProposalCreate < NotificationSender
-  include GroupsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
-  @queue = :notifications
-
-  def self.perform(current_user_id,proposal_id,group_id = nil,group_area_id=nil)
-    NotificationProposalCreate.new.elaborate(current_user_id,proposal_id,group_id,group_area_id)
+  def perform(current_user_id,proposal_id,group_id = nil,group_area_id=nil)
+    elaborate(current_user_id,proposal_id,group_id,group_area_id)
 
   end
 

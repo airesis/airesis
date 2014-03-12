@@ -34,7 +34,7 @@ class GroupInvitationsController < ApplicationController
           @group_invitation_email = @group.invitation_emails.build(:email => email)
           @group.save!
           @group_invitation = GroupInvitation.create(:group_invitation_email_id => @group_invitation_email.id, :inviter_id => current_user.id, :testo => params[:group_invitation][:testo])
-          ResqueMailer.invite(@group_invitation.id).deliver
+          ResqueMailer.delay.invite(@group_invitation.id)
           end
         end
     end

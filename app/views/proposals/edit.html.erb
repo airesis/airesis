@@ -10,7 +10,7 @@
 
 <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
     <% if can? :destroy, @proposal %>
-        <div style="background: #FFE3A0; padding: 3px; border-radius: 2px;" class="shadow-box">
+        <div class="panel warning">
           <p>
             <% last = (10.minutes - (Time.now - @proposal.created_at)) / 60 %>
 
@@ -56,14 +56,16 @@
     <% end %>
 
     <p>
-    <div style="float:left">
+    <div>
       <%= f.label :proposal_category_id %>
       <br/>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:300px'} %>
+      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:100%'} %>
     </div>
+
     <div style="float:left;margin-left: 60px;margin-top: 10px;">
       <%#= link_to image_tag('maps.png', class: 'geocode_proposal'), @group ? geocode_group_proposal_url(@group, @proposal) : geocode_proposal_url(@proposal), remote: true %>
     </div>
+
     <div class="clearboth"></div>
     </p>
 
@@ -103,7 +105,7 @@
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
-            <div class="solution_main" data-solution_id="<%= i %>">
+            <div class="solution_main card" data-solution_id="<%= i %>">
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
@@ -297,15 +299,26 @@
             inside_.attr('data-height', inside_.outerHeight());
             inside_.css('overflow', 'hidden');
             inside_.animate({height: '42px'}, 400);
+            comment_.find('[id^=reply]').each(function() {
+                $(this).attr('data-height', $(this).outerHeight());
+                $(this).css('overflow', 'hidden');
+                $(this).animate({height: '0px'}, 400);
+            })
         }
         else {
             integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
             comment_.fadeTo(400, 1);
             inside_.animate({height: inside_.attr('data-height')}, 400, 'swing', function () {
                 inside_.css('overflow', 'auto', function () {
-                    console.log('f');
                 });
             });
+            comment_.find('[id^=reply]').each(function() {
+                $(this).animate({height: $(this).attr('data-height')}, 400, 'swing', function() {
+                    $(this).css('overflow', 'auto', function () {
+
+                    });
+                });
+            })
 
         }
         $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
@@ -817,10 +830,6 @@
 
 
     <script type="text/javascript">
-        var left_panel_ = $('.edit_proposal_panel');
-        if (left_panel_.height() < ($(window).height() - 100)) {
-            left_panel_.addClass('sticky');
-        }
 
 
         function updateProposal() {

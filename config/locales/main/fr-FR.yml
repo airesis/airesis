@@ -194,7 +194,7 @@ fr:
         name: Nom
         participants: Participants
         condition: Condition
-        bad_percentage: % Rejet
+        bad_percentage: '% Rejet'
         confirm_deletion: "Êtes-vous sûr de vouloir supprimer le quorum %{quorum} ?"
         add_quorum: Ajouter un nouveau quorum
         edit_quorum: Modifier le quorum

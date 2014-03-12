@@ -1,8 +1,7 @@
 class GeocodeUser
-  @queue = :geocode
+  include Sidekiq::Worker
 
-
-  def self.perform(*args)
+  def perform(*args)
     user_id = args[0]
     @user = User.find_by_id(user_id)
     @user.geocode

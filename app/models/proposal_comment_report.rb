@@ -15,7 +15,7 @@ class ProposalCommentReport < ActiveRecord::Base
         self.proposal_comment.increment!(:grave_reports_count)
 
     if self.proposal_comment_report_type.severity > ProposalCommentReportType::LOW
-      ResqueMailer.report_message(self.id).deliver                #report spam messages
+      ResqueMailer.delay.report_message(self.id)  #report spam messages
     end
   end
 

@@ -102,7 +102,7 @@ class BlogPostsController < ApplicationController
       saved = @blog_post.save
       respond_to do |format|
         if saved
-          Resque.enqueue_in(1, NotificationBlogPostCreate, @blog_post.id) unless @blog_post.draft?
+          NotificationBlogPostCreate.perform_async(@blog_post.id) unless @blog_post.draft?
           flash[:notice] = t('info.blog_created')
           format.html {
             if params[:group_id].to_s != ''

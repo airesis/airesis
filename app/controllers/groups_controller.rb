@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
 
   def show
     if current_user
-      @group_posts = @group.posts.viewable_by(current_user).includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
+      @group_posts = @group.posts.viewable_by(current_user).includes([:blog, {:user => :image}, :tags]).order('published_at DESC').uniq
     else
       @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
     end

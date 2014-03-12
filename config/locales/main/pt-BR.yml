@@ -218,8 +218,8 @@ pt-BR:
         name: Nome
         participants: Participantes
         condition: Condição
-        good_percentage: % De maturidade
-        bad_percentage: % Rejeição
+        good_percentage: '% De maturidade'
+        bad_percentage: '% Rejeição'
         confirm_deletion: "Tem certeza que deseja excluir o quórum %{quorum}?"
         add_quorum: Adicionar um novo quórum
         edit_quorum: Modificar o quórum

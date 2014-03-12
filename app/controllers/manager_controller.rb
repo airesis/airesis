@@ -14,7 +14,7 @@ class ManagerController < ApplicationController
       @user.save!
     end
     flash[:notice] = t('info.moderator_panel.account_blocked')
-    ResqueMailer.blocked(@user.id).deliver
+    ResqueMailer.delay.blocked(@user.id)
     redirect_to :back
   end
 

@@ -108,8 +108,8 @@ class OldQuorum < Quorum
             end
 
             #fai partire il timer per far scadere la proposta
-            Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-            Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+            EventsWorker.perform_at(@event.starttime, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+            EventsWorker.perform_at(@event.endtime, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
           end
           proposal.vote_period = @event
         else
@@ -122,7 +122,7 @@ class OldQuorum < Quorum
 
         #remove the timer if is still there
         if self.minutes
-          Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id})
+          #Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id}) #TODO remove jobs
         end
       elsif proposal.rank < self.bad_score #if we have not passed the debate quorum abandon it
         abandon(proposal)

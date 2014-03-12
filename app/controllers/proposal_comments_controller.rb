@@ -167,7 +167,7 @@ class ProposalCommentsController < ApplicationController
       @proposal_comment.content = params[:proposal_comment][:content]
       if @proposal_comment.content_changed?
         if @proposal_comment.save
-          Resque.enqueue_in(1, NotificationProposalCommentUpdate, @proposal_comment.id)
+          NotificationProposalCommentUpdate.perform_async(@proposal_comment.id)
           flash[:notice] = t('info.proposal.updated_comment')
           format.js
           format.xml { head :ok }

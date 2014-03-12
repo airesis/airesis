@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
 
       generate_nickname(current_user, @proposal)
 
-      Resque.enqueue_in(1, NotificationProposalCommentCreate, @proposal_comment.id)
+      NotificationProposalCommentCreate.perform_async(@proposal_comment.id)
       if @proposal_comment.is_contribute?
 
         if @proposal_comment.paragraph

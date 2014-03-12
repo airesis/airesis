@@ -122,11 +122,11 @@ class EventsController < ApplicationController
 
       #fai partire il timer per far scadere la proposta fuori dalla transazione
       if @event.is_votazione?
-        Resque.enqueue_at(@event.starttime, EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-        Resque.enqueue_at(@event.endtime, EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+        EventsWorker.perform_at(@event.starttime, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
+        EventsWorker.perform_at(@event.endtime, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
       end
 
-      Resque.enqueue_in(1, NotificationEventCreate, current_user.id, @event.id)
+      NotificationEventCreate.perform_async(current_user.id, @event.id)
     end
 
     if @event.proposal_id && !@event.proposal_id.empty?

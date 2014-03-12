@@ -1,11 +1,8 @@
 class NotificationEventCreate < NotificationSender
-  include GroupsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
-  @queue = :notifications
-
-  def self.perform(current_user_id,event_id)
-    NotificationEventCreate.new.elaborate(current_user_id,event_id)
-
+  def perform(current_user_id,event_id)
+    elaborate(current_user_id,event_id)
   end
 
   #invia le notifiche quando un una proposta viene creata

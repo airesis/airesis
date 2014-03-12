@@ -629,6 +629,7 @@ h3 {
       input {
         display: inline;
         width: 50%;
+        margin-bottom: 0px;
       }
     }
     .suggest {
@@ -637,8 +638,6 @@ h3 {
       color: gray;
       border-radius: 5px;
       cursor: pointer;
-      z-index: 999;
-      color: gray;
       font-weight: bold;
       margin-top: -29px;
     }
@@ -1193,19 +1192,6 @@ input.edit_label {
   width: 40%;
 }
 
-.suggestion_right {
-  position: fixed;
-  top: 92px;
-  left: 1110px;
-  right: 20px;
-  background-color: #fff;
-  overflow: auto;
-  color: black;
-  border: 1px solid #E2E2E2;
-  border-radius: 3px;
-  height: 100%;
-  padding: 5px;
-}
 
 .suggest .tria {
   position: absolute;
@@ -1309,13 +1295,6 @@ ul {
   }
   &.sub_navigator {
     padding-left: 20px;
-  }
-}
-
-@media #{$medium-up} {
-  .edit_proposal_panel.sticky {
-    position: fixed;
-    width: 236px;
   }
 }
 

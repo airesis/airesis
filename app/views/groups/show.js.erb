@@ -1,4 +1,4 @@
-$('#posts_container').append("<%= escape_javascript(render(:partial => 'blog_posts/group_blog_post', :collection => @group_posts, as: 'blog_post'))%>");
+$('#posts_container').append("<%=j render(:partial => 'blog_posts/group_blog_post', :collection => @group_posts, as: 'blog_post')%>");
 try{
     FB.XFBML.parse();
 }catch(ex){}

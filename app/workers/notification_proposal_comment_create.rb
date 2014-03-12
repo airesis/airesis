@@ -1,10 +1,8 @@
 class NotificationProposalCommentCreate < NotificationSender
-  include GroupsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
-  @queue = :notifications
-
-  def self.perform(comment_id)
-    NotificationProposalCommentCreate.new.elaborate(comment_id)
+  def perform(comment_id)
+    elaborate(comment_id)
   end
 
   #invia le notifiche quando un un contributo viene creato

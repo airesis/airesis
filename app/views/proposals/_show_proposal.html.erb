@@ -9,25 +9,29 @@
         });
     });
 </script>
-<%if current_user %>
-<%= link_to '#', class: 'read_contributes' do %>
-    <div class="icon-bell medium"></div>
+<% if current_user %>
+    <%@unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
+    <%if @unread.count > 0 %>
+    <%= link_to '#', class: 'read_contributes' do %>
+        <div class="icon-bell medium"></div>
+    <% end %>
+
+    <script type="text/javascript">
+        var unread = <%=raw @unread.joins({:paragraph => :section}).select('proposal_comments.id, paragraphs.id as paragraph_id, sections.id as section').to_json%>;
+        $('.read_contributes').css('top', '90px').css('right', '20px');
+        console.log(unread);
+        $('.read_contributes').click(function () {
+            var obj_ = unread.pop();
+            console.log(unread.length);
+            $('.contributeButton[data-section_id=' + obj_.section + ']').trigger('click', obj_.id);
+            if (unread.length == 0) {
+                $(this).remove();
+            }
+            return false;
+        });
+    </script>
+        <%end%>
 <% end %>
-<script type="text/javascript">
-    var unread = <%=raw @proposal.contributes.listable.unread(current_user.id, @proposal.id).joins({:paragraph => :section}).select('proposal_comments.id, paragraphs.id as paragraph_id, sections.id as section').to_json%>;
-    $('.read_contributes').css('top', '90px').css('right', '20px');
-    console.log(unread);
-    $('.read_contributes').click(function () {
-        var obj_ = unread.pop();
-        console.log(unread.length);
-        $('.contributeButton[data-section_id='+obj_.section+']').trigger('click', obj_.id);
-        if (unread.length == 0) {
-            $(this).remove();
-        }
-        return false;
-    });
-</script>
-<%end%>
 
 <h1 class="proposalTitle">
   <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:40px;padding-right:2px;") %>
@@ -62,7 +66,7 @@
 
   <% if @proposal.in_valutation? %>
       <%= link_to t('pages.proposals.show.close_debate_button'), @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, data: {confirm: t('pages.proposals.show.close_debate_proposal_confirmation')}, class: 'btn closeButton' if can? :close_debate, @proposal %>
-  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                    %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox                     %>
       <div id="wait_date_header_container">
         <%= render :partial => 'proposals/wait_date_header' %>
       </div>
@@ -85,7 +89,7 @@
 <div style="clear: both;"></div>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waitinf for the vote period    %>
+    <% if @proposal.waiting? #waitinf for the vote period     %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>

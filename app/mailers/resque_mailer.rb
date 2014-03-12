@@ -1,6 +1,5 @@
 #encoding: utf-8
 class ResqueMailer < ActionMailer::Base
-  include Resque::Mailer
   helper ProposalsHelper, EmailHelper, GroupsHelper
   default from: "Airesis <info@airesis.it>"
 
@@ -112,9 +111,21 @@ class ResqueMailer < ActionMailer::Base
     mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", :to => @user.email, :subject => "[#{@group.name}] #{@post.topic.subject}")
   end
 
+
+
+  def test
+    mail(:to => "coorasse@gmail.com", :subject => "Test Redis To Go")
+  end
+
+  def few_users_a(group_id)
+    @group  =Group.find(group_id)
+    @user = @group.portavoce.first
+    mail(:to => @user.email, :subject => "#{@group.name} non ha ancora dei partecipanti") if @user.email
+  end
+
   protected
 
   def choose_layout
-    (['invite','admin_message','feedback'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
+    (['invite','admin_message','feedback','test'].include? action_name) ? 'maktoub/unregistered_mailer' : (['notification'].include? action_name) ? 'maktoub/notification_mailer' : 'maktoub/newsletter_mailer'
   end
 end

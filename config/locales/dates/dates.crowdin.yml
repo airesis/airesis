@@ -16,7 +16,7 @@ crowdin:
       - :month
       - :year
     formats:
-      default: %d-%m-%Y
+      default: '%d-%m-%Y'
       short: "{crwdns5785:0}%b{crwdnd5785:0}%d{crwdne5785:0}"
       long: "{crwdns6440:0}%d{crwdnd6440:0}%B{crwdnd6440:0}%Y{crwdne6440:0}"
     day_names:

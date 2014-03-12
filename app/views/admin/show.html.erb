@@ -3,14 +3,7 @@
     <br/>
     <br/>
     <br/>
-    <%= link_to 'Gestisci gruppi certificati', certifications_url, :class => 'btn blue' %>
-    <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list"}, :class => 'btn blue' %>
-    <%= link_to 'Announcements', announcements_path, :class => 'btn blue' %>
-    <%= link_to 'Movements', sys_movements_path, :class => 'btn blue' %>
-    <%= link_to 'Pannello Resque', '/resque_admin', :class => 'btn blue' %>
 
-    <%= link_to 'Funziononi', sys_features_path, :class => 'btn blue' %>
-    <%= link_to 'Certifica utenti', user_sensitives_path, :class => 'btn blue' %>
 
     <%= link_to 'Ricalcola ranking utenti', {:controller => "admin", :action => "calculate_ranking"}, :class => 'btn' %>
     <%= link_to 'Ricalcola stato proposte', {:action => "change_proposals_state", :controller => "admin"}, :class => 'btn' %>
@@ -62,3 +55,17 @@
     </div>
 
 <% end %>
+
+<%content_for :left_panel do %>
+    <div class="mybox">
+      <%= link_to 'Pannello amministratore', admin_panel_url, :class => 'btn blue' %>
+      <%= link_to 'Gestisci gruppi certificati', certifications_url, :class => 'btn blue' %>
+      <%= link_to 'Mailing list', {:controller => "admin", :action => "mailing_list"}, :class => 'btn blue' %>
+      <%= link_to 'Announcements', announcements_path, :class => 'btn blue' %>
+      <%= link_to 'Movements', sys_movements_path, :class => 'btn blue' %>
+      <%= link_to 'Pannello Sidekiq', '/sidekiq', :class => 'btn blue' %>
+
+      <%= link_to 'Funziononi', sys_features_path, :class => 'btn blue' %>
+      <%= link_to 'Certifica utenti', user_sensitives_path, :class => 'btn blue' %>
+    </div>
+<%end%>

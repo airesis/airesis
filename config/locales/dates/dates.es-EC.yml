@@ -16,8 +16,8 @@ es-EC:
       - :mes
       - :año
     formats:
-      default: %d-%m-%Y
-      short: %b %d
+      default: '%d-%m-%Y'
+      short: '%b %d'
     day_names:
       - Domingo
       - Lunes
@@ -64,16 +64,16 @@ es-EC:
       - Dic
   time:
     formats:
-      default: %d %b %Y a las %H:%M
-      long: %A %d %B %Y %H:%M
-      long_date: %A %d %B %Y
-      long_date_time: %A %d %B %Y a las %H:%M
-      from_long_date_time: Desde %A %d %B %Y a las %H:%M
-      until_long_date_time: Hasta %A %d %B %Y a las %H:%M
-      weekday: %A
-      month: %B
-      dayandmonth: %d/%m
-      textfield: %d/%m/%Y %H:%M
+      default: '%d %b %Y a las %H:%M'
+      long: '%A %d %B %Y %H:%M'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y a las %H:%M'
+      from_long_date_time: 'Desde %A %d %B %Y a las %H:%M'
+      until_long_date_time: 'Hasta %A %d %B %Y a las %H:%M'
+      weekday: '%A'
+      month: '%B'
+      dayandmonth: '%d/%m'
+      textfield: '%d/%m/%Y %H:%M'
     am: am
     pm: pm
   datetime:

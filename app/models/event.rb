@@ -59,8 +59,8 @@ class Event < ActiveRecord::Base
   end
 
   def remove_scheduled_tasks
-    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => self.id})
-    Resque.remove_delayed(EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => self.id})
+    #Resque.remove_delayed(EventsWorker, {:action => EventsWorker::STARTVOTATION, :event_id => self.id}) TODO remove job
+    #Resque.remove_delayed(EventsWorker, {:action => EventsWorker::ENDVOTATION, :event_id => self.id}) TODO remove job
   end
 
   #how much does it last the event in seconds

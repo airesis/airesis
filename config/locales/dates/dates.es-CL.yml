@@ -12,8 +12,8 @@ es-CL:
     timeFormat: "h:mm TT{ - [ddd] [dd] h:mm TT}"
   date:
     formats:
-      short: %b %d
-      long: %d %B %Y
+      short: '%b %d'
+      long: '%d %B %Y'
     day_names:
       - Domingo
       - Lunes
@@ -60,21 +60,21 @@ es-CL:
       - Dic
   time:
     formats:
-      default: %d %b %Y at %I:%M %p
-      long: %A %d %B %Y at %I:%M %p
-      long_date: %A %d %B %Y
-      long_date_time: %A %d %B %Y at %I:%M %p
-      from_long_date_time: From %A %d %B %Y at %I:%M %p
-      until_long_date_time: To %A %d %B %Y a %I:%M %p
-      short: %d %b %Y
+      default: '%d %b %Y at %I:%M %p'
+      long: '%A %d %B %Y at %I:%M %p'
+      long_date: '%A %d %B %Y'
+      long_date_time: '%A %d %B %Y at %I:%M %p'
+      from_long_date_time: 'From %A %d %B %Y at %I:%M %p'
+      until_long_date_time: 'To %A %d %B %Y a %I:%M %p'
+      short: '%d %b %Y'
       two_rows: "%d %b %Y <br/> %I:%M %p"
       weekday: "%a en %I: %M %p"
-      month: %B
-      dayandmonth: %d/%m
-      hour: %I:%M %p
+      month: '%B'
+      dayandmonth: '%d/%m'
+      hour: '%I:%M %p'
       yesterday_at: "ayer a las %I: %M %p"
-      textfield: %d/%m/%Y %I:%M %p
-      rich: %Y-%m-%dT%H:%M
+      textfield: '%d/%m/%Y %I:%M %p'
+      rich: '%Y-%m-%dT%H:%M'
     am: am
     pm: pm
     left:

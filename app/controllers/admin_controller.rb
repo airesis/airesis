@@ -93,8 +93,7 @@ class AdminController < ManagerController
 
   #invia una mail di prova tramite resque e redis
   def test_redis
-    TestMailer.test.deliver
-    #Resque.enqueue(TestSender)
+    ResqueMailer.delay.test
     respond_to do |format|
       format.html {
         flash[:notice] = 'Test avviato'
@@ -106,12 +105,12 @@ class AdminController < ManagerController
   #invia una notifica di prova tramite resque e redis
   def test_notification
     if params[:alert_id].to_s != ''
-      ResqueMailer.notification(params[:alert_id]).deliver
+      ResqueMailer.delay.notification(params[:alert_id])
     else
       NotificationType.all.each do |type|
         notification = type.notifications.order('created_at desc').first
         alert = notification.user_alerts.first if notification
-        ResqueMailer.notification(alert.id).deliver if alert
+        ResqueMailer.delay.notification(alert.id) if alert
       end
     end
 
@@ -125,7 +124,7 @@ class AdminController < ManagerController
 
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
-    Resque.enqueue_at(15.seconds.from_now, ProposalsWorker, :proposal_id => 1)
+    ProposalsWorker.perform_at(15.seconds.from_now, :proposal_id => 1)
     respond_to do |format|
       format.html {
         flash[:notice] = 'Test avviato'
@@ -161,8 +160,7 @@ class AdminController < ManagerController
 
 
   def send_newsletter
-    Resque.enqueue_at(Time.now+30.seconds, NewsletterSender, params)
-
+    NewsletterSender.perform_at(30.seconds.from_now, params)
     flash[:notice] = "Newsletter pubblicata correttamente"
     redirect_to :controller => 'admin', :action => 'mailing_list'
   end

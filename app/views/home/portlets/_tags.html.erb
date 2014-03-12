@@ -1,11 +1,11 @@
 <div class="title">
   <%= t('pages.home.index.most_used_tags') %>
-  <%=link_to t('pages.home.index.show_tags'), tags_path, class: 'btn' %>
-  <div>
+  <%= link_to t('pages.home.index.show_tags'), tags_path, class: 'btn' %>
+</div>
+<div>
   <% Tag.most_used.limit(30).each do |tag| %>
       <div class="round label tag">
         <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
       </div>
   <% end %>
-  </div>
 </div>

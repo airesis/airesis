@@ -39,7 +39,7 @@ class Proposal < ActiveRecord::Base
 
   has_many :proposal_nicknames, :class_name => 'ProposalNickname', :dependent => :destroy
 
-  has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :destroy
+  has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :delete_all
   has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
 
   has_many :area_proposals, :class_name => 'AreaProposal', :dependent => :destroy
@@ -237,7 +237,7 @@ def is_polling?
 end
 
 def remove_scheduled_tasks
-  Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id})
+  #Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id}) #TODO remove jobs
 end
 
 #return true if the proposal is currently in debate

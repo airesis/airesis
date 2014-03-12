@@ -1,7 +1,7 @@
 class NewsletterSender
-  @queue = :newsletter
+  include Sidekiq::Worker
     
-  def self.perform(params)
+  def perform(params)
     receiver = params['mail']['receiver']
     puts receiver
     if receiver == 'all'
@@ -18,7 +18,7 @@ class NewsletterSender
     puts @users
     @users.each do |user|
       puts '---' + user.fullname
-      ResqueMailer.publish(:subject => params['mail']['subject'], :user_id => user.id, :newsletter => params['mail']['name'] ).deliver
+      ResqueMailer.delay.publish(:subject => params['mail']['subject'], :user_id => user.id, :newsletter => params['mail']['name'] )
     end
   end
 end

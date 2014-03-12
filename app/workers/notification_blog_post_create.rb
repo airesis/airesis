@@ -1,10 +1,8 @@
 class NotificationBlogPostCreate < NotificationSender
-  include GroupsHelper, Rails.application.routes.url_helpers
+  include Sidekiq::Worker, GroupsHelper, Rails.application.routes.url_helpers
 
-  @queue = :notifications
-
-  def self.perform(blog_post_id)
-    NotificationBlogPostCreate.new.elaborate(blog_post_id)
+  def perform(blog_post_id)
+    elaborate(blog_post_id)
   end
 
   #invia le notifiche quando un utente inserisce un post sul proprio blog
@@ -28,7 +26,7 @@ class NotificationBlogPostCreate < NotificationSender
     end
 
     blog_post.groups.each do |group|
-      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => current_user.fullname, 'group' => group.name, 'i18n' => 't'}
+      data = {'blog_post_id' => blog_post.id.to_s, 'group_id' => group.id, 'user' => post_user.fullname, 'group' => group.name, 'i18n' => 't'}
       data['subdomain'] = group.subdomain if group.certified?
 
       #notifica a chi partecipa al gruppo

@@ -1,6 +1,8 @@
 class CountCreatedProposals
-  
-  def self.perform(*args)
+  include Sidekiq::Worker
+  sidekiq_options :queue => :low_priority
+
+  def perform(*args)
     start = Time.now.utc.at_beginning_of_day
     fin = (Time.now - 1.day).utc.at_beginning_of_day
     puts "Start: #{start}"

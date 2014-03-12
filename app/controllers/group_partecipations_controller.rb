@@ -38,7 +38,7 @@ class GroupPartecipationsController < ApplicationController
     ids = params[:message][:receiver_ids]
     subject = params[:message][:subject]
     body = params[:message][:body]
-    ResqueMailer.massive_email(current_user.id, ids, @group.id, subject, body).deliver!
+    ResqueMailer.delay.massive_email(current_user.id, ids, @group.id, subject, body)
     flash[:notice] = t('info.message_sent')
   end
 

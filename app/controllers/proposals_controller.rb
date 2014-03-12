@@ -332,14 +332,14 @@ class ProposalsController < ApplicationController
         unless @proposal.is_petition?
           #if the time is fixed we schedule notifications 24h and 1h before the end of debate
           if @copy.time_fixed?
-            Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-            Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+            ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+            ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
           end
 
 
           #fai partire il timer per far scadere la proposta
           if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-            Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+            ProposalsWorker.perform_at(@copy.ends_at, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
           end
         end
 
@@ -353,7 +353,7 @@ class ProposalsController < ApplicationController
         proposalpresentation.save!
         generate_nickname(current_user, @proposal)
       end #end transaction
-      Resque.enqueue_in(1, NotificationProposalCreate, current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
+      NotificationProposalCreate.perform_async(current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
 
       @saved = true
 

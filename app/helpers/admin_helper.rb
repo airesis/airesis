@@ -17,7 +17,7 @@ module AdminHelper
                                               and created_at < ?",-1.month.from_now])
     msg +="Cancello " + read.count.to_s + " notifiche già lette più vecchie di 1 mese"
     count  += read.count     
-    ResqueMailer.admin_message(msg).deliver
+    ResqueMailer.delay.admin_message(msg)
     return count
   end
   
@@ -31,7 +31,7 @@ module AdminHelper
         msg += "   " + group.errors.full_messages.join(";") + "\n";
       end
     end
-    ResqueMailer.admin_message(msg).deliver
+    ResqueMailer.delay.admin_message(msg)
   end
   
   #calcola il ranking degli utenti
@@ -54,7 +54,7 @@ module AdminHelper
     msg  += "  user rank: " + user.rank.to_s + "\n----\n"
     user.save(:validate => false)
     end
-    ResqueMailer.admin_message(msg).deliver
+    ResqueMailer.delay.admin_message(msg)
   end
 
 end

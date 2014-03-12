@@ -209,8 +209,8 @@ es-EC:
         name: Nombre
         participants: Participantes
         condition: Condición
-        good_percentage: % Rango
-        bad_percentage: % Rechazo
+        good_percentage: '% Rango'
+        bad_percentage: '% Rechazo'
         confirm_deletion: '¿Estás seguro que deseas eliminar el quórum %{quorum}?'
         add_quorum: Añadir un nuevo quórum
         edit_quorum: Modificar el quórum

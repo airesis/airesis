@@ -1,6 +1,8 @@
 class CalculateGroupStatistics
-  
-  def self.perform(*args)
+  include Sidekiq::Worker
+  sidekiq_options :queue => :low_priority
+
+  def perform(*args)
     Group.all.each do |group|
       statistic = group.statistic
       proposals = group.internal_proposals.where("proposal_state_id not in (#{ProposalState::VALUTATION})") #take all group proposals currently not in debate

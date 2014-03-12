@@ -213,8 +213,8 @@ es-ES:
         name: Nombre
         participants: Participantes
         condition: Condición
-        good_percentage: % Rango
-        bad_percentage: % Rejection
+        good_percentage: '% Rango'
+        bad_percentage: '% Rejection'
         confirm_deletion: 'Are you sure you want to delete the quorum %{quorum}?'
         add_quorum: Create a new quorum
         edit_quorum: Modify quorum

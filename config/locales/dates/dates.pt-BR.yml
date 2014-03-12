@@ -55,7 +55,7 @@ pt:
       - Dez
   time:
     formats:
-      default: %d %b %Y at %I:%M %p
+      default: '%d %b %Y at %I:%M %p'
     left:
       seconds:
         one: 1 segundo
