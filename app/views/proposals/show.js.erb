@@ -1,6 +1,0 @@
-$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
-<%if @proposal_comments.total_pages > @proposal_comments.current_page%>
-  checkScroll();
-<%else%>
-  $('#loading_results').hide();
-<%end%>
