@@ -17,7 +17,7 @@
 
 
             <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue', data:{disable_with: t('sending')} %>
+            <%= e.submit t('buttons.send'), :class => 'btn blue', data: {disable_with: t('sending')} %>
         <% end %>
       </div>
 
@@ -48,7 +48,7 @@
   </thead>
   <tbody>
   <% @partecipants.each do |partecipant| %>
-      <tr>
+      <tr data-id="<%=partecipant.id%>">
         <td data-fullname="<%= partecipant.user.fullname %>">
           <div class="pcontainer">
             <div class="MoImg24">
@@ -73,16 +73,27 @@
         <td><%= l partecipant.created_at if partecipant.created_at %></td>
         <td><%= partecipant.created_at.to_i if partecipant.created_at %></td>
         <td>
-          <% if (defined? partecipant.acceptor) && partecipant.acceptor %>
-              <div class="pcontainer">
-                <div class="MoImg24">
-                  <%= partecipant.acceptor.user_image_tag(24) %>
-                </div>
-                <div class="Mo">
-                  <%= link_to_user partecipant.acceptor, :full_name => true %>
-                </div>
-                <div style="clear:both;"></div>
-              </div>
+          <% if (defined? partecipant.acceptor) %>
+              <% if partecipant.acceptor %>
+                  <div class="pcontainer">
+                    <div class="MoImg24">
+                      <%= partecipant.acceptor.user_image_tag(24) %>
+                    </div>
+                    <div class="Mo">
+                      <%= link_to_user partecipant.acceptor, :full_name => true %>
+                    </div>
+                    <div style="clear:both;"></div>
+                  </div>
+              <% end %>
+          <% else %>
+              <% if (can? :accept_requests, @group) %>
+                  <% if @group.request_by_vote? %>
+                      <%#= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
+                  <% elsif @group.request_by_portavoce? %>
+                      <%= link_to t('pages.groups.show.accept_request_button'), partecipation_request_confirm_group_url(@group, :request_id => partecipant.id, from_list: true), method: :put, remote: true, :class => 'btn blue little acceptButton', style: "float:left", data:{disable_with: t('loading')} %>
+                      <%= link_to t('pages.groups.show.reject_request_button'), partecipation_request_decline_group_url(@group, :request_id => partecipant.id, from_list: true), method: :put, remote: true, data:{confirm: 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading')}, :class => 'btn little rejectButton', style: "float:left" %>
+                  <% end %>
+              <% end %>
           <% end %>
         </td>
         <% if can? :update, @group %>
@@ -153,11 +164,11 @@
     $('#remove_all').click(function (e) {
         if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_1', count: @partecipants.count)%>')) {
             <%if @partecipants.count >= 10 %>
-                if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_2',count: @partecipants.count)%>')) {
-                    $(this).closest("form").submit();
-                }
-            <%else%>
+            if (confirm('<%=j t('pages.groups.edit_permissions.confirm_delete_2',count: @partecipants.count)%>')) {
                 $(this).closest("form").submit();
+            }
+            <%else%>
+            $(this).closest("form").submit();
             <%end%>
         }
         return false;

@@ -400,6 +400,7 @@ Airesis::Application.routes.draw do
         get :reload_storage_size
         put :enable_areas
         put :remove_post
+        put :feature_post
         get :permissions_list
       end
 
@@ -458,6 +459,7 @@ Airesis::Application.routes.draw do
       end
 
       get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
+
 
       resources :events do
         resources :meeting_partecipations
@@ -530,6 +532,8 @@ Airesis::Application.routes.draw do
         get :drafts, :on => :collection
         resources :blog_comments
       end
+
+      get '/:year/:month' => 'groups#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
     end
 
     resources :documents do

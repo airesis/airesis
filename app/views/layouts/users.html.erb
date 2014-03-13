@@ -7,12 +7,12 @@
 <% content_for :menu do %>
       <% if @user %>
           <div class="topimage hide-for-small">
-            <%= @user.user_image_tag 40 %>
+            <%= @user.user_image_tag 30 %>
           </div>
           <div class="topmenu">
 
-            <span class="tit left"><%= @user.fullname %></span>
-            <div class="submenu mycont left">
+            <span class="tit"><%= @user.fullname %></span>
+            <div class="submenu">
               <% if current_user && (@user == current_user) %>
                   <%= link_to(home_url, class: (params[:controller] == 'home' ? 'sel' : '')) do %>
                       <span class="show-for-large-up"><%= t('pages.header.menu.my_page') %></span>

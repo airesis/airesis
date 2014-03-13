@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Proposal < ActiveRecord::Base
-  include BlogKitModelHelper
+  include BlogKitModelHelper, Frm::Concerns::Viewable
 
   belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
   belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
@@ -460,6 +460,7 @@ def notification_receivers
     ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
     res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
   end
+  res
 end
 
 

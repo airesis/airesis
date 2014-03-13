@@ -22,6 +22,7 @@ class ResqueMailer < ActionMailer::Base
   
   def notification(alert_id)
     @alert = UserAlert.find(alert_id)
+    return if @alert.checked  #do not send emails for already checked alerts
     I18n.locale = @alert.user.locale.key || 'it'
     @data = @alert.notification.data
     to_id = @data[:to_id]

@@ -4,7 +4,9 @@ class UserAlert < ActiveRecord::Base
 
   default_scope -> {select('user_alerts.*, notifications.properties || user_alerts.properties as nproperties').joins(:notification)}
 
-  scope :another, ->(attribute,attr_id,user_id,notification_type) {joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ? and user_alerts.checked = false", attribute,attr_id.to_s, notification_type, user_id]).readonly(false)}
+  scope :another, ->(attribute,attr_id,user_id,notification_type) {joins([:notification, :user]).where(["(notifications.properties -> ?) = ? and notifications.notification_type_id in (?) and users.id = ?", attribute,attr_id.to_s, notification_type, user_id]).readonly(false)}
+
+  scope :another_unread, ->(attribute,attr_id,user_id,notification_type) { another(attribute,attr_id,user_id,notification_type).where('user_alerts.checked = false')}
 
   #store_accessor :properties, :ncount
 
@@ -68,6 +70,14 @@ class UserAlert < ActiveRecord::Base
     self.save!
   end
 
+  def soft_delete
+    self.update_attributes!({deleted: true, deleted_at: Time.now})
+  end
+
+  def self.soft_delete_all
+    self.update_all({deleted: true, deleted_at: Time.now})
+  end
+
 
   protected
 
@@ -78,7 +88,7 @@ class UserAlert < ActiveRecord::Base
 
   def send_email
     if (!self.user.blocked_email_notifications.include? self.notification_type) && self.user.email
-      ResqueMailer.delay.notification(self.id)
+      ResqueMailer.delay_for(2.minutes).notification(self.id)
     end
   end
 end

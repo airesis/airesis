@@ -51,9 +51,9 @@ class GroupsController < ApplicationController
 
   def show
     if current_user
-      @group_posts = @group.posts.viewable_by(current_user).includes([:blog, {:user => :image}, :tags]).order('published_at DESC').uniq
+      @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
     else
-      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('published_at DESC')
+      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
     end
 
     respond_to do |format|
@@ -68,9 +68,28 @@ class GroupsController < ApplicationController
         @page_title = @group.name
         @partecipants = @group.partecipants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+        @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
       }
       format.atom
       format.json
+    end
+  end
+
+  #TODO
+  def by_year_and_month
+    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
+    #@blog_posts = @group.posts.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
+
+    respond_to do |format|
+      format.js
+      format.html {
+
+        @page_title = @group.name
+        @partecipants = @group.partecipants
+        @group_posts = []
+        @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
+        render 'show'
+      }
     end
   end
 
@@ -394,8 +413,8 @@ class GroupsController < ApplicationController
   # è previsto o accettandola altrimenti.
   def partecipation_request_confirm
     authorize! :accept_requests, @group
-    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if !request
+    @request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    if !@request
       flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
@@ -409,16 +428,16 @@ class GroupsController < ApplicationController
     else
       if @group.request_by_portavoce?
         part = GroupPartecipation.new
-        part.user_id = request.user_id
+        part.user_id = @request.user_id
         part.group_id = @group.id
         part.acceptor_id = current_user.id
         part.partecipation_role_id = @group.partecipation_role_id
         part.save!
-        request.group_partecipation_request_status_id = 3
+        @request.group_partecipation_request_status_id = 3
       else
-        request.group_partecipation_request_status_id = 2
+        @request.group_partecipation_request_status_id = 2
       end
-      saved = request.save
+      saved = @request.save
       if !saved
         flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
@@ -448,8 +467,8 @@ class GroupsController < ApplicationController
 
   def partecipation_request_decline
     authorize! :accept_requests, @group
-    request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
-    if !request
+    @request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    if !@request
       flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
@@ -462,11 +481,11 @@ class GroupsController < ApplicationController
       end
     else
       if @group.request_by_portavoce?
-        request.group_partecipation_request_status_id = 4
+        @request.group_partecipation_request_status_id = 4
       else
-        request.group_partecipation_request_status_id = 2
+        @request.group_partecipation_request_status_id = 2
       end
-      saved = request.save
+      saved = @request.save
       if !saved
         flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
@@ -517,6 +536,19 @@ class GroupsController < ApplicationController
         page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
       end
       }
+    end
+  end
+
+  def feature_post
+    raise Exception unless (can? :remove_post, @group)
+    @publishing = @group.post_publishings.find_by({blog_post_id: params[:post_id]})
+    @publishing.update_attributes({featured: !@publishing.featured})
+    flash[:notice] = t('info.groups.post_featured')
+
+  rescue Exception => e
+    respond_to do |format|
+      flash[:error] = t('error.groups.post_featured')
+      format.js {render 'layouts/error'}
     end
   end
 

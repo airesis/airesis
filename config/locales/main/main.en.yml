@@ -187,7 +187,9 @@ en:
         blog_button: "Create my Blog"
         participants_list: "Participant list "
         invite_button: "Invite your friends!"
-        show_all_participants: "Shows all %{count} ..."
+        show_all_participants: "Show all %{count} ..."
+        show_all_admins: "Show all %{count} ..."
+        show_all_requests: "Show all %{count} ..."
         participants_full_list: "Complete list of group members"
         no_participants: "No users participating to this group yet."
         no_blogs_yet: "No blog posts in this group yet, come back soon."
@@ -1439,9 +1441,9 @@ en:
       destroy_ok_1: "You have left the group. In the future you can ask to participate again"
       request_sent: "Participation request successfully sent"
       request_alredy_sent: "You have already sent a participation request for this group"
-      status_accepted: "The participation request is now in the status: ACCEPTED"
-      status_voting: "The participation request is now in the status: VOTING"
-      status_declined: "The participation request is now in the status: DECLINED"
+      status_accepted: "The participation request has been accepted"
+      status_voting: "The participation request can be voted now"
+      status_declined: "The participation request has been rejected"
     event:
       comment_added: "Comment inserted succesfully"
     topic:

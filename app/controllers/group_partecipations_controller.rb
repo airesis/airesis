@@ -14,7 +14,8 @@ class GroupPartecipationsController < ApplicationController
 
 
   def index
-    @partecipants = @group.group_partecipations.search(params[:search])
+    @page_title = 'Elenco partecipanti'
+    @partecipants = @group.search_partecipants.build(params[:search_partecipant]).results
 
     respond_to do |format|
       format.html

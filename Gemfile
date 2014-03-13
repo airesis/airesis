@@ -71,7 +71,7 @@ gem 'sidetiq'
 
 #gem 'sidekiq_mailer'
 
-gem 'sunspot-queue'
+gem 'sunspot-queue', git: 'https://github.com/coorasse/sunspot-queue.git'
 
 gem 'cancan'
 
@@ -145,4 +145,3 @@ gem 'paper_trail', '~> 3.0.0'
 
 #added for rails 4
 gem 'protected_attributes'
-

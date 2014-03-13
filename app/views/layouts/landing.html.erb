@@ -5,9 +5,9 @@
         <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
       </div>
       <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
-        <span class="tit left"><%= @page_title %></span>
+        <span class="tit"><%= @page_title %></span>
 
-        <div class="submenu left">
+        <div class="submenu">
           <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: ((['whatis','intro'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
           <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: ((['engage'].include? params[:action]) ? 'sel' : '') %>

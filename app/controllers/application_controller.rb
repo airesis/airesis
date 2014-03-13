@@ -265,7 +265,6 @@ class ApplicationController < ActionController::Base
 
       generate_nickname(current_user, @proposal)
 
-      NotificationProposalCommentCreate.perform_async(@proposal_comment.id)
       if @proposal_comment.is_contribute?
 
         if @proposal_comment.paragraph

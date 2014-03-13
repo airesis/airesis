@@ -288,9 +288,11 @@ $include-html-button-classes: false;
 // We use these to controls height and width styles.
 // $f-dropdown-max-width: 200px;
 // $f-dropdown-height: auto;
-// $f-dropdown-max-height: none;
+//$f-dropdown-max-height: 80%;
 // $f-dropdown-margin-top: 2px;
-
+//.f-dropdown {
+//  overflow-y: auto;
+//}
 // We use this to control the background color
 // $f-dropdown-bg: #fff;
 
@@ -1388,7 +1390,7 @@ ul, ol {
   color: white;
   font-size: 13px;
   font-weight: bold;
-  padding: 5px;
+  padding: 4px 15px;
 
   img {
     &.certification {
@@ -1397,30 +1399,37 @@ ul, ol {
     }
   }
   .tit {
-    font-size: 1.2em;
-    margin-top: 6px;
+    font-size: 1.2rem;
     margin-right: 15px;
+    line-height: 2.2rem;
+    @media #{$medium-up} {
+      display: inline-block;
+    }
+  }
+
+  .submenu {
+    color: white;
+    font-weight: bolder;
+    font-size: 0.8em;
+    margin-top: -1px;
+    line-height: 1.3rem;
+    vertical-align: middle;
+    margin-left: -10px;
+    a {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 10px 3px 10px;
+      &.sel {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    @media #{$medium-up} {
+      margin-left: 0px;
+      display: inline-block;
+    }
   }
 }
 
-.submenu {
-  color: white;
-  font-weight: bolder;
-  font-size: 0.8em;
-  margin-top: 4px;
-  margin-left: -10px;
-  a {
-    display: inline-block;
-    border-radius: 20px;
-    padding: 3px 10px 3px 10px;
-    &.sel {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-  }
-  @media #{$medium-up} {
-    margin-left: 0px;
-  }
-}
 
 #main {
   position: absolute;

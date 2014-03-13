@@ -6,15 +6,15 @@
     <div class="topmenu">
       <% if @group %>
           <% if @group.id %>
-              <%= @top_title = link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit left' %>
+              <%= @top_title = link_to @group.name, ((@group.certified && (request.subdomain == @group.subdomain)) ? root_path(:subdomain => @group.subdomain) : @group), class: 'tit' %>
           <% else %>
-              <%= @top_title = link_to t('pages.groups.new.title'), new_group_path, class: 'tit left' %>
+              <%= @top_title = link_to t('pages.groups.new.title'), new_group_path, class: 'tit' %>
           <% end %>
       <% else %>
-          <%= @top_title = link_to t('pages.groups.index.title'), groups_path, class: 'tit left' %>
+          <%= @top_title = link_to t('pages.groups.index.title'), groups_path, class: 'tit' %>
       <% end %>
 
-      <div class="submenu left">
+      <div class="submenu">
         <% if @group && @group.id && (can? :view_data, @group) %>
             <%= link_to(@group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '') do %>
                 <span class="show-for-large-up"><%= t('pages.groups.layout.home_button') %></span>

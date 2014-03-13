@@ -1,15 +1,19 @@
+<%blog_post = post_publishing.blog_post%>
 <div class="card blogPost" id="blogPost<%= blog_post.id %>">
   <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || (@group && (@group.portavoce.include? current_user)) || is_admin?) %>
       <a class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
       </a>
       <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
-        <% if ((can? :remove_post, @group) || (can? :edit, blog_post)) %>
-          <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
-      <% end %>
-        <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
-        <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %></li>
-        <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
-      <% end %>
+        <% if can? :remove_post, @group %>
+            <li><%= link_to t('pages.groups.show.featured_post'), feature_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item' %></li>
+        <% end %>
+        <% if ((can? :remove_post, @group) || (can? :update, blog_post)) %>
+            <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
+        <% end %>
+        <% if can? :update, blog_post %>
+            <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %></li>
+            <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
+        <% end %>
       </ul>
   <% end %>
 

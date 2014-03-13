@@ -1371,9 +1371,9 @@ it-IT:
       destroy_ok_1: "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi"
       request_sent: "Richiesta di partecipazione inviata correttamente"
       request_alredy_sent: "Hai già effettuato una richiesta di partecipazione a questo gruppo"
-      status_accepted: "La richiesta di partecipazione è passata in stato: ACCETTATA"
-      status_voting: "La richiesta di partecipazione è passata in stato: IN VOTAZIONE"
-      status_declined: "La richiesta di partecipazione è passata in stato: DECLINATA"
+      status_accepted: "La richiesta di partecipazione è stata accettata"
+      status_voting: "La richiesta di partecipazione è ora in votazione"
+      status_declined: "La richiesta di partecipazione è stata respinta"
     event:
       comment_added: "Commento inserito correttamente"
     topic:

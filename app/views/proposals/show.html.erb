@@ -36,6 +36,7 @@
     <%if current_user %>
     Airesis.can_partecipate = <%=can? :partecipate, @proposal%>;
     Airesis.image_tag = $('<%=j current_user.user_image_tag 32%>');
+    Airesis.resource_viewable = true;
     <%end%>
 
 </script>

@@ -284,6 +284,7 @@ class Ability
         can :destroy, Proposal #can destroy one
         can :destroy, ProposalComment
         can :manage, Group
+
         can :manage, BlogPost
         can :manage, Quorum
         can :update, PartecipationRole

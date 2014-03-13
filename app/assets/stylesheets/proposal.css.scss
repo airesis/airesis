@@ -78,8 +78,7 @@
 }
 
 .solution_main h3 {
-  margin-top: 0px;
-  /*cursor: ns-resize;*/
+  margin: -5px -7px 17px -5px; //fuck fix
 }
 
 .proposal_comment {
@@ -946,7 +945,7 @@ input.edit_label {
   background: no-repeat asset_url("arrow.png") right;
   width: 13px;
   height: 13px;
-  visibility: hidden;
+
 }
 
 .hidden_link:hover {
@@ -956,20 +955,7 @@ input.edit_label {
 
 .mycont .hidden_link {
   width: auto;
-  visibility: visible;
   padding-right: 18px;
-}
-
-.proposal_comment:hover .hidden_link {
-  visibility: visible;
-}
-
-.proposal_comment:hover .hidden_link.invisible {
-  visibility: hidden;
-}
-
-.blogPost:hover .hidden_link {
-  visibility: visible;
 }
 
 .hidden_link {

@@ -1,3 +1,8 @@
 $('#flash_messages').html('<%=j (render partial: 'layouts/flash', locals: {flash: flash})%>');
+<%if params[:from_list] %>
+$('tr[data-id=<%=@request.id%>]').fadeOut();
+<%else%>
 $('#partecipants_container').html('<%=j (render 'partecipants_panel')%>');
 $('#partecipation_requests_container').html('<%=j (render 'partecipation_requests_panel')%>');
+disegnaBottoni();
+<%end%>

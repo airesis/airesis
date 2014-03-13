@@ -151,11 +151,20 @@
         var last_poll_start = new Date().getTime() / 1000;
         var last_poll_end = new Date().getTime() / 1000;
 
-
-        PrivatePub.subscribe("/notifications/" + Airesis.id, function (data, channel) {
+        function poll_if_not_recent() {
             var now_ = new Date().getTime() / 1000;
             if (last_poll_end > last_poll_start && last_poll_end < (now_ - 5)) {
                 poll();
+            }
+        }
+
+        PrivatePub.subscribe("/notifications/" + Airesis.id, function (data, channel) {
+            if (Airesis.resource_viewable) {    //if I am in a page with a viewable object, sign it has view and then poll for alerts
+                $.ajax({url: window.location,
+                    complete: poll_if_not_recent});
+            }
+            else {  //otherwise, just poll for alerts
+                poll_if_not_recent();
             }
         });
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307152328) do
+ActiveRecord::Schema.define(version: 20140313153910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -793,6 +793,7 @@ ActiveRecord::Schema.define(version: 20140307152328) do
   create_table "post_publishings", force: true do |t|
     t.integer "blog_post_id"
     t.integer "group_id"
+    t.boolean "featured",     default: false, null: false
   end
 
   create_table "proposal_alerts", force: true do |t|
@@ -1033,6 +1034,7 @@ ActiveRecord::Schema.define(version: 20140307152328) do
     t.datetime "vote_ends_at"
     t.integer  "vote_event_id"
     t.integer  "signatures"
+    t.integer  "views_count",                             default: 0,     null: false
   end
 
   add_index "proposals", ["proposal_category_id"], name: "_idx_proposals_proposal_category_id", using: :btree
@@ -1414,13 +1416,15 @@ ActiveRecord::Schema.define(version: 20140307152328) do
   end
 
   create_table "user_alerts", force: true do |t|
-    t.integer  "notification_id",              null: false
+    t.integer  "notification_id",                 null: false
     t.integer  "user_id"
     t.boolean  "checked"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "checked_at"
-    t.hstore   "properties",      default: {}, null: false
+    t.hstore   "properties",      default: {},    null: false
+    t.boolean  "deleted",         default: false, null: false
+    t.datetime "deleted_at"
   end
 
   add_index "user_alerts", ["checked"], name: "index_user_alerts_on_checked", using: :btree

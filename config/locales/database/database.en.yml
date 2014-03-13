@@ -185,6 +185,18 @@ en:
           1_hour: "The debate on <b>%{title}</b> ends in an hour!"
           24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
           1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
+      proposal_phase_ending:
+        description: "A proposal debate or votation is going to end soon"
+        email_subject:
+          24_hours: "The debate on %{title} ends tomorrow!"
+          1_hour: "The debate on %{title} ends in an hour!"
+          24_hours_vote: "The vote on %{title} ends tomorrow!"
+          1_hour_vote: "The vote on %{title} ends in an hour!"
+        message:
+          24_hours: "The debate on <b>%{title}</b> ends tomorrow!"
+          1_hour: "The debate on <b>%{title}</b> ends in an hour!"
+          24_hours_vote: "The vote on <b>%{title}</b> ends tomorrow!"
+          1_hour_vote: "The vote on <b>%{title}</b> ends in an hour!"
       new_posts_group_follow:
         description: New posts in the Walls of the groups I am following
         email_subject: New post

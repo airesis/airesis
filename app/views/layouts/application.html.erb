@@ -4,9 +4,9 @@
         <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
       </div>
       <div class="topmenu">
-        <span class="tit left"><%= APP_LONG_NAME %></span>
+        <span class="tit"><%= APP_LONG_NAME %></span>
 
-        <div class="submenu left">
+        <div class="submenu">
           <%= link_to(proposals_path, class: ((['proposals', 'proposal_histories'].include? params[:controller]) ? 'sel' : '')) do %>
               <span class="show-for-large-up"><%= t('pages.open_space.layout.proposals_button') %></span>
 

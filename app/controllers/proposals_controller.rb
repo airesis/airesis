@@ -146,7 +146,7 @@ class ProposalsController < ApplicationController
   end
 
   def show
-    @step = get_next_step(current_user) if current_user
+
     if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
@@ -179,11 +179,14 @@ class ProposalsController < ApplicationController
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-
+    register_view(@proposal,current_user)
 
     respond_to do |format|
-      #format.js
+      format.js {
+        render :nothing => true
+      }
       format.html {
+        @step = get_next_step(current_user) if current_user
         if @proposal.proposal_state_id == ProposalState::WAIT_DATE.to_s
           flash.now[:info] = I18n.t('info.proposal.waiting_date')
         elsif @proposal.proposal_state_id == ProposalState::VOTING.to_s
@@ -1019,6 +1022,10 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       format.html { render "errors/404", :status => 404, :layout => true }
     end
     true
+  end
+
+  def register_view(proposal, user)
+    proposal.register_view_by(user)
   end
 
 end

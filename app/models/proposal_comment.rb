@@ -52,6 +52,8 @@ class ProposalComment < ActiveRecord::Base
 
   before_create :set_paragraph_id
 
+  after_commit :send_email, on: :create
+
   def is_contribute?
     self.parent_proposal_comment_id.nil?
   end
@@ -99,6 +101,10 @@ class ProposalComment < ActiveRecord::Base
       end
     end
     ret
+  end
+
+  def send_email
+    NotificationProposalCommentCreate.perform_async(self.id)
   end
 
 end

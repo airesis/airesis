@@ -45,8 +45,8 @@ module NotificationHelper
 
     data = {'proposal_id' => @proposal.id.to_s, 'comment_id' => proposal_comment.id.to_s, 'username' => name, 'proposal' => @proposal.title, 'i18n' => 't'}
     if @group
-    data['group'] = @group.name
-    data['subdomain'] = @group.subdomain if @group.certified?
+      data['group'] = @group.name
+      data['subdomain'] = @group.subdomain if @group.certified?
     end
     notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE, :url => @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), :data => data)
     notification_a.save
@@ -96,6 +96,7 @@ module NotificationHelper
   end
 
   #invia le notifihe per dire che la proposta è in votazione
+  #deletes eventually alerts of type 'new proposal'
   def notify_proposal_in_vote(proposal, group=nil, group_area=nil)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'in_vote'}
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
@@ -119,13 +120,8 @@ module NotificationHelper
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
         unless proposal.users.include? user
-          another = UserAlert.another('proposal_id',proposal.id,user.id,[NotificationType::NEW_PROPOSALS,NotificationType::NEW_PUBLIC_PROPOSALS]).first
-          if another
-            another.destroy
-            PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
-          else
-            send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
-          end
+          another_delete('proposal_id', proposal.id, user.id, [NotificationType::NEW_PROPOSALS, NotificationType::NEW_PUBLIC_PROPOSALS,NotificationType::PHASE_ENDING])
+          send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end
     end
@@ -157,6 +153,7 @@ module NotificationHelper
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
         unless proposal.users.include? user
+          another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
           send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
         end
       end
@@ -185,6 +182,7 @@ module NotificationHelper
     notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
+        another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
     end
@@ -210,6 +208,7 @@ module NotificationHelper
     notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
+        another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
     end
@@ -223,11 +222,7 @@ module NotificationHelper
     notification_a.save
     group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
       if user != current_user
-        another = UserAlert.another('group_id',group.id,user.id,NotificationType::NEW_PARTECIPATION_REQUEST).first
-        if another
-          another.increase_count!
-          PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included
-        else
+        another_increase_or_do('group_id', group.id, user.id, NotificationType::NEW_PARTECIPATION_REQUEST) do
           send_notification_to_user(notification_a, user)
         end
       end
@@ -277,24 +272,26 @@ module NotificationHelper
 #      notification_a.save
 #      send_notification_to_user(notification_a, blog_post.user)
 #    end
-    #TODO
+#TODO
   end
 
 
-
+  #send a notification to users which have the possibility to evaluate the proposal that they have only 24 hours to evaluate
   def notify_24_hours_left(proposal)
     time_left(proposal, '24_hours')
   end
 
+  #send a notification to users which have the possibility to evaluate the proposal that they have only 1 hour to evaluate
   def notify_1_hour_left(proposal)
     time_left(proposal, '1_hour')
   end
 
-
+  #send a notification to users which have the possibility to vote the proposal that they have only 24 hours to vote
   def notify_24_hours_left_to_vote(proposal)
     time_left_vote(proposal, '24_hours_vote')
   end
 
+  #send a notification to users which have the possibility to vote the proposal that they have only 1 hour to vote
   def notify_1_hour_left_to_vote(proposal)
     time_left_vote(proposal, '1_hour_vote')
   end
@@ -308,14 +305,11 @@ module NotificationHelper
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(:notification_type_id => NotificationType::PHASE_ENDING, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_a.save!
-    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
-    notification_b.save!
     proposal.notification_receivers.each do |user|
-      (proposal.users.include? user) ?
-          send_notification_to_user(notification_b, user) :
-          send_notification_to_user(notification_a, user)
+      another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
+      send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
     end
   end
 
@@ -329,16 +323,8 @@ module NotificationHelper
       data['subdomain'] = group.subdomain if group.certified?
     end
 
-    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
-    notification_a.save!
 
-    proposal.users.each do |user|
-      if !(defined? current_user) || (user != current_user)
-        send_notification_to_user(notification_a, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
-      end
-    end
-
-    notification_b = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b = Notification.new(:notification_type_id => NotificationType::PHASE_ENDING, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
     notification_b.save!
 
     users = group ?
@@ -349,10 +335,28 @@ module NotificationHelper
 
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
-        unless proposal.users.include? user
-          send_notification_to_user(notification_b, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
-        end
+        another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
+        send_notification_to_user(notification_b, user) unless (BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id) || proposal.user_votes.find_by_user_id(user.id)) #don't send if he has already voted
       end
     end
   end
+
+
+  #delete previous notifications
+  def another_delete(attribute, attr_id, user_id, notification_type)
+    another = UserAlert.another(attribute, attr_id, user_id, notification_type)
+    another.soft_delete_all
+  end
+
+  #increase previous notification
+  def another_increase_or_do(attribute, attr_id, user_id, notification_type, &block)
+    another = UserAlert.another_unread(attribute, attr_id, user_id, notification_type).first
+    if another
+      another.increase_count!
+      PrivatePub.publish_to("/notifications/#{user_id}", pull: 'hello') rescue nil #todo send specific alert to be included
+    else
+      block.call
+    end
+  end
+
 end

@@ -6,14 +6,14 @@ module Frm
       extend ActiveSupport::Concern
 
       included do
-        has_many :views, :as => :viewable
+        has_many :views, class_name: 'Frm::View', :as => :viewable
       end
 
       def view_for(user)
         views.find_by_user_id(user.id)
       end
 
-      # Track when users last viewed topics
+      # Track when users last viewed an element
       def register_view_by(user)
         return unless user
 
