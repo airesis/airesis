@@ -13,7 +13,7 @@ module Frm
     protected
 
     def load_category
-      @category = @group.categories.find(params[:id])
+      @category = @group.categories.friendly.find(params[:id])
     end
   end
 end

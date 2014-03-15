@@ -1,15 +1,13 @@
 <%blog_post = post_publishing.blog_post%>
 <div class="card blogPost" id="blogPost<%= blog_post.id %>">
-  <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || (@group && (@group.portavoce.include? current_user)) || is_admin?) %>
+  <% if (can? :remove_post, @group) || (can? :update, blog_post) %>
       <a class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
       </a>
       <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
         <% if can? :remove_post, @group %>
             <li><%= link_to t('pages.groups.show.featured_post'), feature_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item' %></li>
         <% end %>
-        <% if ((can? :remove_post, @group) || (can? :update, blog_post)) %>
-            <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
-        <% end %>
+        <li><%= link_to t('pages.groups.show.remove_post'), remove_post_group_path(@group, :post_id => blog_post.id), :method => :put, :remote => true, :class => 'menu_item', data: {confirm: "Sei sicuro di voler rimuovere il post '#{blog_post.title}' dalla bacheca del gruppo?"} %></li>
         <% if can? :update, blog_post %>
             <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %></li>
             <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
@@ -33,7 +31,7 @@
       <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %> |
       <span class="blogComments">
 
-      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments.count),group_blog_post_url(@group,blog_post) %>
+      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count),group_blog_post_url(@group,blog_post) %>
       </span>
     </div>
     <% if ::Configuration::socialnetwork_active %>

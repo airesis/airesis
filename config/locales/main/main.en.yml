@@ -295,6 +295,8 @@ en:
         remove_all: "Remove all"
       statistics:
         title: "Average values calulated (last update on %{date})"
+      archives:
+        page_title: "Archive for %{month}, %{year}"
     login:
       title: 'Login'
     confirmation:

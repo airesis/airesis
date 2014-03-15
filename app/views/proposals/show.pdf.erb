@@ -99,14 +99,14 @@
     <% unless @proposal.interest_borders.empty? %>
         <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
         <% @proposal.interest_borders.each do |ib| %>
-            <div style="margin:5px;" class="ui-state-highlight"><%= ib.description %></div>
+            <div class="label"><%= ib.description %></div>
         <% end %>
     <% end %>
 
     <% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
         <h4><%= t('pages.proposals.show.tags_title') %></h4>
         <% @proposal.tags.each do |tag| %>
-            <div style="margin:5px;"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            <div class="label"><a class="ui-state-highlight" href="<%= tag_path tag.text %>"><%= tag.text %></a>
               x <%= tag.proposals_count %></div>
         <% end %>
     <% end %>

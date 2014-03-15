@@ -13,7 +13,7 @@ class Configuration < ActiveRecord::Base
   end
 
   def self.socialnetwork_active
-    @socialnetwork_active = !self.find_by_name(SOCIALNETWORK).value.to_i.zero?
+    @socialnetwork_active ||= !self.find_by_name(SOCIALNETWORK).value.to_i.zero?
   end
 
   def self.elections_active

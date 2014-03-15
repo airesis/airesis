@@ -1,6 +1,8 @@
 !window.console && (console = { log: function () {
 }});
 
+var $viewport;
+
 function switchText(button) {
     var other_ = button.data('other');
     var text_ = button.text();
@@ -11,7 +13,7 @@ function switchText(button) {
 
 function scrollToElement(element) {
     $viewport.animate({
-        scrollTop: element.offset().top - 100
+        scrollTop: element.offset().top - 160
     }, 2000);
 
     // Stop the animation if the user scrolls. Defaults on .stop() should be fine
@@ -24,132 +26,6 @@ function scrollToElement(element) {
 }
 
 var cards_delay = 0;
-
-$(function () {
-    ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible ~ :input:enabled[data-validate]';
-
-    disegnaBottoni();
-
-    disegnaProgressBar();
-
-    if ($('.sticky-anchor').length > 0) {
-        $(window).scroll(sticky_relocate);
-        sticky_relocate();
-    }
-
-
-    $('#menu-group .icon-menu').click(function () {
-        var menu_ = $('#menu-left');
-        if (menu_.attr('data-expshow') == 'true') {
-            menu_.removeClass('small-show');
-            menu_.attr('data-expshow', false);
-        }
-        else {
-            menu_.addClass('small-show');
-            menu_.attr('data-expshow', true);
-        }
-    });
-
-
-    mybox_animate();
-
-
-    $(document.body).on('appear', '.card.appear', function (e, $affected) {
-        cards_delay = 0;
-        $(this).addClass('appeared');
-        /*$affected.each(function() {
-         var $this_ = $(this);
-         console.log('appear in ' + cards_delay);
-         setTimeout(function() {$this_.addClass("appeared")},cards_delay);
-         cards_delay += 300;
-         });*/
-        cards_delay = 0;
-    });
-
-    $('.card.appear').appear({force_process: true});
-
-
-    var searchcache = {};
-    var search_f = $('#search_q');
-    if (search_f.length > 0) {
-        search_f.autocomplete({
-            minLength: 1,
-            source: function (request, response) {
-                var term = request.term;
-                if (term in searchcache) {
-                    response(searchcache[ term ]);
-                    return;
-                }
-                $.getJSON("/searches", request, function (data, status, xhr) {
-                    searchcache[ term ] = data;
-                    response(data);
-                });
-
-            },
-            focus: function (event, ui) {
-                console.log('focus on ' + ui);
-                event.preventDefault();
-            },
-            select: function (event, ui) {
-                window.location.href = ui.item.url;
-                event.preventDefault();
-            }
-
-        });
-        search_f.data("uiAutocomplete")._renderMenu = function (ul, items) {
-            var that = this;
-            $.each(items, function (index, item) {
-                if (item.type == 'Divider') {
-                    ul.append($("<li class='ui-autocomplete-category'>" + item.value + "</li>"));
-                }
-                else {
-                    that._renderItemData(ul, item);
-                }
-            });
-            $(ul).addClass('f-dropdown').addClass('medium').css('z-index', 1005).css('width', '400px');
-        };
-        search_f.data("uiAutocomplete")._renderItem = function (ul, item) {
-            var el = $("<li>");
-            var link_ = $("<a></a>");
-            var container_ = $('<div class="search_result_container"></div>')
-            var image_ = $('<div class="search_result_image"></div>')
-            container_.append(image_);
-            var desc_ = $('<div class="search_result_description"></div>');
-            desc_.append('<div class="search_result_title">' + item.label + '</div>');
-            var text_ = $('<div class="search_result_text">' + '</div>');
-            if (item.type == 'Blog') {
-                image_.append(item.image);
-                text_.append('<a href="' + item.user_url + '">' + item.username + '</a>');
-            }
-            else if (item.type == 'Group') {
-                text_.append('<div class="groupDescription"><img src="/assets/group_partecipants.png"><span class="count">' + item.partecipants_num + '</span></div>');
-                text_.append('<div class="groupDescription"><img src="/assets/group_proposals.png"><span class="count">' + item.proposals_num + '</span></div>');
-                image_.append('<img src="' + item.image + '"/>');
-            }
-            else {
-                image_.append('<img src="' + item.image + '"/>');
-            }
-            desc_.append(text_);
-            container_.append(desc_);
-            container_.append('<div class="clearboth"></div>')
-            link_.attr('href', item.url);
-            link_.append(container_);
-            el.append(link_);
-            el.appendTo(ul);
-            return el;
-        };
-    }
-
-
-    $('.submenu a div').qtip({
-        position: {
-            at: 'bottom center',
-            my: 'top center',
-            effect: false
-        }
-    });
-
-});
 
 function show_cards() {
     cards_delay = 0;
@@ -582,6 +458,12 @@ function disegnaDatePicker() {
     }));
 }
 
+function disegnaCountdown() {
+    $('div[data-countdown]').each(function () {
+        $(this).countdown($.extend({since: new Date($(this).data('time')), significant: 1, format: 'ms', layout: Airesis.i18n.countdown}, $.countdown.regional[Airesis.i18n.locale]));
+    })
+}
+
 function deleteMe(el) {
     $(el).remove();
 }
@@ -638,12 +520,30 @@ function stripScripts(s) {
 }
 
 
-function read_notifica(el) {
-    var parent_ = $(el).parent();
-    parent_.addClass('old').removeClass('new');
-    var url_ = parent_.attr('href');
-    var type_id = $(el).data('type_id');
-    var box_ = $('.alert_box.logo[data-id=' + type_id + '] .notify');
+var last_poll_start = new Date().getTime() / 1000;
+var last_poll_end = new Date().getTime() / 1000;
+
+function poll_if_not_recent() {
+    var now_ = new Date().getTime() / 1000;
+    if (last_poll_end > last_poll_start && last_poll_end < (now_ - 5)) {
+        poll();
+    }
+}
+
+var document_title = document.title;
+
+function set_alerts_number(number) {
+    $('.alert.notify.boxed').append(number);
+    document.title = '('+number+') ' + document_title;
+}
+
+function reset_alerts_number() {
+    var box_ = $('.alert.notify.boxed');
+    box_.remove();
+    document.title = document_title;
+}
+
+function decrease_box_number(box_) {
     var num_ = parseInt(box_.html());
     if (num_ > 1) {
         num_ -= 1;
@@ -652,17 +552,35 @@ function read_notifica(el) {
     else {
         box_.remove();
     }
+}
+
+function decrease_alerts_number() {
+    var box_ = $('.alert.notify.boxed');
+    var num_ = parseInt(box_.html());
+    if (num_ > 1) {
+        num_ -= 1;
+        box_.html(num_);
+        document.title = '('+num_+') ' + document_title;
+    }
+    else {
+        reset_alerts_number();
+    }
+}
+
+
+
+
+function read_notifica(el) {
+    var parent_ = $(el).parent();
+    parent_.addClass('old').removeClass('new');
+    var url_ = parent_.attr('href');
+    var type_id = $(el).data('type_id');
+    decrease_alerts_number();
+
     var proposal_id = parent_.data('proposal-id');
     if (proposal_id) {
         $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
-            var num_ = parseInt($(this).html());
-            if (num_ > 1) {
-                num_ -= 1;
-                $(this).html(num_);
-            }
-            else {
-                $(this).remove();
-            }
+            decrease_box_number($(this));
         });
     }
 
@@ -673,16 +591,6 @@ function read_notifica(el) {
     });
 }
 
-function set_noise_data() {
-    $('#comments_active').val($('#active .noise_element').map(function () {
-        return $(this).data('id')
-    }).get());
-    $('#comments_inactive').val($('#inactive .noise_element').map(function () {
-        return $(this).data('id')
-    }).get());
-}
-
-
 function sign_all_as_read(id) {
     $.ajax({
         data: 'id=' + id,
@@ -690,26 +598,93 @@ function sign_all_as_read(id) {
         type: 'post',
         dataType: 'js',
         complete: function (data) {
-            var box_ = $('.alert.notify.boxed');
-            box_.remove();
+            reset_alerts_number()
             $('.cont-mess .mess.new').each(function () {
                 $(this).removeClass('new');
                 var proposal_id = $(this).data('proposal-id');
                 if (proposal_id) {
                     $('.alert.notify[data-proposal-id=' + proposal_id + ']').each(function () {
-                        var num_ = parseInt($(this).html());
-                        if (num_ > 1) {
-                            num_ -= 1;
-                            $(this).html(num_);
-                        }
-                        else {
-                            $(this).remove();
-                        }
+                        decrease_box_number($(this));
                     });
                 }
             });
         }
     });
+}
+
+function poll() {
+    last_poll_start = new Date().getTime() / 1000;
+    $.ajax({
+        dataType: 'json',
+        type: 'get',
+        url: "/alerts/polling",
+        success: function (data) {
+            if (data.count > 0) {
+                $('#alerts_link').append($('<button class="alert notify boxed">').append(data.count));
+                document.title = '('+data.count+') ' + document.title;
+            }
+            var n_container = $("#alert_cont");
+            n_container.empty();
+            var read_container = $('<div class="read_all">');
+            read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">'+Airesis.i18n.alerts_sign_has_read+'</a>'));
+            var sub_container = $('<div class="cont1">');
+            n_container.append(read_container).append(sub_container);
+            for (var j = 0; j < data.alerts.length; j++) {
+                var alert = data.alerts[j];
+                var li_alert_con = $('<li></li>');
+
+                var alert_container = $('<a class="mess" href="' + alert.path + '">');
+                li_alert_con.append(alert_container);
+                alert_container.addClass(alert.checked ? 'old' : 'new');
+
+                if (alert.proposal_id) {
+                    alert_container.attr('data-proposal-id', alert.proposal_id);
+                }
+
+                if (!alert.checked) {
+                    alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="'+Airesis.i18n.alert_read+'" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></span>'));
+                }
+                var notif_container = $('<div class="mess_desc"></div>');
+                notif_container.append($('<p class="p2">' + alert.text + '</p>'));
+                notif_container.append($('<div class="p1">' + alert.created_at + '</div>'));
+                alert_container.append(alert.image);
+                alert_container.append(notif_container);
+                alert_container.append('<div class="clearboth"></div>');
+                sub_container.append(li_alert_con);
+            }
+            if (data.alerts.length == 0) {
+                sub_container.append($('<span>'+Airesis.i18n.no_alerts+'</span>'));
+            }
+
+            $('.cont1')
+                    .bind('mousewheel DOMMouseScroll', function (e) {
+                        if (e.originalEvent) e = e.originalEvent;
+                        var delta = e.wheelDelta || -e.detail;
+                        this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                        e.preventDefault();
+                    });
+            disegnaCountdown();
+
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        complete: function (data) {
+            //setTimeout(poll, 60000);
+            last_poll_end = new Date().getTime() / 1000;
+        }
+    });
+}
+
+
+
+function set_noise_data() {
+    $('#comments_active').val($('#active .noise_element').map(function () {
+        return $(this).data('id')
+    }).get());
+    $('#comments_inactive').val($('#inactive .noise_element').map(function () {
+        return $(this).data('id')
+    }).get());
 }
 
 function secondsToString(seconds) {
@@ -842,7 +817,31 @@ function initTextAreaTag() {
     });
 }
 
+function airesis_reveal(element_, remove_on_close) {
+    remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
+    element_.foundation().foundation('reveal', 'open');
+    if (remove_on_close) {
+        $(document).on('closed', element_, function () {
+            element_.remove();
+        });
+    }
+}
 
+/**
+ * posiziona il marcatore sull'indirizzo specificato nel campo 'Comune'
+ */
+function search_stuff() {
+    delay(function () {
+        var query = $('#search_q').val();
+        if (query != null && query != "") {
+            $.ajax({
+                url: '/searches',
+                data: 'search[q]=' + query,
+                method: 'POST'
+            });
+        }
+    }, 600);
+}
 
 
 jQuery.uaMatch = function (ua) {
@@ -880,6 +879,8 @@ if (!jQuery.browser) {
 
     jQuery.browser = browser;
 }
+
+
 
 
 /*we'll do that in 3.1 TODO */
@@ -945,32 +946,3 @@ if (!jQuery.browser) {
 //        return false;
 //    }
 //};
-
-
-function airesis_reveal(element_, remove_on_close) {
-    remove_on_close = typeof remove_on_close !== 'undefined' ? remove_on_close : true;
-    element_.foundation().foundation('reveal', 'open');
-    if (remove_on_close) {
-        $(document).on('closed', element_, function () {
-            element_.remove();
-        });
-    }
-}
-
-/**
- * posiziona il marcatore sull'indirizzo specificato nel campo 'Comune'
- */
-function search_stuff() {
-    delay(function () {
-        var query = $('#search_q').val();
-        if (query != null && query != "") {
-            $.ajax({
-                url: '/searches',
-                data: 'search[q]=' + query,
-                method: 'POST'
-            });
-        }
-    }, 600);
-}
-
-

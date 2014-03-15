@@ -1,12 +1,10 @@
 <div class="blogPost card" id="blogPost<%= blog_post.id %>">
-  <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
+  <% if can? :update, blog_post %>
       <div class="hidden_link">
       </div>
       <div class="hidden_menu">
-        <% if user_signed_in? && ((current_user.is_my_blog_post? blog_post.id) || is_admin?) %>
-              <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %>
-              <%= link_to( t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."}) %>
-        <% end %>
+          <%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), :class => 'menu_item' %>
+          <%= link_to( t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), :method => :delete, :class => 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."}) %>
       </div>
   <% end %>
 
@@ -31,7 +29,7 @@
       <%= raw t('pages.blog_posts.list_elements.inserted', name: (link_to ((blog_post.user_image_tag 15) + blog_post.user.fullname), blog_post.user), date: (l blog_post.created_at)) %> |
       <span class="blogComments">
 
-      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments.count),blog_blog_post_url(blog_post.blog,blog_post) %>
+      <%=link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count),blog_blog_post_url(blog_post.blog,blog_post) %>
       </span>
     </div>
     <% if ::Configuration::socialnetwork_active %>

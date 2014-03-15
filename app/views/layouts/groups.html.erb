@@ -16,7 +16,7 @@
 
       <div class="submenu">
         <% if @group && @group.id && (can? :view_data, @group) %>
-            <%= link_to(@group, class: ((params[:controller] == 'groups' && params[:action] == 'show') || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '') do %>
+            <%= link_to(@group, class: ((params[:controller] == 'groups' && (['show','by_year_and_month'].include? params[:action])) || (params[:controller] == 'blog_posts') || (!(can? :update, @group) && params[:controller] == 'group_partecipations')) ? 'sel' : '') do %>
                 <span class="show-for-large-up"><%= t('pages.groups.layout.home_button') %></span>
 
                 <div class="icon-home small hide-for-large-up" title="<%= t('pages.groups.layout.home_button') %>"></div>

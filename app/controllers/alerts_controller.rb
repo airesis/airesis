@@ -15,10 +15,10 @@ class AlertsController < ApplicationController
   end
 
   def polling
-    unread = current_user.user_alerts.where({checked: false, deleted: false}).load
-    numunread = unread.size
+    unread = current_user.user_alerts.where({checked: false, deleted: false}).includes(:notification_type,:notification_category)
+    numunread = unread.count
     if numunread < 10
-      unread += current_user.user_alerts.where({checked: true, deleted: false}).limit(10 - numunread).load
+      unread += current_user.user_alerts.where({checked: true, deleted: false}).includes(:notification_type,:notification_category).limit(10 - numunread)
     end
     alerts = unread.map do |alert|
       {id: alert.id,

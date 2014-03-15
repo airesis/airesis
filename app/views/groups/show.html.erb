@@ -17,11 +17,19 @@
 <% if can? :view_data, @group %>
     <% javascript 'endless_page' %>
 
+
     <div class="row full-width">
       <div class="column medium-12 large-8" style="padding-left:0;padding-right:0;">
-        <div class="card"><%= raw (@group.description)%></div>
+
+
+        <% if params[:action] == 'by_year_and_month' %>
+            <h2><%= t('pages.groups.archives.page_title', year: params[:year], month: t('date.month_names')[params[:month].to_i]) %></h2>
+        <% else %>
+            <div class="card"><%= raw (@group.description) %></div>
+        <% end %>
+
         <div id="posts_container">
-          <% if @group_posts.count == 0 %>
+          <% if @group_posts.size == 0 %>
               <div class="blogPost">
                 <p>
                   <%= t('pages.groups.show.no_blogs_yet') %>
@@ -32,7 +40,7 @@
 
           <% end %>
         </div>
-        <% if @group_posts.count > COMMENTS_PER_PAGE %>
+        <% if @group_posts.size > COMMENTS_PER_PAGE %>
             <div id="loading_results" class="post_results">
               <span><%= t('pages.blogs.show.previous_posts') %></span>
             </div>
@@ -40,7 +48,6 @@
       </div>
 
       <div id="homegroup" class="columns large-4 show-for-large-up">
-
 
 
         <% if can? :view_proposal, @group %>
@@ -59,24 +66,24 @@
 <script type="text/javascript">
     $(function () {
         /*$('.hidden_menu')
-                .click(function (event) {
-                    //event.stopPropagation();
-                });
+         .click(function (event) {
+         //event.stopPropagation();
+         });
 
-        $('html').click(function () {
-            $('.hidden_menu').hide();
-            $('.hidden_link.visible').removeClass('visible');
-        });
+         $('html').click(function () {
+         $('.hidden_menu').hide();
+         $('.hidden_link.visible').removeClass('visible');
+         });
 
-        $('.hidden_link')
-                .click(function (event) {
-                    $(this).addClass('visible');
-                    $(this).next().show().position({
-                        my: "right top",
-                        at: "right bottom",
-                        of: $(this)
-                    });
-                    event.stopPropagation();
-                });*/
+         $('.hidden_link')
+         .click(function (event) {
+         $(this).addClass('visible');
+         $(this).next().show().position({
+         my: "right top",
+         at: "right bottom",
+         of: $(this)
+         });
+         event.stopPropagation();
+         });*/
     });
 </script>

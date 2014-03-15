@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313153910) do
+ActiveRecord::Schema.define(version: 20140314181009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,14 +153,15 @@ ActiveRecord::Schema.define(version: 20140313153910) do
 
   create_table "blog_posts", force: true do |t|
     t.integer  "blog_id"
-    t.string   "title",                                  null: false
+    t.string   "title",                                         null: false
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",              default: false, null: false
+    t.boolean  "published",                     default: false, null: false
     t.datetime "published_at"
     t.integer  "user_id"
-    t.string   "status",       limit: 1, default: "P",   null: false
+    t.string   "status",              limit: 1, default: "P",   null: false
+    t.integer  "blog_comments_count",           default: 0,     null: false
   end
 
   create_table "blog_tags", force: true do |t|
@@ -173,7 +174,10 @@ ActiveRecord::Schema.define(version: 20140313153910) do
   create_table "blogs", force: true do |t|
     t.integer "user_id"
     t.string  "title"
+    t.string  "slug"
   end
+
+  add_index "blogs", ["slug"], name: "index_blogs_on_slug", using: :btree
 
   create_table "candidates", force: true do |t|
     t.integer  "user_id",     null: false

@@ -92,7 +92,7 @@ html .fc,
 
 .fc-header .fc-state-active,
 .fc-header .ui-state-active {
-    z-index: 4;
+    z-index: 1;
 }
 
 

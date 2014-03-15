@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
   
   
    def check_author
-    @blog = Blog.find(params[:id])
+    @blog = Blog.friendly.find(params[:id])
     if !(current_user.is_my_blog? @blog.id) && !is_admin?
       flash[:notice] = t('error.blog.cannot_edit')
       redirect_to :back
@@ -77,7 +77,7 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1/edit
   def edit
-    @blog = Blog.find(params[:id])
+    @blog = Blog.friendly.find(params[:id])
     @user = @blog.user
   end
 
@@ -109,7 +109,7 @@ class BlogsController < ApplicationController
   # PUT /blogs/1
   # PUT /blogs/1.xml
   def update
-    @blog = Blog.find(params[:id])
+    @blog = Blog.friendly.find(params[:id])
 
     respond_to do |format|
       if @blog.update_attributes(params[:blog])
@@ -126,7 +126,7 @@ class BlogsController < ApplicationController
   # DELETE /blogs/1
   # DELETE /blogs/1.xml
   def destroy
-    @blog = Blog.find(params[:id])
+    @blog = Blog.friendly.find(params[:id])
     @blog.destroy
 
     respond_to do |format|
@@ -139,7 +139,7 @@ class BlogsController < ApplicationController
 
 
   def load_blog
-    @blog = Blog.find(params[:id])
+    @blog = Blog.friendly.find(params[:id])
     @user = @blog.user
     @blog_posts = @blog.posts.published.includes(:user,:blog,:tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     @recent_comments =  @blog.comments.order('created_at DESC').limit(10)

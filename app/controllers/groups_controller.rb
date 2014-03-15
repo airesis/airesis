@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :by_year_and_month]
 
   #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
 
@@ -75,21 +75,28 @@ class GroupsController < ApplicationController
     end
   end
 
-  #TODO
+
   def by_year_and_month
-    @page_title = t('pages.blog_posts.archives.title', year: params[:year], month: t('date.month_names')[params[:month].to_i])
-    #@blog_posts = @group.posts.where("extract(year from created_at) = ? AND extract(month from created_at) = ? ", params[:year], params[:month]).order("created_at DESC").page(params[:page]).per(COMMENTS_PER_PAGE)
+    if current_user
+      @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
+    else
+      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
+    end
+    @group_posts = @group_posts.where("extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
 
     respond_to do |format|
-      format.js
+      format.js {
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
+        render 'show'
+      }
       format.html {
-
-        @page_title = @group.name
+        @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
         @partecipants = @group.partecipants
-        @group_posts = []
+        @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
         render 'show'
       }
+      format.json {render 'show'}
     end
   end
 

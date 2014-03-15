@@ -5,4 +5,8 @@ class GroupPartecipation < ActiveRecord::Base
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id, :counter_cache => true
   belongs_to :acceptor, :class_name => 'User', :foreign_key => :acceptor_id
 
+
+  def as_admin?
+    self.partecipation_role_id == PartecipationRole::PORTAVOCE
+  end
 end

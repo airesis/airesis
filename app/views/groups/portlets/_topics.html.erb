@@ -1,7 +1,7 @@
 <div class="title">
   <%= t('pages.groups.show.last_topics') %>
 </div>
-<% @c = @group.topics.order('created_at desc').limit(10) %>
+<% @c = @group.topics.includes(:views, :forum).order('created_at desc').limit(10) %>
 <% unless @c.empty? %>
     <div class="scrollable">
       <div class="mini_topics">

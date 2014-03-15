@@ -174,7 +174,7 @@ class BlogPostsController < ApplicationController
   end
 
   def load_blog
-    @blog = Blog.find(params[:blog_id]) if params[:blog_id]
+    @blog = Blog.friendly.find(params[:blog_id]) if params[:blog_id]
     @user = @blog.user if @blog
 
     @group = (params[:group_id] && !params[:group_id].empty?) ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by(subdomain: request.subdomain) : nil

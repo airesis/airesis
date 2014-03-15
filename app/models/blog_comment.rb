@@ -2,7 +2,7 @@ class BlogComment < ActiveRecord::Base
 	include BlogKitModelHelper
 
 	belongs_to :user
-	belongs_to :blog_post
+	belongs_to :blog_post, counter_cache: true
   has_one :blog, through: :blog_post
 	
 	validates_presence_of :body
