@@ -364,8 +364,6 @@ end
 #restituisce il primo autore della proposta
 def user
   @first_user ||= self.proposal_presentations.first.user
-  #@first_user ||= self.proposals_presentations.
-  return @first_user
 end
 
 def short_content

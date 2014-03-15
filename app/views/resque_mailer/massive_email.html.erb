@@ -1,5 +1,3 @@
 <%= @from.fullname %> ti ha inviato il seguente messaggio:<br />
-<p style="font-style: italic;">
-<%= @body %>
-</p>
+<%=raw auto_link((simple_format @body, style: 'font-style: italic;'), :html => {:target => '_blank'}, :sanitize => false) %>
 Puoi rispondere a <%=  @from.name %> rispondendo semplicemente a questa email.

@@ -101,7 +101,7 @@ Written by (David *)Frenkiel - https://github.com/imdfl
 		
 	
 		ed.on("destroy", (function(editor) {
-			var ind = this._findPluginIndex(editor);
+			var ind = _findPluginIndex(editor);
 			if (ind >= 0) {
 				_pluginMap.splice(ind, 1);
 			}

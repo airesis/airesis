@@ -1,0 +1,44 @@
+fr:
+  tutorial:
+    proposals_index:
+      welcome_open_space: "Bienvenue dans l'espace ouvert de Airesis ! L'espace ouvert est un groupe très particulier auquel participent tous les utilisateurs. Vous trouverez une liste des propositions librement ajoutées par les utilisateurs de l'application et vous pouvez même ajouter les votre"
+      welcome_group: "Il s'agit de la liste des propositions du groupe <b>%{group_name}</b>. Vous trouverez une liste des propositions ajoutées par les membres du groupe et vous pouvez même ajouter les votre, étant donné que vous êtes autorisé à le faire"
+      new_proposal: Dans le menu latéral droit, vous trouverez un bouton pour créer de nouvelles propositions...
+      filters: ... et des filtres différents pour trouver les propositions qui vous intéressent
+      tabs: Les Propositions dans Airesis suivent une procédure donnée qui est faite de quatre statuts principaux. Nous allons les découvrir !
+      tab_debate: "Les nouvelles propositions commencent dans la phase de débat et tous les utilisateurs ou les membres d'un groupe peuvent participer, débattre et élaborer la proposition, afin qu'elle soit mûre pour le vote"
+      tab_vote: "Lorsque le débat s'achève, les propositions vont vers l'onglet de vote, où chaque utilisateur peut voter les solutions qui ont émergées au cours du débat"
+      tab_voted: "Après le vote, toutes les propositions votées se déplacent vers l'onglet votées, où il est possible de consulter le résultat du cycle de vie complet de la proposition"
+      abandoned: "Toutes les propositions qui ne passe pas le débat vont à l'onglet abandonnées, d'où elles peuvent être remise dans un débat afin de continuer la discussion"
+      proposal_list: Chaque proposition est affichée dans une boîte comme celle-ci, où il y a toutes les informations sur son statut en débat
+      model: Le modèle utilisé pour la création de la proposition
+      category_icon: La catégorie choisie
+      status: "L'état de la proposition. Au cours du débat, c'est la dernière fois que le texte a été mis à jour"
+      maintitle: Le titre de la proposition, qui est le sujet de la discussion
+      text_content: Les premières lignes de la solution ou du problème
+      timeline: "Une barre qui affichent l'état du débat ou le vote"
+      timeleft: Le temps et/ou les évaluations nécessaires pour clore le débat
+      rankDescription: La maturité de la proposition, qui montre si la proposition est prête à être votée, basé sur les évaluations des participants
+      partecipants: Le nombre de personnes qui participent à ce projet avec leurs contributions et évaluations
+      contributes: Le nombre de contributions ajoutées
+      end: "Il s'agit de la structure de la liste des propositions. C'est la même dans chaque groupe auquel vous participez et elle vous aidera à vous orienter dans les discussions du groupe"
+    proposals_show:
+      welcome: Bienvenue dans cette proposition en débat sur Airesis. Ce tutoriel vous expliquera en détails les différentes parties qui la compose
+      title: "C'est le titre de la proposition, qui est le sujet discuté"
+      status_description: Cela montre les conditions de clôture du débat
+      main: Ce sont les paragraphes qui composent les propositions
+      solution_main: "Il s'agit d'une solution. Même la solution faite de paragraphes différents. L'éditeur écrira une ou plusieurs solutions pour résoudre le problème concerné"
+      contributeButton: "À l'aide de ces boutons vous pouvez voir les contributions des autres utilisateurs et ajoutez les votre. Les contributions sont toujours mentionnées au paragraphe dans lequel elles sont accessibles"
+      newComment: "Utilisez ce champ pour ajouter une contribution qui n'est pas mentionnée dans un paragraphe spécifique"
+      menu_left: Dans ce menu de gauche, vous trouverez toutes les infos sur la proposition
+      evaluations: "Le nombre d'évaluations exprimées par les participants, qui ont indiqués que la proposition est prête pour le vote ou que le débat devrait continuer"
+      ranking: "La maturité de la proposition, c'est le pourcentage des participants qui pense que la proposition est prête pour le vote"
+      status: "L'état de la proposition. Dans ce cas, elle est dans la phase de débat"
+      dates: Date de création et de mise à jour de la proposition
+      condition_left: Condition pour clore le débat
+      socialnetwork: Les boutons pour partager les propositions sur vos réseaux sociaux et inviter vos amis à la discussion
+      authors: Les éditeurs de la proposition
+      category: La catégorie de cette proposition
+      history: Historique de la proposition, dans lequel vous pouvez afficher ses modifications et son évolution
+    next: Suivant
+    back: Précédent
