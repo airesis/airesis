@@ -268,6 +268,7 @@
     var currentPage = 0;
     var currentView = 3;
     var contributes = [];
+    var checkActive = false;
 
     function fetchContributes() {
         currentPage++;
@@ -707,7 +708,7 @@
                 var sec_id = $(this).attr('data-section_id');
                 var id = $(this).find('textarea').attr('id');
                 var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                $('#' + seq_id).val(i++)
+                $('#' + seq_id).val(i++);
 
                 //navigator update
                 var list_ = nav_.find('li.sec_nav[data-section_id=' + sec_id + ']').detach();

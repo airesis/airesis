@@ -1,0 +1,98 @@
+fr:
+  home:
+    whowe:
+      title: Qui sommes-nous
+      description: Un groupe de bénévoles qui veulent améliorer le monde dans lequel nous vivons, des citoyens comme vous.
+      intro:
+        title: Des Citoyens qui recherchent une meilleure démocratie
+        description_html: |
+          <p>Airesis est le résultat de la fusion de deux projets : Agor&agrave 2.0 et DemocracyOnline, qui se rejoigne dans l'Association <a href="http://www.tecnologiedemocratiche.it/" target="_blank">Tecnologie Democratiche</a>, avec l'un de ses objectif principal d'être le développement d'un produit open-source de E-democracy.</p>
+          <p>L'objectif de l'éauipe, <strong>composée entièrement de volontaires</strong> est de donner aux groupes et aux citoyens une plateforme logicielle qui permette de gérer la <strong>majorité des problèmes</strong> de notre société en permettant la<strong>création</strong>, la <strong>discussion</strong> et la <strong>votation</strong> sur des propositions de manière <strong>transparente</strong>, <strong>democratique</strong>, <strong>constructive</strong> et <strong>participative</strong>,
+          permettant à l'<strong>intelligence collective</strong> d’émerger.</p>
+          <p>Si vous partagez aussi notre objectif, vous pouvez vous <a href="/partecipa">joindre à nous</a> en prenant contact avec nos volontaires.</p>
+          <p>Vous pouvez consulter <a href=%{story}>l'historique d'Airesis</a>. Découvrez comment notre projet a pris naissance et ses futurs objectifs.</p>
+      development_area: Zone de développement
+      other_voluteers: Autres bénévoles actifs dans le projet
+      contributors: contributeurs
+      contributors_desc: 'Ils ont consacré leur temps libre au projet (par ordre alphabétique) :'
+      special_thanks: Nous remercions tout particulièrement
+      tilatti_marino:
+        title: Développeur et coordonnateur
+        content_html: "<p>Au cours de mes études de premier cycle, je me rends compte des grandes possibilités que l'internet offre à l'humanité.   Tout juste diplômé en économie et affaires, j'ai choisi de me consacrer à mes passions et en quelques années, j'ai donné vie à plusieurs grands portails sur le monde des animaux et l'immobilier de luxe, ainsi que certains services applicatifs.   Mon rêve, cependant, est toujours de réaliser un outil capable de mettre en oeuvre la démocratie directe, c'est pourquoi, dès que j'ai entendu parler de ce projet, je me suis jeté tête baissée en dépit de mes autres engagements et mes deux enfants merveilleux.   En outre, je m'occupe du visuel et des aspects ergonomiques, les questions de référencement et de la communication, en complément de la programmation purement technique. </p>"
+      rodi_alessandro:
+        title: Webmaster et développeur principal
+        content_html: |
+          <p>
+          j'ai %{age} ans et j'habite à Zurich, où je travaille comme développeur Java et Ruby on Rails.
+          Je cultive la passion pour la programmation depuis de nombreuses années et en 2009, j'ai terminé mes études en informatique diplômé de Bologne .
+          Passionné par la politique et les technologies numériques , en Juillet 2011 , j'ai approché Ruby On Rails et j'ai commencé à jeter les bases du code source Airesis ,
+          en gardant à l'esprit un projet ambitieux : la création d'un logiciel pour la démocratie participative.
+          Fasciné par les changements politique au cours des dernières années et par le fait qu'il faudra bientôt à faireavec le World Wide Web,
+          J'ai réalisé que cet instrument n'a jamais été mis à la disposition des citoyens et donc .... je suis là !
+          Dans le projet je travaille sur la coordination des activités de développement et je m'occupe de la programmation elle-même ;
+          J'offre un soutien à d'autres programmeurs et agis en tant que superviseur de la qualité du code source.
+          De plus , j'aide dans le développement de la logique et dans la définition des données temporelles et les délais nécessaires à leur réalisation.
+          </p >
+      analysis_area: Espace Analyse
+      giulietti_nicola:
+        title: Analyste et coordinnateur
+        content_html: "<p>j'ai %{age} ans et depuis environ %{volunteer} sont engagés dans le secteur bénévole et communautaire, dans lequel j'ai coordonné plusieurs activités.   J'ai étudié le génie de l'environnement et du génie de l'énergie.   Pendant les études collégiales, j'ai participé à certains projets d'innovation technologique et travaillé dans le domaine du développement durable et démocratie participative. Au sein de l'Agora 2,0 - Airesis projets, j'ai pris soin de tout, sauf de la programmation : l'étude de la logique d'application, de coordination, des graphiques.   Il n'est pas facile d'être entouré de professionnels des sciences informatiques et diplômés, mais je résisterai jusqu'à Airesis permette aux gens de s'organiser efficacement et démocratiquement afin de me retirer de ce monde de fous.</p>"
+      baiotto_marco:
+        title: Analyste
+        content_html: |
+          <p>
+            Joue le rôle de chef de l'information pour deux grandes entreprises de fabrication appartenant à une entreprise internationale dans le secteur automobile . Toujours divisée entre l'informatique et les sciences humaines , il est journaliste et critique littéraire . Conservateur du site <a href="http://www.lordglenn.com" target="_blank"> www.lordglenn.com </a> ( ainsi que juge au concours littéraire homonyme dédié aux animaux ) , a publié sur plusieurs sites et magazines culturel (y compris <a href="http://www.literary.it" target="_blank"> www.literary.it </a> ), ainsi que dans des anthologies. Créateur de " Iperrelazionismo sensibile » , une construction philosophique dans la fabrication, est l'auteur de l'essai "Wide democracy , au-delà de la politique" synthèse de 3 ans d' études consacrée à créer un logiciel certifié pour l'e-démocratie et les questions de délibération en ligne ( resté au stade de prototype ) .
+            Atterrit accidentellement dans le projet Airesis , il a été conquis par son principal concept et sa philosophie.
+            Il a décidé de donner le fruit de ses recherches et de son temps libre ,à la participation au groupe de développement.
+            Sa contribution se concentre sur l'analyse de la logique et des tests fonctionnels, mais garde en tête la critique éthique et les implications philosophiques découlant des choix d'évolution à plus long terme menées au sein du groupe.
+          </p>
+      graphic_area: Espace Graphique
+      kabora_marcello:
+        title: Graphiste
+        content_html: |
+          <p>
+          Je suis un gars compétent et dynamique à la recherche d'un emploi où je pourrais développer mes compétences accumulées au cours des dernières années de travail, en particulier, dans la construction de sites Web, d'applications, de logos, de catalogues et de dépliants. J'utilise de nombreux logiciels graphiques et des langages de programmation, et j'essaie toujours de me tenir à jour sur les nouveaux développements. J'aime travailler en équipe mais aussi de manière autonome, si le cas l'exige, Je prête beaucoup d'attention aux détails et je sais comment résoudre les problèmes par des moyens de recherche spécifique.
+          Je peux  très bien gérer le stress et j'ai de bonnes compétences de communication. Au cours des deux dernières années, j'ai travaillé sur plusieurs projets à distance, créé une ambiance à fort impact en communication et j'atteind toujours les objectifs en termes d'efficacité et de calendrier.
+          Pour voir mon curriculum vitae et mon travail récent, je vous invite à visiter mon site - <a href="http://www.marcellokabora.com" target="_blank"> www.marcellokabora.com </a>.
+          </p>
+      i18n_area: Espace Internationalisation
+      tolja_jacopo:
+        title: Responsable de recrutement et de la coordination des traducteurs
+        content_html: |
+          <p>
+             Je suis âgé de 50 ans, un peu désabusé, mais j'ai trouvé dans Airesis une raison de revenir dans le jeu et j'espère développer une société meilleure pour moi, mais surtout pour mes enfants et aussi pour vous qui arrivez à ce niveau et lisez cette phrase.
+              J'ai tout fait au cours de ma vie, les voyages, les aventures, les tentatives d'exploitation et j'ai apporté mon expérience en tant que citoyen du monde pour m'assurer que Airesis soit utilisé par le plus grand nombre de personnes dans le moindre coin le plus reculé du monde.
+             J'offre mon aide dans la coordination de ' <a href="https://crowdin.net/project/airesis" target="blank_">  l'internationalisation et le processus de localisation d'Airesis</a> et je suis intéressé pour développer le site Airesis et en faire l'interface utilisateur la plus simple et la plus intuitive existant sur ​​le web !
+              J'ai un gros défaut, je suis antidémocratique et donc , ici, je vais bien, je suis l'exception qui confirme la règle !
+              Les membres de ce groupe m'ont fait me sentir ainsi et plus encore que dans une famille et je sais que je peux compter sur eux comme je peux compter sur les amis fidèles.
+          </p>
+      communication_area: Espace Communication
+      curini_simone:
+        title: Diffusion du projet et des contacts avec Meetup
+        content_html: |
+          <p>
+          J'ai %{age} ans et environs %{volunteers} en tant que bénévoles ont été engagés dans le mouvement politique et social appelé "mouvement Cinq étoiles" de Florence.
+             J'ai étudié l'économie et les entreprises (des marchés financiers), puis j'ai réalisé qui (ou quoi) je dois être pour être en mesure d'honorer mes études et j'ai préféré de rives familières.
+             Je suis un antiquaire et le temps que ce travail m'a accordé, a été utilisé pour parfaire la connaissance de certains langages de programmation tels que PHP et Java.
+             Dans Agora 2.0 - Airesis j'ai rejoint le projet par Nicola en 2010 pour l'étude de la logique, pour la création d'espaces virtuels dans lesquels la comparaison entre les différents programmeurs ont eu lieu, et enfin pour sa présentation et sa promotion.
+             J'étudie actuellement Ruby malgré une petite fille de 8 mois merveilleusement vivace. L'espoir est de donner vie à un rêve dans lequel la politique est faite par le peuple pour le peuple pour toujours obtenir la solution la plus équitable, pondérée et appréciée.
+          </p>
+      test_area: Espace de Test
+      mion_carlo:
+        title: Testeur et développeur
+        content_html: |
+          <p>
+          Je suis un étudiant à l'Université de Trento. J'ai eu une passion pour l'informatique depuis que je suis jeune, donc j'ai commencé mes études universitaires afin d'étudier plus avant cette science.C'est fascinant pour moi parce qu'il a révolutionné nos vies et continue d'évoluer jour après jour. <br/>
+            Pendant mes années à l'école secondaire, j'ai appris que certains intellectuels ont théorisé une démocratie dans laquelle il a été possible de prendre des décisions partagées grâce à la participation de ces mêmes citoyens. Je pense que Airesis rend cela possible et c'est pourquoi j'ai donné ma disponibilité pour aider à son développement. <br/>
+            Je fais partie du groupe de contrôle, qui a pour but de vérifier la bonne opérativité d'Airesis. Je teste également les dernières innovations introduites dans la plate-forme avant qu'elles ne soient rendus publique. Dans le même temps, j'aide l'équipe d'internationalisation, je prépare les lignes et les mots écrits dans le code source de Airesis de sorte qu'ils puissent être facilement convertis. Faire celà me permet de mieux connaître le langage Ruby et je pense que cela va grandement aider ma carrière à avenir.
+          </p>
+      zanellato_luca:
+        title: Analyste et testeur
+        content_html: |
+          <p>
+           J'ai 47 ans et je suis une électronicien.
+              En tant que citoyen, je me demandais si il pourrait y avoir une autre façon de vivre la politique, ou plus généralement, de collaborer avec d'autres.
+              Je me suis penché sur les questions de démocratie directe et participative, et j'ai découvert les possibilités du réseau et de l'e-démocratie.
+            Je crois qu'à partir de ces questions, il sera possible de développer une nouvelle forme de collaboration, qui ne se limite pas aux aspects politiques et liées à la gestion des affaires publiques, mais de manière plus générale concernant la solution des problèmes par la discussion et l'échange entre les communautés de personnes, très grande ou encore transversales.
+              Ce groupe m'a donné l'occasion de collaborer sur ce que je crois être l'une des prochaines frontières de la sociabilité.
+          </p>

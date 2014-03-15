@@ -9,7 +9,7 @@ fr:
     week: semaine
     day: Jour
     firstDay: "0"
-    timeFormat: "h:mm TT{ - [ddd] [dd] h:mm TT}"
+    timeFormat: 'h:mm TT{ - [ddd] [dd] h:mm TT}'
   date:
     order:
       - :day
@@ -58,8 +58,8 @@ fr:
       - Mai
       - Juin
       - Juil
-      - Aout
-      - Sep
+      - Août
+      - Sept
       - Oct
       - Nov
       - Déc
@@ -69,10 +69,11 @@ fr:
       long: '%A %d %B %Y à %I:%M %p'
       long_date: '%A %d %B %Y'
       long_date_time: '%A %d %B %Y à %I:%M %p'
-      from_long_date_time: 'From %A %d %B %Y à %I:%M %p'
+      from_long_date_time: 'De %A %d %B %Y à %I:%M %p'
       until_long_date_time: 'Jusque %A %d %B %Y à %I:%M %p'
       short: '%d %b %Y'
-      two_rows: "%d %b %Y <br/> %I:%M %p"
+      two_rows: '%d %b %Y <br/> %I:%M %p'
+      weekday: '%a à %I:%M %p'
       month: '%B'
       dayandmonth: '%d/%m'
       hour: '%I:%M %p'
@@ -84,41 +85,41 @@ fr:
     left:
       minutes:
         one: 1 minute
-        other: "%{count} minutes"
+        other: '%{count} minutes'
       hours:
         one: 1 heure
-        other: "%{count} heures"
+        other: '%{count} heures'
       days:
         one: 1 jour
-        other: "%{count} jours"
+        other: '%{count} jours'
       months:
         one: 1 mois
-        other: "%{count} mois"
+        other: '%{count} mois'
   datetime:
-    added_on: "le %{date}"
+    added_on: 'le %{date}'
     distance_in_words:
       about_x_hours:
         one: Il y a environ 1 heure
-        other: "il y a environ %{count} heures"
+        other: 'il y a environ %{count} heures'
       about_x_months:
         one: il y a environ un mois
-        other: "Il y a environ %{count} mois"
+        other: 'Il y a environ %{count} mois'
       about_x_years:
         one: Il y a environ 1 an
-        other: "Il y a environ %{count} ans"
+        other: 'Il y a environ %{count} ans'
       almost_x_years:
         one: Il y a presque 1 an
-        other: "Il y a près de %{count} ans"
+        other: 'Il y a près de %{count} ans'
       half_a_minute: il y a 30 secondes
       less_than_x_minutes:
         one: "Il y a moins d'une minute"
-        other: "Il y a moins de %{count} minutes"
+        other: 'Il y a moins de %{count} minutes'
       less_than_x_seconds:
         one: Il y a moins de 1 seconde
-        other: "il y a moins de %{count} secondes"
+        other: 'il y a moins de %{count} secondes'
       over_x_years:
         one: Il y a plus de 1 an
-        other: "il y a plus de %{count} ans"
+        other: 'il y a plus de %{count} ans'
       x_days:
         one: Il y a 1 jour
         other: ! 'il y a %{count} jours'
@@ -134,3 +135,4 @@ fr:
   label:
     from: De
     to: À
+  countdown: '{m<}il y a{mn} {ml} {m>} {s<}maintenant{s>}'
