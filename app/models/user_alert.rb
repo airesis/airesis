@@ -87,7 +87,7 @@ class UserAlert < ActiveRecord::Base
   end
 
   def send_email
-    if (!self.user.blocked_email_notifications.include? self.notification_type) && self.user.email
+    if !self.user.blocked? && (!self.user.blocked_email_notifications.include? self.notification_type) && self.user.email
       ResqueMailer.delay_for(2.minutes).notification(self.id)
     end
   end
