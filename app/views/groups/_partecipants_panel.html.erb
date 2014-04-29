@@ -34,9 +34,9 @@
         <% end %>
     <% end %>
 
-    <% @partecipants = @group.group_partecipations.includes([{:user => [:image, :user_type]}, :partecipation_role]).limit(5) %>
+    <% @partecipants = @group.group_partecipations.includes([{:user => [:image, :user_type]}, :partecipation_role]) %>
 
-    <% @partecipants.each do |partecipant| %>
+    <% @partecipants.limit(5).each do |partecipant| %>
         <% unless partecipant.as_admin? %>
             <div class="pcontainer">
               <div class="MoImg24">

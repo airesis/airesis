@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320173958) do
+ActiveRecord::Schema.define(version: 20140429160406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -676,6 +676,7 @@ ActiveRecord::Schema.define(version: 20140320173958) do
     t.boolean  "disable_partecipation_requests",               default: false
     t.boolean  "disable_forums",                               default: false
     t.boolean  "disable_documents",                            default: false
+    t.integer  "proposals_count",                              default: 0
   end
 
   add_index "groups", ["slug"], name: "index_groups_on_slug", using: :btree

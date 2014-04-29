@@ -142,7 +142,6 @@ class ProposalsController < ApplicationController
   end
 
   def show
-
     if @proposal.private && @group #la proposta è interna ad un gruppo
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user

@@ -281,10 +281,10 @@ class Group < ActiveRecord::Base
     page = params[:page] || 1
     limite = params[:limit] || 30
 
-    if tag then
+    if tag
       Group.joins(:tags).where(['tags.text = ?', tag]).order('group_partecipations_count desc, created_at desc').page(page).per(limite)
     else
-      Group.search do
+      Group.search(include: [interest_border: [:territory]]) do
         fulltext search, :minimum_match => params[:minimum] if search
         #retrieve all possible interest borders
         if params[:interest_border_obj]

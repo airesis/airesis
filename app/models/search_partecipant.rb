@@ -13,6 +13,5 @@ class SearchPartecipant < ActiveRecord::Base
       ret = self.group.partecipation_requests.where(:group_partecipation_request_status_id => self.status_id)
       ret
     end
-
   end
 end

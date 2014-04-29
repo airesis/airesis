@@ -128,6 +128,9 @@ class Ability
       can :view_data, Group do |group|
         !group.is_private? || (group.partecipants.include? user) #todo remove first condition
       end
+      can :index_participants, Group do |group|
+        group.partecipants.include? user
+      end
 
       can :update, PartecipationRole do |partecipation_role|
         partecipation_role.group.portavoce.include? user

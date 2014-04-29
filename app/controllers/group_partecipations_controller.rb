@@ -14,6 +14,7 @@ class GroupPartecipationsController < ApplicationController
 
 
   def index
+    authorize! :index_participants, @group
     @page_title = 'Elenco partecipanti'
     @partecipants = @group.search_partecipants.build(params[:search_partecipant]).results
 
@@ -25,6 +26,7 @@ class GroupPartecipationsController < ApplicationController
   end
 
   def build_csv
+    authorize! :index_participants, @group
     CSV.generate do |csv|
       csv << [t('pages.groups.participations.surname'), t('pages.groups.participations.name'), t('pages.groups.participations.role'), t('pages.groups.participations.member_since')]
       @partecipants.each do |group_partecipation|
@@ -45,6 +47,7 @@ class GroupPartecipationsController < ApplicationController
 
   #destroy all selected participations
   def destroy_all
+    #todo check permissions
     ids = params[:destroy][:ids].split(',')
     GroupPartecipation.transaction do
       ids.each do |id|
@@ -72,6 +75,7 @@ class GroupPartecipationsController < ApplicationController
 
 
   def destroy
+    #todo check permissions
     authorize! :destroy, @group_partecipation
 
     @group_partecipation_request = GroupPartecipationRequest.find_by_user_id_and_group_id(@group_partecipation.user_id, @group_partecipation.group_id)
