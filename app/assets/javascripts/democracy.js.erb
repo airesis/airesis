@@ -25,12 +25,12 @@ function scrollToElement(element) {
     return false;
 }
 
-var cards_delay = 0;
+//var cards_delay = 0;
 
-function show_cards() {
-    cards_delay = 0;
-    $('.card.appear').appear({force_process: true});
-}
+//function show_cards() {
+//    cards_delay = 0;
+//    $('.card.appear').appear({force_process: true});
+//}
 
 function mybox_animate() {
     $(".mybox .mybox_button").click(function () {
@@ -633,7 +633,7 @@ function poll() {
                 var alert = data.alerts[j];
                 var li_alert_con = $('<li></li>');
 
-                var alert_container = $('<a class="mess" href="' + alert.path + '">');
+                var alert_container = $('<a class="card mess" href="' + alert.path + '">');
                 li_alert_con.append(alert_container);
                 alert_container.addClass(alert.checked ? 'old' : 'new');
 
@@ -946,3 +946,14 @@ if (!jQuery.browser) {
 //        return false;
 //    }
 //};
+
+
+function showOnField(field,text) {
+    var to_attach = $('<small class="warning">'+text+'</small>');
+    field.parent().after(to_attach);    //attach after parent label
+    field.addClass('warning');
+    setTimeout(function() {
+        field.removeClass('warning');
+        to_attach.slideUp();
+    },10000)
+}

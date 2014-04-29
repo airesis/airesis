@@ -451,7 +451,7 @@ it-IT:
         model_title: "Modello"
         created_events: "Eventi già creati"
         create_new_votation_period: "Crea un nuovo evento al termine del dibattito"
-        choose_later: "No grazie, lo scelgo dopo"
+        choose_later: "No grazie, sceglierò dopo"
         choose_now: "Lo voglio scegliere ora"
         group_area: "Area di lavoro"
       new:

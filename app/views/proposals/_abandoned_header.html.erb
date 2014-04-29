@@ -1,22 +1,15 @@
 <% if @group %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", onclick: 'regenerate();return false;' if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
+    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} if (!params[:group_area_id] && (can? :insert_proposal, @group)) || (params[:group_area_id] && (can? :insert_proposal, @group_area)) %>
 <% else %>
-    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", onclick: 'regenerate();return false;' %>
+    <%= link_to t('proposals.regenerate_button'), '#', class: "historyButton btn", data: {'reveal-id' => "regenerate_container"} %>
 <% end %>
 
-<div id="regenerate_container" title="<%= t('pages.proposals.show.new_quorum_title') %>" style="display:none">
-  <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true do |f| %>
+<div id="regenerate_container" class="reveal-modal" data-reveal>
+  <h2><%= t('pages.proposals.show.new_quorum_title') %></h2>
+  <%= form_for @group ? [@group, @proposal] : @proposal, :url => {:action => :regenerate}, :validate => true, remote: true do |f| %>
       <%= render partial: '/proposal_types/quorum_choice', locals: {f: f} %>
-      <a href="#" class="btn" onclick="$('#regenerate_container').dialog('destroy');"><%= t('buttons.cancel') %></a>
+      <a href="#" class="btn" onclick="$('#regenerate_container').foundation('reveal','close');"><%= t('buttons.cancel') %></a>
       <%= f.button t('pages.proposals.show.back_debate_button'), class: 'btn blue', data:{disable_with: t('loading')}, onclick: 'return check_quorum();' %>
   <% end %>
+  <a class="close-reveal-modal">&#215;</a>
 </div>
-
-<script type="text/javascript">
-    function regenerate() {
-        $('#regenerate_container').dialog({
-            width: 900,
-            height: 'auto'
-        });
-    }
-</script>

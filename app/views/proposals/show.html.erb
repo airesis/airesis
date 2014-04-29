@@ -10,6 +10,7 @@
     <meta property="article:section" content="<%= @proposal.category.description %>">
     <meta name="description" content="<%= @proposal.subtitle %>">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
+    <%=javascript_include_tag 'proposals/show'%>
 <% end %>
 
 <% if current_user %>
@@ -84,57 +85,11 @@
 <% end %>
 
 <script type="text/javascript">
-    var clicked;
-
     var currentView = <%=current_user ? 1 : 3 %>;
-    var contributes = [];
-    var checkActive = false;
-
-
-    function scroll_to_vote_panel() {
-        scrollToElement($(".vote_panel"));
-        return false;
-    }
-
-    function contribute(section_id) {
-        $('#proposal_comment_section_id').val(section_id);
-        $viewport.animate({
-            scrollTop: $("#proposal_comment_content").offset().top - 150
-        }, 2000, function () {
-            $('#proposal_comment_content').focus();
-            $('#comment-form-comment').effect('highlight', {}, 3000);
-        });
-
-
-        // Stop the animation if the user scrolls. Defaults on .stop() should be fine
-        $viewport.bind("scroll mousedown DOMMouseScroll mousewheel keyup", function (e) {
-            if (e.which > 0 || e.type === "mousedown" || e.type === "mousewheel") {
-                $viewport.stop().unbind('scroll mousedown DOMMouseScroll mousewheel keyup'); // This identifies the scroll as a user action, stops the animation, then unbinds the event straight after (optional)
-            }
-        });
-
-        return false;
-    }
-
-    function hiding(event, id) {
-        if (confirm('<%=t('pages.proposals.show.delete_contribute_confirmation')%>')) {
-            $('#comment' + id).hide(600, function () {
-                $.ajax({
-                    dataType: 'json',
-                    type: 'delete',
-                    url: '/proposals/<%=@proposal.id%>/proposal_comments/' + id
-                });
-            });
-            return false;
-        }
-        return false;
-    }
 
 
     function edit_contribute(id) {
-        $('.report_menu').hide();
-        $('.report_contribute.visible').removeClass('visible');
-        $('.report_contribute').addClass('invisible');
+        close_all_dropdown();
         $.ajax({
             dataType: 'script',
             type: 'get',
@@ -144,8 +99,7 @@
     }
 
     function history_contribute(id) {
-        $('.report_menu').hide();
-        $('.report_contribute.visible').removeClass('visible');
+        close_all_dropdown();
         $.ajax({
             dataType: 'script',
             type: 'get',
@@ -154,18 +108,10 @@
         return false;
     }
 
-    function cancel_edit_comment(id) {
-        if (confirm('Are you sure?')) {
-            $('.proposalComment[data-id='+id+'] .edit_panel').fadeOut(function() {
-                $(this).remove();
-                $('.proposalComment[data-id='+id+'] .baloon-content').fadeIn();
-            });
-            $('.report_contribute.invisible').removeClass('invisible');
-        }
-    }
 
     var retval = false;
-    function hideAndDeleteReply(event, id) {
+
+    /*function hideAndDeleteReply(event, id) {
         if (!retval) {
             clicked = $('#delete' + id);
             if (confirm('<%= t('pages.proposals.show.delete_suggestion_confirmation')%>')) {
@@ -183,14 +129,18 @@
             retval = false;
             return true;
         }
+    } */
+
+
+    function close_all_dropdown() {
+        $('.f-dropdown').foundation('dropdown','close',$('.f-dropdown'));
     }
 
     function report_contribute(id) {
-        $('.report_menu').hide();
-        $('.report_contribute.visible').removeClass('visible');
         $('#report_contribute_id').val(id);
         $('input[name=reason]').removeAttr('checked');
         $('#report_contribute').foundation('reveal','open');
+        close_all_dropdown();
     }
 
     function hide_vote_controls() {
@@ -209,13 +159,13 @@
         });
 
 
-        initialize_hidden_menu();
+        //initialize_hidden_menu();
 
 
     }
 
 
-    function initialize_hidden_menu() {
+    /*function initialize_hidden_menu() {
         $('.hidden_menu')
                 .click(function (event) {
                     event.stopPropagation();
@@ -236,7 +186,7 @@
                     });
                     event.stopPropagation();
                 });
-    }
+    }              */
 
 
     function checkScroll() {

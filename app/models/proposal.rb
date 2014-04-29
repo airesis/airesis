@@ -154,12 +154,13 @@ class Proposal < ActiveRecord::Base
   end
 
   #retrieve the list of propsoals for the user with a count of the number of the notifications for each proposal
-  def self.open_space_portlet(user)
+  def self.open_space_portlet(user=nil)
+    user_id = user ? user.id : -1
     @list_a = Proposal.public
     .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
     .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
-    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
-    .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
+    .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
+    .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user_id}")
     .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
     .where("pt.name != '#{ProposalType::PETITION}'")
     .order('updated_at DESC').limit(10)

@@ -1,4 +1,3 @@
-$('#flash_messages').html('<%=j render partial: 'layouts/flash', locals: {flash: flash}%>');
 <%if @is_reply%>
     $("#rankingpanelcontainer<%=@proposal_comment.contribute.id%>").html('<%=j render partial: 'proposal_comments/ranking_panel', locals: {comment: @proposal_comment.contribute}%>');
     $("#<%=@proposal_comment.contribute.id%>_new_replies").append('<%=j render partial: 'proposals/reply', locals: {reply: @proposal_comment, hide: false}%>');

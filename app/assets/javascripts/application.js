@@ -45,6 +45,7 @@
 //= require jquery.textntags
 //= require paypal-button.min
 //= require foundation
+//= require foundation-datetimepicker
 //= require list
 //= require diff_match_patch
 //= require jquery.appear

@@ -72,19 +72,23 @@
 <script>
 
 
-    function tabCallback(obj) {
-        //var active_ = obj.find('.active');
+    function mytabCallback(obj) {
+        var active_ = $('#proposals-content .content.active');
         //var state_ = obj.find('a').attr('data-state');
         if (obj.data('ititialized')) {
             //do nothing...cached
         }
-        else {
+       else {
             var url_ = obj.find('a').attr('data-href');
             $.ajax({
                 url: url_,
-                success: function (data) {
-                    var target = $('#proposals-content').find('[data-content]');
-                    target.html(data);
+                complete: function (data) {
+                    console.log('target:');
+                    var target = active_;
+                    console.log(target);
+                    console.log('data:');
+                    console.log(data.responseText);
+                    target.html(data.responseText);
                     obj.data('ititialized', true);
                 }
             });
@@ -95,21 +99,18 @@
     }
 
     function hashChange() {
-        if (window.location.hash) {
-            $('dd a[href=' + window.location.hash.replace('_', '') + ']').click();
-        }
+    //    if (window.location.hash) {
+    //        $('dd a[href=' + window.location.hash.replace('_', '') + ']').click();
+    //    }
     }
 
     $(function () {
 
-        $('#proposals-tabs').foundation({
-            tab: {callback : tabCallback}
+        $('#proposals-tabs').on('toggled', function (event, tab) {
+            mytabCallback(tab);
         });
 
-        tabCallback($('#proposals-tabs').find('.active'));
-
-//        $('#tabs').foundation('section', {callback: tabCallback});
-//        tabCallback($('#tabs'));
+        mytabCallback($('#proposals-tabs').find('.active'));
 
         $(window).on('hashchange', function () {
             hashChange();

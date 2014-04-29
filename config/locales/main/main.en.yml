@@ -749,6 +749,7 @@ en:
         back_to_blog: "Back to my blog"
       index:
         blog_subtitle: "%{posts} posts, %{comments} comments"
+        find_blog_label: "Find a blog you may be interested in"
     quorums:
       index:
         title: "All available quorums"

@@ -20,7 +20,7 @@ $(function () {
     }
 
 
-    $('#menu-group .icon-menu').click(function () {
+    $('#menu-group .menu-activator').click(function () {
         var menu_ = $('#menu-left');
         if (menu_.attr('data-expshow') == 'true') {
             menu_.removeClass('small-show');
@@ -36,19 +36,19 @@ $(function () {
     mybox_animate();
 
 
-    $(document.body).on('appear', '.card.appear', function (e, $affected) {
-        cards_delay = 0;
-        $(this).addClass('appeared');
+//    $(document.body).on('appear', '.card.appear', function (e, $affected) {
+ //       cards_delay = 0;
+  //      $(this).addClass('appeared');
         /*$affected.each(function() {
          var $this_ = $(this);
          console.log('appear in ' + cards_delay);
          setTimeout(function() {$this_.addClass("appeared")},cards_delay);
          cards_delay += 300;
          });*/
-        cards_delay = 0;
-    });
+ //       cards_delay = 0;
+//    });
 
-    $('.card.appear').appear({force_process: true});
+//    $('.card.appear').appear({force_process: true});
 
 
     var searchcache = {};

@@ -330,7 +330,6 @@ module GroupsHelper
   def self.init
     names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
     names.each do |name|
-      Rails.logger.info "defining: #{name}_url"
       define_method("#{name}_url") do |group, *args|
         (group_in_subdomain? group) ?
             send("#{name.gsub('group_', '')}_url", *args) :

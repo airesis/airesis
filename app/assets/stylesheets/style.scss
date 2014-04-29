@@ -11,7 +11,7 @@
 }
 
 .card {
-    &.appear {
+    /*&.appear {
         -webkit-transition: all 400ms ease;
         -moz-transition: all 400ms ease;
         -o-transition: all 400ms ease;
@@ -19,15 +19,14 @@
         -webkit-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
         -moz-transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
         transform: translate3d(0px, 100px, 0) rotateX(-30deg) scale(1.25, 1.25);
-        opacity: 0;
+        opacity: 1;
         &.appeared {
             -webkit-transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
             -moz-transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
             transform: translate3d(0px, 0px, 0px) rotateX(0) scale(1, 1);
             opacity: 1;
         }
-    }
-
+    } */
 }
 
 label.boolean {

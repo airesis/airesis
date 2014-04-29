@@ -11,6 +11,7 @@ Airesis::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   get 'home' => 'home#show'
+  get 'public' => 'home#public'
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'
@@ -164,7 +165,7 @@ Airesis::Application.routes.draw do
 
   get 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", sessions: "sessions", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
     get '/users/sign_in', :to => 'devise/sessions#new'
     get '/users/sign_out', :to => 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'

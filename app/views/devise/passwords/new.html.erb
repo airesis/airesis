@@ -1,13 +1,15 @@
-<%@page_title = t("pages.password.title")%>
-<h2><%=@page_title %></h2>
+<% @page_title = t("pages.password.title") %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
+<div class="card">
+  <h2><%= @page_title %></h2>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f| %>
+      <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
 
-  <div><%= f.label :login, t('pages.registration.username_or_email') %><br />
-  <%= f.text_field :login %></div>
-<br/>
-  <div><%= f.submit t("pages.password.submit"), :class=>'btn blue'  %></div>
-<% end %>
+      <%= f.label :login, t('pages.registration.username_or_email') %>
+      <%= f.text_field :login %>
+
+      <%= f.submit t("pages.password.submit"), :class => 'btn blue' %>
+  <% end %>
+</div>
 
 <%= render :partial => "devise/shared/links" %>

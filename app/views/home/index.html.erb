@@ -19,6 +19,7 @@
 
       <%= javascript_include_tag 'jquery', 'jquery.qtip' %>
       <%= javascript_include_tag "vendor/modernizr" %>
+      <%= javascript_include_tag "foundation" %>
 
       <%= stylesheet_link_tag 'landing.css' %>
       <%= stylesheet_link_tag 'jquery.qtip' %>
@@ -155,7 +156,7 @@
             <div class="row">
               <div class="columns large-5 small-5">
                 <div>
-                <%= link_to t('pages.home.index.try_it'), proposals_path, :class => "homepageButton" %>
+                <%= link_to t('pages.home.index.try_it'), public_path, :class => "homepageButton" %>
                 </div>
               </div>
 
@@ -166,7 +167,7 @@
             </div>
           </div>
           <div class="columns large-7">
-            <%= form_for(resource, :as => resource_name, :url => {:action => "create", :controller => "devise/sessions"}) do |f| %>
+            <%= form_for resource, :as => resource_name, :url => user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-4">
 

@@ -165,3 +165,9 @@
         width: 300px;
     }
 }
+
+/*fix for foundation*/
+#toast-container.fixed {
+    width: inherit;
+    left: inherit;
+}

@@ -1,0 +1,1 @@
+window.location = "<%=@proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)%>";

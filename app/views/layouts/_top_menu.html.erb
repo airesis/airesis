@@ -69,11 +69,11 @@
                   <%= eval "#{@group.subdomain}_login" if @group %>
                 </li>
             <% else %>
-                <li>
+                <li class="has-form">
                   <a id="login_button" href="#" onclick="return false;" class="button show-for-medium-up"><%= t('pages.header.login') %></a>
                   <%= link_to t('pages.header.login'), '/users/sign_in', :class => "button show-for-small" %>
                 </li>
-                <li>
+                <li class="has-form">
                   <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'button' %>
                 </li>
             <% end %>
@@ -85,13 +85,43 @@
 
 
 <ul id="help_panel" class="f-dropdown xsmall" data-dropdown-content>
+  <li>
 
-    <li><%= link_to t('pages.home.index.feedback'), '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;", class: 'feedbackButton' %></li>
-    <li><%= link_to t('pages.home.index.videos'), videoguide_path, title: t('pages.home.index.videos'), class: 'videoButton' %></li>
-    <li><%= link_to t('pages.home.index.FAQ'), 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank', class: 'bookmarkButton' %></li>
-    <li><%= link_to t('pages.home.index.guide'), 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank', class: 'helpButton' %></li>
-    <li><%= link_to t('pages.home.index.whatis'), edemocracy_path, title: t('pages.home.index.whatis'), class: 'infoButton' %></li>
-    <li><%= link_to t('pages.home.index.whowe'), chisiamo_path, title: t('pages.home.index.whowe'), class: 'contactButton' %></li>
+    <%= link_to '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" do %>
+        <span class="icon-bell"></span>
+        <%= t('pages.home.index.feedback') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to videoguide_path, title: t('pages.home.index.videos') do %>
+        <span class="icon-film"></span>
+        <%= t('pages.home.index.videos') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/FAQ', title: t('pages.home.index.FAQ'), target: '_blank' do%>
+        <span class="icon-notebook"></span>
+        <%=t('pages.home.index.FAQ')%>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to 'http://bugtracking.airesis.it/projects/airesis/wiki/Home_Page', title: t('pages.home.index.guide'), target: '_blank' do%>
+        <span class="icon-notebook"></span>
+        <%=t('pages.home.index.guide')%>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do%>
+        <span class="icon-info"></span>
+        <%=t('pages.home.index.whatis')%>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do%>
+        <span class="icon-users2"></span>
+        <%=t('pages.home.index.whowe')%>
+    <% end %>
+  </li>
 
 </ul>
 
@@ -146,7 +176,7 @@
 
         <div class="row">
           <div class="columns large-6">
-            <%= form_for User.new, url: {:action => "create", :controller => "devise/sessions"}, html: {:class => 'box'} do |f| %>
+            <%= form_for User.new, url: user_session_path, html: {:class => 'box'} do |f| %>
 
                 <%= f.text_field :login, placeholder: t('pages.header.login_placeholder'), autocomplete: :off %>
 

@@ -102,6 +102,7 @@ it-IT:
         vote_minutes: 'Durata votazione'
         vote_percentage: 'Quorum (votanti)'
         vote_good_score: 'Gradimento'
+        vote_ends_at: Termine votazione
       search_partecipant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'

@@ -1,1 +1,1 @@
-$('#<%=params[:replace_id]%>').html('<%=j render(partial: 'tab_list', locals: {proposals: @proposals})%>');
+$('#<%=params[:replace_id]%>').html('<%=j render(:partial => 'tab_list', :locals => {:proposals => @proposals})%>');

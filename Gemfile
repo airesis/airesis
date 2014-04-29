@@ -6,7 +6,7 @@ gem 'rails', '4.0.2'
 
 gem 'therubyracer', platforms: :ruby
 
-gem 'maktoub', :git => 'https://github.com/coorasse/maktoub.git'
+gem 'maktoub'
 
 gem 'turnout'
 

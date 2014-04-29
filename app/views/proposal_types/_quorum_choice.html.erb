@@ -1,27 +1,33 @@
 <fieldset>
-  <legend><%= t('activerecord.attributes.proposal.quorum_id')%></legend>
+  <legend>1. <%= t('activerecord.attributes.proposal.quorum_id') %></legend>
 
-    <% if @group %>
-        <% @quorum_collection = @group.quorums.active %>
-    <% else %>
-        <% @quorum_collection = Quorum.public.order('seq nulls last') %>
-    <% end %>
-    <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
-    <%= link_to t('pages.proposals.new.quorum_help'), help_quorums_path(group_id: params[:group_id]), :remote => true %>
+  <% if @group %>
+      <% @quorum_collection = @group.quorums.active %>
+  <% else %>
+      <% @quorum_collection = Quorum.public.order('seq nulls last') %>
+  <% end %>
+
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:500px'} %>
+
   <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
   </div>
 
   <div class="clearboth"></div>
-  <p id="quorum_explanation" class="toast-info info-panel" style="display:none;">
+  <p id="quorum_explanation" class="panel callout" style="display:none;">
 
   </p>
 </fieldset>
 
-<fieldset id="choose_votation" class="" style="display:none">
 
+<fieldset id="choose_votation">
+  <legend>2. <%= t('pages.proposals.show.choose_votation_period') %></legend>
+  <div class="content">
+    <div>
+      <%= image_tag 'ajax-loader.gif', style: "height: 26px;"  %>
+      <b><%= 'Select debate duration' %></b>
+    </div>
+  </div>
 </fieldset>
-
-
 
 <script type="text/javascript">
     $(function () {
@@ -67,13 +73,12 @@
                         var end_field = $("#proposal_votation_end");
 
                         choose_vote.find('.start_vot').html('<%=t('pages.quorums.index.debate_end')%>' + ' (' + dateToString(upperend_) + ')');
-                        start_field.datetimepicker("option", "minDateTime", upperend_);
-                        start_field.datetimepicker("option", "minDate", upperend_);
-
-                        end_field.datetimepicker("option", "minDateTime", min_votation_end_);
-                        end_field.datetimepicker("option", "minDate", min_votation_end_);
-                        end_field.datetimepicker("setDate", votation_end_);
-                        //$("#proposal_votation_end").focus();
+                        console.log('votation start is on' + upperend_);
+                        start_field.fdatetimepicker("setStartDate", upperend_);
+                        start_field.fdatetimepicker("setDate", upperend_);
+                        end_field.fdatetimepicker("setStartDate", min_votation_end_);
+                        console.log('votation end is on' + votation_end_);
+                        end_field.fdatetimepicker("setDate", votation_end_);
                     }
                 });
 

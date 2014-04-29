@@ -23,6 +23,10 @@ class HomeController < ApplicationController
     end
   end
 
+  def public
+    render 'open_space'
+  end
+
   def videoguide
   end
 
@@ -138,6 +142,8 @@ class HomeController < ApplicationController
       current_user ? 'open_space' : false
     elsif ['show'].include? action_name
       'users'
+    elsif ['public'].include? action_name
+      'open_space'
     else
       'landing'
     end

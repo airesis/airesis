@@ -1,6 +1,5 @@
 $('#comment<%=@proposal_comment.id.to_s%>').hide(600);
-$('#flash_messages').html('<%=j render(:partial => 'layouts/flash', :locals => {:flash => flash})%>');
-
+$('#replys<%=@proposal_comment.id.to_s%>').hide(600);
 
 <% publish_to proposal_path(@proposal) do %>
 if (Airesis.id != <%=current_user.id%>) {

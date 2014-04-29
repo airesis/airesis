@@ -53,14 +53,7 @@
   }
 
   .mess {
-    line-height: 17px;
-    border: 1px dotted silver;
-    margin-bottom: 5px;
-    padding: 0.2rem;
-    background-color: white;
     cursor: pointer;
-    margin-right: 5px;
-    display: block;
     &:hover {
       border: 1px dotted black;
       button {
@@ -110,11 +103,9 @@
   .cont1 {
     max-height: 500px;
     overflow: auto;
-    padding-right: 0px;
     margin-bottom: 10px;
     margin-top: 5px;
-    font-size: 12px;
-    padding-bottom: 10px;
+    padding: 1rem;
   }
   .p2 {
     margin: 0px;

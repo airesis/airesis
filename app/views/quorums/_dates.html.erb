@@ -1,4 +1,3 @@
-<legend><%= t('pages.proposals.show.choose_votation_period') %></legend>
 <div class="inner">
 
   <div class="clearboth"></div>
@@ -25,24 +24,33 @@
                     <%= v.radio_button 'choise', 'new' %>
                 <% end %>
 
-                <%= v.label 'choise_new', t('pages.proposals.show.create_new_votation_period'), class: 'radiolabel' %>     <br/>
+                <%= v.label 'choise_new', t('pages.proposals.show.create_new_votation_period'), class: 'radiolabel' %>
+                <br/>
 
                 <div class="inner" style="opacity: <%= @dates.empty? ? 1 : 0.6 %>">
 
-                  <div class="row">
+                  <div class="row left">
                     <div id="start_preset" class="columns large-5" style="display: block;">
                       <%= v.label 'start', "#{t('label.from')} " %>
                       <div class="start_vot" ondblclick="changeStart();"></div>
                     </div>
                     <div id="start_choose" class="columns large-5" style="display:none">
                       <%= v.label 'start', "#{t('label.from')} " %>
-                      <%= v.text_field 'start' %>
+                      <div class="row collapse">
+                        <div class="columns small-9">
+                          <%= v.text_field 'start' %>
+                        </div>
+                        <div class="columns small-3">
+                          <span class="cancel_action postfix">X</span>
+                        </div>
+                      </div>
                       <%= v.hidden_field 'start_edited' %>
-                      <span class="cancel_action">X</span>
                     </div>
                     <div class="columns large-5 left">
-                      <%= v.label 'end', "#{t('label.to')} " %>
-                      <%= v.text_field 'end' %>
+                      <%= v.label 'end' do%>
+                          <%= "#{t('label.to')} "%>
+                          <%= v.text_field 'end' %>
+                      <%end%>
                     </div>
                   </div>
                 </div>
@@ -99,31 +107,17 @@
             $('#proposal_votation_choise_preset').click();
         });
 
-        var datePickerOptions = {
-            changeMonth: false,
-            changeYear: false,
-            yearRange: "c:c+10",
-            maxDate: "+10Y",
-            duration: "",
-            showTime: true,
-            constrainInput: true,
-            stepMinute: 5,
-            stepHour: 1,
-            altTimeField: "alt"
-        };
+        $('#proposal_votation_end').fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>']);
 
-        $('#proposal_votation_end').datetimepicker($.extend({}, datePickerOptions, {
-            onClose: function (date) {
-                $('#proposal_votation_choise_new').click();
-            }
-        }));
-        $('#proposal_votation_start').datetimepicker($.extend({}, datePickerOptions, {
-            onClose: function (date) {
-                var eventStartTime_ = $('#proposal_votation_start').datetimepicker("getDate");
-                $('#proposal_votation_end').datetimepicker("option", "minDate", eventStartTime_);
-                $('#proposal_votation_choise_new').click();
-            }
-        }));
+        $('#proposal_votation_start').fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>'])
+                .on('hide', function (event) {
+                   var eventStartTime_ = event.date;
+                   console.log(eventStartTime_);
+                  $('#proposal_votation_end').fdatetimepicker("setStartDate", eventStartTime_);
+                  $('#proposal_votation_end').fdatetimepicker("setDate", addMinutes(eventStartTime_,2880));
+                  showOnField($('#proposal_votation_end'),'Changed!');
+                 $('#proposal_votation_choise_new').click();
+                });
 
         $('#choose_votation .cancel_action').click(function () {
             $('#start_preset').show();
@@ -146,5 +140,6 @@
             return false;
         });
 
-    });
+    })
+    ;
 </script>

@@ -110,15 +110,11 @@ class ProposalsController < ApplicationController
   def tab_list
     query_index
     respond_to do |format|
-      format.html {
-        if params[:replace]
-          render :update do |page|
-            page.replace_html params[:replace_id], :partial => 'tab_list', :locals => {:proposals => @proposals}
-          end
-        else
-          render :partial => 'tab_list', :locals => {:proposals => @proposals}
-        end
-      }
+      if params[:replace]
+        format.js
+      else
+        format.html { render "tab_list", :layout => false  }
+      end
       format.json
     end
   end
@@ -175,7 +171,7 @@ class ProposalsController < ApplicationController
       end
     end
 
-    flash[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
+    flash.now[:info] = I18n.t('info.proposal.public_visible') if @proposal.visible_outside
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
@@ -399,7 +395,7 @@ class ProposalsController < ApplicationController
       quorum = assign_quorum(params[:proposal])
       #fai partire il timer per far scadere la proposta
       if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-        Resque.enqueue_at(@copy.ends_at, ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        ProposalsWorker.perform_at(@copy.ends_at, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
       end
 
       generate_nickname(current_user, @proposal)
@@ -408,18 +404,32 @@ class ProposalsController < ApplicationController
 
       #if the time is fixed we schedule notifications 24h and 1h before the end of debate
       if @copy.time_fixed?
-        Resque.enqueue_at(@copy.ends_at - 24.hours, ProposalsWorker, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-        Resque.enqueue_at(@copy.ends_at - 1.hour, ProposalsWorker, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+        ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
+        ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
       end
     end
 
     flash[:notice] = I18n.t('info.proposal.back_in_debate')
+    respond_to do |format|
+      format.js
+      format.html {
+        redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)
+      }
+    end
 
-    redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)
 
   rescue Exception => e
-    flash[:error] = 'Error during the update of the proposal' #TODO:I18n
+    puts e
+    if !@proposal.errors[:title].empty?
+      @other = Proposal.find_by_title(params[:proposal][:title])
+      @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+    elsif !@proposal.errors.empty?
+      @err_msg = @proposal.errors.full_messages.join(",")
+    else
+      @err_msg = 'Error during the update of the proposal'
+    end
     respond_to do |format|
+      format.js { render 'error_regenerate' }
       format.html { render :action => "show" }
     end
   end
@@ -782,13 +792,13 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     populate_search
 
     if params[:state] == ProposalState::VOTATION_STATE
-      @replace_id = t("pages.proposals.index.voting").gsub(' ', '_')
+      @replace_id = 'votation'
     elsif params[:state] == ProposalState::ACCEPTED_STATE
-      @replace_id = t("pages.proposals.index.accepted").gsub(' ', '_')
+      @replace_id = 'accepted'
     elsif params[:state] == ProposalState::REVISION_STATE
-      @replace_id = t("pages.proposals.index.revision").gsub(' ', '_')
+      @replace_id = 'revision'
     else
-      @replace_id = t("pages.proposals.index.debate").gsub(' ', '_')
+      @replace_id = 'debate'
     end
 
 

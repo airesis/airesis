@@ -21,8 +21,12 @@ class BlogsController < ApplicationController
    end
   
   def index
+    unless request.xhr?
+      @tags = Tag.most_blogs.shuffle
+    end
     @page_title = t('pages.blogs.show.title')
-    @blogs = Blog.select('blogs.*, count(blog_posts.id) as posts_count, count(blog_comments.id) as comments_count').joins(:posts => :blog_comments).group('blogs.id, blogs.user_id, blogs.title').page(params[:page]).per(10)
+    @blogs = Blog.look(params)
+    #@blogs = Blog.select('blogs.*, count(blog_posts.id) as posts_count, count(blog_comments.id) as comments_count').joins(:posts => :blog_comments).group('blogs.id, blogs.user_id, blogs.title').page(params[:page]).per(10)
     respond_to do |format|
       format.js
       format.xml  { render :xml => @blogs }

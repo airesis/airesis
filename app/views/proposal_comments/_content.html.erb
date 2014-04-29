@@ -2,31 +2,23 @@
 </div>
 <div>
   <div class="baloon_header">
-    <div class="report_contribute hidden_link">
-    </div>
-    <div class="report_menu hidden_menu">
+    <a href="#" class="report_contribute hidden_link" data-dropdown="commentdropdown<%= comment.id %>"></a>
+    <ul class="f-dropdown" id="commentdropdown<%= comment.id %>" data-dropdown-content>
       <% if can? :update, comment %>
-          <%= link_to t('pages.proposals.update_comment'), edit_proposal_proposal_comment_path(@proposal, comment), :class => "editCommentLink menu_item", onclick: "edit_contribute(#{comment.id}); return false;" %>
+          <li><%= link_to t('pages.proposals.update_comment'), edit_proposal_proposal_comment_path(@proposal, comment), :class => "editCommentLink menu_item", onclick: "edit_contribute(#{comment.id}); return false;" %></li>
       <% end %>
 
       <% if comment.versions.length > 0 %>
-          <%= link_to t('pages.proposals.history_comment'), history_proposal_proposal_comment_path(@proposal, comment), :class => "historyCommentLink menu_item", onclick: "history_contribute(#{comment.id}); return false;" %>
+          <li><%= link_to t('pages.proposals.history_comment'), history_proposal_proposal_comment_path(@proposal, comment), :class => "historyCommentLink menu_item", onclick: "history_contribute(#{comment.id}); return false;" %></li>
       <% end %>
 
-      <div class="menu_item" onclick="report_contribute(<%=comment.id%>);">
-        <%= t('buttons.report') %>
-      </div>
+      <li><a href="#" onclick="report_contribute(<%=comment.id%>);return false;"><%= t('buttons.report') %></a></li>
 
       <% if can? :destroy, comment %>
-          <%= link_to t('pages.proposals.delete_comment'), [@proposal, comment],
-                      :method => :delete,
-                      :onclick => "return false;",
-                      :class => "deleteCommentLink menu_item",
-                      :id => "delete#{comment.id}",
-                      :data => {id: comment.id} %>
+          <li><%= link_to t('pages.proposals.delete_comment'), [@proposal, comment], :method => :delete, :data => {remote: true, confirm: t('pages.proposals.show.delete_contribute_confirmation')}, :class => "deleteCommentLink menu_item" %></li>
       <% end %>
 
-    </div>
+    </ul>
   </div>
   <div class="baloon-content">
     <%= parsed_content(comment, @proposal.is_anonima?) %>

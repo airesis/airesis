@@ -122,14 +122,13 @@ class ProposalCommentsController < ApplicationController
 
 
   def edit
-
   end
 
 
   def create
     authorize! :partecipate, @proposal
-    parent_id = params[:proposal_comment][:parent_proposal_comment_id]
-    @is_reply = parent_id != nil
+    @parent_id = params[:proposal_comment][:parent_proposal_comment_id]
+    @is_reply = @parent_id != nil
     post_contribute
 
     respond_to do |format|
@@ -141,20 +140,10 @@ class ProposalCommentsController < ApplicationController
     end
 
   rescue Exception => e
-    #log_error(e)
     respond_to do |format|
       puts e
-      flash[:error] = t('error.proposals.insert_comment')
-      format.js { render :update do |page|
-        flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
-        if @is_reply
-          page.replace_html parent_id.to_s + "_reply_area_msg", :partial => 'layouts/flash', :locals => {:flash => flash}
-        else
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          #page.replace "proposalNewComment", :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment}
-        end
-      end
-      }
+      flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
+      format.js { render 'proposal_comments/errors/create'}
       format.json {
         render :json => @proposal_comment.try(:errors) || {error: true}, :status => :unprocessable_entity
       }

@@ -2,6 +2,12 @@ html, body {
   height: 100%;
 }
 
+#great_container {
+  position: relative;
+  min-height: 100%;
+  padding-bottom:40px;
+}
+
 #footer, footer {
   bottom: 0px;
   right: 0px;

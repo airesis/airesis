@@ -10,7 +10,7 @@
       <h3><%= link_to (blog.title.to_s != '' ? blog.title : 'Nessun titolo'), blog %></h3>
     </div>
     <div class="blogAuthor">
-      <%= t('pages.blogs.index.blog_subtitle', posts: blog.posts_count, comments: blog.comments_count) %>
+      <%= t('pages.blogs.index.blog_subtitle', posts: 0, comments: 0) %>
     </div>
     <div class="blogFooter">
       <%= link_to 'Modifica', edit_blog_path(blog), :class => 'buttonStyle littleText' if (user_signed_in? and current_user.is_my_blog? blog.id) %>

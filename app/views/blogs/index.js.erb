@@ -1,9 +1,27 @@
-$('#blogsContainer').append("<%= j render(:partial => 'blog', :collection => @blogs)%>");
-
-<%if @blogs.total_pages > @blogs.current_page%>
-checkActive = true;
-checkScroll();
-
+<%if params[:page] %>
+$('#blogs_list').append("<%=j (render :partial => "blog", :collection => @blogs)%>");
 <%else%>
-$('#loading_results').hide();
+$('#blogs_list').fadeOut('slow', function () {
+    <% if @blogs.count > 0 %>
+    $('#blogs_list').html("<%=j (render :partial => "blog", :collection => @blogs)%>");
+    <% else %>
+    $('#blogs_list').html("<h2><%=j t('pages.blogs.index.no_results') %></h2>");
+    <% end %>
+    $('#blogs_list').fadeIn();
+})
 <%end%>
+$('#more_blogs_container').html("<%=j (render :partial => 'more_blogs')%>");
+
+<%if params[:back] %>
+$('#search').val('<%=params[:search]%>');
+<%else%>
+window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
+everPushedSomething = 'pushed it real good';
+<%end%>
+disegnaBottoni();
+
+if (window.innerWidth <= 1000) {
+    $('html, body').animate({
+        scrollTop: $('#blogs_list').offset().top - (10 + (window.innerWidth < 1000 ? 0 : 90))
+    }, 2000);
+}

@@ -3,7 +3,7 @@
   <%= link_to 'Vai ai blog', blogs_path, class: 'btn' %>
 </div>
 <div class="scrollable">
-  <% BlogPost.order(created_at: :desc).limit(10).each do |blog_post| %>
+  <% BlogPost.includes(:blog,:user => [:user_type,:image]).order(created_at: :desc).limit(10).each do |blog_post| %>
       <div class="blog_post_list">
         <div class="comment_avatar">
           <%= blog_post.user_image_tag 40 %>

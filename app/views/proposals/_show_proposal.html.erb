@@ -89,7 +89,7 @@
 <div style="clear: both;"></div>
 
 <% unless @proposal.is_petition? %>
-    <% if @proposal.waiting? #waitinf for the vote period      %>
+    <% if @proposal.waiting? #waiting for the vote period      %>
         <div class="status_description card">
           <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
         </div>

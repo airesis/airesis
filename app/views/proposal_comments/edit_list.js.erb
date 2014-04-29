@@ -1,4 +1,4 @@
-$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/edit_comments'))%>");
+$('#proposalCommentsContainer').append("<%= j render 'proposals/edit_comments'%>");
 
 firstCheck = false;
 <%if @total_pages > @current_page%>

@@ -297,9 +297,10 @@ $include-html-button-classes: false;
 // $f-dropdown-bg: #fff;
 
 // We use this to set the border styles for dropdowns.
-// $f-dropdown-border-style: solid;
-// $f-dropdown-border-width: 1px;
-// $f-dropdown-border-color: scale-color(#fff, $lightness: -20%);
+$f-dropdown-border-style: solid;
+$f-dropdown-border-width: 1px;
+$f-dropdown-border-color: #ccc;
+$f-dropdown-box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
 
 // We use these to style the triangle pip.
 // $f-dropdown-triangle-size: 6px;
@@ -1208,11 +1209,7 @@ $top-small: $topbar-height+$sectionbar-height-small;
 $top-large: $topbar-height+$sectionbar-height-large;
 
 .medium-bar {
-  height: 120px;
   background: none;
-  @media #{$medium-up} {
-    height: 335px;
-  }
 }
 
 .homepageButton {
@@ -1430,7 +1427,6 @@ ul, ol {
   }
 }
 
-
 #main {
   position: absolute;
   top: $top-small;
@@ -1624,18 +1620,20 @@ a.zocial:hover {
 
 $logo-width: 92px;
 
-@media #{$medium-up} {
-  .logo-wrapper {
+.logo-wrapper {
+  @media #{$large-up} {
     position: relative;
+    .logo {
+      width: $logo-width;
+      position: absolute;
+      left: 50%;
+      right: 50%;
+      top: 0px;
+      margin-left: -($logo-width/2);
+    }
   }
-
-  .logo-wrapper .logo {
-    width: $logo-width;
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    top: 0px;
-    margin-left: -($logo-width/2);
+  @media #{$medium-only} {
+    float: left;
   }
 }
 
@@ -1777,7 +1775,6 @@ $logo-width: 92px;
   }
 }
 
-
 @media #{$large-up} {
   #logo-but {
     span {
@@ -1821,7 +1818,6 @@ html, body {
   min-width: $page-min-width;
 }
 
-
 #toast-container {
   right: 0px;
   top: 100px;
@@ -1830,7 +1826,39 @@ html, body {
     cursor: default;
   }
   @media #{$large-up} {
-      right: 100px;
+    right: 100px;
   }
 }
+
+.f-dropdown {
+  box-shadow: $f-dropdown-box-shadow;
+  &.gray {
+    background-color: #e5e5e5;
+  }
+  li a {
+    &:hover {
+      text-decoration: none;
+    }
+    padding: 0.9rem 0.5rem;
+  }
+}
+
+input.warning {
+  margin-bottom: 0;
+}
+
+small.warning {
+  display: block;
+  padding: 0.46154rem 0.69231rem 0.69231rem;
+  margin-top: -1px;
+  margin-bottom: 1.23077rem;
+  font-size: 0.92308rem;
+  font-weight: normal;
+  font-style: italic;
+  background-color: #f08a24;
+  border-color: #de770f;
+  color: #fff;
+}
+
+
 
