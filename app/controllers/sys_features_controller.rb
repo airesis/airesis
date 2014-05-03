@@ -1,7 +1,7 @@
 class SysFeaturesController < ApplicationController
   layout 'open_space'
 
-  before_filter :moderator_required, except: [:index,:show]
+  before_filter :moderator_required, except: [:index, :show]
 
   def index
     @sys_features = SysFeature.all
@@ -12,8 +12,6 @@ class SysFeaturesController < ApplicationController
     end
   end
 
-  # GET /sys_features/1
-  # GET /sys_features/1.json
   def show
     @sys_feature = SysFeature.find(params[:id])
 
@@ -23,8 +21,6 @@ class SysFeaturesController < ApplicationController
     end
   end
 
-  # GET /sys_features/new
-  # GET /sys_features/new.json
   def new
     @sys_feature = SysFeature.new
 
@@ -34,13 +30,10 @@ class SysFeaturesController < ApplicationController
     end
   end
 
-  # GET /sys_features/1/edit
   def edit
     @sys_feature = SysFeature.find(params[:id])
   end
 
-  # POST /sys_features
-  # POST /sys_features.json
   def create
     @sys_feature = SysFeature.new(params[:sys_feature])
 
@@ -55,8 +48,6 @@ class SysFeaturesController < ApplicationController
     end
   end
 
-  # PUT /sys_features/1
-  # PUT /sys_features/1.json
   def update
     @sys_feature = SysFeature.find(params[:id])
 
@@ -71,8 +62,6 @@ class SysFeaturesController < ApplicationController
     end
   end
 
-  # DELETE /sys_features/1
-  # DELETE /sys_features/1.json
   def destroy
     @sys_feature = SysFeature.find(params[:id])
     @sys_feature.destroy

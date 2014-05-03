@@ -1,39 +1,43 @@
-<div id="noise_manage_panel" title="Gestisci i contributi inutili alla discussione">
-  <h3><%= 'Trascina a destra i contributi che vuoi eliminare dalla discussione' %></h3>
-  <div style="float:left; width:  400px">
+<h2><%= 'Gestisci i contributi inutili alla discussione' %></h2>
+<h3><%= 'Trascina a destra i contributi che vuoi eliminare dalla discussione' %></h3>
+<div class="row">
+  <div class="columns small-6">
     <h4><%= t('pages.proposals.manage_noise.available') %></h4>
   </div>
-  <div style="float:left; width:  400px">
+  <div class="columns small-6">
     <h4><%= t('pages.proposals.manage_noise.removed') %></h4>
   </div>
-  <div style="clear:both"></div>
-  <div style="float:left; width:  400px">
+</div>
+<div class="row">
+  <div class="columns small-6">
     <div id="active" class="noiseSortable">
       <% @proposal.contributes.unintegrated.removable.each do |contribute| %>
-          <div class="noise_element" data-id="<%=contribute.id%>">
-            <%= parsed_content(contribute,@proposal.is_anonima?) %>
+          <div class="noise_element" data-id="<%= contribute.id %>">
+            <%= parsed_content(contribute, @proposal.is_anonima?) %>
           </div>
       <% end %>
     </div>
   </div>
-  <div style="float:left; width:  400px">
+  <div class="columns small-6">
     <div id="inactive" class="noiseSortable">
       <% @proposal.contributes.noise.each do |contribute| %>
-          <div class="noise_element" data-id="<%=contribute.id%>">
-            <%= parsed_content(contribute,@proposal.is_anonima?) %>
+          <div class="noise_element" data-id="<%= contribute.id %>">
+            <%= parsed_content(contribute, @proposal.is_anonima?) %>
           </div>
       <% end %>
     </div>
   </div>
-  <div class="clearboth"></div>
-  <%=form_for 'comments', url:  mark_noise_proposal_proposal_comments_path(@proposal.id), method: :post  do |f| %>
-      <%= f.hidden_field 'active' %>
-      <%= f.hidden_field 'inactive' %>
-      <input type="button" value="<%=t('buttons.cancel')%>" class="btn" onclick="$('#noise_manage_panel').dialog('destroy');$('#noise_manage_panel').remove();"/>
-      <%= f.submit t('buttons.save'), class: 'btn blue', onclick: 'set_noise_data();', data:{disable_with: t('loading')} %>
-  <%end%>
-
 </div>
+
+<%= form_for 'comments', url: mark_noise_proposal_proposal_comments_path(@proposal.id), method: :post do |f| %>
+    <%= f.hidden_field 'active' %>
+    <%= f.hidden_field 'inactive' %>
+
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= f.submit t('buttons.save'), class: 'btn blue', onclick: 'set_noise_data();', data: {disable_with: t('loading')} %>
+<% end %>
+
 
 <script type="text/javascript">
     $(function () {

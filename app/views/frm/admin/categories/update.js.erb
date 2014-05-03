@@ -1,4 +1,2 @@
-$('#flash_messages').html('<%=j (render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#forums tbody').html('<%=j (render :partial => 'categories')%>');
-$('#category_container').dialog('destroy');
-$('#category_container').remove();
+$('#forums tbody').html('<%=j render 'categories'%>');
+$('#category_container').foundation('reveal','close');

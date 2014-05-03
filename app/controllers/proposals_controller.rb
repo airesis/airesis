@@ -113,7 +113,7 @@ class ProposalsController < ApplicationController
       if params[:replace]
         format.js
       else
-        format.html { render "tab_list", :layout => false  }
+        format.html { render "tab_list", :layout => false }
       end
       format.json
     end
@@ -174,7 +174,7 @@ class ProposalsController < ApplicationController
 
     @my_nickname = current_user.proposal_nicknames.find_by_proposal_id(@proposal.id) if current_user
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id) if current_user
-    register_view(@proposal,current_user)
+    register_view(@proposal, current_user)
 
     respond_to do |format|
       format.js {
@@ -248,11 +248,6 @@ class ProposalsController < ApplicationController
       @title += I18n.t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
       @title += ProposalType.find_by_name(params[:proposal_type_id]).description
 
-      respond_to do |format|
-        format.js
-        format.html
-        format.xml { render :xml => @proposal }
-      end
     rescue Exception => e
       log_error(e)
       respond_to do |format|
@@ -263,6 +258,9 @@ class ProposalsController < ApplicationController
 
   def edit
     authorize! :update, @proposal
+    @change_advanced_options = @group ?
+        @group.change_advanced_options :
+        DEFAULT_CHANGE_ADVANCED_OPTIONS
   end
 
 
@@ -530,14 +528,20 @@ class ProposalsController < ApplicationController
         @proposal.save!
 
       end
-      Resque.enqueue_in(1, NotificationProposalUpdate, current_user.id, @proposal.id, @group.try(:id))
+      NotificationProposalUpdate.perform_in(1, current_user.id, @proposal.id, @group.try(:id))
 
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
 
       respond_to do |format|
-        flash[:notice] = I18n.t('info.proposal.proposal_updated')
+        flash.now[:notice] = I18n.t('info.proposal.proposal_updated')
         format.html {
-          redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
+          if params[:commit] == t('buttons.update')
+            redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
+          else
+            @proposal.reload
+            render :action => "edit"
+          end
+
         }
       end
 
@@ -586,14 +590,8 @@ class ProposalsController < ApplicationController
   def destroy
     authorize! :destroy, @proposal
     @proposal.destroy
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = I18n.t('info.proposal.proposal_deleted')
-        redirect_to @group ? group_proposals_url(@group) : proposals_url
-      }
-      format.xml { head :ok }
-    end
+    flash[:notice] = I18n.t('info.proposal.proposal_deleted')
+    redirect_to @group ? group_proposals_url(@group) : proposals_url
   end
 
   def rankup
@@ -655,13 +653,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     notify_user_available_authors(@proposal)
 
     flash[:notice] = I18n.t('info.proposal.offered_editor')
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "available_author", :partial => 'proposals/available_author'
-      end
-      }
-    end
+
   end
 
   #restituisce la lista degli utenti disponibili a redigere la sintesi della proposta
@@ -689,35 +681,14 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
         generate_nickname(u, @proposal)
       end
     end
-
     flash[:notice] = "Nuovi redattori aggiunti correttamente!"
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "authors_list", :partial => 'proposals/authors_list_panel'
-        page.replace_html "available_authors_button", :partial => 'proposals/available_authors_button'
-        page << "$('#available_authors_list_container').dialog('close');"
-      end
-      }
-    end
-
   rescue Exception => e
     flash[:error] = "Errore durante l'aggiunta dei nuovi autori"
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page << "$('#available_authors_list_container').dialog('close');"
-      end
-      }
-    end
+    render 'proposals/errors/add_authors'
   end
 
 
   def vote_results
-    respond_to do |format|
-      format.js
-      format.html
-    end
   end
 
   #exlipcitly close the debate of a proposal

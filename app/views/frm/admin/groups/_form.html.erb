@@ -1,4 +1,8 @@
-<%= simple_form_for  @frm_group, url: group_frm_admin_frm_groups_url(@group), remote: remote do |f| %>
-  <%= f.input :name %>
-  <%= f.submit :class => "btn blue", data:{disable_with: t('loading')} %>
+<h2><%= @page_title %></h2>
+<%= simple_form_for @frm_group, url: group_frm_admin_frm_groups_url(@group), remote: remote do |f| %>
+    <%= f.input :name %>
+
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= f.submit :class => "btn blue", data: {disable_with: t('loading')} %>
 <% end %>

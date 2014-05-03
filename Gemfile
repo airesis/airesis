@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.1.0'
 
 gem 'rails', '4.0.2'
 
@@ -13,7 +13,7 @@ gem 'turnout'
 gem 'sass-rails', "~> 4.0.0"
 gem 'coffee-rails', "~> 4.0.0"
 gem 'uglifier', ">= 1.3.0"
-gem 'foundation-rails'
+gem 'foundation-rails', '~> 5.1.1.0' #waiting for 5.3 to fix some important bugs
 
 gem 'pg'
 
@@ -27,10 +27,8 @@ end
 
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
-#gem 'bumbler', git: 'https://github.com/mark-ellul/Bumbler.git', group: [:development, :staging], require: false
 
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
@@ -58,18 +56,11 @@ gem 'xmpp4r_facebook'
 
 gem 'exception_notification'
 
-#gem 'resque', :require => 'resque/server'
-
-#gem 'resque_mailer'
-
-#gem 'resque-scheduler'
 gem 'sinatra', '>= 1.3.0', :require => nil
 
-gem 'sidekiq'
+gem 'sidekiq', '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
 
 gem 'sidetiq'
-
-#gem 'sidekiq_mailer'
 
 gem 'sunspot-queue', git: 'https://github.com/coorasse/sunspot-queue.git'
 
@@ -88,13 +79,6 @@ gem 'geocoder'
 gem 'seed_dump'
 
 gem 'vote-schulze', :git => 'https://github.com/coorasse/vote-schulze.git'
-
-
-#gem 'airesis_metis', :path => '~/airesis_metis/', :group => :development
-
-#gem 'ruby-metis', :git => 'git@github.com:coorasse/ruby-metis.git'
-
-#gem 'igraph', :git => 'https://github.com/honschi/igraph.git', :group => :development
 
 gem 'rails_autolink'
 
@@ -127,7 +111,6 @@ gem 'ckeditor'
 
 gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'
 
-#added for forums
 gem 'friendly_id'
 gem 'simple_form'
 gem 'gemoji'
@@ -135,7 +118,6 @@ gem 'workflow'
 gem 'select2-rails'
 gem 'redcarpet'
 gem 'kaminari'
-###
 
 gem 'mailman', require: false
 
@@ -143,5 +125,4 @@ gem 'email_reply_parser'
 
 gem 'paper_trail', '~> 3.0.0'
 
-#added for rails 4
 gem 'protected_attributes'

@@ -20,7 +20,6 @@ class GroupPartecipationsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js
       format.csv { send_data build_csv }
     end
   end

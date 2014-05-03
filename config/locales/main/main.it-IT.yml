@@ -936,6 +936,11 @@ it-IT:
     propsoals:
       index:
         type: "di tipo %{type}"
+    available_authors:
+      index:
+        explain_html: |
+          Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Salva'.<br/>
+          Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.
   pl:
     comments:
       zero: "nessun commento"

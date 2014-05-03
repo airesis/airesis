@@ -1,5 +1,4 @@
 #encoding: utf-8
-
 class ManagerController < ApplicationController
 
   def block

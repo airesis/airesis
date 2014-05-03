@@ -1,16 +1,14 @@
 #encoding: utf-8
 class GroupArea < ActiveRecord::Base
 
-  validates_presence_of :name
-  validates_length_of :name, :within => 3..200
-  validates_uniqueness_of :name, :scope => :group_id, :message => "Nome area già presente"
+  validates :name, length: {within: 3..200}, uniqueness: {scope: :group_id, message: "Nome area già presente"}
 
-  validates_length_of :description, :within => 1..2000, :allow_nil => true
-  validates_presence_of :group_id
-  validates_presence_of :default_role_name, :on => :create
+  validates :description, length: {within: 1..2000}, allow_nil: true
+
+  validates :group_id, presence: true
+  validates :default_role_name, presence: true, :on => :create
 
   attr_accessible :name, :description, :default_role_name, :default_role_actions
-
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
   belongs_to :group, :class_name => 'Group', :foreign_key => :group_id

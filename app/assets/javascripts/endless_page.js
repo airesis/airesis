@@ -12,7 +12,6 @@ function checkScroll() {
     if (nearBottomOfPage() && checkActive) {
         checkActive = false;
         currentPage++;
-        console.log('end '+currentPage);
         $.ajax({
             url: '',
             data: {page: currentPage},

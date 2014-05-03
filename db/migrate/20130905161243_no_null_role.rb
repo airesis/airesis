@@ -4,7 +4,7 @@ class NoNullRole < ActiveRecord::Migration
       Group.where(:partecipation_role_id => nil).all.each do |group|
         role = group.partecipation_roles.first
 
-         if role then
+         if role
            puts role.id
            group.partecipation_role_id = role.id
            group.save!

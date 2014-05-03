@@ -10,25 +10,3 @@ $(document).on('opened', '[data-reveal]', function () {
 $(document).on('closed', '[data-reveal]', function () {
     $('html').css('overflow', '');
 });
-
-/*$('#proposal_histories').dialog({modal:true,
-									height:400,
-									resizable: true,
-									width:Math.min(1042, $(window).width()-100),
-     open: function() {
-         $('html').css('overflow', 'hidden');
-         $('.ui-widget-overlay').width($(".ui-widget-overlay").width() + 18);
-         $(window).bind('resize',function (e) {
-            if (e.target == $(window)[0]) {
-                $("#proposal_histories").dialog("option", "width", Math.min(1042, $(window).width()-100));
-                $("#proposal_histories").dialog("option", "position", "center");
-            }
-         });
-     },
-	 close: function(event, ui){ 
-          $(this).dialog('destroy');
-          container_.remove();
-          $('html').css('overflow', '');
-     }
-});
-*/

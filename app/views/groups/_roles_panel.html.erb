@@ -1,17 +1,18 @@
 <dl id="roles_accordion" class="accordion" data-accordion>
-  <dd>
-  <% @group.partecipation_roles.each do |role|
-    abilitations = role.action_abilitations.by_group(@group).all %>
-          <a href="#<%=role.id%>"><%= role.name %>
-            <% if (role.id == @group.partecipation_role_id) %> (default)
-            <% end %>
-          </a>
 
-        <div id="<%= role.id %>" class="content">
-          <% if (role.id != @group.partecipation_role_id) %>
-              <%= link_to t('buttons.delete'), partecipation_role_path(role), :method => :delete, :remote => true, :class => 'btn deleteButton', style: 'float:right', data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
+  <% @group.partecipation_roles.each_with_index do |role, idx|
+    abilitations = role.action_abilitations.by_group(@group).all %>
+      <dd>
+        <a href="#role_<%= role.id %>"><%= role.name %>
+          <% if (role.id == @group.partecipation_role_id) %> (default)
           <% end %>
-          <%= link_to t('buttons.edit'), edit_partecipation_role_path(role), :class => 'btn editButton', style: 'float:right', :remote => true %>
+        </a>
+
+        <div id="role_<%= role.id %>" class="content <%= 'active' if idx==0 %>">
+          <% if (role.id != @group.partecipation_role_id) %>
+              <%= link_to t('buttons.delete'), group_partecipation_role_url(@group,role), :method => :delete, :remote => true, :class => 'btn deleteButton', style: 'float:right', data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
+          <% end %>
+          <%= link_to t('buttons.edit'), edit_group_partecipation_role_url(@group,role), :class => 'btn editButton', style: 'float:right', :remote => true %>
           <h4><%= role.description %></h4>
           <% GroupAction.order(:seq).each do |action| %>
               <input type="checkbox" onclick="return change_permission_block(this,<%=role.id%>,<%=action.id%>);"
@@ -21,10 +22,9 @@
                      />
               <span><%= action.description %></span> <br/>
           <% end %>
-
         </div>
+      </dd>
   <% end %>
-  </dd>
 </dl>
 <script>
     $(function () {

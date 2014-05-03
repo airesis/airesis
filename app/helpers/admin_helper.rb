@@ -28,7 +28,7 @@ module AdminHelper
     groups.each do |group|
       if !group.valid?
         msg += group.id.to_s + ": " + group.name + "\n"
-        msg += "   " + group.errors.full_messages.join(";") + "\n";
+        msg += "   " + group.errors.full_messages.join(";") + "\n"
       end
     end
     ResqueMailer.delay.admin_message(msg)

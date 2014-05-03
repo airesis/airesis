@@ -35,7 +35,7 @@ class Blog < ActiveRecord::Base
     page = params[:page] || 1
     limite = params[:limit] || 30
 
-    if tag then
+    if tag
       Blog.joins(:posts => :tags).where(['tags.text = ?', tag]).page(page).per(limite)
     else
       Blog.search do

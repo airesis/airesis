@@ -1,6 +1,5 @@
 #encoding: utf-8
 
-#require 'airesis_metis'
 require 'rake'
 
 class AdminController < ManagerController
@@ -17,26 +16,18 @@ class AdminController < ManagerController
 
   end
 
-  #fa un test della gemma
+  #test airesis metis gem
   def test_gem
     AiresisMetis.hi
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'OK'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'OK'
+    redirect_to admin_panel_path
   end
 
-  #calcola il ranking degli utenti
+  #calculate user rating
   def calculate_ranking
     AdminHelper.calculate_ranking
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Ranking ricalcolato'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'OK'
+    redirect_to admin_panel_path
   end
 
   #change proposal states in development. make a check and fix wrong situations
@@ -47,59 +38,34 @@ class AdminController < ManagerController
     voting.each do |proposal| #per ciascuna proposta da chiudere
       close_vote_phase(proposal)
     end if voting
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Stato proposte aggiornato'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Stato proposte aggiornato'
+    redirect_to admin_panel_path
   end
 
   def validate_groups
     AdminHelper.validate_groups
-
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Inviato elenco gruppi non validi'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Inviato elenco gruppi non validi'
+    redirect_to admin_panel_path
   end
 
   def calculate_user_group_affinity
     AffinityHelper.calculate_user_group_affinity
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Affinità calcolate'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Affinità calcolate'
+    redirect_to admin_panel_path
   end
 
 
   def delete_old_notifications
     deleted = AdminHelper.delete_old_notifications
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Notifiche eliminate: ' + deleted.to_s
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Notifiche eliminate: ' + deleted.to_s
+    redirect_to admin_panel_path
   end
 
   #invia una mail di prova tramite resque e redis
   def test_redis
     ResqueMailer.delay.test
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Test avviato'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Test avviato'
+    redirect_to admin_panel_path
   end
 
   #invia una notifica di prova tramite resque e redis
@@ -113,51 +79,33 @@ class AdminController < ManagerController
         ResqueMailer.delay.notification(alert.id) if alert
       end
     end
-
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Test avviato'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Test avviato'
+    redirect_to admin_panel_path
   end
 
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
     ProposalsWorker.perform_at(15.seconds.from_now, :proposal_id => 1)
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Test avviato'
-        redirect_to admin_panel_path
-      }
-    end
-
+    flash[:notice] = 'Test avviato'
+    redirect_to admin_panel_path
   rescue Exception => e
     puts e.backtrace
   end
-
 
   def become
     sign_in User.find(params[:user_id]), :bypass => true
     redirect_to root_url # or user_root_url
   end
 
-
   def write_sitemap
     Rake::Task["sitemap:refresh"].invoke
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Sitemap aggiornata.'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Sitemap aggiornata.'
+    redirect_to admin_panel_path
   end
-
 
   def mailing_list
 
   end
-
 
   def send_newsletter
     NewsletterSender.perform_at(30.seconds.from_now, params)
@@ -167,55 +115,33 @@ class AdminController < ManagerController
 
   def upload_sources
     Crowdin::Client.new.upload_sources
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Sources uploaded'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Sources uploaded'
+    redirect_to admin_panel_path
   end
 
   def update_sources
     Crowdin::Client.new.update_sources
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Sources updated'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Sources updated'
+    redirect_to admin_panel_path
   end
 
   def upload_translations
     Crowdin::Client.new.upload_translations
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Translation uploaded'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Translation uploaded'
+    redirect_to admin_panel_path
   end
 
   def download_translations
     Crowdin::Client.new.download_translations
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Translations downloaded'
-        redirect_to admin_panel_path
-      }
-    end
+    flash[:notice] = 'Translations downloaded'
+    redirect_to admin_panel_path
   end
 
   def extract_delete_zip
     Crowdin::Client.new.extract_zip
-    respond_to do |format|
-      format.html {
-        flash[:notice] = 'Translations unzipped and zip deleted'
-        redirect_to admin_panel_path
-      }
-    end
-
+    flash[:notice] = 'Translations unzipped and zip deleted'
+    redirect_to admin_panel_path
   end
-
 
   def proposals_stats
     ret = []
@@ -233,5 +159,4 @@ class AdminController < ManagerController
       f.puts JSON.pretty_generate(ret)
     end
   end
-
 end

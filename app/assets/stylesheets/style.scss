@@ -1,3 +1,11 @@
+//temp for debug
+#flash_messages {
+  font-size: 60px;
+  color: red;
+  line-height: 60px;
+  font-weight: bold;
+}
+
 .card, .mybox {
     background: #fff;
     box-shadow: 1px 1px 0px 0px #ccc;
@@ -71,9 +79,6 @@ body div.token-input-dropdown {
     color: #669900;
 }
 
-.confirmRequest .ui-button-text {
-    font-size: 10px;
-}
 
 .headerButton {
     float: left;
@@ -81,7 +86,7 @@ body div.token-input-dropdown {
 }
 
 #menu-left h4 {
-    margin: 5px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 .face-login-button {
@@ -123,16 +128,6 @@ table.dataTable td .blogUserImage {
 .littleText {
     font-weight: bold;
     text-align: left;
-}
-
-.littleText.ui-button .ui-button-text {
-    line-height: 16px;
-    font-size: 12px;
-}
-
-.veryLittleText.ui-button .ui-button-text {
-    line-height: 10px;
-    font-size: 10px;
 }
 
 .rightAlign {
@@ -264,14 +259,6 @@ table.dataTable td .blogUserImage {
 .body_maxwidth .buttonStyle {
     font-size: 13px;
     letter-spacing: 1px;
-}
-
-.ui-button-text-only .ui-button-text {
-    padding: 3px 6px;
-}
-
-.ui-button .ui-button-text {
-    display: block;
 }
 
 #fixed {
@@ -661,53 +648,6 @@ input[type="checkbox"] {
     font-family: 'ubuntu', arial, tahoma, 'lucida grande', verdana, sans-serif;
 }
 
-.ui-dialog-titlebar.ui-widget-header {
-    border: none;
-    background: white;
-    color: black;
-    font-weight: bold;
-    box-shadow: none;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    font-size: 1.2em;
-}
-
-.ui-button {
-    font: 14px 'ubuntu', arial, verdana, "lucida grande";
-    display: inline-block;
-    margin-right: 0px;
-    text-decoration: none !important;
-    cursor: pointer;
-    text-align: center;
-    zoom: 1;
-    overflow: visible;
-}
-
-.ui-button .ui-button-text {
-    font: 14px 'ubuntu', arial, verdana, "lucida grande";
-    display: block;
-}
-
-.ui-button-text-only .ui-button-text {
-    padding: .1em 0.8em !important;
-}
-
-.ui-button-text-only.bigButton .ui-button-text {
-    font-size: 2em;
-}
-
-.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text {
-    padding: .2em .8em .2em 2.1em !important;
-}
-
-.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text {
-    padding: .2em 2.1em .2em 1em !important;
-}
-
-input.ui-button {
-    padding: 3px 6px !important;
-}
-
 .ui-tabs .ui-tabs-panel {
     border-width: 1px !important;
 }
@@ -955,9 +895,6 @@ form.paypal-button {
     }
 }
 
-.error_dialog {
-    margin: auto;
-}
 
 .fb_iframe_widget {
   vertical-align: inherit;

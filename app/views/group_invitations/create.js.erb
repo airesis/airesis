@@ -1,3 +1,1 @@
-$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#new_invitation').dialog('destroy');
-$('#new_invitation').remove();
+$('#invitation_container').foundation('reveal','close');

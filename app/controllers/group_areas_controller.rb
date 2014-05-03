@@ -25,7 +25,7 @@ class GroupAreasController < ApplicationController
 
   def index
     if @group.enable_areas
-      @group_areas = @group.group_areas#.includes(:partecipants)
+      @group_areas = @group.group_areas #.includes(:partecipants)
       @partecipants = @group.partecipants
     else
       render 'area_inactive'
@@ -33,7 +33,7 @@ class GroupAreasController < ApplicationController
   end
 
   def manage
-    @group_areas = @group.group_areas#.includes(:partecipants)
+    @group_areas = @group.group_areas #.includes(:partecipants)
     @partecipants = @group.partecipants
   end
 
@@ -72,15 +72,11 @@ class GroupAreasController < ApplicationController
       @group_areas = @group.group_areas.includes(:partecipants)
       @partecipants = @group.partecipants
       flash[:notice] = t('info.groups.work_area.area_created')
-
     rescue ActiveRecord::ActiveRecordError => e
+      puts e
       respond_to do |format|
         flash[:error] = t('error.groups.work_area.area_created')
-        format.js {
-          render :update do |page|
-            page.redirect_to group_group_areas_path(@group)
-          end
-        }
+        format.js { render 'group_areas/errors/create'}
       end
     end #begin
   end

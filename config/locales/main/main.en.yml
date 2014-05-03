@@ -958,6 +958,11 @@ en:
         type: "of type %{type}"
     proposal_comments:
       title: "Contribute History"
+    available_authors:
+      index:
+        explain_html: |
+          Select the users you want to help you draw up a summary of the proposal and click on 'Save'.<br/>
+          Be careful! These users will have the same permissions in the management of your proposal.
   pl:
     comments:
       zero: "no comment"
@@ -1208,6 +1213,9 @@ en:
       promote7_html: |
         Airesis offre a tutti gli utenti la creazione di gruppi e proposte in maniera gratuita.<br/>
         Tecnologie Democratiche è la ONLUS senza scopo di lucro che finanzia il progetto. Fai una donazione o iscriviti!
+    edit:
+      expand_all: "Expand all"
+      collapse_all: "Collapse all"
   petitions:
     promote:
       promote1_html: |
@@ -1246,6 +1254,7 @@ en:
     yes_word: 'YES'
     no_word: 'NO'
     mark: "Mark"
+    update_and_continue: "Save and continue"
   tooltips:
     random_stack_1: "<strong>How it works?</strong><br/>Firstly they are shown the new contributions or the ones you haven't evaluated, then the contributions you already evaluated in order of popularity. <br/> <b>Note</b>: Your rating will change this order!"
     random_stack_2: "<strong>How it works?</strong><br/>Contributions are shown in chronological order starting with the most recent"
@@ -1530,3 +1539,4 @@ en:
       published_title: "Your post will be published on the web and everyone will be able to see, share and comment it"
       reserved_title: "Your post will be visible only to users which belongs to the groups in which you publish"
       draft_title: "Your post is visible only to you"
+  confirm_delete: "Are you sure?"

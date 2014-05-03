@@ -1,39 +1,35 @@
-<div id="new_invitation" title="<%= t('pages.groups.invite_your_friends.title')%>" style="display: none; font-size: 14px;">
-<%= form_for @group_invitation, :html => {:class=>"disableForm"}, :remote => true do |f| %>
+<h2><%= t('pages.groups.invite_your_friends.title') %></h2>
+<%= simple_form_for @group_invitation, :html => {class: "disableForm"}, :remote => true do |f| %>
 
-  <div class="field">
-    <%= f.label :emails_list %><br />
-    <%= f.text_field :emails_list %>
-  </div>
-  <div class="field">
-    <%= f.label :text %><br />
-    <%= f.text_area :testo, placeholder: t('pages.groups.invite_your_friends.text_to_send'), style: "width:400px;height:100px;" %>
-  </div>
 
-  <div class="actions">
-    <%= f.hidden_field :group_id%>
+    <%= f.input :emails_list %>
+
+    <%= f.input :testo, as: :text, placeholder: t('pages.groups.invite_your_friends.text_to_send') %>
+
+    <%= f.hidden_field :group_id %>
+
+
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
     <%= f.submit t('buttons.send'), class: "btn blue inviteButton" %>
-  </div>
 <% end %>
-</div>
-
 
 <script type="text/javascript">
-  $(function() {
-      $('#group_invitation_emails_list').tokenInput([], {
-          theme: "facebook",
-          crossDomain: false,
-          allowFreeTagging: true,
-          hintText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
-          searchingText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
-          invalidTokenText: "<%=t('pages.groups.invite_your_friends.email_not_valid')%>",
-          preventDuplicates: true,
-          allowTabOut: true,
-          tokenValidation: function(item) {
-              var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-              return re.test(item.name);
-          },
-          avoidBlank: true
-      });
-  });
+    $(function () {
+        $('#group_invitation_emails_list').tokenInput([], {
+            theme: "facebook",
+            crossDomain: false,
+            allowFreeTagging: true,
+            hintText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
+            searchingText: "<%=t('pages.groups.invite_your_friends.type_email_addresses')%>",
+            invalidTokenText: "<%=t('pages.groups.invite_your_friends.email_not_valid')%>",
+            preventDuplicates: true,
+            allowTabOut: true,
+            tokenValidation: function (item) {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(item.name);
+            },
+            avoidBlank: true
+        });
+    });
 </script>

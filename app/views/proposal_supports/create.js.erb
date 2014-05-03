@@ -1,5 +1,2 @@
-$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#support_left_panel_container').html('<%= escape_javascript(render(:partial => 'proposals/support_left_panel'))%>');
-$('#proposal_support').dialog('destroy'); 
-$('#proposal_support').remove();
-disegnaBottoni();
+$('#support_left_panel_container').html('<%= j render 'proposals/support_left_panel'%>');
+$('#proposal_support').foundation('reveal','close');

@@ -2,13 +2,14 @@
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false&libraries=drawing">
     </script>
+    <%= javascript_include_tag 'proposals/edit' %>
 <% end %>
 
 
 <% @page_title = t('pages.proposals.edit.title', title: @proposal.title) %>
 <h1><%= @page_title %></h1>
 
-<%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+<%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
     <% if can? :destroy, @proposal %>
         <div class="panel warning">
           <p>
@@ -24,43 +25,79 @@
             <% end %>
           </p>
 
-          <p>
-            <%= f.label :title %>
-            <%= f.text_field :title %>
-          </p>
 
-          <p>
-            <%= f.label :interest_borders_tkn %>
-            <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
-          </p>
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+
+
+
+          <%= f.label :interest_borders_tkn %>
+          <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json %>
+
 
           <% if ::Configuration::folksonomy %>
-              <p>
-                <%= f.label :tags_list %>
-                <%= f.text_field :tags_list %>
-              </p>
+
+              <%= f.label :tags_list %>
+              <%= f.text_field :tags_list %>
+
           <% end %>
 
-          <p>
-            <% if @change_advanced_options %>
-                <%= f.check_box :anonima %>
-                <%= f.label :anonima %><br/>
-                <%= f.check_box :visible_outside %>
-                <%= f.label :visible_outside %><br/>
-                <%= f.check_box :secret_vote %>
-                <%= f.label :secret_vote %><br/>
-            <% end %>
-          </p>
+
+          <% if @change_advanced_options %>
+              <fieldset>
+                <legend><%= t('pages.proposals.new.advanced_options') %></legend>
+                <%= f.label :anonima do %>
+                    <%= f.check_box :anonima %>
+                    <%= t('activerecord.attributes.proposal.anonima') %>
+                <% end %>
+
+                <%= f.label :visible_outside do %>
+                    <%= f.check_box :visible_outside %>
+                    <%= t('activerecord.attributes.proposal.visible_outside') %>
+                <% end %>
+
+                <%= f.label :secret_vote do %>
+                    <%= f.check_box :secret_vote %>
+                    <%= t('activerecord.attributes.proposal.secret_vote') %>
+                <% end %>
+              </fieldset>
+          <% end %>
+
 
         </div>
     <% end %>
 
     <p>
-    <div>
-      <%= f.label :proposal_category_id %>
-      <br/>
-      <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:100%'} %>
+    <div class="card">
+      <div class="row">
+        <div class="columns medium-12">
+          <%= f.label :proposal_category_id %>
+          <%= f.select :proposal_category_id, options_for_select(ProposalCategory.all.collect { |p| [p.description, p.id, {'data-imagesrc' => image_path("proposal_categories/#{p.id}_s.png")}] }, @proposal.proposal_category_id), {}, {style: 'width:100%'} %>
+        </div>
+      </div>
+      <% if @proposal.vote_defined %>
+          <% if @proposal.vote_event_id %>
+              <%= f.label :event_id %>
+              <%= link_to @event, 'Evento' %>
+          <% else %>
+              <% @event = Event.new({
+                                            starttime: @proposal.vote_starts_at,
+                                            endtime: @proposal.vote_ends_at,
+                                    }) %>
+              <div class="row">
+                <div class="columns medium-6">
+                  <%= f.label :vote_starts_at %>
+                  <%= f.text_field :vote_starts_at, value: (l @proposal.vote_starts_at, format: :textfield) %>
+                </div>
+                <div class="columns medium-6">
+                  <%= f.label :vote_ends_at %>
+                  <%= f.text_field :vote_ends_at, value: (l @proposal.vote_ends_at, format: :textfield) %>
+                </div>
+              </div>
+          <% end %>
+      <% end %>
     </div>
+
 
     <div style="float:left;margin-left: 60px;margin-top: 10px;">
       <%#= link_to image_tag('maps.png', class: 'geocode_proposal'), @group ? geocode_group_proposal_url(@group, @proposal) : geocode_proposal_url(@proposal), remote: true %>
@@ -77,9 +114,6 @@
               <%= s.check_box '_destroy', style: 'display:none' %>
               <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                   <div class="section_container" data-section_id="<%= i %>">
-                    <span class="move_button">
-                      <%= image_tag 'move.png' %>
-                    </span>
                      <span class="remove_button">
                       <a href="#" onclick="removeSection(this,<%=i%>,true);return false;"><%= t('pages.proposals.edit.remove_section') %></a>
                     </span>
@@ -97,11 +131,10 @@
     </div>
 
     <div class="new_section">
-      <a href="#" onclick="addSection(this);return false;"><%= t('pages.proposals.edit.add_paragraph') %></a>
+      <a href="#" class="btn full-width" onclick="addSection(this);return false;"><%= t('pages.proposals.edit.add_paragraph') %></a>
     </div>
 
     <hr/>
-    <h4><%= t('pages.proposals.edit.edit_proposal') %></h4>
 
     <% @proposal.solutions.includes({:sections => :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
@@ -109,14 +142,13 @@
               <h3>
                 <div class="tit1 sol">
                   <div class="tit2">
-                    <span class="title_placeholder"><%=raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}",num: i+1)%></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
+                    <span class="title_placeholder"><%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %></span> <%= sol.text_field :title, placeholder: t("pages.proposals.edit.insert_title.#{@proposal.proposal_type.name.downcase}") %>
                   </div>
                   <span class="remove_sol_button">
                     <a href="#" onclick="removeSolution(this,true);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_solution') %></a>
                   </span>
                 </div>
               </h3>
-              <div class="pressed"><%= t('pages.proposals.edit.press_to_compress') %></div>
               <div class="sol_content">
                 <div class="solutions_column" data-solution_id="<%= i %>">
 
@@ -131,9 +163,7 @@
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                               <div class="section_container" data-section_id="<%= (i+1)*100+j %>">
-                                <span class="move_button">
-                              <%= image_tag 'move.png' %>
-                            </span>
+
                              <span class="remove_button">
                               <a href="#" onclick="removeSolutionSection(this,true);return false;" data-section_id="<%= j %>" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.remove_section') %></a>
                             </span>
@@ -150,28 +180,35 @@
                   <% end %>
                 </div>
                 <div class="new_section">
-                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
+                  <a href="#" class="btn full-width" onclick="addSolutionSection(this);return false;" data-solution_id="<%= i %>"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
                 </div>
               </div>
             </div>
         <% end %>
     <% end %>
 
-    <%unless @proposal.is_petition? %>
+    <% unless @proposal.is_petition? %>
 
-    <div class="new_section">
-      <a href="#" onclick="addSolution(this);return false;"><%= t("pages.proposals.edit.add_solution.#{@proposal.proposal_type.name.downcase}") %></a><br/><a style="font-size: 0.8em" href="#" onclick="you_know();return false;"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
-    </div>
+        <div class="new_section">
+          <a href="#" class="btn full-width" onclick="addSolution(this);return false;"><%= t("pages.proposals.edit.add_solution.#{@proposal.proposal_type.name.downcase}") %></a>
+          <br/>
+          <a style="font-size: 0.8em" href="#" data-reveal-id="you_know"><%= t('pages.proposals.edit.you_know_what_you_do') %></a>
+        </div>
 
-    <div id="you_know" title="<%= t('pages.proposals.edit.schulze_title') %>" style="display:none;line-height: 160%">
-      <%= t('pages.proposals.edit.more_solutions_explained_html') %>
-    </div>
-    <%end%>
+        <div id="you_know" class="reveal-modal small" data-reveal>
+          <h2><%= t('pages.proposals.edit.schulze_title') %></h2>
+
+          <p>
+            <%= t('pages.proposals.edit.more_solutions_explained_html') %>
+          </p>
+          <a class="close-reveal-modal">&#215;</a>
+        </div>
+    <% end %>
     <p>
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', data:{disable_with: t('updating')} %>
-
+      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', data: {disable_with: t('updating'), type: "save"} %>
+      <%= f.submit t('buttons.update_and_continue'), :class => 'btn blue', :onclick => 'return fillCleanFields();', data: {disable_with: t('updating'), type: "continue"} %>
 
     </p>
 <% end %>
@@ -195,16 +232,22 @@
   </div>
 </div>
 
-
-<% data = "["
-   @proposal.tags_list.split(',').each do |l|
-     data += "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   end
-   data += "]"
-%>
 <script type="text/javascript">
     $(function () {
-        input = $('#proposal_interest_borders_tkn')
+        var start_field = $('#proposal_vote_starts_at');
+        var end_field = $('#proposal_vote_ends_at');
+        start_field.fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>'])
+                .on('hide', function (event) {
+                    var eventStartTime_ = event.date;
+                    console.log(eventStartTime_);
+                    end_field.fdatetimepicker("setStartDate", eventStartTime_);
+                    end_field.fdatetimepicker("setDate", addMinutes(eventStartTime_, 2880));
+                });
+        end_field.fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>']);
+        start_field.fdatetimepicker("setStartDate", '<%=l (@proposal.quorum.ends_at + DEBATE_VOTE_DIFFERENCE), format: :textfield%>');
+        end_field.fdatetimepicker("setStartDate", '<%=l (@proposal.quorum.ends_at + DEBATE_VOTE_DIFFERENCE + 2.days), format: :textfield%>');
+
+        var input = $('#proposal_interest_borders_tkn');
         input.tokenInput("/interest_borders.json", {
             crossDomain: false,
             prePopulate: input.data("pre"),
@@ -215,12 +258,12 @@
         });
 
 
-        input = $('#proposal_tags_list')
+        input = $('#proposal_tags_list');
         if (input != null) {
-            input.tokenInput("<%=tags_path(format: :json )%>", {
+            input.tokenInput("<%=tags_path(format: :json)%>", {
                 theme: "facebook",
                 crossDomain: false,
-                prePopulate: <%=raw data%>,
+                prePopulate: <%=raw @proposal.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>,
                 allowFreeTagging: true,
                 minChars: 3,
                 hintText: "<%=t('digit_tags')%>",
@@ -231,39 +274,7 @@
             })
         }
 
-
-        $('#proposal_proposal_category_id').select2({
-            minimumResultsForSearch: -1,
-            formatResult: formatCategory,
-            formatSelection: formatCategory,
-            escapeMarkup: function (m) {
-                return m;
-            }
-        });
     });
-</script>
-
-
-
-
-<script type="text/javascript">
-    $('#menu-left, #centerpanelextended').addClass('editing');
-    function geocode_panel() {
-
-    }
-
-    fitRightMenu($('.suggestion_right'));
-    $('.suggestion_right')
-            .bind('mousewheel DOMMouseScroll', function (e) {
-                if (e.originalEvent) e = e.originalEvent;
-                var delta = e.wheelDelta || -e.detail;
-                this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                e.preventDefault();
-                if (((this.scrollTop + parseInt(this.style.height, 10)) > (this.scrollHeight - 100)) && checkActive) {
-                    checkActive = false;
-                    fetchContributes();
-                }
-            });
 
     var currentPage = 0;
     var currentView = 3;
@@ -283,105 +294,6 @@
                 $("#loading_contributes").hide();
             }
         });
-    }
-    $(function () {
-        fetchContributes();
-        anima();
-    });
-
-    var integrated_contributes = [];
-
-    function integrate_contribute(el, id) {
-        var comment_ = $('#comment' + id);
-        var inside_ = comment_.find('.proposal_comment');
-        if ($(el).is(':checked')) {
-            integrated_contributes.push(id);
-            comment_.fadeTo(400, 0.3);
-            inside_.attr('data-height', inside_.outerHeight());
-            inside_.css('overflow', 'hidden');
-            inside_.animate({height: '42px'}, 400);
-            comment_.find('[id^=reply]').each(function() {
-                $(this).attr('data-height', $(this).outerHeight());
-                $(this).css('overflow', 'hidden');
-                $(this).animate({height: '0px'}, 400);
-            })
-        }
-        else {
-            integrated_contributes.splice(integrated_contributes.indexOf(id), 1);
-            comment_.fadeTo(400, 1);
-            inside_.animate({height: inside_.attr('data-height')}, 400, 'swing', function () {
-                inside_.css('overflow', 'auto', function () {
-                });
-            });
-            comment_.find('[id^=reply]').each(function() {
-                $(this).animate({height: $(this).attr('data-height')}, 400, 'swing', function() {
-                    $(this).css('overflow', 'auto', function () {
-
-                    });
-                });
-            })
-
-        }
-        $('#proposal_integrated_contributes_ids_list').val(integrated_contributes);
-    }
-
-    function compressSolution(element) {
-        var toggleMinHeight = 100,
-                duration = 500,
-                easing = 'swing',
-                this_ = element,
-                compress_ = element.parent(),
-                curH = compress_.height();
-        if (compress_.is(':animated')) {
-            return false;
-        }
-        else if (compress_.attr('data-compressed') == 'false') {
-            compress_.attr('data-compressed', true);
-            compress_.attr('data-height', compress_.height());
-            $('.sol_content', compress_).hide();
-            compress_.animate(
-                    {
-                        'height': toggleMinHeight
-                    }, duration, easing, function () {
-                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_expand')%>');
-                        pressed_.hide();
-                        this_.after(pressed_);
-                        pressed_.fadeIn();
-                    });
-
-        }
-        else {
-            compress_.attr('data-compressed', false);
-
-            compress_.animate(
-                    {
-                        'height': compress_.attr('data-height')
-                    }, duration, easing, function () {
-                        var pressed_ = $('.pressed', compress_).text('<%=j t('pages.proposals.edit.press_to_compress') %>');
-                    });
-
-            $('.sol_content', compress_).show();
-        }
-
-    }
-
-    function anima() {
-        $('.solution_main h3').each(function () {
-            $(this).parent().attr('data-compressed', false);
-        })
-                .click(function () {
-                    compressSolution($(this));
-                });
-        $('.solution_main h3 input').click(function (event) {
-            event.preventDefault();
-            return false;
-        });
-
-    }
-
-
-    function you_know() {
-        $('#you_know').dialog({modal: true, width: 600, height: 'auto'});
     }
 
     function checkScroll() {
@@ -475,14 +387,12 @@
     var numSections = <%=@proposal.sections.count%>;
 
 
-
     function addSection(el) {
         var sectionname = 'proposal[sections_attributes][' + numSections + ']';
         var sectionid = sectionname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
         var paragraphname = sectionname + '[paragraphs_attributes][0]';
         var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + numSections + '"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSection(this,' + numSections + ',false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
         paragraph_.append('<div class="clearboth"></div>');
         paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '" name=\'' + sectionname + '[title]\'></input>');
@@ -502,11 +412,8 @@
 
         //navigator update
         var nav_ = $('.navigator .sec_nav').last();
-
-        var sec_nav = $('<li data-section_id="' + numSections + '" class="sec_nav"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></li>');
+        var sec_nav = $('<li data-section_id="' + numSections + '"class="sec_nav"><span class="sec_title_c"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSections + 1) + '</a></span><%=j navigator_actions%></li>');
         nav_.after(sec_nav);
-
-        listen_title_change();
 
         numSections += 1;
     }
@@ -529,8 +436,6 @@
         var section_num = ((parseInt(solutionid) + 1) * 100) + numSolutionSections[solutionid];
         var paragraph_ = $('<div class="section_container" style="display:none;" data-section_id="' + section_num + '"></div>');
         var paragraphid = paragraphname.replace(/\]\[/g, '_').replace(/\[/, '_').replace(/\]/, '');
-
-        paragraph_.append('<span class="move_button"><img alt="Move" src="/assets/move.png"></span>');
         paragraph_.append('<span class="remove_button"><a href="#" onclick="removeSolutionSection(this,false);return false;"><%=j t('pages.proposals.edit.remove_section') %></a></span>');
         paragraph_.append('<div class="clearboth"></div>');
         paragraph_.append('<input type="text" class="edit_label" value="<%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '" name=\'' + sectionname + '[title]\'></input>');
@@ -548,24 +453,20 @@
 
         addEditor(textarea_.attr('id'));
 
-
         //navigator update
         var nav_ = $('.navigator li[data-solution_id=' + solutionid + ']');
 
         var sec_nav = $('<li data-section_id="' + section_num + '"><a href="#" onclick="return scrollToSection(this);" class="sec_title"><%=j t('pages.proposals.edit.paragraph')%> ' + (numSolutionSections[solutionid] + 1) + '</a></li>');
         nav_.find('.sub_navigator').append(sec_nav);
 
-        listen_title_change();
-
         numSolutionSections[solutionid] += 1;
-
     }
 
 
     function addSolution(el) {
         var paragraph_ = $("<%=j render "proposal_types/solution"%>");
         try {
-        $(el).parent().before(paragraph_);
+            $(el).parent().before(paragraph_);
         } catch (e) {
             console.error(e);
             console.error('errors occured adding a new solution');
@@ -574,7 +475,6 @@
         numSolution++;
         fakeNumSolution++;
         paragraph_.find(".title_placeholder .num").html(fakeNumSolution);
-
         paragraph_.find("[name^='proposals\[solutions_attributes\]\[0\]\[seq\]']").val(fakeNumSolution);
         paragraph_.find(".add_section").attr('data-solution_id', numSolution);
         paragraph_.find(".solutions_column").attr('data-solution_id', numSolution);
@@ -596,8 +496,6 @@
 
         numSolutionSections[numSolution] = paragraph_.find('.section_container').length + 1;
 
-        make_solution_sortable($(".solutions_column", paragraph_));
-
         //navigator update
         $('.navigator li[data-solution_id=new]').attr('data-solution_id', numSolution);
         var nav_ = $('.navigator li[data-solution_id=' + numSolution + ']');
@@ -607,11 +505,9 @@
             paragraph_.find('.section_container[data-section_id=' + sec_id + ']').attr('data-section_id', (numSolution + 1) * 100 + sec_id);
             $(this).attr('data-section_id', (numSolution + 1) * 100 + sec_id);
         });
-
-
-        listen_title_change();
     }
 
+    //todo attached to old hidden button, attach to navigator
     function removeSolutionSection(el, hide) {
         if (confirm('<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>')) {
             var section_ = $(el).parent().parent();
@@ -628,12 +524,13 @@
             }
 
             //navigator update
-            //var solution_id = $(this).attr('data-solution_id');
-            //var nav_ = $('li[data-solution_id='+solution_id+'] .sub_navigator');
-            //nav_.find('li[data-section_id='+section_id+']').remove();
+            var nav_section_id = section_.attr('data-section_id');
+            var nav_ = $('li[data-solution_id=' + solution_id + '] .sub_navigator');
+            nav_.find('li[data-section_id=' + nav_section_id + ']').remove();
         }
     }
 
+    //todo attached to old hidden button, attach to navigator
     function removeSolution(el, hide) {
         if (confirm('<%=j t('pages.proposals.edit.confirm_solution_deletion')%>')) {
             var section_ = $(el).closest('.solution_main');
@@ -645,22 +542,25 @@
             else {
                 section_.fadeOut(function () {
                     section_.remove();
-                    //CKEDITOR.remove(section_.find('textarea').attr('id'));
                 });
             }
-            section_.nextUntil(null,'.solution_main').each(function() {
+            section_.nextUntil(null, '.solution_main').each(function () {
                 var sol_id = $(this).attr('data-solution_id');
                 var id = $(this).find('textarea').attr('id');
-                var seqel_ = $("[name^='proposal\[solutions_attributes\]\["+sol_id+"\]\[seq\]']");
+                var seqel_ = $("[name^='proposal\[solutions_attributes\]\[" + sol_id + "\]\[seq\]']");
                 var seq_ = parseInt(seqel_.val());
-                seqel_.val(seq_-1);
-                $(this).find(".title_placeholder .num").html(seq_-1);
+                $(this).find(".title_placeholder .num").html(seq_ - 1);
             });
             fakeNumSolution--;
+
+            //navigator update
+            var nav_ = $('.navigator');
+            nav_.find('.sol_nav[data-solution_id=' + solution_id + ']').remove();
         }
     }
-    <%end%>
 
+    <%end%>
+    //todo attached to old hidden button, attach to navigator
     function removeSection(el, id, hide) {
         if (confirm('<%=j t('pages.proposals.edit.confirm_paragraph_deletion')%>')) {
             var section_ = $(el).parent().parent();
@@ -673,220 +573,61 @@
                     section_.remove();
                 });
             }
+
+            //navigator update
+            var nav_ = $('.navigator');
+            nav_.find('.sec_nav[data-section_id=' + id + ']').remove();
         }
     }
 
 
     var ckeConfigs = {};
-    $(".sections_column").sortable({
-        connectWith: ".column",
-        cursor: "move",
-        axis: "y",
-        handle: '.move_button',
-        start: function (e, ui) {
-            var textareaId = ui.item.find('textarea').attr('id');
-            if (typeof textareaId != 'undefined') {
-                var editorInstance = CKEDITOR.instances[textareaId];
-                editorInstance.destroy();
-                CKEDITOR.remove(textareaId);
-            }
-        },
-        stop: function (e, ui) {
-            var textareaId = ui.item.find('textarea').attr('id');
-            if (typeof textareaId != 'undefined') {
-                ckedstoogle_[textareaId]['first'] = true;
-                addEditor(textareaId);
-            }
-            var i = 0;
-
-            //navigator update
-
-            var nav_ = $('.navigator');
-            nav_.find('li.sec_nav').addClass('detach');
-
-            $(this).find('div.section_container').each(function (el) {
-                var sec_id = $(this).attr('data-section_id');
-                var id = $(this).find('textarea').attr('id');
-                var seq_id = id.replace(/paragraphs_attributes.*/, 'seq');
-                $('#' + seq_id).val(i++);
-
-                //navigator update
-                var list_ = nav_.find('li.sec_nav[data-section_id=' + sec_id + ']').detach();
-                list_.removeClass('detach');
-                var last_ = nav_.find('li.sec_nav').not('.detach').last();
-                if (last_.length > 0) {
-                    last_.after(list_);
-                }
-                else {
-                    nav_.prepend(list_);
-                }
-            });
-        }
-    });
-
-
-    function make_solution_sortable(jquery_obj) {
-        jquery_obj.sortable({
-            connectWith: ".column",
-            cursor: "move",
-            axis: "y",
-            handle: '.move_button',
-            start: function (e, ui) {
-                var textareaId = ui.item.find('textarea').attr('id');
-                if (typeof textareaId != 'undefined') {
-                    var editorInstance = CKEDITOR.instances[textareaId];
-                    editorInstance.destroy();
-                    CKEDITOR.remove(textareaId);
-                }
-            },
-            stop: function (e, ui) {
-                var textareaId = ui.item.find('textarea').attr('id');
-                if (typeof textareaId != 'undefined') {
-                    ckedstoogle_[textareaId]['first'] = true;
-                    addEditor(textareaId);
-                }
-                var i = 0;
-
-                //navigator update
-                var sol_id = $(this).attr('data-solution_id');
-                var nav_ = $('li[data-solution_id=' + sol_id + '] .sub_navigator');
-                nav_.find('li').addClass('detach');
-
-                $(this).find('div.section_container').each(function (el) {
-                    var sec_id = $(this).attr('data-section_id');
-
-                    var area_id = $(this).find('textarea').attr('id');
-                    var seq_id = area_id.replace(/paragraphs_attributes.*/, 'seq');
-                    $('#' + seq_id).val(i++);
-
-                    //navigator update
-                    var list_ = nav_.find('li[data-section_id=' + sec_id + ']').detach();
-                    list_.removeClass('detach');
-                    var last_ = nav_.find('li').not('.detach').last();
-                    if (last_.length > 0) {
-                        last_.after(list_);
-                    }
-                    else {
-                        nav_.prepend(list_);
-                    }
-
-
-                });
-            }
-        });
-
-    }
-
-    function listen_title_change() {
-        $('.solution_main h3 .tit1 .tit2 input').on('keyup', function () {
-            var id_ = $(this).closest('.solution_main').attr('data-solution_id');
-            $('.navigator li[data-solution_id=' + id_ + '] span.sol_title').html($(this).val());
-        })
-
-        $('input.edit_label').on('keyup', function () {
-            var id_ = $(this).closest('.section_container').attr('data-section_id');
-            $('.navigator li[data-section_id=' + id_ + '] a.sec_title').text($(this).val());
-        })
-    }
-
-    make_solution_sortable($(".solutions_column"));
-    listen_title_change();
-
 
 </script>
-
-
-
-
-
-
-
 
 <% content_for :left_panel do %>
     <div class="edit_proposal_panel">
       <div class="mybox">
         <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
-        <%= link_to t('pages.proposals.edit.compress_solutions'), '#', onclick: 'return compressSolutions();', data: {other: t('pages.proposals.edit.expand_solutions')}, class: 'compress btn' %>
+        <%= link_to t('buttons.update_and_continue'), '#', onclick: "return updateAndContinueProposal();", class: 'update3 btn blue' %>
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
         <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>
       <div class="mybox">
-        <h4><%= t('pages.proposals.edit.navigator') %></h4>
-        <ul class="navigator">
-          <% @proposal.sections.each_with_index do |section, i| %>
-              <li class="sec_nav" data-section_id="<%= i %>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
-          <% end %>
-          <% @proposal.solutions.each_with_index do |solution, i| %>
-              <li data-solution_id="<%= i %>"><span class="sol_title"><%= solution.title %></span>
-                <ul class="sub_navigator">
-                  <% solution.sections.each_with_index do |section, j| %>
-                      <li data-section_id="<%= (i+1)*100+j %>"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></li>
-                  <% end %>
-                </ul>
-              </li>
-          <% end %>
-        </ul>
+        <h4>
+          <%= t('pages.proposals.edit.navigator') %>
+          <i class="fi-plus right" id="expandList" title="<%= t('.expand_all') %>"></i>
+          <i class="fi-minus right" style="margin-right: 5px;" id="collapseList" title="<%= t('.collapse_all') %>"></i>
+        </h4>
+
+
+        <div class="mycont">
+          <ul class="navigator">
+            <% @proposal.sections.each_with_index do |section, i| %>
+                <li class="sec_nav" data-section_id="<%= i %>">
+                  <span class="sec_title_c"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></span>
+                  <%= navigator_actions %>
+                </li>
+            <% end %>
+          </ul>
+          <ul class="navigator">
+            <% @proposal.solutions.each_with_index do |solution, i| %>
+                <li data-solution_id="<%= i %>" class="sol_nav">
+
+                  <span class="sol_title"><%= solution.title %></span>
+                  <%= navigator_actions classes: 'sol' %>
+                  <ul class="sub_navigator">
+                    <% solution.sections.each_with_index do |section, j| %>
+                        <li class="sol_sec_nav" data-section_id="<%= (i+1)*100+j %>">
+                          <div class="sec_title_c"><%= link_to section.title, '#', onclick: "return scrollToSection(this);", class: 'sec_title' %></div>
+                          <%= navigator_actions %>
+                        </li>
+                    <% end %>
+                  </ul>
+                </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
-
-
-    <script type="text/javascript">
-
-
-        function updateProposal() {
-            if ($('.update2').attr('disabled') != 'disabled') {
-                $('form input:submit').click();
-            }
-            return false;
-        }
-
-        function scrollToSection(el) {
-            scrollToElement($(".section_container[data-section_id=" + $(el).parent().attr('data-section_id') + "]"));
-            return false;
-        }
-
-        function hideContributes() {
-            var right_ = $('.suggestion_right');
-            if (right_.hasClass('contributes_shown')) {
-                right_.removeClass('contributes_shown');
-                right_.hide();
-                $('#centerpanelextended').removeClass('contributes_shown');
-                $('#menu-left').removeClass('contributes_shown');
-            }
-            else {
-                right_.addClass('contributes_shown');
-                right_.show();
-                $('#centerpanelextended').addClass('contributes_shown');
-                $('#menu-left').addClass('contributes_shown');
-            }
-            var contributesButton = $('.contributes');
-            switchText(contributesButton);
-            return false;
-        }
-
-        function compressSolutions() {
-            $('.solution_main h3').each(function () {
-                compressSolution($(this));
-            });
-            var compressButton = $('.compress');
-            switchText(compressButton);
-
-            return false;
-        }
-
-
-        var safe_exit = false;
-
-        function check_before_exit() {
-            if (safe_exit) {
-                return null;
-            }
-            else {
-                return "Tutte le modifiche alla proposta andranno perse."
-            }
-        };
-
-        window.onbeforeunload = check_before_exit;
-
-    </script>
 <% end %>

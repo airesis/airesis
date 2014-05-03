@@ -1,0 +1,13 @@
+<ul class="breadcrumbs">
+  <li><%= link_to 'All working areas', manage_group_group_areas_url(@group) %></li>
+  <li><%= link_to @group_area.name, edit_group_group_area_url(@group,@group_area) %></li>
+  <li class="current"><%= @area_role.name %></li>
+</ul>
+
+<%=render :partial => 'area_roles/form', :locals => {button_name: t('buttons.edit'), remote: false}%>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>
+
+

@@ -26,11 +26,11 @@ class InterestBordersController < ApplicationController
         results += @regiones.collect { |r| {:id => InterestBorder::SHORT_REGIONE+'-'+r.id.to_s, name: t('interest_borders.region', :name => r.description)} } unless @regiones.empty?
         limit -= @regiones.size
         if limit > 0
-          @province = @territory.provincias.all(conditions: ["upper(provincias.description) like upper(?)", hint], limit: limit)
+          @province = @territory.provincias.all(conditions: ["lower_unaccent(provincias.description) like lower_unaccent(?)", hint], limit: limit)
           results += @province.collect { |p| {:id => InterestBorder::SHORT_PROVINCIA+'-'+p.id.to_s, name: t('interest_borders.province', :name => p.description)} } unless @province.empty?
           limit -= @province.size
           if limit > 0
-            @comunes = @territory.comunes.all(conditions: ["upper(comunes.description) like upper(?)", hint], order: 'population desc nulls last', limit: limit)
+            @comunes = @territory.comunes.all(conditions: ["lower_unaccent(comunes.description) like lower_unaccent(?)", hint], order: 'population desc nulls last', limit: limit)
             results += @comunes.collect { |p| {:id => InterestBorder::SHORT_COMUNE+'-'+p.id.to_s, name: t('interest_borders.town', :name => p.description)} } unless @comunes.empty?
             limit -= @comunes.size
             if limit > 0
@@ -44,7 +44,6 @@ class InterestBordersController < ApplicationController
 
 
     respond_to do |format|
-      format.xml { render :xml => results }
       format.json { render :json => results }
       format.html # index.html.erb
     end

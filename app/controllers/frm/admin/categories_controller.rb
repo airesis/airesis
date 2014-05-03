@@ -39,7 +39,7 @@ module Frm
 
       private
       def find_category
-        @category = @group.categories.find(params[:id])
+        @category = @group.categories.friendly.find(params[:id])
       end
 
       def create_successful

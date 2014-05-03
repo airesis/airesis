@@ -78,8 +78,7 @@ class ProposalCommentsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html # index.html.erb
-                  #format.xml  { render :xml => @proposal_comments }
+      format.html
     end
   end
 
@@ -96,14 +95,9 @@ class ProposalCommentsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @proposal_comment }
-    end
   end
 
   def history
-
   end
 
   #mostra tutti i commenti dati ad un contributo
@@ -114,10 +108,6 @@ class ProposalCommentsController < ApplicationController
 
   def new
     @proposal_comment = @proposal.comments.build
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @proposal_comment }
-    end
   end
 
 
@@ -143,7 +133,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       puts e
       flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
-      format.js { render 'proposal_comments/errors/create'}
+      format.js { render 'proposal_comments/errors/create' }
       format.json {
         render :json => @proposal_comment.try(:errors) || {error: true}, :status => :unprocessable_entity
       }
@@ -159,16 +149,13 @@ class ProposalCommentsController < ApplicationController
           NotificationProposalCommentUpdate.perform_async(@proposal_comment.id)
           flash[:notice] = t('info.proposal.updated_comment')
           format.js
-          format.xml { head :ok }
           format.html { redirect_to(@proposal) }
 
         else
-          format.xml { render :xml => @proposal_comment.errors, :status => :unprocessable_entity }
           format.html { render :action => "edit" }
         end
-      else #content has not changed
+      else
         format.js
-        format.xml { head :ok }
         format.html { redirect_to(@proposal) }
       end
 
@@ -184,7 +171,6 @@ class ProposalCommentsController < ApplicationController
       flash[:notice] = t('info.proposal.comment_deleted')
       format.js
       format.html { redirect_to @proposal }
-      format.xml { head :ok }
     end
   end
 

@@ -1,6 +1,6 @@
 #encoding: utf-8
+#todo refactor this class and security checks
 class AuthenticationsController < ApplicationController
-
   before_filter :load_user
 
   before_filter :load_auth

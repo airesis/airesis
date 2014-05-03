@@ -45,7 +45,7 @@
                 counter.removeClass(options.cssExceeded);
 			}
             counter.html(options.counterText + available);
-		};
+		}
 				
 		this.each(function() {  			
 			$(this).after('<'+ options.counterElement +' class="' + options.css + '">'+ options.counterText +'</'+ options.counterElement +'>');

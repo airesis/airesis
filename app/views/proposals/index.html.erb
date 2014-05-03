@@ -83,11 +83,7 @@
             $.ajax({
                 url: url_,
                 complete: function (data) {
-                    console.log('target:');
                     var target = active_;
-                    console.log(target);
-                    console.log('data:');
-                    console.log(data.responseText);
                     target.html(data.responseText);
                     obj.data('ititialized', true);
                 }

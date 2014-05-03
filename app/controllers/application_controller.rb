@@ -1,14 +1,11 @@
 #encoding: utf-8
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   include ApplicationHelper, GroupsHelper, NotificationHelper, StepHelper
-  helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  helper :all
+  protect_from_forgery
   after_filter :discard_flash_if_xhr
 
-  before_filter :store_location #store the address where you come from
+  before_filter :store_location
   before_filter :set_locale
   around_filter :user_time_zone, :if => :current_user
   before_filter :prepare_for_mobile
@@ -17,9 +14,9 @@ class ApplicationController < ActionController::Base
 
   skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 
-
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password)}
@@ -57,9 +54,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def extract_locale_from_tld
-
   end
 
   def set_locale
@@ -82,18 +77,12 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    #return {} if extract_locale_from_tld
-    #return {} if params[:l] == I18n.default_locale
-    #logger.debug "default_url_options is passed options: #{options.inspect}\n"
     (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
   end
 
-  #for devise. that a shit! why it doesn not use the other method?
   def self.default_url_options(options={})
     {:l => I18n.locale}
   end
-
-  helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
 
 
   def log_error(exception)
@@ -118,7 +107,6 @@ class ApplicationController < ActionController::Base
     log_error(exception) if exception
     respond_to do |format|
       format.html { render "errors/404", :status => 404, :layout => 'application' }
-      #format.xml  { render :nothing => true, :status => '404 Not Found' }
     end
     true
   end
@@ -145,11 +133,7 @@ class ApplicationController < ActionController::Base
 
   #helper method per determinare se l'utente attualmente collegato è il proprietario di un determinato oggetto
   def is_proprietary?(object)
-    if (current_user && current_user.is_mine?(object))
-      return true
-    else
-      return false
-    end
+    current_user && current_user.is_mine?(object)
   end
 
   def age(birthdate)
@@ -166,7 +150,7 @@ class ApplicationController < ActionController::Base
 
 
   def link_to_auth (text, link)
-    return "<a>login</a>"
+    "<a>login</a>"
   end
 
   def title(ttl)
@@ -186,8 +170,7 @@ class ApplicationController < ActionController::Base
     request.subdomain.present? && request.subdomain != 'www'
   end
 
-
-  #risposta nel caso sia necessario essere amministartori
+  #response if you must be an administrator
   def admin_denied
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
@@ -208,7 +191,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #risposta generica nel caso non si abbiano i privilegi per eseguire l'operazione
+  #response if you do not have permissions to do an action
   def permissions_denied(exception=nil)
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio

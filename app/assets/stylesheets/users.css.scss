@@ -10,26 +10,6 @@
   height: 24px;
 }
 
-.leftUserImage {
-  /*width:100%;
-  margin:auto;
-  text-align: center;*/
-}
-
-.leftUserImage .caption {
-  background: none repeat scroll 0 0 #4A4D4A;
-  color: white;
-  display: none;
-  letter-spacing: -1px;
-  margin-left: 2px;
-  margin-top: 10px;
-  opacity: 0.6;
-  padding: 4px;
-  position: absolute;
-  top: 0;
-  font-size: 13px;
-}
-
 .caption {
   top: 0px;
   position: absolute;
@@ -41,14 +21,23 @@
   padding: 4px;
   margin: 5px;
   left: 1px;
+  .leftUserImage & {
+    background: none repeat scroll 0 0 #4A4D4A;
+    color: white;
+    display: none;
+    letter-spacing: -1px;
+    margin-left: 2px;
+    margin-top: 10px;
+    opacity: 0.6;
+    padding: 4px;
+    position: absolute;
+    top: 0;
+    font-size: 13px;
+  }
 }
 
 .caption a {
   cursor: pointer;
-}
-
-.image_container {
-  /*	position: relative;*/
 }
 
 .image_container:hover .caption {

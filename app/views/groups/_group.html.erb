@@ -1,4 +1,4 @@
-<%= form_for @group, url: in_subdomain? ? '/update' : nil, :validate => true, :html => {:multipart => true} do |f| %>
+<%= simple_form_for @group, url: in_subdomain? ? '/update' : nil, :validate => true, :html => {:multipart => true} do |f| %>
     <% if @group.is_private? %>
         <div class="panel callout">
           <p>
@@ -7,67 +7,32 @@
         </div>
     <% end %>
 
-    <%= render :partial => 'fragments/error_messages', :locals => {:resource => @group} %>
+    <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
 
-    <p>
-      <%= f.label :name %>
-      <%= f.text_field :name, placeholder: t('activerecord.attributes.group.name_placeholder') %>
-    </p>
+    <%= f.label :description %>
+    <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale, wordcount: {showCharCount: true, showWordCount: false, charLimit: 2000, countHTML: true}} %>
 
-    <p>
-      <%= f.label :description %>
-      <%= f.cktext_area :description, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale,wordcount: {showCharCount: true, showWordCount: false,  charLimit: 2000, countHTML: true }} %>
-    </p>
-
-    <% if ['edit', 'update'].include? params[:action] %>
-        <p>
-          <%= f.label :rule_book %>
-          <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
-        </p>
+    <% if ['edit', 'update'].include? action_name %>
+        <%= f.label :rule_book %>
+        <%= f.cktext_area :rule_book, row: 5, ckeditor: {toolbar: 'blog', language: I18n.locale} %>
     <% end %>
 
+    <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
 
-    <% if ::Configuration::socialnetwork_active && false %>
-        <p>
-          <%= f.label :facebook_page_url %>
-          <%= f.text_field :facebook_page_url, placeholder: t('activerecord.attributes.group.facebook_page_url_placeholder'), style: "width: 600px" %>
-        </p>
-    <% end %>
+    <%= f.input :image, accept: "image/jpeg,image/png" %>
 
+    <%= f.input :interest_border_tkn, input_html: {data: {pre: ([@group.interest_border].to_json if @group.interest_border)}} %>
 
-    <p>
-      <%= f.label :tags_list, t('pages.groups.new.tags.title') %>
-      <%= f.text_field :tags_list %>
-    </p>
-    <p>
-      <%= f.label :image %>
-      <%= f.file_field :image, accept: "image/jpeg,image/png" %>
-    <p>
+    <% if ['new', 'create'].include? action_name %>
+        <%= f.input :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder') %>
+        <a href="#" data-reveal-id="permessi"><%= t('pages.groups.new.change_permissions_button') %></a>
+        <div id="permessi" class="reveal-modal" data-reveal>
+          <h2><%= t('pages.groups.new.change_permissions_title') %></h2>
 
-      <%= f.label :interest_border_tkn %>
-      <%= f.text_field :interest_border_tkn, "data-pre" => ([@group.interest_border].to_json if @group.interest_border) %>
-    </p>
+          <div class="panel alert">
+            <p><%= t('pages.groups.new.change_permissions_description') %></p>
+          </div>
 
-
-    <% if ['new', 'create'].include? params[:action] %>
-
-        <p>
-
-        </p>
-
-        <p>
-          <%= f.label :default_role_name %>
-          <%= f.text_field :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder'), style: "width: 400px" %>
-          <a href="#" onclick="apri_permessi();return false;"><%= t('pages.groups.new.change_permissions_button') %></a>
-        </p>
-        <p>
-          <%= f.label :admin_title %>
-          <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
-        </p>
-
-        <div id="permessi" title="<%= t('pages.groups.new.change_permissions_title') %>" style="display:none;">
-          <p><%= t('pages.groups.new.change_permissions_description') %>
-          </p>
           <% GroupAction.all.each do |action| %>
               <%= f.label action.description do %>
                   <%= f.check_box :default_role_actions, {:multiple => true}, action.id, nil %>
@@ -76,18 +41,16 @@
 
           <% end %>
 
-          <a href="#" onclick="return default_action();" class="btn">Default</a>
-          <a href="#" onclick="return ok_action();" class="btn blue">Ok</a>
+          <a href="#" class="btn" id="default_permissions_button">Default</a>
+          <a href="#" class="btn blue" id="change_permissions_button">Ok</a>
         </div>
 
-        <p>
-          <%= f.submit button_name, :class => 'btn blue', data:{disable_with: t('saving')} %>
-        </p>
+        <%= f.input :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder') %>
+
+        <%= f.submit button_name, :class => 'btn blue', data: {disable_with: t('saving')} %>
 
     <% else %>
-
-        <%= f.label :admin_title %>
-        <%= f.text_field :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder'), style: 'width:600px' %>
+        <%= f.input :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder') %>
 
         <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do %>
             <%= f.check_box :private %>
@@ -96,16 +59,9 @@
 
         <%= link_to t('pages.groups.edit.change_permissions'), edit_permissions_group_path(@group) %>
 
-        <p>
-          <%= f.submit button_name, :class => 'btn blue', data:{disable_with: t('updating')} %>
-          <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red trashButton right' if can? :destroy, @group %>
-        </p>
-
-
-
+        <%= f.submit button_name, :class => 'btn blue', data: {disable_with: t('updating')} %>
+        <%= link_to t('pages.groups.show.destroy_button'), @group, method: :delete, data: {confirm: t('pages.groups.show.confirm_destroy')}, class: 'btn red trashButton right' if can? :destroy, @group %>
     <% end %>
-
-
 <% end %>
 
 <script type="text/javascript">
@@ -125,40 +81,22 @@
 
 
     <%if ['new','create'].include? params[:action]%>
-    function apri_permessi() {
-        $('#permessi')
-                .dialog({width: 630,
-                    height: 'auto',
-                    modal: true,
-                    resizable: false,
-                    beforeClose: function () {
-                        $('#permessi').closest('.ui-dialog').detach().appendTo('#new_group');
-                    }
-                });
-    }
 
-    function ok_action() {
-        $('#permessi').dialog("close");
+
+    $('#change_permissions_button').click(function () {
+        $('#permessi').foundation('reveal', 'close');
         return false;
-    }
+    });
 
-    function default_action() {
+    $('#default_permissions_button').click(function () {
         $("input[name=group\\[default_role_actions\\]\\[\\]]").prop('checked', false);
         <%@group.default_role_actions.each do |id|%>
         $('#group_default_role_actions_<%=id%>').prop('checked', true);
-        <%end%>
+        <%end if @group.default_role_actions%>
         return false;
-    }
+    });
 
     <%end%>
-
-    <% data = "["
-       @group.tags_list.split(',').each do |l|
-   	     data +=  "{\"id\":\""+ l + "\",\"name\":\"" + l + "\"},"
-   	   end
-       data += "]"
-    %>
-
 
     $(function () {
         var input = $('#group_tags_list')
@@ -168,7 +106,7 @@
                 crossDomain: false,
                 allowFreeTagging: true,
                 minChars: 3,
-                prePopulate: <%=raw data%>,
+                prePopulate: <%=raw @group.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>,
                 hintText: "<%=t('digit_tags')%>",
                 searchingText: "<%=t('digit_tags')%>",
                 preventDuplicates: true,
@@ -178,6 +116,4 @@
             })
         }
     });
-
-
 </script>

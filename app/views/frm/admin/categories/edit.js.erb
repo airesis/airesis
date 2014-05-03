@@ -1,13 +1,4 @@
-var container_ = $('<div id="category_container" style="display:none;" title="<%=j t('frm.admin.category.edit', :title => @category.name)%>"></div>');
-container_.append('<%=j (render :partial => 'edit', locals: {remote: true}) %>');
+var container_ = $('<div id="category_container" class="reveal-modal" data-reveal ></div>');
+container_.html('<%=j render :partial => 'edit', locals: {remote: true} %>');
 $('body').append(container_);
-container_.dialog({
-    width: 500,
-    height: 'auto',
-    modal : true,
-    resizable: false,
-    close : function(event, ui) {
-        container_.dialog('destroy');
-        container_.remove();
-    }
-});
+airesis_reveal(container_);

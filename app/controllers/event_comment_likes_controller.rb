@@ -1,7 +1,6 @@
 #encoding: utf-8
 class EventCommentLikesController < ApplicationController
 
-
   before_filter :authenticate_user!
 
   before_filter :load_event_comment
@@ -13,7 +12,6 @@ class EventCommentLikesController < ApplicationController
   def create
     @event_comment.likers << current_user
     @event_comment.save!
-
     respond_to do |format|
         format.js { render :update do |page|
 
@@ -31,7 +29,6 @@ class EventCommentLikesController < ApplicationController
       }
     end
   end
-
 
   private
 

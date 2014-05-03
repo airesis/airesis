@@ -45,7 +45,6 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.js
       format.html
-      #format.xml  { render :xml => @groups }
     end
   end
 
@@ -105,11 +104,6 @@ class GroupsController < ApplicationController
     authorize! :create, Group
     @group = Group.new(:accept_requests => 'p')
     @group.default_role_actions = DEFAULT_GROUP_ACTIONS
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @group }
-    end
   end
 
   def edit
@@ -134,7 +128,7 @@ class GroupsController < ApplicationController
     advanced_options = params[:active]
     @group.change_advanced_options = advanced_options
     @group.save
-    if (advanced_options == 'true')
+    if advanced_options == 'true'
       flash[:notice] = t('info.quorums.can_modify_advanced_proposals_settings')
     else
       flash[:notice] = t('info.quorums.cannot_modify_advanced_proposals_settings')
@@ -246,9 +240,7 @@ class GroupsController < ApplicationController
     authorize! :create, Group
     begin
       Group.transaction do
-
-        params[:group][:default_role_actions].reject!(&:empty?)
-
+        params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
         @group = Group.new(params[:group]) #crea il gruppo
         @group.current_user_id = current_user.id
         @group.save!
@@ -257,18 +249,15 @@ class GroupsController < ApplicationController
       respond_to do |format|
         flash[:notice] = t('info.groups.group_created')
         format.html { redirect_to group_url(@group) }
-        #format.xml  { render :xml => @group, :status => :created, :location => @group }
-      end #respond_to
+      end
 
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         flash[:error] = t('error.groups.creation')
         format.html { render :action => "new" }
       end
-    end #begin
+    end
   end
-
-  #create
 
   def update
     authorize! :update, @group
@@ -315,7 +304,6 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }
-      #format.xml  { head :ok }
     end
   end
 

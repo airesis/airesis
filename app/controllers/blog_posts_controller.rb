@@ -36,8 +36,7 @@ class BlogPostsController < ApplicationController
     @index_title = t('pages.blog_posts.index.title')
 
     respond_to do |format|
-      format.html # index.html.erb    
-      format.xml { render :xml => @blog_posts }
+      format.html
       format.atom
     end
   end
@@ -49,8 +48,7 @@ class BlogPostsController < ApplicationController
     @blog_posts = @blog.posts.drafts.order('updated_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @blog_posts }
+      format.html
     end
   end
 
@@ -78,11 +76,6 @@ class BlogPostsController < ApplicationController
       if (@groups.include? group) || current_user.admin?
         @blog_post.groups << group
       end
-    end
-
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @blog_post }
     end
   end
 
@@ -123,16 +116,11 @@ class BlogPostsController < ApplicationController
 
   def update
     @blog_post = @blog.posts.find(params[:id])
-
-    respond_to do |format|
-      if @blog_post.update_attributes(params[:blog_post])
-        flash[:notice] = t('info.blog_post_updated')
-        format.html { redirect_to([@blog, @blog_post]) }
-        format.xml { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml { render :xml => @blog_post.errors, :status => :unprocessable_entity }
-      end
+    if @blog_post.update_attributes(params[:blog_post])
+      flash[:notice] = t('info.blog_post_updated')
+      redirect_to([@blog, @blog_post])
+    else
+      render :action => "edit"
     end
   end
 
@@ -140,13 +128,8 @@ class BlogPostsController < ApplicationController
   def destroy
     @blog_post = @blog.posts.find(params[:id])
     @blog_post.destroy
-
     flash[:notice] = t('info.blog_post_deleted')
-
-    respond_to do |format|
-      format.html { redirect_to @blog }
-      format.xml { head :ok }
-    end
+    redirect_to @blog
   end
 
   private

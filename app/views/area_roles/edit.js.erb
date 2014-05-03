@@ -1,12 +1,4 @@
-$('#new_area_role_container').html("<%= escape_javascript(render(:partial => 'area_roles/form', :locals => {button_name: 'Modifica'}))%>");
-
-$('#new_area_role').dialog({
-	width: 500,
-	height: 'auto',
-	modal : true,
-	resizable: false,
-	close : function(event, ui) {
-		$('#new_area_role').dialog('destroy');
-	}
-});
-
+var container_ = $('<div id="area_role_container" class="reveal-modal" data-reveal></div>');
+container_.html("<%=j render(:partial => 'area_roles/form', :locals => {button_name: t('buttons.edit'), remote: true})%>");
+$('body').append(container_);
+airesis_reveal($('#area_role_container'));

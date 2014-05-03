@@ -2,19 +2,15 @@
 class BlockedProposalAlertsController < ApplicationController
 
   before_filter :authenticate_user!
-
   before_filter :load_proposal
 
   def block
     @blocked_alerts = BlockedProposalAlert.find_or_create_by_user_id_and_proposal_id(current_user.id, @proposal.id)
-
-      @blocked_alerts.updates = true
-      @blocked_alerts.contributes = true
-      @blocked_alerts.state = true
-      @blocked_alerts.authors = true
-      @blocked_alerts.valutations = true
-
-
+    @blocked_alerts.updates = true
+    @blocked_alerts.contributes = true
+    @blocked_alerts.state = true
+    @blocked_alerts.authors = true
+    @blocked_alerts.valutations = true
 
     respond_to do |format|
       if @blocked_alerts.save
@@ -32,7 +28,6 @@ class BlockedProposalAlertsController < ApplicationController
 
   def unlock
     @blocked_alerts = BlockedProposalAlert.find_by_user_id_and_proposal_id(current_user.id, @proposal.id)
-
     respond_to do |format|
       if @blocked_alerts.destroy
         flash[:notice] = 'Notifiche attivate'
@@ -47,7 +42,6 @@ class BlockedProposalAlertsController < ApplicationController
       end
     end
   end
-
 
   protected
 

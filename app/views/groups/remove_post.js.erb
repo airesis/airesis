@@ -1,4 +1,3 @@
-$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
 $('#blogPost<%=params[:post_id]%>').hide(function(){
     $('#blogPost<%=params[:post_id]%>').remove();
 });

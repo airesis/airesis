@@ -1344,6 +1344,7 @@ ul, ol {
 }
 
 #menu-top {
+  min-width: $page-min-width;
   top: $topbar-height;
   height: $sectionbar-height-small;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1567,12 +1568,15 @@ a.zocial:hover {
 
 .reveal-modal {
   z-index: 1002;
+  [data-back] {
+    display: none;
+  }
 }
 
-.close-reveal-modal {
+.close-reveal-modal, [data-reveal-close] {
   display: none;
   .reveal-modal & {
-    display: inherit;
+    display: inline-block;
 
   }
 }
@@ -1704,7 +1708,8 @@ $logo-width: 92px;
   right: 10px;
   overflow: auto;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.06);
+  border-left: 1px solid #ccc;
+  padding: 0.4rem;
   &.contributes_shown {
     left: 50%;
     margin-left: 10px;
@@ -1714,11 +1719,30 @@ $logo-width: 92px;
   }
 }
 
+.suggestion_right::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestion_right::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+  border-radius: 10px;
+}
+
+.suggestion_right::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+}
+
 #menu-left {
   float: left;
   width: $left-menu-width;
   padding-top: 10px;
   display: none;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
   @media #{$small-up} {
     display: block;
   }
@@ -1731,6 +1755,21 @@ $logo-width: 92px;
       min-height: 100%;
     }
   }
+  &.contributes_shown {
+    opacity: 0.6;
+
+  }
+}
+
+.centerfloat {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.contributes_shown .centerfloat {
+  opacity: 0.6;
 }
 
 @media #{$medium-only} {

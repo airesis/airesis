@@ -2,7 +2,7 @@
     <%
        solution = send(@proposal.proposal_type.name.downcase + '_solution')
     %>
-    <div class="solution_main">
+    <div class="solution_main card">
       <%= fields_for :proposals, Proposal.new do |p| %>
           <%= p.fields_for :solutions, solution do |sol| %>
               <h3>
@@ -27,13 +27,9 @@
                           <%= s.check_box '_destroy', style: 'display:none' %>
                           <%= s.fields_for :paragraphs, section.paragraphs.first do |p| %>
                               <div class="section_container" data-section_id="<%= j %>">
-                                <span class="move_button">
-                                    <%= image_tag 'move.png' %>
-                                </span>
                                 <span class="remove_button">
                                     <a href="#" onclick="removeSolutionSection(this,true);return false;" class="remove_section" data-section_id="<%= j %>"><%= t('pages.proposals.edit.remove_section') %></a>
                                 </span>
-
                                 <div class="clearboth"></div>
                                 <%= s.text_field :title, class: "edit_label" %>
                                 <%= p.text_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", :class => "tinymce" %>
@@ -45,7 +41,7 @@
                   <% end %>
                 </div>
                 <div class="new_section">
-                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
+                  <a href="#" onclick="addSolutionSection(this);return false;" data-solution_id="" class="add_section btn full-width"><%= t('pages.proposals.edit.add_paragraph_to_solution') %></a>
                 </div>
               </div>
           <% end %>

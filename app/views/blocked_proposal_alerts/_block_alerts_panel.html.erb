@@ -1,5 +1,5 @@
 <% if @blocked_alerts %>
-    <%= link_to t('pages.proposals.show.enable_alerts'), unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn signalButton disable', data:{disable_with: t('loading')} %>
+    <%= link_to t('pages.proposals.show.enable_alerts'), unlock_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn signalButton', data:{disable_with: t('loading')} %>
 <% else %>
-    <%= link_to t('pages.proposals.show.disable_alerts'), block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn signalButton disable', data:{disable_with: t('loading')} %>
+    <%= link_to t('pages.proposals.show.disable_alerts'), block_proposal_blocked_proposal_alerts_path(@proposal), method: :post, remote: true, class: 'btn signalButton', data:{disable_with: t('loading')} %>
 <% end %>

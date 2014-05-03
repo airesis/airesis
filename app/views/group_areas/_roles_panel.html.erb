@@ -1,18 +1,18 @@
-<table class="table_list">
-  <thead class="table_header">
-  <th><%=t('pages.groups.edit_permissions.role_title')%></th>
-  <th><%=t('activerecord.attributes.group_area.description')%></th>
+<table>
+  <thead>
+  <th><%= t('pages.groups.edit_permissions.role_title') %></th>
+  <th><%= t('activerecord.attributes.group_area.description') %></th>
 
   <% GroupAction.for_group_areas.order(:seq).each do |action| %>
       <th><%= action.description %></th>
   <% end %>
-
+  <th></th>
   </thead>
   <tbody>
 
   <% @group_area.area_roles.each do |role|
     abilitations = role.area_action_abilitations.by_group_area(@group_area).all %>
-      <tr valign="top" style="border-bottom: 1px dotted grey; <%='background-color: #EAEBFF' if (role.id == @group_area.area_role_id)%>">
+      <tr>
         <td>
           <%= role.name %>
         </td>
@@ -28,9 +28,9 @@
 
         <td>
           <% if role.id != @group_area.area_role_id %>
-              <%= link_to t('buttons.delete'), [@group,@group_area,role], :method => :delete, :remote => true, data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
+              <%= link_to t('buttons.delete'), [@group, @group_area, role], :method => :delete, :remote => true, data: {:confirm => t('pages.groups.edit_permissions.confirm_role_deletion')} %>
           <% end %>
-          <%= link_to t('buttons.edit'), edit_group_group_area_area_role_url(@group,@group_area,role), :remote => true %>
+          <%= link_to t('buttons.edit'), edit_group_group_area_area_role_url(@group, @group_area, role), :remote => true %>
         </td>
       </tr>
   <% end %>

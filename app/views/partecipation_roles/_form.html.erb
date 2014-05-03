@@ -1,21 +1,18 @@
-<%=form_for @partecipation_role, :remote => true do |f|%>
-    <%=f.hidden_field :group_id%>
-      <%=f.label :name%>
-      <%=f.text_field :name%>
+<%= simple_form_for ((@group && !in_subdomain?) ? [@group, @partecipation_role] : @partecipation_role), :remote => request.xhr? do |f| %>
 
-    <%unless @group.partecipation_role_id == @partecipation_role.id %>
+    <%= f.input :name %>
 
-        <%=f.label :description%>
-        <%=f.text_area :description%>
+    <% unless @group.partecipation_role_id == @partecipation_role.id %>
+        <%= f.input :description, as: :text %>
+    <% end %>
 
-    <%end%>
-    <a href="#" class="btn" onclick="$('#<%=params[:action] == 'edit' ? 'edit_role' : 'new_role'%>').foundation('reveal','close');"><%= t('buttons.cancel') %></a>
-    <%=f.button button_name, :class => 'btn blue saveButton'%>
-<%end%>
-<a class="close-reveal-modal">&#215;</a>
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= f.button :button, button_name, :class => 'btn blue saveButton' %>
+<% end %>
 
 <script type="text/javascript">
-  $(function() {
-      disegnaBottoni();
-  });
+    $(function () {
+        disegnaBottoni();
+    });
 </script>

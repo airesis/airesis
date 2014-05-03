@@ -1,10 +1,4 @@
-$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-
 var _group_area = $('#group<%= @group_area.id%>');
-_group_area.fadeOut(function() {
- _group_area.destroy();
+_group_area.fadeOut(function () {
+    _group_area.destroy();
 });
-
-var _new_group_area = $('#group_area_panel');
-_new_group_area.dialog('destroy');
-_new_group_area.remove();

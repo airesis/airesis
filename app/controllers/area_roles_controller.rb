@@ -1,27 +1,15 @@
 #encoding: utf-8
 class AreaRolesController < ApplicationController
-  #include NotificationHelper
-
   layout :choose_layout
 
-  #carica il gruppo
   before_filter :load_group
-
   before_filter :load_group_area
-
   before_filter :load_area_role, only: [:edit, :change, :update, :destroy, :change_permissions]
 
-  ###SICUREZZA###
+  ###SECURITY###
 
-  #l'utente deve aver fatto login
   before_filter :authenticate_user!
-
-  #l'utente deve essere amministratore
-  #before_filter :admin_required, :only => [:destroy]
-
-  #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
-
 
   def new
     @area_role = @group_area.area_roles.build
@@ -31,22 +19,17 @@ class AreaRolesController < ApplicationController
 
   end
 
-  #create new area role
   def create
-    begin
-      AreaRole.transaction do
-        @group_area.area_roles.create(params[:area_role])
-      end
-      flash[:notice] = t('info.participation_roles.role_created')
-
-    rescue ActiveRecord::ActiveRecordError => e
-      respond_to do |format|
-        flash[:error] = t('error.participation_roles.role_created')
-        format.html { render :action => "new" }
-      end
-    end #begin
+    AreaRole.transaction do
+      @group_area.area_roles.create(params[:area_role])
+    end
+    flash[:notice] = t('info.participation_roles.role_created')
+  rescue ActiveRecord::ActiveRecordError => e
+    respond_to do |format|
+      flash[:error] = t('error.participation_roles.role_created')
+      format.html { render :action => "new" }
+    end
   end
-
 
   def update
     authorize! :update, @area_role
@@ -54,9 +37,7 @@ class AreaRolesController < ApplicationController
       @area_role.attributes = params[:area_role]
       @area_role.save!
     end
-
     flash[:notice] = t('info.participation_roles.role_updated')
-
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.participation_roles.role_updated')
@@ -68,9 +49,8 @@ class AreaRolesController < ApplicationController
 
   def destroy
     @area_role.destroy
-    flash[:notice] =  t('info.participation_roles.role_deleted')
+    flash[:notice] = t('info.participation_roles.role_deleted')
   end
-
 
   def change
     AreaActionAbilitation.transaction do
@@ -94,7 +74,6 @@ class AreaRolesController < ApplicationController
     end
   end
 
-  #modifica il ruolo di un utente all'interno di un gruppo
   def change_permissions
     gp = @group_area.area_partecipations.find_by_user_id(params[:user_id])
     gp.area_role_id = @area_role.id
@@ -120,7 +99,7 @@ class AreaRolesController < ApplicationController
   end
 
   def portavoce_required
-    if !((current_user && (@group.portavoce.include? current_user)) || is_admin?)
+    unless (current_user && (@group.portavoce.include? current_user)) || is_admin?
       flash[:error] = t('error.portavoce_required')
       redirect_to group_url(@group)
     end

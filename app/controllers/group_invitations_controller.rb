@@ -145,7 +145,7 @@ class GroupInvitationsController < ApplicationController
       respond_to do |format|
         format.html {render "error.html.erb"}
       end
-      return false
+      false
     end
   end
 

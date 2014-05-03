@@ -1,3 +1,6 @@
+<ul class="breadcrumbs">
+  <li class="current"><%= 'All working areas' %></li>
+</ul>
 
 <%= render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_work_areas.manage_group_areas')} do %>
     <%= link_to t('pages.groups.edit_work_areas.manage.switch_area_participants'), group_group_areas_url(@group), :class => "btn historyButton", data:{disable_with: t('loading')} %><br />

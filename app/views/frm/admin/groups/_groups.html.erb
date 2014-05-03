@@ -23,7 +23,7 @@
               <%= link_to t('edit', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), class: 'btn editButton' %>
             </td>
             <td>
-              <%= link_to t('delete', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), :method => :delete, class: 'btn trashButton' %>
+              <%= link_to t('delete', :scope => 'frm.admin.groups'), group_frm_admin_frm_group_url(@group, group), :method => :delete, data: {confirm: t('confirm_delete')}, class: 'btn trashButton' %>
             </td>
           </tr>
       <% end %>

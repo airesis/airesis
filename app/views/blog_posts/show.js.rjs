@@ -1,6 +1,0 @@
-page.insert_html :bottom, 'blogPostCommentsContainer', :partial => 'blog_posts/comments'
-if @blog_comments.total_pages > @blog_comments.current_page
-  page.call 'checkScroll'
-else
-    page.hide 'loading_results'
-end

@@ -1,4 +1,2 @@
-$('#flash_messages').html('<%=j (render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#groups_table').html('<%=j (render :partial => 'groups')%>');
-$('#group_container').dialog('destroy');
-$('#group_container').remove();
+$('#groups_table').html('<%=j render 'groups'%>');
+$('#group_container').foundation('reveal','close');

@@ -1,44 +1,25 @@
-<div id="group_area_panel" title="<%= t('pages.groups.edit_work_areas.form.title')%>" style="display: none; font-size: 14px;">
-  <%= form_for !in_subdomain? ? [@group, GroupArea.new] : GroupArea.new, :validate => true, :remote => true do |e| %>
-      <p>
-        <%= e.label :name, t('activerecord.attributes.group_area.name') %> <br/>
-        <%= e.text_field :name %>
-      </p>
+<h2><%= t('pages.groups.edit_work_areas.form.title') %></h2>
+<%= simple_form_for !in_subdomain? ? [@group, @group_area] : @group_area, :validate => true, :remote => true do |e| %>
 
-      <p>
-        <%= e.label :description, t('activerecord.attributes.group_area.description') %><br/>
-        <%= e.text_area :description, :rows => 2, :style => "width:100%", :class => "elastic" %>
-      </p>
-      <% if ['new', 'create'].include? params[:action] %>
-          <p>
-            <%= e.label :default_role_name, t('activerecord.attributes.group_area.default_role_name')%>    <br/>
-            <%= e.text_field :default_role_name, style: "width: 400px" %>
-          </p>
+    <%= e.input :name %>
 
-      <% else %>
+    <%= e.input :description, as: :text, input_html: {class: "elastic"} %>
 
-      <% end %>
+    <% if ['new', 'create'].include? params[:action] %>
+        <%= e.input :default_role_name %>
+    <% end %>
 
-      <input type="hidden" name="manage" value="<%= params[:manage]%>"/>
+    <input type="hidden" name="manage" value="<%= params[:manage] %>"/>
 
-      <a href="#" class="btn" onclick="$('#group_area_panel').dialog('close');"><%= t('buttons.cancel') %></a>
-      <%= e.submit t('buttons.create'), :class => 'btn blue', data:{disable_with: t('saving')} %>
-  <% end %>
-</div>
+
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= e.submit t('buttons.create'), :class => 'btn blue', data: {disable_with: t('saving')} %>
+<% end %>
 
 <script type="text/javascript">
     $(function () {
-
         disegnaBottoni();
         $(".elastic").elastic();
-
-
-        $('#group_description')
-                .charCount({
-                    counterElement: 'div',
-                    allowed: 2000,
-                    warning: 100
-                });
-
     });
 </script>

@@ -13,6 +13,7 @@ class Tag < ActiveRecord::Base
   scope :most_groups, -> {where('groups_count > 0').order('groups_count desc').limit(40)}
   scope :most_blogs, -> {where('blog_posts_count > 0').order('blog_posts_count desc').limit(40)}  #todo use blog_post for now
 
+
   def as_json(options={})    
    { :id => self.text, :name => self.text }
   end

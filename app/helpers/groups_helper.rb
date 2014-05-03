@@ -328,7 +328,7 @@ module GroupsHelper
   #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
   #Airesis::Application.reload_routes!
   def self.init
-    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum).*/ }
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum|partecipation_role).*/ }
     names.each do |name|
       define_method("#{name}_url") do |group, *args|
         (group_in_subdomain? group) ?

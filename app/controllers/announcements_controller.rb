@@ -5,45 +5,34 @@ class AnnouncementsController < ApplicationController
 
   before_filter :moderator_required, except: :hide
 
-
   def index
     @announcements = Announcement.all
-
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @announcements }
     end
   end
 
-  # GET /announcements/1
-  # GET /announcements/1.json
   def show
     @announcement = Announcement.find(params[:id])
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @announcement }
     end
   end
 
-  # GET /announcements/new
-  # GET /announcements/new.json
   def new
     @announcement = Announcement.new
-
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @announcement }
     end
   end
 
-  # GET /announcements/1/edit
   def edit
     @announcement = Announcement.find(params[:id])
   end
 
-  # POST /announcements
-  # POST /announcements.json
   def create
     @announcement = Announcement.new(params[:announcement])
 
@@ -58,8 +47,6 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  # PUT /announcements/1
-  # PUT /announcements/1.json
   def update
     @announcement = Announcement.find(params[:id])
 
@@ -74,8 +61,6 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  # DELETE /announcements/1
-  # DELETE /announcements/1.json
   def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.destroy
@@ -85,7 +70,6 @@ class AnnouncementsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
 
   def hide
     ids = [params[:id], *cookies.signed[:hidden_announcement_ids]]

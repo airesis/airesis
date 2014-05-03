@@ -1,0 +1,10 @@
+<ul class="breadcrumbs">
+  <li><%= link_to 'All working areas', manage_group_group_areas_url(@group) %></li>
+  <li class="current"><%= @group_area.name %></li>
+</ul>
+
+<%= render 'group_areas/edit'%>
+
+<%= content_for :left_panel do %>
+    <%= render :partial => 'groups/administration_panel' %>
+<% end %>

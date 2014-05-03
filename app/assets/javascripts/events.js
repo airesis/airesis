@@ -20,61 +20,6 @@ function goEventPage(event) {
     window.location = event.url;
 }
 
-function showEventDetails(event) {
-    $('#event_desc').html(event.description);
-    $('#edit_event').html("<a href = 'javascript:void(0);' onclick ='editEvent(" + event.id + ",this)' class='btn disable'>Modifica</a>");
-    $('#edit_event').append("<a href = '/events/" + event.id + "' class='btn'>Vai alla pagina</a>");
-    if (event.recurring) {
-        title = event.title + " (Ricorrente)";
-        $('#delete_event').html("&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='btn'>Cancella solo questa occorrenza</a>");
-        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + true + ")' class='btn'>Cancella tutte le occorrenze</a>")
-        $('#delete_event').append("&nbsp;&nbsp; <a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", \"future\")' class='btn'>Cancella tutte le occorrenze future</a>")
-    }
-    else {
-        title = event.title;
-        $('#delete_event').html("<a href = 'javascript:void(0);' onclick ='deleteEvent(" + event.id + ", " + false + ")' class='btn'>Cancella</a>");
-    }
-    $('#desc_dialog').dialog({
-        title: title,
-        modal: true,
-        width: 700,
-        close: function (event, ui) {
-            $('#event_desc').empty();
-            $('#desc_dialog').dialog('destroy')
-        }
-
-    });
-    $('#event_actions').show();
-    disegnaBottoni();
-}
-
-
-function editEvent(event_id, src) {
-    _this = $(src);
-    $.ajax({
-        dataType: 'script',
-        type: 'get',
-        url: "/events/" + event_id + "/edit",
-        beforeSend: function (ev) {
-            hideDisableButton(_this);
-        },
-        complete: function (ev) {
-            showDisableButton(_this);
-        }
-    });
-}
-
-function deleteEvent(event_id, delete_all) {
-    if (confirm('Sei sicuro di voler cancellare questo evento?')) {
-        $.ajax({
-            data: 'delete_all=' + delete_all,
-            dataType: 'script',
-            type: 'DELETE',
-            url: "/events/" + event_id
-        });
-    }
-}
-
 function showPeriodAndFrequency(value) {
 
     switch (value) {
@@ -160,7 +105,6 @@ var marker_cache = {}
  */
 function putMarker(address) {
     if (marker_cache[address] == null) {
-        console.log('no cache');
         $('.loading_place').show();
         geocoder.geocode({
             'address': address
@@ -181,7 +125,6 @@ function putMarker(address) {
         });
     }
     else {
-        console.log('cache');
         posizionaMappa(marker_cache[address][0].geometry.location, marker_cache[address][0].geometry.viewport);
         listenMarkerPosition();
     }

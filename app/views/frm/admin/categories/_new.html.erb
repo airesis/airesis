@@ -1,13 +1,15 @@
+<h2><%= t('new', :scope => 'frm.admin.category') %></h2>
 <%= simple_form_for @category, url: group_frm_admin_categories_url(@group), remote: remote do |f| %>
     <%= f.input :name %>
     <%= f.input :tags_list %>
 
     <%= f.input :visible_outside, inline_label: true%>
+
+    <%= link_to t('buttons.cancel'),'#', class: 'btn', data: {'reveal-close' => ''}%>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''}%>
     <%= f.submit :class => "btn blue" %>
+
 <% end %>
-
-
-
 
 <script type="text/javascript">
     $(function () {

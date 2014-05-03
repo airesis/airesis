@@ -1,11 +1,10 @@
-<div id="noise_panel" title="Elenco contributi inutili alla discussione">
-  <%if @proposal.contributes.noise.count > 0 %>
-  <% @proposal.contributes.noise.each do |contribute| %>
-      <div class="noise_element" data-id="<%= contribute.id %>">
-        <%= parsed_content(contribute,@proposal.is_anonima?) %>
-      </div>
-  <% end %>
-      <%else %>
-  <%= 'Nessun contributo è stato eliminato dalla discussione' %>
-  <%end%>
-</div>
+<h2><%= 'Elenco contributi inutili alla discussione' %></h2>
+<% if @proposal.contributes.noise.count > 0 %>
+    <% @proposal.contributes.noise.each do |contribute| %>
+        <div class="noise_element" data-id="<%= contribute.id %>">
+          <%= parsed_content(contribute, @proposal.is_anonima?) %>
+        </div>
+    <% end %>
+<% else %>
+    <%= 'Nessun contributo è stato eliminato dalla discussione' %>
+<% end %>

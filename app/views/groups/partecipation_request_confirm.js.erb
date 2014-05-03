@@ -1,4 +1,3 @@
-$('#flash_messages').html('<%=j (render partial: 'layouts/flash', locals: {flash: flash})%>');
 <%if params[:from_list] %>
 $('tr[data-id=<%=@request.id%>]').fadeOut();
 <%else%>

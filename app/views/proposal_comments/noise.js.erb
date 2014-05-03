@@ -1,9 +1,4 @@
-$('body').append('<%= escape_javascript(render(:partial => 'noise'))%>');
-$('#noise_panel').dialog({
-    modal: true,
-    width: 840,
-    close : function(event, ui) {
-        $('#noise_panel').dialog('destroy');
-        $('#noise_panel').remove();
-    }
-})
+var container_ = $('<div id="noise_panel" class="reveal-modal medium" data-reveal></div>');
+container_.html("<%=j render 'noise'%>");
+$('body').append(container_);
+airesis_reveal(container_);

@@ -4,7 +4,7 @@
     <%= javascript_include_tag "i18n/elfinder.#{I18n.locale}" %>
 <% end %>
 
-<%@extend=true%>
+<% @extend=true %>
 <% @page_title = t('pages.groups.documents.documents_archive') %>
 
 <%= render :layout => "layouts/page_title", :locals => {:title => @page_title} do %>
@@ -12,11 +12,14 @@
 
 
 <% if can? :view_documents, @group %>
-    <div id="storage_size_container">
-      <%= render :partial => 'storage_size' %>
+    <div class="row full-width">
+      <div id="storage_size_container" class="columns medium-3">
+        <%= render :partial => 'storage_size' %>
+      </div>
+      <div class="columns medium-9">
+        <div id="elfinder"></div>
+      </div>
     </div>
-    <div id="elfinder"></div>
-
     <script type="text/javascript" charset="utf-8">
         $(function () {
             var elf = $('#elfinder').elfinder({

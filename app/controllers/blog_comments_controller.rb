@@ -1,14 +1,12 @@
 #encoding: utf-8
 class BlogCommentsController < ApplicationController
-
   helper :blog
   
   layout('application')
     
   before_filter :authenticate_user!, :only => [:create, :delete]
-  
-  before_filter :load_blog_post #carica @blog e @blog_post
-  before_filter :load_blog_comment, :only => [:delete] #carica @blog_comment
+  before_filter :load_blog_post
+  before_filter :load_blog_comment, :only => [:delete]
   before_filter :check_author, :only => [:delete]
   
   def index
@@ -28,13 +26,11 @@ class BlogCommentsController < ApplicationController
         @saved.collapsed = true
         NotificationBlogCommentCreate.perform_async(@blog_comment.id)
         format.js
-        format.xml  { render :xml => @blog_comment, :status => :created, :location => @blog_comment }
         format.html
       else
         flash[:notice] = t('error.blog.comment_added')
         format.js { render 'blog_comments/errors/create'}
         format.html 
-        format.xml  { render :xml => @blog_comment.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -65,7 +61,7 @@ class BlogCommentsController < ApplicationController
       return false
     end
     
-    return true
+    true
   end
   
   def load_blog_comment

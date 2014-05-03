@@ -41,7 +41,6 @@ $(function () {
   //      $(this).addClass('appeared');
         /*$affected.each(function() {
          var $this_ = $(this);
-         console.log('appear in ' + cards_delay);
          setTimeout(function() {$this_.addClass("appeared")},cards_delay);
          cards_delay += 300;
          });*/
@@ -69,7 +68,6 @@ $(function () {
 
             },
             focus: function (event, ui) {
-                console.log('focus on ' + ui);
                 event.preventDefault();
             },
             select: function (event, ui) {

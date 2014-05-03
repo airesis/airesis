@@ -3,32 +3,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    #user ||= User.new # guest user (not logged in)
-    if !user
+    if !user  #guest
       can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
-      can :view_data, Group do |group|
-        !group.is_private?
-      end
+      can :view_data, Group, private: false
 
-      #forum permissions
-      can :read, Frm::Category do |category|
-        category.visible_outside
-      end
+      can :read, Frm::Category, visible_outside: true
 
+      can :read, Frm::Topic, forum: {visible_outside: true}, forum: {category: {visible_outside: true}}
 
-      can :read, Frm::Topic do |topic|
-        topic.forum.visible_outside && topic.forum.category.visible_outside
-      end
-
-
-      can :read, Frm::Forum do |forum|
-        forum.visible_outside && forum.category.visible_outside
-      end
+      can :read, Frm::Forum, visible_outside: true, category: {visible_outside: true}
 
     else
-      #TODO correggere quando più gruppi condivideranno le proposte
+      #TODO to fix when groups will share proposals
       can :read, Proposal do |proposal|
         can_read_proposal?(user, proposal)
       end
@@ -166,9 +152,6 @@ class Ability
         presentation.proposal.users.count > 1
       end
 
-      #can :update, Proposal do |proposal|
-      #  proposal.users.include? user
-      #end
 
       can :update, ProposalComment do |comment|
         comment.user == user
@@ -180,11 +163,8 @@ class Ability
         can_partecipate_proposal?(user, comment.proposal)
       end
 
+      can :show_tooltips, User, show_tooltips: true
 
-
-      can :show_tooltips, User do |fake|
-        user.show_tooltips
-      end
       can :send_message, User do |ut|
         ut.receive_messages && user != ut && ut.email && user.email
       end
@@ -207,12 +187,9 @@ class Ability
 
       end
 
-      can :update, BlogPost do |blog_post|
-        blog_post.user == user
-      end
+      can :update, BlogPost, user_id: user.id
 
       can :change_rotp_enabled, User if user.email
-
 
       can :update, Event do |event|
         can_edit_event?(user, event)
@@ -298,14 +275,6 @@ class Ability
         can :manage, Frm::Category
         can :manage, Frm::Forum
 
-
-          #cannot :show_tooltips
-        #can :vote, Proposal do |proposal|
-        #  can_vote_proposal?(user, proposal)
-        #end
-        #can :destroy, ProposalComment do |comment|
-        #  (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)
-        #end
       end
 
     end
@@ -457,19 +426,5 @@ class Ability
     def can_view_post?(user,blog_post)
       blog_post.groups.joins(:group_partecipations).where('group_partecipations.user_id = ?',user.id).exists?
     end
-    #
-    # The first argument to `can` is the action you are giving the user permission to do.
-    # If you pass :manage it will apply to every action. Other common actions here are
-    # :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. If you pass
-    # :all it will apply to every resource. Otherwise pass a Ruby class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
 end

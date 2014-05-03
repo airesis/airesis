@@ -1,6 +1,3 @@
-$('#flash_messages').html('<%=j (render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-
-
 $('#rankleftpanel .points').html('<%=j render 'proposals/points_left_panel'%>');
 $('#rankleftpanel .rank').html('<%=j render 'proposals/rank_left_panel'%>');
 
@@ -19,7 +16,7 @@ if (Airesis.id != <%=current_user.id%>) {
     disegnaBottoni();
     disegnaCountdown();
     disegnaProgressBar();
-  toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
+    toastr.info('<%=j t('pages.proposals.show.new_valutation_message')%>');
 }
 <% end rescue nil%>
 

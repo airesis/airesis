@@ -1,8 +1,4 @@
-var container_ = $('<div id="facebook_share_container" title="<%=@page_title%>"></div>');
+var container_ = $('<div id="facebook_share_container" class="reveal-modal" data-reveal></div>');
 container_.html("<%=j render 'facebook_share'%>");
-container_.dialog({ width: 800, height: 'auto', modal: true,
-    close : function(event, ui) {
-        container_.dialog('destroy');
-        container_.remove();
-    }});
-disegnaBottoni();
+$('body').append(container_);
+airesis_reveal(container_);

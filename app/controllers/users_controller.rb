@@ -65,7 +65,6 @@ class UsersController < ApplicationController
     @users = User.all(:conditions => "upper(name) like upper('%#{params[:q]}%')")
 
     respond_to do |format|
-      #format.xml  { render :xml => @users }
       format.json { render :json => @users.to_json(:only => [:id, :name]) }
       format.html # index.html.erb
     end
@@ -75,7 +74,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
-      #format.xml  { render :xml => @user }
     end
   end
 
@@ -85,7 +83,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash.now[:info] = t('info.user.click_to_change') if (current_user == @user)
       format.html # show.html.erb
-      #format.xml  { render :xml => @user }
     end
   end
 
@@ -275,9 +272,9 @@ class UsersController < ApplicationController
 
   def update_image
     if params[:image]
-      image = Image.new({:image => params[:image]})
-      image.save!
-      @user.image_id = image.id
+      @image = Image.new({:image => params[:image]})
+      @image.save!
+      @user.image_id = @image.id
       @user.save!
     end
     respond_to do |format|
@@ -288,6 +285,7 @@ class UsersController < ApplicationController
         end
       end
       format.html {
+        flash[:notice] = 'Image changed correctly'
         if params[:back] == "home"
           redirect_to home_url
         else
@@ -297,7 +295,7 @@ class UsersController < ApplicationController
     end
 
   rescue Exception => e
-    @user.errors.full_messages.each do |msg|
+    @image.errors.full_messages.each do |msg|
       flash[:error] = msg
     end
     respond_to do |format|
@@ -333,7 +331,6 @@ class UsersController < ApplicationController
             redirect_to @user
           end
         }
-        format.xml { render :xml => @proposal }
       else
         @user.errors.full_messages.each do |msg|
           flash[:error] = msg
@@ -350,19 +347,13 @@ class UsersController < ApplicationController
             render :action => "show"
           end
         }
-        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # There's no page here to update or destroy a user.  If you add those, be
-  # smart -- make sure you check that the visitor is authorized to do so, that they
-  # supply their old password along with a new one to update it, etc.
-
   #mostra la form di invio messaggio all'utente
   def show_message
     authorize! :send_message, @user
-
   end
 
   #invia un messaggio all'utente
@@ -373,7 +364,7 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    @group = Group.find(params[:group_id])
+    @group = Group.friendly.find(params[:group_id])
     users = @group.partecipants.autocomplete(params[:term])
     users = users.map do |u|
       {:id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}"}
@@ -405,7 +396,7 @@ class UsersController < ApplicationController
       found = InterestBorder.table_element(border)
 
       if found #if I found something so the ID is correct and I can proceed with geographic border creation
-        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
+        interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype],territory_id: fid})
         i = current_user.user_borders.build({:interest_border_id => interest_b.id})
         i.save
       end

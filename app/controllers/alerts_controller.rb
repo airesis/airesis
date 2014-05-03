@@ -2,23 +2,20 @@
 class AlertsController < ApplicationController
   before_filter :authenticate_user!
 
-
   layout 'users'
 
-  #mostra gli alert dell'utente corrente
   def index
-    @page_title = "Tutte le notifiche"
-    @user = current_user if current_user
+    @page_title = "All alerts"
+    @user = current_user
     @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
     @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true')
-
   end
 
   def polling
-    unread = current_user.user_alerts.where({checked: false, deleted: false}).includes(:notification_type,:notification_category)
+    unread = current_user.user_alerts.where({checked: false, deleted: false}).includes(:notification_type, :notification_category)
     numunread = unread.count
     if numunread < 10
-      unread += current_user.user_alerts.where({checked: true, deleted: false}).includes(:notification_type,:notification_category).limit(10 - numunread)
+      unread += current_user.user_alerts.where({checked: true, deleted: false}).includes(:notification_type, :notification_category).limit(10 - numunread)
     end
     alerts = unread.map do |alert|
       {id: alert.id,
@@ -34,12 +31,12 @@ class AlertsController < ApplicationController
     @map = {:count => numunread, :alerts => alerts}
   end
 
-  #imposta tutte fle notifiche come lette
+  #set all alerts as read
   def read_alerts
     @new_user_alerts = current_user.unread_alerts.check_all
   end
 
-  #marca come 'letta' una notifica e redirige verso l'url indicato
+  #sign as read an alert and redirect to corresponding url
   def check_alert
     begin
       @user_alert = current_user.admin? ? UserAlert.find(params[:id]) : current_user.user_alerts.find_by_id(params[:id])
@@ -72,7 +69,4 @@ class AlertsController < ApplicationController
     @unread = current_user.user_alerts.where(["(notifications.properties -> 'proposal_id') = ? and user_alerts.checked = ?", params[:proposal_id].to_s, false])
     render layout: false
   end
-
-  protected
-
 end

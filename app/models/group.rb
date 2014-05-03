@@ -42,6 +42,7 @@ class Group < ActiveRecord::Base
   has_many :meeting_organizations, :class_name => 'MeetingOrganization', :foreign_key => 'group_id', :dependent => :destroy
 
   has_many :events, :through => :meeting_organizations, :class_name => 'Event', :source => :event
+  has_many :next_events, -> { where(['starttime > ?', Time.now]) }, :through => :meeting_organizations, :class_name => 'Event', :source => :event
 
   has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
   has_many :proposals, :through => :proposal_supports, :class_name => 'Proposal'
@@ -141,27 +142,24 @@ class Group < ActiveRecord::Base
   end
 
   def pre_populate
-    self.default_visible_outside = true
+    #creator is also administrator
+    partecipation_requests.build({:user_id => current_user_id, :group_partecipation_request_status_id => 3})
 
-    #fai si che chi crea il gruppo ne sia anche portavoce
-    self.partecipation_requests.build({:user_id => current_user_id, :group_partecipation_request_status_id => 3})
-
-    self.group_partecipations.build({:user_id => current_user_id, :partecipation_role_id => 2}) #portavoce
+    group_partecipations.build({:user_id => current_user_id, :partecipation_role_id => 2}) #portavoce
 
     Quorum.public.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!
-      self.group_quorums.build(:quorum_id => copy.id)
+      group_quorums.build(:quorum_id => copy.id)
     end
-    role = self.partecipation_roles.build({name: self.default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
-    self.default_role_actions.each do |action_id|
+    role = partecipation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
+    default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
       abilitation.save!
-    end
+    end if default_role_actions
     role.save!
     self.partecipation_role_id = role.id
-
   end
 
   def after_populate
@@ -212,11 +210,8 @@ class Group < ActiveRecord::Base
 
   #utenti che possono eseguire un'azione
   def scoped_partecipants(action_id)
-    self.partecipants.all(
-        :joins => "join partecipation_roles
-               on group_partecipations.partecipation_role_id = partecipation_roles.id
-               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-        :conditions => ["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)", action_id, self.id, PartecipationRole::PORTAVOCE])
+    self.partecipants.joins("partecipation_roles on group_partecipations.partecipation_role_id = partecipation_roles.id left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id")
+    .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)", action_id, self.id, PartecipationRole::PORTAVOCE])
   end
 
   #restituisce la lista dei portavoce del gruppo
@@ -284,7 +279,7 @@ class Group < ActiveRecord::Base
     if tag
       Group.joins(:tags).where(['tags.text = ?', tag]).order('group_partecipations_count desc, created_at desc').page(page).per(limite)
     else
-      Group.search(include: [interest_border: [:territory]]) do
+      Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, :minimum_match => params[:minimum] if search
         #retrieve all possible interest borders
         if params[:interest_border_obj]

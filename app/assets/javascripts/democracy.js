@@ -94,7 +94,6 @@ function disegnaBottoni() {
     $('.pdfButton').gbutton({icons: {primary: "ui-icon-print"}});
     $('.printButton').gbutton({icons: {primary: "ui-icon-print"}});
     $('.resultsButton').gbutton({icons: {primary: "ui-icon-check"}});
-    $('.searchButton').gbutton({icons: {primary: "ui-icon-search"}});
     $('.signalButton').gbutton({icons: {primary: "ui-icon-signal-diag"}});
     $('.hideButton').gbutton({icons: {primary: "ui-icon-power"}});
     $('.lockButton').gbutton({icons: {primary: "ui-icon-locked"}});
@@ -108,44 +107,6 @@ function disegnaBottoni() {
     $('.extlinkButton').gbutton({icons: {primary: "ui-icon-extlink"}});
     $('.helpButton').gbutton({icons: {primary: "ui-icon-help"}});
     $('.btn.loginButton').gbutton({icons: {primary: "ui-icon-key"}});
-    $('.disabledButton').gbutton("option", "disabled", true);
-
-
-    $(".disableButton")
-            .unbind("ajax:beforeSend")
-            .bind("ajax:beforeSend", function () {
-                hideDisableButton($(this));
-            })
-            .unbind("ajax:complete")
-            .bind("ajax:complete", function () {
-                showDisableButton($(this));
-            });
-
-    $(".btn.disable")
-            .unbind("ajax:beforeSend")
-            .bind("ajax:beforeSend", function () {
-                hideDisableGButton($(this));
-            })
-            .unbind("ajax:complete")
-            .bind("ajax:complete", function () {
-                showDisableGButton($(this));
-            });
-
-    $(".disableClickButton")
-            .bind("click", function () {
-                hideDisableButton($(this));
-            });
-
-
-    $(".disableForm")
-            .unbind("ajax:beforeSend")
-            .bind("ajax:beforeSend", function () {
-                hideDisableButton($('.disableButton', this));
-            })
-            .unbind("ajax:complete")
-            .bind("ajax:complete", function () {
-                showDisableButton($('.disableButton', this));
-            });
 }
 
 function disegnaProgressBar() {
@@ -825,6 +786,15 @@ function airesis_reveal(element_, remove_on_close) {
             element_.remove();
         });
     }
+    airesis_reveal_refresh(element_);
+}
+
+//to call when reveal content is replaced by a new one
+function airesis_reveal_refresh(element_) {
+    element_.append('<a class="close-reveal-modal">&#215;</a>');
+    element_.find('[data-reveal-close]').click(function(){
+        element_.foundation().foundation('reveal', 'close');
+    });
 }
 
 /**
@@ -883,69 +853,69 @@ if (!jQuery.browser) {
 
 
 
-/*we'll do that in 3.1 TODO */
+/*we'll do that in 4.0 TODO */
 
-//var rails = $.rails;
-//rails.handleRemote = function (element) {
-//    console.log('handle remote');
-//    if ($(window).width() <=768) return;
-//    var method, url, data,
-//            crossDomain = element.data('cross-domain') || null,
-//            dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
-//            options;
-//
-//    if (rails.fire(element, 'ajax:before')) {
-//
-//        if (element.is('form')) {
-//            method = element.attr('method');
-//            url = element.attr('action');
-//            data = element.serializeArray();
-//            // memoized value from clicked submit button
-//            var button = element.data('ujs:submit-button');
-//            if (button) {
-//                data.push(button);
-//                element.data('ujs:submit-button', null);
-//            }
-//        } else if (element.is(rails.inputChangeSelector)) {
-//            method = element.data('method');
-//            url = element.data('url');
-//            data = element.serialize();
-//            if (element.data('params')) data = data + "&" + element.data('params');
-//        } else {
-//            method = element.data('method');
-//            url = element.attr('href');
-//            data = element.data('params') || null;
-//        }
-//
-//        options = {
-//            type: method || 'GET', data: data, dataType: dataType, crossDomain: crossDomain,
-//            // stopping the "ajax:beforeSend" event will cancel the ajax request
-//            beforeSend: function (xhr, settings) {
-//                if (settings.dataType === undefined) {
-//                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
-//                }
-//                return rails.fire(element, 'ajax:beforeSend', [xhr, settings]);
-//            },
-//            success: function (data, status, xhr) {
-//                element.trigger('ajax:success', [data, status, xhr]);
-//            },
-//            complete: function (xhr, status) {
-//                element.trigger('ajax:complete', [xhr, status]);
-//            },
-//            error: function (xhr, status, error) {
-//                element.trigger('ajax:error', [xhr, status, error]);
-//            }
-//        };
-//        // Only pass url to `ajax` options if not blank
-//        if (url) {
-//            options.url = url;
-//        }
-//
-//        return rails.ajax(options);
-//    } else {
-//        return false;
-//    }
-//};
+var rails = $.rails;
+rails.handleRemote = function (element) {
+    console.log('handle remote');
+    if ($(window).width() <=768) return;
+    var method, url, data,
+            crossDomain = element.data('cross-domain') || null,
+            dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
+            options;
+
+    if (rails.fire(element, 'ajax:before')) {
+
+        if (element.is('form')) {
+            method = element.attr('method');
+            url = element.attr('action');
+            data = element.serializeArray();
+            // memoized value from clicked submit button
+            var button = element.data('ujs:submit-button');
+            if (button) {
+                data.push(button);
+                element.data('ujs:submit-button', null);
+            }
+        } else if (element.is(rails.inputChangeSelector)) {
+            method = element.data('method');
+            url = element.data('url');
+            data = element.serialize();
+            if (element.data('params')) data = data + "&" + element.data('params');
+        } else {
+            method = element.data('method');
+            url = element.attr('href');
+            data = element.data('params') || null;
+        }
+
+        options = {
+            type: method || 'GET', data: data, dataType: dataType, crossDomain: crossDomain,
+            // stopping the "ajax:beforeSend" event will cancel the ajax request
+            beforeSend: function (xhr, settings) {
+                if (settings.dataType === undefined) {
+                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+                }
+                return rails.fire(element, 'ajax:beforeSend', [xhr, settings]);
+            },
+            success: function (data, status, xhr) {
+                element.trigger('ajax:success', [data, status, xhr]);
+            },
+            complete: function (xhr, status) {
+                element.trigger('ajax:complete', [xhr, status]);
+            },
+            error: function (xhr, status, error) {
+                element.trigger('ajax:error', [xhr, status, error]);
+            }
+        };
+        // Only pass url to `ajax` options if not blank
+        if (url) {
+            options.url = url;
+        }
+
+        return rails.ajax(options);
+    } else {
+        return false;
+    }
+};
 
 
 function showOnField(field,text) {

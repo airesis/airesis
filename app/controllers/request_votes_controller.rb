@@ -1,4 +1,5 @@
 #encoding: utf-8
+#todo che cazzo fa sto controller?
 class RequestVotesController < ApplicationController
    
   before_filter :load_group, :only => [:show,:edit,:update,:destroy,:ask_for_partecipation, :partecipation_request_confirm]
@@ -22,7 +23,6 @@ class RequestVotesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @groups }
     end
   end
 
@@ -33,7 +33,6 @@ class RequestVotesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @group }
     end
   end
 
@@ -43,7 +42,6 @@ class RequestVotesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @group }
     end
   end
 
@@ -57,10 +55,8 @@ class RequestVotesController < ApplicationController
       if @group.save
         flash[:notice] = 'Hai creato il gruppo.'
         format.html { redirect_to(@group) }
-        format.xml  { render :xml => @group, :status => :created, :location => @group }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -88,10 +84,8 @@ class RequestVotesController < ApplicationController
         if @group.update_attributes(params[:group])
           flash[:notice] = 'Gruppo aggiornato correttamente.'
           format.html { redirect_to(@group) }
-          format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
         end
       end
     
@@ -108,7 +102,6 @@ class RequestVotesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }
-      format.xml  { head :ok }
     end
   end
   

@@ -1,3 +1,4 @@
-$('#available_authors_list_container').html("<%= escape_javascript(render(:partial => 'available_authors_list_panel'))%>");
-$('#available_authors_list_container').dialog({ width: 500, height: 'auto'});
-disegnaBottoni();
+var container_ = $('<div id="available_authors_list_container" class="reveal-modal" data-reveal></div>');
+container_.html("<%= j render 'available_authors_list_panel'%>");
+$('body').append(container_);
+airesis_reveal(container_);

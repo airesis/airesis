@@ -7,7 +7,7 @@
 <%= render :partial => 'groups/roles_panel' %>
 </div>
 <br/>
-<a href="#" class="btn blue newButton disable" id="addRole"><%= t('pages.groups.edit_permissions.new_role') %></a>
+<%=link_to t('pages.groups.edit_permissions.new_role'), new_group_partecipation_role_url(@group), remote: true, class: 'btn blue' %>
 
 <div id="edit_role" title="<%= t('pages.groups.edit_permissions.edit_role_title')%>"  class="reveal-modal small" data-reveal>
 

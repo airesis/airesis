@@ -1,17 +1,22 @@
-<%if @available_authors.count > 0 %>
-<h4>Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Fatto!'.<br />
-	Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.</h4>
-<%=form_for 'authors', :url => {:controller => "proposals", :action => "add_authors", :group_id => params[:group_id]}, :remote => true, :method => :put do |f|%>
+<h2><%= t('pages.proposals.show.editors_list_title') %></h2>
+<% if @available_authors.count > 0 %>
+    <div class="panel alert">
+      <p><%= t('pages.available_authors.index.explain_html')%></p>
+    </div>
+    <%= form_for 'authors', :url => {:controller => "proposals", :action => "add_authors", :group_id => params[:group_id]}, :remote => true, :method => :put do |f| %>
 
-<%@available_authors.each do |user|%>
-	<div>
-      <input type="checkbox" name="user_ids[]" value="<%=user.id%>"> <%=user.fullname%> <%= user.user_image_tag 24 %>
-	</div>
-<%end%>
+        <% @available_authors.each do |user| %>
+            <div>
+              <input type="checkbox" name="user_ids[]" value="<%= user.id %>"> <%= user.fullname %> <%= user.user_image_tag 24 %>
+            </div>
+        <% end %>
 
-	<%=f.submit 'Fatto!', :class=>'btn blue'%>
-    <a href="#" onclick="$('#available_authors_list_container').dialog('close');return false;" class="btn"><%= 'Annulla' %></a>
-<%end%>
-<%else%>
-    <h4>Nessuno si è reso disponibile per redigere la sistesi al momento</h4>
-<%end%>
+        <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+        <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+        <%= f.submit t('buttons.save'), :class => 'btn blue' %>
+    <% end %>
+<% else %>
+    <div class="panel alert">
+      <p>Nessuno si è reso disponibile per redigere la sistesi al momento</p>
+    </div>
+<% end %>

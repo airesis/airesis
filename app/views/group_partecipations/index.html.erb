@@ -34,12 +34,6 @@
   <%= render :partial => 'group_partecipation_results' %>
 </div>
 
-<script type="text/javascript">
-    function show_email_form() {
-        $('#email_panel').dialog({'width': '400px'});
-    }
-</script>
-
 <%= content_for :left_panel do %>
     <% if can? :update, @group %>
         <%= render :partial => 'groups/administration_panel' %>

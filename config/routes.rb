@@ -206,14 +206,6 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :partecipation_roles do
-    collection do
-      post :change_group_permission
-      post :change_user_permission
-      post :change_default_role
-    end
-  end
-
   resources :blog_posts
 
 
@@ -289,6 +281,14 @@ Airesis::Application.routes.draw do
       collection do
         post :send_email
         post :destroy_all
+      end
+    end
+
+    resources :partecipation_roles do
+      collection do
+        post :change_group_permission
+        post :change_user_permission
+        post :change_default_role
       end
     end
 
@@ -482,6 +482,14 @@ Airesis::Application.routes.draw do
         collection do
           post :send_email
           post :destroy_all
+        end
+      end
+
+      resources :partecipation_roles do
+        collection do
+          post :change_group_permission
+          post :change_user_permission
+          post :change_default_role
         end
       end
 

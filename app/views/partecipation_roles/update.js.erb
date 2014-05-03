@@ -1,5 +1,4 @@
-$('#flash_messages').html('<%= escape_javascript(render(:partial => 'layouts/flash', :locals => {:flash => flash}))%>');
-$('#edit_role').dialog('destroy');
-$('#roles_panel_container').html('<%= escape_javascript(render(:partial => 'groups/roles_panel'))%>');
-//generateTable();
+$('#roles_panel_container').html('<%=j render 'groups/roles_panel'%>');
+$("#roles_accordion").foundation('accordion');
+$("#partecipation_role_container").foundation('reveal', 'close');
 

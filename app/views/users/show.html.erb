@@ -50,29 +50,6 @@
     </script>
     </div>
 <% end %>
-<% if @user == current_user && @user.user_votes.count > 0 %>
-    <div class="card">
-    <h2><%= t('pages.users.show.votations_title') %></h2>
-    <table id="votations_table">
-      <thead>
-      <th><%= t('pages.users.show.proposal_column') %></th>
-      <th><%= t('pages.users.show.votation_date_column') %></th>
-      <th>vote_sortable</th>
-      <th><%= t('pages.users.show.vote_column') %></th>
-      </thead>
-      <tbody>
-      <% @user.user_votes.includes(:proposal, :vote_type).each do |vote| %>
-          <tr>
-            <td><%= vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
-            <td><%= l vote.created_at %></td>
-            <td><%= vote.created_at.to_i %></td>
-            <td><%= vote.vote_type ? vote.vote_type.description : t('pages.users.show.secret_vote') %></td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-    </div>
-<% end %>
 
 <% if current_user == @user %>
     <div id="name_modal" class="reveal-modal medium" data-reveal>

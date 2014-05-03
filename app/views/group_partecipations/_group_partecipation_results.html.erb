@@ -1,13 +1,12 @@
 <% if can? :update, @group %>
     <fieldset class="card">
       <legend><%= t('pages.groups.participations.operations_on_user') %></legend>
-      <%= link_to t('pages.groups.participations.send_email'), '#', remote: true, class: 'btn inviteButton', onclick: 'show_email_form();return false;' %>
+      <%= link_to t('pages.groups.participations.send_email'), '#', class: 'btn inviteButton', data: {'reveal-id' => 'email_panel'} %>
 
-      <div id="email_panel" style="display: none" title="<%= t('pages.users.send_message.massive_email') %>">
-        <%= form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
-
-            <%= e.label t('pages.users.send_message.subject_label') %>
-            <%= e.text_field 'subject' %>
+      <div id="email_panel" class="reveal-modal small" data-reveal>
+        <h2><%= t('pages.users.send_message.massive_email') %></h2>
+        <%= simple_form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
+            <%= e.input 'subject', label: t('pages.users.send_message.subject_label')%>
 
 
             <%= e.label t('pages.users.send_message.body_label') %>
@@ -16,9 +15,10 @@
             <%= e.hidden_field 'receiver_ids', value: @partecipants.map { |p| p.user_id }.join(',') %>
 
 
-            <a href="#" class="btn" onclick="$('#email_panel').dialog('destroy');return false;"><%= t('buttons.cancel') %></a>
+            <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
             <%= e.submit t('buttons.send'), :class => 'btn blue', data: {disable_with: t('sending')} %>
         <% end %>
+        <a class="close-reveal-modal">&#215;</a>
       </div>
 
       <%= form_for 'destroy', :url => destroy_all_group_group_partecipations_path(@group), :remote => true, method: :post, html: {style: 'display:inline;'} do |e| %>

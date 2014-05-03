@@ -1,2 +1,6 @@
-<%=render partial: 'layouts/messages', locals: {flash: flash}%>
-<%= yield :layout %>
+(function () {
+    <%=render partial: 'layouts/messages', locals: {flash: flash}%>
+    <%= yield :layout %>
+})();
+
+<%= yield :no_closure %>
