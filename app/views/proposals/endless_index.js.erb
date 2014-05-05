@@ -1,4 +1,4 @@
-$('#proposalsListContainer<%=params[:state] || params[:view]%>').append("<%= escape_javascript(render :partial => 'proposals/list', :locals => {:proposals => @proposals})%>");
+$('#proposalsListContainer<%=params[:state] || params[:view]%>').append("<%= escape_javascript(render partial: 'proposals/list', locals: {proposals: @proposals})%>");
 <%if @proposals.total_pages > @proposals.current_page%>
   $('#loading_proposals<%=params[:state] || params[:view]%>').show();
 <%else%>

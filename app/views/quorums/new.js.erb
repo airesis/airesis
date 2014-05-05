@@ -1,6 +1,6 @@
 var container_ = $('<div id="quorum_container" class="reveal-modal medium" data-reveal></div>');
 $('body').append(container_);
-container_.html("<%= j (render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.create')}))%>");
+container_.html("<%= j (render(partial: 'quorums/form', locals: {button_name: t('buttons.create')}))%>");
 
 airesis_reveal(container_);
 

@@ -2,10 +2,10 @@ module Frm
   class View < FrmTable
     before_create :set_viewed_at_to_now
 
-    belongs_to :viewable, :polymorphic => true
-    belongs_to :user, :class_name => 'User'
+    belongs_to :viewable, polymorphic: true
+    belongs_to :user, class_name: 'User'
 
-    validates :viewable_id, :viewable_type, :presence => true
+    validates :viewable_id, :viewable_type, presence: true
     attr_accessible :user_id, :current_viewed_at, :count
 
     scope :topics,  -> {where "viewable_type = 'Frm::Topic'"}

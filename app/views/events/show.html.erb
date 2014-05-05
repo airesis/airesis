@@ -39,16 +39,16 @@
             </div>
           </h3>
           <div class="event_content">
-            <%= render :partial => 'events/calendar_icon', :locals => {:time => @event.starttime} %>
+            <%= render partial: 'events/calendar_icon', locals: {time: @event.starttime} %>
             <div style="float:left;margin-top: 10px;">
               <meta itemprop="startDate" content="<%= l @event.starttime, format: :rich %>">
               <b>
-                <%= l @event.starttime, :format => :from_long_date_time %>
+                <%= l @event.starttime, format: :from_long_date_time %>
               </b>
 
               <div style="margin-top:5px;"></div>
               <b>
-                <%= I18n.localize(@event.endtime, :format => :until_long_date_time) %>
+                <%= I18n.localize(@event.endtime, format: :until_long_date_time) %>
               </b>
             </div>
             <div class="clearboth"></div>
@@ -151,13 +151,13 @@
         <% end %>-->
           <% if @event.meeting %>
               <div class="mybox" id="partecipation_panel_container">
-                <%= render :partial => 'partecipation_panel' %>
+                <%= render partial: 'partecipation_panel' %>
               </div>
 
 
               <% if @event.meeting %>
                   <div id="partecipants_container">
-                    <%= render :partial => 'meeting_responses' %>
+                    <%= render partial: 'meeting_responses' %>
                   </div>
               <% end %>
           <% end %>
@@ -183,7 +183,7 @@
           <div class="event_content">
             <% @event.proposals.each do |proposal| %>
                 <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
-                    <%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal} %>
+                    <%= render partial: 'proposals/proposal_list_element', locals: {proposal: proposal} %>
                 <% end %>
             <% end %>
           </div>
@@ -197,10 +197,10 @@
 <% if @event.is_incontro? || @event.is_riunione? %>
     <div class="row full-width">
       <div class="columns large-6">
-        <%= render :partial => 'event_comments/new_event_comment', :locals => {:event_comment => @event_comment} %>
+        <%= render partial: 'event_comments/new_event_comment', locals: {event_comment: @event_comment} %>
 
         <div id="eventCommentsContainer">
-          <%= render :partial => 'events/comments' %>
+          <%= render partial: 'events/comments' %>
         </div>
         <div id="loading_results">
           <span><%= t('pages.blog_posts.show.previous_comments') %></span>

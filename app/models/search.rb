@@ -17,7 +17,7 @@ class Search < ActiveRecord::Base
       order_by :group_partecipations_count, :desc
       order_by :created_at, :desc
 
-      paginate :page => 1, :per_page => 5
+      paginate page: 1, per_page: 5
     end.results
 
 
@@ -51,13 +51,13 @@ class Search < ActiveRecord::Base
       #order_by :presentation_group_ids, :desc
       order_by :score, :desc
       order_by :updated_at, :desc
-      paginate :page => 1, :per_page => 5
+      paginate page: 1, per_page: 5
     end.results
 
     self.blogs = Blog.search do
       fulltext self.q
       order_by :score, :desc
-      paginate :page => 1, :per_page => 5
+      paginate page: 1, per_page: 5
     end.results
   end
 end

@@ -12,7 +12,7 @@
           <div class="row">
             <div class="columns">
               <% if params[:group_area_id] %>
-                  <a href="<%= current_url(:group_area_id => nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
+                  <a href="<%= current_url(group_area_id: nil) %>"><%= t('pages.proposals.index.no_group_areas') %></a>
               <% else %>
                   <%= t('pages.proposals.index.all_areas') %>
               <% end %>
@@ -26,7 +26,7 @@
                   <% if params[:group_area_id] == area.id.to_s %>
                       <%= area.name %>
                   <% else %>
-                      <%= link_to area.name, current_url(:group_area_id => area.id) %>
+                      <%= link_to area.name, current_url(group_area_id: area.id) %>
                   <% end %>
                 </div>
 
@@ -53,7 +53,7 @@
             <div class="columns large-2"></div>
             <div class="columns large-10">
               <% if params[:category] %>
-                  <a href="<%= current_url(:category => nil) %>"><%= t('pages.proposals.index.all_categories') %></a>
+                  <a href="<%= current_url(category: nil) %>"><%= t('pages.proposals.index.all_categories') %></a>
               <% else %>
                   <span><%= t('pages.proposals.index.all_categories') %></span>
               <% end %>
@@ -74,15 +74,15 @@
               <div class="row">
                 <% if params[:category] == category.id.to_s %>
                     <div class="columns large-2">
-                      <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :title => category.description, :style => "width:22px;padding-right:2px;") %>
+                      <%= image_tag("proposal_categories/"+category.id.to_s + "_s.png", align: 'middle', alt: category.description, title: category.description, style: "width:22px;padding-right:2px;") %>
                     </div>
                     <div class="columns large-10"><%= category.description %></div>
                 <% else %>
                     <div class="columns large-2">
-                      <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", :align => 'middle', :alt => category.description, :style => "width:22px;padding-right:2px;"), current_url(:category => category.id) %>
+                      <%= link_to image_tag("proposal_categories/"+category.id.to_s + "_s.png", align: 'middle', alt: category.description, style: "width:22px;padding-right:2px;"), current_url(category: category.id) %>
                     </div>
                     <div class="columns large-10">
-                      <%= link_to category.description, current_url(:category => category.id) %>
+                      <%= link_to category.description, current_url(category: category.id) %>
                     </div>
                 <% end %>
 
@@ -110,7 +110,7 @@
             </div>
             <div class="columns large-10">
               <% if params[:type] %>
-                  <a href="<%= current_url(:type => nil) %>"><%= t('pages.proposals.index.all_proposal_types') %></a>
+                  <a href="<%= current_url(type: nil) %>"><%= t('pages.proposals.index.all_proposal_types') %></a>
               <% else %>
                   <span><%= t('pages.proposals.index.all_proposal_types') %></span>
               <% end %>
@@ -127,15 +127,15 @@
 
                 <% if params[:type] == type.id.to_s %>
                     <div class="columns large-2">
-                      <%= image_tag("proposal_types/#{type.name.downcase}_ico.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;") %>
+                      <%= image_tag("proposal_types/#{type.name.downcase}_ico.png", align: 'middle', alt: type.description, title: type.description, style: "width:22px;padding-right:2px;") %>
                     </div>
                     <div class="columns large-10"><%= type.description %></div>
                 <% else %>
                     <div class="columns large-2">
-                      <%= link_to image_tag("proposal_types/#{type.name.downcase}_ico.png", :align => 'middle', :alt => type.description, :title => type.description, :style => "width:22px;padding-right:2px;"), current_url(:type => type.id) %>
+                      <%= link_to image_tag("proposal_types/#{type.name.downcase}_ico.png", align: 'middle', alt: type.description, title: type.description, style: "width:22px;padding-right:2px;"), current_url(type: type.id) %>
                     </div>
                     <div class="columns large-10">
-                      <%= link_to type.description, current_url(:type => type.id) %>
+                      <%= link_to type.description, current_url(type: type.id) %>
                     </div>
                 <% end %>
               </div>
@@ -160,7 +160,7 @@
       </div>
 
       <div class="hidden_menu">
-        <%= link_to t('pages.proposals.left_panel.any_date'), current_url(:time => nil), class: 'menu_item', data: {type: 'w'} %>
+        <%= link_to t('pages.proposals.left_panel.any_date'), current_url(time: nil), class: 'menu_item', data: {type: 'w'} %>
         <%= link_to t('pages.proposals.left_panel.last_hour'), current_url({time: {start: (Time.now - 1.hour).to_i * 1000, end: Time.now.to_i * 1000, type: '1h'}}), class: 'menu_item', data: {type: '1h'} %>
         <%= link_to t('pages.proposals.left_panel.last_24_hour'), current_url({time: {start: (Time.now - 24.hours).to_i * 1000, end: Time.now.to_i * 1000, type: '24h'}}), class: 'menu_item', data: {type: '24h'} %>
         <%= link_to t('pages.proposals.left_panel.last_week'), current_url({time: {start: (Time.now - 7.days).to_i * 1000, end: Time.now.to_i * 1000, type: '7d'}}), class: 'menu_item', data: {type: '7d'} %>
@@ -224,10 +224,10 @@
 
       <div class="mybox_button"></div>
       <div class="mycont">
-        <%= render :partial => 'search_form' %>
+        <%= render partial: 'search_form' %>
       </div>
     </div>
 <% end %>
 
 
-<!--<%#= render :partial => 'users/most_active_users_panel' %>-->
+<!--<%#= render partial: 'users/most_active_users_panel' %>-->

@@ -3,8 +3,8 @@ class ProposalCommentReport < ActiveRecord::Base
   belongs_to :proposal_comment_report_type
   belongs_to :proposal_comment
 
-  scope :softs, {:joins => :proposal_comment_report_type, :conditions => {:severity => ProposalCommentReportType::LOW}}
-  scope :graves, {:joins => :proposal_comment_report_type, :conditions => {:severity => ProposalCommentReportType::HIGH}}
+  scope :softs, {joins: :proposal_comment_report_type, conditions: {severity: ProposalCommentReportType::LOW}}
+  scope :graves, {joins: :proposal_comment_report_type, conditions: {severity: ProposalCommentReportType::HIGH}}
 
   after_save :increase_counter_cache
   after_destroy :decrease_counter_cache

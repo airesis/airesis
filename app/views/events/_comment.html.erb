@@ -6,8 +6,8 @@
     <span class="blogPoster"><%= link_to_user comment.user %></span>
   </div>
   <div class="blog-comment-content">
-    <%= raw auto_link((h(comment.body)).gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-      truncate(text, :length => 15)
+    <%= raw auto_link((h(comment.body)).gsub(/\n/, '<br/>'), html: {target: '_blank'}, sanitize: false) do |text|
+      truncate(text, length: 15)
     end %>
   </div>
   <div class="blog-comment-footer">
@@ -20,12 +20,12 @@
                ·
       <%= time_in_words(comment.created_at) %>
       <% if current_user and (current_user.id == comment.user_id) %>
-          <%= link_to t('pages.blog_posts.comment.delete_button'), {:controller => "event_comments", :action => "delete", :event_id => @event.id, :id => comment.id},
-                      :remote => "true",
-                      :onclick => "return false;",
-                      :class => "deleteCommentLink",
-                      :style => "float:right",
-                      :id => "delete#{comment.id}" %>
+          <%= link_to t('pages.blog_posts.comment.delete_button'), {controller: "event_comments", action: "delete", event_id: @event.id, id: comment.id},
+                      remote: "true",
+                      onclick: "return false;",
+                      class: "deleteCommentLink",
+                      style: "float:right",
+                      id: "delete#{comment.id}" %>
       <% end %>
   </div>
   <script type="text/javascript">

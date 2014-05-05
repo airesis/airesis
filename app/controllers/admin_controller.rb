@@ -34,7 +34,7 @@ class AdminController < ManagerController
   def change_proposals_state
     return unless Rails.env == 'development'
     #check all proposals in votation that has to be closed, in votation but the period has passed
-    voting = Proposal.all(:joins => [:vote_period], :conditions => ["proposal_state_id = #{ProposalState::VOTING} and current_timestamp > events.endtime"], :readonly => false)
+    voting = Proposal.all(joins: [:vote_period], conditions: ["proposal_state_id = #{ProposalState::VOTING} and current_timestamp > events.endtime"], readonly: false)
     voting.each do |proposal| #per ciascuna proposta da chiudere
       close_vote_phase(proposal)
     end if voting
@@ -85,7 +85,7 @@ class AdminController < ManagerController
 
   #esegue un job di prova tramite resque_scheduler
   def test_scheduler
-    ProposalsWorker.perform_at(15.seconds.from_now, :proposal_id => 1)
+    ProposalsWorker.perform_at(15.seconds.from_now, proposal_id: 1)
     flash[:notice] = 'Test avviato'
     redirect_to admin_panel_path
   rescue Exception => e
@@ -93,7 +93,7 @@ class AdminController < ManagerController
   end
 
   def become
-    sign_in User.find(params[:user_id]), :bypass => true
+    sign_in User.find(params[:user_id]), bypass: true
     redirect_to root_url # or user_root_url
   end
 
@@ -110,7 +110,7 @@ class AdminController < ManagerController
   def send_newsletter
     NewsletterSender.perform_at(30.seconds.from_now, params)
     flash[:notice] = "Newsletter pubblicata correttamente"
-    redirect_to :controller => 'admin', :action => 'mailing_list'
+    redirect_to controller: 'admin', action: 'mailing_list'
   end
 
   def upload_sources

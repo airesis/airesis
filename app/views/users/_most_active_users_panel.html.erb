@@ -1,5 +1,5 @@
 <h4>Utenti più attivi</h4>
-	<%@users = User.all(:include => :image, :order => "rank desc", :limit => 5)
+	<%@users = User.all(include: :image, order: "rank desc", limit: 5)
 	  @users.each do |user|
 %>
  <div class="pcontainer">
@@ -7,7 +7,7 @@
 	            <%= user.user_image_tag(24) %>
 	        </div>
 	        <div class="Mo">
-	            <%=link_to_user user, :full_name => true %> (<%=user.rank%>)
+	            <%=link_to_user user, full_name: true %> (<%=user.rank%>)
 	        </div>
 	        <div style="clear: both;"></div>
 	    </div>

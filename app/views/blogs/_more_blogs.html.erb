@@ -1,9 +1,9 @@
 <% if @blogs.total_pages && (@blogs.total_pages > @blogs.current_page) %>
     <div id="more_blogs" class="loading_groups">
-      <span><%= link_to t('pages.blogs.index.show_more'), current_url(page: @blogs.current_page+1), :remote => true %></span>
+      <span><%= link_to t('pages.blogs.index.show_more'), current_url(page: @blogs.current_page+1), remote: true %></span>
     </div>
     <div id="loading_blogs" class="loading_groups" style="display:none">
-      <div class="waitDiv"><%= image_tag "facebook-loader.gif", :alt => "loading..." %> </div>
+      <div class="waitDiv"><%= image_tag "facebook-loader.gif", alt: "loading..." %> </div>
     </div>
 <% end %>
 

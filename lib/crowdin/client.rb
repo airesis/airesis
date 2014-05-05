@@ -14,7 +14,7 @@ module Crowdin
     FAKE_LANGUAGE = "en-GB"
 
     def auth
-      @crowdin = Crowdin::API.new(:api_key => CROWDIN_API , :project_id => CROWDIN_PROJECT_ID, :account_key => CROWDIN_ACCOUNT_KEY)
+      @crowdin = Crowdin::API.new(api_key: CROWDIN_API , project_id: CROWDIN_PROJECT_ID, account_key: CROWDIN_ACCOUNT_KEY)
       @crowdin.log = Logger.new $stderr
     end
 
@@ -24,7 +24,7 @@ module Crowdin
 
       files=[]
       source_files_path.each { |path|
-        files << { :dest => "/#{File.basename(path)}", :source => path, :export_pattern => "/"+path.gsub("en.yml","%locale%.yml")}
+        files << { dest: "/#{File.basename(path)}", source: path, export_pattern: "/"+path.gsub("en.yml","%locale%.yml")}
       }
       @crowdin.add_file(files, :type=>'yaml')
     end
@@ -34,13 +34,13 @@ module Crowdin
       transl_files_path = Dir["config/locales/**/*.it-IT.yml"]
       files = []
       transl_files_path.each { |path|
-        files << { :dest => "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, "en")}", :source => path }
+        files << { dest: "/#{File.basename(path).gsub(/(?<=\.)(.*)(?=\.yml)/, "en")}", source: path }
       }
 
       @crowdin.upload_translation(
           files,
           language = 'it',
-           params = {:import_duplicates => true})
+           params = {import_duplicates: true})
     end
 
     #scan directory "locales", memorize the names of the directories inside it
@@ -51,7 +51,7 @@ module Crowdin
       files=[]
 
       source_files_path.each { |path|
-        files << { :dest => "/#{File.basename(path)}", :source => path}
+        files << { dest: "/#{File.basename(path)}", source: path}
         }
       @crowdin.update_file(files)
     end
@@ -65,7 +65,7 @@ module Crowdin
       self.status
       @crowdin.export_translations
       @lang_ready.each { |lang|
-        @crowdin.download_translation(lang, :output => "#{DOWNLOAD_FOLDER}/output-#{lang}.zip")
+        @crowdin.download_translation(lang, output: "#{DOWNLOAD_FOLDER}/output-#{lang}.zip")
       }
 
     end

@@ -36,7 +36,7 @@
                 </p>
               </div>
           <% else %>
-              <%= render :collection => @group_posts, :partial => 'blog_posts/group_blog_post', as: 'post_publishing' %>
+              <%= render collection: @group_posts, partial: 'blog_posts/group_blog_post', as: 'post_publishing' %>
 
           <% end %>
         </div>
@@ -51,15 +51,15 @@
 
 
         <% if can? :view_proposal, @group %>
-            <%= render :partial => "groups/portlets/proposals", :layout => "layouts/portlet" %>
+            <%= render partial: "groups/portlets/proposals", layout: "layouts/portlet" %>
         <% end %>
-        <%= render :partial => "groups/portlets/topics", :layout => "layouts/portlet" %>
-        <%= render :partial => "groups/portlets/events", :layout => "layouts/portlet" %>
+        <%= render partial: "groups/portlets/topics", layout: "layouts/portlet" %>
+        <%= render partial: "groups/portlets/events", layout: "layouts/portlet" %>
       </div>
     </div>
 <% end %>
 
-<%= render :partial => 'left_panel' %>
+<%= render partial: 'left_panel' %>
 
 
 

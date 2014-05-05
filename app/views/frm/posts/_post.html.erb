@@ -9,10 +9,10 @@
             <%= t(".pending_review") %>
             <% if forem_admin_or_moderator?(post.topic.forum) %>
                 <% if local_assigns[:mass_moderation] %>
-                    <%= render "/frm/posts/moderation_tools", :post => post %>
+                    <%= render "/frm/posts/moderation_tools", post: post %>
                 <% else %>
-                    <%= form_tag group_frm_forum_moderate_posts_url(@group, forum), :method => :put do %>
-                        <%= render "/frm/posts/moderation_tools", :post => post %>
+                    <%= form_tag group_frm_forum_moderate_posts_url(@group, forum), method: :put do %>
+                        <%= render "/frm/posts/moderation_tools", post: post %>
                     <% end %>
                 <% end %>
             <% end %>
@@ -41,15 +41,15 @@
             <div class='btn-group'>
               <% if can?(:reply, post.topic) %>
                   <% if post.topic.can_be_replied_to? %>
-                      <%= link_to t('reply', :scope => 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, :reply_to_id => post.id) %>
-                      <%= link_to t('quote', :scope => 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, :reply_to_id => post.id, :quote => true) %>
+                      <%= link_to t('reply', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id) %>
+                      <%= link_to t('quote', scope: 'frm.topic'), new_group_forum_topic_post_url(@group, post.topic.forum, post.topic, reply_to_id: post.id, quote: true) %>
                   <% end %>
               <% end %>
               <% if post.owner_or_moderator?(current_user) %>
                   <% if can?(:edit_post, post.topic.forum) %>
-                      <%= link_to t('edit', :scope => 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
+                      <%= link_to t('edit', scope: 'frm.post.buttons'), edit_group_forum_topic_post_url(@group, post.topic.forum, post.topic, post) %>
                   <% end %>
-                  <%= link_to t('delete', :scope => 'frm.topic'), group_forum_topic_post_url(@group, post.topic.forum, post.topic, post), :method => :delete, data: {:confirm => t("are_you_sure")} %>
+                  <%= link_to t('delete', scope: 'frm.topic'), group_forum_topic_post_url(@group, post.topic.forum, post.topic, post), method: :delete, data: {confirm: t("are_you_sure")} %>
               <% end %>
             </div>
         <% end %>

@@ -46,11 +46,11 @@
 </div>
 -->
 
-<%= render :partial => 'proposals/show_proposal' %>
+<%= render partial: 'proposals/show_proposal' %>
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
     <div id="proposalNewComment" class="blogNewComment">
-      <%= render :partial => @proposal_comment = ProposalComment.new %>
+      <%= render partial: @proposal_comment = ProposalComment.new %>
     </div>
 <% else %>
     <div style="height:20px"></div>
@@ -63,7 +63,7 @@
     <%end%>
 <% else %>
     <div id="order_bar">
-      <%= render :partial => 'proposal_comments/order_bar' %>
+      <%= render partial: 'proposal_comments/order_bar' %>
     </div>
 
     <div id="loading_contributes" style="margin:auto;text-align:center;">
@@ -80,7 +80,7 @@
     </div>
 
 
-    <%= render :partial => 'report_contribute' %>
+    <%= render partial: 'report_contribute' %>
 
 <% end %>
 
@@ -264,7 +264,7 @@
         });
         <%end%>
 
-        <%= render :partial => 'show_tooltips' %>
+        <%= render partial: 'show_tooltips' %>
 
         //0 - not fetched - closed
         //1 - fetched - open

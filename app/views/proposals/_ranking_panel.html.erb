@@ -5,20 +5,20 @@
 			<% if @my_vote == 1 %>
 				<div class="votedup"></div>
 			 <%elsif @can_vote_again == 1%>
-			 	<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} %>			 
+			 	<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} %>
 			<%end%>
-				<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>
+				<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
 			<% if @my_vote == 3 %>
 				<div class="voteddown"/>
 			<% elsif @can_vote_again == 1%>
-				<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} %>				
+				<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} %>
 			<%end%>		
 	<%else%>
 		
-			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "up"} if @can_vote_again == 1%>	
-			<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>	
-			<%= render :partial => 'proposals/ranking_and_spinner', :locals => {:action => "down"} if @can_vote_again == 1%>
+			<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "up"} if @can_vote_again == 1%>
+			<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
+			<%= render partial: 'proposals/ranking_and_spinner', locals: {action: "down"} if @can_vote_again == 1%>
 	<%end %>
 <%else%>
-	<%= render :partial => 'fragments/votes_and_rank', :locals => {:object => @proposal} %>
+	<%= render partial: 'fragments/votes_and_rank', locals: {object: @proposal} %>
 <%end %>

@@ -52,7 +52,7 @@ class NewHistoryWay < ActiveRecord::Migration
           section_history.paragraphs.build(content: section.paragraphs.first.content, seq: 1)
         end
         if history.problem
-          section = proposal.sections.where(:title => 'Problematica').first
+          section = proposal.sections.where(title: 'Problematica').first
           section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq)
           section_history.paragraphs.build(content: section.paragraphs.first.content, seq: 1)
         end

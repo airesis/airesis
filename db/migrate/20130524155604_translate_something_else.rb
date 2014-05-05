@@ -2,9 +2,9 @@
 class TranslateSomethingElse < ActiveRecord::Migration
   def up
     NotificationCategory.create_translation_table!({
-      :description => :string
+      description: :string
     },
-    {:migrate_data => true})
+    {migrate_data: true})
 
     I18n.locale = :eu
 
@@ -31,10 +31,10 @@ class TranslateSomethingElse < ActiveRecord::Migration
     NotificationCategory.find_by_short("GROUPS").update_attribute(:description,"Groups")
 
     NotificationType.create_translation_table!({
-         :description => :string,
-         :email_subject => :string
+         description: :string,
+         email_subject: :string
      },
-     {:migrate_data => true})
+     {migrate_data: true})
 
     I18n.locale = :eu
 
@@ -163,9 +163,9 @@ class TranslateSomethingElse < ActiveRecord::Migration
     NotificationType.find_by_id(24).update_attributes({description: "Nuevos editores de propuestas",email_subject: "Nuevos editores por una propuesta."})
 
     GroupAction.create_translation_table!({
-         :description => :string
+         description: :string
      },
-     {:migrate_data => true})
+     {migrate_data: true})
 
     I18n.locale = :eu
 
@@ -266,9 +266,9 @@ class TranslateSomethingElse < ActiveRecord::Migration
     GroupAction.find_by_name("PROPOSAL_VOTE").update_attributes({description: "Vote sur les propositions"})
 
     EventType.create_translation_table!({
-        :description => :string
+        description: :string
     },
-    {:migrate_data => true})
+    {migrate_data: true})
 
     I18n.locale = :eu
     EventType.find_by_id(1).update_attributes({description: "meeting"})
@@ -480,9 +480,9 @@ class TranslateSomethingElse < ActiveRecord::Migration
     Stato.find_by_sigla('VA').update_attributes({description: "Cuidad del Vaticaon"})
 
     VoteType.create_translation_table!({
-          :description => :string
+          description: :string
       },
-      {:migrate_data => true})
+      {migrate_data: true})
 
     I18n.locale = :en
     VoteType.find_by_id(1).update_attributes({description: "Favorable"})

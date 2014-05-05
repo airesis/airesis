@@ -1,8 +1,8 @@
 <h1><%= t('pages.groups.edit.modify_group')%></h1>
 
-<%= render :partial => @group, :locals => {:button_name => t('buttons.update')} %>
+<%= render partial: @group, locals: {button_name: t('buttons.update')} %>
 
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

@@ -1,7 +1,7 @@
-<h2><%= t('frm.admin.category.edit', :title => @category.name) %></h2>
+<h2><%= t('frm.admin.category.edit', title: @category.name) %></h2>
 
-<%= render :partial => 'edit', locals: {remote:false} %>
+<%= render partial: 'edit', locals: {remote:false} %>
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

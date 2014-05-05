@@ -1,7 +1,7 @@
 class Notification < ActiveRecord::Base
-  belongs_to :notification_type, :class_name => 'NotificationType', :foreign_key => :notification_type_id
-  has_many :user_alerts, :class_name => "UserAlert", :dependent => :destroy
-  has_many :notification_data, :class_name => "NotificationData", :dependent => :destroy, :foreign_key => :notification_id
+  belongs_to :notification_type, class_name: 'NotificationType', foreign_key: :notification_type_id
+  has_many :user_alerts, class_name: "UserAlert", dependent: :destroy
+  has_many :notification_data, class_name: "NotificationData", dependent: :destroy, foreign_key: :notification_id
 
   def data
     ret = self.properties.symbolize_keys
@@ -22,7 +22,7 @@ class Notification < ActiveRecord::Base
   def data=(data)
     self.properties=data
     #data.each_key do |key|
-    #  self.notification_data.build(:name => key, :value => data[key])
+    #  self.notification_data.build(name: key, value: data[key])
     #end
   end
 

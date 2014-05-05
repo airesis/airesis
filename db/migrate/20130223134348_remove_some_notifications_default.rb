@@ -1,10 +1,10 @@
 class RemoveSomeNotificationsDefault < ActiveRecord::Migration
   def up
     User.all.each do |user|
-      user.blocked_alerts.where(:notification_type_id => 20).first_or_create!
-      user.blocked_alerts.where(:notification_type_id => 21).first_or_create!
-      user.blocked_alerts.where(:notification_type_id => 13).first_or_create!
-      user.blocked_alerts.where(:notification_type_id => 3).first_or_create!
+      user.blocked_alerts.where(notification_type_id: 20).first_or_create!
+      user.blocked_alerts.where(notification_type_id: 21).first_or_create!
+      user.blocked_alerts.where(notification_type_id: 13).first_or_create!
+      user.blocked_alerts.where(notification_type_id: 3).first_or_create!
     end
     NotificationType.find(11).destroy
     NotificationType.find(13).update_attribute(:description, 'Nuovi eventi pubblici')
@@ -22,6 +22,6 @@ class RemoveSomeNotificationsDefault < ActiveRecord::Migration
   end
 
   def down
-    NotificationType.create( :description => "Cambio di stato di una proposta di gruppo.", :notification_category_id => 3 ){ |c| c.id = 11 }.save
+    NotificationType.create( description: "Cambio di stato di una proposta di gruppo.", notification_category_id: 3 ){ |c| c.id = 11 }.save
   end
 end

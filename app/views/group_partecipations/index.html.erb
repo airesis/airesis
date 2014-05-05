@@ -13,13 +13,13 @@
           <div class="row">
             <div class="large-8 columns">
               <%= f.label :role_id %>
-              <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, (params[:search_partecipant][:role_id] if params[:search_partecipant]) ), :prompt => t('pages.groups.participations.anything') %>
+              <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, (params[:search_partecipant][:role_id] if params[:search_partecipant]) ), prompt: t('pages.groups.participations.anything') %>
             </div>
           </div>
           <div class="row">
             <div class="large-8 columns">
               <%= f.label :status_id %>
-              <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.active, :id, :description), :prompt => t('pages.groups.participations.anything') %>
+              <%= f.select :status_id, options_from_collection_for_select(GroupPartecipationRequestStatus.active, :id, :description), prompt: t('pages.groups.participations.anything') %>
             </div>
           </div>
 
@@ -31,14 +31,14 @@
 <% end %>
 
 <div id="results_panel">
-  <%= render :partial => 'group_partecipation_results' %>
+  <%= render partial: 'group_partecipation_results' %>
 </div>
 
 <%= content_for :left_panel do %>
     <% if can? :update, @group %>
-        <%= render :partial => 'groups/administration_panel' %>
+        <%= render partial: 'groups/administration_panel' %>
     <% end %>
     <div class="mybox">
-      <%= link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), :class => "btn printButton disable" %>
+      <%= link_to t('pages.groups.show.print_all_participants'), group_group_partecipations_url(@group, format: :csv), class: "btn printButton disable" %>
     </div>
 <% end %>

@@ -1,12 +1,12 @@
 #encoding: utf-8
 class InsertAndTranslateStates < ActiveRecord::Migration
   def up
-    add_column :statos, :sigla_ext, :string, :limit => 3
+    add_column :statos, :sigla_ext, :string, limit: 3
 
     Stato.create_translation_table!({
-                                        :description => :string
+                                        description: :string
                                     }, {
-                                        :migrate_data => true
+                                        migrate_data: true
                                     })
 
     Stato.create(description: 'Isole Åland', continente_id: 1, sigla: 'AX',sigla_ext: 'ALA')
@@ -179,6 +179,6 @@ class InsertAndTranslateStates < ActiveRecord::Migration
 
   def down
     remove_column :statos, :sigla_ext
-    Stato.drop_translation_table! :migrate_data => true
+    Stato.drop_translation_table! migrate_data: true
   end
 end

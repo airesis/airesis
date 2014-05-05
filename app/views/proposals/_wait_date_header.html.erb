@@ -7,24 +7,24 @@
 
 
     <% if collection.size > 0 %>
-        <%= form_for @proposal, :url => set_votation_date_proposal_url(@proposal, :group_id => params[:group_id]) do |f| %>
+        <%= form_for @proposal, url: set_votation_date_proposal_url(@proposal, group_id: params[:group_id]) do |f| %>
             <p>
 
               <b><%= t('pages.proposals.show.choose_votation_period') %></b>
               <%= f.select :vote_period_id, options_for_select(collection), {style: 'width:400px'} %>
 
-              <%= f.submit t('pages.proposals.show.choose_votation_period_button'), data: {:confirm => t('pages.proposals.show.choose_votation_period_alert')}, :class => 'btn blue' %>
+              <%= f.submit t('pages.proposals.show.choose_votation_period_button'), data: {confirm: t('pages.proposals.show.choose_votation_period_alert')}, class: 'btn blue' %>
             </p>
         <% end %>
     <% else %>
         <% if @group %>
             <b><%= t('pages.proposals.show.create_votation_period') %></b>
         <% else %>
-            <b><%= raw t('pages.proposals.show.no_periods_contact_admin', :email => (mail_to EMAIL_USERNAME)) %></b>
+            <b><%= raw t('pages.proposals.show.no_periods_contact_admin', email: (mail_to EMAIL_USERNAME)) %></b>
         <% end %>
     <% end %>
     <% if @group && (can? :create_date, @group) %>
-        <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), :remote => true, :class => 'btn newButton disable', :style => 'float:right' %>
+        <%= link_to t('pages.proposals.show.choose_new_votation_period_button'), new_group_event_url(@group, event_type_id: EventType::VOTAZIONE, proposal_id: @proposal.id), remote: true, class: 'btn newButton disable', style: 'float:right' %>
         <div id="create_event_dialog" class="reveal-modal medium" data-reveal>
         </div>
     <% end %>

@@ -36,7 +36,7 @@ class NotificationProposalCommentUpdate < NotificationSender
       end
 
       if comment.is_contribute?
-        notification_a = Notification.new(:notification_type_id => NotificationType::CONTRIBUTE_UPDATE, :url => url +"?#{query.to_query}", :data => data)
+        notification_a = Notification.new(notification_type_id: NotificationType::CONTRIBUTE_UPDATE, url: url +"?#{query.to_query}", data: data)
         notification_a.save
         rankers.each do |user|
           send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)

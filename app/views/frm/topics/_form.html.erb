@@ -2,8 +2,8 @@
     <%= f.input :subject, label: t('simple_form.labels.topic.subject') %>
 
     <%= f.simple_fields_for :posts do |post| %>
-        <%= render :partial => "frm/posts/form", :locals => {:f => post} %>
+        <%= render partial: "frm/posts/form", locals: {f: post} %>
     <% end %>
 
-    <%= f.submit t('helpers.submit.topic.create'), :class => "btn blue", onclick: 'fillHiddenTextarea();return true;', data:{disable_with:t('loading')}%>
+    <%= f.submit t('helpers.submit.topic.create'), class: "btn blue", onclick: 'fillHiddenTextarea();return true;', data:{disable_with:t('loading')}%>
 <% end %>

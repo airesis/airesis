@@ -1,6 +1,6 @@
 <div class="eventComments" id="eventComments">
 	<% @event_comments.each do |comment| %>
-		<%= render :partial => 'events/comment', :locals => {:comment => comment} %>
+		<%= render partial: 'events/comment', locals: {comment: comment} %>
 	<% end %>
 </div>
 

@@ -2,7 +2,7 @@ module Frm
   module Admin
     class GroupsController < BaseController
 
-      before_filter :find_group, :only => [:show, :destroy]
+      before_filter :find_group, only: [:show, :destroy]
 
       def index
         @frm_groups = @group.moderator_groups.all

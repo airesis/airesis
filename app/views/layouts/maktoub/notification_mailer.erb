@@ -432,7 +432,7 @@
                           <table class="tiny-button facebook" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;">
                             <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
                               <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; display: block; width: auto !important; color: #ffffff; background: #3b5998; padding: 5px 0 4px; border: 1px solid #2d4473;" align="center" bgcolor="#3b5998" valign="top">
-                                <%= link_to 'Facebook', Maktoub.facebook_url, style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;", :target => "_blank" %>
+                                <%= link_to 'Facebook', Maktoub.facebook_url, style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;", target: "_blank" %>
                               </td>
                             </tr>
                           </table>
@@ -440,7 +440,7 @@
                           <table class="tiny-button twitter" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;">
                             <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
                               <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; display: block; width: auto !important; color: #ffffff; background: #00acee; padding: 5px 0 4px; border: 1px solid #0087bb;" align="center" bgcolor="#00acee" valign="top">
-                                <%= link_to 'Twitter', Maktoub.twitter_url, style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;",  :target => "_blank" %>
+                                <%= link_to 'Twitter', Maktoub.twitter_url, style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;",  target: "_blank" %>
                               </td>
                             </tr>
                           </table>
@@ -448,7 +448,7 @@
                           <table class="tiny-button google-plus" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;">
                             <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
                               <td style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; display: block; width: auto !important; color: #ffffff; background: #DB4A39; padding: 5px 0 4px; border: 1px solid #cc0000;" align="center" bgcolor="#DB4A39" valign="top">
-                                <%= link_to 'Google +', Maktoub.google_plus_url, :target => "_blank",  style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;" %>
+                                <%= link_to 'Google +', Maktoub.google_plus_url, target: "_blank",  style: "color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;" %>
                               </td>
                             </tr>
                           </table>
@@ -486,13 +486,13 @@
                         <td align="center" style="word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; padding: 0px 0px 10px;" valign="top">
                           <center style="width: 100%; min-width: 580px;">
                             <p style="text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0 0 10px;" align="center">
-                              <%= link_to t('mailer.default.terms'), main_app.terms_url(:host => @ruser.original_locale.host, l: @ruser.original_locale.lang), :target => "_blank", style: "color: #2ba6cb; text-decoration: none;" %> |
-                              <%= link_to t('mailer.default.privacy'), main_app.privacy_url(:host => @ruser.original_locale.host, l: @ruser.original_locale.lang), :target => "_blank", style: "color: #2ba6cb; text-decoration: none;" %> |
-                              <%= link_to t('mailer.default.edit_preferences'), main_app.alarm_preferences_users_url(:host => @ruser.original_locale.host, l: @ruser.original_locale.lang), :target => "_blank", style: "color: #2ba6cb; text-decoration: none;" %>
+                              <%= link_to t('mailer.default.terms'), main_app.terms_url(host: @ruser.original_locale.host, l: @ruser.original_locale.lang), target: "_blank", style: "color: #2ba6cb; text-decoration: none;" %> |
+                              <%= link_to t('mailer.default.privacy'), main_app.privacy_url(host: @ruser.original_locale.host, l: @ruser.original_locale.lang), target: "_blank", style: "color: #2ba6cb; text-decoration: none;" %> |
+                              <%= link_to t('mailer.default.edit_preferences'), main_app.alarm_preferences_users_url(host: @ruser.original_locale.host, l: @ruser.original_locale.lang), target: "_blank", style: "color: #2ba6cb; text-decoration: none;" %>
                               <br/>
                               <em>Copyright &copy; <%= Time.now.year %> <%= Maktoub.app_name %>.</em>
                               <br/>
-                              <em><%= raw t('mailer.default.footer.registered_at', url: (link_to @url, @url, :target => "_blank")) %></em>
+                              <em><%= raw t('mailer.default.footer.registered_at', url: (link_to @url, @url, target: "_blank")) %></em>
                             </p>
                           </center>
                         </td>

@@ -1,7 +1,7 @@
 class ProposalCommentsRankCounter < ActiveRecord::Migration
   def up
-    add_column :proposal_comments, :rank, :integer, :default => 0, :null => false
-    add_column :proposal_comments, :valutations, :integer, :default => 0, :null => false
+    add_column :proposal_comments, :rank, :integer, default: 0, null: false
+    add_column :proposal_comments, :valutations, :integer, default: 0, null: false
     
     
     ProposalComment.all.each do |comment| 

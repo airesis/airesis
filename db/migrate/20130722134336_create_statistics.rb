@@ -14,8 +14,8 @@ class CreateStatistics < ActiveRecord::Migration
       fin = Time.at(@array[i-1]).utc
       #puts "start: #{start}"
       #puts "end: #{fin}"
-      #puts Proposal.all(:conditions => ["created_at < ? and created_at >= ?", start, fin]).explain
-      num = Proposal.count(:conditions => ["created_at < ? and created_at >= ?", start, fin])
+      #puts Proposal.all(conditions: ["created_at < ? and created_at >= ?", start, fin]).explain
+      num = Proposal.count(conditions: ["created_at < ? and created_at >= ?", start, fin])
       time = Time.at(@array[i-1])
       StatNumProposal.create(date: time, value: num, year: time.year, month: time.month, day: time.day)
     end

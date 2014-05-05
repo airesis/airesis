@@ -3,7 +3,7 @@ class AddPartecipationSomePepper < ActiveRecord::Migration
     rename_table :meetings_partecipations, :meeting_partecipations
     add_column :meeting_partecipations, :comment, :string
     add_column :meeting_partecipations, :guests, :integer
-    add_column :meeting_partecipations, :response, :string, :limit => 1
+    add_column :meeting_partecipations, :response, :string, limit: 1
   end
 
   def down

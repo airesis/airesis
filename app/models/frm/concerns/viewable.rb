@@ -6,7 +6,7 @@ module Frm
       extend ActiveSupport::Concern
 
       included do
-        has_many :views, class_name: 'Frm::View', :as => :viewable
+        has_many :views, class_name: 'Frm::View', as: :viewable
       end
 
       def view_for(user)

@@ -1,6 +1,6 @@
 <% javascript 'endless_page' %>
 
-<%=render :layout => "layouts/page_title", :locals => {:title => @page_title} do%>
+<%=render layout: "layouts/page_title", locals: {title: @page_title} do%>
 <%end%>
 
 
@@ -10,7 +10,7 @@
 	</div>
 <% else %>
     <div id="blogPostContainer">
-	    <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+	    <%= render collection: @blog_posts, partial: 'blog_posts/blog_post' %>
     </div>
 <% end %>
 

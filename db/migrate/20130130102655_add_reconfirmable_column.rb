@@ -1,6 +1,6 @@
 class AddReconfirmableColumn < ActiveRecord::Migration
   def up
-    add_column :users, :unconfirmed_email, :string, :limit => 100
+    add_column :users, :unconfirmed_email, :string, limit: 100
   end
 
   def down

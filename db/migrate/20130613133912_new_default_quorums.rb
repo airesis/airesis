@@ -22,7 +22,7 @@ class NewDefaultQuorums < ActiveRecord::Migration
         copy.public = false
         copy.active = true
         copy.save!
-        group.group_quorums.create(:quorum_id => copy.id)
+        group.group_quorums.create(quorum_id: copy.id)
       end
     end
 

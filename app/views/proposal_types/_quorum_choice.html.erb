@@ -7,7 +7,7 @@
       <% @quorum_collection = Quorum.public.order('seq nulls last') %>
   <% end %>
 
-  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {:include_blank => t('pages.proposals.new.quorum_prompt')}, {style: 'width:100%'} %>
+  <%= f.select :quorum_id, options_for_select(@quorum_collection.collect { |p| [p.name, p.id, {'data-description' => p.description, 'data-explanation' => p.explanation, 'data-time_fixed' => p.time_fixed?, 'data-minutes' => p.minutes}] }), {include_blank: t('pages.proposals.new.quorum_prompt')}, {style: 'width:100%'} %>
 
   <div id="available_quorums_container" title="<%= t('pages.quorums.index.title') %>">
   </div>

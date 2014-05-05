@@ -1,5 +1,5 @@
 <% @page_title = t('pages.user.privacy') %>
-<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.user.privacy')} do %>
+<%= render layout: "layouts/page_title", locals: {title: t('pages.user.privacy')} do %>
 <% end %>
 
 <div class="card">
@@ -205,6 +205,6 @@
 
 <% content_for :left_panel do %>
     <% if current_user %>
-        <%= render :partial => 'users/preferences_panel' %>
+        <%= render partial: 'users/preferences_panel' %>
     <% end %>
 <% end %>

@@ -19,7 +19,7 @@ class BlogComment < ActiveRecord::Base
  #quando sto per inserire un commento verifico che non ne sia già stato 
  #inserito uno per lo stesso post dallo stesso utente entro 5 minuti
 	def validate
-    comments =  self.blog_post.blog_comments.find_all_by_user_id(self.user_id, :order => "created_at DESC")
+    comments =  self.blog_post.blog_comments.find_all_by_user_id(self.user_id, order: "created_at DESC")
     comment = comments.first
   #  if comment and (((Time.now - comment.created_at)/60) < 5)
   #      self.errors.add(:created_at,"Devono passare almeno cinque minuti tra un commento e l'altro.")
@@ -32,7 +32,7 @@ class BlogComment < ActiveRecord::Base
 	
 	def parsed_body
 		# # Going to add markdown/html support later for comments
-		# self.code_highlight_and_markdown(self.body, {:escape_html => true})
+		# self.code_highlight_and_markdown(self.body, {escape_html: true})
 		self.body
 	end
 	
@@ -71,7 +71,7 @@ class BlogComment < ActiveRecord::Base
 	    :user_ip              => user_ip,
 	    :user_agent           => user_agent,
 	    :comment_author       => name,
-	    :comment_author_email => email,
+	    comment_author_email: email,
 	    :comment_author_url   => site_url,
 	    :comment_content      => body
 	  }

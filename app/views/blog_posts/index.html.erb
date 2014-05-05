@@ -1,6 +1,6 @@
 <% self.respond_to?(:title) && title(@index_title) -%>
 <% @show_title = false -%>
-<%= auto_discovery_link_tag :atom, blog_posts_path(:format => :atom) %>
+<%= auto_discovery_link_tag :atom, blog_posts_path(format: :atom) %>
 
 
 <% if @blog_posts.size == 0 && !params[:page] %>
@@ -12,11 +12,11 @@
 	<% if @tag %>
 		<h1>Elenco dei post presenti nel portale con tag: '<%= @tag %>'</h1>
 	<% end %>
-	<%= render :collection => @blog_posts, :partial => 'blog_post' %>
+	<%= render collection: @blog_posts, partial: 'blog_post' %>
 <% end %>
 
 <div class="blogPages">
 	<%= paginate @blog_posts %>
 </div>
 
-<%= render :partial => 'admin_links' %>
+<%= render partial: 'admin_links' %>

@@ -5,7 +5,7 @@
 
       <div id="email_panel" class="reveal-modal small" data-reveal>
         <h2><%= t('pages.users.send_message.massive_email') %></h2>
-        <%= simple_form_for 'message', :url => send_email_group_group_partecipations_path(@group), :remote => true, method: :post, :class => 'disableForm' do |e| %>
+        <%= simple_form_for 'message', url: send_email_group_group_partecipations_path(@group), remote: true, method: :post, class: 'disableForm' do |e| %>
             <%= e.input 'subject', label: t('pages.users.send_message.subject_label')%>
 
 
@@ -16,12 +16,12 @@
 
 
             <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
-            <%= e.submit t('buttons.send'), :class => 'btn blue', data: {disable_with: t('sending')} %>
+            <%= e.submit t('buttons.send'), class: 'btn blue', data: {disable_with: t('sending')} %>
         <% end %>
         <a class="close-reveal-modal">&#215;</a>
       </div>
 
-      <%= form_for 'destroy', :url => destroy_all_group_group_partecipations_path(@group), :remote => true, method: :post, html: {style: 'display:inline;'} do |e| %>
+      <%= form_for 'destroy', url: destroy_all_group_group_partecipations_path(@group), remote: true, method: :post, html: {style: 'display:inline;'} do |e| %>
 
           <%= e.hidden_field 'ids', value: @partecipants.map { |p| p.id }.join(',') %>
 
@@ -55,7 +55,7 @@
               <%= partecipant.user_image_tag(24) %>
             </div>
             <div class="Mo">
-              <%= link_to_user partecipant.user, :full_name => true %>
+              <%= link_to_user partecipant.user, full_name: true %>
             </div>
             <div style="clear:both;"></div>
           </div>
@@ -64,7 +64,7 @@
           <% if (defined? partecipant.partecipation_role) %>
 
               <% if can? :update, @group %>
-                  <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, partecipant.partecipation_role.id), "data-user_id" => partecipant.user.id, :class => "user_role_changer" %>
+                  <%= select_tag "user_role", options_from_collection_for_select([OpenStruct.new({id: PartecipationRole::PORTAVOCE, name: @group.admin_title || t('pages.groups.default_admin_title')})] + @group.partecipation_roles, :id, :name, partecipant.partecipation_role.id), "data-user_id" => partecipant.user.id, class: "user_role_changer" %>
               <% else %>
                   <%= partecipant.partecipation_role.name %>
               <% end %>
@@ -80,7 +80,7 @@
                       <%= partecipant.acceptor.user_image_tag(24) %>
                     </div>
                     <div class="Mo">
-                      <%= link_to_user partecipant.acceptor, :full_name => true %>
+                      <%= link_to_user partecipant.acceptor, full_name: true %>
                     </div>
                     <div style="clear:both;"></div>
                   </div>
@@ -88,17 +88,17 @@
           <% else %>
               <% if (can? :accept_requests, @group) %>
                   <% if @group.request_by_vote? %>
-                      <%#= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(:action => "partecipation_request_confirm", :controller => "groups", :id => @group.id, :request_id => request.id) %>
+                      <%#= link_to 'Accetta la richiesta e procedi con la votazione.', url_for(action: "partecipation_request_confirm", controller: "groups", id: @group.id, request_id: request.id) %>
                   <% elsif @group.request_by_portavoce? %>
-                      <%= link_to t('pages.groups.show.accept_request_button'), partecipation_request_confirm_group_url(@group, :request_id => partecipant.id, from_list: true), method: :put, remote: true, :class => 'btn blue little acceptButton', style: "float:left", data:{disable_with: t('loading')} %>
-                      <%= link_to t('pages.groups.show.reject_request_button'), partecipation_request_decline_group_url(@group, :request_id => partecipant.id, from_list: true), method: :put, remote: true, data:{confirm: 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading')}, :class => 'btn little rejectButton', style: "float:left" %>
+                      <%= link_to t('pages.groups.show.accept_request_button'), partecipation_request_confirm_group_url(@group, request_id: partecipant.id, from_list: true), method: :put, remote: true, class: 'btn blue little acceptButton', style: "float:left", data:{disable_with: t('loading')} %>
+                      <%= link_to t('pages.groups.show.reject_request_button'), partecipation_request_decline_group_url(@group, request_id: partecipant.id, from_list: true), method: :put, remote: true, data:{confirm: 'Sei sicuro di volere declinare questa richiesta?', disable_with: t('loading')}, class: 'btn little rejectButton', style: "float:left" %>
                   <% end %>
               <% end %>
           <% end %>
         </td>
         <% if can? :update, @group %>
             <td>
-              <%= link_to t('pages.groups.edit_permissions.remove_user'), group_group_partecipation_path(@group, partecipant), :method => :delete, :class => "btn trashButton", confirm: t('pages.groups.edit.remove_user_confirm', name: partecipant.user.fullname) if can? :destroy, partecipant %>
+              <%= link_to t('pages.groups.edit_permissions.remove_user'), group_group_partecipation_path(@group, partecipant), method: :delete, class: "btn trashButton", confirm: t('pages.groups.edit.remove_user_confirm', name: partecipant.user.fullname) if can? :destroy, partecipant %>
             </td>
         <% end %>
       </tr>

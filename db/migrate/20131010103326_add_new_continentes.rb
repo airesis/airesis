@@ -3,10 +3,10 @@ class AddNewContinentes < ActiveRecord::Migration
   def up
     I18n.locale = 'it-IT'
     @europa = Continente.first
-    @america = Continente.create(:description => 'America')
-    @africa = Continente.create(:description => 'Africa')
-    @asia = Continente.create(:description => 'Asia')
-    @oceania = Continente.create(:description => 'Oceania')
+    @america = Continente.create(description: 'America')
+    @africa = Continente.create(description: 'Africa')
+    @asia = Continente.create(description: 'Asia')
+    @oceania = Continente.create(description: 'Oceania')
 
     I18n.locale = 'en'
     @europa.update_attribute(:description,'Europe')
@@ -61,9 +61,9 @@ class AddNewContinentes < ActiveRecord::Migration
   end
 
   def down
-    Continente.where(:description => 'America').first.destroy
-    Continente.where(:description => 'Africa').first.destroy
-    Continente.where(:description => 'Asia').first.destroy
-    Continente.where(:description => 'Oceania').first.destroy
+    Continente.where(description: 'America').first.destroy
+    Continente.where(description: 'Africa').first.destroy
+    Continente.where(description: 'Asia').first.destroy
+    Continente.where(description: 'Oceania').first.destroy
   end
 end

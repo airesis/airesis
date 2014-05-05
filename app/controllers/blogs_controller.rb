@@ -6,8 +6,8 @@ class BlogsController < ApplicationController
   before_filter :load_blog, only: [:show, :by_year_and_month]
   before_filter :load_blog_data, only: [:show, :by_year_and_month]
 
-  before_filter :authenticate_user!, :only => [:edit, :update, :destroy, :new, :create]
-  before_filter :check_author, :only => [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
+  before_filter :check_author, only: [:edit, :update, :destroy]
 
 
   def check_author
@@ -86,7 +86,7 @@ class BlogsController < ApplicationController
       end
 
     else
-      render :action => "new"
+      render action: "new"
     end
   end
 
@@ -96,7 +96,7 @@ class BlogsController < ApplicationController
       flash[:notice] = t('info.blog.title_updated')
       redirect_to @blog
     else
-      render :action => "edit"
+      render action: "edit"
     end
   end
 

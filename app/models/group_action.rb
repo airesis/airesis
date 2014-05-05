@@ -30,8 +30,8 @@ class GroupAction < ActiveRecord::Base
   PROPOSAL_DATE =12
   
   
-  has_many :action_abilitations, :class_name => 'ActionAbilitation', dependent: :destroy
-  has_many :area_action_abilitations, :class_name => 'AreaActionAbilitation', dependent: :destroy
+  has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
+  has_many :area_action_abilitations, class_name: 'AreaActionAbilitation', dependent: :destroy
 
 
   scope :for_group_areas, -> {where(id: DEFAULT_AREA_ACTIONS)}

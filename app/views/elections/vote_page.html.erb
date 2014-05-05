@@ -46,7 +46,7 @@
     <div class="candidate_panel shadow-box">
       <%= candidate.user_image_tag 48 %>
       <div class="content">
-        <b><%= link_to_user candidate.user, :full_name => true %></b><br/>
+        <b><%= link_to_user candidate.user, full_name: true %></b><br/>
         <%= 'candidato da ' %>
         <b><%= candidate.groups.map { |g| g.name }.join %></b>
       </div>
@@ -64,12 +64,12 @@
 <% end %>
 
 
-<%= form_for 'data', :url => {:action => "vote", :controller => "elections"} do |f| %>
+<%= form_for 'data', url: {action: "vote", controller: "elections"} do |f| %>
     <%= f.hidden_field 'votes' %>
     <%= f.hidden_field 'string' %>
 
-    <%= render :partial => 'fragments/how_schulze_works' %>
-    <%= f.submit 'Vota!', :onclick => "return elaboraVoto();", :id => 'submit', :class => 'btn blue' %>
+    <%= render partial: 'fragments/how_schulze_works' %>
+    <%= f.submit 'Vota!', onclick: "return elaboraVoto();", id: 'submit', class: 'btn blue' %>
 <% end %>
 
 

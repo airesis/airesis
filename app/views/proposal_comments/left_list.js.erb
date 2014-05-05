@@ -2,10 +2,10 @@ $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').html('');
 
 <% if ((can? :partecipate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) && @section%>
 var div_ = $("<div class='blogNewComment'></div>");
-div_.append("<%=j (render :partial => 'proposal_comments/right_comment')%>");
+div_.append("<%=j (render partial: 'proposal_comments/right_comment')%>");
 $('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append(div_);
 <% end %>
-$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
 $('#loading_contributes').hide();
 
 

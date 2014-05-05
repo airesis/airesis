@@ -9,8 +9,8 @@ class PolymorphicInterestBorders < ActiveRecord::Migration
       ib.territory_type = 'Regione' if ib.ftype == 'R'
       ib.save
     end
-    change_column :interest_borders, :territory_id, :integer, :null => false
-    change_column :interest_borders, :territory_type, :string, :null => false
+    change_column :interest_borders, :territory_id, :integer, null: false
+    change_column :interest_borders, :territory_type, :string, null: false
     remove_column :interest_borders, :foreign_id
     remove_column :interest_borders, :ftype 
   end
@@ -25,8 +25,8 @@ class PolymorphicInterestBorders < ActiveRecord::Migration
       ib.ftype = 'R' if ib.territory_type == 'Regione'
       ib.save
     end
-    change_column :interest_borders, :foreign_id, :integer, :null => false
-    change_column :interest_borders, :ftype, :string, :null => false
+    change_column :interest_borders, :foreign_id, :integer, null: false
+    change_column :interest_borders, :ftype, :string, null: false
     remove_column :interest_borders, :territory_id
     remove_column :interest_borders, :territory_type
   end

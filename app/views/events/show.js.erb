@@ -1,4 +1,4 @@
-$('#eventCommentsContainer').append("<%= escape_javascript(render(:partial => 'events/comments'))%>");
+$('#eventCommentsContainer').append("<%= escape_javascript(render(partial: 'events/comments'))%>");
 <%if @event_comments.total_pages > @event_comments.current_page%>
   checkScroll();
 <%else%>

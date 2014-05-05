@@ -1,4 +1,4 @@
-$('#roles_panel_container').html('<%=j (render(:partial => 'group_areas/roles_panel'))%>');
-$('#roles_table_container').html('<%=j (render :partial => 'group_areas/user_roles_panel') %>');
+$('#roles_panel_container').html('<%=j (render(partial: 'group_areas/roles_panel'))%>');
+$('#roles_table_container').html('<%=j (render partial: 'group_areas/user_roles_panel') %>');
 $('#area_role_container').foundation('reveal','close');
 generateTable();

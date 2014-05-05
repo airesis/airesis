@@ -2,11 +2,11 @@
 <%=t('pages.steps.first_proposal_html', proposal:(link_to t('open_space'), proposals_path, html_options = {target:"_blank"})) %>
 <div style="margin:auto; text-align: center;">
 
-  <%= link_to 'Inserisci una proposta', new_proposal_path(:back => 'home', proposal_type_id: ProposalType::STANDARD), :remote => true, :class=> "btn blue disable newButton" %>
+  <%= link_to 'Inserisci una proposta', new_proposal_path(back: 'home', proposal_type_id: ProposalType::STANDARD), remote: true, :class=> "btn blue disable newButton" %>
   <div id="create_proposal_container" style="display:none;">
   </div>
 
 </div>
 </div> 
-<%= link_to t('buttons.next'), complete_tutorial_step_path(@step.tutorial,@step), :class => 'btn blue forwardButton', :style => "float:right;" %>
+<%= link_to t('buttons.next'), complete_tutorial_step_path(@step.tutorial,@step), class: 'btn blue forwardButton', style: "float:right;" %>
 <div style="clear: both"></div>

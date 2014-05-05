@@ -3,7 +3,7 @@ module ApplicationHelper
   
   #ricarica i messaggi flash
   def reload_flash
-    page.replace "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+    page.replace "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
   end
   
   def javascript(*args)
@@ -56,7 +56,7 @@ module ApplicationHelper
   def google_authenticator_qrcode(user)
     data = "otpauth://totp/#{user.email}?secret=#{user.rotp_secret}"
     url = "https://chart.googleapis.​com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
-    image_tag(url, :alt => 'Google Authenticator QRCode')
+    image_tag(url, alt: 'Google Authenticator QRCode')
   end
 
 end

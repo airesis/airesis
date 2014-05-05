@@ -4,10 +4,10 @@ class BlogCommentsController < ApplicationController
   
   layout('application')
     
-  before_filter :authenticate_user!, :only => [:create, :delete]
+  before_filter :authenticate_user!, only: [:create, :delete]
   before_filter :load_blog_post
-  before_filter :load_blog_comment, :only => [:delete]
-  before_filter :check_author, :only => [:delete]
+  before_filter :load_blog_comment, only: [:delete]
+  before_filter :check_author, only: [:delete]
   
   def index
   
@@ -42,7 +42,7 @@ class BlogCommentsController < ApplicationController
       format.js {
         render :update do |page|
           @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-          page.replace_html "blogPostCommentsContainer", :partial => "blog_posts/comments"
+          page.replace_html "blogPostCommentsContainer", partial: "blog_posts/comments"
         end
       }
       format.html { redirect_to(blog_blog_post_url(@blog,@blog_post)) }
@@ -57,7 +57,7 @@ class BlogCommentsController < ApplicationController
     
     unless @blog_post
       flash[:notice] = 'The post you were looking for could not be found'
-      redirect_to :controller => 'blog_posts'
+      redirect_to controller: 'blog_posts'
       return false
     end
     

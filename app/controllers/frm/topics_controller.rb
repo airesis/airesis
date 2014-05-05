@@ -2,9 +2,9 @@ module Frm
   class TopicsController < Frm::ApplicationController
 
     helper 'frm/posts'
-    before_filter :authenticate_user!, :except => [:show]
+    before_filter :authenticate_user!, except: [:show]
     before_filter :find_forum
-    before_filter :block_spammers, :only => [:new, :create]
+    before_filter :block_spammers, only: [:new, :create]
 
     def show
       if find_topic
@@ -22,7 +22,7 @@ module Frm
 
     def create
       authorize! :create_topic, @forum
-      @topic = @forum.topics.build(params[:frm_topic], :as => :default)
+      @topic = @forum.topics.build(params[:frm_topic], as: :default)
       @topic.user = current_user
       if @topic.save
         create_successful
@@ -57,12 +57,12 @@ module Frm
 
     protected
     def create_successful
-      redirect_to group_forum_topic_url(@group, @forum, @topic), :notice => t("frm.topic.created")
+      redirect_to group_forum_topic_url(@group, @forum, @topic), notice: t("frm.topic.created")
     end
 
     def create_unsuccessful
       flash.now.alert = t('frm.topic.not_created')
-      render :action => 'new'
+      render action: 'new'
     end
 
     def destroy_successful

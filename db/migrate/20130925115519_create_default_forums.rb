@@ -21,7 +21,7 @@ class CreateDefaultForums < ActiveRecord::Migration
   def down
     remove_index :frm_categories, :slug
     remove_index :frm_categories, [:group_id,:slug]
-    add_index :frm_categories, :slug, :unique => true
+    add_index :frm_categories, :slug, unique: true
 
 
     Group.all.each do |group|

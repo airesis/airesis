@@ -3,8 +3,8 @@
 <br/>
 <br/>
 <br/>
-    <%= link_to 'Announcements', announcements_path, :class => 'btn' %>
-    <%= link_to 'Movements', sys_movements_path, :class => 'btn' %>
+    <%= link_to 'Announcements', announcements_path, class: 'btn' %>
+    <%= link_to 'Movements', sys_movements_path, class: 'btn' %>
     <p>
       <%=form_tag "/moderator/block/" do %>
           <%=label_tag t('pages.moderator_panel.block_user') %>
@@ -14,7 +14,7 @@
       <h3><%= t('pages.moderator_panel.blocked_user_list')%></h3>
         <ul>
       <%User.blocked.each do |user|%>
-        <li><%= "#{user.fullname} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname})"%>  <%= link_to t('pages.moderator_panel.block'), {:controller => 'moderator', :action => 'unblock', :user_id => user.id} %></li>
+        <li><%= "#{user.fullname} (#{user.login || 'no username'}) (#{user.blocked_name} #{user.blocked_surname})"%>  <%= link_to t('pages.moderator_panel.block'), {controller: 'moderator', action: 'unblock', user_id: user.id} %></li>
       <%end%>
         </ul>
     </p>

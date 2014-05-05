@@ -1,9 +1,9 @@
-<%= render :partial => 'frm/forums/head', :locals => { :forum => @topic.forum } %>
+<%= render partial: 'frm/forums/head', locals: { forum: @topic.forum } %>
 
 <% if @reply_to_post %>
 <h2><%= t("frm.post.new") %></h2>
   <div class='row'>
-    <%= render 'reply_to_post', :post => @reply_to_post %>
+    <%= render 'reply_to_post', post: @reply_to_post %>
   </div>
 <% else %>
   <h3 class='topic_subject'>
@@ -12,6 +12,6 @@
 <% end %>
 
 <%= simple_form_for @post, url: group_forum_topic_posts_url(@group,@topic) do |f| %>
-  <%= render :partial => "form", :locals => { :f => f } %>
-  <%= f.submit t("frm.post.buttons.reply"), :class => "btn blue" %>
+  <%= render partial: "form", locals: { f: f } %>
+  <%= f.submit t("frm.post.buttons.reply"), class: "btn blue" %>
 <% end %>

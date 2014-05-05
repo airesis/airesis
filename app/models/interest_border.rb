@@ -1,10 +1,10 @@
 class InterestBorder < ActiveRecord::Base
-  has_many :proposal_borders, :class_name => 'ProposalBorder'
-  has_many :groups, :class_name => 'Group'
+  has_many :proposal_borders, class_name: 'ProposalBorder'
+  has_many :groups, class_name: 'Group'
 
   attr_accessible :territory_id, :territory_type
 
-  belongs_to :territory, :polymorphic => true
+  belongs_to :territory, polymorphic: true
 
   CIRCOSCRIZIONE = 'Circoscrizione'
   COMUNE = 'Comune'
@@ -142,7 +142,7 @@ class InterestBorder < ActiveRecord::Base
   end
 
   def as_json(options={})
-    {:id => TYPE_MAP[self.territory_type] + "-" + self.territory_id.to_s, :name => self.description}
+    {id: TYPE_MAP[self.territory_type] + "-" + self.territory_id.to_s, name: self.description}
   end
 
 end

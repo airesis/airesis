@@ -3,7 +3,7 @@
       <h4><%= t('pages.proposals.show.your_nickname_is') %></h4>
 
       <div class="mycont">
-        <span id="nickname_panel"><%= image_tag 'icon_info.gif', :alt => t('pages.proposals.show.what_nickname'), :style => 'cursor:pointer' %></span>
+        <span id="nickname_panel"><%= image_tag 'icon_info.gif', alt: t('pages.proposals.show.what_nickname'), style: 'cursor:pointer' %></span>
 
         <div class="blogUserImage">
           <%= user_tag(current_user, @proposal) %>

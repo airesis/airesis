@@ -37,7 +37,7 @@ class NotificationProposalCommentCreate < NotificationSender
           #check if there is another alert to this user about new contributes that he has not read yet
           another_increase_or_do('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES_MINE) do
             #for contributes we create a notification for each user and aggregate them if needed
-            notification_a = Notification.create!(:notification_type_id => NotificationType::NEW_CONTRIBUTES_MINE, :url => url + "?#{query.to_query}",:data => data)
+            notification_a = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES_MINE, url: url + "?#{query.to_query}",data: data)
             send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
           end
         end
@@ -47,7 +47,7 @@ class NotificationProposalCommentCreate < NotificationSender
       proposal.partecipants.each do |user|
         if (user != comment_user) && (!proposal.users.include? user)
           another_increase_or_do('proposal_id',proposal.id,user.id,NotificationType::NEW_CONTRIBUTES) do
-            notification_b = Notification.create!(:notification_type_id => NotificationType::NEW_CONTRIBUTES, :url => url +"?#{query.to_query}", :data => data)
+            notification_b = Notification.create!(notification_type_id: NotificationType::NEW_CONTRIBUTES, url: url +"?#{query.to_query}", data: data)
             #for contributes we create a notification for each user and aggregate them if needed
             send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
           end
@@ -56,7 +56,7 @@ class NotificationProposalCommentCreate < NotificationSender
     else
       data[:parent_id] = comment.contribute.id
 
-      notification_a = Notification.new(:notification_type_id => NotificationType::NEW_COMMENTS, :url => url +"?#{query.to_query}", :data => data)
+      notification_a = Notification.new(notification_type_id: NotificationType::NEW_COMMENTS, url: url +"?#{query.to_query}", data: data)
       notification_a.save
 
       comment.contribute.partecipants.each do |user|

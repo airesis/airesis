@@ -6,7 +6,7 @@ class EventType < ActiveRecord::Base
   RIUNIONE = 3
   ELEZIONI = 4
   
-  has_many :events, :class_name => 'Event'
+  has_many :events, class_name: 'Event'
 
 
   scope :active, -> {where(id: [1,2])}

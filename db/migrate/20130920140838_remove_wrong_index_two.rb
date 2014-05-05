@@ -8,6 +8,6 @@ class RemoveWrongIndexTwo < ActiveRecord::Migration
   def down
     remove_index :frm_topics, :slug
     remove_index :frm_topics, [:forum_id,:slug]
-    add_index :frm_topics, :slug, :unique => true
+    add_index :frm_topics, :slug, unique: true
   end
 end

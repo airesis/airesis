@@ -9,22 +9,22 @@ class NuovaCatalogazioneNotifiche < ActiveRecord::Migration
     e = NotificationCategory.create(description: 'Gruppi', seq: 5, short: 'GROUPS')
 
 
-    #Notification.where(:notification_type_id => 8).destroy_all
+    #Notification.where(notification_type_id: 8).destroy_all
 
-    BlockedAlert.where(:notification_type_id => 7).destroy_all
-    BlockedEmail.where(:notification_type_id => 7).destroy_all
-    #BlockedAlert.where(:notification_type_id => 8).destroy_all
-    #BlockedEmail.where(:notification_type_id => 8).destroy_all
-    #BlockedAlert.where(:notification_type_id => 15).destroy_all
-    #BlockedEmail.where(:notification_type_id => 15).destroy_all
-    BlockedAlert.where(:notification_type_id => 16).destroy_all
-    BlockedEmail.where(:notification_type_id => 16).destroy_all
-    BlockedAlert.where(:notification_type_id => 17).destroy_all
-    BlockedEmail.where(:notification_type_id => 17).destroy_all
-    BlockedAlert.where(:notification_type_id => 18).destroy_all
-    BlockedEmail.where(:notification_type_id => 18).destroy_all
-    BlockedAlert.where(:notification_type_id => 19).destroy_all
-    BlockedEmail.where(:notification_type_id => 19).destroy_all
+    BlockedAlert.where(notification_type_id: 7).destroy_all
+    BlockedEmail.where(notification_type_id: 7).destroy_all
+    #BlockedAlert.where(notification_type_id: 8).destroy_all
+    #BlockedEmail.where(notification_type_id: 8).destroy_all
+    #BlockedAlert.where(notification_type_id: 15).destroy_all
+    #BlockedEmail.where(notification_type_id: 15).destroy_all
+    BlockedAlert.where(notification_type_id: 16).destroy_all
+    BlockedEmail.where(notification_type_id: 16).destroy_all
+    BlockedAlert.where(notification_type_id: 17).destroy_all
+    BlockedEmail.where(notification_type_id: 17).destroy_all
+    BlockedAlert.where(notification_type_id: 18).destroy_all
+    BlockedEmail.where(notification_type_id: 18).destroy_all
+    BlockedAlert.where(notification_type_id: 19).destroy_all
+    BlockedEmail.where(notification_type_id: 19).destroy_all
     NotificationType.find(7).destroy
     #NotificationType.find(8).destroy
     #NotificationType.find(15).destroy
@@ -57,7 +57,7 @@ class NuovaCatalogazioneNotifiche < ActiveRecord::Migration
     NotificationType.find(8).update_attribute(:notification_category_id, e.id)
     NotificationType.find(15).update_attribute(:notification_category_id, e.id)
 
-    NotificationCategory.where(:short => nil).destroy_all
+    NotificationCategory.where(short: nil).destroy_all
   end
 
   def down

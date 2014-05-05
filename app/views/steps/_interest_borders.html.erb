@@ -3,7 +3,7 @@
 </div>
 	
 	
-<%= form_for 'token', :url => set_interest_borders_users_path do |f| %>
+<%= form_for 'token', url: set_interest_borders_users_path do |f| %>
 <div id="border_fields">
 	<%= f.text_field 'interest_borders', "data-pre" => current_user.interest_borders.to_json %>
 </div>
@@ -11,7 +11,7 @@
 	<%= image_tag 'ajax-loader.gif'%><br />
 	<b><%=t('pages.users.border_preferences.updating')%></b>
 </div>
-<%= f.button t('buttons.next'), :class => 'btn blue forwardButton', :style => "float:right;", :id => "submit_borders" %>
+<%= f.button t('buttons.next'), class: 'btn blue forwardButton', style: "float:right;", id: "submit_borders" %>
 <%end%>
 <div style="clear: both;"></div>
 <script type="text/javascript">

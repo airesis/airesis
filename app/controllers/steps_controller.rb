@@ -1,6 +1,6 @@
 class StepsController < ApplicationController
 
-  before_filter :admin_required, :except => [:complete, :skip]
+  before_filter :admin_required, except: [:complete, :skip]
 
   before_filter :load_tutorial
 
@@ -80,7 +80,7 @@ class StepsController < ApplicationController
     assignee.update_attribute(:status, TutorialProgress::DONE)
     logger.info "User #{current_user.login} has completed fragment #{@step.fragment}"
     respond_to do |format|
-      format.js { render :nothing => true }
+      format.js { render nothing: true }
       format.html { redirect_to :back }
     end
 

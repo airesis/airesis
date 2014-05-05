@@ -1,7 +1,7 @@
 <%@extend = true%>
-<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_work_areas.manage_group_areas')} do %>
-    <%= link_to t('pages.groups.edit_work_areas.manage.switch_area_management'), manage_group_group_areas_url(@group), :class => "btn historyButton disable", data:{disable_with: t('loading')} %><br />
-    <%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_url(@group), :remote => true, :class => "btn newButton disable" %>
+<%= render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_work_areas.manage_group_areas')} do %>
+    <%= link_to t('pages.groups.edit_work_areas.manage.switch_area_management'), manage_group_group_areas_url(@group), class: "btn historyButton disable", data:{disable_with: t('loading')} %><br />
+    <%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_url(@group), remote: true, class: "btn newButton disable" %>
 
 <% end %>
 <div id="new_group_area_container">
@@ -9,12 +9,12 @@
 
 <%= t('pages.groups.edit_work_areas.manage.list_participants') %>
 <div id="users_list_container">
-  <%= render :partial => 'users_list' %>
+  <%= render partial: 'users_list' %>
 
 </div>
 
 
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

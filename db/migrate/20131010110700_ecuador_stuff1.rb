@@ -1,12 +1,12 @@
 #encoding: utf-8
 class EcuadorStuff1 < ActiveRecord::Migration
   def up
-    SysLocale.create(:key => 'es-EC', :host => 'http://www.airesis.us', lang: 'es-EC')
+    SysLocale.create(key: 'es-EC', host: 'http://www.airesis.us', lang: 'es-EC')
 
     I18n.locale = 'it-IT'
 
     @america = Continente.find_by_description('America')
-    @ecuador = Stato.create(:description => 'Ecuador', :continente_id => @america.id, sigla: 'EC' )
+    @ecuador = Stato.create(description: 'Ecuador', continente_id: @america.id, sigla: 'EC' )
 
     I18n.locale = 'en'
     @ecuador.update_attribute(:description,'Ecuador')
@@ -33,6 +33,6 @@ class EcuadorStuff1 < ActiveRecord::Migration
 
   def down
     Stato.find_by_description('Ecuador').destroy
-    SysLocale.where(:key => 'es-EC').first.destroy
+    SysLocale.where(key: 'es-EC').first.destroy
   end
 end

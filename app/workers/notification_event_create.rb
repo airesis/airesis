@@ -15,7 +15,7 @@ class NotificationEventCreate < NotificationSender
       data = {'event_id' => event.id.to_s, 'subject' => "[#{organizer.name}] Nuovo evento: #{event.title}", 'group' => organizer.name,'group_id' => organizer.id,'user_id' => current_user_id, 'event' => event.title, 'i18n' => 't'}
       data['subdomain'] = organizer.subdomain if organizer.certified?
 
-      notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, :url => event_url(event,{host: host}), data: data)
+      notification_a = Notification.new(notification_type_id: NotificationType::NEW_EVENTS, url: event_url(event,{host: host}), data: data)
       notification_a.save
 
       organizer.partecipants.each do |user|

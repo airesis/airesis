@@ -1,7 +1,7 @@
 class AddDocumentsActions < ActiveRecord::Migration
   def up
-    GroupAction.create(:name => 'DOCUMENT_VIEW', :description => 'Visualizzare i documenti'){ |c| c.id = 9 }.save
-    GroupAction.create(:name => 'DOCUMENT_MANAGE', :description => 'Gestire i documenti'){ |c| c.id = 10 }.save
+    GroupAction.create(name: 'DOCUMENT_VIEW', description: 'Visualizzare i documenti'){ |c| c.id = 9 }.save
+    GroupAction.create(name: 'DOCUMENT_MANAGE', description: 'Gestire i documenti'){ |c| c.id = 10 }.save
   end
 
   def down

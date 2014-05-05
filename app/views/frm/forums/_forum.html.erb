@@ -1,7 +1,7 @@
 <% if can?(:read, forum) %>
   <tr class="forum <%= cycle("odd", "even") %>">
     <td class="forum-description">
-      <%= link_to forum.title, group_forum_url(@group,forum), :class => "title" %>
+      <%= link_to forum.title, group_forum_url(@group,forum), class: "title" %>
       <div class='description'><%= forem_format(forum.description) %></div>
 
     </td>

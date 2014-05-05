@@ -13,7 +13,7 @@ module ProposalsModule
       proposal.update_attribute(:proposal_state_id,ProposalState::VOTING)
       vote_data = proposal.vote
       unless vote_data #se non ha i dati per raccogliere le firme creali
-        vote_data = ProposalVote.new(:proposal_id => proposal.id, :positive => 0, :negative => 0, :neutral => 0)
+        vote_data = ProposalVote.new(proposal_id: proposal.id, positive: 0, negative: 0, neutral: 0)
         vote_data.save!
       end
     end

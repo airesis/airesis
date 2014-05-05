@@ -4,13 +4,13 @@ class SaveDefaultUserI18n < ActiveRecord::Migration
       t.string :key
     end
 
-    it = SysLocale.create(:key => 'it')
-    SysLocale.create(:key => 'en')
-    SysLocale.create(:key => 'us')
-    SysLocale.create(:key => 'fr')
-    SysLocale.create(:key => 'es')
-    SysLocale.create(:key => 'pt')
-    SysLocale.create(:key => 'de')
+    it = SysLocale.create(key: 'it')
+    SysLocale.create(key: 'en')
+    SysLocale.create(key: 'us')
+    SysLocale.create(key: 'fr')
+    SysLocale.create(key: 'es')
+    SysLocale.create(key: 'pt')
+    SysLocale.create(key: 'de')
 
     add_column :users, :sys_locale_id, :integer, null: false, default: it.id
   end

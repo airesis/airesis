@@ -1,4 +1,4 @@
-var container_ = $('<%= j (render(:partial => 'proposal_histories/panel'))%>');
+var container_ = $('<%= j (render(partial: 'proposal_histories/panel'))%>');
 $('body').append(container_);
 
 container_.foundation().foundation('reveal', 'open');

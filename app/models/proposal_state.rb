@@ -1,5 +1,5 @@
 class ProposalState < ActiveRecord::Base
-  has_many :proposals, :class_name => 'Proposal'
+  has_many :proposals, class_name: 'Proposal'
 
   VALUTATION=1
   WAIT_DATE=2

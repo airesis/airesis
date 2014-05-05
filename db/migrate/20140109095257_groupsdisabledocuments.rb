@@ -1,6 +1,6 @@
 class Groupsdisabledocuments < ActiveRecord::Migration
   def up
-    add_column :groups, :disable_documents, :boolean, :default => false
+    add_column :groups, :disable_documents, :boolean, default: false
   end
 
   def down

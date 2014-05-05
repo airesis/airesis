@@ -87,7 +87,7 @@
         <th><%= t('pages.users.show.vote_column') %></th>
         </thead>
         <tbody>
-        <% @user.user_votes.includes(:vote_type, :proposal => :presentation_groups).each do |vote| %>
+        <% @user.user_votes.includes(:vote_type, proposal: :presentation_groups).each do |vote| %>
             <tr>
               <td><%= vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
               <td><%= l vote.created_at %></td>
@@ -102,6 +102,6 @@
 
 <% content_for :left_panel do %>
     <% if current_user %>
-        <%= render :partial => 'users/preferences_panel' %>
+        <%= render partial: 'users/preferences_panel' %>
     <% end %>
 <% end %>

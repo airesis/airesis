@@ -12,7 +12,7 @@ class AddRomania < ActiveRecord::Migration
     @romania_id = @romania.id
     @europa_id = @romania.continente_id
 
-    SysLocale.create(:key => 'ro-RO', :host => 'www.airesis.eu', lang: 'ro-RO', territory: @romania)
+    SysLocale.create(key: 'ro-RO', host: 'www.airesis.eu', lang: 'ro-RO', territory: @romania)
 
     Regione.create(description: 'Bucovina', stato_id: @romania_id, continente_id: @europa_id)
     Regione.create(description: 'Crișana', stato_id: @romania_id, continente_id: @europa_id)

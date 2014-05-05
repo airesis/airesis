@@ -1,16 +1,16 @@
 <% unless @proposals.empty? || !::Configuration.phases_active %>
-    <%= render :partial => '/proposals/orders/order_bar' %>
+    <%= render partial: '/proposals/orders/order_bar' %>
 <% end %>
 
 <div id="proposalsListContainer<%= params[:state] || params[:view] %>">
-  <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+  <%= render partial: 'list', locals: {proposals: @proposals} %>
 </div>
 <% unless @proposals.last_page? %>
     <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
       <span><%= t('pages.proposals.index.show_more') %></span>
     </div>
     <div id="loading_proposals<%= params[:state] || params[:view] %>_2" class="loading_proposals card" style="display:none">
-      <div class="waitDiv"><%= image_tag "facebook-loader.gif", :alt => "loading..." %> </div>
+      <div class="waitDiv"><%= image_tag "facebook-loader.gif", alt: "loading..." %> </div>
     </div>
 
     <script type="text/javascript">

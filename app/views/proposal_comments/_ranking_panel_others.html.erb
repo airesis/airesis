@@ -4,7 +4,7 @@
 <%= link_to '', {action: "ranknil", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
             remote: true, method: :put,
             data: {id: comment.id}, class: "votenil-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.votenil') %>
-<%= link_to '', {:action => "rankup", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
+<%= link_to '', {action: "rankup", controller: "proposal_comments", id: comment.id, proposal_id: @proposal.id},
             remote: true, method: :put,
             data: {id: comment.id}, class: "voteup-mini vote_comment", style: "margin-right:10px", title: t('pages.proposals.show.voteup') %>
 <span class="rightFloat think"><%= t('pages.proposals.contribution_valuation') %></span>

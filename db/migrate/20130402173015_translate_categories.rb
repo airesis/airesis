@@ -2,9 +2,9 @@
 class TranslateCategories < ActiveRecord::Migration
   def up
     ProposalCategory.create_translation_table!({
-       :description => :string
+       description: :string
    }, {
-       :migrate_data => true
+       migrate_data: true
    })
 
     I18n.locale = :eu
@@ -148,6 +148,6 @@ class TranslateCategories < ActiveRecord::Migration
   end
 
   def down
-    ProposalCategory.drop_translation_table! :migrate_data => true
+    ProposalCategory.drop_translation_table! migrate_data: true
   end
 end

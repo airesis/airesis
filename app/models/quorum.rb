@@ -4,12 +4,12 @@ class Quorum < ActiveRecord::Base
 
   STANDARD = 2
 
-  validates :good_score, :presence => true
-  validates :name, :presence => true
+  validates :good_score, presence: true
+  validates :name, presence: true
 
-  has_one :group_quorum, :class_name => 'GroupQuorum', :dependent => :destroy
-  has_one :group, :through => :group_quorum, :class_name => 'Group'
-  has_one :proposal, :class_name => 'Proposal'
+  has_one :group_quorum, class_name: 'GroupQuorum', dependent: :destroy
+  has_one :group, through: :group_quorum, class_name: 'Group'
+  has_one :proposal, class_name: 'Proposal'
 
   scope :public, -> {where(["public = ?", true])}
   scope :active, -> {where(["active = ?", true])}

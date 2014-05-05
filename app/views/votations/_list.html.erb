@@ -2,7 +2,7 @@
 <%if proposalsnumber > 0 %>
 <% proposals.each do |proposal| %>
 <div >
-	<%= render :partial => 'proposals/proposal_list_element', :locals => {:proposal => proposal}%>
+	<%= render partial: 'proposals/proposal_list_element', locals: {proposal: proposal}%>
 </div>
 <% end %>
 <%end %>

@@ -6,10 +6,10 @@
     <h3>Qui di seguito le proposte alle quali ti è permesso di votare:</h3>
 
     <div id="proposals_list">
-    <%= render :partial => 'list', :locals => {:proposals => @proposals} %>
+    <%= render partial: 'list', locals: {proposals: @proposals} %>
     </div>
 
-    <p>Le proposte per cui hai già votato sono visibili nel tuo <%=link_to 'pannello informazioni', user_url(current_user.id, :anchor => "votations_table")%>, dove potrai visionare le statistiche e le informazioni relative
+    <p>Le proposte per cui hai già votato sono visibili nel tuo <%=link_to 'pannello informazioni', user_url(current_user.id, anchor: "votations_table")%>, dove potrai visionare le statistiche e le informazioni relative
       alle tue attività all'interno del portale.</p>
 <%else%>
     <h3>Nessuna proposta in votazione al momento alla quale tu possa partecipare</h3>

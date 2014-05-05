@@ -10,9 +10,9 @@
   </p>
 </div>
 <br/>
-<%= render(:partial => 'quorums/form', :locals => {:button_name => t('buttons.update')})%>
+<%= render(partial: 'quorums/form', locals: {button_name: t('buttons.update')})%>
 
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

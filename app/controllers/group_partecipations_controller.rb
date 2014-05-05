@@ -7,7 +7,7 @@ class GroupPartecipationsController < ApplicationController
   #carica il gruppo
   before_filter :load_group
 
-  before_filter :load_group_partecipation, :except => [:index, :send_email, :destroy_all]
+  before_filter :load_group_partecipation, except: [:index, :send_email, :destroy_all]
 
   #sicurezza
   before_filter :authenticate_user!
@@ -56,7 +56,7 @@ class GroupPartecipationsController < ApplicationController
             group_partecipation_request = GroupPartecipationRequest.find_by_user_id_and_group_id(group_partecipation.user_id, group_partecipation.group_id)
             group_partecipation_request.destroy
             group_partecipation.destroy
-            AreaPartecipation.joins(:group_area => :group).where(['groups.id = ? AND area_partecipations.user_id = ?', group_partecipation.group_id, group_partecipation.user_id]).readonly(false).destroy_all
+            AreaPartecipation.joins(group_area: :group).where(['groups.id = ? AND area_partecipations.user_id = ?', group_partecipation.group_id, group_partecipation.user_id]).readonly(false).destroy_all
           end
         end
       end
@@ -67,7 +67,7 @@ class GroupPartecipationsController < ApplicationController
     flash[:notice] = t('error.participations_destroyed')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end
@@ -86,7 +86,7 @@ class GroupPartecipationsController < ApplicationController
       GroupPartecipation.transaction do
         @group_partecipation_request.destroy
         @group_partecipation.destroy
-        AreaPartecipation.joins(:group_area => :group).where(['groups.id = ? AND area_partecipations.user_id = ?', @group_partecipation.group_id, @group_partecipation.user_id]).readonly(false).destroy_all
+        AreaPartecipation.joins(group_area: :group).where(['groups.id = ? AND area_partecipations.user_id = ?', @group_partecipation.group_id, @group_partecipation.user_id]).readonly(false).destroy_all
       end
       flash[:notice] = current_user == @group_partecipation.user ? t('info.group_partecipations.destroy_ok_1') : I18n.t('info.participation_roles.user_removed_from_group', name: @group_partecipation.user.fullname)
     end

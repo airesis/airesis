@@ -4,12 +4,12 @@ module Frm
       before_filter :find_topic
 
       def update
-        if @topic.update_attributes(params[:frm_topic], :as => :admin)
+        if @topic.update_attributes(params[:frm_topic], as: :admin)
           flash[:notice] = t("frm.topic.updated")
           redirect_to group_forum_topic_url(@group,@topic.forum,@topic)
         else
           flash.alert = t("frm.topic.not_updated")
-          render :action => "edit"
+          render action: "edit"
         end
       end
 

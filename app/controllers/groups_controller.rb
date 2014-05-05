@@ -4,27 +4,27 @@ class GroupsController < ApplicationController
 
   layout :choose_layout
   #carica il gruppo
-  before_filter :load_group, :except => [:index, :new, :create, :ask_for_multiple_follow]
+  before_filter :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
 
   ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show, :by_year_and_month]
+  before_filter :authenticate_user!, except: [:index, :show, :by_year_and_month]
 
-  #before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
+  #before_filter :check_author,   only: [:new, :create, :edit, :update, :destroy]
 
   #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
+  before_filter :portavoce_required, only: [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
 
-  before_filter :admin_required, :only => [:autocomplete]
+  before_filter :admin_required, only: [:autocomplete]
 
 
   def autocomplete
     groups = Group.autocomplete(params[:term])
     groups = groups.map do |u|
-      {:id => u.id, :identifier => "#{u.name}", :image_path => "#{u.group_image_tag 20}"}
+      {id: u.id, identifier: "#{u.name}", image_path: "#{u.group_image_tag 20}"}
     end
-    render :json => groups
+    render json: groups
   end
 
 
@@ -52,7 +52,7 @@ class GroupsController < ApplicationController
     if current_user
       @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
     else
-      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
+      @group_posts = @group.posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
     end
 
     respond_to do |format|
@@ -79,7 +79,7 @@ class GroupsController < ApplicationController
     if current_user
       @group_posts = @group.post_publishings.viewable_by(current_user).order('post_publishings.featured desc, published_at DESC').select('post_publishings.*, published_at').uniq
     else
-      @group_posts = @group.posts.published.includes([:blog, {:user => :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
+      @group_posts = @group.posts.published.includes([:blog, {user: :image}, :tags]).order('post_publishings.featured desc, published_at DESC')
     end
     @group_posts = @group_posts.where("extract(year from blog_posts.created_at) = ? AND extract(month from blog_posts.created_at) = ? ", params[:year], params[:month])
 
@@ -102,7 +102,7 @@ class GroupsController < ApplicationController
 
   def new
     authorize! :create, Group
-    @group = Group.new(:accept_requests => 'p')
+    @group = Group.new(accept_requests: 'p')
     @group.default_role_actions = DEFAULT_GROUP_ACTIONS
   end
 
@@ -136,7 +136,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -145,7 +145,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -164,7 +164,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -173,7 +173,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -192,7 +192,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -201,7 +201,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -220,7 +220,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -229,7 +229,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.quorums.advanced_proposals_settings')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -254,7 +254,7 @@ class GroupsController < ApplicationController
     rescue ActiveRecord::ActiveRecordError => e
       respond_to do |format|
         flash[:error] = t('error.groups.creation')
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -275,7 +275,7 @@ class GroupsController < ApplicationController
 
         partecipant_ids = @group.partecipant_ids
         partecipant_ids.each do |id|
-          r = GroupPartecipationRequest.new({:group_id => @group.id, :user_id => id, :group_partecipation_request_status_id => 3})
+          r = GroupPartecipationRequest.new({group_id: @group.id, user_id: id, group_partecipation_request_status_id: 3})
           r.save
         end
 
@@ -284,14 +284,14 @@ class GroupsController < ApplicationController
 
       respond_to do |format|
         flash[:notice] = t('info.groups.group_updated')
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
 
     rescue Exception => e
       puts e
       respond_to do |format|
         flash[:error] = t('error.groups.update')
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
@@ -354,7 +354,7 @@ class GroupsController < ApplicationController
 
     if (!follow) #se non lo segue
                  #segui il gruppo
-      follow = current_user.group_follows.build(:group_id => @group.id)
+      follow = current_user.group_follows.build(group_id: @group.id)
 
       saved = follow.save
       if (!saved)
@@ -413,7 +413,7 @@ class GroupsController < ApplicationController
       flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html {
@@ -437,7 +437,7 @@ class GroupsController < ApplicationController
         flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
           }
           format.html {
@@ -467,7 +467,7 @@ class GroupsController < ApplicationController
       flash[:error] = t('error.group_partecipations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html {
@@ -485,7 +485,7 @@ class GroupsController < ApplicationController
         flash[:error] = t('error.group_partecipations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
           }
           format.html {
@@ -528,7 +528,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.groups.post_removed')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -571,7 +571,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       @title = I18n.t('error.error_404.groups.title')
       @message = I18n.t('error.error_404.groups.description')
-      format.html { render "errors/404", :status => 404, :layout => true }
+      format.html { render "errors/404", status: 404, layout: true }
     end
     true
   end

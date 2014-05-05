@@ -1,5 +1,5 @@
 <div class="blogComments" id="proposalComments">
 	<% @proposal_comments.each do |comment| %>
-		<%= render :partial => 'comment_list_element', :locals => {:comment => comment} %>
+		<%= render partial: 'comment_list_element', locals: {comment: comment} %>
 	<% end %>
 </div>

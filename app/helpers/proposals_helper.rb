@@ -49,8 +49,8 @@ module ProposalsHelper
           "<span class='cite nickname'>#{link_to nick.user.fullname, nick.user}</span>"
     end
     scanned
-    auto_link(scanned.gsub(/\n/, '<br/>'), :html => {:target => '_blank'}, :sanitize => false) do |text|
-      truncate(text, :length => 15)
+    auto_link(scanned.gsub(/\n/, '<br/>'), html: {target: '_blank'}, sanitize: false) do |text|
+      truncate(text, length: 15)
     end.html_safe
   end
 

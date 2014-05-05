@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
 
   layout 'groups'
 
-  before_filter :load_group, :except => [:view]
+  before_filter :load_group, except: [:view]
   before_filter :authenticate_user!
 
   def index
@@ -21,7 +21,7 @@ class DocumentsController < ApplicationController
     if params[:download]
       send_file url
     else
-      send_file url, :disposition => 'inline'
+      send_file url, disposition: 'inline'
     end
   end
 end

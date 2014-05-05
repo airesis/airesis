@@ -2,7 +2,7 @@ module Frm
   module Admin
     class MembersController < BaseController
       def add
-        user = User.where(:id => params[:frm_user_id]).first
+        user = User.where(id: params[:frm_user_id]).first
         unless group.members.exists?(user.id)
           flash[:notice] = t('info.members.ok_message')
           group.members << user

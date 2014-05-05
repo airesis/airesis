@@ -1,16 +1,16 @@
 <%if params[:page] %>
-$('#blogs_list').append("<%=j (render :partial => "blog", :collection => @blogs)%>");
+$('#blogs_list').append("<%=j (render partial: "blog", collection: @blogs)%>");
 <%else%>
 $('#blogs_list').fadeOut('slow', function () {
     <% if @blogs.count > 0 %>
-    $('#blogs_list').html("<%=j (render :partial => "blog", :collection => @blogs)%>");
+    $('#blogs_list').html("<%=j (render partial: "blog", collection: @blogs)%>");
     <% else %>
     $('#blogs_list').html("<h2><%=j t('pages.blogs.index.no_results') %></h2>");
     <% end %>
     $('#blogs_list').fadeIn();
 })
 <%end%>
-$('#more_blogs_container').html("<%=j (render :partial => 'more_blogs')%>");
+$('#more_blogs_container').html("<%=j (render partial: 'more_blogs')%>");
 
 <%if params[:back] %>
 $('#search').val('<%=params[:search]%>');

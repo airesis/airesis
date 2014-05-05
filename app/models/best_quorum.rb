@@ -165,8 +165,8 @@ class BestQuorum < Quorum
             end
 
             #fai partire il timer per far scadere la proposta
-            EventsWorker.perform_at(@event.starttime, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-            EventsWorker.perform_at(@event.endtime, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+            EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
+            EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
           end
           proposal.vote_period = @event
         else
@@ -178,7 +178,7 @@ class BestQuorum < Quorum
 
         #remove the timer if is still there
         if self.minutes
-          #Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id}) TODO remove job
+          #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) TODO remove job
         end
       else
         abandon(proposal)
@@ -189,7 +189,7 @@ class BestQuorum < Quorum
 
         #remove the timer if is still there
         if self.minutes
-          #Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => proposal.id}) TODO remove job
+          #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: proposal.id}) TODO remove job
         end
       end
 

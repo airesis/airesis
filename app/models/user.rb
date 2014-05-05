@@ -10,112 +10,112 @@ class User < ActiveRecord::Base
   include BlogKitModelHelper, TutorialAssigneesHelper
   #include Rails.application.routes.url_helpers
 
-  #validates_presence_of     :login, :unless => :from_identity_provider?
-  #validates_length_of       :login,    :within => 3..40, :unless => :from_identity_provider?
-  #validates_uniqueness_of   :login, :unless => :from_identity_provider?
-  #validates_format_of       :login,    :with => AuthenticationModule.login_regex, :message => AuthenticationModule.bad_login_message, :unless => :from_identity_provider?
+  #validates_presence_of     :login, unless: :from_identity_provider?
+  #validates_length_of       :login,    within: 3..40, unless: :from_identity_provider?
+  #validates_uniqueness_of   :login, unless: :from_identity_provider?
+  #validates_format_of       :login,    with: AuthenticationModule.login_regex, message: AuthenticationModule.bad_login_message, unless: :from_identity_provider?
 
   validates_presence_of :name
-  validates_format_of :name, :with => AuthenticationModule.name_regex, :allow_nil => true
-  validates_length_of :name, :maximum => 50
+  validates_format_of :name, with: AuthenticationModule.name_regex, allow_nil: true
+  validates_length_of :name, maximum: 50
 
-  validates_format_of :surname, :with => AuthenticationModule.name_regex, :allow_nil => true
-  validates_length_of :surname, :maximum => 50
+  validates_format_of :surname, with: AuthenticationModule.name_regex, allow_nil: true
+  validates_length_of :surname, maximum: 50
 
-  validates_length_of :email, :within => 6..50, :allow_nil => true #r@a.wk
-  validates_format_of :email, :with => AuthenticationModule.email_regex, :message => AuthenticationModule.bad_email_message, :allow_nil => true
+  validates_length_of :email, within: 6..50, allow_nil: true #r@a.wk
+  validates_format_of :email, with: AuthenticationModule.email_regex, message: AuthenticationModule.bad_email_message, allow_nil: true
   validates_uniqueness_of :email
 
-  validates_format_of :blog_image_url, :with => AuthenticationModule.url_regex, :allow_nil => true
+  validates_format_of :blog_image_url, with: AuthenticationModule.url_regex, allow_nil: true
   validates_confirmation_of :password
 
-  validates_acceptance_of :accept_conditions, :message => I18n.t('activerecord.errors.messages.TOS')
+  validates_acceptance_of :accept_conditions, message: I18n.t('activerecord.errors.messages.TOS')
 
   #colonne assegnabili massivamente
   attr_accessible :login, :name, :email, :surname, :password, :password_confirmation, :blog_image_url, :sex, :remember_me, :accept_conditions, :receive_newsletter, :facebook_page_url, :linkedin_page_url, :google_page_url, :sys_locale_id, :time_zone
 
   #relations
-  has_many :proposal_presentations, :class_name => 'ProposalPresentation'
-  has_many :proposals, :through => :proposal_presentations, :class_name => 'Proposal'
-  has_many :notifications, :through => :user_alerts, :class_name => 'Notification'
-  has_many :proposal_watches, :class_name => 'ProposalWatch'
-  has_many :meeting_partecipations, :class_name => 'MeetingPartecipation'
-  has_one :blog, :class_name => 'Blog'
-  has_many :blog_comments, :class_name => 'BlogComment'
-  has_many :blog_posts, :class_name => 'BlogPost'
-  has_many :blocked_alerts, :class_name => 'BlockedAlert'
-  has_many :blocked_emails, :class_name => 'BlockedEmail'
+  has_many :proposal_presentations, class_name: 'ProposalPresentation'
+  has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
+  has_many :notifications, through: :user_alerts, class_name: 'Notification'
+  has_many :proposal_watches, class_name: 'ProposalWatch'
+  has_many :meeting_partecipations, class_name: 'MeetingPartecipation'
+  has_one :blog, class_name: 'Blog'
+  has_many :blog_comments, class_name: 'BlogComment'
+  has_many :blog_posts, class_name: 'BlogPost'
+  has_many :blocked_alerts, class_name: 'BlockedAlert'
+  has_many :blocked_emails, class_name: 'BlockedEmail'
 
-  has_many :event_comments, :class_name => 'EventComment'
-  has_many :likes, :class_name => 'EventCommentLike'
+  has_many :event_comments, class_name: 'EventComment'
+  has_many :likes, class_name: 'EventCommentLike'
 
-  has_many :group_partecipations, :class_name => 'GroupPartecipation'
-  has_many :groups, :through => :group_partecipations, :class_name => 'Group'
+  has_many :group_partecipations, class_name: 'GroupPartecipation'
+  has_many :groups, through: :group_partecipations, class_name: 'Group'
 
-  has_many :area_partecipations, :class_name => 'AreaPartecipation'
-  has_many :group_areas, :through => :area_partecipations, :class_name => 'GroupArea'
+  has_many :area_partecipations, class_name: 'AreaPartecipation'
+  has_many :group_areas, through: :area_partecipations, class_name: 'GroupArea'
 
-  has_many :partecipation_roles, :through => :group_partecipations, :class_name => 'PartecipationRole'
-  has_many :group_follows, :class_name => 'GroupFollow'
-  has_many :followed_groups, :through => :group_follows, :class_name => 'Group', :source => :group
-  has_many :user_votes, :class_name => 'UserVote'
-  has_many :proposal_comments, :class_name => 'ProposalComment'
+  has_many :partecipation_roles, through: :group_partecipations, class_name: 'PartecipationRole'
+  has_many :group_follows, class_name: 'GroupFollow'
+  has_many :followed_groups, through: :group_follows, class_name: 'Group', source: :group
+  has_many :user_votes, class_name: 'UserVote'
+  has_many :proposal_comments, class_name: 'ProposalComment'
   has_many :partecipating_proposals, through: :proposal_comments, class_name: 'Proposal', source: :proposal
-  has_many :proposal_comment_rankings, :class_name => 'ProposalCommentRanking'
-  has_many :proposal_rankings, :class_name => 'ProposalRanking'
-  belongs_to :user_type, :class_name => 'UserType', :foreign_key => :user_type_id
-  belongs_to :places, :class_name => 'Place', :foreign_key => :residenza_id
-  belongs_to :places, :class_name => 'Place', :foreign_key => :nascita_id
-  belongs_to :image, :class_name => 'Image', :foreign_key => :image_id
-  has_many :authentications, :class_name => 'Authentication'
+  has_many :proposal_comment_rankings, class_name: 'ProposalCommentRanking'
+  has_many :proposal_rankings, class_name: 'ProposalRanking'
+  belongs_to :user_type, class_name: 'UserType', foreign_key: :user_type_id
+  belongs_to :places, class_name: 'Place', foreign_key: :residenza_id
+  belongs_to :places, class_name: 'Place', foreign_key: :nascita_id
+  belongs_to :image, class_name: 'Image', foreign_key: :image_id
+  has_many :authentications, class_name: 'Authentication'
 
-  has_many :user_borders, :class_name => 'UserBorder'
+  has_many :user_borders, class_name: 'UserBorder'
 
   #confini di interesse
-  has_many :interest_borders, :through => :user_borders, :class_name => 'InterestBorder'
+  has_many :interest_borders, through: :user_borders, class_name: 'InterestBorder'
 
-  has_many :user_alerts, -> {order('user_alerts.created_at DESC')}, :class_name => 'UserAlert'
-  has_many :unread_alerts, -> {where 'user_alerts.checked = false'}, :class_name => 'UserAlert'
+  has_many :user_alerts, -> {order('user_alerts.created_at DESC')}, class_name: 'UserAlert'
+  has_many :unread_alerts, -> {where 'user_alerts.checked = false'}, class_name: 'UserAlert'
 
-  has_many :blocked_notifications, :through => :blocked_alerts, :class_name => 'NotificationType', :source => :notification_type
-  has_many :blocked_email_notifications, :through => :blocked_emails, :class_name => 'NotificationType', :source => :notification_type
+  has_many :blocked_notifications, through: :blocked_alerts, class_name: 'NotificationType', source: :notification_type
+  has_many :blocked_email_notifications, through: :blocked_emails, class_name: 'NotificationType', source: :notification_type
 
-  has_many :group_partecipation_requests, :class_name => 'GroupPartecipationRequest'
+  has_many :group_partecipation_requests, class_name: 'GroupPartecipationRequest'
 
   #record di tutti coloro che mi seguono
-  has_many :followers_user_follow, :class_name => "UserFollow", :foreign_key => :followed_id
+  has_many :followers_user_follow, class_name: "UserFollow", foreign_key: :followed_id
   #tutti coloro che mi seguono
-  has_many :followers, :through => :followers_user_follow, :class_name => "User", :source => :followed
+  has_many :followers, through: :followers_user_follow, class_name: "User", source: :followed
 
   #record di tutti coloro che seguo
-  has_many :followed_user_follow, :class_name => "UserFollow", :foreign_key => :follower_id
+  has_many :followed_user_follow, class_name: "UserFollow", foreign_key: :follower_id
   #tutti coloro che seguo
-  has_many :followed, :through => :followed_user_follow, :class_name => "User", :source => :follower
+  has_many :followed, through: :followed_user_follow, class_name: "User", source: :follower
 
-  has_many :tutorial_assignees, :class_name => 'TutorialAssignee'
-  has_many :tutorial_progresses, :class_name => 'TutorialProgress'
-  has_many :todo_tutorial_assignees, -> {where('tutorial_assignees.completed = false')}, :class_name => 'TutorialAssignee'
+  has_many :tutorial_assignees, class_name: 'TutorialAssignee'
+  has_many :tutorial_progresses, class_name: 'TutorialProgress'
+  has_many :todo_tutorial_assignees, -> {where('tutorial_assignees.completed = false')}, class_name: 'TutorialAssignee'
   #tutorial assegnati all'utente
-  has_many :tutorials, :through => :tutorial_assignees, :class_name => 'Tutorial', :source => :user
-  has_many :todo_tutorials, :through => :todo_tutorial_assignees, :class_name => 'Tutorial', :source => :user
+  has_many :tutorials, through: :tutorial_assignees, class_name: 'Tutorial', source: :user
+  has_many :todo_tutorials, through: :todo_tutorial_assignees, class_name: 'Tutorial', source: :user
 
-  belongs_to :locale, :class_name => 'SysLocale', foreign_key: 'sys_locale_id'
-  belongs_to :original_locale, :class_name => 'SysLocale', foreign_key: 'original_sys_locale_id'
+  belongs_to :locale, class_name: 'SysLocale', foreign_key: 'sys_locale_id'
+  belongs_to :original_locale, class_name: 'SysLocale', foreign_key: 'original_sys_locale_id'
 
 
   has_many :events
 
   #candidature
-  has_many :candidates, :class_name => 'Candidate'
+  has_many :candidates, class_name: 'Candidate'
 
-  has_many :proposal_nicknames, :class_name => 'ProposalNickname'
+  has_many :proposal_nicknames, class_name: 'ProposalNickname'
 
-  has_one :certification, :class_name => 'UserSensitive', foreign_key: :user_id
+  has_one :certification, class_name: 'UserSensitive', foreign_key: :user_id
 
   #forum
-  has_many :viewed, :class_name => 'Frm::View'
-  has_many :viewed_topics, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
-  has_many :unread_topics, -> {where 'frm_views.updated_at < frm_topics.last_post_at'}, :class_name => 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :viewed, class_name: 'Frm::View'
+  has_many :viewed_topics, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
+  has_many :unread_topics, -> {where 'frm_views.updated_at < frm_topics.last_post_at'}, class_name: 'Frm::Topic', through: :viewed, source: :viewable, source_type: 'Frm::Topic'
   has_many :memberships, class_name: 'Frm::Membership', foreign_key: :member_id
   has_many :frm_groups, through: :memberships, class_name: 'Frm::Group', source: :group
 
@@ -128,11 +128,11 @@ class User < ActiveRecord::Base
 
   validate :check_uncertified
 
-  scope :blocked, -> {where(:blocked => true)}
-  scope :unblocked, -> {where(:blocked => false)}
+  scope :blocked, -> {where(blocked: true)}
+  scope :unblocked, -> {where(blocked: false)}
   scope :confirmed, -> {where 'confirmed_at is not null'}
   scope :unconfirmed, -> {where 'confirmed_at is null'}
-  scope :certified, -> {where(:user_type_id => UserType::CERTIFIED)}
+  scope :certified, -> {where(user_type_id: UserType::CERTIFIED)}
 
 
   def check_uncertified
@@ -164,10 +164,10 @@ class User < ActiveRecord::Base
     Tutorial.all.each do |tutorial|
       assign_tutorial(self, tutorial)
     end
-    self.blocked_alerts.create(:notification_type_id => 20)
-    self.blocked_alerts.create(:notification_type_id => 21)
-    self.blocked_alerts.create(:notification_type_id => 13)
-    self.blocked_alerts.create(:notification_type_id => 3)
+    self.blocked_alerts.create(notification_type_id: 20)
+    self.blocked_alerts.create(notification_type_id: 21)
+    self.blocked_alerts.create(notification_type_id: 13)
+    self.blocked_alerts.create(notification_type_id: 3)
 
     GeocodeUser.perform_in(5, self.id)
   end
@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
     @search = Geocoder.search(self.last_sign_in_ip)
     unless @search.empty? #continue only if we found latitude and longitude
       @latlon = [@search[0].latitude, @search[0].longitude]
-      @zone = Timezone::Zone.new :latlon => @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
+      @zone = Timezone::Zone.new latlon: @latlon rescue nil #if we can't find the latitude and longitude zone just set zone to nil
       self.update_attribute(:time_zone, @zone.active_support_time_zone) if @zone #update zone if found
     end
   end
@@ -212,7 +212,7 @@ class User < ActiveRecord::Base
     ret = self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
                                 " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
                                 " and action_abilitations.group_id = group_partecipations.group_id")
-    .all(:conditions => "(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    .all(conditions: "(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 
@@ -220,7 +220,7 @@ class User < ActiveRecord::Base
   def scoped_areas(group_id, abilitation_id=nil)
     query = self.group_areas
     if abilitation_id
-      query = query.joins({:area_roles => :area_action_abilitations})
+      query = query.joins({area_roles: :area_action_abilitations})
       .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
       .uniq
     else
@@ -401,13 +401,13 @@ class User < ActiveRecord::Base
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(login) = :value OR lower(email) = :value", {:value => login.downcase}]).first
+      where(conditions).where(["lower(login) = :value OR lower(email) = :value", {value: login.downcase}]).first
     else
       where(conditions).first
     end
   end
 
-  delegate :can?, :cannot?, :to => :ability
+  delegate :can?, :cannot?, to: :ability
 
   def ability
     @ability ||= Ability.new(self)
@@ -415,10 +415,10 @@ class User < ActiveRecord::Base
 
 
   #forum methods
-  has_many :forem_posts, :class_name => 'Frm::Post', :foreign_key => 'user_id'
-  has_many :forem_topics, :class_name => 'Frm::Topic', :foreign_key => 'user_id'
-  has_many :forem_memberships, :class_name => 'Frm::Membership', :foreign_key => 'member_id'
-  has_many :forem_groups, :through => :forem_memberships, :class_name => 'Frm::Group', :source => :group
+  has_many :forem_posts, class_name: 'Frm::Post', foreign_key: 'user_id'
+  has_many :forem_topics, class_name: 'Frm::Topic', foreign_key: 'user_id'
+  has_many :forem_memberships, class_name: 'Frm::Membership', foreign_key: 'member_id'
+  has_many :forem_groups, through: :forem_memberships, class_name: 'Frm::Group', source: :group
 
 
   def can_read_forem_category?(category)
@@ -496,7 +496,7 @@ class User < ActiveRecord::Base
 
   #authentication method
   def has_provider(provider_name)
-    return self.authentications.where(:provider => provider_name).count > 0
+    return self.authentications.where(provider: provider_name).count > 0
   end
 
   def from_identity_provider?
@@ -505,7 +505,7 @@ class User < ActiveRecord::Base
 
 
   def build_authentication_provider(access_token)
-    self.authentications.build(:provider => access_token['provider'], :uid => access_token['uid'], :token => (access_token['credentials']['token'] rescue nil))
+    self.authentications.build(provider: access_token['provider'], uid: access_token['uid'], token: (access_token['credentials']['token'] rescue nil))
   end
 
   def facebook
@@ -530,12 +530,12 @@ class User < ActiveRecord::Base
       return user
     else #crea un nuovo account facebook
       if data["verified"]
-        user = User.new(:name => data["first_name"], :surname => data["last_name"], :sex => (data["gender"] ? data["gender"][0] : nil), :email => data["email"], :password => Devise.friendly_token[0, 20], :facebook_page_url => data["link"])
+        user = User.new(name: data["first_name"], surname: data["last_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], facebook_page_url: data["link"])
         user.user_type_id = 3
         user.sign_in_count = 0
         user.build_authentication_provider(access_token)
         user.confirm!
-        user.save(:validate => false)
+        user.save(validate: false)
       else
         return nil
       end
@@ -557,12 +557,12 @@ class User < ActiveRecord::Base
     if user
       return user
     else #crea un nuovo account linkedin
-      user = User.new(:name => data["firstName"], :surname => data["lastName"], :email => data["emailAddress"], :password => Devise.friendly_token[0, 20], :blog_image_url => data[:pictureUrl], :linkedin_page_url => data[:publicProfileUrl])
+      user = User.new(name: data["firstName"], surname: data["lastName"], email: data["emailAddress"], password: Devise.friendly_token[0, 20], blog_image_url: data[:pictureUrl], linkedin_page_url: data[:publicProfileUrl])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
       user.confirm!
-      user.save(:validate => false)
+      user.save(validate: false)
       return user
     end
   end
@@ -581,12 +581,12 @@ class User < ActiveRecord::Base
     if user
       return user
     else #crea un nuovo account google
-      user = User.new(:name => data["given_name"], :surname => data["family_name"], :sex => (data["gender"] ? data["gender"][0] : nil), :email => data["email"], :password => Devise.friendly_token[0, 20], :google_page_url => data["link"], :blog_image_url => data["picture"])
+      user = User.new(name: data["given_name"], surname: data["family_name"], sex: (data["gender"] ? data["gender"][0] : nil), email: data["email"], password: Devise.friendly_token[0, 20], google_page_url: data["link"], blog_image_url: data["picture"])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
       user.confirm!
-      user.save(:validate => false)
+      user.save(validate: false)
       return user
     end
   end
@@ -607,12 +607,12 @@ class User < ActiveRecord::Base
       splitted = fullname.split(' ', 2)
       name = splitted ? splitted[0] : fullname
       surname = splitted ? splitted[1] : ''
-      user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0, 20], :blog_image_url => data[:profile_image_url])
+      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20], blog_image_url: data[:profile_image_url])
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
       user.confirm!
-      user.save(:validate => false)
+      user.save(validate: false)
       return user
     end
   end
@@ -633,12 +633,12 @@ class User < ActiveRecord::Base
       splitted = fullname.split(' ', 2)
       name = splitted ? splitted[0] : fullname
       surname = splitted ? splitted[1] : ''
-      user = User.new(:name => name, :surname => surname, :password => Devise.friendly_token[0, 20], :blog_image_url => (data[:photo][:photo_link] if data[:photo]))
+      user = User.new(name: name, surname: surname, password: Devise.friendly_token[0, 20], blog_image_url: (data[:photo][:photo_link] if data[:photo]))
       user.user_type_id = 3
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)
       user.confirm!
-      user.save(:validate => false)
+      user.save(validate: false)
       return user
     end
   end
@@ -657,9 +657,9 @@ class User < ActiveRecord::Base
       return user
     else #crea un nuovo account parma
 
-      user = User.new(:name => data['first_name'].capitalize, :surname => data['last_name'].capitalize, :password => Devise.friendly_token[0, 20], :email => data['email'])
+      user = User.new(name: data['first_name'].capitalize, surname: data['last_name'].capitalize, password: Devise.friendly_token[0, 20], email: data['email'])
       group = Group.find_by_subdomain('parma')
-      user.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => GroupPartecipationRequestStatus::ACCEPTED)
+      user.group_partecipation_requests.build(group: group, group_partecipation_request_status_id: GroupPartecipationRequestStatus::ACCEPTED)
       partecipation_role = group.default_role
       if data['verified']
         certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
@@ -668,7 +668,7 @@ class User < ActiveRecord::Base
       else
         user.user_type_id = UserType::AUTHENTICATED
       end
-      user.group_partecipations.build(:group => group, :partecipation_role_id => partecipation_role.id)
+      user.group_partecipations.build(group: group, partecipation_role_id: partecipation_role.id)
 
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)

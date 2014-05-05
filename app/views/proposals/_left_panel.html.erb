@@ -14,7 +14,7 @@
 
 
           <% if can? :vote, @proposal %>
-              <%= form_for 'data', :url => votation_vote_path(:proposal_id => @proposal.id), remote: true, method: :put do |f| %>
+              <%= form_for 'data', url: votation_vote_path(proposal_id: @proposal.id), remote: true, method: :put do |f| %>
                   <%= f.text_area 'comment', placeholder: 'Share your thought' %>
                   <%= f.submit 'Sign the petition', class: 'btn  blue', disable_with: t('loading') %>
               <% end %>
@@ -26,19 +26,19 @@
 <% else %>
     <div id="rankleftpanel" class="rankleftpanel mybox">
       <div class="points">
-        <%= render :partial => 'proposals/points_left_panel' %>
+        <%= render partial: 'proposals/points_left_panel' %>
       </div>
       <div class="rank">
-        <%= render :partial => 'proposals/rank_left_panel' %>
+        <%= render partial: 'proposals/rank_left_panel' %>
       </div>
 
       <div id="block_alerts">
-        <%= render :partial => 'blocked_proposal_alerts/block_alerts_panel' %>
+        <%= render partial: 'blocked_proposal_alerts/block_alerts_panel' %>
       </div>
     </div>
 
     <div id="dates" class="mybox" style="text-align:center">
-      <%= render :partial => 'proposals/dates' %>
+      <%= render partial: 'proposals/dates' %>
     </div>
 
 <% end %>
@@ -85,7 +85,7 @@
 
       <div class="mycont">
         <div id="old_authors_list">
-          <%= render :partial => 'proposals/old_authors_list_panel' %>
+          <%= render partial: 'proposals/old_authors_list_panel' %>
         </div>
       </div>
     </div>
@@ -95,14 +95,14 @@
 
       <div class="mycont">
         <div id="authors_list">
-          <%= render :partial => 'proposals/authors_list_panel' %>
+          <%= render partial: 'proposals/authors_list_panel' %>
         </div>
         <% if signed_in? && @proposal.in_valutation? %>
             <div id="available_author">
-              <%= render :partial => 'proposals/available_author' %>
+              <%= render partial: 'proposals/available_author' %>
             </div>
             <div id="available_authors_button">
-              <%= render :partial => 'available_authors_button' %>
+              <%= render partial: 'available_authors_button' %>
             </div>
         <% end %>
       </div>
@@ -112,7 +112,7 @@
 
 <% if ::Configuration.proposal_support && !@proposal.private %>
     <div id="support_left_panel_container">
-      <%= render :partial => 'proposals/support_left_panel' %>
+      <%= render partial: 'proposals/support_left_panel' %>
     </div>
 <% end %>
 
@@ -141,10 +141,10 @@
       <div class="mycont">
         <div class="row">
           <div class="columns large-2">
-            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", :align => 'middle', :alt => @proposal.category.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {category: @proposal.category.id}) : proposals_url(category: @proposal.category.id) %>
           </div>
           <div class="columns large-10">
-            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {:category => @proposal.category.id}) : proposals_url(:category => @proposal.category.id) %>
+            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, {category: @proposal.category.id}) : proposals_url(category: @proposal.category.id) %>
           </div>
         </div>
       </div>
@@ -156,10 +156,10 @@
   <div class="mycont">
     <div class="row">
       <div class="columns large-2">
-        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", :align => 'middle', :alt => @proposal.proposal_type.description, :title => @proposal.proposal_type.description, :style => "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {:type => @proposal.proposal_type.id}) : proposals_url(:type => @proposal.proposal_type.id) %>
+        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, {type: @proposal.proposal_type.id}) : proposals_url(type: @proposal.proposal_type.id) %>
       </div>
       <div class="columns large-10">
-        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, {:type => @proposal.proposal_type.id}) : proposals_url(:type => @proposal.proposal_type.id) %>
+        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, {type: @proposal.proposal_type.id}) : proposals_url(type: @proposal.proposal_type.id) %>
 
       </div>
     </div>
@@ -171,7 +171,7 @@
       <h4><%= t('pages.proposals.show.group_area') %></h4>
 
       <div class="mycont">
-        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {:group_area_id => @proposal.presentation_areas.first.id}) %>
+        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, {group_area_id: @proposal.presentation_areas.first.id}) %>
       </div>
     </div>
 <% end %>

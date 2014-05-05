@@ -301,7 +301,7 @@ class Ability
 
     def can_do_on_group?(user, group, action)
       user.groups.where("partecipation_role_id = 2")
-      partecipation = user.group_partecipations.where(:group_id => group.id).first
+      partecipation = user.group_partecipations.where(group_id: group.id).first
       return false unless partecipation
       role = partecipation.partecipation_role
       return true if (role.id == PartecipationRole::PORTAVOCE)
@@ -311,15 +311,15 @@ class Ability
 
 
     def can_do_on_group_area?(user, group_area, action)
-      group_partecipation = user.group_partecipations.first(:conditions => {:group_id => group_area.group.id})
+      group_partecipation = user.group_partecipations.first(conditions: {group_id: group_area.group.id})
       return false unless group_partecipation
       group_role = group_partecipation.partecipation_role
       return true if (group_role.id == PartecipationRole::PORTAVOCE)
 
-      area_partecipation = user.area_partecipations.first(:conditions => {:group_area_id => group_area.id})
+      area_partecipation = user.area_partecipations.first(conditions: {group_area_id: group_area.id})
       return false unless area_partecipation
       role = area_partecipation.area_role
-      roles = group_area.area_roles.all(:joins => :area_action_abilitations, :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action, group_area.id])
+      roles = group_area.area_roles.all(joins: :area_action_abilitations, conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action, group_area.id])
       roles.include? role
     end
 
@@ -356,7 +356,7 @@ class Ability
     def can_partecipate_proposal?(user, proposal)
       if proposal.private
         proposal.presentation_groups.each do |group|
-          areas = proposal.presentation_areas.where(:group_id => group.id)
+          areas = proposal.presentation_areas.where(group_id: group.id)
           if areas.count > 0
             if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_PARTECIPATION)
               if proposal.is_polling? && (proposal.voting? || proposal.voted?)
@@ -407,7 +407,7 @@ class Ability
       return false if UserVote.find_by_proposal_id_and_user_id(proposal.id, user.id)
       if proposal.private
         proposal.presentation_groups.each do |group|
-          areas = proposal.presentation_areas.where(:group_id => group.id)
+          areas = proposal.presentation_areas.where(group_id: group.id)
           return can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_VOTE) if areas.count > 0
           return true if can_do_on_group?(user, group, GroupAction::PROPOSAL_VOTE)
           return false

@@ -6,17 +6,17 @@
   <div class="columns large-6" id="blog_search_form">
     <div class="card">
 
-      <%= form_for blogs_path, :method => 'get', :remote => true do |f| %>
+      <%= form_for blogs_path, method: 'get', remote: true do |f| %>
           <%= f.label t('buttons.search'), t('pages.blogs.index.search_with_query') %>
           <div style="float:left">
-            <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
+            <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
           </div>
           <div class="search_words">
-            <%= check_box_tag :and, params[:and], :title => "Scegli se cercare tutte le parole o almeno una" %>
+            <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
           </div>
 
           <div class="clearboth"></div>
-          <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', data: {disable_with: t('loading')} %>
+          <%= f.button t('pages.blogs.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
       <% end %>
     </div>
   </div>
@@ -87,7 +87,7 @@
 
 <div id="blogs_list">
   <% if @blogs.count > 0 %>
-      <%= render :partial => "blog", :collection => @blogs %>
+      <%= render partial: "blog", collection: @blogs %>
   <% else %>
       <h2><%= t('pages.blogs.index.search_description') %></h2>
   <% end %>
@@ -95,7 +95,7 @@
 </div>
 <div class="clearboth"></div>
 <div id="more_blogs_container">
-  <%= render :partial => 'more_blogs' %>
+  <%= render partial: 'more_blogs' %>
 </div>
 
 

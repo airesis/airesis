@@ -11,28 +11,28 @@ class ProposalsController < ApplicationController
 
   layout :choose_layout
   #carica la proposta
-  before_filter :load_proposal, :only => [:vote_results]
-  before_filter :load_proposal_and_group, :except => [:index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
+  before_filter :load_proposal, only: [:vote_results]
+  before_filter :load_proposal_and_group, except: [:index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
 
   ###SICUREZZA###
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :tab_list, :endless_index, :show]
+  before_filter :authenticate_user!, except: [:index, :tab_list, :endless_index, :show]
 
   #l'utente deve essere autore della proposta
-  before_filter :check_author, :only => [:set_votation_date, :add_authors, :geocode]
+  before_filter :check_author, only: [:set_votation_date, :add_authors, :geocode]
 
   #la proposta deve essere in stato 'IN VALUTAZIONE'
-  before_filter :valutation_state_required, :only => [:rankup, :rankdown, :available_author, :add_authors, :geocode]
+  before_filter :valutation_state_required, only: [:rankup, :rankdown, :available_author, :add_authors, :geocode]
 
   #la proposta deve essere in stato 'VOTATA'
-  before_filter :voted_state_required, :only => [:vote_results]
+  before_filter :voted_state_required, only: [:vote_results]
 
   #l'utente deve poter visualizzare la proposta
-  before_filter :can_view, :only => [:vote_results]
+  before_filter :can_view, only: [:vote_results]
 
   #l'utente deve poter valutare la proposta
-  before_filter :can_valutate, :only => [:rankup, :rankdown]
+  before_filter :can_valutate, only: [:rankup, :rankdown]
 
 
   before_filter :check_page_alerts, only: :show
@@ -71,7 +71,7 @@ class ProposalsController < ApplicationController
         @page_head = ''
 
         if params[:category]
-          @page_head += t('pages.proposals.index.title_with_category', :category => ProposalCategory.find(params[:category]).description)
+          @page_head += t('pages.proposals.index.title_with_category', category: ProposalCategory.find(params[:category]).description)
         else
           @page_head += t('pages.proposals.index.title')
         end
@@ -113,7 +113,7 @@ class ProposalsController < ApplicationController
       if params[:replace]
         format.js
       else
-        format.html { render "tab_list", :layout => false }
+        format.html { render "tab_list", layout: false }
       end
       format.json
     end
@@ -159,7 +159,7 @@ class ProposalsController < ApplicationController
               redirect_to group_proposals_path(@group)
             }
             format.json {
-              render :json => {:error => flash[:error]}, :status => 401
+              render json: {error: flash[:error]}, status: 401
               return
             }
           end
@@ -178,7 +178,7 @@ class ProposalsController < ApplicationController
 
     respond_to do |format|
       format.js {
-        render :nothing => true
+        render nothing: true
       }
       format.html {
         @step = get_next_step(current_user) if current_user
@@ -191,8 +191,8 @@ class ProposalsController < ApplicationController
       format.json
       format.pdf {
         if @proposal.voted?
-          render :pdf => 'show.pdf.erb',
-                 :show_as_html => params[:debug].present?
+          render pdf: 'show.pdf.erb',
+                 show_as_html: params[:debug].present?
         else
           flash[:error] = "E' possibile esportare in pdf solo le proposte terminate"
           redirect_to @proposal, format: 'html'
@@ -296,7 +296,7 @@ class ProposalsController < ApplicationController
 
           @topic = @group.topics.find(@proposal.topic_id) if (@proposal.topic_id.to_s != '')
           if @topic
-            @proposal.topic_proposals.build(:topic_id => @topic.id, :user_id => current_user.id)
+            @proposal.topic_proposals.build(topic_id: @topic.id, user_id: current_user.id)
           end
         else
           @proposal.anonima = @proposal.is_petition? ? false : DEFAULT_ANONIMA
@@ -308,7 +308,7 @@ class ProposalsController < ApplicationController
         # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
         if @proposal.is_petition?
           @proposal.proposal_state_id = @proposal.petition_phase == 'signatures' ? ProposalState::VOTING : ProposalState::VALUTATION
-          @proposal.build_vote(:positive => 0, :negative => 0, :neutral => 0)
+          @proposal.build_vote(positive: 0, negative: 0, neutral: 0)
         else
           quorum = assign_quorum(prparams)
           @proposal.proposal_state_id = ProposalState::VALUTATION
@@ -328,21 +328,21 @@ class ProposalsController < ApplicationController
         unless @proposal.is_petition?
           #if the time is fixed we schedule notifications 24h and 1h before the end of debate
           if @copy.time_fixed?
-            ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-            ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+            ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
+            ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
           end
 
 
           #fai partire il timer per far scadere la proposta
           if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-            ProposalsWorker.perform_at(@copy.ends_at, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+            ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
           end
         end
 
 
         proposalparams = {
-            :proposal_id => @proposal.id,
-            :user_id => current_user.id
+            proposal_id: @proposal.id,
+            user_id: current_user.id
         }
 
         proposalpresentation = ProposalPresentation.new(proposalparams)
@@ -377,7 +377,7 @@ class ProposalsController < ApplicationController
       end
       respond_to do |format|
         format.js { render 'error_create' }
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -392,7 +392,7 @@ class ProposalsController < ApplicationController
       quorum = assign_quorum(params[:proposal])
       #fai partire il timer per far scadere la proposta
       if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-        ProposalsWorker.perform_at(@copy.ends_at, {:action => ProposalsWorker::ENDTIME, :proposal_id => @proposal.id})
+        ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
       end
 
       generate_nickname(current_user, @proposal)
@@ -401,8 +401,8 @@ class ProposalsController < ApplicationController
 
       #if the time is fixed we schedule notifications 24h and 1h before the end of debate
       if @copy.time_fixed?
-        ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {:action => ProposalsWorker::LEFT24, :proposal_id => @proposal.id}) if @copy.minutes > 1440
-        ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {:action => ProposalsWorker::LEFT1, :proposal_id => @proposal.id}) if @copy.minutes > 60
+        ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
+        ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
       end
     end
 
@@ -427,7 +427,7 @@ class ProposalsController < ApplicationController
     end
     respond_to do |format|
       format.js { render 'error_regenerate' }
-      format.html { render :action => "show" }
+      format.html { render action: "show" }
     end
   end
 
@@ -539,7 +539,7 @@ class ProposalsController < ApplicationController
             redirect_to @group ? group_proposal_url(@group, @proposal) : @proposal
           else
             @proposal.reload
-            render :action => "edit"
+            render action: "edit"
           end
 
         }
@@ -548,7 +548,7 @@ class ProposalsController < ApplicationController
     rescue ActiveRecord::ActiveRecordError => e
       flash[:error] = e.record.errors.map { |e, msg| msg }[0].to_s
       respond_to do |format|
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
@@ -558,7 +558,7 @@ class ProposalsController < ApplicationController
       flash[:error] = I18n.t('error.proposals.proposal_not_waiting_date')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html { redirect_to @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) }
@@ -574,7 +574,7 @@ class ProposalsController < ApplicationController
       respond_to do |format|
         format.js do
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
         end
         format.html { redirect_to @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal) }
@@ -608,7 +608,7 @@ class ProposalsController < ApplicationController
       format.html
       format.js do
         render :update do |page|
-          page.replace_html "statistics_panel", :partial => 'statistics', :locals => {:proposal => @proposal}
+          page.replace_html "statistics_panel", partial: 'statistics', locals: {proposal: @proposal}
         end
       end
     end
@@ -670,7 +670,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     available_ids = params['user_ids']
 
     Proposal.transaction do
-      users = @proposal.available_user_authors.all(:conditions => ['users.id in (?)', available_ids.map { |id| id.to_i }]) rescue []
+      users = @proposal.available_user_authors.all(conditions: ['users.id in (?)', available_ids.map { |id| id.to_i }]) rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
       @proposal.save!
@@ -705,7 +705,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     flash[:error] = "Errore durante la chiusura del dibattito"
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
       format.html {
@@ -784,7 +784,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
         interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
-        i = @proposal.proposal_borders.build({:interest_border_id => interest_b.id})
+        i = @proposal.proposal_borders.build({interest_border_id: interest_b.id})
       end
     end if borders
   end
@@ -821,9 +821,9 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     flash[:error] = I18n.t('error.proposals.proposal_rank')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "rankleftpanel", :partial => 'proposals/rank_left_panel'
-        page.replace_html "dates", :partial => 'proposals/dates'
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html "rankleftpanel", partial: 'proposals/rank_left_panel'
+        page.replace_html "dates", partial: 'proposals/dates'
 
       end
       }
@@ -844,7 +844,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
       raise ActiveRecord::RecordNotFound
     elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && !in_subdomain?
-      redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, :format => params[:format])
+      redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, format: params[:format])
     end
     load_my_vote
   end
@@ -886,7 +886,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       flash[:error] = t('unauthorized.default')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html {
@@ -902,7 +902,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       flash[:error] = I18n.t('error.proposals.proposal_not_voted')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html {
@@ -917,8 +917,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       flash[:error] = I18n.t('error.proposals.proposal_not_valuating')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+          page.replace_html "rankingpanelcontainer", partial: 'proposals/ranking_panel', locals: {flash: flash}
         end
         }
         format.html {
@@ -941,8 +941,8 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
       flash[:error] = I18n.t('error.proposals.proposal_already_ranked')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "rankingpanelcontainer", :partial => 'proposals/ranking_panel', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+          page.replace_html "rankingpanelcontainer", partial: 'proposals/ranking_panel', locals: {flash: flash}
         end
         }
         format.html {
@@ -999,7 +999,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     respond_to do |format|
       @title = I18n.t('error.error_404.proposals.title')
       @message = I18n.t('error.error_404.proposals.description')
-      format.html { render "errors/404", :status => 404, :layout => true }
+      format.html { render "errors/404", status: 404, layout: true }
     end
     true
   end

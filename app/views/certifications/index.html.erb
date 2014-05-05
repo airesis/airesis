@@ -33,7 +33,7 @@
 
 <h4><%= 'Certified groups' %></h4>
 <table>
-<%Group.where(:certified => true).each do |group| %>
+<%Group.where(certified: true).each do |group| %>
     <tr><td><%=link_to group.name, group_url(group) %></td><td><%= link_to 'Remove', certification_url(group, group_id: group.id), method: :delete, confirm: 'Are you sure?', data:{disable_with: t('loading')}, class: 'btn' %></td></tr>
 <%end%>
 </table>

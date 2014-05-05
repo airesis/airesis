@@ -4,7 +4,7 @@
         <%= partecipation.user_image_tag 48 %>
       </div>
       <div class="partecipant_text">
-        <%= link_to_user partecipation.user, :full_name => true %>
+        <%= link_to_user partecipation.user, full_name: true %>
         <% if partecipation.guests > 0 %>
 
             <%=raw t('pages.events.show.with_guests', field: partecipation.guests) %>

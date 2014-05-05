@@ -3,13 +3,13 @@
    <%=t('pages.steps.choose_follow.description_html')%>
 </div>
 
-    <%= render :partial => "/groups/group_tag", :collection => current_user.suggested_groups, :as => :group %>
+    <%= render partial: "/groups/group_tag", collection: current_user.suggested_groups, as: :group %>
 	
 
 	<div style="clear: both;"></div>		
-	<%=form_for 'groupsi', :url => {:controller => 'groups', :action => 'ask_for_multiple_follow'} do |f|%>
+	<%=form_for 'groupsi', url: {controller: 'groups', action: 'ask_for_multiple_follow'} do |f|%>
 	<%=f.hidden_field 'group_ids'%>	
-	<%=f.button t('buttons.chosen'), :class => 'btn blue forwardButton', :style => "float:right;" %>
+	<%=f.button t('buttons.chosen'), class: 'btn blue forwardButton', style: "float:right;" %>
 		
 	<%end%>
 	<div style="clear: both;"></div>	

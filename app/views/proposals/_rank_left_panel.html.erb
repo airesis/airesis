@@ -2,18 +2,18 @@
     <div class="handscontainer">
       <% if @my_vote %>
           <% if @my_vote == 1 %>
-              <%= render :partial => '/proposals/valutations/votedup' %>
+              <%= render partial: '/proposals/valutations/votedup' %>
           <% elsif @can_vote_again == 1 %>
-              <%= render :partial => '/proposals/valutations/voteup' %>
+              <%= render partial: '/proposals/valutations/voteup' %>
           <% end %>
           <% if @my_vote == 3 %>
-              <%= render :partial => '/proposals/valutations/voteddown' %>
+              <%= render partial: '/proposals/valutations/voteddown' %>
           <% elsif @can_vote_again == 1 %>
-              <%= render :partial => '/proposals/valutations/votedown' %>
+              <%= render partial: '/proposals/valutations/votedown' %>
           <% end %>
       <% elsif @can_vote_again == 1 %>
-          <%= render :partial => '/proposals/valutations/voteup' %>
-          <%= render :partial => '/proposals/valutations/votedown' %>
+          <%= render partial: '/proposals/valutations/voteup' %>
+          <%= render partial: '/proposals/valutations/votedown' %>
       <% end %>
     </div>
     <div style="clear: both;"></div>
@@ -26,16 +26,16 @@
 <% if signed_in? %>
     <div style="margin: 5px;">
       <% if @proposal.revisions.count > 0 || @proposal.abandoned? %>
-          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), :remote => true, :class => 'btn scriptButton', data: {:disable_with => t('loading')}, id: "history" %>
+          <%= link_to t('pages.proposals.show.history_button'), proposal_proposal_histories_url(@proposal), remote: true, class: 'btn scriptButton', data: {disable_with: t('loading')}, id: "history" %>
       <% end %>
     </div>
     <% if @proposal.voted? %>
         <% if params[:action] == 'show' %>
             <% if @proposal.vote %>
-                <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_url(@proposal), :remote => true, :class => 'btn disabl resultsButton', :id => "resultsButton" %>
+                <%= link_to t('pages.proposals.show.votation_results'), vote_results_proposal_url(@proposal), remote: true, class: 'btn disabl resultsButton', id: "resultsButton" %>
                 <br/><br/>
             <% end %>
-            <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', :class => 'btn disable pdfButton' %>
+            <%= link_to t('pages.proposals.show.export_pdf'), proposal_path(@proposal, format: :pdf), target: '_blank', class: 'btn disable pdfButton' %>
             <div id="vote_results_container" title="<%= t('pages.proposals.show.votation_results_title') %>"></div>
             <script type="text/javascript">
                 $(function () {

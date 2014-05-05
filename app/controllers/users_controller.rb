@@ -4,10 +4,10 @@ class UsersController < ApplicationController
 
   layout :choose_layout
 
-  before_filter :authenticate_user!, :except => [:index, :show, :confirm_credentials, :join_accounts]
+  before_filter :authenticate_user!, except: [:index, :show, :confirm_credentials, :join_accounts]
   # Protect these actions behind an admin login
-  # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :load_user, :only => [:show, :update, :update_image, :show_message, :send_message]
+  # before_filter :admin_required, only: [:suspend, :unsuspend, :destroy, :purge]
+  before_filter :load_user, only: [:show, :update, :update_image, :show_message, :send_message]
 
   def confirm_credentials
     @user = User.new_with_session(nil, session)
@@ -33,23 +33,23 @@ class UsersController < ApplicationController
       if (auth.valid_password?(params[:user][:password]) unless auth.nil?) #se la password fornita è corretta
         #aggiungi il provider
         User.transaction do
-          auth.authentications.build(:provider => data['provider'], :uid => data['uid'], :token => (data['credentials']['token'] rescue nil))
+          auth.authentications.build(provider: data['provider'], uid: data['uid'], token: (data['credentials']['token'] rescue nil))
           if data["provider"] == Authentication::PARMA
             group = Group.find_by_subdomain('parma')
-            auth.group_partecipation_requests.build(:group => group, :group_partecipation_request_status_id => GroupPartecipationRequestStatus::ACCEPTED)
+            auth.group_partecipation_requests.build(group: group, group_partecipation_request_status_id: GroupPartecipationRequestStatus::ACCEPTED)
             partecipation_role = group.default_role
             if data['info']['verified']
               certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
               partecipation_role = PartecipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || partecipation_role  #look for best role or fallback
               auth.user_type_id = UserType::CERTIFIED
             end
-            auth.group_partecipations.build(:group => group, :partecipation_role_id => partecipation_role.id)
+            auth.group_partecipations.build(group: group, partecipation_role_id: partecipation_role.id)
           end
           auth.save!
         end
         #fine dell'unione
         flash[:notice] = t('info.user.account_joined')
-        sign_in_and_redirect auth, :event => :authentication
+        sign_in_and_redirect auth, event: :authentication
       else
         flash[:error] = t('error.users.join_accounts_password')
         redirect_to confirm_credentials_users_url
@@ -62,10 +62,10 @@ class UsersController < ApplicationController
 
   def index
     return redirect_to root_path if user_signed_in?
-    @users = User.all(:conditions => "upper(name) like upper('%#{params[:q]}%')")
+    @users = User.all(conditions: "upper(name) like upper('%#{params[:q]}%')")
 
     respond_to do |format|
-      format.json { render :json => @users.to_json(:only => [:id, :name]) }
+      format.json { render json: @users.to_json(only: [:id, :name]) }
       format.html # index.html.erb
     end
   end
@@ -114,7 +114,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -123,7 +123,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -147,7 +147,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -189,7 +189,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -198,7 +198,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -213,7 +213,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -222,7 +222,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -242,8 +242,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "rotp_container", :partial => 'users/rotp_code'
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html "rotp_container", partial: 'users/rotp_code'
       end
       }
     end
@@ -252,7 +252,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -272,7 +272,7 @@ class UsersController < ApplicationController
 
   def update_image
     if params[:image]
-      @image = Image.new({:image => params[:image]})
+      @image = Image.new({image: params[:image]})
       @image.save!
       @user.image_id = @image.id
       @user.save!
@@ -280,8 +280,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js do
         render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-          page.replace_html "user_profile_container", :partial => "user_profile"
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+          page.replace_html "user_profile_container", partial: "user_profile"
         end
       end
       format.html {
@@ -301,7 +301,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js do
         render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
       end
       format.html {
@@ -320,8 +320,8 @@ class UsersController < ApplicationController
         end
         format.js do
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "user_profile_container", :partial => "user_profile"
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+            page.replace_html "user_profile_container", partial: "user_profile"
           end
         end
         format.html {
@@ -337,14 +337,14 @@ class UsersController < ApplicationController
         end
         format.js do
           render :update do |page|
-            page.replace_html "error_updating", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "error_updating", partial: 'layouts/flash', locals: {flash: flash}
           end
         end
         format.html {
           if params[:back] == "home"
             redirect_to home_url
           else
-            render :action => "show"
+            render action: "show"
           end
         }
       end
@@ -367,9 +367,9 @@ class UsersController < ApplicationController
     @group = Group.friendly.find(params[:group_id])
     users = @group.partecipants.autocomplete(params[:term])
     users = users.map do |u|
-      {:id => u.id, :identifier => "#{u.surname} #{u.name}", :image_path => "#{u.user_image_tag 20}"}
+      {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{u.user_image_tag 20}"}
     end
-    render :json => users
+    render json: users
   end
 
   protected
@@ -397,7 +397,7 @@ class UsersController < ApplicationController
 
       if found #if I found something so the ID is correct and I can proceed with geographic border creation
         interest_b = InterestBorder.find_or_create_by({territory_type: InterestBorder::I_TYPE_MAP[ftype],territory_id: fid})
-        i = current_user.user_borders.build({:interest_border_id => interest_b.id})
+        i = current_user.user_borders.build({interest_border_id: interest_b.id})
         i.save
       end
     end

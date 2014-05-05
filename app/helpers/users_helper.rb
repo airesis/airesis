@@ -8,7 +8,7 @@ module UsersHelper
   # Example:
   # <%= if_authorized?(:index,   User)  do link_to('List all users', users_path) end %> |
   # <%= if_authorized?(:edit,    @user) do link_to('Edit this user', edit_user_path) end %> |
-  # <%= if_authorized?(:destroy, @user) do link_to 'Destroy', @user, :confirm => 'Are you sure?', :method => :delete end %> 
+  # <%= if_authorized?(:destroy, @user) do link_to 'Destroy', @user, confirm: 'Are you sure?', method: :delete end %>
   #
   #
   def if_authorized?(action, resource, &block)
@@ -23,30 +23,30 @@ module UsersHelper
   # By default, their login is used as link text and link title (tooltip)
   #
   # Takes options
-  # * :content_text => 'Content text in place of user.login', escaped with
+  # * content_text: 'Content text in place of user.login', escaped with
   #   the standard h() function.
-  # * :content_method => :user_instance_method_to_call_for_content_text
-  # * :title_method => :user_instance_method_to_call_for_title_attribute
+  # * content_method: :user_instance_method_to_call_for_content_text
+  # * title_method: :user_instance_method_to_call_for_title_attribute
   # * as well as link_to()'s standard options
-  # * :full_name => true show the User Name and Surname
+  # * full_name: true show the User Name and Surname
   #
   # Examples:
   #   link_to_user @user
   #   # => <a href="/users/3" title="barmy">barmy</a>
   #
   #   # if you've added a .name attribute:
-  #  content_tag :span, :class => :vcard do
-  #    (link_to_user user, :class => 'fn n', :title_method => :login, :content_method => :name) +
-  #          ': ' + (content_tag :span, user.email, :class => 'email')
+  #  content_tag :span, class: :vcard do
+  #    (link_to_user user, class: 'fn n', title_method: :login, content_method: :name) +
+  #          ': ' + (content_tag :span, user.email, class: 'email')
   #   end
   #   # => <span class="vcard"><a href="/users/3" title="barmy" class="fn n">Cyril Fotheringay-Phipps</a>: <span class="email">barmy@blandings.com</span></span>
   #
-  #   link_to_user @user, :content_text => 'Your user page'
+  #   link_to_user @user, content_text: 'Your user page'
   #   # => <a href="/users/3" title="barmy" class="nickname">Your user page</a>
   #
   def link_to_user(user, options={})
     raise "Invalid user" unless user
-    options.reverse_merge! :content_method => :name, :title_method => :login, :class => :nickname
+    options.reverse_merge! content_method: :name, title_method: :login, class: :nickname
     if options[:full_name]
       content_text = "#{user.name} #{user.surname}"
       options[:title] ||= content_text
@@ -81,7 +81,7 @@ module UsersHelper
     if u_nick
       ret += u_nick.nickname
     else
-      ret += link_to_user(user, :full_name => full_name)
+      ret += link_to_user(user, full_name: full_name)
       ret += " (#{user.rank})" if show_rank
     end
     ret += "</div>
@@ -140,13 +140,13 @@ module UsersHelper
   #   link_to_login_with_IP
   #   # => <a href="/login" title="169.69.69.69">169.69.69.69</a>
   #
-  #   link_to_login_with_IP :content_text => 'not signed in'
+  #   link_to_login_with_IP content_text: 'not signed in'
   #   # => <a href="/login" title="169.69.69.69">not signed in</a>
   #
   def link_to_login_with_IP(content_text=nil, options={})
     ip_addr = request.remote_ip
     content_text ||= ip_addr
-    options.reverse_merge! :title => ip_addr
+    options.reverse_merge! title: ip_addr
     if tag = options.delete(:tag)
       content_tag tag, h(content_text), options
     else

@@ -9,7 +9,7 @@
 <% @page_title = t('pages.proposals.edit.title', title: @proposal.title) %>
 <h1><%= @page_title %></h1>
 
-<%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => @remote do |f| %>
+<%= simple_form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: @remote do |f| %>
     <% if can? :destroy, @proposal %>
         <div class="panel warning">
           <p>
@@ -121,7 +121,7 @@
                     <div class="clearboth"></div>
                     <%= s.text_field :title, class: "edit_label" %>
 
-                    <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
+                    <%= p.cktext_area :content_dirty, rows: 5, style: "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                     <%= p.hidden_field :content %>
                     <%= p.hidden_field :seq %>
                   </div>
@@ -136,7 +136,7 @@
 
     <hr/>
 
-    <% @proposal.solutions.includes({:sections => :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
+    <% @proposal.solutions.includes({sections: :paragraphs}).order('sections.seq').each_with_index do |solution, i| %>
         <%= f.fields_for :solutions, solution do |sol| %>
             <div class="solution_main card" data-solution_id="<%= i %>">
               <h3>
@@ -170,7 +170,7 @@
 
                                 <div class="clearboth"></div>
                                 <%= s.text_field :title, class: "edit_label" %>
-                                <%= p.cktext_area :content_dirty, :rows => 5, :style => "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
+                                <%= p.cktext_area :content_dirty, rows: 5, style: "width:98%;height:280px;", ckeditor: {toolbar: 'proposal', language: I18n.locale, customConfig: 'config_lite.js'} %>
                                 <%= p.hidden_field :content %>
 
                                 <%= p.hidden_field :seq %>
@@ -207,8 +207,8 @@
     <p>
       <%= f.hidden_field :integrated_contributes_ids_list %>
 
-      <%= f.submit t('buttons.update'), :class => 'btn blue', :onclick => 'return fillCleanFields();', data: {disable_with: t('updating'), type: "save"} %>
-      <%= f.submit t('buttons.update_and_continue'), :class => 'btn blue', :onclick => 'return fillCleanFields();', data: {disable_with: t('updating'), type: "continue"} %>
+      <%= f.submit t('buttons.update'), class: 'btn blue', onclick: 'return fillCleanFields();', data: {disable_with: t('updating'), type: "save"} %>
+      <%= f.submit t('buttons.update_and_continue'), class: 'btn blue', onclick: 'return fillCleanFields();', data: {disable_with: t('updating'), type: "continue"} %>
 
     </p>
 <% end %>

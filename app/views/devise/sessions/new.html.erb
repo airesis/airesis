@@ -2,7 +2,7 @@
 <div class="card">
 <h2><%= t('pages.login.title') %></h2>
 
-<%= form_for resource, :as => resource_name, :url => user_session_path do |f| %>
+<%= form_for resource, as: resource_name, url: user_session_path do |f| %>
     <div class="row">
       <div class="columns large-5">
         <%= f.label :login, t('pages.sessions.new.login_label') %>
@@ -28,10 +28,10 @@
 
     <div class="row">
       <div class="columns large-5">
-        <%= f.button "Login", :class => 'btn blue loginButton' %>
+        <%= f.button "Login", class: 'btn blue loginButton' %>
       </div>
     </div>
 <% end %>
 </div>
 
-<%= render :partial => "devise/shared/links" %>
+<%= render partial: "devise/shared/links" %>

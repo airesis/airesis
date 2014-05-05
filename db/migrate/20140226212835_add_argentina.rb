@@ -10,7 +10,7 @@ class AddArgentina < ActiveRecord::Migration
     I18n.locale = 'es-AR'
     @america = @argentina.continente
 
-    SysLocale.create(:key => 'es-AR', :host => 'www.airesis.us', lang: 'es-AR', territory: @argentina)
+    SysLocale.create(key: 'es-AR', host: 'www.airesis.us', lang: 'es-AR', territory: @argentina)
 
     @regione = Regione.create(description: 'Buenos Aires-Caba', stato_id: @argentina.id, continente_id: @america.id)
 
@@ -582,6 +582,6 @@ class AddArgentina < ActiveRecord::Migration
     @argentina.comunes.destroy_all
     @argentina.provincias.destroy_all
     @argentina.regiones.destroy_all
-    SysLocale.where(:key => 'es-AR').destroy_all
+    SysLocale.where(key: 'es-AR').destroy_all
   end
 end

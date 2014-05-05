@@ -25,16 +25,16 @@ class NewQuora < ActiveRecord::Migration
       Quorum.where('id in (select distinct quorum_id from proposals) or id in (select distinct quorum_id from proposal_lives)').update_all(assigned: true)
       assigned = Quorum.assigned
       f.puts "#{assigned.count} assigned quora become Old"
-      assigned.update_all({:type => 'OldQuorum'})
+      assigned.update_all({type: 'OldQuorum'})
       unassigned = Quorum.unassigned.where('minutes is null')
       f.puts "#{unassigned.count} unassigned invalid quora are removed"
-      unassigned.update_all({:removed => true})
+      unassigned.update_all({removed: true})
       f.puts "Updating #{Quorum.unassigned.count} unassigned valid quora"
 
 
       GroupQuorum.find(172).destroy rescue nil #there's a wrong quorum, fix if you find it
 
-      Quorum.unassigned.where(:removed => false).each do |quorum|
+      Quorum.unassigned.where(removed: false).each do |quorum|
         quorum.old_condition = quorum.condition
         quorum.condition = nil
         quorum.old_bad_score = quorum.bad_score
@@ -54,7 +54,7 @@ class NewQuora < ActiveRecord::Migration
   end
 
   def down
-    Quorum.unassigned.where(:removed => false).each do |quorum|
+    Quorum.unassigned.where(removed: false).each do |quorum|
       quorum.bad_score = quorum.old_bad_score
       quorum.condition = quorum.old_condition
       quorum.save!

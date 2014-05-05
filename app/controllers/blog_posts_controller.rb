@@ -6,12 +6,12 @@ class BlogPostsController < ApplicationController
   helper :blog
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show]
 
   #l'utente deve aver creato un blog personale, oppure viene rimandato alla pagina per la creazione
-  before_filter :require_blog, :except => [:index, :show]
+  before_filter :require_blog, except: [:index, :show]
 
-  #before_filter :require_user, :except => [:index, :show, :tag]
+  #before_filter :require_user, except: [:index, :show, :tag]
   before_filter :load_blog
 
   before_filter :load_blog_post, only: :show
@@ -20,10 +20,10 @@ class BlogPostsController < ApplicationController
 
   #il blog caricato deve essere dell'utente.
   #l'azione può essere eseguita solo sul proprio blog, altrimenti viene dato errore e redirezionato alla pagina precedente.
-  before_filter :must_be_my_blog, :only => [:new, :edit, :update, :create, :destroy]
+  before_filter :must_be_my_blog, only: [:new, :edit, :update, :create, :destroy]
 
 
-  before_filter :setup_image_template, :only => [:new, :edit, :create, :update]
+  before_filter :setup_image_template, only: [:new, :edit, :create, :update]
 
   before_filter :check_page_alerts, only: :show
 
@@ -58,7 +58,7 @@ class BlogPostsController < ApplicationController
     @user = @blog_post.user
     @page_title = @blog_post.title
     @blog_comment = @blog_post.blog_comments.new
-    @blog_comments = @blog_post.blog_comments.includes(:user => [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
+    @blog_comments = @blog_post.blog_comments.includes(user: [:user_type, :image]).order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
     respond_to do |format|
       format.js
       format.html
@@ -108,7 +108,7 @@ class BlogPostsController < ApplicationController
         else
           @user = @blog.user
           load_post_groups
-          format.html { render :action => "new" }
+          format.html { render action: "new" }
         end
       end
     end
@@ -120,7 +120,7 @@ class BlogPostsController < ApplicationController
       flash[:notice] = t('info.blog_post_updated')
       redirect_to([@blog, @blog_post])
     else
-      render :action => "edit"
+      render action: "edit"
     end
   end
 
@@ -175,7 +175,7 @@ class BlogPostsController < ApplicationController
         format.js do
           flash.now[:error] = t('error.blog_required')
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
         end
         format.html do #vai alla pagina di ceazione blog
@@ -193,7 +193,7 @@ class BlogPostsController < ApplicationController
         format.js do
           flash.now[:error] = t('error.not_your_blog')
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
         end
         format.html do
@@ -215,7 +215,7 @@ class BlogPostsController < ApplicationController
     respond_to do |format|
       @title = t('error.error_404.blog_posts.title')
       @message = t('error.error_404.blog_posts.description')
-      format.html { render "errors/404", :status => 404, :layout => true }
+      format.html { render "errors/404", status: 404, layout: true }
     end
     true
   end

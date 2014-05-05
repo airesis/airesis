@@ -2,7 +2,7 @@ module Frm
   module Admin
     class CategoriesController < BaseController
 
-      before_filter :find_category, :only => [:edit, :update, :destroy]
+      before_filter :find_category, only: [:edit, :update, :destroy]
 
       def index
         @categories = @group.categories.all
@@ -54,7 +54,7 @@ module Frm
 
       def create_failed
         flash.now.alert = t("frm.admin.category.not_created")
-        render :action => "new"
+        render action: "new"
       end
 
       def destroy_successful
@@ -82,11 +82,11 @@ module Frm
         flash.now.alert = t("frm.admin.category.not_updated")
         respond_to do |format|
           format.html {
-            render :action => "edit"
+            render action: "edit"
           }
           format.js {
             render :update do |page|
-              page.replace_html 'category_container', :partial => 'edit', locals: {remote: true}
+              page.replace_html 'category_container', partial: 'edit', locals: {remote: true}
             end
           }
         end

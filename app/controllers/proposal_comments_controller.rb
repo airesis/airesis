@@ -4,15 +4,15 @@ class ProposalCommentsController < ApplicationController
   #carica la proposta
   before_filter :load_proposal
   #carica il commento
-  before_filter :load_proposal_comment, :only => [:show, :edit, :history, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
+  before_filter :load_proposal_comment, only: [:show, :edit, :history, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
 
 ###SICUREZZA###
 
 #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :only => [:edit, :update, :new, :report, :mark_noise]
-  before_filter :save_post_and_authenticate_user, :only => [:create]
-  before_filter :check_author, :only => [:edit, :update]
-  before_filter :already_ranked, :only => [:rankup, :rankdown, :ranknil]
+  before_filter :authenticate_user!, only: [:edit, :update, :new, :report, :mark_noise]
+  before_filter :save_post_and_authenticate_user, only: [:create]
+  before_filter :check_author, only: [:edit, :update]
+  before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
 
   layout :choose_layout
@@ -39,9 +39,9 @@ class ProposalCommentsController < ApplicationController
       left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
       tmp_comments = []
       #retrieve contributes with alerts TODO
-      #alerted = UserAlert.joins({:notification => :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and user_alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
+      #alerted = UserAlert.joins({notification: :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and user_alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
       #unread_cond = conditions + " AND proposal_comments.id in "
-      #tmp_comments += @proposal.contributes.listable.all(:conditions => unread_cond).map { |c| c.id }
+      #tmp_comments += @proposal.contributes.listable.all(conditions: unread_cond).map { |c| c.id }
 
       if left > 0
         #extract evaluated ids
@@ -135,7 +135,7 @@ class ProposalCommentsController < ApplicationController
       flash[:error] = @proposal_comment.errors.messages.values.join(" e ")
       format.js { render 'proposal_comments/errors/create' }
       format.json {
-        render :json => @proposal_comment.try(:errors) || {error: true}, :status => :unprocessable_entity
+        render json: @proposal_comment.try(:errors) || {error: true}, status: :unprocessable_entity
       }
     end
   end
@@ -152,7 +152,7 @@ class ProposalCommentsController < ApplicationController
           format.html { redirect_to(@proposal) }
 
         else
-          format.html { render :action => "edit" }
+          format.html { render action: "edit" }
         end
       else
         format.js
@@ -213,7 +213,7 @@ class ProposalCommentsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.proposals.contribute_report')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -239,13 +239,13 @@ class ProposalCommentsController < ApplicationController
     inactive = inactive.split(/,\s*/)
 
     to_active = @proposal.contributes.where(["id in (?) and soft_reports_count >= ?", active, CONTRIBUTE_MARKS])
-    to_inactive = @proposal.contributes.where(:id => inactive)
+    to_inactive = @proposal.contributes.where(id: inactive)
 
-    to_active.update_all(:noise => false)
-    to_inactive.update_all(:noise => true)
+    to_active.update_all(noise: false)
+    to_inactive.update_all(noise: true)
 
     respond_to do |format|
-      format.js { render :nothing => true }
+      format.js { render nothing: true }
       format.html { redirect_to @proposal }
     end
 
@@ -307,7 +307,7 @@ class ProposalCommentsController < ApplicationController
       else
         flash[:notice] = t(:error_on_proposal_comment_rank)
         format.js { render :update do |page|
-          page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages_comment_#{params[:id]}", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
         format.html { redirect_to @proposal }
@@ -323,7 +323,7 @@ class ProposalCommentsController < ApplicationController
     flash[:notice] = t('info.proposal.comment_already_ranked')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages_comment_#{params[:id]}", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages_comment_#{params[:id]}", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
       format.html {

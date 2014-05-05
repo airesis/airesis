@@ -3,7 +3,7 @@
     <div class="left_cont">
       <div class="inner_cont">
         <div class="category_icon">
-          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", :alt => proposal.category.description, :title => proposal.category.description) %>
+          <%= image_tag("proposal_categories/"+proposal.proposal_category_id.to_s + ".png", alt: proposal.category.description, title: proposal.category.description) %>
         </div>
       </div>
     </div>
@@ -18,9 +18,9 @@
       <% if proposal.is_petition? %>
       <% else %>
           <% if proposal.voting? || proposal.voted? %>
-              <%= render :partial => 'proposals/new_vote_bar', locals: {proposal: proposal} %>
+              <%= render partial: 'proposals/new_vote_bar', locals: {proposal: proposal} %>
           <% else %>
-              <%= render :partial => 'proposals/new_rank_bar', locals: {proposal: proposal} %>
+              <%= render partial: 'proposals/new_rank_bar', locals: {proposal: proposal} %>
           <% end %>
       <% end %>
 

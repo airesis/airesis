@@ -1,7 +1,7 @@
 module Frm
   class ForumsController < Frm::ApplicationController
 
-    #load_and_authorize_resource :class => 'Frm::Forum', :only => :show
+    #load_and_authorize_resource class: 'Frm::Forum', only: :show
 
     #before_filter :check_permissions
     before_filter :load_forum, only: :show
@@ -28,7 +28,7 @@ module Frm
 
       respond_to do |format|
         format.html
-        format.atom { render :layout => false }
+        format.atom { render layout: false }
       end
     end
 

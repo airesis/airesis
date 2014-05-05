@@ -6,7 +6,7 @@ class ProposalSupportsController < ApplicationController
   before_filter :load_proposal
 
 ###SICUREZZA###
-  authorize_resource :only => [:new]
+  authorize_resource only: [:new]
 
   #l'utente deve aver fatto login
   before_filter :authenticate_user!

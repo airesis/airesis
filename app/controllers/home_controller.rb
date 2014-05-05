@@ -12,9 +12,9 @@ class HomeController < ApplicationController
   layout :choose_layout
 
   #l'utente deve aver fatto login
-  before_filter :authenticate_user!, :only => [:show]
+  before_filter :authenticate_user!, only: [:show]
 
-  before_filter :initialize_roadmap, :only => [:bugtracking]
+  before_filter :initialize_roadmap, only: [:bugtracking]
 
   def index
     @page_title = 'Home'
@@ -54,7 +54,7 @@ class HomeController < ApplicationController
     @versions = @roadmap.versions
     @issues = @roadmap.issues
     respond_to do |format|
-      format.json { render :json => "{\"data\":[#{@versions.to_json},#{@issues.to_json}]}" }
+      format.json { render json: "{\"data\":[#{@versions.to_json},#{@issues.to_json}]}" }
     end
   end
 
@@ -124,9 +124,9 @@ class HomeController < ApplicationController
         feedback.save!
 
         ResqueMailer.delay.feedback(feedback.id)
-        render :nothing => true
+        render nothing: true
       }
-      format.html {render :nothing => true}
+      format.html {render nothing: true}
     end
   end
 

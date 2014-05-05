@@ -15,7 +15,7 @@ function showSimilarProposal(activeDiv) {
     $(':input', activeDiv).first().focus();
     if (activeDiv.attr('id') == 'suggestions') {
         $.ajax({
-            url: '<%=similar_proposals_path :group_id => params[:group_id]%>',
+            url: '<%=similar_proposals_path group_id: params[:group_id]%>',
             data: 'tags=' + $('#proposal_tags_list').val()
         })
     }

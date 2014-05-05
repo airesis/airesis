@@ -1,7 +1,7 @@
 class AddMissingForeignKey < ActiveRecord::Migration
   def up
 
-    Group.all(:conditions => "partecipation_role_id != 1").each do |group|
+    Group.all(conditions: "partecipation_role_id != 1").each do |group|
       group.group_partecipations.each do |partecipation|
         if partecipation.partecipation_role_id == 1
           partecipation.update_attribute(:partecipation_role_id,group.partecipation_role_id)
@@ -21,19 +21,19 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :meetings, :places
     add_foreign_key :meetings, :events
     add_foreign_key :notifications, :notification_types
-    add_foreign_key :partecipation_roles, :partecipation_roles, {:column => :parent_partecipation_role_id}
+    add_foreign_key :partecipation_roles, :partecipation_roles, {column: :parent_partecipation_role_id}
     add_foreign_key :partecipation_roles, :groups
     add_foreign_key :post_publishings, :groups
     add_foreign_key :post_publishings, :blog_posts
     add_foreign_key :proposal_borders, :interest_borders
     add_foreign_key :proposal_borders, :proposals
-    add_foreign_key :proposal_categories, :proposal_categories, {:column => :parent_proposal_category_id}
+    add_foreign_key :proposal_categories, :proposal_categories, {column: :parent_proposal_category_id}
     add_foreign_key :proposal_comment_rankings, :proposal_comments
     add_foreign_key :proposal_comment_rankings, :users
     add_foreign_key :proposal_comment_rankings, :ranking_types
     add_foreign_key :proposal_comments, :users
     add_foreign_key :proposal_comments, :proposals
-    add_foreign_key :proposal_comments, :users, {:culumn => :deleted_user_id, :name => 'proposal_comments_deleted_user_id_fk'}
+    add_foreign_key :proposal_comments, :users, {culumn: :deleted_user_id, name: 'proposal_comments_deleted_user_id_fk'}
     add_foreign_key :proposal_presentations, :proposals
     add_foreign_key :proposal_presentations, :users
     add_foreign_key :proposal_rankings, :proposals
@@ -43,12 +43,12 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :proposal_votes, :proposals
     add_foreign_key :proposals, :proposal_states
     add_foreign_key :proposals, :proposal_categories
-    add_foreign_key :proposals, :events, {:column => :vote_period_id}
+    add_foreign_key :proposals, :events, {column: :vote_period_id}
     add_foreign_key :users, :user_types
     add_foreign_key :users, :images
     add_foreign_key :user_votes, :users
-    add_foreign_key :user_follows, :users, {:column => :follower_id}
-    add_foreign_key :user_follows, :users, {:column => :followed_id}
+    add_foreign_key :user_follows, :users, {column: :follower_id}
+    add_foreign_key :user_follows, :users, {column: :followed_id}
     add_foreign_key :user_borders, :users
     add_foreign_key :user_borders, :interest_borders
     add_foreign_key :user_alerts, :notifications
@@ -65,7 +65,7 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :blocked_alerts, :users
     add_foreign_key :blocked_emails, :notification_types
     add_foreign_key :blocked_emails, :users
-    add_foreign_key :blog_comments, :blog_comments, {:column => :parent_blog_comment_id}
+    add_foreign_key :blog_comments, :blog_comments, {column: :parent_blog_comment_id}
     add_foreign_key :blog_comments, :blog_posts
     add_foreign_key :blog_comments, :users
     add_foreign_key :blog_post_tags, :blog_posts
@@ -78,7 +78,7 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :group_affinities, :users
     add_foreign_key :group_partecipation_requests, :users
     add_foreign_key :group_partecipation_requests, :groups
-    add_foreign_key :group_partecipation_requests, :group_partecipation_request_statuses, :name => 'parent_fk'
+    add_foreign_key :group_partecipation_requests, :group_partecipation_request_statuses, name: 'parent_fk'
     add_foreign_key :group_partecipations, :users
     add_foreign_key :group_partecipations, :groups
     add_foreign_key :group_partecipations, :partecipation_roles

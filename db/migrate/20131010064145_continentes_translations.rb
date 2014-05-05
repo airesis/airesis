@@ -3,9 +3,9 @@ class ContinentesTranslations < ActiveRecord::Migration
   def up
     I18n.locale = 'it-IT'
     Continente.create_translation_table!({
-                                             :description => :string
+                                             description: :string
                                          }, {
-                                             :migrate_data => true
+                                             migrate_data: true
                                          })
 
   end

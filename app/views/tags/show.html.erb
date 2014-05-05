@@ -15,7 +15,7 @@
           <p><%= t('pages.tags.no_proposals_with_tag') %></p>
         </div>
     <% else %>
-        <%= render :collection => @proposals, :partial => 'proposals/proposal_list_element', :as => 'proposal' %>
+        <%= render collection: @proposals, partial: 'proposals/proposal_list_element', as: 'proposal' %>
     <% end %>
   </div>
 
@@ -39,7 +39,7 @@
     <% if @groups.size == 0 %>
         <p><%= t('pages.tags.no_groups_with_tag') %></p>
     <% else %>
-        <%= render :collection => @groups, :partial => 'groups/group_tag', as: 'group' %>
+        <%= render collection: @groups, partial: 'groups/group_tag', as: 'group' %>
         <div class="clearboth"></div>
     <% end %>
   </div>

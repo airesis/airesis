@@ -1,6 +1,6 @@
 class CommentUpdateNotification < ActiveRecord::Migration
   def up
-    NotificationType.create( :notification_category_id => NotificationCategory.find_by_short('PROP').id, name: 'contribute_update' ){ |c| c.id = 29 }.save
+    NotificationType.create( notification_category_id: NotificationCategory.find_by_short('PROP').id, name: 'contribute_update' ){ |c| c.id = 29 }.save
 
   end
 

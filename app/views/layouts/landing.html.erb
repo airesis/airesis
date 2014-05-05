@@ -2,26 +2,26 @@
 <%@extend=true%>
 <% content_for :menu do %>
       <div class="topimage hide-for-small">
-        <%= image_tag 'logo120.png', :width => 40, :alt => APP_LONG_NAME %>
+        <%= image_tag 'logo120.png', width: 40, alt: APP_LONG_NAME %>
       </div>
       <div class="topmenu <%= 'noleft' unless content_for? :left_panel %>">
         <span class="tit"><%= @page_title %></span>
 
         <div class="submenu">
-          <%= link_to t('pages.home.index.whatis'), edemocracy_path, :class => 'coseButton', class: ((['whatis','intro'].include? params[:action]) ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.whatis'), edemocracy_path, class: 'coseButton', class: ((['whatis','intro'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.partecipate'), partecipa_path, :class => 'sviluppoButton', class: ((['engage'].include? params[:action]) ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.partecipate'), partecipa_path, class: 'sviluppoButton', class: ((['engage'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.videos'), videoguide_path, :class => 'videoButton', class: ((['videoguide'].include? params[:action])  ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.videos'), videoguide_path, class: 'videoButton', class: ((['videoguide'].include? params[:action])  ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.home.index.whowe'), chisiamo_path, :class => 'chisiamoButton', class: ((['whowe','story'].include? params[:action]) ? 'sel' : '') %>
+          <%= link_to t('pages.home.index.whowe'), chisiamo_path, class: 'chisiamoButton', class: ((['whowe','story'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to t('pages.header.support_us'), sostienici_path, :class => 'sostieniButton', class: ((['helpus'].include? params[:action]) ? 'sel' : '') %>
+          <%= link_to t('pages.header.support_us'), sostienici_path, class: 'sostieniButton', class: ((['helpus'].include? params[:action]) ? 'sel' : '') %>
           <span> ⋅ </span>
-          <%= link_to 'ROADMAP', roadmap_path, :class => 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
+          <%= link_to 'ROADMAP', roadmap_path, class: 'roadmapButton', class: (params[:action] == 'roadmap' ? 'sel' : '') %>
           <% unless in_subdomain? %>
               <span> ⋅ </span>
-              <%= link_to 'PRESS', press_path, :class => 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
+              <%= link_to 'PRESS', press_path, class: 'pressButton', class: (params[:action] == 'press' ? 'sel' : '') %>
           <% end %>
         </div>
       </div>

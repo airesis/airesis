@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
 <head>
   <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
-  <%= render :partial => "layouts/head" %>
+  <%= render partial: "layouts/head" %>
 </head>
 <body>
 
-<%= render :partial => "layouts/header" %>
+<%= render partial: "layouts/header" %>
 
 <div id="main">
   <div id="menu-top">
@@ -27,9 +27,9 @@
         <div class="row" style="padding-bottom:30px;">
           <div class="columns large-12">
             <%= yield :left_panel %>
-            <%= render :partial => 'layouts/tutorials' %>
+            <%= render partial: 'layouts/tutorials' %>
             <div id="flash_messages">
-              <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+              <%= render partial: 'layouts/flash', locals: {flash: flash} %>
             </div>
             <%= yield :layout %>
           </div>
@@ -44,16 +44,16 @@
         <%end%>
         <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel)%> <%= 'nomargin' if @nomargin%>">
           <div class="centerfloat <%= 'extended' if @extend %>">
-            <%= render :partial => 'layouts/tutorials' %>
+            <%= render partial: 'layouts/tutorials' %>
             <div id="flash_messages">
-              <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
+              <%= render partial: 'layouts/flash', locals: {flash: flash} %>
             </div>
             <%= yield :layout %>
           </div>
           <div class="clearboth"></div>
         </div>
     <% end %>
-    <%= render :partial => "layouts/footer" %>
+    <%= render partial: "layouts/footer" %>
   </div>
 </div>
 </body>

@@ -1,6 +1,6 @@
 class RemoveWrongEvents < ActiveRecord::Migration
   def up
-    Event.where(:event_type_id => nil).destroy_all
+    Event.where(event_type_id: nil).destroy_all
     change_column :events, :event_type_id, :integer, null: false
   end
 

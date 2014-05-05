@@ -73,29 +73,29 @@
   <div class="columns large-6" id="group_search_form">
      <div class="card">
 
-    <%= form_for groups_path, :html => {:class => "disableForm"}, :method => 'get', :remote => true do |f| %>
+    <%= form_for groups_path, html: {class: "disableForm"}, method: 'get', remote: true do |f| %>
 
 
         <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>
         <div style="float:left">
-          <%= text_field_tag :search, params[:search], :title => t('pages.groups.index.find_title'), style: 'width:300px' %>
+          <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
         </div>
         <div class="search_words">
-          <%= check_box_tag :and, params[:and], :title => "Scegli se cercare tutte le parole o almeno una" %>
+          <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
         </div>
 
         <div class="clearboth"></div>
 
         <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
         <div style="float:left">
-          <%= text_field_tag :interest_border, params[:interest_border], :title => t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
+          <%= text_field_tag :interest_border, params[:interest_border], title: t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
         </div>
         <div class="search_borders">
-          <%= check_box_tag :area, params[:area], :title => "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
+          <%= check_box_tag :area, params[:area], title: "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
         </div>
 
         <div class="clearboth"></div>
-        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', :class => 'btn searchButton', data: {disable_with: t('loading')} %>
+        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
     <% end %>
      </div>
   </div>
@@ -188,7 +188,7 @@
 
 <div id="groups_list">
   <% if @groups.count > 0 %>
-      <%= render :partial => "group_tag", :collection => @groups, :as => :group %>
+      <%= render partial: "group_tag", collection: @groups, as: :group %>
   <% else %>
       <h2><%= t('pages.groups.index.search_description') %></h2>
   <% end %>
@@ -196,16 +196,16 @@
 </div>
 <div class="clearboth"></div>
 <div id="more_groups_container">
-  <%= render :partial => 'more_groups' %>
+  <%= render partial: 'more_groups' %>
 </div>
 
 <%= content_for :left_panel do %>
     <div class="mybox">
       <% if !current_user || (can? :create, Group) %>
-          <%= link_to t('pages.groups.index.create_group_button'), new_group_path, :class => "btn blue newButton" %>
+          <%= link_to t('pages.groups.index.create_group_button'), new_group_path, class: "btn blue newButton" %>
       <% else %>
           <%= t('pages.groups.index.limit_reached') %>
       <% end %>
     </div>
-    <%= render :partial => 'users/user_groups_panel' %>
+    <%= render partial: 'users/user_groups_panel' %>
 <% end %>

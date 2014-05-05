@@ -4,7 +4,7 @@ Elenco mailing list disponibili:
     <%unless file == "." || file == ".." %>
         <div class="panel">
 
-          <%=form_for 'mail', :url => {:action => "send_newsletter", :controller => "admin", :name => file} do |f| %>
+          <%=form_for 'mail', url: {action: "send_newsletter", controller: "admin", name: file} do |f| %>
             <%= file %>
             <%=f.label 'subject', 'Subject' %>
             <%=f.text_field 'subject' %>

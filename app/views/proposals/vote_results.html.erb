@@ -3,7 +3,7 @@
 
 <h2><%= @page_title %></h2>
 
-<%=render(:partial => @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results')%>
+<%=render(partial: @proposal.is_schulze? ? 'schulze_vote_results' : 'vote_results')%>
 
 
 <% content_for :left_panel do %>

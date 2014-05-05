@@ -22,21 +22,21 @@
         <%= parsed_content(comment,@proposal.is_anonima?) %>
       </div>
       <div class="baloon-footer">
-        <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
+        <% who = (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user)) ? proposal_nickname.nickname : (link_to_user comment.user, content_text: comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
         <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) and ((Time.now - comment.created_at)/60) < 5 %>
-            <%= link_to t('pages.proposals.delete_comment'), {:controller => "proposal_comments", :action => "delete", :proposal_id => @proposal.id, :id => comment.id},
-                        :remote => "true",
-                        :onclick => "return false;",
-                        :class => "deleteCommentLink",
-                        :id => "delete#{comment.id}",
-                        :data => {id: comment.id} %>
+            <%= link_to t('pages.proposals.delete_comment'), {controller: "proposal_comments", action: "delete", proposal_id: @proposal.id, id: comment.id},
+                        remote: "true",
+                        onclick: "return false;",
+                        class: "deleteCommentLink",
+                        id: "delete#{comment.id}",
+                        data: {id: comment.id} %>
         <% end %>
       </div>
       <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer">
-        <%= render :partial => 'proposal_comments/edit_ranking_panel', :locals => {:comment => comment} %>
+        <%= render partial: 'proposal_comments/edit_ranking_panel', locals: {comment: comment} %>
       </div>
       <div style="clear:both;"></div>
     </div>
@@ -47,12 +47,12 @@
   <% @lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > 5 %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
-        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), :remote => true %>
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment), remote: true %>
       </div>
   <% end %>
   <div id="<%= comment.id %>_replies" style="display:none;">
   </div>
-  <%= render :partial => 'proposals/reply', :collection => @lastreplies, locals: {hide: true} %>
+  <%= render partial: 'proposals/reply', collection: @lastreplies, locals: {hide: true} %>
   <div id="<%= comment.id %>_new_replies">
   </div>
 </div>

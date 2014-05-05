@@ -4,10 +4,10 @@ class UpdateUrls < ActiveRecord::Migration
       case auth.provider
         when Authentication::FACEBOOK
           auth.user.facebook_page_url = "http://www.facebook.com/#{auth.uid}"
-          auth.user.save!(:validate => false)
+          auth.user.save!(validate: false)
         when Authentication::GOOGLE
           auth.user.google_page_url = "http://plus.google.com/#{auth.uid}"
-          auth.user.save!(:validate => false)
+          auth.user.save!(validate: false)
       end
     end
   end

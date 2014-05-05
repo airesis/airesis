@@ -18,7 +18,7 @@
 	        <%if (proposal_nickname && @proposal.is_anonima? && !(comment.user == current_user))%>
 		  <%=proposal_nickname.nickname%>	                	
 	      	<%else%>
-	          <%=link_to_user comment.user, :content_text => comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
+	          <%=link_to_user comment.user, content_text: comment.user.fullname + (proposal_nickname ? (' (' + proposal_nickname.nickname + ')') : '') %>
 	      	<%end%>
 	      </span> propone...
 	    </div>
@@ -30,14 +30,14 @@
             <div class="baloon-footer">
             	Inserito il <span class="blogPostDate"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %></span><!--TODO:I18n-->
 	            <div id="rankingpanelcontainer<%=comment.id%>" class="rankingpanelcontainer" >
-    	            <%= render :partial => 'proposal_comments/ranking_panel', :locals => {:comment => comment} %>
+    	            <%= render partial: 'proposal_comments/ranking_panel', locals: {comment: comment} %>
         	    </div>
                 <% if current_user and (is_proprietary? comment or current_user.is_my_proposal? @proposal.id) %>
-                    <%= link_to 'Cancella', {:controller => "proposal_comments", :action => "delete",  :proposal_id => @proposal.id, :id => comment.id},
-						:remote => "true",
-						:onclick => "return false;",
-						:class => "deleteCommentLink",					
-						:id => "delete#{comment.id}"%>
+                    <%= link_to 'Cancella', {controller: "proposal_comments", action: "delete",  proposal_id: @proposal.id, id: comment.id},
+						remote: "true",
+						onclick: "return false;",
+						class: "deleteCommentLink",
+						id: "delete#{comment.id}"%>
                 <%end%>                               
             </div>
         </div>
@@ -59,22 +59,22 @@
     <%@lastreplies = comment.replies.order('created_at DESC').page(1).per(5).reverse!%>
     <%if countreplies > 5%>
     <div id="<%=comment.id%>_show" class="show_all_comments">
-    	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' commenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), :remote => true%>
+    	<%=link_to 'Mostra tutti i ' + countreplies.to_s + ' commenti...', show_all_replies_proposal_proposal_comment_path(@proposal,comment), remote: true%>
     </div>
     <%end%>
     <div id="<%=comment.id%>_replies" style="display:none;">
     </div>
-    <%= render :partial => 'proposals/reply', :collection => @lastreplies %>
+    <%= render partial: 'proposals/reply', collection: @lastreplies %>
     <%if signed_in? && (can? :partecipate, @proposal) %>
     <div  class="proposal_comment_reply">
     	<div id="<%=comment.id%>_reply_area_msg"></div>
-    	<%= form_for [@proposal,ProposalComment.new], :remote => true do |f| %>
+    	<%= form_for [@proposal,ProposalComment.new], remote: true do |f| %>
     	<div class="reply_img">    	
 	        <%= current_user.user_image_tag(32) %>		
 	    </div>    
 		<div class="reply_area">
-			<%= f.hidden_field :parent_proposal_comment_id, :value => comment.id%>
-			<%= f.text_area :content, :class => 'reply_textarea'%>
+			<%= f.hidden_field :parent_proposal_comment_id, value: comment.id%>
+			<%= f.text_area :content, class: 'reply_textarea'%>
         </div>
         <div class="reply_button">
         	<%=f.submit 'Rispondi', :class=>'buttonStyle littleText replyButton disableButton' %>

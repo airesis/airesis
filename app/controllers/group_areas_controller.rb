@@ -13,7 +13,7 @@ class GroupAreasController < ApplicationController
   before_filter :authenticate_user!
 
   #l'utente deve essere amministratore
-  #before_filter :admin_required, :only => [:destroy]
+  #before_filter :admin_required, only: [:destroy]
 
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required
@@ -95,14 +95,14 @@ class GroupAreasController < ApplicationController
           flash[:notice] = t('info.groups.group_updated')
           format.html { redirect_to(@group) }
         else
-          format.html { render :action => "edit" }
+          format.html { render action: "edit" }
         end
       end
     rescue Exception => e
       puts e
       respond_to do |format|
         flash[:error] = t('error.groups.update')
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
@@ -116,7 +116,7 @@ class GroupAreasController < ApplicationController
       part.area_role_id = group_area.area_role_id
       part.save!
     else
-      group_area.area_partecipations.where(:user_id => params[:user_id]).destroy_all
+      group_area.area_partecipations.where(user_id: params[:user_id]).destroy_all
     end
   end
 

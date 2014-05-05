@@ -1,6 +1,6 @@
 class UserAlert < ActiveRecord::Base
-  belongs_to :user, :class_name => 'User', :foreign_key => :user_id
-  belongs_to :notification, :class_name => 'Notification', :foreign_key => :notification_id
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :notification, class_name: 'Notification', foreign_key: :notification_id
 
   default_scope -> {select('user_alerts.*, notifications.properties || user_alerts.properties as nproperties').joins(:notification)}
 
@@ -33,7 +33,7 @@ class UserAlert < ActiveRecord::Base
 
 
   def check!
-    self.update_attributes({:checked => true, :checked_at => Time.now})
+    self.update_attributes({checked: true, checked_at: Time.now})
     if proposal_id = self.data[:proposal_id]
       ProposalAlert.find_by_proposal_id_and_user_id(proposal_id.to_i, self.user_id).decrement!(:count)
     end

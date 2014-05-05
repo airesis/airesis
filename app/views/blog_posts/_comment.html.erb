@@ -5,8 +5,8 @@
 		<span class="blogPoster"><%=link_to_user comment.user %></span>
 	</div>
 	<div class="blog-comment-content">
-      <%=raw auto_link((h(comment.body)).gsub(/\n/, '<br/>'), :html => { :target => '_blank' }, :sanitize => false) do |text|
-        truncate(text, :length => 15)
+      <%=raw auto_link((h(comment.body)).gsub(/\n/, '<br/>'), html: { target: '_blank' }, sanitize: false) do |text|
+        truncate(text, length: 15)
       end%>
 	</div>
 	<div class="blog-comment-footer">
@@ -14,11 +14,11 @@
 			<%= time_in_words(comment.created_at)%>
 			<% if current_user and (current_user.id == comment.user_id or current_user.id == @blog_post.user_id)%>
 					<div style="float:right">
-                        <%= link_to t('pages.blog_posts.comment.delete_button'), {:controller => "blog_comments", :action => "delete",  :blog_post_id => @blog_post.id, :id => comment.id},
-					    :remote => "true",
-                        :onclick => "return false;",
-                        :class => "deleteCommentLink",
-                        :id => "delete#{comment.id}"%>
+                        <%= link_to t('pages.blog_posts.comment.delete_button'), {controller: "blog_comments", action: "delete",  blog_post_id: @blog_post.id, id: comment.id},
+					    remote: "true",
+                        onclick: "return false;",
+                        class: "deleteCommentLink",
+                        id: "delete#{comment.id}"%>
                     </div>
 			<% end %>	
 			</div>

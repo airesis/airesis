@@ -3,24 +3,24 @@ class ProposalComment < ActiveRecord::Base
   include LogicalDeleteHelper
   include ActionView::Helpers::TextHelper
 
-  has_paper_trail :class_name => 'ProposalCommentVersion', only: [:content], on: [:update,:destroy]
+  has_paper_trail class_name: 'ProposalCommentVersion', only: [:content], on: [:update,:destroy]
 
 
-  belongs_to :user, :class_name => 'User', :foreign_key => :user_id
-  belongs_to :contribute, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id
-  has_many :replies, :class_name => 'ProposalComment', :foreign_key => :parent_proposal_comment_id, dependent: :destroy
-  has_many :repliers, -> {uniq true}, class_name: 'User', :through => :replies, :source => :user
-  belongs_to :proposal, :class_name => 'Proposal', :foreign_key => :proposal_id, :counter_cache => true
-  has_many :rankings, :class_name => 'ProposalCommentRanking', :dependent => :destroy
-  has_many :rankers, :through => :rankings, :class_name => 'User', source: :user
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :contribute, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id
+  has_many :replies, class_name: 'ProposalComment', foreign_key: :parent_proposal_comment_id, dependent: :destroy
+  has_many :repliers, -> {uniq true}, class_name: 'User', through: :replies, source: :user
+  belongs_to :proposal, class_name: 'Proposal', foreign_key: :proposal_id, counter_cache: true
+  has_many :rankings, class_name: 'ProposalCommentRanking', dependent: :destroy
+  has_many :rankers, through: :rankings, class_name: 'User', source: :user
   belongs_to :paragraph
 
-  has_one :integrated_contribute, :class_name => 'IntegratedContribute', dependent: :destroy
-  has_many :proposal_revisions, :class_name => 'ProposalRevision', :through => :integrated_contributes
+  has_one :integrated_contribute, class_name: 'IntegratedContribute', dependent: :destroy
+  has_many :proposal_revisions, class_name: 'ProposalRevision', through: :integrated_contributes
 
-  has_many :reports, :class_name => 'ProposalCommentReport', :foreign_key => :proposal_comment_id
+  has_many :reports, class_name: 'ProposalCommentReport', foreign_key: :proposal_comment_id
 
-  validates_length_of :content, :minimum => 10, :maximum => CONTRIBUTE_MAX_LENGTH
+  validates_length_of :content, minimum: 10, maximum: CONTRIBUTE_MAX_LENGTH
 
   attr_accessor :collapsed
 
@@ -59,7 +59,7 @@ class ProposalComment < ActiveRecord::Base
   end
 
   def set_paragraph_id
-    self.paragraph = Paragraph.first(:conditions => {:section_id => self.section_id})
+    self.paragraph = Paragraph.first(conditions: {section_id: self.section_id})
 
   end
 

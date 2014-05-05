@@ -46,7 +46,7 @@ class AddForums < ActiveRecord::Migration
     end
 
     create_table :frm_categories do |t|
-      t.string :name, :null => false
+      t.string :name, null: false
       t.string :slug
       t.integer :group_id
       t.timestamps
@@ -71,9 +71,9 @@ class AddForums < ActiveRecord::Migration
       t.integer :group_id
     end
 
-    add_index :frm_topics, :slug, :unique => true
-    add_index :frm_categories, :slug, :unique => true
-    add_index :frm_forums, :slug, :unique => true
+    add_index :frm_topics, :slug, unique: true
+    add_index :frm_categories, :slug, unique: true
+    add_index :frm_forums, :slug, unique: true
     add_index :frm_topics, :state
     add_index :frm_posts, :state
     add_index :frm_moderator_groups, :forum_id

@@ -40,15 +40,15 @@
             <% end %>
           </div>
 
-          <%= form_for 'data', :url => {:action => "vote_schulze", :controller => "votations", :proposal_id => @proposal.id}, method: :put, remote: true do |f| %>
+          <%= form_for 'data', url: {action: "vote_schulze", controller: "votations", proposal_id: @proposal.id}, method: :put, remote: true do |f| %>
               <%= f.hidden_field 'votes' %>
 
-              <%= render :partial => 'fragments/how_schulze_works' %>
+              <%= render partial: 'fragments/how_schulze_works' %>
               <% if current_user.rotp_enabled && ::Configuration.rotp %>
                   <%= f.label 'Token di sicurezza' %>
                   <%= f.text_field 'token', maxlength: 6 %>
               <% end %>
-              <%= f.button t('pages.proposals.show.vote_button'), :onclick => "return elaboraVoto();", :remote => true, data: {:confirm => t('pages.votations.show.confirm_schulze', :name => @proposal.title)}, :id => 'submit', :class => 'btn blue acceptButton' %>
+              <%= f.button t('pages.proposals.show.vote_button'), onclick: "return elaboraVoto();", remote: true, data: {confirm: t('pages.votations.show.confirm_schulze', name: @proposal.title)}, id: 'submit', class: 'btn blue acceptButton' %>
           <% end %>
 
           <script type="text/javascript">
@@ -119,7 +119,7 @@
           <h4><%= t('pages.proposals.vote_panel.single_title') %></h4>
           <h4><%= @proposal.secret_vote ? t('pages.proposals.vote_panel.secret_vote') : t('pages.proposals.vote_panel.clear_vote') %></h4>
 
-          <%= form_for 'data', :url => votation_vote_path(:proposal_id => @proposal.id), remote: true, method: :put do |f| %>
+          <%= form_for 'data', url: votation_vote_path(proposal_id: @proposal.id), remote: true, method: :put do |f| %>
               <%= f.hidden_field 'vote_type' %>
               <% if current_user.rotp_enabled && ::Configuration.rotp %>
                   <%= f.label 'Token di sicurezza' %> <br/>
@@ -128,15 +128,15 @@
           <% end %>
 
           <div style="float: left">
-            <%= link_to '', '#', :class => "votegreen votebutton", :title => t('pages.votations.show.vote_positive'), onclick: "return send_vote(#{VoteType::POSITIVE});" %>
+            <%= link_to '', '#', class: "votegreen votebutton", title: t('pages.votations.show.vote_positive'), onclick: "return send_vote(#{VoteType::POSITIVE});" %>
           </div>
           <div style="float: left">
-            <%= link_to '', '#', :class => "voteyellow votebutton", :title => t('pages.votations.show.vote_neutral'), onclick: "return send_vote(#{VoteType::NEUTRAL});" %>
+            <%= link_to '', '#', class: "voteyellow votebutton", title: t('pages.votations.show.vote_neutral'), onclick: "return send_vote(#{VoteType::NEUTRAL});" %>
           </div>
           <div style="float: left">
-            <%= link_to '', '#', :class => "votered votebutton", :title => t('pages.votations.show.vote_negative'), onclick: "return send_vote(#{VoteType::NEGATIVE});" %>
+            <%= link_to '', '#', class: "votered votebutton", title: t('pages.votations.show.vote_negative'), onclick: "return send_vote(#{VoteType::NEGATIVE});" %>
           </div>
-          <%= image_tag "spinner.gif", :style => 'display: none;', :class => "loading_vote" %>
+          <%= image_tag "spinner.gif", style: 'display: none;', class: "loading_vote" %>
           <div style="clear: both"></div>
 
       <% end %>
@@ -144,10 +144,10 @@
       <script type="text/javascript">
           function send_vote(type) {
               var message = (type == <%=VoteType::POSITIVE%>) ?
-                      '<%=j t('pages.votations.show.confirm_positive', :name => @proposal.title) %>' :
+                      '<%=j t('pages.votations.show.confirm_positive', name: @proposal.title) %>' :
                       (type == <%=VoteType::NEUTRAL%>) ?
-                              '<%=j t('pages.votations.show.confirm_neutral', :name => @proposal.title) %>' :
-                              '<%=j t('pages.votations.show.confirm_negative', :name => @proposal.title) %>';
+                              '<%=j t('pages.votations.show.confirm_neutral', name: @proposal.title) %>' :
+                              '<%=j t('pages.votations.show.confirm_negative', name: @proposal.title) %>';
               if (confirm(message)) {
                   $("#data_vote_type").val(type);
                   $(".votebutton").fadeOut();

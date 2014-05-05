@@ -1,5 +1,5 @@
 var container_ = $('<div id="geocode_container" style="display:none;" title="Geolocalizza la proposta"></div>');
-container_.append('<%=j render :partial => 'geocode', locals: {remote: true} %>');
+container_.append('<%=j render partial: 'geocode', locals: {remote: true} %>');
 $('body').append(container_);
 container_.dialog({
     width: 700,

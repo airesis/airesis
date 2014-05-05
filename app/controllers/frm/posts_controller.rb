@@ -2,12 +2,12 @@ module Frm
   class PostsController < Frm::ApplicationController
     before_filter :authenticate_user!
     before_filter :find_topic
-    before_filter :reject_locked_topic!, :only => [:create]
-    before_filter :block_spammers, :only => [:new, :create]
-    before_filter :authorize_reply_for_topic!, :only => [:new, :create]
-    before_filter :authorize_edit_post_for_forum!, :only => [:edit, :update]
-    before_filter :find_post_for_topic, :only => [:edit, :update, :destroy]
-    before_filter :ensure_post_ownership!, :only => [:destroy]
+    before_filter :reject_locked_topic!, only: [:create]
+    before_filter :block_spammers, only: [:new, :create]
+    before_filter :authorize_reply_for_topic!, only: [:new, :create]
+    before_filter :authorize_edit_post_for_forum!, only: [:edit, :update]
+    before_filter :find_post_for_topic, only: [:edit, :update, :destroy]
+    before_filter :ensure_post_ownership!, only: [:destroy]
 
     def new
       @post = @topic.posts.build
@@ -55,13 +55,13 @@ module Frm
 
     def create_successful
       flash[:notice] = t("frm.post.created")
-      redirect_to group_forum_topic_url(@group, @topic.forum, @topic, :page => @topic.last_page)
+      redirect_to group_forum_topic_url(@group, @topic.forum, @topic, page: @topic.last_page)
     end
 
     def create_failed
       params[:reply_to_id] = params[:post][:reply_to_id]
       flash.now.alert = t("frm.post.not_created")
-      render :action => "new"
+      render action: "new"
     end
 
     def destroy_successful
@@ -76,12 +76,12 @@ module Frm
     end
 
     def update_successful
-      redirect_to group_forum_topic_url(@group,@topic.forum, @topic), :notice => t('edited', :scope => 'frm.post')
+      redirect_to group_forum_topic_url(@group,@topic.forum, @topic), notice: t('edited', scope: 'frm.post')
     end
 
     def update_failed
       flash.now.alert = t("frm.post.not_edited")
-      render :action => "edit"
+      render action: "edit"
     end
 
     def ensure_post_ownership!

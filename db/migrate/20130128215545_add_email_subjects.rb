@@ -1,7 +1,7 @@
 #encoding: utf-8
 class AddEmailSubjects < ActiveRecord::Migration
   def up
-    add_column :notification_types, :email_subject, :string, :limit => 255
+    add_column :notification_types, :email_subject, :string, limit: 255
     n = NotificationType.find_by_id(1)
     n.email_subject = "Nuovo commento ad una proposta"
     n.save!

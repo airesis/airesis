@@ -6,21 +6,21 @@ class GroupArea < ActiveRecord::Base
   validates :description, length: {within: 1..2000}, allow_nil: true
 
   validates :group_id, presence: true
-  validates :default_role_name, presence: true, :on => :create
+  validates :default_role_name, presence: true, on: :create
 
   attr_accessible :name, :description, :default_role_name, :default_role_actions
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
-  belongs_to :group, :class_name => 'Group', :foreign_key => :group_id
-  belongs_to :default_role, :class_name => 'AreaRole', :foreign_key => :area_role_id
+  belongs_to :group, class_name: 'Group', foreign_key: :group_id
+  belongs_to :default_role, class_name: 'AreaRole', foreign_key: :area_role_id
 
-  has_many :area_partecipations, -> {order 'id DESC'}, :class_name => 'AreaPartecipation', :dependent => :destroy
-  has_many :partecipants, :through => :area_partecipations, :source => :user, :class_name => 'User'
+  has_many :area_partecipations, -> {order 'id DESC'}, class_name: 'AreaPartecipation', dependent: :destroy
+  has_many :partecipants, through: :area_partecipations, source: :user, class_name: 'User'
 
-  has_many :area_proposals, :class_name => 'AreaProposal'#, :dependent => :destroy
-  has_many :internal_proposals, :through => :area_proposals, :class_name => 'Proposal', :source => :proposal
+  has_many :area_proposals, class_name: 'AreaProposal'#, dependent: :destroy
+  has_many :internal_proposals, through: :area_proposals, class_name: 'Proposal', source: :proposal
 
-  has_many :area_roles, -> {order 'id DESC'}, :class_name => 'AreaRole', :dependent => :destroy
+  has_many :area_roles, -> {order 'id DESC'}, class_name: 'AreaRole', dependent: :destroy
 
   before_create :pre_populate
   after_create :after_populate
@@ -49,28 +49,28 @@ class GroupArea < ActiveRecord::Base
   #utenti che possono partecipare alle proposte
   def count_proposals_partecipants
     self.partecipants.count(
-        :joins => "join area_roles
+        joins: "join area_roles
                on area_partecipations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        :conditions => "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
+        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
   end
 
   #utenti che possono votare le proposte
   def count_voter_partecipants
     self.partecipants.count(
-        :joins => "join area_roles
+        joins: "join area_roles
                on area_partecipations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        :conditions => "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND area_action_abilitations.group_area_id = #{self.id})")
+        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND area_action_abilitations.group_area_id = #{self.id})")
   end
 
   #utenti che possono eseguire un'azione
   def scoped_partecipants(action_id)
     return self.partecipants.all(
-        :joins => "join area_roles
+        joins: "join area_roles
                on area_partecipations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        :conditions => ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id])
+        conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id])
   end
 
   def to_param

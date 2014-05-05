@@ -3,19 +3,19 @@ class QuorumsController < ApplicationController
   include NotificationHelper
 
   #load group
-  before_filter :load_group, :except => :help
-  before_filter :load_quorum, :only => [:edit, :update, :destroy, :dates]
+  before_filter :load_group, except: :help
+  before_filter :load_quorum, only: [:edit, :update, :destroy, :dates]
 
   #security controls
   before_filter :authenticate_user!
 
-  before_filter :check_permissions, :only => [:new,:create,:edit,:update,:destroy,:change_status]
+  before_filter :check_permissions, only: [:new,:create,:edit,:update,:destroy,:change_status]
 
   layout :choose_layout
 
   def new
     @page_title=  t('pages.groups.edit_quorums.new_quorum.title')
-    @quorum = BestQuorum.new({:percentage => 0, :good_score => 20, :vote_percentage => 0, :vote_good_score => 50})
+    @quorum = BestQuorum.new({percentage: 0, good_score: 20, vote_percentage: 0, vote_good_score: 50})
     @partecipants_count = @group.count_proposals_partecipants
     @vote_partecipants_count = @group.count_voter_partecipants
     respond_to do |format|
@@ -41,7 +41,7 @@ class QuorumsController < ApplicationController
       respond_to do |format|
         flash[:error] = t('error.quorums.quorum_creation')
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
         end
         }
@@ -72,7 +72,7 @@ class QuorumsController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.quorums.quorum_modification')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
       end
       }
@@ -87,8 +87,8 @@ class QuorumsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-        page.replace_html "quorum_panel_container", :partial => 'groups/quorums_panel'
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+        page.replace_html "quorum_panel_container", partial: 'groups/quorums_panel'
       end
       }
     end
@@ -111,7 +111,7 @@ class QuorumsController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -148,7 +148,7 @@ class QuorumsController < ApplicationController
     flash[:error] = t('unauthorized.default')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end

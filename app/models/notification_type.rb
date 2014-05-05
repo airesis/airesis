@@ -28,10 +28,10 @@ class NotificationType < ActiveRecord::Base
   CHAIN = [NEW_PROPOSALS,NEW_PUBLIC_PROPOSALS,]
 
 
-  belongs_to :notification_category, :class_name => 'NotificationCategory', :foreign_key => :notification_category_id
-  has_many :blocked_alerts, :class_name => 'BlockedAlert'
-  has_many :notifications, :class_name => 'Notification'
-  has_many :blockers, :through => :blocked_alerts, :class_name => 'User', :source => :user
+  belongs_to :notification_category, class_name: 'NotificationCategory', foreign_key: :notification_category_id
+  has_many :blocked_alerts, class_name: 'BlockedAlert'
+  has_many :notifications, class_name: 'Notification'
+  has_many :blockers, through: :blocked_alerts, class_name: 'User', source: :user
 
   def description
     I18n.t("db.#{self.class.class_name.tableize}.#{self.name}.description")

@@ -4,7 +4,7 @@
 
 <% javascript 'endless_page' %>
 
-<%= render :layout => "layouts/page_title", :locals => {:title => @blog.title} do %>
+<%= render layout: "layouts/page_title", locals: {title: @blog.title} do %>
 
 <% end %>
 
@@ -18,7 +18,7 @@
         <h3><%= t('pages.blogs.show.tag') %>: <%= @tag %></h3>
     <% end %>
     <div id="blogPostContainer">
-      <%= render :collection => @blog_posts, :partial => 'blog_posts/blog_post' %>
+      <%= render collection: @blog_posts, partial: 'blog_posts/blog_post' %>
     </div>
 
 <% end %>

@@ -63,7 +63,7 @@
               <div class="model_name">
                 <div class="name"><%= event_type.description.upcase %></div>
                 <div class="icon">
-                  <%= image_tag "event_types/#{event_type.name.downcase}.png", :align => 'middle', :alt => event_type.description, :title => event_type.description, style: 'width:160px' %>
+                  <%= image_tag "event_types/#{event_type.name.downcase}.png", align: 'middle', alt: event_type.description, title: event_type.description, style: 'width:160px' %>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@
                 day: '<%=t('calendar.day')%>'
             },
             <%if @group %>
-            events: '<%=list_events_url(:group_id => @group)%>',
+            events: '<%=list_events_url(group_id: @group)%>',
             <%else%>
             events: '<%=list_events_url%>',
             <%end%>
@@ -195,7 +195,7 @@
 
         <%if params[:new_event] == 'true' %>
         $.ajax({
-            url: '<%=new_event_url(:group_id=> @group.try(:id), :type => params[:type]) %>'
+            url: '<%=new_event_url(:group_id=> @group.try(:id), type: params[:type]) %>'
         });
         /*$('.newButton').click();*/
         <%end%>

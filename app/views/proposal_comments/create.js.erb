@@ -34,7 +34,7 @@
 
 
     <%else%>
-        $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment', :locals => {:comment => @proposal_comment}%>');
+        $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment', locals: {comment: @proposal_comment}%>');
         $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
@@ -75,7 +75,7 @@
 
 
             <%else%>
-                $("#proposalCommentsContainer").prepend('<%=j render :partial => 'proposals/comment_others', :locals => {:comment => @proposal_comment} %>');
+                $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment_others', locals: {comment: @proposal_comment} %>');
             <%end%>
             hide_vote_controls();
             initTextAreaTag();

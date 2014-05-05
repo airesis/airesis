@@ -1,8 +1,8 @@
 <%@page_title = t('pages.passwords.edit.title')%>
 <h2><%= @page_tile %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render partial: 'fragments/error_messages', locals: {resource: resource} %>
   
   <%= f.hidden_field :reset_password_token %>
 
@@ -15,4 +15,4 @@
   <div><%= f.submit t('pages.password.edit.confirm_button'), :class=> 'btn blue' %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<%= render partial: "devise/shared/links" %>

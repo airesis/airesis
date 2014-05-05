@@ -1,9 +1,9 @@
 class CreateTutorialProgresses < ActiveRecord::Migration
   def up
     create_table :tutorial_progresses do |t|
-      t.integer :user_id, :null => false
-      t.integer :step_id, :null => false
-      t.string :status, :null => false, :default => 'N'
+      t.integer :user_id, null: false
+      t.integer :step_id, null: false
+      t.string :status, null: false, default: 'N'
 
       t.timestamps
     end

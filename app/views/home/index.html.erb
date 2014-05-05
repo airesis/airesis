@@ -128,21 +128,21 @@
       <div class="row full-width medium-bar"><!-- Menù navigatore-->
         <div class="row centered" style="margin-top: 10px">
           <!-- Logo principale-->
-          <%= image_tag 'logo_main.png', :style => 'float:left;', :alt => "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
+          <%= image_tag 'logo_main.png', style: 'float:left;', alt: "Airesis - Scegli di partecipare", title: t('home.tags.title') %>
 
           <div style="float:right" class="show-for-medium-up">
             <div style=" width:387px;font-family:Arial; text-align:center;">
               <div style="margin:5px; line-height:26px;">
-                <%= link_to t('pages.home.index.cloud_1'), proposals_path, :style => 'font-size:37px;text-decoration:none; color: #87A800; ' %>
-                <%= link_to t('pages.home.index.cloud_2'), groups_path, :style => 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
+                <%= link_to t('pages.home.index.cloud_1'), proposals_path, style: 'font-size:37px;text-decoration:none; color: #87A800; ' %>
+                <%= link_to t('pages.home.index.cloud_2'), groups_path, style: 'font-size:26px;text-decoration:none;  color: #FF7600; padding-top:5px;' %>
                 <br/>
-                <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', :target => '_blank', :style => 'font-size:32px;text-decoration:none; color: #039FAF;' %>
-                <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #FF7600;' %>
-                <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', :target => '_blank', :style => 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>
-                <%= link_to t('pages.home.index.cloud_6'), 'http://it.wikipedia.org/wiki/Forum_(Internet)', :target => '_blank', :style => 'font-size:25px;text-decoration:none; color: #87A800;' %>
-                <%= link_to t('pages.home.index.cloud_7'), partecipa_path, :style => 'font-size:40px;text-decoration:none; color: #DE2159;' %>
-                <%= link_to t('pages.home.index.cloud_8'), 'http://it.wikipedia.org/wiki/Votazione_elettronica', :style => 'font-size:40px;text-decoration:none; color: #039FAF;' %>
-                <%= link_to t('pages.home.index.cloud_9'), 'http://www.doodle.com/', :style => 'font-size:23px;text-decoration:none; color: #87A800;' %>
+                <%= link_to t('pages.home.index.cloud_3'), 'http://it.wikipedia.org/wiki/edemocracy', target: '_blank', style: 'font-size:32px;text-decoration:none; color: #039FAF;' %>
+                <%= link_to t('pages.home.index.cloud_4'), 'http://www.decorourbano.org/', target: '_blank', style: 'font-size:25px;text-decoration:none; color: #FF7600;' %>
+                <%= link_to t('pages.home.index.cloud_5'), 'http://www.facebook.it', target: '_blank', style: 'font-size:28px;text-decoration:none;  color: #FF7600;padding-top:15px;' %>
+                <%= link_to t('pages.home.index.cloud_6'), 'http://it.wikipedia.org/wiki/Forum_(Internet)', target: '_blank', style: 'font-size:25px;text-decoration:none; color: #87A800;' %>
+                <%= link_to t('pages.home.index.cloud_7'), partecipa_path, style: 'font-size:40px;text-decoration:none; color: #DE2159;' %>
+                <%= link_to t('pages.home.index.cloud_8'), 'http://it.wikipedia.org/wiki/Votazione_elettronica', style: 'font-size:40px;text-decoration:none; color: #039FAF;' %>
+                <%= link_to t('pages.home.index.cloud_9'), 'http://www.doodle.com/', style: 'font-size:23px;text-decoration:none; color: #87A800;' %>
               </div>
             </div>
           </div>
@@ -156,18 +156,18 @@
             <div class="row">
               <div class="columns large-5 small-5">
                 <div>
-                <%= link_to t('pages.home.index.try_it'), public_path, :class => "homepageButton" %>
+                <%= link_to t('pages.home.index.try_it'), public_path, class: "homepageButton" %>
                 </div>
               </div>
 
               <div class="columns large-7 small-7">
-                <%= link_to t('pages.home.index.register'), new_user_registration_path, :class => "homepageButton", :id => 'signup' %>
+                <%= link_to t('pages.home.index.register'), new_user_registration_path, class: "homepageButton", id: 'signup' %>
               </div>
 
             </div>
           </div>
           <div class="columns large-7">
-            <%= form_for resource, :as => resource_name, :url => user_session_path do |f| %>
+            <%= form_for resource, as: resource_name, url: user_session_path do |f| %>
                 <div class="row">
                   <div class="columns large-4">
 
@@ -175,9 +175,9 @@
                     <%= f.password_field :password, placeholder: 'Password' %>
                   </div>
                   <div class="columns large-4 small-6">
-                    <%= f.submit t('pages.home.index.login'), :class => "homepageButton" %>
+                    <%= f.submit t('pages.home.index.login'), class: "homepageButton" %>
                     <div style="margin-top: 3px; font-size: 12px ">
-                      <%= f.check_box :remember_me, :checked => true %>
+                      <%= f.check_box :remember_me, checked: true %>
                       <%= t('pages.home.index.keep_connected') %>
                     </div>
                   </div>
@@ -186,12 +186,12 @@
                   <div class="columns large-4 small-6">
                     <%= t('pages.proposals.index.login_with') %>
                     <div style="margin-top: 10px;">
-                      <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login') %>
-                      <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login') %>
-                      <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login') %>
+                      <%= link_to image_tag('logos/facebook.png'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login') %>
+                      <%= link_to image_tag('logos/google.png'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login') %>
+                      <%= link_to image_tag('logos/twitter.png'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login') %>
                       <br/>
-                      <%= link_to image_tag('logos/meetup.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login') %>
-                      <%= link_to image_tag('logos/linkedin.png', :style => 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login') %>
+                      <%= link_to image_tag('logos/meetup.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login') %>
+                      <%= link_to image_tag('logos/linkedin.png', style: 'margin-top:5px'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login') %>
 
                     </div>
                   </div>
@@ -261,7 +261,7 @@
 
       </div>
 
-      <%= render :partial => "layouts/footer" %>
+      <%= render partial: "layouts/footer" %>
 
     </div>
 

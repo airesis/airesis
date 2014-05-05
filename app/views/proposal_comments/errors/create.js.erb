@@ -1,5 +1,5 @@
 <%if @is_reply%>
-$('#<%=@parent_id%>_reply_area_msg').html('<%=j (render :partial => 'layouts/flash', :locals => {:flash => flash})%>');
+$('#<%=@parent_id%>_reply_area_msg').html('<%=j (render partial: 'layouts/flash', locals: {flash: flash})%>');
 <%else%>
-$('#proposalNewComment').html('<%=j (render :partial => 'proposal_comments/proposal_comment', :locals => {:proposal_comment => @proposal_comment})%>');
+$('#proposalNewComment').html('<%=j (render partial: 'proposal_comments/proposal_comment', locals: {proposal_comment: @proposal_comment})%>');
 <%end%>

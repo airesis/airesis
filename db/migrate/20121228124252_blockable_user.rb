@@ -1,6 +1,6 @@
 class BlockableUser < ActiveRecord::Migration
   def up
-    add_column :users, :blocked, :boolean, :default => false
+    add_column :users, :blocked, :boolean, default: false
   end
 
   def down

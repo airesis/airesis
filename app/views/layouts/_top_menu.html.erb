@@ -71,7 +71,7 @@
             <% else %>
                 <li class="has-form">
                   <a id="login_button" href="#" onclick="return false;" class="button show-for-medium-up"><%= t('pages.header.login') %></a>
-                  <%= link_to t('pages.header.login'), '/users/sign_in', :class => "button show-for-small" %>
+                  <%= link_to t('pages.header.login'), '/users/sign_in', class: "button show-for-small" %>
                 </li>
                 <li class="has-form">
                   <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'button' %>
@@ -143,7 +143,7 @@
       <% else %>
           <div class="group-item">
             <div style="float:left;">
-              <%= image_tag 'logo30.png', :width => 60, :alt => APP_LONG_NAME %>
+              <%= image_tag 'logo30.png', width: 60, alt: APP_LONG_NAME %>
             </div>
             <div class="p1"><%= link_to t('open_space'), proposals_url(subdomain: false) %></div>
 
@@ -176,7 +176,7 @@
 
         <div class="row">
           <div class="columns large-6">
-            <%= form_for User.new, url: user_session_path, html: {:class => 'box'} do |f| %>
+            <%= form_for User.new, url: user_session_path, html: {class: 'box'} do |f| %>
 
                 <%= f.text_field :login, placeholder: t('pages.header.login_placeholder'), autocomplete: :off %>
 
@@ -186,7 +186,7 @@
                     <%= t('pages.header.menu.remember_me') %>
                 <% end %>
 
-                <%= f.button t('pages.header.menu.login_button'), :class => "btn blue loginButton" %>
+                <%= f.button t('pages.header.menu.login_button'), class: "btn blue loginButton" %>
 
             <% end %>
 
@@ -202,19 +202,19 @@
                 <%= cache ["social_network_header", I18n.locale] do %>
                     <div class="box more">
                       <div class="more">
-                        <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), :alt => t('pages.top_panel.facebook_login'), :title => t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
+                        <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial facebook' %>
                       </div>
                       <div class="more">
-                        <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), :alt => t('pages.top_panel.google_login'), :title => t('pages.top_panel.google_login'), class: 'zocial google' %>
+                        <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial google' %>
                       </div>
                       <div class="more">
-                        <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), :alt => t('pages.top_panel.twitter_login'), :title => t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
+                        <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial twitter' %>
                       </div>
                       <div class="more">
-                        <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), :alt => t('pages.top_panel.meetup_login'), :title => t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
+                        <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial meetup' %>
                       </div>
                       <div class="more">
-                        <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), :alt => t('pages.top_panel.linkedin_login'), :title => t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
+                        <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial linkedin' %>
                       </div>
                     </div>
                 <% end %>

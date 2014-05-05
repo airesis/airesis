@@ -1,8 +1,8 @@
 <%@page_title = t("pages.confirmation.title")%>
 <h2><%=@page_title %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => user_confirmation_path, :html => { :method => :post }) do |f| %>
-  <%= render :partial => 'fragments/error_messages', :locals => {:resource => resource} %>
+<%= form_for(resource, as: resource_name, url: user_confirmation_path, html: { method: :post }) do |f| %>
+  <%= render partial: 'fragments/error_messages', locals: {resource: resource} %>
 
   <div><%= f.label :email, t('pages.registration.username_or_email') %><br />
   <%= f.text_field :email %></div>
@@ -10,4 +10,4 @@
   <div><%= f.submit t("pages.confirmation.submit"), :class=>'btn blue' %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<%= render partial: "devise/shared/links" %>

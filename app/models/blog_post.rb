@@ -2,31 +2,31 @@
 class BlogPost < ActiveRecord::Base
   include BlogKitModelHelper
 
-  has_paper_trail :class_name => 'BlogPostVersion'
+  has_paper_trail class_name: 'BlogPostVersion'
 
   belongs_to :user
   belongs_to :blog
 
-  has_many :blog_comments, :dependent => :destroy
-  has_many :blog_post_tags, :dependent => :destroy
-  has_many :tags, :through => :blog_post_tags, :class_name => 'Tag'
+  has_many :blog_comments, dependent: :destroy
+  has_many :blog_post_tags, dependent: :destroy
+  has_many :tags, through: :blog_post_tags, class_name: 'Tag'
 
   has_many :blog_post_images
-  has_many :blog_images, :through => :blog_post_images, :source => :image, :dependent => :destroy
-  has_many :publishings, :class_name => "PostPublishing", :dependent => :destroy
-  has_many :groups, :through => :publishings, :class_name => "Group"
-  accepts_nested_attributes_for :blog_images, :allow_destroy => true
+  has_many :blog_images, through: :blog_post_images, source: :image, dependent: :destroy
+  has_many :publishings, class_name: "PostPublishing", dependent: :destroy
+  has_many :groups, through: :publishings, class_name: "Group"
+  accepts_nested_attributes_for :blog_images, allow_destroy: true
 
 
   validates_presence_of :title
   validates_presence_of :body
 
-  scope :published, -> { where(:status => ['P', 'R']).order('published_at DESC') }
-  scope :drafts, -> { where(:status => 'D').order('published_at DESC') }
-  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_partecipations.user_id = ?)", user.id).joins(:groups => [:group_partecipations]) }
+  scope :published, -> { where(status: ['P', 'R']).order('published_at DESC') }
+  scope :drafts, -> { where(status: 'D').order('published_at DESC') }
+  scope :viewable_by, ->(user) { where("blog_posts.status = 'P' or (blog_posts.status = 'R' and group_partecipations.user_id = ?)", user.id).joins(groups: [:group_partecipations]) }
 
-  before_save :check_published, :if => :not_resaving?
-  before_save :save_tags, :if => :not_resaving?
+  before_save :check_published, if: :not_resaving?
+  before_save :save_tags, if: :not_resaving?
 
   def published?
     self.status == 'P'

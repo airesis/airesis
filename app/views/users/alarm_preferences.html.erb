@@ -49,7 +49,7 @@
 <% end %>
 
 
-<%= render :layout => "layouts/page_title", :locals => {:title => t('pages.user.notifications')} do %>
+<%= render layout: "layouts/page_title", locals: {title: t('pages.user.notifications')} do %>
 <% end %>
 
 <% blocked = @current_user.blocked_notifications.all
@@ -121,7 +121,7 @@
 
 <% content_for :left_panel do %>
     <% if current_user %>
-        <%= render :partial => 'users/preferences_panel' %>
+        <%= render partial: 'users/preferences_panel' %>
 
     <% end %>
 <% end %>

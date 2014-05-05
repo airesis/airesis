@@ -1,13 +1,13 @@
 <div id="create_proposal">
-  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, :validate => true, :remote => true do |f| %>
-      <%= render :partial => 'proposal_types/wizard_steps' %>
+  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
+      <%= render partial: 'proposal_types/wizard_steps' %>
 
 
       <div class="step root root">
         <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
             <p>
               <%= f.label :group_area_id %><br/>
-              <%= select("proposal", "group_area_id", @group.group_areas.all.collect { |p| [p.name, p.id] }, {:prompt => 'Nessuna area di lavoro'}) %>
+              <%= select("proposal", "group_area_id", @group.group_areas.all.collect { |p| [p.name, p.id] }, {prompt: 'Nessuna area di lavoro'}) %>
             </p>
         <% end %>
         <% if ::Configuration.proposal_categories %>
@@ -19,12 +19,12 @@
         <% if params[:action] == "new" %>
             <p>
               <%= f.label :title %> *<br/>
-              <%= f.text_field :title, :style => "width:300px" %>
+              <%= f.text_field :title, style: "width:300px" %>
             </p>
 
             <p>
               <%= f.label :subtitle %><br/>
-              <%= f.text_field :subtitle, :style => "width:600px;" %>
+              <%= f.text_field :subtitle, style: "width:600px;" %>
             </p>
 
             <p>
@@ -76,7 +76,7 @@
             <%= s.fields_for :paragraphs, @text.paragraphs.build(seq: 1) do |p| %>
                 <p>
                   <%= p.label :content, @text.title %> *<br/>
-                  <%= p.text_area :content, :rows => 5, :style => "width:500px", :class => "tinymce" %>
+                  <%= p.text_area :content, rows: 5, style: "width:500px", class: "tinymce" %>
                   <%= p.hidden_field :seq %>
                 </p>
             <% end %>
@@ -94,7 +94,7 @@
                 <%= s.fields_for :paragraphs, @solution_a_section.paragraphs.build(seq: 1) do |p| %>
                     <p>
                       <%= p.label :content, @solution_a_section.title %><br/>
-                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.text_field :content, rows: 5, style: "width:500px" %>
                       <%= p.hidden_field :seq %>
                     </p>
                 <% end %>
@@ -109,7 +109,7 @@
                 <%= s.fields_for :paragraphs, @solution_b_section.paragraphs.build(seq: 1) do |p| %>
                     <p>
                       <%= p.label :content, @solution_b_section.title %><br/>
-                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.text_field :content, rows: 5, style: "width:500px" %>
                       <%= p.hidden_field :seq %>
                     </p>
                 <% end %>
@@ -124,7 +124,7 @@
                 <%= s.fields_for :paragraphs, @solution_c_section.paragraphs.build(seq: 1) do |p| %>
                     <p>
                       <%= p.label :content, @solution_c_section.title %><br/>
-                      <%= p.text_field :content, :rows => 5, :style => "width:500px" %>
+                      <%= p.text_field :content, rows: 5, style: "width:500px" %>
                       <%= p.hidden_field :seq %>
                     </p>
                 <% end %>
@@ -135,8 +135,8 @@
       </div>
 
       <p>
-        <%= render :partial => 'fragments/error_messages', :locals => {:resource => @proposal} %>
-        <%= f.submit "Crea il sondaggio", :class => 'buttonStyle' %>
+        <%= render partial: 'fragments/error_messages', locals: {resource: @proposal} %>
+        <%= f.submit "Crea il sondaggio", class: 'buttonStyle' %>
       </p>
   <% end %>
 </div>

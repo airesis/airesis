@@ -12,7 +12,7 @@ module Frm
 
     def forem_pages_widget(collection)
       if collection.num_pages > 1
-        content_tag :div, :class => 'pages' do
+        content_tag :div, class: 'pages' do
           (t('frm.common.pages') + ':' + forem_paginate(collection)).html_safe
         end
       end

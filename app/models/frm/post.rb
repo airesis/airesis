@@ -5,12 +5,12 @@ module Frm
     workflow_column :state
     workflow do
       state :pending_review do
-        event :spam,    :transitions_to => :spam
-        event :approve, :transitions_to => :approved
+        event :spam,    transitions_to: :spam
+        event :approve, transitions_to: :approved
       end
       state :spam
       state :approved do
-        event :approve, :transitions_to => :approved
+        event :approve, transitions_to: :approved
       end
     end
 
@@ -20,11 +20,11 @@ module Frm
     attr_accessible :text, :reply_to_id
 
     belongs_to :topic
-    belongs_to :user,     :class_name => 'User'
-    belongs_to :reply_to, :class_name => "Post"
+    belongs_to :user,     class_name: 'User'
+    belongs_to :reply_to, class_name: "Post"
 
     has_many :replies, :class_name  => "Post",
-                       :foreign_key => "reply_to_id",
+                       foreign_key: "reply_to_id",
                        :dependent   => :nullify
 
     validates :text, presence: true
@@ -34,19 +34,19 @@ module Frm
     delegate :group, to: :forum
 
     after_create :set_topic_last_post_at
-    after_create :subscribe_replier, :if => :user_auto_subscribe?
+    after_create :subscribe_replier, if: :user_auto_subscribe?
     after_create :skip_pending_review
 
     before_create :populate_token
 
-    after_save :approve_user,   :if => :approved?
-    after_save :blacklist_user, :if => :spam?
-    after_save :email_topic_subscribers, :if => Proc.new { |p| p.approved? && !p.notified? }
+    after_save :approve_user,   if: :approved?
+    after_save :blacklist_user, if: :spam?
+    after_save :email_topic_subscribers, if: Proc.new { |p| p.approved? && !p.notified? }
 
     class << self
 
       def approved
-        where(:state => "approved")
+        where(state: "approved")
       end
 
       def approved_or_pending_review_for(user)
@@ -64,24 +64,24 @@ module Frm
       end
 
       def pending_review
-        where :state => 'pending_review'
+        where state: 'pending_review'
       end
 
       def spam
-        where :state => 'spam'
+        where state: 'spam'
       end
 
       def visible(user=nil)
         if user
           joins(:topic).where('frm_topics.hidden = false or frm_topics.user_id = ?',user.id)
         else
-          joins(:topic).where(:frm_topics => { :hidden => false })
+          joins(:topic).where(frm_topics: { hidden: false })
         end
 
       end
 
       def topic_not_pending_review
-        joins(:topic).where(:frm_topics => { :state => 'approved'})
+        joins(:topic).where(frm_topics: { state: 'approved'})
       end
 
       def moderate!(posts)

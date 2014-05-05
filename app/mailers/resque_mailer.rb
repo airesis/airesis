@@ -30,26 +30,26 @@ class ResqueMailer < ActionMailer::Base
     subject = @alert.email_subject
     template_name = TEMPLATES[@alert.notification.notification_type_id] || 'notification'
     if to_id
-      mail(:to => "discussion+#{to_id}@airesis.it", :bcc => @alert.user.email, :subject => subject, :template_name => template_name)
+      mail(to: "discussion+#{to_id}@airesis.it", bcc: @alert.user.email, subject: subject, template_name: template_name)
     else
-      mail(:to => @alert.user.email, from: "Airesis <noreply@airesis.it>", :subject => subject, :template_name => template_name)
+      mail(to: @alert.user.email, from: "Airesis <noreply@airesis.it>", subject: subject, template_name: template_name)
     end
   end
   
   def admin_message(msg)
     @msg = msg
-    mail(:to => 'coorasse+daily@gmail.com', :subject => APP_SHORT_NAME + " - Messaggio di amministrazione")
+    mail(to: 'coorasse+daily@gmail.com', subject: APP_SHORT_NAME + " - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(:to => 'coorasse+report@gmail.com', :subject => APP_SHORT_NAME + " - Segnalazione Contributo")
+    mail(to: 'coorasse+report@gmail.com', subject: APP_SHORT_NAME + " - Segnalazione Contributo")
   end
 
 
   def info_message(msg)
-    mail(:to => 'coorasse+info@gmail.com', :subject => APP_SHORT_NAME + " - Messaggio di informazione")
+    mail(to: 'coorasse+info@gmail.com', subject: APP_SHORT_NAME + " - Messaggio di informazione")
   end
 
   #invia un invito ad iscriversi al gruppo
@@ -58,7 +58,7 @@ class ResqueMailer < ActionMailer::Base
     I18n.locale = @group_invitation.inviter.locale.key
     @group_invitation_email = @group_invitation.group_invitation_email
     @group = @group_invitation_email.group
-    mail(:to => @group_invitation_email.email, :subject => t('mailer.invite.subject', group_name: @group.name))
+    mail(to: @group_invitation_email.email, subject: t('mailer.invite.subject', group_name: @group.name))
   end
 
   def user_message(subject,body,from_id,to_id)
@@ -109,19 +109,19 @@ class ResqueMailer < ActionMailer::Base
     @post = Frm::Post.find(post_id)
     @group = @post.forum.group
     @user = User.find(subscriber_id)
-    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", :to => @user.email, :subject => "[#{@group.name}] #{@post.topic.subject}")
+    mail(from: "Airesis Forum <replytest+#{@post.token}@airesis.it>", to: @user.email, subject: "[#{@group.name}] #{@post.topic.subject}")
   end
 
 
 
   def test
-    mail(:to => "coorasse@gmail.com", :subject => "Test Redis To Go")
+    mail(to: "coorasse@gmail.com", subject: "Test Redis To Go")
   end
 
   def few_users_a(group_id)
     @group  =Group.find(group_id)
     @user = @group.portavoce.first
-    mail(:to => @user.email, :subject => "#{@group.name} non ha ancora dei partecipanti") if @user.email
+    mail(to: @user.email, subject: "#{@group.name} non ha ancora dei partecipanti") if @user.email
   end
 
   protected

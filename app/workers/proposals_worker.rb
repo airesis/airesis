@@ -1,6 +1,6 @@
 class ProposalsWorker
   include Sidekiq::Worker, ProposalsModule, NotificationHelper, Rails.application.routes.url_helpers
-  sidekiq_options :queue => :high_priority
+  sidekiq_options queue: :high_priority
 
   ENDTIME='endtime'
   LEFT24='left24'

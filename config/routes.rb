@@ -45,8 +45,8 @@ Airesis::Application.routes.draw do
     end
   end
 
-  resources :best_quorums, :controller => 'quorums'
-  resources :old_quorums, :controller => 'quorums'
+  resources :best_quorums, controller: 'quorums'
+  resources :old_quorums, controller: 'quorums'
 
   resources :proposals do
     collection do
@@ -112,8 +112,8 @@ Airesis::Application.routes.draw do
   resources :blogs do
 
     resources :blog_posts do
-      #match :tag, :on => :member
-      get :drafts, :on => :collection
+      #match :tag, on: :member
+      get :drafts, on: :collection
 
       resources :blog_comments
     end
@@ -165,9 +165,9 @@ Airesis::Application.routes.draw do
 
   get 'elfinder' => 'elfinder#elfinder'
 
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", sessions: "sessions", :registrations => "registrations", :passwords => "passwords", :confirmations => 'confirmations'} do
-    get '/users/sign_in', :to => 'devise/sessions#new'
-    get '/users/sign_out', :to => 'devise/sessions#destroy'
+  devise_for :users, controllers: {omniauth_callbacks: "users/omniauth_callbacks", sessions: "sessions", registrations: "registrations", passwords: "passwords", confirmations: 'confirmations'} do
+    get '/users/sign_in', to: 'devise/sessions#new'
+    get '/users/sign_out', to: 'devise/sessions#destroy'
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
@@ -211,11 +211,11 @@ Airesis::Application.routes.draw do
 
   resources :tags
 
-  get '/tags/:text', :to => 'tags#show'
+  get '/tags/:text', to: 'tags#show'
 
-  get '/votation/', :to => 'votations#show'
-  put '/votation/vote', :to => 'votations#vote'
-  put '/votation/vote_schulze', :to => 'votations#vote_schulze'
+  get '/votation/', to: 'votations#show'
+  put '/votation/vote', to: 'votations#vote'
+  put '/votation/vote_schulze', to: 'votations#vote_schulze'
   resources :votations
 
   #specific routes for subdomains
@@ -235,8 +235,8 @@ Airesis::Application.routes.draw do
     end
 
 
-    resources :best_quorums, :controller => 'quorums'
-    resources :old_quorums, :controller => 'quorums'
+    resources :best_quorums, controller: 'quorums'
+    resources :old_quorums, controller: 'quorums'
 
     resources :documents do
       collection do
@@ -294,7 +294,7 @@ Airesis::Application.routes.draw do
 
     resources :search_partecipants
 
-    resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+    resources :forums, controller: 'frm/forums', only: [:index, :show] do
       resources :topics, controller: 'frm/topics' do
         member do
           get :subscribe
@@ -303,7 +303,7 @@ Airesis::Application.routes.draw do
       end
 
 
-      resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+      resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
         resources :posts, controller: 'frm/posts'
       end
 
@@ -311,14 +311,14 @@ Airesis::Application.routes.draw do
     end
 
     namespace :frm do
-      get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+      get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
       # For mass moderation of posts
-      put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+      put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
       # Moderation of a single topic
-      put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
-      resources :categories, :only => [:index, :show]
+      put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+      resources :categories, only: [:index, :show]
       namespace :admin do
-        root :to => "base#index"
+        root to: "base#index"
         resources :groups, as: 'frm_groups' do
           resources :members do
             collection do
@@ -351,7 +351,7 @@ Airesis::Application.routes.draw do
   #routes available only on main site
   constraints NoSubdomain do
 
-    root :to => 'home#index'
+    root to: 'home#index'
 
     resources :certifications, only: [:index, :create, :destroy]
     resources :user_sensitives do
@@ -411,7 +411,7 @@ Airesis::Application.routes.draw do
       end
 
 
-      resources :forums, controller: 'frm/forums', :only => [:index, :show] do
+      resources :forums, controller: 'frm/forums', only: [:index, :show] do
         resources :topics, controller: 'frm/topics' do
           member do
             get :subscribe
@@ -420,7 +420,7 @@ Airesis::Application.routes.draw do
         end
 
 
-        resources :topics, controller: 'frm/topics', :only => [:new, :create, :index, :show, :destroy] do
+        resources :topics, controller: 'frm/topics', only: [:new, :create, :index, :show, :destroy] do
           resources :posts, controller: 'frm/posts'
         end
 
@@ -428,14 +428,14 @@ Airesis::Application.routes.draw do
       end
 
       namespace :frm do
-        get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+        get 'forums/:forum_id/moderation', to: "moderation#index", as: :forum_moderator_tools
         # For mass moderation of posts
-        put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+        put 'forums/:forum_id/moderate/posts', to: "moderation#posts", as: :forum_moderate_posts
         # Moderation of a single topic
-        put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
-        resources :categories, :only => [:index, :show]
+        put 'forums/:forum_id/topics/:topic_id/moderate', to: "moderation#topic", as: :moderate_forum_topic
+        resources :categories, only: [:index, :show]
         namespace :admin do
-          root :to => "base#index"
+          root to: "base#index"
           resources :groups, as: 'frm_groups' do
             resources :members do
               collection do
@@ -459,7 +459,7 @@ Airesis::Application.routes.draw do
         end
       end
 
-      get 'users/autocomplete', :to => "users#autocomplete", :as => "user_autocomplete"
+      get 'users/autocomplete', to: "users#autocomplete", as: "user_autocomplete"
 
 
       resources :events do
@@ -513,8 +513,8 @@ Airesis::Application.routes.draw do
       end
 
 
-      resources :best_quorums, :controller => 'quorums'
-      resources :old_quorums, :controller => 'quorums'
+      resources :best_quorums, controller: 'quorums'
+      resources :old_quorums, controller: 'quorums'
 
       resources :documents do
         collection do
@@ -537,8 +537,8 @@ Airesis::Application.routes.draw do
       end
 
       resources :blog_posts do
-        #match :tag, :on => :member
-        get :drafts, :on => :collection
+        #match :tag, on: :member
+        get :drafts, on: :collection
         resources :blog_comments
       end
 
@@ -580,7 +580,7 @@ Airesis::Application.routes.draw do
 
     constraints moderator_required do
       match ':controller/:action/', via: :all
-      get 'moderator_panel', :to => 'moderator#show', :as => 'moderator/panel'
+      get 'moderator_panel', to: 'moderator#show', as: 'moderator/panel'
     end
 
 
@@ -589,11 +589,11 @@ Airesis::Application.routes.draw do
       mount Maktoub::Engine => "/maktoub/"
       match ':controller/:action/', via: :all
       resources :admin
-      get 'admin_panel', :to => 'admin#show', :as => 'admin/panel'
+      get 'admin_panel', to: 'admin#show', as: 'admin/panel'
     end
 
 
-    resources :tokens, :only => [:create, :destroy]
+    resources :tokens, only: [:create, :destroy]
 
     get '/:id' => 'groups#show'
 

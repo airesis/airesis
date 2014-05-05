@@ -4,11 +4,11 @@ class PartecipationRolesController < ApplicationController
   #l'utente deve aver fatto login
   before_filter :authenticate_user!
 
-  before_filter :load_group, :except => [:destroy, :change_group_permission, :change_user_permission, :change_default_role, :edit, :update]
-  before_filter :load_partecipation_role, :only => [:destroy, :edit, :update]
-  before_filter :check_group_permissions, :only => [:change_group_permission]
-  before_filter :check_role_permissions, :only => [:change_default_role]
-  before_filter :check_user_permissions, :only => [:change_user_permission]
+  before_filter :load_group, except: [:destroy, :change_group_permission, :change_user_permission, :change_default_role, :edit, :update]
+  before_filter :load_partecipation_role, only: [:destroy, :edit, :update]
+  before_filter :check_group_permissions, only: [:change_group_permission]
+  before_filter :check_role_permissions, only: [:change_default_role]
+  before_filter :check_user_permissions, only: [:change_user_permission]
 
   def new
     @partecipation_role = @group.partecipation_roles.build
@@ -59,7 +59,7 @@ class PartecipationRolesController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.participation_roles.role_updated')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end
@@ -94,7 +94,7 @@ class PartecipationRolesController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -108,7 +108,7 @@ class PartecipationRolesController < ApplicationController
     flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -122,7 +122,7 @@ class PartecipationRolesController < ApplicationController
   #  flash[:notice] ="Ruolo predefinito aggiornato."
   #  respond_to do |format|
   #    format.js { render :update do |page|
-  #                   page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+  #                   page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
   #                end
   #    }
   #  end
@@ -141,7 +141,7 @@ class PartecipationRolesController < ApplicationController
       flash[:error] = t('error.role_permission_change')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
       end
@@ -159,7 +159,7 @@ class PartecipationRolesController < ApplicationController
       flash[:error] = t('error.role_permission_change')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
       end
@@ -184,7 +184,7 @@ class PartecipationRolesController < ApplicationController
       flash[:error] = t('error.role_permission_change')
       respond_to do |format|
         format.js { render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
         }
       end

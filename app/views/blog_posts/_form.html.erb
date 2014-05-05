@@ -1,4 +1,4 @@
-<%= form_for([@blog, @blog_post], :html => {:multipart => true}) do |f| %>
+<%= form_for([@blog, @blog_post], html: {multipart: true}) do |f| %>
 
     <div class="editBlogPost">
       <% if @blog_post.errors.size > 0 %>
@@ -13,7 +13,7 @@
       <% end %>
       <p>
         <%= f.label :title %>
-        <%= f.text_field :title, :style => 'width:80%' %>
+        <%= f.text_field :title, style: 'width:80%' %>
       </p>
 
       <p>
@@ -29,7 +29,7 @@
       <p>
         <%= f.label :status %>
         <%= f.label :status_p, title: t('.published_title') do %>
-            <%= f.radio_button :status, 'P', :checked => "checked" %>
+            <%= f.radio_button :status, 'P', checked: "checked" %>
             <%= t('activerecord.attributes.blog_post.published_true') %>
         <% end %>
         <%= f.label :status_r, title: t('.reserved_title') do %>
@@ -50,8 +50,8 @@
       <% end %>
       <p>
         <input type="hidden" name="group_id" value="<%= params[:group_id] %>"/>
-        <%= link_to t('buttons.cancel'), :back, :class => 'btn', id: 'cancel_button', data: {disable_with: t('loading')} %>
-        <%= f.submit t('buttons.save'), :class => 'btn blue', id: 'save_button', data: {disable_with: t('loading')} %>
+        <%= link_to t('buttons.cancel'), :back, class: 'btn', id: 'cancel_button', data: {disable_with: t('loading')} %>
+        <%= f.submit t('buttons.save'), class: 'btn blue', id: 'save_button', data: {disable_with: t('loading')} %>
 
       </p>
 

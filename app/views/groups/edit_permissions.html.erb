@@ -1,10 +1,10 @@
      
-<%=render :layout => "layouts/page_title", :locals => {:title => t('pages.groups.edit_permissions.title')} do%>
+<%=render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_permissions.title')} do%>
 
 <%end%>
 
 <div id="roles_panel_container">
-<%= render :partial => 'groups/roles_panel' %>
+<%= render partial: 'groups/roles_panel' %>
 </div>
 <br/>
 <%=link_to t('pages.groups.edit_permissions.new_role'), new_group_partecipation_role_url(@group), remote: true, class: 'btn blue' %>
@@ -15,8 +15,8 @@
 <div id="new_role"  class="reveal-modal small" data-reveal>
   <h2><%= t('pages.groups.edit_permissions.new_role_title')%></h2>
 	<%
-	@partecipation_role = PartecipationRole.new(:group_id => @group.id)%>
-    <%= render(:partial => 'partecipation_roles/form', :locals => {:button_name => t('buttons.create')})%>
+	@partecipation_role = PartecipationRole.new(group_id: @group.id)%>
+    <%= render(partial: 'partecipation_roles/form', locals: {button_name: t('buttons.create')})%>
 
 </div>
 
@@ -50,6 +50,6 @@
 </script>
                 
 <%=content_for :left_panel do%>
-	<%= render :partial => 'groups/administration_panel' %>
+	<%= render partial: 'groups/administration_panel' %>
 
 <%end%>

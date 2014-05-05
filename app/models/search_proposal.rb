@@ -23,9 +23,9 @@ class SearchProposal < ActiveRecord::Base
 
 
   def results
-    @search = Proposal.search(:include => [:category, :quorum, {:users => [:image]}, :vote_period, :groups, :presentation_groups, :interest_borders]) do
+    @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :presentation_groups, :interest_borders]) do
 
-      fulltext self.text, :minimum_match => self.or if self.text
+      fulltext self.text, minimum_match: self.or if self.text
       all_of do
         if self.proposal_state_id
             if self.proposal_state_id == ProposalState::TAB_VOTATION
@@ -103,7 +103,7 @@ class SearchProposal < ActiveRecord::Base
         order_by :created_at, dir
       end
 
-      paginate :page => self.page, :per_page => self.per_page if self.page && self.per_page
+      paginate page: self.page, per_page: self.per_page if self.page && self.per_page
     end
 
     @proposals = @search.results
@@ -117,7 +117,7 @@ class SearchProposal < ActiveRecord::Base
       @results = @results.in_category(self.proposal_category_id)
     end
     if self.proposal_type_id
-      @results = @results.where(:proposal_type_id =>  self.proposal_type_id)
+      @results = @results.where(proposal_type_id:  self.proposal_type_id)
     end
     if self.created_at_from
       ends = self.created_at_to || Time.now

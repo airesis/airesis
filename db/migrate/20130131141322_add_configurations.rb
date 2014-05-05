@@ -1,8 +1,8 @@
 class AddConfigurations < ActiveRecord::Migration
   def up
     create_table :configurations do |t|
-      t.string :name, :limit => 100, :null => false
-      t.string :value,:limit => 255, :null => false
+      t.string :name, limit: 100, null: false
+      t.string :value,limit: 255, null: false
     end
 
     Configuration.create(name: 'democracy', value: 1)

@@ -13,7 +13,7 @@
    @blog_url = @group ? group_blog_post_url(@group,@blog_post) : blog_blog_post_url(@blog, @blog_post)
 %>
 
-<%= render :layout => "layouts/page_title", :locals => {:title => @title} do %>
+<%= render layout: "layouts/page_title", locals: {title: @title} do %>
 
 <% end %>
 
@@ -68,10 +68,10 @@
   </div>
 
 
-  <%= render :partial => 'blog_comments/new_blog_comment', :locals => {:blog_comment => @blog_comment} %>
+  <%= render partial: 'blog_comments/new_blog_comment', locals: {blog_comment: @blog_comment} %>
 
   <div id="blogPostCommentsContainer">
-    <%= render :partial => 'blog_posts/comments' %>
+    <%= render partial: 'blog_posts/comments' %>
   </div>
   <div id="loading_results">
     <span><%= t('pages.blog_posts.show.previous_comments') %></span>
@@ -85,8 +85,8 @@
 <%= content_for :left_panel do %>
     <% if can? :update, @blog_post %>
         <div class="mybox">
-          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog, @blog_post), :class => 'btn editButton' %>
-          <%= link_to t('pages.blog_posts.show.delete_button'), @blog_url, :method => :delete, data: {confirm: t('pages.blog_posts.show.delete_button_confirm')}, :class => 'btn deleteButton' %>
+          <%= link_to t('pages.blog_posts.show.edit_button'), edit_blog_blog_post_path(@blog_post.blog, @blog_post), class: 'btn editButton' %>
+          <%= link_to t('pages.blog_posts.show.delete_button'), @blog_url, method: :delete, data: {confirm: t('pages.blog_posts.show.delete_button_confirm')}, class: 'btn deleteButton' %>
         </div>
     <% end %>
     <% if ::Configuration.socialnetwork_active %>

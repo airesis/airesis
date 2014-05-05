@@ -2,11 +2,11 @@
 class EventCommentsController < ApplicationController
 
 
-  before_filter :authenticate_user!, :only => [:create, :delete, :edit, :update]
+  before_filter :authenticate_user!, only: [:create, :delete, :edit, :update]
 
   before_filter :load_event
-  before_filter :load_event_comment, :only => [:delete, :edit, :update, :like] #carica @blog_comment
-  before_filter :check_author, :only => [:delete, :edit, :update]
+  before_filter :load_event_comment, only: [:delete, :edit, :update, :like] #carica @blog_comment
+  before_filter :check_author, only: [:delete, :edit, :update]
 
 
   def create
@@ -22,15 +22,15 @@ class EventCommentsController < ApplicationController
         @saved.collapsed = true
         notify_new_event_comment(@event_comment)
         format.js { render :update do |page|
-          page.replace_html "eventCommentsContainer", :partial => "events/comments", :layout => false
-          page.replace "eventNewComment", :partial => 'event_comments/new_event_comment', :locals => {:event_comment => @event.comments.new}
+          page.replace_html "eventCommentsContainer", partial: "events/comments", layout: false
+          page.replace "eventNewComment", partial: 'event_comments/new_event_comment', locals: {event_comment: @event.comments.new}
 
         end
         }
       else
         flash[:notice] = t('error.event.comment_added')
         format.js { render :update do |page|
-          page.replace "eventNewComment", :partial => 'event_comments/new_event_comment', :locals => {:event_comment => @event_comment}
+          page.replace "eventNewComment", partial: 'event_comments/new_event_comment', locals: {event_comment: @event_comment}
         end
         }
       end
@@ -44,7 +44,7 @@ class EventCommentsController < ApplicationController
       format.js {
         render :update do |page|
           @event_comments = @event.comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-          page.replace_html "eventCommentsContainer", :partial => "events/comments"
+          page.replace_html "eventCommentsContainer", partial: "events/comments"
         end
       }
     end

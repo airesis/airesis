@@ -99,7 +99,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     
     
     
-    #assert_redirect_to :controller => 
+    #assert_redirect_to controller:
   end
  
   private

@@ -29,14 +29,14 @@
         <%= parsed_content(comment,@proposal.is_anonima?) %>
       </div>
       <div class="baloon-footer" title='<%=l(comment.created_at)%>'>
-        <% who = (proposal_nickname && @proposal.is_anonima?) ? proposal_nickname.nickname : (link_to_user comment.user, :content_text => comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
+        <% who = (proposal_nickname && @proposal.is_anonima?) ? proposal_nickname.nickname : (link_to_user comment.user, content_text: comment.user.fullname + ((proposal_nickname && @proposal.is_anonima?) ? (' (' + proposal_nickname.nickname + ')') : '')) %>
         <%= raw t('pages.proposals.show.comment_inserted_by', when: time_in_words(comment.created_at), who: who) %>
         <%= "in \"#{comment.paragraph.section.title}\"" if comment.paragraph %>
 
 
       </div>
       <div id="rankingpanelcontainer<%= comment.id %>" class="rankingpanelcontainer" style="display:none">
-        <%= render :partial => 'proposal_comments/ranking_panel_others', :locals => {:comment => comment} %>
+        <%= render partial: 'proposal_comments/ranking_panel_others', locals: {comment: comment} %>
       </div>
       <div style="clear:both;"></div>
     </div>
@@ -55,13 +55,13 @@
       <div class="proposal_comment_reply"  style="display:none">
         <div class="baloon-triangle"></div>
         <div id="<%= comment.id %>_reply_area_msg"></div>
-        <%= form_for [@proposal, ProposalComment.new], :html => {:class => "disableForm"}, :remote => true do |f| %>
+        <%= form_for [@proposal, ProposalComment.new], html: {class: "disableForm"}, remote: true do |f| %>
             <div class="reply_area">
-              <%= f.hidden_field :parent_proposal_comment_id, :value => comment.id %>
-              <%= f.text_area :content, :class => 'reply_textarea', :data => {:id => comment.id}, :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+              <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
+              <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
-              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', data:{disable_with: t('sending')} %>
+              <%= f.submit t('pages.proposals.show.reply_button'), class: 'btn disable', data:{disable_with: t('sending')} %>
             </div>
             <div style="clear: both;"></div>
         <% end %>

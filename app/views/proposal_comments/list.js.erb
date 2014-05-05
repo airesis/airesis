@@ -1,10 +1,10 @@
 <%if params[:reset]%>
 	contributes = [];
-	$('#order_bar').html("<%= escape_javascript(render(:partial => 'order_bar'))%>");
-	$('#proposalCommentsContainer').html("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+	$('#order_bar').html("<%= escape_javascript(render(partial: 'order_bar'))%>");
+	$('#proposalCommentsContainer').html("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
 	$('#loading_contributes').hide();
 <%else%>
-	$('#proposalCommentsContainer').append("<%= escape_javascript(render(:partial => 'proposals/comments'))%>");
+	$('#proposalCommentsContainer').append("<%= escape_javascript(render(partial: 'proposals/comments'))%>");
 <%end%>
 
 contributes.push(<%= @proposal_comments.map{|p| p.id}.join(',') %>);

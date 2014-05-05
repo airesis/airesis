@@ -6,7 +6,7 @@
   <span class="littleText" id="gradimento"><%= t('pages.proposals.show.rank') %></span> <span class="rightAlign"><%= @proposal.rank %>%</span>
 </p>
 <%if @proposal.voted? || @proposal.voting?%>
-    <%= render :partial => 'proposals/new_vote_bar', :locals => {:proposal => @proposal} %>
+    <%= render partial: 'proposals/new_vote_bar', locals: {proposal: @proposal} %>
 <%else%>
-    <%= render :partial => 'proposals/new_rank_bar', :locals => {:proposal => @proposal} %>
+    <%= render partial: 'proposals/new_rank_bar', locals: {proposal: @proposal} %>
 <%end%>

@@ -30,7 +30,7 @@ class AddCertifiedUser < ActiveRecord::Migration
     add_foreign_key :user_sensitives, :interest_borders, column: :residence_place_id
     add_foreign_key :user_sensitives, :interest_borders, column: :home_place_id
 
-    UserType.create(:description => 'Certified', :short_name => 'certified'){|c| c.id = 5}.save!
+    UserType.create(description: 'Certified', short_name: 'certified'){|c| c.id = 5}.save!
 
   end
 

@@ -6,11 +6,11 @@ class ElectionsController < ApplicationController
 
   #l'utente deve aver fatto login
   before_filter :admin_required
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, except: [:index]
 
     
-  before_filter :load_election, :except => [:index,:new,:create]
-  before_filter :check_vote, :only => [:vote_page, :show]
+  before_filter :load_election, except: [:index,:new,:create]
+  before_filter :check_vote, only: [:vote_page, :show]
   
   before_filter :load_group
   
@@ -72,10 +72,10 @@ class ElectionsController < ApplicationController
     end
     respond_to do |format|
         flash[:warn] = message
-        format.html { render :action => "show" }                
+        format.html { render action: "show" }
         format.js {
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end 
         }   
      end
@@ -84,7 +84,7 @@ class ElectionsController < ApplicationController
   
   protected
   def load_election
-    @election = Election.find_by_id(params[:id], :include => :event)
+    @election = Election.find_by_id(params[:id], include: :event)
   end
   
   def check_vote

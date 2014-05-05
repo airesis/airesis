@@ -1,7 +1,7 @@
 #encoding: utf-8
 class DeleteOldNotifications
   include Sidekiq::Worker
-  sidekiq_options :queue => :low_priority
+  sidekiq_options queue: :low_priority
 
   def perform(*args)
     msg = "Cancella vecchie notifiche\n"

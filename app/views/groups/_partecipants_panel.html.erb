@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @admins.size > 5 %>
-    <%= link_to t('pages.groups.show.show_all_admins', :count => @admins.size), group_group_partecipations_url(@group, 'search_partecipant[role_id]' => PartecipationRole::PORTAVOCE), :class => "btn personButton disable" %>
+    <%= link_to t('pages.groups.show.show_all_admins', count: @admins.size), group_group_partecipations_url(@group, 'search_partecipant[role_id]' => PartecipationRole::PORTAVOCE), class: "btn personButton disable" %>
 <% end %>
 
 
@@ -17,7 +17,7 @@
     <h4><%= t('pages.groups.show.participants_list') %></h4>
 
     <% if (can? :accept_requests, @group) %>
-        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(:group_id => @group.id), :remote => true, :class => "btn inviteButton disable" %>
+        <%= link_to t('pages.groups.show.invite_button'), new_group_invitation_path(group_id: @group.id), remote: true, class: "btn inviteButton disable" %>
         <div id="new_invitation_container"></div>
     <% end %>
 
@@ -30,11 +30,11 @@
         <% if @group.disable_partecipation_requests %>
             <%= eval "#{@group.subdomain}_participation_request" %>
         <% else %>
-            <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), :class => "btn blue editButton" %>
+            <%= link_to t('pages.groups.show.ask_participate_button'), ask_for_partecipation_group_url(@group), class: "btn blue editButton" %>
         <% end %>
     <% end %>
 
-    <% @partecipants = @group.group_partecipations.includes([{:user => [:image, :user_type]}, :partecipation_role]) %>
+    <% @partecipants = @group.group_partecipations.includes([{user: [:image, :user_type]}, :partecipation_role]) %>
 
     <% @partecipants.limit(5).each do |partecipant| %>
         <% unless partecipant.as_admin? %>
@@ -43,7 +43,7 @@
                 <%= partecipant.user_image_tag(24) %>
               </div>
               <div class="Mo">
-                <%= link_to_user partecipant.user, :full_name => true, :title => partecipant.partecipation_role.name %>
+                <%= link_to_user partecipant.user, full_name: true, title: partecipant.partecipation_role.name %>
               </div>
               <div style="clear:both;"></div>
             </div>
@@ -51,7 +51,7 @@
     <% end %>
 
     <% if @partecipants.size > 5 %>
-        <%= link_to t('pages.groups.show.show_all_participants', :count => @group.group_partecipations.count), group_group_partecipations_url(@group), :class => "btn personButton disable" %>
+        <%= link_to t('pages.groups.show.show_all_participants', count: @group.group_partecipations.count), group_group_partecipations_url(@group), class: "btn personButton disable" %>
     <% end %>
 
 <% else %>

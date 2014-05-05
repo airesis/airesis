@@ -5,7 +5,7 @@ module Frm
 
 
       before_filter :load_group
-      before_filter :find_forum, :only => [:edit, :update, :destroy]
+      before_filter :find_forum, only: [:edit, :update, :destroy]
 
       def index
         @forums = @group.forums.all
@@ -54,7 +54,7 @@ module Frm
 
       def create_failed
         flash.now.alert = t("frm.admin.forum.not_created")
-        render :action => "new"
+        render action: "new"
       end
 
       def destroy_successful
@@ -69,7 +69,7 @@ module Frm
 
       def update_failed
         flash.now.alert = t("frm.admin.forum.not_updated")
-        render :action => "edit"
+        render action: "edit"
       end
 
     end

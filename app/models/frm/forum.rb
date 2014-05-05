@@ -1,25 +1,24 @@
 #encoding: utf-8
-require 'friendly_id'
 module Frm
   class Forum < Frm::FrmTable
     include Frm::Concerns::Viewable, ::Concerns::Taggable
 
     extend FriendlyId
-    friendly_id :name, :use => :scoped, scope: :group
+    friendly_id :name, use: :scoped, scope: :group
 
     belongs_to :category
 
     belongs_to :group, class_name: '::Group', foreign_key: 'group_id'
 
-    has_many :topics,     :dependent => :destroy
-    has_many :posts,      :through => :topics, :dependent => :destroy
-    has_many :moderators, :through => :moderator_groups, :source => :frm_group, class_name: 'Frm::Group'
+    has_many :topics,     dependent: :destroy
+    has_many :posts,      through: :topics, dependent: :destroy
+    has_many :moderators, through: :moderator_groups, source: :frm_group, class_name: 'Frm::Group'
     has_many :moderator_groups
 
-    has_many :forum_tags, :dependent => :destroy, foreign_key: 'frm_forum_id'
-    has_many :tags, :through => :forum_tags, :class_name => 'Tag'
+    has_many :forum_tags, dependent: :destroy, foreign_key: 'frm_forum_id'
+    has_many :tags, through: :forum_tags, class_name: 'Tag'
 
-    validates :category, :name, :description, :presence => true
+    validates :category, :name, :description, presence: true
 
     validate :visibility
 

@@ -5,8 +5,8 @@ class EventsController < ApplicationController
   layout :choose_layout
 
 
-  before_filter :load_group, :only => [:index, :list, :new, :create]
-  before_filter :load_event, :only => [:show, :destroy, :move, :resize, :edit]
+  before_filter :load_group, only: [:index, :list, :new, :create]
+  before_filter :load_event, only: [:show, :destroy, :move, :resize, :edit]
 
   def index
     authorize! :view_data, @group if @group
@@ -22,7 +22,7 @@ class EventsController < ApplicationController
           calendar.add_event(event.to_ics)
         end
         calendar.publish
-        render :text => calendar.to_ical
+        render text: calendar.to_ical
       end
     end
   end
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
         calendar = Icalendar::Calendar.new
         calendar.add_event(@event.to_ics)
         calendar.publish
-        render :text => calendar.to_ical
+        render text: calendar.to_ical
       end
     end
   end
@@ -70,7 +70,7 @@ class EventsController < ApplicationController
     @event = Event.new(starttime: @starttime, endtime: @endtime, period: "Non ripetere", event_type_id: params[:event_type_id])
     @meeting = @event.build_meeting
     @election = @event.build_election
-    @place = @meeting.build_place(:comune_id => "1330")
+    @place = @meeting.build_place(comune_id: "1330")
 
     if params[:proposal_id]
       @event.proposal_id = params[:proposal_id]
@@ -80,7 +80,7 @@ class EventsController < ApplicationController
       @event.private = true
       respond_to do |format|
         format.js
-        format.html { redirect_to :controller => 'events', :action => 'index', :group_id => params[:group_id], :new_event => 'true', :type => params[:type] }
+        format.html { redirect_to controller: 'events', action: 'index', group_id: params[:group_id], new_event: 'true', type: params[:type] }
       end
     end
   end
@@ -115,15 +115,15 @@ class EventsController < ApplicationController
           @group.save!
         end
       else
-        #      @event_series = EventSeries.new(:frequency => params[:event][:frequency], :period => params[:event][:repeats], :starttime => params[:event][:starttime], :endtime => params[:event][:endtime], :all_day => params[:event][:all_day])
+        #      @event_series = EventSeries.new(frequency: params[:event][:frequency], period: params[:event][:repeats], starttime: params[:event][:starttime], endtime: params[:event][:endtime], all_day: params[:event][:all_day])
         @event_series = EventSeries.new(params[:event])
         @event_series.save!
       end
 
       #fai partire il timer per far scadere la proposta fuori dalla transazione
       if @event.is_votazione?
-        EventsWorker.perform_at(@event.starttime, {:action => EventsWorker::STARTVOTATION, :event_id => @event.id})
-        EventsWorker.perform_at(@event.endtime, {:action => EventsWorker::ENDVOTATION, :event_id => @event.id})
+        EventsWorker.perform_at(@event.starttime, {action: EventsWorker::STARTVOTATION, event_id: @event.id})
+        EventsWorker.perform_at(@event.endtime, {action: EventsWorker::ENDVOTATION, event_id: @event.id})
       end
 
       NotificationEventCreate.perform_async(current_user.id, @event.id)
@@ -159,17 +159,17 @@ class EventsController < ApplicationController
     end
     events = []
     @events.each do |event|
-      event_obj = {:id => event.id,
-                   :title => event.title,
-                   :description => event.description || "Some cool description here...",
-                   :start => "#{event.starttime.iso8601}",
-                   :end => "#{event.endtime.iso8601}",
-                   :allDay => event.all_day,
-                   :recurring => event.event_series_id ? true : false,
-                   :backgroundColor => event.backgroundColor,
-                   :textColor => event.textColor,
-                   :editable => !event.is_votazione?,
-                   :url => event.is_elezione? ? election_path(event.election) : event_path(event)}
+      event_obj = {id: event.id,
+                   title: event.title,
+                   description: event.description || "Some cool description here...",
+                   start: "#{event.starttime.iso8601}",
+                   end: "#{event.endtime.iso8601}",
+                   allDay: event.all_day,
+                   recurring: event.event_series_id ? true : false,
+                   backgroundColor: event.backgroundColor,
+                   textColor: event.textColor,
+                   editable: !event.is_votazione?,
+                   url: event.is_elezione? ? election_path(event.election) : event_path(event)}
       if @group
         event_obj[:group] = @group_name
         event_obj[:group_url] = @group_url
@@ -179,7 +179,7 @@ class EventsController < ApplicationController
       end
       events << event_obj
     end
-    render :text => events.to_json
+    render text: events.to_json
   end
 
 
@@ -213,7 +213,7 @@ class EventsController < ApplicationController
       @events = @event.event_series.events
       @event.update_events(@events, params[:event])
     elsif params[:event][:commit_button] == "Aggiorna tutte le occorrenze successive"
-      @events = @event.event_series.events.all(:conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events.all(conditions: ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.update_events(@events, params[:event])
     else
       @event.attributes = params[:event]
@@ -246,7 +246,7 @@ class EventsController < ApplicationController
     if params[:delete_all] == 'true'
       @event.event_series.destroy
     elsif params[:delete_all] == 'future'
-      @events = @event.event_series.events.all(:conditions => ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
+      @events = @event.event_series.events.all(conditions: ["starttime > '#{@event.starttime.to_formatted_s(:db)}' "])
       @event.event_series.events.delete(@events)
     else
       @event.destroy
@@ -278,7 +278,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       @title = t('error.error_404.events.title')
       @message = t('error.error_404.events.description')
-      format.html { render "errors/404", :status => 404, :layout => true }
+      format.html { render "errors/404", status: 404, layout: true }
     end
     true
   end

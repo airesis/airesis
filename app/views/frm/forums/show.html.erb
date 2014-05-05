@@ -1,7 +1,7 @@
 <%@page_title = "#{@forum.title} - #{@group.name}" %>
 <%@extend = true %>
 <div class='forum'>
-  <%= render :partial => 'frm/forums/head', :locals => { :forum => @forum } %>
+  <%= render partial: 'frm/forums/head', locals: { forum: @forum } %>
 
   <%= forem_pages_widget(@topics) %>
   <table class='topics table-striped table' cellspacing='0'>
@@ -24,4 +24,4 @@
   <%= forem_pages_widget(@topics) %>
 </div>
 
-<%= render :partial => '/frm/application/forem_footer' %>
+<%= render partial: '/frm/application/forem_footer' %>

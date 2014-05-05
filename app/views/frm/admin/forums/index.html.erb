@@ -4,7 +4,7 @@
 </ul>
 
 
-  <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), :class => "btn blue newButton" %>
+  <%= link_to t("frm.admin.forum.new_link"), new_group_frm_admin_forum_url(@group), class: "btn blue newButton" %>
 
   <% @forums.group_by(&:category).each do |category, forums| %>
       <div class="category">
@@ -13,11 +13,11 @@
       <table id='forums' class='forums table table-striped' cellspacing='0'>
         <thead>
         <tr>
-          <th class="desc"><%= t('forum', :scope => 'frm.general') %></th>
-          <th><%= t('topics', :scope => 'frm.general') %></th>
-          <th><%= t('posts', :scope => 'frm.general') %></th>
-          <th><%= t('edit', :scope => 'frm.admin.forums') %></th>
-          <th><%= t('delete', :scope => 'frm.admin.forums') %></th>
+          <th class="desc"><%= t('forum', scope: 'frm.general') %></th>
+          <th><%= t('topics', scope: 'frm.general') %></th>
+          <th><%= t('posts', scope: 'frm.general') %></th>
+          <th><%= t('edit', scope: 'frm.admin.forums') %></th>
+          <th><%= t('delete', scope: 'frm.admin.forums') %></th>
         </tr>
         </thead>
         <tbody>
@@ -47,15 +47,15 @@
               </td>
               <td><%= forum.topics.count %></td>
               <td><%= forum.posts.count %></td>
-              <td><%= link_to t('edit', :scope => 'frm.admin.forums'), edit_group_frm_admin_forum_url(@group, forum), :class => "btn editButton" %></td>
-              <td><%= link_to t('delete', :scope => 'frm.admin.forums'), group_frm_admin_forum_url(@group, forum), :method => :delete, data: {confirm: t("delete_confirm", scope: "frm.admin.forums")}, :class => "btn trashButton" %></td>
+              <td><%= link_to t('edit', scope: 'frm.admin.forums'), edit_group_frm_admin_forum_url(@group, forum), class: "btn editButton" %></td>
+              <td><%= link_to t('delete', scope: 'frm.admin.forums'), group_frm_admin_forum_url(@group, forum), method: :delete, data: {confirm: t("delete_confirm", scope: "frm.admin.forums")}, class: "btn trashButton" %></td>
             </tr>
         <% end %>
         </tbody>
       </table>
   <% end %>
-<%= render :partial => '/frm/application/forem_footer' %>
+<%= render partial: '/frm/application/forem_footer' %>
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

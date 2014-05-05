@@ -4,7 +4,7 @@
   <li class="current"><%= t('pages.groups.edit_permissions.new_role_title') %></li>
 </ul>
 
-<%=render(:partial => 'area_roles/form', :locals => {button_name: t('buttons.create'), remote: false})%>
+<%=render(partial: 'area_roles/form', locals: {button_name: t('buttons.create'), remote: false})%>
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>

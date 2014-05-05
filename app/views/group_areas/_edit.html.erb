@@ -1,7 +1,7 @@
 <h1><%= t('pages.groups.edit_work_areas.manage.manage_roles_in_area', area: @group_area.name)  %></h1>
 
 <div id="roles_panel_container">
-  <%= render :partial => 'group_areas/roles_panel' %>
+  <%= render partial: 'group_areas/roles_panel' %>
 </div>
 <br/>
 <%= link_to t('pages.groups.edit_permissions.new_role'), new_group_group_area_area_role_url(@group, @group_area), remote: true, data: {disable_with: t('loading')}, class: 'btn blue newButton' %>
@@ -9,7 +9,7 @@
 <hr/>
 
 <div id="roles_table_container">
-  <%= render :partial => 'group_areas/user_roles_panel' %>
+  <%= render partial: 'group_areas/user_roles_panel' %>
 </div>
 
 <script type="text/javascript">

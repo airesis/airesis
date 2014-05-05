@@ -9,7 +9,7 @@ class AreaRolesController < ApplicationController
   ###SECURITY###
 
   before_filter :authenticate_user!
-  before_filter :portavoce_required, :only => [:edit, :update, :edit_permissions]
+  before_filter :portavoce_required, only: [:edit, :update, :edit_permissions]
 
   def new
     @area_role = @group_area.area_roles.build
@@ -27,7 +27,7 @@ class AreaRolesController < ApplicationController
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       flash[:error] = t('error.participation_roles.role_created')
-      format.html { render :action => "new" }
+      format.html { render action: "new" }
     end
   end
 
@@ -42,7 +42,7 @@ class AreaRolesController < ApplicationController
     respond_to do |format|
       flash[:error] = t('error.participation_roles.role_updated')
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end }
     end
   end
@@ -68,7 +68,7 @@ class AreaRolesController < ApplicationController
 
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end
@@ -81,7 +81,7 @@ class AreaRolesController < ApplicationController
     flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
       format.js { render :update do |page|
-        page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
       end
       }
     end

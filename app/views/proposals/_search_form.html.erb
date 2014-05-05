@@ -1,6 +1,6 @@
     <%if params[:search] %>
     <b><%= params[:search] %></b>
-       <%= link_to 'X',current_url(:search => nil) %>
+       <%= link_to 'X',current_url(search: nil) %>
     <%end%>
     <p>
       <%= text_field_tag :search, params[:search], placeholder: t('pages.proposals.index.search_placeholder'), size: 30, onkeyup: 'checkCharacters();' %>

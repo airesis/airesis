@@ -4,8 +4,8 @@
     <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group,@proposal) : proposal_url(@proposal), class: 'btn blue' %>
 
     <div class="mybox">
-      <%= render :partial => 'panel_menu' %>
+      <%= render partial: 'panel_menu' %>
     </div>
 <% end %>
 
-<%= render :partial => 'panel_content' %>
+<%= render partial: 'panel_content' %>

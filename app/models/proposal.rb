@@ -2,78 +2,78 @@
 class Proposal < ActiveRecord::Base
   include BlogKitModelHelper, Frm::Concerns::Viewable
 
-  belongs_to :state, :class_name => 'ProposalState', :foreign_key => :proposal_state_id
-  belongs_to :category, :class_name => 'ProposalCategory', :foreign_key => :proposal_category_id
-  belongs_to :vote_period, :class_name => 'Event', :foreign_key => :vote_period_id
-  has_many :proposal_presentations, -> {order 'id DESC' }, :class_name => 'ProposalPresentation', dependent: :destroy
+  belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
+  belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
+  belongs_to :vote_period, class_name: 'Event', foreign_key: :vote_period_id
+  has_many :proposal_presentations, -> {order 'id DESC' }, class_name: 'ProposalPresentation', dependent: :destroy
 
-  has_many :proposal_borders, :class_name => 'ProposalBorder', dependent: :destroy
-  has_many :proposal_histories, :class_name => 'ProposalHistory'
+  has_many :proposal_borders, class_name: 'ProposalBorder', dependent: :destroy
+  has_many :proposal_histories, class_name: 'ProposalHistory'
 
   has_many :revisions, class_name: 'ProposalRevision', dependent: :destroy
 
-  #  has_many :proposal_watches, :class_name => 'ProposalWatch'
-  has_one :vote, :class_name => 'ProposalVote', dependent: :destroy
+  #  has_many :proposal_watches, class_name: 'ProposalWatch'
+  has_one :vote, class_name: 'ProposalVote', dependent: :destroy
 
-  has_many :user_votes, :class_name => 'UserVote'
+  has_many :user_votes, class_name: 'UserVote'
 
-  has_many :schulze_votes, :class_name => 'ProposalSchulzeVote', dependent: :destroy
+  has_many :schulze_votes, class_name: 'ProposalSchulzeVote', dependent: :destroy
 
   # all the comments related to the proposal
-  has_many :comments, :class_name => 'ProposalComment', :dependent => :destroy
+  has_many :comments, class_name: 'ProposalComment', dependent: :destroy
   # only the main contributes related to the proposal
-  has_many :contributes, -> {where(['parent_proposal_comment_id is null'])}, :class_name => 'ProposalComment', :dependent => :destroy
-  has_many :rankings, :class_name => 'ProposalRanking', :dependent => :destroy
-  has_many :positive_rankings, -> {where(['ranking_type_id = 1'])}, :class_name => 'ProposalRanking'
+  has_many :contributes, -> {where(['parent_proposal_comment_id is null'])}, class_name: 'ProposalComment', dependent: :destroy
+  has_many :rankings, class_name: 'ProposalRanking', dependent: :destroy
+  has_many :positive_rankings, -> {where(['ranking_type_id = 1'])}, class_name: 'ProposalRanking'
 
-  has_many :proposal_lives, -> {order 'proposal_lives.created_at DESC'}, :class_name => 'ProposalLife', :dependent => :destroy
-  has_many :users, :through => :proposal_presentations, :class_name => 'User'
+  has_many :proposal_lives, -> {order 'proposal_lives.created_at DESC'}, class_name: 'ProposalLife', dependent: :destroy
+  has_many :users, through: :proposal_presentations, class_name: 'User'
 
-  has_many :proposal_supports, :class_name => 'ProposalSupport', :dependent => :destroy
-  has_many :groups, :through => :proposal_supports, :class_name => 'Group'
+  has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
+  has_many :groups, through: :proposal_supports, class_name: 'Group'
   #confini di interesse
-  has_many :interest_borders, :through => :proposal_borders, :class_name => 'InterestBorder'
+  has_many :interest_borders, through: :proposal_borders, class_name: 'InterestBorder'
 
-  has_many :proposal_tags, :class_name => 'ProposalTag', :dependent => :destroy
-  has_many :tags, :through => :proposal_tags, :class_name => 'Tag'
+  has_many :proposal_tags, class_name: 'ProposalTag', dependent: :destroy
+  has_many :tags, through: :proposal_tags, class_name: 'Tag'
 
-  has_many :proposal_nicknames, :class_name => 'ProposalNickname', :dependent => :destroy
+  has_many :proposal_nicknames, class_name: 'ProposalNickname', dependent: :destroy
 
-  has_many :group_proposals, :class_name => 'GroupProposal', :dependent => :delete_all
-  has_many :presentation_groups, :through => :group_proposals, :class_name => 'Group', :source => :group
+  has_many :group_proposals, class_name: 'GroupProposal', dependent: :delete_all
+  has_many :presentation_groups, through: :group_proposals, class_name: 'Group', source: :group
 
-  has_many :area_proposals, :class_name => 'AreaProposal', :dependent => :destroy
-  has_many :presentation_areas, :through => :area_proposals, :class_name => 'GroupArea', :source => :group_area
+  has_many :area_proposals, class_name: 'AreaProposal', dependent: :destroy
+  has_many :presentation_areas, through: :area_proposals, class_name: 'GroupArea', source: :group_area
 
-  has_many :available_authors, :class_name => 'AvailableAuthor', :dependent => :destroy
-  has_many :available_user_authors, :through => :available_authors, :class_name => 'User', :source => :user
+  has_many :available_authors, class_name: 'AvailableAuthor', dependent: :destroy
+  has_many :available_user_authors, through: :available_authors, class_name: 'User', source: :user
 
-  belongs_to :quorum, :class_name => 'Quorum'
+  belongs_to :quorum, class_name: 'Quorum'
 
   #eager_load :quorum
 
-  has_many :proposal_sections, :dependent => :destroy
-  has_many :sections, -> {order :seq}, :through => :proposal_sections
+  has_many :proposal_sections, dependent: :destroy
+  has_many :sections, -> {order :seq}, through: :proposal_sections
 
-  has_many :solutions, -> {order 'solutions.seq'}, :dependent => :destroy
+  has_many :solutions, -> {order 'solutions.seq'}, dependent: :destroy
 
-  belongs_to :proposal_votation_type, :class_name => 'ProposalVotationType'
+  belongs_to :proposal_votation_type, class_name: 'ProposalVotationType'
 
-  belongs_to :proposal_type, :class_name => 'ProposalType'
+  belongs_to :proposal_type, class_name: 'ProposalType'
 
   #forum
   has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'proposal_id'
   has_many :topics, class_name: 'Frm::Topic', through: :topic_proposals
 
-  has_many :proposal_alerts, :class_name => 'ProposalAlert', dependent: :destroy
-  has_many :blocked_proposal_alerts, :class_name => 'BlockedProposalAlert', dependent: :destroy
+  has_many :proposal_alerts, class_name: 'ProposalAlert', dependent: :destroy
+  has_many :blocked_proposal_alerts, class_name: 'BlockedProposalAlert', dependent: :destroy
 
   #validation
-  validates_presence_of :title, :message => "obbligatorio" #TODO:I18n
+  validates_presence_of :title, message: "obbligatorio" #TODO:I18n
   validates_uniqueness_of :title
-  validates_presence_of :proposal_category_id, :message => "obbligatorio"
+  validates_presence_of :proposal_category_id, message: "obbligatorio"
 
-  validates_presence_of :quorum_id, :unless => :is_petition? #todo bug in client_side_validation
+  validates_presence_of :quorum_id, unless: :is_petition? #todo bug in client_side_validation
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
@@ -93,7 +93,7 @@ class Proposal < ActiveRecord::Base
   scope :in_valutation, -> {where(proposal_state_id: ProposalState::VALUTATION)}
   #tutte le proposte in attesa di votazione o attualmente in votazione
 
-  #scope :waiting, {:conditions => {:proposal_state_id => [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
+  #scope :waiting, {conditions: {proposal_state_id: [ProposalState::WAIT_DATE, ProposalState::WAIT]}}
 
   #retrieve proposals in a state before votation, exclude petitions
   scope :before_votation, -> {where(['proposal_state_id in (?) and proposal_type_id != ?',[ProposalState::VALUTATION, PROP_WAIT_DATE, PROP_WAIT], 11 ])}
@@ -102,7 +102,7 @@ class Proposal < ActiveRecord::Base
 
   scope :voting, -> {where(proposal_state_id: ProposalState::VOTING)}
 
-  scope :not_voted_by, lambda { |user_id| {:conditions => ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
+  scope :not_voted_by, lambda { |user_id| {conditions: ['proposal_state_id = ? and proposals.id not in (select proposal_id from user_votes where user_id = ?)', ProposalState::VOTING, user_id]} }
 
   #tutte le proposte accettate
   scope :accepted, -> {where(proposal_state_id: ProposalState::ACCEPTED)}
@@ -120,13 +120,13 @@ class Proposal < ActiveRecord::Base
   scope :private, -> {where(private: true)} #proposte interne ai gruppi
 
   #condizione di appartenenza ad una categoria
-  scope :in_category, lambda { |category_id| {:conditions => ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
+  scope :in_category, lambda { |category_id| {conditions: ['proposal_category_id = ?', category_id]} if (category_id && !category_id.empty?) }
 
   #condizione di visualizzazione in un gruppo
-  scope :in_group, lambda { |group_id| {:include => [:proposal_supports, :group_proposals], :conditions => ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
+  scope :in_group, lambda { |group_id| {include: [:proposal_supports, :group_proposals], conditions: ["((proposal_supports.group_id = ? and proposals.private = 'f') or (group_proposals.group_id = ? and proposals.private = 't'))", group_id, group_id]} if group_id }
 
   #condizione di visualizzazione in area di lavoro
-  scope :in_group_area, lambda { |group_area_id| {:include => [:area_proposals], :conditions => ["((area_proposals.group_area_id = ? and proposals.private = 't'))", group_area_id]} if group_area_id }
+  scope :in_group_area, lambda { |group_area_id| {include: [:area_proposals], conditions: ["((area_proposals.group_area_id = ? and proposals.private = 't'))", group_area_id]} if group_area_id }
 
 
   before_update :save_proposal_history
@@ -146,7 +146,7 @@ class Proposal < ActiveRecord::Base
     else
       return self.current
       .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-      .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+      .includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category])
       .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}").where(['proposals.id in (?) ', @list_c])
       .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user.id}")
       .order('proposals.updated_at desc')
@@ -158,7 +158,7 @@ class Proposal < ActiveRecord::Base
     user_id = user ? user.id : -1
     @list_a = Proposal.public
     .select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
-    .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+    .includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category])
     .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user_id}")
     .joins("left outer join proposal_rankings on proposals.id = proposal_rankings.proposal_id and proposal_rankings.user_id = #{user_id}")
     .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
@@ -170,7 +170,7 @@ class Proposal < ActiveRecord::Base
   def self.open_space_petitions_portlet(user)
     @list_a = Proposal.public
     .select('distinct proposals.*, proposal_alerts.count as alerts_count')
-    .includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category])
+    .includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category])
     .joins("left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
     .joins("join proposal_types pt on (proposals.proposal_type_id = pt.id)")
     .where("pt.name = '#{ProposalType::PETITION}'")
@@ -195,13 +195,13 @@ class Proposal < ActiveRecord::Base
                           and uv.id is null
                           and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{PartecipationRole::PORTAVOCE})
                           order by e.endtime asc")
-    ActiveRecord::Associations::Preloader.new(proposals,[:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category]).run
+    ActiveRecord::Associations::Preloader.new(proposals,[:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category]).run
     proposals
   end
 
   #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
   def self.group_portlet(group,user)
-    query = group.internal_proposals.includes([:quorum, {:users => :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
+    query = group.internal_proposals.includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
     if user
     query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
     .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
@@ -211,7 +211,7 @@ end
 
 
 def count_notifications(user_id)
-  (alerts = self.proposal_alerts.where(:user_id => user_id).first) ? alerts.count : 0
+  (alerts = self.proposal_alerts.where(user_id: user_id).first) ? alerts.count : 0
 
 end
 
@@ -238,7 +238,7 @@ def is_polling?
 end
 
 def remove_scheduled_tasks
-  #Resque.remove_delayed(ProposalsWorker, {:action => ProposalsWorker::ENDTIME, :proposal_id => self.id}) #TODO remove jobs
+  #Resque.remove_delayed(ProposalsWorker, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) #TODO remove jobs
 end
 
 #return true if the proposal is currently in debate
@@ -384,10 +384,10 @@ end
 def mark_integrated_contributes
   if @revision.id
     self.last_revision = @revision
-    comment_ids = ProposalComment.where({:id => integrated_contributes_ids, :parent_proposal_comment_id => nil}).pluck(:id) #controllo di sicurezza
-    ProposalComment.update_all({:integrated => true}, {:id => comment_ids})
+    comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id) #controllo di sicurezza
+    ProposalComment.update_all({integrated: true}, {id: comment_ids})
     comment_ids.each do |id|
-      self.last_revision.integrated_contributes.create(:proposal_comment_id => id)
+      self.last_revision.integrated_contributes.create(proposal_comment_id: id)
     end
   end
 end
@@ -426,16 +426,16 @@ end
 
 #count without fetching, for the list. this number may be different from partecipants because doesn't look if the partecipants are still in the group
 def partecipants_count
-  a = User.joins({:proposal_rankings => [:proposal]}).where(["proposals.id = ?", self.id]).count
-  a += User.joins({:proposal_comments => [:proposal]}).where(["proposals.id = ?", self.id]).count
+  a = User.joins({proposal_rankings: [:proposal]}).where(["proposals.id = ?", self.id]).count
+  a += User.joins({proposal_comments: [:proposal]}).where(["proposals.id = ?", self.id]).count
 end
 
 #retrieve all the partecipants to the proposals that are still part of the group
 def partecipants
   #all users who ranked the proposal
-  a = User.joins(:proposal_rankings => [:proposal]).where(["proposals.id = ?", self.id]).load
+  a = User.joins(proposal_rankings: [:proposal]).where(["proposals.id = ?", self.id]).load
   #all users who contributed to the proposal
-  b = User.joins(:proposal_comments => [:proposal]).where(["proposals.id = ?", self.id]).load
+  b = User.joins(proposal_comments: [:proposal]).where(["proposals.id = ?", self.id]).load
   c = (a | b)
   if self.private
     #all users that are part of the group of the proposal
@@ -456,7 +456,7 @@ def notification_receivers
   res = []
   users.each do |user|
     #user ranking to the proposal
-    ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
+    ranking = user.proposal_rankings.first(conditions: {proposal_id: self.id})
     res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
   end
   res
@@ -470,7 +470,7 @@ def vote_notification_receivers
   res = []
   users.each do |user|
     #user ranking to the proposal
-    ranking = user.proposal_rankings.first(:conditions => {:proposal_id => self.id})
+    ranking = user.proposal_rankings.first(conditions: {proposal_id: self.id})
     res << user if !ranking || (ranking && (ranking.updated_at < self.updated_at)) #if he ranked and can change it
   end
 end
@@ -543,8 +543,8 @@ end
 
 def users_j
   self.is_anonima? ?
-      self.proposal_nicknames.where(:user_id => self.user_ids).as_json(only: [:nickname]) :
-      self.users.as_json(:only => [:id], :methods => [:fullname])
+      self.proposal_nicknames.where(user_id: self.user_ids).as_json(only: [:nickname]) :
+      self.users.as_json(only: [:id], methods: [:fullname])
 end
 
 end

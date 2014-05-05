@@ -4,6 +4,6 @@ class TutorialProgress < ActiveRecord::Base
   DONE = 'Y'
   SKIPPED = 'S'
 
-  belongs_to :step, :class_name => 'Step'
-  belongs_to :user, :class_name => 'User'
+  belongs_to :step, class_name: 'Step'
+  belongs_to :user, class_name: 'User'
 end

@@ -1,4 +1,4 @@
-<%= simple_form_for ((@group && !in_subdomain?) ? [@group, @partecipation_role] : @partecipation_role), :remote => request.xhr? do |f| %>
+<%= simple_form_for ((@group && !in_subdomain?) ? [@group, @partecipation_role] : @partecipation_role), remote: request.xhr? do |f| %>
 
     <%= f.input :name %>
 
@@ -8,7 +8,7 @@
 
     <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
     <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
-    <%= f.button :button, button_name, :class => 'btn blue saveButton' %>
+    <%= f.button :button, button_name, class: 'btn blue saveButton' %>
 <% end %>
 
 <script type="text/javascript">

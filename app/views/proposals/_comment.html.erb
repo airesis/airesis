@@ -16,13 +16,13 @@
   <% @lastreplies = comment.replies.where(["proposal_comments.created_at > ?",comment.updated_at || comment.created_at]).order('proposal_comments.created_at DESC').page(1).per(5).reverse! %>
   <% if countreplies > @lastreplies.length %>
       <div id="<%= comment.id %>_show" class="show_all_comments">
-        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), :remote => true, data:{disable_with: t('loading')} %>
+        <%= link_to t('pages.proposals.show.replies.show_all', count: countreplies), show_all_replies_proposal_proposal_comment_path(@proposal, comment, showed: @lastreplies.length), remote: true, data:{disable_with: t('loading')} %>
       </div>
   <% end %>
   <div id="<%= comment.id %>_replies" style="display:none;">
   </div>
   <%@lastreplies.each_with_index do |reply,i| %>
-    <%= render :partial => 'proposals/reply', locals: {reply:reply, hide: false} %>
+    <%= render partial: 'proposals/reply', locals: {reply:reply, hide: false} %>
     <%if (i < @lastreplies.length - 1) && (version = comment.versions.where(['created_at between ? and ?',@lastreplies[i].created_at, @lastreplies[i+1].created_at]).first) %>
       <div class="comment_update_divider">
         <%=raw 'updated on ' + time_in_words(version.created_at) %>
@@ -39,14 +39,14 @@
       <div class="proposal_comment_reply">
         <div class="baloon-triangle"></div>
         <div id="<%= comment.id %>_reply_area_msg"></div>
-        <%= form_for [@proposal, ProposalComment.new], :remote => true do |f| %>
+        <%= form_for [@proposal, ProposalComment.new], remote: true do |f| %>
 
             <div class="reply_area">
-              <%= f.hidden_field :parent_proposal_comment_id, :value => comment.id %>
-              <%= f.text_area :content, :class => 'reply_textarea', :data => {:id => comment.id}, :id => "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
+              <%= f.hidden_field :parent_proposal_comment_id, value: comment.id %>
+              <%= f.text_area :content, class: 'reply_textarea', data: {id: comment.id}, id: "#{comment.id}_reply_text_area", placeholder: t('pages.proposals.show.reply_placeholder') %>
             </div>
             <div class="reply_button">
-              <%= f.submit t('pages.proposals.show.reply_button'), :class => 'btn disable', data: {disable_with: t('sending')} %>
+              <%= f.submit t('pages.proposals.show.reply_button'), class: 'btn disable', data: {disable_with: t('sending')} %>
             </div>
             <div style="clear: both;"></div>
         <% end %>

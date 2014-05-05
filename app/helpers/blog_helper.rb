@@ -6,7 +6,7 @@ module BlogHelper
 		
 		limits[:limit] = limit if limit
 		
-		BlogPostTag.all({:select => 'tag,count(id) as count', :group => 'tag', :order => 'count DESC'}.merge(limits)).sort_by {|bt| bt.tag }.each do |tag|
+		BlogPostTag.all({select: 'tag,count(id) as count', group: 'tag', order: 'count DESC'}.merge(limits)).sort_by {|bt| bt.tag }.each do |tag|
 			html << "<li><a href=\"/blog_posts/tag/#{tag.tag}\">#{tag.tag}</a> (#{tag.count})</li>"
 		end
 		

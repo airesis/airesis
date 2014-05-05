@@ -2,7 +2,7 @@ module GroupsHelper
   include UrlHelper
   def group_url(group, options={})
     if group.certified?
-      root_url(:subdomain => group.subdomain)
+      root_url(subdomain: group.subdomain)
     else
       options[:subdomain] = false if (defined? request) && request && (request.subdomain != 'www')
       super

@@ -16,7 +16,7 @@
 		<h2><%= t('pages.proposals.show.login_to_comment')%></h2>
 	<% else %>
 		<label><%= t('pages.proposals.show.add_comment')%></label>
-		<%= form_for [@blog_post.blog, @blog_post, blog_comment],:remote => true do |f| %>
+		<%= form_for [@blog_post.blog, @blog_post, blog_comment],remote: true do |f| %>
 			<% if blog_comment.errors.any? %>
 			  <ul>
 			    <% blog_comment.errors.full_messages.each do |msg| %>
@@ -26,12 +26,12 @@
 			<% end %>			
 		
 				<div class="comment-form-comment">
-				<%= f.text_area :body, :class => 'blogNewCommentField', :rows => 5, :cols => 70  %>
+				<%= f.text_area :body, class: 'blogNewCommentField', rows: 5, cols: 70  %>
 				</div>
 			
 			<p>
-				<%= f.submit t('pages.blog_comments.new.insert_comment'), :id => 'insert_comment', :onclick => "hideinsertcomment();return true;", :class => 'btn green' %>
-				<%= image_tag "spinner.gif", :style => 'display: none;', :id => 'insert_comment_loading' %>
+				<%= f.submit t('pages.blog_comments.new.insert_comment'), id: 'insert_comment', onclick: "hideinsertcomment();return true;", class: 'btn green' %>
+				<%= image_tag "spinner.gif", style: 'display: none;', id: 'insert_comment_loading' %>
 			</p>
 		<% end %>
 	<% end %>

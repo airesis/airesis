@@ -1,6 +1,6 @@
 class UserPreferences < ActiveRecord::Migration
   def up
-    add_column :users, :email_alerts, :boolean, :default => false, :null => false
+    add_column :users, :email_alerts, :boolean, default: false, null: false
   end
 
   def down

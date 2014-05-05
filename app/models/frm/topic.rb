@@ -8,30 +8,30 @@ module Frm
     workflow_column :state
     workflow do
       state :pending_review do
-        event :spam,    :transitions_to => :spam
-        event :approve, :transitions_to => :approved
+        event :spam,    transitions_to: :spam
+        event :approve, transitions_to: :approved
       end
       state :spam
       state :approved do
-        event :approve, :transitions_to => :approved
+        event :approve, transitions_to: :approved
       end
     end
 
     attr_accessor :moderation_option
 
     extend FriendlyId
-    friendly_id :subject, :use => :scoped, scope: :forum
+    friendly_id :subject, use: :scoped, scope: :forum
 
     attr_accessible :subject, :posts_attributes
-    attr_accessible :subject, :posts_attributes, :pinned, :locked, :hidden, :forum_id, :as => :admin
+    attr_accessible :subject, :posts_attributes, :pinned, :locked, :hidden, :forum_id, as: :admin
 
     belongs_to :forum
-    belongs_to :user, :class_name => 'User'
+    belongs_to :user, class_name: 'User'
     has_many   :subscriptions
-    has_many   :posts, -> {order 'frm_posts.created_at ASC'}, :dependent => :destroy
+    has_many   :posts, -> {order 'frm_posts.created_at ASC'}, dependent: :destroy
 
-    has_many :topic_tags, :dependent => :destroy, foreign_key: 'frm_topic_id'
-    has_many :tags, :through => :topic_tags, :class_name => 'Tag'
+    has_many :topic_tags, dependent: :destroy, foreign_key: 'frm_topic_id'
+    has_many :tags, through: :topic_tags, class_name: 'Tag'
 
     #forum
     has_many :topic_proposals, class_name: 'Frm::TopicProposal', foreign_key: 'topic_id'
@@ -39,13 +39,13 @@ module Frm
 
     accepts_nested_attributes_for :posts
 
-    validates :subject, :presence => true
-    validates :user, :presence => true
+    validates :subject, presence: true
+    validates :user, presence: true
 
     before_save  :set_first_post_user
-    after_save   :approve_user_and_posts, :if => :approved?
+    after_save   :approve_user_and_posts, if: :approved?
     after_create :subscribe_poster
-    after_create :skip_pending_review, :unless => :moderated?
+    after_create :skip_pending_review, unless: :moderated?
 
 
 
@@ -54,7 +54,7 @@ module Frm
         if user
           where('hidden = false or user_id = ?',user.id)
         else
-          where(:hidden => false)
+          where(hidden: false)
         end
 
       end
@@ -76,11 +76,11 @@ module Frm
       end
 
       def pending_review
-        where(:state => 'pending_review')
+        where(state: 'pending_review')
       end
 
       def approved
-        where(:state => 'approved')
+        where(state: 'approved')
       end
 
       def approved_or_pending_review_for(user)
@@ -131,7 +131,7 @@ module Frm
 
     def subscribe_user(subscriber_id)
       if subscriber_id && !subscriber?(subscriber_id)
-        subscriptions.create!(:subscriber_id => subscriber_id)
+        subscriptions.create!(subscriber_id: subscriber_id)
       end
     end
 
@@ -148,7 +148,7 @@ module Frm
     end
 
     def subscriptions_for(subscriber_id)
-      subscriptions.where(:subscriber_id => subscriber_id)
+      subscriptions.where(subscriber_id: subscriber_id)
     end
 
     def last_page

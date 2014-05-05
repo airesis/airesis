@@ -1,4 +1,4 @@
-$('#blogPostContainer').append("<%= j(render(:partial => 'blog_posts/blog_post', :collection => @blog_posts))%>");
+$('#blogPostContainer').append("<%= j(render(partial: 'blog_posts/blog_post', collection: @blog_posts))%>");
 try{
     FB.XFBML.parse();
 }catch(ex){}

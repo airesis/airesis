@@ -2,10 +2,10 @@
 #todo che cazzo fa sto controller?
 class RequestVotesController < ApplicationController
    
-  before_filter :load_group, :only => [:show,:edit,:update,:destroy,:ask_for_partecipation, :partecipation_request_confirm]
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :check_author,   :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :admin_required, :only => [:new, :create, :destroy]
+  before_filter :load_group, only: [:show,:edit,:update,:destroy,:ask_for_partecipation, :partecipation_request_confirm]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :check_author,   only: [:new, :create, :edit, :update, :destroy]
+  before_filter :admin_required, only: [:new, :create, :destroy]
   
   
   
@@ -56,7 +56,7 @@ class RequestVotesController < ApplicationController
         flash[:notice] = 'Hai creato il gruppo.'
         format.html { redirect_to(@group) }
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
       end
     end
   end
@@ -85,7 +85,7 @@ class RequestVotesController < ApplicationController
           flash[:notice] = 'Gruppo aggiornato correttamente.'
           format.html { redirect_to(@group) }
         else
-          format.html { render :action => "edit" }
+          format.html { render action: "edit" }
         end
       end
     

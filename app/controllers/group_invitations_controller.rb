@@ -1,18 +1,18 @@
 #encoding: utf-8
 class GroupInvitationsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:new,:create]
+  before_filter :authenticate_user!, only: [:new,:create]
 
-  before_filter :authenticate_user_from_invite!, :only => [:accept]
+  before_filter :authenticate_user_from_invite!, only: [:accept]
 
-  before_filter :load_group, :only => [:create]
+  before_filter :load_group, only: [:create]
 
   #controlla l'invito
-  before_filter :check_invite, :only => [:accept,:reject,:anymore]
+  before_filter :check_invite, only: [:accept,:reject,:anymore]
 
 
   def new
-    @group_invitation = GroupInvitation.new(:group_id => params[:group_id])
+    @group_invitation = GroupInvitation.new(group_id: params[:group_id])
 
     respond_to do |format|
       format.js
@@ -31,9 +31,9 @@ class GroupInvitationsController < ApplicationController
         #che non sia già stato invitato precedentemente
         #che non faccia già parte del gruppo
         unless BannedEmail.find_by_email(email) || @group.invitation_emails.find_by_email(email) || @group.partecipants.find_by_email(email)
-          @group_invitation_email = @group.invitation_emails.build(:email => email)
+          @group_invitation_email = @group.invitation_emails.build(email: email)
           @group.save!
-          @group_invitation = GroupInvitation.create(:group_invitation_email_id => @group_invitation_email.id, :inviter_id => current_user.id, :testo => params[:group_invitation][:testo])
+          @group_invitation = GroupInvitation.create(group_invitation_email_id: @group_invitation_email.id, inviter_id: current_user.id, testo: params[:group_invitation][:testo])
           ResqueMailer.delay.invite(@group_invitation.id)
           end
         end
@@ -57,10 +57,10 @@ class GroupInvitationsController < ApplicationController
       @group_invitation_email.accepted = 'Y'
       @group_invitation_email.save
 
-      request = @group.partecipation_requests.build(:user_id => current_user.id, :group_partecipation_request_status_id => 3)
+      request = @group.partecipation_requests.build(user_id: current_user.id, group_partecipation_request_status_id: 3)
       request.save
 
-      part = @group.group_partecipations.build(:user_id => current_user.id, :partecipation_role_id => @group.partecipation_role_id)
+      part = @group.group_partecipations.build(user_id: current_user.id, partecipation_role_id: @group.partecipation_role_id)
       part.save!
 
     end
@@ -94,7 +94,7 @@ class GroupInvitationsController < ApplicationController
       @group_invitation.save
       @group_invitation_email.accepted = 'N'
       @group_invitation_email.save
-      @banned = BannedEmail.new(:email => params[:email]) #inserisci il record tra le mail da non contattare
+      @banned = BannedEmail.new(email: params[:email]) #inserisci il record tra le mail da non contattare
       @banned.save
     end
 
@@ -156,10 +156,10 @@ class GroupInvitationsController < ApplicationController
       session[:user] = {}
       session[:user][:email] = params[:email]
       session[:invite] = {email: params[:email], token: params[:token], group_id: params[:group_id], return: request.url}
-      if User.where(:email => params[:email]).exists?
-        redirect_to new_user_session_path(:invite => params[:token], :user => {:login => params[:email]})
+      if User.where(email: params[:email]).exists?
+        redirect_to new_user_session_path(invite: params[:token], user: {login: params[:email]})
       else
-        redirect_to new_user_registration_path(:invite => params[:token])
+        redirect_to new_user_registration_path(invite: params[:token])
       end
 
     end

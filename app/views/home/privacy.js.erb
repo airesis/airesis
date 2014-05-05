@@ -1,4 +1,4 @@
 var _privacy_container = $('<div id="privacy_modal"  class="reveal-modal medium" data-reveal></div>');
-_privacy_container.html("<%= j render(:partial => 'devise/registrations/privacy')%>");
+_privacy_container.html("<%= j render(partial: 'devise/registrations/privacy')%>");
 $('body').append(_privacy_container);
 airesis_reveal($("#privacy_modal"));

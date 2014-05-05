@@ -7,14 +7,14 @@
 <% @extend=true %>
 <% @page_title = t('pages.groups.documents.documents_archive') %>
 
-<%= render :layout => "layouts/page_title", :locals => {:title => @page_title} do %>
+<%= render layout: "layouts/page_title", locals: {title: @page_title} do %>
 <% end %>
 
 
 <% if can? :view_documents, @group %>
     <div class="row full-width">
       <div id="storage_size_container" class="columns medium-3">
-        <%= render :partial => 'storage_size' %>
+        <%= render partial: 'storage_size' %>
       </div>
       <div class="columns medium-9">
         <div id="elfinder"></div>

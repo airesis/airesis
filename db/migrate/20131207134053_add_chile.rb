@@ -12,7 +12,7 @@ class AddChile < ActiveRecord::Migration
     @chile_id = @chile.id
     @america = @chile.continente
 
-    SysLocale.create(:key => 'es-CL', :host => 'http://www.airesis.us', lang: 'es-CL', territory: @chile)
+    SysLocale.create(key: 'es-CL', host: 'http://www.airesis.us', lang: 'es-CL', territory: @chile)
 
     @regione = Regione.create(description: 'Arica and Parinacota', stato_id: @chile.id, continente_id: @america.id)
     @provincia = Provincia.create(description: 'Arica', regione_id: @regione.id, stato_id: @chile.id, continente_id: @america.id)
@@ -437,6 +437,6 @@ class AddChile < ActiveRecord::Migration
     @chile.comunes.destroy_all
     @chile.provincias.destroy_all
     @chile.regiones.destroy_all
-    SysLocale.where(:key => 'es-CL').destroy_all
+    SysLocale.where(key: 'es-CL').destroy_all
   end
 end

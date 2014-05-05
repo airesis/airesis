@@ -21,7 +21,7 @@
 
 <% if @revision.solution_histories.size > 0 %>
 
-    <% @revision.solution_histories.includes(:section_histories => :paragraphs).order('section_histories.seq').each_with_index do |solution,i| %>
+    <% @revision.solution_histories.includes(section_histories: :paragraphs).order('section_histories.seq').each_with_index do |solution,i| %>
         <div class="solution_main">
           <h3>
             <div class="tit1 sol">
@@ -55,5 +55,5 @@
 <% end %>
 
 <% @revision.contributes.each do |comment| %>
-    <%= render :partial => 'proposals/integrated_comment', :locals => {:comment => comment} %>
+    <%= render partial: 'proposals/integrated_comment', locals: {comment: comment} %>
 <% end %>

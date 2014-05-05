@@ -1,5 +1,5 @@
 <p>
-  <%= I18n.t('received_reply', :scope => 'frm.topic') %>. You can view it here:
+  <%= I18n.t('received_reply', scope: 'frm.topic') %>. You can view it here:
 
   <%=link_to group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic), group_forum_topic_url(@post.topic.forum.group, @post.topic.forum, @post.topic) %>
 </p>

@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_location
   before_filter :set_locale
-  around_filter :user_time_zone, :if => :current_user
+  around_filter :user_time_zone, if: :current_user
   before_filter :prepare_for_mobile
 
   before_filter :load_tutorial
 
-  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
+  skip_before_filter :verify_authenticity_token, if: Proc.new { |c| c.request.format == 'application/json' }
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ckeditor_filebrowser_scope(options = {})
-    options = {:assetable_id => current_user.id, :assetable_type => 'User'}.merge(options)
+    options = {assetable_id: current_user.id, assetable_type: 'User'}.merge(options)
     super
   end
 
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     if @blog
       @user = @blog.user
       @blog_posts = @blog.posts.published.includes(:user, :blog, :tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-      @recent_comments = @blog.comments.includes(:blog_post,:user => [:image, :user_type]).order('created_at DESC').limit(10)
+      @recent_comments = @blog.comments.includes(:blog_post,user: [:image, :user_type]).order('created_at DESC').limit(10)
       @recent_posts = @blog.posts.published.order('published_at DESC').limit(10)
       @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
     end
@@ -77,11 +77,11 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    (!params[:l] || (params[:l] == @domain_locale)) ? {} : {:l => I18n.locale}
+    (!params[:l] || (params[:l] == @domain_locale)) ? {} : {l: I18n.locale}
   end
 
   def self.default_url_options(options={})
-    {:l => I18n.locale}
+    {l: I18n.locale}
   end
 
 
@@ -100,20 +100,20 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     log_error(exception)
-    render :template => "/errors/500.html.erb", :status => 500, layout: 'application'
+    render template: "/errors/500.html.erb", status: 500, layout: 'application'
   end
 
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
-      format.html { render "errors/404", :status => 404, :layout => 'application' }
+      format.html { render "errors/404", status: 404, layout: 'application' }
     end
     true
   end
 
 
   def current_url(overwrite={})
-    url_for params.merge(overwrite).merge(:only_path => false)
+    url_for params.merge(overwrite).merge(only_path: false)
   end
 
   #helper method per determinare se l'utente attualmente collegato è amministratore di sistema
@@ -176,7 +176,7 @@ class ApplicationController < ActionController::Base
       format.js do #se era una chiamata ajax, mostra il messaggio
         flash.now[:error] = t('error.admin_required')
         render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
@@ -197,7 +197,7 @@ class ApplicationController < ActionController::Base
       format.js do #se era una chiamata ajax, mostra il messaggio
         flash.now[:error] = exception.message
         render :update do |page|
-          page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
         end
       end
       format.html do #ritorna indietro oppure all'HomePage
@@ -276,7 +276,7 @@ class ApplicationController < ActionController::Base
         nickname = NicknameGeneratorHelper.give_me_a_nickname
         loop = ProposalNickname.find_by_proposal_id_and_nickname(proposal.id, nickname)
       end
-      ProposalNickname.create(:user_id => user.id, :proposal_id => proposal.id, :nickname => nickname)
+      ProposalNickname.create(user_id: user.id, proposal_id: proposal.id, nickname: nickname)
 
       @generated_nickname = @proposal.is_anonima?
     end
@@ -310,11 +310,11 @@ class ApplicationController < ActionController::Base
   end
 
   unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, :with => :render_error
-    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-    rescue_from ActionController::RoutingError, :with => :render_404
-    rescue_from ActionController::UnknownController, :with => :render_404
-    rescue_from ::AbstractController::ActionNotFound, :with => :render_404
+    rescue_from Exception, with: :render_error
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActionController::UnknownController, with: :render_404
+    rescue_from ::AbstractController::ActionNotFound, with: :render_404
   end
 
   rescue_from CanCan::AccessDenied do |exception|

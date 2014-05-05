@@ -23,7 +23,7 @@
         <a href="<%#= event_url(event) %>">
           <div class="event_calendar_mini">
             <div class="day">
-              <%#= I18n.localize(event.starttime, :format => :dayandmonth) %>
+              <%#= I18n.localize(event.starttime, format: :dayandmonth) %>
             </div>
 
           </div>
@@ -45,7 +45,7 @@
         <span class="count"><%= group.events.count %></span>
       </div>
       <div class="territoryDescription small-3 large-3 columns">
-        <%= link_to group.interest_border.territory.description, groups_url(:interest_border => group.interest_border.as_json[:id]) %>
+        <%= link_to group.interest_border.territory.description, groups_url(interest_border: group.interest_border.as_json[:id]) %>
         <div class="territory_fade"></div>
       </div>
     </div>

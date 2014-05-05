@@ -7,6 +7,6 @@
     <% end %>
   </ul>
 <% end %>
-<%= render :partial => @reply, :locals => { :button_name => "Reply" } %>
+<%= render partial: @reply, locals: { button_name: "Reply" } %>
 
 <%= link_to 'Back', replies_path %>

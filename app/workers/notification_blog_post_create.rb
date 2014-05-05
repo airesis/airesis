@@ -14,7 +14,7 @@ class NotificationBlogPostCreate < NotificationSender
     user_followers = post_user.followers #utenti che seguono il blog
     sent_users = []
     data = {'blog_post_id' => blog_post.id.to_s}
-    notification_a = Notification.new(:notification_type_id => 15, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
+    notification_a = Notification.new(notification_type_id: 15, url: blog_blog_post_url(blog_post.blog, blog_post), data: data)
     notification_a.save
     #TODO followers are not yet supported
     user_followers.each do |user|
@@ -30,7 +30,7 @@ class NotificationBlogPostCreate < NotificationSender
       data['subdomain'] = group.subdomain if group.certified?
 
       #notifica a chi partecipa al gruppo
-      notification_b = Notification.create(:notification_type_id => NotificationType::NEW_POST_GROUP, :url => group_blog_post_url(group, blog_post), data: data)
+      notification_b = Notification.create(notification_type_id: NotificationType::NEW_POST_GROUP, url: group_blog_post_url(group, blog_post), data: data)
       group.partecipants.each do |user|
         if (user != post_user) && (!sent_users.include? user)
           if send_notification_to_user(notification_b, user)

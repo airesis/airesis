@@ -4,10 +4,10 @@
   <li class="current"><%= @area_role.name %></li>
 </ul>
 
-<%=render :partial => 'area_roles/form', :locals => {button_name: t('buttons.edit'), remote: false}%>
+<%=render partial: 'area_roles/form', locals: {button_name: t('buttons.edit'), remote: false}%>
 
 <%= content_for :left_panel do %>
-    <%= render :partial => 'groups/administration_panel' %>
+    <%= render partial: 'groups/administration_panel' %>
 <% end %>
 
 

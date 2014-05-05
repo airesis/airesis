@@ -4,12 +4,12 @@ class Blog < ActiveRecord::Base
 
   include BlogKitModelHelper
 
-  belongs_to :user, :class_name => 'User', :foreign_key => :user_id
-  has_many :posts, :class_name => 'BlogPost', :dependent => :destroy
-  has_many :comments, :through => :posts, source: :blog_comments
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  has_many :posts, class_name: 'BlogPost', dependent: :destroy
+  has_many :comments, through: :posts, source: :blog_comments
   
-  has_many :blog_tags, :dependent => :destroy
-  has_many :tags, :through => :blog_tags, :class_name => 'Tag'
+  has_many :blog_tags, dependent: :destroy
+  has_many :tags, through: :blog_tags, class_name: 'Tag'
 
   def last_post
     self.posts.order(created_at: :desc).first
@@ -36,15 +36,15 @@ class Blog < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Blog.joins(:posts => :tags).where(['tags.text = ?', tag]).page(page).per(limite)
+      Blog.joins(posts: :tags).where(['tags.text = ?', tag]).page(page).per(limite)
     else
       Blog.search do
-        fulltext search, :minimum_match => params[:minimum] if search
+        fulltext search, minimum_match: params[:minimum] if search
         order_by :score, :desc
         order_by :last_post_created_at, :desc
         order_by :created_at, :desc
 
-        paginate :page => page, :per_page => limite
+        paginate page: page, per_page: limite
 
       end.results
     end

@@ -6,7 +6,7 @@ class Roadmap
 
 
   def initialize(u, p)
-    @auth = {:username => u, :password => p}
+    @auth = {username: u, password: p}
   end
 
   def versions

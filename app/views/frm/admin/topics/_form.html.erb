@@ -1,6 +1,6 @@
 <%= simple_form_for @topic, url: group_frm_admin_topic_url(@group,@topic) do |f| %>
   <%= f.input :subject, label:t('simple_form.labels.topic.subject')%>
-  <%= f.association :forum, collection: @group.forums.all(order: 'name'), :label => t('frm.general.forum') %>
+  <%= f.association :forum, collection: @group.forums.all(order: 'name'), label: t('frm.general.forum') %>
   <%= f.label :locked, label: t('simple_form.labels.topic.locked') %>
   <%= f.check_box :locked %> <br/>
   <%= f.label :pinned, label: t('simple_form.labels.topic.pinned') %>
@@ -9,6 +9,6 @@
   <%= f.check_box :hidden %>
 
   <br />
-  <%= link_to t('buttons.cancel'), :back, :class => "btn" %>
-  <%= f.submit t('update', scope:'helpers.submit.topic'), :class => "btn blue" %>
+  <%= link_to t('buttons.cancel'), :back, class: "btn" %>
+  <%= f.submit t('update', scope:'helpers.submit.topic'), class: "btn blue" %>
 <% end %>

@@ -12,18 +12,18 @@ module OmniAuth
       DEFAULT_SCOPE = 'email'
 
       option :client_options, {
-          :site => 'https://oauth2.comune.parma.it',
-          :authorize_url => "/Authorization",
-          :token_url => '/Token/OpenGet'
+          site: 'https://oauth2.comune.parma.it',
+          authorize_url: "/Authorization",
+          token_url: '/Token/OpenGet'
       }
 
       option :token_params, {
-          :parse => :json
+          parse: :json
       }
 
       option :access_token_options, {
-          :header_format => 'OAuth %s',
-          :param_name => 'access_token'
+          header_format: 'OAuth %s',
+          param_name: 'access_token'
       }
 
 

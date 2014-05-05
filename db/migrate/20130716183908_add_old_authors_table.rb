@@ -28,7 +28,7 @@ class AddOldAuthorsTable < ActiveRecord::Migration
     add_foreign_key :old_proposal_presentations, :proposal_lives
 
 
-    Proposal.where(:proposal_state_id => ProposalState::ABANDONED).each do |proposal|
+    Proposal.where(proposal_state_id: ProposalState::ABANDONED).each do |proposal|
       #save the old quorum, valutations and rank
       life = proposal.proposal_lives.create(quorum_id: proposal.quorum_id, valutations: proposal.valutations, rank: proposal.rank, seq: 1)
       #save old authors
@@ -48,7 +48,7 @@ class AddOldAuthorsTable < ActiveRecord::Migration
   end
 
   def down
-    Proposal.where(:proposal_state_id => ProposalState::ABANDONED).each do |proposal|
+    Proposal.where(proposal_state_id: ProposalState::ABANDONED).each do |proposal|
       life = proposal.proposal_lives.first
       life.users.each do |user|
         proposal.users << user

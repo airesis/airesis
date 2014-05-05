@@ -1,9 +1,7 @@
 module Frm
   class TopicTag < Frm::FrmTable
-
     belongs_to :forum, foreign_key: 'frm_forum_id'
     belongs_to :tag
-
 
     after_create :increment_counter_cache
     after_destroy :decrement_counter_cache

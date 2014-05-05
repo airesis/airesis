@@ -11,7 +11,7 @@ class GroupStatistics < ActiveRecord::Migration
     end
 
     Group.all.each do |group|
-      GroupStatistic.create!(:group_id => group.id)
+      GroupStatistic.create!(group_id: group.id)
     end
   end
 

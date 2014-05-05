@@ -3,7 +3,7 @@ class CorrectProblems < ActiveRecord::Migration
     Proposal.find_all_by_rank(nil).each do |proposal|
       proposal.update_attribute(:rank,0)
     end
-    change_column :proposals, :rank, :integer, :null => false, :default => 0
+    change_column :proposals, :rank, :integer, null: false, default: 0
    # rename_table('meetings_partecipations','meeting_partecipations') rescue nil
     rename_table('meetings_organizations','meeting_organizations') rescue nil
   end

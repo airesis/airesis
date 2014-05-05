@@ -2,6 +2,6 @@
   <%= t('pages.home.index.most_active_groups') %>
   <%= link_to t('pages.home.index.show_groups'), groups_path, class: 'btn' %>
   <div class="scrollable">
-    <%= render partial: 'groups/group_portlet_tag', collection: Group.most_active.includes(:interest_border => :territory), as: 'group' %>
+    <%= render partial: 'groups/group_portlet_tag', collection: Group.most_active.includes(interest_border: :territory), as: 'group' %>
   </div>
 </div>

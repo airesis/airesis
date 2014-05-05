@@ -3,7 +3,7 @@
 <% if @subdomain %>
     <% @host = [@subdomain, @host.gsub('www', '')].join %>
 <% end %>
-<% @url = user_confirmation_url(:confirmation_token => @token, :host => @host, l: @resource.original_locale.lang) %>
+<% @url = user_confirmation_url(confirmation_token: @token, host: @host, l: @resource.original_locale.lang) %>
 
 <p><%= t('devise.mailer.confirmation_instructions.welcome', {app_name: APP_SHORT_NAME, user: @resource.fullname}) %></p>
 

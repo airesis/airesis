@@ -1,7 +1,7 @@
 class NoNullRole < ActiveRecord::Migration
   def up
     Group.transaction do
-      Group.where(:partecipation_role_id => nil).all.each do |group|
+      Group.where(partecipation_role_id: nil).all.each do |group|
         role = group.partecipation_roles.first
 
          if role

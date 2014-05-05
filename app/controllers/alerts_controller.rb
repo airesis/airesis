@@ -7,8 +7,8 @@ class AlertsController < ApplicationController
   def index
     @page_title = "All alerts"
     @user = current_user
-    @new_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = false')
-    @old_user_alerts = current_user.user_alerts.all(:include => :notification, :conditions => 'checked = true')
+    @new_user_alerts = current_user.user_alerts.all(include: :notification, conditions: 'checked = false')
+    @old_user_alerts = current_user.user_alerts.all(include: :notification, conditions: 'checked = true')
   end
 
   def polling
@@ -28,7 +28,7 @@ class AlertsController < ApplicationController
        category_title: alert.notification_category.description.upcase,
        image: "<img src=\"/assets/notification_categories/#{alert.notification_category.short.downcase}.png\"/>"}
     end
-    @map = {:count => numunread, :alerts => alerts}
+    @map = {count: numunread, alerts: alerts}
   end
 
   #set all alerts as read
@@ -43,7 +43,7 @@ class AlertsController < ApplicationController
       @user_alert.check!
 
       respond_to do |format|
-        format.js { render :nothing => true }
+        format.js { render nothing: true }
         format.html { redirect_to @user_alert.notification.url }
       end
 
@@ -60,7 +60,7 @@ class AlertsController < ApplicationController
   def check_all
     current_user.user_alerts.where(['user_alerts.checked = ?', false]).check_all
     respond_to do |format|
-      format.js { render :nothing => true }
+      format.js { render nothing: true }
     end
   end
 

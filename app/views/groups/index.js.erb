@@ -1,10 +1,10 @@
 <%if params[:page] %>
-$('#groups_list').append("<%=j (render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+$('#groups_list').append("<%=j (render partial: "group_tag", collection: @groups, as: 'group')%>");
 
 <%else%>
 $('#groups_list').fadeOut('slow', function () {
     <% if @groups.count > 0 %>
-    $('#groups_list').html("<%=j (render :partial => "group_tag", :collection => @groups, :as => 'group')%>");
+    $('#groups_list').html("<%=j (render partial: "group_tag", collection: @groups, as: 'group')%>");
 
     <% else %>
     $('#groups_list').html("<h2><%=j t('pages.groups.index.no_results') %></h2>");
@@ -12,7 +12,7 @@ $('#groups_list').fadeOut('slow', function () {
     $('#groups_list').fadeIn();
 })
 <%end%>
-$('#more_groups_container').html("<%=j (render :partial => 'more_groups')%>");
+$('#more_groups_container').html("<%=j (render partial: 'more_groups')%>");
 
 <%if params[:back] %>
     $('#search').val('<%=params[:search]%>');

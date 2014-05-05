@@ -1,4 +1,4 @@
 var container_ = $('<div id="category_container" class="reveal-modal" data-reveal ></div>');
-container_.html('<%=j render :partial => 'edit', locals: {remote: true} %>');
+container_.html('<%=j render partial: 'edit', locals: {remote: true} %>');
 $('body').append(container_);
 airesis_reveal(container_);

@@ -7,7 +7,7 @@ module NotificationHelper
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
-      @alert = UserAlert.new(:user_id => user.id, :notification_id => notification.id, :checked => false)
+      @alert = UserAlert.new(user_id: user.id, notification_id: notification.id, checked: false)
       @alert.save! #invia la notifica
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
     end
@@ -20,7 +20,7 @@ module NotificationHelper
   def notify_user_valutate_proposal(proposal_ranking, group)
     proposal = proposal_ranking.proposal
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
-    notification_a = Notification.new(:notification_type_id => NotificationType::NEW_VALUTATION_MINE, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_a = Notification.new(notification_type_id: NotificationType::NEW_VALUTATION_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if user != proposal_ranking.user
@@ -28,7 +28,7 @@ module NotificationHelper
 
       end
     end
-    notification_b = Notification.create(:notification_type_id => NotificationType::NEW_VALUTATION, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
+    notification_b = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     proposal.partecipants.each do |user|
       if (user != proposal_ranking.user) && (!proposal.users.include? user)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
@@ -48,7 +48,7 @@ module NotificationHelper
       data['group'] = @group.name
       data['subdomain'] = @group.subdomain if @group.certified?
     end
-    notification_a = Notification.new(:notification_type_id => NotificationType::UNINTEGRATED_CONTRIBUTE, :url => @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), :data => data)
+    notification_a = Notification.new(notification_type_id: NotificationType::UNINTEGRATED_CONTRIBUTE, url: @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), data: data)
     notification_a.save
     @proposal.users.each do |user|
       if user != current_user
@@ -69,7 +69,7 @@ module NotificationHelper
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.partecipants.each do |user|
       if user != current_user
@@ -171,7 +171,7 @@ module NotificationHelper
     subject +="#{proposal.title} non ha superato il dibattito"
     data = {'proposal_id' => proposal.id.to_s, 'subject' => subject, 'title' => proposal.title, 'i18n' => 't', 'extension' => 'abandoned'}
 
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
@@ -179,7 +179,7 @@ module NotificationHelper
       end
     end
 
-    notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
         another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
@@ -197,7 +197,7 @@ module NotificationHelper
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS_MINE, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if !(defined? current_user) || (user != current_user)
@@ -205,7 +205,7 @@ module NotificationHelper
       end
     end
 
-    notification_b = Notification.create(:notification_type_id => NotificationType::CHANGE_STATUS, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     proposal.partecipants.each do |user|
       unless proposal.users.include? user
         another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
@@ -233,7 +233,7 @@ module NotificationHelper
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
     data = {'proposal_id' => proposal.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'title' => proposal.title, 'i18n' => 't'}
-    notification_a = Notification.new(:notification_type_id => NotificationType::AVAILABLE_AUTHOR, :url => proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
+    notification_a = Notification.new(notification_type_id: NotificationType::AVAILABLE_AUTHOR, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if user != current_user
@@ -268,7 +268,7 @@ module NotificationHelper
 #    user = blog_comment.user
 #    unless blog_post.user == user #don't send a notification to myself
 #      data = {'blog_post_id' => blog_post.id.to_s, 'blog_comment_id' => blog_comment.id.to_s, 'subject' => "[#{blog_post.title}] Nuovo commento di #{user.fullname}", 'user' => user.fullname, 'title' => blog_post.title, 'i18n' => 't'}
-#      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, :url => blog_blog_post_url(blog_post.blog, blog_post), data: data)
+#      notification_a = Notification.new(notification_type_id: NotificationType::NEW_BLOG_COMMENT, url: blog_blog_post_url(blog_post.blog, blog_post), data: data)
 #      notification_a.save
 #      send_notification_to_user(notification_a, blog_post.user)
 #    end
@@ -305,7 +305,7 @@ module NotificationHelper
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
     end
-    notification_a = Notification.new(:notification_type_id => NotificationType::PHASE_ENDING, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_a = Notification.new(notification_type_id: NotificationType::PHASE_ENDING, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save!
     proposal.notification_receivers.each do |user|
       another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
@@ -324,7 +324,7 @@ module NotificationHelper
     end
 
 
-    notification_b = Notification.new(:notification_type_id => NotificationType::PHASE_ENDING, :url => group ? group_proposal_url(group, proposal) : proposal_url(proposal), :data => data)
+    notification_b = Notification.new(notification_type_id: NotificationType::PHASE_ENDING, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_b.save!
 
     users = group ?

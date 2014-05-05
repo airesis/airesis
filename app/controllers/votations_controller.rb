@@ -6,7 +6,7 @@ class VotationsController < ApplicationController
 
   before_filter :authenticate_user!
 
-#  before_filter :load_proposals, :only => [ :show]
+#  before_filter :load_proposals, only: [ :show]
 
   
 #  def show
@@ -27,8 +27,8 @@ class VotationsController < ApplicationController
           flash[:error] = 'Token di sicurezza non valido'  #TODO:I18n
           respond_to do |format|
             format.js   { render :update do |page|
-              page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-              page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+              page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+              page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
             end
             }
           end
@@ -38,7 +38,7 @@ class VotationsController < ApplicationController
 
       vote_type = params[:data][:vote_type].to_i
 
-      vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
+      vote = UserVote.new(user_id: current_user.id, proposal_id: @proposal.id)
       vote.vote_type_id = vote_type unless @proposal.secret_vote
       vote.save!
 
@@ -55,8 +55,8 @@ class VotationsController < ApplicationController
       respond_to do |format|
         flash[:notice] = 'Voto registrato'
         format.js   { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+            page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
           end
         }
         format.html { redirect_to votation_path }
@@ -68,8 +68,8 @@ class VotationsController < ApplicationController
         load_proposals
         flash[:error] = 'Hai già votato per questa proposta'
         format.js   { render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "proposals_list", :partial => "votations/list", :locals =>  {:proposals => @proposals}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+            page.replace_html "proposals_list", partial: "votations/list", locals:  {proposals: @proposals}
           end
         }
         format.html { redirect_to votation_path }
@@ -91,8 +91,8 @@ class VotationsController < ApplicationController
             flash[:error] = 'Token di sicurezza non valido'
             respond_to do |format|
               format.js   { render :update do |page|
-                page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-                page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+                page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+                page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
               end
               }
             end
@@ -111,7 +111,7 @@ class VotationsController < ApplicationController
         schulz.save!
 
         #memorizza che l'utente ha effettuato la votazione
-        vote = UserVote.new(:user_id => current_user.id, :proposal_id => @proposal.id)
+        vote = UserVote.new(user_id: current_user.id, proposal_id: @proposal.id)
         unless @proposal.secret_vote
           vote.vote_schulze = votestring
         end
@@ -119,11 +119,11 @@ class VotationsController < ApplicationController
       end
       respond_to do |format|
         flash[:notice] = "Voto inviato correttamente!"
-        format.html { render :action => "show" }
+        format.html { render action: "show" }
         format.js {
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
-            page.replace_html "vote_panel_container", :partial => "proposals/vote_panel", :locals =>  {:proposals => @proposals}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
+            page.replace_html "vote_panel_container", partial: "proposals/vote_panel", locals:  {proposals: @proposals}
           end
         }
       end
@@ -135,7 +135,7 @@ class VotationsController < ApplicationController
         format.html { redirect_to @proposal }
         format.js {
           render :update do |page|
-            page.replace_html "flash_messages", :partial => 'layouts/flash', :locals => {:flash => flash}
+            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
           end
         }
       end
@@ -154,7 +154,7 @@ class VotationsController < ApplicationController
     #se la proposta è privata deve avere i permessi per votare in quel gruppo
 
     #estrai tutte le proposte in votazione che non ho ancora votato
-    @proposals_tmp = Proposal.includes(:category, :vote_period, {:users => :image}).all(:select => "p.*",:joins=>"p", :include => [:presentation_groups, :quorum], :conditions => "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    @proposals_tmp = Proposal.includes(:category, :vote_period, {users: :image}).all(select: "p.*",:joins=>"p", include: [:presentation_groups, :quorum], conditions: "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
     @proposals = []
     @proposals_tmp.each do |proposal|
         @proposals << proposal if can? :vote, proposal

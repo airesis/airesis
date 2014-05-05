@@ -48,7 +48,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
 
-gem 'devise_traceable', :git => 'https://github.com/coorasse/devise_traceable.git'
+gem 'devise_traceable', git: 'https://github.com/coorasse/devise_traceable.git'
 
 gem 'koala', '~> 1.8.0rc1'
 
@@ -56,7 +56,7 @@ gem 'xmpp4r_facebook'
 
 gem 'exception_notification'
 
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 
 gem 'sidekiq', '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq/issues/79
 
@@ -68,7 +68,7 @@ gem 'cancan'
 
 gem 'foreigner'
 
-gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git', :branch => '4-0-beta'
+gem 'client_side_validations', git: 'https://github.com/bcardarella/client_side_validations.git', branch: '4-0-beta'
 
 gem 'client_side_validations-simple_form', git: 'https://github.com/coorasse/client_side_validations-simple_form.git'
 
@@ -78,7 +78,7 @@ gem 'geocoder'
 
 gem 'seed_dump'
 
-gem 'vote-schulze', :git => 'https://github.com/coorasse/vote-schulze.git'
+gem 'vote-schulze', git: 'https://github.com/coorasse/vote-schulze.git'
 
 gem 'rails_autolink'
 
@@ -86,7 +86,7 @@ gem 'nickname_generator'
 
 gem 'el_finder'
 
-gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'bullet', group: :development
 gem 'thin', group: :development
@@ -109,7 +109,7 @@ gem 'rotp'
 
 gem 'ckeditor'
 
-gem 'timezone', :git => 'https://github.com/coorasse/timezone.git'
+gem 'timezone', git: 'https://github.com/coorasse/timezone.git'
 
 gem 'friendly_id'
 gem 'simple_form'
