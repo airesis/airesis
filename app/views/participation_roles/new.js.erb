@@ -1,0 +1,4 @@
+var container_ = $('<div id="participation_role_container" class="reveal-modal small" data-reveal></div>');
+container_.html("<%=j render(partial: 'participation_roles/form', locals: {button_name: t('buttons.create')})%>");
+$('body').append(container_);
+airesis_reveal(container_);

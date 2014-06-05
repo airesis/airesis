@@ -3,10 +3,11 @@ class AnnouncementsController < ApplicationController
 
   layout 'open_space'
 
-  before_filter :moderator_required, except: :hide
+  before_filter :moderator_required, except: [:hide, :index,:show]
+
+  load_and_authorize_resource
 
   def index
-    @announcements = Announcement.all
     respond_to do |format|
       format.html
       format.json { render json: @announcements }
@@ -14,7 +15,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
-    @announcement = Announcement.find(params[:id])
     respond_to do |format|
       format.html
       format.json { render json: @announcement }
@@ -22,7 +22,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
-    @announcement = Announcement.new
     respond_to do |format|
       format.html
       format.json { render json: @announcement }
@@ -30,12 +29,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-    @announcement = Announcement.find(params[:id])
   end
 
   def create
-    @announcement = Announcement.new(params[:announcement])
-
     respond_to do |format|
       if @announcement.save
         format.html { redirect_to @announcement, notice: 'Announcement was successfully created.' }
@@ -48,10 +44,8 @@ class AnnouncementsController < ApplicationController
   end
 
   def update
-    @announcement = Announcement.find(params[:id])
-
     respond_to do |format|
-      if @announcement.update_attributes(params[:announcement])
+      if @announcement.update_attributes(announcement_params)
         format.html { redirect_to @announcement, notice: 'Announcement was successfully updated.' }
         format.json { head :no_content }
       else
@@ -62,9 +56,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def destroy
-    @announcement = Announcement.find(params[:id])
     @announcement.destroy
-
     respond_to do |format|
       format.html { redirect_to announcements_url }
       format.json { head :no_content }
@@ -74,5 +66,13 @@ class AnnouncementsController < ApplicationController
   def hide
     ids = [params[:id], *cookies.signed[:hidden_announcement_ids]]
     cookies.permanent.signed[:hidden_announcement_ids] = ids
+  end
+
+
+
+  protected
+
+  def announcement_params
+      params.require(:announcement).permit(:id, :message, :starts_at, :ends_at)
   end
 end

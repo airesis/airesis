@@ -82,8 +82,8 @@ class ProposalComment < ActiveRecord::Base
     self.referrer = truncate(request.env['HTTP_REFERER'], length: 255)
   end
 
-  #retrieve all the partecipants to this discussion
-  def partecipants
+  #retrieve all the participants to this discussion
+  def participants
     self.repliers | [self.user]
   end
 

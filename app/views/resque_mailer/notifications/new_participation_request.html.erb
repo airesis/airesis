@@ -1,6 +1,6 @@
 <% @user = User.find(@data[:user_id])%>
 <% @group = Group.find(@data[:group_id])%>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
 
 <%= email_h3 do %>
     <%= @group.group_image_tag(40, true) %><%= @group.name %>

@@ -1,0 +1,3 @@
+$('#participation_panel_container').html('<%=j render partial: 'events/participation_panel', locals: {event: @event}%>');
+$('#participants_container').html('<%=j render partial: 'events/meeting_responses', locals: {event: @event}%>');
+mybox_animate();

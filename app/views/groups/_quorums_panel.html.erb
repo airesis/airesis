@@ -22,7 +22,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @group.quorums.all.each do |quorum| %>
+  <% @group.quorums.each do |quorum| %>
       <tr valign="top" title="<%= quorum.description %>">
         <td>
           <input type="checkbox" onclick="return change_quorum_status(this,<%=quorum.id%>);"

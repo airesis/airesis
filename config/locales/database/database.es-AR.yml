@@ -60,7 +60,7 @@ es-AR:
         description: Designar miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuir a las propuestas
       PROPOSAL_INSERT:
         description: Agregar nuevas propuestas en el grupo
@@ -149,7 +149,7 @@ es-AR:
           waiting_date: '%{name} ha elegido la fecha para la votación de la propuesta <b>%{title}</b>'
           in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
           abandoned: 'La propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada'
-          rejected: 'La propuesta <b>%{title}</b> ha sido rechazada por los participantes'
+          rejected: 'La propuesta <b>%{title}</b> ha sido rechazada por los partecipantes'
           voted: '%{title} - Votación terminada'
           24_hours: 'El debate sobre <b>%{title}</b> termina mañana!'
           1_hour: 'El debate sobre <b>%{title} %</b> termina en una hora!'
@@ -173,7 +173,7 @@ es-AR:
           waiting_date: '%{name} ha elegido la fecha de votación de la propuesta <b>%{title}</b>'
           in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
           abandoned: 'Su propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada, lo sentimos'
-          rejected: 'Su propuesta <b>%{title}</b> ha sido rechazada por los participantes, lo sentimos'
+          rejected: 'Su propuesta <b>%{title}</b> ha sido rechazada por los partecipantes, lo sentimos'
           voted: '<b>%{title}</b> - La votación ha finalizado'
           24_hours: 'El debate sobre <b>%{title}</b> termina mañana!'
           1_hour: 'El debate sobre <b>%{title} %</b> termina en una hora!'
@@ -194,7 +194,7 @@ es-AR:
         description: Nuevas propuestas dentro del grupo
         email_subject: '%{proposal}'
         message: 'Nueva propuesta <b>%{proposal}</b> creada en el grupo <b>%{group}</b>'
-      new_partecipation_request:
+      new_participation_request:
         description: Nueva solicitud de participación
         email_subject: Nueva solicitud de participación
         message: '<b>%{user}</b> pidió participar en el grupo <b>%{group}</b>'

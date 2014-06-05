@@ -60,7 +60,7 @@ en:
         description: Nominate members for election
       PROPOSAL_VIEW:
         description: View private proposals
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribute to the proposals
       PROPOSAL_INSERT:
         description: Insert new proposals in the group
@@ -212,7 +212,7 @@ en:
         description: New proposals within the group
         email_subject: "%{proposal}"
         message: "New proposal <b>%{proposal}</b> created in the group <b>%{group}</b>"
-      new_partecipation_request:
+      new_participation_request:
         description: New participation request
         email_subject: New participation request
         message: "<b>%{user}</b> asked to participate in the group <b>%{group}</b>"

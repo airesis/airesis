@@ -1,11 +1,11 @@
-<%if @group_area.area_partecipations.count > 0 %>
+<%if @group_area.area_participations.count > 0 %>
 <table id="roles_table">
 	<thead>
 		<th><%= t('pages.groups.edit_permissions.user_title') %></th>
 		<th><%= t('pages.groups.edit_permissions.role_title') %></th>
 	</thead>
 	<tbody>
-		<%@group_area.area_partecipations.each do |gp| %>
+		<%@group_area.area_participations.each do |gp| %>
 		<tr>
 			<td>
               <%= gp.user.user_image_tag 16 %>

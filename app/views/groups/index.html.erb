@@ -1,103 +1,35 @@
 <% @extend=true %>
 <% @page_title = t('pages.groups.index.title') %>
-<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&sensor=false"></script>
-<script type="text/javascript">
-    var geocoder;
-    var map;
-    $(function () {
-        if (!geocoder) {
-            geocoder = new google.maps.Geocoder();
-        }
-
-        var myOptions = {
-            zoom : 5,
-            center: new google.maps.LatLng(41.77275,14.95214),
-            mapTypeId : google.maps.MapTypeId.ROADMAP,
-            panControl : true,
-            streetViewControl : true,
-            mapTypeControl : false
-        };
-
-
-        map = new google.maps.Map(document.getElementById('map'), myOptions);
-
-
-        google.maps.event.addListener(map, 'center_changed', listenCenterChanged);
-        /*geocoder.geocode({
-                    'address': 'Italy'
-                },
-                function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        posizionaMappa(results[0].geometry.location, results[0].geometry.viewport);
-                        listenMarkerPosition();
-                    }
-                    else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
-                        alert('Spiacente ma non riesco a trovare l\'indirizzo. Prova a cambiarlo...');
-                    }
-                    else {
-                        alert("Impossibile utilizzare il geocoder di Google: " + status);
-                    }
-                });
-
-        var center = latlng;
-
-
-        //noinspection JSUnresolvedVariable
-        var myOptions = {
-            zoom: zoom,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            panControl: false,
-            streetViewControl: false,
-            mapTypeControl: true,
-            draggable: true
-        };
-
-       # map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-
-        marker = new google.maps.Marker({
-            map: map,
-            position: latlng,
-            draggable: false
-        });         */
-    });
-</script>
-
-<div id="map" style="width:100%;height: 340px;">
-
-</div>
--->
-
 <h1><%= t('pages.groups.index.find_group_label') %></h1>
 <div class="row full-width groups_row">
   <div class="columns large-6" id="group_search_form">
-     <div class="card">
+    <div class="card">
 
-    <%= form_for groups_path, html: {class: "disableForm"}, method: 'get', remote: true do |f| %>
+      <%= form_for groups_path, html: {class: "disableForm"}, method: 'get', remote: true do |f| %>
 
 
-        <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>
-        <div style="float:left">
-          <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
-        </div>
-        <div class="search_words">
-          <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
-        </div>
+          <%= f.label t('buttons.search'), t('pages.groups.index.search_with_query') %>
+          <div style="float:left">
+            <%= text_field_tag :search, params[:search], title: t('pages.groups.index.find_title'), style: 'width:300px' %>
+          </div>
+          <div class="search_words">
+            <%= check_box_tag :and, params[:and], title: "Scegli se cercare tutte le parole o almeno una" %>
+          </div>
 
-        <div class="clearboth"></div>
+          <div class="clearboth"></div>
 
-        <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
-        <div style="float:left">
-          <%= text_field_tag :interest_border, params[:interest_border], title: t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
-        </div>
-        <div class="search_borders">
-          <%= check_box_tag :area, params[:area], title: "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
-        </div>
+          <%= f.label :interest_border, t('pages.groups.index.search_with_place') %>
+          <div style="float:left">
+            <%= text_field_tag :interest_border, params[:interest_border], title: t('pages.groups.index.find_title'), "data-pre" => ([@interest_border].to_json if @interest_border) %>
+          </div>
+          <div class="search_borders">
+            <%= check_box_tag :area, params[:area], title: "Scegli se cercare in maniera precisa o all'interno dell'area indicata" %>
+          </div>
 
-        <div class="clearboth"></div>
-        <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
-    <% end %>
-     </div>
+          <div class="clearboth"></div>
+          <%= f.button t('pages.groups.index.find_button'), onclick: 'return checkCharacters();', class: 'btn searchButton', data: {disable_with: t('loading')} %>
+      <% end %>
+    </div>
   </div>
   <div class="columns large-6 show-for-large-up">
     <div id="tag_cloud" class="card">

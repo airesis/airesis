@@ -39,7 +39,7 @@ pt-PT:
         interest_border_id: Local geográfico de interesse
         image_url: Endereço de imagem
         default_role_name: Qual é o nome para novos utilizadores?
-        default_role_name_placeholder: 'Por exemplo: Utilizadores, Participantes, Membros, Activistas'
+        default_role_name_placeholder: 'Por exemplo: Utilizadores, Partecipantes, Membros, Activistas'
         name_placeholder: Escolha um nome relacionado com a identidade de grupo e/ou localização.
         title_bar_placeholder: Título da página de grupo.
         description_placeholder: Esta mensagem estará na primeira página do grupo
@@ -58,7 +58,7 @@ pt-PT:
         published: Estado
         published_true: Publicada
         published_false: Rascunho
-      partecipation_role:
+      participation_role:
         name: Nome
         description: Breve descrição
       group_invitation:
@@ -91,18 +91,18 @@ pt-PT:
         days_m: Dias
         hours_m: horas
         minutes_m: Minutos
-        percentage: Quórum (participantes)
-        percentage_title: Número mínimo de participantes na discussão como uma percentagem do número de participantes do grupo
+        percentage: Quórum (partecipantes)
+        percentage_title: Número mínimo de partecipantes na discussão como uma percentagem do número de partecipantes do grupo
         good_score: Maturidade
         good_score_title: Classificação para ser alcançada por forma a trazer a proposta até à fase de votação
         bad_score: Quórum Insuficiente (percentagem)
-        bad_score_title: Classificação abaixo da qual a proposta será rejeitada. Permite-lhe continuar o debate se o Tempo ou as condições de Participantes não forem cumpridas
+        bad_score_title: Classificação abaixo da qual a proposta será rejeitada. Permite-lhe continuar o debate se o Tempo ou as condições de Partecipantes não forem cumpridas
         condition: Condição
-        condition_title: As condições de Tempo e Participantes têm que ser ambas cumpridas ou apenas uma delas?
+        condition_title: As condições de Tempo e Partecipantes têm que ser ambas cumpridas ou apenas uma delas?
         vote_minutes: Duração da votação
         vote_percentage: Quórum (votantes)
         vote_good_score: Aprovação
-      search_partecipant:
+      search_participant:
         role_id: Papel
         keywords: Nome ou Sobrenome
       sys_movement:

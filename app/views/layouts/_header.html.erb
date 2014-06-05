@@ -4,14 +4,7 @@
 <link href="https://plus.google.com/109056260698393169005" rel="publisher"/>
 
 <script>
-    var Airesis = {};
-    Airesis.id = <%=current_user ? current_user.id : -1 %>;
-    Airesis.i18n = {};
-    Airesis.i18n.alerts_sign_has_read = '<%=j raw t('pages.header.menu.sign_has_read')%>';
-    Airesis.i18n.alert_read = '<%=j raw t('pages.header.read')%>';
-    Airesis.i18n.no_alerts = '<%=j raw t('pages.header.no_alerts')%>';
-    Airesis.i18n.countdown = '<%=j raw t('countdown')%>';
-    Airesis.i18n.locale = '<%=I18n.locale%>';
+
 
     window.fbAsyncInit = function () {
         // init the FB JS SDK
@@ -122,9 +115,9 @@
     });
 </script>
 
-<%= render partial: '/layouts/top_menu' %>
+<%= render '/layouts/top_menu' %>
 
 <% if user_signed_in? %>
     <%= subscribe_to "/notifications/#{current_user.id}" %>
-    <%= render partial: 'layouts/personal_menu' %>
+    <%= render 'layouts/personal_menu' %>
 <% end %>

@@ -140,7 +140,6 @@ class BlogPostsController < ApplicationController
 
   def setup_image_template
     @empty_blog_post = BlogPost.new
-    @empty_blog_post.blog_images.build
   end
 
 
@@ -152,8 +151,8 @@ class BlogPostsController < ApplicationController
     .select('distinct groups.*')
     .joins("LEFT JOIN action_abilitations ON action_abilitations.group_id = groups.id")
     .where("(action_abilitations.group_id = groups.id " +
-               " AND ((group_partecipations.partecipation_role_id = action_abilitations.partecipation_role_id " +
-               " AND action_abilitations.group_action_id = 1)) or group_partecipations.partecipation_role_id = 2)")
+               " AND ((group_participations.participation_role_id = action_abilitations.participation_role_id " +
+               " AND action_abilitations.group_action_id = 1)) or group_participations.participation_role_id = 2)")
   end
 
   def load_blog
@@ -168,17 +167,13 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.find(params[:id])
   end
 
-  #reply if the user blog is not rpesent
+  #reply if the user blog is not present
   def require_blog
     unless current_user.blog
+      flash.now[:error] = t('error.blog_required')
       respond_to do |format|
-        format.js do
-          flash.now[:error] = t('error.blog_required')
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          end
-        end
-        format.html do #vai alla pagina di ceazione blog
+        format.js { render 'layouts/error' }
+        format.html do
           session[:blog_return_to] = request.url
           flash[:error] = t('error.blog_required')
           redirect_to new_blog_path
@@ -189,13 +184,9 @@ class BlogPostsController < ApplicationController
 
   def must_be_my_blog
     if @blog != current_user.blog
+      flash.now[:error] = t('error.not_your_blog')
       respond_to do |format|
-        format.js do
-          flash.now[:error] = t('error.not_your_blog')
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          end
-        end
+        format.js { render 'layouts/error' }
         format.html do
           flash[:error] = t('error.not_your_blog')
           if request.env["HTTP_REFERER"]

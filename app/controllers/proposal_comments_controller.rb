@@ -39,7 +39,7 @@ class ProposalCommentsController < ApplicationController
       left = params[:disable_limit] ? 9999999 : COMMENTS_PER_PAGE
       tmp_comments = []
       #retrieve contributes with alerts TODO
-      #alerted = UserAlert.joins({notification: :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and user_alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
+      #alerted = Alert.joins({notification: :notification_data}).where(['notification_data.name = ? and notification_data.value = ? and notifications.notification_type_id in (?) and alerts.user_id = ?','proposal_id', @proposal.id.to_s,[NotificationType::NEW_CONTRIBUTES,NotificationType::NEW_CONTRIBUTES_MINE],current_user.id]).pluck('distinct (notification_data.value)')
       #unread_cond = conditions + " AND proposal_comments.id in "
       #tmp_comments += @proposal.contributes.listable.all(conditions: unread_cond).map { |c| c.id }
 

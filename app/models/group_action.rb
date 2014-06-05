@@ -18,7 +18,7 @@ class GroupAction < ActiveRecord::Base
   PROPOSAL_VIEW = 6
 
   #partecipate at debate phase of the proposals
-  PROPOSAL_PARTECIPATION = 7
+  PROPOSAL_PARTICIPATION = 7
 
   #insert new proposals
   PROPOSAL_INSERT = 8

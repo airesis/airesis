@@ -18,8 +18,8 @@ es-AR:
       text_content: Las primeras líneas de la solución o problema
       timeline: Un barra que muestran el estado de la discusión o la votación
       timeleft: El tiempo o las evaluaciones que se necesitan para poner fin al debate
-      rankDescription: La madurez de la propuesta, muestra si la propuesta está lista para ser votada, basado en las evaluaciones de los participantes
-      partecipants: El número de personas que participan en esta propuesta con sus contribuciones y evaluaciones
+      rankDescription: La madurez de la propuesta, muestra si la propuesta está lista para ser votada, basado en las evaluaciones de los partecipantes
+      participants: El número de personas que participan en esta propuesta con sus contribuciones y evaluaciones
       contributes: El número de contribuciones añadido
       end: Esta es la estructura de la lista de propuestas. Es el mismo en cada grupo en que participa y le ayudará a orientarse en las discusiones del grupo
     proposals_show:
@@ -31,8 +31,8 @@ es-AR:
       contributeButton: Utilizando estos botones puede ver las contribuciones de otros usuarios y añadir tu propio. Las contribuciones se refieren siempre al párrafo en que se encuentran accesibles
       newComment: Utilice este campo para agregar una contribución que no se refiere a un párrafo específico
       menu_left: En este menú de la izquierda podrá encontrar toda la información acerca de la propuesta
-      evaluations: El número de evaluaciones expresadas por los participantes, que ha indicado que si la propuesta está lista para la votación o el debate debe continuar
-      ranking: La madurez de la propuesta, es el porcentaje de los participantes que creen que la propuesta esta lista para la votación
+      evaluations: El número de evaluaciones expresadas por los partecipantes, que ha indicado que si la propuesta está lista para la votación o el debate debe continuar
+      ranking: La madurez de la propuesta, es el porcentaje de los partecipantes que creen que la propuesta esta lista para la votación
       status: La situación de la propuesta. En este caso se encuentra en la fase de debate
       dates: Fecha de creación y última actualización de la propuesta
       condition_left: Condición para poner fin al debate

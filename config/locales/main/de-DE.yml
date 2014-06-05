@@ -144,7 +144,7 @@ de:
         search_description: Benutze das Such-Werkzeug oder klicke auf eine Markierung um Gruppen mit deinen Interessen zu finden
         insert_query_or_place: Sie müssen mindestens drei Buchstaben oder eine geographische Grenze eingeben
         tags: Tags
-        partecipants_number: Anzahl Teilnehmer
+        participants_number: Anzahl Teilnehmer
         proposals_number: Anzahl Vorschläge
         events_number: Anzahl der Veranstaltungen
         no_results: Keine Gruppe gefunden
@@ -336,7 +336,7 @@ de:
         search_title: Suche in den Vorschlägen der Gruppe
         search_placeholder: Für die Suche füge mindestens zwei Zeichen ein
         search_words: Mindestens ein Wort
-        partecipants_number: TEILNEHMER
+        participants_number: TEILNEHMER
         contributes_number: BEITRÄGE
         rank: REIFE
         voters: WÄHLER
@@ -524,12 +524,12 @@ de:
         no_partecipate: Sie werden an der Veranstaltung nicht teilnehmen
         with_guests: "mit %{field} Gästen"
         will_be_in: Nehmen Sie an der Veranstaltung teil?
-        partecipants: Wer hat teilgenommen?
+        participants: Wer hat teilgenommen?
         will_partecipate: Wer wird teilnehmen?
-        no_partecipants: Niemand hat teilgenommen
-        no_partecipants_yet: Noch keine Teilnehmer
-        non_partecipants: Wer hat nicht teilgenommen?
-        will_non_partecipants: Wer wird nicht teilnehmen?
+        no_participants: Niemand hat teilgenommen
+        no_participants_yet: Noch keine Teilnehmer
+        non_participants: Wer hat nicht teilgenommen?
+        will_non_participants: Wer wird nicht teilnehmen?
     votations:
       show:
         vote_positive: Positive Bewertung
@@ -757,7 +757,7 @@ de:
         published: Status
         published_true: Veröffentlicht
         published_false: Entwurf
-      partecipation_role:
+      participation_role:
         name: Name
         description: Kurzbeschreibung
       group_invitation:
@@ -791,7 +791,7 @@ de:
         good_score_title: Bewertung die erzielt werden muss, um den Vorschlag in die Abstimmungsphase zu bringen
         bad_score: Schlechte Quorum (in Prozent)
         condition: Bedingung
-      search_partecipant:
+      search_participant:
         role_id: Rolle
         keywords: Vorname oder Name
       sys_movement:

@@ -58,7 +58,7 @@ it-IT:
         published: 'Stato'
         published_true: 'Pubblicato'
         published_false: 'In bozza'
-      partecipation_role:
+      participation_role:
          name: "Nome"
          description: "Breve descrizione"
       group_invitation:
@@ -103,7 +103,7 @@ it-IT:
         vote_percentage: 'Quorum (votanti)'
         vote_good_score: 'Gradimento'
         vote_ends_at: Termine votazione
-      search_partecipant:
+      search_participant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
       sys_movement:

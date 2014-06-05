@@ -1,0 +1,7 @@
+<%if params[:from_list] %>
+$('div[data-id=<%=@request.id%>]').fadeOut();
+<%else%>
+$('#participants_container').html('<%=j (render 'participants_panel')%>');
+$('#participation_requests_container').html('<%=j (render 'participation_requests_panel')%>');
+disegnaBottoni();
+<%end%>

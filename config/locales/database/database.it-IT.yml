@@ -60,7 +60,7 @@ it-IT:
         description: Candidare utenti alle elezioni
       PROPOSAL_VIEW:
         description: Visualizzare le proposte private
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuire alle proposte
       PROPOSAL_INSERT:
         description: Inserire nuove proposte nel gruppo
@@ -200,7 +200,7 @@ it-IT:
         description: Nuove proposte interne al gruppo
         email_subject: "%{proposal}"
         message: "Nuova proposta <b>%{proposal}</b> creata nel gruppo <b>%{group}</b>"
-      new_partecipation_request:
+      new_participation_request:
         description: Nuova richiesta di partecipazione
         email_subject: Nuova richiesta di partecipazione
         message: "<b>%{user}</b> ha richiesto di partecipare al gruppo <b>%{group}</b>"

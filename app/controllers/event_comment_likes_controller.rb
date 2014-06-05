@@ -13,21 +13,13 @@ class EventCommentLikesController < ApplicationController
     @event_comment.likers << current_user
     @event_comment.save!
     respond_to do |format|
-        format.js { render :update do |page|
-
-        end
-        }
+      format.js { render 'layouts/success' }
     end
   end
 
   def delete
     @event_comment_like.destroy
-    respond_to do |format|
-      format.js {
-        render :update do |page|
-        end
-      }
-    end
+    format.js { render 'layouts/success' }
   end
 
   private

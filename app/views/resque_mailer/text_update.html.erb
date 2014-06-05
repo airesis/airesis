@@ -1,5 +1,5 @@
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 <p>
   <%=raw t('mailer.text_update.view_proposal', proposal: (link_to @proposal.title, @alert_url)) %> <br/>
 </p>

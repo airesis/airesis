@@ -48,7 +48,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
 
-gem 'devise_traceable', git: 'https://github.com/coorasse/devise_traceable.git'
+gem 'devise_traceable', github: 'coorasse/devise_traceable'
 
 gem 'koala', '~> 1.8.0rc1'
 
@@ -62,15 +62,11 @@ gem 'sidekiq', '~> 2.17.7' #added for issue https://github.com/tobiassvn/sidetiq
 
 gem 'sidetiq'
 
-gem 'sunspot-queue', git: 'https://github.com/coorasse/sunspot-queue.git'
+gem 'sunspot-queue', github: 'coorasse/sunspot-queue'
 
-gem 'cancan'
+gem 'cancancan', '~> 1.7'
 
 gem 'foreigner'
-
-gem 'client_side_validations', git: 'https://github.com/bcardarella/client_side_validations.git', branch: '4-0-beta'
-
-gem 'client_side_validations-simple_form', git: 'https://github.com/coorasse/client_side_validations-simple_form.git'
 
 gem 'sitemap_generator'
 
@@ -78,7 +74,7 @@ gem 'geocoder'
 
 gem 'seed_dump'
 
-gem 'vote-schulze', git: 'https://github.com/coorasse/vote-schulze.git'
+gem 'vote-schulze', github: 'coorasse/vote-schulze'
 
 gem 'rails_autolink'
 
@@ -89,7 +85,7 @@ gem 'el_finder'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'bullet', group: :development
-gem 'thin', group: :development
+#gem 'thin', group: :development
 gem 'ruby-prof', group: :test
 gem 'test-unit', group: :test
 
@@ -109,7 +105,7 @@ gem 'rotp'
 
 gem 'ckeditor'
 
-gem 'timezone', git: 'https://github.com/coorasse/timezone.git'
+gem 'timezone', github: 'coorasse/timezone'
 
 gem 'friendly_id'
 gem 'simple_form'
@@ -126,3 +122,7 @@ gem 'email_reply_parser'
 gem 'paper_trail', '~> 3.0.0'
 
 gem 'protected_attributes'
+
+gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
+
+gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validations-simple_form'

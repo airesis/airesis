@@ -107,7 +107,7 @@ es-EC:
         new_role_title: Nuevo rol
         user_title: Usuario
         role_title: Rol
-        no_users_yet: Aquí podrás gestionar los roles de los participantes, cuando haya algunos.
+        no_users_yet: Aquí podrás gestionar los roles de los partecipantes, cuando haya algunos.
         default_role: Rol predeterminado en el grupo
         confirm_role_deletion: ¿Está seguro que desea eliminar este rol?
         remove_user: Eliminar usuario
@@ -136,7 +136,7 @@ es-EC:
         search_description: Utiliza la herramienta de búsqueda o haz clic en una etiqueta para encontrar grupos de tu interés
         insert_query_or_place: Debes escribir por lo menos tres caracteres o una frontera geográfica
         tags: Etiquetas
-        partecipants_number: Número de participantes
+        participants_number: Número de partecipantes
         proposals_number: Número de propuestas
         events_number: Número de eventos
         no_results: No se encontró ningún grupo
@@ -163,7 +163,7 @@ es-EC:
         rules_button: Reglas
         post_button: Insertar publicaciones
         blog_button: Crear mi Blog
-        participants_list: 'Lista de participantes '
+        participants_list: 'Lista de partecipantes '
         invite_button: ¡Invita a tus amigos!
         show_all_participants: 'Muestra todas las %{count} ...'
         participants_full_list: Lista completa de los miembros del grupo
@@ -179,7 +179,7 @@ es-EC:
         list_permissions:
           title: Lista de sus permisos dentro del grupo
           button: Lista de permisos
-        print_all_participants: Imprimir la lista de participantes
+        print_all_participants: Imprimir la lista de partecipantes
         last_proposals: Propuestas añadidas recientemente
         rule_book_html: 'Las reglas pueden ser seleccionadas durante la creación de un grupo. <br/> <p>Todos los usuarios pueden crear un grupo, a partir de ahora.</p> <p>Cuando  participas en un grupo, las publicaciones de tu blog pueden ser mostradas en el muro del grupo.</p> <p>Los grupos pueden sostener propuestas, crear nuevas, crear encuestas y organizar a los miembros con roles y permisos.</p> <p>Es posible cambiar las reglas de este grupo a través de su <b>configuración</b>.</p>'
       header:
@@ -208,7 +208,7 @@ es-EC:
           advanced_percentage_description3: La propuesta sigue en debate hasta que el rango esté entre los dos umbrales.
         active: Activo
         name: Nombre
-        participants: Participantes
+        participants: Partecipantes
         condition: Condición
         good_percentage: '% Rango'
         bad_percentage: '% Rechazo'
@@ -228,14 +228,14 @@ es-EC:
         index:
           not_enabled: Áreas de trabajo no habilitadas
           description: Airesis le permite administrar áreas de trabajo dentro del grupo.
-          description2: Con esta función usted puede administrar mejor a los participantes y sus funciones.
+          description2: Con esta función usted puede administrar mejor a los partecipantes y sus funciones.
           description3: ¡Ten cuidado! Esta es una característica avanzada, diseñada sólo para usuarios expertos y grupos más grandes.
           enable: ¡Habilitar áreas de trabajo!
           description4: 'Antes de activar las áreas de trabajo, verifique si puede administrar a los miembros de los grupos usando directamente '
         manage:
           new_area: Crear un área de trabajo
-          switch_area_participants: Cambiar a la gestión de participantes
-          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los participantes, o haga clic en el nombre para gestionar roles y permisos en el área de trabajo
+          switch_area_participants: Cambiar a la gestión de partecipantes
+          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los partecipantes, o haga clic en el nombre para gestionar roles y permisos en el área de trabajo
           title: Configuración de área de trabajo
           list_participants: Lista de los miembros del grupo. Selecciona las áreas de trabajo a las que pertenecen cada uno de ellos.
           switch_area_management: 'Cambiar a  la gestión de áreas de trabajo'
@@ -251,7 +251,7 @@ es-EC:
         text_to_send: Texto a enviar (opcional)
         title: ¡Invita a tus amigos a unirse al grupo!
       participations:
-        list_participations: Lista de participantes
+        list_participations: Lista de partecipantes
         search: Búsqueda
         filter: Filtro
         anything: Todos
@@ -262,8 +262,8 @@ es-EC:
         role: Rol
         member_since: Miembro desde
         participants_html:
-          one: '<b>1</b> participante'
-          other: '<b>%{count}</b> participantes'
+          one: '<b>1</b> partecipante'
+          other: '<b>%{count}</b> partecipantes'
     login:
       title: Iniciar sesión
     confirmation:
@@ -606,12 +606,12 @@ es-EC:
         no_partecipate: No participarás en el evento
         with_guests: 'con %{field} invitados'
         will_be_in: ¿Asistirás al evento?
-        partecipants: ¿Quiénes asistieron?
+        participants: ¿Quiénes asistieron?
         will_partecipate: ¿Quién asistirá?
-        no_partecipants: Nadie asistió
-        no_partecipants_yet: Todavía no hay participantes
-        non_partecipants: ¿Que no asistió?
-        will_non_partecipants: ¿Quién no asistirá?
+        no_participants: Nadie asistió
+        no_participants_yet: Todavía no hay partecipantes
+        non_participants: ¿Que no asistió?
+        will_non_participants: ¿Quién no asistirá?
     votations:
       show:
         vote_positive: Calificación positiva
@@ -778,7 +778,7 @@ es-EC:
     candidates:
       new:
         title: '%{name} : Nueva candidatura'
-        description: Elige uno de los participantes del grupo y envialo como candidato a una de las elecciones disponibles.
+        description: Elige uno de los partecipantes del grupo y envialo como candidato a una de las elecciones disponibles.
         send_button: Enviar la candidatura
       index:
         description: 'On this page you can track the candidatures made ​​by the group in the elections. <br /> Before you can make a nomination, the group must '
@@ -955,7 +955,7 @@ es-EC:
         published: State
         published_true: Published
         published_false: Draft
-      partecipation_role:
+      participation_role:
         name: Name
         description: Short description
       group_invitation:
@@ -995,7 +995,7 @@ es-EC:
         bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
         condition: Condition
         condition_title: The conditions of Time and Participants must be both overcome or just one of them?
-      search_partecipant:
+      search_participant:
         role_id: Role
         keywords: Name or surname
       sys_movement:
@@ -1175,7 +1175,7 @@ es-EC:
     users:
       join_accounts: Error while joining accounts. This operation is not available at the moment
       join_accounts_password: Wrong password
-    group_partecipations:
+    group_participations:
       destroy: You can not leave a group of which you are the sole spokesperson
     error_404:
       proposals:
@@ -1275,7 +1275,7 @@ es-EC:
       multiple_request:
         one: 'You asked to participate in %{count} new group'
         other: 'You asked to participate in %{count} new groups'
-    group_partecipations:
+    group_participations:
       destroy_ok_1: You have left the group. In the future you can ask to participate again
   interest_borders:
     hint: Type a few characters to search for a place

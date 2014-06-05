@@ -20,6 +20,7 @@
           <h3>
             <div class="tit1">
               <div class="tit2" itemprop="name">
+                <%= raw '<div class="label round">public event</div>' unless @event.private %>
                 <%= @event.title %>
               </div>
             </div>
@@ -143,20 +144,20 @@
           <% end %>
 
           <!--
-        <% @event.organizers.each do |group| %>
+        <% @event.groups.each do |group| %>
 				<div class="leftBlogImage">
 			    	<%= group.group_image_tag 120 %>
 			    </div>
 
         <% end %>-->
           <% if @event.meeting %>
-              <div class="mybox" id="partecipation_panel_container">
-                <%= render partial: 'partecipation_panel' %>
+              <div class="mybox" id="participation_panel_container">
+                <%= render partial: 'participation_panel' %>
               </div>
 
 
               <% if @event.meeting %>
-                  <div id="partecipants_container">
+                  <div id="participants_container">
                     <%= render partial: 'meeting_responses' %>
                   </div>
               <% end %>

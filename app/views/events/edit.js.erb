@@ -4,17 +4,20 @@ event_edit.html("<%=j render 'edit_form'%>");
 
 airesis_reveal(event_edit);
 
-disegnaBottoni();
-$("#event_meeting_attributes_place_attributes_comune_id").tokenInput("/comunes.json", {
-    crossDomain: false,
-    prePopulate: $('#event_meeting_attributes_place_attributes_comune_id').data("pre"),
-    hintText: "Digita alcuni caratteri per cercare un comune",
-    noResultsText: "Nessun comune trovato",
-    searchingText: "Sto cercando...",
-    preventDuplicates: true,
-    tokenLimit: 1,
-    allowTabOut: true
+$(event_edit).on('opened', function () {
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(center);
 });
+
+disegnaBottoni();
+
+window.ClientSideValidations.selectors = {
+    inputs: ':input:not(button):not([type="submit"])[name]:enabled',
+    validate_inputs: ':input:enabled:visible[data-validate], .select2-container:visible ~ :input:enabled[data-validate]',
+    forms: 'form[data-validate]'
+};
+
+$('#edit_event_<%=@event.id%>').enableClientSideValidations();
 
 if (!geocoder)
     geocoder = new google.maps.Geocoder();
@@ -67,10 +70,10 @@ if (map_canvas) {
     <%unless @event.place%>
     putMarker("Italy");	//inizializza il marcatore sull'Italia
     <%end%>
+    google.maps.event.trigger(map, 'resize')
 }
 
 
-disegnaDatePicker();
 <%if @event.is_elezione? %>
 showPlace('4');
 <%elsif @event.is_votazione? %>

@@ -7,7 +7,7 @@ module NotificationHelper
   #se l'utente ha abilitato anche l'invio via mail allora viene inviata via mail
   def send_notification_to_user(notification, user)
     unless user.blocked_notifications.include? notification.notification_type #se il tipo non è bloccato
-      @alert = UserAlert.new(user_id: user.id, notification_id: notification.id, checked: false)
+      @alert = Alert.new(user_id: user.id, notification_id: notification.id, checked: false)
       @alert.save! #invia la notifica
       res = PrivatePub.publish_to("/notifications/#{user.id}", pull: 'hello') rescue nil #todo send specific alert to be included
     end
@@ -29,7 +29,7 @@ module NotificationHelper
       end
     end
     notification_b = Notification.create(notification_type_id: NotificationType::NEW_VALUTATION, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    proposal.partecipants.each do |user|
+    proposal.participants.each do |user|
       if (user != proposal_ranking.user) && (!proposal.users.include? user)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
@@ -71,7 +71,7 @@ module NotificationHelper
     end
     notification_a = Notification.new(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
     notification_a.save
-    proposal.partecipants.each do |user|
+    proposal.participants.each do |user|
       if user != current_user
         send_notification_to_user(notification_a, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
       end
@@ -113,9 +113,9 @@ module NotificationHelper
 
     users = group ?
         group_area ?
-            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-        proposal.partecipants
+            group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+        proposal.participants
 
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
@@ -146,9 +146,9 @@ module NotificationHelper
 
     users = group ?
         group_area ?
-            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-        proposal.partecipants
+            group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+        proposal.participants
 
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
@@ -180,7 +180,7 @@ module NotificationHelper
     end
 
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    proposal.partecipants.each do |user|
+    proposal.participants.each do |user|
       unless proposal.users.include? user
         another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
@@ -206,7 +206,7 @@ module NotificationHelper
     end
 
     notification_b = Notification.create(notification_type_id: NotificationType::CHANGE_STATUS, url: group ? group_proposal_url(group, proposal) : proposal_url(proposal), data: data)
-    proposal.partecipants.each do |user|
+    proposal.participants.each do |user|
       unless proposal.users.include? user
         another_delete('proposal_id', proposal.id, user.id, NotificationType::PHASE_ENDING)
         send_notification_to_user(notification_b, user) unless BlockedProposalAlert.find_by_user_id_and_proposal_id(user.id, proposal.id)
@@ -215,14 +215,14 @@ module NotificationHelper
   end
 
   #invia una notifica agli utenti che possono accettare membri che l'utente corrente ha effettuato una richiesta di partecipazione al gruppo
-  def notify_user_asked_for_partecipation(group)
+  def notify_user_asked_for_participation(group)
     data = {'group_id' => group.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'group' => group.name, 'i18n' => 't'}
     data['subdomain'] = group.subdomain if group.certified?
-    notification_a = Notification.new(notification_type_id: NotificationType::NEW_PARTECIPATION_REQUEST, url: group_url(group), data: data)
+    notification_a = Notification.new(notification_type_id: NotificationType::NEW_participation_REQUEST, url: group_url(group), data: data)
     notification_a.save
-    group.scoped_partecipants(GroupAction::REQUEST_ACCEPT).each do |user|
+    group.scoped_participants(GroupAction::REQUEST_ACCEPT).each do |user|
       if user != current_user
-        another_increase_or_do('group_id', group.id, user.id, NotificationType::NEW_PARTECIPATION_REQUEST) do
+        another_increase_or_do('group_id', group.id, user.id, NotificationType::NEW_participation_REQUEST) do
           send_notification_to_user(notification_a, user)
         end
       end
@@ -254,15 +254,15 @@ module NotificationHelper
     data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'user' => name, 'title' => proposal.title, 'i18n' => 't'}
     notification_b = Notification.new(notification_type_id: NotificationType::NEW_AUTHORS, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
     notification_b.save
-    proposal.partecipants.each do |partecipant|
-      unless partecipant == current_user || partecipant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
-        send_notification_to_user(notification_b, partecipant)
+    proposal.participants.each do |participant|
+      unless participant == current_user || participant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
+        send_notification_to_user(notification_b, participant)
       end
     end
   end
 
 
-  #send an alert to partecipants that there is a new comment in the event
+  #send an alert to participants that there is a new comment in the event
   def notify_new_event_comment(event_comment)
 #    blog_post = blog_comment.blog_post
 #    user = blog_comment.user
@@ -329,9 +329,9 @@ module NotificationHelper
 
     users = group ?
         group_area ?
-            group_area.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-            group.scoped_partecipants(GroupAction::PROPOSAL_VOTE) :
-        proposal.partecipants
+            group_area.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+            group.scoped_participants(GroupAction::PROPOSAL_VOTE) :
+        proposal.participants
 
     users.each do |user|
       if !(defined? current_user) || (user != current_user)
@@ -344,13 +344,13 @@ module NotificationHelper
 
   #delete previous notifications
   def another_delete(attribute, attr_id, user_id, notification_type)
-    another = UserAlert.another(attribute, attr_id, user_id, notification_type)
+    another = Alert.another(attribute, attr_id, user_id, notification_type)
     another.soft_delete_all
   end
 
   #increase previous notification
   def another_increase_or_do(attribute, attr_id, user_id, notification_type, &block)
-    another = UserAlert.another_unread(attribute, attr_id, user_id, notification_type).first
+    another = Alert.another_unread(attribute, attr_id, user_id, notification_type).first
     if another
       another.increase_count!
       PrivatePub.publish_to("/notifications/#{user_id}", pull: 'hello') rescue nil #todo send specific alert to be included

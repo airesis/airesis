@@ -19,8 +19,6 @@ $('#more_groups_container').html("<%=j (render partial: 'more_groups')%>");
     $("#area").switchButton({
         checked: <%=params[:area] == 'on' %>
     });
-
-
 <%else%>
     window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
     everPushedSomething = 'pushed it real good';

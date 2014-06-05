@@ -15,7 +15,7 @@
     <% end %>
     <%= t('pages.proposals.show.no_supporting_group') if @proposal.groups.empty? %>
     <% if signed_in? %>
-        <% if !current_user.scoped_group_partecipations(GroupAction::PROPOSAL).empty? && (can? :partecipate, @proposal) %>
+        <% if !current_user.scoped_group_participations(GroupAction::PROPOSAL).empty? && (can? :partecipate, @proposal) %>
             <%= link_to t('pages.proposals.show.support_proposal_button'), new_proposal_proposal_support_path(@proposal), remote: true, class: 'btn blue supportButton disable' %>
         <% end %>
     <% end %>

@@ -1,26 +1,26 @@
 <h4><%= t('pages.alerts.index.new_not_read') %></h4>
 <ul>
-  <b><%= t('pages.alerts.index.no_new') if @new_user_alerts.empty? %></b>
-  <% @new_user_alerts.each do |user_alert| %>
+  <b><%= t('pages.alerts.index.no_new') if @new_alerts.empty? %></b>
+  <% @new_alerts.each do |alert| %>
       <li>
-        <%= link_to user_alert.notification.url do %>
-            <%= user_alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw user_alert.notification.message %>
+        <%= link_to alert.notification.url do %>
+            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.notification.message %>
         <% end %>
       </li>
-  <% end unless @new_user_alerts.empty? %>
+  <% end unless @new_alerts.empty? %>
 </ul>
 
 <br/>
 <h4><%= t('pages.alerts.index.old_not_read') %></h4>
 <ul>
-  <b><%= t('pages.alerts.index.no_old') if @old_user_alerts.empty? %></b>
-  <% @old_user_alerts.each do |user_alert| %>
+  <b><%= t('pages.alerts.index.no_old') if @old_alerts.empty? %></b>
+  <% @old_alerts.each do |alert| %>
       <li>
-        <%= link_to user_alert.notification.url do %>
-            <%= user_alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw user_alert.notification.message %>
+        <%= link_to alert.notification.url do %>
+            <%= alert.created_at.strftime("%d/%m/%Y %H:%M") %> - <%= raw alert.notification.message %>
         <% end %>
       </li>
-  <% end unless @old_user_alerts.empty? %>
+  <% end unless @old_alerts.empty? %>
 </ul>
 
 <script type="text/javascript">
@@ -28,7 +28,7 @@
         data: '',
         dataType: 'script',
         type: 'get',
-        url: "/alerts/read_alerts"
+        url: "/alerts/check_all"
     });
 </script>
 

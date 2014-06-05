@@ -33,7 +33,7 @@ class CreateGroupAreas < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :area_partecipations do |t|
+    create_table :area_participations do |t|
       t.integer :user_id, null: false
       t.integer :group_area_id, null: false
       t.integer :area_role_id, null: false
@@ -48,14 +48,14 @@ class CreateGroupAreas < ActiveRecord::Migration
     add_foreign_key :area_action_abilitations, :group_areas
     add_foreign_key :area_proposals, :proposals
     add_foreign_key :area_proposals, :group_areas
-    add_foreign_key :area_partecipations, :users
-    add_foreign_key :area_partecipations, :area_roles
-    add_foreign_key :area_partecipations, :group_areas
+    add_foreign_key :area_participations, :users
+    add_foreign_key :area_participations, :area_roles
+    add_foreign_key :area_participations, :group_areas
   end
 
   def down
     remove_column :group_areas, :area_role_id
-    drop_table :area_partecipations
+    drop_table :area_participations
     drop_table :area_proposals
     drop_table :area_action_abilitations
     drop_table :area_roles

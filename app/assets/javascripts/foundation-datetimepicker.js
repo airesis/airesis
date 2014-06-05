@@ -20,7 +20,6 @@
  * limitations under the License.
  * ========================================================= */
 
-
 !function ($) {
 
     function UTCDate() {
@@ -158,10 +157,10 @@
             this.picker.addClass('datetimepicker-rtl');
             if (this.bootcssVer == 3) {
                 this.picker.find('.prev span, .next span')
-                    .toggleClass('glyphicon-arrow-left glyphicon-arrow-right');
+                    .toggleClass('fi-arrow-left fi-arrow-right');
             } else {
                 this.picker.find('.prev i, .next i')
-                    .toggleClass('icon-arrow-left icon-arrow-right');
+                    .toggleClass('fi-arrow-left fi-arrow-right');
             }
             ;
 
@@ -1200,16 +1199,16 @@
                     this.viewMode = newViewMode;
                 }
             }
-            /*
-             vitalets: fixing bug of very special conditions:
-             jquery 1.7.1 + webkit + show inline datetimepicker in bootstrap popover.
-             Method show() does not set display css correctly and datetimepicker is not shown.
-             Changed to .css('display', 'block') solve the problem.
-             See https://github.com/vitalets/x-editable/issues/37
+			/*
+			 vitalets: fixing bug of very special conditions:
+			 jquery 1.7.1 + webkit + show inline datetimepicker in bootstrap popover.
+			 Method show() does not set display css correctly and datetimepicker is not shown.
+			 Changed to .css('display', 'block') solve the problem.
+			 See https://github.com/vitalets/x-editable/issues/37
 
-             In jquery 1.7.2+ everything works fine.
-             */
-            //this.picker.find('>div').hide().filter('.datetimepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+			 In jquery 1.7.2+ everything works fine.
+			 */
+			//this.picker.find('>div').hide().filter('.datetimepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
             this.picker.find('>div').hide().filter('.datetimepicker-' + DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
             this.updateNavArrows();
         },
@@ -1219,21 +1218,29 @@
         }
     };
 
-    $.fn.fdatetimepicker = function (option) {
-        var args = Array.apply(null, arguments);
-        args.shift();
-        return this.each(function () {
-            var $this = $(this),
-                data = $this.data('datetimepicker'),
-                options = typeof option == 'object' && option;
-            if (!data) {
-                $this.data('datetimepicker', (data = new Datetimepicker(this, $.extend({}, $.fn.fdatetimepicker.defaults, options))));
-            }
-            if (typeof option == 'string' && typeof data[option] == 'function') {
-                data[option].apply(data, args);
-            }
-        });
-    };
+	$.fn.fdatetimepicker = function (option) {
+		var args = Array.apply(null, arguments);
+		args.shift();
+		var internal_return;
+		this.each(function () {
+			var $this = $(this),
+				data = $this.data('datetimepicker'),
+				options = typeof option == 'object' && option;
+			if (!data) {
+				$this.data('datetimepicker', (data = new Datetimepicker(this, $.extend({}, $.fn.fdatetimepicker.defaults, options))));
+			}
+			if (typeof option == 'string' && typeof data[option] == 'function') {
+				internal_return = data[option].apply(data, args);
+				if (internal_return !== undefined) {
+					return false;
+				}
+			}
+		});
+		if (internal_return !== undefined)
+			return internal_return;
+		else
+			return this;
+	};
 
     $.fn.fdatetimepicker.defaults = {
     };
@@ -1579,9 +1586,9 @@
             '</thead>',
         headTemplateV3:   '<thead>' +
             '<tr>' +
-            '<th class="prev"><i class="icon-arrow-left"></i> </th>' +
+            '<th class="prev"><i class="fi-arrow-left"></i> </th>' +
             '<th colspan="5" class="switch"></th>' +
-            '<th class="next"><i class="icon-arrow-right"></i> </th>' +
+            '<th class="next"><i class="fi-arrow-right"></i> </th>' +
             '</tr>' +
             '</thead>',
         contTemplate:     '<tbody><tr><td colspan="7"></td></tr></tbody>',

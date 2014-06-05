@@ -2,7 +2,7 @@ class ReorderGroupActions < ActiveRecord::Migration
   def up
     i = 0
     GroupAction.find_by_name('PROPOSAL_VIEW').update_attribute(:seq,i+=1)
-    GroupAction.find_by_name('PROPOSAL_PARTECIPATION').update_attribute(:seq,i+=1)
+    GroupAction.find_by_name('PROPOSAL_PARTICIPATION').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('PROPOSAL_VOTE').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('PROPOSAL_INSERT').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('PROPOSAL').update_attribute(:seq,i+=1)

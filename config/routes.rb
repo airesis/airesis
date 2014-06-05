@@ -117,7 +117,7 @@ Airesis::Application.routes.draw do
 
       resources :blog_comments
     end
-    get '/:year/:month' => 'blogs#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
+    get '/:year/:month' => 'blogs#by_year_and_month', :as => :posts_by_year_and_month, on: :member
   end
 
   resources :announcements do
@@ -141,13 +141,12 @@ Airesis::Application.routes.draw do
 
   resources :alerts do
     member do
-      get :check_alert
+      get :check
+      get :check_alert #todo remove in one year from 08-05-2014
     end
 
     collection do
-      get :polling
       get :proposal
-      get :read_alerts
       post :check_all
     end
   end
@@ -218,6 +217,39 @@ Airesis::Application.routes.draw do
   put '/votation/vote_schulze', to: 'votations#vote_schulze'
   resources :votations
 
+  concern :eventable do
+    resources :events do
+      resources :meeting_participations, only: [:create]
+
+      resources :event_comments do
+        member do
+          post :like
+        end
+      end
+      member do
+        post :move
+        post :resize
+      end
+      collection do
+        get :list
+      end
+    end
+  end
+  concern :participation_roles do
+    resources :participation_roles do
+      collection do
+
+
+        post :change_default_role
+      end
+      member do
+        post :change_group_permission
+      end
+    end
+  end
+
+  concerns :eventable
+
   #specific routes for subdomains
   constraints Subdomain do
     get '', to: 'groups#show'
@@ -239,33 +271,11 @@ Airesis::Application.routes.draw do
     resources :old_quorums, controller: 'quorums'
 
     resources :documents do
-      collection do
-        get :view
-      end
+      get :view, on: :collection
     end
-
-
-    resources :events do
-      resources :meeting_partecipations
-
-      resources :event_comments do
-        member do
-          post :like
-        end
-      end
-      member do
-        post :move
-        post :resize
-      end
-      collection do
-        get :list
-      end
-    end
-
 
     resources :group_areas do
       collection do
-        put :change
         get :manage
       end
 
@@ -277,22 +287,19 @@ Airesis::Application.routes.draw do
       end
     end
 
-    resources :group_partecipations do
+    resources :group_participations do
       collection do
         post :send_email
         post :destroy_all
       end
-    end
-
-    resources :partecipation_roles do
-      collection do
-        post :change_group_permission
+      member do
         post :change_user_permission
-        post :change_default_role
       end
     end
 
-    resources :search_partecipants
+    concerns :participation_roles
+
+    resources :search_participants
 
     resources :forums, controller: 'frm/forums', only: [:index, :show] do
       resources :topics, controller: 'frm/topics' do
@@ -364,36 +371,13 @@ Airesis::Application.routes.draw do
       get :index, scope: :collection
     end
 
-
-    resources :events do
-      resources :meeting_partecipations
-
-      resources :event_comments do
-        member do
-          post :like
-        end
-      end
-
-      member do
-        post :move
-        post :resize
-      end
-      collection do
-        get :list
-      end
-    end
-
     resources :groups do
       member do
-        get :ask_for_partecipation
+        get :ask_for_participation
         get :ask_for_follow
-        put :partecipation_request_confirm
-        put :partecipation_request_decline
-        get :edit_events
-        get :new_event
+        put :participation_request_confirm
+        put :participation_request_decline
         post :create_event
-        get :edit_permissions
-        get :edit_proposals
         post :change_default_anonima
         post :change_default_visible_outside
         post :change_advanced_options
@@ -461,39 +445,25 @@ Airesis::Application.routes.draw do
 
       get 'users/autocomplete', to: "users#autocomplete", as: "user_autocomplete"
 
-
-      resources :events do
-        resources :meeting_partecipations
-
-        member do
-          post :move
-          post :resize
-        end
-        collection do
-          get :list
-        end
-      end
+      concerns :eventable
 
       resources :elections
 
       resources :candidates
 
-      resources :group_partecipations do
+      resources :group_participations do
         collection do
           post :send_email
           post :destroy_all
         end
-      end
-
-      resources :partecipation_roles do
-        collection do
-          post :change_group_permission
+        member do
           post :change_user_permission
-          post :change_default_role
         end
       end
 
-      resources :search_partecipants
+      concerns :participation_roles
+
+      resources :search_participants
 
       resources :proposals do
         collection do
@@ -524,7 +494,6 @@ Airesis::Application.routes.draw do
 
       resources :group_areas do
         collection do
-          put :change
           get :manage
         end
 
@@ -534,6 +503,8 @@ Airesis::Application.routes.draw do
             put :change_permissions
           end
         end
+
+        resources :area_participations, only: [:create, :update, :destroy]
       end
 
       resources :blog_posts do
@@ -542,7 +513,7 @@ Airesis::Application.routes.draw do
         resources :blog_comments
       end
 
-      get '/:year/:month' => 'groups#by_year_and_month', :as=> :posts_by_year_and_month, on: :member
+      get '/:year/:month' => 'groups#by_year_and_month', :as => :posts_by_year_and_month, on: :member
     end
 
     resources :documents do
@@ -553,8 +524,6 @@ Airesis::Application.routes.draw do
       member do
       end
     end
-
-
 
     resources :elections do
       member do
@@ -567,7 +536,6 @@ Airesis::Application.routes.draw do
     match ':controller/:action/:id', via: :all
 
     match ':controller/:action/:id.:format', via: :all
-
 
 
     admin_required = lambda do |request|

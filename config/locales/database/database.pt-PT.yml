@@ -60,7 +60,7 @@ pt-PT:
         description: Nomear membros para eleição
       PROPOSAL_VIEW:
         description: Ver propostas privadas
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuir para as propostas
       PROPOSAL_INSERT:
         description: Inserir novas propostas no grupo
@@ -149,7 +149,7 @@ pt-PT:
           waiting_date: '%{name} foi escolhida a data da votação para a proposta <b>%{title}</b>'
           in_vote: 'A sua proposta <b>%{title}</b> está agora a ser votada!'
           abandoned: 'A proposta <b>%{title}</b> não passou o debate e foi abandonada'
-          rejected: 'A proposta <b>%{title}</b> foi rejeitada pelos participantes'
+          rejected: 'A proposta <b>%{title}</b> foi rejeitada pelos partecipantes'
           voted: '%{title} - votação terminada'
           24_hours: 'O debate sobre <b>%{title}</b> termina amanhã!'
           1_hour: 'O debate sobre <b>%{title}</b> termina numa hora!'
@@ -173,7 +173,7 @@ pt-PT:
           waiting_date: '%{name} escolheu a data de votação para a proposta <b>%{title}</b>'
           in_vote: 'A sua proposta <b>%{title}</b> está agora a ser votada!'
           abandoned: 'A sua proposta <b>%{title}</b> não passou na fase de debate e foi abandonada, desculpe!'
-          rejected: 'A sua proposta <b>%{title}</b> foi rejeitada pelos participantes, desculpe!'
+          rejected: 'A sua proposta <b>%{title}</b> foi rejeitada pelos partecipantes, desculpe!'
           voted: '<b>%{title}</b> - O voto foi finalizado'
           24_hours: 'O debate sobre <b>%{title}</b> termina amanhã!'
           1_hour: 'O debate sobre <b>%{title}</b> termina numa hora'
@@ -194,7 +194,7 @@ pt-PT:
         description: Novas propostas no âmbito do grupo
         email_subject: '%{proposal}'
         message: 'Nova proposta <b>%{proposal}</b> criada no grupo <b>%{group}</b>'
-      new_partecipation_request:
+      new_participation_request:
         description: Nova solicitação de participação
         email_subject: Nova solicitação de participação
         message: '<b>%{user}</b> pediu para participar do grupo <b>%{group}</b>'

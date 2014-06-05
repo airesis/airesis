@@ -39,9 +39,9 @@ module GroupsHelper
         super
   end
 
-  def partecipation_request_confirm_group_url(group, options={})
+  def participation_request_confirm_group_url(group, options={})
     if (group_in_subdomain? group)
-      ret = '/partecipation_request_confirm'
+      ret = '/participation_request_confirm'
       query = options.to_query
       ret += "?#{query}" unless query.empty?
     else
@@ -49,9 +49,9 @@ module GroupsHelper
     end
   end
 
-  def partecipation_request_decline_group_url(group, options={})
+  def participation_request_decline_group_url(group, options={})
     if group_in_subdomain? group
-      ret = '/partecipation_request_decline'
+      ret = '/participation_request_decline'
       query = options.to_query
       ret += "?#{query}" unless query.empty?
     else
@@ -62,12 +62,6 @@ module GroupsHelper
   def reload_storage_size_group_url(group, options={})
     (group_in_subdomain? group) ?
         '/reload_storage_size' :
-        super
-  end
-
-  def edit_permissions_group_url(group, options={})
-    (group_in_subdomain? group) ?
-        '/edit_permissions' :
         super
   end
 
@@ -83,9 +77,9 @@ module GroupsHelper
         super
   end
 
-  def ask_for_partecipation_group_url(group, options={})
+  def ask_for_participation_group_url(group, options={})
     (group_in_subdomain? group) ?
-        '/ask_for_partecipation' :
+        '/ask_for_participation' :
         super
   end
 
@@ -103,9 +97,9 @@ module GroupsHelper
   end
 
 
-  def group_group_partecipations_url(group, options={})
+  def group_group_participations_url(group, options={})
     (group_in_subdomain? group) ?
-        group_partecipations_url(options) :
+        group_participations_url(options) :
         super
   end
 
@@ -150,13 +144,13 @@ module GroupsHelper
     end
   end
 
-  def group_search_partecipant_url(group, search_partecipant, options={})
+  def group_search_participant_url(group, search_participant, options={})
     if group_in_subdomain? group
-      search_partecipant_url(search_partecipant, options)
+      search_participant_url(search_participant, options)
     else
       if group.certified?
         options[:subdomain] = group.subdomain
-        search_partecipant_url(search_partecipant, options)
+        search_participant_url(search_participant, options)
       else
         super
       end
@@ -204,13 +198,13 @@ module GroupsHelper
         super
   end
 
-  def group_group_partecipation_url(group, group_partecipation, options={})
+  def group_group_participation_url(group, group_participation, options={})
     if group_in_subdomain? group
-      group_partecipation_url(group_partecipation, options)
+      group_participation_url(group_participation, options)
     else
       if group.certified?
         options[:subdomain] = group.subdomain
-        group_partecipation_url(group_partecipation, options)
+        group_participation_url(group_participation, options)
       else
         options[:subdomain] = false
         super
@@ -298,7 +292,7 @@ module GroupsHelper
 
 
   #todo to be moved as soon as possible
-  def check_alert_alert_url(alert,options={})
+  def check_alert_url(alert,options={})
     subdomain = alert.notification.data[:subdomain]
     options[:subdomain] = subdomain if subdomain.to_s != ''
     super
@@ -328,7 +322,7 @@ module GroupsHelper
   #that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
   #Airesis::Application.reload_routes!
   def self.init
-    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum|partecipation_role).*/ }
+    names = Airesis::Application.routes.routes.map { |r| r.name }.select { |n| n =~ /(group_frm_|group_forum|participation_role).*/ }
     names.each do |name|
       define_method("#{name}_url") do |group, *args|
         (group_in_subdomain? group) ?

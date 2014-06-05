@@ -73,11 +73,7 @@ class ElectionsController < ApplicationController
     respond_to do |format|
         flash[:warn] = message
         format.html { render action: "show" }
-        format.js {
-          render :update do |page|
-            page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          end 
-        }   
+        format.js { render 'layouts/success' }
      end
   end
 

@@ -50,7 +50,7 @@ pt:
         published: Estado
         published_true: Publicado
         published_false: Rascunho
-      partecipation_role:
+      participation_role:
         name: Nome
         description: Breve descrição
       group_invitation:
@@ -80,12 +80,12 @@ pt:
         days_m: Dias
         hours_m: horas
         minutes_m: Minutos
-        percentage: Participantes (percentagem)
-        percentage_title: Número mínimo de participantes na discussão como uma percentagem do número de participantes no grupo
+        percentage: Partecipantes (percentagem)
+        percentage_title: Número mínimo de partecipantes na discussão como uma percentagem do número de partecipantes no grupo
         good_score: Quórum (percentagem)
         good_score_title: Avaliação necessaria para que a proposta passe a fase de votação
         condition: Condição
-      search_partecipant:
+      search_participant:
         role_id: Função
         keywords: Nome ou sobrenome
       sys_movement:

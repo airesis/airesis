@@ -16,7 +16,7 @@ class AddKeys < ActiveRecord::Migration
     NotificationType.find(8).update_attribute(:name, 'new_posts_group_follow')
     NotificationType.find(9).update_attribute(:name, 'new_posts_group')
     NotificationType.find(10).update_attribute(:name, 'new_proposals')
-    NotificationType.find(12).update_attribute(:name, 'new_partecipation_request')
+    NotificationType.find(12).update_attribute(:name, 'new_participation_request')
     NotificationType.find(13).update_attribute(:name, 'new_public_events')
     NotificationType.find(14).update_attribute(:name, 'new_events')
     NotificationType.find(15).update_attribute(:name, 'new_posts_user_follow')

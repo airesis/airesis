@@ -60,7 +60,7 @@ crowdin:
         description: "{crwdns5168:0}{crwdne5168:0}"
       PROPOSAL_VIEW:
         description: "{crwdns5169:0}{crwdne5169:0}"
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: "{crwdns5170:0}{crwdne5170:0}"
       PROPOSAL_INSERT:
         description: "{crwdns5171:0}{crwdne5171:0}"
@@ -194,7 +194,7 @@ crowdin:
         description: "{crwdns5236:0}{crwdne5236:0}"
         email_subject: "{crwdns5540:0}%{proposal}{crwdne5540:0}"
         message: "{crwdns5238:0}%{proposal}{crwdnd5238:0}%{group}{crwdne5238:0}"
-      new_partecipation_request:
+      new_participation_request:
         description: "{crwdns5239:0}{crwdne5239:0}"
         email_subject: "{crwdns5240:0}{crwdne5240:0}"
         message: "{crwdns5241:0}%{user}{crwdnd5241:0}%{group}{crwdne5241:0}"

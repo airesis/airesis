@@ -1,0 +1,17 @@
+<% participants.each do |participation| %>
+    <div class="participant_left">
+      <div class="participant_image">
+        <%= participation.user_image_tag 48 %>
+      </div>
+      <div class="participant_text">
+        <%= link_to_user participation.user, full_name: true %>
+        <% if participation.guests > 0 %>
+
+            <%=raw t('pages.events.show.with_guests', field: participation.guests) %>
+        <% end %>
+        <div style="margin-top:5px;"></div>
+        <span>"<%= participation.comment %>"</span>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+<% end %>

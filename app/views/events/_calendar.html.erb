@@ -143,11 +143,7 @@
                 week: '<%=t('calendar.week')%>',
                 day: '<%=t('calendar.day')%>'
             },
-            <%if @group %>
-            events: '<%=list_events_url(group_id: @group)%>',
-            <%else%>
-            events: '<%=list_events_url%>',
-            <%end%>
+            events: '<%=@group ? group_events_url(@group) : events_url%>',
             timeFormat: {
         	    month:'<%=t('calendar.timeFormat')%>',
                 week:'',

@@ -37,9 +37,9 @@ class User < ActiveRecord::Base
   #relations
   has_many :proposal_presentations, class_name: 'ProposalPresentation'
   has_many :proposals, through: :proposal_presentations, class_name: 'Proposal'
-  has_many :notifications, through: :user_alerts, class_name: 'Notification'
+  has_many :notifications, through: :alerts, class_name: 'Notification'
   has_many :proposal_watches, class_name: 'ProposalWatch'
-  has_many :meeting_partecipations, class_name: 'MeetingPartecipation'
+  has_many :meeting_participations, class_name: 'MeetingParticipation'
   has_one :blog, class_name: 'Blog'
   has_many :blog_comments, class_name: 'BlogComment'
   has_many :blog_posts, class_name: 'BlogPost'
@@ -49,13 +49,14 @@ class User < ActiveRecord::Base
   has_many :event_comments, class_name: 'EventComment'
   has_many :likes, class_name: 'EventCommentLike'
 
-  has_many :group_partecipations, class_name: 'GroupPartecipation'
-  has_many :groups, through: :group_partecipations, class_name: 'Group'
+  has_many :group_participations, class_name: 'GroupParticipation'
+  has_many :groups, through: :group_participations, class_name: 'Group'
+  has_many :portavoce_groups, -> {joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id").where("(participation_roles.name = 'amministratore')")}, through: :group_participations, class_name: 'Group', source: 'group'
 
-  has_many :area_partecipations, class_name: 'AreaPartecipation'
-  has_many :group_areas, through: :area_partecipations, class_name: 'GroupArea'
+  has_many :area_participations, class_name: 'AreaParticipation'
+  has_many :group_areas, through: :area_participations, class_name: 'GroupArea'
 
-  has_many :partecipation_roles, through: :group_partecipations, class_name: 'PartecipationRole'
+  has_many :participation_roles, through: :group_participations, class_name: 'ParticipationRole'
   has_many :group_follows, class_name: 'GroupFollow'
   has_many :followed_groups, through: :group_follows, class_name: 'Group', source: :group
   has_many :user_votes, class_name: 'UserVote'
@@ -74,13 +75,13 @@ class User < ActiveRecord::Base
   #confini di interesse
   has_many :interest_borders, through: :user_borders, class_name: 'InterestBorder'
 
-  has_many :user_alerts, -> {order('user_alerts.created_at DESC')}, class_name: 'UserAlert'
-  has_many :unread_alerts, -> {where 'user_alerts.checked = false'}, class_name: 'UserAlert'
+  has_many :alerts, -> {order('alerts.created_at DESC')}, class_name: 'Alert'
+  has_many :unread_alerts, -> {where 'alerts.checked = false'}, class_name: 'Alert'
 
   has_many :blocked_notifications, through: :blocked_alerts, class_name: 'NotificationType', source: :notification_type
   has_many :blocked_email_notifications, through: :blocked_emails, class_name: 'NotificationType', source: :notification_type
 
-  has_many :group_partecipation_requests, class_name: 'GroupPartecipationRequest'
+  has_many :group_participation_requests, class_name: 'GroupParticipationRequest'
 
   #record di tutti coloro che mi seguono
   has_many :followers_user_follow, class_name: "UserFollow", foreign_key: :followed_id
@@ -189,39 +190,31 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  #restituisce l'elencod ei gruppi nei quali sono portavoce
-  def portavoce_groups
-    self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id")
-    .where("(partecipation_roles.name = 'amministratore')")
-
-  end
-
   #restituisce l'elenco delle partecipazioni ai gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
-  def scoped_group_partecipations(abilitation)
-    self.group_partecipations.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
-                                        " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
-                                        " and action_abilitations.group_id = group_partecipations.group_id")
-    .where("(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+  def scoped_group_participations(abilitation)
+    self.group_participations.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
+                                        " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
+                                        " and action_abilitations.group_id = group_participations.group_id")
+    .where("(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
   end
 
   #restituisce l'elenco dei gruppi dell'utente
   #all'interno dei quali possiede un determinato permesso
   def scoped_groups(abilitation, excluded_groups=nil)
-    ret = self.groups.joins(" INNER JOIN partecipation_roles ON partecipation_roles.id = group_partecipations.partecipation_role_id"+
-                                " LEFT JOIN action_abilitations ON action_abilitations.partecipation_role_id = partecipation_roles.id "+
-                                " and action_abilitations.group_id = group_partecipations.group_id")
-    .all(conditions: "(partecipation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
+    ret = self.groups.joins(" INNER JOIN participation_roles ON participation_roles.id = group_participations.participation_role_id"+
+                                " LEFT JOIN action_abilitations ON action_abilitations.participation_role_id = participation_roles.id "+
+                                " and action_abilitations.group_id = group_participations.group_id")
+    .all(conditions: "(participation_roles.name = 'amministratore' or action_abilitations.group_action_id = " + abilitation.to_s + ")")
     excluded_groups ? ret - excluded_groups : ret
   end
 
-  #return all group area partecipations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
+  #return all group area participations of a particular group where the user can do a particular action or all group areas of the user in a group if abilitation_id is null
   def scoped_areas(group_id, abilitation_id=nil)
     query = self.group_areas
     if abilitation_id
       query = query.joins({area_roles: :area_action_abilitations})
-      .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_partecipations.area_role_id = area_roles.id', group_id, abilitation_id])
+      .where(['group_areas.group_id = ? and area_action_abilitations.group_action_id = ?  and area_participations.area_role_id = area_roles.id', group_id, abilitation_id])
       .uniq
     else
       query = query.joins(:area_roles)
@@ -275,12 +268,12 @@ class User < ActiveRecord::Base
 
 
   def image_url
-    if (self.blog_image_url && !self.blog_image_url.blank?)
-      return self.blog_image_url
-    elsif (self.image_id)
+    if self.blog_image_url && !self.blog_image_url.blank?
+      self.blog_image_url
+    elsif self.image_id
       return self.image.image.url
     else
-      return ""
+      ""
     end
   end
 
@@ -384,8 +377,8 @@ class User < ActiveRecord::Base
   end
 
   #restituisce la richiesta di partecipazione 
-  def has_asked_for_partecipation?(group_id)
-    self.group_partecipation_requests.find_by_group_id(group_id)
+  def has_asked_for_participation?(group_id)
+    self.group_participation_requests.find_by_group_id(group_id)
   end
 
   def fullname
@@ -422,27 +415,27 @@ class User < ActiveRecord::Base
 
 
   def can_read_forem_category?(category)
-    category.visible_outside || (category.group.partecipants.include? self)
+    category.visible_outside || (category.group.participants.include? self)
   end
 
 
   def can_read_forem_forum?(forum)
-    forum.visible_outside || (forum.group.partecipants.include? self)
+    forum.visible_outside || (forum.group.participants.include? self)
   end
 
 
   def can_create_forem_topics?(forum)
-    forum.group.partecipants.include? self
+    forum.group.participants.include? self
   end
 
 
   def can_reply_to_forem_topic?(topic)
-    topic.forum.group.partecipants.include? self
+    topic.forum.group.participants.include? self
   end
 
 
   def can_edit_forem_posts?(forum)
-    forum.group.partecipants.include? self
+    forum.group.participants.include? self
   end
 
 
@@ -659,16 +652,16 @@ class User < ActiveRecord::Base
 
       user = User.new(name: data['first_name'].capitalize, surname: data['last_name'].capitalize, password: Devise.friendly_token[0, 20], email: data['email'])
       group = Group.find_by_subdomain('parma')
-      user.group_partecipation_requests.build(group: group, group_partecipation_request_status_id: GroupPartecipationRequestStatus::ACCEPTED)
-      partecipation_role = group.default_role
+      user.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+      participation_role = group.default_role
       if data['verified']
         certification = user.build_certification({name: user.name, surname: user.surname, tax_code: user.email})
-        partecipation_role = PartecipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || partecipation_role  #look for best role or fallback
+        participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || participation_role  #look for best role or fallback
         user.user_type_id = UserType::CERTIFIED
       else
         user.user_type_id = UserType::AUTHENTICATED
       end
-      user.group_partecipations.build(group: group, partecipation_role_id: partecipation_role.id)
+      user.group_participations.build(group: group, participation_role_id: participation_role.id)
 
       user.sign_in_count = 0
       user.build_authentication_provider(access_token)

@@ -58,7 +58,7 @@ ro-RO:
         description: Propune membri pentru alegere
       PROPOSAL_VIEW:
         description: Vizualizează propunerile private
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuie la propuneri
       PROPOSAL_INSERT:
         description: Introdu noi propuneri în grup
@@ -170,7 +170,7 @@ ro-RO:
         description: Noi propuneri în cadrul grupului
         email_subject: '%{proposal}'
         message: 'Propunere nouă <b>%{proposal}</b> creată in grupul <b>%{group}</b>'
-      new_partecipation_request:
+      new_participation_request:
         description: Cerere de participare nouă
         email_subject: Cerere de participare nouă
         message: '<b>%{user}</b> a cerut să participe la grupul <b>%{group}</b>'

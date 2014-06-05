@@ -146,7 +146,7 @@ fr:
         search_description: "Utilisez l'outil de recherche ou cliquez sur un mot-clé pour trouver les groupes qui vous intéressent"
         insert_query_or_place: Vous devez taper au moins trois caractères ou une limite géographique
         tags: Mots-clés
-        partecipants_number: Nombre de participants
+        participants_number: Nombre de participants
         proposals_number: Nombre de propositions
         events_number: "Nombre d'événements"
         no_results: Aucun groupe trouvé
@@ -343,7 +343,7 @@ fr:
         search_title: Rechercher dans les propositions du groupe
         search_placeholder: Insérez au moins deux caractères pour rechercher
         search_words: "N'importe quel mot"
-        partecipants_number: PARTICIPANTS
+        participants_number: PARTICIPANTS
         contributes_number: CONTRIBUTIONS
         rank: MATURITÉ
         voters: VOTANTS
@@ -614,12 +614,12 @@ fr:
         no_partecipate: "Vous ne participerez pas à l'événement"
         with_guests: 'avec %{field} invité(s)'
         will_be_in: "Allez-vous assister à l'événement ?"
-        partecipants: Qui a assisté ?
+        participants: Qui a assisté ?
         will_partecipate: Qui y assistera ?
-        no_partecipants: "Aucun participants n'y a assisté"
-        no_partecipants_yet: Toujours pas de participants
-        non_partecipants: "Qui n'y a pas assisté ?"
-        will_non_partecipants: "Qui n'y assistera pas ?"
+        no_participants: "Aucun participants n'y a assisté"
+        no_participants_yet: Toujours pas de participants
+        non_participants: "Qui n'y a pas assisté ?"
+        will_non_participants: "Qui n'y assistera pas ?"
         voting_proposals: Ces propositions seront votées au cours de ces jours
         no_voting_proposals: Aucune proposition votée durant ces jours
     votations:
@@ -975,7 +975,7 @@ fr:
         published: État
         published_true: Publié
         published_false: Brouillon
-      partecipation_role:
+      participation_role:
         name: Nom
         description: Brève description
       group_invitation:
@@ -1015,7 +1015,7 @@ fr:
         bad_score_title: Rang en vertu duquel la proposition sera rejetée. Permet de poursuivre la discussion, si les conditions de temps ou de Participation ne sont pas remplies
         condition: Condition
         condition_title: "Les conditions de temps et de Participation doivent être toute deux remplies ou simplement l'une d'elle ?"
-      search_partecipant:
+      search_participant:
         role_id: Rôle
         keywords: Nom ou prénom
       sys_movement:
@@ -1218,7 +1218,7 @@ fr:
     users:
       join_accounts: "Erreur en associant les comptes. Cette opération n'est pas disponible pour le moment"
       join_accounts_password: Mot de passe incorrect
-    group_partecipations:
+    group_participations:
       destroy: Vous ne pouvez pas quitter un groupe dont vous êtes le seul porte-parole
       already_member: Erreur lors de la création de la demande de participation. Vous êtes déjà membre de ce groupe !
       request_not_registered: "Vous êtes déjà membre de ce groupe, mais votre demande de participation n'a pas été enregistré. Données valides"
@@ -1336,7 +1336,7 @@ fr:
       multiple_request:
         one: 'Vous avez demandé à participer à %{count} nouveau groupe'
         other: 'Vous avez demandé à participer à %{count} nouveaux groupes'
-    group_partecipations:
+    group_participations:
       destroy_ok_1: "Vous avez quitté le groupe. À l'avenir, vous pouvez demander à y participer à nouveau"
       request_sent: Demande de participation envoyé avec succès
       request_alredy_sent: Vous avez déjà envoyé une demande de participation pour ce groupe

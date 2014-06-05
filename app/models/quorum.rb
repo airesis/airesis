@@ -16,12 +16,13 @@ class Quorum < ActiveRecord::Base
   scope :assigned, -> {where(["assigned = ?", true])}
   scope :unassigned, -> {where(["assigned = ?", false])}
 
+
   attr_accessor :days_m, :hours_m, :minutes_m
+
 
   after_find :populate_accessor
 
   before_validation :populate
-  #before_validation :populate, on: :update
 
   def populate
     self.minutes = self.minutes_m.to_i + (self.hours_m.to_i * 60) + (self.days_m.to_i * 24 * 60)
@@ -106,14 +107,14 @@ class Quorum < ActiveRecord::Base
     @explanation ||= explanation_pop
   end
 
-  #calculate minimum number of partecipants
-  def min_partecipants
-    @min_partecipants ||= min_partecipants_pop
+  #calculate minimum number of participants
+  def min_participants
+    @min_participants ||= min_participants_pop
   end
 
-  #calculate minimum number of partecipants
-  def min_vote_partecipants
-    @min_vote_partecipants ||= min_vote_partecipants_pop
+  #calculate minimum number of participants
+  def min_vote_participants
+    @min_vote_participants ||= min_vote_participants_pop
   end
 
 

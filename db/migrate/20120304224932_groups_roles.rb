@@ -8,7 +8,7 @@ class GroupsRoles < ActiveRecord::Migration
     
     create_table :action_abilitations do |t|
       t.references :group_action
-      t.references :partecipation_role
+      t.references :participation_role
       t.references :group
       t.timestamps
     end

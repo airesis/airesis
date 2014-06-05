@@ -12,7 +12,7 @@ class DeleteOldNotifications
     read = Notification.destroy_all(["notifications.id not in (
                                               select n.id
                                               from notifications n
-                                              join user_alerts ua
+                                              join alerts ua
                                               on n.id = ua.notification_id
                                               where ua.checked = FALSE)
                                               and created_at < ?",-1.month.from_now])

@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20100330111833
-#
-# Table name: event_series
-#
-#  id         :integer(4)      not null, primary key
-#  frequency  :integer(4)      default(1)
-#  period     :string(255)     default("months")
-#  starttime  :datetime
-#  endtime    :datetime
-#  all_day    :boolean(1)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class EventSeries < ActiveRecord::Base
   attr_accessor :title, :description, :commit_button, :event_type_id, :organizer_id, :meeting_attributes
   

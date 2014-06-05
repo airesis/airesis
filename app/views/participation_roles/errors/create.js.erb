@@ -1,0 +1,3 @@
+var container_ = $('#participation_role_container');
+container_.html('<%=j render(partial: 'participation_roles/form', locals: {button_name: t('buttons.create')})%>');
+airesis_reveal_refresh(container_);

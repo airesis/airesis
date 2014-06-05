@@ -257,11 +257,11 @@ class BestQuorum < Quorum
 
   protected
 
-  def min_partecipants_pop
+  def min_participants_pop
     count = 1
     if self.percentage
       if self.group
-        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_partecipants) #todo group areas
+        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_participants) #todo group areas
       else
         count = (self.percentage.to_f * 0.001 * User.count)
       end
@@ -271,11 +271,11 @@ class BestQuorum < Quorum
     end
   end
 
-  def min_vote_partecipants_pop
+  def min_vote_participants_pop
     count = 1
     if self.vote_percentage
       if self.group
-        count = (self.vote_percentage.to_f * 0.01 * self.group.count_voter_partecipants) #todo group areas
+        count = (self.vote_percentage.to_f * 0.01 * self.group.count_voter_participants) #todo group areas
       else
         count = (self.vote_percentage.to_f * 0.001 * User.count)
       end
@@ -334,7 +334,7 @@ class BestQuorum < Quorum
     time = "<b>#{self.time}</b> "
     ret = I18n.translate('models.quorum.time_condition_1', time: time) #display the time left for discussion
     ret += "<br/>"
-    participants = I18n.t('models.quorum.participants', count: self.min_partecipants)
+    participants = I18n.t('models.quorum.participants', count: self.min_participants)
     ret += I18n.translate('models.best_quorum.good_score_condition', good_score: self.good_score, participants: participants)
     ret
   end

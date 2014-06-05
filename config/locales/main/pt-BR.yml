@@ -112,7 +112,7 @@ pt-BR:
         new_role_title: Nova função
         user_title: Usuário
         role_title: Função
-        no_users_yet: Aqui você será capaz de gerenciar as funções dos participantes, quando haverá algum.
+        no_users_yet: Aqui você será capaz de gerenciar as funções dos partecipantes, quando haverá algum.
         default_role: Função padrão no grupo
         confirm_role_deletion: Tem certeza que deseja excluir esta função?
         remove_user: Remover usuário
@@ -143,7 +143,7 @@ pt-BR:
         search_description: Use a ferramenta de busca ou clique em um tag para encontrar grupos de seu interesse
         insert_query_or_place: Você deve inserir pelo menos três caracteres ou uma fronteira geográfica
         tags: Tags
-        partecipants_number: Número de participantes
+        participants_number: Número de partecipantes
         proposals_number: Número de propostas
         events_number: Número de eventos
         no_results: Nenhum grupo encontrado
@@ -176,7 +176,7 @@ pt-BR:
         rules_button: Regras
         post_button: Deixar uma mensagem no Mural do Grupo
         blog_button: Criar meu Blog
-        participants_list: "Lista de participantes "
+        participants_list: "Lista de partecipantes "
         invite_button: Convide seus amigos!
         show_all_participants: "Mostra todos os %{count}..."
         participants_full_list: Lista completa dos membros do grupo
@@ -192,7 +192,7 @@ pt-BR:
         list_permissions:
           title: Lista de suas permissões dentro do grupo
           button: Lista de permissões
-        print_all_participants: Imprimir lista de participantes
+        print_all_participants: Imprimir lista de partecipantes
         last_proposals: Últimas propostas adicionadas
         last_topics: Último tópico criado
         next_events: Próximos eventos
@@ -216,7 +216,7 @@ pt-BR:
           advanced_percentage_description3: A proposta permanece em debate até que o nível de satisfação fique entre os dois limites.
         active: Ativo
         name: Nome
-        participants: Participantes
+        participants: Partecipantes
         condition: Condição
         good_percentage: '% De maturidade'
         bad_percentage: '% Rejeição'
@@ -234,14 +234,14 @@ pt-BR:
         index:
           not_enabled: Áreas de trabalho não habilitadas
           description: Aires permite gerenciar áreas de trabalho diferentes dentro do grupo.
-          description2: Com esse recurso permite gerenciar os participantes e suas funções.
+          description2: Com esse recurso permite gerenciar os partecipantes e suas funções.
           description3: Tenha cuidado! Este é um recurso avançado, projetado somente para grandes grupos e usuários experientes.
           enable: Ativar áreas de trabalho!
           description4: "Antes de ativar áreas de trabalho, verifique se você pode gerenciar os membros de grupos diretamente usando "
         manage:
           new_area: Criar uma área de trabalho
-          switch_area_participants: Alterne para o gerenciamento dos participantes
-          list_title: Lista de áreas de trabalho. Para cada um delas selecione os participantes, ou clique no nome para gerenciar as funções e permissões deles nessa área de trabalho
+          switch_area_participants: Alterne para o gerenciamento dos partecipantes
+          list_title: Lista de áreas de trabalho. Para cada um delas selecione os partecipantes, ou clique no nome para gerenciar as funções e permissões deles nessa área de trabalho
           title: Configurações de área de trabalho
           list_participants: Lista dos membros do grupo. Selecione para cada membro as áreas de trabalho as quais ele pertence.
           switch_area_management: Alternar para o gerenciamento das áreas de trabalho
@@ -257,7 +257,7 @@ pt-BR:
         text_to_send: Texto (opcional)
         title: Convide seus amigos para se juntar ao grupo!
       participations:
-        list_participations: Lista de participantes
+        list_participations: Lista de partecipantes
         search: Busca
         filter: Filtro
         anything: Todos
@@ -268,8 +268,8 @@ pt-BR:
         role: Função
         member_since: Membro desde
         participants_html:
-          one: "<b>1</b> participante"
-          other: "<b>%{count}</b> participantes"
+          one: "<b>1</b> partecipante"
+          other: "<b>%{count}</b> partecipantes"
         added_by: Adicionado por
         remove_all: Excluir todos
     login:
@@ -318,7 +318,7 @@ pt-BR:
         loading_alt: Carregando
         choose_model: Escolha um modelo de proposta
         search_words: Qualquer palavras
-        partecipants_number: PARTICIPANTES
+        participants_number: PARTECIPANTES
         contributes_number: CONTRIBUIÇÕES
         rank: MATURIDADE
         voters: ELEITORES
@@ -527,12 +527,12 @@ pt-BR:
         no_partecipate: Você não vai participar ao evento
         with_guests: "com %{field} convidados"
         will_be_in: Você vai ao evento?
-        partecipants: Quem foi?
+        participants: Quem foi?
         will_partecipate: Quem vai?
-        no_partecipants: Ninguém compareceu
-        no_partecipants_yet: Ainda não há participantes
-        non_partecipants: Quem não foi?
-        will_non_partecipants: Quem não vai?
+        no_participants: Ninguém compareceu
+        no_participants_yet: Ainda não há partecipantes
+        non_participants: Quem não foi?
+        will_non_participants: Quem não vai?
         voting_proposals: Durante estes dias serão votadas estas propostas
         no_voting_proposals: Nenhuma proposta a ser votada durante estes dias
     votations:

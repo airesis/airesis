@@ -1,7 +1,7 @@
 <% @comment = ProposalComment.find(@data[:comment_id]) %>
 <% @username = @data[:username] %>
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 
 <%= email_h1 do %>
     <%=raw t('mailer.new_contribute.title', {user: @username, comment: @comment.is_contribute? ? t('words.contribution') : t('words.comment'), })%>

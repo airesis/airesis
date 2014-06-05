@@ -1,90 +1,9 @@
-<% @group.partecipants.includes(:image).order('users.surname asc').each do |partecipant| %>
-    <div class="members" id="mem<%= partecipant.id %>">
-      <div>
-        <%= partecipant.user_image_tag 40 %>
-
-        <b><%= link_to partecipant.fullname, partecipant %></b>
-
-        <div style="clear:both;"></div>
-      </div>
-      <%= link_to t('pages.groups.administration_panel.areas'), '#', class: 'btn areas_button', data: {m_id: partecipant.id} %>
-      <div class="areas_list shadow-box">
-
-        <ul>
-          <% if @group_areas.count > 0 %>
-              <% @group_areas.each do |area| %>
-                  <li>
-                    <input type="checkbox"
-                           data-user_id="<%= partecipant.id %>"
-                           data-group_area_id="<%= area.id %>"
-                           onclick="change_area_partecipation(this);"
-                           <% if area.partecipants.include? partecipant %> checked='checked'
-                           <% end %> >
-                    <%= area.name %>
-                  </li>
-              <% end %>
-          <% else %>
-              <li><%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_path(@group), remote: true %></li>
-          <% end %>
-
-        </ul>
-        <div style="clear:both;"></div>
-      </div>
+<% @group.participants.includes(:image).order('users.surname asc').each do |participant| %>
+    <div class="members" id="mem<%= participant.id %>">
+      <%= participant.user_image_tag 40 %>
+      <b><%= link_to participant.fullname, participant %></b>
     </div>
 <% end %>
 
 <div style="clear:both;"></div>
 
-
-<script type="text/javascript">
-    $(function () {
-        $('.areas_button')
-                .mouseover(function () {
-                    var _this = $(this);
-                    var _areas_list = _this.next('.areas_list');
-                    _areas_list.show().position({
-                        at: "left bottom",
-                        my: "left bottom",
-                        of: _this
-                    });
-                })
-                .mouseout(function () {
-                    var _this = $(this);
-                    var _areas_list = _this.next('.areas_list');
-                    setTimeout(function () {
-                        if (_areas_list.is(':hover') || _this.is(':hover')) {
-
-                        }
-                        else {
-                            _areas_list.hide();
-                        }
-                    }, 200);
-                });
-
-        $('.areas_list')
-                .mouseout(function () {
-                    var _this = $(this);
-                    var _areas_button = _this.prev('.areas_button');
-                    setTimeout(function () {
-                        if (_areas_button.is(':hover') || _this.is(':hover')) {
-
-                        }
-                        else {
-                            _this.hide();
-                        }
-                    }, 200);
-                });
-    });
-
-    function change_area_partecipation(el) {
-        var group_area_id = $(el).data('group_area_id');
-        var user_id = $(el).data('user_id');
-        var checked_ = el.checked;
-        $.ajax({
-            data: "group_area_id=" + group_area_id + "&user_id=" + user_id + "&enable="+checked_,
-            url: "<%=change_group_group_areas_url(@group)%>",
-            dataType: 'script',
-            type: 'PUT'
-        });
-    }
-</script>

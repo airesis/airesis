@@ -40,10 +40,7 @@ class BlogCommentsController < ApplicationController
     flash[:notice] = 'The comment has been deleted'  
     respond_to do |format|
       format.js {
-        render :update do |page|
-          @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-          page.replace_html "blogPostCommentsContainer", partial: "blog_posts/comments"
-        end
+        @blog_comments = @blog_post.blog_comments.order('created_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
       }
       format.html { redirect_to(blog_blog_post_url(@blog,@blog_post)) }
     end

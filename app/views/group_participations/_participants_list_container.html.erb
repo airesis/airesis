@@ -1,0 +1,13 @@
+<%@group_participations.each do |participant| %>
+    <%if !@group.portavoce.include? participant.user%>
+        <div class="pcontainer">
+          <div class="MoImg24">
+            <%= participant.user_image_tag(24) %>
+          </div>
+          <div class="Mo">
+            <%=link_to_user participant.user, full_name: true, title: participant.participation_role.name %>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+    <%end%>
+<%end %>

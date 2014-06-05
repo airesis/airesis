@@ -14,7 +14,7 @@ class Search < ActiveRecord::Base
       end
 
       order_by :score, :desc
-      order_by :group_partecipations_count, :desc
+      order_by :group_participations_count, :desc
       order_by :created_at, :desc
 
       paginate page: 1, per_page: 5

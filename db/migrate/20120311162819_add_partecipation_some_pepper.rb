@@ -1,14 +1,14 @@
-class AddPartecipationSomePepper < ActiveRecord::Migration
+class AddParticipationSomePepper < ActiveRecord::Migration
   def up
-    rename_table :meetings_partecipations, :meeting_partecipations
-    add_column :meeting_partecipations, :comment, :string
-    add_column :meeting_partecipations, :guests, :integer
-    add_column :meeting_partecipations, :response, :string, limit: 1
+    rename_table :meetings_participations, :meeting_participations
+    add_column :meeting_participations, :comment, :string
+    add_column :meeting_participations, :guests, :integer
+    add_column :meeting_participations, :response, :string, limit: 1
   end
 
   def down
-    remove_column :meeting_partecipations, :comment
-    remove_column :meeting_partecipations, :guests
-    remove_column :meeting_partecipations, :response
+    remove_column :meeting_participations, :comment
+    remove_column :meeting_participations, :guests
+    remove_column :meeting_participations, :response
   end
 end

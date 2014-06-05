@@ -20,7 +20,6 @@
 //= require jquery.dataTables.columnFilter
 //= require rails.validations
 //= require jquery.quick-wizard
-//= require jquery.watermark.min
 //= require jquery.elastic
 //= require jquery.gbutton
 //= require jqlplot/jquery.jqplot
@@ -50,4 +49,7 @@
 //= require diff_match_patch
 //= require jquery.appear
 //= require init
+//= require rails.validations
+//= require rails.validations.simple_form
+ClientSideValidations.selectors.validate_inputs += ', .select2-container:visible :input:enabled[data-validate]';
 $(function(){ $(document).foundation(); });

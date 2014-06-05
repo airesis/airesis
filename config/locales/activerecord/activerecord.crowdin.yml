@@ -58,7 +58,7 @@ crowdin:
         published: "{crwdns5930:0}{crwdne5930:0}"
         published_true: "{crwdns5931:0}{crwdne5931:0}"
         published_false: "{crwdns5932:0}{crwdne5932:0}"
-      partecipation_role:
+      participation_role:
         name: "{crwdns5933:0}{crwdne5933:0}"
         description: "{crwdns5934:0}{crwdne5934:0}"
       group_invitation:
@@ -102,7 +102,7 @@ crowdin:
         vote_minutes: "{crwdns7955:0}{crwdne7955:0}"
         vote_percentage: "{crwdns7956:0}{crwdne7956:0}"
         vote_good_score: "{crwdns7957:0}{crwdne7957:0}"
-      search_partecipant:
+      search_participant:
         role_id: "{crwdns5967:0}{crwdne5967:0}"
         keywords: "{crwdns5968:0}{crwdne5968:0}"
       sys_movement:

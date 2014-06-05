@@ -16,11 +16,11 @@
 </div>
 
 
-<% if @user == current_user && @user.group_partecipations.count > 0 %>
+<% if @user == current_user && @user.group_participations.count > 0 %>
     <div class="card">
-    <% @group_partecipations = @user.group_partecipations.includes([:group, :partecipation_role, :user]) %>
+    <% @group_participations = @user.group_participations.includes([:group, :participation_role, :user]) %>
     <h2><%= t('pages.users.show.groups_title') %></h2>
-    <table id="partecipation_table">
+    <table id="participation_table">
 
       <thead>
       <th><%= t('pages.users.show.group_column') %></th>
@@ -31,21 +31,21 @@
       </thead>
       <tbody>
 
-      <% @group_partecipations.each do |partecipation| %>
+      <% @group_participations.each do |participation| %>
           <tr>
-            <td><%= partecipation.group_image_tag 20 %><%= link_to partecipation.group.name, partecipation.group %></td>
-            <td><span id="partecipation_<%= partecipation.id %>"><%= partecipation.partecipation_role.name %></span>
+            <td><%= participation.group_image_tag 20 %><%= link_to participation.group.name, participation.group %></td>
+            <td><span id="participation_<%= participation.id %>"><%= participation.participation_role.name %></span>
             </td>
-            <td><%= partecipation.created_at if partecipation.created_at %></td>
-            <td><%= partecipation.created_at.to_i if partecipation.created_at %></td>
-            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_url(partecipation.group, partecipation), method: :delete, data: {confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn' if can? :destroy, partecipation %></td>
+            <td><%= participation.created_at if participation.created_at %></td>
+            <td><%= participation.created_at.to_i if participation.created_at %></td>
+            <td><%= link_to t('pages.users.show.get_out_of_group_button'), group_group_participation_url(participation.group, participation), method: :delete, data: {confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn' if can? :destroy, participation %></td>
           </tr>
       <% end %>
       </tbody>
     </table>
     <script>
-        <%@group_partecipations.each do |partecipation| %>
-        $('#partecipation_<%=partecipation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw partecipation.partecipation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
+        <%@group_participations.each do |participation| %>
+        $('#participation_<%=participation.id%>').qtip({content: "<strong><%=t('pages.users.show.what_can_i_do')%></strong><ul><li><%=raw participation.participation_role.group_actions.order(:seq).map{|a| a.description}.join('</li><li>')%></li></ul><br/>"});
         <%end%>
     </script>
     </div>
@@ -102,7 +102,7 @@
 
 <script type="text/javascript">
     <%if current_user == @user%>
-    $('#partecipation_table').dataTable({
+    $('#participation_table').dataTable({
         "bPaginate": false,
         "bFilter": false,
         "bSearchable": false,

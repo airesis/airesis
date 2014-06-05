@@ -8,7 +8,7 @@ class NewGroupsActions < ActiveRecord::Migration
     GroupAction.find_by_name('SEND_CANDIDATES').destroy
     GroupAction.find_by_name('PROPOSAL_VIEW').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('PROPOSAL').update_attribute(:seq,i+=1)
-    GroupAction.find_by_name('PROPOSAL_PARTECIPATION').update_attribute(:seq,i+=1)
+    GroupAction.find_by_name('PROPOSAL_PARTICIPATION').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('PROPOSAL_INSERT').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('DOCUMENT_VIEW').update_attribute(:seq,i+=1)
     GroupAction.find_by_name('DOCUMENT_MANAGE').update_attribute(:seq,i+=1)
@@ -17,7 +17,7 @@ class NewGroupsActions < ActiveRecord::Migration
     GroupAction.create({name: 'PROPOSAL_DATE', seq: i+=1}){|a| a.id = 12}
 
     ActionAbilitation.where({group_action_id: GroupAction::CREATE_EVENT}).each do |abilitation|
-      ActionAbilitation.create({group_action_id: GroupAction::PROPOSAL_DATE, partecipation_role_id: abilitation.partecipation_role_id, group_id: abilitation.group_id})
+      ActionAbilitation.create({group_action_id: GroupAction::PROPOSAL_DATE, participation_role_id: abilitation.participation_role_id, group_id: abilitation.group_id})
     end
 
     AreaActionAbilitation.where({group_action_id: GroupAction::CREATE_EVENT}).each do |abilitation|

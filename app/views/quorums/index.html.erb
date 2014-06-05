@@ -1,0 +1,87 @@
+<% @page_title = t("pages.groups.edit_proposals.title") %>
+<%= render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_proposals.title')} do %>
+
+<% end %>
+
+<%= link_to t('pages.groups.edit_quorums.add_quorum'), new_group_best_quorum_url(@group), data: {remote: true, disable_with: t('loading')}, class: "btn blue newButton disable" %>
+<div id="quorum_panel_container" xmlns="http://www.w3.org/1999/html">
+  <%= render partial: 'groups/quorums_panel' %>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <td colspan="2"><%= t('pages.groups.statistics.title', date: @group.statistic.updated_at)%></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%='Debate participants'%></td>
+      <td><%=@group.statistic.valutations.round(0)%> (<%= (@group.statistic.valutations*100 / @group.count_proposals_participants).round(0) %>%)</td>
+    </tr>
+    <tr>
+      <td><%='Debate maturity'%></td>
+      <td><%= @group.statistic.good_score.round(0) %>%</td>
+    </tr>
+    <tr>
+    <td><%='Votation participants'%></td>
+    <td><%=@group.statistic.vote_valutations.round(0)%> (<%= (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(0) %>%)</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2><%= t('pages.groups.edit_quorums.configure_proposal_parameters') %></h2>
+<%= check_box :group, :default_anonima, onclick: "return change_default_anonima(this);" %><%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br />
+<%= check_box :group, :default_visible_outside, onclick: "return change_default_visible_outside(this);" %><%= t('pages.groups.edit_quorums.default_private_proposal') %><br />
+<%= check_box :group, :default_secret_vote, onclick: "return change_default_secret_vote(this);" %><%= t('pages.groups.edit_quorums.default_secret_vote') %><br />
+<hr>
+<%= check_box :group, :change_advanced_options, onclick: "return change_advanced_options(this);" %> <%= t('pages.groups.edit_quorums.let_editor_change_settings') %><br />
+
+<script type="text/javascript">
+    function change_default_anonima(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_anonima_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+    function change_default_visible_outside(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_visible_outside_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+    function change_default_secret_vote(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_default_secret_vote_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+    function change_advanced_options(el) {
+        var active = (el.checked) ? "true" : "false";
+        $.ajax({
+            data: "active=" + active + "&l=<%=I18n.locale%>",
+            url: "<%=change_advanced_options_group_url(@group)%>",
+            dataType: 'script',
+            type: 'post'
+        });
+    }
+
+</script>
+
+<%= content_for :left_panel do %>
+    <%= render partial: 'groups/administration_panel' %>
+
+<% end %>

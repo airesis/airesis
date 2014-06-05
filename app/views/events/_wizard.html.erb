@@ -1,0 +1,147 @@
+<h2><%= @title %></h2>
+<div id="create_event">
+  <%= simple_form_for (@group && !in_subdomain?) ? [@group, @event] : @event, remote: true, validate: true do |f| %>
+
+      <div class="legend">
+        <div class="number">1</div>
+        <div class="title">
+          <%= t('pages.events.new.step_2') %>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="number">2</div>
+        <div class="title">
+          <%= t('pages.events.new.step_3') %>
+        </div>
+      </div>
+      <% unless @event.is_votazione? %>
+          <div class="legend last">
+            <div class="number">3</div>
+            <div class="title">
+              <%= t('pages.events.new.step_4') %>
+            </div>
+          </div>
+      <% end %>
+
+      <div class="step root root">
+        <div class="row">
+          <div class="columns small-12">
+            <%= f.input :title %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns small-12">
+            <%= f.input :description, rows: 4, cols: 30 %>
+          </div>
+        </div>
+
+        <% if @event.is_votazione? %>
+            <%= f.hidden_field :private, value: true %>
+        <% else %>
+            <div class="row">
+              <div class="columns small-12">
+                <%= f.label :private do %>
+                    <%= f.check_box :private, title: t('pages.events.new.private_tooltip') %>
+                    <%= t('activerecord.attributes.event.private') %>
+                <% end %>
+              </div>
+            </div>
+        <% end %>
+
+        <%= f.hidden_field :proposal_id %>
+        <%= f.hidden_field :event_type_id %>
+
+      </div>
+      <div class="step">
+
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.input :starttime, as: :string, input_html: {value: (l @event.starttime, format: :textfield)} %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.input :endtime, as: :string, input_html: {value: (l @event.endtime, format: :textfield)} %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-4 columns">
+            <%= f.label :all_day do %>
+                <%= f.check_box :all_day %>
+                <%= t('activerecord.attributes.event.all_day') %>
+            <% end %>
+          </div>
+        </div>
+
+
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :period %>
+            <%= f.select :period, Event::REPEATS, {}, onchange: "showPeriodAndFrequency(this.value);", disabled: true, title: "Opzione non ancora disponibile" %>
+          </div>
+        </div>
+
+        <div class="row" style="display:none">
+          <div class="large-4 columns">
+            <%= f.label :frequency %>
+            <%= f.select :frequency, (1..30).to_a %> <span id="period"></span>
+          </div>
+        </div>
+      </div>
+
+      <% unless @event.is_votazione? %>
+          <div class="step">
+
+
+            <%= f.simple_fields_for :meeting do |m| %>
+                <%= m.simple_fields_for :place do |p| %>
+                    <div id="luogo">
+                      <div class="row">
+                        <div class="large-6 columns">
+                          <%= p.input :comune_id, input_html: {data: {cities: ''}, style: 'width:100%'} %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="large-8 columns">
+                          <%= p.input :address %>
+                        </div>
+                        <div class="large-2 columns">
+                          <%= image_tag 'gloading.gif', class: 'loading_place' %>
+                        </div>
+                        <div class="large-2 columns"></div>
+                      </div>
+                      <div class="row">
+                        <%= p.hidden_field :latitude_original %>
+                        <%= p.hidden_field :longitude_original %>
+                        <%= p.hidden_field :latitude_center %>
+                        <%= p.hidden_field :longitude_center %>
+                        <%= p.hidden_field :zoom %>
+
+                        <div id="create_map_canvas" style="width: 100%; height: 300px;"></div>
+                      </div>
+                      <!--<div id="panorama_canvas" style="width: 320px; height: 120px;"></div>-->
+                    </div>
+                <% end %>
+            <% end %>
+          </div>
+      <% end %>
+      <%= f.submit t('pages.events.new.submit'), class: 'btn blue disable', onclick: "return confirmEventData(this);", data: {disable_with: t('saving')} %>
+  <% end %>
+</div>
+<a class="close-reveal-modal">&#215;</a>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        select2town($("#event_meeting_attributes_place_attributes_comune_id"));
+        $('#event_meeting_attributes_place_attributes_comune_id').on('change', function () {
+            codeAddress('luogo');
+        });
+        $('#event_meeting_attributes_place_attributes_address').keyup(function () {
+            codeAddress('luogo');
+        });
+    });
+</script>

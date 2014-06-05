@@ -2,7 +2,7 @@
 <% @username = @data[:username] %>
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
 <% @ranking = ProposalCommentRanking.find_by_user_id_and_proposal_comment_id(@alert.user.id, @comment.id) %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
 
 <%= email_h1 do %>
     <%= raw t('mailer.update_contribute.title', {user: @username}) %>

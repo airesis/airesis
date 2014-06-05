@@ -182,18 +182,18 @@ class Proposal < ActiveRecord::Base
                           from proposals p
                           join group_proposals gp on p.id = gp.proposal_id
                           join groups g on g.id = gp.group_id
-                          join group_partecipations gi on (g.id = gi.group_id and gi.user_id = #{user.id})
-                          join partecipation_roles pr on (gi.partecipation_role_id = pr.id)
+                          join group_participations gi on (g.id = gi.group_id and gi.user_id = #{user.id})
+                          join participation_roles pr on (gi.participation_role_id = pr.id)
                           join proposal_types pt on (p.proposal_type_id = pt.id)
                           join events e on e.id = p.vote_period_id
-                          left join action_abilitations aa on (aa.partecipation_role_id = pr.id)
+                          left join action_abilitations aa on (aa.participation_role_id = pr.id)
                           left join user_votes uv on (uv.proposal_id = p.id and uv.user_id = #{user.id})
                           left join proposal_alerts pa on p.id = pa.proposal_id and pa.user_id = #{user.id}
                           left join proposal_rankings pk on p.id = pk.proposal_id and pk.user_id = #{user.id}
                           where  p.proposal_state_id = #{ProposalState::VOTING}
                           and pt.name != '#{ProposalType::PETITION}'
                           and uv.id is null
-                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{PartecipationRole::PORTAVOCE})
+                          and (aa.group_action_id = #{GroupAction::PROPOSAL_VOTE} or pr.id = #{ParticipationRole::ADMINISTRATOR})
                           order by e.endtime asc")
     ActiveRecord::Associations::Preloader.new(proposals,[:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category]).run
     proposals
@@ -414,9 +414,9 @@ end
 def eligible_voters_count
   if self.private?
     if self.presentation_areas.size > 0 #if we are in a working area
-      self.presentation_areas.first.count_voter_partecipants
+      self.presentation_areas.first.count_voter_participants
     else
-      self.presentation_groups.first.count_voter_partecipants
+      self.presentation_groups.first.count_voter_participants
     end
   else
     User.confirmed.unblocked.count #if it's public everyone can vote
@@ -424,14 +424,14 @@ def eligible_voters_count
 end
 
 
-#count without fetching, for the list. this number may be different from partecipants because doesn't look if the partecipants are still in the group
-def partecipants_count
+#count without fetching, for the list. this number may be different from participants because doesn't look if the participants are still in the group
+def participants_count
   a = User.joins({proposal_rankings: [:proposal]}).where(["proposals.id = ?", self.id]).count
   a += User.joins({proposal_comments: [:proposal]}).where(["proposals.id = ?", self.id]).count
 end
 
-#retrieve all the partecipants to the proposals that are still part of the group
-def partecipants
+#retrieve all the participants to the proposals that are still part of the group
+def participants
   #all users who ranked the proposal
   a = User.joins(proposal_rankings: [:proposal]).where(["proposals.id = ?", self.id]).load
   #all users who contributed to the proposal
@@ -439,10 +439,10 @@ def partecipants
   c = (a | b)
   if self.private
     #all users that are part of the group of the proposal
-    d = self.presentation_groups.map { |group| group.partecipants }.flatten
-    e = self.groups.map { |group| group.partecipants }.flatten
+    d = self.presentation_groups.map { |group| group.participants }.flatten
+    e = self.groups.map { |group| group.participants }.flatten
     f = d | e
-    #the partecipants are user that partecipated the proposal and are still in the group
+    #the participants are user that partecipated the proposal and are still in the group
     c = c & f
   end
   c
@@ -452,7 +452,7 @@ end
 #all users that will receive a notification that asks them to check or give their valutation to the proposal
 def notification_receivers
   #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-  users = self.partecipants
+  users = self.participants
   res = []
   users.each do |user|
     #user ranking to the proposal
@@ -466,7 +466,7 @@ end
 #all users that will receive a notification that asks them to vote the proposal
 def vote_notification_receivers
   #will receive the notification the users that partecipated to the proposal and can change their valutation or they haven't give it yet
-  users = self.partecipants
+  users = self.participants
   res = []
   users.each do |user|
     #user ranking to the proposal

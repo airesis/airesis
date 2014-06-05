@@ -18,8 +18,8 @@ pt-PT:
       text_content: As primeiras linhas do problema ou solução
       timeline: Uma barra que exibe o estado do debate ou da votação
       timeleft: O tempo e/ou as avaliações necessárias para terminar o debate
-      rankDescription: A maturidade da proposta, que mostra se a proposta está pronta para ser votada, com base nas avaliações dos participantes
-      partecipants: O número de pessoas que participam desta proposta com as suas contribuições e avaliações
+      rankDescription: A maturidade da proposta, que mostra se a proposta está pronta para ser votada, com base nas avaliações dos partecipantes
+      participants: O número de pessoas que participam desta proposta com as suas contribuições e avaliações
       contributes: O número de contribuições adicionadas
       end: Esta é a estrutura da lista de propostas. É a mesma em cada grupo que participa e irá ajudá-lo a orientar-se nas discussões do grupo
     proposals_show:
@@ -31,8 +31,8 @@ pt-PT:
       contributeButton: Usando estes botões pode visualizar as contribuições de outros utilizadores e adicionar as suas próprias. As contribuições são sempre referidas no parágrafo em que estão acessíveis
       newComment: Use para adicionar um contributo que não se refere a um parágrafo específico
       menu_left: Neste menu à esquerda pode encontrar toda a informação sobre a proposta
-      evaluations: O número de avaliações, expresso pelos participantes, que indica se a proposta está pronta para a votação ou se o debate deve continuar
-      ranking: A maturidade da proposta, que é a percentagem de participantes que acham que a proposta está pronta para votação
+      evaluations: O número de avaliações, expresso pelos partecipantes, que indica se a proposta está pronta para a votação ou se o debate deve continuar
+      ranking: A maturidade da proposta, que é a percentagem de partecipantes que acham que a proposta está pronta para votação
       status: O estado da proposta. Neste caso, esta encontra-se na fase de debate
       dates: Data da criação e da última atualização da proposta
       condition_left: Condições para finalizar o debate

@@ -10,27 +10,34 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   has_many :proposals, class_name: 'Proposal', foreign_key: 'vote_period_id'
   has_many :possible_proposals, class_name: 'Proposal', foreign_key: 'vote_event_id'
-  has_one :meeting, class_name: 'Meeting', dependent: :destroy
-  has_one :place, through: :meeting, class_name: 'Place'
+  has_one :meeting, class_name: 'Meeting'
+  has_one :place, through: :meeting, class_name: 'Place', dependent: :destroy
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'event_id', dependent: :destroy
-  has_many :organizers, through: :meeting_organizations, class_name: 'Group', source: :group
+
+  has_many :groups, through: :meeting_organizations, class_name: 'Group', source: :group
 
   has_one :election, class_name: 'Election', dependent: :destroy
 
-  has_many :comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
+  has_many :event_comments, class_name: 'EventComment', foreign_key: :event_id, dependent: :destroy
 
   belongs_to :user
 
-  accepts_nested_attributes_for :meeting, :election
+  delegate :meeting_participations, to: :meeting
 
-  scope :public, -> {where(private: false)}
-  scope :private, -> {where(private: true)}
+  accepts_nested_attributes_for :meeting
+
+  scope :public, -> { where(private: false) }
+  scope :private, -> { where(private: true) }
   scope :vote_period, lambda { |*starttime|
     where(['event_type_id = ? AND starttime > ?', 2, starttime.empty? ? Time.now : starttime]).order('starttime asc')
   }
-  scope :in_group, lambda { |group_id| {include: [:organizers], conditions: ['groups.id = ?', group_id]} if group_id }
+  scope :in_group, lambda { |group_id| {include: [:groups], conditions: ['groups.id = ?', group_id]} if group_id }
 
-  scope :next, -> {where(['starttime > ?', Time.now])}
+  scope :next, -> { where(['starttime > ?', Time.now]) }
+
+  scope :time_scoped, -> (starttime, endtime) { where(["(starttime >= :starttime and starttime < :endtime) or (endtime >= :starttime and endtime < :endtime)",
+                                                       starttime: starttime.to_formatted_s(:db),
+                                                       endtime: endtime.to_formatted_s(:db)]) }
 
 
   after_destroy :remove_scheduled_tasks
@@ -99,7 +106,7 @@ class Event < ActiveRecord::Base
   end
 
   def is_past?
-    Time.now > self.endtime
+    self.endtime < Time.now
   end
 
   def is_now?
@@ -127,7 +134,7 @@ class Event < ActiveRecord::Base
   end
 
   def backgroundColor
-    "#DFEFFC"
+    self.event_type.color || "#DFEFFC"
   end
 
   def textColor
@@ -183,9 +190,37 @@ class Event < ActiveRecord::Base
     event
   end
 
+  def to_fc #fullcalendar format
+    {id: self.id,
+     title: self.title,
+     description: self.description || "Some cool description here...",
+     start: "#{self.starttime.iso8601}",
+     end: "#{self.endtime.iso8601}",
+     allDay: self.all_day,
+     recurring: self.event_series_id ? true : false,
+     backgroundColor: self.backgroundColor,
+     textColor: self.textColor,
+     borderColor: Colors::darken_color(self.backgroundColor),
+     editable: !self.is_votazione?
+    }
+  end
+
 
   def to_param
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
+  end
+
+
+  def move(minutes_delta=0,days_delta=0,all_day=nil)
+    self.starttime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.starttime))
+    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
+    self.all_day = all_day if all_day
+    self.save
+  end
+
+  def resize(minutes_delta=0,days_delta=0)
+    self.endtime = minutes_delta.minutes.from_now(days_delta.days.from_now(self.endtime))
+    self.save
   end
 
 end

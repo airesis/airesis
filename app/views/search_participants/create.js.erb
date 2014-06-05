@@ -1,0 +1,8 @@
+$('#results_container').html('<%=j render 'group_participations/group_participation_results'%>');
+disegnaBottoni();
+reset();
+<%if params[:back] %>
+<%else%>
+    window.history.pushState(null,"",'<%=j raw group_group_participations_path(@group, params) + '&_ajax=true'%>');
+    everPushedSomething = 'pushed it real good';
+<%end%>

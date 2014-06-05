@@ -185,7 +185,7 @@ function disegnaProgressBar() {
     });
 
 
-    $('.proposal_bottom .partecipants').each(function () {
+    $('.proposal_bottom .participants').each(function () {
         $(this).qtip({
             content: $('.authors', this),
             position: {
@@ -381,42 +381,67 @@ var datePickerOptions = {
     stepMinute: 5,
     stepHour: 1,
     altTimeField: "alt"
+};
+
+
+function start_end_fdatetimepicker(start, end, min_minutes, suggested_minutes) {
+    min_minutes = typeof min_minutes !== 'undefined' ? min_minutes : 5;
+    suggested_minutes = typeof suggested_minutes !== 'undefined' ? suggested_minutes : min_minutes;
+
+    start.fdatetimepicker()
+        .on('hide', function (event) {
+            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
+            $(event.currentTarget).isValid(settings.validators);
+            var eventStartTime_ = $(event.currentTarget).fdatetimepicker('getDate');
+            var minStartTime = addMinutes(eventStartTime_, min_minutes);
+            var eventEndTime_ = end.fdatetimepicker("getDate");
+            end.fdatetimepicker("setStartDate", minStartTime);
+            if (eventEndTime_ < minStartTime) {
+                end.fdatetimepicker("setDate", addMinutes(eventStartTime_, suggested_minutes));
+                showOnField(end, 'Changed!');
+            }
+
+        });
+
+
+    var minTime_ = start.fdatetimepicker('getDate');
+    end.fdatetimepicker({startDate: minTime_})
+        .on('hide', function (event) {
+            var settings = window.ClientSideValidations.forms[event.currentTarget.form.id];
+            $(event.currentTarget).isValid(settings.validators);
+        });
 }
 
 
-function disegnaDatePicker() {
-    //data inizio evento
-    $('#event_starttime').datetimepicker($.extend({}, datePickerOptions, {
-        onClose: function (date) {
-            calculate_event_times();
-            startTimeChanged();
+function select2town(element) {
+    element.select2({
+        cacheDataSource: [],
+        placeholder: Airesis.i18n.type_for_town,
+        query: function (query) {
+            self = this;
+            var key = query.term;
+            var cachedData = self.cacheDataSource[key];
+
+            if (cachedData) {
+                query.callback({results: cachedData});
+                return;
+            } else {
+                $.ajax({
+                    url: '/comunes',
+                    data: { q: query.term },
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (data) {
+                        self.cacheDataSource[key] = data;
+                        query.callback({results: data});
+                    }
+                })
+            }
+        },
+        escapeMarkup: function (m) {
+            return m;
         }
-    }));
-
-    //data termine evento
-    $("#event_endtime").datetimepicker($.extend({}, datePickerOptions, {
-        onClose: function (date) {
-            calculate_event_times();
-            endTimeChanged();
-        }
-    }));
-
-    $("#candidates_end_time").datetimepicker($.extend({}, datePickerOptions, {
-        onClose: function (date) {
-            calculate_event_times();
-
-            candidatesTimeChanged();
-
-        }
-    }));
-
-    $('#groups_end_time').datetimepicker($.extend({}, datePickerOptions, {
-        onClose: function (date) {
-            calculate_event_times();
-
-            groupsTimeChanged();
-        }
-    }));
+    });
 }
 
 function disegnaCountdown() {
@@ -431,7 +456,7 @@ function deleteMe(el) {
 
 function getURLParameter(name) {
     return decodeURIComponent(
-            (location.search.match(RegExp("[?|&]" + name + '=(.+?)(&|$)')) || [, null])[1]
+        (location.search.match(RegExp("[?|&]" + name + '=(.+?)(&|$)')) || [, null])[1]
     );
 }
 
@@ -495,7 +520,7 @@ var document_title = document.title;
 
 function set_alerts_number(number) {
     $('.alert.notify.boxed').append(number);
-    document.title = '('+number+') ' + document_title;
+    document.title = '(' + number + ') ' + document_title;
 }
 
 function reset_alerts_number() {
@@ -521,14 +546,12 @@ function decrease_alerts_number() {
     if (num_ > 1) {
         num_ -= 1;
         box_.html(num_);
-        document.title = '('+num_+') ' + document_title;
+        document.title = '(' + num_ + ') ' + document_title;
     }
     else {
         reset_alerts_number();
     }
 }
-
-
 
 
 function read_notifica(el) {
@@ -576,18 +599,18 @@ function sign_all_as_read(id) {
 function poll() {
     last_poll_start = new Date().getTime() / 1000;
     $.ajax({
-        dataType: 'json',
-        type: 'get',
-        url: "/alerts/polling",
+        dataType: 'JSON',
+        type: 'GET',
+        url: "/alerts",
         success: function (data) {
             if (data.count > 0) {
                 $('#alerts_link').append($('<button class="alert notify boxed">').append(data.count));
-                document.title = '('+data.count+') ' + document.title;
+                document.title = '(' + data.count + ') ' + document.title;
             }
             var n_container = $("#alert_cont");
             n_container.empty();
             var read_container = $('<div class="read_all">');
-            read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">'+Airesis.i18n.alerts_sign_has_read+'</a>'));
+            read_container.append($('<a href="#" onclick="sign_all_as_read(' + data.id + ');return false;">' + Airesis.i18n.alerts_sign_has_read + '</a>'));
             var sub_container = $('<div class="cont1">');
             n_container.append(read_container).append(sub_container);
             for (var j = 0; j < data.alerts.length; j++) {
@@ -603,7 +626,7 @@ function poll() {
                 }
 
                 if (!alert.checked) {
-                    alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="'+Airesis.i18n.alert_read+'" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></span>'));
+                    alert_container.append($('<span class="ui-icon ui-icon-radio-off read" title="' + Airesis.i18n.alert_read + '" data-type_id="' + data.id + '" onclick="read_notifica(this);return false;"></span>'));
                 }
                 var notif_container = $('<div class="mess_desc"></div>');
                 notif_container.append($('<p class="p2">' + alert.text + '</p>'));
@@ -614,16 +637,16 @@ function poll() {
                 sub_container.append(li_alert_con);
             }
             if (data.alerts.length == 0) {
-                sub_container.append($('<span>'+Airesis.i18n.no_alerts+'</span>'));
+                sub_container.append($('<span>' + Airesis.i18n.no_alerts + '</span>'));
             }
 
             $('.cont1')
-                    .bind('mousewheel DOMMouseScroll', function (e) {
-                        if (e.originalEvent) e = e.originalEvent;
-                        var delta = e.wheelDelta || -e.detail;
-                        this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-                        e.preventDefault();
-                    });
+                .bind('mousewheel DOMMouseScroll', function (e) {
+                    if (e.originalEvent) e = e.originalEvent;
+                    var delta = e.wheelDelta || -e.detail;
+                    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+                    e.preventDefault();
+                });
             disegnaCountdown();
 
         },
@@ -636,7 +659,6 @@ function poll() {
         }
     });
 }
-
 
 
 function set_noise_data() {
@@ -683,7 +705,7 @@ function secondsToString(seconds) {
 
 function getQueryParam(param) {
     var result = window.location.search.match(
-            new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
+        new RegExp("(\\?|&)" + param + "(\\[\\])?=([^&]*)")
     );
 
     return result ? result[3] : false;
@@ -792,7 +814,7 @@ function airesis_reveal(element_, remove_on_close) {
 //to call when reveal content is replaced by a new one
 function airesis_reveal_refresh(element_) {
     element_.append('<a class="close-reveal-modal">&#215;</a>');
-    element_.find('[data-reveal-close]').click(function(){
+    element_.find('[data-reveal-close]').click(function () {
         element_.foundation().foundation('reveal', 'close');
     });
 }
@@ -818,11 +840,11 @@ jQuery.uaMatch = function (ua) {
     ua = ua.toLowerCase();
 
     var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-            /(msie) ([\w.]+)/.exec(ua) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
-            [];
+        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+        /(msie) ([\w.]+)/.exec(ua) ||
+        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+        [];
 
     return {
         browser: match[ 1 ] || "",
@@ -851,18 +873,16 @@ if (!jQuery.browser) {
 }
 
 
-
-
 /*we'll do that in 4.0 TODO */
 
 var rails = $.rails;
 rails.handleRemote = function (element) {
     console.log('handle remote');
-    if ($(window).width() <=768) return;
+    if ($(window).width() <= 768) return;
     var method, url, data,
-            crossDomain = element.data('cross-domain') || null,
-            dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
-            options;
+        crossDomain = element.data('cross-domain') || null,
+        dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType),
+        options;
 
     if (rails.fire(element, 'ajax:before')) {
 
@@ -918,12 +938,12 @@ rails.handleRemote = function (element) {
 };
 
 
-function showOnField(field,text) {
-    var to_attach = $('<small class="warning">'+text+'</small>');
+function showOnField(field, text) {
+    var to_attach = $('<small class="warning">' + text + '</small>');
     field.parent().after(to_attach);    //attach after parent label
     field.addClass('warning');
-    setTimeout(function() {
+    setTimeout(function () {
         field.removeClass('warning');
         to_attach.slideUp();
-    },10000)
+    }, 10000)
 }

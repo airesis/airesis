@@ -2,22 +2,26 @@
 class QuorumsController < ApplicationController
   include NotificationHelper
 
-  #load group
-  before_filter :load_group, except: :help
-  before_filter :load_quorum, only: [:edit, :update, :destroy, :dates]
+  layout :choose_layout
 
   #security controls
   before_filter :authenticate_user!
 
-  before_filter :check_permissions, only: [:new,:create,:edit,:update,:destroy,:change_status]
+  before_filter :load_group, except: :help
 
-  layout :choose_layout
+  authorize_resource :group
+
+  load_and_authorize_resource :best_quorum, parent: false, through: :group, singleton: true, except: [:index]
+
+  def index
+    authorize! :index, BestQuorum
+  end
 
   def new
-    @page_title=  t('pages.groups.edit_quorums.new_quorum.title')
+    @page_title= t('pages.groups.edit_quorums.new_quorum.title')
     @quorum = BestQuorum.new({percentage: 0, good_score: 20, vote_percentage: 0, vote_good_score: 50})
-    @partecipants_count = @group.count_proposals_partecipants
-    @vote_partecipants_count = @group.count_voter_partecipants
+    @group_participations_count = @group.count_proposals_participants
+    @vote_participants_count = @group.count_voter_participants
     respond_to do |format|
       format.js
       format.html
@@ -25,57 +29,39 @@ class QuorumsController < ApplicationController
   end
 
   def create
-    begin
-      BestQuorum.transaction do
-        @quorum = @group.quorums.build(params[:best_quorum])
-        @quorum.public = false
-        @group.save!
-      end
-
+    @best_quorum.public = false
+    if @best_quorum.save
       respond_to do |format|
         flash[:notice] = t('info.quorums.quorum_created')
         format.js
       end
-
-    rescue Exception => e
+    else
       respond_to do |format|
         flash[:error] = t('error.quorums.quorum_creation')
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-          page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
-        end
-        }
-        #format.html { redirect_to edit_permissions_group_path(@quorum) }
+        format.js { render 'layouts/active_record_error', object: @best_quorum }
       end
     end
   end
 
   def edit
     @page_title = t('pages.groups.edit_quorums.edit_quorum')
-    @partecipants_count = @group.count_proposals_partecipants
-    @vote_partecipants_count = @group.count_voter_partecipants
+    @group_participations_count = @group.count_proposals_participants
+    @vote_participants_count = @group.count_voter_participants
   end
 
 
   def update
-    Quorum.transaction do
-      @quorum.attributes = params[:best_quorum]
-      @quorum.save!
-    end
-
-    respond_to do |format|
-      flash[:notice] = t('info.quorums.quorum_updated')
-      format.js
-    end
-
-  rescue Exception => e
-    respond_to do |format|
-      flash[:error] = t('error.quorums.quorum_modification')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        page.alert @quorum.errors.full_messages.join(";") if (@quorum && @quorum.errors)
+    @best_quorum.attributes = best_quorum_params
+    if @best_quorum.save
+      respond_to do |format|
+        flash[:notice] = t('info.quorums.quorum_updated')
+        format.js
       end
-      }
+    else
+      respond_to do |format|
+        flash[:error] = t('error.quorums.quorum_modification')
+        format.js { render 'layouts/active_record_error', locals: {object: @best_quorum} }
+      end
     end
   end
 
@@ -141,25 +127,11 @@ class QuorumsController < ApplicationController
     end
   end
 
-
-  private
-  def check_permissions
-    return  if current_user.admin? || (@group.portavoce.include? current_user)
-    flash[:error] = t('unauthorized.default')
-    respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end }
-    end
-  end
-
   protected
 
-
-  def load_quorum
-    @quorum = Quorum.find(params[:id])
+  def best_quorum_params
+    params.require(:best_quorum).permit(:id, :name, :description, :percentage, :valutations, :minutes, :good_score)
   end
-
 
   def choose_layout
     @group ? "groups" : "open_space"

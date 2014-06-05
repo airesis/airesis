@@ -17,9 +17,7 @@ class NotificationsController < ApplicationController
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js   { render :update do |page|
-                     page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-                    end}
+      format.js { render 'layouts/error'}
     end
   end
 
@@ -37,9 +35,7 @@ class NotificationsController < ApplicationController
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js   { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end}
+      format.js { render 'layouts/error'}
     end
   end
 
@@ -57,9 +53,7 @@ class NotificationsController < ApplicationController
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       flash[:error] = t('error.setting_preferences')
-      format.js   { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end}
+      format.js { render 'layouts/error'}
     end
   end
 end

@@ -58,7 +58,7 @@ es-CL:
         published: Estado
         published_true: Publicado
         published_false: Proyecto borrador
-      partecipation_role:
+      participation_role:
         name: Nombre
         description: Descripción corta
       group_invitation:
@@ -90,15 +90,15 @@ es-CL:
         days_m: Días
         hours_m: horas
         minutes_m: Minutos
-        percentage: Participantes (porcentaje)
-        percentage_title: Número mínimo de participantes en la discusión como un porcentaje del número de participantes en el grupo
+        percentage: Partecipantes (porcentaje)
+        percentage_title: Número mínimo de partecipantes en la discusión como un porcentaje del número de partecipantes en el grupo
         good_score: Quórum (porcentaje)
         good_score_title: Valoración para lograr llevar la propuesta a la fase de votación
         bad_score: Mal quórum (porcentaje)
-        bad_score_title: Clasificación bajo el cual se rechazará la propuesta. Le permite continuar la discusión si no se cumplen las condiciones de tiempo o los participantes
+        bad_score_title: Clasificación bajo el cual se rechazará la propuesta. Le permite continuar la discusión si no se cumplen las condiciones de tiempo o los partecipantes
         condition: Condición
-        condition_title: ¿Las condiciones de tiempo y los participantes deben ser tantos superar o sólo uno de ellos?
-      search_partecipant:
+        condition_title: ¿Las condiciones de tiempo y los partecipantes deben ser tantos superar o sólo uno de ellos?
+      search_participant:
         role_id: Rol
         keywords: Nombre o apellido
       sys_movement:

@@ -74,16 +74,16 @@
 
     <% if can? :view_data, @group %>
 
-        <div id="partecipants_container" class="mybox">
-          <%= render partial: 'groups/partecipants_panel' %>
+        <div id="participants_container" class="mybox">
+          <%= render partial: 'groups/participants_panel' %>
         </div>
-        <% unless @group.disable_partecipation_requests %>
-            <div id="partecipation_requests_container">
-              <%= render partial: 'groups/partecipation_requests_panel' %>
+        <% unless @group.disable_participation_requests %>
+            <div id="participation_requests_container">
+              <%= render partial: 'groups/participation_requests_panel' %>
             </div>
         <% end %>
 
-        <% voting = @group.partecipation_requests.voting
+        <% voting = @group.participation_requests.voting
            if voting.size > 0 %>
             <div class="mybox">
               <p>
@@ -101,12 +101,12 @@
 
         <br/>
 
-        <% @mypartecipation = @group.group_partecipations.where(user_id: current_user.id).first if current_user %>
-        <% if @mypartecipation %>
+        <% @myparticipation = @group.group_participations.where(user_id: current_user.id).first if current_user %>
+        <% if @myparticipation %>
             <div class="mybox">
               <div id="permissions_list_container" title="<%= t('pages.groups.show.list_permissions.title') %>"></div>
               <%= link_to t('pages.groups.show.list_permissions.button'), permissions_list_group_path(@group), remote: true, data:{disable_with: t('loading')}, class: 'btn infoButton' unless @group.portavoce.include? current_user %>
-              <%= link_to t('pages.users.show.get_out_of_group_button'), group_group_partecipation_path(@group, @mypartecipation), method: :delete, data:{disable_with: t('loading'), confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn extlinkButton' if can? :destroy, @mypartecipation %>
+              <%= link_to t('pages.users.show.get_out_of_group_button'), group_group_participation_path(@group, @myparticipation), method: :delete, data:{disable_with: t('loading'), confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn extlinkButton' if can? :destroy, @myparticipation %>
             </div>
         <% end %>
 
@@ -125,7 +125,7 @@
     <% else %>
         <div class="mybox">
           <p>
-            <%= link_to t('pages.groups.show.ask_participate_button'), url_for(action: "ask_for_partecipation", controller: "groups", id: @group.id), class: "btn blue editButton" %>
+            <%= link_to t('pages.groups.show.ask_participate_button'), url_for(action: "ask_for_participation", controller: "groups", id: @group.id), class: "btn blue editButton" %>
           </p>
         </div>
     <% end %>

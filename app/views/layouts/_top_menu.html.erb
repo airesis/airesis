@@ -19,7 +19,7 @@
         <% end %>
         <% if current_user %>
             <li class="has-form">
-              <%= form_for Search.new, data: {remote: true} do |f| %>
+              <%= simple_form_for Search.new, data: {remote: true} do |f| %>
                   <div class="row collapse">
                     <div class="large-12 small-10 columns">
                       <%= f.text_field :q, placeholder: "Find Stuff" %>
@@ -49,11 +49,11 @@
         <% if current_user %>
             <li>
               <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:true"} do %>
-                  <%= current_user.user_image_tag 30, false, false %>
+                  <%= current_user.user_image_tag 30, cert: false %>
                   <span><%= current_user.fullname %></span>
               <% end %>
               <%= link_to '#', class: 'account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:true"} do %>
-                  <%= current_user.user_image_tag 30, false, false %>
+                  <%= current_user.user_image_tag 30, cert: false %>
               <% end %>
             </li>
             <li>

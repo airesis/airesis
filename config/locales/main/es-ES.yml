@@ -105,7 +105,7 @@ es-ES:
         new_role_title: Nuevo rol
         user_title: Usuario
         role_title: Rol
-        no_users_yet: Aquí usted será capaz de gestionar roles de los participantes, cuando habrá algunos.
+        no_users_yet: Aquí usted será capaz de gestionar roles de los partecipantes, cuando habrá algunos.
         default_role: Rol predeterminado en el grupo
         confirm_role_deletion: ¿Está seguro que desea eliminar este rol?
         remove_user: Eliminar usuario
@@ -134,7 +134,7 @@ es-ES:
         search_description: Use the search tool or click on a tag to find groups of your interest
         insert_query_or_place: Debe escribir por lo menos tres caracteres o una frontera geográfica
         tags: Etiquetas
-        partecipants_number: Número de participantes
+        participants_number: Número de partecipantes
         proposals_number: Número de propuestas
         events_number: Número de eventos
         no_results: Ningún grupo encontrado
@@ -161,7 +161,7 @@ es-ES:
         rules_button: Reglas
         post_button: Insertar mensajes
         blog_button: Crear mi Blog
-        participants_list: 'Lista de participantes '
+        participants_list: 'Lista de partecipantes '
         invite_button: Invita a tus amigos!
         show_all_participants: 'Muestra todas las %{count}...'
         participants_full_list: Lista completa de los miembros del grupo
@@ -177,7 +177,7 @@ es-ES:
         list_permissions:
           title: Lista de sus permisos dentro del grupo
           button: Lista de permisos
-        print_all_participants: Imprimir la lista de participantes
+        print_all_participants: Imprimir la lista de partecipantes
         last_proposals: Propuestas añadidas recientemente
         rule_book_html: |
           The rules can be selected while creating a group.<br/>
@@ -211,7 +211,7 @@ es-ES:
           advanced_percentage_description3: The proposal remains in debate until the rank is between the two thresholds.
         active: Activo
         name: Nombre
-        participants: Participantes
+        participants: Partecipantes
         condition: Condición
         good_percentage: '% Rango'
         bad_percentage: '% Rejection'
@@ -237,8 +237,8 @@ es-ES:
           description4: 'Antes de activar las áreas de trabajo, verifique si puede administrar grupos miembros directamente usando '
         manage:
           new_area: Crear un área de trabajo
-          switch_area_participants: Cambiar a la gestión de participantes
-          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los participantes, o haga clic en el nombre para gestionar roles y permisos en la área de trabajo
+          switch_area_participants: Cambiar a la gestión de partecipantes
+          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los partecipantes, o haga clic en el nombre para gestionar roles y permisos en la área de trabajo
           title: Configuración de área de trabajo
           list_participants: 'Lista de los miembros del grupo. Seleccione para cada uno de ellos  la pertenencia a las áreas de trabajo.'
           switch_area_management: 'Cambiar a  la gestión de áreas de trabajo'
@@ -254,7 +254,7 @@ es-ES:
         text_to_send: Texto para enviar (opcional)
         title: Invita a tus amigos a unirse al grupo.
       participations:
-        list_participations: Lista de participantes
+        list_participations: Lista de partecipantes
         search: Búsqueda
         filter: Filter
         anything: Todos
@@ -265,8 +265,8 @@ es-ES:
         role: Rol
         member_since: Miembro desde
         participants_html:
-          one: '<b>1</b> participante'
-          other: '<b>%{count}</b> participantes'
+          one: '<b>1</b> partecipante'
+          other: '<b>%{count}</b> partecipantes'
     login:
       title: Identificarse
     confirmation:
@@ -530,12 +530,12 @@ es-ES:
         no_partecipate: You will not participate at the event
         with_guests: 'with %{field} guests'
         will_be_in: Are you attending the event?
-        partecipants: Who attended?
+        participants: Who attended?
         will_partecipate: Who will attend?
-        no_partecipants: Did not attend no one
-        no_partecipants_yet: Still no participants
-        non_partecipants: Who did not attend?
-        will_non_partecipants: Who will not attend?
+        no_participants: Did not attend no one
+        no_participants_yet: Still no participants
+        non_participants: Who did not attend?
+        will_non_participants: Who will not attend?
     votations:
       show:
         vote_positive: Positive rating
@@ -877,7 +877,7 @@ es-ES:
         published: State
         published_true: Published
         published_false: Draft
-      partecipation_role:
+      participation_role:
         name: Name
         description: Short description
       group_invitation:
@@ -917,7 +917,7 @@ es-ES:
         bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
         condition: Condition
         condition_title: The conditions of Time and Participants must be both overcome or just one of them?
-      search_partecipant:
+      search_participant:
         role_id: Role
         keywords: Name or surname
       sys_movement:

@@ -4,7 +4,6 @@ class ProposalsController < ApplicationController
 
   #load_and_authorize_resource
 
-
   #carica il gruppo
   before_filter :load_group
   before_filter :load_group_area
@@ -104,6 +103,7 @@ class ProposalsController < ApplicationController
       }
       format.json
     end
+
   end
 
   #list all proposals in a state
@@ -445,13 +445,13 @@ class ProposalsController < ApplicationController
     end
     #se il numero di valutazioni è definito
 
-    if @group #calcolo il numero in base ai partecipanti    
+    if @group #calcolo il numero in base ai partecipanti
       if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_partecipants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
+        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_participants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
       else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_partecipants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_partecipants.to_f) / 100).floor #todo we must calculate it before votation
+        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_participants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
       end
     else #calcolo il numero in base agli utenti del portale (il 10%)
       @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor

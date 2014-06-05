@@ -60,7 +60,7 @@ fr:
         description: "Nommer des membres pour l'élection"
       PROPOSAL_VIEW:
         description: Voir les propositions privées
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuer aux propositions
       PROPOSAL_INSERT:
         description: Insérer des nouvelles propositions dans le groupe
@@ -194,7 +194,7 @@ fr:
         description: Nouvelles propositions dans le groupe
         email_subject: '%{proposal}'
         message: 'Nouvelle proposition <b>%{proposal}</b> créée dans le groupe <b>%{group}</b>'
-      new_partecipation_request:
+      new_participation_request:
         description: Nouvelle demande de participation
         email_subject: Nouvelle demande de participation
         message: '<b>%{user}</b> a demandé à participer au groupe <b>%{group}</b>'

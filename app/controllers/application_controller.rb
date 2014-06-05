@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ApplicationController < ActionController::Base
-  include ApplicationHelper, GroupsHelper, NotificationHelper, StepHelper
+  include ApplicationHelper, GroupsHelper, NotificationHelper, StepsHelper
   helper :all
   protect_from_forgery
   after_filter :discard_flash_if_xhr
@@ -20,6 +20,28 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password)}
+  end
+
+  #redirect all'ultima pagina in cui ero
+  def after_sign_in_path_for(resource)
+    #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
+    if session[:proposal_comment] && session[:proposal_id]
+      @proposal = Proposal.find(session[:proposal_id])
+      params[:proposal_comment] = session[:proposal_comment]
+      session[:proposal_id] = nil
+      session[:proposal_comment] = nil
+      post_contribute rescue nil
+      proposal_path(@proposal)
+    else
+      env = request.env
+      ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
+      ret
+    end
+  end
+
+  #redirect alla pagina delle proposte
+  def after_sign_up_path_for(resource)
+    proposals_path
   end
 
   protected
@@ -100,15 +122,40 @@ class ApplicationController < ActionController::Base
 
   def render_error(exception)
     log_error(exception)
-    render template: "/errors/500.html.erb", status: 500, layout: 'application'
+    respond_to do |format|
+      format.js {
+        flash.now[:error] = "<b>#{t('error.error_500.title')}</b></br>#{t('error.error_500.description')}"
+        render template: "layouts/error", status: 500, layout: 'application'
+      }
+      format.html {
+        render template: "/errors/500.html.erb", status: 500, layout: 'application'
+      }
+    end
+
+  end
+
+  def solr_unavailable(exception)
+    log_error(exception)
+    respond_to do |format|
+      format.js {
+        flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
+        render template: "/errors/solr_unavailable.js.erb", status: 500, layout: 'application'
+      }
+      format.html {
+        render template: "/errors/solr_unavailable.html.erb", status: 500, layout: 'application'
+      }
+    end
   end
 
   def render_404(exception=nil)
     log_error(exception) if exception
     respond_to do |format|
+      format.js {
+        flash.now[:error] = 'Sorry. Service unavailable. Try again in few minutes.'
+        render template: "/errors/solr_unavailable.js.erb", status: 500, layout: 'application'
+      }
       format.html { render "errors/404", status: 404, layout: 'application' }
     end
-    true
   end
 
 
@@ -175,9 +222,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
         flash.now[:error] = t('error.admin_required')
-        render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
+        render 'layouts/error'
       end
       format.html do #ritorna indietro oppure all'HomePage
         store_location
@@ -196,41 +241,29 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.js do #se era una chiamata ajax, mostra il messaggio
         flash.now[:error] = exception.message
-        render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
+        render 'layouts/error', status: :forbidden
       end
       format.html do #ritorna indietro oppure all'HomePage
-        store_location
         flash[:error] = exception.message
-        if request.env["HTTP_REFERER"]
-          redirect_to :back
-        else
-          redirect_to proposals_path
-        end
+        render 'errors/access_denied', status: :forbidden
       end
     end
   end
 
   #salva l'url
   def store_location
-    #if (params[:controller] == "proposal_comments" && params[:action] == "create")
-    #  session[:user_return_to] = request.url
-    #  return
-    #end
     unless (request.xhr? ||
         (!params[:controller]) ||
         (params[:controller].starts_with? "devise/") ||
         (params[:controller] == "passwords") ||
         (params[:controller] == "users/omniauth_callbacks") ||
-        (params[:controller] == "alerts" && params[:action] == "polling") ||
+        (params[:controller] == "alerts" && params[:action] == "index") ||
         (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")) ||
-        (params[:action] == 'feedback'))
+        (params[:action] == 'feedback') || !request.get?)
       session[:proposal_id] = nil
       session[:proposal_comment] = nil
       session[:user_return_to] = request.url
     end
-    # If devise model is not User, then replace :user_return_to with :{your devise model}_return_to
   end
 
 
@@ -283,28 +316,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  #redirect all'ultima pagina in cui ero
-  def after_sign_in_path_for(resource)
-    #se in sessione ho memorizzato un contributo, inseriscilo e mandami alla pagina della proposta
-    if session[:proposal_comment] && session[:proposal_id]
-      @proposal = Proposal.find(session[:proposal_id])
-      params[:proposal_comment] = session[:proposal_comment]
-      session[:proposal_id] = nil
-      session[:proposal_comment] = nil
-      post_contribute rescue nil
-      proposal_path(@proposal)
-    else
-      env = request.env
-      ret = env['omniauth.origin'] || stored_location_for(resource) || root_path
-      ret
-    end
-  end
-
-  #redirect alla pagina delle proposte
-  def after_sign_up_path_for(resource)
-    proposals_path
-  end
-
   def discard_flash_if_xhr
     flash.discard if request.xhr?
   end
@@ -315,6 +326,7 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ::AbstractController::ActionNotFound, with: :render_404
+    rescue_from Errno::ECONNREFUSED, with: :solr_unavailable
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -331,7 +343,7 @@ class ApplicationController < ActionController::Base
           case params[:action]
             when 'show'
               #mark as checked all user alerts about this proposal
-              @unread = current_user.user_alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and user_alerts.checked = ?", @proposal.id.to_s, false])
+              @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", @proposal.id.to_s, false])
               if @unread.where(['notifications.notification_type_id = ?', NotificationType::AVAILABLE_AUTHOR]).exists?
                 flash[:info] = t('info.proposal.available_authors')
               end
@@ -344,7 +356,7 @@ class ApplicationController < ActionController::Base
           case params[:action]
             when 'show'
               #mark as checked all user alerts about this proposal
-              @unread = current_user.user_alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and user_alerts.checked = ?", @blog_post.id.to_s, false])
+              @unread = current_user.alerts.joins(:notification).where(["(notifications.properties -> 'blog_post_id') = ? and alerts.checked = ?", @blog_post.id.to_s, false])
               @unread.check_all
             else
           end

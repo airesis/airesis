@@ -30,7 +30,7 @@ class GroupInvitationsController < ApplicationController
         #controlla che non abbia bloccato la ricezione di inviti
         #che non sia già stato invitato precedentemente
         #che non faccia già parte del gruppo
-        unless BannedEmail.find_by_email(email) || @group.invitation_emails.find_by_email(email) || @group.partecipants.find_by_email(email)
+        unless BannedEmail.find_by_email(email) || @group.invitation_emails.find_by_email(email) || @group.participants.find_by_email(email)
           @group_invitation_email = @group.invitation_emails.build(email: email)
           @group.save!
           @group_invitation = GroupInvitation.create(group_invitation_email_id: @group_invitation_email.id, inviter_id: current_user.id, testo: params[:group_invitation][:testo])
@@ -57,10 +57,10 @@ class GroupInvitationsController < ApplicationController
       @group_invitation_email.accepted = 'Y'
       @group_invitation_email.save
 
-      request = @group.partecipation_requests.build(user_id: current_user.id, group_partecipation_request_status_id: 3)
+      request = @group.participation_requests.build(user_id: current_user.id, group_participation_request_status_id: 3)
       request.save
 
-      part = @group.group_partecipations.build(user_id: current_user.id, partecipation_role_id: @group.partecipation_role_id)
+      part = @group.group_participations.build(user_id: current_user.id, participation_role_id: @group.participation_role_id)
       part.save!
 
     end
@@ -140,7 +140,7 @@ class GroupInvitationsController < ApplicationController
       end
       return false
     end
-    if @group.partecipants.include? current_user
+    if @group.participants.include? current_user
       flash[:error] = "Questo utente fa già parte del gruppo"
       respond_to do |format|
         format.html {render "error.html.erb"}

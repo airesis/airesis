@@ -39,7 +39,7 @@ pt-PT:
           no_category: (Sem categoria)
         default_private: Fórum privado
         default_public: Fórum público
-        default_private_description: Fórum reservado para os participantes do grupo
+        default_private_description: Fórum reservado para os partecipantes do grupo
         default_public_description: Fórum visível para todos os usuários de Airesis. Também os utilizadores que não estão no grupo
       group:
         index: Gerir grupos

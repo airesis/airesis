@@ -1,7 +1,7 @@
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
 <% @username = @data[:username] %>
 <% @comment = @proposal.contributes.find(@data[:comment_id]) %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 <p>
   <%=raw t('mailer.unintegrated_contribute.view_proposal', click_here: (link_to @proposal.title, @alert_url) ) %>
 </p>

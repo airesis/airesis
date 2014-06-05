@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501210241) do
+ActiveRecord::Schema.define(version: 20140520144956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,11 +20,26 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   create_table "action_abilitations", force: true do |t|
     t.integer  "group_action_id"
-    t.integer  "partecipation_role_id"
+    t.integer  "participation_role_id"
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "alerts", force: true do |t|
+    t.integer  "notification_id",                 null: false
+    t.integer  "user_id"
+    t.boolean  "checked"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "checked_at"
+    t.hstore   "properties",      default: {},    null: false
+    t.boolean  "deleted",         default: false, null: false
+    t.datetime "deleted_at"
+  end
+
+  add_index "alerts", ["checked"], name: "index_alerts_on_checked", using: :btree
+  add_index "alerts", ["user_id"], name: "index_alerts_on_user_id", using: :btree
 
   create_table "announcements", force: true do |t|
     t.text     "message"
@@ -42,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "area_partecipations", force: true do |t|
+  create_table "area_participations", force: true do |t|
     t.integer  "user_id",       null: false
     t.integer  "group_area_id", null: false
     t.integer  "area_role_id",  null: false
@@ -126,13 +141,6 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "blog_post_images", force: true do |t|
-    t.integer "blog_post_id", null: false
-    t.integer "image_id",     null: false
-  end
-
-  add_index "blog_post_images", ["blog_post_id", "image_id"], name: "Constraint0", unique: true, using: :btree
 
   create_table "blog_post_tags", force: true do |t|
     t.integer "blog_post_id"
@@ -572,30 +580,30 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   add_index "group_invitations", ["group_invitation_email_id"], name: "index_group_invitations_on_group_invitation_email_id", unique: true, using: :btree
 
-  create_table "group_partecipation_request_statuses", force: true do |t|
+  create_table "group_participation_request_statuses", force: true do |t|
     t.string "description", limit: 200, null: false
   end
 
-  create_table "group_partecipation_requests", force: true do |t|
+  create_table "group_participation_requests", force: true do |t|
     t.integer  "user_id",                                           null: false
     t.integer  "group_id",                                          null: false
-    t.integer  "group_partecipation_request_status_id", default: 1, null: false
+    t.integer  "group_participation_request_status_id", default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "group_partecipation_requests", ["user_id", "group_id"], name: "unique", unique: true, using: :btree
+  add_index "group_participation_requests", ["user_id", "group_id"], name: "unique", unique: true, using: :btree
 
-  create_table "group_partecipations", force: true do |t|
+  create_table "group_participations", force: true do |t|
     t.integer  "user_id",                           null: false
     t.integer  "group_id",                          null: false
-    t.integer  "partecipation_role_id", default: 1, null: false
+    t.integer  "participation_role_id", default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "acceptor_id"
   end
 
-  add_index "group_partecipations", ["user_id", "group_id"], name: "only_once_per_group", unique: true, using: :btree
+  add_index "group_participations", ["user_id", "group_id"], name: "only_once_per_group", unique: true, using: :btree
 
   create_table "group_proposals", force: true do |t|
     t.integer  "proposal_id", null: false
@@ -651,7 +659,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.integer  "image_id"
     t.string   "title_bar"
     t.string   "image_url"
-    t.integer  "partecipation_role_id",                        default: 1,        null: false
+    t.integer  "participation_role_id",                        default: 1,        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "change_advanced_options",                      default: true,     null: false
@@ -661,7 +669,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.integer  "max_storage_size",                             default: 51200,    null: false
     t.integer  "actual_storage_size",                          default: 0,        null: false
     t.boolean  "enable_areas",                                 default: false,    null: false
-    t.integer  "group_partecipations_count",                   default: 1,        null: false
+    t.integer  "group_participations_count",                   default: 1,        null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -674,7 +682,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.string   "status",                                       default: "active", null: false
     t.datetime "status_changed_at"
     t.string   "slug"
-    t.boolean  "disable_partecipation_requests",               default: false
+    t.boolean  "disable_participation_requests",               default: false
     t.boolean  "disable_forums",                               default: false
     t.boolean  "disable_documents",                            default: false
     t.integer  "proposals_count",                              default: 0
@@ -709,7 +717,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.integer "event_id"
   end
 
-  create_table "meeting_partecipations", force: true do |t|
+  create_table "meeting_participations", force: true do |t|
     t.integer "user_id"
     t.integer "meeting_id"
     t.string  "comment"
@@ -771,8 +779,8 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.integer "seq",                      null: false
   end
 
-  create_table "partecipation_roles", force: true do |t|
-    t.integer "parent_partecipation_role_id"
+  create_table "participation_roles", force: true do |t|
+    t.integer "parent_participation_role_id"
     t.integer "group_id"
     t.string  "name",                         limit: 200
     t.string  "description",                  limit: 2000
@@ -1145,7 +1153,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
   end
 
   create_table "request_votes", force: true do |t|
-    t.integer "group_partecipation_request_id",             null: false
+    t.integer "group_participation_request_id",             null: false
     t.integer "user_id",                                    null: false
     t.integer "request_vote_type_id",                       null: false
     t.string  "comment",                        limit: 200
@@ -1169,7 +1177,7 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   add_index "schulze_votes", ["election_id", "preferences"], name: "index_schulze_votes_on_election_id_and_preferences", unique: true, using: :btree
 
-  create_table "search_partecipants", force: true do |t|
+  create_table "search_participants", force: true do |t|
     t.integer  "role_id"
     t.integer  "status_id"
     t.string   "keywords"
@@ -1423,21 +1431,6 @@ ActiveRecord::Schema.define(version: 20140501210241) do
     t.datetime "updated_at"
   end
 
-  create_table "user_alerts", force: true do |t|
-    t.integer  "notification_id",                 null: false
-    t.integer  "user_id"
-    t.boolean  "checked"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "checked_at"
-    t.hstore   "properties",      default: {},    null: false
-    t.boolean  "deleted",         default: false, null: false
-    t.datetime "deleted_at"
-  end
-
-  add_index "user_alerts", ["checked"], name: "index_user_alerts_on_checked", using: :btree
-  add_index "user_alerts", ["user_id"], name: "index_user_alerts_on_user_id", using: :btree
-
   create_table "user_borders", force: true do |t|
     t.integer "user_id",            null: false
     t.integer "interest_border_id", null: false
@@ -1591,15 +1584,18 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   add_foreign_key "action_abilitations", "group_actions", name: "action_abilitations_group_action_id_fk"
   add_foreign_key "action_abilitations", "groups", name: "action_abilitations_group_id_fk"
-  add_foreign_key "action_abilitations", "partecipation_roles", name: "action_abilitations_partecipation_role_id_fk"
+  add_foreign_key "action_abilitations", "participation_roles", name: "action_abilitations_partecipation_role_id_fk"
+
+  add_foreign_key "alerts", "notifications", name: "user_alerts_notification_id_fk"
+  add_foreign_key "alerts", "users", name: "user_alerts_user_id_fk"
 
   add_foreign_key "area_action_abilitations", "area_roles", name: "area_action_abilitations_area_role_id_fk"
   add_foreign_key "area_action_abilitations", "group_actions", name: "area_action_abilitations_group_action_id_fk"
   add_foreign_key "area_action_abilitations", "group_areas", name: "area_action_abilitations_group_area_id_fk"
 
-  add_foreign_key "area_partecipations", "area_roles", name: "area_partecipations_area_role_id_fk"
-  add_foreign_key "area_partecipations", "group_areas", name: "area_partecipations_group_area_id_fk"
-  add_foreign_key "area_partecipations", "users", name: "area_partecipations_user_id_fk"
+  add_foreign_key "area_participations", "area_roles", name: "area_partecipations_area_role_id_fk"
+  add_foreign_key "area_participations", "group_areas", name: "area_partecipations_group_area_id_fk"
+  add_foreign_key "area_participations", "users", name: "area_partecipations_user_id_fk"
 
   add_foreign_key "area_proposals", "group_areas", name: "area_proposals_group_area_id_fk"
   add_foreign_key "area_proposals", "proposals", name: "area_proposals_proposal_id_fk"
@@ -1688,13 +1684,13 @@ ActiveRecord::Schema.define(version: 20140501210241) do
   add_foreign_key "group_invitations", "users", name: "group_invitations_invited_id_fk", column: "invited_id"
   add_foreign_key "group_invitations", "users", name: "group_invitations_inviter_id_fk", column: "inviter_id"
 
-  add_foreign_key "group_partecipation_requests", "group_partecipation_request_statuses", name: "parent_fk"
-  add_foreign_key "group_partecipation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
-  add_foreign_key "group_partecipation_requests", "users", name: "group_partecipation_requests_user_id_fk"
+  add_foreign_key "group_participation_requests", "group_participation_request_statuses", name: "parent_fk"
+  add_foreign_key "group_participation_requests", "groups", name: "group_partecipation_requests_group_id_fk"
+  add_foreign_key "group_participation_requests", "users", name: "group_partecipation_requests_user_id_fk"
 
-  add_foreign_key "group_partecipations", "groups", name: "group_partecipations_group_id_fk"
-  add_foreign_key "group_partecipations", "partecipation_roles", name: "group_partecipations_partecipation_role_id_fk"
-  add_foreign_key "group_partecipations", "users", name: "group_partecipations_user_id_fk"
+  add_foreign_key "group_participations", "groups", name: "group_partecipations_group_id_fk"
+  add_foreign_key "group_participations", "participation_roles", name: "group_partecipations_partecipation_role_id_fk"
+  add_foreign_key "group_participations", "users", name: "group_partecipations_user_id_fk"
 
   add_foreign_key "group_proposals", "groups", name: "group_proposals_group_id_fk"
   add_foreign_key "group_proposals", "proposals", name: "group_proposals_proposal_id_fk"
@@ -1706,15 +1702,15 @@ ActiveRecord::Schema.define(version: 20140501210241) do
   add_foreign_key "group_tags", "tags", name: "group_tags_tag_id_fk"
 
   add_foreign_key "groups", "interest_borders", name: "groups_interest_border_id_fk"
-  add_foreign_key "groups", "partecipation_roles", name: "groups_partecipation_role_id_fk"
+  add_foreign_key "groups", "participation_roles", name: "groups_partecipation_role_id_fk"
 
   add_foreign_key "integrated_contributes", "proposal_comments", name: "integrated_contributes_proposal_comment_id_fk"
   add_foreign_key "integrated_contributes", "proposal_revisions", name: "integrated_contributes_proposal_revision_id_fk"
 
   add_foreign_key "meeting_organizations", "groups", name: "meeting_organizations_group_id_fk"
 
-  add_foreign_key "meeting_partecipations", "meetings", name: "meeting_partecipations_meeting_id_fk"
-  add_foreign_key "meeting_partecipations", "users", name: "meeting_partecipations_user_id_fk"
+  add_foreign_key "meeting_participations", "meetings", name: "meeting_partecipations_meeting_id_fk"
+  add_foreign_key "meeting_participations", "users", name: "meeting_partecipations_user_id_fk"
 
   add_foreign_key "meetings", "events", name: "meetings_event_id_fk"
   add_foreign_key "meetings", "places", name: "meetings_place_id_fk"
@@ -1730,8 +1726,8 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   add_foreign_key "paragraphs", "sections", name: "paragraphs_section_id_fk"
 
-  add_foreign_key "partecipation_roles", "groups", name: "partecipation_roles_group_id_fk"
-  add_foreign_key "partecipation_roles", "partecipation_roles", name: "partecipation_roles_parent_partecipation_role_id_fk", column: "parent_partecipation_role_id"
+  add_foreign_key "participation_roles", "groups", name: "partecipation_roles_group_id_fk"
+  add_foreign_key "participation_roles", "participation_roles", name: "partecipation_roles_parent_partecipation_role_id_fk", column: "parent_participation_role_id"
 
   add_foreign_key "post_publishings", "blog_posts", name: "post_publishings_blog_post_id_fk"
   add_foreign_key "post_publishings", "groups", name: "post_publishings_group_id_fk"
@@ -1826,9 +1822,6 @@ ActiveRecord::Schema.define(version: 20140501210241) do
 
   add_foreign_key "tutorial_progresses", "steps", name: "tutorial_progresses_step_id_fk"
   add_foreign_key "tutorial_progresses", "users", name: "tutorial_progresses_user_id_fk"
-
-  add_foreign_key "user_alerts", "notifications", name: "user_alerts_notification_id_fk"
-  add_foreign_key "user_alerts", "users", name: "user_alerts_user_id_fk"
 
   add_foreign_key "user_borders", "interest_borders", name: "user_borders_interest_border_id_fk"
   add_foreign_key "user_borders", "users", name: "user_borders_user_id_fk"

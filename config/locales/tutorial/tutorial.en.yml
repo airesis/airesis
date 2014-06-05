@@ -19,7 +19,7 @@ en:
       timeline: "A bar that display the status of the debate or the vote"
       timeleft: "The time and/or the evaluations needed to end the debate"
       rankDescription: "The maturity of the proposal, that shows if the proposal is ready to be voted, based on the evaluations of the participants"
-      partecipants: "The number of people that participate in this proposal with their contributions and evaluations"
+      participants: "The number of people that participate in this proposal with their contributions and evaluations"
       contributes: "The number of contributions added"
       end: "This is the structure of the list of proposals. It is the same in every group you participate in and it will help you orient yourself in the discussions of the group"
     proposals_show:

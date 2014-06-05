@@ -21,7 +21,7 @@ class ResqueMailer < ActionMailer::Base
               }
   
   def notification(alert_id)
-    @alert = UserAlert.find(alert_id)
+    @alert = Alert.find(alert_id)
     return if @alert.checked  #do not send emails for already checked alerts
     I18n.locale = @alert.user.locale.key || 'it'
     @data = @alert.notification.data
@@ -73,7 +73,7 @@ class ResqueMailer < ActionMailer::Base
     @from = User.find(from_id)
     @group = Group.find(group_id)
     @user = @from
-    @to = @group.partecipants.where('users.id in (?)',to_ids.split(','))
+    @to = @group.participants.where('users.id in (?)',to_ids.split(','))
     mail(bcc: @to.map{|u| u.email}, from: "Airesis <noreply@airesis.it>", reply_to: @from.email, to: "test@airesis.it", subject: subject)
   end
 

@@ -16,4 +16,6 @@
 		format: "dd/mm/yyyy hh:ii",
         autoclose: true
 	};
+
+    $.fn.fdatetimepicker.defaults = $.fn.fdatetimepicker.dates['it-IT'];
 }(jQuery));

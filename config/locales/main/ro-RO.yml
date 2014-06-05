@@ -133,7 +133,7 @@ ro:
         search_description: Utilizaţi instrumentul căutare sau faceţi clic pe o etichetă pentru a găsi grupuri de interes
         insert_query_or_place: Trebuie să introduceţi cel puţin trei caractere sau un chenar geografic
         tags: Tag-uri
-        partecipants_number: Numărul de participanţi
+        participants_number: Numărul de participanţi
         proposals_number: Numărul de propuneri
         events_number: Numărul de evenimente
         no_results: Nici un grup de găsit
@@ -477,12 +477,12 @@ ro:
                     Nu vei participa la eveniment
         with_guests: "cu oaspeţii %{field}"
         will_be_in: Participați la eveniment?
-        partecipants: Cine a participat?
+        participants: Cine a participat?
         will_partecipate: Cine va participa?
-        no_partecipants: Nu a participat nimeni
-        no_partecipants_yet: Încă nu există participanţi
-        non_partecipants: Cine nu a participat?
-        will_non_partecipants: Cine nu va participa?
+        no_participants: Nu a participat nimeni
+        no_participants_yet: Încă nu există participanţi
+        non_participants: Cine nu a participat?
+        will_non_participants: Cine nu va participa?
     votations:
       show:
         vote_positive: Evaluare pozitivă
@@ -808,7 +808,7 @@ ro:
         published: Stare
         published_true: Publicat
         published_false: Ciornă
-      partecipation_role:
+      participation_role:
         name: Nume
         description: Scurtă descriere
       group_invitation:
@@ -848,7 +848,7 @@ ro:
         bad_score_title: Cotă sub care propunerea va fi respinsă. Îți permite să continui discuția dacă nu sunt îndeplinite condițiile de timp sau de participanți
         condition: Condiţie
         condition_title: Trebuie să fie ambele condiții de timp și participanți depășite sau numai una dintre ele?
-      search_partecipant:
+      search_participant:
         role_id: Rol
         keywords: Numele sau prenumele
       sys_movement:
@@ -997,7 +997,7 @@ ro:
     users:
       join_accounts: Eroare în aderarea conturilor. Această operaţiune nu este disponibilă în acest moment
       join_accounts_password: Parola gresită
-    group_partecipations:
+    group_participations:
       destroy: Nu puteti părăsi un grup în care sunteţi unicul purtătorul de cuvânt
     error_404:
       proposals:
@@ -1095,7 +1095,7 @@ ro:
       multiple_request:
         one: "Ai cerut să participi la noul grup de %{count}"
         other: "Ai cerut să participi în %{count} grupuri noi"
-    group_partecipations:
+    group_participations:
       destroy_ok_1: Ai părăsit grupul. În viitor poţi cere să participi din nou
   interest_borders:
     hint: Tastează câteva caractere pentru a căuta un loc

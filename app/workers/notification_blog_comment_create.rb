@@ -12,7 +12,7 @@ class NotificationBlogCommentCreate < NotificationSender
     post_user = blog_post.user
     comment_user = blog_comment.user
     unless comment_user == post_user #don't send a notification to myself
-      another = UserAlert.another('blog_post_id', blog_post.id,post_user.id,NotificationType::NEW_BLOG_COMMENT).first
+      another = Alert.another('blog_post_id', blog_post.id,post_user.id,NotificationType::NEW_BLOG_COMMENT).first
       if another
         another.increase_count!
         PrivatePub.publish_to("/notifications/#{post_user.id}", pull: 'hello') rescue nil  #todo send specific alert to be included

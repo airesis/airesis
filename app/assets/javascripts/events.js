@@ -1,3 +1,5 @@
+
+
 function moveEvent(event, dayDelta, minuteDelta, allDay) {
     jQuery.ajax({
         data: 'title=' + event.title + '&day_delta=' + dayDelta + '&minute_delta=' + minuteDelta + '&all_day=' + allDay,
@@ -125,30 +127,35 @@ function putMarker(address) {
         });
     }
     else {
-        posizionaMappa(marker_cache[address][0].geometry.location, marker_cache[address][0].geometry.viewport);
+        //posizionaMappa(marker_cache[address][0].geometry.location, marker_cache[address][0].geometry.viewport);
         listenMarkerPosition();
     }
 }
 
 function posizionaMappa(latlng, viewport) {
+    console.log('posiziono mappa');
     map.setCenter(latlng);
     marker.setPosition(latlng);
     map.fitBounds(viewport);
 }
 
 function listenMarkerPosition() {
-    var location = marker.getPosition();
-    $('#' + basename + "latitude_original").val(location.lat());
-    $('#' + basename + "longitude_original").val(location.lng());
+    var location_ = marker.getPosition();
+    console.log('position',location_);
+    $('#' + basename + "latitude_original").val(location_.lat());
+    $('#' + basename + "longitude_original").val(location_.lng());
 }
 
 
 function listenCenterChanged() {
-    $('#' + basename + "latitude_center").val(map.getCenter().lat());
-    $('#' + basename + "longitude_center").val(map.getCenter().lng());
+    var location_ = map.getCenter();
+    console.log('center',location_);
+    $('#' + basename + "latitude_center").val(location_.lat());
+    $('#' + basename + "longitude_center").val(location_.lng());
 }
 
 function listenZoomChanged() {
+    console.log('zoom',map.getZoom());
     $('#' + basename + "zoom").val(map.getZoom());
 
 }

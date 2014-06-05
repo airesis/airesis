@@ -11,6 +11,9 @@ class AreaRolesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :portavoce_required, only: [:edit, :update, :edit_permissions]
 
+
+  #load_and_authorize_resource
+
   def new
     @area_role = @group_area.area_roles.build
   end
@@ -41,9 +44,7 @@ class AreaRolesController < ApplicationController
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.participation_roles.role_updated')
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end }
+      format.js { render 'layouts/success' }
     end
   end
 
@@ -56,7 +57,7 @@ class AreaRolesController < ApplicationController
     AreaActionAbilitation.transaction do
       if params[:block] == "true" #devo togliere i permessi
         abilitation = @area_role.area_action_abilitations.find_by_group_action_id_and_group_area_id(params[:action_id], params[:group_area_id])
-        if (abilitation)
+        if abilitation
           abilitation.destroy
           flash[:notice] =t('info.participation_roles.permissions_updated')
         end
@@ -67,23 +68,17 @@ class AreaRolesController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/success' }
     end
   end
 
   def change_permissions
-    gp = @group_area.area_partecipations.find_by_user_id(params[:user_id])
+    gp = @group_area.area_participations.find_by_user_id(params[:user_id])
     gp.area_role_id = @area_role.id
     gp.save!
     flash[:notice] = t('info.participation_roles.role_changed')
     respond_to do |format|
-      format.js { render :update do |page|
-        page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-      end
-      }
+      format.js { render 'layouts/success' }
     end
   end
 

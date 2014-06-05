@@ -26,14 +26,14 @@
             <strong><%= t('pages.users.show.what_can_i_do') %></strong>
             <ul>
               <li>
-                <%= area.area_partecipations.find_by_user_id(current_user.id).area_role.area_actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
+                <%= area.area_participations.find_by_user_id(current_user.id).area_role.area_actions.order(:seq).map { |a| a.description }.join('</li><li>').html_safe %>
               </li>
             </ul>
 
             <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
             <ul>
               <li>
-                <%= GroupAction.where(['id in (?) and id not in (?)', DEFAULT_AREA_ACTIONS, area.area_partecipations.find_by_user_id(current_user.id).area_role.area_actions.select('group_actions.id')]).map { |a| a.description }.join('</li><li>').html_safe %>
+                <%= GroupAction.where(['id in (?) and id not in (?)', DEFAULT_AREA_ACTIONS, area.area_participations.find_by_user_id(current_user.id).area_role.area_actions.select('group_actions.id')]).map { |a| a.description }.join('</li><li>').html_safe %>
               </li>
             </ul>
           </div>

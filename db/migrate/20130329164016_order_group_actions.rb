@@ -7,7 +7,7 @@ class OrderGroupActions < ActiveRecord::Migration
     GroupAction.find_by_name('REQUEST_ACCEPT').update_attribute(:seq,4)
     GroupAction.find_by_name('SEND_CANDIDATES').update_attribute(:seq,5)
     GroupAction.find_by_name('PROPOSAL_VIEW').update_attribute(:seq,6)
-    GroupAction.find_by_name('PROPOSAL_PARTECIPATION').update_attribute(:seq,8)
+    GroupAction.find_by_name('PROPOSAL_PARTICIPATION').update_attribute(:seq,8)
     GroupAction.find_by_name('PROPOSAL_VOTE').update_attribute(:seq,9)
     GroupAction.find_by_name('PROPOSAL_INSERT').update_attribute(:seq,7)
     GroupAction.find_by_name('DOCUMENT_VIEW').update_attribute(:seq,10)

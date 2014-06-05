@@ -58,7 +58,7 @@ pt-BR:
         description: Nomear membros para eleição
       PROPOSAL_VIEW:
         description: Ver propostas privadas
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuir às propostas
       PROPOSAL_INSERT:
         description: Inserir novas propostas no grupo
@@ -145,7 +145,7 @@ pt-BR:
           waiting_date: "%{name} escolheu a data da votação para a proposta <b>%{title}</b>"
           in_vote: "A proposta <b>%{title}</b> está sendo votada agora!"
           abandoned: "A proposta <b>%{title}</b> não passou o debate e foi abandonada"
-          rejected: "A proposta <b>%{title}</b> foi rejeitada pelos participantes"
+          rejected: "A proposta <b>%{title}</b> foi rejeitada pelos partecipantes"
           voted: "%{title} - votação terminada"
           24_hours: "O debate sobre <b>%{title}</b> termina amanhã!"
           1_hour: "O debate sobre <b>%{title}</b> termina em uma hora!"
@@ -169,7 +169,7 @@ pt-BR:
           waiting_date: "%{name} escolheu a data de votação para a proposta <b>%{title}</b>"
           in_vote: "Sua proposta <b>%{title}</b> está sendo votada agora!"
           abandoned: "Infelizmente a sua proposta <b>%{title}</b> não passou o debate e foi abandonada"
-          rejected: "Infelizmente a sua proposta <b>%{title}</b> foi rejeitada pelos participantes"
+          rejected: "Infelizmente a sua proposta <b>%{title}</b> foi rejeitada pelos partecipantes"
           voted: "<b>%{title}</b> - voto foi finalizado"
           24_hours: "O debate sobre <b>%{title}</b> termina amanhã!"
           1_hour: "O debate sobre <b>%{title}</b> termina em uma hora!"
@@ -190,7 +190,7 @@ pt-BR:
         description: Novas propostas dentro do grupo
         email_subject: "%{proposal}"
         message: "Nova proposta <b>%{proposal}</b> criada no grupo <b>%{group}</b>"
-      new_partecipation_request:
+      new_participation_request:
         description: Novo pedido de participação
         email_subject: Novo pedido de participação
         message: "<b>%{user}</b> pediu para participar do grupo <b>%{group}</b>"

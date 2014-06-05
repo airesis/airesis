@@ -14,8 +14,8 @@ class GroupArea < ActiveRecord::Base
   belongs_to :group, class_name: 'Group', foreign_key: :group_id
   belongs_to :default_role, class_name: 'AreaRole', foreign_key: :area_role_id
 
-  has_many :area_partecipations, -> {order 'id DESC'}, class_name: 'AreaPartecipation', dependent: :destroy
-  has_many :partecipants, through: :area_partecipations, source: :user, class_name: 'User'
+  has_many :area_participations, -> {order 'id DESC'}, class_name: 'AreaParticipation', dependent: :destroy
+  has_many :participants, through: :area_participations, source: :user, class_name: 'User'
 
   has_many :area_proposals, class_name: 'AreaProposal'#, dependent: :destroy
   has_many :internal_proposals, through: :area_proposals, class_name: 'Proposal', source: :proposal
@@ -26,11 +26,9 @@ class GroupArea < ActiveRecord::Base
   after_create :after_populate
 
   def pre_populate
-
     role = self.area_roles.build({name: self.default_role_name, description: 'Ruolo predefinito dell\'area'})
     role.save!
     self.area_role_id = role.id
-
   end
 
   def after_populate
@@ -47,28 +45,28 @@ class GroupArea < ActiveRecord::Base
 
 
   #utenti che possono partecipare alle proposte
-  def count_proposals_partecipants
-    self.partecipants.count(
+  def count_proposals_participants
+    self.participants.count(
         joins: "join area_roles
-               on area_partecipations.area_role_id = area_roles.id
+               on area_participations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
-        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
+        conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTICIPATION} AND area_action_abilitations.group_area_id = #{self.id})")
   end
 
   #utenti che possono votare le proposte
-  def count_voter_partecipants
-    self.partecipants.count(
+  def count_voter_participants
+    self.participants.count(
         joins: "join area_roles
-               on area_partecipations.area_role_id = area_roles.id
+               on area_participations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
         conditions: "(area_action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND area_action_abilitations.group_area_id = #{self.id})")
   end
 
   #utenti che possono eseguire un'azione
-  def scoped_partecipants(action_id)
-    return self.partecipants.all(
+  def scoped_participants(action_id)
+    return self.participants.all(
         joins: "join area_roles
-               on area_partecipations.area_role_id = area_roles.id
+               on area_participations.area_role_id = area_roles.id
                left join area_action_abilitations on area_roles.id = area_action_abilitations.area_role_id",
         conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action_id, self.id])
   end

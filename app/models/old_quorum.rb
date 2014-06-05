@@ -213,11 +213,11 @@ class OldQuorum < Quorum
 
   protected
 
-  def min_partecipants_pop
+  def min_participants_pop
     count = 1
     if self.percentage
       if self.group
-        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_partecipants) #todo group areas
+        count = (self.percentage.to_f * 0.01 * self.group.count_proposals_participants) #todo group areas
       else
         count = (self.percentage.to_f * 0.001 * User.count)
       end
@@ -331,7 +331,7 @@ class OldQuorum < Quorum
     if self.minutes #if the quorum has a minimum time
       time = "<b>#{self.time}</b> "
       if self.percentage
-        participants = I18n.t('models.quorum.participants', count: self.min_partecipants)
+        participants = I18n.t('models.quorum.participants', count: self.min_participants)
         if self.or?
           ret = I18n.translate('models.quorum.or_condition_1', #display number of required evaluations and time left
                                percentage: self.percentage,
@@ -347,7 +347,7 @@ class OldQuorum < Quorum
         ret = I18n.translate('models.quorum.time_condition_1', time: time) #display the time left for discussion
       end
     else #only evaluations
-      participants = I18n.t('models.quorum.participants', count: self.min_partecipants)
+      participants = I18n.t('models.quorum.participants', count: self.min_participants)
       ret = I18n.translate('models.quorum.participants_condition_1', participants_num: participants) #display number of required evaluations
     end
     ret += "<br/>"

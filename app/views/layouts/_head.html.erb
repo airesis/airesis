@@ -1,5 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		
+
 <%= stylesheet_link_tag 'application' %>
 <%= javascript_include_tag 'application' %>
 <%= javascript_include_tag "i18n/jquery.ui.datepicker.#{I18n.locale}" %>
@@ -16,60 +16,65 @@
 <meta name="description" content="<%= (@page_descr) %>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="author" content="Tecnologie Democratiche" />
-<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="author" content="Tecnologie Democratiche"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
 <script type="text/javascript">
-
-  $(function() {
-
-
-      var feedback_options =
-              Feedback({
-                  h2cPath: '/assets/html2canvas.js',
-                  url: '/send_feedback',
-                  label: '<%=j t('pages.feedback.send_feedback')%>',
-                  header:     '<%=j t('pages.feedback.send_feedback')%>',
-                  nextLabel: '<%=j t('pages.feedback.add_details')%>',
-                  reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
-                  sendLabel: '<%=j t('buttons.send')%>',
-                  closeLabel: '<%=j t('buttons.close')%>',
-                  messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
-                  messageError: '<%=j t('pages.feedback.send_error')%>',
-                  appendTo: $('footer .feedback_space')[0],
-                  btnClass: "feedbackBtn",
-                  pages: [
-                      new window.Feedback.Form([
-                          {
-                              type: "textarea",
-                              name: "message",
-                              label: "<%=I18n.t('pages.feedback.describe_problem')%>",
-                              required: true
-                          },
-                          /*{
-                           type: "input",
-                           name: "Email",
-                           label: "Inserisci un'indirizzo email sul quale ricevere risposta",
-                           required: false
-                           }*/
-                      ]
-                      ),
-                      new window.Feedback.Screenshot({
-                          h2cPath: '/assets/html2canvas.js',
-                          blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
-                          highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
-                          highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"}),
-                      new window.Feedback.Review()
-                  ]
-              });
-  })
-
+    $(function () {
+        var feedback_options =
+                Feedback({
+                    h2cPath: '/assets/html2canvas.js',
+                    url: '/send_feedback',
+                    label: '<%=j t('pages.feedback.send_feedback')%>',
+                    header: '<%=j t('pages.feedback.send_feedback')%>',
+                    nextLabel: '<%=j t('pages.feedback.add_details')%>',
+                    reviewLabel: '<%=j t('pages.feedback.view_preview')%>',
+                    sendLabel: '<%=j t('buttons.send')%>',
+                    closeLabel: '<%=j t('buttons.close')%>',
+                    messageSuccess: '<%=j t('pages.feedback.send_succes')%>',
+                    messageError: '<%=j t('pages.feedback.send_error')%>',
+                    appendTo: $('footer .feedback_space')[0],
+                    btnClass: "feedbackBtn",
+                    pages: [
+                        new window.Feedback.Form([
+                            {
+                                type: "textarea",
+                                name: "message",
+                                label: "<%=I18n.t('pages.feedback.describe_problem')%>",
+                                required: true
+                            },
+                            /*{
+                             type: "input",
+                             name: "Email",
+                             label: "Inserisci un'indirizzo email sul quale ricevere risposta",
+                             required: false
+                             }*/
+                        ]
+                        ),
+                        new window.Feedback.Screenshot({
+                            h2cPath: '/assets/html2canvas.js',
+                            blackoutButtonMessage: "<%=j t('pages.feedback.blackout')%>",
+                            highlightButtonMessage: "<%=j t('pages.feedback.highlight')%>",
+                            highlightOrBlackout: "<%=j t('pages.feedback.highlight_or_blackout')%>"}),
+                        new window.Feedback.Review()
+                    ]
+                });
+    });
+    var Airesis = {};
+    Airesis.id = <%=current_user ? current_user.id : -1 %>;
+    Airesis.i18n = {};
+    Airesis.i18n.alerts_sign_has_read = '<%=j raw t('pages.header.menu.sign_has_read')%>';
+    Airesis.i18n.alert_read = '<%=j raw t('pages.header.read')%>';
+    Airesis.i18n.no_alerts = '<%=j raw t('pages.header.no_alerts')%>';
+    Airesis.i18n.countdown = '<%=j raw t('countdown')%>';
+    Airesis.i18n.type_for_town = '<%=j raw t('pages.events.new.type_for_town')%>';
+    Airesis.i18n.locale = '<%=I18n.locale%>';
 </script>
 
-<%if I18n.locale.to_s == "crowdin" %>
+<% if I18n.locale.to_s == "crowdin" %>
     <script type="text/javascript">
         var _jipt = [];
         _jipt.push(['project', 'airesis']);
     </script>
     <script type="text/javascript" src="//cdn.crowdin.net/jipt/jipt.js">
     </script>
-<%end%>
+<% end %>

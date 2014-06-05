@@ -1,4 +1,4 @@
-<%= form_for(@announcement) do |f| %>
+<%= simple_form_for @announcement do |f| %>
   <% if @announcement.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
@@ -10,20 +10,15 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :message %><br />
-    <%= f.text_area :message %>
-  </div>
-  <div class="field">
-    <%= f.label :starts_at %><br />
-    <%= f.datetime_select :starts_at %>
-  </div>
-  <div class="field">
-    <%= f.label :ends_at %><br />
-    <%= f.datetime_select :ends_at %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.input :message %>
+    <%= f.input :starts_at, as: :string, input_html:{ data: {datetimepicker: ''}} %>
+    <%= f.input :ends_at, as: :string, input_html:{ data: {datetimepicker: ''}}  %>
+    <%= f.submit class: 'btn blue' %>
 <% end %>
+
+
+<script>
+  $(function() {
+    $('input[data-datetimepicker]').fdatetimepicker();
+  });
+</script>

@@ -58,7 +58,7 @@ ro-RO:
         published: Stare
         published_true: Publicat
         published_false: Ciornă
-      partecipation_role:
+      participation_role:
         name: Nume
         description: Scurtă descriere
       group_invitation:
@@ -98,7 +98,7 @@ ro-RO:
         bad_score_title: Cotă sub care propunerea va fi respinsă. Îți permite să continui discuția dacă nu sunt îndeplinite condițiile de timp sau de participanți
         condition: Condiţie
         condition_title: Trebuie să fie ambele condiții de timp și participanți depășite sau numai una dintre ele?
-      search_partecipant:
+      search_participant:
         role_id: Rol
         keywords: Numele sau prenumele
       sys_movement:

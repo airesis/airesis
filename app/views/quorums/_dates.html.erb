@@ -107,9 +107,9 @@
             $('#proposal_votation_choise_preset').click();
         });
 
-        $('#proposal_votation_end').fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>']);
+        $('#proposal_votation_end').fdatetimepicker();
 
-        $('#proposal_votation_start').fdatetimepicker($.fn.fdatetimepicker.dates['<%=I18n.locale%>'])
+        $('#proposal_votation_start').fdatetimepicker()
                 .on('hide', function (event) {
                    var eventStartTime_ = event.date;
                    console.log(eventStartTime_);

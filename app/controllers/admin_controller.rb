@@ -4,6 +4,7 @@ require 'rake'
 
 class AdminController < ManagerController
   include ProposalsModule
+
   before_filter :admin_required
 
   layout 'users'
@@ -75,7 +76,7 @@ class AdminController < ManagerController
     else
       NotificationType.all.each do |type|
         notification = type.notifications.order('created_at desc').first
-        alert = notification.user_alerts.first if notification
+        alert = notification.alerts.first if notification
         ResqueMailer.delay.notification(alert.id) if alert
       end
     end

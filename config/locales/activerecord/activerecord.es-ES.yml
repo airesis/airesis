@@ -58,7 +58,7 @@ es-ES:
         published: State
         published_true: Published
         published_false: Draft
-      partecipation_role:
+      participation_role:
         name: Name
         description: Short description
       group_invitation:
@@ -98,7 +98,7 @@ es-ES:
         bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
         condition: Condition
         condition_title: The conditions of Time and Participants must be both overcome or just one of them?
-      search_partecipant:
+      search_participant:
         role_id: Role
         keywords: Name or surname
       sys_movement:

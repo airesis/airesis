@@ -31,7 +31,7 @@ class NotificationBlogPostCreate < NotificationSender
 
       #notifica a chi partecipa al gruppo
       notification_b = Notification.create(notification_type_id: NotificationType::NEW_POST_GROUP, url: group_blog_post_url(group, blog_post), data: data)
-      group.partecipants.each do |user|
+      group.participants.each do |user|
         if (user != post_user) && (!sent_users.include? user)
           if send_notification_to_user(notification_b, user)
             sent_users << user

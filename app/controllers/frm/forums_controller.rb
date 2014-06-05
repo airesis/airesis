@@ -35,7 +35,7 @@ module Frm
     private
 
     #def check_permissions
-    #  raise CanCan::AccessDenied unless @group.partecipants.include? current_user
+    #  raise CanCan::AccessDenied unless @group.participants.include? current_user
     #end
 
     def register_view

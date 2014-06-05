@@ -1,7 +1,7 @@
 <% @comment = BlogComment.find(@data[:blog_comment_id]) %>
 <% @user = @comment.user %>
 <% @blog_post = @comment.blog_post %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang ) %>
 <%= t('mailer.new_blog_comment.title', {user: @user.fullname, post: @blog_post.title})%><br/>
 <%=raw t('mailer.new_blog_comment.view_post', {click_here: (link_to t('mailer.new_blog_comment.click_here'), @alert_url)})%><br/>
 

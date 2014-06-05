@@ -36,14 +36,14 @@ class UsersController < ApplicationController
           auth.authentications.build(provider: data['provider'], uid: data['uid'], token: (data['credentials']['token'] rescue nil))
           if data["provider"] == Authentication::PARMA
             group = Group.find_by_subdomain('parma')
-            auth.group_partecipation_requests.build(group: group, group_partecipation_request_status_id: GroupPartecipationRequestStatus::ACCEPTED)
-            partecipation_role = group.default_role
+            auth.group_participation_requests.build(group: group, group_participation_request_status_id: GroupParticipationRequestStatus::ACCEPTED)
+            participation_role = group.default_role
             if data['info']['verified']
               certification = auth.build_certification({name: auth.name, surname: auth.surname, tax_code: auth.email})
-              partecipation_role = PartecipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || partecipation_role  #look for best role or fallback
+              participation_role = ParticipationRole.where(['group_id = ? and lower(name) = ?',group.id, 'residente']).first || participation_role  #look for best role or fallback
               auth.user_type_id = UserType::CERTIFIED
             end
-            auth.group_partecipations.build(group: group, partecipation_role_id: partecipation_role.id)
+            auth.group_participations.build(group: group, participation_role_id: participation_role.id)
           end
           auth.save!
         end
@@ -365,7 +365,7 @@ class UsersController < ApplicationController
 
   def autocomplete
     @group = Group.friendly.find(params[:group_id])
-    users = @group.partecipants.autocomplete(params[:term])
+    users = @group.participants.autocomplete(params[:term])
     users = users.map do |u|
       {id: u.id, identifier: "#{u.surname} #{u.name}", image_path: "#{u.user_image_tag 20}"}
     end

@@ -18,10 +18,7 @@ class BlockedProposalAlertsController < ApplicationController
         format.js { render 'replace' }
       else
         flash[:notice] = 'Errore durante la disattivazione delle notifiche'
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
+        format.js { render 'layouts/error' }
       end
     end
   end
@@ -35,10 +32,7 @@ class BlockedProposalAlertsController < ApplicationController
         format.js { render 'replace' }
       else
         flash[:notice] = "Errore durante l'attivazione delle notifiche"
-        format.js { render :update do |page|
-          page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
-        end
-        }
+        format.js { render 'layouts/error' }
       end
     end
   end

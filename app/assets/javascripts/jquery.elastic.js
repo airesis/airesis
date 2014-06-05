@@ -13,6 +13,7 @@
  * https://sites.fastspring.com/technoreply/instant/autogrowtextareaplugin
  *
  * Date: October 15, 2012
+ * todo replace with https://github.com/jackmoore/autosize
  */
 (function($){
     $.fn.elastic = function(){

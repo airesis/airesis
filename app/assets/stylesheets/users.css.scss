@@ -95,3 +95,29 @@
 .user_certified_mini {
   border: 3px solid #57CF1C;
 }
+
+.card.user {
+  padding: 0;
+  width: 100%;
+  .image {
+    width: 100%;
+    max-height: 140px;
+    overflow-y: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  .info {
+    padding: 0.4rem;
+    .name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow-x: hidden;
+      margin: 5px 0px 5px 0px;
+    }
+  }
+  .bottom {
+    padding: 0.4rem;
+  }
+}

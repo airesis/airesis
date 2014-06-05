@@ -26,11 +26,11 @@ class ProposalsWorker
         # 1 ora prima della chiusura del dibattito
         notify_1_hour_left(@proposal)
       when LEFT24VOTE
-        #send a notification to all partecipants that can vote the proposal and haven't voted it yet
+        #send a notification to all participants that can vote the proposal and haven't voted it yet
         # 24 ore prima della chiusura del dibattito
         notify_24_hours_left_to_vote(@proposal)
       when LEFT1VOTE
-        #send a notification to all partecipants that can vote the proposal and haven't voted it yet
+        #send a notification to all participants that can vote the proposal and haven't voted it yet
         # 1 ora prima della chiusura del dibattito
         notify_1_hour_left_to_vote(@proposal)
       else

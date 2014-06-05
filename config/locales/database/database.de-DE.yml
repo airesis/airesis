@@ -58,7 +58,7 @@ de:
         description: Mitglieder für die Wahlen nominieren
       PROPOSAL_VIEW:
         description: Private Vorschläge anzeigen
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Zu den Vorschlägen beitragen
       PROPOSAL_INSERT:
         description: Neue Vorschläge in die Gruppe eintragen
@@ -192,7 +192,7 @@ de:
         description: Neuer Vorschlag innerhalb der Gruppe
         email_subject: "%{proposal}"
         message: "Neuer Vorschlag <b>%{proposal}</b> in der Gruppe <b>%{group}</b> erstellt"
-      new_partecipation_request:
+      new_participation_request:
         description: Neue Teilnahme-Anfrage
         email_subject: Neue Teilnahme-Anfrage
         message: "<b>%{user}</b> möchte gerne der Gruppe <b>%{group}</b> beitreten"

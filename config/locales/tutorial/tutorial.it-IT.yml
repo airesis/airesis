@@ -19,7 +19,7 @@ it-IT:
       timeline: "Una barra che indica lo stato di avanzamento del dibattito o della votazione"
       timeleft: "Il tempo e/o le valutazioni richieste per terminare il dibattito"
       rankDescription: "Il grado di maturità della proposta, che indica se la proposta é pronta per essere votata, sulla base delle valutazioni dei partecipanti"
-      partecipants: "Il numero di persone che partecipano in questa proposta con i loro contributi e le loro valutazioni"
+      participants: "Il numero di persone che partecipano in questa proposta con i loro contributi e le loro valutazioni"
       contributes: "Il numero di contributi inseriti"
       end: "Questa è la struttura dell'elenco proposte. La troverai sempre uguale in tutti i gruppi a cui partecipi e ti servirà per orientarti tra le discussioni del gruppo"
     proposals_show:

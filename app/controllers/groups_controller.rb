@@ -14,9 +14,11 @@ class GroupsController < ApplicationController
   #before_filter :check_author,   only: [:new, :create, :edit, :update, :destroy]
 
   #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required, only: [:edit, :update, :edit_permissions, :enable_areas, :edit_proposals]
+  before_filter :portavoce_required, only: [:edit, :update, :enable_areas, :edit_proposals]
 
   before_filter :admin_required, only: [:autocomplete]
+
+  authorize_resource
 
 
   def autocomplete
@@ -65,7 +67,7 @@ class GroupsController < ApplicationController
           return
         end
         @page_title = @group.name
-        @partecipants = @group.partecipants
+        @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
       }
@@ -90,7 +92,7 @@ class GroupsController < ApplicationController
       }
       format.html {
         @page_title = t('pages.groups.archives.title', group: @group.name, year: params[:year], month: t('date.month_names')[params[:month].to_i])
-        @partecipants = @group.partecipants
+        @group_participations = @group.participants
         @group_posts = @group_posts.page(params[:page]).per(COMMENTS_PER_PAGE)
         @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
         render 'show'
@@ -109,19 +111,6 @@ class GroupsController < ApplicationController
   def edit
     authorize! :update, @group
     @page_title = t("pages.groups.edit.title")
-  end
-
-
-  def edit_events
-    @page_title = t("pages.groups.edit_events.title")
-  end
-
-  def edit_permissions
-    @page_title = t("pages.groups.edit_permissions.title")
-  end
-
-  def edit_proposals
-    #conta il numero di partecipanti che possono valutare le proposte
   end
 
   def change_advanced_options
@@ -273,9 +262,9 @@ class GroupsController < ApplicationController
         end
 
 
-        partecipant_ids = @group.partecipant_ids
-        partecipant_ids.each do |id|
-          r = GroupPartecipationRequest.new({group_id: @group.id, user_id: id, group_partecipation_request_status_id: 3})
+        participant_ids = @group.participant_ids
+        participant_ids.each do |id|
+          r = GroupParticipationRequest.new({group_id: @group.id, user_id: id, group_participation_request_status_id: 3})
           r.save
         end
 
@@ -308,40 +297,40 @@ class GroupsController < ApplicationController
   end
 
   #fa partire una richiesta per la partecipazione dell'utente corrente al gruppo
-  def ask_for_partecipation
+  def ask_for_participation
     #verifica se l'utente ha già effettuato una richiesta di partecipazione a questo gruppo
-    request = current_user.group_partecipation_requests.find_by_group_id(@group.id)
+    request = current_user.group_participation_requests.find_by_group_id(@group.id)
 
     if (!request) #se non l'ha mai fatta
-      partecipation = current_user.groups.find_by_id(@group.id)
-      if (partecipation) #verifica se per caso non fa già parte del gruppo
+      participation = current_user.groups.find_by_id(@group.id)
+      if (participation) #verifica se per caso non fa già parte del gruppo
                          #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-        request = GroupPartecipationRequest.new
+        request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
-        request.group_partecipation_request_status_id = 3 #accettata, dati corretti
+        request.group_participation_request_status_id = 3 #accettata, dati corretti
         saved = request.save
         if (!saved)
-          flash[:notice] = t('error.group_partecipations.already_member')
+          flash[:notice] = t('error.group_participations.already_member')
         else
-          flash[:error] = t('error.group_partecipations.request_not_registered')
+          flash[:error] = t('error.group_participations.request_not_registered')
         end
       else
         #inoltra la richiesta di partecipazione con stato IN ATTESA
-        request = GroupPartecipationRequest.new
+        request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
-        request.group_partecipation_request_status_id = 1 #in attesa...
+        request.group_participation_request_status_id = 1 #in attesa...
         saved = request.save
         if (!saved)
-          flash[:error] = t('error.group_partecipations.request_sent')
+          flash[:error] = t('error.group_participations.request_sent')
         else
-          flash[:notice] = t('info.group_partecipations.request_sent')
-          notify_user_asked_for_partecipation(@group) #invia notifica ai portavoce
+          flash[:notice] = t('info.group_participations.request_sent')
+          notify_user_asked_for_participation(@group) #invia notifica ai portavoce
         end
       end
     else
-      flash[:notice] = t('info.group_partecipations.request_alredy_sent')
+      flash[:notice] = t('info.group_participations.request_alredy_sent')
 
     end
     redirect_to group_url(@group)
@@ -375,24 +364,24 @@ class GroupsController < ApplicationController
       number = 0
       groups.each do |group_id|
         group = Group.find(group_id)
-        request = current_user.group_partecipation_requests.find_by_group_id(group.id)
+        request = current_user.group_participation_requests.find_by_group_id(group.id)
         unless request #se non l'ha mai fatta
-          partecipation = current_user.groups.find_by_id(group.id)
-          if partecipation #verifica se per caso non fa già parte del gruppo
+          participation = current_user.groups.find_by_id(group.id)
+          if participation #verifica se per caso non fa già parte del gruppo
                            #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
-            request = GroupPartecipationRequest.new
+            request = GroupParticipationRequest.new
             request.user_id = current_user.id
             request.group_id = group.id
-            request.group_partecipation_request_status_id = 3 #accettata, dati corretti
+            request.group_participation_request_status_id = 3 #accettata, dati corretti
             request.save!
           else
             #inoltra la richiesta di partecipazione con stato IN ATTESA
-            request = GroupPartecipationRequest.new
+            request = GroupParticipationRequest.new
             request.user_id = current_user.id
             request.group_id = group.id
-            request.group_partecipation_request_status_id = 1 #in attesa...
+            request.group_participation_request_status_id = 1 #in attesa...
             request.save!
-            notify_user_asked_for_partecipation(group) #invia notifica ai portavoce
+            notify_user_asked_for_participation(group) #invia notifica ai portavoce
             number += 1
           end
         end
@@ -406,11 +395,11 @@ class GroupsController < ApplicationController
 
   #accetta una richiesta di partecipazione passandola allo stato IN VOTAZIONE se
   # è previsto o accettandola altrimenti.
-  def partecipation_request_confirm
+  def participation_request_confirm
     authorize! :accept_requests, @group
-    @request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    @request = @group.participation_requests.pending.find_by_id(params[:request_id])
     if !@request
-      flash[:error] = t('error.group_partecipations.request_not_found')
+      flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -422,19 +411,19 @@ class GroupsController < ApplicationController
       end
     else
       if @group.request_by_portavoce?
-        part = GroupPartecipation.new
+        part = GroupParticipation.new
         part.user_id = @request.user_id
         part.group_id = @group.id
         part.acceptor_id = current_user.id
-        part.partecipation_role_id = @group.partecipation_role_id
+        part.participation_role_id = @group.participation_role_id
         part.save!
-        @request.group_partecipation_request_status_id = 3
+        @request.group_participation_request_status_id = 3
       else
-        @request.group_partecipation_request_status_id = 2
+        @request.group_participation_request_status_id = 2
       end
       saved = @request.save
       if !saved
-        flash[:error] = t('error.group_partecipations.error_saving')
+        flash[:error] = t('error.group_participations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
             page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -446,9 +435,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = t('info.group_partecipations.status_accepted')
+          flash[:notice] = t('info.group_participations.status_accepted')
         else
-          flash[:notice] = t('info.group_partecipations.status_voting')
+          flash[:notice] = t('info.group_participations.status_voting')
         end
         respond_to do |format|
           format.js
@@ -460,11 +449,11 @@ class GroupsController < ApplicationController
     end
   end
 
-  def partecipation_request_decline
+  def participation_request_decline
     authorize! :accept_requests, @group
-    @request = @group.partecipation_requests.pending.find_by_id(params[:request_id])
+    @request = @group.participation_requests.pending.find_by_id(params[:request_id])
     if !@request
-      flash[:error] = t('error.group_partecipations.request_not_found')
+      flash[:error] = t('error.group_participations.request_not_found')
       respond_to do |format|
         format.js { render :update do |page|
           page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -476,13 +465,13 @@ class GroupsController < ApplicationController
       end
     else
       if @group.request_by_portavoce?
-        @request.group_partecipation_request_status_id = 4
+        @request.group_participation_request_status_id = 4
       else
-        @request.group_partecipation_request_status_id = 2
+        @request.group_participation_request_status_id = 2
       end
       saved = @request.save
       if !saved
-        flash[:error] = t('error.group_partecipations.error_saving')
+        flash[:error] = t('error.group_participations.error_saving')
         respond_to do |format|
           format.js { render :update do |page|
             page.replace_html "flash_messages", partial: 'layouts/flash', locals: {flash: flash}
@@ -494,9 +483,9 @@ class GroupsController < ApplicationController
         end
       else
         if @group.request_by_portavoce?
-          flash[:notice] = t('info.group_partecipations.status_declined')
+          flash[:notice] = t('info.group_participations.status_declined')
         else
-          flash[:notice] = t('info.group_partecipations.status_voting')
+          flash[:notice] = t('info.group_participations.status_voting')
         end
         respond_to do |format|
           format.js
@@ -549,7 +538,7 @@ class GroupsController < ApplicationController
 
   #retrieve the list of permission for the current user in the group
   def permissions_list
-    @actions = @group.group_partecipations.find_by_user_id(current_user.id).partecipation_role.group_actions
+    @actions = @group.group_participations.find_by_user_id(current_user.id).participation_role.group_actions
   end
 
 

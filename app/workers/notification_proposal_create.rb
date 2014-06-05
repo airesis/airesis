@@ -24,9 +24,9 @@ class NotificationProposalCreate < NotificationSender
         group_area = group.group_areas.find(group_area_id)
         data['group_area_id'] = group_area.id.to_s
         data['group_area'] = group_area.name
-        receivers = group_area.scoped_partecipants(GroupAction::PROPOSAL_VIEW)
+        receivers = group_area.scoped_participants(GroupAction::PROPOSAL_VIEW)
       else
-        receivers = group.scoped_partecipants(GroupAction::PROPOSAL_VIEW)
+        receivers = group.scoped_participants(GroupAction::PROPOSAL_VIEW)
       end
       notification_a = Notification.new(notification_type_id: NotificationType::NEW_PROPOSALS, url: group_proposal_url(group,proposal, host: host), data: data)
       notification_a.save

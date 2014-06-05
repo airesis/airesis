@@ -58,7 +58,7 @@ es-ES:
         description: Designar a los miembros para la elección
       PROPOSAL_VIEW:
         description: Ver propuestas privadas
-      PROPOSAL_PARTECIPATION:
+      PROPOSAL_PARTICIPATION:
         description: Contribuye a las propuestas
       PROPOSAL_INSERT:
         description: Insertar nuevas propuestas en el grupo
@@ -140,7 +140,7 @@ es-ES:
           waiting_date: '%{name} ha elegido la fecha de la votación de la propuesta <b>%{title}</b>'
           in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
           abandoned: 'La propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada'
-          rejected: 'La propuesta <b>%{title}</b> ha sido rechazada por los participantes'
+          rejected: 'La propuesta <b>%{title}</b> ha sido rechazada por los partecipantes'
       change_status_mine:
         description: Cambio en el estado de mis propuestas
         email_subject:
@@ -154,7 +154,7 @@ es-ES:
           waiting_date: '%{name} ha elegido la fecha de votación de la propuesta <b>%{title}</b>'
           in_vote: '¡Su propuesta <b>%{title}</b> ahora está siendo votada!'
           abandoned: 'Su propuesta <b>%{title}</b> no ha superado el debate y ha sido abandonada, lo sentimos'
-          rejected: 'Su propuesta <b>%{title}</b> ha sido rechazada por los participantes, lo sentimos'
+          rejected: 'Su propuesta <b>%{title}</b> ha sido rechazada por los partecipantes, lo sentimos'
       new_posts_group_follow:
         description: Nuevos posts en los muros de los grupos estoy siguiendo
         email_subject: Nueva publicación
@@ -170,7 +170,7 @@ es-ES:
         description: Nuevas propuestas dentro del grupo
         email_subject: '%{proposal}'
         message: 'Nueva propuesta <b>%{proposal}</b> creada en el grupo <b>%{group}</b>'
-      new_partecipation_request:
+      new_participation_request:
         description: Nueva solicitud de participación
         email_subject: Nueva solicitud de participación
         message: '<b>%{user}</b> pidió participar en el grupo <b>%{group}</b>'

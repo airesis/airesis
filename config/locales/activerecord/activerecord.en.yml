@@ -58,7 +58,7 @@ en:
         published: 'State'
         published_true: 'Published'
         published_false: 'Draft'
-      partecipation_role:
+      participation_role:
          name: 'Name'
          description: 'Short description'
       group_invitation:
@@ -102,7 +102,7 @@ en:
         vote_minutes: 'Vote duration'
         vote_percentage: 'Quorum (voters)'
         vote_good_score: 'Approval'
-      search_partecipant:
+      search_participant:
         role_id: 'Role'
         keywords: 'Name or surname'
       sys_movement:

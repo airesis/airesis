@@ -1,6 +1,6 @@
 class Notification < ActiveRecord::Base
   belongs_to :notification_type, class_name: 'NotificationType', foreign_key: :notification_type_id
-  has_many :user_alerts, class_name: "UserAlert", dependent: :destroy
+  has_many :alerts, class_name: "Alert", dependent: :destroy
   has_many :notification_data, class_name: "NotificationData", dependent: :destroy, foreign_key: :notification_id
 
   def data

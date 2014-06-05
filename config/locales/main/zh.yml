@@ -121,7 +121,7 @@ zh:
         no_groups_yet: "你還沒加入任何 %{name}"
         open_space_title: "公開活動"
         show_more: "顯示更多群組"
-        partecipants_number: "參與人數"
+        participants_number: "參與人數"
         proposals_number: "提案總數"
         events_number: "開啟活動"
         no_results: "找不到群組"
@@ -720,7 +720,7 @@ zh:
         published: '地區'
         published_true: '已發佈'
         published_false: '草稿'
-      partecipation_role:
+      participation_role:
         name: '名稱'
         description: '簡短描述'
       group_invitation:
@@ -760,7 +760,7 @@ zh:
         bad_score_title: '負面評價過多，以致於低於這個門檻時，提案會自動被撤案。但是沒有低於這個門檻，提案將可以持續被討論。'
         condition: 條件
         condition_title: '要以期限為條件或參與人數？或是兩者皆是呢？'
-      search_partecipant:
+      search_participant:
         role_id: '角色'
         keywords: '姓名'
       sys_movement:

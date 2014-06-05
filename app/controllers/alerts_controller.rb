@@ -4,47 +4,47 @@ class AlertsController < ApplicationController
 
   layout 'users'
 
+  load_and_authorize_resource except: [:check_all,:proposal], through: :current_user
+
   def index
-    @page_title = "All alerts"
-    @user = current_user
-    @new_user_alerts = current_user.user_alerts.all(include: :notification, conditions: 'checked = false')
-    @old_user_alerts = current_user.user_alerts.all(include: :notification, conditions: 'checked = true')
-  end
-
-  def polling
-    unread = current_user.user_alerts.where({checked: false, deleted: false}).includes(:notification_type, :notification_category)
-    numunread = unread.count
-    if numunread < 10
-      unread += current_user.user_alerts.where({checked: true, deleted: false}).includes(:notification_type, :notification_category).limit(10 - numunread)
+    respond_to do |format|
+      format.html {
+        @page_title = "All alerts"
+        @new_alerts = @alerts.includes(:notification).where(checked: false)
+        @old_alerts = @alerts.includes(:notification).where(checked: true)
+      }
+      format.json {
+        unread = @alerts.where({checked: false, deleted: false}).includes(:notification_type, :notification_category)
+        numunread = unread.count
+        if numunread < 10
+          unread += @alerts.where({checked: true, deleted: false}).includes(:notification_type, :notification_category).limit(10 - numunread)
+        end
+        alerts = unread.map do |alert|
+          {id: alert.id,
+           path: alert.checked ? alert.notification.url : check_alert_url(alert),
+           created_at: (time_in_words alert.created_at),
+           checked: alert.checked,
+           text: alert.message,
+           proposal_id: alert.data[:proposal_id],
+           category_name: alert.notification_category.short.downcase,
+           category_title: alert.notification_category.description.upcase,
+           image: "<img src=\"/assets/notification_categories/#{alert.notification_category.short.downcase}.png\"/>"}
+        end
+        @map = {count: numunread, alerts: alerts}
+        render json: @map
+      }
     end
-    alerts = unread.map do |alert|
-      {id: alert.id,
-       path: alert.checked ? alert.notification.url : check_alert_alert_url(alert),
-       created_at: (time_in_words alert.created_at),
-       checked: alert.checked,
-       text: alert.message,
-       proposal_id: alert.data[:proposal_id],
-       category_name: alert.notification_category.short.downcase,
-       category_title: alert.notification_category.description.upcase,
-       image: "<img src=\"/assets/notification_categories/#{alert.notification_category.short.downcase}.png\"/>"}
-    end
-    @map = {count: numunread, alerts: alerts}
-  end
-
-  #set all alerts as read
-  def read_alerts
-    @new_user_alerts = current_user.unread_alerts.check_all
   end
 
   #sign as read an alert and redirect to corresponding url
-  def check_alert
+  def check
     begin
-      @user_alert = current_user.admin? ? UserAlert.find(params[:id]) : current_user.user_alerts.find_by_id(params[:id])
-      @user_alert.check!
+      @alert = current_user.admin? ? Alert.find(params[:id]) : current_user.alerts.find_by_id(params[:id])
+      @alert.check!
 
       respond_to do |format|
         format.js { render nothing: true }
-        format.html { redirect_to @user_alert.notification.url }
+        format.html { redirect_to @alert.notification.url }
       end
 
 
@@ -56,9 +56,14 @@ class AlertsController < ApplicationController
 
   end
 
-  #check all notifications in a specific category
+  #todo to remove in one year from 08-05-2014
+  def check_alert
+    check
+  end
+
+  #check all notifications
   def check_all
-    current_user.user_alerts.where(['user_alerts.checked = ?', false]).check_all
+    current_user.unread_alerts.check_all
     respond_to do |format|
       format.js { render nothing: true }
     end
@@ -66,7 +71,7 @@ class AlertsController < ApplicationController
 
   #return notification tooltip for a specific proposal and user
   def proposal
-    @unread = current_user.user_alerts.where(["(notifications.properties -> 'proposal_id') = ? and user_alerts.checked = ?", params[:proposal_id].to_s, false])
+    @unread = current_user.alerts.where(["(notifications.properties -> 'proposal_id') = ? and alerts.checked = ?", params[:proposal_id].to_s, false])
     render layout: false
   end
 end

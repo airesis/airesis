@@ -146,7 +146,7 @@ it-IT:
         search_description: "Utilizza la maschera di ricerca o seleziona una delle parole chiave per trovare i gruppi di tuo interesse"
         insert_query_or_place: "Devi inserire almeno tre lettere o un confine geografico"
         tags: "Parole chiave"
-        partecipants_number: "Numero di partecipanti"
+        participants_number: "Numero di partecipanti"
         proposals_number: "Numero di proposte"
         events_number: "Numero di eventi organizzati"
         no_results: "Nessun gruppo trovato"
@@ -345,7 +345,7 @@ it-IT:
         search_title: "Testo contenuto"
         search_placeholder: "Almeno due caratteri"
         search_words: "Almeno una parola"
-        partecipants_number: "PARTECIPANTI"
+        participants_number: "PARTECIPANTI"
         contributes_number: "CONTRIBUTI"
         rank: "MATURITA'"
         voters: "VOTANTI"
@@ -624,12 +624,12 @@ it-IT:
         no_partecipate: "Non parteciperai all'evento"
         with_guests: "con %{field} ospiti"
         will_be_in: "Parteciperai all'evento?"
-        partecipants: "Chi ha partecipato?"
+        participants: "Chi ha partecipato?"
         will_partecipate: "Chi parteciperà?"
-        no_partecipants: "Non ha partecipato nessuno"
-        no_partecipants_yet: "Ancora nessun partecipante"
-        non_partecipants: "Chi non ha partecipato?"
-        will_non_partecipants: "Chi non parteciperà?"
+        no_participants: "Non ha partecipato nessuno"
+        no_participants_yet: "Ancora nessun partecipante"
+        non_participants: "Chi non ha partecipato?"
+        will_non_participants: "Chi non parteciperà?"
         voting_proposals: "In queste giornate si voteranno le seguenti proposte"
         no_voting_proposals: "Ancora nessuna proposta in votazione durante queste giornate"
     votations:
@@ -941,6 +941,9 @@ it-IT:
         explain_html: |
           Seleziona gli utenti che vuoi che ti aiutino a redigere la sintesi della proposta e clicca su 'Salva'.<br/>
           Fai attenzione! Questi utenti avranno i tuoi stessi permessi nella gestione della proposta.
+    group_participations:
+      index:
+        title: "Elenco partecipanti"
   pl:
     comments:
       zero: "nessun commento"
@@ -1005,7 +1008,7 @@ it-IT:
         published: 'Stato'
         published_true: 'Pubblicato'
         published_false: 'In bozza'
-      partecipation_role:
+      participation_role:
          name: "Nome"
          description: "Breve descrizione"
       group_invitation:
@@ -1045,7 +1048,7 @@ it-IT:
         bad_score_title: "Maturità al di sotto della quale la proposta verrà bocciata. Permette di continuare la discussione se non viene raggiunto il quorum"
         condition: Condizione
         condition_title: "Le condizioni di Tempo e Partecipanti devono essere superate entrambe o è sufficiente una delle due?"
-      search_partecipant:
+      search_participant:
         role_id: 'Ruolo'
         keywords: 'Nome o Cognome'
       sys_movement:
@@ -1254,7 +1257,7 @@ it-IT:
     users:
       join_accounts: "Errore durante l'unione dei due account. L'operazione non è possibile al momento"
       join_accounts_password: "Password errata"
-    group_partecipations:
+    group_participations:
        destroy: "Non puoi uscire da un gruppo del quale sei l'unico portavoce"
        already_member: "Errore nella richiesta di partecipazione. Fai già parte di questo gruppo!"
        request_not_registered: "Fai già parte di questo gruppo ma la tua richiesta non è mai stata registrata. Dati corretti"
@@ -1372,7 +1375,7 @@ it-IT:
       multiple_request:
         one: "Hai richiesto di partecipare a %{count} nuovo gruppo"
         other: "Hai richiesto di partecipare a %{count} nuovi gruppi"
-    group_partecipations:
+    group_participations:
       destroy_ok_1: "Sei uscito dal gruppo. In futuro potrai richiedere nuovamente di parteciparvi"
       request_sent: "Richiesta di partecipazione inviata correttamente"
       request_alredy_sent: "Hai già effettuato una richiesta di partecipazione a questo gruppo"

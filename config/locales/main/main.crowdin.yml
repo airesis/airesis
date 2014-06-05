@@ -146,7 +146,7 @@ crowdin:
         search_description: "{crwdns6769:0}{crwdne6769:0}"
         insert_query_or_place: "{crwdns6770:0}{crwdne6770:0}"
         tags: "{crwdns6771:0}{crwdne6771:0}"
-        partecipants_number: "{crwdns6772:0}{crwdne6772:0}"
+        participants_number: "{crwdns6772:0}{crwdne6772:0}"
         proposals_number: "{crwdns6773:0}{crwdne6773:0}"
         events_number: "{crwdns6774:0}{crwdne6774:0}"
         no_results: "{crwdns6775:0}{crwdne6775:0}"
@@ -337,7 +337,7 @@ crowdin:
         search_title: "{crwdns6931:0}{crwdne6931:0}"
         search_placeholder: "{crwdns6932:0}{crwdne6932:0}"
         search_words: "{crwdns6933:0}{crwdne6933:0}"
-        partecipants_number: "{crwdns6934:0}{crwdne6934:0}"
+        participants_number: "{crwdns6934:0}{crwdne6934:0}"
         contributes_number: "{crwdns6935:0}{crwdne6935:0}"
         rank: "{crwdns6936:0}{crwdne6936:0}"
         voters: "{crwdns6937:0}{crwdne6937:0}"
@@ -608,12 +608,12 @@ crowdin:
         no_partecipate: "{crwdns7179:0}{crwdne7179:0}"
         with_guests: "{crwdns7180:0}%{field}{crwdne7180:0}"
         will_be_in: "{crwdns7181:0}{crwdne7181:0}"
-        partecipants: "{crwdns7182:0}{crwdne7182:0}"
+        participants: "{crwdns7182:0}{crwdne7182:0}"
         will_partecipate: "{crwdns7183:0}{crwdne7183:0}"
-        no_partecipants: "{crwdns7184:0}{crwdne7184:0}"
-        no_partecipants_yet: "{crwdns7185:0}{crwdne7185:0}"
-        non_partecipants: "{crwdns7186:0}{crwdne7186:0}"
-        will_non_partecipants: "{crwdns7187:0}{crwdne7187:0}"
+        no_participants: "{crwdns7184:0}{crwdne7184:0}"
+        no_participants_yet: "{crwdns7185:0}{crwdne7185:0}"
+        non_participants: "{crwdns7186:0}{crwdne7186:0}"
+        will_non_participants: "{crwdns7187:0}{crwdne7187:0}"
         voting_proposals: "{crwdns7188:0}{crwdne7188:0}"
         no_voting_proposals: "{crwdns7189:0}{crwdne7189:0}"
     votations:
@@ -964,7 +964,7 @@ crowdin:
         published: "{crwdns7447:0}{crwdne7447:0}"
         published_true: "{crwdns7448:0}{crwdne7448:0}"
         published_false: "{crwdns7449:0}{crwdne7449:0}"
-      partecipation_role:
+      participation_role:
         name: "{crwdns7450:0}{crwdne7450:0}"
         description: "{crwdns7451:0}{crwdne7451:0}"
       group_invitation:
@@ -1004,7 +1004,7 @@ crowdin:
         bad_score_title: "{crwdns7481:0}{crwdne7481:0}"
         condition: "{crwdns7482:0}{crwdne7482:0}"
         condition_title: "{crwdns7483:0}{crwdne7483:0}"
-      search_partecipant:
+      search_participant:
         role_id: "{crwdns7484:0}{crwdne7484:0}"
         keywords: "{crwdns7485:0}{crwdne7485:0}"
       sys_movement:
@@ -1202,7 +1202,7 @@ crowdin:
     users:
       join_accounts: "{crwdns7641:0}{crwdne7641:0}"
       join_accounts_password: "{crwdns7642:0}{crwdne7642:0}"
-    group_partecipations:
+    group_participations:
       destroy: "{crwdns7643:0}{crwdne7643:0}"
       already_member: "{crwdns7644:0}{crwdne7644:0}"
       request_not_registered: "{crwdns7645:0}{crwdne7645:0}"
@@ -1320,7 +1320,7 @@ crowdin:
       multiple_request:
         one: "{crwdns7739:0}%{count}{crwdne7739:0}"
         other: "{crwdns7739:1}%{count}{crwdne7739:1}"
-    group_partecipations:
+    group_participations:
       destroy_ok_1: "{crwdns7740:0}{crwdne7740:0}"
       request_sent: "{crwdns7741:0}{crwdne7741:0}"
       request_alredy_sent: "{crwdns7742:0}{crwdne7742:0}"

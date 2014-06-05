@@ -1,6 +1,6 @@
 <% @proposal = Proposal.find(@data[:proposal_id]) %>
 <% @user = User.find(@data[:user_id]) %>
-<% @alert_url = check_alert_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
+<% @alert_url = check_alert_url(@alert, host: @alert.user.locale.host, l: @alert.user.locale.lang) %>
 
 <%= email_h1 do %>
     <%= @alert.email_subject %>

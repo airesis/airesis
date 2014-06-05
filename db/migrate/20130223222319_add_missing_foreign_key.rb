@@ -1,28 +1,28 @@
 class AddMissingForeignKey < ActiveRecord::Migration
   def up
 
-    Group.all(conditions: "partecipation_role_id != 1").each do |group|
-      group.group_partecipations.each do |partecipation|
-        if partecipation.partecipation_role_id == 1
-          partecipation.update_attribute(:partecipation_role_id,group.partecipation_role_id)
+    Group.all(conditions: "participation_role_id != 1").each do |group|
+      group.group_participations.each do |participation|
+        if participation.participation_role_id == 1
+          participation.update_attribute(:participation_role_id,group.participation_role_id)
         end
       end
     end
 
-    MeetingPartecipation.where("meeting_id not in (#{Meeting.select(:id).to_sql})").destroy_all
-    ActionAbilitation.where("partecipation_role_id not in (#{PartecipationRole.select(:id).to_sql})").destroy_all
+    MeetingParticipation.where("meeting_id not in (#{Meeting.select(:id).to_sql})").destroy_all
+    ActionAbilitation.where("participation_role_id not in (#{ParticipationRole.select(:id).to_sql})").destroy_all
     GroupAffinity.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
-    GroupPartecipationRequest.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
-    GroupPartecipation.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
+    GroupParticipationRequest.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
+    GroupParticipation.where("group_id not in (#{Group.select(:id).to_sql})").destroy_all
     ProposalVote.where("proposal_id not in (#{Proposal.select(:id).to_sql})").destroy_all
 
-    add_foreign_key :meeting_partecipations, :users
-    add_foreign_key :meeting_partecipations, :meetings
+    add_foreign_key :meeting_participations, :users
+    add_foreign_key :meeting_participations, :meetings
     add_foreign_key :meetings, :places
     add_foreign_key :meetings, :events
     add_foreign_key :notifications, :notification_types
-    add_foreign_key :partecipation_roles, :partecipation_roles, {column: :parent_partecipation_role_id}
-    add_foreign_key :partecipation_roles, :groups
+    add_foreign_key :participation_roles, :participation_roles, {column: :parent_participation_role_id}
+    add_foreign_key :participation_roles, :groups
     add_foreign_key :post_publishings, :groups
     add_foreign_key :post_publishings, :blog_posts
     add_foreign_key :proposal_borders, :interest_borders
@@ -59,7 +59,7 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :tutorial_assignees, :tutorials
     add_foreign_key :action_abilitations, :group_actions
     add_foreign_key :action_abilitations, :groups
-    add_foreign_key :action_abilitations, :partecipation_roles
+    add_foreign_key :action_abilitations, :participation_roles
     add_foreign_key :authentications, :users
     add_foreign_key :blocked_alerts, :notification_types
     add_foreign_key :blocked_alerts, :users
@@ -76,12 +76,12 @@ class AddMissingForeignKey < ActiveRecord::Migration
     add_foreign_key :events, :event_types
     add_foreign_key :group_affinities, :groups
     add_foreign_key :group_affinities, :users
-    add_foreign_key :group_partecipation_requests, :users
-    add_foreign_key :group_partecipation_requests, :groups
-    add_foreign_key :group_partecipation_requests, :group_partecipation_request_statuses, name: 'parent_fk'
-    add_foreign_key :group_partecipations, :users
-    add_foreign_key :group_partecipations, :groups
-    add_foreign_key :group_partecipations, :partecipation_roles
+    add_foreign_key :group_participation_requests, :users
+    add_foreign_key :group_participation_requests, :groups
+    add_foreign_key :group_participation_requests, :group_participation_request_statuses, name: 'parent_fk'
+    add_foreign_key :group_participations, :users
+    add_foreign_key :group_participations, :groups
+    add_foreign_key :group_participations, :participation_roles
     add_foreign_key :groups, :interest_borders
     drop_table :blog_entries if self.table_exists?("blog_entries")
     drop_table :provas if self.table_exists?("provas")

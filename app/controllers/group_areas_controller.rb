@@ -2,45 +2,35 @@
 class GroupAreasController < ApplicationController
   layout :choose_layout
 
-  #carica il gruppo
-  before_filter :load_group
-
-  before_filter :load_group_area, only: [:show, :edit, :update, :destroy]
-
-  ###SICUREZZA###
-
-  #l'utente deve aver fatto login
   before_filter :authenticate_user!
-
-  #l'utente deve essere amministratore
-  #before_filter :admin_required, only: [:destroy]
-
-  #l'utente deve essere portavoce o amministratore
-  before_filter :portavoce_required
 
   before_filter :configuration_required
 
   before_filter :areas_active_required, except: :index
 
+  #carica il gruppo
+  before_filter :load_group
+  authorize_resource :group
+  load_and_authorize_resource through: :group, except: [:manage]
 
   def index
     if @group.enable_areas
-      @group_areas = @group.group_areas #.includes(:partecipants)
-      @partecipants = @group.partecipants
+      @group_participations = @group.participants
     else
       render 'area_inactive'
     end
   end
 
   def manage
-    @group_areas = @group.group_areas #.includes(:partecipants)
-    @partecipants = @group.partecipants
+    authorize! :manage, GroupArea
+    @group_areas = @group.group_areas #.includes(:participants)
+    @group_participations = @group.participants
   end
 
 
   def show
     @page_title = @group_area.name
-    @partecipants = @group_area.partecipants
+    @group_participations = @group_area.participants
   end
 
 
@@ -69,8 +59,8 @@ class GroupAreasController < ApplicationController
         @group_area.current_user_id = current_user.id
         @group_area.save!
       end
-      @group_areas = @group.group_areas.includes(:partecipants)
-      @partecipants = @group.partecipants
+      @group_areas = @group.group_areas.includes(:participants)
+      @group_participations = @group.participants
       flash[:notice] = t('info.groups.work_area.area_created')
     rescue ActiveRecord::ActiveRecordError => e
       puts e
@@ -111,12 +101,12 @@ class GroupAreasController < ApplicationController
   def change
     group_area = GroupArea.find(params[:group_area_id])
     if params[:enable] == 'true'
-      part = group_area.area_partecipations.new
+      part = group_area.area_participations.new
       part.user_id = params[:user_id]
       part.area_role_id = group_area.area_role_id
       part.save!
     else
-      group_area.area_partecipations.where(user_id: params[:user_id]).destroy_all
+      group_area.area_participations.where(user_id: params[:user_id]).destroy_all
     end
   end
 
@@ -124,26 +114,15 @@ class GroupAreasController < ApplicationController
   def destroy
     authorize! :destroy, @group_area
     @group_area.destroy
-#    @group_areas = @group.group_areas.includes(:partecipants)
-#    @partecipants = @group.partecipants
+#    @group_areas = @group.group_areas.includes(:participants)
+#    @group_participations = @group.participants
   end
 
-  def partecipants_list_panel
-    @partecipants = @group_area.area_partecipations.includes(:user)
+  def participants_list_panel
+    @group_participations = @group_area.area_participations.includes(:user)
   end
 
   protected
-
-  def load_group_area
-    @group_area = GroupArea.find(params[:id])
-  end
-
-  def portavoce_required
-    unless (current_user && (@group.portavoce.include? current_user)) || is_admin?
-      flash[:error] = t('error.portavoce_required')
-      redirect_to @group
-    end
-  end
 
   def configuration_required
     unless ::Configuration.group_areas

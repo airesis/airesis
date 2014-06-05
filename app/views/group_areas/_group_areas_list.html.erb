@@ -17,14 +17,14 @@
       <%= link_to t('pages.groups.edit_quorums.participants'), '#', class: 'btn areas_button', data: {g_id: area.id} %>
       <div class="areas_list shadow-box">
         <ul>
-          <%@partecipants.each do |partecipant|%>
+          <%@group_participations.each do |participant|%>
               <li>
                 <input type="checkbox"
-                       data-user_id="<%=partecipant.id%>"
+                       data-user_id="<%=participant.id%>"
                        data-group_area_id="<%=area.id%>"
-                       onclick="change_area_partecipation(this);"
-                       <%if area.partecipants.include? partecipant%> checked='checked'<%end%> >
-                <%= partecipant.fullname %>
+                       onclick="change_area_participation(this);"
+                       <%if area.participants.include? participant%> checked='checked'<%end%> >
+                <%= participant.fullname %>
               </li>
           <%end%>
 

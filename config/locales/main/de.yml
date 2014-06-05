@@ -135,7 +135,7 @@ de:
         search_description: Use the search tool or click on a tag to find groups of your interest
         insert_query_or_place: Sie müssen mindestens drei Buchstaben oder eine geographische Grenze eingeben
         tags: Tags
-        partecipants_number: Anzahl Teilnehmer
+        participants_number: Anzahl Teilnehmer
         proposals_number: Anzahl Vorschläge
         events_number: Anzahl der Veranstaltungen
         no_results: Keine Gruppe gefunden
@@ -625,12 +625,12 @@ de:
         no_partecipate: You will not participate at the event
         with_guests: 'with %{field} guests'
         will_be_in: Are you attending the event?
-        partecipants: Who attended?
+        participants: Who attended?
         will_partecipate: Who will attend?
-        no_partecipants: Did not attend no one
-        no_partecipants_yet: Still no participants
-        non_partecipants: Who did not attend?
-        will_non_partecipants: Who will not attend?
+        no_participants: Did not attend no one
+        no_participants_yet: Still no participants
+        non_participants: Who did not attend?
+        will_non_participants: Who will not attend?
     votations:
       show:
         vote_positive: Positive rating
@@ -974,7 +974,7 @@ de:
         published: State
         published_true: Published
         published_false: Draft
-      partecipation_role:
+      participation_role:
         name: Name
         description: Short description
       group_invitation:
@@ -1014,7 +1014,7 @@ de:
         bad_score_title: Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met
         condition: Bedingung
         condition_title: The conditions of Time and Participants must be both overcome or just one of them?
-      search_partecipant:
+      search_participant:
         role_id: Rolle
         keywords: Vorname oder Name
       sys_movement:
@@ -1194,7 +1194,7 @@ de:
     users:
       join_accounts: Error while joining accounts. This operation is not available at the moment
       join_accounts_password: Falsches Passwort
-    group_partecipations:
+    group_participations:
       destroy: You can not leave a group of which you are the sole spokesperson
     error_404:
       proposals:
@@ -1294,7 +1294,7 @@ de:
       multiple_request:
         one: 'You asked to participate in %{count} new group'
         other: 'You asked to participate in %{count} new groups'
-    group_partecipations:
+    group_participations:
       destroy_ok_1: You have left the group. In the future you can ask to participate again
   interest_borders:
     hint: Type a few characters to search for a place

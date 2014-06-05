@@ -113,7 +113,7 @@ es-CL:
         new_role_title: Nuevo rol
         user_title: Usuario
         role_title: Rol
-        no_users_yet: Aquí usted será capaz de gestionar roles de los participantes, cuando habrá algunos.
+        no_users_yet: Aquí usted será capaz de gestionar roles de los partecipantes, cuando habrá algunos.
         default_role: Rol predeterminado en el grupo
         confirm_role_deletion: ¿Está seguro que desea eliminar este rol?
         remove_user: Eliminar usuario
@@ -144,7 +144,7 @@ es-CL:
         search_description: Utilice la herramienta de búsqueda o haga clic en una etiqueta para encontrar grupos de tu interés
         insert_query_or_place: Debe escribir por lo menos tres caracteres o una frontera geográfica
         tags: Etiquetas
-        partecipants_number: Número de participantes
+        participants_number: Número de partecipantes
         proposals_number: Número de propuestas
         events_number: Número de eventos
         no_results: Ningún grupo encontrado
@@ -183,7 +183,7 @@ es-CL:
         rules_button: Reglas
         post_button: Publicar en el muro del grupo
         blog_button: Crear mi Blog
-        participants_list: "Lista de participantes "
+        participants_list: "Lista de partecipantes "
         invite_button: Invita a tus amigos!
         show_all_participants: "Muestra todas las %{count} ..."
         participants_full_list: Lista completa de los miembros del grupo
@@ -199,7 +199,7 @@ es-CL:
         list_permissions:
           title: Lista de sus permisos dentro del grupo
           button: Lista de permisos
-        print_all_participants: Imprimir la lista de participantes
+        print_all_participants: Imprimir la lista de partecipantes
         last_proposals: Propuestas añadidas recientemente
         last_topics: Último tema creado
         next_events: Próximos eventos
@@ -231,7 +231,7 @@ es-CL:
           advanced_percentage_description3: La propuesta sigue en debate hasta la madurez entre los dos umbrales.
         active: Activo
         name: Nombre
-        participants: PARTICIPANTES
+        participants: PARTECIPANTES
         condition: Condición
         good_percentage: '% Madurez'
         bad_percentage: '% Rechazo'
@@ -249,14 +249,14 @@ es-CL:
         index:
           not_enabled: Áreas de trabajo no habilitadas
           description: Airesis le permite administrar áreas de trabajo dentro del grupo.
-          description2: Con esta función usted puede administrar mejor a los participantes y sus funciones.
+          description2: Con esta función usted puede administrar mejor a los partecipantes y sus funciones.
           description3: ¡Ten cuidado! Esto es una característica avanzada, diseñada sólo para usuarios expertos y grupos grandes.
           enable: Habilitar áreas de trabajo!
           description4: "Antes de activar las áreas de trabajo, verifique si puede administrar grupos de miembros directamente usando "
         manage:
           new_area: Crear un área de trabajo
-          switch_area_participants: Cambiar a la gestión de participantes
-          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los participantes, o haga clic en el nombre para gestionar roles y permisos en la área de trabajo
+          switch_area_participants: Cambiar a la gestión de partecipantes
+          list_title: Lista de las áreas de trabajo. Para cada una de ellas seleccionar a los partecipantes, o haga clic en el nombre para gestionar roles y permisos en la área de trabajo
           title: Configuración de área de trabajo
           list_participants: "Lista de los miembros del grupo. Seleccione para cada uno de ellos  la pertenencia a las áreas de trabajo."
           switch_area_management: "Cambiar a  la gestión de áreas de trabajo"
@@ -272,7 +272,7 @@ es-CL:
         text_to_send: Texto para enviar (opcional)
         title: Invita a tus amigos a unirse al grupo!
       participations:
-        list_participations: Lista de participantes
+        list_participations: Lista de partecipantes
         search: Búsqueda
         filter: Filter
         anything: Todos
@@ -283,8 +283,8 @@ es-CL:
         role: Rol
         member_since: Miembro desde
         participants_html:
-          one: "<b>1</b> participante"
-          other: "<b>%{count}</b> participantes"
+          one: "<b>1</b> partecipante"
+          other: "<b>%{count}</b> partecipantes"
         added_by: Añadida por
         remove_all: Eliminar todos
     login:
@@ -341,7 +341,7 @@ es-CL:
         search_title: Búsqueda en las propuestas del grupo
         search_placeholder: Introduzca al menos dos caracteres para búscar
         search_words: Cualquier palabra
-        partecipants_number: PARTICIPANTES
+        participants_number: PARTECIPANTES
         contributes_number: CONTRIBUCIONES
         rank: MADUREZ
         voters: VOTANTES
@@ -535,7 +535,7 @@ es-CL:
         you_know_what_you_do: ¿Sabes lo que vas a hacer?
         schulze_title: ¿Una o más soluciones?
         inserted_contributes: Firmar las contribuciones que ha integrado en esta revisión
-        more_solutions_explained_html: "<b>¿Por te pedimos si sabes lo que estás haciendo?</b> <br/> AIRESIS te permite añadir una o más soluciones en una propuesta. <br/> Si va a haber sólo una solución, en la fase de votación los participantes tendrán la opción de aprobar o rechazar el texto que ha sido redactado. <br/> Si habrá más que una solución, la votación será diferente y cada participante podrá votar usando método Schulze. <br/> Si intentas redactar el Resumen de un problema y desea un texto común <b>no debes crear soluciones alternativas</b>! <br/> Si, por el contrario, busca una encuesta o quieres una alternativa que no es integrable en la primera solución entonces proceder así. <br/> Recuerda que, antes de que termine el debate, usted será capaz de añadir o quitar soluciones, modificando el método de votación utilizado."
+        more_solutions_explained_html: "<b>¿Por te pedimos si sabes lo que estás haciendo?</b> <br/> AIRESIS te permite añadir una o más soluciones en una propuesta. <br/> Si va a haber sólo una solución, en la fase de votación los partecipantes tendrán la opción de aprobar o rechazar el texto que ha sido redactado. <br/> Si habrá más que una solución, la votación será diferente y cada partecipante podrá votar usando método Schulze. <br/> Si intentas redactar el Resumen de un problema y desea un texto común <b>no debes crear soluciones alternativas</b>! <br/> Si, por el contrario, busca una encuesta o quieres una alternativa que no es integrable en la primera solución entonces proceder así. <br/> Recuerda que, antes de que termine el debate, usted será capaz de añadir o quitar soluciones, modificando el método de votación utilizado."
         paragraph: Párrafo
         confirm_paragraph_deletion: ¿Seguro que desea eliminar este párrafo?
         confirm_solution_deletion: ¿Seguro que desea eliminar esta solución?
@@ -607,12 +607,12 @@ es-CL:
         no_partecipate: No participará en el evento
         with_guests: "con %{field} invitados"
         will_be_in: ¿Espera asistir al evento?
-        partecipants: ¿Quiénes asistieron?
+        participants: ¿Quiénes asistieron?
         will_partecipate: ¿Quién asistirá?
-        no_partecipants: No asistió nadie
-        no_partecipants_yet: Todavía no hay participantes
-        non_partecipants: ¿Quien no asistió?
-        will_non_partecipants: ¿Quién no asistirá?
+        no_participants: No asistió nadie
+        no_participants_yet: Todavía no hay partecipantes
+        non_participants: ¿Quien no asistió?
+        will_non_participants: ¿Quién no asistirá?
         voting_proposals: Durante estos días se votará estas propuestas
         no_voting_proposals: Ninguna propuesta se votó durante estos días
     votations:
@@ -787,7 +787,7 @@ es-CL:
     candidates:
       new:
         title: "%{name}: nueva candidatura"
-        description: Elija uno de los participantes del grupo y enviarlo como candidato a una de las elecciones disponibles.
+        description: Elija uno de los partecipantes del grupo y enviarlo como candidato a una de las elecciones disponibles.
         send_button: Enviar la candidatura
       index:
         description: "En esta página puedes rastrear las candidaturas realizadas por el grupo en las elecciones. <br /> Antes de que usted puede hacer una nominación, el grupo debe "
@@ -819,11 +819,11 @@ es-CL:
         title: La barra de madurez
         description_html: |
           El barra de madurez está situado en el menú lateral derecho <br />
-          La barra muestra la madurez de aprobación de la propuesta entre los participantes. <br /> 
+          La barra muestra la madurez de aprobación de la propuesta entre los partecipantes. <br />
           Puedes sugerir si el texto de la propuesta es completo o no con los dos botones debajo de la barra <br />
-          El editor de la propuesta tiene que escribir el texto sobre la base de las contribuciones de otros participantes. Cuando el texto de de la propuesta cambia se le dará la posibilidad de sugerir si te gusta o no el nuevo texto y, en consecuencia, para modificar su evaluación anterior.<br />
+          El editor de la propuesta tiene que escribir el texto sobre la base de las contribuciones de otros partecipantes. Cuando el texto de de la propuesta cambia se le dará la posibilidad de sugerir si te gusta o no el nuevo texto y, en consecuencia, para modificar su evaluación anterior.<br />
           El color de la barra muestra si la propuesta es lista para ir a la fase de votación, mientras que la longitud muestra cuánto tiempo o evaluaciones quedan antes de terminar la discusión. <br />
-        newdescription2: La barra muestra la madurez de la propuesta entre los participantes y cuánto tiempo queda hasta el final del debate
+        newdescription2: La barra muestra la madurez de la propuesta entre los partecipantes y cuánto tiempo queda hasta el final del debate
         newdescription3: El color muestra si la propuesta será capaz de ir a la fase de votación, mientras que la longitud muestra cuánto tiempo queda antes que el debate termine
         newdescription4: Cuando crees que el debate ha terminado y los editores integran las contribuciones de otros usuarios, utilice este botón
         newdescription5: Si usted piensa que el debate debe continuar, utilice este botón
@@ -976,7 +976,7 @@ es-CL:
         published: Estado
         published_true: Publicado
         published_false: Proyecto borrador
-      partecipation_role:
+      participation_role:
         name: Nombre
         description: Descripción corta
       group_invitation:
@@ -1008,15 +1008,15 @@ es-CL:
         days_m: Días
         hours_m: horas
         minutes_m: Minutos
-        percentage: Participantes (porcentaje)
-        percentage_title: Número mínimo de participantes en la discusión como un porcentaje del número de participantes en el grupo
+        percentage: Partecipantes (porcentaje)
+        percentage_title: Número mínimo de partecipantes en la discusión como un porcentaje del número de partecipantes en el grupo
         good_score: Quórum (porcentaje)
         good_score_title: Valoración para lograr llevar la propuesta a la fase de votación
         bad_score: Mal quórum (porcentaje)
-        bad_score_title: Clasificación bajo el cual se rechazará la propuesta. Le permite continuar la discusión si no se cumplen las condiciones de tiempo o los participantes
+        bad_score_title: Clasificación bajo el cual se rechazará la propuesta. Le permite continuar la discusión si no se cumplen las condiciones de tiempo o los partecipantes
         condition: Condición
-        condition_title: ¿Las condiciones de tiempo y participantes deben ser ambos superados o sólo uno de ellos?
-      search_partecipant:
+        condition_title: ¿Las condiciones de tiempo y partecipantes deben ser ambos superados o sólo uno de ellos?
+      search_participant:
         role_id: Rol
         keywords: Nombre o apellido
       sys_movement:
@@ -1112,7 +1112,7 @@ es-CL:
           Al crear una nueva propuesta tu elijes uno de los quórum disponible en el espacio abierto o uno entre los quórum disponibles en tu grupo. <br />
           En esta ventana puedes hacer clic en los diferentes quórumes para ver sus características. Va a encontrar la descripción y la lista de los parámetros elegidos <br />
           </P>
-        participants: "Número mínimo de participantes:"
+        participants: "Número mínimo de partecipantes:"
         not_specified: No especificado
         time_discussion: "Período de discusión:"
         condition: "Condición de paso:"
@@ -1158,7 +1158,7 @@ es-CL:
     valutazioni: número total de evaluaciones recibidas
     gradimento: porcentaje de evaluaciones positivas sobre el total
     nickname: "<strong> En esta propuesta, hemos optado por hablar de forma anónima </strong> <br /> De esta manera no es posible que otros usuarios puedan saber quién eres y al mismo tiempo, no es posible saber quiénes son los otros. <br /> trabajando y hablando de esta manera usted será capaz de tomar decisiones y evaluar propuestas solamente basan en contenido. <br/> <b> Nota</b>: cuando termine la discusión y la propuesta será aprobada o rechazada entonces verá los nombres reales de los usuarios."
-    manage_noise: "<strong> Administrar las contribuciones inútiles </ strong> <br /> A los participantes le aconsejará qué contribuciones son inútiles para la discusión. Con este panel se puede quitar y ponerlos en la carpeta de contribuciones eliminadas ."
+    manage_noise: "<strong> Administrar las contribuciones inútiles </ strong> <br /> A los partecipantes le aconsejará qué contribuciones son inútiles para la discusión. Con este panel se puede quitar y ponerlos en la carpeta de contribuciones eliminadas ."
     view_noise: "Ver <strong> contribuciones inútiles < / strong> < br/> Aquí encontrará todas las contribuciones que han sido consideradas como inútiles y eliminadas de la discusión por los redactores de la propuesta"
     quorum_minutes: "hasta<b>%{date}</b> a %{time}"
     quorum_valutations: "hasta que será evaluado por <b> al menos %{valutations} personas</b>"
@@ -1223,7 +1223,7 @@ es-CL:
     users:
       join_accounts: Error al unirse a las cuentas. Esta operación no está disponible en el momento
       join_accounts_password: Contraseña incorrecta
-    group_partecipations:
+    group_participations:
       destroy: No se puede dejar un grupo del que usted es el único vocero
       already_member: Error al crear la solicitud de participación. Ya eres miembro de este grupo!
       request_not_registered: Ya eres miembro de estos grupos, pero no se ha registrado su solicitud de participación. Datos válidos
@@ -1338,7 +1338,7 @@ es-CL:
       multiple_request:
         one: "¿Quería participar en el nuevo grupo de %{count}"
         other: "¿Quería participar en el nuevo grupo de %{count}"
-    group_partecipations:
+    group_participations:
       destroy_ok_1: Ha dejado el grupo. En el futuro puede solicitar participar otra vez
       request_sent: Solicitud de participación enviado con éxito
       request_alredy_sent: Usted ya ha enviado una solicitud de participación por este grupo

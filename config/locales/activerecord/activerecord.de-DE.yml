@@ -58,7 +58,7 @@ de:
         published: Status
         published_true: Veröffentlicht
         published_false: Entwurf
-      partecipation_role:
+      participation_role:
         name: Name
         description: Kurzbeschreibung
       group_invitation:
@@ -98,7 +98,7 @@ de:
         bad_score_title: Bewertung unter der der Vorschlag abgelehnt wird. Erlaubt die Diskussion weiter zu führen, wenn die Zeit oder Teilnehmer-Bedingungen nicht erfüllt sind
         condition: Bedingung
         condition_title: Müssen beide Bedingungen (Zeit und Teilnehmer) bestehen oder nur eine der beiden?
-      search_partecipant:
+      search_participant:
         role_id: Rolle
         keywords: Vorname und Familienname
       sys_movement:

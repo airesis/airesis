@@ -58,7 +58,7 @@ fr:
         published: État
         published_true: Publié
         published_false: Brouillon
-      partecipation_role:
+      participation_role:
         name: Nom
         description: Brève description
       group_invitation:
@@ -102,7 +102,7 @@ fr:
         vote_minutes: Durée de vote
         vote_percentage: Quorum (électeurs)
         vote_good_score: Agrément
-      search_partecipant:
+      search_participant:
         role_id: Rôle
         keywords: Nom ou prénom
       sys_movement:

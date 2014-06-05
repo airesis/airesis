@@ -3,17 +3,17 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if !user  #guest
-      can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
-      can :view_data, Group, private: false
+    can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
+    can :view_data, Group, private: false
+    can :read, Frm::Category, visible_outside: true
+    can :read, Frm::Topic, forum: {visible_outside: true}, forum: {category: {visible_outside: true}}
+    can :read, Frm::Forum, visible_outside: true, category: {visible_outside: true}
+    can :read, Event, private: false
+    can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
+      true
+    end
+    if user
 
-      can :read, Frm::Category, visible_outside: true
-
-      can :read, Frm::Topic, forum: {visible_outside: true}, forum: {category: {visible_outside: true}}
-
-      can :read, Frm::Forum, visible_outside: true, category: {visible_outside: true}
-
-    else
       #TODO to fix when groups will share proposals
       can :read, Proposal do |proposal|
         can_read_proposal?(user, proposal)
@@ -27,9 +27,9 @@ class Ability
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
-      can :choose_date, Proposal do |proposal|  #return true if the user can put the proposal in votation
+      can :choose_date, Proposal do |proposal| #return true if the user can put the proposal in votation
         (user.is_mine? proposal) ||
-        ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
+            ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
       end
       can :regenerate, Proposal do |proposal|
         can_regenerate_proposal?(user, proposal)
@@ -54,11 +54,12 @@ class Ability
       end
       can :create, Group if LIMIT_GROUPS && ((Time.now - (user.portavoce_groups.maximum(:created_at) || (Time.now - (GROUPS_TIME_LIMIT + 1.seconds))) > GROUPS_TIME_LIMIT)) #puoi creare solo un gruppo ogni 24 ore
 
+      can :read, Group
       can :update, Group do |group|
         group.portavoce.include? user
       end
       can :destroy, Group do |group|
-        (group.portavoce.include? user) && (group.partecipants.count < 2)
+        (group.portavoce.include? user) && (group.participants.count < 2)
       end
       can :remove_post, Group do |group|
         group.portavoce.include? user
@@ -81,7 +82,7 @@ class Ability
         can_do_on_group?(user, group, 3)
       end
       can :accept_requests, Group do |group|
-        can_do_on_group?(user, group, 4) && !group.disable_partecipation_requests
+        can_do_on_group?(user, group, 4) && !group.disable_participation_requests
       end
       can :create_election, Group do |group|
         #controllo se può creare eventi in generale
@@ -109,18 +110,18 @@ class Ability
       end
       can :create_any_event, Group do |group|
         can_do_on_group?(user, group, GroupAction::PROPOSAL_DATE) || can_do_on_group?(user, group, GroupAction::CREATE_EVENT)
-
       end
       can :view_data, Group do |group|
-        !group.is_private? || (group.partecipants.include? user) #todo remove first condition
-      end
-      can :index_participants, Group do |group|
-        group.partecipants.include? user
+        !group.is_private? || (group.participants.include? user) #todo remove first condition
       end
 
-      can :update, PartecipationRole do |partecipation_role|
-        partecipation_role.group.portavoce.include? user
+
+      can [:read, :create, :update, :change_group_permission], ParticipationRole, group_id: user.portavoce_group_ids
+
+      can :destroy, ParticipationRole do |participation_role|
+        participation_role.id != participation_role.group.participation_role_id
       end
+
       can :update, AreaRole do |area_role|
         area_role.group_area.group.portavoce.include? user
       end
@@ -139,17 +140,17 @@ class Ability
 
       can :read, Election do |election|
         group = election.groups.first
-        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
+        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
       end
       can :vote, Election do |election|
         group = election.groups.first
-        group.partecipants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
+        group.participants.include? user #posso visualizzare un'elezione solo se appartengo al gruppo
       end
 
       #should be you, and proposal must have more users
       can :destroy, ProposalPresentation do |presentation|
         presentation.user == user &&
-        presentation.proposal.users.count > 1
+            presentation.proposal.users.count > 1
       end
 
 
@@ -169,12 +170,37 @@ class Ability
         ut.receive_messages && user != ut && ut.email && user.email
       end
 
-      can :destroy, GroupPartecipation do |group_partecipation|
-        ((group_partecipation.partecipation_role_id != PartecipationRole::PORTAVOCE ||
-            group_partecipation.group.portavoce.count > 1) &&
-            user == group_partecipation.user) ||
-            ((group_partecipation.group.portavoce.include? user) && (group_partecipation.user != user))
+      can :index, GroupParticipation, group: {participants: {id: user.id}}
+      can :manage, [GroupArea,Quorum,BestQuorum,OldQuorum], group: {id: user.portavoce_group_ids}
+      can :manage, GroupArea, group: {id: user.portavoce_group_ids, enable_areas: true}
+      can :index, GroupArea, group: {id: user.portavoce_group_ids}
+
+      can [:create,:destroy], AreaParticipation, group_area: {group: {id: user.portavoce_group_ids}}
+
+
+
+
+      #e sia l'amministratore o portavoce del gruppo
+      #e che il ruolo appartenga al gruppo indicato o sia generico,
+      #e l'utente a cui si modifica il ruolo appartenga al gruppo
+      #e non si stia cambiando il ruolo dell'unico amministratore
+      can :change_user_permission, GroupParticipation do |group_participation|
+        puser = group_participation.user
+        role = group_participation.participation_role
+        group = group_participation.group
+        (group.portavoce.include? user) && #check user is administrator
+            (!role.group || (role.group == group)) && #check role is a group role
+            (!(group.portavoce.include? puser) || (group.portavoce.count > 1)) #check user is not the only administrator
+
       end
+
+      can :destroy, GroupParticipation do |group_participation|
+        ((group_participation.participation_role_id != ParticipationRole::ADMINISTRATOR ||
+            group_participation.group.portavoce.count > 1) &&
+            user == group_participation.user) ||
+            ((group_participation.group.portavoce.include? user) && (group_participation.user != user))
+      end
+
 
       can :destroy, Authentication do |authentication|
         user == authentication.user && user.email #can destroy an identity provider only if the set a valid email address
@@ -182,8 +208,8 @@ class Ability
 
       can :read, BlogPost do |blog_post|
         blog_post.published? ||
-        blog_post.user == user ||
-        (blog_post.reserved? && can_view_post?(user,blog_post))
+            blog_post.user == user ||
+            (blog_post.reserved? && can_view_post?(user, blog_post))
 
       end
 
@@ -191,20 +217,36 @@ class Ability
 
       can :change_rotp_enabled, User if user.email
 
-      can :update, Event do |event|
-        can_edit_event?(user, event)
-      end
-      can :destroy, Event do |event|
-        can_edit_event?(user, event)
-      end
+      can :read, Event, groups: {group_participations: {user_id: user.id}} #can also view private events of groups in which partecipate
+
+      can :create, Event
+
+      can [:update, :destroy], Event, user_id: user.id #can update my event
+      can [:update, :destroy], Event, groups: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+      can [:update, :destroy], Event, groups: {participation_roles: {action_abilitations: {group_action_id: GroupAction::CREATE_EVENT, group_id: 'groups.id'}}}
+      cannot [:update, :destroy], Event, event_type_id: EventType::VOTAZIONE, proposals: ['proposals.id != null'], possible_proposals: ['proposals.id != null']
+
+
+
+
+      can :read, Alert, user_id: user.id
+
 
       can :update, ProposalNickname do |proposal_nickname|
         proposal_nickname.created_at > Time.now - 10.minutes &&
             proposal_nickname.user == user
       end
 
+      can [:create, :like], EventComment, event: {groups: {group_participations: {user_id: user.id}}}
+      can [:create, :like], EventComment, event: {private: false}
 
-	  #forum permissions
+      can :destroy, EventComment, user_id: user.id
+
+      can :create, MeetingParticipation, meeting: {event: {private: false}}
+      can :create, MeetingParticipation, meeting: {event: {groups: {group_participations: {user_id: user.id}}}}
+      cannot :create, MeetingParticipation, meeting: {event: ['endtime < ?', Time.now]}
+
+      #forum permissions
       can :read, Frm::Category do |category|
         user.can_read_forem_category?(category)
       end
@@ -235,7 +277,7 @@ class Ability
       end
 
       # Always performed
-      can :access, :ckeditor   # needed to access Ckeditor filebrowser
+      can :access, :ckeditor # needed to access Ckeditor filebrowser
 
       # Performed checks for actions:
       can [:read, :create, :destroy], Ckeditor::Picture do |picture|
@@ -250,31 +292,31 @@ class Ability
         can :destroy, ProposalComment do |comment|
           comment.grave_reports_count > 0
         end
-      end
+        can :manage, Announcement
 
-      if user.admin?
-        can :close_debate, Proposal do |proposal| #can close debate of a proposal
-          proposal.in_valutation?
+        if user.admin?
+          can :close_debate, Proposal do |proposal| #can close debate of a proposal
+            proposal.in_valutation?
+          end
+          can :send_message, User # can send messages to every user although they denied it
+
+          can :update, Proposal #can edit them
+          can :partecipate, Proposal #can partecipate
+          can :choose_date, Proposal
+          can :destroy, Proposal #can destroy one
+          can :destroy, ProposalComment
+          can :manage, Group
+
+          can :manage, BlogPost
+          can :manage, Quorum
+          can [:read, :create, :update, :change_group_permission], ParticipationRole
+          can :manage, Election
+          can :manage, Event
+          can :manage, Frm::Topic
+          can :create_topic, Frm::Forum
+          can :manage, Frm::Category
+          can :manage, Frm::Forum
         end
-        can :send_message, User # can send messages to every user although they denied it
-
-        can :update, Proposal #can edit them
-        can :partecipate, Proposal #can partecipate
-        can :choose_date, Proposal
-        can :destroy, Proposal #can destroy one
-        can :destroy, ProposalComment
-        can :manage, Group
-
-        can :manage, BlogPost
-        can :manage, Quorum
-        can :update, PartecipationRole
-        can :manage, Election
-        can :manage, Event
-        can :manage, Frm::Topic
-        can :create_topic, Frm::Forum
-        can :manage, Frm::Category
-        can :manage, Frm::Forum
-
       end
 
     end
@@ -283,42 +325,42 @@ class Ability
     #if it's votation there must not be any proposal attached
     #if it's election should be no candidate yet
     def can_edit_event?(user, event)
-      group = event.organizers.first
+      group = event.groups.first
       #can edit the event only if has permissions in the group
       c1 = false
       if group
-        c1 = (group.scoped_partecipants(GroupAction::CREATE_EVENT).include? user)
+        c1 = (group.scoped_participants(GroupAction::CREATE_EVENT).include? user)
       else
         c1 = user.admin?
       end
       #can edit the event only if the user created it or if it's the admin of the group
-      c2 = event.user ?  ((user == event.user) || (group && (group.portavoce.include? user))) : true
+      c2 = event.user ? ((user == event.user) || (group && (group.portavoce.include? user))) : true
       c1 && c2 &&
-      ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
-       (event.is_incontro? || event.is_riunione?))
+          ((event.is_votazione? && event.proposals.count == 0 && event.possible_proposals.count == 0) ||
+              (event.is_incontro? || event.is_riunione?))
     end
 
 
     def can_do_on_group?(user, group, action)
-      user.groups.where("partecipation_role_id = 2")
-      partecipation = user.group_partecipations.where(group_id: group.id).first
-      return false unless partecipation
-      role = partecipation.partecipation_role
-      return true if (role.id == PartecipationRole::PORTAVOCE)
-      roles = group.partecipation_roles.joins(:action_abilitations).where(["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id]).load
+      user.groups.where("participation_role_id = 2")
+      participation = user.group_participations.where(group_id: group.id).first
+      return false unless participation
+      role = participation.participation_role
+      return true if (role.id == ParticipationRole::ADMINISTRATOR)
+      roles = group.participation_roles.joins(:action_abilitations).where(["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id]).load
       roles.include? role
     end
 
 
     def can_do_on_group_area?(user, group_area, action)
-      group_partecipation = user.group_partecipations.first(conditions: {group_id: group_area.group.id})
-      return false unless group_partecipation
-      group_role = group_partecipation.partecipation_role
-      return true if (group_role.id == PartecipationRole::PORTAVOCE)
+      group_participation = user.group_participations.first(conditions: {group_id: group_area.group.id})
+      return false unless group_participation
+      group_role = group_participation.participation_role
+      return true if (group_role.id == ParticipationRole::ADMINISTRATOR)
 
-      area_partecipation = user.area_partecipations.first(conditions: {group_area_id: group_area.id})
-      return false unless area_partecipation
-      role = area_partecipation.area_role
+      area_participation = user.area_participations.first(conditions: {group_area_id: group_area.id})
+      return false unless area_participation
+      role = area_participation.area_role
       roles = group_area.area_roles.all(joins: :area_action_abilitations, conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action, group_area.id])
       roles.include? role
     end
@@ -358,7 +400,7 @@ class Ability
         proposal.presentation_groups.each do |group|
           areas = proposal.presentation_areas.where(group_id: group.id)
           if areas.count > 0
-            if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_PARTECIPATION)
+            if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_participation)
               if proposal.is_polling? && (proposal.voting? || proposal.voted?)
                 return true
               elsif proposal.in_valutation? || proposal.voted?
@@ -366,7 +408,7 @@ class Ability
               end
             end
           else
-            if can_do_on_group?(user, group, GroupAction::PROPOSAL_PARTECIPATION)
+            if can_do_on_group?(user, group, GroupAction::PROPOSAL_participation)
               if proposal.is_polling? && (proposal.voting? || proposal.voted?)
                 return true
               elsif proposal.in_valutation? || proposal.voted?
@@ -423,8 +465,8 @@ class Ability
           true
     end
 
-    def can_view_post?(user,blog_post)
-      blog_post.groups.joins(:group_partecipations).where('group_partecipations.user_id = ?',user.id).exists?
+    def can_view_post?(user, blog_post)
+      blog_post.groups.joins(:group_participations).where('group_participations.user_id = ?', user.id).exists?
     end
   end
 end

@@ -3,18 +3,13 @@
     <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div>
 <% end %>
 
-<%= form_for !in_subdomain? ? [@group, @quorum] : @quorum, validate: true, remote: true do |e| %>
+<%= simple_form_for !in_subdomain? ? [@group, @best_quorum] : @best_quorum, validate: true, remote: true do |e| %>
     <div class="row">
-      <div class="columns large-12">
-        <p>
-          <%= e.label :name, t('activerecord.attributes.quorum.name') %>
-          <%= e.text_field :name, title: t('activerecord.attributes.quorum.name_title') %>
-        </p>
-
-        <p>
-          <%= e.label :description, t('activerecord.attributes.quorum.description'), title: t('activerecord.attributes.quorum.description_title') %>
-          <%= e.text_area :description, rows: 2, style: "width:100%", class: "elastic" %>
-        </p>
+      <div class="columns small-12">
+        <%= e.input :name %>
+      </div>
+      <div class="columns small-12">
+        <%= e.input :description, as: :text, rows: 2, style: "width:100%", class: "elastic" %>
       </div>
     </div>
     <div class="row">
@@ -30,15 +25,16 @@
 
           <p>
             <%= e.label :percentage %>
-            <%=raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                      participants_percentage: (e.text_field :percentage, class: "percentage partecipants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"partecipants_number\">1</span>", total_number: @partecipants_count, average: (@group.statistic.valutations*100 / @group.count_proposals_partecipants).round(2))%>
+            <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                      participants_percentage: (e.text_field :percentage, class: "percentage participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
+                      current_number: "<span id=\"participants_number\">1</span>", total_number: @group_participations_count, average: (@group.statistic.valutations*100 / @group.count_proposals_participants).round(2)) %>
           </p>
 
           <p>
             <%= e.label :good_score %>
-            <%= e.text_field :good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), readonly: true %>%
-            <b><%= "(valore medio: #{@group.statistic.good_score.round(2)}%)"%></b>
+            <%= e.text_field :good_score, class: "percentage", validate: false, title: t('activerecord.attributes.quorum.good_score_title'), readonly: true %>
+            %
+            <b><%= "(valore medio: #{@group.statistic.good_score.round(2)}%)" %></b>
           </p>
 
           <%= e.hidden_field :t_percentage, value: 's' %>
@@ -60,9 +56,9 @@
 
           <p>
             <%= e.label :vote_percentage %>
-            <%=raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
-                      participants_percentage: (e.text_field :vote_percentage, class: "percentage vote_partecipants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
-                      current_number: "<span id=\"vote_partecipants_number\">1</span>", total_number: @vote_partecipants_count, average: (@group.statistic.vote_valutations*100 / @group.count_voter_partecipants).round(2))%>
+            <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                      participants_percentage: (e.text_field :vote_percentage, class: "percentage vote_participants", title: t('activerecord.attributes.quorum.percentage_title'), readonly: true),
+                      current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.count_voter_participants).round(2)) %>
           </p>
 
           <p>
@@ -79,9 +75,9 @@
     </div>
     <div class="row">
       <div class="columns large-12">
-        <%=link_to t('buttons.cancel'), :back, class: 'btn cancel' %>
-
-        <%= e.submit button_name, class: 'btn blue', data:{disable_with: t('loading')} %>
+        <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+        <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+        <%= e.button :button, button_name, class: 'btn blue saveButton' %>
       </div>
     </div>
 <% end %>
@@ -96,14 +92,14 @@
         $('.advanced').hide();
 
         function update_participants(value) {
-            $('#partecipants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@partecipants_count%>)) + 1, <%=@partecipants_count%>));
+            $('#participants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@group_participations_count%>)) + 1, <%=@group_participations_count%>));
         }
 
         function update_vote_participants(value) {
-            $('#vote_partecipants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@vote_partecipants_count%>)) + 1, <%=@vote_partecipants_count%>));
+            $('#vote_participants_number').html(Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@vote_participants_count%>)) + 1, <%=@vote_participants_count%>));
         }
 
-        $(".partecipants").spinner({
+        $(".participants").spinner({
             incremental: true,
             max: 100,
             min: 0,
@@ -112,7 +108,7 @@
             }
         });
 
-        $(".vote_partecipants").spinner({
+        $(".vote_participants").spinner({
             incremental: true,
             max: 100,
             min: 0,
@@ -121,8 +117,8 @@
             }
         });
 
-        update_participants(<%=@quorum.percentage%>);
-        update_vote_participants(<%=@quorum.vote_percentage%>);
+        update_participants(<%=@best_quorum.percentage%>);
+        update_vote_participants(<%=@best_quorum.vote_percentage%>);
 
         $('#best_quorum_good_score').spinner({
             incremental: true,

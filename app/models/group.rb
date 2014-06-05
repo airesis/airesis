@@ -24,21 +24,24 @@ class Group < ActiveRecord::Base
   validates_presence_of :default_role_name, on: :create
 
   #has_many :meeting_organizations, class_name: 'MeetingsOrganization'
-  attr_accessible :partecipant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_partecipations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list
-  attr_reader :partecipant_tokens
+  attr_accessible :participant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_participations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list
+  attr_reader :participant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
-  has_many :group_partecipations, -> { order 'id DESC' }, class_name: 'GroupPartecipation', dependent: :destroy
   has_many :group_follows, class_name: 'GroupFollow', dependent: :destroy
   has_many :post_publishings, class_name: 'PostPublishing', dependent: :destroy
-  has_many :partecipants, through: :group_partecipations, source: :user, class_name: 'User'
+
+  has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
+  has_many :participants, through: :group_participations, source: :user, class_name: 'User'
+  has_many :portavoce, -> {where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR])}, through: :group_participations, source: :user, class_name: 'User'
+
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :posts, through: :post_publishings, source: :blog_post, class_name: 'BlogPost'
-  has_many :partecipation_requests, class_name: 'GroupPartecipationRequest', dependent: :destroy
-  has_many :partecipation_roles, -> { order 'id DESC' }, class_name: 'PartecipationRole', dependent: :destroy
-  #has_many :partecipation_roles, class_name: 'PartecipationRole'
+  has_many :participation_requests, class_name: 'GroupParticipationRequest', dependent: :destroy
+  has_many :participation_roles, -> { order 'id DESC' }, class_name: 'ParticipationRole', dependent: :destroy
+  #has_many :participation_roles, class_name: 'ParticipationRole'
   belongs_to :interest_border, class_name: 'InterestBorder', foreign_key: :interest_border_id
-  belongs_to :default_role, class_name: 'PartecipationRole', foreign_key: :partecipation_role_id
+  belongs_to :default_role, class_name: 'ParticipationRole', foreign_key: :participation_role_id
   has_many :meeting_organizations, class_name: 'MeetingOrganization', foreign_key: 'group_id', dependent: :destroy
 
   has_many :events, through: :meeting_organizations, class_name: 'Event', source: :event
@@ -64,13 +67,13 @@ class Group < ActiveRecord::Base
   has_many :group_quorums, class_name: 'GroupQuorum', dependent: :destroy
   has_many :quorums, -> { order 'seq nulls last, quorums.id' }, through: :group_quorums, class_name: 'BestQuorum', source: :quorum
 
-  has_many :voters, -> { include(:partecipation_roles).where(["partecipation_roles.id = ?", 2]) }, through: :group_partecipations, source: :user, class_name: 'User'
+  has_many :voters, -> { include(:participation_roles).where(["participation_roles.id = ?", 2]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :invitation_emails, class_name: 'GroupInvitationEmail', dependent: :destroy
 
   has_many :group_areas, dependent: :destroy
 
-  has_many :search_partecipants
+  has_many :search_participants
 
   has_many :group_tags, dependent: :destroy
   has_many :tags, through: :group_tags, class_name: 'Tag'
@@ -143,9 +146,9 @@ class Group < ActiveRecord::Base
 
   def pre_populate
     #creator is also administrator
-    partecipation_requests.build({user_id: current_user_id, group_partecipation_request_status_id: 3})
+    participation_requests.build({user_id: current_user_id, group_participation_request_status_id: 3})
 
-    group_partecipations.build({user_id: current_user_id, partecipation_role_id: 2}) #portavoce
+    group_participations.build({user_id: current_user_id, participation_role_id: 2}) #portavoce
 
     Quorum.public.each do |quorum|
       copy = quorum.dup
@@ -153,13 +156,13 @@ class Group < ActiveRecord::Base
       copy.save!
       group_quorums.build(quorum_id: copy.id)
     end
-    role = partecipation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
+    role = participation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
     default_role_actions.each do |action_id|
       abilitation = role.action_abilitations.build(group_action_id: action_id)
       abilitation.save!
     end if default_role_actions
     role.save!
-    self.partecipation_role_id = role.id
+    self.participation_role_id = role.id
   end
 
   def after_populate
@@ -182,45 +185,41 @@ class Group < ActiveRecord::Base
   end
 
   def destroy
-    self.update_attribute(:partecipation_role_id, 2) && super
+    self.update_attribute(:participation_role_id, 2) && super
   end
 
-  #return true if the group is private and do not show anything to non-partecipants
+  #return true if the group is private and do not show anything to non-participants
   def is_private?
     self.private
   end
 
   #utenti che possono partecipare alle proposte
-  def count_proposals_partecipants
-    self.partecipants.count(
-        joins: "join partecipation_roles
-               on group_partecipations.partecipation_role_id = partecipation_roles.id
-               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTECIPATION} AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+  def count_proposals_participants
+    self.participants.count(
+        joins: "join participation_roles
+               on group_participations.participation_role_id = participation_roles.id
+               left join action_abilitations on participation_roles.id = action_abilitations.participation_role_id",
+        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_PARTICIPATION} AND action_abilitations.group_id = #{self.id}) or (participation_roles.id = 2)")
   end
 
   #utenti che possono votare le proposte
-  def count_voter_partecipants
-    self.partecipants.count(
-        joins: "join partecipation_roles
-               on group_partecipations.partecipation_role_id = partecipation_roles.id
-               left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id",
-        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND action_abilitations.group_id = #{self.id}) or (partecipation_roles.id = 2)")
+  def count_voter_participants
+    self.participants.count(
+        joins: "join participation_roles
+               on group_participations.participation_role_id = participation_roles.id
+               left join action_abilitations on participation_roles.id = action_abilitations.participation_role_id",
+        conditions: "(action_abilitations.group_action_id = #{GroupAction::PROPOSAL_VOTE} AND action_abilitations.group_id = #{self.id}) or (participation_roles.id = 2)")
   end
 
   #utenti che possono eseguire un'azione
-  def scoped_partecipants(action_id)
-    self.partecipants.joins("partecipation_roles on group_partecipations.partecipation_role_id = partecipation_roles.id left join action_abilitations on partecipation_roles.id = action_abilitations.partecipation_role_id")
-    .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (partecipation_roles.id = ?)", action_id, self.id, PartecipationRole::PORTAVOCE])
+  def scoped_participants(action_id)
+    self.participants
+    .joins("joins participation_roles on group_participations.participation_role_id = participation_roles.id join action_abilitations on participation_roles.id = action_abilitations.participation_role_id")
+    .where(["(action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?) or (participation_roles.id = ?)", action_id, self.id, ParticipationRole::ADMINISTRATOR])
   end
 
-  #restituisce la lista dei portavoce del gruppo
-  def portavoce
-    self.partecipants.where(["group_partecipations.partecipation_role_id = ?", PartecipationRole::PORTAVOCE])
-  end
-
-  def partecipant_tokens=(ids)
-    self.partecipant_ids = ids.split(",")
+  def participant_tokens=(ids)
+    self.participant_ids = ids.split(",")
   end
 
 
@@ -277,7 +276,7 @@ class Group < ActiveRecord::Base
     limite = params[:limit] || 30
 
     if tag
-      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_partecipations_count desc, created_at desc').page(page).per(limite)
+      Group.joins(:tags).where(['tags.text = ?', tag]).order('group_participations_count desc, created_at desc').page(page).per(limite)
     else
       Group.search(include: [:next_events, interest_border: [:territory]]) do
         fulltext search, minimum_match: params[:minimum] if search
@@ -303,7 +302,7 @@ class Group < ActiveRecord::Base
           end
         end
         order_by :score, :desc
-        order_by :group_partecipations_count, :desc
+        order_by :group_participations_count, :desc
         order_by :created_at, :desc
 
         paginate page: page, per_page: limite
@@ -314,7 +313,7 @@ class Group < ActiveRecord::Base
 
 
   def self.most_active
-    Group.order(group_partecipations_count: :desc).limit(5)
+    Group.order(group_participations_count: :desc).limit(5)
   end
 
 
@@ -323,7 +322,7 @@ class Group < ActiveRecord::Base
     text :description
     integer :id
     integer :interest_border_id
-    integer :group_partecipations_count
+    integer :group_participations_count
     time :created_at
     integer :continente_id do
       self.interest_border.continente.try(:id)

@@ -144,7 +144,7 @@ en-US:
         search_description: "Use the search tool or click on a tag to find groups of your interest"
         insert_query_or_place: "You must type at least three characters or a geographic border"
         tags: "Tags"
-        partecipants_number: "Number of participants"
+        participants_number: "Number of participants"
         proposals_number: "Number of proposals"
         events_number: "Number of events"
         no_results: "No group found"
@@ -342,7 +342,7 @@ en-US:
         search_title: "Search in group proposals"
         search_placeholder: "Insert at least two characters to search"
         search_words: "Any words"
-        partecipants_number: "PARTICIPANTS"
+        participants_number: "PARTICIPANTS"
         contributes_number: "CONTRIBUTIONS"
         rank: "MATURITY"
         voters: "VOTERS"
@@ -618,12 +618,12 @@ en-US:
         no_partecipate: "You will not participate at the event"
         with_guests: "with %{field} guests"
         will_be_in: "Are you attending the event?"
-        partecipants: "Who attended?"
+        participants: "Who attended?"
         will_partecipate: "Who will attend?"
-        no_partecipants: "Did not attend no one"
-        no_partecipants_yet: "Still no participants"
-        non_partecipants: "Who did not attend?"
-        will_non_partecipants: "Who will not attend?"
+        no_participants: "Did not attend no one"
+        no_participants_yet: "Still no participants"
+        non_participants: "Who did not attend?"
+        will_non_participants: "Who will not attend?"
         voting_proposals: "During these days these proposals will be voted"
         no_voting_proposals: "No proposal being voted during these days"
     votations:
@@ -986,7 +986,7 @@ en-US:
         published: 'State'
         published_true: 'Published'
         published_false: 'Draft'
-      partecipation_role:
+      participation_role:
          name: 'Name'
          description: 'Short description'
       group_invitation:
@@ -1026,7 +1026,7 @@ en-US:
         bad_score_title: 'Rating under which the proposal will be rejected. Allows you to continue the discussion if the Time or Participants conditions are not met'
         condition: Condition
         condition_title: 'The conditions of Time and Participants must be both overcome or just one of them?'
-      search_partecipant:
+      search_participant:
         role_id: 'Role'
         keywords: 'Name or surname'
       sys_movement:
@@ -1234,7 +1234,7 @@ en-US:
     users:
       join_accounts: "Error while joining accounts. This operation is not available at the moment"
       join_accounts_password: "Wrong password"
-    group_partecipations:
+    group_participations:
        destroy: "You can not leave a group of which you are the sole spokesperson"
        already_member: "Error while creating the participation request. You are already member of this group!"
        request_not_registered: "You are already member of this groups but your participation request has not been registered. Valid data"
@@ -1349,7 +1349,7 @@ en-US:
       multiple_request:
         one: "You asked to participate in %{count} new group"
         other: "You asked to participate in %{count} new groups"
-    group_partecipations:
+    group_participations:
       destroy_ok_1: "You have left the group. In the future you can ask to participate again"
       request_sent: "Participation request successfully sent"
       request_alredy_sent: "You have already sent a participation request for this group"

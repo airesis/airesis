@@ -1,6 +1,6 @@
-class CreateSearchPartecipants < ActiveRecord::Migration
+class CreateSearchParticipants < ActiveRecord::Migration
   def change
-    create_table :search_partecipants do |t|
+    create_table :search_participants do |t|
       t.integer :role_id
       t.integer :status_id
       t.string :keywords

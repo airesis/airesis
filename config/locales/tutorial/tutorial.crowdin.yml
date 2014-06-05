@@ -19,7 +19,7 @@ crowdin:
       timeline: "{crwdns6193:0}{crwdne6193:0}"
       timeleft: "{crwdns6194:0}{crwdne6194:0}"
       rankDescription: "{crwdns6195:0}{crwdne6195:0}"
-      partecipants: "{crwdns6196:0}{crwdne6196:0}"
+      participants: "{crwdns6196:0}{crwdne6196:0}"
       contributes: "{crwdns6197:0}{crwdne6197:0}"
       end: "{crwdns6198:0}{crwdne6198:0}"
     proposals_show:

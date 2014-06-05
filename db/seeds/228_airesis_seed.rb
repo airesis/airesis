@@ -3,7 +3,7 @@
  EventType.create( name: "meeting", color: "#EDD4B6"){ |c| c.id = 1}.save
 GroupAction.create(name: "PROPOSAL")
 GroupAction.create(name: "PROPOSAL_VIEW")
-GroupAction.create(name: "PROPOSAL_PARTECIPATION")
+GroupAction.create(name: "PROPOSAL_PARTICIPATION")
 GroupAction.create(name: "PROPOSAL_VOTE")
 GroupAction.create(name: "PROPOSAL_INSERT")
 GroupAction.create(name: "DOCUMENT_VIEW")
@@ -12,10 +12,10 @@ GroupAction.create(name: "CREATE_EVENT")
 GroupAction.create(name: "PROPOSAL_DATE")
 GroupAction.create(name: "STREAM_POST")
 GroupAction.create(name: "REQUEST_ACCEPT")
-GroupPartecipationRequestStatus.create( description: "Inoltrata" ){ |c| c.id = 1}.save
-GroupPartecipationRequestStatus.create( description: "In votazione" ){ |c| c.id = 2}.save
-GroupPartecipationRequestStatus.create( description: "Accettata" ){ |c| c.id = 3}.save
-GroupPartecipationRequestStatus.create( description: "Negata" ){ |c| c.id = 4}.save
+GroupParticipationRequestStatus.create( description: "Inoltrata" ){ |c| c.id = 1}.save
+GroupParticipationRequestStatus.create( description: "In votazione" ){ |c| c.id = 2}.save
+GroupParticipationRequestStatus.create( description: "Accettata" ){ |c| c.id = 3}.save
+GroupParticipationRequestStatus.create( description: "Negata" ){ |c| c.id = 4}.save
 nc6 = NotificationCategory.create(seq: 1, short: "MYPROP")
 NotificationType.create( name: "new_contributes_mine", notification_category_id: nc6.id ){ |c| c.id = 5}.save
 NotificationType.create( name: "change_status_mine", notification_category_id: nc6.id ){ |c| c.id = 6}.save
@@ -41,7 +41,7 @@ NotificationType.create( name: "new_events", notification_category_id: nc9.id ){
 nc10 = NotificationCategory.create(seq: 5, short: "GROUPS")
 NotificationType.create( name: "new_posts_group_follow", notification_category_id: nc10.id ){ |c| c.id = 8}.save
 NotificationType.create( name: "new_posts_group", notification_category_id: nc10.id ){ |c| c.id = 9}.save
-NotificationType.create( name: "new_partecipation_request", notification_category_id: nc10.id ){ |c| c.id = 12}.save
+NotificationType.create( name: "new_participation_request", notification_category_id: nc10.id ){ |c| c.id = 12}.save
 NotificationType.create( name: "new_posts_user_follow", notification_category_id: nc10.id ){ |c| c.id = 15}.save
 NotificationType.create( name: "new_blog_comment", notification_category_id: nc10.id ){ |c| c.id = 26}.save
 ProposalCategory.create(name: "no_category", seq: 20 ){ |c| c.id = 5 }.save
@@ -118,7 +118,7 @@ Quorum.create(name: "3 giorni", percentage: nil, minutes: 4320, good_score: 50, 
 Quorum.create(name: "7 giorni", percentage: nil, minutes: 10080, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 3)
 Quorum.create(name: "15 giorni", percentage: nil, minutes: 21600, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 4)
 Quorum.create(name: "30 giorni", percentage: nil, minutes: 43200, good_score: 50, bad_score: 50, vote_percentage: 0, vote_minutes: nil, vote_good_score: 50, t_percentage: "s", t_minutes: "s", t_good_score: "s", t_vote_percentage: "s", t_vote_minutes: "f", t_vote_good_score: "s", public: true, seq: 5)
-PartecipationRole.create(name: "amministratore", description: "Amministratore"){ |c| c.id = 2 }.save
+ParticipationRole.create(name: "amministratore", description: "Amministratore"){ |c| c.id = 2 }.save
 VoteType.create( short: "favorable"){ |c| c.id = 1 }.save
 VoteType.create( short: "neutral"){ |c| c.id = 2 }.save
 VoteType.create( short: "dissenting"){ |c| c.id = 3 }.save

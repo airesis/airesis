@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
-
+<div class="card">
 <p>
   <b>Message:</b>
-  <%= @announcement.message %>
+  <%=simple_format @announcement.message %>
 </p>
 
 <p>
@@ -14,7 +13,7 @@
   <b>Ends at:</b>
   <%= @announcement.ends_at %>
 </p>
+</div>
 
-
-<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'Back', announcements_path %>
+<%= link_to 'Edit', edit_announcement_path(@announcement) if can? :update, @announcement%> |
+<%= link_to 'Back', announcements_path, class: 'btn' %>
