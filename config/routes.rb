@@ -91,7 +91,7 @@ Airesis::Application.routes.draw do
       get :rankup
       get :rankdown
       get :statistics
-      put :set_votation_date
+      patch :set_votation_date
       post :available_author
       get :available_authors_list
       put :add_authors
@@ -235,11 +235,10 @@ Airesis::Application.routes.draw do
       end
     end
   end
+
   concern :participation_roles do
     resources :participation_roles do
       collection do
-
-
         post :change_default_role
       end
       member do
@@ -275,10 +274,6 @@ Airesis::Application.routes.draw do
     end
 
     resources :group_areas do
-      collection do
-        get :manage
-      end
-
       resources :area_roles do
         collection do
           put :change
@@ -493,10 +488,6 @@ Airesis::Application.routes.draw do
       end
 
       resources :group_areas do
-        collection do
-          get :manage
-        end
-
         resources :area_roles do
           collection do
             put :change

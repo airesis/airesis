@@ -2,7 +2,11 @@ class ProposalState < ActiveRecord::Base
   has_many :proposals, class_name: 'Proposal'
 
   VALUTATION=1
+
+  #waiting for the user to choose the date
   WAIT_DATE=2
+
+  #date choosen. waiting for start
   WAIT=3
   VOTING=4
   REJECTED=5

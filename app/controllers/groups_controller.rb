@@ -256,7 +256,7 @@ class GroupsController < ApplicationController
         @group.attributes = params[:group]
 
         if @group.name_changed?
-          @group.internal_proposals.each do |proposal|
+          @group.proposals.each do |proposal|
             proposal.update_column(:url, group_proposal_path(@group, proposal))
           end
         end

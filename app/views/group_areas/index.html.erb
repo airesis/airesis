@@ -1,20 +1,89 @@
-<%@extend = true%>
-<%= render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_work_areas.manage_group_areas')} do %>
-    <%= link_to t('pages.groups.edit_work_areas.manage.switch_area_management'), manage_group_group_areas_url(@group), class: "btn historyButton disable", data:{disable_with: t('loading')} %><br />
-    <%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_url(@group), remote: true, class: "btn newButton disable" %>
+<ul class="breadcrumbs">
+  <li class="current"><%= 'All working areas' %></li>
+</ul>
 
+<%= render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_work_areas.manage_group_areas')} do %>
+    <%= link_to t('pages.groups.edit_work_areas.manage.new_area'), new_group_group_area_url(@group, manage: true), remote: true, class: "btn newButton disable" %>
 <% end %>
 <div id="new_group_area_container">
 </div>
 
-<%= t('pages.groups.edit_work_areas.manage.list_participants') %>
-<div id="users_list_container">
-  <%= render partial: 'users_list' %>
-
+<%= t('pages.groups.edit_work_areas.manage.list_title') %>
+<div id="group_areas_container">
+  <%= render partial: 'group_areas_list' %>
 </div>
 
+<div id="edit_group_area_container">
 
+</div>
 
 <%= content_for :left_panel do %>
     <%= render partial: 'groups/administration_panel' %>
 <% end %>
+
+
+<script type="text/javascript">
+    $(function() {
+        $('.areas_button')
+                .mouseover(function() {
+                    var _this = $(this);
+                    var _areas_list = _this.next('.areas_list');
+                    _areas_list.show().position({
+                        at: "left bottom",
+                        my: "left bottom",
+                        of: _this
+                    });
+                })
+                .mouseout(function() {
+                    var _this = $(this);
+                    var _areas_list = _this.next('.areas_list');
+                    setTimeout(function() {
+                        if (_areas_list.is(':hover')  || _this.is(':hover')) {
+
+                        }
+                        else {
+                            _areas_list.hide();
+                        }
+                    },200);
+                });
+
+        $('.areas_list')
+                .mouseout(function() {
+                    var _this = $(this);
+                    var _areas_button = _this.prev('.areas_button');
+                    setTimeout(function() {
+                        if (_areas_button.is(':hover') || _this.is(':hover')) {
+
+                        }
+                        else {
+                            _this.hide();
+                        }
+                    },200);
+                });
+
+
+        $(document).on('click', '[data-change-area-participation]', function (event) {
+            var group_area_id = $(this).data('group_area_id');
+            var user_id = $(this).data('user_id');
+            var area_participation_id = $(this).data('area_participation_id');
+            var checked_ = this.checked;
+            if (checked_) {
+                $.ajax({
+                    data: "area_participation[user_id]=" + user_id,
+                    url: "/groups/<%=@group.id%>/group_areas/"+group_area_id+"/area_participations",
+                    dataType: 'script',
+                    type: 'POST'
+                });
+            }
+            else {
+                $.ajax({
+                    data: "area_participation[user_id]=" + user_id,
+                    url: "/groups/<%=@group.id%>/group_areas/"+group_area_id+"/area_participations/-1",
+                    dataType: 'script',
+                    type: 'DELETE'
+                });
+
+            }
+        });
+    });
+</script>

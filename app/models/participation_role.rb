@@ -6,7 +6,7 @@ class ParticipationRole < ActiveRecord::Base
   has_many :group_participations, class_name: 'GroupParticipation'
   has_many :users, through: :group_participations, class_name: 'User'
   has_many :action_abilitations, class_name: 'ActionAbilitation', dependent: :destroy
-  has_many :group_actions, class_name: 'GroupAction', through: :action_abilitations#, order: 'group_actions.seq'
+  has_many :group_actions, class_name: 'GroupAction', through: :action_abilitations
   belongs_to :participation_roles, class_name: 'ParticipationRole', foreign_key: :parent_participation_role_id
   belongs_to :group, class_name: 'Group', foreign_key: :group_id
 

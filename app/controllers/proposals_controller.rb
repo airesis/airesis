@@ -2,21 +2,14 @@
 class ProposalsController < ApplicationController
   include NotificationHelper, ProposalsModule, GroupsHelper
 
-  #load_and_authorize_resource
-
-  #carica il gruppo
   before_filter :load_group
   before_filter :load_group_area
 
+  authorize_resource :group
+  authorize_resource :group_area
+  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list,:similar]
+
   layout :choose_layout
-  #carica la proposta
-  before_filter :load_proposal, only: [:vote_results]
-  before_filter :load_proposal_and_group, except: [:index, :tab_list, :endless_index, :new, :create, :similar, :vote_results]
-
-  ###SICUREZZA###
-
-  #l'utente deve aver fatto login
-  before_filter :authenticate_user!, except: [:index, :tab_list, :endless_index, :show]
 
   #l'utente deve essere autore della proposta
   before_filter :check_author, only: [:set_votation_date, :add_authors, :geocode]
@@ -33,9 +26,7 @@ class ProposalsController < ApplicationController
   #l'utente deve poter valutare la proposta
   before_filter :can_valutate, only: [:rankup, :rankdown]
 
-
   before_filter :check_page_alerts, only: :show
-
 
   def index
     populate_search
@@ -54,7 +45,6 @@ class ProposalsController < ApplicationController
       end
     end
 
-
     @search.proposal_state_id = ProposalState::TAB_DEBATE
     @in_valutation_count = @search.results.total_entries
     @search.proposal_state_id = ProposalState::TAB_VOTATION
@@ -63,7 +53,6 @@ class ProposalsController < ApplicationController
     @accepted_count = @search.results.total_entries
     @search.proposal_state_id = ProposalState::TAB_REVISION
     @revision_count = @search.results.total_entries
-
 
     respond_to do |format|
       format.html {
@@ -108,6 +97,7 @@ class ProposalsController < ApplicationController
 
   #list all proposals in a state
   def tab_list
+    authorize! :index, Proposal
     query_index
     respond_to do |format|
       if params[:replace]
@@ -120,6 +110,7 @@ class ProposalsController < ApplicationController
   end
 
   def endless_index
+    authorize! :index, Proposal
     query_index
     respond_to do |format|
       format.js
@@ -152,7 +143,7 @@ class ProposalsController < ApplicationController
       else #se è bloccata alla visione di utenti esterni
         if !current_user #se l'utente non è loggato richiedi l'autenticazione
           authenticate_user!
-        elsif !(can? :read, @proposal) #se è loggato ma non ha i permessi caccialo fuori
+        elsif !(can? :show, @proposal) #se è loggato ma non ha i permessi caccialo fuori
           respond_to do |format|
             flash[:error] = I18n.t('error.proposals.view_proposal')
             format.html {
@@ -257,7 +248,6 @@ class ProposalsController < ApplicationController
   end
 
   def edit
-    authorize! :update, @proposal
     @change_advanced_options = @group ?
         @group.change_advanced_options :
         DEFAULT_CHANGE_ADVANCED_OPTIONS
@@ -618,6 +608,7 @@ class ProposalsController < ApplicationController
   #passata come parametro
   #se è indicato un group_id cerca anche tra quelle interne a quel gruppo
   def similar
+    authorize! :index, Proposal
     tags = params[:tags].downcase.gsub('.', '').gsub("'", "").split(",").map { |t| "'#{t.strip}'" }.join(",").html_safe
     if tags.empty?
       tags = "''"
@@ -833,7 +824,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
   #carica l'area di lavoro
   def load_group_area
-    @group_area = GroupArea.find(params[:group_area_id]) if params[:group_area_id]
+    @group_area = @group.group_areas.find(params[:group_area_id]) if @group && params[:group_area_id]
   end
 
 
@@ -850,7 +841,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
   end
 
   def load_proposal
-    @proposal = @group ? @group.internal_proposals.find(params[:id]) : Proposal.find(params[:id])
+    @proposal = @group ? @group.proposals.find(params[:id]) : Proposal.find(params[:id])
   end
 
   def load_my_vote

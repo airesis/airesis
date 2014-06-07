@@ -1371,6 +1371,8 @@ en:
     error_302:
       title: "Unauthorized access"
       description: "Sorry. You do not have permissions to access this resource."
+    area_participation:
+      create: "Error adding the user to the area"
   info:
     setting_preferences: "Settings changed successfully"
     blog_created: "Post successfully created"
@@ -1473,6 +1475,9 @@ en:
     topic:
       hidden: "This topic is hidden"
     participations_destroyed: "Users deleted. Please refresh the page."
+    area_participation:
+      create: "User added to the area"
+      destroy: "User removed from the area"
   interest_borders:
     hint: "Type a few characters to search for a place"
     no_place_found: "No place found"

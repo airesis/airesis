@@ -3,31 +3,41 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can [:index, :show, :read], [Proposal, BlogPost, Blog, Group]
+    can [:index, :show, :read], [BlogPost, Blog, Group]
     can :view_data, Group, private: false
     can :read, Frm::Category, visible_outside: true
     can :read, Frm::Topic, forum: {visible_outside: true}, forum: {category: {visible_outside: true}}
     can :read, Frm::Forum, visible_outside: true, category: {visible_outside: true}
     can :read, Event, private: false
+
+    can :index, Proposal
+    can :show, Proposal, private: false
+    can :show, Proposal, visible_outside: true
     can :read, Announcement, ["starts_at <= :now and ends_at >= :now", now: Time.zone.now] do |a|
       true
     end
     if user
+      can :create, Proposal, group: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
 
-      #TODO to fix when groups will share proposals
-      can :read, Proposal do |proposal|
-        can_read_proposal?(user, proposal)
-      end
-      can :update, Proposal do |proposal|
-        can_edit_proposal?(user, proposal)
-      end
+      #can see proposals in group in which is administrator
+      can :show, Proposal, presentation_groups: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
+
+      #can see proposals in groups in which has permission, not belonging to any area
+      can :show, Proposal, presentation_groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}
+      cannot :show, Proposal, :presentation_areas
+      #can see proposals in group areas in which has permission
+      can :show, Proposal, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}
+
+      can [:edit,:update], Proposal, users: {id: user.id}, proposal_state_id: ProposalState::VALUTATION
+
       can :partecipate, Proposal do |proposal|
         can_partecipate_proposal?(user, proposal)
       end
       can :vote, Proposal do |proposal|
         can_vote_proposal?(user, proposal)
       end
-      can :choose_date, Proposal do |proposal| #return true if the user can put the proposal in votation
+      can :set_votation_date, Proposal, proposal_state_id: ProposalState::WAIT_DATE, users: {id: user.id}
+      can :set_votation_date, Proposal do |proposal| #return true if the user can put the proposal in votation
         (user.is_mine? proposal) ||
             ((proposal.updated_at < (Time.now - 5.days)) && proposal.private? && (can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_DATE)))
       end
@@ -39,6 +49,8 @@ class Ability
             !(((Time.now - proposal.created_at) > 10.minutes) && (proposal.valutations > 0 || proposal.contributes.count > 0)) &&
             proposal.in_valutation?
       end
+
+
       can :destroy, ProposalComment do |comment| #you can destroy a contribute only if it's yours and it has been posted less than 5 minutes ago
         (user.is_mine? comment) && (((Time.now - comment.created_at)/60) < 5)
       end
@@ -92,10 +104,10 @@ class Ability
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 5)
       end
-      can :view_proposal, Group do |group|
-        #can_do_on_group?(user,group,4)
-        can_do_on_group?(user, group, 6)
-      end
+
+      can :view_proposal, Group, group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}
+      can :view_proposal, Group, group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}
+
       can :insert_proposal, Group do |group|
         #can_do_on_group?(user,group,4)
         can_do_on_group?(user, group, 8)
@@ -135,7 +147,7 @@ class Ability
         area.group.portavoce.include? user
       end
       can :destroy, GroupArea do |area|
-        (area.group.portavoce.include? user) && (area.internal_proposals.count == 0)
+        (area.group.portavoce.include? user) && (area.proposals.count == 0)
       end
 
       can :read, Election do |election|
@@ -170,15 +182,11 @@ class Ability
         ut.receive_messages && user != ut && ut.email && user.email
       end
 
-      can :index, GroupParticipation, group: {participants: {id: user.id}}
-      can :manage, [GroupArea,Quorum,BestQuorum,OldQuorum], group: {id: user.portavoce_group_ids}
+      can :index, [GroupParticipation,GroupArea], group: {participants: {id: user.id}}
+      can :manage, [Quorum, BestQuorum, OldQuorum], group: {id: user.portavoce_group_ids}
       can :manage, GroupArea, group: {id: user.portavoce_group_ids, enable_areas: true}
-      can :index, GroupArea, group: {id: user.portavoce_group_ids}
 
-      can [:create,:destroy], AreaParticipation, group_area: {group: {id: user.portavoce_group_ids}}
-
-
-
+      can [:create, :destroy], AreaParticipation, group_area: {group: {id: user.portavoce_group_ids}, area_participations: {user_id: :user_id}}
 
       #e sia l'amministratore o portavoce del gruppo
       #e che il ruolo appartenga al gruppo indicato o sia generico,
@@ -225,8 +233,6 @@ class Ability
       can [:update, :destroy], Event, groups: {group_participations: {user_id: user.id, participation_role_id: ParticipationRole::ADMINISTRATOR}}
       can [:update, :destroy], Event, groups: {participation_roles: {action_abilitations: {group_action_id: GroupAction::CREATE_EVENT, group_id: 'groups.id'}}}
       cannot [:update, :destroy], Event, event_type_id: EventType::VOTAZIONE, proposals: ['proposals.id != null'], possible_proposals: ['proposals.id != null']
-
-
 
 
       can :read, Alert, user_id: user.id
@@ -293,6 +299,9 @@ class Ability
           comment.grave_reports_count > 0
         end
         can :manage, Announcement
+        #can edit participations to group areas
+        can [:create, :destroy], AreaParticipation
+
 
         if user.admin?
           can :close_debate, Proposal do |proposal| #can close debate of a proposal
@@ -302,7 +311,7 @@ class Ability
 
           can :update, Proposal #can edit them
           can :partecipate, Proposal #can partecipate
-          can :choose_date, Proposal
+          can :set_votation_date, Proposal
           can :destroy, Proposal #can destroy one
           can :destroy, ProposalComment
           can :manage, Group
@@ -316,6 +325,8 @@ class Ability
           can :create_topic, Frm::Forum
           can :manage, Frm::Category
           can :manage, Frm::Forum
+          can :manage, GroupArea
+          can :index, GroupParticipation
         end
       end
 
@@ -342,54 +353,15 @@ class Ability
 
 
     def can_do_on_group?(user, group, action)
-      user.groups.where("participation_role_id = 2")
-      participation = user.group_participations.where(group_id: group.id).first
-      return false unless participation
-      role = participation.participation_role
-      return true if (role.id == ParticipationRole::ADMINISTRATOR)
-      roles = group.participation_roles.joins(:action_abilitations).where(["action_abilitations.group_action_id = ? AND action_abilitations.group_id = ?", action, group.id]).load
-      roles.include? role
+      group.group_participations
+      .joins(:participation_role => :action_abilitations)
+      .where(["group_participations.user_id = :user_id and (participation_roles.id = #{ParticipationRole::ADMINISTRATOR} or action_abilitations.group_action_id = :action_id)", user_id: user.id, action_id: action]).uniq.exists?
     end
-
 
     def can_do_on_group_area?(user, group_area, action)
-      group_participation = user.group_participations.first(conditions: {group_id: group_area.group.id})
-      return false unless group_participation
-      group_role = group_participation.participation_role
-      return true if (group_role.id == ParticipationRole::ADMINISTRATOR)
-
-      area_participation = user.area_participations.first(conditions: {group_area_id: group_area.id})
-      return false unless area_participation
-      role = area_participation.area_role
-      roles = group_area.area_roles.all(joins: :area_action_abilitations, conditions: ["area_action_abilitations.group_action_id = ? AND area_action_abilitations.group_area_id = ?", action, group_area.id])
-      roles.include? role
-    end
-
-
-    def can_read_proposal?(user, proposal)
-      if proposal.private
-        return true if proposal.visible_outside
-        if proposal.presentation_areas.count > 0 #if it's inside a specific area
-          return can_do_on_group_area?(user, proposal.presentation_areas.first, GroupAction::PROPOSAL_VIEW)
-        else
-          return can_do_on_group?(user, proposal.presentation_groups.first, GroupAction::PROPOSAL_VIEW) #todo when a proposal will be presented by more groups
-        end
-      else
-        true
-      end
-
-    end
-
-    #un utente può modificare una proposta se ne è l'autore e
-    #se è standard solo durante la fase di dibattito
-    #se è un sondaggio prima che venga messa in votazione
-    def can_edit_proposal?(user, proposal)
-      return false unless user.is_mine? proposal
-      if proposal.is_polling?
-        [ProposalState::WAIT_DATE.to_s, ProposalState::WAIT.to_s].include? proposal.proposal_state_id.to_s
-      else
-        proposal.proposal_state_id.to_s == ProposalState::VALUTATION.to_s
-      end
+      group_area.area_participations
+      .joins(:area_role => :area_action_abilitations)
+      .where(["area_participations.user_id = :user_id and area_action_abilitations.id = :action_id",user_id: user.id, action_id: action]).uniq.exists?
     end
 
     #un utente può partecipare ad una proposta se è pubblica
@@ -400,7 +372,7 @@ class Ability
         proposal.presentation_groups.each do |group|
           areas = proposal.presentation_areas.where(group_id: group.id)
           if areas.count > 0
-            if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_participation)
+            if can_do_on_group_area?(user, areas.first, GroupAction::PROPOSAL_PARTICIPATION)
               if proposal.is_polling? && (proposal.voting? || proposal.voted?)
                 return true
               elsif proposal.in_valutation? || proposal.voted?
@@ -408,25 +380,15 @@ class Ability
               end
             end
           else
-            if can_do_on_group?(user, group, GroupAction::PROPOSAL_participation)
-              if proposal.is_polling? && (proposal.voting? || proposal.voted?)
-                return true
-              elsif proposal.in_valutation? || proposal.voted?
-                return true
-              end
+            if can_do_on_group?(user, group, GroupAction::PROPOSAL_PARTICIPATION)
+              return proposal.in_valutation? || proposal.voted?
             end
           end
 
         end
-        return false
+        false
       else
-        if  proposal.is_polling? && (proposal.voting? || proposal.voted?)
-          return true
-        elsif proposal.in_valutation? || proposal.voted?
-          return true
-        else
-          return false
-        end
+        proposal.in_valutation? || proposal.voted?
       end
     end
 

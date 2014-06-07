@@ -53,13 +53,12 @@
                           <% @group.group_areas.each do |area| %>
                               <li>
                                 <input type="checkbox"
-                                       data-user_id="<%= participant.id %>"
+                                       data-user_id="<%= participant.user.id %>"
                                        data-group_area_id="<%= area.id %>"
                                        data-change-area-participation
                                        <% area_participation = area.area_participations.find_by(user_id: participant.user.id) %>
-                                       <% if area_participation%>
-                                            checked='checked'
-                                            data-area_participation_id="<%= area_participation.id %>"
+                                       <% if area_participation %>
+                                       checked='checked'
                                        <% end %> >
                                 <%= area.name %>
                               </li>

@@ -18,7 +18,7 @@ class GroupArea < ActiveRecord::Base
   has_many :participants, through: :area_participations, source: :user, class_name: 'User'
 
   has_many :area_proposals, class_name: 'AreaProposal'#, dependent: :destroy
-  has_many :internal_proposals, through: :area_proposals, class_name: 'Proposal', source: :proposal
+  has_many :proposals, through: :area_proposals, class_name: 'Proposal', source: :proposal
 
   has_many :area_roles, -> {order 'id DESC'}, class_name: 'AreaRole', dependent: :destroy
 

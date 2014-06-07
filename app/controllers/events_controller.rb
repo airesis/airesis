@@ -4,7 +4,6 @@ class EventsController < ApplicationController
 
   layout :choose_layout
 
-
   before_filter :load_group, only: [:index, :new, :create]
 
   load_and_authorize_resource :group
@@ -92,8 +91,7 @@ class EventsController < ApplicationController
     if params[:proposal_id]
       @event.proposal_id = params[:proposal_id]
     end
-    if params[:group_id]
-      @group = Group.find(params[:group_id])
+    if @group
       @event.private = true
       respond_to do |format|
         format.js
@@ -116,7 +114,7 @@ class EventsController < ApplicationController
     Event.transaction do
       if (!event_params[:period]) || (event_params[:period] == "Non ripetere")
         @event.user_id = current_user.id
-        @event.save!
+        @group ? @group.save! : @event.save!
 
         #fai partire il timer per far scadere la proposta fuori dalla transazione
         if @event.is_votazione?
@@ -131,9 +129,11 @@ class EventsController < ApplicationController
         end
       else
         @event_series = EventSeries.new(event_params)
-        @event_series.save
+        @event_series.save!
       end
+
     end
+
   rescue ActiveRecord::ActiveRecordError => e
     respond_to do |format|
       format.js { render 'layouts/active_record_error', locals: {object: (@event || @event_series)} }

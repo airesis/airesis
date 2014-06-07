@@ -48,8 +48,7 @@ class Group < ActiveRecord::Base
   has_many :next_events, -> { where(['starttime > ?', Time.now]) }, through: :meeting_organizations, class_name: 'Event', source: :event
 
   has_many :proposal_supports, class_name: 'ProposalSupport', dependent: :destroy
-  has_many :proposals, through: :proposal_supports, class_name: 'Proposal'
-  # belongs_to :image, class_name: 'Image', foreign_key: :image_id
+  has_many :supported_proposals, through: :proposal_supports, class_name: 'Proposal'
 
   has_many :action_abilitations, class_name: 'ActionAbilitation'
 
@@ -62,7 +61,7 @@ class Group < ActiveRecord::Base
   has_many :candidates, through: :supporters, class_name: 'Candidate'
 
   has_many :group_proposals, class_name: 'GroupProposal', dependent: :destroy
-  has_many :internal_proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
+  has_many :proposals, through: :group_proposals, class_name: 'Proposal', source: :proposal
 
   has_many :group_quorums, class_name: 'GroupQuorum', dependent: :destroy
   has_many :quorums, -> { order 'seq nulls last, quorums.id' }, through: :group_quorums, class_name: 'BestQuorum', source: :quorum

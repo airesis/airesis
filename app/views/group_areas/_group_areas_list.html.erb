@@ -22,7 +22,7 @@
                 <input type="checkbox"
                        data-user_id="<%=participant.id%>"
                        data-group_area_id="<%=area.id%>"
-                       onclick="change_area_participation(this);"
+                       data-change-area-participation
                        <%if area.participants.include? participant%> checked='checked'<%end%> >
                 <%= participant.fullname %>
               </li>

@@ -6,33 +6,24 @@ class GroupAreasController < ApplicationController
 
   before_filter :configuration_required
 
-  before_filter :areas_active_required, except: :index
-
   #carica il gruppo
   before_filter :load_group
   authorize_resource :group
-  load_and_authorize_resource through: :group, except: [:manage]
+  load_and_authorize_resource through: :group
 
   def index
     if @group.enable_areas
+      @group_areas = @group.group_areas #.includes(:participants)
       @group_participations = @group.participants
     else
       render 'area_inactive'
     end
   end
 
-  def manage
-    authorize! :manage, GroupArea
-    @group_areas = @group.group_areas #.includes(:participants)
-    @group_participations = @group.participants
-  end
-
-
   def show
     @page_title = @group_area.name
     @group_participations = @group_area.participants
   end
-
 
   def new
     @group_area = @group.group_areas.build
@@ -48,13 +39,10 @@ class GroupAreasController < ApplicationController
     @page_title = t("pages.groups.edit_permissions.title")
   end
 
-  #create new area
   def create
     begin
       GroupArea.transaction do
-
         params[:group_area][:default_role_actions]
-
         @group_area = @group.group_areas.build(params[:group_area]) #crea il gruppo
         @group_area.current_user_id = current_user.id
         @group_area.save!
@@ -68,10 +56,8 @@ class GroupAreasController < ApplicationController
         flash[:error] = t('error.groups.work_area.area_created')
         format.js { render 'group_areas/errors/create'}
       end
-    end #begin
+    end
   end
-
-  #create
 
   def update
     authorize! :update, @group_area
@@ -127,13 +113,6 @@ class GroupAreasController < ApplicationController
   def configuration_required
     unless ::Configuration.group_areas
       flash[:error] = t('error.configuration_required')
-      redirect_to edit_group_path(@group)
-    end
-  end
-
-  def areas_active_required
-    unless @group.enable_areas
-      flash[:error] = t('error.areas_required')
       redirect_to edit_group_path(@group)
     end
   end

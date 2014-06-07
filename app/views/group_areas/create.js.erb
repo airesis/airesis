@@ -1,6 +1,6 @@
 <%if params[:manage] == 'true' %>
-$('#group_areas_container').html('<%= j 'group_areas/group_areas_list'%>');
+$('#group_areas_container').html('<%= j render 'group_areas/group_areas_list'%>');
 <%else%>
-$('#users_list_container').html('<%= j 'group_areas/users_list'%>');
+$('#users_list_container').html('<%= j render 'group_areas/users_list'%>');
 <%end%>
 $('#group_area_container').foundation('reveal','close');

@@ -201,7 +201,7 @@ class Proposal < ActiveRecord::Base
 
   #retrieve the list of proposals for the group with a count of the number of the notifications for each proposal
   def self.group_portlet(group,user)
-    query = group.internal_proposals.includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
+    query = group.proposals.includes([:quorum, {users: :image}, :proposal_type, :groups, :presentation_groups, :category]).order('created_at desc').limit(10)
     if user
     query = query.select('distinct proposals.*, proposal_alerts.count as alerts_count, proposal_rankings.ranking_type_id as ranking')
     .joins(" left outer join proposal_alerts on proposals.id = proposal_alerts.proposal_id and proposal_alerts.user_id = #{user.id}")
