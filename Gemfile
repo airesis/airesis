@@ -25,6 +25,15 @@ group :development do
   gem 'quiet_assets'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+end
+
+
 gem 'crowdin-api', group: [:development, :staging]
 gem 'rubyzip', group: [:development, :staging]
 
@@ -126,3 +135,7 @@ gem 'protected_attributes'
 gem 'client_side_validations', github: 'coorasse/client_side_validations', branch: '4-0-beta'
 
 gem 'client_side_validations-simple_form', github: 'coorasse/client_side_validations-simple_form'
+
+gem 'figaro'
+
+gem 'faker'

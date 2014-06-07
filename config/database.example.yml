@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: airesis_development
+  pool: 20
+  username: postgres
+  password: postgres  
+  host: localhost
+  port: 5432
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: airesis_test
+  pool: 20
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: airesis_production
+  pool: 5
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432

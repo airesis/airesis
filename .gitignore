@@ -13,8 +13,8 @@ tmp
 log
 app/assets/images/users
 config/environments/
-config/environment.rb
 config/database.yml
+config/application.yml
 config/paypal.yml
 config/initializers/constants.rb
 test/fixtures

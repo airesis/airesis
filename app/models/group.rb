@@ -33,7 +33,7 @@ class Group < ActiveRecord::Base
 
   has_many :group_participations, class_name: 'GroupParticipation', dependent: :destroy
   has_many :participants, through: :group_participations, source: :user, class_name: 'User'
-  has_many :portavoce, -> {where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR])}, through: :group_participations, source: :user, class_name: 'User'
+  has_many :portavoce, -> { where(["group_participations.participation_role_id = ?", ParticipationRole::ADMINISTRATOR]) }, through: :group_participations, source: :user, class_name: 'User'
 
   has_many :followers, through: :group_follows, source: :user, class_name: 'User'
   has_many :posts, through: :post_publishings, source: :blog_post, class_name: 'BlogPost'
@@ -100,6 +100,8 @@ class Group < ActiveRecord::Base
 
   before_create :pre_populate
   after_create :after_populate
+
+  after_commit :create_folder
 
   before_save :normalize_blank_values
   before_save :save_tags, if: :not_resaving?
@@ -243,7 +245,7 @@ class Group < ActiveRecord::Base
       fid = tkn[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
       found = InterestBorder.table_element(tkn)
       if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
+        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
         puts "New Record!" if (interest_b.new_record?)
         self.interest_border = interest_b
       end
@@ -352,4 +354,8 @@ class Group < ActiveRecord::Base
         order("groups.name asc")
   end
 
+  def create_folder
+    dir = "#{Rails.root}/private/elfinder/#{self.id}"
+    Dir.mkdir dir unless File.exists?(dir)
+  end
 end

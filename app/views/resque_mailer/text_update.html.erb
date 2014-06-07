@@ -34,7 +34,7 @@
             </div>
         <% end %>
         <p>
-          <%=raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect',name: APP_SHORT_NAME), @alert_url)) %>
+          <%=raw t('mailer.text_update.view_proposal_2', click_here: (link_to t('mailer.text_update.connect',name: ENV['APP_SHORT_NAME']), @alert_url)) %>
         </p>
     <% end %>
 <% end %>

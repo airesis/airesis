@@ -38,18 +38,18 @@ class ResqueMailer < ActionMailer::Base
   
   def admin_message(msg)
     @msg = msg
-    mail(to: 'coorasse+daily@gmail.com', subject: APP_SHORT_NAME + " - Messaggio di amministrazione")
+    mail(to: 'coorasse+daily@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Messaggio di amministrazione")
   end
 
   def report_message(report_id)
     @report = ProposalCommentReport.find(report_id)
 
-    mail(to: 'coorasse+report@gmail.com', subject: APP_SHORT_NAME + " - Segnalazione Contributo")
+    mail(to: 'coorasse+report@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Segnalazione Contributo")
   end
 
 
   def info_message(msg)
-    mail(to: 'coorasse+info@gmail.com', subject: APP_SHORT_NAME + " - Messaggio di informazione")
+    mail(to: 'coorasse+info@gmail.com', subject: ENV['APP_SHORT_NAME'] + " - Messaggio di informazione")
   end
 
   #invia un invito ad iscriversi al gruppo

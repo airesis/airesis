@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin?, :is_moderator?, :is_proprietary?, :current_url, :link_to_auth, :mobile_device?, :age, :is_group_admin?, :in_subdomain?
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password)}
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :surname, :accept_conditions, :sys_locale_id, :password) }
   end
 
   #redirect all'ultima pagina in cui ero
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     if @blog
       @user = @blog.user
       @blog_posts = @blog.posts.published.includes(:user, :blog, :tags).order('published_at DESC').page(params[:page]).per(COMMENTS_PER_PAGE)
-      @recent_comments = @blog.comments.includes(:blog_post,user: [:image, :user_type]).order('created_at DESC').limit(10)
+      @recent_comments = @blog.comments.includes(:blog_post, user: [:image, :user_type]).order('created_at DESC').limit(10)
       @recent_posts = @blog.posts.published.order('published_at DESC').limit(10)
       @archives = @blog.posts.select("COUNT(*) AS posts, extract(month from created_at) AS MONTH , extract(year from created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from created_at) desc")
     end
@@ -82,11 +82,13 @@ class ApplicationController < ActionController::Base
   def set_locale
     @domain_locale = request.host.split('.').last
     params[:l] = SysLocale.find_by_key(params[:l]) ? params[:l] : nil
-    @locale =
-        (Rails.env == :staging ?
-            params[:l] || I18n.default_locale :
-            params[:l] || @domain_locale || I18n.default_locale)
-
+    if Rails.env.staging?
+      params[:l] || I18n.default_locale
+    elsif Rails.env.test?
+      params[:l] || I18n.default_locale
+    else
+      params[:l] || @domain_locale || I18n.default_locale
+    end
     @locale = 'en' if ['en', 'eu'].include? @locale
     @locale = 'en-US' if ['us'].include? @locale
     @locale = 'zh' if ['cn'].include? @locale
@@ -257,6 +259,7 @@ class ApplicationController < ActionController::Base
         (!params[:controller]) ||
         (params[:controller].starts_with? "devise/") ||
         (params[:controller] == "passwords") ||
+        (params[:controller] == "sessions") ||
         (params[:controller] == "users/omniauth_callbacks") ||
         (params[:controller] == "alerts" && params[:action] == "index") ||
         (params[:controller] == "users" && (params[:action] == "join_accounts" || params[:action] == "confirm_credentials")) ||

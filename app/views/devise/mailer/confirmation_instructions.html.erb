@@ -5,7 +5,7 @@
 <% end %>
 <% @url = user_confirmation_url(confirmation_token: @token, host: @host, l: @resource.original_locale.lang) %>
 
-<p><%= t('devise.mailer.confirmation_instructions.welcome', {app_name: APP_SHORT_NAME, user: @resource.fullname}) %></p>
+<p><%= t('devise.mailer.confirmation_instructions.welcome', {app_name: ENV['APP_SHORT_NAME'], user: @resource.fullname}) %></p>
 
 <p><%= t('devise.mailer.confirmation_instructions.follow_link') %></p>
 
@@ -15,6 +15,6 @@
 
 <p><%= link_to @url, @url %></p>
 
-<p><%= t('devise.mailer.confirmation_instructions.access_by_email', {app_name: APP_SHORT_NAME}) %></p>
+<p><%= t('devise.mailer.confirmation_instructions.access_by_email', {app_name: ENV['APP_SHORT_NAME']}) %></p>
 
 <p><%= t('devise.mailer.confirmation_instructions.contact_assistance', {mail: APP_EMAIL_ADDRESS}) %></p>

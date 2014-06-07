@@ -3,23 +3,17 @@ class GroupsController < ApplicationController
   include NotificationHelper, GroupsHelper
 
   layout :choose_layout
-  #carica il gruppo
-  before_filter :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
 
-  ###SICUREZZA###
-
-  #l'utente deve aver fatto login
   before_filter :authenticate_user!, except: [:index, :show, :by_year_and_month]
 
-  #before_filter :check_author,   only: [:new, :create, :edit, :update, :destroy]
+  before_filter :load_group, except: [:index, :new, :create, :ask_for_multiple_follow]
+
+  load_and_authorize_resource
 
   #l'utente deve essere portavoce o amministratore
   before_filter :portavoce_required, only: [:edit, :update, :enable_areas, :edit_proposals]
 
   before_filter :admin_required, only: [:autocomplete]
-
-  authorize_resource
-
 
   def autocomplete
     groups = Group.autocomplete(params[:term])
@@ -97,7 +91,7 @@ class GroupsController < ApplicationController
         @archives = @group.posts.select("COUNT(*) AS posts, extract(month from blog_posts.created_at) AS MONTH , extract(year from blog_posts.created_at) AS YEAR").group("MONTH, YEAR").order("YEAR desc, extract(month from blog_posts.created_at) desc")
         render 'show'
       }
-      format.json {render 'show'}
+      format.json { render 'show' }
     end
   end
 
@@ -226,24 +220,16 @@ class GroupsController < ApplicationController
 
   #crea un nuovo gruppo
   def create
-    authorize! :create, Group
-    begin
-      Group.transaction do
-        params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
-        @group = Group.new(params[:group]) #crea il gruppo
-        @group.current_user_id = current_user.id
-        @group.save!
-        Dir.mkdir "#{Rails.root}/private/elfinder/#{@group.id}"
-      end
+    @group.current_user_id = current_user.id
+    if @group.save
       respond_to do |format|
         flash[:notice] = t('info.groups.group_created')
         format.html { redirect_to group_url(@group) }
       end
-
-    rescue ActiveRecord::ActiveRecordError => e
+    else
       respond_to do |format|
-        flash[:error] = t('error.groups.creation')
-        format.html { render action: "new" }
+        format.js { render 'layouts/active_record_error', locals: {object: @group} }
+        format.html { render :new }
       end
     end
   end
@@ -304,7 +290,7 @@ class GroupsController < ApplicationController
     if (!request) #se non l'ha mai fatta
       participation = current_user.groups.find_by_id(@group.id)
       if (participation) #verifica se per caso non fa già parte del gruppo
-                         #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+        #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
         request = GroupParticipationRequest.new
         request.user_id = current_user.id
         request.group_id = @group.id
@@ -342,7 +328,7 @@ class GroupsController < ApplicationController
     follow = current_user.group_follows.find_by_group_id(@group.id)
 
     if (!follow) #se non lo segue
-                 #segui il gruppo
+      #segui il gruppo
       follow = current_user.group_follows.build(group_id: @group.id)
 
       saved = follow.save
@@ -368,7 +354,7 @@ class GroupsController < ApplicationController
         unless request #se non l'ha mai fatta
           participation = current_user.groups.find_by_id(group.id)
           if participation #verifica se per caso non fa già parte del gruppo
-                           #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
+            #crea una nuova richiesta di partecipazione ACCETTATA per correggere i dati
             request = GroupParticipationRequest.new
             request.user_id = current_user.id
             request.group_id = group.id
@@ -532,7 +518,7 @@ class GroupsController < ApplicationController
   rescue Exception => e
     respond_to do |format|
       flash[:error] = t('error.groups.post_featured')
-      format.js {render 'layouts/error'}
+      format.js { render 'layouts/error' }
     end
   end
 
@@ -547,6 +533,12 @@ class GroupsController < ApplicationController
   def load_group
     @group = params[:id] ? Group.friendly.find(params[:id]) : Group.find_by_subdomain(request.subdomain)
   end
+
+  def group_params
+    params[:group][:default_role_actions].reject!(&:empty?) if params[:group][:default_role_actions]
+    params.require(:group).permit(:participant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_participations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list)
+  end
+
 
   def portavoce_required
     unless (current_user && (@group.portavoce.include? current_user)) || is_admin?
@@ -570,7 +562,6 @@ class GroupsController < ApplicationController
   def choose_layout
     @group ? 'groups' : 'open_space'
   end
-
 end
 
 

@@ -8,7 +8,7 @@
 <%end%>
 
 <%= t('mailer.invite.accept_or_reject') %> <br />
-<%= t('mailer.invite.no_more', {app_name: APP_SHORT_NAME}) %> <br/>
+<%= t('mailer.invite.no_more', {app_name: ENV['APP_SHORT_NAME']}) %> <br/>
 
 <%= link_to t('mailer.invite.accept'), accept_group_invitations_url(group_id: @group.id, token: @group_invitation.token, email: @group_invitation_email.email), style: 'text-decoration: none;
         text-shadow: 0 1px rgba(0, 0, 0, 0.1);font: bold 11px Arial, sans-serif;color: #444;

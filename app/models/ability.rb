@@ -24,7 +24,9 @@ class Ability
 
       #can see proposals in groups in which has permission, not belonging to any area
       can :show, Proposal, presentation_groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}
+      #but can't see all proposals in presentation area
       cannot :show, Proposal, :presentation_areas
+
       #can see proposals in group areas in which has permission
       can :show, Proposal, presentation_areas: {area_participations: {user_id: user.id, area_role: {area_action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}
 
