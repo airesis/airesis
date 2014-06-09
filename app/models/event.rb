@@ -28,17 +28,13 @@ class Event < ActiveRecord::Base
 
   scope :public, -> { where(private: false) }
   scope :private, -> { where(private: true) }
-  scope :vote_period, lambda { |*starttime|
-    where(['event_type_id = ? AND starttime > ?', 2, starttime.empty? ? Time.now : starttime]).order('starttime asc')
-  }
-  scope :in_group, lambda { |group_id| {include: [:groups], conditions: ['groups.id = ?', group_id]} if group_id }
+  scope :vote_period, ->(starttime) { where(['event_type_id = ? AND starttime > ?', 2, starttime || Time.now]).order('starttime asc')}
 
   scope :next, -> { where(['starttime > ?', Time.now]) }
 
   scope :time_scoped, -> (starttime, endtime) { where(["(starttime >= :starttime and starttime < :endtime) or (endtime >= :starttime and endtime < :endtime)",
                                                        starttime: starttime.to_formatted_s(:db),
                                                        endtime: endtime.to_formatted_s(:db)]) }
-
 
   after_destroy :remove_scheduled_tasks
 

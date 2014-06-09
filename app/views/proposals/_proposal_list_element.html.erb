@@ -41,7 +41,7 @@
       <div style="position: relative">
         <div class="maintitle">
           <%= user_valutation_image(current_user, proposal) if current_user %>
-          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
 
         </div>
       </div>
@@ -123,7 +123,7 @@
         <div class="alerts_and_vote">
           <% if current_user %>
               <% if can? :vote, proposal %>
-                  <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
+                  <%= link_to t('pages.proposals.list.vote'), proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal, subdomain: false), class: 'btn blue' %>
               <% end %>
               <% count = proposal.count_notifications(current_user.id) %>
               <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
@@ -133,10 +133,10 @@
       </div>
     </div>
 
-    <% unless proposal.groups.empty? %>
+    <% unless proposal.supporting_groups.empty? %>
         <div class="groups">
           <div class="title"><%= t('pages.proposals.list.support_group') %></div>
-          <% proposal.groups[0..10].each do |group| %>
+          <% proposal.supporting_groups[0..10].each do |group| %>
               <div class="blogUserImage" title="<%= group.name %>">
                 <%= group.group_image_tag 20 %>
               </div>

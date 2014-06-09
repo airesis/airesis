@@ -1,6 +1,6 @@
 <% if can? :set_votation_date, @proposal %>
     <% if @group %>
-        <% collection = Event.in_group(@group.id).private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
+        <% collection = @group.events.private.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
     <% else %>
         <% collection = Event.public.vote_period.all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } %>
     <% end %>

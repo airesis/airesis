@@ -18,7 +18,7 @@ class SearchesController < ApplicationController
       results << {value: 'Proposals', type: 'Divider'}
       @search.proposals.each do |proposal|
         url = proposal.private? ?
-            group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal)
+            group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal)
         results << {value: proposal.title, type: 'Proposal', url: url, image: '/assets/gruppo-anonimo.png'}
       end
     end

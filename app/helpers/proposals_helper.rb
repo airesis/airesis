@@ -7,12 +7,12 @@ module ProposalsHelper
     (link_to '#', onclick: 'return false', class: "#{classes} move_up" do
       '<i class="fi-arrow-up"></i>'.html_safe
     end) +
-    (link_to '#', onclick: 'return false', class: "#{classes} move_down" do
-      '<i class="fi-arrow-down"></i>'.html_safe
-    end) +
-    (link_to '#', onclick: 'return false', class: "#{classes} remove" do
-      '<i class="fi-x"></i>'.html_safe
-    end)
+        (link_to '#', onclick: 'return false', class: "#{classes} move_down" do
+          '<i class="fi-arrow-down"></i>'.html_safe
+        end) +
+        (link_to '#', onclick: 'return false', class: "#{classes} remove" do
+          '<i class="fi-x"></i>'.html_safe
+        end)
   end
 
   def reload_message
@@ -63,14 +63,12 @@ module ProposalsHelper
   end
 
   def link_to_proposal(proposal, options={})
-    raise "Invalid proposal" unless proposal
-    #group proposals
-    if proposal.private?
-      group = proposal.presentation_groups.first
-      link_to proposal.title, group_proposal_url(group, proposal), options
-    else
-      link_to proposal.title, proposal_url(proposal, subdomain: false), options
-    end
+    group = proposal.groups.first
+    link_to proposal.title,
+            (group ?
+                group_proposal_url(group, proposal) :
+                proposal_url(proposal, subdomain: false)),
+            options
   end
 
 #create a solution for a standard proposal

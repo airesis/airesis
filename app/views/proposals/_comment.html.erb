@@ -32,7 +32,7 @@
   <div id="<%= comment.id %>_new_replies">
   </div>
 
-  <% if signed_in? && (can? :partecipate, @proposal) %>
+  <% if can? :partecipate, @proposal %>
       <div class="reply_img">
         <%= current_user.user_image_tag(32) %>
       </div>

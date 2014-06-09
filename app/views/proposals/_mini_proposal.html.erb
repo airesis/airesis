@@ -11,7 +11,7 @@
       <div style="position: relative">
         <div class="maintitle">
           <%= user_valutation_image(current_user, proposal) if current_user %>
-          <%= link_to proposal.title, proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal, subdomain: false), style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+          <%= link_to_proposal proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
 
         </div>
       </div>
@@ -40,10 +40,10 @@
       </div>
     </div>
 
-    <% unless proposal.groups.empty? %>
+    <% unless proposal.supporting_groups.empty? %>
         <div class="groups">
           <div class="title"><%= t('pages.proposals.list.support_group') %></div>
-          <% proposal.groups.each do |group| %>
+          <% proposal.supporting_groups.each do |group| %>
               <div class="blogUserImage" title="<%= group.name %>">
                 <%= group.group_image_tag 20 %>
               </div>

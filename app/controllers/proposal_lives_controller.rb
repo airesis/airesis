@@ -19,7 +19,7 @@ class ProposalLivesController < ApplicationController
 
   def load_proposal
     @proposal = Proposal.find(params[:proposal_id])
-    @group = @proposal.presentation_groups.first if @proposal.private
+    @group = @proposal.groups.first if @proposal.private
   end
 
 end

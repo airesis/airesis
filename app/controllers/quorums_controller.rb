@@ -121,9 +121,9 @@ class QuorumsController < ApplicationController
   def dates
     starttime = Time.now + @best_quorum.minutes.minutes + DEBATE_VOTE_DIFFERENCE
     if @group
-      @dates = Event.in_group(@group.id).private.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
+      @dates = @group.events.private.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id, {'data-start' => (l p.starttime), 'data-end' => (l p.endtime), 'data-title' => p.title}] } #TODO:I18n
     else
-      @dates = Event.public.vote_period(starttime).all.collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
+      @dates = Event.public.vote_period(starttime).collect { |p| ["da #{l p.starttime} a #{l p.endtime}", p.id] } #TODO:I18n
     end
   end
 

@@ -43,7 +43,7 @@
           <% end %>
 
 
-          <% if @change_advanced_options %>
+          <% if @proposal.change_advanced_options %>
               <fieldset>
                 <legend><%= t('pages.proposals.new.advanced_options') %></legend>
                 <%= f.label :anonima do %>
@@ -104,7 +104,6 @@
     </div>
 
     <div class="clearboth"></div>
-    </p>
 
 
     <div class="sections_column">
@@ -591,7 +590,7 @@
         <%= link_to t('buttons.update'), '#', onclick: "return updateProposal();", class: 'update2 btn blue' %>
         <%= link_to t('buttons.update_and_continue'), '#', onclick: "return updateAndContinueProposal();", class: 'update3 btn blue' %>
         <%= link_to t('pages.proposals.edit.hide_contributes'), '#', onclick: 'return hideContributes();', data: {other: t('pages.proposals.edit.show_contributes')}, class: 'contributes btn' %>
-        <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
+        <%= link_to t('buttons.cancel'), @proposal.private ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal, subdomain: false), class: 'btn' %>
       </div>
       <div class="mybox">
         <h4>

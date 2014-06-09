@@ -183,7 +183,7 @@
 
           <div class="event_content">
             <% @event.proposals.each do |proposal| %>
-                <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.presentation_groups.first)) %>
+                <% if !proposal.private || (proposal.private? && (can? :view_proposal, proposal.groups.first)) %>
                     <%= render partial: 'proposals/proposal_list_element', locals: {proposal: proposal} %>
                 <% end %>
             <% end %>

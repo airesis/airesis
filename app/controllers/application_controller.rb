@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_tutorial
-    @step = get_next_step(current_user) if current_user
+    @step = get_next_step(current_user) if current_user && !Rails.env.test?
   end
 
   def ckeditor_filebrowser_scope(options = {})
@@ -273,7 +273,6 @@ class ApplicationController < ActionController::Base
 
   def post_contribute
     ProposalComment.transaction do
-      @proposal_comment = @proposal.comments.build(params[:proposal_comment])
       @proposal_comment.user_id = current_user.id
       @proposal_comment.request = request
       @proposal_comment.save!

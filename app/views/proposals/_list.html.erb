@@ -1,1 +1,1 @@
-<%proposalsnumber = proposals.count %><%if proposalsnumber > 0 %> <%= render partial: 'proposals/proposal_list_element', collection: proposals, as: 'proposal' %><%else%>	<%= t('pages.proposals.list.no_proposals')%><%end %><div id="statistics_panel"></div>
+<%if proposals.count > 0 %> <%= render partial: 'proposals/proposal_list_element', collection: proposals, as: 'proposal' %><%else%>	<%= t('pages.proposals.list.no_proposals')%><%end %><div id="statistics_panel"></div>

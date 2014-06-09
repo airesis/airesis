@@ -36,9 +36,6 @@
   <span itemprop="name"><%= h @proposal.title %></span>
 </h1>
 
-<h3 class="proposalSubtitle" itemprop="description"><%= h @proposal.subtitle %></h3>
-
-
 <div style="text-align: right;float:right;">
   <% if @proposal.contributes.count>1 %>
       <% @removable_count = @proposal.contributes.unintegrated.removable.count %>

@@ -35,7 +35,7 @@
 
     <%else%>
         $("#proposalCommentsContainer").prepend('<%=j render partial: 'proposals/comment', locals: {comment: @proposal_comment}%>');
-        $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
+        $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
 
@@ -43,7 +43,7 @@
     <%if params[:right] %>
         $('.suggestion_right'+data_section_id +' .blogNewComment').html('<%=j render 'proposal_comments/right_comment'%>');
     <%else %>
-        $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.comments.new(section_id: @proposal_comment.section_id)}%>');
+        $("#proposalNewComment").html('<%=j render 'proposal_comments/proposal_comment', {proposal_comment: @proposal.proposal_comments.new(section_id: @proposal_comment.section_id)}%>');
     <%end%>
 
 

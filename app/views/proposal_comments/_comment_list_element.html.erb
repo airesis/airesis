@@ -65,7 +65,7 @@
     <div id="<%=comment.id%>_replies" style="display:none;">
     </div>
     <%= render partial: 'proposals/reply', collection: @lastreplies %>
-    <%if signed_in? && (can? :partecipate, @proposal) %>
+    <%if signed_in? && (can? :participate, @proposal) %>
     <div  class="proposal_comment_reply">
     	<div id="<%=comment.id%>_reply_area_msg"></div>
     	<%= form_for [@proposal,ProposalComment.new], remote: true do |f| %>

@@ -25,16 +25,20 @@ class BlogPost < ActiveRecord::Base
   before_save :check_published, if: :not_resaving?
   before_save :save_tags, if: :not_resaving?
 
+  PUBLISHED = 'P'
+  DRAFT = 'D'
+  RESERVED = 'R'
+
   def published?
-    self.status == 'P'
+    self.status == PUBLISHED
   end
 
   def draft?
-    self.status == 'D'
+    self.status == DRAFT
   end
 
   def reserved?
-    self.status == 'R'
+    self.status == RESERVED
   end
 
   def tags_list

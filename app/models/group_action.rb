@@ -7,6 +7,7 @@ class GroupAction < ActiveRecord::Base
   CREATE_EVENT = 2
   #sostenere le proposte a nome del gruppo
   PROPOSAL = 3
+  SUPPORT_PROPOSAL = 3
 
   #accettare le richieste di partecipazione al gruppo
   REQUEST_ACCEPT = 4
@@ -17,11 +18,15 @@ class GroupAction < ActiveRecord::Base
   #view proposals
   PROPOSAL_VIEW = 6
 
-  #partecipate at debate phase of the proposals
+  #participate at debate phase of the proposals
   PROPOSAL_PARTICIPATION = 7
 
   #insert new proposals
   PROPOSAL_INSERT = 8
+
+  DOCUMENTS_VIEW=9
+
+  DOCUMENTS_MANAGE=10
 
   #vote proposals
   PROPOSAL_VOTE =11

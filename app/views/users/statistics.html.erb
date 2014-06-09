@@ -87,7 +87,7 @@
         <th><%= t('pages.users.show.vote_column') %></th>
         </thead>
         <tbody>
-        <% @user.user_votes.includes(:vote_type, proposal: :presentation_groups).each do |vote| %>
+        <% @user.user_votes.includes(:vote_type, proposal: :groups).each do |vote| %>
             <tr>
               <td><%= vote.proposal ? (link_to_proposal vote.proposal) : '' %></td>
               <td><%= l vote.created_at %></td>

@@ -154,7 +154,7 @@ class VotationsController < ApplicationController
     #se la proposta è privata deve avere i permessi per votare in quel gruppo
 
     #estrai tutte le proposte in votazione che non ho ancora votato
-    @proposals_tmp = Proposal.includes(:category, :vote_period, {users: :image}).all(select: "p.*",:joins=>"p", include: [:presentation_groups, :quorum], conditions: "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
+    @proposals_tmp = Proposal.includes(:category, :vote_period, {users: :image}).all(select: "p.*",:joins=>"p", include: [:groups, :quorum], conditions: "p.proposal_state_id = 4 and p.id not in (select proposal_id from user_votes where user_id = "+current_user.id.to_s+" and proposal_id = p.id)")
     @proposals = []
     @proposals_tmp.each do |proposal|
         @proposals << proposal if can? :vote, proposal

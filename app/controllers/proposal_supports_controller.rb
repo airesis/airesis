@@ -28,7 +28,7 @@ class ProposalSupportsController < ApplicationController
     #devo avere i permessi su ciascun gruppo al quale voglio far supportare la proposta
     #i gruppi ai quali l'utente vuol far supportare la proposta
 
-    groups = (params[:proposal] && params[:proposal][:group_ids]) ? params[:proposal][:group_ids].collect { |i| i.to_i } : []
+    groups = (params[:proposal] && params[:proposal][:supporting_group_ids]) ? params[:proposal][:supporting_group_ids].collect { |i| i.to_i } : []
     #i gruppi per i quali possiede i permessi
     user_groups = current_user.scoped_group_participations(GroupAction::PROPOSAL).pluck('group_participations.group_id')
     #tutti i gruppi nella richiesta devono essere tra quelli dell'utente
@@ -39,8 +39,8 @@ class ProposalSupportsController < ApplicationController
 
     no_supp = user_groups - groups #id of user groups not supported
 
-    @proposal.group_ids += groups
-    @proposal.group_ids -= no_supp
+    @proposal.supporting_group_ids += groups
+    @proposal.supporting_group_ids -= no_supp
 
     @proposal.save!
     flash[:notice] = "Sostegno alla proposta salvato correttamente"

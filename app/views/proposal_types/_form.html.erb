@@ -1,6 +1,6 @@
 <h2><%=@title%></h2>
 <div id="create_proposal">
-  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: true do |f| %>
+  <%= form_for (@group && !in_subdomain?) ? [@group, @proposal] : @proposal, validate: true, remote: request.xhr? do |f| %>
       <% if request.xhr? %>
           <div class="legend first">
             <div class="number">1</div>
@@ -46,7 +46,7 @@
 
 
         <% @available_areas = current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT) %>
-        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && params[:action] == "new" %>
+        <% if @group && @group.enable_areas && @group.group_areas.count > 0 && action_name == "new" %>
             <p>
               <%= f.label :group_area_id %>
               <% if @available_areas.size > 0 %>
@@ -57,29 +57,22 @@
             </p>
         <% end %>
 
-
-
-
         <p>
           <%= f.label :interest_borders_tkn %>
           <%= f.text_field 'interest_borders_tkn', "data-pre" => @proposal.interest_borders.to_json , placeholder: t('pages.proposals.new.interest_borders_tkn_placeholder'), style: "width:100%" %>
         </p>
 
-
-
-
         <p>
           <% if @group %>
               <input type="hidden" name="from_group" value="<%= @group.id %>"/>
           <% end %>
-          <input type="hidden" name="proposal[presentation_group_ids][]" value="<%= @proposal.presentation_group_ids.join(",") %>"/>
           <%= f.hidden_field :private %>
           <%= f.hidden_field :proposal_type_id %>
           <%= f.hidden_field :proposal_votation_type_id %>
           <%= f.hidden_field :topic_id %>
         </p>
 
-        <% if @change_advanced_options %>
+        <% if @proposal.change_advanced_options %>
             <fieldset>
               <legend><%= t('pages.proposals.new.advanced_options')%></legend>
                 <%= f.label :anonima do %>

@@ -1,22 +1,18 @@
 #encoding: utf-8
 class ProposalCommentsController < ApplicationController
 
-  #carica la proposta
-  before_filter :load_proposal
-  #carica il commento
-  before_filter :load_proposal_comment, only: [:show, :edit, :history, :update, :rankup, :rankdown, :ranknil, :destroy, :report, :unintegrate]
-
-###SICUREZZA###
 
 #l'utente deve aver fatto login
   before_filter :authenticate_user!, only: [:edit, :update, :new, :report, :mark_noise]
+
   before_filter :save_post_and_authenticate_user, only: [:create]
   before_filter :check_author, only: [:edit, :update]
   before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
+  load_and_authorize_resource :proposal
+  load_and_authorize_resource through: :proposal, collection: [:list]
 
   layout :choose_layout
-
 
   #retrieve contributes list
   def index
@@ -107,7 +103,7 @@ class ProposalCommentsController < ApplicationController
   end
 
   def new
-    @proposal_comment = @proposal.comments.build
+    @proposal_comment = @proposal.proposal_comments.build
   end
 
 
@@ -116,7 +112,6 @@ class ProposalCommentsController < ApplicationController
 
 
   def create
-    authorize! :partecipate, @proposal
     @parent_id = params[:proposal_comment][:parent_proposal_comment_id]
     @is_reply = @parent_id != nil
     post_contribute
@@ -261,14 +256,6 @@ class ProposalCommentsController < ApplicationController
       flash[:notice] = t('error.proposals.modify_comments')
       redirect_to :back
     end
-  end
-
-  def load_proposal
-    @proposal = Proposal.find(params[:proposal_id])
-  end
-
-  def load_proposal_comment
-    @proposal_comment = @proposal.comments.find(params[:id])
   end
 
   def save_post_and_authenticate_user

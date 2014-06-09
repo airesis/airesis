@@ -23,8 +23,6 @@ class Group < ActiveRecord::Base
   validates_presence_of :interest_border_id
   validates_presence_of :default_role_name, on: :create
 
-  #has_many :meeting_organizations, class_name: 'MeetingsOrganization'
-  attr_accessible :participant_tokens, :name, :description, :accept_requests, :facebook_page_url, :group_participations, :interest_border_tkn, :title_bar, :image_url, :default_role_name, :default_role_actions, :image, :admin_title, :private, :rule_book, :tags_list
   attr_reader :participant_tokens
   attr_accessor :default_role_name, :default_role_actions, :current_user_id
 
@@ -127,7 +125,7 @@ class Group < ActiveRecord::Base
       tids = []
       @tags_list.split(/,/).each do |tag|
         stripped = tag.strip.downcase.gsub('.', '')
-        t = Tag.find_or_create_by_text(stripped)
+        t = Tag.find_or_create_by(text: stripped)
         tids << t.id
       end
       self.tag_ids = tids
@@ -151,11 +149,11 @@ class Group < ActiveRecord::Base
 
     group_participations.build({user_id: current_user_id, participation_role_id: 2}) #portavoce
 
-    Quorum.public.each do |quorum|
+    BestQuorum.public.each do |quorum|
       copy = quorum.dup
       copy.public = false
       copy.save!
-      group_quorums.build(quorum_id: copy.id)
+      self.group_quorums.build(quorum_id: copy.id)
     end
     role = participation_roles.build({name: default_role_name, description: I18n.t('pages.groups.edit_permissions.default_role')})
     default_role_actions.each do |action_id|
@@ -169,7 +167,7 @@ class Group < ActiveRecord::Base
   def after_populate
     self.default_role.update_attribute(:group_id, self.id)
     ids = self.default_role.action_abilitations.pluck(:id)
-    ActionAbilitation.update_all({group_id: self.id}, {id: ids})
+    ActionAbilitation.where(id: ids).update_all({group_id: self.id})
 
     #create default forums
     private = self.categories.create(name: I18n.t('frm.admin.categories.default_private'), visible_outside: false)
@@ -236,7 +234,7 @@ class Group < ActiveRecord::Base
 
 
   def interest_border_tkn
-    return self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
+    self.interest_border.territory_type + "-" + self.interest_border.territory_id.to_s if self.interest_border
   end
 
   def interest_border_tkn=(tkn)
@@ -253,18 +251,15 @@ class Group < ActiveRecord::Base
   end
 
   def request_by_vote?
-    return true if self.accept_requests == REQ_BY_VOTE
-    return false
+    self.accept_requests == REQ_BY_VOTE
   end
 
   def request_by_portavoce?
-    return true if self.accept_requests == REQ_BY_PORTAVOCE
-    return false
+    self.accept_requests == REQ_BY_PORTAVOCE
   end
 
   def request_by_both?
-    return true if self.accept_requests == REQ_BY_BOTH
-    return false
+    self.accept_requests == REQ_BY_BOTH
   end
 
   def self.look(params)

@@ -1,4 +1,4 @@
-<% if (can? :partecipate, @proposal) || (!current_user && !@proposal.private) %>
+<% if can? :participate, @proposal %>
     <div class="handscontainer">
       <% if @my_vote %>
           <% if @my_vote == 1 %>

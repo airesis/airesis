@@ -33,7 +33,7 @@ class EventsWorker
         vote_data.save!
       end
       proposal.private ?
-          notify_proposal_in_vote(proposal, proposal.presentation_groups.first,proposal.presentation_areas.first) :
+          notify_proposal_in_vote(proposal, proposal.groups.first,proposal.presentation_areas.first) :
           notify_proposal_in_vote(proposal)
 
       ProposalsWorker.perform_at(event.endtime - 24.hours, {action: ProposalsWorker::LEFT24VOTE, proposal_id: proposal.id}) if (event.duration/60) > 1440

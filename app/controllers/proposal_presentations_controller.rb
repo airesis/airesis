@@ -14,7 +14,7 @@ class ProposalPresentationsController < ApplicationController
     authorize! :destroy, @proposal_presentation
     @proposal_presentation.destroy
     flash[:notice] = 'Non sei più redattore di questa proposta'
-    redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first,@proposal) : proposal_url(@proposal)
+    redirect_to @proposal.private? ? group_proposal_url(@proposal.groups.first,@proposal) : proposal_url(@proposal)
   end
 
   protected

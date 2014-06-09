@@ -1,13 +1,13 @@
 <div id="proposal_support" class="reveal-modal medium" data-reveal>
   <h2><%= t('pages.proposal_supports.new.panel_title') %></h2>
-  <% @available_groups = current_user.scoped_groups(GroupAction::PROPOSAL, @proposal.presentation_groups) %>
+  <% @available_groups = current_user.scoped_groups(GroupAction::PROPOSAL, @proposal.groups) %>
   <% if @available_groups.empty? %>
       <%= t('pages.proposal_supports.new.no_available_groups') %>
   <% else %>
       <%= form_for [@proposal, @proposal_support], remote: true do |f| %>
           <% @available_groups.each do |group| %>
               <%= f.label group.name do %>
-                  <%= check_box_tag "proposal[group_ids][]", group.id, ProposalSupport.where({group_id: group.id, proposal_id: @proposal.id}).exists? %>
+                  <%= check_box_tag "proposal[supporting_group_ids][]", group.id, ProposalSupport.where({supporting_group_id: group.id, proposal_id: @proposal.id}).exists? %>
                   <%= group.name %>
                   <%= group.group_image_tag 20 %>
               <%end%>

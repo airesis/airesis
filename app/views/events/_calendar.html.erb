@@ -34,7 +34,7 @@
 
     <% if @group %>
         <div class="mybox">
-          <% if (can? :create_both_events, @group) %>
+          <% if can? :create_any_event, @group %>
               <%= link_to t('pages.calendar.create_event_button'), '#', onclick: 'return chooseEventType();', class: 'btn blue newButton' %>
           <% elsif can? :create_event, @group %>
               <%= link_to t('pages.calendar.create_event_button'), new_group_event_url(@group, event_type_id: EventType::INCONTRO), remote: true, class: 'btn blue newButton', data:{disable_with: t('loading')} %>

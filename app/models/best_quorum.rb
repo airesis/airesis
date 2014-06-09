@@ -159,7 +159,7 @@ class BestQuorum < Quorum
                 description: "Votazione #{proposal.title}"
             }
             if proposal.private?
-              @event = proposal.presentation_groups.first.events.create!(event_p)
+              @event = proposal.groups.first.events.create!(event_p)
             else
               @event = Event.create!(event_p)
             end
@@ -172,7 +172,7 @@ class BestQuorum < Quorum
         else
           proposal.proposal_state_id = ProposalState::WAIT_DATE #we passed the debate, we are now waiting for someone to choose the vote date
           proposal.private? ?
-              notify_proposal_ready_for_vote(proposal, proposal.presentation_groups.first) :
+              notify_proposal_ready_for_vote(proposal, proposal.groups.first) :
               notify_proposal_ready_for_vote(proposal)
         end
 
@@ -184,7 +184,7 @@ class BestQuorum < Quorum
         abandon(proposal)
 
         proposal.private? ?
-            notify_proposal_abandoned(proposal, proposal.presentation_groups.first) :
+            notify_proposal_abandoned(proposal, proposal.groups.first) :
             notify_proposal_abandoned(proposal)
 
         #remove the timer if is still there
@@ -237,7 +237,7 @@ class BestQuorum < Quorum
     end
     proposal.save!
     proposal.private ?
-        notify_proposal_voted(proposal, proposal.presentation_groups.first, proposal.presentation_areas.first) :
+        notify_proposal_voted(proposal, proposal.groups.first, proposal.presentation_areas.first) :
         notify_proposal_voted(proposal)
   end
 

@@ -7,7 +7,8 @@ class ProposalsController < ApplicationController
 
   authorize_resource :group
   authorize_resource :group_area
-  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list,:similar]
+
+  load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar]
 
   layout :choose_layout
 
@@ -137,7 +138,7 @@ class ProposalsController < ApplicationController
       if @proposal.visible_outside #se è visibile dall'esterno mostra solo un messaggio
         if !current_user
           flash[:info] = I18n.t('info.proposal.ask_participation')
-        elsif !(can? :partecipate, @proposal) && @proposal.in_valutation?
+        elsif !(can? :participate, @proposal) && @proposal.in_valutation?
           flash[:info] = I18n.t('error.proposals.participate')
         end
       else #se è bloccata alla visione di utenti esterni
@@ -155,7 +156,7 @@ class ProposalsController < ApplicationController
             }
           end
         end
-        if !(can? :partecipate, @proposal) && @proposal.in_valutation?
+        if !(can? :participate, @proposal) && @proposal.in_valutation?
           flash[:info] = I18n.t('error.proposals.participate')
         end
       end
@@ -202,16 +203,12 @@ class ProposalsController < ApplicationController
         end
       end
 
-      @proposal = Proposal.new
-
-      if params[:group_id]
-        @group = Group.find_by_id(params[:group_id])
+      if @group
         @proposal.interest_borders << @group.interest_border
         @proposal.private = true
-        @proposal.presentation_groups << @group
         @proposal.anonima = @group.default_anonima
         @proposal.visible_outside = @group.default_visible_outside
-        @change_advanced_options = @group.change_advanced_options
+        @proposal.change_advanced_options = @group.change_advanced_options
 
         if params[:group_area_id]
           @proposal.group_area_id = params[:group_area_id]
@@ -221,23 +218,16 @@ class ProposalsController < ApplicationController
           @topic = @group.topics.find(params[:topic_id])
           (@proposal.topic_id = params[:topic_id]) if can? :read, @topic
         end
-
-      else
-        @proposal.quorum_id = Quorum::STANDARD
-        @proposal.anonima = DEFAULT_ANONIMA
-        @proposal.visible_outside = true
-        @change_advanced_options = DEFAULT_CHANGE_ADVANCED_OPTIONS
       end
 
-      @proposal.proposal_category_id = params[:category]
+      @proposal.proposal_category_id = params[:category] || ProposalCategory::NO_CATEGORY
 
-      send(params[:proposal_type_id].downcase + '_new', @proposal)
-      @proposal.proposal_type = ProposalType.find_by_name(params[:proposal_type_id])
-      @proposal.proposal_votation_type_id = ProposalVotationType::STANDARD
+      @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
+      send(@proposal.proposal_type.name.downcase + '_new', @proposal)
 
       @title = ''
       @title += I18n.t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
-      @title += ProposalType.find_by_name(params[:proposal_type_id]).description
+      @title += @proposal.proposal_type.description
 
     rescue Exception => e
       log_error(e)
@@ -248,7 +238,7 @@ class ProposalsController < ApplicationController
   end
 
   def edit
-    @change_advanced_options = @group ?
+    @proposal.change_advanced_options = @group ?
         @group.change_advanced_options :
         DEFAULT_CHANGE_ADVANCED_OPTIONS
   end
@@ -266,8 +256,6 @@ class ProposalsController < ApplicationController
       @saved = false
       Proposal.transaction do
         prparams = params[:proposal]
-
-        @proposal = Proposal.new(prparams)
 
         @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
         send(@proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
@@ -288,10 +276,6 @@ class ProposalsController < ApplicationController
           if @topic
             @proposal.topic_proposals.build(topic_id: @topic.id, user_id: current_user.id)
           end
-        else
-          @proposal.anonima = @proposal.is_petition? ? false : DEFAULT_ANONIMA
-          @proposal.visible_outside = true
-          @proposal.secret_vote = true
         end
 
         #we don't use quorum for petitions
@@ -305,70 +289,58 @@ class ProposalsController < ApplicationController
           @proposal.rank = 0
         end
 
-
         borders = prparams[:interest_borders_tkn]
         update_borders(borders)
 
+        @proposal.users << current_user
 
-        #@proposal.update_attribute(:url, @proposal.private? ? group_proposal_path(@group, @proposal) : proposal_path(@proposal))
 
+        if @proposal.save
 
-        @proposal.save!
+          unless @proposal.is_petition?
+            #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+            if @copy.time_fixed?
+              ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
+              ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
+            end
 
-        unless @proposal.is_petition?
-          #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-          if @copy.time_fixed?
-            ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
-            ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
+            generate_nickname(current_user, @proposal)
+            #fai partire il timer per far scadere la proposta
+            if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+              ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
+            end
           end
 
+          NotificationProposalCreate.perform_async(current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
 
-          #fai partire il timer per far scadere la proposta
-          if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-            ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
+          @saved = true
+
+          respond_to do |format|
+            flash[:notice] = I18n.t('info.proposal.proposal_created')
+            format.js
+            format.html {
+              if request.env['HTTP_REFERER']["back=home"]
+                redirect_to home_url
+              else
+                redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
+              end
+            }
+          end
+        else
+          if !@proposal.errors[:title].empty?
+            @other = Proposal.find_by_title(params[:proposal][:title])
+            @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+          elsif !@proposal.errors.empty?
+            @err_msg = @proposal.errors.full_messages.join(",")
+          else
+            @err_msg = I18n.t('error.proposals.creation')
+          end
+          respond_to do |format|
+            format.js { render 'error_create' }
+            format.html { render action: "new" }
           end
         end
-
-
-        proposalparams = {
-            proposal_id: @proposal.id,
-            user_id: current_user.id
-        }
-
-        proposalpresentation = ProposalPresentation.new(proposalparams)
-        proposalpresentation.save!
-        generate_nickname(current_user, @proposal)
       end #end transaction
-      NotificationProposalCreate.perform_async(current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
-
-      @saved = true
-
-      respond_to do |format|
-        flash[:notice] = I18n.t('info.proposal.proposal_created')
-        format.js
-        format.html {
-          if request.env['HTTP_REFERER']["back=home"]
-            redirect_to home_url
-          else
-            redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
-          end
-        }
-      end
-
-    rescue Exception => e
-      log_error(e)
-      if !@proposal.errors[:title].empty?
-        @other = Proposal.find_by_title(params[:proposal][:title])
-        @err_msg = "Esiste già un altra proposta con lo stesso titolo"
-      elsif !@proposal.errors.empty?
-        @err_msg = @proposal.errors.full_messages.join(",")
-      else
-        @err_msg = I18n.t('error.proposals.creation')
-      end
-      respond_to do |format|
-        format.js { render 'error_create' }
-        format.html { render action: "new" }
-      end
     end
   end
 
@@ -400,7 +372,7 @@ class ProposalsController < ApplicationController
     respond_to do |format|
       format.js
       format.html {
-        redirect_to @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_url(@proposal)
+        redirect_to @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal)
       }
     end
 
@@ -506,13 +478,13 @@ class ProposalsController < ApplicationController
         @proposal.update_user_id = current_user.id
 
         unless can? :destroy, @proposal
-          params[:proposal] = params[:proposal].except(:title, :subtitle, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
+          params[:proposal] = params[:proposal].except(:title, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
         end
 
         @proposal.attributes = params[:proposal]
 
         if @proposal.title_changed?
-          @proposal.url = @proposal.private? ? group_proposal_url(@proposal.presentation_groups.first, @proposal) : proposal_path(@proposal)
+          @proposal.url = @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_path(@proposal)
         end
 
         @proposal.save!
@@ -613,9 +585,9 @@ class ProposalsController < ApplicationController
     if tags.empty?
       tags = "''"
     end
-    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+    sql_q ="SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
             p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
-            p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors, COUNT(*) AS closeness
+            p.rank, p.show_comment_authors, COUNT(*) AS closeness
             FROM proposal_tags pt join proposals p on pt.proposal_id = p.id"
     sql_q += " left join group_proposals gp on gp.proposal_id = p.id " if params[:group_id]
     sql_q += " WHERE pt.tag_id IN (SELECT pti.id
@@ -623,9 +595,9 @@ class ProposalsController < ApplicationController
                WHERE pti.text in (#{tags}))"
     sql_q += " AND (p.private = false OR p.visible_outside = true "
     sql_q += params[:group_id] ? " OR (p.private = true AND gp.group_id = #{@group.id.to_s}))" : ")"
-    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content, 
+    sql_q +=" GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
 p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count, 
-p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
+p.rank, p.show_comment_authors
                                       ORDER BY closeness DESC LIMIT 10"
     @similars = Proposal.find_by_sql(sql_q)
 
@@ -827,19 +799,6 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @group_area = @group.group_areas.find(params[:group_area_id]) if @group && params[:group_area_id]
   end
 
-
-  def load_proposal_and_group
-    @proposal = Proposal.find(params[:id])
-    @pgroup = params[:group_id] ? Group.friendly.find(params[:group_id]) : request.subdomain ? Group.find_by_subdomain(request.subdomain) : nil
-
-    if @pgroup && !(@proposal.presentation_groups.include? @pgroup) && !(@proposal.groups.include? @pgroup)
-      raise ActiveRecord::RecordNotFound
-    elsif @proposal.presentation_groups.count > 0 && !params[:group_id] && !in_subdomain?
-      redirect_to group_proposal_url(@proposal.presentation_groups.first, @proposal, format: params[:format])
-    end
-    load_my_vote
-  end
-
   def load_proposal
     @proposal = @group ? @group.proposals.find(params[:id]) : Proposal.find(params[:id])
   end
@@ -928,7 +887,7 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
     @my_ranking = ProposalRanking.find_by_user_id_and_proposal_id(current_user.id, params[:id])
     @my_vote = @my_ranking.ranking_type_id if @my_ranking
     if ((@my_vote && @my_ranking.updated_at > @proposal.updated_at) ||
-        (@proposal.private && @group && !(can? :partecipate, @proposal)))
+        (@proposal.private && @group && !(can? :participate, @proposal)))
       flash[:error] = I18n.t('error.proposals.proposal_already_ranked')
       respond_to do |format|
         format.js { render :update do |page|
@@ -984,6 +943,14 @@ p.rank, p.problem, p.subtitle, p.problems, p.objectives, p.show_comment_authors
 
 
   private
+
+
+  def proposal_params
+    params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
+                                     :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
+                                     :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id,
+                                     :integrated_contributes_ids_list, :votation, :signatures, :petition_phase)
+  end
 
   def render_404(exception=nil)
     #log_error(exception) if exception

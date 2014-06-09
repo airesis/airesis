@@ -38,7 +38,7 @@ module NotificationHelper
 
   def notify_user_unintegrated_contribute(proposal_comment)
     @proposal = proposal_comment.proposal
-    @group = @proposal.private ? @proposal.presentation_groups.first : nil
+    @group = @proposal.private ? @proposal.groups.first : nil
     comment_user = proposal_comment.user
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(comment_user.id, @proposal.id)
     name = @proposal.is_anonima? ? nickname.nickname : comment_user.fullname #send nickname if proposal is anonymous
@@ -233,7 +233,7 @@ module NotificationHelper
   #invia una notifica ai redattori della proposta che qualcuno si è offerto per redigere la sintesi
   def notify_user_available_authors(proposal)
     data = {'proposal_id' => proposal.id.to_s, 'user' => current_user.fullname, 'user_id' => current_user.id, 'title' => proposal.title, 'i18n' => 't'}
-    notification_a = Notification.new(notification_type_id: NotificationType::AVAILABLE_AUTHOR, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
+    notification_a = Notification.new(notification_type_id: NotificationType::AVAILABLE_AUTHOR, url: proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     proposal.users.each do |user|
       if user != current_user
@@ -245,14 +245,14 @@ module NotificationHelper
   #invia una notifica all'utente che è stato accettato come redattore di una proposta e a tutti i partecipanti
   def notify_user_choosed_as_author(user, proposal)
     data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'title' => proposal.title, 'i18n' => 't'}
-    notification_a = Notification.new(notification_type_id: NotificationType::AUTHOR_ACCEPTED, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
+    notification_a = Notification.new(notification_type_id: NotificationType::AUTHOR_ACCEPTED, url: proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal), data: data)
     notification_a.save
     send_notification_to_user(notification_a, user)
 
     nickname = ProposalNickname.find_by_user_id_and_proposal_id(user.id, proposal.id)
     name = (nickname && proposal.is_anonima?) ? nickname.nickname : user.fullname #send nickname if proposal is anonymous
     data = {'proposal_id' => proposal.id.to_s, 'user_id' => user.id.to_s, 'user' => name, 'title' => proposal.title, 'i18n' => 't'}
-    notification_b = Notification.new(notification_type_id: NotificationType::NEW_AUTHORS, url: proposal.private ? group_proposal_url(proposal.presentation_groups.first, proposal) : proposal_url(proposal), data: data)
+    notification_b = Notification.new(notification_type_id: NotificationType::NEW_AUTHORS, url: proposal.private ? group_proposal_url(proposal.groups.first, proposal) : proposal_url(proposal), data: data)
     notification_b.save
     proposal.participants.each do |participant|
       unless participant == current_user || participant == user #invia la notifica a tutti tranne a chi è stato scelto e ha chi ha scelto
@@ -300,7 +300,7 @@ module NotificationHelper
 
   def time_left(proposal, type)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
-    group = proposal.private ? proposal.presentation_groups.first : nil
+    group = proposal.private ? proposal.groups.first : nil
     if group
       data['group'] = group.name
       data['subdomain'] = group.subdomain if group.certified?
@@ -316,7 +316,7 @@ module NotificationHelper
 
   def time_left_vote(proposal, type)
     data = {'proposal_id' => proposal.id.to_s, 'title' => proposal.title, 'i18n' => 't', 'extension' => type}
-    group = proposal.private ? proposal.presentation_groups.first : nil
+    group = proposal.private ? proposal.groups.first : nil
     group_area = proposal.private ? proposal.presentation_areas.first : nil
     if group
       data['group'] = group.name

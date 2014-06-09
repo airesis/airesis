@@ -2,7 +2,7 @@
   <h4><%= t('pages.proposals.show.supporting_group') %></h4>
 
   <div class="mycont">
-    <% @proposal.groups.each do |group| %>
+    <% @proposal.supporting_groups.each do |group| %>
         <div class="pcontainer">
           <div class="MoImg24">
             <%= group.group_image_tag 24 %>
@@ -13,9 +13,9 @@
           <div style="clear: both;"></div>
         </div>
     <% end %>
-    <%= t('pages.proposals.show.no_supporting_group') if @proposal.groups.empty? %>
+    <%= t('pages.proposals.show.no_supporting_group') if @proposal.supporting_groups.empty? %>
     <% if signed_in? %>
-        <% if !current_user.scoped_group_participations(GroupAction::PROPOSAL).empty? && (can? :partecipate, @proposal) %>
+        <% if !current_user.scoped_group_participations(GroupAction::PROPOSAL).empty? && (can? :participate, @proposal) %>
             <%= link_to t('pages.proposals.show.support_proposal_button'), new_proposal_proposal_support_path(@proposal), remote: true, class: 'btn blue supportButton disable' %>
         <% end %>
     <% end %>

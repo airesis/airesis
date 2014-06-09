@@ -23,7 +23,7 @@ class SearchProposal < ActiveRecord::Base
 
 
   def results
-    @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :presentation_groups, :interest_borders]) do
+    @search = Proposal.search(include: [:category, :quorum, {users: [:image]}, :vote_period, :groups, :supporting_groups, :interest_borders]) do
 
       fulltext self.text, minimum_match: self.or if self.text
       all_of do
@@ -60,12 +60,12 @@ class SearchProposal < ActiveRecord::Base
             end
             all_of do #or inside the group but visible outside
               with(:visible_outside, true)
-              with(:presentation_group_ids, self.group_id)
+              with(:group_ids, self.group_id)
             end
             if self.user && (self.user.can? :view_proposal, Group.find(self.group_id)) #if the user is logged in and can view group private proposals
                all_of do #show also group private proposals
                  with(:private, true)
-                 with(:presentation_group_ids, self.group_id)
+                 with(:group_ids, self.group_id)
                end
             end
           end
@@ -141,7 +141,7 @@ class SearchProposal < ActiveRecord::Base
         conditions += " or (group_proposals.group_id = #{self.group_id} and proposals.private = 't')"
       end
       conditions += ")"
-      @results = @results.includes(:presentation_groups, :groups, :quorum).where(conditions)
+      @results = @results.includes(:supporting_groups, :groups, :quorum).where(conditions)
 
       if self.group_area_id
         @results = @results.in_group_area(self.group_area_id)
