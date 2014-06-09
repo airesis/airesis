@@ -31,6 +31,8 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
+  gem "spring"
+  gem 'capybara-select2'
 end
 
 

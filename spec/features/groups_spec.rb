@@ -11,7 +11,7 @@ describe "the creation of a group process", type: :feature, js: true do
     logout(:user)
   end
 
-  it "creates a group correctly" do
+  it "creates a group correctly and view main administration pages" do
     visit new_group_path
     expect(page).to have_title I18n.t('pages.groups.new.title')
     expect(page).to have_content(I18n.t('pages.groups.new.new_group'))
@@ -31,5 +31,45 @@ describe "the creation of a group process", type: :feature, js: true do
     expect(page).to have_content group_name
     #the user is a participant
     page.should have_selector('#participants_container', text: /#{@user.name}/i)
+
+    @group = Group.order(created_at: :desc).first
+
+    visit group_proposals_path(@group)
+    page_should_be_ok
+
+    visit group_events_path(@group)
+    page_should_be_ok
+
+    visit group_documents_path(@group)
+    page_should_be_ok
+
+    visit group_forums_path(@group)
+    page_should_be_ok
+
+    #group settings administration
+    visit edit_group_path(@group)
+    page_should_be_ok
+
+    #roles administration
+    visit group_participation_roles_path(@group)
+    page_should_be_ok
+
+    #users administration
+    visit group_group_participations_path(@group)
+    page_should_be_ok
+
+    #quorums administration
+    visit group_quorums_path(@group)
+    page_should_be_ok
+
+    #group areas administration
+    visit group_group_areas_path(@group)
+    page_should_be_ok
+
+    #forum administration
+    visit group_frm_admin_root_path(@group)
+    page_should_be_ok
+
   end
+
 end
