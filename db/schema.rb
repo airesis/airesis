@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606224427) do
+ActiveRecord::Schema.define(version: 20140609124534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1032,10 +1032,6 @@ ActiveRecord::Schema.define(version: 20140606224427) do
     t.integer  "vote_period_id"
     t.integer  "proposal_comments_count",                 default: 0
     t.integer  "rank",                                    default: 0,     null: false
-    t.string   "problem",                   limit: 20000
-    t.string   "subtitle",                                default: "",    null: false
-    t.string   "problems",                  limit: 18000, default: "",    null: false
-    t.string   "objectives",                limit: 18000, default: "",    null: false
     t.boolean  "show_comment_authors",                    default: true,  null: false
     t.boolean  "private",                                 default: false, null: false
     t.integer  "quorum_id"
@@ -1044,7 +1040,6 @@ ActiveRecord::Schema.define(version: 20140606224427) do
     t.boolean  "secret_vote",                             default: true,  null: false
     t.integer  "proposal_type_id",                        default: 1,     null: false
     t.integer  "proposal_votation_type_id",               default: 1,     null: false
-    t.string   "url",                                                     null: false
     t.boolean  "vote_defined",                            default: false
     t.datetime "vote_starts_at"
     t.datetime "vote_ends_at"

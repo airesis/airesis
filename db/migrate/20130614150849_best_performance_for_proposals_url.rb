@@ -4,7 +4,7 @@ class BestPerformanceForProposalsUrl < ActiveRecord::Migration
   def up
     add_column :proposals, :url, :string
     Proposal.all.each do |proposal|
-      proposal.update_column(:url, proposal.private? ? group_proposal_path(proposal.presentation_groups.first,proposal) : proposal_path(proposal))
+      proposal.update_column(:url, proposal.private? ? group_proposal_path(proposal.groups.first,proposal) : proposal_path(proposal))
     end
 
     change_column :proposals, :url, :string, null: false

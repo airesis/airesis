@@ -472,7 +472,7 @@ en:
         create_button: "Create the proposal"
         title: "New proposal"
         title_group: "%{name}:"
-        title_synthetic: "(in summary)"
+        title_synthetic: "Objective (in summary)"
         title_placeholder: "ex. 'Facilitate bike transport on trains'"
         interest_borders_tkn_placeholder: "Cities, Regions or States interested by the proposal"
         tags_list_placeholder: "Insert some tags for your proposal"
@@ -1046,9 +1046,6 @@ en:
         group_area_id: "Work area"
         proposal_category_id: 'Category'
         title: 'Title'
-        subtitle: 'Subtitle'
-        problems: 'Problems'
-        objectives: 'Objectives'
         content: 'Text'
         interest_borders_tkn: 'Geographical places of interest'
         tags_list: "Tags"

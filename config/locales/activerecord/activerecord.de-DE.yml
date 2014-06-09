@@ -70,9 +70,6 @@ de:
         group_area_id: Arbeitsbereich
         proposal_category_id: Kategorie
         title: Titel
-        subtitle: Untertitel
-        problems: Probleme
-        objectives: Ziele
         content: Text
         interest_borders_tkn: Geographischer Ort von Interesse
         tags_list: Schlagwörter
