@@ -5,8 +5,14 @@ class ProposalsController < ApplicationController
   before_filter :load_group
   before_filter :load_group_area
 
-  authorize_resource :group
-  authorize_resource :group_area
+#  authorize_resource :group
+#  authorize_resource :group_area
+  before_filter :authorize_parent
+
+  def authorize_parent
+    authorize! :read, @group if @group
+    authorize! :read, @group_area if @group_area
+  end
 
   load_and_authorize_resource through: [:group, :group_area], shallow: true, except: [:tab_list, :similar]
 
@@ -194,47 +200,43 @@ class ProposalsController < ApplicationController
   end
 
   def new
-    begin
-      if LIMIT_PROPOSALS
-        max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
-        @elapsed = Time.now - max
-        if @elapsed < PROPOSALS_TIME_LIMIT
-          raise Exception
+    if LIMIT_PROPOSALS
+      max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
+      @elapsed = Time.now - max
+      if @elapsed < PROPOSALS_TIME_LIMIT
+        respond_to do |format|
+          format.js { render 'error_new' }
         end
-      end
-
-      if @group
-        @proposal.interest_borders << @group.interest_border
-        @proposal.private = true
-        @proposal.anonima = @group.default_anonima
-        @proposal.visible_outside = @group.default_visible_outside
-        @proposal.change_advanced_options = @group.change_advanced_options
-
-        if params[:group_area_id]
-          @proposal.group_area_id = params[:group_area_id]
-        end
-
-        if params[:topic_id]
-          @topic = @group.topics.find(params[:topic_id])
-          (@proposal.topic_id = params[:topic_id]) if can? :read, @topic
-        end
-      end
-
-      @proposal.proposal_category_id = params[:category] || ProposalCategory::NO_CATEGORY
-
-      @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
-      send(@proposal.proposal_type.name.downcase + '_new', @proposal)
-
-      @title = ''
-      @title += I18n.t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
-      @title += @proposal.proposal_type.description
-
-    rescue Exception => e
-      log_error(e)
-      respond_to do |format|
-        format.js { render 'error_new' }
+        return
       end
     end
+
+    if @group
+      @proposal.interest_borders << @group.interest_border
+      @proposal.private = true
+      @proposal.anonima = @group.default_anonima
+      @proposal.visible_outside = @group.default_visible_outside
+      @proposal.change_advanced_options = @group.change_advanced_options
+
+      if params[:group_area_id]
+        @proposal.group_area_id = params[:group_area_id]
+      end
+
+      if params[:topic_id]
+        @topic = @group.topics.find(params[:topic_id])
+        (@proposal.topic_id = params[:topic_id]) if can? :read, @topic
+      end
+    end
+
+    @proposal.proposal_category_id = params[:category] || ProposalCategory::NO_CATEGORY
+
+    @proposal.proposal_type = ProposalType.find_by(name: (params[:proposal_type_id] || ProposalType::SIMPLE))
+
+    @proposal.build_sections
+
+    @title = ''
+    @title += I18n.t('pages.proposals.new.title_group', name: @group.name)+ ' ' if @group
+    @title += @proposal.proposal_type.description
   end
 
   def edit
@@ -253,94 +255,35 @@ class ProposalsController < ApplicationController
       max = current_user.proposals.maximum(:created_at) || Time.now - (PROPOSALS_TIME_LIMIT + 1.seconds)
       raise Exception if LIMIT_PROPOSALS && ((Time.now - max) < PROPOSALS_TIME_LIMIT)
 
-      @saved = false
-      Proposal.transaction do
-        prparams = params[:proposal]
-
-        @proposal_type = ProposalType.find_by_id(params[:proposal][:proposal_type_id])
-        send(@proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
-
-        #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
-        if @group
-          @proposal.anonima = @group.default_anonima unless @group.change_advanced_options
-          @proposal.visible_outside = @group.default_visible_outside unless @group.change_advanced_options
-          @proposal.secret_vote = @group.default_secret_vote unless @group.change_advanced_options
-
-          @group_area = GroupArea.find(params[:proposal][:group_area_id]) if params[:proposal][:group_area_id] && !params[:proposal][:group_area_id].empty?
-          if @group_area
-            raise Exception unless current_user.scoped_areas(@group, GroupAction::PROPOSAL_INSERT).include? @group_area #check user permissions for this group area
-            @proposal.presentation_areas << @group_area
-          end
-
-          @topic = @group.topics.find(@proposal.topic_id) if (@proposal.topic_id.to_s != '')
-          if @topic
-            @proposal.topic_proposals.build(topic_id: @topic.id, user_id: current_user.id)
-          end
-        end
-
-        #we don't use quorum for petitions
-        # if params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-        if @proposal.is_petition?
-          @proposal.proposal_state_id = @proposal.petition_phase == 'signatures' ? ProposalState::VOTING : ProposalState::VALUTATION
-          @proposal.build_vote(positive: 0, negative: 0, neutral: 0)
-        else
-          quorum = assign_quorum(prparams)
-          @proposal.proposal_state_id = ProposalState::VALUTATION
-          @proposal.rank = 0
-        end
-
-        borders = prparams[:interest_borders_tkn]
-        update_borders(borders)
-
-        @proposal.users << current_user
-
-
-        if @proposal.save
-
-          unless @proposal.is_petition?
-            #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-            if @copy.time_fixed?
-              ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
-              ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
+      #send(@proposal.proposal_type.name.downcase + '_create', @proposal) #execute specific method to build sections
+      @proposal.current_user_id = current_user.id
+      if @proposal.save
+        generate_nickname(current_user, @proposal)
+        respond_to do |format|
+          flash[:notice] = I18n.t('info.proposal.proposal_created')
+          format.js
+          format.html {
+            if request.env['HTTP_REFERER']["back=home"]
+              redirect_to home_url
+            else
+              redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
             end
-
-            generate_nickname(current_user, @proposal)
-            #fai partire il timer per far scadere la proposta
-            if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-              ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
-            end
-          end
-
-          NotificationProposalCreate.perform_async(current_user.id, @proposal.id, @group.try(:id), @group_area.try(:id))
-
-          @saved = true
-
-          respond_to do |format|
-            flash[:notice] = I18n.t('info.proposal.proposal_created')
-            format.js
-            format.html {
-              if request.env['HTTP_REFERER']["back=home"]
-                redirect_to home_url
-              else
-                redirect_to @group ? edit_group_proposal_url(@group, @proposal) : edit_proposal_path(@proposal)
-              end
-            }
-          end
-        else
-          if !@proposal.errors[:title].empty?
-            @other = Proposal.find_by_title(params[:proposal][:title])
-            @err_msg = "Esiste già un altra proposta con lo stesso titolo"
-          elsif !@proposal.errors.empty?
-            @err_msg = @proposal.errors.full_messages.join(",")
-          else
-            @err_msg = I18n.t('error.proposals.creation')
-          end
-          respond_to do |format|
-            format.js { render 'error_create' }
-            format.html { render action: "new" }
-          end
+          }
         end
-      end #end transaction
+      else
+        if !@proposal.errors[:title].empty?
+          @other = Proposal.find_by_title(params[:proposal][:title])
+          @err_msg = "Esiste già un altra proposta con lo stesso titolo"
+        elsif !@proposal.errors.empty?
+          @err_msg = @proposal.errors.full_messages.join(",")
+        else
+          @err_msg = I18n.t('error.proposals.creation')
+        end
+        respond_to do |format|
+          format.js { render 'error_create' }
+          format.html { render action: :new }
+        end
+      end
     end
   end
 
@@ -351,32 +294,32 @@ class ProposalsController < ApplicationController
       @proposal.proposal_state_id = ProposalState::VALUTATION
       @proposal.users << current_user
 
-      quorum = assign_quorum(params[:proposal])
-      #fai partire il timer per far scadere la proposta
-      if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
-        ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
-      end
+      if @proposal.update(regenerate_proposal_params)
+        quorum = assign_quorum(params[:proposal])
+        #fai partire il timer per far scadere la proposta
+        if quorum.minutes # && params[:proposal][:proposal_type_id] == ProposalType::STANDARD.to_s
+          ProposalsWorker.perform_at(@copy.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: @proposal.id})
+        end
 
-      generate_nickname(current_user, @proposal)
+        generate_nickname(current_user, @proposal)
 
-      @proposal.save!
 
-      #if the time is fixed we schedule notifications 24h and 1h before the end of debate
-      if @copy.time_fixed?
-        ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
-        ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
+        #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+        if @copy.time_fixed?
+          ProposalsWorker.perform_at(@copy.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: @proposal.id}) if @copy.minutes > 1440
+          ProposalsWorker.perform_at(@copy.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: @proposal.id}) if @copy.minutes > 60
+        end
+
+
+        flash[:notice] = I18n.t('info.proposal.back_in_debate')
+        respond_to do |format|
+          format.js
+          format.html {
+            redirect_to @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal)
+          }
+        end
       end
     end
-
-    flash[:notice] = I18n.t('info.proposal.back_in_debate')
-    respond_to do |format|
-      format.js
-      format.html {
-        redirect_to @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_url(@proposal)
-      }
-    end
-
-
   rescue Exception => e
     puts e
     if !@proposal.errors[:title].empty?
@@ -393,105 +336,9 @@ class ProposalsController < ApplicationController
     end
   end
 
-  # @param [Hash] prparams
-  # @return [Object]
-  def assign_quorum(prparams)
-    quorum = Quorum.find(prparams[:quorum_id])
-    @copy = quorum.dup
-    starttime = Time.now
-
-    @copy.started_at = starttime
-    if quorum.minutes
-      endtime = starttime + quorum.minutes.minutes
-      @copy.ends_at = endtime
-    end
-    #se il numero di valutazioni è definito
-
-    if @group #calcolo il numero in base ai partecipanti
-      if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
-        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_participants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
-      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
-        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_participants.to_f) / 100).floor
-        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
-      end
-    else #calcolo il numero in base agli utenti del portale (il 10%)
-      @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
-      @copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
-    end
-    #deve essere almeno 1!
-    @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
-    @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
-
-    @copy.public = false
-    @copy.assigned = true
-    @copy.save!
-    @proposal.quorum_id = @copy.id
-
-
-    #if is time fixed you can choose immediatly vote period
-    if @copy.time_fixed?
-      #if the user choosed it
-      if prparams[:votation] && (prparams[:votation][:later] != 'true')
-        #if he took a vote period already existing
-        if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
-          @proposal.vote_event_id = prparams[:votation][:vote_period_id]
-          @vote_event = Event.find(@proposal.vote_event_id)
-          if @vote_event.starttime < Time.now + @copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
-            @proposal.errors.add(:vote_event_id, t('error.proposals.vote_period_incorrect'))
-            raise Exception
-          end
-        else #if he created a new period
-          start = ((prparams[:votation][:start_edited].to_s != '') && prparams[:votation][:start]) || (@copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
-          raise Exception 'error' unless prparams[:votation][:end].to_s != ''
-          @proposal.vote_starts_at = start
-          @proposal.vote_ends_at = prparams[:votation][:end]
-          if (@proposal.vote_starts_at - @copy.ends_at) < DEBATE_VOTE_DIFFERENCE
-            @proposal.errors.add(:vote_starts_at, t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
-            raise Exception
-          end
-          if @proposal.vote_ends_at < (@proposal.vote_starts_at + 10.minutes)
-            @proposal.errors.add(:vote_ends_at, t('error.proposals.vote_period_short'))
-            raise Exception
-          end
-        end
-
-        @proposal.vote_defined = true
-      end
-    end
-    quorum
-
-  end
-
   def update
-    authorize! :update, @proposal
-    begin
-      Proposal.transaction do
-        prparams = params[:proposal]
-        borders = prparams[:interest_borders_tkn]
-        #cancella i vecchi confini di interesse
-        @proposal.proposal_borders.each do |border|
-          border.destroy
-        end
-
-        update_borders(borders)
-        @proposal.update_user_id = current_user.id
-
-        unless can? :destroy, @proposal
-          params[:proposal] = params[:proposal].except(:title, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
-        end
-
-        @proposal.attributes = params[:proposal]
-
-        if @proposal.title_changed?
-          @proposal.url = @proposal.private? ? group_proposal_url(@proposal.groups.first, @proposal) : proposal_path(@proposal)
-        end
-
-        @proposal.save!
-
-      end
-      NotificationProposalUpdate.perform_in(1, current_user.id, @proposal.id, @group.try(:id))
-
+    @proposal.current_user_id = current_user.id
+    if @proposal.update(update_proposal_params)
       PrivatePub.publish_to(proposal_path(@proposal), reload_message) rescue nil
 
       respond_to do |format|
@@ -503,11 +350,9 @@ class ProposalsController < ApplicationController
             @proposal.reload
             render action: "edit"
           end
-
         }
       end
-
-    rescue ActiveRecord::ActiveRecordError => e
+    else
       flash[:error] = e.record.errors.map { |e, msg| msg }[0].to_s
       respond_to do |format|
         format.html { render action: "edit" }
@@ -633,7 +478,7 @@ p.rank, p.show_comment_authors
     available_ids = params['user_ids']
 
     Proposal.transaction do
-      users = @proposal.available_user_authors.all(conditions: ['users.id in (?)', available_ids.map { |id| id.to_i }]) rescue []
+      users = @proposal.available_user_authors.where(['users.id in (?)', available_ids.map { |id| id.to_i }]).all rescue []
       @proposal.available_user_authors -= users
       @proposal.users << users
       @proposal.save!
@@ -736,20 +581,6 @@ p.rank, p.show_comment_authors
 
 
     @proposals = @search.results
-  end
-
-  def update_borders(borders)
-    #confini di interesse, scorrili
-    borders.split(',').each do |border| #l'identificativo è nella forma 'X-id'
-      ftype = border[0, 1] #tipologia (primo carattere)
-      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
-      found = InterestBorder.table_element(border)
-
-      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
-        interest_b = InterestBorder.find_or_create_by_territory_type_and_territory_id(InterestBorder::I_TYPE_MAP[ftype], fid)
-        i = @proposal.proposal_borders.build({interest_border_id: interest_b.id})
-      end
-    end if borders
   end
 
 
@@ -944,12 +775,21 @@ p.rank, p.show_comment_authors
 
   private
 
-
   def proposal_params
     params.require(:proposal).permit(:proposal_category_id, :content, :title, :interest_borders_tkn, :tags_list,
                                      :private, :anonima, :quorum_id, :visible_outside, :secret_vote, :vote_period_id, :group_area_id, :topic_id,
                                      :sections_attributes, :solutions_attributes, :proposal_type_id, :proposal_votation_type_id,
                                      :integrated_contributes_ids_list, :votation, :signatures, :petition_phase)
+  end
+
+  def update_proposal_params
+    (can? :destroy, @proposal) ?
+        proposal_params :
+        proposal_params.except(:title, :interest_borders_tkn, :tags_list, :quorum_id, :anonima, :visible_outside, :secret_vote)
+  end
+
+  def regenerate_proposal_params
+    params.require(:proposal).permit(:quorum_id)
   end
 
   def render_404(exception=nil)
@@ -965,5 +805,74 @@ p.rank, p.show_comment_authors
   def register_view(proposal, user)
     proposal.register_view_by(user)
   end
+
+  def assign_quorum(prparams)
+    quorum = Quorum.find(prparams[:quorum_id])
+    @copy = quorum.dup
+    starttime = Time.now
+
+    @copy.started_at = starttime
+    if quorum.minutes
+      endtime = starttime + quorum.minutes.minutes
+      @copy.ends_at = endtime
+    end
+    #se il numero di valutazioni è definito
+
+    if @group #calcolo il numero in base ai partecipanti
+      if @group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        @copy.valutations = ((quorum.percentage.to_f * @group_area.count_proposals_participants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
+        @copy.valutations = ((quorum.percentage.to_f * @group.count_proposals_participants.to_f) / 100).floor
+        @copy.vote_valutations = ((quorum.vote_percentage.to_f * @group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+      end
+    else #calcolo il numero in base agli utenti del portale (il 10%)
+      @copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+      @copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
+    end
+    #deve essere almeno 1!
+    @copy.valutations = [@copy.valutations + 1, 1].max #we always add 1 for new quora
+    @copy.vote_valutations = [@copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+
+    @copy.public = false
+    @copy.assigned = true
+    @copy.save!
+    @proposal.quorum_id = @copy.id
+
+
+    #if is time fixed you can choose immediatly vote period
+    if @copy.time_fixed?
+      #if the user choosed it
+      if prparams[:votation] && (prparams[:votation][:later] != 'true')
+        #if he took a vote period already existing
+        if (prparams[:votation][:choise] && (prparams[:votation][:choise] == 'preset')) || (!prparams[:votation][:choise] && (prparams[:votation][:vote_period_id].to_s != ''))
+          @proposal.vote_event_id = prparams[:votation][:vote_period_id]
+          @vote_event = Event.find(@proposal.vote_event_id)
+          if @vote_event.starttime < Time.now + @copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+            @proposal.errors.add(:vote_event_id, t('error.proposals.vote_period_incorrect'))
+            raise Exception
+          end
+        else #if he created a new period
+          start = ((prparams[:votation][:start_edited].to_s != '') && prparams[:votation][:start]) || (@copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
+          raise Exception 'error' unless prparams[:votation][:end].to_s != ''
+          @proposal.vote_starts_at = start
+          @proposal.vote_ends_at = prparams[:votation][:end]
+          if (@proposal.vote_starts_at - @copy.ends_at) < DEBATE_VOTE_DIFFERENCE
+            @proposal.errors.add(:vote_starts_at, t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
+            raise Exception
+          end
+          if @proposal.vote_ends_at < (@proposal.vote_starts_at + 10.minutes)
+            @proposal.errors.add(:vote_ends_at, t('error.proposals.vote_period_short'))
+            raise Exception
+          end
+        end
+
+        @proposal.vote_defined = true
+      end
+    end
+    quorum
+
+  end
+
 
 end

@@ -39,7 +39,5 @@ describe "create a proposal in his group", type: :feature, js: true do
     page.driver.browser.switch_to.alert.accept
 
     expect(page).to have_content @proposal.title
-
-
   end
 end

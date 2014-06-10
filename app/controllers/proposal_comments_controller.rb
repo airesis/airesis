@@ -10,7 +10,7 @@ class ProposalCommentsController < ApplicationController
   before_filter :already_ranked, only: [:rankup, :rankdown, :ranknil]
 
   load_and_authorize_resource :proposal
-  load_and_authorize_resource through: :proposal, collection: [:list]
+  load_and_authorize_resource through: :proposal, collection: [:list, :left_list, :edit_list]
 
   layout :choose_layout
 

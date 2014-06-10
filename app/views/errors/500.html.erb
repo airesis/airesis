@@ -1,11 +1,13 @@
-  <div class="error_dialog card">
-    <div>
-      <img src="/assets/allbroken128.png" style="margin: auto;display: block;">
-    </div>
-    <div style="text-align: center;">
-      <h1><%= t('error.error_500.title')%></h1>
-      <p><%= t('error.error_500.description')%></p>
-      <%=link_to t('buttons.go_back'), :back%>
-    </div>
-      <div style="clear: both;"></div>
+<% @page_tile = 'Internal Error' %>
+<div class="error_dialog card">
+  <div>
+    <img src="/assets/allbroken128.png" style="margin: auto;display: block;">
   </div>
+  <div style="text-align: center;">
+    <h1><%= t('error.error_500.title') %></h1>
+
+    <p><%= t('error.error_500.description') %></p>
+    <%= link_to t('buttons.go_back'), :back %>
+  </div>
+  <div style="clear: both;"></div>
+</div>

@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Proposal < ActiveRecord::Base
-  include BlogKitModelHelper, Frm::Concerns::Viewable
+  include BlogKitModelHelper, Frm::Concerns::Viewable, Concerns::ProposalBuildable
 
   belongs_to :state, class_name: 'ProposalState', foreign_key: :proposal_state_id
   belongs_to :category, class_name: 'ProposalCategory', foreign_key: :proposal_category_id
@@ -73,11 +73,11 @@ class Proposal < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :proposal_category_id, message: "obbligatorio"
 
-  validates_presence_of :quorum_id, unless: :is_petition? #todo bug in client_side_validation
+  validates_presence_of :quorum, unless: :is_petition? #todo bug in client_side_validation
 
   validates_with AtLeastOneValidator, associations: [:solutions], unless: :is_petition?
 
-  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options
+  attr_accessor :update_user_id, :group_area_id, :percentage, :integrated_contributes_ids, :integrated_contributes_ids_list, :last_revision, :topic_id, :votation, :petition_phase, :change_advanced_options, :current_user_id
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :solutions, allow_destroy: true
@@ -126,16 +126,14 @@ class Proposal < ActiveRecord::Base
 
   after_initialize :init
 
+  before_create :before_create_populate
+  after_commit :send_notifications, on: :create
+  after_commit :send_update_notifications, on: :update
 
-  before_create :pre_populate
-  after_create :after_populate
-
-  before_update :save_proposal_history
+  before_update :before_update_populate
   before_save :save_tags
 
-  after_update :mark_integrated_contributes
   after_destroy :remove_scheduled_tasks
-
 
   def init
     self.quorum_id ||= Quorum::STANDARD
@@ -345,59 +343,10 @@ class Proposal < ActiveRecord::Base
           self.sections.first
         end
     self.content = first_section ? truncate_words(first_section.paragraphs.first.content.gsub(%r{</?[^>]+?>}, ''), 60) : ''
-
-
   end
 
   def to_param
     "#{id}-#{title.downcase.gsub(/[^a-zA-Z0-9]+/, '-').gsub(/-{2,}/, '-').gsub(/^-|-$/, '')}"
-  end
-
-#prima di aggiornare la proposta salvane la
-#storia nella tabella dedicata (se è cambiato il testo)
-  def save_proposal_history
-    something = false
-    seq = (self.revisions.maximum(:seq) || 0) + 1
-    @revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
-    self.sections.each do |section|
-      paragraph = section.paragraphs.first
-      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-      if paragraph.content_changed? || section.marked_for_destruction?
-        something = true
-        section_history = @revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
-        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
-      end
-    end
-    self.solutions.each do |solution|
-
-      solution_history = @revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
-      something_solution = solution.title_changed? || solution.marked_for_destruction?
-      solution.sections.each do |section|
-        paragraph = section.paragraphs.first
-        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
-        if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
-          something = true
-          something_solution = true
-          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: (section.marked_for_destruction? || solution.marked_for_destruction?))
-          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
-        end
-      end
-      solution_history.destroy unless something_solution
-      something = true if something_solution
-    end
-    something ? @revision.save! : @revision.destroy
-    self.touch
-  end
-
-  def mark_integrated_contributes
-    if @revision.id
-      self.last_revision = @revision
-      comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id) #controllo di sicurezza
-      ProposalComment.update_all({integrated: true}, {id: comment_ids})
-      comment_ids.each do |id|
-        self.last_revision.integrated_contributes.create(proposal_comment_id: id)
-      end
-    end
   end
 
 #restituisce il primo autore della proposta
@@ -485,7 +434,7 @@ class Proposal < ActiveRecord::Base
 
 #restituisce la lista delle 10 proposte più vicine a questa
   def closest(group_id=nil)
-    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+    sql_q = " SELECT p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
               p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
               p.rank, p.show_comment_authors, COUNT(*) AS closeness
               FROM proposal_tags pt join proposals p on pt.proposal_id = p.id "
@@ -497,7 +446,7 @@ class Proposal < ActiveRecord::Base
               AND pt.proposal_id != #{self.id} "
     sql_q += " AND (p.private = false OR p.visible_outside = true "
     sql_q += group_id ? " OR (p.private = true AND gp.group_id = #{group_id}))" : ")"
-    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.content,
+    sql_q += " GROUP BY p.id, p.proposal_state_id, p.proposal_category_id, p.title, p.quorum_id, p.anonima, p.visible_outside, p.secret_vote, p.proposal_votation_type_id, p.content,
                p.created_at, p.updated_at, p.valutations, p.vote_period_id, p.proposal_comments_count,
                p.rank, p.show_comment_authors
                ORDER BY closeness DESC limit 10"
@@ -529,7 +478,6 @@ class Proposal < ActiveRecord::Base
       self.quorum.ends_at if self.quorum
     end
 
-    #two infos only when is in vote
     integer :votes do
       self.user_votes.count if voting? || voted?
     end
@@ -555,11 +503,196 @@ class Proposal < ActiveRecord::Base
   end
 
   private
-  def pre_populate
 
+
+  def before_update_populate
+    self.update_user_id = self.current_user_id
+    save_history
+    update_borders
+    assign_quorum if self.quorum_id_changed?
   end
 
-  def after_populate
+  def before_create_populate
+    group = self.group_proposals.first.try(:group)
 
+    update_borders
+
+    self.users << User.find(current_user_id)
+
+    #per sicurezza reimposto questi parametri per far si che i cattivi hacker non cambino le impostazioni se non possono
+    if group
+      unless group.change_advanced_options
+        self.anonima = group.default_anonima
+        self.visible_outside = group.default_visible_outside
+        self.secret_vote = group.default_secret_vote
+      end
+      self.private = true
+
+      group_area = GroupArea.find_by(self.group_area_id) unless self.group_area_id.to_s.empty?
+      if group_area #check user permissions for this group area
+        self.errors.add(:group_area_id, I18n.t('permissions_required')) unless self.users.first.scoped_areas(group, GroupAction::PROPOSAL_INSERT).include? group_area
+        self.presentation_areas << group_area
+      end
+
+      topic = group.topics.find_by(proposal.topic_id) unless self.topic_id.to_s.empty?
+      if topic
+        self.topic_proposals.build(topic_id: topic.id, user_id: current_user_id)
+      end
+    end
+
+    #we don't use quorum for petitions
+    if self.is_petition?
+      self.proposal_state_id = (self.petition_phase == 'signatures') ? ProposalState::VOTING : ProposalState::VALUTATION
+      self.build_vote(positive: 0, negative: 0, neutral: 0)
+    else
+      assign_quorum
+
+      self.proposal_state_id = ProposalState::VALUTATION
+      self.rank = 0
+    end
+  end
+
+  def send_notifications
+    return if self.is_petition?
+
+    #if the time is fixed we schedule notifications 24h and 1h before the end of debate
+    if self.quorum.time_fixed?
+      ProposalsWorker.perform_at(self.quorum.ends_at - 24.hours, {action: ProposalsWorker::LEFT24, proposal_id: self.id}) if self.quorum.minutes > 1440
+      ProposalsWorker.perform_at(self.quorum.ends_at - 1.hour, {action: ProposalsWorker::LEFT1, proposal_id: self.id}) if self.quorum.minutes > 60
+    end
+
+    #end of debate timer
+    ProposalsWorker.perform_at(self.quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: self.id}) if self.quorum.minutes
+
+    #alert users of the new proposal
+    NotificationProposalCreate.perform_async(current_user_id, self.id, self.groups.first.try(:id), self.presentation_areas.first.try(:id))
+  end
+
+
+  def send_update_notifications
+    if self.quorum_id_changed?
+      ProposalsWorker.perform_at(self.quorum.ends_at, {action: ProposalsWorker::ENDTIME, proposal_id: self.id})
+    else
+      NotificationProposalUpdate.perform_in(1, self.current_user_id, self.id, self.groups.first.try(:id))
+    end
+  end
+
+  def save_history
+    something = false
+    seq = (self.revisions.maximum(:seq) || 0) + 1
+    revision = self.revisions.build(user_id: self.update_user_id, valutations: self.valutations_was, rank: self.rank_was, seq: seq)
+    self.sections.each do |section|
+      paragraph = section.paragraphs.first
+      paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+      if paragraph.content_changed? || section.marked_for_destruction?
+        something = true
+        section_history = revision.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: section.marked_for_destruction?)
+        section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
+      end
+    end
+    self.solutions.each do |solution|
+
+      solution_history = revision.solution_histories.build(seq: solution.seq, title: solution.title, added: solution.new_record?, removed: solution.marked_for_destruction?)
+      something_solution = solution.title_changed? || solution.marked_for_destruction?
+      solution.sections.each do |section|
+        paragraph = section.paragraphs.first
+        paragraph.content = '' if (paragraph.content == '<p></p>' && paragraph.content_was == '')
+        if paragraph.content_changed? || section.marked_for_destruction? || solution.marked_for_destruction?
+          something = true
+          something_solution = true
+          section_history = solution_history.section_histories.build(section_id: section.id, title: section.title, seq: section.seq, added: section.new_record?, removed: (section.marked_for_destruction? || solution.marked_for_destruction?))
+          section_history.paragraphs.build(content: paragraph.content_dirty, seq: 1, proposal_id: self.id)
+        end
+      end
+      solution_history.destroy unless something_solution
+      something = true if something_solution
+    end
+    if  something
+      comment_ids = ProposalComment.where({id: integrated_contributes_ids, parent_proposal_comment_id: nil}).pluck(:id) #controllo di sicurezza
+      ProposalComment.where(id: comment_ids).update_all({integrated: true})
+      revision.contribute_ids = comment_ids
+    else
+      revision.destroy
+    end
+  end
+
+  def update_borders
+    return if self.interest_borders_tkn.to_s.empty?
+    self.proposal_borders.each do |border|
+      border.destroy
+    end
+    self.interest_borders_tkn.split(',').each do |border| #l'identificativo è nella forma 'X-id'
+      ftype = border[0, 1] #tipologia (primo carattere)
+      fid = border[2..-1] #chiave primaria (dal terzo all'ultimo carattere)
+      found = InterestBorder.table_element(border)
+      if found #se ho trovato qualcosa, allora l'identificativo è corretto e posso procedere alla creazione del confine di interesse
+        interest_b = InterestBorder.find_or_create_by(territory_type: InterestBorder::I_TYPE_MAP[ftype], territory_id: fid)
+        i = self.proposal_borders.build({interest_border_id: interest_b.id})
+      end
+    end
+  end
+
+  def assign_quorum
+    group = self.group_proposals.first.try(:group)
+    group_area = GroupArea.find_by(self.group_area_id) unless self.group_area_id.to_s.empty?
+
+    quorum = self.quorum
+    copy = quorum.dup
+    starttime = Time.now
+
+    copy.started_at = starttime
+    if quorum.minutes
+      endtime = starttime + self.quorum.minutes.minutes
+      copy.ends_at = endtime
+    end
+    #se il numero di valutazioni è definito
+    if group #calcolo il numero in base ai partecipanti
+      if group_area #se la proposta è in un'area di lavoro farà riferimento solo agli utenti di quell'area
+        copy.valutations = ((quorum.percentage.to_f * group_area.count_proposals_participants.to_f) / 100).floor
+        copy.vote_valutations = ((quorum.vote_percentage.to_f * group_area.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+      else #se la proposta è di gruppo sarà basato sul numero di utenti con diritto di partecipare
+        copy.valutations = ((quorum.percentage.to_f * group.count_proposals_participants.to_f) / 100).floor
+        copy.vote_valutations = ((quorum.vote_percentage.to_f * group.count_voter_participants.to_f) / 100).floor #todo we must calculate it before votation
+      end
+    else #calcolo il numero in base agli utenti del portale (il 10%)
+      copy.valutations = ((quorum.percentage.to_f * User.count.to_f) / 1000).floor
+      copy.vote_valutations = ((quorum.vote_percentage.to_f * User.count.to_f) / 1000).floor
+    end
+    #deve essere almeno 1!
+    copy.valutations = [copy.valutations + 1, 1].max #we always add 1 for new quora
+    copy.vote_valutations = [copy.vote_valutations + 1, 1].max #we always add 1 for new quora
+
+    copy.public = false
+    copy.assigned = true
+    copy.save
+    self.quorum_id = copy.id
+
+    #if is time fixed you can choose immediatly vote period
+    if copy.time_fixed?
+      #if the user choosed it
+      if self.votation && (self.votation[:later] != 'true')
+        #if he took a vote period already existing
+        if (self.votation[:choise] && (self.votation[:choise] == 'preset')) || (!self.votation[:choise] && (self.votation[:vote_period_id].to_s != ''))
+          self.vote_event_id = self.votation[:vote_period_id]
+
+          vote_event = Event.find(proposal.vote_event_id)
+          if vote_event.starttime < Time.now + copy.minutes.minutes + DEBATE_VOTE_DIFFERENCE #if the vote period start before the end of debate there is an error
+            self.errors.add(:vote_event_id, I18n.t('error.proposals.vote_period_incorrect'))
+          end
+        else #if he created a new period
+          start = ((self.votation[:start_edited].to_s != '') && self.votation[:start]) || (copy.ends_at + DEBATE_VOTE_DIFFERENCE) #look if he edited the starttime or not
+          raise Exception 'error' unless self.votation[:end].to_s != ''
+          self.vote_starts_at = start
+          self.vote_ends_at = self.votation[:end]
+          if (self.vote_starts_at - copy.ends_at) < DEBATE_VOTE_DIFFERENCE
+            self.errors.add(:vote_starts_at, I18n.t('error.proposals.vote_period_soon', time: DEBATE_VOTE_DIFFERENCE.to_i / 60))
+          end
+          if self.vote_ends_at < (self.vote_starts_at + 10.minutes)
+            self.errors.add(:vote_ends_at, I18n.t('error.proposals.vote_period_short'))
+          end
+        end
+        self.vote_defined = true
+      end
+    end
   end
 end

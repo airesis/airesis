@@ -72,7 +72,7 @@ class Ability
 
       can :unintegrate, ProposalComment, user: {id: user.id}, integrated: true
 
-      can [:index, :list], ProposalComment
+      can [:index, :list, :edit_list, :left_list], ProposalComment
       can :show, ProposalComment, user_id: user.id
       can :show, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_VIEW}}}}}
       can :create, ProposalComment, proposal: {groups: {group_participations: {user_id: user.id, participation_role: {action_abilitations: {group_action_id: GroupAction::PROPOSAL_PARTICIPATION}}}}}
@@ -272,7 +272,9 @@ class Ability
 
       if user.moderator?
         can :read, Proposal # can see all the proposals
-        can :destroy, ProposalComment, ['grave_reports_count > 0']
+        can :destroy, ProposalComment do |proposal_comment|
+          proposal_comment.grave_reports_count > 0
+        end
         can :manage, Announcement
 
         #can edit participations to group areas

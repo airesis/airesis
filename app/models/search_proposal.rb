@@ -37,9 +37,8 @@ class SearchProposal < ActiveRecord::Base
             else
               @states = [ProposalState::VALUTATION]
             end
+            with(:proposal_state_id, @states)  #search for specific state if defined
         end
-
-        with(:proposal_state_id, @states)  #search for specific state if defined
 
         with(:proposal_category_id, self.proposal_category_id) if self.proposal_category_id
 

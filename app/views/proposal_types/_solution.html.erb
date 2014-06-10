@@ -1,6 +1,6 @@
 <%= cache "solution_#{I18n.locale}_#{@proposal.proposal_type.name.downcase}" do %>
     <%
-       solution = send(@proposal.proposal_type.name.downcase + '_solution')
+       solution = @proposal.build_solution
     %>
     <div class="solution_main card">
       <%= fields_for :proposals, Proposal.new do |p| %>

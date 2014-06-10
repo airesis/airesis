@@ -121,12 +121,12 @@
       </div>
 
       <div class="step">
-        <%= f.fields_for :sections, @problems do |s| %>
+        <%= f.fields_for :sections, @proposal.sections.first do |s| %>
             <%= s.hidden_field :title %>
             <%= s.hidden_field :seq %>
-            <%= s.fields_for :paragraphs, @problems.paragraphs.build(seq: 1) do |p| %>
+            <%= s.fields_for :paragraphs, @proposal.sections.first.paragraphs.build(seq: 1) do |p| %>
                 <p>
-                  <%= p.label :content, @problems.question %>
+                  <%= p.label :content, @proposal.sections.first.question %>
                   <%= p.cktext_area :content, rows: 5, style: "width:98%;", ckeditor: {toolbar: 'proposal', language: I18n.locale} %>
                   <%= p.hidden_field :seq %>
                 </p>
@@ -134,7 +134,7 @@
         <% end %>
 
         <div class="suggestion_box">
-          <%= raw @problems.suggestion %>
+          <%= raw @proposal.sections.first.suggestion %>
         </div>
 
       </div>

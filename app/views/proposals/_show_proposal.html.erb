@@ -55,7 +55,7 @@
           <%= link_to t('pages.proposals.show.delete_button'), group_proposal_url(@group, @proposal), method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn trashButton' if can? :destroy, @proposal %>
       <% else %>
           <%= link_to t('pages.proposals.show.edit_button'), edit_proposal_path(@proposal), class: 'btn editButton' if can? :update, @proposal %>
-          <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, confirm: t('pages.proposals.show.delete_proposal_confirmation'), class: 'btn trashButton' if can? :destroy, @proposal %>
+          <%= link_to t('pages.proposals.show.delete_button'), @proposal, method: :delete, data: {confirm: t('pages.proposals.show.delete_proposal_confirmation')}, class: 'btn trashButton' if can? :destroy, @proposal %>
       <% end %>
   <% end %>
 

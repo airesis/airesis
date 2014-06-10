@@ -2,8 +2,12 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe "the creation of a group process", type: :feature, js: true do
-  before :each do
+  before :all do
     @user = create(:default_user)
+
+  end
+
+  before :each do
     login_as @user, scope: :user
   end
 

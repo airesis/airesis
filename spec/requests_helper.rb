@@ -29,7 +29,7 @@ end
 
 
 def page_should_be_ok
-  page.should_not have_content(I18n.t('error.error_500.title'))
-  page.should_not have_content(I18n.t('error.error_302.title'))
-  page.should_not have_content(I18n.t('error.error_404.title'))
+  expect(page).to_not have_content(I18n.t('error.error_500.title'))
+  expect(page).to_not have_content(I18n.t('error.error_302.title'))
+  expect(page).to_not have_content(I18n.t('error.error_404.title'))
 end

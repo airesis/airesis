@@ -2,13 +2,12 @@ require 'spec_helper'
 require 'requests_helper'
 
 describe "the authenticated user process", type: :feature, js: true do
+  before :all do
+    @user = create(:default_user)
+  end
+
   before :each do
-    @user = User.new(:email => 'user@example.com', :password => 'caplin', password_confirmation: 'caplin', name: 'Test', surname: 'Tested')
-    @user.user_type_id = UserType::AUTHENTICATED
-    @user.skip_confirmation!
-    #@user.admin = true
-    @user.save!
-    login @user, 'caplin'
+    login @user, 'topolino'
     #login_as @user, scope: :user
   end
 
@@ -31,16 +30,11 @@ describe "the authenticated user process", type: :feature, js: true do
     logout(:user)
 
     visit '/'
-    @user = User.new(:email => 'second@example.com', :password => 'cappell', password_confirmation: 'cappell', name: 'Secondo', surname: 'Utente')
-    @user.user_type_id = UserType::AUTHENTICATED
-    @user.skip_confirmation!
-    #@user.admin = true
-    @user.save!
-    login @user, 'cappell'
+    @user = create(:second_user)
+    login @user, 'topolino'
     visit '/home'
     expect(page).to have_content(I18n.t('pages.home.show.your_proposals'))
     expect(page).to have_content(I18n.t('pages.home.show.proposals_now_voting'))
     visit user_path(@user)
-
   end
 end
